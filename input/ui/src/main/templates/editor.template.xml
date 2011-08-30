@@ -52,7 +52,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	        <script id="#{clientId}Script" type="text/javascript">
 	            <cdk:scriptObject name="options">
 	                <cdk:scriptOption attributes="width height toolbar skin lang style styleClass editorStyle editorClass" />
-	                <cdk:scriptOption wrapper="eventHandler" attributes="oninit" />
+	                <cdk:scriptOption wrapper="eventHandler" attributes="onfocus onblur onchange oninit ondirty" />
 	            </cdk:scriptObject>
 	            window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.ckeditor/';
                 window.CKEDITOR_GETURL = function(resource)  {

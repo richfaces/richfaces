@@ -70,6 +70,9 @@ public abstract class AbstractEditor extends UIInput {
 
     @Attribute(events = @EventName("change"))
     public abstract String getOnchange();
+    
+    @Attribute(events = @EventName("dirty"))
+    public abstract String getOndirty();
 
     @Attribute(description = @Description("Detailed configuration of editor in JSON format"))
     public abstract UIComponent getConfig();

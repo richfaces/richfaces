@@ -26,6 +26,8 @@
     var defaultConfig = {
         customConfig : '' // do not load config.js since it is empty
     };
+    
+    var eventsForDirty = [ "key", "paste", "undo", "redo" ];
 
     rf.ui.Editor = function(componentId, options, config) {
         $super.constructor.call(this, componentId);
@@ -35,12 +37,14 @@
         this.textareaId = componentId + ':inp';
         this.editorElementId = 'cke_' + this.textareaId;
         this.valueChanged = false;
+        this.dirtyState = false;
         this.config = $.extend({}, defaultConfig, config);
 
         this.attachToDom(this.componentId);
 
         $(document).ready($.proxy(this.__initializationHandler, this));
         rf.Event.bindById(this.__getTextarea(), 'init', this.options.oninit, this);
+        rf.Event.bindById(this.__getTextarea(), 'dirty', this.options.ondirty, this);
     };
 
     rf.BaseComponent.extend(rf.ui.Editor);
@@ -59,8 +63,31 @@
             this.ckeditor.on('instanceReady', $.proxy(this.__instanceReadyHandler, this));
             this.ckeditor.on('blur', $.proxy(this.__blurHandler, this));
             this.ckeditor.on('focus', $.proxy(this.__focusHandler, this));
+            // register handlers for 'dirty' event
+            for (var i in eventsForDirty) {
+                this.ckeditor.on(eventsForDirty[i], $.proxy(this.__checkDirtyHandlerWithDelay, this));
+            }
+            // interval for dirty checking
+            this.dirtyCheckingInterval = window.setInterval($.proxy(this.__checkDirtyHandler, this), 100);
         },
-
+        
+        __checkDirtyHandlerWithDelay : function() {
+            window.setTimeout($.proxy(this.__checkDirtyHandler, this), 0);
+        },
+        
+        __checkDirtyHandler : function() {
+            if (this.ckeditor.checkDirty()) {
+                this.dirtyState = true;
+                this.valueChanged = true;
+                this.ckeditor.resetDirty();
+                this.__dirtyHandler();
+            }
+        },
+        
+        __dirtyHandler : function() {
+            this.invokeEvent.call(this, "dirty", document.getElementById(this.textareaId));
+        },
+        
         __updateTextareaHandler : function() {
             this.ckeditor.updateElement();
         },
@@ -69,24 +96,24 @@
             this.__setupStyling();
             this.__setupPassThroughAttributes();
 
-            this.invokeEvent.call(this, "init", this.__getTextarea(), e);
+            this.invokeEvent.call(this, "init", document.getElementById(this.textareaId), e);
         },
 
         __blurHandler : function(e) {
-            this.invokeEvent.call(this, "blur", this.__getTextarea(), e);
-            if (this.getEditor().checkDirty()) {
+            this.invokeEvent.call(this, "blur", document.getElementById(this.textareaId), e);
+            if (this.isDirty()) {
                 this.valueChanged = true;
                 this.__changeHandler();
             }
-            this.getEditor().resetDirty();
+            this.dirtyState = false;
         },
 
         __focusHandler : function(e) {
-            this.invokeEvent.call(this, "focus", this.__getTextarea(), e);
+            this.invokeEvent.call(this, "focus", document.getElementById(this.textareaId), e);
         },
 
         __changeHandler : function(e) {
-            this.invokeEvent.call(this, "change", this.__getTextarea(), e);
+            this.invokeEvent.call(this, "change", document.getElementById(this.textareaId), e);
         },
 
         __getTextarea : function() {
@@ -190,6 +217,7 @@
         setValue : function(newValue) {
             this.ckeditor.setData(newValue, $.proxy(function() {
                 this.valueChanged = false;
+                this.dirtyState = false;
                 this.ckeditor.resetDirty();
             }, this));
         },
@@ -215,11 +243,11 @@
         },
 
         isDirty : function() {
-            return this.ckeditor.checkDirty();
+            return this.dirtyState || this.ckeditor.checkDirty();
         },
 
         isValueChanged : function() {
-            return this.valueChanged || this.ckeditor.checkDirty();
+            return this.valueChanged || this.isDirty();
         },
 
         setReadOnly : function(readOnly) {
@@ -231,6 +259,8 @@
         },
 
         destroy : function() {
+            window.clearInterval(this.dirtyCheckingInterval);
+            
             rf.Event.unbind(this.__getForm(), 'ajaxsubmit', this.__updateTextareaHandler);
 
             if (this.ckeditor) {
