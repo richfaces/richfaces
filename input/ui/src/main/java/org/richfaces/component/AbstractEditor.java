@@ -57,7 +57,7 @@ public abstract class AbstractEditor extends UIInput {
     public abstract String getHeight();
 
     @Attribute
-    public abstract String lang();
+    public abstract String getLang();
 
     @Attribute(events = @EventName("init"))
     public abstract String getOninit();
