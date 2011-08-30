@@ -4,114 +4,148 @@
 
 (function($, rf) {
     rf.ui = rf.ui || {};
-    
+
+    /**
+     * Default component configuration
+     */
     var defaultOptions = {
-        toolbar: 'Basic',
-        readonly: false,
-        style: '',
-        styleClass: '',
-        editorStyle: '',
-        editorClass: ''
+        toolbar : 'Basic',
+        skin: 'richfaces',
+        readonly : false,
+        style : '',
+        styleClass : '',
+        editorStyle : '',
+        editorClass : '',
+        width : '100%',
+        height : '200px'
     };
     
-    rf.ui.Editor = function(componentId, domBinding, options) {
+    /**
+     * Default CKEditor configuration
+     */
+    var defaultConfig = {
+        customConfig : '' // do not load config.js since it is empty
+    };
+    
+    var eventsForDirty = [ "key", "paste", "undo", "redo" ];
+
+    rf.ui.Editor = function(componentId, options, config) {
         $super.constructor.call(this, componentId);
         this.options = $.extend({}, defaultOptions, options);
-        
-        var $this = this;
-        this.textareaId = componentId;
-        this.domBinding = domBinding;
-        this.editorElementId = 'cke_' + componentId;
+
+        this.componentId = componentId;
+        this.textareaId = componentId + ':inp';
+        this.editorElementId = 'cke_' + this.textareaId;
         this.valueChanged = false;
-        
-        this.attachToDom(this.textareaId);
-        this.attachToDom(this.domBinding);
-        
-        this.__initializeEditor = function() {
-            $this.ckeditor = CKEDITOR.replace($this.textareaId, $this.__getConfiguration());
-            
-            // register event handlers
-            rf.Event.bind($this.__getForm(), 'ajaxsubmit', $this.__updateElement);
-            $this.ckeditor.on('instanceReady', $this.__instanceReadyHandler);
-            $this.ckeditor.on('blur', $this.__blurHandler);
-            $this.ckeditor.on('focus', $this.__focusHandler);
-        }
-        
-        this.__updateElement = function() {
-            $this.ckeditor.updateElement();
-        }
-        
-        this.__instanceReadyHandler = function(e) {
-            $this.__setupStyling();
-            $this.__setupPassThroughAttributes();
-            
-            $this.invokeEvent.call($this, "init", $this.__getTextarea(), e);
-        }
-        
-        this.__blurHandler = function(e) {
-            $this.invokeEvent.call($this, "blur", $this.__getTextarea(), e);
-            if ($this.getEditor().checkDirty()) {
-                $this.valueChanged = true;
-                $this.__changeHandler();
-            }
-            $this.getEditor().resetDirty();
-        }
-        
-        this.__focusHandler = function(e) {
-            $this.invokeEvent.call($this, "focus", $this.__getTextarea(), e);
-        }
-        
-        this.__changeHandler = function(e) {
-            $this.invokeEvent.call($this, "change", $this.__getTextarea(), e);
-        }
-        
-        $(document).ready(this.__initializeEditor);
+        this.dirtyState = false;
+        this.config = $.extend({}, defaultConfig, config);
+
+        this.attachToDom(this.componentId);
+
+        $(document).ready($.proxy(this.__initializationHandler, this));
         rf.Event.bindById(this.__getTextarea(), 'init', this.options.oninit, this);
+        rf.Event.bindById(this.__getTextarea(), 'dirty', this.options.ondirty, this);
     };
-    
+
     rf.BaseComponent.extend(rf.ui.Editor);
-    
+
     var $super = rf.ui.Editor.$super;
-    
+
     $.extend(rf.ui.Editor.prototype, {
-        
-        name: "Editor",
-    
-        /**
-         * Updates editor with the value and attributes of associated textarea
-         */
-        __updateEditor: function() {
-            var textarea = this.__getTextarea();
-            
-            textarea.hide();
-            this.attachToDom(textarea);
-            
-            this.__updateEditorConfiguration();
+
+        name : "Editor",
+
+        __initializationHandler : function() {
+            this.ckeditor = CKEDITOR.replace(this.textareaId, this.__getConfiguration());
+
+            // register event handlers
+            rf.Event.bind(this.__getForm(), 'ajaxsubmit', $.proxy(this.__updateTextareaHandler, this));
+            this.ckeditor.on('instanceReady', $.proxy(this.__instanceReadyHandler, this));
+            this.ckeditor.on('blur', $.proxy(this.__blurHandler, this));
+            this.ckeditor.on('focus', $.proxy(this.__focusHandler, this));
+            // register handlers for 'dirty' event
+            for (var i in eventsForDirty) {
+                this.ckeditor.on(eventsForDirty[i], $.proxy(this.__checkDirtyHandlerWithDelay, this));
+            }
+            // interval for dirty checking
+            this.dirtyCheckingInterval = window.setInterval($.proxy(this.__checkDirtyHandler, this), 100);
         },
         
-        __getTextarea: function() {
+        __checkDirtyHandlerWithDelay : function() {
+            window.setTimeout($.proxy(this.__checkDirtyHandler, this), 0);
+        },
+        
+        __checkDirtyHandler : function() {
+            if (this.ckeditor.checkDirty()) {
+                this.dirtyState = true;
+                this.valueChanged = true;
+                this.ckeditor.resetDirty();
+                this.__dirtyHandler();
+            }
+        },
+        
+        __dirtyHandler : function() {
+            this.invokeEvent.call(this, "dirty", document.getElementById(this.textareaId));
+        },
+        
+        __updateTextareaHandler : function() {
+            this.ckeditor.updateElement();
+        },
+
+        __instanceReadyHandler : function(e) {
+            this.__setupStyling();
+            this.__setupPassThroughAttributes();
+
+            this.invokeEvent.call(this, "init", document.getElementById(this.textareaId), e);
+        },
+
+        __blurHandler : function(e) {
+            this.invokeEvent.call(this, "blur", document.getElementById(this.textareaId), e);
+            if (this.isDirty()) {
+                this.valueChanged = true;
+                this.__changeHandler();
+            }
+            this.dirtyState = false;
+        },
+
+        __focusHandler : function(e) {
+            this.invokeEvent.call(this, "focus", document.getElementById(this.textareaId), e);
+        },
+
+        __changeHandler : function(e) {
+            this.invokeEvent.call(this, "change", document.getElementById(this.textareaId), e);
+        },
+
+        __getTextarea : function() {
             return $(document.getElementById(this.textareaId));
         },
-        
+
         /**
          * Returns the form where this editor component is placed
          */
-        __getForm: function() {
+        __getForm : function() {
             return $('form').has(this.__getTextarea()).get(0);
         },
-        
-        __getConfiguration: function() {
+
+        __getConfiguration : function() {
             var textarea = this.__getTextarea();
-            return {
-                toolbar: this.__getToolbar(),
-                readOnly: textarea.attr('readonly') || this.options.readonly,
-                width: this.__resolveUnits(textarea.width()),
-                height: this.__resolveUnits(textarea.height())
-            }
+            return $.extend({
+                skin : this.options.skin,
+                toolbar : this.__getToolbar(),
+                readOnly : textarea.attr('readonly') || this.options.readonly,
+                width : this.__resolveUnits(this.options.width),
+                height : this.__resolveUnits(this.options.height),
+                bodyClass : 'rf-ed-b',
+                defaultLanguage : this.options.lang,
+                contentsLanguage : this.options.lang
+            }, this.config);
         },
-        
-        __setupStyling: function() {
+
+        __setupStyling : function() {
             var span = $(document.getElementById(this.editorElementId));
+            if (!span.hasClass('rf-ed')) {
+                span.addClass('rf-ed');
+            }
             var styleClass = $.trim(this.options.styleClass + ' ' + this.options.editorClass);
             if (this.initialStyle == undefined) {
                 this.initialStyle = span.attr('style');
@@ -129,18 +163,18 @@
                 this.oldStyle = style;
             }
         },
-        
-        __setupPassThroughAttributes: function() {
+
+        __setupPassThroughAttributes : function() {
             var textarea = this.__getTextarea();
             var span = $(document.getElementById(this.editorElementId));
-            
+
             // title
             span.attr('title', textarea.attr('title'));
         },
-        
-        __concatStyles: function() {
+
+        __concatStyles : function() {
             var result = "";
-            for( var i = 0; i < arguments.length; i++ ) {
+            for ( var i = 0; i < arguments.length; i++) {
                 var style = $.trim(arguments[i]);
                 if (style) {
                     result = result + style + "; ";
@@ -148,10 +182,10 @@
             }
             return result;
         },
-        
-        __getToolbar: function() {
+
+        __getToolbar : function() {
             var toolbar = this.options.toolbar;
-            
+
             var lowercase = toolbar.toLowerCase();
             if (lowercase === 'basic') {
                 return 'Basic';
@@ -159,59 +193,15 @@
             if (lowercase === 'full') {
                 return 'Full';
             }
-            
+
             return toolbar;
         },
-        
-        __setOptions: function(options) {
+
+        __setOptions : function(options) {
             this.options = $.extend({}, defaultOptions, options);
         },
-        
-        /**
-         * Updates editor configuration and value by synchronizing its settings with options and textarea settings.
-         */
-        __updateEditorConfiguration: function() {
-            var conf = this.__getConfiguration();
-            var editor = this.getEditor();
-            var textarea = this.__getTextarea();
-            
-            // toolbar 
-            if (editor.config.toolbar !== conf.toolbar) {
-                editor.destroy();
-                this.__initializeEditor();
-                return;
-            }
-            
-            // readonly
-            if (this.isReadOnly() !== conf.readOnly) {
-                this.setReadOnly(conf.readOnly);
-            }
-            
-            // width & height
-            var newWidth = (editor.config.width !== textarea.width()) ?  textarea.width() : null;
-            var newHeight = (editor.config.height !== textarea.height()) ?  textarea.height() : null;
-            if (newWidth !== null || newHeight !== null) {
-                if (newWidth === null) {
-                    newWidth = editor.config.width;
-                }
-                if (newHeight === null) {
-                    newHeight = editor.config.height;
-                }
-                editor.resize(newWidth, newHeight, true);
-            }
-            
-            // styling
-            this.__setupStyling();
-            
-            // pass through attributes
-            this.__setupPassThroughAttributes();
-            
-            // value
-            var newValue = textarea.val();
-            this.setValue(newValue);
-        },
-        
-        __resolveUnits: function(dimension) {
+
+        __resolveUnits : function(dimension) {
             var dimension = $.trim(dimension);
             if (dimension.match(/^[0-9]+$/)) {
                 return dimension + 'px';
@@ -219,90 +209,68 @@
                 return dimension;
             }
         },
-        
-        getEditor: function() {
+
+        getEditor : function() {
             return this.ckeditor;
         },
-        
-        setValue: function(newValue) {
-            $this = this;
-            this.ckeditor.setData(newValue, function() {
-                $this.valueChanged = false;
-                $this.ckeditor.resetDirty();
-            });
+
+        setValue : function(newValue) {
+            this.ckeditor.setData(newValue, $.proxy(function() {
+                this.valueChanged = false;
+                this.dirtyState = false;
+                this.ckeditor.resetDirty();
+            }, this));
         },
-        
-        getValue: function() {
+
+        getValue : function() {
             return this.ckeditor.getData();
         },
-        
-        getInput: function() {
+
+        getInput : function() {
             return document.getElementById(this.textareaId);
         },
-        
-        focus: function() {
+
+        focus : function() {
             this.ckeditor.focus();
         },
-        
-        blur: function() {
-            this.ckeditor.blur();
+
+        blur : function() {
+            this.ckeditor.focusManager.forceBlur();
         },
-        
-        isFocused: function() {
+
+        isFocused : function() {
             return this.ckeditor.focusManager.hasFocus;
         },
-        
-        isDirty: function() {
-            return this.ckeditor.checkDirty();
+
+        isDirty : function() {
+            return this.dirtyState || this.ckeditor.checkDirty();
         },
-        
-        isValueChanged: function() {
-            return this.valueChanged || this.ckeditor.checkDirty();
+
+        isValueChanged : function() {
+            return this.valueChanged || this.isDirty();
         },
-        
-        setReadOnly: function(readOnly) {
+
+        setReadOnly : function(readOnly) {
             this.ckeditor.setReadOnly(readOnly !== false);
         },
-        
-        isReadOnly: function() {
+
+        isReadOnly : function() {
             return this.ckeditor.readOnly;
         },
-    
-        /**
-         * Overrides #destroy method in order to do not destroy
-         * editor component when cleaning textarea (needs to be destroyed
-         * when cleaning domBinding)
-         */
-        destroy: function() {
-            // do not destroy component here
-        },
-        
-        /**
-         * Detaches editor from DOM element and destroys component if necessary (see bellow).
-         * 
-         * Destroys editor component if detaching from non-textarea element.
-         * This method replaces #destroy() when applied to non-textarea elements.
-         */
-        detach: function(source) {
-            // destroy editor
-            if (!$(source).is('textarea')) {
-                if (this.__updateElement) {
-                    rf.Event.unbind(this.__getForm(), 'ajaxsubmit', this.__updateElement);
-                    this.__updateElement = null;
-                }
-                
-                if (this.ckeditor) {
-                    this.ckeditor.destroy();
-                    this.ckeditor = null;
-                }
-                
-                this.__getTextarea().show();
-                
-                $super.destroy.call(this);
-            }
+
+        destroy : function() {
+            window.clearInterval(this.dirtyCheckingInterval);
             
-            // detach editor
-            $super.detach.call(this);
+            rf.Event.unbind(this.__getForm(), 'ajaxsubmit', this.__updateTextareaHandler);
+
+            if (this.ckeditor) {
+                this.ckeditor.destroy();
+                this.ckeditor = null;
+            }
+
+            this.__getTextarea().show();
+
+            $super.destroy.call(this);
         }
     });
 })(jQuery, RichFaces);

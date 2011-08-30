@@ -21,10 +21,13 @@
  */
 package org.richfaces.component;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -33,13 +36,16 @@ import org.richfaces.renderkit.EditorRendererBase;
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-@JsfComponent(type = AbstractEditor.COMPONENT_TYPE, family = AbstractEditor.COMPONENT_FAMILY, generate = "org.richfaces.component.UIEditor", renderer = @JsfRenderer(type = "org.richfaces.EditorRenderer"), tag = @Tag(name = "editor"), attributes = "core-props.xml")
+@JsfComponent(type = AbstractEditor.COMPONENT_TYPE, family = AbstractEditor.COMPONENT_FAMILY, generate = "org.richfaces.component.UIEditor", renderer = @JsfRenderer(type = "org.richfaces.EditorRenderer"), facets = @Facet(name = "config", description = @Description("Detailed configuration of editor in JSON format")), tag = @Tag(name = "editor"), attributes = "core-props.xml")
 public abstract class AbstractEditor extends UIInput {
     public static final String COMPONENT_TYPE = "org.richfaces.Editor";
     public static final String COMPONENT_FAMILY = "org.richfaces.Editor";
 
     @Attribute(defaultValue = "Basic")
     public abstract String getToolbar();
+
+    @Attribute(defaultValue = "richfaces")
+    public abstract String getSkin();
 
     @Attribute(defaultValue = "false")
     public abstract boolean isReadonly();
@@ -49,6 +55,9 @@ public abstract class AbstractEditor extends UIInput {
 
     @Attribute(defaultValue = EditorRendererBase.DEFAULT_HEIGHT)
     public abstract String getHeight();
+
+    @Attribute
+    public abstract String getLang();
 
     @Attribute(events = @EventName("init"))
     public abstract String getOninit();
@@ -61,4 +70,10 @@ public abstract class AbstractEditor extends UIInput {
 
     @Attribute(events = @EventName("change"))
     public abstract String getOnchange();
+
+    @Attribute(events = @EventName("dirty"))
+    public abstract String getOndirty();
+
+    @Attribute(description = @Description("Detailed configuration of editor in JSON format"))
+    public abstract UIComponent getConfig();
 }
