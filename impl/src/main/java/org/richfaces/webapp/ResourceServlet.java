@@ -211,7 +211,7 @@ public class ResourceServlet implements Servlet {
 
     private static class RichFacesImageLibrary implements Library {
         private Set<String> ALLOWED_PARAMETERS = Collections.unmodifiableSortedSet(new TreeSet<String>(Arrays
-                .asList("ln", "db")));
+                .asList("ln", "db", "v")));
 
         public boolean allowServerRequest(String resourcePath, HttpServletRequest request) {
             if (resourcePath.startsWith(ResourceHandlerImpl.RICHFACES_RESOURCE_IDENTIFIER)) {
