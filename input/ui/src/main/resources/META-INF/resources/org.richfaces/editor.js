@@ -108,7 +108,9 @@
                 readOnly : textarea.attr('readonly') || this.options.readonly,
                 width : this.__resolveUnits(this.options.width),
                 height : this.__resolveUnits(this.options.height),
-                bodyClass : 'rf-ed-b'
+                bodyClass : 'rf-ed-b',
+                defaultLanguage : this.options.lang,
+                contentsLanguage : this.options.lang
             }, this.config);
         },
 

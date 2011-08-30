@@ -56,6 +56,9 @@ public abstract class AbstractEditor extends UIInput {
     @Attribute(defaultValue = EditorRendererBase.DEFAULT_HEIGHT)
     public abstract String getHeight();
 
+    @Attribute
+    public abstract String lang();
+
     @Attribute(events = @EventName("init"))
     public abstract String getOninit();
 
