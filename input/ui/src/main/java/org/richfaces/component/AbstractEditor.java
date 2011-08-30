@@ -44,6 +44,9 @@ public abstract class AbstractEditor extends UIInput {
     @Attribute(defaultValue = "Basic")
     public abstract String getToolbar();
 
+    @Attribute(defaultValue = "richfaces")
+    public abstract String getSkin();
+
     @Attribute(defaultValue = "false")
     public abstract boolean isReadonly();
 

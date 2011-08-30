@@ -10,6 +10,7 @@
      */
     var defaultOptions = {
         toolbar : 'Basic',
+        skin: 'richfaces',
         readonly : false,
         style : '',
         styleClass : '',
@@ -23,8 +24,7 @@
      * Default CKEditor configuration
      */
     var defaultConfig = {
-        customConfig : '', // do not load config.js since it is empty
-        skin: 'richfaces'
+        customConfig : '' // do not load config.js since it is empty
     };
 
     rf.ui.Editor = function(componentId, options, config) {
