@@ -6,6 +6,7 @@
     rf.ui = rf.ui || {};
 
     var defaultOptions = {
+        skin: 'richfaces',
         toolbar : 'Basic',
         readonly : false,
         style : '',
@@ -92,6 +93,7 @@
         __getConfiguration : function() {
             var textarea = this.__getTextarea();
             return $.extend({
+                skin : this.options.skin,
                 toolbar : this.__getToolbar(),
                 readOnly : textarea.attr('readonly') || this.options.readonly,
                 width : this.__resolveUnits(this.options.width),
