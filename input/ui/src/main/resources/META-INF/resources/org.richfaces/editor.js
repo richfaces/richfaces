@@ -5,8 +5,10 @@
 (function($, rf) {
     rf.ui = rf.ui || {};
 
+    /**
+     * Default component configuration
+     */
     var defaultOptions = {
-        skin: 'richfaces',
         toolbar : 'Basic',
         readonly : false,
         style : '',
@@ -15,6 +17,14 @@
         editorClass : '',
         width : '100%',
         height : '200px'
+    };
+    
+    /**
+     * Default CKEditor configuration
+     */
+    var defaultConfig = {
+        customConfig : '', // do not load config.js since it is empty
+        skin: 'richfaces'
     };
 
     rf.ui.Editor = function(componentId, options, config) {
@@ -25,7 +35,7 @@
         this.textareaId = componentId + ':inp';
         this.editorElementId = 'cke_' + this.textareaId;
         this.valueChanged = false;
-        this.config = config;
+        this.config = $.extend({}, defaultConfig, config);
 
         this.attachToDom(this.componentId);
 
