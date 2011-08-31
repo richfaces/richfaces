@@ -72,7 +72,7 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
-                <artifactId>jsf-test-qunit</artifactId>
+                <artifactId>jsf-test-scriptunit</artifactId>
                 <version>${test-jsf.version}</version>
             </dependency>
             <dependency>
