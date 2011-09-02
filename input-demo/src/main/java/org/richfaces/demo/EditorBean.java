@@ -78,19 +78,19 @@ public class EditorBean implements Serializable {
     public void setToolbar(String toolbar) {
         this.toolbar = toolbar;
     }
-    
+
     public String getSkin() {
         return skin;
     }
-    
+
     public void setSkin(String skin) {
         this.skin = skin;
     }
-    
+
     public String getLang() {
         return lang;
     }
-    
+
     public void setLang(String lang) {
         this.lang = lang;
     }
@@ -130,11 +130,11 @@ public class EditorBean implements Serializable {
     public void setOnchange(String onchange) {
         this.onchange = onchange;
     }
-    
+
     public String getOndirty() {
         return ondirty;
     }
-    
+
     public void setOndirty(String ondirty) {
         this.ondirty = ondirty;
     }
