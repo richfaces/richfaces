@@ -5,6 +5,7 @@
     rf.ui.PickList = function(id, options) {
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
+        this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "SourceItems")).parent()[0];
         this.sourceList = new rf.ui.ListMulti(id+ "SourceList", mergedOptions);
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems")).parent()[0];
@@ -52,6 +53,10 @@
         rf.Event.bind(this.targetList, "selectItem", $.proxy(this.toggleButtons, this));
         rf.Event.bind(this.targetList, "unselectItem", $.proxy(this.toggleButtons, this));
 
+        if (options['onchange'] && typeof options['onchange'] == 'function') {
+            rf.Event.bind(this, "change" + this.namespace, options['onchange']);
+        }
+
         // TODO: Is there a "Richfaces way" of executing a method after page load?
         $(document).ready($.proxy(this.toggleButtons, this));
     };
@@ -87,10 +92,10 @@
 
         // pick list
         if (options['onfocus'] && typeof options['onfocus'] == 'function') {
-            rf.Event.bind(this, "focus" + this.namespace, options['onfocus']);
+            rf.Event.bind(this, "listfocus" + this.namespace, options['onfocus']);
         }
         if (options['onblur'] && typeof options['onblur'] == 'function') {
-            rf.Event.bind(this, "blur" + this.namespace, options['onblur']);
+            rf.Event.bind(this, "listblur" + this.namespace, options['onblur']);
         }
 
         var focusEventHandlers = {};
@@ -104,8 +109,8 @@
         rf.Event.bind(this.targetList, focusEventHandlers, this);
 
         focusEventHandlers = {};
-        focusEventHandlers["focus"] = $.proxy(this.__focusHandler, this);
-        focusEventHandlers["blur"] = $.proxy(this.__blurHandler, this);
+        focusEventHandlers["focus" + this.namespace] = $.proxy(this.__focusHandler, this);
+        focusEventHandlers["blur" + this.namespace] = $.proxy(this.__blurHandler, this);
         rf.Event.bind(this.addButton, focusEventHandlers, this);
         rf.Event.bind(this.addAllButton, focusEventHandlers, this);
         rf.Event.bind(this.removeButton, focusEventHandlers, this);
@@ -129,7 +134,8 @@
                 this.keepingFocus = this.focused;
                 if (! this.focused) {
                     this.focused = true;
-                    rf.Event.fire(this, "focus" + this.namespace, e);
+                    rf.Event.fire(this, "listfocus" + this.namespace, e);
+                    this.originalValue = this.targetList.csvEncodeValues();
                 }
             },
 
@@ -138,7 +144,11 @@
                 this.timeoutId = window.setTimeout(function() {
                     if (!that.keepingFocus) { // If no other pickList "sub" component has grabbed the focus during the timeout
                         that.focused = false;
-                        rf.Event.fire(that, "blur" + that.namespace, e);
+                        rf.Event.fire(that, "listblur" + that.namespace, e);
+                        var newValue = that.targetList.csvEncodeValues();
+                        if (newValue != that.originalValue) {
+                            rf.Event.fire(that, "change" + that.namespace, e);
+                        }
                     }
                     that.keepingFocus = false;
                 }, 200);
