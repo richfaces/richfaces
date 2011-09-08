@@ -67,6 +67,12 @@ public abstract class AbstractPickList extends AbstractOrderingComponent {
     @Attribute(events = @EventName("sourcekeyup"))
     public abstract String getOnsourcekeyup();
 
+    @Attribute(events = @EventName("sourcefocus"))
+    public abstract String getOnsourcefocus();
+
+    @Attribute(events = @EventName("sourceblur"))
+    public abstract String getOnsourceblur();
+
     // Target list events
     @Attribute(events = @EventName("targetclick"))
     public abstract String getOntargetclick();
@@ -97,6 +103,12 @@ public abstract class AbstractPickList extends AbstractOrderingComponent {
 
     @Attribute(events = @EventName("targetkeyup"))
     public abstract String getOntargetkeyup();
+
+    @Attribute(events = @EventName("targetfocus"))
+    public abstract String getOntargetfocus();
+
+    @Attribute(events = @EventName("targetblur"))
+    public abstract String getOntargetblur();
 
     @Attribute(events = @EventName("additems"))
     public abstract String getOnadditems();
