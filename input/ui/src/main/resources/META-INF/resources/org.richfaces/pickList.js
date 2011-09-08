@@ -37,6 +37,10 @@
         }
         rf.Event.bind(this.targetList, "additems", $.proxy(this.toggleButtons, this));
 
+        this.focused = false;
+        this.keepingFocus = false;
+        bindFocusEventHandlers.call(this, mergedOptions);
+
         // Adding items to the source list happens after removing them from the target list
         if (mergedOptions['onremoveitems'] && typeof mergedOptions['onremoveitems'] == 'function') {
             rf.Event.bind(this.sourceList, "additems", mergedOptions['onremoveitems']);
@@ -63,6 +67,51 @@
         disabled : false
     };
 
+    var bindFocusEventHandlers = function (options) {
+        // source list
+        if (options['onsourcefocus'] && typeof options['onsourcefocus'] == 'function') {
+            rf.Event.bind(this.sourceList, "listfocus" + this.sourceList.namespace, options['onsourcefocus']);
+        }
+
+        if (options['onsourceblur'] && typeof options['onsourceblur'] == 'function') {
+            rf.Event.bind(this.sourceList, "listblur" + this.sourceList.namespace, options['onsourceblur']);
+        }
+
+        // target list
+        if (options['ontargetfocus'] && typeof options['ontargetfocus'] == 'function') {
+            rf.Event.bind(this.targetList, "listfocus" + this.targetList.namespace, options['ontargetfocus']);
+        }
+        if (options['ontargetblur'] && typeof options['ontargetblur'] == 'function') {
+            rf.Event.bind(this.targetList, "listblur" + this.targetList.namespace, options['ontargetblur']);
+        }
+
+        // pick list
+        if (options['onfocus'] && typeof options['onfocus'] == 'function') {
+            rf.Event.bind(this, "focus" + this.namespace, options['onfocus']);
+        }
+        if (options['onblur'] && typeof options['onblur'] == 'function') {
+            rf.Event.bind(this, "blur" + this.namespace, options['onblur']);
+        }
+
+        var focusEventHandlers = {};
+        focusEventHandlers["listfocus" + this.sourceList.namespace] = $.proxy(this.__focusHandler, this);
+        focusEventHandlers["listblur" + this.sourceList.namespace] = $.proxy(this.__blurHandler, this);
+        rf.Event.bind(this.sourceList, focusEventHandlers, this);
+
+        focusEventHandlers = {};
+        focusEventHandlers["listfocus" + this.targetList.namespace] = $.proxy(this.__focusHandler, this);
+        focusEventHandlers["listblur" + this.targetList.namespace] = $.proxy(this.__blurHandler, this);
+        rf.Event.bind(this.targetList, focusEventHandlers, this);
+
+        focusEventHandlers = {};
+        focusEventHandlers["focus"] = $.proxy(this.__focusHandler, this);
+        focusEventHandlers["blur"] = $.proxy(this.__blurHandler, this);
+        rf.Event.bind(this.addButton, focusEventHandlers, this);
+        rf.Event.bind(this.addAllButton, focusEventHandlers, this);
+        rf.Event.bind(this.removeButton, focusEventHandlers, this);
+        rf.Event.bind(this.removeAllButton, focusEventHandlers, this);
+    };
+
     $.extend(rf.ui.PickList.prototype, (function () {
 
         return {
@@ -77,28 +126,48 @@
             },
 
             __focusHandler: function(e) {
-                alert("focus");
+                this.keepingFocus = this.focused;
+                if (! this.focused) {
+                    this.focused = true;
+                    rf.Event.fire(this, "focus" + this.namespace, e);
+                }
             },
 
+            __blurHandler: function(e) {
+                var that = this;
+                this.timeoutId = window.setTimeout(function() {
+                    if (!that.keepingFocus) { // If no other pickList "sub" component has grabbed the focus during the timeout
+                        that.focused = false;
+                        rf.Event.fire(that, "blur" + that.namespace, e);
+                    }
+                    that.keepingFocus = false;
+                }, 200);
+            },
+
+
             add: function() {
+                this.targetList.setFocus();
                 var items = this.sourceList.removeSelectedItems();
                 this.targetList.addItems(items);
                 this.encodeHiddenValues();
             },
 
             remove: function() {
+                this.sourceList.setFocus();
                 var items = this.targetList.removeSelectedItems();
                 this.sourceList.addItems(items);
                 this.encodeHiddenValues();
             },
 
             addAll: function() {
+                this.targetList.setFocus();
                 var items = this.sourceList.removeAllItems();
                 this.targetList.addItems(items);
                 this.encodeHiddenValues();
             },
 
             removeAll: function() {
+                this.sourceList.setFocus();
                 var items = this.targetList.removeAllItems();
                 this.sourceList.addItems(items);
                 this.encodeHiddenValues();

@@ -4,6 +4,8 @@
 
     rf.ui.List = function(id, options) {
         $super.constructor.call(this, id);
+        this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
+        this.attachToDom();
         var mergedOptions = $.extend({}, defaultOptions, options);
         this.list = $(document.getElementById(id));
         this.selectListener = mergedOptions.selectListener;
@@ -22,6 +24,12 @@
         this.lastMouseX = null;
         this.lastMouseY = null;
 
+        this.isMouseDown = false;
+        this.list
+            .bind("mousedown", $.proxy(this.__onMouseDown, this))
+            .bind("mouseup", $.proxy(this.__onMouseUp, this));
+
+
         bindEventHandlers.call(this);
         if (mergedOptions.focusKeeperEnabled) {
             bindFocusEventHandlers.call(this);
@@ -37,7 +45,7 @@
         }
     };
 
-    rf.ui.InputBase.extend(rf.ui.List);
+    rf.BaseComponent.extend(rf.ui.List);
     var $super = rf.ui.List.$super;
 
     var defaultOptions = {
@@ -128,15 +136,32 @@
                 }
             },
 
+            __focusHandler : function(e) {
+                if (! this.focusKeeper.focused) {
+                    this.focusKeeper.focused = true;
+                    rf.Event.fire(this, "listfocus" + this.namespace, e);
+                }
+            },
+
             __blurHandler: function(e) {
                 if (!this.isMouseDown) {
                     var that = this;
                     this.timeoutId = window.setTimeout(function() {
+                        that.focusKeeper.focused = false;
                         that.invokeEvent.call(that, "blur", document.getElementById(that.id), e);
+                        rf.Event.fire(that, "listblur" + that.namespace, e);
                     }, 200);
                 } else {
                     this.isMouseDown = false;
                 }
+            },
+
+            __onMouseDown: function(e) {
+                this.isMouseDown = true;
+            },
+
+            __onMouseUp: function(e) {
+                this.isMouseDown = false;
             },
 
             __keydownHandler: function(e) {
@@ -439,7 +464,6 @@
 
             setFocus : function() {
     		    this.focusKeeper.focus();
-	    	    this.focusKeeper.focused = true;
 	        }
 
         }
