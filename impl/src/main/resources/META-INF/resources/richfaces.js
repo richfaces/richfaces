@@ -155,7 +155,11 @@ if (!window.RichFaces) {
             //TODO: inline onsubmit handler is not triggered - http://dev.jquery.com/ticket/4930
             form.trigger("submit");
         } finally {
-            form.attr("target", initialTarget);
+            if (initialTarget === undefined) {
+                form.removeAttr("target");
+            } else {
+                form.attr("target", initialTarget);
+            }
             jQuery(parameterInputs).remove();
         }
     };
