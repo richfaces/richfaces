@@ -21,11 +21,11 @@
         <cdk:object type="java.lang.Boolean" name="hasColumnChildren" value="#{hasColumnChildren(facesContext, component)}" />
 
         <div id="#{clientId}" class="#{concatClasses('rf-pick', component.attributes['styleClass'], disabled ? component.attributes['disabledClass'] : '')}" style="#{component.attributes['style']}"
-             cdk:passThrough="onclick:listclick ondblclick:listdblclick onmousedown:listmousedown onmouseup:listmouseup onmouseover:onlistmouseover
-            onmousemove:listmousemove onmouseout:listmouseout onkeypress:listkeypress onkeydown:listkeydown onkeyup:listkeyup">
+             cdk:passThrough="onclick:onlistclick ondblclick:onlistdblclick onmousedown:onlistmousedown onmouseup:onlistmouseup onmouseover:onlistmouseover
+            onmousemove:onlistmousemove onmouseout:onlistmouseout onkeypress:onlistkeypress onkeydown:onlistkeydown onkeyup:onlistkeyup">
             <table>
                 <tr>
-                    <td>
+                    <td cdk:passThrough="onkeypress:onsourcekeypress onkeydown:onsourcekeydown onkeyup:onsourcekeyup">
                         <div id="#{clientId}Source">
                             <div id="#{clientId}SourceList" class="rf-pick-source">
                                 <input id="#{clientId}SourceListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
@@ -36,8 +36,8 @@
                                     </div>
                                 </c:if>
                                 <div class="rf-pick-lst-dcrtn"
-                                     cdk:passThrough="onclick:sourceclick ondblclick:sourcedblclick onmousedown:sourcemousedown onmouseup:sourcemouseup onmouseover:onsourcemouseover
-                                    onmousemove:sourcemousemove onmouseout:sourcemouseout onkeypress:sourcekeypress onkeydown:sourcekeydown onkeyup:sourcekeyup">
+                                     cdk:passThrough="onclick:onsourceclick ondblclick:onsourcedblclick onmousedown:onsourcemousedown onmouseup:onsourcemouseup onmouseover:onsourcemouseover
+                                    onmousemove:onsourcemousemove onmouseout:onsourcemouseout">
                                     <div class="rf-pick-lst-scrl" style="#{encodeHeightAndWidth(component)}">
                                         <c:choose>
                                             <c:when test="#{! hasColumnChildren}">
@@ -92,7 +92,7 @@
                     <td>
                         <table id="#{clientId}Target">
                             <tr>
-                                <td>
+                                <td cdk:passThrough="onkeypress:ontargetkeypress onkeydown:ontargetkeydown onkeyup:ontargetkeyup">
                                     <div>
                                         <div id="#{clientId}TargetList" class="rf-pick-target">
                                             <input id="#{clientId}TargetListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
@@ -103,8 +103,8 @@
                                                 </div>
                                             </c:if>
                                             <div class="rf-pick-lst-dcrtn"
-                                                 cdk:passThrough="onclick:targetclick ondblclick:targetdblclick onmousedown:targetmousedown onmouseup:targetmouseup onmouseover:ontargetmouseover
-                                    onmousemove:targetmousemove onmouseout:targetmouseout onkeypress:targetkeypress onkeydown:targetkeydown onkeyup:targetkeyup">
+                                                 cdk:passThrough="onclick:ontargetclick ondblclick:ontargetdblclick onmousedown:ontargetmousedown onmouseup:ontargetmouseup onmouseover:ontargetmouseover
+                                    onmousemove:ontargetmousemove onmouseout:ontargetmouseout">
                                                 <div class="rf-pick-lst-scrl" style="#{encodeHeightAndWidth(component)}">
                                                     <c:choose>
                                                         <c:when test="#{! hasColumnChildren}">
