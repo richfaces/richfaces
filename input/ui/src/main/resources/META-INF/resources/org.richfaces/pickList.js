@@ -6,6 +6,7 @@
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
+        this.attachToDom();
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "SourceItems")).parent()[0];
         this.sourceList = new rf.ui.ListMulti(id+ "SourceList", mergedOptions);
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems")).parent()[0];

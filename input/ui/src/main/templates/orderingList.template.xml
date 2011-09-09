@@ -23,11 +23,11 @@
         <cdk:object name="selectItemClass" value="#{component.attributes['selectItemClass']}" />
 
         <div id="#{clientId}" class="#{concatClasses('rf-ord', component.attributes['styleClass'], disabled ? component.attributes['disabledClass'] : '')}" style="#{component.attributes['style']}"
-            cdk:passThrough="onclick:listclick ondblclick:listdblclick onmousedown:listmousedown onmouseup:listmouseup onmouseover:onlistmouseover 
-            onmousemove:listmousemove onmouseout:listmouseout onkeypress:listkeypress onkeydown:listkeydown onkeyup:listkeyup">
+            cdk:passThrough="onclick:onclick ondblclick:ondblclick onmousedown:onmousedown onmouseup:onmouseup onmouseover:onmouseover
+            onmousemove:onmousemove onmouseout:onmouseout">
             <table>
                 <tr>
-                    <td>
+                    <td cdk:passThrough="onkeypress:onkeypress onkeydown:onkeydown onkeyup:onkeyup">>
                         <div id="#{clientId}List" class="rf-ord-list">
                             <input id="#{clientId}ListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
                             <cdk:object type="java.lang.Object" name="caption" value="#{component.attributes['caption']}" />
@@ -37,8 +37,8 @@
                                 </div>
                             </c:if>
                             <div class="rf-ord-lst-dcrtn"
-                                cdk:passThrough="onclick:listclick ondblclick:listdblclick onmousedown:listmousedown onmouseup:listmouseup onmouseover:onlistmouseover
-                                onmousemove:listmousemove onmouseout:listmouseout onkeypress:listkeypress onkeydown:listkeydown onkeyup:listkeyup">
+                                cdk:passThrough="onclick:onlistclick ondblclick:onlistdblclick onmousedown:onlistmousedown onmouseup:onlistmouseup onmouseover:onlistmouseover
+                                onmousemove:onlistmousemove onmouseout:onlistmouseout onkeypress:onlistkeypress onkeydown:onlistkeydown onkeyup:onlistkeyup">
                                 <div class="rf-ord-lst-scrl" style="#{encodeHeightAndWidth(component)}">
                                     <c:choose>
                                         <c:when test="#{! hasColumnChildren}">

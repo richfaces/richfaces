@@ -5,8 +5,10 @@
     rf.ui.OrderingList = function(id, options) {
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
-        this.orderingList = $(document.getElementById(id));
+        this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
+        this.attachToDom();
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
+        this.orderingList = $(document.getElementById(id));
         this.list = new rf.ui.ListMulti(id+ "List", mergedOptions);
         var hiddenId = mergedOptions['hiddenId'] ===null ? id + "SelValue" : mergedOptions['hiddenId'];
         this.hiddenValues = $(document.getElementById(hiddenId));
@@ -22,6 +24,10 @@
         this.downBottomButton = $('.rf-ord-down-bottom', this.orderingList);
         this.downBottomButton.bind("click", $.proxy(this.downBottom, this));
 
+        this.focused = false;
+        this.keepingFocus = false;
+        bindFocusEventHandlers.call(this, mergedOptions);
+
         if (mergedOptions['onmoveitems'] && typeof mergedOptions['onmoveitems'] == 'function') {
             rf.Event.bind(this.list, "moveitems", mergedOptions['onmoveitems']);
         }
@@ -31,6 +37,10 @@
         rf.Event.bind(this.list, "unselectItem", $.proxy(this.toggleButtons, this));
 
         rf.Event.bind(this.list, "keydown" + this.list.namespace, $.proxy(this.__keydownHandler, this));
+
+        if (options['onchange'] && typeof options['onchange'] == 'function') {
+            rf.Event.bind(this, "change" + this.namespace, options['onchange']);
+        }
 
         // TODO: Is there a "Richfaces way" of executing a method after page load?
         $(document).ready($.proxy(this.toggleButtons, this));
@@ -48,6 +58,29 @@
         hiddenId : null
     };
 
+    var bindFocusEventHandlers = function (options) {
+        if (options['onfocus'] && typeof options['onfocus'] == 'function') {
+            rf.Event.bind(this, "listfocus" + this.namespace, options['onfocus']);
+        }
+        if (options['onblur'] && typeof options['onblur'] == 'function') {
+            rf.Event.bind(this, "listblur" + this.namespace, options['onblur']);
+        }
+
+        var focusEventHandlers = {};
+        focusEventHandlers["listfocus" + this.list.namespace] = $.proxy(this.__focusHandler, this);
+        focusEventHandlers["listblur" + this.list.namespace] = $.proxy(this.__blurHandler, this);
+        rf.Event.bind(this.list, focusEventHandlers, this);
+
+        focusEventHandlers = {};
+        focusEventHandlers["focus" + this.namespace] = $.proxy(this.__focusHandler, this);
+        focusEventHandlers["blur" + this.namespace] = $.proxy(this.__blurHandler, this);
+        rf.Event.bind(this.upButton, focusEventHandlers, this);
+        rf.Event.bind(this.upTopButton, focusEventHandlers, this);
+        rf.Event.bind(this.downButton, focusEventHandlers, this);
+        rf.Event.bind(this.downBottomButton, focusEventHandlers, this);
+    };
+
+
     $.extend(rf.ui.OrderingList.prototype, (function () {
 
         return {
@@ -62,6 +95,27 @@
             },
 
             __focusHandler: function(e) {
+                this.keepingFocus = this.focused;
+                if (! this.focused) {
+                    this.focused = true;
+                    rf.Event.fire(this, "listfocus" + this.namespace, e);
+                    this.originalValue = this.list.csvEncodeValues();
+                }
+            },
+
+            __blurHandler: function(e) {
+                var that = this;
+                this.timeoutId = window.setTimeout(function() {
+                    if (!that.keepingFocus) { // If no other orderingList "sub" component has grabbed the focus during the timeout
+                        that.focused = false;
+                        rf.Event.fire(that, "listblur" + that.namespace, e);
+                        var newValue = that.list.csvEncodeValues();
+                        if (newValue != that.originalValue) {
+                            rf.Event.fire(that, "change" + that.namespace, e);
+                        }
+                    }
+                    that.keepingFocus = false;
+                }, 200);
             },
 
             __keydownHandler: function(e) {
@@ -103,18 +157,24 @@
             },
 
             up: function() {
+                this.keepingFocus = true;
+                this.list.setFocus();
                 var items = this.list.getSelectedItems();
                 this.list.move(items, -1);
                 this.encodeHiddenValues();
             },
 
             down: function() {
+                this.keepingFocus = true;
+                this.list.setFocus();
                 var items = this.list.getSelectedItems();
                 this.list.move(items, 1);
                 this.encodeHiddenValues();
             },
 
             upTop: function() {
+                this.keepingFocus = true;
+                this.list.setFocus();
                 var selectedItems = this.list.getSelectedItems();
                 var index = this.list.items.index(selectedItems.first());
                 this.list.move(selectedItems, -index);
@@ -122,6 +182,8 @@
             },
 
             downBottom: function() {
+                this.keepingFocus = true;
+                this.list.setFocus();
                 var selectedItems = this.list.getSelectedItems();
                 var index = this.list.items.index(selectedItems.last());
                 this.list.move(selectedItems, (this.list.items.length -1) - index);
@@ -129,12 +191,7 @@
             },
 
             encodeHiddenValues: function() {
-                var oldHiddenValues = this.hiddenValues.val();
-                var newHiddenValues = this.list.csvEncodeValues();
-                if (oldHiddenValues !== newHiddenValues)  {
-                    this.hiddenValues.val(this.list.csvEncodeValues());
-                    this.invokeEvent.call(this, "change", document.getElementById(this.id));
-                }
+                this.hiddenValues.val(this.list.csvEncodeValues());
             },
 
             toggleButtons: function() {
