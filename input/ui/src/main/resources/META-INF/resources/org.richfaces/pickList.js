@@ -7,9 +7,9 @@
         $super.constructor.call(this, id, mergedOptions);
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.attachToDom();
-        mergedOptions['scrollContainer'] = $(document.getElementById(id + "SourceItems")).parent()[0];
+        mergedOptions['scrollContainer'] = $(document.getElementById(id + "SourceItems"));
         this.sourceList = new rf.ui.ListMulti(id+ "SourceList", mergedOptions);
-        mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems")).parent()[0];
+        mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems"));
         this.selectItemCss = mergedOptions['selectItemCss'];
         var hiddenId = id + "SelValue";
         this.hiddenValues = $(document.getElementById(hiddenId));
