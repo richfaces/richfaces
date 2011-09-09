@@ -31,5 +31,5 @@ public interface SelectItemsInterface {
 
     Object getItemLabel();
 
-    Object getVar();
+    String getVar();
 }

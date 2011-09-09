@@ -23,35 +23,24 @@ package org.richfaces.renderkit;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.collect.Iterators;
-import org.richfaces.application.FacesMessages;
-import org.richfaces.application.MessageFactory;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.component.util.InputUtils;
-import org.richfaces.component.util.MessageUtil;
 import org.richfaces.component.util.SelectItemsInterface;
-import org.richfaces.component.util.SelectUtils;
 import org.richfaces.renderkit.util.HtmlDimensions;
 
 import javax.annotation.Nullable;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItems;
-import javax.faces.component.UISelectMany;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
-import javax.faces.validator.RequiredValidator;
-import javax.faces.validator.ValidatorException;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -136,14 +125,14 @@ public class SelectManyHelper {
         if (clientSelectItems != null && clientSelectItems.hasNext()) {
             String clientId = component.getClientId(facesContext);
             Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
-            Object oldColumnVar = requestMap.get(select.getColumnVar());
+            Object oldVar = requestMap.get(select.getVar());
             while (clientSelectItems.hasNext()) {
                 ClientSelectItem clientSelectItem = clientSelectItems.next();
-                requestMap.put(select.getColumnVar(), clientSelectItem.getSelectItem().getValue());
+                requestMap.put(select.getVar(), clientSelectItem.getSelectItem().getValue());
                 encodeOneRow(facesContext, component, renderer, clientSelectItem, cssPrefix);
             }
-            requestMap.put(select.getColumnVar(), oldColumnVar);
-            oldColumnVar = null;
+            requestMap.put(select.getVar(), oldVar);
+            oldVar = null;
         }
     }
 

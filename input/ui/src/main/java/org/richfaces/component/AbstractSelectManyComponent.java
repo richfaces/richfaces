@@ -46,7 +46,7 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     }
 
     @Attribute()
-    public abstract String getColumnVar();
+    public abstract String getVar();
 
     @Attribute()
     public abstract String getListWidth();

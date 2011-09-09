@@ -15,8 +15,17 @@ public abstract class AbstractOrderingList extends AbstractOrderingComponent imp
     public static final String COMPONENT_TYPE = "org.richfaces.OrderingList";
     public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 
-    @Attribute()
+
     public Object getItemValues() {
         return getValue();
     }
+
+    @Attribute()
+    public abstract Object getItemValue();
+
+    @Attribute()
+    public abstract Object getItemLabel();
+
+    @Attribute()
+    public abstract String getVar();
 }
