@@ -1,6 +1,7 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -28,4 +29,35 @@ public abstract class AbstractOrderingList extends AbstractOrderingComponent imp
 
     @Attribute()
     public abstract String getVar();
+
+    @Attribute(events = @EventName("listclick"))
+    public abstract String getOnlistclick();
+
+    @Attribute(events = @EventName("listdblclick"))
+    public abstract String getOnlistdblclick();
+
+    @Attribute(events = @EventName("listmousedown"))
+    public abstract String getOnlistmousedown();
+
+    @Attribute(events = @EventName("listmouseup"))
+    public abstract String getOnlistmouseup();
+
+    @Attribute(events = @EventName("listmouseover"))
+    public abstract String getOnlistmouseover();
+
+    @Attribute(events = @EventName("listmousemove"))
+    public abstract String getOnlistmousemove();
+
+    @Attribute(events = @EventName("listmouseout"))
+    public abstract String getOnlistmouseout();
+
+    @Attribute(events = @EventName("listkeypress"))
+    public abstract String getOnlistkeypress();
+
+    @Attribute(events = @EventName("listkeydown"))
+    public abstract String getOnlistkeydown();
+
+    @Attribute(events = @EventName("listkeyup"))
+    public abstract String getOnlistkeyup();
+
 }
