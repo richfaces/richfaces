@@ -73,7 +73,12 @@
 
     $.extend(rf.ui.Message.prototype, {
             name: "Message",
-            __bindEventHandlers: bindEventHandlers
+            __bindEventHandlers: bindEventHandlers,
+            
+            destroy : function() {
+                rf.Event.unbind(window.document, rf.Event.MESSAGE_EVENT_TYPE + this.namespace);
+                $super.destroy.call(this);
+            }
         });
 
 })(jQuery, window.RichFaces || (window.RichFaces = {}));

@@ -23,19 +23,16 @@ package org.richfaces.component;
 
 import javax.faces.component.UIComponentBase;
 
-import org.richfaces.CornerPosition;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.renderkit.html.NotifyRenderer;
 
 /**
- * @author Bernard Labno
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-@JsfComponent(tag = @Tag(name = "notify", type = TagType.Facelets), renderer = @JsfRenderer(family = AbstractNotify.COMPONENT_FAMILY, type = NotifyRenderer.RENDERER_TYPE))
+@JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY, generate = "org.richfaces.component.UINotify", renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"))
 public abstract class AbstractNotify extends UIComponentBase implements NotifyAttributes {
 
     public static final String COMPONENT_FAMILY = "org.richfaces.Notify";
@@ -52,9 +49,4 @@ public abstract class AbstractNotify extends UIComponentBase implements NotifyAt
     public abstract String getDetail();
 
     public abstract void setDetail(String text);
-
-    @Attribute(description = @Description("Defines the position of the notification"))
-    public abstract CornerPosition getPosition();
-
-    public abstract void setPosition(CornerPosition position);
 }

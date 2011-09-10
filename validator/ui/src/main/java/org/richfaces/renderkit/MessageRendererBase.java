@@ -33,7 +33,6 @@ import javax.faces.component.UIMessage;
 import javax.faces.component.UIMessages;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.render.Renderer;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSObject;
@@ -56,10 +55,10 @@ import com.google.common.collect.UnmodifiableIterator;
  * @author asmirnov@exadel.com
  *
  */
-public class MessageRendererBase extends Renderer {
+public class MessageRendererBase extends RendererBase {
     private static final ImmutableMap<Severity, SeverityAttributes> SEVERITY_MAP = ImmutableMap.of(FacesMessage.SEVERITY_INFO,
-        attrs("info", "inf"), FacesMessage.SEVERITY_WARN, attrs("warn", "wrn"), FacesMessage.SEVERITY_ERROR,
-        attrs("error", "err"), FacesMessage.SEVERITY_FATAL, attrs("fatal", "ftl"));
+            attrs("info", "inf"), FacesMessage.SEVERITY_WARN, attrs("warn", "wrn"), FacesMessage.SEVERITY_ERROR,
+            attrs("error", "err"), FacesMessage.SEVERITY_FATAL, attrs("fatal", "ftl"));
 
     protected Iterator<MessageForRender> getMessages(FacesContext context, String forClientId, UIComponent component) {
 
@@ -110,14 +109,14 @@ public class MessageRendererBase extends Renderer {
         String forId = getFor(component);
         Iterator<MessageForRender> messages = getMessages(context, forId, component);
         UnmodifiableIterator<MessageForRender> filteredMessages = Iterators.filter(messages,
-            getMessagesLevelFilter(context, component));
+                getMessagesLevelFilter(context, component));
         return Lists.newArrayList(filteredMessages);
     }
 
     private Predicate<MessageForRender> getMessagesLevelFilter(FacesContext context, UIComponent component) {
 
         final Severity level = getLevel(component);
-        final boolean displayAll = component instanceof UIMessages;
+        final boolean displayAll = isComponentMessage(component);
         final boolean redisplay = Boolean.TRUE.equals(component.getAttributes().get("redisplay"));
         Predicate<MessageForRender> predicate = new Predicate<MessageForRender>() {
             private int count = 0;
@@ -134,22 +133,30 @@ public class MessageRendererBase extends Renderer {
         return predicate;
     }
 
-    private Severity getLevel(UIComponent component) {
+    protected Severity getLevel(UIComponent component) {
         Object levelName = component.getAttributes().get("level");
         final Severity level = (Severity) (FacesMessage.VALUES_MAP.containsKey(levelName) ? FacesMessage.VALUES_MAP
-            .get(levelName) : FacesMessage.SEVERITY_INFO);
+                .get(levelName) : FacesMessage.SEVERITY_INFO);
         return level;
     }
 
+    protected boolean isComponentMessage(UIComponent component) {
+        return component instanceof UIMessage;
+    }
+
+    protected boolean isComponentMessages(UIComponent component) {
+        return component instanceof UIMessages;
+    }
+
     private String getFor(UIComponent component) {
-        if (component instanceof UIMessages) {
+        if (isComponentMessages(component)) {
             UIMessages messages = (UIMessages) component;
             if (messages.isGlobalOnly()) {
                 return "";
             } else {
                 return messages.getFor();
             }
-        } else if (component instanceof UIMessage) {
+        } else if (isComponentMessage(component)) {
             UIMessage message = (UIMessage) component;
             return message.getFor();
         } else {
@@ -165,11 +172,11 @@ public class MessageRendererBase extends Renderer {
         boolean showSummary = true;
         boolean showDetail = false;
         boolean isMessages = false;
-        if (component instanceof UIMessage) {
+        if (isComponentMessage(component)) {
             UIMessage uiMessage = (UIMessage) component;
             showSummary = uiMessage.isShowSummary();
             showDetail = uiMessage.isShowDetail();
-        } else if (component instanceof UIMessages) {
+        } else if (isComponentMessages(component)) {
             UIMessages uiMessages = (UIMessages) component;
             showSummary = uiMessages.isShowSummary();
             showDetail = uiMessages.isShowDetail();
@@ -201,9 +208,13 @@ public class MessageRendererBase extends Renderer {
         }
     }
 
+    protected String getJSClassName() {
+        return "RichFaces.ui.Message";
+    }
+
     protected void encodeScript(FacesContext facesContext, UIComponent component) throws IOException {
         JavaScriptService javaScriptService = ServiceTracker.getService(JavaScriptService.class);
-        JSFunction messageObject = new JSObject("RichFaces.ui.Message", component.getClientId(facesContext));
+        JSFunction messageObject = new JSObject(getJSClassName(), component.getClientId(facesContext));
         Map<String, Object> attributes = component.getAttributes();
         Builder<String, Object> parametersBuilder = ImmutableMap.builder();
         String forId = (String) attributes.get("for");
@@ -227,7 +238,7 @@ public class MessageRendererBase extends Renderer {
         if (rendererUtils.isBooleanAttribute(component, "tooltip")) {
             parametersBuilder.put("tooltip", true);
         }
-        if (component instanceof UIMessages) {
+        if (isComponentMessages(component)) {
             parametersBuilder.put("isMessages", true);
         }
         messageObject.addParameter(parametersBuilder.build());
@@ -239,10 +250,10 @@ public class MessageRendererBase extends Renderer {
         MessageForRender message = (MessageForRender) msg;
         SeverityAttributes severityAttributes = SEVERITY_MAP.get(message.getSeverity());
 
-        boolean isMessages = (component instanceof UIMessages);
+        boolean isMessages = (isComponentMessages(component));
 
         String styleClass = buildSeverityAttribute(component, (isMessages ? severityAttributes.messagesSkinClass
-            : severityAttributes.messageSkinClass), severityAttributes.classAttribute, ' ');
+                : severityAttributes.messageSkinClass), severityAttributes.classAttribute, ' ');
         return styleClass;
     }
 

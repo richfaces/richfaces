@@ -23,24 +23,20 @@ package org.richfaces.component;
 
 import javax.faces.component.UIComponentBase;
 
-import org.richfaces.CornerPosition;
-import org.richfaces.StackingDirection;
-import org.richfaces.StackingMethod;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.renderkit.html.NotifyStackRenderer;
 
 /**
  * @author Bernard Labno
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-@JsfComponent(tag = @Tag(name = "notifyStack", type = TagType.Facelets), renderer = @JsfRenderer(family = AbstractNotifyStack.COMPONENT_FAMILY, type = NotifyStackRenderer.RENDERER_TYPE))
+@JsfComponent(tag = @Tag(name = "notifyStack"), type = AbstractNotifyStack.COMPONENT_TYPE, family = AbstractNotifyStack.COMPONENT_FAMILY, generate = "org.richfaces.component.UINotifyStack", renderer = @JsfRenderer(type = "org.richfaces.NotifyStackRenderer"))
 public abstract class AbstractNotifyStack extends UIComponentBase {
 
-    public static final String COMPONENT_FAMILY = "org.richfaces.Notify";
+    public static final String COMPONENT_FAMILY = "org.richfaces.NotifyStack";
     public static final String COMPONENT_TYPE = "org.richfaces.NotifyStack";
 
     @Attribute
