@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:csv="http://richfaces.org/csv" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Notify - &lt;csv:validator&gt; usage for JSR-303" />
+    <!-- Page header -->
+    <ui:define name="header">
+        <h1>Notify - &lt;csv:alidator&gt; usage with JSR-303</h1>
+    </ui:define>
+    <!-- content -->
+    <ui:define name="content">
+        <h:form id="form">
+            <h:panelGrid columns="3">
+                <c:forEach items="#{dataBean.beans}" var="bean">
+                    <h:outputLabel for="${bean.label}" value="#{bean.description}" />
+                    <h:inputText id="${bean.label}" value="#{bean.value}" label="#{bean.label}" converter="#{bean.converter}">
+                        <csv:validator summary="Invalid value" />
+                    </h:inputText>
+                    <csv:notifyMessage for="${bean.label}" tooltip="true" />
+                </c:forEach>
+                <h:outputLabel for="assertTrue" value="#{booleanBean.description}" />
+                <h:selectBooleanCheckbox id="assertTrue" value="#{booleanBean.value}" label="#{booleanBean.label}">
+                    <csv:validator summary="Required checkbox" />
+                </h:selectBooleanCheckbox>
+                <csv:notifyMessage for="assertTrue" showDetail="true" showSummary="true" />
+            </h:panelGrid>
+            <h:commandButton value="Submit"></h:commandButton>
+            <csv:notifyMessages showDetail="true" showSummary="true" />
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

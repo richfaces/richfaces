@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:csv="http://richfaces.org/csv">
+
+<body>
+    <ui:composition template="/layout/template.xhtml">
+        <ui:param name="title" value="Notify Example 2" />
+        <ui:define name="header">Notify Example 2</ui:define>
+        <ui:define name="content">
+            <style>
+                .mail .rf-ntf-cnt {
+                    padding: 0 10px;
+                }
+        
+                .mail .rf-ntf-clr {
+                    margin-top: 4px;
+                }
+        
+                .mail .rf-ntf-ico {
+                    display: block;
+                    background: url(mail.png) no-repeat 50% 50%;
+                    width: 18px;
+                    height: 20px;
+                }
+            </style>
+
+            <p>Skinning. Icon, skining by message type.</p>
+            <csv:notify summary="You've got mail" nonblocking="#{notifyBean.nonblocking}" sticky="true" styleClass="mail" />
+            <csv:notify summary="You've got more mail (hides in 3sec)" nonblocking="true" sticky="false" styleClass="mail"
+                delay="1500" stayTime="3000" />
+            <!--
+    TODO uncomment this once rich:insert is implemented
+    <rich:insert src="/notify_2.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>
+    -->
+        </ui:define>
+    </ui:composition>
+</body>
+</html>

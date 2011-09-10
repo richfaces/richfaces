@@ -1,17 +1,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:o="http://richfaces.org/output">
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:csv="http://richfaces.org/csv">
 
 <body>
-    <ui:composition template="/templates/template.xhtml">
-
-        <ui:define name="title">Notify Example 1</ui:define>
-        <ui:define name="body_head">Notify Example 1</ui:define>
-
-        <ui:define name="body">
+    <ui:composition template="/layout/template.xhtml">
+        <ui:param name="title" value="Notify Example 1" />
+        <ui:define name="header">Notify Example 1</ui:define>
+        <ui:define name="content">
+                <style>
+                    .mail .rf-ntf-cnt {
+                        padding: 0 10px;
+                    }
+            
+                    .mail .rf-ntf-clr {
+                        margin-top: 4px;
+                    }
+            
+                    .mail .rf-ntf-ico {
+                        display: block;
+                        background: url(mail.png) no-repeat 50% 50%;
+                        width: 18px;
+                        height: 20px;
+                    }
+                </style>
                 <h:form>
                     
-                    <o:notify stack="customStack" summary="#{notifyBean.title}" detail="#{notifyBean.text}"
+                    <csv:notify stack="customStack" summary="#{notifyBean.title}" detail="#{notifyBean.text}"
                             nonblocking="#{notifyBean.nonblocking}" showShadow="#{notifyBean.showShadow}"
                             showHistory="#{notifyBean.showHistory}" showCloseButton="#{notifyBean.showCloseButton}"
                             sticky="#{notifyBean.sticky}" stayTime="#{notifyBean.stayTime}"
@@ -20,9 +34,9 @@
                             styleClass="#{notifyBean.styleClass}" />
                     
                     <a4j:outputPanel ajaxRendered="true">
-                        <o:notifyStack id="customStack" direction="#{notifyBean.direction}" position="#{notifyBean.position}"
+                        <csv:notifyStack id="customStack" direction="#{notifyBean.direction}" position="#{notifyBean.position}"
                             method="#{notifyBean.method}" styleClass="#{notifyBean.stackStyleClass}" />
-                        <o:notifyMessages  stack="customStack" interval="#{notifyBean.interval}" nonblocking="#{notifyBean.nonblocking}"
+                        <csv:notifyMessages  stack="customStack" interval="#{notifyBean.interval}" nonblocking="#{notifyBean.nonblocking}"
                         showShadow="#{notifyBean.showShadow}" showHistory="#{notifyBean.showHistory}"
                         showCloseButton="#{notifyBean.showCloseButton}" sticky="#{notifyBean.sticky}"
                         stayTime="#{notifyBean.stayTime}" appearAnimation="#{notifyBean.appearAnimation}"
@@ -71,7 +85,7 @@
                                 <h:selectOneListbox value="#{notifyBean.styleClass}" id="styleClass" size="1">
                                     <f:selectItem itemValue="" itemLabel="(none)" />
                                     <f:selectItem itemValue="mail" itemLabel="mail" />
-                                    <f:selectItem itemValue="rf-ny-error" itemLabel="rf-ny-error" />
+                                    <f:selectItem itemValue="rf-ntf-error" itemLabel="rf-ntf-error" />
                                     <f:selectItem itemValue="black" itemLabel="black" />
                                 </h:selectOneListbox>
                                 <h:outputLabel value="Appear animation" for="appearAnimation" />

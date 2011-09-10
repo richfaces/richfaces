@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces;
+package org.richfaces.example;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;

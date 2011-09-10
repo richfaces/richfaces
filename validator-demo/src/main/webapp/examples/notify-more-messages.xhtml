@@ -2,15 +2,15 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:csv="http://richfaces.org/csv"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition template="/layout/template.xhtml">
-    <ui:param name="title" value="JSF validators on client" />
+    <ui:param name="title" value="Notify - More messages for component" />
     <!-- Page header -->
     <ui:define name="header">
-        <h1>&lt;csv:validator&gt; usage</h1>
+        <h1>Notify - More messages for component</h1>
     </ui:define>
     <!-- content -->
     <ui:define name="content">
         <h:form id="form">
-            <h:panelGrid columns="4">
+            <h:panelGrid columns="5">
                 <h:outputLabel for="length" value="Text length from 1 to 3:" />
                 <h:inputText id="length" value="#{test.value}">
                     <f:validateLength minimum="1" maximum="3" />
@@ -18,6 +18,7 @@
                 </h:inputText>
                 <h:outputText id="lengthOut" value="#{test.value}"></h:outputText>
                 <csv:message for="length" />
+                <csv:notifyMessage for="length" />
 
                 <h:outputLabel for="dblrange" value="Text dblrange from 1.0 to 3.0:" />
                 <h:inputText id="dblrange" value="#{test.doubleValue}">
@@ -26,15 +27,17 @@
                 </h:inputText>
                 <h:outputText id="dblrangeOut" value="#{test.doubleValue}"></h:outputText>
                 <csv:message for="dblrange" />
+                <csv:notifyMessage for="dblrange" />
 
                 <h:outputLabel for="longrange" value="Text long range from 2 to 5, custom msg:" />
-                <h:inputText id="longrange" value="#{test.longValue}" converterMessage="Not a number"
-                    validatorMessage="Wrong number">
+                <h:inputText id="longrange" value="#{test.longValue}" converternotifyMessage="Not a number"
+                    validatornotifyMessage="Wrong number">
                     <f:validateLongRange minimum="2" maximum="5" />
                     <csv:validator event="blur" />
                 </h:inputText>
                 <h:outputText id="longrangeOut" value="#{test.longValue}"></h:outputText>
                 <csv:message for="longrange" />
+                <csv:notifyMessage for="longrange" />
 
             </h:panelGrid>
             <h:commandButton value="Submit form with client-side validation">
@@ -44,7 +47,6 @@
                 <csv:validator event="click" />
             </a4j:commandButton>
         </h:form>
-        <csv:messages />
     </ui:define>
 </ui:composition>
 </html>
