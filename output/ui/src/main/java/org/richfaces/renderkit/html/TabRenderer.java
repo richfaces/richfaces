@@ -111,9 +111,17 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
     @Override
     protected void doEncodeItemEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-
         encodeContentEnd(component, writer);
         super.doEncodeItemEnd(writer, context, component);
+    }
+
+    @Override
+    protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        if (((AbstractTogglePanelItemInterface) component).shouldProcess()) {
+            doEncodeItemEnd(writer, context, component);
+        } else {
+            encodePlaceHolder(context, component);
+        }
     }
 
     @Override

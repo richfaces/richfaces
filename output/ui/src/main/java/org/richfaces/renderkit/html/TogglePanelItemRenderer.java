@@ -102,6 +102,14 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
         return true;
     }
 
+    protected void encodePlaceHolder(FacesContext context, UIComponent item) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
+        writer.startElement(DIV_ELEM, null);
+        writer.writeAttribute(ID_ATTRIBUTE, item.getClientId(context), null);
+        writer.writeAttribute(STYLE_ATTRIBUTE, "display:none;", null);
+        writer.endElement(DIV_ELEM);
+    }
+
     protected void encodePlaceHolderWithJs(FacesContext context, UIComponent item) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
 

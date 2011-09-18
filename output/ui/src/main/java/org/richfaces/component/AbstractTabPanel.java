@@ -99,4 +99,12 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
 
     @Attribute(hidden = true)
     public abstract Object getRender();
+
+    public boolean isHeaderPositionedTop() {
+        return (null == this.getHeaderPosition()) || (this.getHeaderPosition().equals(HeaderPosition.top));
+    }
+
+    public boolean isHeaderAlignedLeft() {
+        return (null == this.getHeaderAlignment()) || (this.getHeaderAlignment().equals(HeaderAlignment.left));
+    }
 }
