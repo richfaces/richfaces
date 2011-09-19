@@ -93,10 +93,6 @@ public class InplaceInputRendererBase extends InputRendererBase {
         return value;
     }
 
-    public String getResourcePath(FacesContext context, String library, String resourceName) {
-        return RenderKitUtils.getResourcePath(context, library, resourceName);
-    }
-
     public String getStateStyleClass(UIComponent component, InplaceState inplaceState) {
         InplaceComponent inplaceComponent = (InplaceComponent) component;
         String style = getReadyStateCss(inplaceComponent);

@@ -285,4 +285,8 @@ public abstract class RendererBase extends Renderer {
     public String concatStyles(Object... objects) {
         return HtmlUtil.concatStyles(objects);
     }
+
+    public String getResourcePath(FacesContext context, String library, String resourceName) {
+        return RenderKitUtils.getResourcePath(context, library, resourceName);
+    }
 }
