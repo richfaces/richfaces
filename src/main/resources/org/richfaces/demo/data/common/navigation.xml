@@ -60,11 +60,11 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo new="true" enabled="#{pushConfiguration.pushEnabled}">
                 <id>push</id>
                 <name>a4j:push</name>
                 <samples>
-                    <sample>
+                    <sample enabled="#{pushConfiguration.jmsEnabled}">
                         <id>pushJms</id>
                         <name>JMS Push</name>
                     </sample>

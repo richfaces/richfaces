@@ -55,11 +55,24 @@ public class JMSInitializer extends AbstractCapabilityInitializer {
      * @see org.richfaces.demo.push.Initializer#initialize()
      */
     public void initializeCapability() throws Exception {
+        initializeJMS();
+    }
+
+    @Override
+    public boolean isCapabilityEnabled() {
+        return isJmsEnabled();
+    }
+
+    private void initializeJMS() throws Exception {
         provider = initializeCurrentProvider();
 
         provider.createTopic(PUSH_JMS_TOPIC, "/topic/" + PUSH_JMS_TOPIC);
         provider.createTopic(PUSH_TOPICS_CONTEXT_TOPIC, "/topic/" + PUSH_TOPICS_CONTEXT_TOPIC);
         provider.createTopic(PUSH_CDI_TOPIC, "/topic/" + PUSH_CDI_TOPIC);
+    }
+
+    protected static boolean isJmsEnabled() {
+        return isConnectionFactoryRegistered();
     }
 
     /*
@@ -68,7 +81,9 @@ public class JMSInitializer extends AbstractCapabilityInitializer {
      * @see org.richfaces.demo.push.Initializer#unload()
      */
     public void finalizeCapability() throws Exception {
-        provider.finalizeProvider();
+        if (provider != null) {
+            provider.finalizeProvider();
+        }
     }
 
     /**
@@ -110,7 +125,7 @@ public class JMSInitializer extends AbstractCapabilityInitializer {
      *
      * @return true if ConnectionFactory is already registered
      */
-    private boolean isConnectionFactoryRegistered() {
+    private static boolean isConnectionFactoryRegistered() {
         try {
             return null != InitialContext.doLookup("java:/ConnectionFactory");
         } catch (NamingException e) {

@@ -2,8 +2,13 @@ package org.richfaces.demo.common.navigation;
 
 import java.io.Serializable;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+
+import com.sun.faces.el.ELUtils;
 
 public class BaseDescriptor implements Serializable {
     private static final long serialVersionUID = 5614594358147757458L;
@@ -11,6 +16,7 @@ public class BaseDescriptor implements Serializable {
     private String name;
     private boolean newItem;
     private boolean currentItem;
+    private String enabled;
 
     @XmlElement
     public String getName() {
@@ -28,6 +34,28 @@ public class BaseDescriptor implements Serializable {
 
     public void setNewItem(boolean newItem) {
         this.newItem = newItem;
+    }
+
+    @XmlAttribute(name = "enabled")
+    public String getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(String enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isEnabled(FacesContext facesContext) {
+        if (enabled == null) {
+            return true;
+        }
+        ELContext elContext = facesContext.getELContext();
+        ValueExpression enabledVE = ELUtils.createValueExpression(enabled);
+        try {
+            return (Boolean) ELUtils.evaluateValueExpression(enabledVE, elContext);
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     public boolean isCurrentItem() {

@@ -65,7 +65,9 @@ public class TopicsInitializer extends AbstractCapabilityInitializer {
             super(new Runnable() {
 
                 public void run() {
-                    waitForJmsTopicReady();
+                    if (JMSInitializer.isJmsEnabled()) {
+                        waitForJmsTopicReady();
+                    }
 
                     TopicsContext topicsContext = TopicsContext.lookup();
                     Topic pushJmsTopic = topicsContext.getOrCreateTopic(new TopicKey(topicName));
