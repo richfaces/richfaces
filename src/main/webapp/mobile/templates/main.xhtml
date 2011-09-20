@@ -38,9 +38,10 @@
            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
            })();
 
-            var FOCUS_PAGE = getElement('home-page');
+            var FOCUS_PAGE;
 
             function slideTo(id) {
+
                 var class_transition = 'page transition';
                 var class_stageCenter = class_transition + 'stage-center';
                 var class_stageLeft = class_transition + 'stage-center';
@@ -145,7 +146,8 @@
             }
         </style>
     </h:head>
-    <h:body onload="hideURLbar()">
+    <h:body onload="hideURLbar();slideTo('home-page')">
+       <h:form>
 
         <div id="browser">
             <header>
@@ -157,17 +159,17 @@
                 </div>
             </header>
             <div id="page-container">
-                <div id="home-page" class="page">
+                <div id="home-page" class="page stage-left">
                     <nav>
                         <div class="nav-list">
-                             <h:form>
-                            <rich:panelMenu activeItem="#{demoNavigator.currentDemo.id}" data-type="mobile">
+
+                             <rich:panelMenu activeItem="#{demoNavigator.currentDemo.id}">
                                 <c:forEach items="#{demoNavigator.groups}" var="gr">
                                     <rich:panelMenuGroup label="#{gr.name}" rightExpandedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}"
                                         rightCollapsedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}">
                                         <c:forEach items="#{gr.demos}" var="d">
-                                            <rich:panelMenuItem label="#{d.name}" oncomplete="slideTo('component-page')"  render="include-panel"
-                                                                rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}">
+                                            <rich:panelMenuItem label="#{d.name}" oncomplete="slideTo('component-page')" render="@form"
+                                                                 rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}">
                                                     <f:param name="demo" value="#{d.id}"/>
                                                     <f:param name="sample" value="#{demoNavigator.currentSample.id}"/>
                                             </rich:panelMenuItem>
@@ -175,12 +177,13 @@
                                     </rich:panelMenuGroup>
                                 </c:forEach>
                             </rich:panelMenu>
-                            </h:form>
+
                         </div>
                     </nav>
                 </div>
 
                 <div id="component-page" class="page stage-right">
+
                         <div>
                                 <h:outputStylesheet>
                                     .navigation .rf-tab-hdr-brd,.navigation .rf-tab {
@@ -188,17 +191,18 @@
                                     }
                                 </h:outputStylesheet>
                             <div>
-                                <a4j:outputPanel id="include-panel" >
+
                                 <fieldset class="example-cnt">
                                     <ui:include src="#{demoNavigator.sampleURI}" />
                                 </fieldset>
-                                </a4j:outputPanel>
+
                              </div>
                         </div>
+
                 </div>
             </div>
         </div>
-
+       </h:form>
     </h:body>
 </f:view>
 
