@@ -149,7 +149,172 @@
         </style>
     </h:head>
     <h:body onload="hideURLbar();slideTo('home-page')">
-       <h:form>
+        <div style="display:none;visibility: hidden">
+        <h:form>
+        <rich:accordion switchType="client">
+            <rich:accordionItem header="Overview:">
+                test
+            </rich:accordionItem>
+        </rich:accordion>
+         <a4j:queue requestDelay="2000" />
+         <rich:autocomplete mode="client" minChars="0" autofill="false" clientFilterFunction="customFilter"
+            autocompleteMethod="#{autocompleteBean.autocomplete}" />
+         <rich:calendar/>
+            <h:inputText id="name">
+                <rich:validator />
+            </h:inputText>
+          <rich:collapsiblePanel header="Overview" switchType="client">
+            test
+        </rich:collapsiblePanel>
+            <a4j:commandButton value="Say Hello" render="out" execute="@form" />
+            <a4j:commandLink value="Say Hello" render="out" execute="@form" />
+            <rich:dataGrid var="car" columns="3" elements="9" width="600px" border="0">
+                <rich:panel bodyClass="pbody">
+                    <f:facet name="header">
+                        test
+                    </f:facet>
+                    <h:panelGrid columns="2">
+                        test
+                    </h:panelGrid>
+                </rich:panel>
+                <f:facet name="footer">
+                    <rich:dataScroller />
+                </f:facet>
+            </rich:dataGrid>
+            <rich:dataTable value="#{carsBean.allInventoryItems}" var="car" id="table" rows="20">
+                <rich:column id="vendor" filterValue="#{carsFilteringBean.vendorFilter}"
+                    filterExpression="#{carsFilteringBean.vendorFilter == '' or carsFilteringBean.vendorFilter == null or carsFilteringBean.vendorFilter == car.vendor}">
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText value="Vendor" />
+                        </h:panelGroup>
+                    </f:facet>
+                    <h:outputText value="#{car.vendor}" />
+                </rich:column>
+            </rich:dataTable>
+            <rich:dataScroller for="table" maxPages="5" />
+            </h:form>
+
+            <h:form>
+            <rich:dropTarget acceptedTypes="php" dropValue="PHP" dropListener="#{dragDropEventBean.processDrop}"
+                    render="phptable, src" />
+            <rich:dropDownMenu style="border:1px solid #{a4jSkin.panelBorderColor}" label="Option1" mode="client"
+            jointPoint="topRight" direction="bottomRight">
+                <rich:menuItem label="test" />
+            </rich:dropDownMenu>
+            <rich:extendedDataTable>
+            </rich:extendedDataTable>
+            <rich:fileUpload fileUploadListener="#{fileUploadBean.listener}" id="upload" acceptedTypes="jpg, gif, png, bmp">
+                <a4j:ajax event="uploadcomplete" execute="@none" render="info" />
+            </rich:fileUpload>
+            <rich:graphValidator value="#{passwordValidationBean}" id="gv">
+            <rich:panel header="Change password" style="width:500px">
+                <rich:messages for="gv" />
+                <rich:messages globalOnly="true" />
+                <h:panelGrid columns="3">
+                    <h:outputText value="Enter new password:" />
+                    <h:inputSecret value="#{passwordValidationBean.password}" id="pass" />
+                    <rich:message for="pass" />
+                    <h:outputText value="Confirm the new password:" />
+                    <h:inputSecret value="#{passwordValidationBean.confirm}" id="conf" />
+                    <rich:message for="conf" />
+                </h:panelGrid>
+                <a4j:commandButton value="Store changes" action="#{passwordValidationBean.storeNewPassword}" />
+            </rich:panel>
+            </rich:graphValidator>
+            <rich:inplaceInput defaultLabel="click to enter your name" />
+            <rich:inplaceSelect defaultLabel="Click here to edit" openOnEdit="true">
+                <f:selectItem itemValue="0" itemLabel="Option 1" />
+            </rich:inplaceSelect>
+            <rich:inputNumberSlider value="50" />
+             <rich:inputNumberSpinner value="50" />
+            <rich:list value="#{carsBean.inventoryVendorLists}" id="list" var="vendorList" type="#{listBean.listType}">
+                <f:facet name="term">
+                    <h:panelGroup layout="block">
+                        <h:outputText value="In stock: #{vendorList.count}" style="font-weight:bold" />
+                    </h:panelGroup>
+                </f:facet>
+                <h:outputText value="#{vendorList.vendor}" />
+            </rich:list>
+            <rich:panelMenu style="width:200px" itemMode="ajax" groupMode="ajax" groupExpandedLeftIcon="triangleUp"
+                groupCollapsedLeftIcon="triangleDown" topGroupExpandedRightIcon="chevronUp"
+                topGroupCollapsedRightIcon="chevronDown" itemLeftIcon="disc" itemChangeListener="#{panelMenuBean.updateCurrent}">
+                <rich:panelMenuGroup label="Group 1">
+                    <rich:panelMenuItem label="Item 1.1" name="Item_1_1" />
+                    <rich:panelMenuItem label="Item 1.2" name="Item_1_2" />
+                    <rich:panelMenuItem label="Item 1.3" name="Item_1_3" />
+                </rich:panelMenuGroup>
+            </rich:panelMenu>
+            <a4j:poll id="poll" interval="2000"  />
+            <rich:popupPanel id="popup" modal="false" autosized="true" resizeable="false">test</rich:popupPanel>
+            <rich:progressBar mode="client" id="progressBar" value="-1">test</rich:progressBar>
+            <a4j:push id="pushJms" address="pushJms"
+            ondataavailable="jQuery(#{rich:element('serverDate')}).text(event.rf.data)" />
+            <rich:select enableManualInput="true" defaultLabel="start typing for select">
+                <f:selectItems value="#{inplaceSelectBean.capitalsOptions}" />
+            </rich:select>
+            <a4j:status>
+                <f:facet name="start">
+                    <h:graphicImage value="/images/ai.gif" alt="ai" />
+                </f:facet>
+            </a4j:status>
+            <rich:dataTable value="#{carsBean.inventoryVendorLists}" var="list">
+            <f:facet name="header">
+                <rich:columnGroup>
+                    <rich:column colspan="6">
+                        <h:outputText value="Cars marketplace" />
+                    </rich:column>
+                    <rich:column breakRowBefore="true">
+                        <h:outputText value="Model" />
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="Price" />
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="Mileage" />
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="VIN Code" />
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="Items stock" />
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="Days Live" />
+                    </rich:column>
+                </rich:columnGroup>
+            </f:facet>
+            <rich:column colspan="6">
+                <rich:collapsibleSubTableToggler for="sbtbl" />
+                <h:outputText value="#{list.vendor}" />
+            </rich:column>
+            <rich:collapsibleSubTable value="#{list.vendorItems}" var="item" id="sbtbl" expandMode="client">
+                <rich:column>
+                    <h:outputText value="#{item.daysLive}" />
+                </rich:column>
+            </rich:collapsibleSubTable>
+        </rich:dataTable>
+        <rich:tabPanel switchType="client">
+        <rich:tab header="Overview">
+            test
+        </rich:tab>
+        </rich:tabPanel>
+
+        <rich:toolbar height="26" itemSeparator="grid">
+            <rich:toolbarGroup>
+                test
+            </rich:toolbarGroup>
+        </rich:toolbar>
+        <rich:tree>
+            <rich:treeNode type="country">
+                test
+            </rich:treeNode>
+        </rich:tree>
+        </h:form>
+         </div>
+
+
+        <h:form>
 
         <div id="browser">
             <header>
@@ -206,6 +371,8 @@
                 </div>
             </div>
         </div>
+
+
        </h:form>
     </h:body>
 </f:view>
