@@ -20,13 +20,13 @@
         <h:outputStylesheet library="css" name="mobile/base.css" />
         <h:outputStylesheet library="css" name="mobile/brand.css" />
         <h:outputStylesheet library="css" name="mobile/global.css" />
-        <h:outputStylesheet library="css" name="mobile/mobile.css" />
+
         <script type="text/javascript">
 
-            function hideURLbar()
-            {
-               setTimeout(scrollTo, 0, 0, 1);
-            }
+           function hideURLbar()
+           {
+              setTimeout(scrollTo, 0, 0, 1);
+           }
 
            var _gaq = _gaq || [];
            _gaq.push(['_setAccount', 'UA-7306415-4']);
@@ -40,134 +40,165 @@
 
             var FOCUS_PAGE = getElement('home-page');
 
-    function hideURLbar() {
-        setTimeout(scrollTo, 0, 0, 1);
-    }
+            function slideTo(id) {
+                var class_transition = 'page transition';
+                var class_stageCenter = class_transition + 'stage-center';
+                var class_stageLeft = class_transition + 'stage-center';
+                var class_stageRight = class_transition + 'stage-center';
 
-    function slideTo(id) {
+                //1.)the page we are bringing into focus dictates how
+                // the current page will exit. So let's see what classes
+                // our incoming page is using. We know it will have stage[right|left|etc...]
+                var classes = getElement(id).className.split(' ');
 
-        var class_transition = 'page transition';
-        var class_stageCenter = class_transition + 'stage-center';
-        var class_stageLeft = class_transition + 'stage-center';
-        var class_stageRight = class_transition + 'stage-center';
+                //2.)decide if the incoming page is assigned to right or left
+                // (-1 if no match)
+                var stageType = classes.indexOf('stage-left');
 
-        //1.)the page we are bringing into focus dictates how
-        // the current page will exit. So let's see what classes
-        // our incoming page is using. We know it will have stage[right|left|etc...]
-        var classes = getElement(id).className.split(' ');
+                //3.) on initial page load focusPage is null, so we need
+                // to set the default page which we're currently seeing.
+                if (FOCUS_PAGE == null) {
+                    //use home page
+                    FOCUS_PAGE = getElement('home-page');
+                }
 
-        //2.)decide if the incoming page is assigned to right or left
-        // (-1 if no match)
-        var stageType = classes.indexOf('stage-left');
+                //4.) decide how this focused page should exit.
+                if (stageType > 0) {
+                    FOCUS_PAGE.className = 'page transition stage-right';
+                } else {
+                    FOCUS_PAGE.className = 'page transition stage-left';
+                }
 
-        //3.) on initial page load focusPage is null, so we need
-        // to set the default page which we're currently seeing.
-        if (FOCUS_PAGE == null) {
-            //use home page
-            FOCUS_PAGE = getElement('home-page');
-        }
+                //5. refresh/set the global variable
+                FOCUS_PAGE = getElement(id);
 
-        //4.) decide how this focused page should exit.
-        if (stageType > 0) {
-            FOCUS_PAGE.className = 'page transition stage-right';
-        } else {
-            FOCUS_PAGE.className = 'page transition stage-left';
-        }
+                //6. Bring in the new page.
+                FOCUS_PAGE.className = 'page transition stage-center';
 
-        //5. refresh/set the global variable
-        FOCUS_PAGE = getElement(id);
+            }
 
-        //6. Bring in the new page.
-        FOCUS_PAGE.className = 'page transition stage-center';
+            function flip(id) {
+                //get a handle on the flippable region
+                var front = getElement('front');
+                var back = getElement('back');
 
-    }
+                //again, just a simple way to see what the state is
+                var classes = front.className.split(' ');
+                var flipped = classes.indexOf('flipped');
 
-    function flip(id) {
-        //get a handle on the flippable region
-        var front = getElement('front');
-        var back = getElement('back');
+                if (flipped >= 0) {
+                    //already flipped, so return to original
+                    front.className = 'normal';
+                    back.className = 'flipped';
+                } else {
+                    //do the flip
+                    front.className = 'flipped';
+                    back.className = 'normal';
 
-        //again, just a simple way to see what the state is
-        var classes = front.className.split(' ');
-        var flipped = classes.indexOf('flipped');
+                }
+            }
 
-        if (flipped >= 0) {
-            //already flipped, so return to original
-            front.className = 'normal';
-            back.className = 'flipped';
-        } else {
-            //do the flip
-            front.className = 'flipped';
-            back.className = 'normal';
-
-        }
-    }
-
-    function getElement(id) {
-        return document.getElementById(id)
-    }
+            function getElement(id) {
+                return document.getElementById(id)
+            }
 
         </script>
+        <style type="text/css">
+            /*Buttons and bars*/
+            .left-header-button {
+               font-weight: bold;
+               font-size: 12px;
+               color: #fff;
+               text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
+               text-align: center;
+               text-overflow: ellipsis;
+               height: 30px;
+               width: 60px;
+               position: absolute;
+               top: 7px;
+               left: 5px;
+               line-height: 30px;
+            }
 
+            .right-header-button {
+               font-weight: bold;
+               font-size: 12px;
+               color: #fff;
+               text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
+               text-align: center;
+               text-overflow: ellipsis;
+               height: 30px;
+               width: 60px;
+               position: absolute;
+               top: 7px;
+               right: 5px;
+               line-height: 30px;
+            }
+
+            .basic-button {
+               background: #000 -moz-linear-gradient(90deg, rgba(0, 0, 0, .3) 33%, rgba(255, 255, 255, .1) 123%);
+               background: #000 -webkit-gradient(linear, left top, left bottom, from(#717172), to(#0f0f10), color-stop(0.5, #3a3a3a), color-stop(0.5, #0d0d0f));
+               border-radius: 7px;
+               mozborder-radius: 7px;
+               webkitborder-radius: 7px;
+               border: none;
+            }
+        </style>
     </h:head>
     <h:body onload="hideURLbar()">
-        <h:form>
+
         <div id="browser">
             <header>
                 <div>
-                   <a href="#{facesContext.externalContext.requestContextPath}/index.jsp" class="logo">
+                   <div id="back-button" class="basic-button left-header-button" onclick="slideTo('home-page')">Back</div>
+                   <a href="#{facesContext.externalContext.requestContextPath}/index.jsp">
                        <img src="#{facesContext.externalContext.requestContextPath}/images/mobile/rf-logo-small.png" alt="RF logo" class="logo"/>
                    </a>
                 </div>
             </header>
-            <div id="home-page" class="page">
-                <nav>
-                    <div class="nav-list">
-                        <rich:panelMenu activeItem="#{demoNavigator.currentDemo.id}" data-type="mobile">
-                            <c:forEach items="#{demoNavigator.groups}" var="gr">
-                                <rich:panelMenuGroup label="#{gr.name}" rightExpandedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}"
-                                    rightCollapsedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}">
-                                    <c:forEach items="#{gr.demos}" var="d">
-                                        <rich:panelMenuItem label="#{d.name}"  mode="ajax" onclick="slideTo('component-page')"
-                                                            rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}">
-                                            <a4j:ajax render="component">
-                                                <f:param name="demo" value="#{d.id}"/>
-                                                <f:param name="sample" value="#{demoNavigator.currentSample.id}"/>
-                                            </a4j:ajax>
-                                    </rich:panelMenuItem>
-                                    </c:forEach>
-                                </rich:panelMenuGroup>
-                            </c:forEach>
-                        </rich:panelMenu>
-                    </div>
-                </nav>
-            </div>
+            <div id="page-container">
+                <div id="home-page" class="page">
+                    <nav>
+                        <div class="nav-list">
+                             <h:form>
+                            <rich:panelMenu activeItem="#{demoNavigator.currentDemo.id}" data-type="mobile">
+                                <c:forEach items="#{demoNavigator.groups}" var="gr">
+                                    <rich:panelMenuGroup label="#{gr.name}" rightExpandedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}"
+                                        rightCollapsedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}">
+                                        <c:forEach items="#{gr.demos}" var="d">
+                                            <rich:panelMenuItem label="#{d.name}" oncomplete="slideTo('component-page')"  render="include-panel"
+                                                                rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}">
+                                                    <f:param name="demo" value="#{d.id}"/>
+                                                    <f:param name="sample" value="#{demoNavigator.currentSample.id}"/>
+                                            </rich:panelMenuItem>
+                                        </c:forEach>
+                                    </rich:panelMenuGroup>
+                                </c:forEach>
+                            </rich:panelMenu>
+                            </h:form>
+                        </div>
+                    </nav>
+                </div>
 
-            <div id="component-page" class="page stage-right">
-
-                <a4j:outputPanel id="component" ajaxRendered="true" rendered="#{demoNavigator.demo ne null and demoNavigator.sample ne null}">
-
-                    <div>
-                            <h:outputStylesheet>
-                                .navigation .rf-tab-hdr-brd,.navigation .rf-tab {
-                                display: none;
-                                }
-                            </h:outputStylesheet>
+                <div id="component-page" class="page stage-right">
                         <div>
-
-                            <fieldset class="example-cnt">
-                                <ui:include src="#{demoNavigator.sampleURI}" />
-                            </fieldset>
-                         </div>
-                    </div>
-
-                </a4j:outputPanel>
-
-
+                                <h:outputStylesheet>
+                                    .navigation .rf-tab-hdr-brd,.navigation .rf-tab {
+                                    display: none;
+                                    }
+                                </h:outputStylesheet>
+                            <div>
+                                <a4j:outputPanel id="include-panel" >
+                                <fieldset class="example-cnt">
+                                    <ui:include src="#{demoNavigator.sampleURI}" />
+                                </fieldset>
+                                </a4j:outputPanel>
+                             </div>
+                        </div>
+                </div>
             </div>
-
         </div>
-        </h:form>
+
     </h:body>
 </f:view>
 

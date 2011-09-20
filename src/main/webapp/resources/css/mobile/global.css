@@ -31,7 +31,6 @@ body {
     padding: 0;
     height: 100%;
     font: 80% / 1.5em "Helvetica", "Lucida Sans", Verdana, Arial, sans-serif;
-    background: #94aebc url('#{facesContext.externalContext.requestContextPath}/images/body-bg.jpg') left top repeat;
 }
 
 a {
@@ -43,17 +42,19 @@ Mobile Device Page Setup
 *************************************************/
 
 #browser {
-    background: #000 -moz-linear-gradient(top, #0e0e0e, #313131);
-    background: #000 -webkit-gradient(linear, left top, left bottom, from(#0e0e0e), to(#313131));
+    /*background: #000 -moz-linear-gradient(top, #0e0e0e, #313131);*/
+    /*background: #000 -webkit-gradient(linear, left top, left bottom, from(#0e0e0e), to(#313131));*/
     position: relative;
     width: 100%;
     height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+
 }
 
 #page-container {
-
+    position:absolute;
+    top: 44px;
+    width:100%;
+    height: 100%;
 }
 
 .page {
@@ -119,6 +120,7 @@ Flip Transition
 Device Specific Styles
 *************************************************/
 
+
 /* iOS/android phone landscape screen width*/
 @media screen and (max-device-width: 480px) and (orientation:landscape) {
     .stage-left {
@@ -164,7 +166,6 @@ Device Specific Styles
 
     }
 }
-
 /*************************************************
 Page Formatting - Skin
 *************************************************/
@@ -176,18 +177,15 @@ div#browser > header > div {
    font-weight: bold;
    color: #fff;
    text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
-   text-align: left;
+   text-align: center;
    line-height: 47px;
-   -webkit-user-select: none;
    background: #1d2f3d -moz-linear-gradient(90deg, #1d2f3d 33%, #375c79 123%);
    background: #1d2f3d -webkit-gradient(linear, left top, left bottom, from(#375c79), to(#1d2f3d));
    border: none;
 }
 
 body > header > div img.logo {
-    position: absolute;
-    top: 0;
-    left: 5px;
+    margin: 0 auto;
 }
 
  .rf-pm-top-gr-sel, .rf-pm-top-gr-gr, .rf-pm-hdr-colps {
