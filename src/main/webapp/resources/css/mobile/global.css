@@ -120,7 +120,6 @@ Flip Transition
 Device Specific Styles
 *************************************************/
 
-
 /* iOS/android phone landscape screen width*/
 @media screen and (max-device-width: 480px) and (orientation:landscape) {
     .stage-left {
@@ -166,6 +165,7 @@ Device Specific Styles
 
     }
 }
+
 /*************************************************
 Page Formatting - Skin
 *************************************************/
@@ -282,7 +282,11 @@ nav .rf-pm-exp .rf-pm-itm-ico {
 }
 
 /*************************************************
+<<<<<<< HEAD
 RichFaces tabPanel styles overwriting
+=======
+RichFaces tablePanel styles overwriting
+>>>>>>> 70289ed91e54d5469c419e5a210e8cf6152240d3
 *************************************************/
 nav .rf-tab-hdr-tabline-vis {
     background: #ebf6fd;

@@ -23,10 +23,11 @@
 
         <script type="text/javascript">
 
-           function hideURLbar()
-           {
-              setTimeout(scrollTo, 0, 0, 1);
-           }
+            function hideURLbar()
+            {
+               setTimeout(scrollTo, 0, 0, 1);
+            }
+
 
            var _gaq = _gaq || [];
            _gaq.push(['_setAccount', 'UA-7306415-4']);
@@ -37,6 +38,7 @@
            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
            })();
+
 
             var FOCUS_PAGE;
 
@@ -154,10 +156,12 @@
                 <div>
                    <div id="back-button" class="basic-button left-header-button" onclick="slideTo('home-page')">Back</div>
                    <a href="#{facesContext.externalContext.requestContextPath}/index.jsp">
+
                        <img src="#{facesContext.externalContext.requestContextPath}/images/mobile/rf-logo-small.png" alt="RF logo" class="logo"/>
                    </a>
                 </div>
             </header>
+
             <div id="page-container">
                 <div id="home-page" class="page stage-left">
                     <nav>
@@ -168,6 +172,7 @@
                                     <rich:panelMenuGroup label="#{gr.name}" rightExpandedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}"
                                         rightCollapsedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}">
                                         <c:forEach items="#{gr.demos}" var="d">
+
                                             <rich:panelMenuItem label="#{d.name}" oncomplete="slideTo('component-page')" render="@form"
                                                                  rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}">
                                                     <f:param name="demo" value="#{d.id}"/>
@@ -177,7 +182,6 @@
                                     </rich:panelMenuGroup>
                                 </c:forEach>
                             </rich:panelMenu>
-
                         </div>
                     </nav>
                 </div>
