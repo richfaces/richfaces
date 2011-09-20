@@ -158,7 +158,7 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
                 validatorScript = new AjaxOnlyScript(createAjaxScript(behaviorContext, behavior));
             }
             String clientId = getComponentClientId(behaviorContext);
-            String name = ScriptUtils.getValidJavascriptName(clientId + ":v");
+            String name = ScriptUtils.getValidJavascriptName(validatorScript.toScript());
             validatorScript.setName(name);
             return validatorScript;
         } else {

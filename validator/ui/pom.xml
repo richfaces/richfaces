@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.1.0.20110805-M1</version>
+        <version>4.1.0.20110910-M2</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -126,7 +126,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.test-jsf</groupId>
-            <artifactId>jsf-test-qunit</artifactId>
+            <artifactId>jsf-test-scriptunit</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

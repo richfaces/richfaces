@@ -8,9 +8,10 @@
         this.getInput().bind("click", $.proxy(this.__clickHandler, this));
         mergedOptions['attachTo'] = id;
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
+        mergedOptions['focusKeeperEnabled'] = false;
         this.popupList = new rf.ui.PopupList(id + "List", this, mergedOptions);
         this.list = this.popupList.__getList();
-        this.items = mergedOptions.items;
+        this.clientSelectItems = mergedOptions.clientSelectItems;
         this.selValueInput = $(document.getElementById(id + "selValue"));
         this.initialValue = this.selValueInput.val();
         this.listHandler = $(document.getElementById(id + "List"));
@@ -87,10 +88,11 @@
                 var item = this.list.currentSelectItem();
                 if (item) {
                     var index = this.list.getSelectedItemIndex();
-                    if (this.list.getItemByIndex(index).label == this.__getValue()) {
+                    var clientSelectItem = this.list.getClientSelectItemByIndex(index);
+                    var label = clientSelectItem.label;
+                    if (label == this.__getValue()) {
                         this.savedIndex = index;
-                        var value = this.getItemValue(item);
-                        this.saveItemValue(value);
+                        this.saveItemValue(clientSelectItem.value);
                         this.list.__selectByIndex(this.savedIndex);
                     } else {
                         this.list.__selectItemByValue(this.getValue());
@@ -98,9 +100,8 @@
                 }
             },
             oncancel: function() {
-                var prevItem = this.list.getItemByIndex(this.savedIndex);
-                if (prevItem) {
-                    var value = this.getItemValue(prevItem);
+                var value = this.list.getClientSelectItemByIndex(this.savedIndex).value;
+                if (value) {
                     this.saveItemValue(value);
                     this.list.__selectByIndex(this.savedIndex);
                 } else {
@@ -120,7 +121,7 @@
                 }
             },
             processItem: function(item) {
-                var label = this.getItemLabel(item);
+                var label = $(item).data('clientSelectItem').label;
                 this.__setValue(label);
 
                 this.__setInputFocus();
@@ -132,26 +133,9 @@
 
                 this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
             },
-            findItemObject: function(item) {
-                var key = $(item).attr("id");
-                var itemObject;
-                $.each(this.items, function() {
-                    if (this.id == key) {
-                        itemObject = this;
-                        return false;
-                    }
-                });
-                return itemObject;
-            },
-            getItemValue: function(item) {
-                return this.findItemObject(item).value;
-            },
             saveItemValue: function(value) {
                 this.selValueInput.val(value);
 
-            },
-            getItemLabel: function(item) {
-                return this.findItemObject(item).label;
             },
             __isValueChanged: function() {
                 return (this.focusValue != this.selValueInput.val());
@@ -230,7 +214,8 @@
             },
             setValue: function(value) {
                 var item = this.list.__selectItemByValue();
-                this.__setValue(item.label);
+                var clientSelectItem = item.data('clientSelectItem');
+                this.__setValue(clientSelectItem.label);
                 this.save();
             },
             destroy: function() {

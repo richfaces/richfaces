@@ -1,6 +1,7 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -11,17 +12,14 @@ import org.richfaces.component.util.SelectItemsInterface;
  *
  */
 @JsfComponent(type = AbstractOrderingList.COMPONENT_TYPE, family = AbstractOrderingList.COMPONENT_FAMILY, generate = "org.richfaces.component.UIOrderingList", renderer = @JsfRenderer(type = "org.richfaces.OrderingListRenderer"), tag = @Tag(name = "orderingList"))
-public abstract class AbstractOrderingList extends AbstractSelectManyComponent implements SelectItemsInterface {
+public abstract class AbstractOrderingList extends AbstractOrderingComponent implements SelectItemsInterface {
     public static final String COMPONENT_TYPE = "org.richfaces.OrderingList";
     public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 
-    @Attribute()
+
     public Object getItemValues() {
         return getValue();
     }
-
-    @Attribute()
-    public abstract Object getVar();
 
     @Attribute()
     public abstract Object getItemValue();
@@ -29,19 +27,37 @@ public abstract class AbstractOrderingList extends AbstractSelectManyComponent i
     @Attribute()
     public abstract Object getItemLabel();
 
-    @Attribute(defaultValue = "true")
-    public abstract boolean isShowButton();
+    @Attribute()
+    public abstract String getVar();
 
-    @Attribute(defaultValue = "First")
-    public abstract String getUpTopText();
+    @Attribute(events = @EventName("listclick"))
+    public abstract String getOnlistclick();
 
-    @Attribute(defaultValue = "Up")
-    public abstract String getUpText();
+    @Attribute(events = @EventName("listdblclick"))
+    public abstract String getOnlistdblclick();
 
-    @Attribute(defaultValue = "Down")
-    public abstract String getDownText();
+    @Attribute(events = @EventName("listmousedown"))
+    public abstract String getOnlistmousedown();
 
-    @Attribute(defaultValue = "Last")
-    public abstract String getDownBottomText();
+    @Attribute(events = @EventName("listmouseup"))
+    public abstract String getOnlistmouseup();
+
+    @Attribute(events = @EventName("listmouseover"))
+    public abstract String getOnlistmouseover();
+
+    @Attribute(events = @EventName("listmousemove"))
+    public abstract String getOnlistmousemove();
+
+    @Attribute(events = @EventName("listmouseout"))
+    public abstract String getOnlistmouseout();
+
+    @Attribute(events = @EventName("listkeypress"))
+    public abstract String getOnlistkeypress();
+
+    @Attribute(events = @EventName("listkeydown"))
+    public abstract String getOnlistkeydown();
+
+    @Attribute(events = @EventName("listkeyup"))
+    public abstract String getOnlistkeyup();
 
 }

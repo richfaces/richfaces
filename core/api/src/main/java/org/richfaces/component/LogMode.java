@@ -28,7 +28,6 @@ package org.richfaces.component;
 public enum LogMode {
 
     popup,
-    inline,
-    console;
+    inline;
     public static final LogMode DEFAULT = inline;
 }

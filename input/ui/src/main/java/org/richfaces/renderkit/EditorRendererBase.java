@@ -21,8 +21,10 @@
  */
 package org.richfaces.renderkit;
 
+import javax.faces.application.Resource;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.context.FacesContext;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -45,5 +47,20 @@ public class EditorRendererBase extends InputRendererBase {
         } else {
             return dim;
         }
+    }
+
+    public String getCKEditorRequestPath(FacesContext facesContext) {
+        Resource resource = facesContext.getApplication().getResourceHandler()
+                .createResource("ckeditor.js", "org.richfaces.ckeditor");
+        return resource.getRequestPath();
+    }
+
+    public String getECSSQueryString(FacesContext facesContext, String resourceName) {
+        Resource resource = facesContext.getApplication().getResourceHandler()
+                .createResource(resourceName, "org.richfaces.ckeditor");
+        String requestPath = resource.getRequestPath();
+        String queryString = requestPath.substring(requestPath.lastIndexOf("db="));
+        String db = queryString.substring(0, queryString.indexOf('&'));
+        return "?" + db;
     }
 }

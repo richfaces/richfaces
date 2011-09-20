@@ -97,7 +97,7 @@
                 </span>
                 <script type="text/javascript">
                     <cdk:scriptObject name="options">
-                        <cdk:scriptOption name="items" value="#{clientSelectItems}" />
+                        <cdk:scriptOption name="clientSelectItems" value="#{clientSelectItems}" />
                         <cdk:scriptOption name="noneCss"
                             value="#{concatClasses('rf-is-none', component.attributes['noneStateClass'])}" />
                         <cdk:scriptOption name="changedCss"

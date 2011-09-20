@@ -6,3 +6,4 @@ test-output
 .clover
 .externalToolBuilders
 MANIFEST.MF
+dependency-reduced-pom.xml

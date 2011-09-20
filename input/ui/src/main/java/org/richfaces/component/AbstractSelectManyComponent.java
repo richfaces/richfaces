@@ -28,9 +28,12 @@ import org.richfaces.component.util.SelectItemsInterface;
 import org.richfaces.renderkit.SelectManyHelper;
 
 import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UISelectItems;
 import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
@@ -43,7 +46,7 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     }
 
     @Attribute()
-    public abstract String getColumnVar();
+    public abstract String getVar();
 
     @Attribute()
     public abstract String getListWidth();
@@ -56,9 +59,6 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
 
     @Attribute()
     public abstract String getMaxListHeight();
-
-    @Attribute
-    public abstract String getDefaultLabel();
 
     @Attribute
     public abstract String getStyle();
@@ -129,42 +129,6 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     @Attribute(events = @EventName("mouseup"))
     public abstract String getOnmouseup();
 
-    @Attribute(events = @EventName("listclick"))
-    public abstract String getOnlistclick();
-
-    @Attribute(events = @EventName("listdblclick"))
-    public abstract String getOnlistdblclick();
-
-    @Attribute(events = @EventName("listmousedown"))
-    public abstract String getOnlistmousedown();
-
-    @Attribute(events = @EventName("listmouseup"))
-    public abstract String getOnlistmouseup();
-
-    @Attribute(events = @EventName("listmouseover"))
-    public abstract String getOnlistmouseover();
-
-    @Attribute(events = @EventName("listmousemove"))
-    public abstract String getOnlistmousemove();
-
-    @Attribute(events = @EventName("listmouseout"))
-    public abstract String getOnlistmouseout();
-
-    @Attribute(events = @EventName("listkeypress"))
-    public abstract String getOnlistkeypress();
-
-    @Attribute(events = @EventName("listkeydown"))
-    public abstract String getOnlistkeydown();
-
-    @Attribute(events = @EventName("listkeyup"))
-    public abstract String getOnlistkeyup();
-
-    @Attribute(events = @EventName("additems"))
-    public abstract String getOnadditem();
-
-    @Attribute(events = @EventName("removeitems"))
-    public abstract String getOnremoveitem();
-
     /**
      * Override the validateValue of SelectMany in cases where the component implements SelectItemsInterface
      *
@@ -174,9 +138,14 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     @Override
     protected void validateValue(FacesContext facesContext, Object value) {
         if (this instanceof SelectItemsInterface) {
-            SelectManyHelper.validateValue(facesContext, this, value);
-        } else {
-            super.validateValue(facesContext, value);
+            UISelectItems pseudoSelectItems = SelectManyHelper.getPseudoSelectItems((SelectItemsInterface) this);
+            if (pseudoSelectItems != null) {
+                this.getChildren().add(pseudoSelectItems);
+                super.validateValue(facesContext, value);
+                this.getChildren().remove(pseudoSelectItems);
+                return;
+            }
         }
+        super.validateValue(facesContext, value);
     }
 }

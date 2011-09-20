@@ -49,6 +49,7 @@ import java.util.Map;
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "list.js"),
+        @ResourceDependency(library = "org.richfaces", name = "listMulti.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "pickList.js"),
         @ResourceDependency(library = "org.richfaces", name = "pickList.ecss")})
@@ -182,9 +183,9 @@ public class SelectManyRendererBase extends InputRendererBase {
     public String getButtonClass(UIComponent component, String cssPrefix, String buttonClass) {
         AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
         if (!select.isDisabled()) {
-            return HtmlUtil.concatClasses(buttonClass, SelectManyHelper.BUTTON_CSS);
+            return HtmlUtil.concatClasses(buttonClass, cssPrefix + SelectManyHelper.BUTTON_CSS);
         } else {
-            return HtmlUtil.concatClasses(buttonClass, SelectManyHelper.BUTTON_CSS, SelectManyHelper.BUTTON_CSS_DIS);
+            return HtmlUtil.concatClasses(buttonClass, cssPrefix + SelectManyHelper.BUTTON_CSS, cssPrefix + SelectManyHelper.BUTTON_CSS_DIS);
 
         }
     }

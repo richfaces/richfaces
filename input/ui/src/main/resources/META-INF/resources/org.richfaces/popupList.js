@@ -6,8 +6,8 @@
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, id);
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
-
-        this.list = new rf.ui.List(id, listener, options);
+        mergedOptions['selectListener']=listener;
+        this.list = new rf.ui.List(id, mergedOptions);
     };
 
     rf.ui.Popup.extend(rf.ui.PopupList);
@@ -34,7 +34,6 @@
                 this.list = null;
                 $super.destroy.call(this);
             }
-
         }
     })());
 

@@ -25,13 +25,13 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.1.0.20110805-M1</version>
+        <version>4.1.0.20110910-M2</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-components-ui</artifactId>
-    <version>4.1.0.20110805-M1</version>
+    <version>4.1.0.20110910-M2</version>
     <packaging>jar</packaging>
     <name>Richfaces UI Components UI</name>
 
@@ -40,6 +40,23 @@
         <faces-vdl-documentation.version>1</faces-vdl-documentation.version>
         <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Repository Group</name>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!-- artifacts for aggregation -->

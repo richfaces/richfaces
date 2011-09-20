@@ -11,12 +11,12 @@ import org.richfaces.cdk.annotations.Tag;
  *
  */
 @JsfComponent(type = AbstractPickList.COMPONENT_TYPE, family = AbstractPickList.COMPONENT_FAMILY, generate = "org.richfaces.component.UIPickList", renderer = @JsfRenderer(type = "org.richfaces.PickListRenderer"), tag = @Tag(name = "pickList"))
-public abstract class AbstractPickList extends AbstractSelectManyComponent {
+public abstract class AbstractPickList extends AbstractOrderingComponent {
     public static final String COMPONENT_TYPE = "org.richfaces.PickList";
     public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 
-    @Attribute(defaultValue = "true")
-    public abstract boolean isShowButton();
+    @Attribute(defaultValue = "false")
+    public abstract boolean isOrderable();
 
     @Attribute
     public abstract String getSourceCaption();
@@ -24,16 +24,16 @@ public abstract class AbstractPickList extends AbstractSelectManyComponent {
     @Attribute
     public abstract String getTargetCaption();
 
-    @Attribute(defaultValue = ">> Add all")
+    @Attribute(defaultValue = "⇒ Add all")
     public abstract String getAddAllText();
 
-    @Attribute(defaultValue = "> Add")
+    @Attribute(defaultValue = "→ Add")
     public abstract String getAddText();
 
-    @Attribute(defaultValue = "< Remove")
+    @Attribute(defaultValue = "← Remove")
     public abstract String getRemoveText();
 
-    @Attribute(defaultValue = "<< Remove all")
+    @Attribute(defaultValue = "⇐ Remove all")
     public abstract String getRemoveAllText();
 
     // Source list attributes
@@ -67,6 +67,12 @@ public abstract class AbstractPickList extends AbstractSelectManyComponent {
     @Attribute(events = @EventName("sourcekeyup"))
     public abstract String getOnsourcekeyup();
 
+    @Attribute(events = @EventName("sourcefocus"))
+    public abstract String getOnsourcefocus();
+
+    @Attribute(events = @EventName("sourceblur"))
+    public abstract String getOnsourceblur();
+
     // Target list events
     @Attribute(events = @EventName("targetclick"))
     public abstract String getOntargetclick();
@@ -97,4 +103,17 @@ public abstract class AbstractPickList extends AbstractSelectManyComponent {
 
     @Attribute(events = @EventName("targetkeyup"))
     public abstract String getOntargetkeyup();
+
+    @Attribute(events = @EventName("targetfocus"))
+    public abstract String getOntargetfocus();
+
+    @Attribute(events = @EventName("targetblur"))
+    public abstract String getOntargetblur();
+
+    @Attribute(events = @EventName("additems"))
+    public abstract String getOnadditems();
+
+    @Attribute(events = @EventName("removeitems"))
+    public abstract String getOnremoveitems();
+
 }

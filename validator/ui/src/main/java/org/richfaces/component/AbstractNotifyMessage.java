@@ -21,44 +21,30 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIMessages;
+import javax.faces.component.UIMessage;
+import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxOutput;
-import org.richfaces.CornerPosition;
 import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.RendererSpecificComponent;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.renderkit.html.NotifyMessagesRenderer;
 
 /**
- * @author Bernard Labno
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-@JsfComponent(tag = @Tag(name = "notifyMessages", type = TagType.Facelets), renderer = @JsfRenderer(family = AbstractNotifyMessages.COMPONENT_FAMILY, type = NotifyMessagesRenderer.RENDERER_TYPE), attributes = { "ajax-props.xml" })
-public abstract class AbstractNotifyMessages extends UIMessages implements AjaxOutput, NotifyAttributes {
+@JsfComponent(generate = "org.richfaces.component.UINotifyMessage", type = "org.richfaces.NotifyMessage", components = @RendererSpecificComponent(tag = @Tag(name = "notifyMessage"), generate = "org.richfaces.component.html.HtmlNotifyMessage", attributes = {
+        "core-props.xml", "events-props.xml", "i18n-props.xml" }, renderer = @JsfRenderer(template = "notifyMessage.template.xml")))
+public abstract class AbstractNotifyMessage extends UIMessage implements AjaxOutput, ClientSideMessage, NotifyAttributes {
 
-    public static final String COMPONENT_FAMILY = "org.richfaces.Notify";
-    public static final String COMPONENT_TYPE = "org.richfaces.NotifyMessages";
-
-    @Attribute(description = @Description("Defines interval between displaying each particular notification; zero means that all messages will produce notifications immediately"))
-    public abstract Integer getInterval();
-
-    public abstract void setInterval(Integer interval);
-
-    @Attribute
+    @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();
-
-    public abstract void setAjaxRendered(boolean ajaxRendered);
 
     @Attribute
     public abstract boolean isKeepTransient();
 
-    public abstract void setKeepTransient(boolean ajaxRendered);
-
-    @Attribute(description = @Description("Defines the position of the messages"))
-    public abstract CornerPosition getPosition();
-
-    public abstract void setPosition(CornerPosition position);
+    public void updateMessages(FacesContext context, String clientId) {
+        // TODO: why this need to be implemented
+    }
 }

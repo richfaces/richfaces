@@ -5,13 +5,24 @@
     rf.ui.PickList = function(id, options) {
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
-        mergedOptions['scrollContainer'] = $(document.getElementById(id + "SourceItems")).parent()[0];
-        this.sourceList = new rf.ui.List(id+ "Source", this, mergedOptions);
-        mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems")).parent()[0];
+        this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
+        this.attachToDom();
+        mergedOptions['scrollContainer'] = $(document.getElementById(id + "SourceItems"));
+        this.sourceList = new rf.ui.ListMulti(id+ "SourceList", mergedOptions);
+        mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems"));
         this.selectItemCss = mergedOptions['selectItemCss'];
-        this.targetList = new rf.ui.List(id+ "Target", this, mergedOptions);
+        var hiddenId = id + "SelValue";
+        this.hiddenValues = $(document.getElementById(hiddenId));
+        mergedOptions['hiddenId'] = hiddenId;
+        this.orderable = mergedOptions['orderable'];
+
+        if (this.orderable) {
+            this.orderingList = new rf.ui.OrderingList(id+ "Target", mergedOptions);
+            this.targetList = this.orderingList.list;
+        } else {
+            this.targetList = new rf.ui.ListMulti(id+ "TargetList", mergedOptions);
+        }
         this.pickList = $(document.getElementById(id));
-        this.hiddenValues = $(document.getElementById(id + "SelValue"));
 
         this.addButton = $('.rf-pick-add', this.pickList);
         this.addButton.bind("click", $.proxy(this.add, this));
@@ -28,6 +39,10 @@
         }
         rf.Event.bind(this.targetList, "additems", $.proxy(this.toggleButtons, this));
 
+        this.focused = false;
+        this.keepingFocus = false;
+        bindFocusEventHandlers.call(this, mergedOptions);
+
         // Adding items to the source list happens after removing them from the target list
         if (mergedOptions['onremoveitems'] && typeof mergedOptions['onremoveitems'] == 'function') {
             rf.Event.bind(this.sourceList, "additems", mergedOptions['onremoveitems']);
@@ -38,6 +53,10 @@
         rf.Event.bind(this.sourceList, "unselectItem", $.proxy(this.toggleButtons, this));
         rf.Event.bind(this.targetList, "selectItem", $.proxy(this.toggleButtons, this));
         rf.Event.bind(this.targetList, "unselectItem", $.proxy(this.toggleButtons, this));
+
+        if (options['onchange'] && typeof options['onchange'] == 'function') {
+            rf.Event.bind(this, "change" + this.namespace, options['onchange']);
+        }
 
         // TODO: Is there a "Richfaces way" of executing a method after page load?
         $(document).ready($.proxy(this.toggleButtons, this));
@@ -51,8 +70,52 @@
         selectItemCss: "rf-pick-sel",
         listCss: "rf-pick-lst-cord",
         clickRequiredToSelect: true,
-        multipleSelect: true,
         disabled : false
+    };
+
+    var bindFocusEventHandlers = function (options) {
+        // source list
+        if (options['onsourcefocus'] && typeof options['onsourcefocus'] == 'function') {
+            rf.Event.bind(this.sourceList, "listfocus" + this.sourceList.namespace, options['onsourcefocus']);
+        }
+
+        if (options['onsourceblur'] && typeof options['onsourceblur'] == 'function') {
+            rf.Event.bind(this.sourceList, "listblur" + this.sourceList.namespace, options['onsourceblur']);
+        }
+
+        // target list
+        if (options['ontargetfocus'] && typeof options['ontargetfocus'] == 'function') {
+            rf.Event.bind(this.targetList, "listfocus" + this.targetList.namespace, options['ontargetfocus']);
+        }
+        if (options['ontargetblur'] && typeof options['ontargetblur'] == 'function') {
+            rf.Event.bind(this.targetList, "listblur" + this.targetList.namespace, options['ontargetblur']);
+        }
+
+        // pick list
+        if (options['onfocus'] && typeof options['onfocus'] == 'function') {
+            rf.Event.bind(this, "listfocus" + this.namespace, options['onfocus']);
+        }
+        if (options['onblur'] && typeof options['onblur'] == 'function') {
+            rf.Event.bind(this, "listblur" + this.namespace, options['onblur']);
+        }
+
+        var focusEventHandlers = {};
+        focusEventHandlers["listfocus" + this.sourceList.namespace] = $.proxy(this.__focusHandler, this);
+        focusEventHandlers["listblur" + this.sourceList.namespace] = $.proxy(this.__blurHandler, this);
+        rf.Event.bind(this.sourceList, focusEventHandlers, this);
+
+        focusEventHandlers = {};
+        focusEventHandlers["listfocus" + this.targetList.namespace] = $.proxy(this.__focusHandler, this);
+        focusEventHandlers["listblur" + this.targetList.namespace] = $.proxy(this.__blurHandler, this);
+        rf.Event.bind(this.targetList, focusEventHandlers, this);
+
+        focusEventHandlers = {};
+        focusEventHandlers["focus" + this.namespace] = $.proxy(this.__focusHandler, this);
+        focusEventHandlers["blur" + this.namespace] = $.proxy(this.__blurHandler, this);
+        rf.Event.bind(this.addButton, focusEventHandlers, this);
+        rf.Event.bind(this.addAllButton, focusEventHandlers, this);
+        rf.Event.bind(this.removeButton, focusEventHandlers, this);
+        rf.Event.bind(this.removeAllButton, focusEventHandlers, this);
     };
 
     $.extend(rf.ui.PickList.prototype, (function () {
@@ -69,44 +132,68 @@
             },
 
             __focusHandler: function(e) {
-                alert("focus");
+                this.keepingFocus = this.focused;
+                if (! this.focused) {
+                    this.focused = true;
+                    rf.Event.fire(this, "listfocus" + this.namespace, e);
+                    this.originalValue = this.targetList.csvEncodeValues();
+                }
             },
 
+            __blurHandler: function(e) {
+                var that = this;
+                this.timeoutId = window.setTimeout(function() {
+                    if (!that.keepingFocus) { // If no other pickList "sub" component has grabbed the focus during the timeout
+                        that.focused = false;
+                        rf.Event.fire(that, "listblur" + that.namespace, e);
+                        var newValue = that.targetList.csvEncodeValues();
+                        if (newValue != that.originalValue) {
+                            rf.Event.fire(that, "change" + that.namespace, e);
+                        }
+                    }
+                    that.keepingFocus = false;
+                }, 200);
+            },
+
+
             add: function() {
+                this.targetList.setFocus();
                 var items = this.sourceList.removeSelectedItems();
                 this.targetList.addItems(items);
                 this.encodeHiddenValues();
             },
 
             remove: function() {
+                this.sourceList.setFocus();
                 var items = this.targetList.removeSelectedItems();
                 this.sourceList.addItems(items);
                 this.encodeHiddenValues();
             },
 
             addAll: function() {
+                this.targetList.setFocus();
                 var items = this.sourceList.removeAllItems();
                 this.targetList.addItems(items);
                 this.encodeHiddenValues();
             },
 
             removeAll: function() {
+                this.sourceList.setFocus();
                 var items = this.targetList.removeAllItems();
                 this.sourceList.addItems(items);
                 this.encodeHiddenValues();
             },
 
             encodeHiddenValues: function() {
-                var encoded = new Array();
-                this.targetList.__getItems().each(function( index ) {
-                    encoded.push($(this).attr('value'));
-                });
-                this.hiddenValues.val(encoded.join(","));
+                this.hiddenValues.val(this.targetList.csvEncodeValues());
             },
 
             toggleButtons: function() {
                 this.__toggleButton(this.addButton, this.sourceList.__getItems());
                 this.__toggleButton(this.removeButton, this.targetList.__getItems());
+                if (this.orderable) {
+                    this.orderingList.toggleButtons();
+                }
             },
 
             __toggleButton: function(button, list) {

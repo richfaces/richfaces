@@ -7,7 +7,7 @@
         var mergedOptions = $.extend({}, defaultOptions, options);
         mergedOptions['attachTo'] = id;
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
-
+        mergedOptions['focusKeeperEnabled'] = false;
         $super.constructor.call(this, id, mergedOptions);
 
         this.options = mergedOptions;
@@ -16,7 +16,7 @@
         this.initialValue = (inputLabel != this.defaultLabel) ? inputLabel : "";
         this.selValueInput = $(document.getElementById(id + "selValue"));
         this.container = this.selValueInput.parent();
-        this.clientItems = mergedOptions.items;
+        this.clientSelectItems = mergedOptions.clientSelectItems;
 
 
         if (mergedOptions.showControl && !mergedOptions.disabled) {
@@ -33,14 +33,15 @@
         this.listElem.bind("mouseup", $.proxy(this.__onMouseUp, this));
 
         var listEventHandlers = {};
-        listEventHandlers["listshow" + this.namespace] = this.__listshowHandler;
-        listEventHandlers["listhide" + this.namespace] = this.__listhideHandler;
+        listEventHandlers["listshow" + this.namespace] = $.proxy(this.__listshowHandler, this);
+        listEventHandlers["listhide" + this.namespace] = $.proxy(this.__listhideHandler, this);
         rf.Event.bind(this.input, listEventHandlers, this);
 
+        this.originalItems = this.list.__getItems();
         this.enableManualInput = mergedOptions.enableManualInput;
 
-        if (this.list.length > 0 && this.enableManualInput) {
-            this.cache = new rf.utils.Cache("", this.list, getData, true);
+        if (this.originalItems.length > 0 && this.enableManualInput) {
+            this.cache = new rf.utils.Cache("", this.originalItems, getData, true);
         }
         this.changeDelay = mergedOptions.changeDelay;
     };
@@ -166,7 +167,7 @@
                 if (this.cache && this.cache.isCached(newValue)) {
                     this.__updateItems();
 
-                    if (this.items.length != 0) {
+                    if (this.list.__getItems().length != 0) {
                         this.container.removeClass("rf-sel-fld-err");
                     } else {
                         this.container.addClass("rf-sel-fld-err");
@@ -180,9 +181,12 @@
 
             __blurHandler: function(e) {
                 if (!this.isMouseDown) {
-                    this.timeoutId = window.setTimeout($.proxy(function() {
-                        this.onblur(e);
-                    }, this), 200);
+                    var that = this;
+                    this.timeoutId = window.setTimeout(function() {
+                        if (that.input !== null) {
+                            that.onblur(e);
+                        }
+                    }, 200);
                 } else {
                     this.__setInputFocus();
                     this.isMouseDown = false;
@@ -209,7 +213,7 @@
             },
 
             __updateItemsFromCache: function(value) {
-                if (this.list.length > 0 && this.enableManualInput) {
+                if (this.originalItems.length > 0 && this.enableManualInput) {
                     var newItems = this.cache.getItems(value);
                     var items = $(newItems);
                     this.list.__setItems(items);
@@ -224,7 +228,7 @@
                     var items = this.cache.getItems(inputLabel);
                     if (items && items.length > 0) {
                         var first = $(items[0]);
-                        $.each(this.clientItems, function() {
+                        $.each(this.clientSelectItems, function() {
                             if (this.id == first.attr("id")) {
                                 label = this.label;
                                 value = this.value;
@@ -236,7 +240,7 @@
 
                         var prevValue = this.selValueInput.val();
                         if (prevValue && prevValue != "") {
-                            $.each(this.clientItems, function() {
+                            $.each(this.clientSelectItems, function() {
                                 if (this.value == prevValue) {
                                     label = this.label;
                                     value = this.value
@@ -255,7 +259,7 @@
             __getClientItem: function(inputLabel) {
                 var value;
                 var label = inputLabel;
-                $.each(this.clientItems, function() {
+                $.each(this.clientSelectItems, function() {
                     if (label == this.label) {
                         value = this.value;
                     }
@@ -313,7 +317,7 @@
             processItem: function(item) {
                 var key = $(item).attr("id");
                 var label;
-                $.each(this.clientItems, function() {
+                $.each(this.clientSelectItems, function() {
                     if (this.id == key) {
                         label = this.label;
                         return false;
@@ -324,26 +328,25 @@
                 this.__setInputFocus();
                 this.__save();
 
-                if (this.focusValue != this.selValueInput.val()) {
-                    this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
-                }
+                this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
             },
 
             __save: function() {
                 var value = "";
                 var label = "";
                 var inputLabel = this.__getValue();
+                var clientSelectItem;
 
                 if (inputLabel && inputLabel != "") {
                     if (this.enableManualInput) {
-                        clientItem = this.__getClientItemFromCache(inputLabel);
+                        clientSelectItem = this.__getClientItemFromCache(inputLabel);
                     } else {
-                        clientItem = this.__getClientItem(inputLabel);
+                        clientSelectItem = this.__getClientItem(inputLabel);
                     }
 
-                    if (clientItem) {
-                        label = clientItem.label;
-                        value = clientItem.value;
+                    if (clientSelectItem) {
+                        label = clientSelectItem.label;
+                        value = clientSelectItem.value;
                     }
                 }
 
@@ -379,8 +382,8 @@
                     return;
                 }
                 var item;
-                for (var i = 0; i < this.clientItems.length; i++) {
-                    item = this.clientItems[i];
+                for (var i = 0; i < this.clientSelectItems.length; i++) {
+                    item = this.clientSelectItems[i];
                     if (item.value == value) {
                         this.__setValue(item.label);
                         this.__save();
