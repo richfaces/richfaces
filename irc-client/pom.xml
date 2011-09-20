@@ -7,14 +7,14 @@
     <parent>
         <groupId>org.richfaces.examples</groupId>
         <artifactId>richfaces-example-parent</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>4.1.0.20110910-M2</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>irc-client</artifactId>
     <name>Richfaces Examples: Richfaces IRC Client Application</name>
-    <version>4.1.0-SNAPSHOT</version>
+    <version>4.1.0.20110910-M2</version>
     <packaging>war</packaging>
 
     <url>http://jboss.org/richfaces</url>
