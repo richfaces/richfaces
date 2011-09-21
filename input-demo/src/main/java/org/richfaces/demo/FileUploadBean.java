@@ -37,10 +37,12 @@ import org.richfaces.model.UploadedFile;
 @ManagedBean
 @SessionScoped
 public class FileUploadBean {
-    private String acceptedTypes;
+    private String acceptedTypes = "png";
     private boolean disabled = false;
     private boolean noDuplicate = false;
     private UploadedFile file;
+    private String ontyperejected = "alert('typerejected')";
+    private Integer maxFilesQuantity = 2;
 
     public UploadedFile getFile() {
         return file;
@@ -76,6 +78,22 @@ public class FileUploadBean {
 
     public String getAcceptedTypes() {
         return acceptedTypes;
+    }
+
+    public String getOntyperejected() {
+        return ontyperejected;
+    }
+
+    public void setOntyperejected(String ontyperejected) {
+        this.ontyperejected = ontyperejected;
+    }
+
+    public Integer getMaxFilesQuantity() {
+        return maxFilesQuantity;
+    }
+
+    public void setMaxFilesQuantity(Integer maxFilesQuantity) {
+        this.maxFilesQuantity = maxFilesQuantity;
     }
 
     public void updateAttribute(AjaxBehaviorEvent event) throws AbortProcessingException {

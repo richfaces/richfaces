@@ -63,7 +63,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </script>
         <fu:fileUpload id="fu" acceptedTypes="#{fileUploadBean.acceptedTypes}" disabled="#{fileUploadBean.disabled}"
             fileUploadListener="#{fileUploadBean.listener}" noDuplicate="#{fileUploadBean.noDuplicate}"
-            onfilesubmit="onfilesubmit(event)" onuploadcomplete="onuploadcomplete(event)" />
+            onfilesubmit="onfilesubmit(event)" onuploadcomplete="onuploadcomplete(event)" ontyperejected="#{fileUploadBean.ontyperejected}" maxFilesQuantity="#{fileUploadBean.maxFilesQuantity}" />
         <h:outputText value="File name:" />
         <a4j:outputPanel ajaxRendered="true">#{fileUploadBean.file.name}</a4j:outputPanel>
         <br />
@@ -89,6 +89,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <h:selectBooleanCheckbox value="#{fileUploadBean.noDuplicate}">
             <f:ajax render="fu" />
         </h:selectBooleanCheckbox>
+        <br />
+        <h:outputText value="MaxFilesQuantity " />
+        <h:inputText value="#{fileUploadBean.maxFilesQuantity}">
+            <f:ajax render="fu" />
+        </h:inputText>
+        <br />
+        <h:outputText value="ontyperejected: " />
+        <h:inputText value="#{fileUploadBean.ontyperejected}">
+            <f:ajax render="fu" />
+        </h:inputText>
         <br />
         <input type="submit" />
         <a4j:log />
