@@ -37,4 +37,9 @@ public class JMSMessageProducerInitializer extends AbstractMessageProducerInitia
     public MessageProducer createMessageProducer() {
         return new JMSMessageProducer();
     }
+
+    @Override
+    public boolean isCapabilityEnabled() {
+        return JMSInitializer.isJmsEnabled();
+    }
 }

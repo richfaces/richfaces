@@ -33,42 +33,44 @@ import javax.servlet.ServletContextListener;
 
 /**
  * <p>
- * Abstract initializater and finalizer listening for JSF PostConstructApplicationEvent (needs to be registered
- * explicitly in faces-config.xml).
+ * Abstract initializater and finalizer listening for JSF PostConstructApplicationEvent (needs to be registered explicitly in
+ * faces-config.xml).
  * </p>
  *
  * <p>
- * After observing PostConstructApplicationEvent, it registers to PreDestroyApplicationEvent to observe finalization
- * phase.
+ * After observing PostConstructApplicationEvent, it registers to PreDestroyApplicationEvent to observe finalization phase.
  * </p>
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public abstract class AbstractCapabilityInitializer implements CapabilityInitializer, SystemEventListener, ServletContextListener {
+public abstract class AbstractCapabilityInitializer implements CapabilityInitializer, SystemEventListener,
+        ServletContextListener {
 
     private boolean correctlyInitialized = false;
 
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.event.SystemEventListener#processEvent(javax.faces.event.SystemEvent)
+     * @see javax.faces.event.SystemEventListener#processEvent(javax.faces.event. SystemEvent)
      */
     public void processEvent(SystemEvent event) throws AbortProcessingException {
-        if (event instanceof PostConstructApplicationEvent) {
-            Application application = FacesContext.getCurrentInstance().getApplication();
-            application.subscribeToEvent(PreDestroyApplicationEvent.class, this);
+        if (isCapabilityEnabled()) {
+            if (event instanceof PostConstructApplicationEvent) {
+                Application application = FacesContext.getCurrentInstance().getApplication();
+                application.subscribeToEvent(PreDestroyApplicationEvent.class, this);
 
-            try {
-                initializeCapability();
-                correctlyInitialized = true;
-            } catch (Exception e) {
-                throw new AbortProcessingException(e);
-            }
-        } else {
-            try {
-                finalizeCapability();
-            } catch (Exception e) {
-                throw new AbortProcessingException(e);
+                try {
+                    initializeCapability();
+                    correctlyInitialized = true;
+                } catch (Exception e) {
+                    throw new AbortProcessingException(e);
+                }
+            } else {
+                try {
+                    finalizeCapability();
+                } catch (Exception e) {
+                    throw new AbortProcessingException(e);
+                }
             }
         }
     }
@@ -102,7 +104,7 @@ public abstract class AbstractCapabilityInitializer implements CapabilityInitial
     /*
      * (non-Javadoc)
      *
-     * @see javax.faces.event.SystemEventListener#isListenerForSource(java.lang.Object)
+     * @see javax.faces.event.SystemEventListener#isListenerForSource(java.lang.Object )
      */
     public boolean isListenerForSource(Object source) {
         return true;
@@ -114,5 +116,14 @@ public abstract class AbstractCapabilityInitializer implements CapabilityInitial
      * @see org.richfaces.demo.push.Initializer#unload()
      */
     public void finalizeCapability() throws Exception {
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.demo.push.CapabilityInitializer#isCapabilityEnabled()
+     */
+    public boolean isCapabilityEnabled() {
+        return true;
     }
 }
