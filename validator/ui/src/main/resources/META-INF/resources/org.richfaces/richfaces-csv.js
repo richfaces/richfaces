@@ -171,7 +171,7 @@
                 var validators = params.v;
                 if (validators) {
                     var validatorFunction,validator;
-                    for (i = 0; i < validators.length; i++) {
+                    for (var i = 0; i < validators.length; i++) {
                         try {
                             validator = validators[i];
                             validatorFunction = validator.f;
