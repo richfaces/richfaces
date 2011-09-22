@@ -25,6 +25,7 @@ import static org.richfaces.demo.push.JMSMessageProducer.PUSH_JMS_TOPIC;
 import static org.richfaces.demo.push.PushEventObserver.PUSH_CDI_TOPIC;
 import static org.richfaces.demo.push.TopicsContextMessageProducer.PUSH_TOPICS_CONTEXT_TOPIC;
 
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,6 +47,7 @@ import org.richfaces.demo.push.provider.MessagingProviderManagement;
 public class JMSInitializer extends AbstractCapabilityInitializer {
 
     private static final Logger LOGGER = Logger.getLogger(JMSInitializer.class.getName());
+    private static final AtomicReference<Boolean> JMS_ENABLED = new AtomicReference<Boolean>(null);
 
     private MessagingProviderManagement provider;
 
@@ -72,7 +74,21 @@ public class JMSInitializer extends AbstractCapabilityInitializer {
     }
 
     protected static boolean isJmsEnabled() {
-        return isConnectionFactoryRegistered();
+        if (null == JMS_ENABLED.get()) {
+            boolean isJmsEnabled = isConnectionFactoryRegistered() || isTomcat();
+            JMS_ENABLED.compareAndSet(null, isJmsEnabled);
+        }
+        return JMS_ENABLED.get();
+    }
+
+    private static boolean isTomcat() {
+        try {
+            Class<?> clazz = Class.forName("org.apache.catalina.util.ServerInfo");
+            String serverInfo = (String) clazz.getMethod("getServerInfo").invoke(null);
+            return serverInfo.contains("Tomcat");
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /*
