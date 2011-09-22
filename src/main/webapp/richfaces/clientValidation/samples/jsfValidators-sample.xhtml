@@ -16,21 +16,21 @@
             </f:facet>
             <h:panelGrid columns="3">
                 <h:outputText value="Name:" />
-                <h:inputText value="#{userBean.name}" id="name">
+                <h:inputText value="#{userBean.name}" id="name" label="name">
                     <f:validateLength minimum="3" maximum="8" />
                     <f:validateRequired />
                     <rich:validator />
                 </h:inputText>
                 <rich:message for="name" />
                 <h:outputText value="Email" />
-                <h:inputText value="#{userBean.email}" id="email" validatorMessage="bad email">
+                <h:inputText value="#{userBean.email}" id="email" validatorMessage="Validation Error: Invalid email address">
                     <f:validateRegex
                         pattern="^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+)*$"></f:validateRegex>
                     <rich:validator />
                 </h:inputText>
                 <rich:message for="email" />
                 <h:outputText value="Age" />
-                <h:inputText value="#{userBean.age}" id="age">
+                <h:inputText value="#{userBean.age}" id="age" label="age">
                     <f:validateLongRange minimum="18" maximum="99" />
                     <rich:validator />
                 </h:inputText>
