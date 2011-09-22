@@ -78,13 +78,13 @@
                 <h:outputText value="Price" />
                 <h:inputText value="#{carsBean.editedCar.price}" required="true" requiredMessage="Price is required" id="price"
                     converterMessage="Should be a valid price" validatorMessage="Should be a valid price" label="Price field">
-                    <f:validateDoubleRange />
+                    <f:validateDoubleRange minimum="0.00" maximum="99999999"/>
                 </h:inputText>
                 <rich:message id="priceMsg" for="price" />
                 <h:outputText value="Mileage" />
                 <h:inputText value="#{carsBean.editedCar.mileage}" id="mage" converterMessage="Should be a valid mileage"
                     validatorMessage="Should be a valid mileage" label="Mileage field">
-                    <f:validateDoubleRange />
+                    <f:validateDoubleRange minimum="0.00" maximum="99999999.00" />
                 </h:inputText>
                 <rich:message id="madeMsg" for="mage" />
                 <h:outputText value="VIN" />
