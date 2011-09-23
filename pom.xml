@@ -282,7 +282,7 @@
         <profile>
             <id>openshift</id>
             <properties>
-                <container.classifier>jbas7</container.classifier>
+                <container.classifier>openshift</container.classifier>
                 <container.resources>src/main/resources-jbas7</container.resources>
                 <container.webapp>src/main/webapp-openshift</container.webapp>
                 <dependency.scope>provided</dependency.scope>
@@ -560,6 +560,9 @@
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
+                                            <directory>src/main/webapp</directory>
+                                        </resource>
+                                        <resource>
                                             <directory>src/main/webapp-tomcat</directory>
                                             <excludes>
                                                 <exclude>**</exclude>
@@ -598,6 +601,9 @@
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
+                                            <directory>src/main/webapp</directory>
+                                        </resource>
+                                        <resource>
                                             <directory>src/main/webapp-tomcat</directory>
                                             <excludes>
                                                 <exclude>**</exclude>
@@ -605,6 +611,46 @@
                                         </resource>
                                         <resource>
                                             <directory>src/main/webapp-jee6</directory>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/resources-jbas7</directory>
+                                            <targetPath>WEB-INF/classes</targetPath>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/java</directory>
+                                            <targetPath>WEB-INF/src</targetPath>
+                                        </resource>
+                                    </webResources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>openshift</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>war</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>openshift</classifier>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-openshift
+                                    </webappDirectory>
+                                    <packagingExcludes>
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
+                                    </packagingExcludes>
+                                    <warSourceExcludes>
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
+                                    </warSourceExcludes>
+                                    <webResources>
+                                        <resource>
+                                            <directory>src/main/webapp</directory>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/webapp-tomcat</directory>
+                                            <excludes>
+                                                <exclude>**</exclude>
+                                            </excludes>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/webapp-openshift</directory>
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-jbas7</directory>
