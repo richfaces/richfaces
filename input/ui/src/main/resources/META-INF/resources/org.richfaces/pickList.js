@@ -99,23 +99,8 @@
             rf.Event.bind(this, "listblur" + this.namespace, options['onblur']);
         }
 
-        var focusEventHandlers = {};
-        focusEventHandlers["listfocus" + this.sourceList.namespace] = $.proxy(this.__focusHandler, this);
-        focusEventHandlers["listblur" + this.sourceList.namespace] = $.proxy(this.__blurHandler, this);
-        rf.Event.bind(this.sourceList, focusEventHandlers, this);
-
-        focusEventHandlers = {};
-        focusEventHandlers["listfocus" + this.targetList.namespace] = $.proxy(this.__focusHandler, this);
-        focusEventHandlers["listblur" + this.targetList.namespace] = $.proxy(this.__blurHandler, this);
-        rf.Event.bind(this.targetList, focusEventHandlers, this);
-
-        focusEventHandlers = {};
-        focusEventHandlers["focus" + this.namespace] = $.proxy(this.__focusHandler, this);
-        focusEventHandlers["blur" + this.namespace] = $.proxy(this.__blurHandler, this);
-        rf.Event.bind(this.addButton, focusEventHandlers, this);
-        rf.Event.bind(this.addAllButton, focusEventHandlers, this);
-        rf.Event.bind(this.removeButton, focusEventHandlers, this);
-        rf.Event.bind(this.removeAllButton, focusEventHandlers, this);
+        this.pickList.focusin($.proxy(this.__focusHandler, this));
+        this.pickList.focusout($.proxy(this.__blurHandler, this));
     };
 
     $.extend(rf.ui.PickList.prototype, (function () {
@@ -132,7 +117,6 @@
             },
 
             __focusHandler: function(e) {
-                this.keepingFocus = this.focused;
                 if (! this.focused) {
                     this.focused = true;
                     rf.Event.fire(this, "listfocus" + this.namespace, e);
@@ -141,18 +125,14 @@
             },
 
             __blurHandler: function(e) {
-                var that = this;
-                this.timeoutId = window.setTimeout(function() {
-                    if (!that.keepingFocus) { // If no other pickList "sub" component has grabbed the focus during the timeout
-                        that.focused = false;
-                        rf.Event.fire(that, "listblur" + that.namespace, e);
-                        var newValue = that.targetList.csvEncodeValues();
-                        if (newValue != that.originalValue) {
-                            rf.Event.fire(that, "change" + that.namespace, e);
-                        }
+                if (this.focused) {
+                    this.focused = false;
+                    rf.Event.fire(this, "listblur" + this.namespace, e);
+                    var newValue = this.targetList.csvEncodeValues();
+                    if (newValue != this.originalValue) {
+                        rf.Event.fire(this, "change" + this.namespace, e);
                     }
-                    that.keepingFocus = false;
-                }, 200);
+                }
             },
 
 
