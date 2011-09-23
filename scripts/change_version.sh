@@ -45,7 +45,7 @@ done
    echo "Changing $ORIG_VERSION into $NEW_VERSION for all other files"
    echo =================================
 
-   eval "find $DESTINATION -type f $OMIT_PATHS -exec grep -q '$ORIG_VERSION' {} \; -exec sed -ri 's#$ORIG_VERSION#$NEW_VERSION#g' {} \; -print"
+   eval "find $DESTINATION -type f -not -name 'pom.xml'  $OMIT_PATHS -exec grep -q '$ORIG_VERSION' {} \; -exec sed -ri 's#$ORIG_VERSION#$NEW_VERSION#g' {} \; -print"
    
    echo =================================
 
