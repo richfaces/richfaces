@@ -74,6 +74,10 @@
         <filter-name>PushFilter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
+    <context-param>
+        <param-name>org.richfaces.staticResourceLocation</param-name>
+        <param-value>#{facesContext.externalContext.requestContextPath}/static-resources/#{resourceLocation}</param-value>
+    </context-param>
     
     <!-- Initializes CDI -->
     <listener>
