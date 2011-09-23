@@ -256,7 +256,7 @@ a.show,a.hide {
 }
 
 /*--- RichFaces tablePanel styles overwriting ---*/
-.navigation .rf-tab-hdr-tabline-vis {
+.navigation .rf-tab-hdr-tabline-top-vis {
     background: #ebf6fd;
     border: 0;
     height: 31px;
@@ -269,17 +269,17 @@ a.show,a.hide {
     margin-right: 3px;
 }
 
-.navigation .rf-tab-hdr-act {
+.navigation .rf-tab-hdr-top-act {
     background: #ffffff;
     border-bottom: 0;
     color: #5F9CD0;
 }
 
-.navigation .rf-tab-hdr-act .rf-tab-lbl {
+.navigation .rf-tab-hdr-top-act .rf-tab-lbl {
     font-weight: bold;
 }
 
-.navigation .rf-tab-hdr-inact {
+.navigation .rf-tab-hdr-top-inact {
     background: #c6cacc url(../images/pmenu_bg.png) left top repeat-x;
     border: 1px solid #bec3c7;
 }
