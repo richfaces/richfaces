@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:misc="http://richfaces.org/misc">
+<f:view>
+    <h:head></h:head>
+    <h:body>
+    	<p>CTRL A(on document) works in both cases if input focused or not</p>
+    	<p>CTRL B(on document) works only if inputs not focused</p>
+    	<p>CTRL C works only if second input focused(selector used)</p>
+    	
+		<misc:hotKey key="CTRL+a" handler="alert('CTRL+a');" disableInInput="false"/>
+		<misc:hotKey key="CTRL+b" handler="alert('CTRL+b');"/>
+		<misc:hotKey key="CTRL+c" selector=".second" handler="alert('CTRL+c');" disableInInput="false"/>
+		<h:inputText value="just input"/>
+		<h:inputText value="CTRL C within that input" styleClass="second"/>
+    </h:body>
+</f:view>
+</html>
