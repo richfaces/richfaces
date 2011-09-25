@@ -33,6 +33,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.swing.text.html.HTML;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
@@ -64,6 +65,21 @@ public class DataScrollerBaseRenderer extends RendererBase {
             if (newPage != 0 && newPage != page) {
                 new DataScrollEvent(scroller, String.valueOf(page), param, newPage).queue();
             }
+        }
+    }
+
+    protected void encodeHiddenStyleIfNeed(ResponseWriter out, FacesContext context, UIComponent component) throws IOException {
+        if (!shouldRender(component)){
+            out.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
+        }
+    }
+
+    protected boolean shouldRender(UIComponent component){
+        AbstractDataScroller ds = (AbstractDataScroller) component;
+        if ((ds.getPageCount() == 1)&&(!ds.isRenderIfSinglePage())){
+            return false;
+        }else{
+        return true;
         }
     }
 
