@@ -22,7 +22,6 @@
 package org.richfaces.resource;
 
 import com.google.common.base.Function;
-import com.google.common.base.Objects;
 
 /**
  * @author Nick Belaevski
@@ -42,7 +41,7 @@ public final class ResourceKey {
     public ResourceKey(String resourceName, String libraryName) {
         super();
         this.resourceName = resourceName;
-        this.libraryName = libraryName;
+        this.libraryName = libraryName == null ? "" : libraryName;
     }
 
     public static ResourceKey create(String resourceQualifier) {
@@ -119,6 +118,6 @@ public final class ResourceKey {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("resourceName", resourceName).add("libraryName", libraryName).toString();
+        return libraryName + ":" + resourceName;
     }
 }
