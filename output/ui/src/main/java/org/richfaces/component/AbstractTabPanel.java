@@ -51,11 +51,11 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
     @Attribute(generate = false)
     public String getActiveItem() {
         String res = super.getActiveItem();
-        if (res == null) {
+        if ((res == null)||(res.equals(""))) {
             res = getFirstItem().getName();
         } else {
             AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) super.getItemByIndex(super.getChildIndex(res));
-            if (item.isDisabled()) {
+            if ((item == null)||(item.isDisabled())) {
                 res = getFirstItem().getName();
             }
         }
