@@ -18,11 +18,13 @@
     <name>Richfaces Examples: Richfaces Showcase Application</name>
 
     <properties>
-        <gae.version>1.4.2</gae.version>
+        <gae.version>1.5.4</gae.version>
         <hornetq.version>2.2.6.Final</hornetq.version>
         <dependency.scope>compile</dependency.scope>
+        <container.classifier>tomcat6</container.classifier>
         <container.resources>src/main/resources-tomcat</container.resources>
         <container.resources.exclude></container.resources.exclude>
+        <container.webapp>src/main/webapp-tomcat</container.webapp>
     </properties>
 
     <dependencies>
@@ -113,6 +115,12 @@
         <dependency>
             <groupId>org.atmosphere</groupId>
             <artifactId>atmosphere-runtime</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>atmosphere-ping</artifactId>
+                    <groupId>org.atmosphere</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax.jms</groupId>
@@ -188,7 +196,7 @@
                 <plugin>
                     <groupId>net.kindleit</groupId>
                     <artifactId>maven-gae-plugin</artifactId>
-                    <version>0.7.3</version>
+                    <version>0.9.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -217,13 +225,10 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <classifier>tomcat6</classifier>
+                    <classifier>${container.classifier}</classifier>
                     <webResources>
                         <resource>
-                            <directory>src/main/webapp</directory>
-                        </resource>
-                        <resource>
-                            <directory>src/main/webapp-tomcat</directory>
+                            <directory>${container.webapp}</directory>
                         </resource>
                         <resource>
                             <directory>src/main/java</directory>
@@ -232,6 +237,67 @@
                     </webResources>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <pack>true</pack>
+                            <compress>true</compress>
+                            <outputDir>generated-resources
+                            </outputDir>
+                            <skins>
+                                <skin>NULL</skin>
+                                <skin>blueSky</skin>
+                                <skin>classic</skin>
+                                <skin>deepMarine</skin>
+                                <skin>emeraldTown</skin>
+                                <skin>japanCherry</skin>
+                                <skin>ruby</skin>
+                                <skin>wine</skin>
+                            </skins>
+                            <excludedFiles>
+                                <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*
+                                </exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*
+                                </exclude>
+                            </excludedFiles>
+                            <includedContentTypes>
+                                <include>application/javascript
+                                </include>
+                                <include>text/css</include>
+                                <include>image/.+</include>
+                            </includedContentTypes>
+                            <fileNameMappings>
+                                <property>
+                                    <name>^.*showcase.*/([^/]+\.css)$
+                                    </name>
+                                    <value>org.richfaces.showcase.css/$1
+                                    </value>
+                                </property>
+                                <property>
+                                    <name>^.+/([^/]+\.(png|gif|jpg))$
+                                    </name>
+                                    <value>org.richfaces.images/$1
+                                    </value>
+                                </property>
+                                <property>
+                                    <name>^.+/([^/]+\.css)$
+                                    </name>
+                                    <value>org.richfaces.css/$1
+                                    </value>
+                                </property>
+                            </fileNameMappings>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -239,39 +305,18 @@
         <profile>
             <id>jee6</id>
             <properties>
+                <container.classifier>jee6</container.classifier>
                 <container.resources>src/main/resources-jee6</container.resources>
+                <container.webapp>src/main/webapp-jee6</container.webapp>
                 <dependency.scope>provided</dependency.scope>
             </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <classifier>jee6</classifier>
-                            <webResources>
-                                <resource>
-                                    <directory>src/main/webapp-tomcat</directory>
-                                    <excludes>
-                                        <exclude>**</exclude>
-                                    </excludes>
-                                </resource>
-                                <resource>
-                                    <directory>src/main/webapp-jee6</directory>
-                                </resource>
-                                <resource>
-                                    <directory>src/main/java</directory>
-                                    <targetPath>WEB-INF/src</targetPath>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>jbas7</id>
             <properties>
+                <container.classifier>jbas7</container.classifier>
                 <container.resources>src/main/resources-jbas7</container.resources>
+                <container.webapp>src/main/webapp-jee6</container.webapp>
                 <dependency.scope>provided</dependency.scope>
             </properties>
             <dependencies>
@@ -294,36 +339,36 @@
                     <scope>compile</scope>
                 </dependency>
             </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <classifier>jbas7</classifier>
-                            <webResources>
-                                <resource>
-                                    <directory>src/main/webapp-tomcat</directory>
-                                    <excludes>
-                                        <exclude>**</exclude>
-                                    </excludes>
-                                </resource>
-                                <resource>
-                                    <directory>src/main/webapp-jee6</directory>
-                                </resource>
-                                <resource>
-                                    <directory>src/main/java</directory>
-                                    <targetPath>WEB-INF/src</targetPath>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+        </profile>
+        <profile>
+            <id>openshift</id>
+            <properties>
+                <container.classifier>openshift</container.classifier>
+                <container.resources>src/main/resources-jbas7</container.resources>
+                <container.webapp>src/main/webapp-openshift</container.webapp>
+                <dependency.scope>provided</dependency.scope>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                    <version>1.5.8</version>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-jdk14</artifactId>
+                    <version>1.5.8</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
         </profile>
         <profile>
             <id>gae</id>
             <properties>
+                <container.classifier>gae</container.classifier>
                 <container.resources>src/main/resources-gae</container.resources>
+                <container.webapp>src/main/webapp-gae</container.webapp>
                 <dependency.scope>provided</dependency.scope>
             </properties>
             <dependencies>
@@ -426,25 +471,14 @@
                         <configuration>
                             <webResources>
                                 <resource>
-                                    <directory>src/main/webapp</directory>
+                                    <directory>src/main/webapp-gae</directory>
                                     <excludes>
                                         <exclude>WEB-INF/faces-config.xml</exclude>
                                     </excludes>
                                 </resource>
                                 <resource>
-                                    <directory>src/main/webapp-gae</directory>
-                                </resource>
-                                <resource>
-                                    <directory>${project.build.directory}/generated-resources
-                                    </directory>
+                                    <directory>${project.build.directory}/generated-resources</directory>
                                     <targetPath>static-resources</targetPath>
-                                </resource>
-                                <resource>
-                                    <directory>${basedir}/src/main/java</directory>
-                                    <targetPath>WEB-INF/src</targetPath>
-                                    <excludes>
-                                        <exclude>**/push/**/*.*</exclude>
-                                    </excludes>
                                 </resource>
                             </webResources>
                         </configuration>
@@ -587,6 +621,9 @@
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
+                                            <directory>src/main/webapp</directory>
+                                        </resource>
+                                        <resource>
                                             <directory>src/main/webapp-tomcat</directory>
                                             <excludes>
                                                 <exclude>**</exclude>
@@ -625,6 +662,9 @@
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
+                                            <directory>src/main/webapp</directory>
+                                        </resource>
+                                        <resource>
                                             <directory>src/main/webapp-tomcat</directory>
                                             <excludes>
                                                 <exclude>**</exclude>
@@ -632,6 +672,46 @@
                                         </resource>
                                         <resource>
                                             <directory>src/main/webapp-jee6</directory>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/resources-jbas7</directory>
+                                            <targetPath>WEB-INF/classes</targetPath>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/java</directory>
+                                            <targetPath>WEB-INF/src</targetPath>
+                                        </resource>
+                                    </webResources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>openshift</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>war</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>openshift</classifier>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-openshift
+                                    </webappDirectory>
+                                    <packagingExcludes>
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
+                                    </packagingExcludes>
+                                    <warSourceExcludes>
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
+                                    </warSourceExcludes>
+                                    <webResources>
+                                        <resource>
+                                            <directory>src/main/webapp</directory>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/webapp-tomcat</directory>
+                                            <excludes>
+                                                <exclude>**</exclude>
+                                            </excludes>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/webapp-openshift</directory>
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-jbas7</directory>

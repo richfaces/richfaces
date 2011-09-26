@@ -18,33 +18,32 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
-package org.richfaces.demo.push;
+ */package org.richfaces.demo.push;
+
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
 /**
- * Initialize and finalize capability.
+ * Initializes JMS server and creates requested topics.
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public interface CapabilityInitializer {
-    /**
-     * Initializes provided capability.
-     *
-     * @throws Exception
-     */
-    void initializeCapability() throws Exception;
+@ApplicationScoped
+@ManagedBean
+public class PushConfiguration {
 
-    /**
-     * Finalizes provided capability and frees allocated resources.
-     *
-     * @throws Exception
-     */
-    void finalizeCapability() throws Exception;
+    public boolean isJmsEnabled() {
+        return JMSInitializer.isJmsEnabled();
+    }
 
-    /**
-     * Returns true when capability should be initialized.
-     *
-     * @return true when capability should be initialized.
-     */
-    boolean isCapabilityEnabled();
+    public boolean isPushEnabled() {
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String pushDisabled = servletContext.getInitParameter("org.richfaces.showcase.pushDisabled");
+        if (pushDisabled == null) {
+            return true;
+        }
+        return Boolean.valueOf(pushDisabled);
+    }
 }
