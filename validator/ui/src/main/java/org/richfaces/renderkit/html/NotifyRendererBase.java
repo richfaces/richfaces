@@ -29,8 +29,7 @@ import org.richfaces.renderkit.RendererBase;
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-        @ResourceDependency(name = "jquery.js", target = "head"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.pnotify.js", target = "head"),
         @ResourceDependency(library = "org.richfaces", name = "notify.js", target = "head"),

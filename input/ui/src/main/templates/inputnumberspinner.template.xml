@@ -31,11 +31,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <cdk:superclass>org.richfaces.renderkit.InputRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Input</cdk:component-family>
         <cdk:renderer-type>org.richfaces.InputNumberSpinnerRenderer</cdk:renderer-type>
-        <cdk:resource-dependency library="org.richfaces" name="inputNumberSpinner.ecss" />
         <cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
         <cdk:resource-dependency name="jquery.position.js" />
         <cdk:resource-dependency library="org.richfaces" name="jquery.mousewheel.js" />
         <cdk:resource-dependency library="org.richfaces" name="inputNumberSpinner.js" />
+        <cdk:resource-dependency library="org.richfaces" name="inputNumberSpinner.ecss" />
     </cc:interface>
     <cc:implementation>
         <span id="#{clientId}" class="rf-insp #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">

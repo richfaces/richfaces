@@ -50,10 +50,9 @@ import com.google.common.base.Predicate;
  * @author akolonitsky
  * @since 2010-08-24
  */
-@ResourceDependencies({ // TODO review
-@ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
-        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(name = "richfaces-base-component.js"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
         @ResourceDependency(library = "org.richfaces", name = "tab.js") })
 @JsfRenderer(type = "org.richfaces.TabRenderer", family = AbstractTab.COMPONENT_FAMILY)

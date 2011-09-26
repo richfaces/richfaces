@@ -34,19 +34,18 @@ import java.util.List;
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
-        @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces.js"),
-        @ResourceDependency(name = "richfaces-utils.js"), @ResourceDependency(name = "jquery.position.js"),
-        @ResourceDependency(name = "richfaces-event.js"), @ResourceDependency(name = "richfaces-base-component.js"),
-        @ResourceDependency(name = "richfaces-selection.js"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(name = "richfaces-utils.js"), @ResourceDependency(name = "richfaces-selection.js"),
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "list.js"),
         @ResourceDependency(library = "org.richfaces", name = "listMulti.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "pickList.js"),
-        @ResourceDependency(library = "org.richfaces", name = "pickList.ecss"),
         @ResourceDependency(library = "org.richfaces", name = "orderingList.js"),
+        @ResourceDependency(library = "org.richfaces", name = "pickList.ecss"),
         @ResourceDependency(library = "org.richfaces", name = "orderingList.ecss")})
 public class PickListRendererBase extends SelectManyRendererBase {
     public static String CSS_PREFIX = "rf-pick";

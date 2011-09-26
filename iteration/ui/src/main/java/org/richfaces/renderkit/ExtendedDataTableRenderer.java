@@ -64,11 +64,10 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
  *
  */
 @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer", family = AbstractExtendedDataTable.COMPONENT_FAMILY)
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.ecss"),
-        @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"),
-        @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.js") })
+        @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.js"), @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.ecss") })
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
     private static final JSReference CLIENT_PARAMS = new JSReference("clientParams");
 

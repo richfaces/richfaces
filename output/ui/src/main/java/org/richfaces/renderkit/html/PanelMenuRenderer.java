@@ -45,9 +45,9 @@ import org.richfaces.renderkit.HtmlConstants;
  * @since 2010-10-25
  */
 @JsfRenderer(type = "org.richfaces.PanelMenuRenderer", family = AbstractPanelMenu.COMPONENT_FAMILY)
-@ResourceDependencies({ // TODO review
-@ResourceDependency(library = "org.richfaces", name = "ajax.reslib"), @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(name = "richfaces-base-component.js"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "panelMenu.js"),
         @ResourceDependency(library = "org.richfaces", name = "panelMenuItem.js"),
         @ResourceDependency(library = "org.richfaces", name = "panelMenuGroup.js"),
