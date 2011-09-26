@@ -249,11 +249,10 @@
                         </goals>
                         <configuration>
                             <pack>true</pack>
-                            <compress>true</compress>
+                            <compress>false</compress>
                             <outputDir>generated-resources
                             </outputDir>
                             <skins>
-                                <skin>NULL</skin>
                                 <skin>blueSky</skin>
                                 <skin>classic</skin>
                                 <skin>deepMarine</skin>
@@ -261,6 +260,7 @@
                                 <skin>japanCherry</skin>
                                 <skin>ruby</skin>
                                 <skin>wine</skin>
+                                <skin>NULL</skin>
                             </skins>
                             <excludedFiles>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*
