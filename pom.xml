@@ -248,9 +248,12 @@
                             <goal>process</goal>
                         </goals>
                         <configuration>
+                            <pack>true</pack>
+                            <compress>true</compress>
                             <outputDir>generated-resources
                             </outputDir>
                             <skins>
+                                <skin>NULL</skin>
                                 <skin>blueSky</skin>
                                 <skin>classic</skin>
                                 <skin>deepMarine</skin>
