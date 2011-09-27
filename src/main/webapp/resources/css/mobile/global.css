@@ -188,7 +188,7 @@ body > header > div img.logo {
     margin: 0 auto;
 }
 
- .rf-pm-top-gr-sel, .rf-pm-top-gr-gr, .rf-pm-hdr-colps {
+ .rf-pm-top-gr-sel, .rf-pm-top-gr-gr, .rf-pm-hdr-colps, .rf-pm-top-gr-hdr {
    border-radius: 8px;
    -moz-border-radius: 8px;
    -webkit-border-radius: 8px;
@@ -197,13 +197,8 @@ body > header > div img.logo {
 
  .nav-list {
    width: 95%;
-   border:  1px solid #777;
    margin: 0 auto 0 auto;
-    padding:  5px;
-   border-radius: 8px;
-   -moz-border-radius: 8px;
-   -webkit-border-radius: 8px;
-
+   padding:  5px;
 }
 
 /*************************************************
@@ -217,18 +212,18 @@ nav .rf-pm {
 
 nav .rf-pm-top-gr {
     border: 0;
-    border-bottom: 1px solid #969b9e;
     margin: 0;
     padding: 0;
 }
 
 nav .rf-pm-top-gr-hdr {
-    background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;
+    /*background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;*/
     padding: 3px 1px 2px 3px;
+    border: 1px solid #99ccff;
 }
 
 nav .rf-pm .rf-pm-top-gr-hdr:hover {
-    background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;
+    /*background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;*/
 }
 
 nav .rf-pm .rf-pm-top-gr-ico {
@@ -282,11 +277,7 @@ nav .rf-pm-exp .rf-pm-itm-ico {
 }
 
 /*************************************************
-<<<<<<< HEAD
 RichFaces tabPanel styles overwriting
-=======
-RichFaces tablePanel styles overwriting
->>>>>>> 70289ed91e54d5469c419e5a210e8cf6152240d3
 *************************************************/
 nav .rf-tab-hdr-tabline-vis {
     background: #ebf6fd;
@@ -312,7 +303,7 @@ nav .rf-tab-hdr-act .rf-tab-lbl {
 }
 
 nav .rf-tab-hdr-inact {
-    background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;
+    /*background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;*/
     border: 1px solid #bec3c7;
 }
 
@@ -328,3 +319,82 @@ nav .rf-tab-lbl {
 textarea[disabled],input[type="text"][disabled],input[type="password"][disabled],select[disabled] {
     -webkit-text-fill-color: #B6AD84;
 }
+
+/*************************************************
+RichFaces input styles overwriting
+*************************************************/
+
+textarea, input[type="text"], input[type="password"], select {
+    font-size: 16px;
+    padding: .4em;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+
+button, input[type="reset"], input[type="submit"], input[type="button"] {
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    font-size: 16px;
+    padding: .4em;
+}
+
+/*************************************************
+inputNumberSlider
+*************************************************/
+.rf-insl-trc {
+    height:30px;
+
+}
+
+.rf-insl-hnd, .rf-insl-hnd-dis, .rf-insl-dec, .rf-insl-inc, .rf-insl-dec-dis, .rf-insl-inc-dis {
+/*display: inline-block;*/
+/*width: 27px;*/
+/*height: 7px;*/
+}
+
+.rf-insl-hnd,
+.rf-insl-hnd-sel,
+.rf-insl-hnd-dis {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    background-image: none;
+    /*padding: .6em 25px;*/
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    zoom: 1;
+    border: 1px solid #CCC;
+    background: #EEE;
+    font-weight: bold;
+    color: #444;
+    text-shadow: 0 1px 1px #F6F6F6;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#fdfdfd),to(#eee));
+    background-image: -webkit-linear-gradient(top,#fdfdfd,#eee);
+    background-image: -moz-linear-gradient(top,#fdfdfd,#eee);
+    background-image: -ms-linear-gradient(top,#fdfdfd,#eee);
+    background-image: -o-linear-gradient(top,#fdfdfd,#eee);
+    background-image: linear-gradient(top,#fdfdfd,#eee);
+    border-image: initial;
+}
+
+.rf-insl-hnd-sel {
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#ccc),to(#eee));
+    background-image: -webkit-linear-gradient(top,#ccc,#eee);
+    background-image: -moz-linear-gradient(top,#ccc,#eee);
+    background-image: -ms-linear-gradient(top,#ccc,#eee);
+    background-image: -o-linear-gradient(top,#ccc,#eee);
+    background-image: linear-gradient(top,#ccc,#eee);
+    border-image: initial;
+}
+
+.rf-insl-hnd, .rf-insl-hnd-dis {
+vertical-align: top;
+}
+
