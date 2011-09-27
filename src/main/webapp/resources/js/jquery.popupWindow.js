@@ -22,7 +22,9 @@
 			toolbar:0 // determines whether a toolbar (includes the forward and back buttons) is displayed {1 (YES) or 0 (NO)}.
 		};
 		
-		settings = $.extend({}, $.fn.popupWindow.defaultSettings, instanceSettings || {});
+		var expandedSettings = $.isFunction(instanceSettings) ? instanceSettings() : instanceSettings;
+		
+		var settings = $.extend({}, $.fn.popupWindow.defaultSettings, expandedSettings || {});
 		
 		var windowFeatures =    'height=' + settings.height +
 								',width=' + settings.width +
