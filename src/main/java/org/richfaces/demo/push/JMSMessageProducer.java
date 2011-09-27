@@ -105,6 +105,35 @@ public class JMSMessageProducer implements MessageProducer {
         return 5000;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.demo.push.MessageProducer#finalizeProducer()
+     */
+    public void finalizeProducer() {
+        if (publisher != null) {
+            try {
+                publisher.close();
+            } catch (JMSException e) {
+                LOGGER.severe("unable to close publisher");
+            }
+        }
+        if (session != null) {
+            try {
+                session.close();
+            } catch (JMSException e) {
+                LOGGER.severe("unable to close session");
+            }
+        }
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (JMSException e) {
+                LOGGER.severe("unable to close connection");
+            }
+        }
+    }
+
     private TopicConnectionFactory getTopicConnectionFactory() {
         try {
             return (TopicConnectionFactory) InitialContext.doLookup("java:/ConnectionFactory");

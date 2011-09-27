@@ -41,4 +41,9 @@ public interface MessageProducer {
      * @return interval in miliseconds
      */
     int getInterval();
+
+    /**
+     * Finalizes the producer (frees all associated resources)
+     */
+    void finalizeProducer();
 }
