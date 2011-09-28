@@ -105,6 +105,9 @@
                 if (this.onuploadcomplete) {
                     richfaces.Event.bind(this.element, "onuploadcomplete", new Function("event", this.onuploadcomplete));
                 }
+                if (this.onclear) {
+                    richfaces.Event.bind(this.element, "onclear", new Function("event", this.onclear));
+                }
             },
 
             __addItem: function() {
@@ -142,6 +145,7 @@
                 this.items.splice(0);
                 this.submitedItems.splice(0);
                 this.__updateButtons();
+                richfaces.Event.fire(this.element, "onclear");
             },
 
             __updateButtons: function() {

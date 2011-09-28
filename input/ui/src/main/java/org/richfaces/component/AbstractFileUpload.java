@@ -72,6 +72,9 @@ public abstract class AbstractFileUpload extends UIComponentBase {
     @Attribute(events = @EventName("uploadcomplete"))
     public abstract String getOnuploadcomplete();
 
+    @Attribute(events = @EventName("clear"))
+    public abstract String getOnclear();
+
     @Attribute
     public abstract String getAddLabel();
 
