@@ -233,6 +233,10 @@
                             <directory>src/main/java</directory>
                             <targetPath>WEB-INF/src</targetPath>
                         </resource>
+                        <resource>
+                            <directory>${project.build.directory}/generated-resources</directory>
+                            <targetPath>static-resources</targetPath>
+                        </resource>
                     </webResources>
                     <archive>
                         <manifest>
