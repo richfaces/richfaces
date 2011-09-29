@@ -109,8 +109,7 @@
             <version>3.6.3.Final</version>
             <scope>${dependency.scope}</scope>
         </dependency>
-        
-        
+
         <!-- Dependencies for Push and JMS -->
         <dependency>
             <groupId>org.atmosphere</groupId>
@@ -235,8 +234,16 @@
                             <targetPath>WEB-INF/src</targetPath>
                         </resource>
                     </webResources>
+                    <archive>
+                        <manifest>
+                        </manifest>
+                        <manifestEntries>
+                            <Dependencies>org.jboss.as.controller-client</Dependencies>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -331,12 +338,6 @@
                     <artifactId>slf4j-jdk14</artifactId>
                     <version>1.5.8</version>
                     <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.0.0.CR1</version>
-                    <scope>compile</scope>
                 </dependency>
             </dependencies>
         </profile>
@@ -562,14 +563,6 @@
             <properties>
                 <container.resources.exclude>**</container.resources.exclude>
             </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-controller-client</artifactId>
-                    <version>7.0.0.CR1</version>
-                    <scope>compile</scope>
-                </dependency>
-            </dependencies>
             <build>
                 <plugins>
                     <plugin>
