@@ -30,7 +30,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font: 80% / 1.5em "Helvetica", "Lucida Sans", Verdana, Arial, sans-serif;
+    font: 1.2em "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
 }
 
 a {
@@ -47,7 +47,8 @@ Mobile Device Page Setup
     position: relative;
     width: 100%;
     height: 100%;
-
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #page-container {
@@ -188,11 +189,11 @@ body > header > div img.logo {
     margin: 0 auto;
 }
 
- .rf-pm-top-gr-sel, .rf-pm-top-gr-gr, .rf-pm-hdr-colps, .rf-pm-top-gr-hdr {
+ .rf-pm-top-gr-sel, .rf-pm-hdr-colps, .rf-pm-top-gr-hdr {
    border-radius: 8px;
    -moz-border-radius: 8px;
    -webkit-border-radius: 8px;
-
+   border: 1px solid #99ccff;
 }
 
  .nav-list {
@@ -205,75 +206,82 @@ body > header > div img.logo {
 RichFaces panelMenu styles overwriting
 *************************************************/
 
-nav .rf-pm {
+.rf-pm {
     /*border: 1px solid #B0BDC5;*/
     border-bottom: 0;
 }
 
-nav .rf-pm-top-gr {
+.pm-top-gr {
     border: 0;
     margin: 0;
     padding: 0;
 }
 
-nav .rf-pm-top-gr-hdr {
+.pm-top-gr-hdr {
     /*background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;*/
     padding: 3px 1px 2px 3px;
-    border: 1px solid #99ccff;
 }
 
-nav .rf-pm .rf-pm-top-gr-hdr:hover {
+.rf-pm-top-gr {
+    border: none;
+    margin-bottom: 1px;
+}
+
+.rf-pm .rf-pm-top-gr-hdr:hover {
     /*background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;*/
 }
 
-nav .rf-pm .rf-pm-top-gr-ico {
+.rf-pm .rf-pm-top-gr-ico {
     display: none;
 }
 
-nav .rf-pm .rf-pm-top-gr-lbl {
+.rf-pm .rf-pm-top-gr-lbl {
     color: #273945;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
     margin-left: 4px;
+    font-size: 13px;
+    line-height: 33px;
 }
 
-nav .rf-pm .rf-pm-top-gr-lbl:hover {
+.rf-pm .rf-pm-top-gr-lbl:hover {
     color: #5a8eba;
 }
 
-nav .rf-pm-exp {
+.rf-pm-exp {
     background: #ffffff;
 }
 
-nav .rf-pm-exp .rf-pm-itm {
+.rf-pm-exp .rf-pm-itm {
     border: 0;
     border-bottom: 1px solid #dddddd;
 }
 
-nav .rf-pm-exp .rf-pm-itm:hover {
+.rf-pm-exp .rf-pm-itm:hover {
     background: none;
 }
 
-nav .rf-pm-exp .rf-pm-itm-lbl:hover {
+.rf-pm-exp .rf-pm-itm-lbl:hover {
     color: #5f9cd0;
 }
 
-nav .rf-pm-exp .rf-pm-itm-sel,nav .rf-pm-exp .rf-pm-itm-sel:hover { /*background:#e3e8ef;*/
+.rf-pm-exp .rf-pm-itm-sel,.rf-pm-exp .rf-pm-itm-sel:hover { /*background:#e3e8ef;*/
 
 }
 
-nav .rf-pm-exp .rf-pm-itm-lbl {
+.rf-pm-exp .rf-pm-itm-lbl {
     color: #305f7b;
-    font: normal 11px "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
 }
 
-nav .rf-pm-exp .rf-pm-itm-sel .rf-pm-itm-lbl {
-    color: #5f9cd0;
-    font-weight: bold;
-}
-
-nav .rf-pm-exp .rf-pm-itm-ico {
+.rf-pm-exp .rf-pm-itm-ico {
     padding: 0 !important;
     width: 5px;
+}
+
+.rf-pm-itm, .rf-pm-itm-sel {
+    padding:  8px 0 8px 0;
+}
+
+.rf-pm-itm-lbl {
+    font-size: 13px
 }
 
 /*************************************************
@@ -395,6 +403,87 @@ inputNumberSlider
 }
 
 .rf-insl-hnd, .rf-insl-hnd-dis {
-vertical-align: top;
+    vertical-align: top;
 }
 
+/*************************************************
+rich:collapsibleSubTable
+*************************************************/
+
+.rf-dt-c {
+    position: relative;
+    padding: 4px 4px 4px 16px;
+}
+
+.rf-csttg-exp {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.rf-csttg-colps {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+/*************************************************
+rich:dataScroller
+*************************************************/
+
+td.acent {
+    padding: 1px;
+}
+
+.rf-ds-btn {
+    padding: 10px;
+}
+
+.rf-ds-nmb-btn {
+    padding:  10px;
+}
+
+/*************************************************
+rich:tree
+*************************************************/
+.rf-trn-hnd {
+    padding: 7px 0 7px 0;
+}
+
+.rf-trn-lbl {
+    font-size: 1.2em;
+}
+
+/*************************************************
+rich:popupPanel
+*************************************************/
+.rf-pp-hdr-cntrls {
+    font-size: 16px;
+}
+/*Login panel attachment*/
+tr.rf-tb-cntr td a{
+    font-size: 16px;
+}
+
+.rf-tb {
+    height:30px;
+}
+
+.rf-tb-itm {
+    padding: 5px 8px;
+}
+
+/*************************************************
+rich:toolbar
+*************************************************/
+.rf-tb-sep-grid {
+   height: 55%;
+}
+
+/*************************************************
+rich:message
+*************************************************/
+.rf-msg-det, .rf-msgs-det {
+    display: inline;
+    font-size: 14px;
+}
