@@ -35,7 +35,7 @@ import org.richfaces.renderkit.util.HtmlDimensions;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
