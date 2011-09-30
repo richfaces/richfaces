@@ -22,7 +22,6 @@
 package org.richfaces.resource;
 
 import com.google.common.base.Function;
-import com.google.common.base.Objects;
 
 /**
  * @author Nick Belaevski
@@ -101,11 +100,13 @@ public final class ResourceKey {
         }
         ResourceKey other = (ResourceKey) obj;
         if (libraryName == null) {
-            if (other.libraryName != null) {
+            if (other.libraryName != null && !"".equals(other.libraryName)) {
                 return false;
             }
         } else if (!libraryName.equals(other.libraryName)) {
-            return false;
+            if (!("".equals(libraryName) && other.libraryName == null)) {
+                return false;
+            }
         }
         if (resourceName == null) {
             if (other.resourceName != null) {
@@ -119,6 +120,6 @@ public final class ResourceKey {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("resourceName", resourceName).add("libraryName", libraryName).toString();
+        return libraryName + ":" + resourceName;
     }
 }
