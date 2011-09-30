@@ -421,7 +421,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
                 if (! contextMap.containsKey(key)) { // stylesheets (with this name + library) will not be rendered multiple times per request
                     contextMap.put(key, Boolean.TRUE);
                 }
-                if (libraryName.isEmpty()) { // also store this in the context map with library as "null"
+                if (libraryName == null || libraryName.isEmpty()) { // also store this in the context map with library as "null"
                     libraryName = "null";
                     key = resourceName + libraryName;
                     if (! contextMap.containsKey(key)) {
