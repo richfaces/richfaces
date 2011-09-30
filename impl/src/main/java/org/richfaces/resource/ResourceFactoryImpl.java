@@ -25,6 +25,7 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -281,9 +282,11 @@ public class ResourceFactoryImpl implements ResourceFactory {
     /**
      * Should be called only if {@link #isResourceExists(String)} returns <code>true</code>
      *
-     * @param resourceName
+     * @param resourceKey
+     * @param parameters
      * @return
      */
+    @SuppressWarnings({"JavadocReference"})
     protected Resource createHandlerDependentResource(ResourceKey resourceKey, Map<String, String> parameters) {
         if (!Strings.isNullOrEmpty(resourceKey.getLibraryName())) {
             return null;
@@ -399,10 +402,41 @@ public class ResourceFactoryImpl implements ResourceFactory {
         ResourceKey resourceKey = new ResourceKey(resourceName, libraryName);
         ExternalStaticResourceFactory externalStaticResourceFactory = externalStaticResourceFactories.get(resourceKey);
         if (externalStaticResourceFactory != null) {
+            System.out.println(String.format("%s,%s,%s,%s", resourceName, libraryName, externalStaticResourceFactory.resourceLocation, "REQUEST"));
+            addResourcesToContextMap(externalStaticResourceFactory);
             return externalStaticResourceFactory.createResource();
         }
-
+        System.out.println(String.format("%s,%s,%s,%s", resourceName, libraryName, "n/a", "DYNAMIC"));
         return createDynamicResource(resourceKey, true);
+    }
+
+    private void addResourcesToContextMap(ExternalStaticResourceFactory externalStaticResourceFactory) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Map<Object, Object> contextMap = facesContext.getAttributes();
+        for (Entry<ResourceKey, ExternalStaticResourceFactory> entry : externalStaticResourceFactories.entrySet()) {
+            ExternalStaticResourceFactory externalStaticResourceFactoryLoop = entry.getValue();
+            if (externalStaticResourceFactory.resourceLocation.equals(externalStaticResourceFactoryLoop.resourceLocation)) {
+                ResourceKey resourceKeyLoop = entry.getKey();
+                String resourceName = resourceKeyLoop.getResourceName();
+                String libraryName = resourceKeyLoop.getLibraryName();
+                String key = resourceName + libraryName;
+                if (! contextMap.containsKey(key)) { // stylesheets (with this name + library) will not be rendered multiple times per request
+                    contextMap.put(key, Boolean.TRUE);
+                }
+                if (libraryName.isEmpty()) { // also store this in the context map with library as "null"
+                    libraryName = "null";
+                    key = resourceName + libraryName;
+                    if (! contextMap.containsKey(key)) {
+                        contextMap.put(key, Boolean.TRUE);
+                    }
+                }
+            }
+
+        }
+    }
+
+    private void addResourceToContextMap(String resourceName, String libraryName) {
+
     }
 
     protected Resource createDynamicResource(ResourceKey resourceKey, boolean useDependencyInjection) {
