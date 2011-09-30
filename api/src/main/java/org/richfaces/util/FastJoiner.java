@@ -51,7 +51,9 @@ public final class FastJoiner {
         StringBuilder sb = new StringBuilder(s1.length() + separator.length() + s2.length());
 
         sb.append(s1);
-        sb.append(separator);
+        if (!s2.startsWith(separator)) {
+            sb.append(separator);
+        }
         sb.append(s2);
 
         return sb.toString();
