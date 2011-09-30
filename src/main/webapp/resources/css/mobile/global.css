@@ -80,7 +80,7 @@ UX Utils
     display: none
 }
 
-.hide {
+.hide-it {
     opacity: 0;
 }
 
@@ -189,22 +189,39 @@ body > header > div img.logo {
     margin: 0 auto;
 }
 
- .rf-pm-top-gr-sel, .rf-pm-hdr-colps, .rf-pm-top-gr-hdr {
-   border-radius: 8px;
-   -moz-border-radius: 8px;
-   -webkit-border-radius: 8px;
-   border: 1px solid #99ccff;
-}
-
- .nav-list {
+.nav-list {
    width: 95%;
    margin: 0 auto 0 auto;
    padding:  5px;
 }
 
+#component-page p {
+    font: .8em "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
+    background: #1d2f3d -moz-linear-gradient(90deg, #E8E8E8 33%, #F5F5F5 123%);
+    background: #1d2f3d -webkit-gradient(linear, left top, left bottom, from(#F5F5F5), to(#E8E8E8));
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    padding:  5px;
+    margin:  5px;
+}
+
+#component-page > div {
+    padding:  10px;
+}
+
+
+
 /*************************************************
 RichFaces panelMenu styles overwriting
 *************************************************/
+.rf-pm-top-gr-sel, .rf-pm-hdr-colps, .rf-pm-top-gr-hdr {
+   border-radius: 8px;
+   -moz-border-radius: 8px;
+   -webkit-border-radius: 8px;
+   border: 1px solid #99ccff;
+}
 
 .rf-pm {
     /*border: 1px solid #B0BDC5;*/
