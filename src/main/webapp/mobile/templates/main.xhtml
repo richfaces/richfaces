@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head>
+        <title>RichFaces Mobile Showcase</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+        <!-- enable full-screen mode -->
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <!-- controls the appearance of the status bar in full-screen mode -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+        <ui:remove>
+            <h:outputStylesheet library="css" name="mobile/base.css" />
+            <h:outputStylesheet library="css" name="mobile/brand.css" />
+            <h:outputStylesheet library="css" name="mobile/global.css" />
+        </ui:remove>
+
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/brand.css" />
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/global.css" />
+
+        <script type="text/javascript">
+
+            function hideURLbar()
+            {
+               setTimeout(scrollTo, 0, 0, 1);
+            }
+
+
+
+           var _gaq = _gaq || [];
+           _gaq.push(['_setAccount', 'UA-7306415-4']);
+           _gaq.push(['_trackPageview']);
+
+           (function() {
+           var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+           ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+           })();
+
+
+            var FOCUS_PAGE;
+
+            function slideTo(id) {
+
+                var class_transition = 'page transition';
+                var class_stageCenter = class_transition + 'stage-center';
+                var class_stageLeft = class_transition + 'stage-center';
+                var class_stageRight = class_transition + 'stage-center';
+
+                //1.)the page we are bringing into focus dictates how
+                // the current page will exit. So let's see what classes
+                // our incoming page is using. We know it will have stage[right|left|etc...]
+                var classes = getElement(id).className.split(' ');
+
+                //2.)decide if the incoming page is assigned to right or left
+                // (-1 if no match)
+                var stageType = classes.indexOf('stage-left');
+
+                //3.) on initial page load focusPage is null, so we need
+                // to set the default page which we're currently seeing.
+                if (FOCUS_PAGE == null) {
+                    //use home page
+                    FOCUS_PAGE = getElement('home-page');
+                }
+
+                //4.) decide how this focused page should exit.
+                if (stageType > 0) {
+                    FOCUS_PAGE.className = 'page transition stage-right';
+                } else {
+                    FOCUS_PAGE.className = 'page transition stage-left';
+                }
+
+                //5. refresh/set the global variable
+                FOCUS_PAGE = getElement(id);
+
+                //6. Bring in the new page.
+                FOCUS_PAGE.className = 'page transition stage-center';
+
+                //7. HACK - push the home page to the history
+                //var stateObj = { rf: "home" };
+                //history.pushState(stateObj, "Home Page", "/showcase/");
+            }
+
+
+
+             function locationHashChanged() {
+                 var backButton = document.getElementById("back-button");
+                 if(location.hash === "#home"){
+                     slideTo('home-page');
+                     backButton.className = 'hide-button';
+                 }else{
+                     var hashArray = location.hash.split(':');
+                     var id;
+                     var sample;
+                     if(hashArray.length === 2){
+                         id = hashArray[0].replace('#','');
+                         sample = hashArray[1];
+                         handleHashChange(id,sample);
+                         backButton.className = 'basic-button left-header-button';
+                     }
+
+                 }
+            }
+
+            window.onhashchange = locationHashChanged;
+
+            window.addEventListener('load', function(e) {
+               if(location.hash == ''){
+                     slideTo('home-page');
+                     location.hash='home';
+               }else{
+                    locationHashChanged();
+               }
+            }, false);
+
+
+            function flip(id) {
+                //get a handle on the flippable region
+                var front = getElement('front');
+                var back = getElement('back');
+
+                //again, just a simple way to see what the state is
+                var classes = front.className.split(' ');
+                var flipped = classes.indexOf('flipped');
+
+                if (flipped >= 0) {
+                    //already flipped, so return to original
+                    front.className = 'normal';
+                    back.className = 'flipped';
+                } else {
+                    //do the flip
+                    front.className = 'flipped';
+                    back.className = 'normal';
+
+                }
+            }
+
+            function getElement(id) {
+                return document.getElementById(id)
+            }
+
+        </script>
+
+
+
+        <style type="text/css">
+            /*Buttons and bars*/
+            .left-header-button {
+               font-weight: bold;
+               font-size: 12px;
+               color: #fff;
+               text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
+               text-align: center;
+               text-overflow: ellipsis;
+               height: 30px;
+               width: 60px;
+               position: absolute;
+               top: 7px;
+               left: 5px;
+               line-height: 30px;
+            }
+
+            .right-header-button {
+               font-weight: bold;
+               font-size: 12px;
+               color: #fff;
+               text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
+               text-align: center;
+               text-overflow: ellipsis;
+               height: 30px;
+               width: 60px;
+               position: absolute;
+               top: 7px;
+               right: 5px;
+               line-height: 30px;
+            }
+
+            .basic-button {
+               background: #000 -moz-linear-gradient(90deg, rgba(0, 0, 0, .3) 33%, rgba(255, 255, 255, .1) 123%);
+               background: #000 -webkit-gradient(linear, left top, left bottom, from(#717172), to(#0f0f10), color-stop(0.5, #3a3a3a), color-stop(0.5, #0d0d0f));
+               border-radius: 7px;
+               mozborder-radius: 7px;
+               webkitborder-radius: 7px;
+               border: none;
+
+            }
+
+            .hide-button {
+                display:none;
+                opacity: 0;
+            }
+        </style>
+    </h:head>
+    <h:body onload="hideURLbar();">
+
+        <h:form>
+            <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="slideTo('component-page')">
+                <f:param name="demo" value="param1"/>
+                <f:param name="sample" value="param2"/>
+            </a4j:jsFunction>
+        </h:form>
+
+        <h:form style="height:100%">
+        <div id="browser">
+            <header>
+                <div>
+                   <div id="back-button" class="hide-button" onclick="slideTo('home-page');location.hash='home'">Back</div>
+                   <a href="#{facesContext.externalContext.requestContextPath}/index.jsp">
+                       <img src="#{facesContext.externalContext.requestContextPath}/images/mobile/rf-logo-small.png" alt="RF logo" class="logo"/>
+                   </a>
+                </div>
+            </header>
+
+            <div id="page-container">
+                <div id="home-page" class="page stage-left">
+                    <nav>
+                        <div class="nav-list">
+
+                             <rich:panelMenu activeItem="#{demoNavigator.currentDemo.id}">
+                                <c:forEach items="#{demoNavigator.groups}" var="gr">
+                                    <rich:panelMenuGroup label="#{gr.name}" rightExpandedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}"
+                                        rightCollapsedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}">
+                                        <c:forEach items="#{gr.demos}" var="d">
+
+                                            <rich:panelMenuItem label="#{d.name}" oncomplete="location.hash='#{d.id}:#{demoNavigator.currentSample.id}'" render="@form"
+                                                                 rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}">
+                                                    <f:param name="demo" value="#{d.id}"/>
+                                                    <f:param name="sample" value="#{demoNavigator.currentSample.id}"/>
+                                            </rich:panelMenuItem>
+                                        </c:forEach>
+                                    </rich:panelMenuGroup>
+                                </c:forEach>
+                            </rich:panelMenu>
+                        </div>
+                    </nav>
+                </div>
+
+                <div id="component-page" class="page stage-right">
+
+                        <div>
+                                <h:outputStylesheet>
+                                    .navigation .rf-tab-hdr-brd,.navigation .rf-tab {
+                                    display: none;
+                                    }
+                                </h:outputStylesheet>
+                            <div>
+
+                                <fieldset class="example-cnt">
+                                    <ui:include src="#{demoNavigator.sampleURI}" />
+                                </fieldset>
+
+                             </div>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+
+
+       </h:form>
+
+
+
+    </h:body>
+</f:view>
+ <script type="text/javascript">
+
+          (function (jQuery) {
+
+              jQuery.support.touch = typeof Touch === 'object';
+
+              if (!jQuery.support.touch) {
+                return;
+              }
+
+              var mouseProto  = jQuery.ui.mouse.prototype,
+                  _mouseInit  = mouseProto._mouseInit,
+                  _mouseDown  = mouseProto._mouseDown,
+                  _mouseUp    = mouseProto._mouseUp,
+
+                  mouseEvents = {
+                    touchstart: 'mousedown',
+                    touchmove:  'mousemove',
+                    touchend:   'mouseup'
+                  };
+
+              function makeMouseEvent (event) {
+
+                var touch = event.originalEvent.changedTouches[0];
+
+                return jQuery.extend(event, {
+                  type:    mouseEvents[event.type],
+                  which:   1,
+                  pageX:   touch.pageX,
+                  pageY:   touch.pageY,
+                  screenX: touch.screenX,
+                  screenY: touch.screenY,
+                  clientX: touch.clientX,
+                  clientY: touch.clientY
+                });
+              }
+
+              mouseProto._mouseInit = function () {
+
+                var self = this;
+
+                self.element.bind('touchstart.' + self.widgetName, function (event) {
+                  return self._mouseDown(makeMouseEvent(event));
+                });
+
+                _mouseInit.call(self);
+              };
+
+              mouseProto._mouseDown = function (event) {
+
+                var self = this,
+                    ret  = _mouseDown.call(self, event);
+
+                self._touchMoveDelegate = function (event) {
+                  return self._mouseMove(makeMouseEvent(event));
+                };
+
+                self._touchEndDelegate = function(event) {
+                  return self._mouseUp(makeMouseEvent(event));
+                };
+
+                jQuery(document)
+                  .bind('touchmove.' + self.widgetName, self._touchMoveDelegate)
+                  .bind('touchend.' + self.widgetName, self._touchEndDelegate);
+
+                return ret;
+              };
+
+              mouseProto._mouseUp = function (event) {
+
+                var self = this;
+
+                jQuery(document)
+                  .unbind('touchmove.' + self.widgetName, self._touchMoveDelegate)
+                  .unbind('touchend.' + self.widgetName, self._touchEndDelegate);
+
+                return _mouseUp.call(self, event);
+              };
+
+            })(jQuery);
+
+
+        </script>
+
+</html>

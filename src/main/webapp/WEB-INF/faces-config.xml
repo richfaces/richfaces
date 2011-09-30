@@ -35,4 +35,6 @@
             <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
         </system-event-listener>
     </application>
+
+
 </faces-config>
