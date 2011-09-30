@@ -402,11 +402,9 @@ public class ResourceFactoryImpl implements ResourceFactory {
         ResourceKey resourceKey = new ResourceKey(resourceName, libraryName);
         ExternalStaticResourceFactory externalStaticResourceFactory = externalStaticResourceFactories.get(resourceKey);
         if (externalStaticResourceFactory != null) {
-            System.out.println(String.format("%s,%s,%s,%s", resourceName, libraryName, externalStaticResourceFactory.resourceLocation, "REQUEST"));
             addResourcesToContextMap(externalStaticResourceFactory);
             return externalStaticResourceFactory.createResource();
         }
-        System.out.println(String.format("%s,%s,%s,%s", resourceName, libraryName, "n/a", "DYNAMIC"));
         return createDynamicResource(resourceKey, true);
     }
 
