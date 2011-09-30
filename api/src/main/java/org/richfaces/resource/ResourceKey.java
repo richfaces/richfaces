@@ -41,7 +41,7 @@ public final class ResourceKey {
     public ResourceKey(String resourceName, String libraryName) {
         super();
         this.resourceName = resourceName;
-        this.libraryName = libraryName == null ? "" : libraryName;
+        this.libraryName = libraryName;
     }
 
     public static ResourceKey create(String resourceQualifier) {
@@ -100,11 +100,13 @@ public final class ResourceKey {
         }
         ResourceKey other = (ResourceKey) obj;
         if (libraryName == null) {
-            if (other.libraryName != null) {
+            if (other.libraryName != null && !"".equals(other.libraryName)) {
                 return false;
             }
         } else if (!libraryName.equals(other.libraryName)) {
-            return false;
+            if (!("".equals(libraryName) && other.libraryName == null)) {
+                return false;
+            }
         }
         if (resourceName == null) {
             if (other.resourceName != null) {
