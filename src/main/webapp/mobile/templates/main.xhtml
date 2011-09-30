@@ -23,7 +23,7 @@
             <h:outputStylesheet library="css" name="mobile/brand.css" />
             <h:outputStylesheet library="css" name="mobile/global.css" />
         </ui:remove>
-        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/base.css" />
+
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/brand.css" />
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/global.css" />
 
@@ -33,6 +33,7 @@
             {
                setTimeout(scrollTo, 0, 0, 1);
             }
+
 
 
            var _gaq = _gaq || [];
@@ -89,9 +90,13 @@
                 //history.pushState(stateObj, "Home Page", "/showcase/");
             }
 
+
+
              function locationHashChanged() {
+                 var backButton = document.getElementById("back-button");
                  if(location.hash === "#home"){
-                     slideTo('home-page')
+                     slideTo('home-page');
+                     backButton.className = 'hide-button';
                  }else{
                      var hashArray = location.hash.split(':');
                      var id;
@@ -100,7 +105,9 @@
                          id = hashArray[0].replace('#','');
                          sample = hashArray[1];
                          handleHashChange(id,sample);
+                         backButton.className = 'basic-button left-header-button';
                      }
+
                  }
             }
 
@@ -184,6 +191,12 @@
                mozborder-radius: 7px;
                webkitborder-radius: 7px;
                border: none;
+
+            }
+
+            .hide-button {
+                display:none;
+                opacity: 0;
             }
         </style>
     </h:head>
@@ -351,17 +364,18 @@
         </h:form>
          </div>
 
-
-        <h:form style="height:100%">
-        <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="slideTo('component-page')">
+        <h:form>
+            <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="slideTo('component-page')">
                 <f:param name="demo" value="param1"/>
                 <f:param name="sample" value="param2"/>
-        </a4j:jsFunction>
+            </a4j:jsFunction>
+        </h:form>
 
+        <h:form style="height:100%">
         <div id="browser">
             <header>
                 <div>
-                   <div id="back-button" class="basic-button left-header-button" onclick="slideTo('home-page');location.hash='home'">Back</div>
+                   <div id="back-button" class="hide-button" onclick="slideTo('home-page');location.hash='home'">Back</div>
                    <a href="#{facesContext.externalContext.requestContextPath}/index.jsp">
                        <img src="#{facesContext.externalContext.requestContextPath}/images/mobile/rf-logo-small.png" alt="RF logo" class="logo"/>
                    </a>
@@ -500,6 +514,8 @@
               };
 
             })(jQuery);
+
+
         </script>
 
 </html>
