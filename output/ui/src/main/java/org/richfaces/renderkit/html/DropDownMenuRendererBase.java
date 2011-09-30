@@ -21,14 +21,14 @@ import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.RendererBase;
 
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
-        @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces.js"),
-        @ResourceDependency(name = "richfaces-base-component.js"), @ResourceDependency(name = "richfaces-event.js"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
-        @ResourceDependency(library = "org.richfaces", name = "dropdownmenu.ecss", target = "head"),
         @ResourceDependency(library = "org.richfaces", name = "menuKeyNavigation.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu-base.js"),
-        @ResourceDependency(library = "org.richfaces", name = "menu.js") })
+        @ResourceDependency(library = "org.richfaces", name = "menu.js"),
+        @ResourceDependency(library = "org.richfaces", name = "dropdownmenu.ecss", target = "head") })
 public abstract class DropDownMenuRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.DropDownMenuRenderer";
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
@@ -40,7 +40,7 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
 
         for (UIComponent child : dropDownMenu.getChildren()) {
             if (child.isRendered()
-                && (child instanceof AbstractMenuGroup || child instanceof AbstractMenuItem || child instanceof AbstractMenuSeparator)) {
+                    && (child instanceof AbstractMenuGroup || child instanceof AbstractMenuItem || child instanceof AbstractMenuSeparator)) {
 
                 child.encodeAll(facesContext);
             }
@@ -88,14 +88,14 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
                     jointPoint = org.richfaces.component.Positioning.DEFAULT;
                 }
                 RenderKitUtils.addToScriptHash(map, "jointPoint", jointPoint.getValue(),
-                    org.richfaces.component.Positioning.DEFAULT.getValue());
+                        org.richfaces.component.Positioning.DEFAULT.getValue());
 
                 Positioning direction = group.getDirection();
                 if (direction == null) {
                     direction = org.richfaces.component.Positioning.DEFAULT;
                 }
                 RenderKitUtils.addToScriptHash(map, "direction", direction.getValue(),
-                    org.richfaces.component.Positioning.DEFAULT.getValue());
+                        org.richfaces.component.Positioning.DEFAULT.getValue());
 
                 results.add(map);
             }

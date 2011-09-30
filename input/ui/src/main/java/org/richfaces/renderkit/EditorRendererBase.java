@@ -30,10 +30,9 @@ import javax.faces.context.FacesContext;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(name = "richfaces-utils.js"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"), @ResourceDependency(name = "richfaces-jsf-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "editor.js"),
+        @ResourceDependency(name = "richfaces-utils.js"), @ResourceDependency(library = "org.richfaces", name = "editor.js"),
         @ResourceDependency(library = "org.richfaces.ckeditor", name = "ckeditor.js", target = "body") })
 public class EditorRendererBase extends InputRendererBase {
 
