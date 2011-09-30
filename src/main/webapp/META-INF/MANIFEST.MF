@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Created-By: Apache Maven
+Built-By: bleathem
+Build-Jdk: 1.6.0_26
+Dependencies: org.jboss.as.controller-client,org.jboss.as.protocol,
+ org.jboss.dmr,org.jboss.logging,org.jboss.marshalling,
+ org.jboss.marshalling.river,org.jboss.remoting3,org.jboss.threads
+
