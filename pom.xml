@@ -632,6 +632,7 @@
                                         </resource>
                                         <resource>
                                             <directory>src/main/webapp-jee6</directory>
+                                            <targetPath>/</targetPath>
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-jee6</directory>
@@ -673,6 +674,7 @@
                                         </resource>
                                         <resource>
                                             <directory>src/main/webapp-jee6</directory>
+                                            <targetPath>/</targetPath>
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-jbas7</directory>
@@ -713,6 +715,7 @@
                                         </resource>
                                         <resource>
                                             <directory>src/main/webapp-openshift</directory>
+                                            <targetPath>/</targetPath>
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-jbas7</directory>
