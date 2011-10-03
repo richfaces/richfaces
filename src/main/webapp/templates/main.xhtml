@@ -4,7 +4,10 @@
 <f:view contentType="text/html">
     <h:head>
         <title>RichFaces Showcase</title>
-        <h:outputScript>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="application.css" target="head" />
+        <h:outputScript target="head">
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-7306415-4']);
             _gaq.push(['_trackPageview']);
@@ -15,9 +18,7 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </h:outputScript>
-        <h:outputStylesheet library="css" name="application.css" />
-    </h:head>
-    <h:body>
+        
         <div id="page">
             <div id="header">
                 <a href="#" class="logo"><img src="#{facesContext.externalContext.requestContextPath}/images/rf-logo.png"
