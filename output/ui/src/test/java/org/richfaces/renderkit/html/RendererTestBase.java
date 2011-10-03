@@ -82,6 +82,7 @@ public abstract class RendererTestBase {
     }
 
     protected void checkXmlStructure(String pageName, String pageCode) throws SAXException, IOException {
+        System.out.println(pageCode);
         InputStream expectedPageCode = this.getClass().getResourceAsStream(pageName + ".xmlunit.xml");
         if (expectedPageCode == null) {
             throw new IllegalArgumentException("Page: " + pageName + ".xmlunit.xml doesn't exist.");

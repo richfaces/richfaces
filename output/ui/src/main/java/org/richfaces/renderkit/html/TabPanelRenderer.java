@@ -116,9 +116,9 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         w.startElement(DIV, comp);
         AbstractTabPanel tabPanel = (AbstractTabPanel) comp;
         if (tabPanel.isHeaderPositionedTop()) {
-            w.writeAttribute(CLASS, "rf-tab-hdr-tabline-top-vis", null);
+            w.writeAttribute(CLASS, "rf-tab-hdr-tabline-vis rf-tab-hdr-tabline-top", null);
         } else {
-            w.writeAttribute(CLASS, "rf-tab-hdr-tabline-btm-vis", null);
+            w.writeAttribute(CLASS, "rf-tab-hdr-tabline-vis rf-tab-hdr-tabline-btm", null);
         }
         w.startElement("table", comp);
         w.writeAttribute(CLASS_ATTRIBUTE, "rf-tab-hdr-tabs", null);
@@ -177,15 +177,17 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     private void encodeTabHeader(FacesContext context, AbstractTab tab, ResponseWriter writer,
             AbstractTogglePanelTitledItem.HeaderStates state, Boolean isDisplay) throws IOException {
 
-        String headerPositionAndStateClass = "rf-tab-hdr-" + positionAbbreviation(tab) + '-' + state.abbreviation();
+        String headerStateClass = "rf-tab-hdr-" + state.abbreviation();
+        String headerPositionClass = "rf-tab-hdr-" + positionAbbreviation(tab);
 
         writer.startElement(TD_ELEM, tab);
         writer.writeAttribute(ID_ATTRIBUTE, tab.getClientId(context) + ":header:" + state.toString(), null);
         renderPassThroughAttributes(context, tab, HEADER_ATTRIBUTES);
         writer.writeAttribute(
                 CLASS_ATTRIBUTE,
-                concatClasses("rf-tab-hdr " + headerPositionAndStateClass + attributeAsString(tab, "headerClass"),
-                        attributeAsString(tab, state.headerClass())), null);
+                concatClasses(
+                        "rf-tab-hdr " + headerStateClass + " " + headerPositionClass
+                                + attributeAsString(tab, "headerClass"), attributeAsString(tab, state.headerClass())), null);
         writer.writeAttribute(STYLE_ATTRIBUTE,
                 concatStyles(isDisplay ? "" : "display : none", attributeAsString(tab, "headerStyle")), null);
 

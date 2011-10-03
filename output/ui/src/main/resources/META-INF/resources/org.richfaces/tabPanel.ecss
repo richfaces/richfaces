@@ -8,7 +8,7 @@
     color: '#{richSkin.generalTextColor}';
 }
 
-.rf-tab-hdr-btm-act {
+.rf-tab-hdr-act.rf-tab-hdr-btm {
     padding: 3px 5px 0px 5px;
     border-top: 0px;
     font-weight: bold;
@@ -20,7 +20,7 @@
     cursor: default;
 }
 
-.rf-tab-hdr-top-act {
+.rf-tab-hdr-act.rf-tab-hdr-top {
     padding: 0px 5px 3px 5px;
     border-bottom: 0px;
     font-weight: bold;
@@ -32,31 +32,31 @@
     cursor: default;
 }
 
-.rf-tab-hdr-btm-inact {
+.rf-tab-hdr-inact.rf-tab-hdr-btm {
     vertical-align: bottom;
     padding: 3px 5px 0px 5px;
     background-image: "url(#{resource['org.richfaces.images:tabBottomBg.png']})";
 }
-.rf-tab-hdr-top-inact {
+.rf-tab-hdr-inact.rf-tab-hdr-top {
     vertical-align: top;
     padding: 0px 5px 3px 5px;
     background-image: "url(#{resource['org.richfaces.images:tabBg.png']})";
 }
-.rf-tab-hdr-top-dis {
+.rf-tab-hdr-dis.rf-tab-hdr-top {
     vertical-align: top;
     padding: 0px 5px 3px 5px;
     background-image: "url(#{resource['org.richfaces.images:tabBg.png']})";
     color: "#{richSkin.tabDisabledTextColor}";
     cursor: default;
 }
-.rf-tab-hdr-btm-dis{
+.rf-tab-hdr-dis.rf-tab-hdr-btm {
     vertical-align: bottom;
     padding: 3px 5px 0px 5px;
     background-image: "url(#{resource['org.richfaces.images:tabBottomBg.png']})";
     color: "#{richSkin.tabDisabledTextColor}";
     cursor: default;
 }
-.rf-tab-hdr-tabline-top-vis {
+.rf-tab-hdr-tabline-vis.rf-tab-hdr-tabline-top {
     background: url("#{resource['org.richfaces.images:tabLineBg.png']}") repeat-x scroll center top;
     background-color: "#{richSkin.additionalBackgroundColor}";
     border-color: "#{richSkin.panelBorderColor}";
@@ -70,7 +70,7 @@
     position: relative;
 }
 
-.rf-tab-hdr-tabline-btm-vis {
+.rf-tab-hdr-tabline-vis.rf-tab-hdr-tabline-btm {
     background: url("#{resource['org.richfaces.images:tabLineBottomBg.png']}") repeat-x scroll center top;
     background-color: "#{richSkin.additionalBackgroundColor}";
     border: "#{richSkin.panelBorderColor}";
