@@ -13,8 +13,10 @@
 
     <h:head>
         <title>RichFaces Showcase - Push Messages</title>
-        <h:outputStylesheet library="css" name="application.css" />
-        <h:outputStylesheet>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="application.css" target="head" />
+        <h:outputStylesheet target="head">
             #page-content {
                 height: 100%;
                 min-height: 360px;
@@ -26,8 +28,6 @@
                 padding: 0px;
             }
         </h:outputStylesheet>
-    </h:head>
-    <h:body>
         <div id="page">
             <div id="page-content">
                 <rich:tabPanel switchType="client" styleClass="navigation">
