@@ -24,7 +24,7 @@
         <cdk:resource-dependency library="org.richfaces" name="msg.ecss" />
     </cc:interface>
     <cc:implementation>
-        <span id="#{clientId}" class="rf-ntf-msg #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
+        <span id="#{clientId}" class="rf-msg #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
             <c:forEach var="msg" items="#{getVisibleMessages(facesContext,component)}">
                 <span class="#{getMsgClass(facesContext,component,msg)}" style="#{getMsgStyle(facesContext,component,msg)}">
                     <cdk:call>encodeMessage(facesContext,component,msg)</cdk:call>
