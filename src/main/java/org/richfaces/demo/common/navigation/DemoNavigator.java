@@ -125,7 +125,6 @@ public class DemoNavigator implements Serializable {
      */
     public String getSampleIncludeURI() {
         String sampleURI = getSampleURI();
-        System.out.println("-------sampleURI-" + sampleURI);
         StringBuffer sampleURIBuffer = new StringBuffer(sampleURI);
         int folderOffset = sampleURIBuffer.lastIndexOf(currentSample.getId());
         int fileNameOffset = sampleURIBuffer.lastIndexOf(currentSample.getId()) + currentSample.getId().length()
