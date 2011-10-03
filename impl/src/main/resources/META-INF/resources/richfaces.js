@@ -106,6 +106,9 @@ if (!window.RichFaces) {
 
     richfaces.cleanDom = function(source) {
         var e = (typeof source == "string") ? document.getElementById(source) : jQuery('body').get(0);
+        if (source == "javax.faces.ViewRoot") {
+            e = jQuery('body').get(0);
+        }
         if (e) {
             var elements = e.getElementsByTagName("*");
             if (elements.length) {
