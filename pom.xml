@@ -116,12 +116,6 @@
         <dependency>
             <groupId>org.atmosphere</groupId>
             <artifactId>atmosphere-runtime</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>atmosphere-ping</artifactId>
-                    <groupId>org.atmosphere</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax.jms</groupId>
