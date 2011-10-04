@@ -27,6 +27,10 @@
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
         <param-value>server</param-value>
     </context-param>
+    <context-param>
+        <param-name>org.richfaces.staticResourceLocation</param-name>
+        <param-value>#{facesContext.externalContext.requestContextPath}/static-resources/#{resourceLocation}</param-value>
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -74,10 +78,6 @@
         <filter-name>PushFilter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
-    <context-param>
-        <param-name>org.richfaces.staticResourceLocation</param-name>
-        <param-value>#{facesContext.externalContext.requestContextPath}/static-resources/#{resourceLocation}</param-value>
-    </context-param>
     
     <!-- Initializes CDI -->
     <listener>

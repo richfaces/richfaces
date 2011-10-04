@@ -25,6 +25,7 @@
         <container.resources>src/main/resources-tomcat</container.resources>
         <container.resources.exclude></container.resources.exclude>
         <container.webapp>src/main/webapp-tomcat</container.webapp>
+        <war.outputFileNameMapping>@{artifactId}@@{dashClassifier?}@-@{version}@.@{extension}@</war.outputFileNameMapping>
     </properties>
 
     <dependencies>
@@ -221,6 +222,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <classifier>${container.classifier}</classifier>
+                    <outputFileNameMapping>${war.outputFileNameMapping}</outputFileNameMapping>
                     <webResources>
                         <resource>
                             <directory>${container.webapp}</directory>
@@ -350,6 +352,7 @@
                 <container.resources>src/main/resources-jbas7</container.resources>
                 <container.webapp>src/main/webapp-openshift</container.webapp>
                 <dependency.scope>provided</dependency.scope>
+                <war.outputFileNameMapping>@{artifactId}@.@{extension}@</war.outputFileNameMapping>
             </properties>
             <dependencies>
                 <dependency>
@@ -697,6 +700,7 @@
                                     <warSourceExcludes>
                                         WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
                                     </warSourceExcludes>
+                                    <outputFileNameMapping>@{artifactId}@.@{extension}@</outputFileNameMapping>
                                     <webResources>
                                         <resource>
                                             <directory>src/main/webapp</directory>
