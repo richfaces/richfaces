@@ -17,6 +17,7 @@
         this.selValueInput = $(document.getElementById(id + "selValue"));
         this.container = this.selValueInput.parent();
         this.clientSelectItems = mergedOptions.clientSelectItems;
+        this.filterFunction = mergedOptions.filterFunction;
 
 
         if (mergedOptions.showControl && !mergedOptions.disabled) {
@@ -58,7 +59,8 @@
         selectItemCss: "rf-sel-sel",
         listCss: "rf-sel-lst-cord",
         changeDelay: 8,
-        disabled: false
+        disabled: false,
+        filterFunction : undefined
     };
 
     var REGEXP_TRIM = /^[\n\s]*(.*)[\n\s]*$/;
@@ -214,7 +216,7 @@
 
             __updateItemsFromCache: function(value) {
                 if (this.originalItems.length > 0 && this.enableManualInput) {
-                    var newItems = this.cache.getItems(value);
+                    var newItems = this.cache.getItems(value, this.filterFunction);
                     var items = $(newItems);
                     this.list.__setItems(items);
                     $(document.getElementById(this.id + "Items")).empty().append(items);
@@ -225,7 +227,7 @@
                 var value;
                 var label;
                 if (this.enableManualInput) {
-                    var items = this.cache.getItems(inputLabel);
+                    var items = this.cache.getItems(inputLabel, this.filterFunction);
                     if (items && items.length > 0) {
                         var first = $(items[0]);
                         $.each(this.clientSelectItems, function() {

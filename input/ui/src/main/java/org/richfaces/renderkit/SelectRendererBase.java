@@ -29,6 +29,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractSelect;
 import org.richfaces.component.AbstractSelectComponent;
 import org.richfaces.renderkit.util.HtmlDimensions;
@@ -49,6 +50,16 @@ import org.richfaces.renderkit.util.HtmlDimensions;
         @ResourceDependency(library = "org.richfaces", name = "select.ecss") })
 public class SelectRendererBase extends InputRendererBase {
     public static final String ITEM_CSS = "rf-sel-opt";
+
+    public JSReference getClientFilterFunction(UIComponent component) {
+        AbstractSelect select = (AbstractSelect) component;
+        String clientFilter = (String) select.getAttributes().get("clientFilterFunction");
+        if (clientFilter != null && clientFilter.length() != 0) {
+            return new JSReference(clientFilter);
+        }
+
+        return null;
+    }
 
     public void renderListHandlers(FacesContext facesContext, UIComponent component) throws IOException {
         RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component,
