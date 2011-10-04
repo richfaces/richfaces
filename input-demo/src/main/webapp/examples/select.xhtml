@@ -11,6 +11,12 @@
             font-weight: bold;
         }
     </style>
+    <script type="text/javascript">
+        function myFilter (key, value) {
+            var p = value.indexOf(key);
+            return (p >= 0);
+        }
+    </script>
 </h:head>
 
 <h:body>
@@ -46,6 +52,42 @@
                 <li><h:commandButton value="HidePopup" onclick="#{misc:component('select')}.hidePopup(); return false;" /></li>
             </ul>
             <h:panelGroup id="out1">
+                <h:outputText value="Selected Value: #{inputBean.value}" />
+            </h:panelGroup>
+        </h:form>
+    </fieldset>
+    <fieldset>
+        <h:form>
+            <legend>Select Test App| enableManualInput="true" | clientFilterFunction</legend>
+            <div style="width: 400px; height: 100px; overflow: auto;">
+                <in:select id="select1b" openOnEdit="true" enableManualInput="true" defaultLabel="Select Value ..."
+                           value="#{inputBean.value}" style="font-size: 2em;" styleClass="my-select-class" title="Title" clientFilterFunction="myFilter">
+                    <f:selectItem itemLabel="Label#1" itemValue="Value#1" />
+                    <f:selectItem itemLabel="Label#2" itemValue="Value#2" />
+                    <f:selectItem itemLabel="Label#3" itemValue="Value#3" />
+                    <f:selectItem itemLabel="Label#4" itemValue="Value#4" />
+                    <f:selectItem itemLabel="Label#5" itemValue="Value#5" />
+                    <f:selectItem itemLabel="Label#6" itemValue="Value#6" />
+                    <f:selectItem itemLabel="Label#7" itemValue="Value#7" />
+                    <f:selectItem itemLabel="Label#8" itemValue="Value#8" />
+                    <f:selectItem itemLabel="Label#9" itemValue="Value#9" />
+                    <f:selectItem itemLabel="Label#10" itemValue="Value#10" />
+                    <f:selectItem itemLabel="Label#11" itemValue="Value#11" />
+                    <f:selectItem itemLabel="Label#12" itemValue="Value#12" />
+                    <f:selectItem itemLabel="Label#13" itemValue="Value#13" />
+                    <f:selectItem itemLabel="Label#14" itemValue="Value#14" />
+                    <f:ajax event="change" execute="@form" render="out1b" />
+                </in:select>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="select1b out1b" />
+                </h:commandButton>
+            </div>
+
+            <ul>
+                <li><h:commandButton value="ShowPopup" onclick="#{misc:component('select')}.showPopup(); return false;" /></li>
+                <li><h:commandButton value="HidePopup" onclick="#{misc:component('select')}.hidePopup(); return false;" /></li>
+            </ul>
+            <h:panelGroup id="out1b">
                 <h:outputText value="Selected Value: #{inputBean.value}" />
             </h:panelGroup>
         </h:form>
