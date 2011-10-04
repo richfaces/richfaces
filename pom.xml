@@ -325,7 +325,7 @@
             <properties>
                 <container.classifier>jbas7</container.classifier>
                 <container.resources>src/main/resources-jbas7</container.resources>
-                <container.webapp>src/main/webapp-jee6</container.webapp>
+                <container.webapp>src/main/webapp-jbas7</container.webapp>
                 <dependency.scope>provided</dependency.scope>
             </properties>
             <dependencies>
@@ -667,7 +667,7 @@
                                             </excludes>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/webapp-jee6</directory>
+                                            <directory>src/main/webapp-jbas7</directory>
                                             <targetPath>/</targetPath>
                                         </resource>
                                         <resource>
