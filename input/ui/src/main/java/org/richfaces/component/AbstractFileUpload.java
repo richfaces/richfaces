@@ -99,6 +99,9 @@ public abstract class AbstractFileUpload extends UIComponentBase {
     @Attribute
     public abstract String getDeleteLabel();
 
+    @Attribute(defaultValue = "210px")
+    public abstract String getListHeight();
+
     @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         super.processEvent(event);
