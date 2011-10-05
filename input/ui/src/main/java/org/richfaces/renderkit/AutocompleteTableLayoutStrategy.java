@@ -61,7 +61,12 @@ public class AutocompleteTableLayoutStrategy extends AbstractAutocompleteLayoutS
         for (UIComponent child : component.getChildren()) {
             if (child instanceof UIColumn) {
                 encodeItemChildBegin(facesContext, component);
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-fnt rf-au-inp", null);
+                String styleClass = "rf-au-fnt rf-au-inp";
+                Object clientStyleClass = child.getAttributes().get("styleClass");
+                if (clientStyleClass != null && clientStyleClass instanceof String) {
+                    styleClass = String.format("%s %s", styleClass, clientStyleClass);
+                }
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
                 child.encodeAll(facesContext);
                 encodeItemChildEnd(facesContext, component);
             }
