@@ -119,10 +119,10 @@
     <fieldset>
         <legend>PickList w/ f:selectItems and columns</legend>
         <h:form>
-            <in:pickList id="pickList4" value="#{richBean.values}" columnVar="item" sourceCaption="Source Items" targetCaption="Target Items">
+            <in:pickList id="pickList4" value="#{richBean.values}" var="item" sourceCaption="Source Items" targetCaption="Target Items">
                 <f:selectItems value="#{entityBeanSelector.values}"/>
                 <f:converter converterId="EntityBeanConverter" />
-                <it:column>
+                <it:column styleClass="my-select-class">
                     #{item.value}
                 </it:column>
                 <it:column>
@@ -146,7 +146,7 @@
     <fieldset>
         <legend>PickList w/ ordering (listShuttle)</legend>
         <h:form>
-            <in:pickList id="pickList5" value="#{richBean.values}" columnVar="item" sourceCaption="Source Items" targetCaption="Target Items" orderable="true">
+            <in:pickList id="pickList5" value="#{richBean.values}" var="item" sourceCaption="Source Items" targetCaption="Target Items" orderable="true">
                 <f:selectItems value="#{entityBeanSelector.values}"/>
                 <f:converter converterId="EntityBeanConverter" />
                 <it:column>
@@ -173,7 +173,7 @@
     <fieldset>
         <legend>PickList w/ my-select-class</legend>
         <h:form>
-            <in:pickList id="pickList6" value="#{richBean.values}" columnVar="item" sourceCaption="Source Items" targetCaption="Target Items" orderable="true" selectItemClass="my-select-class">
+            <in:pickList id="pickList6" value="#{richBean.values}" var="item" sourceCaption="Source Items" targetCaption="Target Items" orderable="true" selectItemClass="my-select-class">
                 <f:selectItems value="#{entityBeanSelector.values}"/>
                 <f:converter converterId="EntityBeanConverter" />
                 <it:column>
@@ -200,7 +200,7 @@
     <fieldset>
         <legend>PickList w/ required</legend>
         <h:form>
-            <in:pickList id="pickList7" value="#{richBean.values}" columnVar="item" sourceCaption="Source Items" targetCaption="Target Items" required="true" requiredMessage="This is required!">
+            <in:pickList id="pickList7" value="#{richBean.values}" var="item" sourceCaption="Source Items" targetCaption="Target Items" required="true" requiredMessage="This is required!">
                 <f:selectItems value="#{entityBeanSelector.values}"/>
                 <f:converter converterId="EntityBeanConverter" />
                 <f:validator validatorId="EntityBeanValidator" />

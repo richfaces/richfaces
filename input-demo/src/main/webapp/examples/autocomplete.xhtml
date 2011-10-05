@@ -23,6 +23,9 @@
     border: 1px solid red;
     width: 400px;
 }
+.red {
+    color: red;
+}
 </style>
 
             <h:form id="form">
@@ -55,7 +58,7 @@
                     <input:autocomplete id="myAutocomplete1" mode="client" autocompleteMethod="#{autoCompleteBean.autocomplete}"
                         var="country" fetchValue="#{country.name}" showButton="true" value="#{autoCompleteBean.value}"
                         layout="table">
-                        <rich:column>
+                        <rich:column styleClass="red">
                             <h:outputText value="#{country.name}" />
                         </rich:column>
                         <rich:column>
