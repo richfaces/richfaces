@@ -539,7 +539,7 @@
         </demos>
     </group>
     <group>
-        <name>Inputs and Selects</name>
+        <name>Inputs</name>
         <demos>
             <demo>
                 <id>autocomplete</id>
@@ -608,6 +608,21 @@
                 </samples>
             </demo>
             <demo>
+                <id>fileUpload</id>
+                <name>rich:fileUpload</name>
+                <samples>
+                    <sample>
+                        <id>imgUpload</id>
+                        <name>Upload images</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Selects</name>
+        <demos>
+            <demo>
                 <id>inplaceSelect</id>
                 <name>rich:inplaceSelect</name>
                 <samples>
@@ -628,12 +643,22 @@
                 </samples>
             </demo>
             <demo>
-                <id>fileUpload</id>
-                <name>rich:fileUpload</name>
+                <id>orderingList</id>
+                <name>rich:orderingList</name>
                 <samples>
                     <sample>
-                        <id>imgUpload</id>
-                        <name>Upload images</name>
+                        <id>orderingList</id>
+                        <name>Ordering List samples</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>pickList</id>
+                <name>rich:pickList</name>
+                <samples>
+                    <sample>
+                        <id>pickList</id>
+                        <name>Pick List samples</name>
                     </sample>
                 </samples>
             </demo>
