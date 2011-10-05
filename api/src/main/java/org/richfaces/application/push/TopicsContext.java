@@ -25,7 +25,11 @@ import java.text.MessageFormat;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import javax.el.ELContext;
+import javax.faces.context.FacesContext;
+
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.el.util.ELUtils;
 
 /**
  * @author Nick Belaevski
@@ -60,16 +64,52 @@ public abstract class TopicsContext {
     }
 
     public void publish(TopicKey key, Object data) throws MessageException {
-        Topic topic = getTopic(key);
+        TopicKey resolvedKey = getTopicKeyWithResolvedExpressions(key);
+
+        Topic topic = getTopic(resolvedKey);
 
         if (topic == null) {
-            throw new MessageException(MessageFormat.format("Topic {0} not found", key.getTopicName()));
+            throw new MessageException(MessageFormat.format("Topic {0} not found", resolvedKey.getTopicName()));
         }
 
-        topic.publish(key, data);
+        topic.publish(resolvedKey, data);
     }
 
     public static TopicsContext lookup() {
         return ServiceTracker.getService(PushContextFactory.class).getPushContext().getTopicsContext();
+    }
+
+    protected TopicKey getTopicKeyWithResolvedExpressions(TopicKey key) {
+        String topicName = key.getTopicName();
+        String subtopicName = key.getSubtopicName();
+        String topicAddress = key.getTopicAddress();
+
+        if (isExpression(topicName) || isExpression(subtopicName)) {
+            topicName = evaluateExpression(topicName);
+            subtopicName = evaluateExpression(subtopicName);
+            return new TopicKey(topicName, subtopicName);
+        } else if (isExpression(topicAddress)) {
+            topicAddress = evaluateExpression(topicAddress);
+            return new TopicKey(topicAddress);
+        } else {
+            return key;
+        }
+    }
+
+    private boolean isExpression(String expression) {
+        return ELUtils.isValueReference(expression);
+    }
+
+    private String evaluateExpression(String expression) {
+        if (isExpression(expression)) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            ELContext elContext = facesContext.getELContext();
+            Object evaluated = ELUtils.evaluateValueExpression(ELUtils.createValueExpression(expression), elContext);
+            if (evaluated == null) {
+                throw new NullPointerException("expression '" + expression + "' was evaluated to null");
+            }
+            return evaluated.toString();
+        }
+        return expression;
     }
 }

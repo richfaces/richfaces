@@ -20,6 +20,10 @@
  */
 package org.richfaces.el.util;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
+
 /**
  * @author asmirnov
  */
@@ -52,5 +56,30 @@ public final class ELUtils {
         }
 
         return false;
+    }
+
+    /**
+     * Create a <code>ValueExpression</code> with the expected type of <code>Object.class</code>
+     *
+     * @param expression an EL expression
+     * @return a new <code>ValueExpression</code> instance based off the provided <code>valueRef</code>
+     */
+    public static ValueExpression createValueExpression(String expression) {
+
+        return createValueExpression(expression, Object.class);
+    }
+
+    public static ValueExpression createValueExpression(String expression, Class<?> expectedType) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        return context.getApplication().getExpressionFactory()
+                .createValueExpression(context.getELContext(), expression, expectedType);
+    }
+
+    public static Object evaluateValueExpression(ValueExpression expression, ELContext elContext) {
+        if (expression.isLiteralText()) {
+            return expression.getExpressionString();
+        } else {
+            return expression.getValue(elContext);
+        }
     }
 }

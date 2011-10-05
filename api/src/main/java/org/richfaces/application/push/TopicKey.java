@@ -49,7 +49,7 @@ public class TopicKey implements Serializable {
         ;
     };
     private static final long serialVersionUID = -6967010810728932698L;
-    private static final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Z0-9_]+");
+    private static final Pattern NAME_PATTERN = Pattern.compile("([a-zA-Z0-9_]+|#\\{.+\\})");
     private static final FastJoiner AT_JOINER = FastJoiner.on(SUBCHANNEL_SEPARATOR);
     private final String topicName;
     private final String subtopicName;
