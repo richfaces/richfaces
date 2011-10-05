@@ -117,6 +117,25 @@
         </h:form>
     </fieldset>
     <fieldset>
+        <legend>PickList f:selectItems</legend>
+        <h:form>
+            <in:pickList id="pickList3b" value="#{inputBean.values}" sourceCaption="Source Items" targetCaption="target Items" listHeight="" >
+                <f:selectItems value="#{entityBeanSelector.values}" var="item" itemValue="#{item}" itemLabel="#{item.title}"/>
+                <f:ajax event="change" execute="@form" render="out3b" />
+            </in:pickList>
+            <h:commandButton value="submit">
+                <f:ajax execute="@form" render="pickList3b out3b" />
+            </h:commandButton>
+
+            <h:panelGroup id="out3b" class="out">
+                <ui:repeat value="#{inputBean.values}" var="value">
+                    <h:outputText value="#{value}"/>
+                    <br/>
+                </ui:repeat>
+            </h:panelGroup>
+        </h:form>
+    </fieldset>
+    <fieldset>
         <legend>PickList w/ f:selectItems and columns</legend>
         <h:form>
             <in:pickList id="pickList4" value="#{richBean.values}" var="item" sourceCaption="Source Items" targetCaption="Target Items">
