@@ -5,8 +5,12 @@
 <ui:composition>
 
     <p>
-        This example shows how simple it can be to use push when coupled with <b>CDI Events</b>, effectively decoupling event
+        This example shows how simple it can be to use push when using <b>CDI Events</b>, effectively decoupling event
         producers and consumers across the view layer.
+    </p>
+    
+    <p>
+        The only necessary step is to qualify your CDI Event producer with <b><tt>@Push</tt></b> annotation (with topic name parameter). More details can be found in <tt>PushBean.java</tt> example bellow.
     </p>
 
     <p>The following link opens the consumer-client window - you can even copy the link and open it in separate browser
@@ -51,22 +55,10 @@
         <ui:param name="hideLabel" value="Hide Consumer Source" />
     </ui:include>
     <ui:include src="/templates/includes/source-view.xhtml">
-        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/push/PushEventObserver.java" />
-        <ui:param name="sourceType" value="java" />
-        <ui:param name="openLabel" value="View Push Event Consumer (CDI Event Observer)" />
-        <ui:param name="hideLabel" value="Hide Push Event Consumer (CDI Event Observer)" />
-    </ui:include>
-    <ui:include src="/templates/includes/source-view.xhtml">
-        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/push/Push.java" />
-        <ui:param name="sourceType" value="java" />
-        <ui:param name="openLabel" value="View Push Classifier (Annotation)" />
-        <ui:param name="hideLabel" value="Hide Push Classifier (Annotation" />
-    </ui:include>
-    <ui:include src="/templates/includes/source-view.xhtml">
         <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/push/PushBean.java" />
         <ui:param name="sourceType" value="java" />
-        <ui:param name="openLabel" value="View Push Bean (Event Producer)" />
-        <ui:param name="hideLabel" value="Hide Push Bean (Event Producer)" />
+        <ui:param name="openLabel" value="View PushBean.java" />
+        <ui:param name="hideLabel" value="Hide PushBean.java" />
     </ui:include>
 
 </ui:composition>
