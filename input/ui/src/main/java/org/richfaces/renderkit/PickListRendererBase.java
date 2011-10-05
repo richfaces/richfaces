@@ -51,11 +51,11 @@ public class PickListRendererBase extends SelectManyRendererBase {
     public static String CSS_PREFIX = "rf-pick";
 
     public void encodeSourceHeader(FacesContext facesContext, UIComponent component) throws IOException {
-        SelectManyHelper.encodeHeader(facesContext, component, this, "rf-pick-header", "rf-pick-header-tab-cell");
+        SelectManyHelper.encodeHeader(facesContext, component, this, "rf-pick-header", "rf-pick-header-cell");
     }
 
     public void encodeTargetHeader(FacesContext facesContext, UIComponent component) throws IOException {
-        SelectManyHelper.encodeHeader(facesContext, component, this, "rf-pick-header", "rf-pick-header-tab-cell");
+        SelectManyHelper.encodeHeader(facesContext, component, this, "rf-pick-header", "rf-pick-header-cell");
     }
 
     public void encodeSourceRows(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {

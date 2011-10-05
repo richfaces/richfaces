@@ -10,7 +10,7 @@
 
 .rf-pick-header {
     vertical-align: middle;
-    text-align: center;
+    text-align: left;
     height: 22px;
     white-space: nowrap;
     background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
@@ -21,6 +21,10 @@
     font-family: '#{richSkin.headerFamilyFont}';
     font-weight: '#{richSkin.headerWeightFont}';
     color: '#{richSkin.headerTextColor}';
+}
+
+.rf-pick-header-cell {
+    padding : 0 0.5em;
 }
 
 .rf-pick-source-caption, .rf-pick-target-caption {
@@ -75,7 +79,6 @@
 }
 
 .rf-pick-sel {
-    padding: 1px;
     width: 100%;
     background-color: '#{richSkin.headerBackgroundColor}';
     border-width: 1px;
@@ -88,7 +91,7 @@ input.rf-pick-dflt-lbl {
 }
 
 .rf-pick-cell {
-    padding-right : 1px;
+    padding : 0 0.5em;
 }
 
 .rf-pick-internal-table {
