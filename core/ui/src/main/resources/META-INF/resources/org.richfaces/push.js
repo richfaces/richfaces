@@ -229,8 +229,8 @@
             },
 
             __bindDataHandler: function(handlerCode) {
-                var ns = getDataEventNamespace(this.__address)
-                this.__handlers.data = richfaces.Event.bind(document, ns, new Function("event", handlerCode));
+                var ns = getDataEventNamespace(this.__address);
+                this.__handlers.data = richfaces.Event.bind(document, ns, $.proxy(handlerCode, document.getElementById(this.id)), this);
             },
 
             __unbindDataHandler: function() {
@@ -244,7 +244,7 @@
 
             __bindErrorHandler: function(handlerCode) {
                 var ns = getErrorEventNamespace(this.__address);
-                this.__handlers.error = richfaces.Event.bind(document, ns, new Function("event", handlerCode));
+                this.__handlers.error = richfaces.Event.bind(document, ns, $.proxy(handlerCode, document.getElementById(this.id)), this);
             },
 
             __unbindErrorHandler: function() {

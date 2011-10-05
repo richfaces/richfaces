@@ -33,7 +33,8 @@
                 </c:if>
 
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="address ondataavailable onerror" />
+                    <cdk:scriptOption attributes="address" />
+                    <cdk:scriptOption wrapper="eventHandler" attributes="ondataavailable onerror" />
                 </cdk:scriptObject>
 
                 new RichFaces.ui.Push(#{toScriptArgs(clientId, options)});
