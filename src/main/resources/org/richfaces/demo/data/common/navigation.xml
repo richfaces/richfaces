@@ -283,7 +283,7 @@
                         <id>dataTableEdit</id>
                         <name>Editing</name>
                     </sample>
-                    <sample new="true">
+                    <sample>
                         <id>arrangeableModel</id>
                         <name>Arrangeable</name>
                     </sample>
@@ -577,7 +577,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo new="true">
                 <id>editor</id>
                 <name>rich:editor</name>
                 <samples>
@@ -660,7 +660,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo new="true">
                 <id>orderingList</id>
                 <name>rich:orderingList</name>
                 <samples>
@@ -670,7 +670,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo new="true">
                 <id>pickList</id>
                 <name>rich:pickList</name>
                 <samples>
