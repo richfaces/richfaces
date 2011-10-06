@@ -194,10 +194,10 @@ body > header > div img.logo {
    padding:  5px;
 }
 
-#component-page p {
+#component-page fieldset.example-cnt > p {
     font: .8em "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
-    background: #1d2f3d -moz-linear-gradient(90deg, #E8E8E8 33%, #F5F5F5 123%);
-    background: #1d2f3d -webkit-gradient(linear, left top, left bottom, from(#F5F5F5), to(#E8E8E8));
+    background: #1d2f3d -moz-linear-gradient(90deg, #FAFAFA 33%, #F5F5F5 123%);
+    background: #1d2f3d -webkit-gradient(linear, left top, left bottom, from(#FAFAFA), to(#F5F5F5));
     border: 1px solid #E0E0E0;
     border-radius: 8px;
     -moz-border-radius: 8px;
@@ -239,7 +239,7 @@ RichFaces panelMenu styles overwriting
 }
 
 .rf-pm-top-gr {
-    border: none;
+    border-color: white;
     margin-bottom: 1px;
 }
 
@@ -502,4 +502,39 @@ rich:message
 .rf-msg-det, .rf-msgs-det {
     display: inline;
     font-size: 14px;
+}
+
+/*************************************************
+reset the blue border of fieldset  and others
+*************************************************/
+fieldset {
+    border-radius: 8px;
+   -moz-border-radius: 8px;
+   -webkit-border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    border-color: #eee;
+}
+
+.rf-p {
+    border-radius: 8px;
+   -moz-border-radius: 8px;
+   -webkit-border-radius: 8px;
+    background-color: white;
+    color: #BED6F8;
+    border-width: 1px;
+    border-style: solid;
+    padding: 1px;
+}
+
+/*************************************************
+add rounded corners
+*************************************************/
+
+.rf-p-hdr {
+    border-radius: 8px;
+   -moz-border-radius: 8px;
+   -webkit-border-radius: 8px;
+    padding:  10px;
 }
