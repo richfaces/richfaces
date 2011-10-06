@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:form>
+        
+        <rich:editor id="editor" lang="#{editorBean.language}">
+            <f:facet name="config">
+                    toolbar: 'custom',
+                    language: '#{editorBean.language}',
+                    startupFocus: true,
+                    toolbar_custom:
+                        [
+                        	{ name: 'document', items : [ 'NewPage','Preview' ] },
+                        	{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+                        	{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },
+                        	{ name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'
+                                     ,'Iframe' ] },
+                                    '/',
+                        	{ name: 'styles', items : [ 'Styles','Format' ] },
+                        	{ name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
+                        	{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+                        	{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+                        	{ name: 'tools', items : [ 'Maximize' ] }
+                        ]
+               		</f:facet>
+        </rich:editor>
+
+
+    </h:form>
+</ui:composition>

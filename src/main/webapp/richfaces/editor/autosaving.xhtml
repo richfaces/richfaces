@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <b>rich:editor</b> is input component acting as WYSIWYG editor.
+    </p>
+
+    <p>
+        Using <b>attribute value</b>, you can point editor's value into your model.
+        For output of editor's value (HTML), you can use un-escaped output with &lt;h:outputText escape="false" value="..." /&gt; as in sample bellow. 
+    </p>
+    
+    <p>
+        Editor also throws semantical <b>DOM events</b>, similarly to standard input: change, init, focus, blur, dirty.
+        You can react on these events both, with client-side behaviors or by programmatically with event handler attributes (oninit, etc.).
+    </p>
+    
+    <p>
+        You can combine Editor's features to achieve more complex scenarios, in powerful declarative manner. 
+    </p>
+    
+    <p>
+        For example, you can simply achieve <b>auto-saving</b> feature with dirty DOM event and request delay configured using a4j:attachQueue behavior, .
+        Check out the sample bellow: you can change the value and either leave the editor (blur) or wait 1000 ms to trigger ajax update of output panel bellow. 
+    </p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>
+
+</html>

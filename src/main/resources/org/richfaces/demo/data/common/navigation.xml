@@ -578,6 +578,24 @@
                 </samples>
             </demo>
             <demo>
+                <id>editor</id>
+                <name>rich:editor</name>
+                <samples>
+                    <sample>
+                        <id>autosaving</id>
+                        <name>Auto-saving</name>
+                    </sample>
+                    <sample>
+                        <id>toolbar-and-skinning</id>
+                        <name>Toolbar and Skinning</name>
+                    </sample>
+                    <sample>
+                        <id>advanced-configuration</id>
+                        <name>Advanced Configuration</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
                 <id>inputNumberSlider</id>
                 <name>rich:inputNumberSlider</name>
                 <samples>
