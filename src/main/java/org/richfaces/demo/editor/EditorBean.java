@@ -1,15 +1,18 @@
 package org.richfaces.demo.editor;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class EditorBean {
+public class EditorBean implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @ManagedProperty(value = "#{fairyTailBean}")
-    private FairyTailBean fairyTailBean;
+    private transient FairyTailBean fairyTailBean;
 
     private String toolbar = "basic";
     private String skin = "richfaces";
