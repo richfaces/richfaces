@@ -221,7 +221,7 @@
                                 <c:forEach items="#{demoNavigator.groups}" var="gr">
                                     <rich:panelMenuGroup label="#{gr.name}" rightExpandedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}"
                                         rightCollapsedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}">
-                                        <c:forEach items="#{gr.demos}" var="d">
+                                        <c:forEach items="#{gr.getFilteredDemos(true)}" var="d">
 
                                             <rich:panelMenuItem label="#{d.name}" oncomplete="location.hash='#{d.id}:#{demoNavigator.currentSample.id}'" render="@form"
                                                                  rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}">

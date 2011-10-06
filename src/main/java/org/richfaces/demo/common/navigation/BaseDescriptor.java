@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.sun.faces.el.ELUtils;
+import org.richfaces.demo.ui.UserAgentProcessor;
 
 public class BaseDescriptor implements Serializable {
     private static final long serialVersionUID = 5614594358147757458L;
@@ -17,6 +18,7 @@ public class BaseDescriptor implements Serializable {
     private boolean newItem;
     private boolean currentItem;
     private String enabled;
+    private boolean mobileExclude;
 
     @XmlElement
     public String getName() {
@@ -43,6 +45,15 @@ public class BaseDescriptor implements Serializable {
 
     public void setEnabled(String enabled) {
         this.enabled = enabled;
+    }
+
+    @XmlAttribute(name = "mobileExclude")
+    public boolean isMobileExclude() {
+        return mobileExclude;
+    }
+
+    public void setMobileExclude(boolean mobileExclude) {
+        this.mobileExclude = mobileExclude;
     }
 
     public boolean isEnabled(FacesContext facesContext) {

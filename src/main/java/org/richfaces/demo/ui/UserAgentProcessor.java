@@ -59,4 +59,8 @@ public class UserAgentProcessor {
         //will detect ipads, xooms, blackberry tablets, but not galaxy - they use a strange user-agent
         return uAgentTest.detectTierTablet();
     }
+
+    public boolean isMobile() {
+        return isPhone() || isTablet();
+    }
 }
