@@ -34,12 +34,25 @@ public class DemoDescriptor extends BaseDescriptor {
         return false;
     }
 
+    private boolean containsEnabledMobileSamples(FacesContext facesContext) {
+        for (SampleDescriptor sample : samples) {
+            if (sample.isEnabled(facesContext) && !sample.isMobileExclude()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isNewItems() {
         return (isNewItem() || containsNewSamples());
     }
 
     public boolean hasEnabledItems(FacesContext facesContext) {
-        return this.isEnabled(facesContext) && containsEnabledSamples(facesContext);
+        return containsEnabledSamples(facesContext);
+    }
+
+    public boolean hasEnabledMobileItems(FacesContext facesContext) {
+        return this.isEnabled(facesContext) && containsEnabledMobileSamples(facesContext);
     }
 
     public SampleDescriptor getSampleById(String id) {

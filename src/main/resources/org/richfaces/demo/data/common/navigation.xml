@@ -289,7 +289,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo mobileExclude="true">
                 <id>extendedDataTable</id>
                 <name>rich:extendedDataTable</name>
                 <samples>
@@ -483,7 +483,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo mobileExclude="true">
                 <id>tooltip</id>
                 <name>rich:tooltip</name>
                 <samples>
