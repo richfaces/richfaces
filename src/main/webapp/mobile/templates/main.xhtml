@@ -18,12 +18,6 @@
         <!-- controls the appearance of the status bar in full-screen mode -->
         <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 
-        <ui:remove>
-            <h:outputStylesheet library="css" name="mobile/base.css" />
-            <h:outputStylesheet library="css" name="mobile/brand.css" />
-            <h:outputStylesheet library="css" name="mobile/global.css" />
-        </ui:remove>
-
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/brand.css" />
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/global.css" />
 
@@ -209,7 +203,7 @@
             </a4j:jsFunction>
         </h:form>
 
-        <h:form style="height:100%">
+        <h:form>
         <div id="browser">
             <header>
                 <div>
