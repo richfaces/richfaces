@@ -135,6 +135,11 @@
                 <artifactId>richfaces-components-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui</groupId>
+                <artifactId>static-resources</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!-- JSF 2 -->
             <dependency>
                 <groupId>com.sun.faces</groupId>
