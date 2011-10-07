@@ -237,7 +237,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo new="true" mobileExclude="true">
                 <id>notify</id>
                 <name>rich:notify</name>
                 <samples>
@@ -595,7 +595,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo new="true" mobileExclude="true">
                 <id>editor</id>
                 <name>rich:editor</name>
                 <samples>
