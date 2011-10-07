@@ -248,67 +248,6 @@
                     </archive>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>${project.version}</version>
-                <executions>
-                    <execution>
-                        <id>process</id>
-                        <goals>
-                            <goal>process</goal>
-                        </goals>
-                        <configuration>
-                            <pack>true</pack>
-                            <compress>false</compress>
-                            <outputDir>generated-resources
-                            </outputDir>
-                            <skins>
-                                <skin>blueSky</skin>
-                                <skin>classic</skin>
-                                <skin>deepMarine</skin>
-                                <skin>emeraldTown</skin>
-                                <skin>japanCherry</skin>
-                                <skin>ruby</skin>
-                                <skin>wine</skin>
-                            </skins>
-                            <excludedFiles>
-                                <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*
-                                </exclude>
-                                <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*
-                                </exclude>
-                            </excludedFiles>
-                            <includedContentTypes>
-                                <include>application/javascript
-                                </include>
-                                <include>text/css</include>
-                                <include>image/.+</include>
-                            </includedContentTypes>
-                            <fileNameMappings>
-                                <property>
-                                    <name>^.*showcase.*/([^/]+\.css)$
-                                    </name>
-                                    <value>org.richfaces.showcase.css/$1
-                                    </value>
-                                </property>
-                                <property>
-                                    <name>^.+/([^/]+\.(png|gif|jpg))$
-                                    </name>
-                                    <value>org.richfaces.images/$1
-                                    </value>
-                                </property>
-                                <property>
-                                    <name>^.+/([^/]+\.css)$
-                                    </name>
-                                    <value>org.richfaces.css/$1
-                                    </value>
-                                </property>
-                            </fileNameMappings>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
