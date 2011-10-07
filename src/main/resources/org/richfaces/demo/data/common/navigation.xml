@@ -237,6 +237,24 @@
                     </sample>
                 </samples>
             </demo>
+            <demo new="true">
+                <id>notify</id>
+                <name>rich:notify</name>
+                <samples>
+                    <sample>
+                        <id>notify-messages</id>
+                        <name>Notify Messages</name>
+                    </sample>
+                    <sample>
+                        <id>notify-attributes</id>
+                        <name>Attributes of Notify</name>
+                    </sample>
+                    <sample>
+                        <id>stacking-messages</id>
+                        <name>Message Stacking</name>
+                    </sample>
+                </samples>
+            </demo>
         </demos>
     </group>
     <group>
