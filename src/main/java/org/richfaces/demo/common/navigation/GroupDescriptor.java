@@ -64,7 +64,7 @@ public class GroupDescriptor extends BaseDescriptor {
         }
     }
 
-    private List<DemoDescriptor> getDesktopDemos() {
+    public List<DemoDescriptor> getDesktopDemos() {
         if (demos == null) {
             return null;
         }
@@ -78,7 +78,7 @@ public class GroupDescriptor extends BaseDescriptor {
         return desktopDemos;
     }
 
-    private List<DemoDescriptor> getMobileDemos() {
+    public List<DemoDescriptor> getMobileDemos() {
         if (demos == null) {
             return null;
         }
