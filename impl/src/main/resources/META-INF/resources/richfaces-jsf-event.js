@@ -25,7 +25,7 @@
             form = $('form').has(element).get(0);
         }
         
-        if (richfaces.Event && richfaces.Event.fire) {
+        if (form && richfaces.Event && richfaces.Event.callHandler) {
             richfaces.Event.callHandler(form, 'ajaxsubmit');
         }
         
