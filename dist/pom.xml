@@ -34,6 +34,7 @@
     <name>Richfaces UI Assembler</name>
 
     <modules>
+        <module>static-resources</module>
         <module>richfaces-components-api</module>
         <module>richfaces-components-ui</module>
     </modules>

@@ -100,6 +100,10 @@
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>static-resources</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -140,6 +144,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>${assembly.projects.group}.*:*-ui:*</include>
+                                    <include>${assembly.projects.group}:static-resources:*</include>
                                 </includes>
                             </artifactSet>
                             <createSourcesJar>true</createSourcesJar>
