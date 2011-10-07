@@ -61,6 +61,12 @@ public final class CoreConfiguration {
         lruMapCacheSize,
         @ConfigurationItem(names = "org.richfaces.staticResourceLocation")
         staticResourceLocation,
+        @ConfigurationItem(names = "org.richfaces.staticResourceMappingLocation")
+        staticResourceMappingLocation,
+        @ConfigurationItem(defaultValue = "Production,SystemTest", names = "org.richfaces.staticResourceCompressedPhases", literal = true)
+        staticResourceCompressedPhases,
+        @ConfigurationItem(defaultValue = "", names = "org.richfaces.staticResourcePackedPhases", literal = true)
+        staticResourcePackedPhases,
         @ConfigurationItem(defaultValue = "true", names = "org.richfaces.executeAWTInitializer", literal = true)
         executeAWTInitializer,
         @ConfigurationItem(names = "org.richfaces.push.handlerMapping", literal = true)

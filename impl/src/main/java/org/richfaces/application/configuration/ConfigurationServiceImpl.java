@@ -76,41 +76,13 @@ public class ConfigurationServiceImpl implements ConfigurationService {
             .getClass().getName(), enumKey.name()));
     }
 
-    private <T> T coerce(FacesContext context, Object value, Class<T> targetType) {
-        if (value == null) {
-            return null;
-        }
-
-        if (targetType.isInstance(value)) {
-            return targetType.cast(value);
-        }
-
-        if (value instanceof String) {
-            PropertyEditor editor = PropertyEditorManager.findEditor(targetType);
-            if (editor == null && Primitives.isWrapperType(targetType)) {
-                editor = PropertyEditorManager.findEditor(Primitives.unwrap(targetType));
-            }
-
-            if (editor != null) {
-
-                editor.setAsText((String) value);
-                return targetType.cast(editor.getValue());
-            } else if (targetType.isEnum()) {
-                return targetType.cast(Enum.valueOf((Class<Enum>) targetType, (String) value));
-            }
-        }
-
-        throw new IllegalArgumentException(MessageFormat.format("Cannot convert {0} to object of {1} type", value,
-            targetType.getName()));
-    }
-
     protected ValueExpressionHolder createValueExpressionHolder(FacesContext context, ValueExpression expression,
         String defaultValueString, Class<?> returnType) {
         Object defaultValue = null;
 
         if (expression == null || !expression.isLiteralText()) {
             if (!Strings.isNullOrEmpty(defaultValueString)) {
-                defaultValue = coerce(context, defaultValueString, returnType);
+                defaultValue = ELUtils.coerce(defaultValueString, returnType);
             }
         }
 
@@ -187,33 +159,10 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         }
 
         if (!Strings.isNullOrEmpty(parameterValue)) {
-            return createValueExpression(context, parameterValue, annotation.literal(), targetType);
+            return ELUtils.createValueExpression(context, parameterValue, annotation.literal(), targetType);
         }
 
         return null;
-    }
-
-    private ValueExpression createValueExpression(FacesContext context, String parameterValue, boolean literal,
-        Class<?> targetType) {
-
-        ValueExpression result = null;
-
-        if (!literal && ELUtils.isValueReference(parameterValue)) {
-            ExpressionFactory expressionFactory = context.getApplication().getExpressionFactory();
-
-            if (expressionFactory == null) {
-                throw new IllegalStateException("ExpressionFactory is null");
-            }
-
-            result = expressionFactory.createValueExpression(context.getELContext(), parameterValue, targetType);
-        } else {
-            Object coercedValue = coerce(context, parameterValue, targetType);
-            if (coercedValue != null) {
-                result = new ConstantValueExpression(coercedValue);
-            }
-        }
-
-        return result;
     }
 
     protected <T> T getValue(FacesContext facesContext, Enum<?> key, Class<T> returnType) {
@@ -254,7 +203,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
                         ValueExpression expression = null;
 
                         if (parameterValue != null) {
-                            expression = createValueExpression(facesContext, parameterValue, item.literal(), returnType);
+                            expression = ELUtils.createValueExpression(facesContext, parameterValue, item.literal(), returnType);
                         }
 
                         ValueExpressionHolder siblingHolder = createValueExpressionHolder(facesContext, expression,

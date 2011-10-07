@@ -21,8 +21,6 @@
  */
 package org.richfaces.resource;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getStringConfigurationValue;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -31,7 +29,6 @@ import java.util.Map;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.CoreConfiguration;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.util.FastJoiner;
 
@@ -82,8 +79,7 @@ public class ExternalStaticResource extends Resource {
 
             requestMap.put(STATIC_RESOURCE_LOCATION_VARIABLE, resourceLocation);
 
-            // TODO pass via ViewHandler?
-            return getStringConfigurationValue(facesContext, CoreConfiguration.Items.staticResourceLocation);
+            return StaticResourceFeature.getStaticallyMappedRequestPath();
         } finally {
             requestMap.remove(STATIC_RESOURCE_LOCATION_VARIABLE);
             if (resourceVarValue != null) {

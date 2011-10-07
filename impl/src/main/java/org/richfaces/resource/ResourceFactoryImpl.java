@@ -25,7 +25,6 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -38,6 +37,7 @@ import org.richfaces.application.DependencyInjector;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.util.LazyLoadingObject;
 import org.richfaces.util.PropertiesUtil;
 import org.richfaces.util.Util;
 
@@ -124,10 +124,10 @@ public class ResourceFactoryImpl implements ResourceFactory {
         super();
 
         this.defaultHandler = defaultHandler;
-
-        this.externalStaticResourceFactories = readMappings(EXTERNAL_MAPPINGS_FACTORY_PRODUCER,
-            ResourceFactory.STATIC_RESOURCE_MAPPINGS);
         this.mappedResourceDataMap = readMappings(DYNAMIC_MAPPINGS_DATA_PRODUCER, ResourceFactory.DYNAMIC_RESOURCE_MAPPINGS);
+
+        // needs to be loaded lazily on first usage since reads ConfigurationService internally
+        this.externalStaticResourceFactories = new ExternalStaticResourceFactories().getLazilyLoaded();
     }
 
     private static String extractParametersFromResourceName(String resourceName) {
@@ -172,7 +172,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
     private Resource createCompiledCSSResource(ResourceKey resourceKey) {
         Resource sourceResource = defaultHandler.createResource(resourceKey.getResourceName(), resourceKey.getLibraryName(),
-            "text/plain");
+                "text/plain");
         if (sourceResource != null) {
             return new CompiledCSSResource(sourceResource);
         }
@@ -218,16 +218,14 @@ public class ResourceFactoryImpl implements ResourceFactory {
         if (!checkResult) {
             DynamicResource dynamicResource = loadedClass.getAnnotation(DynamicResource.class);
             if (dynamicResource != null) {
-                LOGGER
-                    .debug(MessageFormat.format("Dynamic resource annotation is present on resource class {0}", resourceName));
+                LOGGER.debug(MessageFormat.format("Dynamic resource annotation is present on resource class {0}", resourceName));
 
                 checkResult = true;
             }
         }
 
         if (!checkResult) {
-            LOGGER
-                .debug(MessageFormat.format("Dynamic resource annotation is not present on resource class {0}", resourceName));
+            LOGGER.debug(MessageFormat.format("Dynamic resource annotation is not present on resource class {0}", resourceName));
 
             checkResult = checkResourceMarker(resourceName);
         }
@@ -261,8 +259,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
             checkResult = true;
         } else {
-            LOGGER
-                .debug(MessageFormat.format("Dynamic resource annotation is not present on resource class {0}", resourceName));
+            LOGGER.debug(MessageFormat.format("Dynamic resource annotation is not present on resource class {0}", resourceName));
         }
 
         if (!checkResult) {
@@ -286,7 +283,6 @@ public class ResourceFactoryImpl implements ResourceFactory {
      * @param parameters
      * @return
      */
-    @SuppressWarnings({"JavadocReference"})
     protected Resource createHandlerDependentResource(ResourceKey resourceKey, Map<String, String> parameters) {
         if (!Strings.isNullOrEmpty(resourceKey.getLibraryName())) {
             return null;
@@ -374,7 +370,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug(MessageFormat.format("Client requested {0} version of resource, server has {1} version",
-                    String.valueOf(requestedVersion), String.valueOf(existingVersion)));
+                        String.valueOf(requestedVersion), String.valueOf(existingVersion)));
             }
 
             if ((existingVersion != null) && (requestedVersion != null) && !existingVersion.equals(requestedVersion)) {
@@ -418,23 +414,20 @@ public class ResourceFactoryImpl implements ResourceFactory {
                 String resourceName = resourceKeyLoop.getResourceName();
                 String libraryName = resourceKeyLoop.getLibraryName();
                 String key = resourceName + libraryName;
-                if (! contextMap.containsKey(key)) { // stylesheets (with this name + library) will not be rendered multiple times per request
+                if (!contextMap.containsKey(key)) { // stylesheets (with this name + library) will not be rendered multiple
+                                                    // times per request
                     contextMap.put(key, Boolean.TRUE);
                 }
                 if (libraryName == null || libraryName.isEmpty()) { // also store this in the context map with library as "null"
                     libraryName = "null";
                     key = resourceName + libraryName;
-                    if (! contextMap.containsKey(key)) {
+                    if (!contextMap.containsKey(key)) {
                         contextMap.put(key, Boolean.TRUE);
                     }
                 }
             }
 
         }
-    }
-
-    private void addResourceToContextMap(String resourceName, String libraryName) {
-
     }
 
     protected Resource createDynamicResource(ResourceKey resourceKey, boolean useDependencyInjection) {
@@ -498,5 +491,18 @@ public class ResourceFactoryImpl implements ResourceFactory {
         boolean versioned = isVersionedSet(resource.getClass());
 
         return new UserResourceWrapperImpl(resource, cacheable, versioned);
+    }
+
+    private class ExternalStaticResourceFactories extends LazyLoadingObject<Map<ResourceKey, ExternalStaticResourceFactory>> {
+
+        public ExternalStaticResourceFactories() {
+            super(Map.class);
+        }
+
+        @Override
+        protected Map<ResourceKey, ExternalStaticResourceFactory> loadData() {
+            String mappingLocation = StaticResourceFeature.getStaticMappingLocation();
+            return readMappings(EXTERNAL_MAPPINGS_FACTORY_PRODUCER, mappingLocation);
+        }
     }
 }

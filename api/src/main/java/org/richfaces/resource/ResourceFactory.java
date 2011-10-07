@@ -31,7 +31,6 @@ import javax.faces.context.FacesContext;
  *
  */
 public interface ResourceFactory {
-    String STATIC_RESOURCE_MAPPINGS = "META-INF/richfaces/static-resource-mappings.properties";
     String DYNAMIC_RESOURCE_MAPPINGS = "META-INF/richfaces/resource-mappings.properties";
     String SKINNED_RESOURCE_PREFIX = "%skin%/";
 
