@@ -26,6 +26,7 @@
         <container.resources.exclude></container.resources.exclude>
         <container.webapp>src/main/webapp-tomcat</container.webapp>
         <war.outputFileNameMapping>@{artifactId}@@{dashClassifier?}@-@{version}@.@{extension}@</war.outputFileNameMapping>
+        <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
     </properties>
 
     <dependencies>
@@ -226,14 +227,11 @@
                     <webResources>
                         <resource>
                             <directory>${container.webapp}</directory>
+                            <filtering>true</filtering>
                         </resource>
                         <resource>
                             <directory>src/main/java</directory>
                             <targetPath>WEB-INF/src</targetPath>
-                        </resource>
-                        <resource>
-                            <directory>${project.build.directory}/generated-resources</directory>
-                            <targetPath>static-resources</targetPath>
                         </resource>
                     </webResources>
                     <archive>
@@ -411,81 +409,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <webResources>
-                                <resource>
-                                    <directory>src/main/webapp-gae</directory>
-                                    <excludes>
-                                        <exclude>WEB-INF/faces-config.xml</exclude>
-                                    </excludes>
-                                </resource>
-                                <resource>
-                                    <directory>${project.build.directory}/generated-resources</directory>
-                                    <targetPath>static-resources</targetPath>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.richfaces.cdk</groupId>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>${project.version}</version>
-                        <executions>
-                            <execution>
-                                <id>process</id>
-                                <goals>
-                                    <goal>process</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDir>generated-resources
-                                    </outputDir>
-                                    <skins>
-                                        <skin>blueSky</skin>
-                                        <skin>classic</skin>
-                                        <skin>deepMarine</skin>
-                                        <skin>emeraldTown</skin>
-                                        <skin>japanCherry</skin>
-                                        <skin>ruby</skin>
-                                        <skin>wine</skin>
-                                    </skins>
-                                    <excludedFiles>
-                                        <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*
-                                        </exclude>
-                                        <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*
-                                        </exclude>
-                                    </excludedFiles>
-                                    <includedContentTypes>
-                                        <include>application/javascript
-                                        </include>
-                                        <include>text/css</include>
-                                        <include>image/.+</include>
-                                    </includedContentTypes>
-                                    <fileNameMappings>
-                                        <property>
-                                            <name>^.*showcase.*/([^/]+\.css)$
-                                            </name>
-                                            <value>org.richfaces.showcase.css/$1
-                                            </value>
-                                        </property>
-                                        <property>
-                                            <name>^.+/([^/]+\.(png|gif|jpg))$
-                                            </name>
-                                            <value>org.richfaces.images/$1
-                                            </value>
-                                        </property>
-                                        <property>
-                                            <name>^.+/([^/]+\.css)$
-                                            </name>
-                                            <value>org.richfaces.css/$1
-                                            </value>
-                                        </property>
-                                    </fileNameMappings>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -506,6 +429,7 @@
             <id>release</id>
             <properties>
                 <container.resources.exclude>**</container.resources.exclude>
+                <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
             </properties>
             <build>
                 <plugins>
@@ -527,6 +451,8 @@
                                     <webResources>
                                         <resource>
                                             <directory>src/main/webapp-tomcat</directory>
+                                            <targetPath>/</targetPath>
+                                            <filtering>true</filtering>
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-tomcat</directory>
@@ -535,10 +461,6 @@
                                         <resource>
                                             <directory>src/main/java</directory>
                                             <targetPath>WEB-INF/src</targetPath>
-                                        </resource>
-                                        <resource>
-                                            <directory>${project.build.directory}/generated-resources</directory>
-                                            <targetPath>static-resources</targetPath>
                                         </resource>
                                     </webResources>
                                 </configuration>
@@ -573,6 +495,7 @@
                                         <resource>
                                             <directory>src/main/webapp-jee6</directory>
                                             <targetPath>/</targetPath>
+                                            <filtering>true</filtering>
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-jee6</directory>
@@ -581,10 +504,6 @@
                                         <resource>
                                             <directory>src/main/java</directory>
                                             <targetPath>WEB-INF/src</targetPath>
-                                        </resource>
-                                        <resource>
-                                            <directory>${project.build.directory}/generated-resources</directory>
-                                            <targetPath>static-resources</targetPath>
                                         </resource>
                                     </webResources>
                                 </configuration>
@@ -619,6 +538,7 @@
                                         <resource>
                                             <directory>src/main/webapp-jbas7</directory>
                                             <targetPath>/</targetPath>
+                                            <filtering>true</filtering>
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-jbas7</directory>
@@ -627,10 +547,6 @@
                                         <resource>
                                             <directory>src/main/java</directory>
                                             <targetPath>WEB-INF/src</targetPath>
-                                        </resource>
-                                        <resource>
-                                            <directory>${project.build.directory}/generated-resources</directory>
-                                            <targetPath>static-resources</targetPath>
                                         </resource>
                                     </webResources>
                                 </configuration>
@@ -665,6 +581,7 @@
                                         <resource>
                                             <directory>src/main/webapp-openshift</directory>
                                             <targetPath>/</targetPath>
+                                            <filtering>true</filtering>
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-jbas7</directory>
@@ -673,10 +590,6 @@
                                         <resource>
                                             <directory>src/main/java</directory>
                                             <targetPath>WEB-INF/src</targetPath>
-                                        </resource>
-                                        <resource>
-                                            <directory>${project.build.directory}/generated-resources</directory>
-                                            <targetPath>static-resources</targetPath>
                                         </resource>
                                     </webResources>
                                 </configuration>
