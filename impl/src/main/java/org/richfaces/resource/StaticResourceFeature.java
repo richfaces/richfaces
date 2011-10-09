@@ -49,7 +49,7 @@ public enum StaticResourceFeature {
     Compressed(CoreConfiguration.Items.staticResourceCompressedPhases);
 
     private static final String FEATURES_PLACEHOLDER = "%Features%";
-    private static final String LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.staticResource/%Features%/#{resourceLocation}";
+    private static final String LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.staticResource/%Features%/#{resourceLocation}";
     private static final String MAPPING = "META-INF/richfaces/staticResourceMapping/%Features%.properties";
 
     private CoreConfiguration.Items associatedConfiguration;

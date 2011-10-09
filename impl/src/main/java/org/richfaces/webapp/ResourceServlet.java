@@ -61,7 +61,8 @@ public class ResourceServlet implements Servlet {
 
     private static final String JAVAX_FACES_RESOURCE_IDENTIFIER = "/javax.faces.resource/";
 
-    private static final Library[] LIBRARIES_TO_SERVE = new Library[] { new CKEditorLibrary(), new RichFacesImageLibrary() };
+    private static final Library[] LIBRARIES_TO_SERVE = new Library[] { new StaticResourceLibrary(), new CKEditorLibrary(),
+            new RichFacesImageLibrary() };
 
     private ServletConfig servletConfig;
     private FacesServlet facesServlet;
@@ -209,9 +210,22 @@ public class ResourceServlet implements Servlet {
         }
     }
 
+    private static class StaticResourceLibrary implements Library {
+        public boolean allowServerRequest(String resourcePath, HttpServletRequest request) {
+            if (resourcePath.startsWith("org.richfaces.staticResource/")) {
+                Enumeration<String> parameters = request.getParameterNames();
+                if (parameters.hasMoreElements()) {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+    }
+
     private static class RichFacesImageLibrary implements Library {
-        private Set<String> ALLOWED_PARAMETERS = Collections.unmodifiableSortedSet(new TreeSet<String>(Arrays
-                .asList("ln", "db", "v")));
+        private Set<String> ALLOWED_PARAMETERS = Collections.unmodifiableSortedSet(new TreeSet<String>(Arrays.asList("ln",
+                "db", "v")));
 
         public boolean allowServerRequest(String resourcePath, HttpServletRequest request) {
             if (resourcePath.startsWith(ResourceHandlerImpl.RICHFACES_RESOURCE_IDENTIFIER)) {
