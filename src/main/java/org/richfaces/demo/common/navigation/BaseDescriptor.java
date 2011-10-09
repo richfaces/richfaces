@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.sun.faces.el.ELUtils;
-import org.richfaces.demo.ui.UserAgentProcessor;
 
 public class BaseDescriptor implements Serializable {
     private static final long serialVersionUID = 5614594358147757458L;
@@ -18,7 +17,7 @@ public class BaseDescriptor implements Serializable {
     private boolean newItem;
     private boolean currentItem;
     private String enabled;
-    private boolean mobileExclude;
+    private Boolean mobileExclude;
 
     @XmlElement
     public String getName() {
@@ -47,6 +46,10 @@ public class BaseDescriptor implements Serializable {
         this.enabled = enabled;
     }
 
+    public boolean isNewEnabled() {
+        return isNewItem() && isCurrentlyEnabled();
+    }
+
     @XmlAttribute(name = "mobileExclude")
     public boolean isMobileExclude() {
         return mobileExclude;
@@ -56,14 +59,31 @@ public class BaseDescriptor implements Serializable {
         this.mobileExclude = mobileExclude;
     }
 
-    public boolean isEnabled(FacesContext facesContext) {
-        if (enabled == null) {
-            return true;
+    /**
+     * Evaluates that this sample/demo/group is enabled in current context
+     *
+     * @return
+     */
+    public boolean isCurrentlyEnabled() {
+        if (mobileExclude != null && mobileExclude && evaluateBooleanExpression("#{userAgent.mobile}")) {
+            return false;
         }
+        if (enabled != null && !evaluateBooleanExpression(enabled)) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean evaluateBooleanExpression(String expression) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
         ELContext elContext = facesContext.getELContext();
-        ValueExpression enabledVE = ELUtils.createValueExpression(enabled);
+        ValueExpression enabledVE = ELUtils.createValueExpression(expression);
         try {
-            return (Boolean) ELUtils.evaluateValueExpression(enabledVE, elContext);
+            Boolean evaluatedResult = (Boolean) ELUtils.evaluateValueExpression(enabledVE, elContext);
+            if (evaluatedResult == null) {
+                throw new IllegalArgumentException("Expression '" + expression + "' evaluated to null");
+            }
+            return evaluatedResult;
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
@@ -84,5 +104,10 @@ public class BaseDescriptor implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseDescriptor[" + name + "]";
     }
 }

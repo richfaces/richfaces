@@ -1,7 +1,5 @@
 package org.richfaces.demo.common.navigation;
 
-import org.richfaces.demo.ui.UserAgentProcessor;
-
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
@@ -12,17 +10,15 @@ import javax.faces.application.NavigationCase;
 import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
 public class DemoNavigator implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 3970933260901989658L;
+
+    public static final String MOBILE_SUPPORT_PARAM = "org.richfaces.request.mobile";
     private static final String DEMO_VIEW_PARAMETER = "demo";
     private static final String SAMPLE_VIEW_PARAMETER = "sample";
     private static final String SEPARATOR = "/";
@@ -30,8 +26,6 @@ public class DemoNavigator implements Serializable {
     private static final String SAMPLES_FOLDER = "samples/";
     @ManagedProperty(value = "#{navigationParser.groupsList}")
     private List<GroupDescriptor> groups;
-    @ManagedProperty(value = "#{userAgent}")
-    private UserAgentProcessor userAgent;
     private DemoDescriptor currentDemo;
     private SampleDescriptor currentSample;
     private String sample;
@@ -51,7 +45,7 @@ public class DemoNavigator implements Serializable {
                 currentSample = null;
             }
             if (currentDemo == null) {
-                currentDemo = groups.get(0).getFilteredDemos(userAgent.isMobile()).get(0);
+                currentDemo = groups.get(0).getDemos().get(0);
                 currentSample = null;
             }
         }
@@ -85,7 +79,7 @@ public class DemoNavigator implements Serializable {
         Iterator<GroupDescriptor> it = groups.iterator();
         while (it.hasNext()) {
             GroupDescriptor group = it.next();
-            Iterator<DemoDescriptor> dit = group.getFilteredDemos(userAgent.isMobile()).iterator();
+            Iterator<DemoDescriptor> dit = group.getDemos().iterator();
             while (dit.hasNext()) {
                 DemoDescriptor locDemo = (DemoDescriptor) dit.next();
                 if (locDemo.getId().equals(id)) {
@@ -104,17 +98,15 @@ public class DemoNavigator implements Serializable {
         if (handler instanceof ConfigurableNavigationHandler) {
             ConfigurableNavigationHandler navigationHandler = (ConfigurableNavigationHandler) handler;
 
-                demo = getCurrentDemo().getId();
-                sample = getCurrentSample().getId();
+            demo = getCurrentDemo().getId();
+            sample = getCurrentSample().getId();
 
+            NavigationCase navCase = navigationHandler.getNavigationCase(context, null, "/richfaces" + SEPARATOR
+                    + getCurrentDemo().getId() + SEPARATOR + getCurrentSample().getId());
 
-            NavigationCase navCase = navigationHandler.getNavigationCase(context, null, "/richfaces" + SEPARATOR + getCurrentDemo().getId() + SEPARATOR
-                    + getCurrentSample().getId());
-
-
-            if(navCase == null){
-                navCase = new NavigationCase("/welcome.xhtml",null,
-                 null,null, "/richfaces/ajax/ajax.xhtml", null,false,true);
+            if (navCase == null) {
+                navCase = new NavigationCase("/welcome.xhtml", null, null, null, "/richfaces/ajax/ajax.xhtml", null, false,
+                        true);
             }
 
             return navCase.getToViewId(context);
@@ -145,14 +137,6 @@ public class DemoNavigator implements Serializable {
 
     public void setGroups(List<GroupDescriptor> groups) {
         this.groups = groups;
-    }
-
-    public UserAgentProcessor getUserAgent() {
-        return userAgent;
-    }
-
-    public void setUserAgent(UserAgentProcessor userAgent) {
-        this.userAgent = userAgent;
     }
 
     public String getSample() {

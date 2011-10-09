@@ -21,6 +21,7 @@
  **/
 package org.richfaces.demo.ui;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -36,28 +37,25 @@ import javax.servlet.http.HttpServletRequest;
 public class UserAgentProcessor {
     private String userAgentStr;
     private String httpAccept;
-    private UAgentInfo uAgentTest;
+    private UAgentInfo uAgentInfo;
 
-    public UserAgentProcessor() {
-        init();
-    }
-
+    @PostConstruct
     public void init() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         userAgentStr = request.getHeader("user-agent");
         httpAccept = request.getHeader("Accept");
-        uAgentTest = new UAgentInfo(userAgentStr, httpAccept);
+        uAgentInfo = new UAgentInfo(userAgentStr, httpAccept);
     }
 
     public boolean isPhone() {
         //Detects a whole tier of phones that support similar functionality as the iphone
-        return uAgentTest.detectTierIphone();
+        return uAgentInfo.detectTierIphone();
     }
 
     public boolean isTablet() {
         //will detect ipads, xooms, blackberry tablets, but not galaxy - they use a strange user-agent
-        return uAgentTest.detectTierTablet();
+        return uAgentInfo.detectTierTablet();
     }
 
     public boolean isMobile() {
