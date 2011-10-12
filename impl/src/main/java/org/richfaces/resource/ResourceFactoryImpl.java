@@ -39,6 +39,7 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.LazyLoadingObject;
 import org.richfaces.util.PropertiesUtil;
+import org.richfaces.util.URLUtils;
 import org.richfaces.util.Util;
 
 import com.google.common.base.Function;
@@ -64,7 +65,14 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
         public Resource createResource() {
             FacesContext facesContext = FacesContext.getCurrentInstance();
-            ExternalStaticResource resource = new ExternalStaticResource(resourceLocation, skinDependent);
+            Resource resource;
+
+            // checks that provided resourceLocation is valid URL = then it is considered absolute URL
+            if (URLUtils.isValidURL(resourceLocation)) {
+                resource = new AbsoluteRequestPathResource(resourceLocation);
+            } else {
+                resource = new ExternalStaticResource(resourceLocation, skinDependent);
+            }
 
             resource.setResourceName(resourceKey.getResourceName());
             resource.setLibraryName(resourceKey.getLibraryName());
