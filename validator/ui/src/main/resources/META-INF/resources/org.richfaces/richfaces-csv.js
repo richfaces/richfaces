@@ -121,9 +121,10 @@
                     value = component.getValue();
                 } else {
                     var genericInputSelector = ":not(:submit):not(:button):input:visible:enabled:first";
-                    var nestedComponent = $(genericInputSelector, component);
-                    if (nestedComponent && typeof component["getValue"] === "function") {
-                        value = component.getValue();
+                    var nestedComponents = $(genericInputSelector, component);
+                    if (nestedComponents) {
+                        var nestedComponent = nestedComponents[0];
+                        value = valueExtractors[nestedComponent.type](nestedComponent);
                     }
                 }
             }
