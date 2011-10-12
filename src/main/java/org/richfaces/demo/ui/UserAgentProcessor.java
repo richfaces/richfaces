@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 
 /**
  * @author jbalunas@redhat.com
@@ -34,17 +35,17 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ManagedBean(name="userAgent")
 @SessionScoped
-public class UserAgentProcessor {
-    private String userAgentStr;
-    private String httpAccept;
+public class UserAgentProcessor implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private UAgentInfo uAgentInfo;
 
     @PostConstruct
     public void init() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        userAgentStr = request.getHeader("user-agent");
-        httpAccept = request.getHeader("Accept");
+        String userAgentStr = request.getHeader("user-agent");
+        String httpAccept = request.getHeader("Accept");
         uAgentInfo = new UAgentInfo(userAgentStr, httpAccept);
     }
 
@@ -54,7 +55,7 @@ public class UserAgentProcessor {
     }
 
     public boolean isTablet() {
-        //will detect ipads, xooms, blackberry tablets, but not galaxy - they use a strange user-agent
+        // Will detect iPads, Xooms, Blackberry tablets, but not Galaxy - they use a strange user-agent
         return uAgentInfo.detectTierTablet();
     }
 
