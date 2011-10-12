@@ -90,7 +90,7 @@ public enum StaticResourceFeature {
      * @return the configured location of static resources as string with EL expressions
      */
     private static String getStaticallyMappedRequestPathExpression() {
-        String location = getConfiguration(CoreConfiguration.Items.staticResourceMappingLocation);
+        String location = getConfiguration(CoreConfiguration.Items.staticResourceLocation);
         if (location == null || "".equals(location)) {
             location = LOCATION;
         }
