@@ -501,6 +501,9 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
         @Override
         protected Map<ResourceKey, ExternalStaticResourceFactory> loadData() {
+            if (!StaticResourceFeature.isStaticResourceServingEnabled()) {
+                return Maps.newHashMap();
+            }
             String mappingLocation = StaticResourceFeature.getStaticMappingLocation();
             return readMappings(EXTERNAL_MAPPINGS_FACTORY_PRODUCER, mappingLocation);
         }

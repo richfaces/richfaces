@@ -26,8 +26,8 @@ import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.application.CoreConfiguration;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.configuration.ConfigurationService;
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.el.util.ELUtils;
 
 /**
@@ -59,11 +59,24 @@ public enum StaticResourceFeature {
     }
 
     /**
+     * Returns true if static resource serving is enabled in configuration.
+     *
+     * @return true if static resource serving is enabled in configuration; false otherwise
+     */
+    public static boolean isStaticResourceServingEnabled() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        boolean staticResourceServing = ConfigurationServiceHelper.getBooleanConfigurationValue(facesContext,
+                CoreConfiguration.Items.staticResourceServing);
+        return staticResourceServing;
+    }
+
+    /**
      * Returns location of static resource mapping configuration file for current application stage.
      *
      * @return location of static resource mapping configuration file for current application stage
      */
     public static String getStaticMappingLocation() {
+        checkStaticResourceServingEnabled();
         String mapping = getConfiguration(CoreConfiguration.Items.staticResourceMappingLocation);
         if (mapping == null || "".equals(mapping)) {
             mapping = MAPPING;
@@ -78,6 +91,7 @@ public enum StaticResourceFeature {
      * @return the configured location of static resources as string evaluated against EL expressions in current context
      */
     public static String getStaticallyMappedRequestPath() {
+        checkStaticResourceServingEnabled();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ValueExpression mappingLocationExpression = ELUtils.createValueExpression(getStaticallyMappedRequestPathExpression());
         return mappingLocationExpression.getValue(facesContext.getELContext()).toString();
@@ -99,12 +113,12 @@ public enum StaticResourceFeature {
 
     /**
      * <p>
-     * Determines if the feature is enabled in current stage.
+     * Determines if the feature is enabled in current project stage.
      * </p>
      *
      * <p>
-     * Can be configured with either any {@link ProjectStage} items separated by comma, or with keyword 'All' representing all
-     * application stages.
+     * Can be configured with either any {@link ProjectStage} items separated by comma, or with keyword 'All' or 'None'
+     * representing all application stages or no stage respectivelly.
      * </p>
      *
      * @return true if the feature is enabled in current stage; false otherwise
@@ -119,11 +133,23 @@ public enum StaticResourceFeature {
     }
 
     /**
+     * <p>
+     * Validates that static resource feature is enabled.
+     * </p>
+     *
+     * @throws IllegalStateException when static resource serving feature is not enabled
+     */
+    private static void checkStaticResourceServingEnabled() {
+        if (!isStaticResourceServingEnabled()) {
+            throw new IllegalStateException("Static resource serving needs to be enabled first to use static resources");
+        }
+    }
+
+    /**
      * Obtains configuration from {@link ConfigurationService}.
      */
     private static String getConfiguration(CoreConfiguration.Items configurationItem) {
-        ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
-        return configurationService.getStringValue(FacesContext.getCurrentInstance(), configurationItem);
+        return ConfigurationServiceHelper.getStringConfigurationValue(FacesContext.getCurrentInstance(), configurationItem);
     }
 
     /**
@@ -132,10 +158,15 @@ public enum StaticResourceFeature {
      * </p>
      *
      * <p>
+     * If no feature is enabled, infix "Static" is returned.
+     * </p>
+     *
+     * <p>
      * Items are composed in order in which are specified in {@link StaticResourceFeature} enumeration.
      * </p>
      *
-     * @return infix composed from items of enumeration of features which are turned on in current {@link ProjectStage}.
+     * @return infix composed from items of enumeration of features which are turned on in current {@link ProjectStage};
+     *         "Static" is returned when no other feature enabled
      */
     private static String getInfix() {
         StringBuffer affix = new StringBuffer();
@@ -143,6 +174,9 @@ public enum StaticResourceFeature {
             if (feature.isEnabled()) {
                 affix.append(feature.toString());
             }
+        }
+        if (affix.length() == 0) {
+            return "Static";
         }
         return affix.toString();
     }
