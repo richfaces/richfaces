@@ -108,15 +108,25 @@
     };
 
     var getValue = function(element) {
-        var value;
+        var value = "";
         if (valueExtractors[element.type]) {
             value = valueExtractors[element.type](element);
         } else if (undefined !== element.value) {
             value = element.value;
         } else {
-            var component = rf.$(element);
+            var component = $(element);
             // TODO: add getValue to baseComponent and change jsdocs
-            value = component && typeof component["getValue"] === "function" ? component.getValue() : "";
+            if (component) {
+                if (typeof component["getValue"] === "function") {
+                    value = component.getValue();
+                } else {
+                    var genericInputSelector = ":not(:submit):not(:button):input:visible:enabled:first";
+                    var nestedComponent = $(genericInputSelector, component);
+                    if (nestedComponent && typeof component["getValue"] === "function") {
+                        value = component.getValue();
+                    }
+                }
+            }
         }
         return value;
     }
