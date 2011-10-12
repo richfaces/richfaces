@@ -180,6 +180,27 @@
             </dependencies>
         </profile>
         <profile>
+            <id>jbas7</id>
+            <activation>
+                <property>
+                    <name>jsf_profile</name>
+                    <value>jbas7</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-api</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>myfaces</id>
             <activation>
                 <property>
