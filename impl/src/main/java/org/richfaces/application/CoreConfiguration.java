@@ -59,6 +59,8 @@ public final class CoreConfiguration {
         resourcesDefaultVersion,
         @ConfigurationItem(names = "org.ajax4jsf.cache.LRU_MAP_CACHE_SIZE", literal = true)
         lruMapCacheSize,
+        @ConfigurationItem(defaultValue = "false", names = "org.richfaces.staticResourceServing")
+        staticResourceServing,
         @ConfigurationItem(names = "org.richfaces.staticResourceLocation")
         staticResourceLocation,
         @ConfigurationItem(names = "org.richfaces.staticResourceMappingLocation")
