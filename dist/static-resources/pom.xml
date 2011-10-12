@@ -172,6 +172,8 @@
                         <skin>japanCherry</skin>
                         <skin>ruby</skin>
                         <skin>wine</skin>
+                        <skin>DEFAULT</skin>
+                        <skin>NULL</skin>
                     </skins>
                     <excludedFiles>
                         <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
