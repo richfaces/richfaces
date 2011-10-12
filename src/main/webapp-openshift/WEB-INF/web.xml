@@ -24,6 +24,10 @@
         <param-value>${javax.faces.PROJECT_STAGE}</param-value>
     </context-param>
     <context-param>
+        <param-name>org.richfaces.staticResourceServing</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
         <param-name>org.richfaces.staticResourcePackedPhases</param-name>
         <param-value>All</param-value>
     </context-param>

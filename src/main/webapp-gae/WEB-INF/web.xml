@@ -40,12 +40,16 @@
         <param-value>Production</param-value>
     </context-param>
     <context-param>
-        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-        <param-value>client</param-value>
+        <param-name>org.richfaces.staticResourceServing</param-name>
+        <param-value>true</param-value>
     </context-param>
     <context-param>
-        <param-name>org.richfaces.staticResourceLocation</param-name>
-        <param-value>#{facesContext.externalContext.requestContextPath}/static-resources/#{resourceLocation}</param-value>
+        <param-name>org.richfaces.staticResourcePackedPhases</param-name>
+        <param-value>All</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>client</param-value>
     </context-param>
 
     <context-param>
