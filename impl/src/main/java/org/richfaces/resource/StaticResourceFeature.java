@@ -42,11 +42,11 @@ public enum StaticResourceFeature {
     /**
      * Packaging of selected static resources of certain types (CSS/JS)
      */
-    Packed(CoreConfiguration.Items.staticResourcePackedPhases),
+    Packed(CoreConfiguration.Items.resourceMappingPackedStages),
     /**
      * Compression of static resources which is supported (CSS/JS)
      */
-    Compressed(CoreConfiguration.Items.staticResourceCompressedPhases);
+    Compressed(CoreConfiguration.Items.resourceMappingCompressedStages);
 
     private static final String FEATURES_PLACEHOLDER = "%Features%";
     private static final String LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.staticResource/#{a4j.version.implementationVersion}/%Features%/#{resourceLocation}";
@@ -66,7 +66,7 @@ public enum StaticResourceFeature {
     public static boolean isStaticResourceServingEnabled() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         boolean staticResourceServing = ConfigurationServiceHelper.getBooleanConfigurationValue(facesContext,
-                CoreConfiguration.Items.staticResourceServing);
+                CoreConfiguration.Items.resourceMappingEnabled);
         return staticResourceServing;
     }
 
@@ -77,7 +77,7 @@ public enum StaticResourceFeature {
      */
     public static String getStaticMappingLocation() {
         checkStaticResourceServingEnabled();
-        String mapping = getConfiguration(CoreConfiguration.Items.staticResourceMappingLocation);
+        String mapping = getConfiguration(CoreConfiguration.Items.resourceMappingFile);
         if (mapping == null || "".equals(mapping)) {
             mapping = MAPPING;
         }
@@ -104,7 +104,7 @@ public enum StaticResourceFeature {
      * @return the configured location of static resources as string with EL expressions
      */
     private static String getStaticallyMappedRequestPathExpression() {
-        String location = getConfiguration(CoreConfiguration.Items.staticResourceLocation);
+        String location = getConfiguration(CoreConfiguration.Items.resourceMappingRootLocation);
         if (location == null || "".equals(location)) {
             location = LOCATION;
         }
