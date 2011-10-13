@@ -60,7 +60,6 @@ public final class VersionBean {
         // TODO nick - default value for manifest file absense - review
         private String implementationVersion = "4.1.0-SNAPSHOT";
         private String implementationTitle = UNKNOWN;
-        private String scmRevision = UNKNOWN;
         private String scmTimestamp = UNKNOWN;
         private String fullVersionString = UNKNOWN;
         private boolean containsDataFromManifest = false;
@@ -99,12 +98,11 @@ public final class VersionBean {
             implementationVendor = getAttributeValueOrDefault(attributes, "Implementation-Vendor");
             implementationVersion = getAttributeValueOrDefault(attributes, "Implementation-Version");
             implementationTitle = getAttributeValueOrDefault(attributes, "Implementation-Title");
-            scmRevision = getAttributeValueOrDefault(attributes, "SCM-Revision");
             scmTimestamp = getAttributeValueOrDefault(attributes, "SCM-Timestamp");
         }
 
         private void initializeDerivativeProperties() {
-            fullVersionString = MessageFormat.format("v.{0} SVN r.{1}", implementationVersion, scmRevision);
+            fullVersionString = MessageFormat.format("v.{0}", implementationVersion);
         }
 
         private Manifest readManifest() {
@@ -173,10 +171,6 @@ public final class VersionBean {
             return containsDataFromManifest;
         }
 
-        public String getRevision() {
-            return scmRevision;
-        }
-
         public String getVersion() {
             return fullVersionString;
         }
@@ -191,10 +185,6 @@ public final class VersionBean {
 
         public String getImplementationVersion() {
             return implementationVersion;
-        }
-
-        public String getScmRevision() {
-            return scmRevision;
         }
 
         public String getScmTimestamp() {
@@ -217,10 +207,6 @@ public final class VersionBean {
 
     public String getTitle() {
         return VERSION.getImplementationTitle();
-    }
-
-    public String getRevision() {
-        return VERSION.getScmRevision();
     }
 
     public String getTimestamp() {
