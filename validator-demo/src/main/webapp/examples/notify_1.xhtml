@@ -25,13 +25,19 @@
                 </style>
                 <h:form>
                     
-                    <csv:notify stack="customStack" summary="#{notifyBean.title}" detail="#{notifyBean.text}"
+                    <csv:notify stack="customStack" summary="#{notifyBean.title}"
                             nonblocking="#{notifyBean.nonblocking}" showShadow="#{notifyBean.showShadow}"
                             showHistory="#{notifyBean.showHistory}" showCloseButton="#{notifyBean.showCloseButton}"
                             sticky="#{notifyBean.sticky}" stayTime="#{notifyBean.stayTime}"
                             appearAnimation="#{notifyBean.appearAnimation}" hideAnimation="#{notifyBean.hideAnimation}"
                             animationSpeed="#{notifyBean.animationSpeed}" nonblockingOpacity="#{notifyBean.nonblockingOpacity}"
-                            styleClass="#{notifyBean.styleClass}" />
+                            styleClass="#{notifyBean.styleClass}">
+                                <f:facet name="detail">
+                                    And there is output from facet.
+                                    <hr />
+                                    <h:outputText value="#{notifyBean.text}" />
+                                </f:facet>
+                            </csv:notify>
                     
                     <a4j:outputPanel ajaxRendered="true">
                         <csv:notifyStack id="customStack" direction="#{notifyBean.direction}" position="#{notifyBean.position}"
