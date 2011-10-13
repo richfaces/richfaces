@@ -59,16 +59,16 @@ public final class CoreConfiguration {
         resourcesDefaultVersion,
         @ConfigurationItem(names = "org.ajax4jsf.cache.LRU_MAP_CACHE_SIZE", literal = true)
         lruMapCacheSize,
-        @ConfigurationItem(defaultValue = "false", names = "org.richfaces.staticResourceServing")
-        staticResourceServing,
-        @ConfigurationItem(names = "org.richfaces.staticResourceLocation")
-        staticResourceLocation,
-        @ConfigurationItem(names = "org.richfaces.staticResourceMappingLocation")
-        staticResourceMappingLocation,
-        @ConfigurationItem(defaultValue = "Production,SystemTest", names = "org.richfaces.staticResourceCompressedPhases", literal = true)
-        staticResourceCompressedPhases,
-        @ConfigurationItem(defaultValue = "", names = "org.richfaces.staticResourcePackedPhases", literal = true)
-        staticResourcePackedPhases,
+        @ConfigurationItem(defaultValue = "false", names = "org.richfaces.resourceMapping.enabled")
+        resourceMappingEnabled,
+        @ConfigurationItem(names = "org.richfaces.resourceMapping.location")
+        resourceMappingRootLocation,
+        @ConfigurationItem(names = "org.richfaces.resourceMapping.mappingFile")
+        resourceMappingFile,
+        @ConfigurationItem(defaultValue = "Production,SystemTest", names = "org.richfaces.resourceMapping.compressedStages", literal = true)
+        resourceMappingCompressedStages,
+        @ConfigurationItem(defaultValue = "", names = "org.richfaces.resourceMapping.packedStages", literal = true)
+        resourceMappingPackedStages,
         @ConfigurationItem(defaultValue = "true", names = "org.richfaces.executeAWTInitializer", literal = true)
         executeAWTInitializer,
         @ConfigurationItem(names = "org.richfaces.push.handlerMapping", literal = true)
