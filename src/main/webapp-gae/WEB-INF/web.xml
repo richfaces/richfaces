@@ -40,11 +40,11 @@
         <param-value>Production</param-value>
     </context-param>
     <context-param>
-        <param-name>org.richfaces.staticResourceServing</param-name>
+        <param-name>org.richfaces.resourceMapping.enabled</param-name>
         <param-value>true</param-value>
     </context-param>
     <context-param>
-        <param-name>org.richfaces.staticResourcePackedPhases</param-name>
+        <param-name>org.richfaces.resourceMapping.packedStages</param-name>
         <param-value>All</param-value>
     </context-param>
     <context-param>
