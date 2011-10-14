@@ -79,7 +79,7 @@ public class ExternalStaticResource extends Resource {
 
             requestMap.put(STATIC_RESOURCE_LOCATION_VARIABLE, resourceLocation);
 
-            return StaticResourceFeature.getStaticallyMappedRequestPath();
+            return ResourceMappingFeature.getLocation();
         } finally {
             requestMap.remove(STATIC_RESOURCE_LOCATION_VARIABLE);
             if (resourceVarValue != null) {
