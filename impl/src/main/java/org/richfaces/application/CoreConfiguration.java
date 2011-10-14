@@ -67,7 +67,7 @@ public final class CoreConfiguration {
         resourceMappingFile,
         @ConfigurationItem(defaultValue = "Production,SystemTest", names = "org.richfaces.resourceMapping.compressedStages", literal = true)
         resourceMappingCompressedStages,
-        @ConfigurationItem(defaultValue = "", names = "org.richfaces.resourceMapping.packedStages", literal = true)
+        @ConfigurationItem(defaultValue = "All", names = "org.richfaces.resourceMapping.packedStages", literal = true)
         resourceMappingPackedStages,
         @ConfigurationItem(defaultValue = "true", names = "org.richfaces.executeAWTInitializer", literal = true)
         executeAWTInitializer,
