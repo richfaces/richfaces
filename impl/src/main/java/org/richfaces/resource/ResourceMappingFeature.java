@@ -26,18 +26,16 @@ import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.application.CoreConfiguration;
-import org.richfaces.application.configuration.ConfigurationService;
-import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.el.util.ELUtils;
 
 /**
  * <p>
- * Determines the mappings and request path for static resources pre-generated and stored on the class-path.
+ * Determines the state, mappings and request path for mapped resources.
  * </p>
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public enum StaticResourceFeature {
+public enum ResourceMappingFeature {
 
     /**
      * Packaging of selected static resources of certain types (CSS/JS)
@@ -48,26 +46,15 @@ public enum StaticResourceFeature {
      */
     Compressed(CoreConfiguration.Items.resourceMappingCompressedStages);
 
+    private static final String STATIC_RESOURCES_FEATURE_NAME = "Static";
     private static final String FEATURES_PLACEHOLDER = "%Features%";
-    private static final String LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.staticResource/#{a4j.version.implementationVersion}/%Features%/#{resourceLocation}";
-    private static final String MAPPING = "META-INF/richfaces/staticResourceMapping/%Features%.properties";
+    private static final String DEFAULT_LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.staticResource/#{a4j.version.implementationVersion}/%Features%/#{resourceLocation}";
+    private static final String DEFAULT_MAPPING_FILE = "META-INF/richfaces/staticResourceMapping/%Features%.properties";
 
     private CoreConfiguration.Items associatedConfiguration;
 
-    private StaticResourceFeature(CoreConfiguration.Items associatedConfiguration) {
+    private ResourceMappingFeature(CoreConfiguration.Items associatedConfiguration) {
         this.associatedConfiguration = associatedConfiguration;
-    }
-
-    /**
-     * Returns true if static resource serving is enabled in configuration.
-     *
-     * @return true if static resource serving is enabled in configuration; false otherwise
-     */
-    public static boolean isStaticResourceServingEnabled() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        boolean staticResourceServing = ConfigurationServiceHelper.getBooleanConfigurationValue(facesContext,
-                CoreConfiguration.Items.resourceMappingEnabled);
-        return staticResourceServing;
     }
 
     /**
@@ -75,13 +62,13 @@ public enum StaticResourceFeature {
      *
      * @return location of static resource mapping configuration file for current application stage
      */
-    public static String getStaticMappingLocation() {
-        checkStaticResourceServingEnabled();
-        String mapping = getConfiguration(CoreConfiguration.Items.resourceMappingFile);
-        if (mapping == null || "".equals(mapping)) {
-            mapping = MAPPING;
+    public static String getMappingFile() {
+        validateStaticResourceServingEnabled();
+        String mappingFile = ResourceMappingConfiguration.getResourceMappingFile();
+        if (mappingFile == null || "".equals(mappingFile)) {
+            mappingFile = DEFAULT_MAPPING_FILE;
         }
-        return format(mapping, getInfix());
+        return format(mappingFile, getEnabledFeatures());
     }
 
     /**
@@ -90,11 +77,10 @@ public enum StaticResourceFeature {
      *
      * @return the configured location of static resources as string evaluated against EL expressions in current context
      */
-    public static String getStaticallyMappedRequestPath() {
-        checkStaticResourceServingEnabled();
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ValueExpression mappingLocationExpression = ELUtils.createValueExpression(getStaticallyMappedRequestPathExpression());
-        return mappingLocationExpression.getValue(facesContext.getELContext()).toString();
+    public static String getLocation() {
+        validateStaticResourceServingEnabled();
+        ValueExpression mappingLocationExpression = ELUtils.createValueExpression(getLocationAsExpression());
+        return mappingLocationExpression.getValue(FacesContext.getCurrentInstance().getELContext()).toString();
     }
 
     /**
@@ -103,12 +89,12 @@ public enum StaticResourceFeature {
      *
      * @return the configured location of static resources as string with EL expressions
      */
-    private static String getStaticallyMappedRequestPathExpression() {
-        String location = getConfiguration(CoreConfiguration.Items.resourceMappingRootLocation);
-        if (location == null || "".equals(location)) {
-            location = LOCATION;
+    private static String getLocationAsExpression() {
+        String location = ResourceMappingConfiguration.getLocation();
+        if (location == null) {
+            location = DEFAULT_LOCATION;
         }
-        return format(location, getInfix());
+        return format(location, getEnabledFeatures());
     }
 
     /**
@@ -118,13 +104,13 @@ public enum StaticResourceFeature {
      *
      * <p>
      * Can be configured with either any {@link ProjectStage} items separated by comma, or with keyword 'All' or 'None'
-     * representing all application stages or no stage respectivelly.
+     * representing all application stages or no stage respectively.
      * </p>
      *
      * @return true if the feature is enabled in current stage; false otherwise
      */
     private boolean isEnabled() {
-        String configuredPhases = getConfiguration(this.associatedConfiguration);
+        String configuredPhases = ResourceMappingConfiguration.getConfiguration(associatedConfiguration);
         if (configuredPhases == null) {
             return false;
         }
@@ -139,17 +125,10 @@ public enum StaticResourceFeature {
      *
      * @throws IllegalStateException when static resource serving feature is not enabled
      */
-    private static void checkStaticResourceServingEnabled() {
-        if (!isStaticResourceServingEnabled()) {
+    private static void validateStaticResourceServingEnabled() {
+        if (!ResourceMappingConfiguration.isEnabled()) {
             throw new IllegalStateException("Static resource serving needs to be enabled first to use static resources");
         }
-    }
-
-    /**
-     * Obtains configuration from {@link ConfigurationService}.
-     */
-    private static String getConfiguration(CoreConfiguration.Items configurationItem) {
-        return ConfigurationServiceHelper.getStringConfigurationValue(FacesContext.getCurrentInstance(), configurationItem);
     }
 
     /**
@@ -162,21 +141,21 @@ public enum StaticResourceFeature {
      * </p>
      *
      * <p>
-     * Items are composed in order in which are specified in {@link StaticResourceFeature} enumeration.
+     * Items are composed in order in which are specified in {@link ResourceMappingFeature} enumeration.
      * </p>
      *
      * @return infix composed from items of enumeration of features which are turned on in current {@link ProjectStage};
      *         "Static" is returned when no other feature enabled
      */
-    private static String getInfix() {
+    private static String getEnabledFeatures() {
         StringBuffer affix = new StringBuffer();
-        for (StaticResourceFeature feature : StaticResourceFeature.values()) {
+        for (ResourceMappingFeature feature : ResourceMappingFeature.values()) {
             if (feature.isEnabled()) {
                 affix.append(feature.toString());
             }
         }
         if (affix.length() == 0) {
-            return "Static";
+            return STATIC_RESOURCES_FEATURE_NAME;
         }
         return affix.toString();
     }
