@@ -4,14 +4,14 @@
     <parent>
         <groupId>org.richfaces.examples</groupId>
         <artifactId>richfaces-example-parent</artifactId>
-        <version>4.1.0.M3-SNAPSHOT</version>
+        <version>4.1.0.20111014-M3</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.richfaces.examples</groupId>
     <artifactId>template</artifactId>
     <packaging>war</packaging>
-    <version>4.1.0.M3-SNAPSHOT</version>
+    <version>4.1.0.20111014-M3</version>
     <name>examples template</name>
     <dependencies>
         <dependency>
