@@ -25,14 +25,14 @@
     <parent>
         <groupId>org.richfaces.examples</groupId>
         <artifactId>richfaces-example-parent</artifactId>
-        <version>4.1.0.20111011-M3</version>
+        <version>4.1.0.M3-SNAPSHOT</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>core-demo</artifactId>
     <packaging>war</packaging>
-    <version>4.1.0.20111011-M3</version>
+    <version>4.1.0.M3-SNAPSHOT</version>
     <name>RichFaces Examples: Core</name>
 
     <properties>
