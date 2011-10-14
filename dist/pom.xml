@@ -23,13 +23,13 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.1.0.20111011-M3</version>
+        <version>4.1.0.M3-SNAPSHOT</version>
         <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-ui-assembler</artifactId>
-    <version>4.1.0.20111011-M3</version>
+    <version>4.1.0.M3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Richfaces UI Assembler</name>
 
