@@ -169,15 +169,17 @@
             },
 
             toggleButtons: function() {
-                this.__toggleButton(this.addButton, this.sourceList.__getItems());
-                this.__toggleButton(this.removeButton, this.targetList.__getItems());
+                this.__toggleButton(this.addButton, this.sourceList.__getItems().filter('.' + this.selectItemCss).length > 0);
+                this.__toggleButton(this.removeButton, this.targetList.__getItems().filter('.' + this.selectItemCss).length > 0);
+                this.__toggleButton(this.addAllButton, this.sourceList.__getItems().length > 0);
+                this.__toggleButton(this.removeAllButton, this.targetList.__getItems().length > 0);
                 if (this.orderable) {
                     this.orderingList.toggleButtons();
                 }
             },
 
-            __toggleButton: function(button, list) {
-                if (this.disabled || list.filter('.' + this.selectItemCss).length == 0) {
+            __toggleButton: function(button, enabled) {
+                if (this.disabled || ! enabled) {
                     if (! button.hasClass('rf-pick-btn-dis')) {
                         button.addClass('rf-pick-btn-dis')
                     }
