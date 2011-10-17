@@ -102,7 +102,7 @@ public abstract class AbstractAccordion extends AbstractTogglePanel {
     @Attribute
     public abstract String getItemHeaderClass();
 
-    @Attribute(events = @EventName("itemchange"))
+    @Attribute(events = @EventName(value = "itemchange", defaultEvent = true))
     public abstract String getOnitemchange();
 
     @Attribute(events = @EventName("beforeitemchange"))

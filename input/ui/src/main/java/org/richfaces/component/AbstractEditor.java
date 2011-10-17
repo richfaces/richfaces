@@ -68,7 +68,7 @@ public abstract class AbstractEditor extends UIInput {
     @Attribute(events = @EventName("focus"))
     public abstract String getOnfocus();
 
-    @Attribute(events = @EventName("change"))
+    @Attribute(events = @EventName(value = "change", defaultEvent = true))
     public abstract String getOnchange();
 
     @Attribute(events = @EventName("dirty"))
