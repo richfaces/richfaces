@@ -64,7 +64,7 @@
             <artifactId>richfaces-core-impl</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.sun.faces</groupId>
+            <groupId>javax.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <scope>provided</scope>
         </dependency>
