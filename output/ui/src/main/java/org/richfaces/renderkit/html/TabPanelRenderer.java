@@ -185,9 +185,8 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         renderPassThroughAttributes(context, tab, HEADER_ATTRIBUTES);
         writer.writeAttribute(
                 CLASS_ATTRIBUTE,
-                concatClasses(
-                        "rf-tab-hdr " + headerStateClass + " " + headerPositionClass
-                                + attributeAsString(tab, "headerClass"), attributeAsString(tab, state.headerClass())), null);
+                concatClasses("rf-tab-hdr", headerStateClass, headerPositionClass,
+                        attributeAsString(tab, "headerClass"), attributeAsString(tab, state.headerClass())), null);
         writer.writeAttribute(STYLE_ATTRIBUTE,
                 concatStyles(isDisplay ? "" : "display : none", attributeAsString(tab, "headerStyle")), null);
 
