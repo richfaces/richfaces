@@ -1,6 +1,6 @@
 package org.richfaces.demo.common.navigation;
 
-import java.util.LinkedList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -11,8 +11,7 @@ import com.google.common.collect.Collections2;
 
 public class DemoDescriptor extends BaseDescriptor {
     private static final long serialVersionUID = 6822187362271025752L;
-    private List<SampleDescriptor> samples;
-    private List<SampleDescriptor> filteredSamples;
+    private Collection<SampleDescriptor> samples;
 
     private boolean containsNewSamples() {
         for (SampleDescriptor sample : samples) {
@@ -46,26 +45,23 @@ public class DemoDescriptor extends BaseDescriptor {
                 return sample;
             }
         }
-        return samples.get(0);
+        return samples.iterator().next();
     }
 
     @XmlElementWrapper(name = "samples")
     @XmlElement(name = "sample")
-    public List<SampleDescriptor> getSamples() {
+    public Collection<SampleDescriptor> getSamples() {
         if (samples == null) {
             return null;
         }
-        if (filteredSamples == null) {
-            filteredSamples = new LinkedList<SampleDescriptor>(Collections2.filter(samples, new Predicate<SampleDescriptor>() {
-                public boolean apply(SampleDescriptor sample) {
-                    return sample.isCurrentlyEnabled();
-                }
-            }));
-        }
-        return filteredSamples;
+        return Collections2.filter(samples, new Predicate<SampleDescriptor>() {
+            public boolean apply(SampleDescriptor sample) {
+                return sample.isCurrentlyEnabled();
+            }
+        });
     }
 
-    public void setSamples(List<SampleDescriptor> samples) {
+    public void setSamples(Collection<SampleDescriptor> samples) {
         this.samples = samples;
     }
 }

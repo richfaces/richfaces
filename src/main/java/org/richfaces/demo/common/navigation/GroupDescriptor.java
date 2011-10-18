@@ -1,6 +1,6 @@
 package org.richfaces.demo.common.navigation;
 
-import java.util.LinkedList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -8,11 +8,11 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 
 public class GroupDescriptor extends BaseDescriptor {
     private static final long serialVersionUID = -3481702232804120885L;
-    private List<DemoDescriptor> demos;
-    private List<DemoDescriptor> filteredDemos;
+    private Collection<DemoDescriptor> demos;
 
     private boolean containsNewDemos() {
         for (DemoDescriptor demo : demos) {
@@ -45,21 +45,18 @@ public class GroupDescriptor extends BaseDescriptor {
      */
     @XmlElementWrapper(name = "demos")
     @XmlElement(name = "demo")
-    public List<DemoDescriptor> getDemos() {
+    public Collection<DemoDescriptor> getDemos() {
         if (demos == null) {
             return null;
         }
-        if (filteredDemos == null) {
-            filteredDemos = new LinkedList<DemoDescriptor>(Collections2.filter(demos, new Predicate<DemoDescriptor>() {
-                public boolean apply(DemoDescriptor demo) {
-                    return demo.hasEnabledItems();
-                };
-            }));
-        }
-        return filteredDemos;
+        return Collections2.filter(demos, new Predicate<DemoDescriptor>() {
+            public boolean apply(DemoDescriptor demo) {
+                return demo.hasEnabledItems();
+            };
+        });
     }
 
-    public void setDemos(List<DemoDescriptor> demos) {
+    public void setDemos(Collection<DemoDescriptor> demos) {
         this.demos = demos;
     }
 }
