@@ -305,7 +305,7 @@
                     <groupId>org.richfaces.build.resources</groupId>
                     <artifactId>faces-vdl-documentation</artifactId>
                     <version>${faces-vdl-documentation.version}</version>
-                    <scope>runtime</scope>
+                    <scope>provided</scope>
                 </dependency>
             </dependencies>
         </profile>
