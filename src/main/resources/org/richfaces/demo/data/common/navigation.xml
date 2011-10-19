@@ -762,7 +762,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo mobileExclude="true">
                 <id>jquery</id>
                 <name>rich:jQuery</name>
                 <samples>
