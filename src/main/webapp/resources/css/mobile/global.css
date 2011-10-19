@@ -588,3 +588,11 @@ add rounded corners
    -webkit-border-radius: 8px;
     padding:  10px;
 }
+
+/*************************************************
+rich:inplaceInput
+*************************************************/
+
+.rf-ii-lbl {
+    font-size: 22px;
+}
