@@ -11,7 +11,7 @@
     <h:head>
         <title>RichFaces Mobile Showcase</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
 
         <!-- enable full-screen mode -->
         <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -41,11 +41,6 @@
             var FOCUS_PAGE;
 
             function slideTo(id) {
-
-                var class_transition = 'page transition';
-                var class_stageCenter = class_transition + 'stage-center';
-                var class_stageLeft = class_transition + 'stage-center';
-                var class_stageRight = class_transition + 'stage-center';
 
                 //1.)the page we are bringing into focus dictates how
                 // the current page will exit. So let's see what classes
@@ -82,10 +77,9 @@
             }
 
              function locationHashChanged() {
-                 var backButton = document.getElementById("back-button");
                  if(location.hash === "#home"){
                      slideTo('home-page');
-                     backButton.className = 'hide-button';
+                     document.getElementById("back-button").className = 'hide-button';
                  }else{
                      var hashArray = location.hash.split(':');
                      var id;
@@ -94,7 +88,7 @@
                          id = hashArray[0].replace('#','');
                          sample = hashArray[1];
                          handleHashChange(id,sample);
-                         backButton.className = 'basic-button left-header-button';
+
                      }
 
                  }
@@ -137,64 +131,20 @@
                 return document.getElementById(id)
             }
 
+            function componentPageSetup(){
+                slideTo('component-page');
+                document.getElementById("back-button").className = 'basic-button left-header-button';
+            }
+
         </script>
 
-
-
-        <style type="text/css">
-            /*Buttons and bars*/
-            .left-header-button {
-               font-weight: bold;
-               font-size: 12px;
-               color: #fff;
-               text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
-               text-align: center;
-               text-overflow: ellipsis;
-               height: 30px;
-               width: 60px;
-               position: absolute;
-               top: 7px;
-               left: 5px;
-               line-height: 30px;
-            }
-
-            .right-header-button {
-               font-weight: bold;
-               font-size: 12px;
-               color: #fff;
-               text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
-               text-align: center;
-               text-overflow: ellipsis;
-               height: 30px;
-               width: 60px;
-               position: absolute;
-               top: 7px;
-               right: 5px;
-               line-height: 30px;
-            }
-
-            .basic-button {
-               background: #000 -moz-linear-gradient(90deg, rgba(0, 0, 0, .3) 33%, rgba(255, 255, 255, .1) 123%);
-               background: #000 -webkit-gradient(linear, left top, left bottom, from(#717172), to(#0f0f10), color-stop(0.5, #3a3a3a), color-stop(0.5, #0d0d0f));
-               border-radius: 7px;
-               mozborder-radius: 7px;
-               webkitborder-radius: 7px;
-               border: none;
-
-            }
-
-            .hide-button {
-                display:none;
-                opacity: 0;
-            }
-        </style>
     </h:head>
     <h:body onload="hideURLbar();">
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/brand.css" />
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/global.css" />
 
-        <h:form>
-        <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="slideTo('component-page')">
+        <h:form style="width:100%;height:100%;">
+        <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="componentPageSetup()">
             <f:param name="demo" value="param1"/>
             <f:param name="sample" value="param2"/>
         </a4j:jsFunction>
@@ -261,6 +211,7 @@
     </h:body>
 </f:view>
  <script type="text/javascript">
+
 
           (function (jQuery) {
 
