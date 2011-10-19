@@ -144,7 +144,7 @@
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/global.css" />
 
         <h:form style="width:100%;height:100%;">
-        <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="componentPageSetup()">
+        <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="componentPageSetup();hideURLbar();">
             <f:param name="demo" value="param1"/>
             <f:param name="sample" value="param2"/>
         </a4j:jsFunction>
