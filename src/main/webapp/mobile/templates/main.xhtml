@@ -143,11 +143,7 @@
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/brand.css" />
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/global.css" />
 
-        <h:form style="width:100%;height:100%;">
-        <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="componentPageSetup();hideURLbar();">
-            <f:param name="demo" value="param1"/>
-            <f:param name="sample" value="param2"/>
-        </a4j:jsFunction>
+
         <div id="browser">
             <header>
                 <div>
@@ -157,7 +153,11 @@
                    </a>
                 </div>
             </header>
-
+            <h:form style="width:100%;height:100%;">
+            <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="componentPageSetup();hideURLbar();">
+                <f:param name="demo" value="param1"/>
+                <f:param name="sample" value="param2"/>
+            </a4j:jsFunction>
             <div id="page-container">
                 <div id="home-page" class="page stage-left">
                     <nav>
@@ -201,10 +201,11 @@
 
                 </div>
             </div>
+            </h:form>
         </div>
 
 
-       </h:form>
+
 
 
 

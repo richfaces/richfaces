@@ -47,7 +47,7 @@ Mobile Device Page Setup
     /*background: #000 -moz-linear-gradient(top, #0e0e0e, #313131);*/
     /*background: #000 -webkit-gradient(linear, left top, left bottom, from(#0e0e0e), to(#313131));*/
     position: relative;
-    width: 100%;
+
 }
 
 #page-container {
@@ -69,11 +69,6 @@ Mobile Device Page Setup
 /*************************************************
 UX Utils
 *************************************************/
-
-.stage-center {
-    left: 0;
-    opacity: 100;
-}
 
 .none {
     display: none
@@ -119,6 +114,10 @@ Flip Transition
 /*************************************************
 Device Specific Styles
 *************************************************/
+.stage-center {
+    left: 0;
+    opacity: 100;
+}
 
 .stage-left,
 .stage-right{
@@ -136,15 +135,9 @@ Device Specific Styles
     .stage-right {
         left: 480px;
     }
-
-    .page {
-        width: 480px;
-    }
-
 }
 
-/* iOS/android phone portrait screen width*/
-@media screen and (max-device-width: 320px) and (orientation:portrait) {
+@media screen and (max-device-width: 480px) and (orientation:portrait) {
     .stage-left {
         left: -320px;
     }
@@ -152,14 +145,31 @@ Device Specific Styles
     .stage-right {
         left: 320px;
     }
+}
 
-    .page {
-        width: 320px;
+@media screen and (min-device-width: 600px) and (orientation:portrait) {
+    .stage-left {
+        left: -600px;
+    }
+
+    .stage-right {
+        left: 600px;
+    }
+}
+
+/* iOS/android phone portrait screen width*/
+@media screen and (max-device-width: 320px) {
+    .stage-left {
+        left: -320px;
+    }
+
+    .stage-right {
+        left: 320px;
     }
 }
 
 /*catch all for at or larger than handheld landscape device widths*/
-@media screen and (min-device-width: 481px) {
+@media screen and (min-device-width: 1000px) {
     .stage-left {
         left: -1024px;
     }
