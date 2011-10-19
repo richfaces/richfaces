@@ -81,8 +81,6 @@
                 //history.pushState(stateObj, "Home Page", "/showcase/");
             }
 
-
-
              function locationHashChanged() {
                  var backButton = document.getElementById("back-button");
                  if(location.hash === "#home"){
@@ -194,14 +192,12 @@
     <h:body onload="hideURLbar();">
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/brand.css" />
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/global.css" />
-        <h:form>
-            <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="slideTo('component-page')">
-                <f:param name="demo" value="param1"/>
-                <f:param name="sample" value="param2"/>
-            </a4j:jsFunction>
-        </h:form>
 
         <h:form>
+        <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="slideTo('component-page')">
+            <f:param name="demo" value="param1"/>
+            <f:param name="sample" value="param2"/>
+        </a4j:jsFunction>
         <div id="browser">
             <header>
                 <div>
