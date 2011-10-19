@@ -72,6 +72,7 @@ UX Utils
 
 .stage-center {
     left: 0;
+    opacity: 100;
 }
 
 .none {
@@ -122,8 +123,9 @@ Device Specific Styles
 .stage-left,
 .stage-right{
     width:1px;
-    height:1024px;
+    height:100%;
     overflow: hidden;
+    opacity: 0;
 }
 /* iOS/android phone landscape screen width*/
 @media screen and (max-device-width: 480px) and (orientation:landscape) {
@@ -166,9 +168,6 @@ Device Specific Styles
         left: 1024px;
     }
 
-    .page {
-
-    }
 }
 
 /*************************************************
