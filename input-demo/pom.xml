@@ -56,8 +56,8 @@
             <dependencies>
                 <!-- JSF impl should be switchable in example specific parent -->
                 <dependency>
-                    <groupId>javax.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
                 </dependency>
                 <dependency>
                     <groupId>com.sun.faces</groupId>
@@ -88,8 +88,8 @@
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6
                                     </webappDirectory>
                                     <classifier>jee6</classifier>
-                                    <packagingExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*</packagingExcludes>
-                                    <warSourceExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*</warSourceExcludes>
+                                    <packagingExcludes>WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*</packagingExcludes>
+                                    <warSourceExcludes>WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*</warSourceExcludes>
                                 </configuration>
                             </execution>
                         </executions>

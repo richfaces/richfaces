@@ -87,8 +87,8 @@
             <artifactId>atmosphere-runtime</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
+            <groupId>org.jboss.spec.javax.faces</groupId>
+            <artifactId>jboss-jsf-api_2.1_spec</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sun.faces</groupId>
@@ -163,8 +163,8 @@
             <dependencies>
                 <!-- TODO these should be switchable in example specific parent -->
                 <dependency>
-                    <groupId>javax.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
