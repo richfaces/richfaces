@@ -38,9 +38,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     <cc:implementation>
 
         <cdk:object type="org.richfaces.renderkit.ControlsState" name="controlsState" value="#{getControlsState(facesContext,component)}" />
+        <cdk:object name="style" value="#{component.attributes['style']}" />
+        <cdk:object name="styleClass" value="#{component.attributes['styleClass']}" />
 
-            <span id="#{clientId}" class="rf-ds"><!-- Now decor is disabled !!! -->
-			<cdk:call expression="encodeHiddenStyleIfNeed(responseWriter, facesContext, component)" />
+            <span id="#{clientId}" class="rf-ds #{styleClass}" cdk:passThrough="title" style="#{shouldRender(component) ? style : 'display:none'}">
 	        <c:if test="#{shouldRender(component)}">
 
                 <c:if test="#{controlsState.firstRendered}">
