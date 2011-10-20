@@ -154,7 +154,6 @@
             <artifactId>jstl-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -249,7 +248,13 @@
                         </configuration>
                     </execution>
                 </executions>
-
+                <dependencies>
+                    <dependency>
+                        <groupId>com.sun.faces</groupId>
+                        <artifactId>jsf-api</artifactId>
+                        <version>2.1.0</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

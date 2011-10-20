@@ -18,12 +18,14 @@ import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.el.model.Bean;
 
 import com.google.common.collect.Maps;
 
+@Ignore
 @RunWith(MockTestRunner.class)
 public class ValueExpressionAnalayserTest extends ELTestBase {
     private ValueExpressionAnalayser analayser;
