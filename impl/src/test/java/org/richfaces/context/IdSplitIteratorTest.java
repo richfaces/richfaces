@@ -54,7 +54,7 @@ public class IdSplitIteratorTest {
     @Before
     public void setUp() throws Exception {
         environment.resetToNice();
-        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesContext facesContext = environment.getFacesContext();
         expect(facesContext.getAttributes()).andStubReturn(new HashMap<Object, Object>());
         environment.replay();
     }
