@@ -50,7 +50,8 @@ import org.richfaces.event.DataScrollEvent;
 import org.richfaces.event.DataScrollListener;
 import org.richfaces.event.DataScrollSource;
 
-@JsfComponent(type = AbstractDataScroller.COMPONENT_TYPE, family = AbstractDataScroller.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataScroller", renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"), tag = @Tag(name = "dataScroller", handler = "org.richfaces.taglib.DataScrollerHandler", type = TagType.Facelets))
+@JsfComponent(type = AbstractDataScroller.COMPONENT_TYPE, family = AbstractDataScroller.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataScroller", renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"), tag = @Tag(name = "dataScroller", handler = "org.richfaces.taglib.DataScrollerHandler", type = TagType.Facelets), attributes = {
+        "ajax-props.xml", "core-props.xml" })
 public abstract class AbstractDataScroller extends UIComponentBase implements DataScrollSource, IterationStateHolder {
     public static final String COMPONENT_TYPE = "org.richfaces.DataScroller";
     public static final String COMPONENT_FAMILY = "org.richfaces.DataScroller";
@@ -338,7 +339,7 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
                 FacesMessage message;
                 if (null == messageStr) {
                     message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext,
-                        FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(facesContext, this));
+                            FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(facesContext, this));
                 } else {
                     message = new FacesMessage(FacesMessage.SEVERITY_ERROR, messageStr, messageStr);
                 }
@@ -347,13 +348,13 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
                 facesContext.renderResponse();
             } catch (IllegalArgumentException e) {
                 FacesMessage message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext,
-                    FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(facesContext, this));
+                        FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(facesContext, this));
                 facesContext.getExternalContext().log(message.getSummary(), e);
                 facesContext.addMessage(getClientId(facesContext), message);
                 facesContext.renderResponse();
             } catch (Exception e) {
                 FacesMessage message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext,
-                    FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(facesContext, this));
+                        FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(facesContext, this));
                 facesContext.getExternalContext().log(message.getSummary(), e);
                 facesContext.addMessage(getClientId(facesContext), message);
                 facesContext.renderResponse();

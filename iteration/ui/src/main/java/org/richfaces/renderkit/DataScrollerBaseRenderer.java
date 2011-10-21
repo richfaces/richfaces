@@ -67,12 +67,6 @@ public class DataScrollerBaseRenderer extends RendererBase {
         }
     }
 
-    protected void encodeHiddenStyleIfNeed(ResponseWriter out, FacesContext context, UIComponent component) throws IOException {
-        if (!shouldRender(component)){
-            out.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
-        }
-    }
-
     protected boolean shouldRender(UIComponent component){
         AbstractDataScroller ds = (AbstractDataScroller) component;
         if ((ds.getPageCount() == 1)&&(!ds.isRenderIfSinglePage())){
@@ -300,7 +294,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
         return controls;
     }
 
-    public void buildScript(ResponseWriter writer, FacesContext context, UIComponent component, Map buttons, Map digitals)
+    public void buildScript(ResponseWriter writer, FacesContext context, UIComponent component, Map<?, ?> buttons, Map<?, ?> digitals)
         throws IOException {
 
         JSFunction function = new JSFunction("new RichFaces.ui.DataScroller");
