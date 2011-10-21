@@ -300,9 +300,10 @@
             throw rf.csv.getMessage(msg, 'REGEX_VALIDATOR_PATTERN_NOT_SET', []);
         }
 
+        var matchPattern = makePatternAMatch(pattern);
         var re;
         try {
-            re = new RegExp(pattern);
+            re = new RegExp(matchPattern);
         } catch (e) {
             throw rf.csv.getMessage(msg, 'REGEX_VALIDATOR_MATCH_EXCEPTION', []);
         }
@@ -310,6 +311,16 @@
             throw rf.csv.interpolateMessage(msg, [pattern,label]);
         }
 
+    };
+
+    var makePatternAMatch = function(pattern) {
+        if (! (pattern.slice(0, 1) === '^') ) {
+            pattern = '^' + pattern;
+        }
+        if (! (pattern.slice(-1) === '$') ) {
+            pattern = pattern; + '$';
+        }
+        return pattern;
     }
     /*
      * Validators implementation
