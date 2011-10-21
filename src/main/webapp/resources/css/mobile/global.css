@@ -548,7 +548,11 @@ tr.rf-tb-cntr td a{
 .rf-tb-itm {
     padding: 5px 8px;
 }
-
+/*RF-10873:modal panel backgroun covering whole page*/
+.rf-pp-shade {
+    width: 10000px;
+    height: 10000px;
+}
 /*************************************************
 rich:toolbar
 *************************************************/
