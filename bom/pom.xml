@@ -15,18 +15,17 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.richfaces</groupId>
-    <artifactId>richfaces-bom</artifactId>
-    <packaging>pom</packaging>
-    <version>4.1.0-SNAPSHOT</version>
-    <name>RichFaces BOM</name>
-
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
         <version>11</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
+    
+    <artifactId>richfaces-bom</artifactId>
+    <packaging>pom</packaging>
+    <version>4.1.0-SNAPSHOT</version>
+    <name>RichFaces BOM</name>
 
     <description>
         The RichFaces "Bill of Materials". This defines all runtime dependency
@@ -140,17 +139,34 @@
                 <artifactId>static-resources</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- JSF 2 -->
+            <!-- JSF 2.1 RI:
+                API should be used as provided since jsf-impl does bundle
+                its version-specific equivalent (that's why there is jsf-api in another
+                version that jsf-impl);
+                - use javax.faces:javax.faces-api on JavaEE app servers
+                - use com.sun.faces:jsf-api on servlet containers -->
+            <dependency>
+                <groupId>javax.faces</groupId>
+                <artifactId>javax.faces-api</artifactId>
+                <version>2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.faces</groupId>
+                <artifactId>jsf-api</artifactId>
+                <version>2.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.faces</groupId>
+                <artifactId>jsf-impl</artifactId>
+                <version>2.1.3</version>
+            </dependency>
+            <!-- JBoss JSF 2.1 -->
             <dependency>
                 <groupId>org.jboss.spec.javax.faces</groupId>
                 <artifactId>jboss-jsf-api_2.1_spec</artifactId>
                 <version>2.0.0.Beta1</version>
             </dependency>
-            <dependency>
-                <groupId>com.sun.faces</groupId>
-                <artifactId>jsf-impl</artifactId>
-                <version>2.1.3-b02-jbossorg-2</version>
-            </dependency>
+            <!-- MyFaces JSF 2.1 -->
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
                 <artifactId>myfaces-api</artifactId>
