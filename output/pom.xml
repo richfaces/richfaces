@@ -34,7 +34,7 @@
     <artifactId>richfaces-ui-output-aggregator</artifactId>
     <version>4.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Richfaces UI Components: Output Aggregator</name>
+    <name>RichFaces UI Components: Output Aggregator</name>
 
     <modules>
         <module>api</module>

@@ -31,7 +31,7 @@
     <groupId>org.richfaces.ui.validator</groupId>
     <artifactId>richfaces-ui-validator-aggregator</artifactId>
     <packaging>pom</packaging>
-    <name>Richfaces UI Components: validator-aggregator</name>
+    <name>RichFaces UI Components: validator-aggregator</name>
 
     <modules>
         <module>api</module>

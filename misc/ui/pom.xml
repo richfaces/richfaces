@@ -33,7 +33,7 @@
     <artifactId>richfaces-ui-misc-ui</artifactId>
     <version>4.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Richfaces UI Misc UI</name>
+    <name>RichFaces UI Components: Miscellanous UI</name>
 
     <build>
         <plugins>

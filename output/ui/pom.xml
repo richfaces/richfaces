@@ -33,7 +33,7 @@
 
     <groupId>org.richfaces.ui.output</groupId>
     <artifactId>richfaces-ui-output-ui</artifactId>
-    <name>Richfaces UI Components: Output UI</name>
+    <name>RichFaces UI Components: Output UI</name>
     <packaging>jar</packaging>
 
     <build>

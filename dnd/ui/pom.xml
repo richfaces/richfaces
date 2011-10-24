@@ -33,7 +33,7 @@
 
     <groupId>org.richfaces.ui.dnd</groupId>
     <artifactId>richfaces-ui-dnd-ui</artifactId>
-    <name>Richfaces UI Components: DND UI</name>
+    <name>RichFaces UI Components: Drag-n-Drop UI</name>
     <packaging>jar</packaging>
 
     <build>

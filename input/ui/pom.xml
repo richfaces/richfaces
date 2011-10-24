@@ -33,7 +33,7 @@
 
     <groupId>org.richfaces.ui.input</groupId>
     <artifactId>richfaces-ui-input-ui</artifactId>
-    <name>Richfaces UI Components: Input UI</name>
+    <name>RichFaces UI Components: Input UI</name>
     <packaging>jar</packaging>
     <build>
         <plugins>
