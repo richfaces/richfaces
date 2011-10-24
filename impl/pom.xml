@@ -25,7 +25,6 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.richfaces.core</groupId>
     <artifactId>richfaces-core-impl</artifactId>
     <name>RichFaces Core Implementation</name>
 
