@@ -37,7 +37,7 @@
     <artifactId>examples-aggregator</artifactId>
     <version>4.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>RichFaces Examples: Aggregator</name>
+    <name>RichFaces Examples Aggregator</name>
 
     <modules>
         <module>parent</module>

@@ -33,7 +33,7 @@
     <artifactId>misc-demo</artifactId>
     <version>4.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>RichFaces Examples: Miscellanous</name>
+    <name>RichFaces Examples Miscellanous</name>
 
     <properties>
     </properties>
@@ -82,30 +82,6 @@
             <artifactId>ehcache</artifactId>
         </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>jee6</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.spec.javax.faces</groupId>
-                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-impl</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                    <version>1.1</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 
     <build>
         <plugins>
