@@ -63,49 +63,60 @@
         <dependency>
             <groupId>org.richfaces.ui.common</groupId>
             <artifactId>richfaces-ui-common-ui</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.core</groupId>
             <artifactId>richfaces-ui-core-ui</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.misc</groupId>
             <artifactId>richfaces-ui-misc-ui</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.iteration</groupId>
             <artifactId>richfaces-ui-iteration-ui</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.output</groupId>
             <artifactId>richfaces-ui-output-ui</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.input</groupId>
             <artifactId>richfaces-ui-input-ui</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.dnd</groupId>
             <artifactId>richfaces-ui-dnd-ui</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.validator</groupId>
             <artifactId>richfaces-ui-validator-ui</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-components-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
             <artifactId>static-resources</artifactId>
+            <scope>provided</scope>
         </dependency>
 
-        <dependency>
+        <!-- <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <scope>provided</scope>
@@ -124,7 +135,7 @@
             <groupId>javax.servlet.jsp.jstl</groupId>
             <artifactId>jstl-api</artifactId>
             <scope>provided</scope>
-        </dependency>
+        </dependency> -->
 
     </dependencies>
 
@@ -132,49 +143,14 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>1.3.3</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <include>${assembly.projects.group}.*:*-ui:*</include>
-                                    <include>${assembly.projects.group}:static-resources:*</include>
-                                </includes>
-                            </artifactSet>
-                            <createSourcesJar>true</createSourcesJar>
-                            <transformers>
-                                <transformer implementation="org.richfaces.build.shade.resource.TaglibXmlResourceTransformer">
-                                    <taglibs>
-                                        <taglib>
-                                            <targetNamespace>http://richfaces.org/a4j</targetNamespace>
-                                        </taglib>
-                                        <taglib>
-                                            <targetNamespace>http://richfaces.org/rich</targetNamespace>
-                                            <sourceNamespacesPattern>.*</sourceNamespacesPattern>
-                                        </taglib>
-                                    </taglibs>
-                                </transformer>
-                                <transformer implementation="org.richfaces.build.shade.resource.FacesConfigXmlResourceTransformer" />
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                                    <resource>META-INF/richfaces/resource-mappings.properties</resource>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.richfaces.build.resources</groupId>
-                        <artifactId>faces-shade-transformers</artifactId>
-                        <version>${faces-shade-transformers.version}</version>
-                    </dependency>
-                </dependencies>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2.1</version>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptors>
+                        <descriptor>assembler.xml</descriptor>
+                    </descriptors>
+                </configuration>
             </plugin>
         </plugins>
     </build>
