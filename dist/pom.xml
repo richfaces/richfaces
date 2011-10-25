@@ -33,7 +33,7 @@
     <artifactId>richfaces-distribution</artifactId>
     <version>4.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Richfaces Distribution Assembler</name>
+    <name>RichFaces Distribution Assembler</name>
 
     <properties>
     </properties>
