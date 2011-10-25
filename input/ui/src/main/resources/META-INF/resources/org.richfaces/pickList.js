@@ -54,6 +54,16 @@
         rf.Event.bind(this.targetList, "selectItem", $.proxy(this.toggleButtons, this));
         rf.Event.bind(this.targetList, "unselectItem", $.proxy(this.toggleButtons, this));
 
+        if (mergedOptions['switchByClick']) {
+            rf.Event.bind(this.sourceList, "click", $.proxy(this.add, this));
+            rf.Event.bind(this.targetList, "click", $.proxy(this.remove, this));
+        }
+
+        if (mergedOptions['switchByDblClick']) {
+            rf.Event.bind(this.sourceList, "dblclick", $.proxy(this.add, this));
+            rf.Event.bind(this.targetList, "dblclick", $.proxy(this.remove, this));
+        }
+
         if (options['onchange'] && typeof options['onchange'] == 'function') {
             rf.Event.bind(this, "change" + this.namespace, options['onchange']);
         }
@@ -70,6 +80,8 @@
         selectItemCss: "rf-pick-sel",
         listCss: "rf-pick-lst-cord",
         clickRequiredToSelect: true,
+        switchByClick : false,
+        switchByDblClick : true,
         disabled : false
     };
 
