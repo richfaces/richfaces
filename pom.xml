@@ -264,9 +264,8 @@
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-impl</artifactId>
-                    <version>${com.sun.faces.impl.version.jsf_ri}</version>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>javax.faces</artifactId>
                     <scope>${dependency.scope}</scope>
                 </dependency>
             </dependencies>
@@ -288,7 +287,6 @@
                 <dependency>
                     <groupId>com.sun.faces</groupId>
                     <artifactId>jsf-impl</artifactId>
-                    <version>${com.sun.faces.impl.version.jboss}</version>
                     <scope>${dependency.scope}</scope>
                 </dependency>
             </dependencies>
