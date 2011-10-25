@@ -144,8 +144,8 @@
             __removeAllItems: function(item) {
                 var itemsRemoved = this.items.slice(0);
                 this.list.empty();
-                this.items.splice(0);
-                this.submitedItems.splice(0);
+                this.items.splice(0, this.items.length);
+                this.submitedItems.splice(0, this.submitedItems.length);
                 this.__updateButtons();
                 richfaces.Event.fire(this.element, "onclear", itemsRemoved);
             },
