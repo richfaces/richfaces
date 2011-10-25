@@ -21,7 +21,7 @@
         <version>11</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
-    
+
     <artifactId>richfaces-bom</artifactId>
     <packaging>pom</packaging>
     <version>4.1.0-SNAPSHOT</version>
@@ -143,8 +143,8 @@
                 API should be used as provided since jsf-impl does bundle
                 its version-specific equivalent (that's why there is jsf-api in another
                 version that jsf-impl);
-                - use javax.faces:javax.faces-api on JavaEE app servers
-                - use com.sun.faces:jsf-api on servlet containers -->
+                - use javax.faces:javax.faces-api on JavaEE app servers (reference API, without method bodies)
+                - use com.sun.faces:jsf-api on servlet containers (Mojarra project API, with method bodies) -->
             <dependency>
                 <groupId>javax.faces</groupId>
                 <artifactId>javax.faces-api</artifactId>
@@ -156,8 +156,8 @@
                 <version>2.1.0</version>
             </dependency>
             <dependency>
-                <groupId>com.sun.faces</groupId>
-                <artifactId>jsf-impl</artifactId>
+                <groupId>org.glassfish</groupId>
+                <artifactId>javax.faces</artifactId>
                 <version>2.1.3</version>
             </dependency>
             <!-- JBoss JSF 2.1 -->
@@ -165,6 +165,11 @@
                 <groupId>org.jboss.spec.javax.faces</groupId>
                 <artifactId>jboss-jsf-api_2.1_spec</artifactId>
                 <version>2.0.0.Beta1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.faces</groupId>
+                <artifactId>jsf-impl</artifactId>
+                <version>2.1.3-b02-jbossorg-2</version>
             </dependency>
             <!-- MyFaces JSF 2.1 -->
             <dependency>
