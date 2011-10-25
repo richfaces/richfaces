@@ -32,7 +32,7 @@
 
     <groupId>org.richfaces.ui.validator</groupId>
     <artifactId>richfaces-ui-validator-api</artifactId>
-    <name>Richfaces UI Components: validator api</name>
+    <name>RichFaces UI Components: Validator api</name>
     <packaging>jar</packaging>
 
     <build>

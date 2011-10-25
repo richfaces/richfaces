@@ -32,7 +32,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.richfaces.ui.output</groupId>
     <artifactId>richfaces-ui-output-api</artifactId>
-    <name>Richfaces UI Components: Output API</name>
+    <name>RichFaces UI Components: Output API</name>
     <packaging>jar</packaging>
 
     <build>

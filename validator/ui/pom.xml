@@ -31,7 +31,7 @@
 
     <groupId>org.richfaces.ui.validator</groupId>
     <artifactId>richfaces-ui-validator-ui</artifactId>
-    <name>Richfaces UI Components: validator ui</name>
+    <name>RichFaces UI Components: Validator ui</name>
     <packaging>jar</packaging>
 
     <build>

@@ -32,7 +32,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.richfaces.ui.common</groupId>
     <artifactId>richfaces-ui-common-api</artifactId>
-    <name>Richfaces UI Components: Common API</name>
+    <name>RichFaces UI Components: Common API</name>
     <packaging>jar</packaging>
 
     <build>

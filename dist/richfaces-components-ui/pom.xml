@@ -33,7 +33,7 @@
     <artifactId>richfaces-components-ui</artifactId>
     <version>4.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Richfaces UI Components UI</name>
+    <name>RichFaces UI Components UI</name>
 
     <properties>
         <faces-shade-transformers.version>5</faces-shade-transformers.version>

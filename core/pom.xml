@@ -34,7 +34,7 @@
     <artifactId>richfaces-ui-core-aggregator</artifactId>
     <version>4.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Richfaces UI Components: Core Aggregator</name>
+    <name>RichFaces UI Components: Core Aggregator</name>
 
     <modules>
         <module>api</module>

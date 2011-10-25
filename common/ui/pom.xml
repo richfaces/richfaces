@@ -33,7 +33,7 @@
 
     <groupId>org.richfaces.ui.common</groupId>
     <artifactId>richfaces-ui-common-ui</artifactId>
-    <name>Richfaces UI Components: Common UI</name>
+    <name>RichFaces UI Components: Common UI</name>
     <packaging>jar</packaging>
 
     <properties>

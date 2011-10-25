@@ -32,7 +32,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.richfaces.ui.iteration</groupId>
     <artifactId>richfaces-ui-iteration-api</artifactId>
-    <name>Richfaces UI Components: Iteration API</name>
+    <name>RichFaces UI Components: Iteration API</name>
     <packaging>jar</packaging>
 
     <build>

@@ -33,7 +33,7 @@
 
     <groupId>org.richfaces.ui.iteration</groupId>
     <artifactId>richfaces-ui-iteration-ui</artifactId>
-    <name>Richfaces UI Components: Iteration UI</name>
+    <name>RichFaces UI Components: Iteration UI</name>
     <packaging>jar</packaging>
 
     <dependencies>
