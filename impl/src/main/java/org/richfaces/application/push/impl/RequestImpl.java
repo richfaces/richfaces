@@ -28,7 +28,7 @@ import org.atmosphere.cpr.AtmosphereResourceEvent;
 import org.atmosphere.cpr.AtmosphereResourceEventListener;
 import org.atmosphere.cpr.BroadcasterLifeCyclePolicy;
 import org.atmosphere.cpr.Meteor;
-import org.atmosphere.websocket.WebSocketSupport;
+import org.atmosphere.websocket.WebSocket;
 import org.richfaces.application.push.Request;
 import org.richfaces.application.push.Session;
 import org.richfaces.log.Logger;
@@ -70,8 +70,8 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
 
     public boolean isPolling() {
         HttpServletRequest req = meteor.getAtmosphereResource().getRequest();
-        boolean isWebsocket = req.getAttribute(WebSocketSupport.WEBSOCKET_SUSPEND) != null
-            || req.getAttribute(WebSocketSupport.WEBSOCKET_RESUME) != null;
+        boolean isWebsocket = req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) != null
+            || req.getAttribute(WebSocket.WEBSOCKET_RESUME) != null;
 
         // TODO how to detect non-polling transports?
         return !isWebsocket;
