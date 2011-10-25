@@ -23,14 +23,13 @@
 
     <parent>
         <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>11</version>
-        <relativePath>../../parent/pom.xml</relativePath>
+        <artifactId>richfaces-root-parent</artifactId>
+        <version>4.1.0-SNAPSHOT</version>
+        <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-example-parent</artifactId>
-    <version>4.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>RichFaces Examples Parent</name>
 
@@ -41,18 +40,6 @@
         <jetty.port>8080</jetty.port>
         <richfaces.checkstyle.version>3</richfaces.checkstyle.version>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-bom</artifactId>
-                <version>${project.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -170,33 +157,35 @@
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
+                    <groupId>javax.faces</groupId>
+                    <artifactId>javax.faces-api</artifactId>
+                    <scope>provided</scope>
                 </dependency>
                 <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-impl</artifactId>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>javax.faces</artifactId>
+                    <scope>runtime</scope>
                 </dependency>
             </dependencies>
         </profile>
         <profile>
-            <id>jbas7</id>
+            <id>jsf_jboss</id>
             <activation>
                 <property>
                     <name>jsf_profile</name>
-                    <value>jbas7</value>
+                    <value>jboss</value>
                 </property>
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
-                    <scope>provided</scope>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                    <scope>compile</scope>
                 </dependency>
                 <dependency>
                     <groupId>com.sun.faces</groupId>
                     <artifactId>jsf-impl</artifactId>
-                    <scope>provided</scope>
+                    <scope>runtime</scope>
                 </dependency>
             </dependencies>
         </profile>
@@ -212,73 +201,35 @@
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-api</artifactId>
+                    <scope>compile</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
+                    <scope>runtime</scope>
                 </dependency>
             </dependencies>
         </profile>
+        
         <profile>
-            <id>jsf_ri_2_1_snapshot</id>
+            <id>jbas7</id>
             <activation>
                 <property>
                     <name>jsf_profile</name>
-                    <value>jsf_ri_2_1_snapshot</value>
+                    <value>jbas7</value>
                 </property>
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
-                    <version>2.1.0-SNAPSHOT</version>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                    <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>com.sun.faces</groupId>
                     <artifactId>jsf-impl</artifactId>
-                    <version>2.1.0-SNAPSHOT</version>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>jsf_ri_2_1</id>
-            <activation>
-                <property>
-                    <name>jsf_profile</name>
-                    <value>jsf_ri_2_1</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
-                    <version>2.1.3-b02</version>
-                </dependency>
-                <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-impl</artifactId>
-                    <version>2.1.3-b02</version>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>myfaces_snapshot</id>
-            <activation>
-                <property>
-                    <name>jsf_profile</name>
-                    <value>myfaces_snapshot</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.myfaces.core</groupId>
-                    <artifactId>myfaces-api</artifactId>
-                    <version>2.1.2-SNAPSHOT</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.myfaces.core</groupId>
-                    <artifactId>myfaces-impl</artifactId>
-                    <version>2.1.2-SNAPSHOT</version>
+                    <version>${com.sun.faces.impl.version.jboss}</version>
+                    <scope>provided</scope>
                 </dependency>
             </dependencies>
         </profile>
