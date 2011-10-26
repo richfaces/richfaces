@@ -486,22 +486,7 @@ inputNumberSlider
 rich:collapsibleSubTable
 *************************************************/
 
-.rf-dt-c {
-    position: relative;
-    padding: 4px 4px 4px 16px;
-}
 
-.rf-csttg-exp {
-    position: absolute;
-    left: 0;
-    width: 100%;
-}
-
-.rf-csttg-colps {
-    position: absolute;
-    left: 0;
-    width: 100%;
-}
 
 /*************************************************
 rich:dataScroller
