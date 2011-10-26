@@ -595,3 +595,25 @@ rich:inplaceInput
 .rf-ii-lbl {
     font-size: 22px;
 }
+
+
+/*************************************************
+rich:inputNumberSpinner
+*************************************************/
+
+.rf-insp-dec, .rf-insp-inc, .rf-insp-dec-dis, .rf-insp-inc-dis {
+    height: 20px;
+    width: 27px;
+}
+
+input.rf-insp-inp[type="text"] {
+    font-size: 34px;
+}
+
+/*************************************************
+rich:select
+*************************************************/
+
+.rf-sel-btn-arrow {
+   height: 30px;
+}
