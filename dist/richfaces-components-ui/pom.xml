@@ -34,27 +34,10 @@
     <name>RichFaces UI Components UI</name>
 
     <properties>
-        <faces-shade-transformers.version>5</faces-shade-transformers.version>
+        <shade-transformers.version>6-SNAPSHOT</shade-transformers.version>
         <faces-vdl-documentation.version>1</faces-vdl-documentation.version>
         <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>jboss-public-repository-group</id>
-            <name>JBoss Public Repository Group</name>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <dependencies>
         <!-- artifacts for aggregation -->
@@ -161,7 +144,7 @@
                     <dependency>
                         <groupId>org.richfaces.build.resources</groupId>
                         <artifactId>faces-shade-transformers</artifactId>
-                        <version>6-SNAPSHOT</version>
+                        <version>${shade-transformers.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>

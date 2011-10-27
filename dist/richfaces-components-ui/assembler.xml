@@ -34,12 +34,12 @@
             </includes>
             <scope>provided</scope>
             <unpack>true</unpack>
-            <!-- <unpackOptions>
+            <unpackOptions>
                 <excludes>
-                    <exclude>META-INF/maven/</exclude>
+                    <exclude>META-INF/maven/**</exclude>
                     <exclude>META-INF/INDEX.LIST</exclude>
                 </excludes>
-            </unpackOptions> -->
+            </unpackOptions>
         </dependencySet>
     </dependencySets>
 </assembly>
