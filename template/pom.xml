@@ -8,10 +8,8 @@
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.richfaces.examples</groupId>
     <artifactId>template</artifactId>
     <packaging>war</packaging>
-    <version>4.1.0-SNAPSHOT</version>
     <name>RichFaces Examples Template</name>
     <dependencies>
         <dependency>

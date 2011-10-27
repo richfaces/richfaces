@@ -11,10 +11,8 @@
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.richfaces.examples</groupId>
     <artifactId>irc-client</artifactId>
     <name>RichFaces Examples Richfaces IRC Client Application</name>
-    <version>4.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <url>http://jboss.org/richfaces</url>
