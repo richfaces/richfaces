@@ -30,7 +30,7 @@
     </parent>
 
     <artifactId>richfaces-components-ui</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <name>RichFaces UI Components UI</name>
 
     <properties>

@@ -42,30 +42,37 @@
         <dependency>
             <groupId>org.richfaces.ui.common</groupId>
             <artifactId>richfaces-ui-common-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.core</groupId>
             <artifactId>richfaces-ui-core-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.iteration</groupId>
             <artifactId>richfaces-ui-iteration-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.output</groupId>
             <artifactId>richfaces-ui-output-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.input</groupId>
             <artifactId>richfaces-ui-input-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.dnd</groupId>
             <artifactId>richfaces-ui-dnd-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.validator</groupId>
             <artifactId>richfaces-ui-validator-api</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- for javadoc generation -->

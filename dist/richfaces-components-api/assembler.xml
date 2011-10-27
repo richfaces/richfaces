@@ -12,12 +12,13 @@
             <includes>
                 <include>org.richfaces.ui.*:*-api:*</include>
             </includes>
+            <scope>provided</scope>
             <unpack>true</unpack>
-            <unpackOptions>
+            <!-- <unpackOptions>
                 <excludes>
                     <exclude>META-INF/**</exclude>
                 </excludes>
-            </unpackOptions>
+            </unpackOptions> -->
         </dependencySet>
     </dependencySets>
 </assembly>
