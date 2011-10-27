@@ -172,6 +172,7 @@
                         <configuration>
                             <finalName>richfaces-${version}</finalName>
                             <descriptor>richfaces.xml</descriptor>
+                            <appendAssemblyId>false</appendAssemblyId>
                         </configuration>
                         <id>richfaces</id>
                         <phase>package</phase>
