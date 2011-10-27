@@ -8,7 +8,8 @@
         filterExpression="#{property}">
 
         <f:facet name="header">
-            <h:commandLink style="color: white;" action="#{bean.toggleSort}">
+            <h:outputLabel value="Sorting:" />
+            <h:commandLink action="#{bean.toggleSort}">
                 #{bean.sortOrders[property]}
                 <a4j:ajax render="richTable" />
                 <f:setPropertyActionListener target="#{bean.sortProperty}" value="#{property}" />
