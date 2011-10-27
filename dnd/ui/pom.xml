@@ -67,7 +67,6 @@
         <dependency>
             <groupId>org.richfaces.ui.dnd</groupId>
             <artifactId>richfaces-ui-dnd-api</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>xmlunit</groupId>

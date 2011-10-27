@@ -32,7 +32,6 @@
 
     <groupId>org.richfaces.ui.dnd</groupId>
     <artifactId>richfaces-ui-dnd-aggregator</artifactId>
-    <version>4.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>RichFaces UI Components: Drag-n-Drop Aggregator</name>
 
