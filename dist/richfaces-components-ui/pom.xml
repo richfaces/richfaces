@@ -40,6 +40,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    
         <!-- artifacts for aggregation -->
         <dependency>
             <groupId>org.richfaces.ui.common</groupId>
@@ -79,16 +85,6 @@
         <dependency>
             <groupId>org.richfaces.ui.validator</groupId>
             <artifactId>richfaces-ui-validator-ui</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
