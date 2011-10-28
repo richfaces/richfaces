@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MODULES="archetypes build cdk components core dev-examples showcase"
+MODULES="archetype-simpleapp build cdk components core dev-examples showcase"
 
 EXECUTE="$@"
 
