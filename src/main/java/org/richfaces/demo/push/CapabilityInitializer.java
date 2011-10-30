@@ -40,4 +40,11 @@ public interface CapabilityInitializer {
      * @throws Exception
      */
     void finalizeCapability() throws Exception;
+
+    /**
+     * Returns true when capability should be initialized.
+     *
+     * @return true when capability should be initialized.
+     */
+    boolean isCapabilityEnabled();
 }

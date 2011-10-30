@@ -30,6 +30,8 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.richfaces.cdi.push.Push;
+
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
@@ -38,12 +40,13 @@ import javax.inject.Named;
 public class PushBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    public static final String PUSH_CDI_TOPIC = "pushCdi";
 
     private String userIdentifier;
     private String message;
 
     @Inject
-    @Push
+    @Push(topic = PUSH_CDI_TOPIC, subtopic = "#{pushBean.userIdentifier}")
     Event<String> pushEvent;
 
     @PostConstruct

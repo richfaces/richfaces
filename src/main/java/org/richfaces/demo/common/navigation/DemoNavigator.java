@@ -16,10 +16,9 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class DemoNavigator implements Serializable {
-    /**
-     *
-     */
     private static final long serialVersionUID = 3970933260901989658L;
+
+    public static final String MOBILE_SUPPORT_PARAM = "org.richfaces.request.mobile";
     private static final String DEMO_VIEW_PARAMETER = "demo";
     private static final String SAMPLE_VIEW_PARAMETER = "sample";
     private static final String SEPARATOR = "/";
@@ -99,10 +98,19 @@ public class DemoNavigator implements Serializable {
         if (handler instanceof ConfigurableNavigationHandler) {
             ConfigurableNavigationHandler navigationHandler = (ConfigurableNavigationHandler) handler;
 
-            NavigationCase navCase = navigationHandler.getNavigationCase(context, null, getCurrentDemo().getId() + SEPARATOR
-                    + getCurrentSample().getId());
+            demo = getCurrentDemo().getId();
+            sample = getCurrentSample().getId();
+
+            NavigationCase navCase = navigationHandler.getNavigationCase(context, null, "/richfaces" + SEPARATOR
+                    + getCurrentDemo().getId() + SEPARATOR + getCurrentSample().getId());
+
+            if (navCase == null) {
+                navCase = new NavigationCase("/welcome.xhtml", null, null, null, "/richfaces/ajax/ajax.xhtml", null, false,
+                        true);
+            }
 
             return navCase.getToViewId(context);
+
         }
 
         return null;

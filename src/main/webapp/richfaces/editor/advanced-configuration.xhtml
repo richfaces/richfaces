@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:composition>
+    <p>
+        <b>rich:editor</b> has several configuration options exposed as attributes, but CKEditor implementation which RichFaces
+        uses under the hood, is much more advanced than that.
+    </p>
+
+    <p>
+        In order to expose all <b>advanced configurations</b>, there is <b>config facet</b> (or equivalent <b>config attribute</b>)
+        which enables to setup practically any setup which is possible with CKEditor.
+    </p>
+
+    <p>For example, you can configure <b>custom toolbar setup, load extra plugins, load custom stylesheet in editor's area</b>,
+        etc.</p>
+
+    <p>Both of the configuration ways (facet or config) are able to interpolate <b>EL expressions</b>, which enables you to make
+        the editor <b>configuration dynamic</b>.</p>
+
+    <p>
+        To explore all <b>configuration options</b>, you may want to visit <a
+            href="http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Setting_Configurations">CKEditor Developer Guide</a>
+        and use <a href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html">CKEditor.config JavaScript API</a>
+        as reference.
+    </p>
+
+    <p>In following sample, you can dynamically <b>change the language of editor</b>. Editor is also configured to <b>grab focus after
+        page load</b> and has <b>customized toolbar setup</b>.</p>
+
+    <h:outputStylesheet>
+        .rf-p { margin-bottom: 1em }
+    </h:outputStylesheet>
+
+    <h:form>
+        <a4j:ajax render="editor">
+            <rich:panel header="Language Configuration">
+                <h:selectOneRadio id="languageSelection" value="#{editorBean.language}">
+                    <f:selectItem itemLabel="English (en)" itemValue="en" />
+                    <f:selectItem itemLabel="French (fr)" itemValue="fr" />
+                    <f:selectItem itemLabel="German (de)" itemValue="de" />
+                </h:selectOneRadio>
+            </rich:panel>
+        </a4j:ajax>
+    </h:form>
+
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+
+    <h:form>
+        <a4j:outputPanel style="display:none">
+            <rich:editor skin="kama" />
+            <rich:editor skin="v2" />
+            <rich:editor skin="office2003" />
+        </a4j:outputPanel>
+    </h:form>
+</ui:composition>
+
+</html>

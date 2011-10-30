@@ -72,7 +72,7 @@ public class AS6MessagingProviderManagement implements MessagingProviderManageme
     }
 
     public void createTopic(String topicName, String jndiName) throws Exception {
-        if (getAvailableTopics().contains(topicName)) {
+        if (!getAvailableTopics().contains(topicName)) {
             serverControl.createTopic(topicName, jndiName);
         }
     }

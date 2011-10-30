@@ -3,8 +3,13 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j">
 <f:view contentType="text/html">
     <h:head>
+        <!-- Mimic Internet Explorer 8 -->
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"  />
         <title>RichFaces Showcase</title>
-        <h:outputScript>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="application.css" target="head" />
+        <h:outputScript target="head">
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-7306415-4']);
             _gaq.push(['_trackPageview']);
@@ -15,9 +20,7 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </h:outputScript>
-        <h:outputStylesheet library="css" name="application.css" />
-    </h:head>
-    <h:body>
+        
         <div id="page">
             <div id="header">
                 <a href="#" class="logo"><img src="#{facesContext.externalContext.requestContextPath}/images/rf-logo.png"
@@ -29,12 +32,12 @@
                         <li><a href="http://www.jboss.org/community/wiki/richfaceswikihomepage" target="_blank">Project
                                 Wiki</a>
                         </li>
-                        <li><a href="http://community.jboss.org/community/richfaces" target="_blank">RichFaces
-                                Community Space</a></li>
+                        <li><a href="http://community.jboss.org/en/richfaces?view=discussions" target="_blank">User Forum</a></li>
+                        <li><a href="http://docs.jboss.org/richfaces/latest_4_X/vdldoc/" target="_blank">Tag Library Docs</a></li>
                         <li class="download-link"><a href="http://jboss.org/richfaces/download/stable.html" target="_blank">Download</a>
                         </li>
                         <li class="last"><a
-                            href="http://anonsvn.jboss.org/repos/richfaces/trunk/examples/richfaces-showcase/" target="_blank">Sources</a>
+                            href="https://github.com/richfaces/showcase/" target="_blank">Source</a>
                         </li>
                     </ul>
                     <ui:include src="/templates/includes/skin-chooser.xhtml" />

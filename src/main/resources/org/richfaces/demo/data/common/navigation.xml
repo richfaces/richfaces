@@ -60,11 +60,11 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo new="true" enabled="#{pushConfiguration.pushEnabled}">
                 <id>push</id>
                 <name>a4j:push</name>
                 <samples>
-                    <sample>
+                    <sample enabled="#{pushConfiguration.jmsEnabled}">
                         <id>pushJms</id>
                         <name>JMS Push</name>
                     </sample>
@@ -237,6 +237,24 @@
                     </sample>
                 </samples>
             </demo>
+            <demo new="true" mobileExclude="true">
+                <id>notify</id>
+                <name>rich:notify</name>
+                <samples>
+                    <sample>
+                        <id>notify-messages</id>
+                        <name>Notify Messages</name>
+                    </sample>
+                    <sample>
+                        <id>notify-attributes</id>
+                        <name>Attributes of Notify</name>
+                    </sample>
+                    <sample>
+                        <id>stacking-messages</id>
+                        <name>Message Stacking</name>
+                    </sample>
+                </samples>
+            </demo>
         </demos>
     </group>
     <group>
@@ -283,13 +301,13 @@
                         <id>dataTableEdit</id>
                         <name>Editing</name>
                     </sample>
-                    <sample new="true">
+                    <sample>
                         <id>arrangeableModel</id>
                         <name>Arrangeable</name>
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo mobileExclude="true">
                 <id>extendedDataTable</id>
                 <name>rich:extendedDataTable</name>
                 <samples>
@@ -483,7 +501,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo mobileExclude="true">
                 <id>tooltip</id>
                 <name>rich:tooltip</name>
                 <samples>
@@ -539,7 +557,7 @@
         </demos>
     </group>
     <group>
-        <name>Inputs and Selects</name>
+        <name>Inputs</name>
         <demos>
             <demo>
                 <id>autocomplete</id>
@@ -577,6 +595,24 @@
                     </sample>
                 </samples>
             </demo>
+            <demo new="true" mobileExclude="true">
+                <id>editor</id>
+                <name>rich:editor</name>
+                <samples>
+                    <sample>
+                        <id>autosaving</id>
+                        <name>Auto-saving</name>
+                    </sample>
+                    <sample>
+                        <id>toolbar-and-skinning</id>
+                        <name>Toolbar and Skinning</name>
+                    </sample>
+                    <sample>
+                        <id>advanced-configuration</id>
+                        <name>Advanced Configuration</name>
+                    </sample>
+                </samples>
+            </demo>
             <demo>
                 <id>inputNumberSlider</id>
                 <name>rich:inputNumberSlider</name>
@@ -608,6 +644,21 @@
                 </samples>
             </demo>
             <demo>
+                <id>fileUpload</id>
+                <name>rich:fileUpload</name>
+                <samples>
+                    <sample>
+                        <id>imgUpload</id>
+                        <name>Upload images</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Selects</name>
+        <demos>
+            <demo>
                 <id>inplaceSelect</id>
                 <name>rich:inplaceSelect</name>
                 <samples>
@@ -627,13 +678,23 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
-                <id>fileUpload</id>
-                <name>rich:fileUpload</name>
+            <demo new="true">
+                <id>orderingList</id>
+                <name>rich:orderingList</name>
                 <samples>
                     <sample>
-                        <id>imgUpload</id>
-                        <name>Upload images</name>
+                        <id>orderingList</id>
+                        <name>Ordering List samples</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo new="true">
+                <id>pickList</id>
+                <name>rich:pickList</name>
+                <samples>
+                    <sample>
+                        <id>pickList</id>
+                        <name>Pick List samples</name>
                     </sample>
                 </samples>
             </demo>

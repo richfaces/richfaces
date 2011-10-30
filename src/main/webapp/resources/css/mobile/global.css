@@ -1,0 +1,540 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2011, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
+/* author Wesley Hales | whales@redhat.com */
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font: 1.2em "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+/*************************************************
+Mobile Device Page Setup
+*************************************************/
+
+#browser {
+    /*background: #000 -moz-linear-gradient(top, #0e0e0e, #313131);*/
+    /*background: #000 -webkit-gradient(linear, left top, left bottom, from(#0e0e0e), to(#313131));*/
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /*overflow-x: hidden;*/
+}
+
+#page-container {
+    position:absolute;
+    top: 44px;
+    width:100%;
+    height: 100%;
+}
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*activate the GPU for compositing each page */
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+/*************************************************
+UX Utils
+*************************************************/
+
+.stage-center {
+    top: 0;
+    left: 0;
+    /*opacity: 100;*/
+}
+
+.none {
+    display: none
+}
+
+.hide-it {
+    opacity: 0;
+}
+
+.show {
+    opacity: 100;
+}
+
+.transition {
+    -moz-transition-duration: .5s;
+    -webkit-transition-duration: .5s;
+    -o-transition-duration: .5s;
+}
+
+/*************************************************
+Flip Transition
+*************************************************/
+
+#back,
+#front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition-duration: .5s;
+    -webkit-transform-style: preserve-3d;
+}
+
+.normal {
+    -webkit-transform: rotateY(0deg);
+}
+
+.flipped {
+    -webkit-user-select: element;
+    -webkit-transform: rotateY(180deg);
+}
+
+/*************************************************
+Device Specific Styles
+*************************************************/
+
+/* iOS/android phone landscape screen width*/
+@media screen and (max-device-width: 480px) and (orientation:landscape) {
+    .stage-left {
+        left: -480px;
+    }
+
+    .stage-right {
+        left: 480px;
+    }
+
+    .page {
+        width: 480px;
+    }
+
+}
+
+/* iOS/android phone portrait screen width*/
+@media screen and (max-device-width: 320px) and (orientation:portrait) {
+    .stage-left {
+        left: -320px;
+    }
+
+    .stage-right {
+        left: 320px;
+    }
+
+    .page {
+        width: 320px;
+    }
+}
+
+/*catch all for at or larger than handheld landscape device widths*/
+@media screen and (min-device-width: 481px) {
+    .stage-left {
+        left: -1024px;
+    }
+
+    .stage-right {
+        left: 1024px;
+    }
+
+    .page {
+
+    }
+}
+
+/*************************************************
+Page Formatting - Skin
+*************************************************/
+
+div#browser > header > div {
+   position: relative;
+   height: 44px;
+   width: auto;
+   font-weight: bold;
+   color: #fff;
+   text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
+   text-align: center;
+   line-height: 47px;
+   background: #1d2f3d -moz-linear-gradient(90deg, #1d2f3d 33%, #375c79 123%);
+   background: #1d2f3d -webkit-gradient(linear, left top, left bottom, from(#375c79), to(#1d2f3d));
+   border: none;
+}
+
+body > header > div img.logo {
+    margin: 0 auto;
+}
+
+.nav-list {
+   width: 95%;
+   margin: 0 auto 0 auto;
+   padding:  5px;
+}
+
+#component-page fieldset.example-cnt > p {
+    font: .8em "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
+    background: #1d2f3d -moz-linear-gradient(90deg, #FAFAFA 33%, #F5F5F5 123%);
+    background: #1d2f3d -webkit-gradient(linear, left top, left bottom, from(#FAFAFA), to(#F5F5F5));
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    padding:  5px;
+    margin:  5px;
+}
+
+#component-page > div {
+    padding:  10px;
+}
+
+
+
+/*************************************************
+RichFaces panelMenu styles overwriting
+*************************************************/
+.rf-pm-top-gr-sel, .rf-pm-hdr-colps, .rf-pm-top-gr-hdr {
+   border-radius: 8px;
+   -moz-border-radius: 8px;
+   -webkit-border-radius: 8px;
+   border: 1px solid #99ccff;
+}
+
+.rf-pm {
+    /*border: 1px solid #B0BDC5;*/
+    border-bottom: 0;
+}
+
+.pm-top-gr {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.pm-top-gr-hdr {
+    /*background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;*/
+    padding: 3px 1px 2px 3px;
+}
+
+.rf-pm-top-gr {
+    border-color: white;
+    margin-bottom: 1px;
+}
+
+.rf-pm .rf-pm-top-gr-hdr:hover {
+    /*background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;*/
+}
+
+.rf-pm .rf-pm-top-gr-ico {
+    display: none;
+}
+
+.rf-pm .rf-pm-top-gr-lbl {
+    color: #273945;
+    margin-left: 4px;
+    font-size: 13px;
+    line-height: 33px;
+}
+
+.rf-pm .rf-pm-top-gr-lbl:hover {
+    color: #5a8eba;
+}
+
+.rf-pm-exp {
+    background: #ffffff;
+}
+
+.rf-pm-exp .rf-pm-itm {
+    border: 0;
+    border-bottom: 1px solid #dddddd;
+}
+
+.rf-pm-exp .rf-pm-itm:hover {
+    background: none;
+}
+
+.rf-pm-exp .rf-pm-itm-lbl:hover {
+    color: #5f9cd0;
+}
+
+.rf-pm-exp .rf-pm-itm-sel,.rf-pm-exp .rf-pm-itm-sel:hover { /*background:#e3e8ef;*/
+
+}
+
+.rf-pm-exp .rf-pm-itm-lbl {
+    color: #305f7b;
+}
+
+.rf-pm-exp .rf-pm-itm-ico {
+    padding: 0 !important;
+    width: 5px;
+}
+
+.rf-pm-itm, .rf-pm-itm-sel {
+    padding:  8px 0 8px 0;
+}
+
+.rf-pm-itm-lbl {
+    font-size: 13px
+}
+
+/*************************************************
+RichFaces tabPanel styles overwriting
+*************************************************/
+nav .rf-tab-hdr-tabline-vis {
+    background: #ebf6fd;
+    border: 0;
+    height: 31px;
+    padding: 0;
+}
+
+nav .rf-tab-hdr {
+    border: 1px solid #dddddd;
+    padding: 6px 10px 0;
+    margin-right: 3px;
+}
+
+nav .rf-tab-hdr-act {
+    background: #ffffff;
+    border-bottom: 0;
+    color: #5F9CD0;
+}
+
+nav .rf-tab-hdr-act .rf-tab-lbl {
+    font-weight: bold;
+}
+
+nav .rf-tab-hdr-inact {
+    /*background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;*/
+    border: 1px solid #bec3c7;
+}
+
+nav .rf-tab-hdr-spcr {
+    border-bottom: 1px solid #dddddd;
+    padding: 0 3px 0 0;
+}
+
+nav .rf-tab-lbl {
+    font: normal 12px "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
+}
+
+textarea[disabled],input[type="text"][disabled],input[type="password"][disabled],select[disabled] {
+    -webkit-text-fill-color: #B6AD84;
+}
+
+/*************************************************
+RichFaces input styles overwriting
+*************************************************/
+
+textarea, input[type="text"], input[type="password"], select {
+    font-size: 16px;
+    padding: .4em;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+
+button, input[type="reset"], input[type="submit"], input[type="button"] {
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    font-size: 16px;
+    padding: .4em;
+}
+
+/*************************************************
+inputNumberSlider
+*************************************************/
+.rf-insl-trc {
+    height:30px;
+
+}
+
+.rf-insl-hnd, .rf-insl-hnd-dis, .rf-insl-dec, .rf-insl-inc, .rf-insl-dec-dis, .rf-insl-inc-dis {
+/*display: inline-block;*/
+/*width: 27px;*/
+/*height: 7px;*/
+}
+
+.rf-insl-hnd,
+.rf-insl-hnd-sel,
+.rf-insl-hnd-dis {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    background-image: none;
+    /*padding: .6em 25px;*/
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    zoom: 1;
+    border: 1px solid #CCC;
+    background: #EEE;
+    font-weight: bold;
+    color: #444;
+    text-shadow: 0 1px 1px #F6F6F6;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#fdfdfd),to(#eee));
+    background-image: -webkit-linear-gradient(top,#fdfdfd,#eee);
+    background-image: -moz-linear-gradient(top,#fdfdfd,#eee);
+    background-image: -ms-linear-gradient(top,#fdfdfd,#eee);
+    background-image: -o-linear-gradient(top,#fdfdfd,#eee);
+    background-image: linear-gradient(top,#fdfdfd,#eee);
+    border-image: initial;
+}
+
+.rf-insl-hnd-sel {
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#ccc),to(#eee));
+    background-image: -webkit-linear-gradient(top,#ccc,#eee);
+    background-image: -moz-linear-gradient(top,#ccc,#eee);
+    background-image: -ms-linear-gradient(top,#ccc,#eee);
+    background-image: -o-linear-gradient(top,#ccc,#eee);
+    background-image: linear-gradient(top,#ccc,#eee);
+    border-image: initial;
+}
+
+.rf-insl-hnd, .rf-insl-hnd-dis {
+    vertical-align: top;
+}
+
+/*************************************************
+rich:collapsibleSubTable
+*************************************************/
+
+.rf-dt-c {
+    position: relative;
+    padding: 4px 4px 4px 16px;
+}
+
+.rf-csttg-exp {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.rf-csttg-colps {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+/*************************************************
+rich:dataScroller
+*************************************************/
+
+td.acent {
+    padding: 1px;
+}
+
+.rf-ds-btn {
+    padding: 10px;
+}
+
+.rf-ds-nmb-btn {
+    padding:  10px;
+}
+
+/*************************************************
+rich:tree
+*************************************************/
+.rf-trn-hnd {
+    padding: 7px 0 7px 0;
+}
+
+.rf-trn-lbl {
+    font-size: 1.2em;
+}
+
+/*************************************************
+rich:popupPanel
+*************************************************/
+.rf-pp-hdr-cntrls {
+    font-size: 16px;
+}
+/*Login panel attachment*/
+tr.rf-tb-cntr td a{
+    font-size: 16px;
+}
+
+.rf-tb {
+    height:30px;
+}
+
+.rf-tb-itm {
+    padding: 5px 8px;
+}
+
+/*************************************************
+rich:toolbar
+*************************************************/
+.rf-tb-sep-grid {
+   height: 55%;
+}
+
+/*************************************************
+rich:message
+*************************************************/
+.rf-msg-det, .rf-msgs-det {
+    display: inline;
+    font-size: 14px;
+}
+
+/*************************************************
+reset the blue border of fieldset  and others
+*************************************************/
+fieldset {
+    border-radius: 8px;
+   -moz-border-radius: 8px;
+   -webkit-border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    border-color: #eee;
+}
+
+.rf-p {
+    border-radius: 8px;
+   -moz-border-radius: 8px;
+   -webkit-border-radius: 8px;
+    background-color: white;
+    color: #BED6F8;
+    border-width: 1px;
+    border-style: solid;
+    padding: 1px;
+}
+
+/*************************************************
+add rounded corners
+*************************************************/
+
+.rf-p-hdr {
+    border-radius: 8px;
+   -moz-border-radius: 8px;
+   -webkit-border-radius: 8px;
+    padding:  10px;
+}

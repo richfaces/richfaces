@@ -22,7 +22,7 @@
 package org.richfaces.demo.push;
 
 import static org.richfaces.demo.push.JMSMessageProducer.PUSH_JMS_TOPIC;
-import static org.richfaces.demo.push.PushEventObserver.PUSH_CDI_TOPIC;
+import static org.richfaces.demo.push.PushBean.PUSH_CDI_TOPIC;
 import static org.richfaces.demo.push.TopicsContextMessageProducer.PUSH_TOPICS_CONTEXT_TOPIC;
 
 import java.util.logging.Logger;
@@ -65,7 +65,9 @@ public class TopicsInitializer extends AbstractCapabilityInitializer {
             super(new Runnable() {
 
                 public void run() {
-                    waitForJmsTopicReady();
+                    if (JMSInitializer.isJmsEnabled()) {
+                        waitForJmsTopicReady();
+                    }
 
                     TopicsContext topicsContext = TopicsContext.lookup();
                     Topic pushJmsTopic = topicsContext.getOrCreateTopic(new TopicKey(topicName));

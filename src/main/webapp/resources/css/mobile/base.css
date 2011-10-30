@@ -1,0 +1,224 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2011, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
+/* author Wesley Hales | whales@redhat.com */
+
+/*************************************************/
+/*reset derived from http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/*/
+/*************************************************/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+   margin: 0;
+   padding: 0;
+   border: 0;
+   outline: 0;
+   font-size: 100%;
+   vertical-align: baseline;
+   background: transparent;
+}
+
+ol, ul {
+   list-style: none;
+}
+blockquote, q {
+   quotes: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+   outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+   text-decoration: none;
+}
+del {
+   text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+   border-collapse: collapse;
+   border-spacing: 0;
+}
+
+.zero {
+   margin:0;
+   padding:0;
+}
+
+/*************************************************/
+/*from http://wesleyhales.com/entry/css_framework*/
+/*************************************************/
+.align-center {
+   text-align: center;
+}
+
+.align-center-margin {
+   margin: 0 auto 0 auto;
+}
+
+.float-left {
+   float: left;
+}
+
+.float-right {
+   float: right;
+}
+
+.align-left {
+   text-align: left !important;
+}
+
+.align-right {
+   text-align: right;
+}
+
+.align-top {
+   vertical-align:top;
+}
+
+.half-width {
+   width: 49%;
+}
+
+.quarter-width {
+   width: 24.9%;
+}
+
+.three-quarter-width {
+   width: 74.9%;
+}
+
+.full-width {
+   width: 100%;
+}
+
+.third-width {
+   width: 32.9%;
+}
+
+.two-third-width {
+   width: 65.9%;
+}
+
+.auto-width {
+   width: auto;
+   padding: 0 7px 0 0;
+}
+
+.ten-percent-width {
+   width: 10%;
+}
+
+
+.third-width-pad5 {
+   width: 32.5%;
+   padding: 5px;
+}
+
+.two-third-width-pad5 {
+   width: 65.5%;
+   padding: 5px;
+}
+
+.tenpx-top-bottom {
+   margin: 10px 0 10px 0;
+}
+
+.tenpx-bottom {
+   margin: 0 0 10px 0;
+}
+
+.tenpx-top {
+   margin: 10px 0 0 0;
+}
+
+.twentypx-top {
+   margin: 20px 0 0 0;
+}
+
+.tenpx-right {
+   margin: 0 10px 0 0;
+}
+
+.tenpx-left {
+   margin: 0 0 0 10px;
+}
+
+.clear {
+   clear: both;
+}
+
+.clear-left {
+   clear: left;
+}
+
+.clear-right {
+   clear: right;
+}
+
+.pad5 {
+   padding: 5px;
+}
+
+.pad10 {
+   padding: 10px
+}
+
+.margin10 {
+   margin: 10px;
+}
+
+.absolute{
+   position:absolute;
+}
+
+.relative{
+   position:relative;
+}
+
+.hidden {
+   display: none;
+}
+
+.inline {
+    display: inline;
+}
+
+.error {
+    color: #b0241c;
+}
+
+.bold {
+    font-weight: bold;
+    text-decoration:none;
+}

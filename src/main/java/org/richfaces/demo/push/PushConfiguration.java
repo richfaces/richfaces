@@ -1,4 +1,4 @@
-/**
+/*
  * JBoss, Home of Professional Open Source.
  * Copyright 2010, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
@@ -18,24 +18,32 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
-package org.richfaces.demo.push;
+ */package org.richfaces.demo.push;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import javax.enterprise.inject.Stereotype;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
 /**
- * Classifier for CDI events passed to RichFaces Push.
+ * Initializes JMS server and creates requested topics.
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-@Stereotype
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
-public @interface Push {
+@ApplicationScoped
+@ManagedBean
+public class PushConfiguration {
 
+    public boolean isJmsEnabled() {
+        return JMSInitializer.isJmsEnabled();
+    }
+
+    public boolean isPushEnabled() {
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String pushDisabled = servletContext.getInitParameter("org.richfaces.showcase.pushDisabled");
+        if (pushDisabled == null) {
+            return true;
+        }
+        return Boolean.valueOf(pushDisabled);
+    }
 }

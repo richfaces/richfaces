@@ -59,4 +59,12 @@ public class TopicsContextMessageProducer implements MessageProducer {
     public int getInterval() {
         return 5000;
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.demo.push.MessageProducer#finalizeProducer()
+     */
+    public void finalizeProducer() {
+    }
 }

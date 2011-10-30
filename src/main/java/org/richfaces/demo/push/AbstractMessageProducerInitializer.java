@@ -30,6 +30,7 @@ package org.richfaces.demo.push;
 public abstract class AbstractMessageProducerInitializer extends AbstractCapabilityInitializer {
 
     private Thread messageProducerThread;
+    private MessageProducer messageProducer;
     private MessageProducerRunnable messageProducerRunnable;
 
     /*
@@ -38,7 +39,8 @@ public abstract class AbstractMessageProducerInitializer extends AbstractCapabil
      * @see org.richfaces.demo.push.Initializer#initialize()
      */
     public void initializeCapability() throws Exception {
-        messageProducerRunnable = new MessageProducerRunnable(createMessageProducer());
+        messageProducer = createMessageProducer();
+        messageProducerRunnable = new MessageProducerRunnable(messageProducer);
         messageProducerThread = new Thread(messageProducerRunnable, "MessageProducerThread");
         messageProducerThread.setDaemon(false);
         messageProducerThread.start();
@@ -51,8 +53,13 @@ public abstract class AbstractMessageProducerInitializer extends AbstractCapabil
      */
     @Override
     public void finalizeCapability() throws Exception {
-        if (messageProducerThread != null) {
+        if (messageProducer != null) {
+            messageProducer.finalizeProducer();
+        }
+        if (messageProducerRunnable != null) {
             messageProducerRunnable.stop();
+        }
+        if (messageProducerThread != null) {
             messageProducerThread.interrupt();
         }
     }

@@ -22,9 +22,10 @@
 package org.richfaces.demo.push;
 
 import static org.richfaces.demo.push.JMSMessageProducer.PUSH_JMS_TOPIC;
-import static org.richfaces.demo.push.PushEventObserver.PUSH_CDI_TOPIC;
+import static org.richfaces.demo.push.PushBean.PUSH_CDI_TOPIC;
 import static org.richfaces.demo.push.TopicsContextMessageProducer.PUSH_TOPICS_CONTEXT_TOPIC;
 
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,6 +47,7 @@ import org.richfaces.demo.push.provider.MessagingProviderManagement;
 public class JMSInitializer extends AbstractCapabilityInitializer {
 
     private static final Logger LOGGER = Logger.getLogger(JMSInitializer.class.getName());
+    private static final AtomicReference<Boolean> JMS_ENABLED = new AtomicReference<Boolean>(null);
 
     private MessagingProviderManagement provider;
 
@@ -55,11 +57,38 @@ public class JMSInitializer extends AbstractCapabilityInitializer {
      * @see org.richfaces.demo.push.Initializer#initialize()
      */
     public void initializeCapability() throws Exception {
+        initializeJMS();
+    }
+
+    @Override
+    public boolean isCapabilityEnabled() {
+        return isJmsEnabled();
+    }
+
+    private void initializeJMS() throws Exception {
         provider = initializeCurrentProvider();
 
         provider.createTopic(PUSH_JMS_TOPIC, "/topic/" + PUSH_JMS_TOPIC);
         provider.createTopic(PUSH_TOPICS_CONTEXT_TOPIC, "/topic/" + PUSH_TOPICS_CONTEXT_TOPIC);
         provider.createTopic(PUSH_CDI_TOPIC, "/topic/" + PUSH_CDI_TOPIC);
+    }
+
+    protected static boolean isJmsEnabled() {
+        if (null == JMS_ENABLED.get()) {
+            boolean isJmsEnabled = isConnectionFactoryRegistered() || isTomcat();
+            JMS_ENABLED.compareAndSet(null, isJmsEnabled);
+        }
+        return JMS_ENABLED.get();
+    }
+
+    private static boolean isTomcat() {
+        try {
+            Class<?> clazz = Class.forName("org.apache.catalina.util.ServerInfo");
+            String serverInfo = (String) clazz.getMethod("getServerInfo").invoke(null);
+            return serverInfo.contains("Tomcat");
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /*
@@ -68,7 +97,9 @@ public class JMSInitializer extends AbstractCapabilityInitializer {
      * @see org.richfaces.demo.push.Initializer#unload()
      */
     public void finalizeCapability() throws Exception {
-        provider.finalizeProvider();
+        if (provider != null) {
+            provider.finalizeProvider();
+        }
     }
 
     /**
@@ -110,7 +141,7 @@ public class JMSInitializer extends AbstractCapabilityInitializer {
      *
      * @return true if ConnectionFactory is already registered
      */
-    private boolean isConnectionFactoryRegistered() {
+    private static boolean isConnectionFactoryRegistered() {
         try {
             return null != InitialContext.doLookup("java:/ConnectionFactory");
         } catch (NamingException e) {
