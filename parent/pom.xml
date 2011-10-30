@@ -410,7 +410,8 @@
                 <dependency>
                     <groupId>com.sun.faces</groupId>
                     <artifactId>jsf-api</artifactId>
-                    <scope>provided</scope>
+                    <scope>compile</scope>
+                    <optional>true</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.glassfish</groupId>
