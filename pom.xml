@@ -29,7 +29,7 @@
 
     <groupId>org.richfaces.core</groupId>
     <artifactId>richfaces-core-aggregator</artifactId>
-    <version>4.1.0.20111014-M3</version>
+    <version>4.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>RichFaces Core Aggregator</name>
