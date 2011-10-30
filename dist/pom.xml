@@ -163,7 +163,7 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <finalName>richfaces-${version}</finalName>
+                            <finalName>richfaces-${project.version}</finalName>
                             <descriptor>richfaces.xml</descriptor>
                             <appendAssemblyId>false</appendAssemblyId>
                         </configuration>
