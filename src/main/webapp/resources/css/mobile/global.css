@@ -226,7 +226,7 @@ Page Formatting - Skin
 }
 
 .hide-button {
-    visibility: hidden;
+    display: none;
     opacity: 0;
 }
 
