@@ -18,7 +18,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-bom</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>4.1.0.20111014-M3</version>
         <relativePath>../bom/pom.xml</relativePath>
     </parent>
 
