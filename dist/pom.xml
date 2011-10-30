@@ -58,13 +58,6 @@
         <!-- Examples -->
         <dependency>
             <groupId>org.richfaces.examples</groupId>
-            <artifactId>core-demo</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-            <classifier>tomcat6</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.examples</groupId>
             <artifactId>richfaces-showcase</artifactId>
             <version>${project.version}</version>
             <type>war</type>
