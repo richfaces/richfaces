@@ -482,12 +482,6 @@
                                     <classifier>tomcat6</classifier>
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-tomcat6
                                     </webappDirectory>
-                                    <packagingExcludes>
-                                        WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
-                                    </packagingExcludes>
-                                    <warSourceExcludes>
-                                        WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
-                                    </warSourceExcludes>
                                     <webResources>
                                         <resource>
                                             <directory>src/main/webapp-tomcat</directory>
@@ -517,10 +511,10 @@
                                     </webappDirectory>
 
                                     <packagingExcludes>
-                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
+                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*
                                     </packagingExcludes>
                                     <warSourceExcludes>
-                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
+                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
@@ -602,10 +596,10 @@
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-openshift
                                     </webappDirectory>
                                     <packagingExcludes>
-                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*,WEB-INF/lib/jboss*,WEB-INF/lib/xnio*
+                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*
                                     </packagingExcludes>
                                     <warSourceExcludes>
-                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*,WEB-INF/lib/jboss*,WEB-INF/lib/xnio*
+                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*
                                     </warSourceExcludes>
                                     <outputFileNameMapping>@{artifactId}@.@{extension}@</outputFileNameMapping>
                                     <webResources>
