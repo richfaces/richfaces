@@ -97,13 +97,6 @@
 
         <!-- Examples -->
         <fileSet>
-            <directory>target/dependency/core-demo-sources-java-source</directory>
-            <outputDirectory>examples/core-demo/</outputDirectory>
-            <excludes>
-                <exclude>/META-INF/**</exclude>
-            </excludes>
-        </fileSet>
-        <fileSet>
             <directory>target/dependency/richfaces-showcase-sources-java-source</directory>
             <outputDirectory>examples/richfaces-showcase/</outputDirectory>
             <excludes>
