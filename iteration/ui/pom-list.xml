@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.richfaces.ui.iteration</groupId>
         <artifactId>lists-aggregator</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>4.1.0.20111030-M4</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
