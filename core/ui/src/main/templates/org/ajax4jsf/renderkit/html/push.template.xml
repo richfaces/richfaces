@@ -11,11 +11,10 @@
         <cdk:renderer-type>org.richfaces.PushRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
 
-        <cdk:resource-dependency library="javax.faces" name="jsf.js" />
-        <cdk:resource-dependency name="jquery.js" />
-        <cdk:resource-dependency name="richfaces.js" />
+        
+        <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
+        <cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
         <cdk:resource-dependency name="richfaces-event.js" />
-        <cdk:resource-dependency name="richfaces-base-component.js" />
         <cdk:resource-dependency library="net.java.dev.atmosphere" name="jquery-atmosphere.js" />
         <cdk:resource-dependency library="org.richfaces" name="push.js" />
     </cc:interface>
@@ -34,7 +33,8 @@
                 </c:if>
 
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="address ondataavailable onerror" />
+                    <cdk:scriptOption attributes="address" />
+                    <cdk:scriptOption wrapper="eventHandler" attributes="ondataavailable onerror" />
                 </cdk:scriptObject>
 
                 new RichFaces.ui.Push(#{toScriptArgs(clientId, options)});

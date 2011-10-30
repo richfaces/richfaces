@@ -39,9 +39,9 @@ import org.richfaces.renderkit.util.HtmlDimensions;
  * @author Anton Belevich
  *
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
-        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(name = "richfaces-base-component.js"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceInput.js"),
@@ -91,10 +91,6 @@ public class InplaceInputRendererBase extends InputRendererBase {
             value = inplaceInput.getDefaultLabel();
         }
         return value;
-    }
-
-    public String getResourcePath(FacesContext context, String library, String resourceName) {
-        return RenderKitUtils.getResourcePath(context, library, resourceName);
     }
 
     public String getStateStyleClass(UIComponent component, InplaceState inplaceState) {

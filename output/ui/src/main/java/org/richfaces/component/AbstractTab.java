@@ -23,6 +23,8 @@ package org.richfaces.component;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.FacesContext;
+import javax.faces.render.Renderer;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
@@ -215,5 +217,10 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
 
     public void setSwitchType(SwitchType switchType) {
         getStateHelper().put(Properties.switchType, switchType);
+    }
+
+    @Override
+    public Renderer getRenderer(FacesContext context) {
+        return super.getRenderer(context);
     }
 }

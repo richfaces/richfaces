@@ -48,6 +48,9 @@ public abstract class AbstractMessages extends UIMessages implements AjaxOutput,
     @Attribute
     public abstract boolean isKeepTransient();
 
+    @Attribute(defaultValue = "true")
+    public abstract boolean isEscape();
+
     /*
      * (non-Javadoc)
      *

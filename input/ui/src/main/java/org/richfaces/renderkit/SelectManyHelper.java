@@ -177,9 +177,9 @@ public class SelectManyHelper {
 
                 String columnClass;
                 if (columnClasses.length > 0) {
-                    columnClass = String.format("%s %s", cellClassName, columnClasses[columnCounter % columnClasses.length]);
+                    columnClass = HtmlUtil.concatClasses(cellClassName, columnClasses[columnCounter % columnClasses.length], column.getAttributes().get("styleClass"));
                 } else {
-                    columnClass = cellClassName;
+                    columnClass = HtmlUtil.concatClasses(cellClassName, column.getAttributes().get("styleClass"));
                 }
                 writer.writeAttribute("class", columnClass, null);
                 renderer.renderChildren(facesContext, column);

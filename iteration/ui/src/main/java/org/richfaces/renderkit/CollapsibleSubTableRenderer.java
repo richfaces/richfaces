@@ -48,9 +48,9 @@ import org.richfaces.renderkit.util.AjaxRendererUtils;
  *
  */
 @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer", family = AbstractCollapsibleSubTable.COMPONENT_FAMILY)
-@ResourceDependencies({ @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
-        @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable.ecss"),
-        @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable.js") })
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable.js"),
+        @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable.ecss") })
 public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     public static final String TB_ROW = ":c";
     private static final String STATE = ":state";

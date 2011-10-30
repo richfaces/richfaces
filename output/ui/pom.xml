@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.1.0.20110910-M2</version>
+        <version>4.1.0.20111014-M3</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 

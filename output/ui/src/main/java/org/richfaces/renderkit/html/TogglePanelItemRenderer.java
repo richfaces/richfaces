@@ -45,9 +45,9 @@ import org.richfaces.component.AbstractTogglePanelItemInterface;
  * @author akolonitsky
  * @since -4712-01-01
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
-        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(name = "richfaces-base-component.js"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js") })
 @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer", family = AbstractTogglePanelItem.COMPONENT_FAMILY)
 public class TogglePanelItemRenderer extends DivPanelRenderer {
@@ -100,6 +100,14 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
     @Override
     public boolean getRendersChildren() {
         return true;
+    }
+
+    protected void encodePlaceHolder(FacesContext context, UIComponent item) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
+        writer.startElement(DIV_ELEM, null);
+        writer.writeAttribute(ID_ATTRIBUTE, item.getClientId(context), null);
+        writer.writeAttribute(STYLE_ATTRIBUTE, "display:none;", null);
+        writer.endElement(DIV_ELEM);
     }
 
     protected void encodePlaceHolderWithJs(FacesContext context, UIComponent item) throws IOException {

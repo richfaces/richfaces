@@ -49,4 +49,7 @@ public abstract class AbstractSelect extends AbstractSelectComponent {
 
     @Attribute
     public abstract String getTitle();
+
+    @Attribute
+    public abstract String getClientFilterFunction();
 }

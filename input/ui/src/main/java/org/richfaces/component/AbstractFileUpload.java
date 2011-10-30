@@ -54,6 +54,9 @@ public abstract class AbstractFileUpload extends UIComponentBase {
     @Attribute
     public abstract String getAcceptedTypes();
 
+    @Attribute
+    public abstract String getMaxFilesQuantity();
+
     @Attribute(defaultValue = "false")
     public abstract boolean isDisabled();
 
@@ -63,8 +66,14 @@ public abstract class AbstractFileUpload extends UIComponentBase {
     @Attribute(events = @EventName("filesubmit"))
     public abstract String getOnfilesubmit();
 
+    @Attribute(events = @EventName("typerejected"))
+    public abstract String getOntyperejected();
+
     @Attribute(events = @EventName("uploadcomplete"))
     public abstract String getOnuploadcomplete();
+
+    @Attribute(events = @EventName("clear"))
+    public abstract String getOnclear();
 
     @Attribute
     public abstract String getAddLabel();
@@ -89,6 +98,9 @@ public abstract class AbstractFileUpload extends UIComponentBase {
 
     @Attribute
     public abstract String getDeleteLabel();
+
+    @Attribute(defaultValue = "210px")
+    public abstract String getListHeight();
 
     @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {

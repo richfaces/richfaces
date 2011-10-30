@@ -140,7 +140,6 @@
 
             name: "ExtendedDataTable",
 
-            ranges: new richfaces.utils.Ranges(),
             resizeData: {},
             idOfReorderingColumn: "",
             newWidths: {},
@@ -148,6 +147,7 @@
 
             init: function (id, rowCount, ajaxFunction, options) {
                 $super.constructor.call(this, id);
+                this.ranges = new richfaces.utils.Ranges();
                 this.rowCount = rowCount;
                 this.ajaxFunction = ajaxFunction;
                 this.options = options || {};

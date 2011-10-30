@@ -39,7 +39,6 @@
 }
 
 .rf-fu-lst {
-    height: 210px; /*TODO Remove it*/
     overflow-x: hidden;
     overflow-y: auto;
 }

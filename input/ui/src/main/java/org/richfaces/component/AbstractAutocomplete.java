@@ -91,6 +91,9 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     public abstract String getLayout();
 
     @Attribute
+    public abstract int getTabindex();
+
+    @Attribute
     public abstract String getTokens();
 
     @Attribute(defaultValue = "true")

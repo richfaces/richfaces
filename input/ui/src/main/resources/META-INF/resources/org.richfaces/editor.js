@@ -59,7 +59,9 @@
             this.ckeditor = CKEDITOR.replace(this.textareaId, this.__getConfiguration());
 
             // register event handlers
-            rf.Event.bind(this.__getForm(), 'ajaxsubmit', $.proxy(this.__updateTextareaHandler, this));
+            if (this.__getForm()) {
+                this.__updateTextareaHandlerWrapper = rf.Event.bind(this.__getForm(), 'ajaxsubmit', $.proxy(this.__updateTextareaHandler, this));
+            }
             this.ckeditor.on('instanceReady', $.proxy(this.__instanceReadyHandler, this));
             this.ckeditor.on('blur', $.proxy(this.__blurHandler, this));
             this.ckeditor.on('focus', $.proxy(this.__focusHandler, this));
@@ -261,7 +263,9 @@
         destroy : function() {
             window.clearInterval(this.dirtyCheckingInterval);
             
-            rf.Event.unbind(this.__getForm(), 'ajaxsubmit', this.__updateTextareaHandler);
+            if (this.__getForm()) {
+                rf.Event.unbind(this.__getForm(), 'ajaxsubmit', this.__updateTextareaHandlerWrapper);
+            }
 
             if (this.ckeditor) {
                 this.ckeditor.destroy();

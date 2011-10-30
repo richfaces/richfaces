@@ -1,5 +1,7 @@
 package org.richfaces.renderkit;
 
+import org.richfaces.component.util.HtmlUtil;
+
 import java.io.IOException;
 
 import javax.faces.component.UIColumn;
@@ -61,7 +63,9 @@ public class AutocompleteTableLayoutStrategy extends AbstractAutocompleteLayoutS
         for (UIComponent child : component.getChildren()) {
             if (child instanceof UIColumn) {
                 encodeItemChildBegin(facesContext, component);
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-fnt rf-au-inp", null);
+                String styleClass = "rf-au-fnt rf-au-inp";
+                styleClass = HtmlUtil.concatClasses(styleClass, child.getAttributes().get("styleClass"));
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
                 child.encodeAll(facesContext);
                 encodeItemChildEnd(facesContext, component);
             }

@@ -37,6 +37,8 @@ import javax.faces.context.ResponseWriter;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.component.AbstractMessage;
+import org.richfaces.component.AbstractMessages;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.util.RendererUtils;
 
@@ -144,8 +146,16 @@ public class MessageRendererBase extends RendererBase {
         return component instanceof UIMessage;
     }
 
+    protected boolean isComponentRichMessage(UIComponent component) {
+        return component instanceof AbstractMessage;
+    }
+
     protected boolean isComponentMessages(UIComponent component) {
         return component instanceof UIMessages;
+    }
+
+    protected boolean isComponentRichMessages(UIComponent component) {
+        return component instanceof AbstractMessages;
     }
 
     private String getFor(UIComponent component) {
@@ -182,6 +192,15 @@ public class MessageRendererBase extends RendererBase {
             showDetail = uiMessages.isShowDetail();
             isMessages = true;
         }
+        boolean escape = true;
+        if (isComponentRichMessage(component)) {
+            AbstractMessage richMessage = (AbstractMessage) component;
+            escape = richMessage.isEscape();
+        }
+        if (isComponentRichMessages(component)) {
+            AbstractMessages richMessages = (AbstractMessages) component;
+            escape = richMessages.isEscape();
+        }
         ResponseWriter responseWriter = facesContext.getResponseWriter();
         // Message id
         responseWriter.writeAttribute("id", component.getClientId() + ':' + message.getSourceId(), null);
@@ -191,19 +210,23 @@ public class MessageRendererBase extends RendererBase {
             responseWriter.writeAttribute("title", summary, null);
         }
         if (!wroteTooltip && showSummary) {
-            writeMessageLabel(responseWriter, summary, isMessages ? "rf-msgs-sum" : "rf-msg-sum");
+            writeMessageLabel(responseWriter, summary, isMessages ? "rf-msgs-sum" : "rf-msg-sum", escape);
         }
         if (showDetail) {
-            writeMessageLabel(responseWriter, detail, isMessages ? "rf-msgs-det" : "rf-msg-det");
+            writeMessageLabel(responseWriter, detail, isMessages ? "rf-msgs-det" : "rf-msg-det", escape);
         }
         message.rendered();
     }
 
-    private void writeMessageLabel(ResponseWriter responseWriter, String label, String styleClass) throws IOException {
+    private void writeMessageLabel(ResponseWriter responseWriter, String label, String styleClass, boolean escape) throws IOException {
         if (!Strings.isNullOrEmpty(label)) {
             responseWriter.startElement("span", null);
             responseWriter.writeAttribute("class", styleClass, null);
-            responseWriter.writeText(label, null);
+            if (escape) {
+                responseWriter.writeText(label, null);
+            } else {
+                responseWriter.write(label);
+            }
             responseWriter.endElement("span");
         }
     }

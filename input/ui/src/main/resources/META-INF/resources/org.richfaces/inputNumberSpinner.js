@@ -62,6 +62,7 @@
 
             decrease: function (event) {
                 var value = this.value - this.step;
+                value = this.roundFloat(value);
                 if (value < this.minValue && this.cycled) {
                     value = this.maxValue;
                 }
@@ -70,6 +71,8 @@
 
             increase: function (event) {
                 var value = this.value + this.step;
+                value = this.roundFloat(value);
+
                 if (value > this.maxValue && this.cycled) {
                     value = this.minValue;
                 }
@@ -84,6 +87,23 @@
                 if (!this.input.attr("disabled")) {
                     this.__setValue(value);
                 }
+            },
+
+            roundFloat: function(x){
+                var str = this.step.toString();
+                var power = 0;
+                if (!/\./.test(str)) {
+                    if (this.step >= 1) {
+                        return x;
+                    }
+                    if (/e/.test(str)) {
+                        power = str.split("-")[1];
+                    }
+                } else {
+                    power = str.length - str.indexOf(".") - 1;
+                }
+                var ret = x.toFixed(power);
+                return parseFloat(ret);
             },
 
             destroy: function (event) {

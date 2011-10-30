@@ -23,7 +23,7 @@
         },
         
         __initializeStack : function(options) {
-            var stack = $.extend({}, jQuery.pnotify.defaults.pnotify_stack, defaultOptions, options);
+            var stack = $.extend({}, $.pnotify.defaults.pnotify_stack, defaultOptions, options);
             
             var isVertical = (stack.direction == 'vertical');
             var isFirst = (stack.method == 'first');

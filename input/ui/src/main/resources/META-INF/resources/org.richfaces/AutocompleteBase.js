@@ -100,6 +100,7 @@
                 this.invokeEvent("blur", rf.getDomElement(this.fieldId), event);
                 if (this.__focusValue != this.getValue()) {
                     this.invokeEvent("change", rf.getDomElement(this.fieldId), event);
+                    this.invokeEvent("change", rf.getDomElement(this.id), event);
                 }
             }
         }

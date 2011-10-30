@@ -67,6 +67,21 @@ public class DataScrollerBaseRenderer extends RendererBase {
         }
     }
 
+    protected void encodeHiddenStyleIfNeed(ResponseWriter out, FacesContext context, UIComponent component) throws IOException {
+        if (!shouldRender(component)){
+            out.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
+        }
+    }
+
+    protected boolean shouldRender(UIComponent component){
+        AbstractDataScroller ds = (AbstractDataScroller) component;
+        if ((ds.getPageCount() == 1)&&(!ds.isRenderIfSinglePage())){
+            return false;
+        }else{
+        return true;
+        }
+    }
+
     private DataScrollerControlsMode getModeOrDefault(UIComponent component, String attributeName) {
         DataScrollerControlsMode mode = (DataScrollerControlsMode) component.getAttributes().get(attributeName);
         if (mode == null) {

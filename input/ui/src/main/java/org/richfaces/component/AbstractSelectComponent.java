@@ -103,6 +103,12 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     @Attribute(events = @EventName("listdblclick"))
     public abstract String getOnlistdblclick();
 
+    @Attribute(events = @EventName("listshow"))
+    public abstract String getOnlistshow();
+
+    @Attribute(events = @EventName("listhide"))
+    public abstract String getOnlisthide();
+
     @Attribute(events = @EventName("listmousedown"))
     public abstract String getOnlistmousedown();
 

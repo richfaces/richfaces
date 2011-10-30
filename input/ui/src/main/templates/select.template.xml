@@ -67,6 +67,7 @@
                     <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onselectitem onfocus onlistshow onlisthide"
                         wrapper="eventHandler" />
                     <cdk:scriptOption attributes="showControl defaultLabel enableManualInput selectFirst disabled" />
+                    <cdk:scriptOption name="filterFunction" value="#{getClientFilterFunction(component)}" />
                 </cdk:scriptObject>
                 new RichFaces.ui.Select("#{clientId}", #{toScriptArgs(options)});
             </script>

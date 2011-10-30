@@ -36,12 +36,12 @@ import org.richfaces.component.util.HtmlUtil;
 /**
  * @author akolonitsky
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
-        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-base-component.js"),
-        @ResourceDependency(library = "org.richfaces", name = "accordion.ecss"),
-        @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
-        @ResourceDependency(library = "org.richfaces", name = "accordion.js") })
+        @ResourceDependency(library = "org.richfaces", name = "accordion.js"),
+        @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
+        @ResourceDependency(library = "org.richfaces", name = "accordion.ecss") })
 @JsfRenderer(type = "org.richfaces.AccordionRenderer", family = AbstractAccordion.COMPONENT_FAMILY)
 public class AccordionRenderer extends TogglePanelRenderer {
     @Override

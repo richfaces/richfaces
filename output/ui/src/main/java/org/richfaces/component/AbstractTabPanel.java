@@ -51,11 +51,11 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
     @Attribute(generate = false)
     public String getActiveItem() {
         String res = super.getActiveItem();
-        if (res == null) {
+        if ((res == null)||(res.equals(""))) {
             res = getFirstItem().getName();
         } else {
             AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) super.getItemByIndex(super.getChildIndex(res));
-            if (item.isDisabled()) {
+            if ((item == null)||(item.isDisabled())) {
                 res = getFirstItem().getName();
             }
         }
@@ -99,4 +99,12 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
 
     @Attribute(hidden = true)
     public abstract Object getRender();
+
+    public boolean isHeaderPositionedTop() {
+        return (null == this.getHeaderPosition()) || (this.getHeaderPosition().equals(HeaderPosition.top));
+    }
+
+    public boolean isHeaderAlignedLeft() {
+        return (null == this.getHeaderAlignment()) || (this.getHeaderAlignment().equals(HeaderAlignment.left));
+    }
 }
