@@ -34,7 +34,7 @@
 
     <properties>
         <richfaces.checkstyle.version>3</richfaces.checkstyle.version>
-        <test-jsf.version>1.0.8-SNAPSHOT</test-jsf.version>
+        <test-jsf.version>1.1.0</test-jsf.version>
     </properties>
 
     <dependencyManagement>
