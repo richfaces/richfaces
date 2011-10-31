@@ -1,6 +1,11 @@
 package org.richfaces.demo.common.navigation;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,6 +40,11 @@ public class DemoNavigator implements Serializable {
     public void init() {
         currentDemo = null;
         currentSample = null;
+        groups = new ArrayList<GroupDescriptor>(Collections2.filter(groups, new Predicate<GroupDescriptor>() {
+            public boolean apply(GroupDescriptor input) {
+                return input.hasEnabledItems();
+            }
+        }));
     }
 
     public DemoDescriptor getCurrentDemo() {
