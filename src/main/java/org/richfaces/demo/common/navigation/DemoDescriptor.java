@@ -45,6 +45,12 @@ public class DemoDescriptor extends BaseDescriptor {
                 return sample;
             }
         }
+        for (SampleDescriptor sample : getSamples()) {
+            if (sample.isCurrentlyEnabled()) {
+                return sample;
+            }
+        }
+        // TODO: We should never reach here, perhaps throw an ISE if we do?
         return samples.iterator().next();
     }
 
