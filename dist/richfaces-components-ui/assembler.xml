@@ -11,6 +11,9 @@
             <handlerName>faces-xml</handlerName>
         </containerDescriptorHandler>
         <containerDescriptorHandler>
+            <handlerName>resource-mappings-properties</handlerName>
+        </containerDescriptorHandler>
+        <containerDescriptorHandler>
             <handlerName>taglib-xml</handlerName>
             <configuration>
                 <taglibs>
