@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MODULES="archetype-simpleapp build cdk components core dev-examples showcase"
+MODULES="archetypes archetype-simpleapp build cdk components core dev-examples showcase"
 SCRIPTS=`dirname $(readlink -f $0)`
 TOPDIR=`readlink -f $SCRIPTS/../..`
 BRANCH="develop"
