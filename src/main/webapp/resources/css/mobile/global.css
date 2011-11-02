@@ -482,6 +482,10 @@ inputNumberSlider
     vertical-align: top;
 }
 
+input.rf-insl-inp {
+    width: 48px;
+}
+
 /*************************************************
 rich:collapsibleSubTable
 *************************************************/
