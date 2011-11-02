@@ -615,5 +615,26 @@ rich:select
 *************************************************/
 
 .rf-sel-btn-arrow {
-   height: 30px;
+    height: 30px;
+}
+
+/*************************************************
+rich:calendar
+*************************************************/
+
+.rf-cal-btn {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.rf-cal-sp-btn table tbody tr td div {
+    padding: 8px;
+}
+
+.rf-cal-tl-btn {
+    padding:  10px;
+}
+
+.rf-cal-btn-press {
+    padding:  5px;
 }
