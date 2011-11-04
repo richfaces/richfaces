@@ -31,7 +31,7 @@
                                 <input id="#{clientId}SourceListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
                                 <cdk:object type="java.lang.Object" name="sourceCaption" value="#{component.attributes['sourceCaption']}" />
                                 <c:if test="#{! empty sourceCaption}">
-                                    <div class="rf-pick-source-caption">
+                                    <div class="rf-pick-src-cptn">
                                         #{sourceCaption}
                                     </div>
                                 </c:if>
@@ -47,7 +47,7 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <div id="#{clientId}headerBox" class="rf-pick-lst">
-                                                    <table class="rf-pick-internal-table" cellpadding="0" cellspacing="0">
+                                                    <table class="rf-pick-tbl" cellpadding="0" cellspacing="0">
                                                         <c:if test="#{isHeaderExists(facesContext, component)}">
                                                             <thead class="rf-pick-lst-header">
                                                                 <cdk:call expression="encodeSourceHeader(facesContext, component);" />
@@ -98,7 +98,7 @@
                                             <input id="#{clientId}TargetListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
                                             <cdk:object type="java.lang.Object" name="targetCaption" value="#{component.attributes['targetCaption']}" />
                                             <c:if test="#{! empty targetCaption}">
-                                                <div class="rf-pick-target-caption">
+                                                <div class="rf-pick-tgt-cptn">
                                                     #{targetCaption}
                                                 </div>
                                             </c:if>
@@ -114,7 +114,7 @@
                                                         </c:when>
                                                         <c:otherwise>
                                                             <div id="#{clientId}headerBox" class="rf-pick-lst">
-                                                                <table class="rf-pick-internal-table" cellpadding="0" cellspacing="0">
+                                                                <table class="rf-pick-tbl" cellpadding="0" cellspacing="0">
                                                                     <c:if test="#{isHeaderExists(facesContext, component)}">
                                                                         <thead class="rf-pick-lst-header">
                                                                             <cdk:call expression="encodeTargetHeader(facesContext, component);" />
