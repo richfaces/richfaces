@@ -63,13 +63,13 @@ public abstract class AbstractCapabilityInitializer implements CapabilityInitial
                     initializeCapability();
                     correctlyInitialized = true;
                 } catch (Exception e) {
-                    throw new AbortProcessingException(e);
+                    throw new RuntimeException("Capability " + this.getClass().getName() + " was not correctly initialized", e);
                 }
             } else {
                 try {
                     finalizeCapability();
                 } catch (Exception e) {
-                    throw new AbortProcessingException(e);
+                    throw new RuntimeException("Capability " + this.getClass().getName() + " was not correctly finalized", e);
                 }
             }
         }
