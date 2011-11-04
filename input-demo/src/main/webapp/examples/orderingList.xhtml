@@ -39,7 +39,7 @@
     <fieldset>
         <legend>OrderingList - Columns</legend>
         <h:form>
-            <in:orderingList id="orderingList" value="#{richBean.values}" columnVar="item">
+            <in:orderingList id="orderingList" value="#{richBean.values}" var="item">
                 <f:converter converterId="EntityBeanConverter" />
                 <it:column>
                     #{item.value}
@@ -63,7 +63,7 @@
     <fieldset>
         <legend>OrderingList - disabled</legend>
         <h:form>
-            <in:orderingList id="orderingList" value="#{richBean.values}" columnVar="item" disabled="true" disabledClass="someDisabledClass">
+            <in:orderingList id="orderingList" value="#{richBean.values}" var="item" disabled="true" disabledClass="someDisabledClass">
                 <f:converter converterId="EntityBeanConverter" />
                 <it:column>
                     #{item.value}
@@ -87,7 +87,7 @@
     <fieldset>
         <legend>OrderingList - my-select-class</legend>
         <h:form>
-            <in:orderingList id="orderingList" value="#{richBean.values}" columnVar="item" selectItemClass="my-select-class">
+            <in:orderingList id="orderingList" value="#{richBean.values}" var="item" selectItemClass="my-select-class">
                 <f:converter converterId="EntityBeanConverter" />
                 <it:column>
                     #{item.value}
