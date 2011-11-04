@@ -36,6 +36,7 @@
 
 .rf-pick-btn {
     width : 100%;
+    white-space:nowrap;
     background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
     background-repeat: repeat-x;
     background-position: top left;
