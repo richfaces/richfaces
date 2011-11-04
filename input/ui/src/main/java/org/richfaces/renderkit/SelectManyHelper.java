@@ -63,6 +63,7 @@ import java.util.TreeSet;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public class SelectManyHelper {
+    public static final String CELL_CSS = "-c";
     public static final String ITEM_CSS = "-opt";
     public static final String ITEM_CSS_DIS = "-opt-dis";
     public static final String BUTTON_CSS = "-btn";
@@ -155,7 +156,7 @@ public class SelectManyHelper {
         }
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemCss, null);
 
-        String cellClassName = cssPrefix + "-cell";
+        String cellClassName = cssPrefix + CELL_CSS;
 
         String[] columnClasses;
         if (table.getColumnClasses() != null) {

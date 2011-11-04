@@ -27,7 +27,7 @@
                 <tr>
                     <td cdk:passThrough="onkeypress:onsourcekeypress onkeydown:onsourcekeydown onkeyup:onsourcekeyup">
                         <div id="#{clientId}Source">
-                            <div id="#{clientId}SourceList" class="rf-pick-source">
+                            <div id="#{clientId}SourceList" class="rf-pick-src">
                                 <input id="#{clientId}SourceListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
                                 <cdk:object type="java.lang.Object" name="sourceCaption" value="#{component.attributes['sourceCaption']}" />
                                 <c:if test="#{! empty sourceCaption}">
@@ -49,7 +49,7 @@
                                                 <div id="#{clientId}headerBox" class="rf-pick-lst">
                                                     <table class="rf-pick-tbl" cellpadding="0" cellspacing="0">
                                                         <c:if test="#{isHeaderExists(facesContext, component)}">
-                                                            <thead class="rf-pick-lst-header">
+                                                            <thead class="rf-pick-lst-hdr">
                                                                 <cdk:call expression="encodeSourceHeader(facesContext, component);" />
                                                             </thead>
                                                         </c:if>
@@ -94,7 +94,7 @@
                             <tr>
                                 <td cdk:passThrough="onkeypress:ontargetkeypress onkeydown:ontargetkeydown onkeyup:ontargetkeyup">
                                     <div>
-                                        <div id="#{clientId}TargetList" class="rf-pick-target">
+                                        <div id="#{clientId}TargetList" class="rf-pick-tgt">
                                             <input id="#{clientId}TargetListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
                                             <cdk:object type="java.lang.Object" name="targetCaption" value="#{component.attributes['targetCaption']}" />
                                             <c:if test="#{! empty targetCaption}">
@@ -116,7 +116,7 @@
                                                             <div id="#{clientId}headerBox" class="rf-pick-lst">
                                                                 <table class="rf-pick-tbl" cellpadding="0" cellspacing="0">
                                                                     <c:if test="#{isHeaderExists(facesContext, component)}">
-                                                                        <thead class="rf-pick-lst-header">
+                                                                        <thead class="rf-pick-lst-hdr">
                                                                             <cdk:call expression="encodeTargetHeader(facesContext, component);" />
                                                                         </thead>
                                                                     </c:if>
@@ -137,7 +137,7 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-up-top')}" disabled="#{disabled}">#{component.attributes['upTopText']}</button>
+                                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-up-tp')}" disabled="#{disabled}">#{component.attributes['upTopText']}</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -147,12 +147,12 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-down')}" disabled="#{disabled}">#{component.attributes['downText']}</button>
+                                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-dn')}" disabled="#{disabled}">#{component.attributes['downText']}</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-down-bottom')}" disabled="#{disabled}">#{component.attributes['downBottomText']}</button>
+                                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-dn-bt')}" disabled="#{disabled}">#{component.attributes['downBottomText']}</button>
                                                 </td>
                                             </tr>
                                         </table>
