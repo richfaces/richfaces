@@ -604,11 +604,11 @@
                         <name>Auto-saving</name>
                     </sample>
                     <sample>
-                        <id>toolbar-and-skinning</id>
+                        <id>toolbarAndSkinning</id>
                         <name>Toolbar and Skinning</name>
                     </sample>
                     <sample>
-                        <id>advanced-configuration</id>
+                        <id>advancedConfiguration</id>
                         <name>Advanced Configuration</name>
                     </sample>
                 </samples>
