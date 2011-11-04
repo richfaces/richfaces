@@ -45,7 +45,7 @@ public class OrderingListRendererBase extends SelectManyRendererBase {
     public static String CSS_PREFIX = "rf-ord";
 
     public void encodeHeader(FacesContext facesContext, UIComponent component) throws IOException {
-        SelectManyHelper.encodeHeader(facesContext, component, this, "rf-ord-header", "rf-ord-header-cell");
+        SelectManyHelper.encodeHeader(facesContext, component, this, "rf-ord-hdr", "rf-ord-hdr-c");
     }
 
     public void encodeRows(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {

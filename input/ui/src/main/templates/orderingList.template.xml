@@ -32,7 +32,7 @@
                             <input id="#{clientId}ListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
                             <cdk:object type="java.lang.Object" name="caption" value="#{component.attributes['caption']}" />
                             <c:if test="#{! empty caption}">
-                                <div class="rf-ord-caption">
+                                <div class="rf-ord-cptn">
                                     #{caption}
                                 </div>
                             </c:if>
@@ -48,7 +48,7 @@
                                         </c:when>
                                         <c:otherwise>
                                             <div id="#{clientId}headerBox" class="rf-ord-lst">
-                                                <table class="rf-ord-internal-table" cellpadding="0" cellspacing="0">
+                                                <table class="rf-ord-tbl" cellpadding="0" cellspacing="0">
                                                     <c:if test="#{isHeaderExists(facesContext, component)}">
                                                         <thead class="rf-ord-lst-header">
                                                             <cdk:call expression="encodeHeader(facesContext, component);" />

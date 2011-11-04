@@ -8,7 +8,7 @@
     display: inline-block;
 }
 
-.rf-ord-header {
+.rf-ord-hdr {
     vertical-align: middle;
     text-align: left;
     height: 22px;
@@ -23,11 +23,11 @@
     color: '#{richSkin.headerTextColor}';
 }
 
-.rf-ord-header-cell {
+.rf-ord-hdr-c {
     padding : 0 0.5em;
 }
 
-.rf-ord-source-caption, .rf-ord-target-caption {
+.rf-ord-cptn {
     font-size: '#{richSkin.headerSizeFont}';
     font-family: '#{richSkin.headerFamilyFont}';
     font-weight: '#{richSkin.headerWeightFont}';
@@ -91,10 +91,6 @@ input.rf-ord-dflt-lbl {
     color: #b3b3b3;
 }
 
-.rf-ord-cell {
-    padding : 0 0.5em;
-}
-
-.rf-ord-internal-table {
+.rf-ord-tbl {
     width : 100%;
 }
