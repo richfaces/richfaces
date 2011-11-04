@@ -242,15 +242,15 @@
                 <name>rich:notify</name>
                 <samples>
                     <sample>
-                        <id>notify-messages</id>
+                        <id>notifyMessages</id>
                         <name>Notify Messages</name>
                     </sample>
                     <sample>
-                        <id>notify-attributes</id>
+                        <id>notifyAttributes</id>
                         <name>Attributes of Notify</name>
                     </sample>
                     <sample>
-                        <id>stacking-messages</id>
+                        <id>stackingMessages</id>
                         <name>Message Stacking</name>
                     </sample>
                 </samples>
