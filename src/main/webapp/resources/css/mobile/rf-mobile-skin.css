@@ -375,7 +375,14 @@ td.acent {
 rich:tree
 *************************************************/
 .rf-trn-hnd {
-    padding: 7px 0 7px 0;
+    padding: 3px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background-color: #fff;
+    color: #BED6F8;
+    border-width: 1px;
+    border-style: solid;
 }
 
 .rf-trn-lbl {
