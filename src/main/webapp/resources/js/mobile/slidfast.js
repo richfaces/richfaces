@@ -30,15 +30,7 @@ var slidfast = {
         this.hideURLBar();
         //set the default page
         this.focusPage = document.getElementById(this.defaultPageID);
-
-        if (location.hash == '') {
-            //slide to the default page
-            this.slideTo(this.focusPage.id);
-            //set the default hash so page can be bookmarked/entered into page history
-            location.hash = this.defaultPageHash;
-        } else {
-            this.locationChange();
-        }
+        this.locationChange();
     },
 
     defaultPageID: null,
@@ -57,7 +49,7 @@ var slidfast = {
     slideTo :   function (id) {
         //check for double hash change call and no hash scenario on
         //initial page load.
-        if (id == this.focusPage.id && location.hash != '') {
+        if (id == this.focusPage.id && (location.hash != "#" + this.defaultPageHash && location.hash != '')) {
             return;
         }
         var focusPage = this.focusPage;
@@ -101,8 +93,8 @@ var slidfast = {
     },
 
     locationChange: function() {
-        if (location.hash === "#" + this.defaultPageHash) {
-            this.slideTo(slidfast.defaultPageID);
+        if (location.hash === "#" + this.defaultPageHash || location.hash == '') {
+            this.slideTo(this.defaultPageID);
             //we're on the default page, so no need for back button
             document.getElementById("back-button").className = 'hide-button';
         } else {

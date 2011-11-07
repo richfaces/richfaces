@@ -54,6 +54,7 @@
                    <a4j:status onstart="#{rich:element('ajaxLoader')}.style.visibility='visible'" onstop="#{rich:element('ajaxLoader')}.style.visibility='hidden'" />
                 </div>
             </header>
+            <a4j:queue requestDelay="2000" rendered="#{(userAgent.phone || userAgent.tablet)}"/>
             <h:form style="width:100%;height:100%;">
             <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="slidfast.slideTo('component-page')">
                 <f:param name="demo" value="param1"/>
