@@ -156,6 +156,10 @@
                 return;
             },
 
+            getList: function() {
+                return this.list;
+            },
+
             up: function() {
                 this.keepingFocus = true;
                 this.list.setFocus();
