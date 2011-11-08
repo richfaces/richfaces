@@ -374,7 +374,7 @@ td.acent {
 /*************************************************
 rich:tree
 *************************************************/
-.rf-trn-hnd {
+.rf-trn-hnd-exp, .rf-trn-hnd-colps {
     padding: 3px;
     border-radius: 3px;
     -moz-border-radius: 3px;
