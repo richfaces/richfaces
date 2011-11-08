@@ -752,7 +752,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo mobileExclude="true">
                 <id>hashParam</id>
                 <name>rich:hashParam</name>
                 <samples>
