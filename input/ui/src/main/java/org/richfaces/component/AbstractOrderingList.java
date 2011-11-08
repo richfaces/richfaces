@@ -30,6 +30,9 @@ public abstract class AbstractOrderingList extends AbstractOrderingComponent imp
     @Attribute()
     public abstract String getVar();
 
+    @Attribute
+    public abstract String getCaption();
+
     @Attribute(events = @EventName("listclick"))
     public abstract String getOnlistclick();
 
