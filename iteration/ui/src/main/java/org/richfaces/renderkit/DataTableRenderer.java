@@ -192,9 +192,11 @@ public class DataTableRenderer extends AbstractTableRenderer {
 
         Iterator<UIComponent> components = row.columns();
         int columnNumber = 0;
+        boolean rowBegun = false;
         while (components.hasNext()) {
             UIComponent child = components.next();
             if (child.isRendered()) {
+                rowBegun = true;
                 if (child instanceof Row) {
                     boolean isSubtable = (child instanceof AbstractCollapsibleSubTable);
                     // new row -> close </tr>
@@ -268,6 +270,17 @@ public class DataTableRenderer extends AbstractTableRenderer {
                                 partialEnd(facesContext);
                             }
                         }
+                    }
+                }
+            } else if (!components.hasNext() && rowBegun) {
+                encodeRowEnd(writer);
+
+                if (!parentTbodyStart && tbodyStart) {
+                    encodeTableBodyEnd(writer);
+                    tbodyStart = false;
+
+                    if (partialUpdate) {
+                        partialEnd(facesContext);
                     }
                 }
             }

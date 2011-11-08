@@ -36,6 +36,12 @@ public abstract class AbstractPickList extends AbstractOrderingComponent {
     @Attribute(defaultValue = "⇐ Remove all")
     public abstract String getRemoveAllText();
 
+    @Attribute(defaultValue = "false")
+    public abstract boolean isSwitchByClick();
+
+    @Attribute(defaultValue = "true")
+    public abstract boolean isSwitchByDblClick();
+
     // Source list attributes
     @Attribute(events = @EventName("sourceclick"))
     public abstract String getOnsourceclick();

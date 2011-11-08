@@ -23,6 +23,7 @@ package org.richfaces.event;
 import javax.faces.component.UIComponent;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.FacesListener;
+import javax.faces.event.PhaseId;
 
 /**
  * @author Wesley Hales
@@ -45,6 +46,7 @@ public class DataScrollEvent extends ActionEvent {
      */
     public DataScrollEvent(UIComponent component, String thisOldScrolVal, String thisNewScrolVal, int page) {
         super(component);
+        this.setPhaseId(PhaseId.INVOKE_APPLICATION);
         oldScrolVal = thisOldScrolVal;
         newScrolVal = thisNewScrolVal;
         this.page = page;

@@ -27,13 +27,13 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.1.0.20111014-M3</version>
+        <version>4.1.0-SNAPSHOT</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui.input</groupId>
     <artifactId>richfaces-ui-input-ui</artifactId>
-    <name>Richfaces UI Components: Input UI</name>
+    <name>RichFaces UI Components: Input UI</name>
     <packaging>jar</packaging>
     <build>
         <plugins>

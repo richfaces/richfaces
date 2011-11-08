@@ -118,7 +118,7 @@ public class MessageRendererBase extends RendererBase {
     private Predicate<MessageForRender> getMessagesLevelFilter(FacesContext context, UIComponent component) {
 
         final Severity level = getLevel(component);
-        final boolean displayAll = isComponentMessage(component);
+        final boolean displayAll = isComponentMessages(component);
         final boolean redisplay = Boolean.TRUE.equals(component.getAttributes().get("redisplay"));
         Predicate<MessageForRender> predicate = new Predicate<MessageForRender>() {
             private int count = 0;

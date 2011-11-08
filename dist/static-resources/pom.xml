@@ -25,13 +25,13 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.1.0.20111014-M3</version>
+        <version>4.1.0-SNAPSHOT</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>static-resources</artifactId>
     <packaging>jar</packaging>
-    <name>Richfaces Static Resources</name>
+    <name>RichFaces UI Components Static Resources</name>
 
     <properties>
         <faces.resources.dir>${project.build.outputDirectory}/META-INF/resources</faces.resources.dir>
@@ -154,7 +154,6 @@
             <artifactId>jstl-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -249,7 +248,6 @@
                         </configuration>
                     </execution>
                 </executions>
-
             </plugin>
         </plugins>
     </build>

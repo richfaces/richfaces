@@ -26,15 +26,14 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.1.0.20111014-M3</version>
+        <version>4.1.0-SNAPSHOT</version>
         <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui.output</groupId>
     <artifactId>richfaces-ui-output-aggregator</artifactId>
-    <version>4.1.0.20111014-M3</version>
     <packaging>pom</packaging>
-    <name>Richfaces UI Components: Output Aggregator</name>
+    <name>RichFaces UI Components: Output Aggregator</name>
 
     <modules>
         <module>api</module>

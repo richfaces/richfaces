@@ -25,15 +25,14 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.1.0.20111014-M3</version>
+        <version>4.1.0-SNAPSHOT</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui.misc</groupId>
     <artifactId>richfaces-ui-misc-ui</artifactId>
-    <version>4.1.0.20111014-M3</version>
     <packaging>jar</packaging>
-    <name>Richfaces UI Misc UI</name>
+    <name>RichFaces UI Components: Miscellanous UI</name>
 
     <build>
         <plugins>

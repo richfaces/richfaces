@@ -25,13 +25,13 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.1.0.20111014-M3</version>
+        <version>4.1.0-SNAPSHOT</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui.validator</groupId>
     <artifactId>richfaces-ui-validator-ui</artifactId>
-    <name>Richfaces UI Components: validator ui</name>
+    <name>RichFaces UI Components: Validator ui</name>
     <packaging>jar</packaging>
 
     <build>
@@ -46,7 +46,7 @@
             <plugin>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>maven-mockgenerator-plugin</artifactId>
-                <version>1.0.6</version>
+                <version>1.0.7</version>
                 <executions>
                     <execution>
                         <id>generateTestMocks</id>

@@ -108,15 +108,26 @@
     };
 
     var getValue = function(element) {
-        var value;
+        var value = "";
         if (valueExtractors[element.type]) {
             value = valueExtractors[element.type](element);
         } else if (undefined !== element.value) {
             value = element.value;
         } else {
-            var component = rf.$(element);
+            var component = $(element);
             // TODO: add getValue to baseComponent and change jsdocs
-            value = component && typeof component["getValue"] === "function" ? component.getValue() : "";
+            if (component) {
+                if (typeof component["getValue"] === "function") {
+                    value = component.getValue();
+                } else {
+                    var genericInputSelector = ":not(:submit):not(:button):input:visible:enabled:first";
+                    var nestedComponents = $(genericInputSelector, component);
+                    if (nestedComponents) {
+                        var nestedComponent = nestedComponents[0];
+                        value = valueExtractors[nestedComponent.type](nestedComponent);
+                    }
+                }
+            }
         }
         return value;
     }
@@ -289,9 +300,10 @@
             throw rf.csv.getMessage(msg, 'REGEX_VALIDATOR_PATTERN_NOT_SET', []);
         }
 
+        var matchPattern = makePatternAMatch(pattern);
         var re;
         try {
-            re = new RegExp(pattern);
+            re = new RegExp(matchPattern);
         } catch (e) {
             throw rf.csv.getMessage(msg, 'REGEX_VALIDATOR_MATCH_EXCEPTION', []);
         }
@@ -299,6 +311,16 @@
             throw rf.csv.interpolateMessage(msg, [pattern,label]);
         }
 
+    };
+
+    var makePatternAMatch = function(pattern) {
+        if (! (pattern.slice(0, 1) === '^') ) {
+            pattern = '^' + pattern;
+        }
+        if (! (pattern.slice(-1) === '$') ) {
+            pattern = pattern; + '$';
+        }
+        return pattern;
     }
     /*
      * Validators implementation

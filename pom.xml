@@ -33,9 +33,9 @@
 
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-ui-aggregator</artifactId>
-    <version>4.1.0.20111014-M3</version>
+    <version>4.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>RichFaces UI: Aggregator</name>
+    <name>RichFaces UI Components Aggregator</name>
 
     <modules>
         <module>parent</module>
@@ -45,8 +45,8 @@
         <module>misc</module>
         <module>output</module>
         <module>input</module>
-        <module>dist</module>
         <module>dnd</module>
         <module>validator</module>
+        <module>dist</module>
     </modules>
 </project>

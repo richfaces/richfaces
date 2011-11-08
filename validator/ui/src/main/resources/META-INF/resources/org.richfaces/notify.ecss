@@ -69,6 +69,10 @@ html > body .rf-ntf {
     background-image:"url(#{resource['org.richfaces:notify_close.png']})";
 }
 
+.rf-ntf-tl {
+    font-weight: bold;
+}
+
 .rf-ntf-txt {
     display: block;
 }

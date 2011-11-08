@@ -21,10 +21,15 @@
  */
 package org.richfaces.renderkit;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
+import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractNotifyStack;
 import org.richfaces.component.NotifyAttributes;
@@ -57,6 +62,37 @@ public class NotifyRendererUtils {
         String stackId = getStackId(facesContext, component);
         if (stackId != null) {
             options.put("stackId", stackId);
+        }
+    }
+
+    public static void addFacetOrAttributeAsOption(String name, Map<String, Object> options, FacesContext facesContext,
+            UIComponent component) {
+
+        UIComponent facet = component.getFacet(name);
+        if (facet != null && facet.isRendered()) {
+            ResponseWriter originalResponseWriter = facesContext.getResponseWriter();
+            try {
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                PrintWriter printWriter = new PrintWriter(outputStream);
+                ResponseWriter newResponseWriter = facesContext.getRenderKit().createResponseWriter(printWriter, null, null);
+                facesContext.setResponseWriter(newResponseWriter);
+                facet.encodeAll(facesContext);
+                printWriter.flush();
+                String value = new String(outputStream.toByteArray());
+                options.put(name, value);
+            } catch (IOException e) {
+                throw new FacesException("Can't encode facet '" + name + "' of component '" + component.getClass().getName()
+                        + "'", e);
+            } finally {
+                facesContext.setResponseWriter(originalResponseWriter);
+            }
+            return;
+        }
+
+        Object attribute = component.getAttributes().get(name);
+        if (attribute != null) {
+            options.put(name, attribute.toString());
+            return;
         }
     }
 }

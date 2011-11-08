@@ -16,11 +16,13 @@ import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.google.common.collect.Maps;
 
+@Ignore
 @RunWith(MockTestRunner.class)
 public class TestCaptureEL extends ELTestBase {
     @Mock

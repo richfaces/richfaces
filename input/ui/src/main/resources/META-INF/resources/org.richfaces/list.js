@@ -59,6 +59,7 @@
     var bindEventHandlers = function () {
         var handlers = {};
         handlers["click" + this.namespace] = $.proxy(this.onClick, this);
+        handlers["dblclick" + this.namespace] = $.proxy(this.onDblclick, this);
         handlers["mouseover" + this.namespace] = onMouseOver;
         if (!$.browser.msie && !$.browser.opera) {
             handlers["mouseenter" + this.namespace] = onMouseEnter;
@@ -208,6 +209,15 @@
                 var clickModified = e.metaKey;
                 if (!this.disabled) {
                     this.__select(item, clickModified && this.clickRequiredToSelect);
+                }
+            },
+
+            onDblclick: function(e) {
+                this.setFocus();
+                var item = this.__getItem(e);
+                this.processItem(item);
+                if (!this.disabled) {
+                    this.__select(item, false);
                 }
             },
 
