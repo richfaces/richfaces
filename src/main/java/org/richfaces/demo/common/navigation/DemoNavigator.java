@@ -45,7 +45,7 @@ public class DemoNavigator implements Serializable {
                 currentSample = null;
             }
             if (currentDemo == null) {
-                currentDemo = groups.get(0).getDemos().get(0);
+                currentDemo = groups.iterator().next().getDemos().iterator().next();
                 currentSample = null;
             }
         }
@@ -59,7 +59,7 @@ public class DemoNavigator implements Serializable {
                 currentSample = getCurrentDemo().getSampleById(id);
             }
             if (currentSample == null) {
-                currentSample = getCurrentDemo().getSamples().get(0);
+                currentSample = getCurrentDemo().getSamples().iterator().next();
             }
         }
         return currentSample;
@@ -137,6 +137,10 @@ public class DemoNavigator implements Serializable {
 
     public void setGroups(List<GroupDescriptor> groups) {
         this.groups = groups;
+    }
+
+    public void getFilteredGroups() {
+
     }
 
     public String getSample() {

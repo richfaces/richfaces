@@ -65,17 +65,34 @@ public class BaseDescriptor implements Serializable {
      * @return
      */
     public boolean isCurrentlyEnabled() {
-        if (mobileExclude != null && mobileExclude && evaluateBooleanExpression("#{userAgent.mobile}")) {
+        if (mobileExclude != null && mobileExclude && evaluateBooleanRequestScopedExpression("#{userAgent.mobile}")) {
             return false;
         }
-        if (enabled != null && !evaluateBooleanExpression(enabled)) {
+        if (enabled != null && !evaluateBooleanRequestScopedExpression(enabled)) {
             return false;
         }
         return true;
     }
 
-    private boolean evaluateBooleanExpression(String expression) {
+    /**
+     * Caches results of {@link #evaluateBooleanExpression(String, FacesContext)} so one expression is evaluated at most once
+     * per request
+     */
+    private boolean evaluateBooleanRequestScopedExpression(String expression) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
+        String key = this.getClass().getName() + expression;
+        Boolean result = (Boolean) facesContext.getAttributes().get(key);
+        if (result == null) {
+            result = evaluateBooleanExpression(expression, facesContext);
+            facesContext.getAttributes().put(key, result);
+        }
+        return result;
+    }
+
+    /**
+     * Evaluates given expression in provided context
+     */
+    private boolean evaluateBooleanExpression(String expression, FacesContext facesContext) {
         ELContext elContext = facesContext.getELContext();
         ValueExpression enabledVE = ELUtils.createValueExpression(expression);
         try {

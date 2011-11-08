@@ -16,6 +16,18 @@
         <ui:param name="openLabel" value="View Source" />
         <ui:param name="hideLabel" value="Hide Source" />
     </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/lists/ListSelectBean.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View ListSelectBean Source" />
+        <ui:param name="hideLabel" value="Hide ListSelectBean Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tables/model/capitals/CapitalsConverter.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View CapitalsConverter Source" />
+        <ui:param name="hideLabel" value="Hide CapitalsConverter Source" />
+    </ui:include>
 </ui:composition>
 
 </html>

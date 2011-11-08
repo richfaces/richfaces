@@ -12,7 +12,7 @@ import java.util.List;
 
 @ManagedBean
 @RequestScoped
-public class PickListBean {
+public class ListSelectBean {
     @ManagedProperty(value = "#{capitalsParser.capitalsList}")
     private List<Capital> capitals;
     private List<Capital> selectedCapitals;

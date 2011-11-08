@@ -31,6 +31,8 @@ body {
     padding: 0;
     height: 100%;
     font: 1.2em "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
+    /*width:100%;*/
+
 }
 
 a {
@@ -45,9 +47,7 @@ Mobile Device Page Setup
     /*background: #000 -moz-linear-gradient(top, #0e0e0e, #313131);*/
     /*background: #000 -webkit-gradient(linear, left top, left bottom, from(#0e0e0e), to(#313131));*/
     position: relative;
-    width: 100%;
-    height: 100%;
-    /*overflow-x: hidden;*/
+
 }
 
 #page-container {
@@ -61,6 +61,7 @@ Mobile Device Page Setup
     position: absolute;
     width: 100%;
     height: 100%;
+    top: 0;
     /*activate the GPU for compositing each page */
     -webkit-transform: translate3d(0, 0, 0);
 }
@@ -68,12 +69,6 @@ Mobile Device Page Setup
 /*************************************************
 UX Utils
 *************************************************/
-
-.stage-center {
-    top: 0;
-    left: 0;
-    /*opacity: 100;*/
-}
 
 .none {
     display: none
@@ -119,7 +114,18 @@ Flip Transition
 /*************************************************
 Device Specific Styles
 *************************************************/
+.stage-center {
+    left: 0;
+    opacity: 100;
+}
 
+.stage-left,
+.stage-right{
+    width:1px;
+    height:100%;
+    overflow: hidden;
+    opacity: 0;
+}
 /* iOS/android phone landscape screen width*/
 @media screen and (max-device-width: 480px) and (orientation:landscape) {
     .stage-left {
@@ -129,15 +135,9 @@ Device Specific Styles
     .stage-right {
         left: 480px;
     }
-
-    .page {
-        width: 480px;
-    }
-
 }
 
-/* iOS/android phone portrait screen width*/
-@media screen and (max-device-width: 320px) and (orientation:portrait) {
+@media screen and (max-device-width: 480px) and (orientation:portrait) {
     .stage-left {
         left: -320px;
     }
@@ -145,14 +145,31 @@ Device Specific Styles
     .stage-right {
         left: 320px;
     }
+}
 
-    .page {
-        width: 320px;
+@media screen and (min-device-width: 600px) and (orientation:portrait) {
+    .stage-left {
+        left: -600px;
+    }
+
+    .stage-right {
+        left: 600px;
+    }
+}
+
+/* iOS/android phone portrait screen width*/
+@media screen and (max-device-width: 320px) {
+    .stage-left {
+        left: -320px;
+    }
+
+    .stage-right {
+        left: 320px;
     }
 }
 
 /*catch all for at or larger than handheld landscape device widths*/
-@media screen and (min-device-width: 481px) {
+@media screen and (min-device-width: 1000px) {
     .stage-left {
         left: -1024px;
     }
@@ -161,14 +178,57 @@ Device Specific Styles
         left: 1024px;
     }
 
-    .page {
-
-    }
 }
 
 /*************************************************
 Page Formatting - Skin
 *************************************************/
+
+/*Custom Buttons and bars*/
+.left-header-button {
+   font-weight: bold;
+   font-size: 12px;
+   color: #fff;
+   text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
+   text-align: center;
+   text-overflow: ellipsis;
+   height: 30px;
+   width: 60px;
+   position: absolute;
+   top: 7px;
+   left: 5px;
+   line-height: 30px;
+}
+
+.right-header-button {
+   font-weight: bold;
+   font-size: 12px;
+   color: #fff;
+   text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
+   text-align: center;
+   text-overflow: ellipsis;
+   height: 30px;
+   width: 60px;
+   position: absolute;
+   top: 7px;
+   right: 5px;
+   line-height: 30px;
+}
+
+.basic-button {
+   background: #000 -moz-linear-gradient(90deg, rgba(0, 0, 0, .3) 33%, rgba(255, 255, 255, .1) 123%);
+   background: #000 -webkit-gradient(linear, left top, left bottom, from(#717172), to(#0f0f10), color-stop(0.5, #3a3a3a), color-stop(0.5, #0d0d0f));
+   border-radius: 7px;
+   mozborder-radius: 7px;
+   webkitborder-radius: 7px;
+   border: none;
+
+}
+
+.hide-button {
+    display: none;
+    opacity: 0;
+}
 
 div#browser > header > div {
    position: relative;
@@ -426,22 +486,7 @@ inputNumberSlider
 rich:collapsibleSubTable
 *************************************************/
 
-.rf-dt-c {
-    position: relative;
-    padding: 4px 4px 4px 16px;
-}
 
-.rf-csttg-exp {
-    position: absolute;
-    left: 0;
-    width: 100%;
-}
-
-.rf-csttg-colps {
-    position: absolute;
-    left: 0;
-    width: 100%;
-}
 
 /*************************************************
 rich:dataScroller
@@ -488,7 +533,11 @@ tr.rf-tb-cntr td a{
 .rf-tb-itm {
     padding: 5px 8px;
 }
-
+/*RF-10873:modal panel backgroun covering whole page*/
+.rf-pp-shade {
+    width: 10000px;
+    height: 10000px;
+}
 /*************************************************
 rich:toolbar
 *************************************************/
@@ -537,4 +586,34 @@ add rounded corners
    -moz-border-radius: 8px;
    -webkit-border-radius: 8px;
     padding:  10px;
+}
+
+/*************************************************
+rich:inplaceInput
+*************************************************/
+
+.rf-ii-lbl {
+    font-size: 22px;
+}
+
+
+/*************************************************
+rich:inputNumberSpinner
+*************************************************/
+
+.rf-insp-dec, .rf-insp-inc, .rf-insp-dec-dis, .rf-insp-inc-dis {
+    height: 20px;
+    width: 27px;
+}
+
+input.rf-insp-inp[type="text"] {
+    font-size: 34px;
+}
+
+/*************************************************
+rich:select
+*************************************************/
+
+.rf-sel-btn-arrow {
+   height: 30px;
 }

@@ -7,6 +7,7 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	<h:form>
+        <rich:messages />
 		<rich:extendedDataTable value="#{carsBean.allInventoryItems}"
 			var="car" id="table" frozenColumns="2"
 			style="height:300px; width:500px;" selectionMode="none">
@@ -36,7 +37,7 @@
 				<f:facet name="header">
 					<h:panelGroup>
 						<h:outputText value="Mileage &lt; " />
-						<h:inputText value="#{carsFilteringBean.mileageFilter}">
+						<h:inputText value="#{carsFilteringBean.mileageFilter}" label="Mileage Filter">
 							<f:convertNumber groupingUsed="true" />
 							<f:validateLongRange maximum="500000" />
 							<a4j:ajax event="blur" render="table" execute="@this" />
@@ -50,7 +51,7 @@
 				<f:facet name="header">
 					<h:panelGroup>
 						<h:outputText value="VIN " />
-						<h:inputText value="#{carsFilteringBean.vinFilter}">
+						<h:inputText value="#{carsFilteringBean.vinFilter}" label="VIN Filter">
 							<a4j:ajax event="blur" render="table" execute="@this" />
 						</h:inputText>
 					</h:panelGroup>

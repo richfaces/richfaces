@@ -25,7 +25,7 @@ public class NavigationParser {
     private List<GroupDescriptor> groupsList;
 
     @XmlRootElement(name = "root")
-    private static final class CapitalsHolder {
+    private static final class GroupsHolder {
         private List<GroupDescriptor> groups;
 
         @XmlElement(name = "group")
@@ -45,8 +45,8 @@ public class NavigationParser {
             URL resource = ccl.getResource("org/richfaces/demo/data/common/navigation.xml");
             JAXBContext context;
             try {
-                context = JAXBContext.newInstance(CapitalsHolder.class);
-                CapitalsHolder capitalsHolder = (CapitalsHolder) context.createUnmarshaller().unmarshal(resource);
+                context = JAXBContext.newInstance(GroupsHolder.class);
+                GroupsHolder capitalsHolder = (GroupsHolder) context.createUnmarshaller().unmarshal(resource);
                 groupsList = capitalsHolder.getGroups();
             } catch (JAXBException e) {
                 throw new FacesException(e.getMessage(), e);
