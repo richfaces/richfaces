@@ -89,7 +89,7 @@
             pnotifyOptions.pnotify_stack = stack;
             pnotifyOptions.pnotify_addclass += ' rf-ntf-pos-' + stack.position;
             pnotifyOptions.pnotify_after_close = function(pnotify) {
-                var index = stack.notifications.indexOf(pnotify);
+                var index = $.inArray(pnotify, stack.notifications);
                 if (index >= 0) {
                     array_remove(stack.notifications, index);
                 }
