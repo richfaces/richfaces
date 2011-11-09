@@ -77,7 +77,7 @@
     rf.ui.Notify = function(options) {
         var options = $.extend({}, defaultOptions, options);
         
-        if (options.severity) {
+        if (typeof options.severity == "number") {
             var severity = severityClasses[options.severity];
             options.styleClass = options.styleClass ? severity + " " + options.styleClass : severity;
         }
