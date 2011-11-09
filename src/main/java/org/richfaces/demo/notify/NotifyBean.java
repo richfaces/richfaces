@@ -14,7 +14,7 @@ public class NotifyBean implements Serializable {
     private int stayTime = 1500;
     private boolean sticky = false;
     private boolean nonblocking = false;
-    private int nonblockingOpacity = 70;
+    private double nonblockingOpacity = 0.5;
     private boolean showShadow = false;
     private boolean showCloseButton = true;
 
@@ -45,11 +45,11 @@ public class NotifyBean implements Serializable {
         this.nonblocking = nonblocking;
     }
 
-    public int getNonblockingOpacity() {
+    public double getNonblockingOpacity() {
         return nonblockingOpacity;
     }
 
-    public void setNonblockingOpacity(int nonblockingOpacity) {
+    public void setNonblockingOpacity(double nonblockingOpacity) {
         this.nonblockingOpacity = nonblockingOpacity;
     }
 
