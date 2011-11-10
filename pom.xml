@@ -45,7 +45,6 @@
                 <module>../core</module>
                 <module>../cdk</module>
                 <module>../components</module>
-                <module>../archetype-simpleapp</module>
                 <module>../archetypes</module>
                 <module>../dev-examples</module>
                 <module>../showcase</module>
