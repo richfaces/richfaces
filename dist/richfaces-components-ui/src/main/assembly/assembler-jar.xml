@@ -9,6 +9,9 @@
     <containerDescriptorHandlers>
         <containerDescriptorHandler>
             <handlerName>faces-xml</handlerName>
+            <configuration>
+                <outputDirectory>${project.build.directory}/taglibs</outputDirectory>
+            </configuration>
         </containerDescriptorHandler>
         <containerDescriptorHandler>
             <handlerName>resource-mappings-properties</handlerName>
@@ -16,6 +19,7 @@
         <containerDescriptorHandler>
             <handlerName>taglib-xml</handlerName>
             <configuration>
+                <outputDirectory>${project.build.directory}/taglibs</outputDirectory>
                 <taglibs>
                     <taglib>
                         <targetNamespace>http://richfaces.org/a4j</targetNamespace>
