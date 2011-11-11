@@ -38,7 +38,7 @@
         'stayTime': 'pnotify_delay'
     };
     
-    var severityClasses = ["rf-ntf-info", "rf-ntf-warn", "rf-ntf-error", "rf-ntf-fatal"];
+    var severityClasses = ["rf-ntf-inf", "rf-ntf-wrn", "rf-ntf-err", "rf-ntf-ftl"];
     
     var translateProperties = function(target, source, translation) {
         for (var attr in source) {

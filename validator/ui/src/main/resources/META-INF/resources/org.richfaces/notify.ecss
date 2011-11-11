@@ -6,21 +6,20 @@
     z-index: 9999;
 }
 
-.rf-ntf-info {
+.rf-ntf-inf {
     color: '#{richSkin.generalTextColor}';
 }
 
-.rf-ntf-warn {
-    color: orange;
+.rf-ntf-wrn {
+    color: '#{richSkin.warningColor}';
 }
 
-.rf-ntf-error {
-    color: red;
+.rf-ntf-err {
+    color: '#{richSkin.errorColor}';
 }
 
-.rf-ntf-fatal {
-    color: red;
-    font-weight: bold;
+.rf-ntf-ftl {
+    color: '#{richSkin.errorColor}';
 }
 
 html > body .rf-ntf {
@@ -69,11 +68,11 @@ html > body .rf-ntf {
     background-image:"url(#{resource['org.richfaces:notify_close.png']})";
 }
 
-.rf-ntf-tl {
+.rf-ntf-sum {
     font-weight: bold;
 }
 
-.rf-ntf-txt {
+.rf-ntf-det {
     display: block;
 }
 
@@ -129,22 +128,22 @@ html > body .rf-ntf {
     background-image:"url(#{resource['org.richfaces.images:triangleDown.png']})";
 }
 
-.rf-ntf-info .rf-ntf-ico {
+.rf-ntf-inf .rf-ntf-ico {
     display: block;
     background-image: "url(#{resource['org.richfaces:info.png']})";
 }
 
-.rf-ntf-warn .rf-ntf-ico {
+.rf-ntf-wrn .rf-ntf-ico {
     display: block;
     background-image: "url(#{resource['org.richfaces:warning.png']})";
 }
 
-.rf-ntf-error .rf-ntf-ico {
+.rf-ntf-err .rf-ntf-ico {
     display: block;
     background-image: "url(#{resource['org.richfaces:error.png']})";
 }
 
-.rf-ntf-fatal .rf-ntf-ico {
+.rf-ntf-ftl .rf-ntf-ico {
     display: block;
     background-image: "url(#{resource['org.richfaces:fatal.png']})";
 }
