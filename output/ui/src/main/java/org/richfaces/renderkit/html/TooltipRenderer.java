@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -129,6 +130,9 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         writer.startElement(getMarkupElement(tooltip), tooltip);
         writer.writeAttribute(ID_ATTRIBUTE, tooltip.getClientId(context) + ":content", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, "rf-tt-cnt", null);
+        if (tooltip.getChildCount() == 0) {
+            writer.write(tooltip.getValue().toString());
+        }
     }
 
     private void encodeLoading(ResponseWriter writer, FacesContext context, AbstractTooltip tooltip) throws IOException {
