@@ -60,7 +60,6 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.ListenersFor;
 import javax.faces.event.PhaseId;
-import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PostRestoreStateEvent;
 import javax.faces.event.PostValidateEvent;
 import javax.faces.event.PreRenderViewEvent;
@@ -83,10 +82,10 @@ import org.richfaces.log.RichfacesLogger;
  *
  * @author shura
  */
-@ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class),
-        @ListenerFor(systemEventClass = PostRestoreStateEvent.class), @ListenerFor(systemEventClass = PreRenderViewEvent.class) })
+@ListenersFor({ @ListenerFor(systemEventClass = PostRestoreStateEvent.class),
+        @ListenerFor(systemEventClass = PreRenderViewEvent.class) })
 public abstract class UIDataAdaptor extends UIComponentBase implements NamingContainer, UniqueIdVendor, IterationStateHolder,
-    ComponentSystemEventListener {
+        ComponentSystemEventListener {
     /**
      * <p>
      * The standard component family for this component.
@@ -1044,7 +1043,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
         // if clientId.startsWith(baseId + separatorChar)
         if (clientId.startsWith(baseId) && (clientId.length() > baseId.length())
-            && (clientId.charAt(baseId.length()) == separatorChar)) {
+                && (clientId.charAt(baseId.length()) == separatorChar)) {
             return true;
         }
 
@@ -1346,7 +1345,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
                             return false;
                         } else {
                             VisitContext directChildrenVisitContext = extendedVisitContext.createNamingContainerVisitContext(
-                                this, directSubtreeIdsToVisit);
+                                    this, directSubtreeIdsToVisit);
 
                             if (visitRows) {
                                 setRowKey(facesContext, null);
@@ -1437,12 +1436,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         super.processEvent(event);
 
-        if (event instanceof PostAddToViewEvent) {
-            getFacesContext().getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
-        }
-
         if (event instanceof PostRestoreStateEvent) {
-            getFacesContext().getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
             preDecode(getFacesContext());
         }
 
