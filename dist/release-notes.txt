@@ -1,3 +1,71 @@
+New in Version 4.1.0.CR1
+------------------------
+
+    - Hibernate validator upgraded to version 4.2
+    - Fixes to the VDL-DOC generation (tag library documentation)
+    - Fix whereby DnD scripts weren't getting loaded via ajax updates
+      https://issues.jboss.org/browse/RF-10994
+    - Move project compiler compatibility to 1.6 level
+    - Further improvements to the component mobile compatibility and the mobile showcase
+    - Many bugs fixed, improving the overall stability of the platform
+      https://issues.jboss.org/browse/RF/fixforversion/12317055
+
+
+
+New in Version 4.1.0.M4
+-----------------------
+
+    - Mobile showcase improvements: ajax status indicator, and improved component mobile compatibility
+    - Resource mapping context-param rename and sensible defaults
+    - Client-side validation regexp improvements, and compatibility with other JSF component sets
+    - File upload component has some new attributes, allowing for more control over is uploaded to the server
+    - rich:pickList gained switchByClick and switchByDblClick functionality
+    - jQuery upgrade to 1.6.4
+    - Archetype improvements to both simpleapp and the gae archetype
+    - Many bugs fixed, improving the overall stability of the platform
+      https://issues.jboss.org/browse/RF/fixforversion/12317054
+
+
+New in Version 4.1.0.M3
+-----------------------
+
+    - Mobile showcase demonstrating the mobile compatibility of the current component set
+    - Resource mapping feature for javascript and CSS resource packaging and minification
+    - Showcase deployed on OpenShift
+    - Showcase has samples for the new components
+    - Ajax push has a CDI interfaces for firing push events
+    - VDL-DOC (generated tag library documentation) linked to from the showcase
+    - Many more issues resolved:
+      https://issues.jboss.org/browse/RF/fixforversion/12318072
+
+
+New in Version 4.1.0.M2
+-----------------------
+
+    - jQuery upgraded to 1.6.2
+    - IE 9 support (taking advantage of the compatibility mode)
+    - Stabilization of the new components introduced in 4.1.0.M1:
+        rich:editor has been integrated with the standard RichFaces styling scheme
+        rich:notify has been better integrated into the RichFaces ecosystem,
+                    allowing them to consume Client-Side Validation messages
+        rich:pickList has picked up ordering capabilities in the target list
+    - Many more issues resolved:
+      https://issues.jboss.org/browse/RF/fixforversion/12316708
+
+
+New in Version 4.1.0.M1
+-----------------------
+
+    - Source code migrated to Git (http://github.com/richfaces)
+    - Push component improvements, more lightweight, decoupled from JMS, and support has been added for Comet
+    - rich:editor component added
+    - rich:notify component added
+    - rich:pickList component added
+    - rich:orderingList component added
+    - Many more issues resolved:
+      https://issues.jboss.org/browse/RF/fixforversion/12315856
+
+
 New in Version 4.0.Final
 ----------------------
 
