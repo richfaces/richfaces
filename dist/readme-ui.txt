@@ -2,7 +2,7 @@
 
                       RichFaces - Ajax enabled JSF 2.0 component library
 
-                                                   RichFaces 4.0.0.Final
+                                                 RichFaces 4.1.0-SNAPHOT
                                                     http://richfaces.org
                                                               March 2011
                      This software is distributed under the terms of the 
@@ -149,7 +149,7 @@ FUTURE RELEASES
 
 For information on future releases and new features that are planned for next
 version please visit project's wiki at:
-http://www.jboss.org/community/wiki/RichFaces40Planning
+http://community.jboss.org/wiki/RichFaces410ReleaseCenter
 
 
 GET INVOLVED
@@ -162,10 +162,10 @@ this sites
     - RichFaces source code:
       http://www.jboss.org/richfaces/sourcecode
 
-    - How to build RichFaces 4.0: 
+    - How to build RichFaces 4.X:
       http://community.jboss.org/docs/DOC-15747?uniqueTitle=false
     
-    - RichFaces 4.0 Directory structure:
+    - RichFaces 4.X Directory structure:
       http://community.jboss.org/wiki/RichFaces40BuildDirectoryStructure
 
     - RichFaces developer forums
@@ -243,6 +243,7 @@ rich:panelMenuItem
 rich:progressBar
 rich:tooltip
 rich:message
+rich:notify
 
 ---------------------------------
 Menus:
@@ -262,12 +263,19 @@ Input:
 ---------------------------------
 rich:autocomplete
 rich:inplaceInput
-rich:inplaceSelect
 rich:inputNumberSlider
 rich:inputNumberSpinner
-rich:select
 rich:calendar
 rich:fileUpload
+rich:editor
+
+---------------------------------
+Select:
+---------------------------------
+rich:select
+rich:inplaceSelect
+rich:orderingList
+richPickList
 
 ---------------------------------
 Trees:
