@@ -2,7 +2,7 @@
 
                       RichFaces - Ajax enabled JSF 2.0 component library
 
-                                          RichFaces 4.0.0.Final SHOWCASE
+                                       RichFaces 4.1.0-SNAPSHOT SHOWCASE
                                                     http://richfaces.org
                                                               March 2011
                      This software is distributed under the terms of the 
@@ -12,7 +12,9 @@
 
 RichFaces showcase is an application created to show RichFaces components
 in action. It contains a set of small use-cases implemented using RichFaces
-components. 
+components.
+
+ TODO (for 4.1.0.Final): Insert a paragraph describing the mobile compatibility of the showcase
 
 The examples shown in the application were chosen from the most popular
 questions at the user forum. You will find a lot of useful information on 
@@ -30,9 +32,9 @@ BUILDING AND RUNNING THE APPLICATION
     
     In order to build the Showcase application you will need:
 
-        - Maven 2.1.0 or later
+        - Maven 3.0.3 or later
         - Servers: Apache Tomcat 6.0 or any JEE6 application server 
-       	  (e.g. JBoss AS 6)
+       	  (e.g. JBoss AS 7)
         - JDK 1.6
 
     Also optional Additional Software would make it easy for you to work 
@@ -58,7 +60,7 @@ BUILDING AND RUNNING THE APPLICATION
 	 directory to start the server.
 
        - Deploying on JEE6 server (JBoss AS 6)
-       	 
+
 	 To build the project for a JEE6 server you need to navigate to the 
 	 /examples/richfaces-showcase and run
 
@@ -69,6 +71,20 @@ BUILDING AND RUNNING THE APPLICATION
 	 copy the .war file from 'target' folder to the JBOSS_HOME/server/default/deploy 
 	 folder (or change "default/" to used profile folder). Then, launch 
 	 the run.sh or run.bat script from JBOSS_HOME/bin/ directory to start 
+	 the server.
+
+       - Deploying on JBoss AS 7
+
+	 To build the project for a JEE6 server you need to navigate to the
+	 /examples/richfaces-showcase and run
+
+	 	mvn clean package -Pjbas7
+
+	 When you see the BUILD SUCCESSFUL message you can deploy the
+	 application on the server. To deploy it on the application server
+	 copy the .war file from 'target' folder to the JBOSS_HOME/standalone/deployments
+	 folder (or change "default/" to used profile folder). Then, launch
+	 the standalone.sh or standalone.bat script from JBOSS_HOME/bin/ directory to start
 	 the server.
 
 
