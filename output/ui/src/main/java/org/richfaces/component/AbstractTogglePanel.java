@@ -72,7 +72,7 @@ import com.google.common.base.Strings;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"))
 public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource,
-    MetaComponentResolver, MetaComponentEncoder {
+        MetaComponentResolver, MetaComponentEncoder {
     public static final String ACTIVE_ITEM_META_COMPONENT = "activeItem";
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanel";
@@ -300,13 +300,6 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
         popComponentFromEL(context);
 
-        try {
-            updateModel(context);
-        } catch (RuntimeException e) {
-            context.renderResponse();
-            throw e;
-        }
-
         if (!isValid()) {
             context.renderResponse();
         }
@@ -359,7 +352,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
             if (messageStr == null) {
                 message = ServiceTracker.getService(MessageFactory.class).createMessage(context, FacesMessage.SEVERITY_ERROR,
-                    FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(context, this));
+                        FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(context, this));
             } else {
                 message = new FacesMessage(FacesMessage.SEVERITY_ERROR, messageStr, messageStr);
             }
@@ -377,7 +370,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             @SuppressWarnings({ "ThrowableInstanceNeverThrown" })
             UpdateModelException toQueue = new UpdateModelException(message, caught);
             ExceptionQueuedEventContext eventContext = new ExceptionQueuedEventContext(context, toQueue, this,
-                PhaseId.UPDATE_MODEL_VALUES);
+                    PhaseId.UPDATE_MODEL_VALUES);
             context.getApplication().publishEvent(context, ExceptionQueuedEvent.class, eventContext);
         }
     }
@@ -420,7 +413,8 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
     protected void setEventPhase(ItemChangeEvent event) {
         if (isImmediate()
-            || (event.getNewItem() != null && RendererUtils.getInstance().isBooleanAttribute(event.getNewItem(), "immediate"))) {
+                || (event.getNewItem() != null && RendererUtils.getInstance().isBooleanAttribute(event.getNewItem(),
+                        "immediate"))) {
             event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
         } else {
             event.setPhaseId(PhaseId.UPDATE_MODEL_VALUES);
@@ -437,11 +431,19 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
+        FacesContext context = FacesContext.getCurrentInstance();
         if (event instanceof ItemChangeEvent) {
             setValue(((ItemChangeEvent) event).getNewItemName());
             setSubmittedActiveItem(null);
-            if (event.getPhaseId() != PhaseId.UPDATE_MODEL_VALUES) {
-                FacesContext.getCurrentInstance().renderResponse();
+            if (event.getPhaseId() == PhaseId.UPDATE_MODEL_VALUES) {
+                try {
+                    updateModel(context);
+                } catch (RuntimeException e) {
+                    context.renderResponse();
+                    throw e;
+                }
+            } else {
+                context.renderResponse();
             }
         }
         super.broadcast(event);
@@ -702,7 +704,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
                     if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
 
                         result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
-                            ACTIVE_ITEM_META_COMPONENT);
+                                ACTIVE_ITEM_META_COMPONENT);
                         if (result == VisitResult.COMPLETE) {
                             return true;
                         }
