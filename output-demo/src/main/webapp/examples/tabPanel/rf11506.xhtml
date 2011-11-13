@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:pn="http://richfaces.org/output" xmlns:a4j="http://richfaces.org/a4j">
+
+<body>
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="title">Tab Panel Example</ui:define>
+        <ui:define name="body_head">Tab Panel Example</ui:define>
+
+        <ui:define name="body">
+
+            <h:form id="form">
+                <h:commandButton id="doNothingButton" value="do nothing" render="tab2">
+                    <f:ajax render="tab1" />
+                </h:commandButton>
+                <pn:tabPanel id="tabPanel">
+                    <pn:tab id="tab1" name="tab1" header="tab1 header">
+                        content of tab 1
+                    </pn:tab>
+                    <pn:tab id="tab2" name="tab2" header="tab2 header">
+                        content of tab 2
+                    </pn:tab>
+                    <pn:tab id="tab3" name="tab3" header="tab3 header">
+                        content of tab 3
+                    </pn:tab>
+                    <pn:tab id="tab4" name="tab4" header="tab4 header" disabled="true">
+                        content of tab 4
+                    </pn:tab>
+                    <pn:tab id="tab5" name="tab5" header="tab5 header">
+                        content of tab 5
+                    </pn:tab>
+                </pn:tabPanel>
+                
+                <a4j:log />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</body>
+</html>
+
