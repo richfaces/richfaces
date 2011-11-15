@@ -24,11 +24,9 @@ package org.richfaces.component;
 import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import javax.el.ValueExpression;
@@ -58,12 +56,13 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.ListenerFor;
-import javax.faces.event.ListenersFor;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PostRestoreStateEvent;
 import javax.faces.event.PostValidateEvent;
 import javax.faces.event.PreRenderViewEvent;
 import javax.faces.event.PreValidateEvent;
+import javax.faces.event.SystemEvent;
+import javax.faces.event.SystemEventListener;
 
 import org.ajax4jsf.component.IterationStateHolder;
 import org.ajax4jsf.model.DataComponentState;
@@ -82,10 +81,9 @@ import org.richfaces.log.RichfacesLogger;
  *
  * @author shura
  */
-@ListenersFor({ @ListenerFor(systemEventClass = PostRestoreStateEvent.class),
-        @ListenerFor(systemEventClass = PreRenderViewEvent.class) })
+@ListenerFor(systemEventClass = PostRestoreStateEvent.class)
 public abstract class UIDataAdaptor extends UIComponentBase implements NamingContainer, UniqueIdVendor, IterationStateHolder,
-        ComponentSystemEventListener {
+        ComponentSystemEventListener, SystemEventListener {
     /**
      * <p>
      * The standard component family for this component.
@@ -225,6 +223,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     public UIDataAdaptor() {
         super();
+        getFacesContext().getViewRoot().subscribeToViewEvent(PreRenderViewEvent.class, this);
     }
 
     protected Map<String, Object> getVariablesMap(FacesContext facesContext) {
@@ -361,8 +360,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     protected Iterator<UIComponent> allFixedChildren() {
         if (getFacetCount() > 0) {
-            List<UIComponent> children = new ArrayList<UIComponent>();
-
             return getFacets().values().iterator();
         } else {
             return Collections.<UIComponent>emptyList().iterator();
@@ -1432,17 +1429,21 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         public abstract void processComponent(FacesContext context, UIComponent c, Object argument);
     }
 
-    @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
-        super.processEvent(event);
-
         if (event instanceof PostRestoreStateEvent) {
             preDecode(getFacesContext());
         }
+    }
 
+    public void processEvent(SystemEvent event) throws AbortProcessingException {
         if (event instanceof PreRenderViewEvent) {
             preEncodeBegin(getFacesContext());
         }
+    }
+
+    @Override
+    public boolean isListenerForSource(Object source) {
+        return source instanceof UIViewRoot;
     }
 
     protected DataComponentState getLocalComponentState() {
