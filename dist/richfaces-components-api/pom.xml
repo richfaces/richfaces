@@ -33,11 +33,6 @@
     <packaging>jar</packaging>
     <name>Richfaces UI Components API</name>
 
-    <properties>
-        <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
-        <faces-shade-transformers.version>4</faces-shade-transformers.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.richfaces.ui.common</groupId>
