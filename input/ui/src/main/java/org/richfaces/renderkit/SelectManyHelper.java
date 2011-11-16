@@ -268,12 +268,13 @@ public class SelectManyHelper {
         if (ve != null) {
             Class<?> modelType = ve.getType(facesContext.getELContext());
             if (modelType.isArray()) {
-                Object targetForConvertedValues = Array.newInstance(modelType, values.length);
+                Class<?> arrayComponentType = modelType.getComponentType();
+                Object targetForConvertedValues = Array.newInstance(arrayComponentType, values.length);
                 for (int i = 0; i < values.length; i++) {
                     if (converter != null) {
-                        ((Object[]) targetForConvertedValues)[i] = converter.getAsObject(facesContext, component, values[i]);
+                        Array.set(targetForConvertedValues, i, converter.getAsObject(facesContext, component, values[i]));
                     } else {
-                        ((Object[]) targetForConvertedValues)[i] = values[i];
+                        Array.set(targetForConvertedValues, i, values[i]);
                     }
                 }
                 return targetForConvertedValues;
