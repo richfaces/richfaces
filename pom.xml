@@ -87,12 +87,8 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <scope>${dependency.scope}</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <scope>${dependency.scope}</scope>
+            <!-- API and Impl bundled in weld-servlet -->
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
