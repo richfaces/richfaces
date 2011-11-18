@@ -120,7 +120,7 @@
                 if (typeof component["getValue"] === "function") {
                     value = component.getValue();
                 } else {
-                    var genericInputSelector = ":not(:submit):not(:button):input:visible:enabled:first";
+                    var genericInputSelector = ":not(:submit):not(:button):not(:image):input:visible:enabled:first";
                     var nestedComponents = $(genericInputSelector, component);
                     if (nestedComponents) {
                         var nestedComponent = nestedComponents[0];
