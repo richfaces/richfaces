@@ -27,7 +27,7 @@ public class PasswordValidationBean implements Cloneable, Serializable {
 
     public void storeNewPassword() {
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Succesfully changed!", "Succesfully changed!"));
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Successfully changed!", "Successfully changed!"));
     }
 
     public void setPassword(String password) {

@@ -21,7 +21,7 @@ public class UserBean {
     }
 
     public void store() {
-        this.recordStatus = "User " + this.name + " stored succesfully";
+        this.recordStatus = "User " + this.name + " stored successfully";
     }
 
     public String getEmail() {
