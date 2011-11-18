@@ -314,7 +314,7 @@
             </dependencies>
             <build>
                     <plugins>
-                        <pqlugin>
+                        <plugin>
                             <groupId>org.jboss.as.plugins</groupId>
                             <artifactId>jboss-as-maven-plugin</artifactId>
                             <version>7.0.2.Final</version>
