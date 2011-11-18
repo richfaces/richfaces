@@ -38,7 +38,7 @@
                         <a4j:param noEscape="true" name="top"
                             value="jQuery(#{rich:element('tb')}).offset().top + jQuery(#{rich:element('tb')}).height()" />
                         <a4j:param noEscape="true" name="left"
-                            value="jQuery(#{rich:element('tb')}).offset().left + jQuery(#{rich:element('tb')}).width() - #{rich:component('ls')}.width()" />
+                            value="jQuery(#{rich:element('tb')}).offset().left + jQuery(#{rich:element('tb')}).width() - p_width" />
                     </rich:hashParam>
                 </rich:componentControl>
                 Search
@@ -53,4 +53,7 @@
             </h:outputLink>
         </h:panelGrid>
     </rich:popupPanel>
+    <h:outputScript type="text/javascript" target="body">
+        p_width = #{rich:component('ls')}.width();
+    </h:outputScript>
 </ui:composition>
