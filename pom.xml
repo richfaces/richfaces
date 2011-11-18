@@ -312,6 +312,18 @@
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
+            <build>
+                    <plugins>
+                        <pqlugin>
+                            <groupId>org.jboss.as.plugins</groupId>
+                            <artifactId>jboss-as-maven-plugin</artifactId>
+                            <version>7.0.2.Final</version>
+                            <configuration>
+                                <filename>richfaces-showcase-jbas7.war</filename>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+            </build>
         </profile>
         <profile>
             <id>openshift</id>

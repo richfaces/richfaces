@@ -81,12 +81,21 @@ BUILDING AND RUNNING THE APPLICATION
 	 	mvn clean package -Pjbas7
 
 	 When you see the BUILD SUCCESSFUL message you can deploy the
-	 application on the server. To deploy it on the application server
-	 copy the .war file from 'target' folder to the JBOSS_HOME/standalone/deployments
-	 folder (or change "default/" to used profile folder). Then, launch
-	 the standalone.sh or standalone.bat script from JBOSS_HOME/bin/ directory to start
-	 the server.
+	 application on the server.
 
+	 First, make sure the application server is running.  To start the server:
+
+	    launch the standalone.sh or standalone.bat script from JBOSS_HOME/bin/
+
+	 To deploy it on the application server, use either:
+
+	 1) Use the jboss-as-maven-plugin to deploy to a running application server:
+
+	    mvn jboss-as:deploy -Pjbas7
+
+	 2) Copy the .war file from 'target' folder to the folder:
+
+	    JBOSS_HOME/standalone/deployments
 
 After deploying the examples to your server open a browser and type 
 http://localhost:8080/richfaces-showcase to view the examples.
