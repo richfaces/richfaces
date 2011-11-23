@@ -34,7 +34,7 @@
 
     <properties>
         <richfaces.checkstyle.version>3</richfaces.checkstyle.version>
-        <test-jsf.version>1.1.1-SNAPSHOT</test-jsf.version>
+        <test-jsf.version>1.1.0</test-jsf.version>
         <version.hibernate-validator>4.2.0.Final</version.hibernate-validator>
         <version.slf4j>1.6.1</version.slf4j>
     </properties>
