@@ -38,7 +38,7 @@
         'stayTime': 'pnotify_delay'
     };
     
-    var severityClasses = ["rf-ntf-info", "rf-ntf-warn", "rf-ntf-error", "rf-ntf-fatal"];
+    var severityClasses = ["rf-ntf-inf", "rf-ntf-wrn", "rf-ntf-err", "rf-ntf-ftl"];
     
     var translateProperties = function(target, source, translation) {
         for (var attr in source) {
@@ -77,7 +77,7 @@
     rf.ui.Notify = function(options) {
         var options = $.extend({}, defaultOptions, options);
         
-        if (options.severity) {
+        if (typeof options.severity == "number") {
             var severity = severityClasses[options.severity];
             options.styleClass = options.styleClass ? severity + " " + options.styleClass : severity;
         }
@@ -89,7 +89,7 @@
             pnotifyOptions.pnotify_stack = stack;
             pnotifyOptions.pnotify_addclass += ' rf-ntf-pos-' + stack.position;
             pnotifyOptions.pnotify_after_close = function(pnotify) {
-                var index = stack.notifications.indexOf(pnotify);
+                var index = $.inArray(pnotify, stack.notifications);
                 if (index >= 0) {
                     array_remove(stack.notifications, index);
                 }

@@ -17,7 +17,7 @@
 
     <cc:implementation>
         <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
-        <span id="#{clientId}" class="rf-au">
+        <span id="#{clientId}" class="#{concatClasses('rf-au', component.attributes['styleClass'])}" cdk:passThrough="style">
             <input id="#{clientId}Value" name="#{clientId}Value" type="hidden" />
             <span class="#{component.attributes['showButton'] ? 'rf-au-fld-btn' : ''}">
                 <input onclick="#{component.attributes['onclick']}" ondblclick="#{component.attributes['ondblclick']}"

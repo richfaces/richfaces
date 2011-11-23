@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -47,6 +49,12 @@ import com.google.common.base.Strings;
  * @author abelevich
  *
  */
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery-ui-core.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery-dnd.js"),
+        @ResourceDependency(library = "org.richfaces", name = "dnd-droppable.js") })
 @JsfRenderer(type = "org.richfaces.DropTargetRenderer", family = AbstractDropTarget.COMPONENT_FAMILY)
 public class DropTargetRenderer extends DnDRenderBase {
     /**

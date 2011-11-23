@@ -526,7 +526,7 @@
 
             // Add a title.
             pnotify.title_container = $("<div />", {
-                "class": "rf-ntf-tl",
+                "class": "rf-ntf-sum",
                 "html": opts.pnotify_title
             })
                     .appendTo(pnotify.container);
@@ -538,7 +538,7 @@
                 opts.pnotify_text = opts.pnotify_text.replace(/\n/g, "<br />");
             // Add text.
             pnotify.text_container = $("<div />", {
-                "class": "rf-ntf-txt",
+                "class": "rf-ntf-det",
                 "html": opts.pnotify_text
             })
                     .appendTo(pnotify.container);

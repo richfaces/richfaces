@@ -8,7 +8,7 @@
     display: inline-block;
 }
 
-.rf-pick-header {
+.rf-pick-hdr {
     vertical-align: middle;
     text-align: left;
     height: 22px;
@@ -23,11 +23,11 @@
     color: '#{richSkin.headerTextColor}';
 }
 
-.rf-pick-header-cell {
+.rf-pick-hdr-c {
     padding : 0 0.5em;
 }
 
-.rf-pick-source-caption, .rf-pick-target-caption {
+.rf-pick-src-cptn, .rf-pick-tgt-cptn {
     font-size: '#{richSkin.headerSizeFont}';
     font-family: '#{richSkin.headerFamilyFont}';
     font-weight: '#{richSkin.headerWeightFont}';
@@ -36,6 +36,7 @@
 
 .rf-pick-btn {
     width : 100%;
+    white-space:nowrap;
     background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
     background-repeat: repeat-x;
     background-position: top left;
@@ -90,10 +91,6 @@ input.rf-pick-dflt-lbl {
     color: #b3b3b3;
 }
 
-.rf-pick-cell {
-    padding : 0 0.5em;
-}
-
-.rf-pick-internal-table {
+.rf-pick-tbl {
     width : 100%;
 }

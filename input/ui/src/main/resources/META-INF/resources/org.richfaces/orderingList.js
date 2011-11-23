@@ -17,11 +17,11 @@
 
         this.upButton = $('.rf-ord-up', this.orderingList);
         this.upButton.bind("click", $.proxy(this.up, this));
-        this.upTopButton = $('.rf-ord-up-top', this.orderingList);
+        this.upTopButton = $('.rf-ord-up-tp', this.orderingList);
         this.upTopButton.bind("click", $.proxy(this.upTop, this));
-        this.downButton = $('.rf-ord-down', this.orderingList);
+        this.downButton = $('.rf-ord-dn', this.orderingList);
         this.downButton.bind("click", $.proxy(this.down, this));
-        this.downBottomButton = $('.rf-ord-down-bottom', this.orderingList);
+        this.downBottomButton = $('.rf-ord-dn-bt', this.orderingList);
         this.downBottomButton.bind("click", $.proxy(this.downBottom, this));
 
         this.focused = false;
@@ -154,6 +154,10 @@
                         break;
                 }
                 return;
+            },
+
+            getList: function() {
+                return this.list;
             },
 
             up: function() {

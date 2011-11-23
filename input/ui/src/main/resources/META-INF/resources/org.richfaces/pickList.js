@@ -147,6 +147,13 @@
                 }
             },
 
+            getSourceList: function() {
+                return this.sourceList;
+            },
+
+            getTargetList: function() {
+                return this.targetList;
+            },
 
             add: function() {
                 this.targetList.setFocus();

@@ -77,11 +77,15 @@
             },
 
             decrease: function (event) {
-                this.setValue(this.value - this.step, event);
+                var value = this.value - this.step;
+                value = this.roundFloat(value);
+                this.setValue(value, event);
             },
 
             increase: function (event) {
-                this.setValue(this.value + this.step, event);
+                var value = this.value + this.step;
+                value = this.roundFloat(value);
+                this.setValue(value, event);
             },
 
             getValue: function () {
@@ -92,6 +96,23 @@
                 if (!this.disabled) {
                     this.__setValue(value, event);
                 }
+            },
+
+            roundFloat: function(x){
+                var str = this.step.toString();
+                var power = 0;
+                if (!/\./.test(str)) {
+                    if (this.step >= 1) {
+                        return x;
+                    }
+                    if (/e/.test(str)) {
+                        power = str.split("-")[1];
+                    }
+                } else {
+                    power = str.length - str.indexOf(".") - 1;
+                }
+                var ret = x.toFixed(power);
+                return parseFloat(ret);
             },
 
             __setValue: function (value, event, skipOnchange) {
@@ -136,10 +157,14 @@
 
             __keydownHandler: function (event) {
                 if (event.keyCode == 37) { //LEFT
-                    this.__setValue(Number(this.input.val()) - this.step, event);
+                    var value = Number(this.input.val()) - this.step;
+                    value = this.roundFloat(value);
+                    this.__setValue(value, event);
                     event.preventDefault();
                 } else if (event.keyCode == 39) { //RIGHT
-                    this.__setValue(Number(this.input.val()) + this.step, event);
+                    var value = Number(this.input.val()) + this.step;
+                    value = this.roundFloat(value);
+                    this.__setValue(value, event);
                     event.preventDefault();
                 }
             },
@@ -188,7 +213,8 @@
             __mousemoveHandler: function (event) {
                 var value = this.range * (event.pageX - this.track.position().left - this.handle.width() / 2) / (this.track.width()
                     - this.handle.width()) + this.minValue;
-                value = Math.round(value / this.step) * this.step; //TODO Add normal support of float values. E.g. '0.3' should be instead of '0.30000000000000004'.
+                value = Math.round(value / this.step) * this.step;
+                value = this.roundFloat(value);
                 this.__setValue(value, event);
                 event.preventDefault();
             },
