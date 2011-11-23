@@ -242,15 +242,15 @@
                 <name>rich:notify</name>
                 <samples>
                     <sample>
-                        <id>notify-messages</id>
+                        <id>notifyMessages</id>
                         <name>Notify Messages</name>
                     </sample>
                     <sample>
-                        <id>notify-attributes</id>
+                        <id>notifyAttributes</id>
                         <name>Attributes of Notify</name>
                     </sample>
                     <sample>
-                        <id>stacking-messages</id>
+                        <id>stackingMessages</id>
                         <name>Message Stacking</name>
                     </sample>
                 </samples>
@@ -604,11 +604,11 @@
                         <name>Auto-saving</name>
                     </sample>
                     <sample>
-                        <id>toolbar-and-skinning</id>
+                        <id>toolbarAndSkinning</id>
                         <name>Toolbar and Skinning</name>
                     </sample>
                     <sample>
-                        <id>advanced-configuration</id>
+                        <id>advancedConfiguration</id>
                         <name>Advanced Configuration</name>
                     </sample>
                 </samples>
@@ -752,7 +752,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo mobileExclude="true">
                 <id>hashParam</id>
                 <name>rich:hashParam</name>
                 <samples>

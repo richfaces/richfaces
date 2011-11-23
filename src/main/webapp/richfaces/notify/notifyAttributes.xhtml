@@ -30,7 +30,7 @@
                     <h:selectBooleanCheckbox id="nonblocking" value="#{notifyBean.nonblocking}" disabled="#{notifyBean.sticky}" />
         
                     <h:outputLabel for="nonblockingOpacity" value="Non-blocking Opacity:" />
-                    <rich:inputNumberSlider id="nonblockingOpacity" value="#{notifyBean.nonblockingOpacity}" step="10" showArrows="true" disabled="#{notifyBean.sticky || not notifyBean.nonblocking}" />
+                    <rich:inputNumberSlider id="nonblockingOpacity" value="#{notifyBean.nonblockingOpacity}" step="0.1" maxValue="1" showArrows="true" disabled="#{notifyBean.sticky || not notifyBean.nonblocking}" />
         
                     <h:outputLabel for="showShadow" value="Show Shadow:" />
                     <h:selectBooleanCheckbox id="showShadow" value="#{notifyBean.showShadow}" disabled="#{notifyBean.sticky}" />

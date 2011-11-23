@@ -1,4 +1,4 @@
-/*
+/*!
  * JBoss, Home of Professional Open Source
  * Copyright 2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -18,173 +18,68 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
+ *  Author: Wesley Hales
+ *  Description: A mobile skin which can be overlaid on any RichFaces 4
+ *  application.
  */
 
-/* author Wesley Hales | whales@redhat.com */
-
-html {
-    height: 100%;
+/*************************************************/
+/*Font Base
+/*************************************************/
+strong, h1, h2, h3, h5, h6 {
+   font-weight: bold;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font: 1.2em "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
-    /*width:100%;*/
-
+h1 {
+   font-size: 2em;
 }
 
-a {
-    text-decoration: none;
+h2 {
+   font-size: 1.5em;
 }
 
-/*************************************************
-Mobile Device Page Setup
-*************************************************/
-
-#browser {
-    /*background: #000 -moz-linear-gradient(top, #0e0e0e, #313131);*/
-    /*background: #000 -webkit-gradient(linear, left top, left bottom, from(#0e0e0e), to(#313131));*/
-    position: relative;
-
+h3 {
+   font-size: 1em;
 }
 
-#page-container {
-    position:absolute;
-    top: 44px;
-    width:100%;
-    height: 100%;
+h4 {
+   font-size: 1em;
 }
 
-.page {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    /*activate the GPU for compositing each page */
-    -webkit-transform: translate3d(0, 0, 0);
+h5 {
+   font-size: 0.75em;
 }
 
-/*************************************************
-UX Utils
-*************************************************/
-
-.none {
-    display: none
+h6 {
+   font-size: 0.6875em;
 }
 
-.hide-it {
-    opacity: 0;
+p, dl, dt, dd, ul, ol, pre, input, textarea, blockquote, cite, label, select {
+   font-size: 0.6875em;
 }
 
-.show {
-    opacity: 100;
+em {
+   font-style: italic;
 }
 
-.transition {
-    -moz-transition-duration: .5s;
-    -webkit-transition-duration: .5s;
-    -o-transition-duration: .5s;
+abbr, acronym {
+   border-bottom: 1px dotted #000;
+   cursor: help;
 }
 
-/*************************************************
-Flip Transition
-*************************************************/
-
-#back,
-#front {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    -webkit-transition-duration: .5s;
-    -webkit-transform-style: preserve-3d;
+th {
+   font-weight: bold;
+   text-align: center;
 }
 
-.normal {
-    -webkit-transform: rotateY(0deg);
-}
-
-.flipped {
-    -webkit-user-select: element;
-    -webkit-transform: rotateY(180deg);
-}
-
-/*************************************************
-Device Specific Styles
-*************************************************/
-.stage-center {
-    left: 0;
-    opacity: 100;
-}
-
-.stage-left,
-.stage-right{
-    width:1px;
-    height:100%;
-    overflow: hidden;
-    opacity: 0;
-}
-/* iOS/android phone landscape screen width*/
-@media screen and (max-device-width: 480px) and (orientation:landscape) {
-    .stage-left {
-        left: -480px;
-    }
-
-    .stage-right {
-        left: 480px;
-    }
-}
-
-@media screen and (max-device-width: 480px) and (orientation:portrait) {
-    .stage-left {
-        left: -320px;
-    }
-
-    .stage-right {
-        left: 320px;
-    }
-}
-
-@media screen and (min-device-width: 600px) and (orientation:portrait) {
-    .stage-left {
-        left: -600px;
-    }
-
-    .stage-right {
-        left: 600px;
-    }
-}
-
-/* iOS/android phone portrait screen width*/
-@media screen and (max-device-width: 320px) {
-    .stage-left {
-        left: -320px;
-    }
-
-    .stage-right {
-        left: 320px;
-    }
-}
-
-/*catch all for at or larger than handheld landscape device widths*/
-@media screen and (min-device-width: 1000px) {
-    .stage-left {
-        left: -1024px;
-    }
-
-    .stage-right {
-        left: 1024px;
-    }
-
-}
 
 /*************************************************
 Page Formatting - Skin
 *************************************************/
 
 /*Custom Buttons and bars*/
+.right-header-button,
 .left-header-button {
    font-weight: bold;
    font-size: 12px;
@@ -201,18 +96,7 @@ Page Formatting - Skin
 }
 
 .right-header-button {
-   font-weight: bold;
-   font-size: 12px;
-   color: #fff;
-   text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0px;
-   text-align: center;
-   text-overflow: ellipsis;
-   height: 30px;
-   width: 60px;
-   position: absolute;
-   top: 7px;
    right: 5px;
-   line-height: 30px;
 }
 
 .basic-button {
@@ -275,7 +159,9 @@ body > header > div img.logo {
 /*************************************************
 RichFaces panelMenu styles overwriting
 *************************************************/
-.rf-pm-top-gr-sel, .rf-pm-hdr-colps, .rf-pm-top-gr-hdr {
+.rf-pm-top-gr-sel,
+.rf-pm-hdr-colps,
+.rf-pm-top-gr-hdr {
    border-radius: 8px;
    -moz-border-radius: 8px;
    -webkit-border-radius: 8px;
@@ -283,7 +169,6 @@ RichFaces panelMenu styles overwriting
 }
 
 .rf-pm {
-    /*border: 1px solid #B0BDC5;*/
     border-bottom: 0;
 }
 
@@ -294,17 +179,12 @@ RichFaces panelMenu styles overwriting
 }
 
 .pm-top-gr-hdr {
-    /*background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;*/
     padding: 3px 1px 2px 3px;
 }
 
 .rf-pm-top-gr {
     border-color: white;
     margin-bottom: 1px;
-}
-
-.rf-pm .rf-pm-top-gr-hdr:hover {
-    /*background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;*/
 }
 
 .rf-pm .rf-pm-top-gr-ico {
@@ -337,10 +217,6 @@ RichFaces panelMenu styles overwriting
 
 .rf-pm-exp .rf-pm-itm-lbl:hover {
     color: #5f9cd0;
-}
-
-.rf-pm-exp .rf-pm-itm-sel,.rf-pm-exp .rf-pm-itm-sel:hover { /*background:#e3e8ef;*/
-
 }
 
 .rf-pm-exp .rf-pm-itm-lbl {
@@ -387,7 +263,6 @@ nav .rf-tab-hdr-act .rf-tab-lbl {
 }
 
 nav .rf-tab-hdr-inact {
-    /*background: #c6cacc url(#{facesContext.externalContext.requestContextPath}/images/pmenu_bg.png) left top repeat-x;*/
     border: 1px solid #bec3c7;
 }
 
@@ -430,12 +305,6 @@ inputNumberSlider
 .rf-insl-trc {
     height:30px;
 
-}
-
-.rf-insl-hnd, .rf-insl-hnd-dis, .rf-insl-dec, .rf-insl-inc, .rf-insl-dec-dis, .rf-insl-inc-dis {
-/*display: inline-block;*/
-/*width: 27px;*/
-/*height: 7px;*/
 }
 
 .rf-insl-hnd,
@@ -482,11 +351,9 @@ inputNumberSlider
     vertical-align: top;
 }
 
-/*************************************************
-rich:collapsibleSubTable
-*************************************************/
-
-
+input.rf-insl-inp {
+    width: 48px;
+}
 
 /*************************************************
 rich:dataScroller
@@ -507,8 +374,15 @@ td.acent {
 /*************************************************
 rich:tree
 *************************************************/
-.rf-trn-hnd {
-    padding: 7px 0 7px 0;
+.rf-trn-hnd-exp, .rf-trn-hnd-colps {
+    padding: 3px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background-color: #fff;
+    color: #BED6F8;
+    border-width: 1px;
+    border-style: solid;
 }
 
 .rf-trn-lbl {
@@ -615,5 +489,27 @@ rich:select
 *************************************************/
 
 .rf-sel-btn-arrow {
-   height: 30px;
+    height: 30px;
 }
+
+/*************************************************
+rich:calendar
+*************************************************/
+
+.rf-cal-btn {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.rf-cal-sp-btn table tbody tr td div {
+    padding: 8px;
+}
+
+.rf-cal-tl-btn {
+    padding:  10px;
+}
+
+.rf-cal-btn-press {
+    padding:  5px;
+}
+

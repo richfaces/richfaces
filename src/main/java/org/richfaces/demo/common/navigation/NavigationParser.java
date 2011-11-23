@@ -46,8 +46,8 @@ public class NavigationParser {
             JAXBContext context;
             try {
                 context = JAXBContext.newInstance(GroupsHolder.class);
-                GroupsHolder capitalsHolder = (GroupsHolder) context.createUnmarshaller().unmarshal(resource);
-                groupsList = capitalsHolder.getGroups();
+                GroupsHolder groupsHolder = (GroupsHolder) context.createUnmarshaller().unmarshal(resource);
+                groupsList = groupsHolder.getGroups();
             } catch (JAXBException e) {
                 throw new FacesException(e.getMessage(), e);
             }

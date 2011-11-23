@@ -17,7 +17,7 @@
                 <f:selectItem itemValue="4" itemLabel="Option 5" />
             </rich:inplaceSelect>
         </rich:panel>
-        <a4j:outputPanel rendered="#{userAgent.phone or userAgent.tablet}">
+        <a4j:outputPanel rendered="#{not (userAgent.phone || userAgent.tablet)}">
         <p>In the next example we have customized the component in the following ways:</p>
         <ul>
             <li><b>f:selectItems</b> tag is used to define a list of items to use.</li>

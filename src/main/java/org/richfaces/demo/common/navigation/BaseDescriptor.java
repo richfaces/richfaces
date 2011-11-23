@@ -12,6 +12,7 @@ import com.sun.faces.el.ELUtils;
 
 public class BaseDescriptor implements Serializable {
     private static final long serialVersionUID = 5614594358147757458L;
+    private static final String PHONE_HOME_VIEW_ID = "/phoneHome.xhtml";
     private String id;
     private String name;
     private boolean newItem;
@@ -65,21 +66,29 @@ public class BaseDescriptor implements Serializable {
      * @return
      */
     public boolean isCurrentlyEnabled() {
-        if (mobileExclude != null && mobileExclude && evaluateBooleanRequestScopedExpression("#{userAgent.mobile}")) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        if (mobileExclude != null && mobileExclude && isMobileRequest(facesContext)) {
             return false;
         }
-        if (enabled != null && !evaluateBooleanRequestScopedExpression(enabled)) {
+        if (enabled != null && !evaluateBooleanRequestScopedExpression(facesContext, enabled)) {
             return false;
         }
         return true;
+    }
+
+    private boolean isMobileRequest(FacesContext facesContext) {
+        return isPhoneHomeView(facesContext) || evaluateBooleanRequestScopedExpression(facesContext, "#{userAgent.mobile}");
+    }
+
+    private boolean isPhoneHomeView(FacesContext facesContext) {
+        return PHONE_HOME_VIEW_ID.equals(facesContext.getViewRoot().getViewId());
     }
 
     /**
      * Caches results of {@link #evaluateBooleanExpression(String, FacesContext)} so one expression is evaluated at most once
      * per request
      */
-    private boolean evaluateBooleanRequestScopedExpression(String expression) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
+    private boolean evaluateBooleanRequestScopedExpression(FacesContext facesContext, String expression) {
         String key = this.getClass().getName() + expression;
         Boolean result = (Boolean) facesContext.getAttributes().get(key);
         if (result == null) {

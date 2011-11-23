@@ -18,14 +18,10 @@
         <!-- controls the appearance of the status bar in full-screen mode -->
         <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/slidfast.css" />
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/mobile/slidfast.js"></script>
+
         <script type="text/javascript">
-
-            function hideURLbar()
-            {
-               setTimeout(scrollTo, 0, 0, 1);
-            }
-
-
 
            var _gaq = _gaq || [];
            _gaq.push(['_setAccount', 'UA-7306415-4']);
@@ -37,117 +33,20 @@
            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
            })();
 
-
-            var FOCUS_PAGE;
-
-            function slideTo(id) {
-
-                //1.)the page we are bringing into focus dictates how
-                // the current page will exit. So let's see what classes
-                // our incoming page is using. We know it will have stage[right|left|etc...]
-                var classes = getElement(id).className.split(' ');
-
-                //2.)decide if the incoming page is assigned to right or left
-                // (-1 if no match)
-                var stageType = classes.indexOf('stage-left');
-
-                //3.) on initial page load focusPage is null, so we need
-                // to set the default page which we're currently seeing.
-                if (FOCUS_PAGE == null) {
-                    //use home page
-                    FOCUS_PAGE = getElement('home-page');
-                }
-
-                //4.) decide how this focused page should exit.
-                if (stageType > 0) {
-                    FOCUS_PAGE.className = 'page transition stage-right';
-                } else {
-                    FOCUS_PAGE.className = 'page transition stage-left';
-                }
-
-                //5. refresh/set the global variable
-                FOCUS_PAGE = getElement(id);
-
-                //6. Bring in the new page.
-                FOCUS_PAGE.className = 'page transition stage-center';
-
-                //7. HACK - push the home page to the history
-                //var stateObj = { rf: "home" };
-                //history.pushState(stateObj, "Home Page", "/showcase/");
-            }
-
-             function locationHashChanged() {
-                 if(location.hash === "#home"){
-                     slideTo('home-page');
-                     document.getElementById("back-button").className = 'hide-button';
-                 }else{
-                     var hashArray = location.hash.split(':');
-                     var id;
-                     var sample;
-                     if(hashArray.length === 2){
-                         id = hashArray[0].replace('#','');
-                         sample = hashArray[1];
-                         handleHashChange(id,sample);
-
-                     }
-
-                 }
-            }
-
-            window.onhashchange = locationHashChanged;
-
-            window.addEventListener('load', function(e) {
-               if(location.hash == ''){
-                     slideTo('home-page');
-                     location.hash='home';
-               }else{
-                    locationHashChanged();
-               }
-            }, false);
-
-
-            function flip(id) {
-                //get a handle on the flippable region
-                var front = getElement('front');
-                var back = getElement('back');
-
-                //again, just a simple way to see what the state is
-                var classes = front.className.split(' ');
-                var flipped = classes.indexOf('flipped');
-
-                if (flipped >= 0) {
-                    //already flipped, so return to original
-                    front.className = 'normal';
-                    back.className = 'flipped';
-                } else {
-                    //do the flip
-                    front.className = 'flipped';
-                    back.className = 'normal';
-
-                }
-            }
-
-            function getElement(id) {
-                return document.getElementById(id)
-            }
-
-            function componentPageSetup(){
-                slideTo('component-page');
-                document.getElementById("back-button").className = 'basic-button left-header-button';
-            }
+           //initialize mobile RichFaces with SlidFast
+           //parameters are for "default page ID" and "default page hash"
+           slidfast.init('home-page','home');
 
         </script>
 
     </h:head>
-    <h:body onload="hideURLbar();">
-        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/brand.css" />
-        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/global.css" />
-
+    <h:body>
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/rf-mobile-skin.css" />
 
         <div id="browser">
             <header>
                 <div>
-                   <div id="back-button" class="hide-button" onclick="slideTo('home-page');location.hash='home'">Back</div>
+                   <div id="back-button" class="hide-button">Back</div>
                    <a href="#{facesContext.externalContext.requestContextPath}/index.jsp">
                        <img src="#{facesContext.externalContext.requestContextPath}/images/mobile/rf-logo-small.png" alt="RF logo" class="logo"/>
                    </a>
@@ -155,8 +54,9 @@
                    <a4j:status onstart="#{rich:element('ajaxLoader')}.style.visibility='visible'" onstop="#{rich:element('ajaxLoader')}.style.visibility='hidden'" />
                 </div>
             </header>
+            <a4j:queue requestDelay="2000" rendered="#{(userAgent.phone || userAgent.tablet)}"/>
             <h:form style="width:100%;height:100%;">
-            <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="componentPageSetup();hideURLbar();">
+            <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="slidfast.slideTo('component-page')">
                 <f:param name="demo" value="param1"/>
                 <f:param name="sample" value="param2"/>
             </a4j:jsFunction>
@@ -180,6 +80,7 @@
                                     </rich:panelMenuGroup>
                                 </c:forEach>
                             </rich:panelMenu>
+
                         </div>
                     </nav>
                 </div>
@@ -187,118 +88,30 @@
                 <div id="component-page" class="page stage-right">
 
                         <div>
-                                <h:outputStylesheet>
-                                    .navigation .rf-tab-hdr-brd,.navigation .rf-tab {
-                                    display: none;
-                                    }
-                                </h:outputStylesheet>
+                            <h:outputStylesheet>
+                                .navigation .rf-tab-hdr-brd,.navigation .rf-tab {
+                                display: none;
+                                }
+                            </h:outputStylesheet>
                             <div>
-
                                 <fieldset class="example-cnt">
                                     <ui:include src="#{demoNavigator.sampleURI}" />
                                 </fieldset>
 
                              </div>
                         </div>
-
                 </div>
             </div>
             </h:form>
         </div>
 
-
-
-
-
-
     </h:body>
 </f:view>
 <ui:remove>
-    <!--Only needed if using drag and drop component-->
-
- <script type="text/javascript">
-
-
-          (function (jQuery) {
-
-              jQuery.support.touch = typeof Touch === 'object';
-
-              if (!jQuery.support.touch) {
-                return;
-              }
-
-              var mouseProto  = jQuery.ui.mouse.prototype,
-                  _mouseInit  = mouseProto._mouseInit,
-                  _mouseDown  = mouseProto._mouseDown,
-                  _mouseUp    = mouseProto._mouseUp,
-
-                  mouseEvents = {
-                    touchstart: 'mousedown',
-                    touchmove:  'mousemove',
-                    touchend:   'mouseup'
-                  };
-
-              function makeMouseEvent (event) {
-
-                var touch = event.originalEvent.changedTouches[0];
-
-                return jQuery.extend(event, {
-                  type:    mouseEvents[event.type],
-                  which:   1,
-                  pageX:   touch.pageX,
-                  pageY:   touch.pageY,
-                  screenX: touch.screenX,
-                  screenY: touch.screenY,
-                  clientX: touch.clientX,
-                  clientY: touch.clientY
-                });
-              }
-
-              mouseProto._mouseInit = function () {
-
-                var self = this;
-
-                self.element.bind('touchstart.' + self.widgetName, function (event) {
-                  return self._mouseDown(makeMouseEvent(event));
-                });
-
-                _mouseInit.call(self);
-              };
-
-              mouseProto._mouseDown = function (event) {
-
-                var self = this,
-                    ret  = _mouseDown.call(self, event);
-
-                self._touchMoveDelegate = function (event) {
-                  return self._mouseMove(makeMouseEvent(event));
-                };
-
-                self._touchEndDelegate = function(event) {
-                  return self._mouseUp(makeMouseEvent(event));
-                };
-
-                jQuery(document)
-                  .bind('touchmove.' + self.widgetName, self._touchMoveDelegate)
-                  .bind('touchend.' + self.widgetName, self._touchEndDelegate);
-
-                return ret;
-              };
-
-              mouseProto._mouseUp = function (event) {
-
-                var self = this;
-
-                jQuery(document)
-                  .unbind('touchmove.' + self.widgetName, self._touchMoveDelegate)
-                  .unbind('touchend.' + self.widgetName, self._touchEndDelegate);
-
-                return _mouseUp.call(self, event);
-              };
-
-            })(jQuery);
-
-
-        </script>
+<!--Only needed if using drag and drop component-->
+<script type="text/javascript">
+// iOS drag and Drop support is provided through the use of rf-dnd.js. The script must be places in this location
+// of your xhtml page.
+</script>
  </ui:remove>
 </html>

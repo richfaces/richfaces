@@ -58,6 +58,8 @@ public class AS7MessagingProviderManagement implements MessagingProviderManageme
     }
 
     public void createTopic(String topicName, String jndiName) throws Exception {
+        boolean as71 = false;
+
         jndiName = jndiName.replaceFirst("/", "");
 
         ModelNode operation = new ModelNode();
@@ -65,10 +67,23 @@ public class AS7MessagingProviderManagement implements MessagingProviderManageme
         operation.get("address").add("subsystem", "messaging");
         ModelNode result = client.execute(operation, null);
 
+        // AS 7.1 or higher (hornetq-server=default address node added)
+        if (result.get("result").toString().contains("hornetq-server")) {
+            as71 = true;
+            operation = new ModelNode();
+            operation.get("operation").set("read-resource");
+            operation.get("address").add("subsystem", "messaging");
+            operation.get("address").add("hornetq-server", "default");
+            result = client.execute(operation, null);
+        }
+
         if (!result.get("result").get("jms-topic").toString().contains("\"" + topicName + "\"")) {
             operation = new ModelNode();
             operation.get("operation").set("add");
             operation.get("address").add("subsystem", "messaging");
+            if (as71) {
+                operation.get("address").add("hornetq-server", "default");
+            }
             operation.get("address").add("jms-topic", topicName);
             operation.get("entries").add("topic/" + topicName);
             client.executeAsync(operation, null);
