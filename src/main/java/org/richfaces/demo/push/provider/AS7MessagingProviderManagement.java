@@ -22,6 +22,9 @@
 package org.richfaces.demo.push.provider;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,11 +40,12 @@ public class AS7MessagingProviderManagement implements MessagingProviderManageme
 
     private static final Logger LOGGER = Logger.getLogger(AS7MessagingProviderManagement.class.getName());
 
-    private ModelControllerClient client;
+    private List<ModelControllerClient> clients = new LinkedList<ModelControllerClient>();
 
     public void initializeProvider() throws InitializationFailedException {
         try {
-            client = ModelControllerClient.Factory.create("127.0.0.1", 9999);
+            // tries to connect - when creating topic, own client will be created (RF-11695)
+            createClient().close();
         } catch (Exception e) {
             throw new InitializationFailedException();
         } catch (NoClassDefFoundError e) {
@@ -49,15 +53,26 @@ public class AS7MessagingProviderManagement implements MessagingProviderManageme
         }
     }
 
+    private ModelControllerClient createClient() throws UnknownHostException {
+        return ModelControllerClient.Factory.create("127.0.0.1", 9999);
+    }
+
     public void finalizeProvider() {
         try {
-            client.close();
+            for (ModelControllerClient client : clients) {
+                client.close();
+            }
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "wasn't able to finalize AS7 messaging management");
         }
     }
 
     public void createTopic(String topicName, String jndiName) throws Exception {
+
+        // create own client for each topic creation (RF-11695)
+        ModelControllerClient client = createClient();
+        clients.add(client);
+
         boolean as71 = false;
 
         jndiName = jndiName.replaceFirst("/", "");
