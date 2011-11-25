@@ -55,7 +55,7 @@
 
             getInnerHeight : function (recalculate) {
                 if (recalculate || !this.__innerHeight) {
-                    this.__innerHeight = $(rf.getDomElement(this.id)).innerHeight(true)
+                    this.__innerHeight = $(rf.getDomElement(this.id)).innerHeight()
                 }
 
                 return this.__innerHeight;
