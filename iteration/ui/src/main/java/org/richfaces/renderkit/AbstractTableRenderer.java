@@ -199,6 +199,12 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     public void encodeTableStart(ResponseWriter writer, FacesContext context, UIDataTableBase component) throws IOException {
         writer.startElement(HtmlConstants.TABLE_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context), null);
+        if (component.getCellpadding() != null) {
+            writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, component.getCellpadding(), null);
+        }
+        if (component.getCellspacing() != null) {
+            writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, component.getCellspacing(), null);
+        }
         String styleClass = getTableSkinClass();
         encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
     }
