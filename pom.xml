@@ -232,7 +232,7 @@
                         </manifest>
                         <manifestEntries>
                             <Dependencies>
-                                org.jboss.as.controller-client,org.jboss.as.protocol,org.jboss.dmr,org.jboss.logging,org.jboss.marshalling,org.jboss.marshalling.river,org.jboss.remoting3,org.jboss.threads
+                                org.slf4j,org.jboss.as.controller-client,org.jboss.as.protocol,org.jboss.dmr,org.jboss.logging,org.jboss.marshalling,org.jboss.marshalling.river,org.jboss.remoting3,org.jboss.threads
                             </Dependencies>
                         </manifestEntries>
                     </archive>
@@ -300,29 +300,17 @@
                 <container.webapp>src/main/webapp-jbas7</container.webapp>
                 <dependency.scope>provided</dependency.scope>
             </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-jdk14</artifactId>
-                    <scope>runtime</scope>
-                </dependency>
-            </dependencies>
             <build>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.jboss.as.plugins</groupId>
-                            <artifactId>jboss-as-maven-plugin</artifactId>
-                            <version>7.0.2.Final</version>
-                            <configuration>
-                                <filename>richfaces-showcase-jbas7.war</filename>
-                            </configuration>
-                        </plugin>
-                    </plugins>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jboss.as.plugins</groupId>
+                        <artifactId>jboss-as-maven-plugin</artifactId>
+                        <version>7.0.2.Final</version>
+                        <configuration>
+                            <filename>richfaces-showcase-jbas7.war</filename>
+                        </configuration>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
         <profile>
