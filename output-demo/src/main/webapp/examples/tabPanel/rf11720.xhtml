@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:pn="http://richfaces.org/output" xmlns:a4j="http://richfaces.org/a4j">
+
+<body>
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="title">Tab Panel Example</ui:define>
+        <ui:define name="body_head">Tab Panel Example</ui:define>
+
+        <ui:define name="body">
+
+            <h:form>
+                <h:selectBooleanCheckbox value="#{sessionScope.showCustomer}">
+                    <a4j:ajax render="panel" />
+                </h:selectBooleanCheckbox>
+            </h:form>
+
+            <a4j:outputPanel id="panel">
+                <h:outputText value="#{sessionScope.showCustomer}" />
+
+                <h:panelGroup rendered="#{sessionScope.showCustomer}" layout="block">
+
+                    <h:form>
+                        <pn:tabPanel id="customerTabPanel" switchType="ajax" headerPosition="top" headerLocation="center">
+
+                            <pn:tab id="customerList" header="&rsaquo; Search">
+                            </pn:tab>
+
+                            <pn:tab id="customerDetail" header="&rsaquo; Customer">
+                            </pn:tab>
+
+                            <pn:tab id="vehicleDetail" header="&rsaquo; Vehicle">
+                            </pn:tab>
+
+                            <pn:tab id="subscriptionDetail" header="&rsaquo; Subscription">
+                            </pn:tab>
+
+                            <pn:tab id="history" header="&rsaquo; History">
+                            </pn:tab>
+                        </pn:tabPanel>
+                    </h:form>
+                </h:panelGroup>
+            </a4j:outputPanel>
+
+
+        </ui:define>
+    </ui:composition>
+</body>
+</html>
+
