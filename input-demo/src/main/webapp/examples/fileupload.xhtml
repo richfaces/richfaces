@@ -52,10 +52,21 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             var onuploadcomplete = function (event) {
                 var data = event.rf.data;
-                var str = "";
                 RichFaces.log.info(jQuery("<b>onuploadcomplete:</b>"));
                 for (var i in data) {
                     var item = data[i];
+                    RichFaces.log.info("    " + item.name + " " + item.state);
+                }
+            };
+
+            var onclear = function (event) {
+                var data = event.rf.data;
+                if (! $.isArray(data)) {
+                    data = [data];
+                }
+                RichFaces.log.info(jQuery("<b>onclear:</b>"));
+                for (var i in data) {
+                    var item = data[i].model;
                     RichFaces.log.info("    " + item.name + " " + item.state);
                 }
             };
@@ -63,7 +74,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         </script>
         <fu:fileUpload id="fu" acceptedTypes="#{fileUploadBean.acceptedTypes}" disabled="#{fileUploadBean.disabled}"
             fileUploadListener="#{fileUploadBean.listener}" noDuplicate="#{fileUploadBean.noDuplicate}"
-            onfilesubmit="onfilesubmit(event)" onuploadcomplete="onuploadcomplete(event)" ontyperejected="#{fileUploadBean.ontyperejected}" maxFilesQuantity="#{fileUploadBean.maxFilesQuantity}" />
+            onfilesubmit="onfilesubmit(event)"
+            onuploadcomplete="onuploadcomplete(event)"
+            ontyperejected="#{fileUploadBean.ontyperejected}"
+            onclear="onclear(event)"
+            maxFilesQuantity="#{fileUploadBean.maxFilesQuantity}" />
         <h:outputText value="File name:" />
         <a4j:outputPanel ajaxRendered="true">#{fileUploadBean.file.name}</a4j:outputPanel>
         <br />
