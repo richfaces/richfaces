@@ -30,6 +30,10 @@ import javax.faces.event.AjaxBehaviorEvent;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * @author Konstantin Mishin
  *
@@ -41,6 +45,8 @@ public class FileUploadBean {
     private boolean disabled = false;
     private boolean noDuplicate = false;
     private UploadedFile file;
+    private List<UploadedFile> files = new ArrayList<UploadedFile>();
+    private String clearedFile;
     private String ontyperejected = "alert('typerejected')";
     private Integer maxFilesQuantity = 2;
 
@@ -48,12 +54,37 @@ public class FileUploadBean {
         return file;
     }
 
-    // public void paint(OutputStream stream, Object object) throws IOException {
-    // stream.write(item.getData());
-    // }
+    public List<UploadedFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<UploadedFile> files) {
+        this.files = files;
+    }
+
+    public String getClearedFile() {
+        return clearedFile;
+    }
+
+    public void setClearedFile(String clearedFile) {
+        this.clearedFile = clearedFile;
+    }
+
+    public void clearFile() {
+        System.out.println("Files to clear: " + this.clearedFile);
+        Iterator<UploadedFile> i = files.iterator();
+        while (i.hasNext()) {
+            UploadedFile file = i.next();
+            if (file.getName().equals(this.clearedFile)) {
+                i.remove();
+                break;
+            }
+        }
+    }
 
     public void listener(FileUploadEvent event) throws Exception {
         file = event.getUploadedFile();
+        files.add(file);
     }
 
     public void setDisabled(boolean disabled) {

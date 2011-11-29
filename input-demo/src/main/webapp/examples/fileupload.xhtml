@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:fu="http://richfaces.org/input">
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:fu="http://richfaces.org/input"
+    xmlns:ou="http://richfaces.org/output" xmlns:it="http://richfaces.org/iteration">
 <!--
 JBoss, Home of Professional Open Source
 Copyright ${year}, Red Hat, Inc. and individual contributors
@@ -57,28 +58,55 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     var item = data[i];
                     RichFaces.log.info("    " + item.name + " " + item.state);
                 }
+                return true;
             };
 
             var onclear = function (event) {
                 var data = event.rf.data;
-                if (! $.isArray(data)) {
-                    data = [data];
-                }
                 RichFaces.log.info(jQuery("<b>onclear:</b>"));
                 for (var i in data) {
-                    var item = data[i].model;
+                    var item = data[i];
                     RichFaces.log.info("    " + item.name + " " + item.state);
+                    removeFile(item.name);
                 }
             };
             //-->
         </script>
+        <a4j:jsFunction name="removeFile" render="info" action="#{fileUploadBean.clearFile}">
+            <a4j:param name="clearedFile" assignTo="#{fileUploadBean.clearedFile}" />
+        </a4j:jsFunction>
+        <h:panelGrid columns="2" columnClasses="top,top">
         <fu:fileUpload id="fu" acceptedTypes="#{fileUploadBean.acceptedTypes}" disabled="#{fileUploadBean.disabled}"
             fileUploadListener="#{fileUploadBean.listener}" noDuplicate="#{fileUploadBean.noDuplicate}"
             onfilesubmit="onfilesubmit(event)"
             onuploadcomplete="onuploadcomplete(event)"
             ontyperejected="#{fileUploadBean.ontyperejected}"
             onclear="onclear(event)"
-            maxFilesQuantity="#{fileUploadBean.maxFilesQuantity}" />
+            maxFilesQuantity="#{fileUploadBean.maxFilesQuantity}"
+        >
+            <a4j:ajax event="uploadcomplete" execute="@none" render="info" />
+        </fu:fileUpload>
+            <h:panelGroup id="info" layout="block">
+            <ou:panel bodyClass="info">
+                <f:facet name="header">
+                    <h:outputText value="Uploaded Files Info" />
+                </f:facet>
+                <h:outputText value="No files currently uploaded" rendered="#{empty fileUploadBean.files}" />
+                <it:dataGrid columns="1" value="#{fileUploadBean.files}" var="file" rowKeyVar="row">
+                    <ou:panel bodyClass="rich-laguna-panel-no-header">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="File Name:" />
+                            <h:outputText value="#{file.name}" />
+                        </h:panelGrid>
+                    </ou:panel>
+                </it:dataGrid>
+            </ou:panel>
+            <br />
+            <a4j:commandButton action="#{fileUploadBean.clearUploadData}" render="info, upload" value="Clear Uploaded Data"
+                rendered="#{not empty fileUploadBean.files}" />
+        </h:panelGroup>
+        </h:panelGrid>
+
         <h:outputText value="File name:" />
         <a4j:outputPanel ajaxRendered="true">#{fileUploadBean.file.name}</a4j:outputPanel>
         <br />
