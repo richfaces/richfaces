@@ -1430,12 +1430,14 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
-        if (event instanceof PostRestoreStateEvent) {
-            preDecode(getFacesContext());
-        }
+        this.processEvent((SystemEvent) event);
     }
 
     public void processEvent(SystemEvent event) throws AbortProcessingException {
+        if (event instanceof PostRestoreStateEvent) {
+            preDecode(getFacesContext());
+        }
+
         if (event instanceof PreRenderViewEvent) {
             preEncodeBegin(getFacesContext());
         }
