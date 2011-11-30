@@ -283,10 +283,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             writer.startElement(HtmlConstants.DIV_ELEM, table);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-" + getFacetClassName(name), null);
             writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
-            String cellpadding = table.getCellpadding() == null ? "0" : table.getCellpadding();
-            String cellspacing = table.getCellspacing() == null ? "0" : table.getCellspacing();
-            writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, cellpadding, null);
-            writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, cellspacing, null);
+            writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
+            writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
             writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
             writer.startElement(HtmlConstants.TR_ELEMENT, table);
             String clientId = table.getClientId(context);

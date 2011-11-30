@@ -44,7 +44,6 @@ import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
 import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.context.ExtendedVisitContext;
@@ -100,12 +99,6 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
 
     @Facet
     public abstract UIComponent getNoData();
-
-    @Attribute(description = @Description("The HTML cellpadding attribute of the underlying HTML table"))
-    public abstract String getCellpadding();
-
-    @Attribute(description = @Description("The HTML cellspacing attribute of the underlying HTML table"))
-    public abstract String getCellspacing();
 
     @Attribute
     public abstract String getNoDataLabel();
