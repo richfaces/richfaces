@@ -275,7 +275,7 @@ Select:
 rich:select
 rich:inplaceSelect
 rich:orderingList
-richPickList
+rich:pickList
 
 ---------------------------------
 Trees:

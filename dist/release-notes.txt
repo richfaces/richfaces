@@ -1,3 +1,41 @@
+New in Version 4.1.0.CR2
+------------------------
+    Bug
+    [RF-11564] - Mobile Showcase and iPhone: defaultly closed rich:collapsiblePanel can't be opened
+    [RF-11633] - rich:inplaceInput - client side validation doesn't work
+    [RF-11645] - Mobile Showcase and rich:orderingList - selecting an item doesn't enable the moving buttons
+    [RF-11673] - Warning messages have color unreadable on white background - (warningColor)
+    [RF-11675] - Showcase and rich:dataTable - delayed sorting (regresion fix)
+    [RF-11677] - Calendar: buttons in month dialog do not work (regresion fix)
+    [RF-11680] - Backing a pickList with an array causes a java.lang.ArrayStoreException
+    [RF-11689] - richfaces-archetype-simpleapp : remove unnecessary webResource mapping to src/main/java
+    [RF-11695] - showcase - deploying on JBoss AS 7.1.0-SNAPSHOT trows error: JMSInitializer was not correctly initialized
+    [RF-11696] - showcase - broken deploying on Tomcat due to wrong SLF4J binding
+    [RF-11712] - showcase - a4j:push via JMS- generates JS error on mobile devices
+    [RF-11713] - Showcase and rich:accordion - the "view source" link is hidden
+    [RF-11744] - Fileupload component doesn't include list of submitted files removed in the onclear event
+    [RF-11752] - Propagate UIDataAdaptor#processEvent(ComponentSystemEvent) to #processEvent(SystemEvent)
+    [RF-11761] - Archetype: community JBoss repository should not be included for enterprise projects
+    [RF-11762] - Archetype: remove simpleapp archetype's parent
+
+    Enhancement
+    [RF-11714] - showcase - demo rich:select - panels which hold selects should has bigger width
+    [RF-11759] - Remove Cellpadding/Cellspacing from EDT, replace with appropriate CSS
+
+    Feature Request
+    [RF-11659] - Add the maven jboss as7 deployer to the showcase pom.xml
+    [RF-11690] - richfaces-simpleapp-archetype : add support for the enterprise (aka WFK) dependencies
+
+    Task
+    [RF-11716] - richfaces-archetype-simpleapp: Add useJBossRepositories flag
+    [RF-11717] - richfaces-archetype-simpleapp: Remove unnecessary testng dependency in pom.xml
+    [RF-11721] - Cleanup mobile RichFaces JavaScript and fix foreseeable problems
+    [RF-11743] - Add mobile optimization option to the simpleapp archetype
+    [RF-11756] - Reintroduce escape sequences in simpleapp archetype templates
+
+    Full Release Notes:
+    https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310341&version=12318315
+
 New in Version 4.1.0.CR1
 ------------------------
 
