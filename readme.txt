@@ -2,7 +2,7 @@
 
                       RichFaces - Ajax enabled JSF 2.0 component library
 
-                                       RichFaces 4.1.0-SNAPSHOT SHOWCASE
+                                       RichFaces 4.1.0.CR2 SHOWCASE
                                                     http://richfaces.org
                                                               March 2011
                      This software is distributed under the terms of the 
@@ -14,7 +14,22 @@ RichFaces showcase is an application created to show RichFaces components
 in action. It contains a set of small use-cases implemented using RichFaces
 components.
 
- TODO (for 4.1.0.Final): Insert a paragraph describing the mobile compatibility of the showcase
+This showcase is also mobile compatible with WebKit based browsers; this
+includes iOS, Android, and Others. After you deploy the showcase, just
+browse to the default context path (for example, http://localhost:8080/showcase)
+with a mobile iOS or Android based device. You will see the showcase has
+been modified to fit and dynamically adjust to mobile screen widths and
+orientations.
+We removed some components from the RichFaces Mobile Showcase which
+were not mobile ready. For example, rich:tooltip, rich:extendedDataTable,
+rich:jquery, and rich:popupPanel either did not make sense in a mobile
+environment or needed a heavy rewrite for touch interfaces.
+rich:dragDrop however, does work on iOSÕ Mobile Safari, but not on Android.
+To use rich:dragDrop in Mobile Safari browsers, you can include this snippet
+of JavaScript
+(https://github.com/richfaces/components/blob/develop/mobile-compatibility/rf-dnd.js)
+at the bottom of your JSF template.
+
 
 The examples shown in the application were chosen from the most popular
 questions at the user forum. You will find a lot of useful information on 
@@ -81,12 +96,21 @@ BUILDING AND RUNNING THE APPLICATION
 	 	mvn clean package -Pjbas7
 
 	 When you see the BUILD SUCCESSFUL message you can deploy the
-	 application on the server. To deploy it on the application server
-	 copy the .war file from 'target' folder to the JBOSS_HOME/standalone/deployments
-	 folder (or change "default/" to used profile folder). Then, launch
-	 the standalone.sh or standalone.bat script from JBOSS_HOME/bin/ directory to start
-	 the server.
+	 application on the server.
 
+	 First, make sure the application server is running.  To start the server:
+
+	    launch the standalone.sh or standalone.bat script from JBOSS_HOME/bin/
+
+	 To deploy it on the application server, use either:
+
+	 1) Use the jboss-as-maven-plugin to deploy to a running application server:
+
+	    mvn jboss-as:deploy -Pjbas7
+
+	 2) Copy the .war file from 'target' folder to the folder:
+
+	    JBOSS_HOME/standalone/deployments
 
 After deploying the examples to your server open a browser and type 
 http://localhost:8080/richfaces-showcase to view the examples.

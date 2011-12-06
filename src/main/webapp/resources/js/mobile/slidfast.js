@@ -20,121 +20,162 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *
  *  Author: Wesley Hales
- *  Description: SlidFast is a minimalistic framework for writing mobile web apps.
- *  It utilizes core HTML5 APIs for today's mobile web browsers.
+ *
+ *  version: 1.0.0.Alpha
  */
 
-var slidfast = {
+(function(window,document,undefined){
 
-    start: function() {
-        this.hideURLBar();
-        //set the default page
-        this.focusPage = document.getElementById(this.defaultPageID);
-        this.locationChange();
-    },
+    var slidfast = (function(){
 
-    defaultPageID: null,
+        var slidfast = function(startupOptions){
+            options = startupOptions;
+            return new slidfast.core.init();
+        },
 
-    defaultPageHash: null,
+        options,
 
-    focusPage:  null,
+        defaultPageID = "",
 
-    isReady: false,
+        defaultPageHash = "",
 
-    hideURLBar: function() {
-        //hide the url bar on mobile devices
-        setTimeout(scrollTo, 0, 0, 1)
-    },
+        backButtonID = "",
 
-    slideTo :   function (id) {
-        //check for double hash change call and no hash scenario on
-        //initial page load.
-        if (id == this.focusPage.id && (location.hash != "#" + this.defaultPageHash && location.hash != '')) {
-            return;
-        }
-        var focusPage = this.focusPage;
-        //1.)the page we are bringing into focus dictates how
-        // the current page will exit. So let's see what classes
-        // our incoming page is using. We know it will have stage[right|left|etc...]
-        var classes = document.getElementById(id).className.split(' ');
+        focusPage =  null,
 
-        //2.)decide if the incoming page is assigned to right or left
-        // (-1 if no match)
-        var stageType = classes.indexOf('stage-left');
+        isReady = false;
 
-        //3.) decide how this focused page should exit.
-        if (stageType > 0) {
-            focusPage.className = 'page transition stage-right';
-        } else {
-            focusPage.className = 'page transition stage-left';
-        }
+        slidfast.core = slidfast.prototype = {
 
-        //4. refresh/set the variable
-        focusPage = this.focusPage = document.getElementById(id);
+            constructor: slidfast,
 
-        //5. Bring in the new page and set the global.
-        focusPage.className = 'page transition stage-center';
+            start: function() {
+                if(options){
+                    try{
+                        defaultPageID = options.defaultPageID;
+                        defaultPageHash = options.defaultPageHash;
+                        backButtonID = options.backButtonID;
+                    }catch(e){
 
-    },
+                    }
+                }
+                try{
+                    slidfast.core.hideURLBar();
+                    slidfast.core.locationChange();
+                }catch(e){
+                    alert('You must define the page ID and location hash as default parameters. \n Error:' + e)
+                }
+            },
 
-    init: function(defaultPageID, defaultPageHash) {
-        this.defaultPageID = defaultPageID;
-        this.defaultPageHash = defaultPageHash;
+            hideURLBar: function() {
+                //hide the url bar on mobile devices
+                setTimeout(scrollTo, 0, 0, 1)
+            },
 
-        window.addEventListener('load', function(e) {
-            slidfast.isReady = true;
-            slidfast.start(slidfast.defaultPageID, slidfast.defaultPageHash);
+            slideTo :   function (id) {
+                if(!focusPage) {
+                    focusPage = document.getElementById(defaultPageID);
+                }
 
-        }, false);
-        window.addEventListener('hashchange', function(e) {
-            slidfast.locationChange();
-        }, false);
+                //1.)the page we are bringing into focus dictates how
+                // the current page will exit. So let's see what classes
+                // our incoming page is using. We know it will have stage[right|left|etc...]
+                var classes = document.getElementById(id).className.split(' ');
 
-    },
+                //2.)decide if the incoming page is assigned to right or left
+                // (-1 if no match)
+                var stageType = classes.indexOf('stage-left');
 
-    locationChange: function() {
-        if (location.hash === "#" + this.defaultPageHash || location.hash == '') {
-            this.slideTo(this.defaultPageID);
-            //we're on the default page, so no need for back button
-            document.getElementById("back-button").className = 'hide-button';
-        } else {
-            var hashArray = location.hash.split(':');
-            var id;
-            var sample;
-            if (hashArray.length === 2) {
-                id = hashArray[0].replace('#', '');
-                sample = hashArray[1];
-                handleHashChange(id, sample);
-                //show the back button and attach functions
-                document.getElementById("back-button").className = 'basic-button left-header-button';
-                document.getElementById("back-button").onclick = function() {
-                    slidfast.slideTo(slidfast.defaultPageID);
-                    location.hash = slidfast.defaultPageHash;
-                };
+                //3.) decide how this focused page should exit.
+                if (stageType > 0) {
+                    focusPage.className = 'page transition stage-right';
+                } else {
+                    focusPage.className = 'page transition stage-left';
+                }
+
+                //4. refresh/set the variable
+                focusPage = document.getElementById(id);
+
+                //5. Bring in the new page and set the global.
+                focusPage.className = 'page transition stage-center';
+            },
+
+            init: function() {
+
+                window.addEventListener('load', function(e) {
+                    isReady = true;
+                    slidfast.core.start(defaultPageID, defaultPageHash);
+                }, false);
+
+                window.addEventListener('hashchange', function(e) {
+                    slidfast.core.locationChange();
+                }, false);
+
+                return slidfast.core;
+
+            },
+
+            locationChange: function() {
+                if (location.hash === "#" + defaultPageHash || location.hash == '') {
+                    slidfast.core.slideTo(defaultPageID);
+                    if(backButtonID){
+                        //we're on the default page, so no need for back button
+                        document.getElementById(backButtonID).className = 'hide-button';
+                    }
+                } else {
+                    var hashArray = location.hash.split(':');
+                    var id;
+                    var sample;
+                    if (hashArray.length === 2) {
+                        id = hashArray[0].replace('#', '');
+                        sample = hashArray[1];
+                        try{
+                        //method defined in a4j:jsFunction
+                        handleHashChange(id, sample);
+                        }catch(e){
+                           alert('you must define an a4j:jsFunction component with name=\"handleHashChange\"')
+                        }
+                        if(backButtonID){
+                            //show the back button and attach functions
+                            document.getElementById(backButtonID).className = 'basic-button left-header-button';
+                            document.getElementById(backButtonID).onclick = function() {
+                                location.hash = defaultPageHash;
+                            };
+                        }
+                    }
+
+                }
+            },
+
+            flip: function() {
+                //get a handle on the flippable region
+                var front = document.getElementById('front');
+                var back = document.getElementById('back');
+
+                //just a simple way to see what the state is
+                var classes = front.className.split(' ');
+                var flipped = classes.indexOf('flipped');
+
+                if (flipped >= 0) {
+                    //already flipped, so return to original
+                    front.className = 'normal';
+                    back.className = 'flipped';
+                } else {
+                    //do the flip
+                    front.className = 'flipped';
+                    back.className = 'normal';
+
+                }
             }
 
-        }
-    },
+        };
+        slidfast.core.init.prototype = slidfast.core;
+        return slidfast;
 
-    flip: function() {
-        //get a handle on the flippable region
-        var front = document.getElementById('front');
-        var back = document.getElementById('back');
+    })();
 
-        //just a simple way to see what the state is
-        var classes = front.className.split(' ');
-        var flipped = classes.indexOf('flipped');
+window.slidfast = slidfast;
+})(window,document);
 
-        if (flipped >= 0) {
-            //already flipped, so return to original
-            front.className = 'normal';
-            back.className = 'flipped';
-        } else {
-            //do the flip
-            front.className = 'flipped';
-            back.className = 'normal';
 
-        }
-    }
 
-};

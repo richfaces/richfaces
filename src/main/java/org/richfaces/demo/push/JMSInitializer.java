@@ -68,9 +68,20 @@ public class JMSInitializer extends AbstractCapabilityInitializer {
     private void initializeJMS() throws Exception {
         provider = initializeCurrentProvider();
 
-        provider.createTopic(PUSH_JMS_TOPIC, "/topic/" + PUSH_JMS_TOPIC);
-        provider.createTopic(PUSH_TOPICS_CONTEXT_TOPIC, "/topic/" + PUSH_TOPICS_CONTEXT_TOPIC);
-        provider.createTopic(PUSH_CDI_TOPIC, "/topic/" + PUSH_CDI_TOPIC);
+        if (provider != null) {
+            createTopic(PUSH_JMS_TOPIC, "/topic/" + PUSH_JMS_TOPIC);
+            createTopic(PUSH_TOPICS_CONTEXT_TOPIC, "/topic/" + PUSH_TOPICS_CONTEXT_TOPIC);
+            createTopic(PUSH_CDI_TOPIC, "/topic/" + PUSH_CDI_TOPIC);
+        }
+    }
+
+    private void createTopic(String topicName, String jndiName) throws Exception {
+        try {
+            LOGGER.info("creating topic " + topicName);
+            provider.createTopic(topicName, jndiName);
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to create topic '" + topicName + "' (JNDI: " + jndiName + ")", e);
+        }
     }
 
     protected static boolean isJmsEnabled() {
@@ -124,11 +135,13 @@ public class JMSInitializer extends AbstractCapabilityInitializer {
     private MessagingProviderManagement initializeCurrentProvider() {
         for (Class<? extends MessagingProviderManagement> c : getAvailableProviders()) {
             try {
+                LOGGER.info("initializing");
                 MessagingProviderManagement provider = c.newInstance();
                 provider.initializeProvider();
+                LOGGER.info(c.getSimpleName() + " initialized");
                 return provider;
             } catch (InitializationFailedException e) {
-                // TODO
+                LOGGER.severe(c.getSimpleName() + " initialization failed");
             } catch (Exception e) {
                 throw new IllegalStateException(e);
             }
