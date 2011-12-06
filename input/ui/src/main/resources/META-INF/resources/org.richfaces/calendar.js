@@ -795,9 +795,9 @@
                 this.dateEditorMonthID = this.DATE_EDITOR_LAYOUT_ID + 'M' + this.dateEditorMonth;
 
                 htmlContent += '</tr><tr><td colspan="2" class="rf-cal-monthpicker-ok">' +
-                    '<div id="' + this.DATE_EDITOR_BUTTON_OK + '" class="rf-cal-time-btn" style="float:right;" onmousedown="jQuery(this).addClass(\'rf-cal-time-btn-press\');" onmouseout="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onmouseup="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onclick="jQuery(\'' + this.id + '\').hideDateEditor(true);"><span>' + this.options.labels.ok + '</span></div>' +
+                    '<div id="' + this.DATE_EDITOR_BUTTON_OK + '" class="rf-cal-time-btn" style="float:right;" onmousedown="jQuery(this).addClass(\'rf-cal-time-btn-press\');" onmouseout="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onmouseup="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onclick="RichFaces.$(\'' + this.id + '\').hideDateEditor(true);"><span>' + this.options.labels.ok + '</span></div>' +
                     '</td><td colspan="2" class="rf-cal-monthpicker-cancel">' +
-                    '<div id="' + this.DATE_EDITOR_BUTTON_CANCEL + '" class="rf-cal-time-btn" style="float:left;" onmousedown="jQuery(this).addClass(\'rf-cal-time-btn-press\');" onmouseout="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onmouseup="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onclick="jQuery(\'' + this.id + '\').hideDateEditor(false);"><span>' + this.options.labels.cancel + '</span></div>' +
+                    '<div id="' + this.DATE_EDITOR_BUTTON_CANCEL + '" class="rf-cal-time-btn" style="float:left;" onmousedown="jQuery(this).addClass(\'rf-cal-time-btn-press\');" onmouseout="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onmouseup="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onclick="RichFaces.$(\'' + this.id + '\').hideDateEditor(false);"><span>' + this.options.labels.cancel + '</span></div>' +
                     '</td>';
 
 

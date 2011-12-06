@@ -138,11 +138,17 @@
                 this.items.splice(jQuery.inArray(item, this.items), 1);
                 this.submitedItems.splice(jQuery.inArray(item, this.submitedItems), 1);
                 this.__updateButtons();
-                richfaces.Event.fire(this.element, "onclear", item);
+                richfaces.Event.fire(this.element, "onclear", [item.model]);
             },
 
             __removeAllItems: function(item) {
-                var itemsRemoved = this.items.slice(0);
+                var itemsRemoved = [];
+                for (var i in this.submitedItems) {
+                    itemsRemoved.push(this.submitedItems[i].model);
+                }
+                for (var i in this.items) {
+                    itemsRemoved.push(this.items[i].model);
+                }
                 this.list.empty();
                 this.items.splice(0, this.items.length);
                 this.submitedItems.splice(0, this.submitedItems.length);

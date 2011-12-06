@@ -283,8 +283,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             writer.startElement(HtmlConstants.DIV_ELEM, table);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-" + getFacetClassName(name), null);
             writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
-            writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
-            writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-tbl", null);
             writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
             writer.startElement(HtmlConstants.TR_ELEMENT, table);
             String clientId = table.getClientId(context);
@@ -314,8 +313,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
                     writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
                     writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, tableId, null);
-                    writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
-                    writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
+                    writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-tbl", null);
                     writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
                     writer.startElement(HtmlConstants.TR_ELEMENT, table);
                     while (columns.hasNext()) {
@@ -398,8 +396,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-spcr", null);
             writer.endElement(HtmlConstants.DIV_ELEM);
             writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
-            writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
-            writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-tbl", null);
             writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
             writer.startElement(HtmlConstants.TR_ELEMENT, table);
             for (state.startIterate(); state.hasNextPart();) {
@@ -413,8 +410,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 String targetId = clientId + ":tbt" + partName.getId();
                 writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, targetId, null);
-                writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
-                writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-tbl", null);
                 writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":tb" + partName.getId(), null);
                 encodeRows(context, state);
@@ -626,9 +622,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         writer.startElement(HtmlConstants.TABLE_ELEMENT, component);
         String clientId = component.getClientId(context);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":r", null);
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rord", null);
-        writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
-        writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rord rf-edt-tbl", null);
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
         writer.startElement(HtmlConstants.TH_ELEM, component);
         writer.write("&#160;");

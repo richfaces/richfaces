@@ -168,7 +168,7 @@ public class ExtendedDataTableRendererTest {
         HtmlElement table = page.getElementById("table");
         assertEquals("footerFacet", table.getElementById("table:footerFacet").getTextContent());
         assertEquals("rf-edt-rsz-mkr", table.getElementById("table:d").getAttribute("class"));
-        assertEquals("rf-edt-rord", table.getElementById("table:r").getAttribute("class"));
+        assertEquals("rf-edt-rord rf-edt-tbl", table.getElementById("table:r").getAttribute("class"));
         assertEquals("rf-edt-rord-mkr", table.getElementById("table:rm").getAttribute("class"));
         assertEquals("table:wi", table.getElementById("table:wi").getAttribute("name"));
         assertTrue(table.getElementsByTagName("script").get(0).getTextContent().contains("RichFaces.ui.ExtendedDataTable"));

@@ -25,6 +25,15 @@
     border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 }
 
+.rf-edt-tbl {
+    border-collapse: collapse;
+    border-spacing : 0;
+}
+
+.rf-edt-tbl tr td, table.rf-edt-tbl tr th {
+    padding: 0;
+}
+
 .rf-edt-hdr,.rf-edt-tbl-hdr {
     background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
 }
