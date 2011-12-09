@@ -11,7 +11,9 @@
         <h:outputStylesheet library="css" name="application.css" target="head" />
         <h:outputScript target="head">
             var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-7306415-4']);
+            _gaq.push(['_setAccount', 'UA-7306415-7']);
+            _gaq.push(['_setDomainName', 'richfaces.org']);
+            _gaq.push(['_setAllowLinker', true]);
             _gaq.push(['_trackPageview']);
 
             (function() {
@@ -20,7 +22,7 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </h:outputScript>
-        
+
         <div id="page">
             <div id="header">
                 <a href="#" class="logo"><img src="#{facesContext.externalContext.requestContextPath}/images/rf-logo.png"
