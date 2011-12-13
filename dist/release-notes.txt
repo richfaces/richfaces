@@ -1,4 +1,4 @@
-New in Version 4.1.0-SNAPSHOT
+New in Version 4.1.1-SNAPSHOT
 ------------------------
     Bug
     [RF-11564] - Mobile Showcase and iPhone: defaultly closed rich:collapsiblePanel can't be opened
