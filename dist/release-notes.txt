@@ -1,6 +1,3 @@
-New in Version 4.1.1-SNAPSHOT
-------------------------
-
 New in Version 4.1.0.Final
 --------------------------
     Bug
