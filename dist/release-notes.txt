@@ -1,5 +1,18 @@
 New in Version 4.1.1-SNAPSHOT
 ------------------------
+
+New in Version 4.1.0.Final
+--------------------------
+    Bug
+    [RF-11802] - A project created with the richfaces-archetype-simpleapp won't compile with eclipse
+
+    Task
+    [RF-11789] - Rename CDK maven-resources-plugin to maven-richfaces-resources-plugin
+    Full Release Notes:
+    https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310341&version=12318600
+
+New in Version 4.1.0.CR2
+------------------------
     Bug
     [RF-11564] - Mobile Showcase and iPhone: defaultly closed rich:collapsiblePanel can't be opened
     [RF-11633] - rich:inplaceInput - client side validation doesn't work
