@@ -1,34 +1,55 @@
-if (!window.RichFaces) {
-    window.RichFaces = {};
-}
-(function ($, rf) {
+/**
+ * @author Ilya Shaikovsky
+ * @author Lukas Fryc
+ */
+
+(function($, rf) {
 
     rf.ui = rf.ui || {};
+
     var defaultOptions = {
-    		type : 'keyup',
-        	disableInInput : true
+        type : 'keyup',
+        enabledInInput : false
     };
+
     rf.ui.HotKey = function(componentId, options) {
-        this.options = $.extend(this.options, defaultOptions, options);
-        this.type = this.options.type;
-        this.handler = this.options.handler;
-        this.key = this.options.key;
-        this.disableInInput = this.options.disableInInput;
-        this.selector = this.options.selector;
-        //TODO: improve to support just id as for other components.
-        if (!this.selector){
-        	jQuery(document).bind(this.type, this.options, rf.ui.HotKey.resolveHandler(this.handler));
-        }else{
-        	jQuery(this.selector).live(this.type, this.options, rf.ui.HotKey.resolveHandler(this.handler));
+        $super.constructor.call(this, componentId);
+        this.options = $.extend({}, defaultOptions, options);
+        this.options.disableInInput = !this.options.enabledInInput;
+        this.attachToDom(this.componentId);
+
+        this.handler = $.proxy(this.__pressHandler, this);
+        
+        if (!this.options.selector) {
+            $(document).bind(this.options.type, this.options, this.handler);
+        } else {
+            $(this.options.selector).live(this.options.type, this.options, this.handler);
         }
     };
-    rf.ui.HotKey.resolveHandler = function(handlerBody) {
-    	if (handlerBody) {
-    		if (typeof handlerBody == "function") {
-    			return handlerBody;
-    		} else {
-    			return new Function("event", handlerBody);
-    		}
-    	}
-    };
+
+    rf.BaseComponent.extend(rf.ui.HotKey);
+
+    var $super = rf.ui.HotKey.$super;
+
+    $.extend(rf.ui.HotKey.prototype, {
+
+        name : "HotKey",
+
+        __pressHandler : function() {
+            this.invokeEvent.call(this, 'press', document.getElementById(this.id));
+        },
+
+        destroy : function() {
+            rf.Event.unbindById(this.id, this.namespace);
+
+            if (!this.options.selector) {
+                $(document).unbind(this.options.type, this.handler)
+            } else {
+                $(this.options.selector).die(this.options.type, this.handler);
+            }
+
+            $super.destroy.call(this);
+        }
+    });
+
 })(jQuery, RichFaces);

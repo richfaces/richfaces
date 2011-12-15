@@ -24,6 +24,8 @@ package org.richfaces.component;
 import javax.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -31,25 +33,25 @@ import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author ilya_shaikovsky
- *
+ * @author Lukas Fryc
  */
-@JsfComponent(type = AbstractHotKey.COMPONENT_TYPE, family = AbstractHotKey.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.HotKeyRenderer"), tag = @Tag(type = TagType.Facelets))
+@JsfComponent(type = AbstractHotKey.COMPONENT_TYPE, family = AbstractHotKey.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.HotKeyRenderer"), tag = @Tag(type = TagType.Facelets), description = @Description("The HotKey component triggers press event handler for all key events which corresponds to given key sequence."))
 public abstract class AbstractHotKey extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.HotKey";
     public static final String COMPONENT_FAMILY = "org.richfaces.HotKey";
 
-    @Attribute(required = true)
+    @Attribute(required = true, description = @Description("The key sequence to be pressed, single keys separated by + (e.g. 'ctrl+a'). Special keys are accepted as follows: backspace, tab, return, shift, ctrl, alt, pause, capslock, esc, space, pageup, pagedown, end, home, left, up, right, down, insert, del, numlock, scroll, meta, f1, f2, ..., f12"))
     public abstract String getKey();
 
-    @Attribute(required = true)
-    public abstract String getHandler();
-
-    @Attribute
+    @Attribute(description = @Description("The key event for which the event handler should be registered: keydown, keyup, keypress"))
     public abstract String getType();
 
-    @Attribute(defaultValue = "true")
-    public abstract boolean isDisableInInput();
+    @Attribute(defaultValue = "false", description = @Description("The switch which enables handling events coming from input"))
+    public abstract boolean isEnabledInInput();
 
-    @Attribute
+    @Attribute(description = @Description("The CSS selector of the DOM root from which key events should be handled. When no value provided, events are handled for whole document. ID selectors starting with hash sign (#) will be expanded from componentId to clientId form. (e.g. #component is expanded to #form:component in case that component is nested in form)"))
     public abstract String getSelector();
+
+    @Attribute(events = @EventName(value = "press", defaultEvent = true), description = @Description("Event handler to be fired when registered key sequence is pressed"))
+    public abstract String getOnpress();
 }
