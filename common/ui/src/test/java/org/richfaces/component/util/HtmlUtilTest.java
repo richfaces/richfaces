@@ -20,11 +20,15 @@
  */
 package org.richfaces.component.util;
 
+import java.util.Map;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 
 import junit.framework.TestCase;
+
+import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com created 11.04.2007
@@ -50,51 +54,76 @@ public class HtmlUtilTest extends TestCase {
         assertEquals("120px", HtmlUtil.addToSize("100px", "20px"));
     }
 
-    public void testExpandIdSelector() {
+    public void testExpandIdSelectorWhenNoHashBeforeComponentIdThenIdNotExpanded() {
+        Map<String, String> map = Maps.newHashMap();
+        map.put("componentId", "form:componentId");
+
+        String selector = "componentId";
+        String expected = "componentId";
+
+        String actual = expandIdSelector(selector, map);
+        assertEquals(expected, actual);
+    }
+
+    public void testExpandIdSelectorWhenHavingExpandableSelectorThenExpandIt() {
+        Map<String, String> map = Maps.newHashMap();
+        map.put("componentId", "form:componentId");
+
+        String selector = "#componentId";
+        String expected = "#form\\:componentId";
+
+        String actual = expandIdSelector(selector, map);
+        assertEquals(expected, actual);
+    }
+
+    public void testExpandIdSelectorWhenHavingComplexSelectorWithExpandableIdentifiersThenExpandThem() {
+        Map<String, String> map = Maps.newHashMap();
+        map.put("-Test", "component$1");
+        map.put("_aaaa", "component2");
+
         String selector = ".class_form+#-Test #form\\:element .class2 #_aaaa";
+        String expected = ".class_form+#component\\$1 #form\\:element .class2 #component2";
+
+        String actual = expandIdSelector(selector, map);
+        assertEquals(expected, actual);
+    }
+
+    public void testExpandIdSelectorWhenHavingComplexSelectorWithNoExpandablePartThenNothingChanges() {
+        Map<String, String> map = Maps.newHashMap();
+        map.put("-Test", "component$1");
+        map.put("_aaaa", "component2");
+
+        String selector = ".class_form+.component1 .class2 #1component2";
+        String expected = selector;
+
+        String actual = expandIdSelector(selector, map);
+        assertEquals(expected, actual);
+    }
+
+    private String expandIdSelector(String selector, final Map<String, String> clientIdMap) {
         UIComponent component = new UIComponentBase() {
             public String getFamily() {
-
-                // TODO Auto-generated method stub
                 return null;
             }
 
             public UIComponent findComponent(String expr) {
-                if ("-Test".equals(expr)) {
-                    return new UIComponentBase() {
-                        public String getClientId(FacesContext context) {
-                            return "component$1";
-                        }
-
-                        public String getFamily() {
-
-                            // TODO Auto-generated method stub
-                            return null;
-                        }
-                    };
-                } else if ("_aaaa".equals(expr)) {
-                    return new UIComponentBase() {
-                        public String getClientId(FacesContext context) {
-                            return "component2";
-                        }
-
-                        public String getFamily() {
-
-                            // TODO Auto-generated method stub
-                            return null;
-                        }
-                    };
+                final String clientId = clientIdMap.get(expr);
+                if (clientId == null) {
+                    return null;
                 }
 
-                return null;
+                return new UIComponentBase() {
+                    public String getClientId(FacesContext context) {
+                        return clientId;
+                    }
+
+                    public String getFamily() {
+                        return null;
+                    }
+                };
             }
         };
-        String string = HtmlUtil.expandIdSelector(selector, component, null);
 
-        assertEquals(".class_form+#component\\$1 #form\\:element .class2 #component2", string);
-
-        String s = ".class_form+.component1 .class2 #1component2";
-
-        assertEquals(s, HtmlUtil.expandIdSelector(s, component, null));
+        return HtmlUtil.expandIdSelector(selector, component, null);
     }
 }
