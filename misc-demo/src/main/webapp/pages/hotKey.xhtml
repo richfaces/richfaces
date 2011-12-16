@@ -2,7 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:misc="http://richfaces.org/misc">
 <f:view>
-    <h:head></h:head>
+    <h:head>
+        <script>
+            var myCallback = function(event, string) {
+                alert(string);
+            }; 
+        </script>
+    
+    </h:head>
     <h:body>
 
         <!-- Switches hotKeys between rendered and not rendered state (testring destructor) -->
@@ -34,8 +41,13 @@
 
 
                 <p>CTRL X works only if third input focused (componentId selector used)</p>
-                <misc:hotKey key="CTRL+x" selector="#thirdInput" onpress="alert('CTRL+x in third input');" enabledInInput="true"
+                <misc:hotKey key="CTRL+x" selector="#thirdInput" onpress="myCallback(event, 'CTRL+x in third input');" enabledInInput="true"
                     rendered="#{requestScope.panelRendered || !facesContext.postback}" />
+                <br />
+                <misc:hotKey key="CTRL+z" selector="#thirdInput" onpress="myCallback(event, 'CTRL+z in third input');" enabledInInput="true"
+                    rendered="#{requestScope.panelRendered || !facesContext.postback}" />
+                    
+                    
             </a4j:outputPanel>
         </a4j:outputPanel>
 
@@ -44,7 +56,7 @@
         <h:inputText value="CTRL X within that input" styleClass="second" />
 
         <h:form id="anotherForm">
-            <h:inputText id="thirdInput" value="CTRL X within that input" />
+            <h:inputText id="thirdInput" value="CTRL X or CTRL Z within that input" />
         </h:form>
 
     </h:body>
