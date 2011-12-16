@@ -40,7 +40,7 @@ public abstract class AbstractHotKey extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.HotKey";
     public static final String COMPONENT_FAMILY = "org.richfaces.HotKey";
 
-    @Attribute(required = true, description = @Description("The key sequence to be pressed, single keys separated by + (e.g. 'ctrl+a'). Special keys are accepted as follows: backspace, tab, return, shift, ctrl, alt, pause, capslock, esc, space, pageup, pagedown, end, home, left, up, right, down, insert, del, numlock, scroll, meta, f1, f2, ..., f12"))
+    @Attribute(required = true, description = @Description("The key sequence to be pressed, single keys separated by + (e.g. 'ctrl+a'), more key sequences separated by space. Special keys are accepted as follows: backspace, tab, return, shift, ctrl, alt, pause, capslock, esc, space, pageup, pagedown, end, home, left, up, right, down, insert, del, numlock, scroll, meta, f1, f2, ..., f12"))
     public abstract String getKey();
 
     @Attribute(description = @Description("The key event for which the event handler should be registered: keydown, keyup, keypress"))

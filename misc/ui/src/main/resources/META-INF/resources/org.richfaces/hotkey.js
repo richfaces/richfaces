@@ -15,16 +15,14 @@
     rf.ui.HotKey = function(componentId, options) {
         $super.constructor.call(this, componentId);
         this.options = $.extend({}, defaultOptions, options);
-        this.options.disableInInput = !this.options.enabledInInput;
         this.attachToDom(this.componentId);
 
         this.handler = $.proxy(this.__pressHandler, this);
-        
-        if (!this.options.selector) {
-            $(document).bind(this.options.type, this.options, this.handler);
-        } else {
-            $(this.options.selector).live(this.options.type, this.options, this.handler);
-        }
+        this.options.selector = (this.options.selector) ? this.options.selector : document;
+
+        $(document).ready($.proxy(function() {
+            $(this.options.selector).bind(this.options.type, this.options, this.handler);
+        }, this));
     };
 
     rf.BaseComponent.extend(rf.ui.HotKey);
@@ -35,18 +33,14 @@
 
         name : "HotKey",
 
-        __pressHandler : function() {
-            this.invokeEvent.call(this, 'press', document.getElementById(this.id));
+        __pressHandler : function(event) {
+            this.invokeEvent.call(this, 'press', document.getElementById(this.id), event);
         },
 
         destroy : function() {
             rf.Event.unbindById(this.id, this.namespace);
 
-            if (!this.options.selector) {
-                $(document).unbind(this.options.type, this.handler)
-            } else {
-                $(this.options.selector).die(this.options.type, this.handler);
-            }
+            $(this.options.selector).unbind(this.options.type, this.handler);
 
             $super.destroy.call(this);
         }

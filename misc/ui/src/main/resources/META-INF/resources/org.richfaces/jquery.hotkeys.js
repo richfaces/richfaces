@@ -31,24 +31,29 @@
 			".": ">",  "/": "?",  "\\": "|"
 		}
 	};
+	
+	var defaultOptions = {
+        key : '',
+        enabledInInput : false
+    };
 
 	function keyHandler( handleObj ) {
-		if ( typeof handleObj.data.key !== "string" ) {
-			return;
-		}
+		var options = ( typeof handleObj.data == "string" ) ? {key: handleObj.data} : handleObj.data;
+		options = jQuery.extend({}, defaultOptions, options);
+
 		var origHandler = handleObj.handler,
-			keys = handleObj.data.key.toLowerCase().split(" ");
+			keys = options.key.toLowerCase().split(" ");
 
 		handleObj.handler = function( event ) {
+			var character = String.fromCharCode( event.which ).toLowerCase(),
+					isTextInput = (/textarea|select/i.test( event.target.nodeName ) || event.target.type === "text");
 			// Don't fire in text-accepting inputs that we didn't directly bind to
-			if ((this !== event.target && (/textarea|select/i.test( event.target.nodeName ) ||
-				 event.target.type === "text"))&&(handleObj.data.disableInInput)) {
+			if ( this !== event.target && isTextInput && !options.enabledInInput ) {
 				return;
 			}
 
 			// Keypress represents characters, not special keys
 			var special = event.type !== "keypress" && jQuery.hotkeys.specialKeys[ event.which ],
-				character = String.fromCharCode( event.which ).toLowerCase(),
 				key, modif = "", possible = {};
 
 			// check combinations (alt|ctrl|shift+anything)
@@ -81,7 +86,6 @@
 					possible[ jQuery.hotkeys.shiftNums[ character ] ] = true;
 				}
 			}
-
 			for ( var i = 0, l = keys.length; i < l; i++ ) {
 				if ( possible[ keys[i] ] ) {
 					return origHandler.apply( this, arguments );
