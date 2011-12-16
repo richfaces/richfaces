@@ -763,6 +763,16 @@
                 </samples>
             </demo>
             <demo mobileExclude="true">
+                <id>hotKey</id>
+                <name>rich:hotKey</name>
+                <samples>
+                    <sample>
+                        <id>pickListHotKeys</id>
+                        <name>HotKeys for Pick List</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo mobileExclude="true">
                 <id>jquery</id>
                 <name>rich:jQuery</name>
                 <samples>
