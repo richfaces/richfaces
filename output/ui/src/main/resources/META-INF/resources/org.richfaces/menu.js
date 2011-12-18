@@ -15,16 +15,15 @@
         $.extend(this.options, defaultOptions, options || {});
         $super.constructor.call(this, componentId, this.options);
         this.id = componentId;
-        this.namespace = this.namespace || "."
-            + rf.Event.createNamespace(this.name, this.id);
+        this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.groupList = new Array();
 
-        rf.Event.bindById(this.id + "_label", this.options.showEvent, $.proxy(
-            this.__showHandler, this), this);
+        rf.Event.bindById(this.id + "_label", this.options.showEvent, $.proxy(this.__showHandler, this), this);
         this.element = $(rf.getDomElement(this.id));
 
-        if (!rf.ui.MenuManager)
+        if (!rf.ui.MenuManager) {
             rf.ui.MenuManager = {};
+        }
         this.menuManager = rf.ui.MenuManager;
     };
 

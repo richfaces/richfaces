@@ -23,8 +23,7 @@
     rf.ui.MenuBase = function(componentId, options) {
         $super.constructor.call(this, componentId, options);
         this.id = componentId;
-        this.namespace = this.namespace || "."
-            + rf.Event.createNamespace(this.name, this.id);
+        this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
 
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
@@ -37,8 +36,7 @@
         this.options.attachTo = this.id;
         this.options.attachToBody = false;
 
-        this.options.positionOffset = [this.options.horizontalOffset,
-            this.options.verticalOffset];
+        this.options.positionOffset = [this.options.horizontalOffset, this.options.verticalOffset];
         this.popup = new RichFaces.ui.Popup(this.id + "_list", {
                 attachTo : this.id,
                 direction : this.options.direction,
@@ -50,18 +48,15 @@
 
         this.selectedGroup = null;
 
-        rf.Event.bindById(this.id, "mouseenter", $.proxy(this.__overHandler,
-            this), this);
-        rf.Event.bindById(this.id, "mouseleave", $.proxy(this.__leaveHandler,
-            this), this);
+        rf.Event.bindById(this.id, "mouseenter", $.proxy(this.__overHandler, this), this);
+        rf.Event.bindById(this.id, "mouseleave", $.proxy(this.__leaveHandler, this), this);
 
         this.popupElement = rf.getDomElement(this.popup.id);
         this.popupElement.tabIndex = -1;
 
         this.__updateItemsList();
 
-        rf.Event.bind(this.items, "mouseenter", $.proxy(
-            this.__itemMouseEnterHandler, this), this);
+        rf.Event.bind(this.items, "mouseenter", $.proxy(this.__itemMouseEnterHandler, this), this);
 
         this.currentSelectedItemIndex = -1;
         var navEventHandlers;
@@ -89,10 +84,8 @@
             },
 
             processItem : function(item) {
-                if (item && item.attr('id') && !this.__isDisabled(item)
-                    && !this.__isGroup(item)) {
-                    this.invokeEvent("itemclick", rf.getDomElement(this.id),
-                        null);
+                if (item && item.attr('id') && !this.__isDisabled(item) && !this.__isGroup(item)) {
+                    this.invokeEvent("itemclick", rf.getDomElement(this.id), null);
                     this.hide();
                 }
             },
@@ -144,24 +137,25 @@
             __getParentMenuFromItem : function(item) {
                 var menu;
                 if (item)
-                    menu = item.parents('div.' + this.options.itemCss)
-                        .has('div.' + this.options.listContainerCss).eq(1);
+                    menu = item.parents('div.' + this.options.itemCss).has('div.' + this.options.listContainerCss).eq(1);
                 if (menu && menu.length > 0)
                     return menu;
                 else {
                     menu = item.parents('div.' + this.options.labelCss);
-                    if (menu && menu.length > 0)
+                    if (menu && menu.length > 0) {
                         return menu;
-                    else
+                    }
+                    else {
                         return null;
+                    }
                 }
             },
 
             __getParentMenu : function() {
-                var menu = $(this.element).parents('div.' + this.options.itemCss)
-                    .has('div.' + this.options.listContainerCss).eq(0);
-                if (menu && menu.length > 0)
+                var menu = $(this.element).parents('div.' + this.options.itemCss).has('div.' + this.options.listContainerCss).eq(0);
+                if (menu && menu.length > 0) {
                     return menu;
+                }
                 else {
                     var item = this.items.eq(0);
                     return this.__getParentMenuFromItem(item);
@@ -199,8 +193,7 @@
             },
 
             __getItemFromEvent : function(e) {
-                return $(e.target).closest("." + this.options.itemCss,
-                    e.currentTarget).eq(0);
+                return $(e.target).closest("." + this.options.itemCss,e.currentTarget).eq(0);
             },
 
             __showHandler : function(e) {
