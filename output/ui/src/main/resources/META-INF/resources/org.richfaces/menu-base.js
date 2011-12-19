@@ -17,7 +17,8 @@
         disabledItemCss : "rf-ddm-itm-dis",
         labelCss: "rf-ddm-lbl",
         listCss : "rf-ddm-lst",
-        listContainerCss : "rf-ddm-lst-bg"
+        listContainerCss : "rf-ddm-lst-bg",
+        attachTo : ""
     };
 
     rf.ui.MenuBase = function(componentId, options) {
