@@ -2,7 +2,9 @@
     rf.ui = rf.ui || {};
 
     var defaultOptions = {
-        showEvent : 'contextmenu'
+        showEvent : 'contextmenu',
+        cssRoot : "ctx",
+        cssClasses : {}
     };
 
     // constructor definition

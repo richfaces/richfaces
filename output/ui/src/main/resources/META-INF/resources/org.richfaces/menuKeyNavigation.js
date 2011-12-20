@@ -6,9 +6,9 @@
     rf.ui.MenuKeyNavigation = {
 
         __updateItemsList : function() {
-            var items = $('.' + this.options.listContainerCss + ':first',
-                this.popup.popup).find('>.' + this.options.itemCss).not(
-                '.' + this.options.disabledItemCss);
+            var items = $('.' + this.options.cssClasses.listContainerCss + ':first',
+                this.popup.popup).find('>.' + this.options.cssClasses.itemCss).not(
+                '.' + this.options.cssClasses.disabledItemCss);
             return (this.items = items);
         },
 

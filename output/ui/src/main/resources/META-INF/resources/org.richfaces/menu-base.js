@@ -11,13 +11,8 @@
         horizontalOffset : 0,
         showEvent : 'mouseover',
         positionOffset : [0, 0],
-        itemCss : "rf-ddm-itm",
-        selectItemCss : "rf-ddm-itm-sel",
-        unselectItemCss : "rf-ddm-itm-unsel",
-        disabledItemCss : "rf-ddm-itm-dis",
-        labelCss: "rf-ddm-lbl",
-        listCss : "rf-ddm-lst",
-        listContainerCss : "rf-ddm-lst-bg"
+        cssRoot : "ddm",
+        cssClasses : {}
     };
 
     rf.ui.MenuBase = function(componentId, options) {
@@ -27,6 +22,8 @@
 
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
+        $.extend(this.options.cssClasses, buildCssClasses.call(this, this.options.cssRoot));
+
         this.attachToDom(componentId);
 
         this.element = rf.getDomElement(this.id);
@@ -62,6 +59,19 @@
 
         rf.Event.bind(this.popupElement, navEventHandlers, this);
     };
+
+    var buildCssClasses = function(cssRoot) {
+        var cssClasses = {
+            itemCss : "rf-" +cssRoot+ "-itm",
+            selectItemCss : "rf-" +cssRoot+ "-itm-sel",
+            unselectItemCss : "rf-" +cssRoot+ "-itm-unsel",
+            disabledItemCss : "rf-" +cssRoot+ "-itm-dis",
+            labelCss: "rf-" +cssRoot+ "-lbl",
+            listCss : "rf-" +cssRoot+ "-lst",
+            listContainerCss : "rf-" +cssRoot+ "-lst-bg"
+        }
+        return cssClasses;
+    }
 
     rf.BaseComponent.extend(rf.ui.MenuBase);
 
@@ -134,11 +144,11 @@
             __getParentMenuFromItem : function(item) {
                 var menu;
                 if (item)
-                    menu = item.parents('div.' + this.options.itemCss).has('div.' + this.options.listContainerCss).eq(1);
+                    menu = item.parents('div.' + this.options.cssClasses.itemCss).has('div.' + this.options.cssClasses.listContainerCss).eq(1);
                 if (menu && menu.length > 0)
                     return menu;
                 else {
-                    menu = item.parents('div.' + this.options.labelCss);
+                    menu = item.parents('div.' + this.options.cssClasses.labelCss);
                     if (menu && menu.length > 0) {
                         return menu;
                     }
@@ -149,7 +159,7 @@
             },
 
             __getParentMenu : function() {
-                var menu = $(this.element).parents('div.' + this.options.itemCss).has('div.' + this.options.listContainerCss).eq(0);
+                var menu = $(this.element).parents('div.' + this.options.cssClasses.itemCss).has('div.' + this.options.cssClasses.listContainerCss).eq(0);
                 if (menu && menu.length > 0) {
                     return menu;
                 }
@@ -160,11 +170,11 @@
             },
 
             __isGroup : function(item) {
-                return item.find('div.' + this.options.listCss).length > 0;
+                return item.find('div.' + this.options.cssClasses.listCss).length > 0;
             },
 
             __isDisabled : function(item) {
-                return item.hasClass(this.options.disabledItemCss);
+                return item.hasClass(this.options.cssClasses.disabledItemCss);
             },
 
             __isShown : function() {
@@ -190,7 +200,7 @@
             },
 
             __getItemFromEvent : function(e) {
-                return $(e.target).closest("." + this.options.itemCss,e.currentTarget).eq(0);
+                return $(e.target).closest("." + this.options.cssClasses.itemCss,e.currentTarget).eq(0);
             },
 
             __showHandler : function(e) {

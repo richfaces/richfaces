@@ -2,11 +2,9 @@
     rf.ui = rf.ui || {};
 
     var defaultOptions = {
-        itemCss : "rf-ddm-itm",
-        selectItemCss : "rf-ddm-itm-sel",
-        unselectItemCss : "rf-ddm-itm-unsel",
-        labelCss: "rf-ddm-lbl",
-        mode : "server"
+        mode : "server",
+        cssRoot : "ddm",
+        cssClasses : {}
     }
 
     // constructor definition
@@ -15,6 +13,7 @@
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
         $super.constructor.call(this, componentId);
+        $.extend(this.options.cssClasses, buildCssClasses.call(this, this.options.cssRoot));
         this.attachToDom(componentId);
         this.element = $(rf.getDomElement(componentId));
         rf.Event.bindById(this.id, 'click', this.__clickHandler, this);
@@ -22,6 +21,16 @@
         rf.Event.bindById(this.id, 'mouseleave', this.unselect, this);
         this.selected = false;
     };
+
+    var buildCssClasses = function(cssRoot) {
+        var cssClasses = {
+            itemCss : "rf-" +cssRoot+ "-itm",
+            selectItemCss : "rf-" +cssRoot+ "-itm-sel",
+            unselectItemCss : "rf-" +cssRoot+ "-itm-unsel",
+            labelCss: "rf-" +cssRoot+ "-lbl"
+        }
+        return cssClasses;
+    }
 
     rf.BaseComponent.extend(rf.ui.MenuItem);
 
@@ -33,13 +42,13 @@
         return {
             name : "MenuItem",
             select : function() {
-                this.element.removeClass(this.options.unselectItemCss);
-                this.element.addClass(this.options.selectItemCss);
+                this.element.removeClass(this.options.cssClasses.unselectItemCss);
+                this.element.addClass(this.options.cssClasses.selectItemCss);
                 this.selected = true;
             },
             unselect : function() {
-                this.element.removeClass(this.options.selectItemCss);
-                this.element.addClass(this.options.unselectItemCss);
+                this.element.removeClass(this.options.cssClasses.selectItemCss);
+                this.element.addClass(this.options.cssClasses.unselectItemCss);
                 this.selected = false;
             },
             activate : function() {
@@ -86,7 +95,7 @@
             },
 
             __getParentMenu : function() {
-                var menu = this.element.parents('div.' + this.options.labelCss);
+                var menu = this.element.parents('div.' + this.options.cssClasses.labelCss);
                 if (menu && menu.length > 0)
                     return rf.$(menu);
                 else

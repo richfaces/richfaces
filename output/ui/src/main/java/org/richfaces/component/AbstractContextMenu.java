@@ -91,6 +91,11 @@ public abstract class AbstractContextMenu extends UIComponentBase {
     @Attribute
     public abstract String getLabel();
 
+    @Attribute(generate = false, hidden = true, readOnly = true)
+    public Object getCssRoot() {
+        return "ctx";
+    }
+
     public enum Facets {
         label,
         labelDisabled

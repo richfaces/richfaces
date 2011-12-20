@@ -56,6 +56,11 @@ public abstract class AbstractMenuGroup extends UIOutput {
     @Attribute(events = @EventName("hide"))
     public abstract String getOnhide();
 
+    @Attribute(generate = false, hidden = true, readOnly = true)
+    public Object getCssRoot() {
+        return getParent().getAttributes().get("cssRoot");
+    }
+
     public enum Facets {
         icon,
         iconDisabled

@@ -31,6 +31,11 @@ public abstract class AbstractMenuItem extends AbstractActionComponent {
     @Attribute(hidden = true)
     public abstract Object getValue();
 
+    @Attribute(generate = false, hidden = true, readOnly = true)
+    public Object getCssRoot() {
+        return getParent().getAttributes().get("cssRoot");
+    }
+
     public enum Facets {
         icon,
         iconDisabled

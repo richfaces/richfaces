@@ -5,14 +5,15 @@
         positionType : "DROPDOWN",
         direction : "AA",
         jointPoint : "AA",
-        selectMenuCss : "rf-ddm-sel",
-        unselectMenuCss : "rf-ddm-unsel"
+        cssRoot : "ddm",
+        cssClasses : {}
     };
 
     // constructor definition
     rf.ui.Menu = function(componentId, options) {
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
+        $.extend(this.options.cssClasses, buildCssClasses.call(this, this.options.cssRoot));
         $super.constructor.call(this, componentId, this.options);
         this.id = componentId;
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
@@ -27,6 +28,14 @@
         }
         this.menuManager = rf.ui.MenuManager;
     };
+
+    var buildCssClasses = function(cssRoot) {
+        var cssClasses = {
+            selectMenuCss : "rf-" +cssRoot+ "-sel",
+            unselectMenuCss : "rf-" +cssRoot+ "-unsel"
+        }
+        return cssClasses;
+    }
 
     rf.ui.MenuBase.extend(rf.ui.Menu);
 
@@ -50,7 +59,8 @@
                                 horizontalOffset: groupOptions[i].horizontalOffset,
                                 verticalOffset: groupOptions[i].verticalOffset,
                                 jointPoint : groupOptions[i].jointPoint,
-                                direction : groupOptions[i].direction
+                                direction : groupOptions[i].direction,
+                                cssRoot : groupOptions[i].cssRoot
                             });
                     }
                 }
@@ -74,12 +84,12 @@
             },
 
             select : function() {
-                this.element.removeClass(this.options.unselectMenuCss);
-                this.element.addClass(this.options.selectMenuCss);
+                this.element.removeClass(this.options.cssClasses.unselectMenuCss);
+                this.element.addClass(this.options.cssClasses.selectMenuCss);
             },
             unselect : function() {
-                this.element.removeClass(this.options.selectMenuCss);
-                this.element.addClass(this.options.unselectMenuCss);
+                this.element.removeClass(this.options.cssClasses.selectMenuCss);
+                this.element.addClass(this.options.cssClasses.unselectMenuCss);
             },
 
             __overHandler : function() {

@@ -97,6 +97,8 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
                 RenderKitUtils.addToScriptHash(map, "direction", direction.getValue(),
                         org.richfaces.component.Positioning.DEFAULT.getValue());
 
+                RenderKitUtils.addToScriptHash(map, "cssRoot", component.getAttributes().get("cssRoot"), "ddm");
+
                 results.add(map);
             }
         }
