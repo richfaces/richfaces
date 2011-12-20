@@ -152,7 +152,7 @@
             <dependency>
                 <groupId>org.glassfish</groupId>
                 <artifactId>javax.faces</artifactId>
-                <version>2.1.3</version>
+                <version>2.1.5</version>
             </dependency>
             <!-- JBoss JSF 2.1 -->
             <dependency>
@@ -163,7 +163,7 @@
             <dependency>
                 <groupId>com.sun.faces</groupId>
                 <artifactId>jsf-impl</artifactId>
-                <version>2.1.3-b02-jbossorg-2</version>
+                <version>2.1.5-jbossorg-1</version>
             </dependency>
             <!-- MyFaces JSF 2.1 -->
             <dependency>
