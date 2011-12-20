@@ -30,6 +30,13 @@
                 return attachId;
             },
 
+            __showHandler : function(e) {
+                if (this.__isShown()) {
+                    this.hide();
+                }
+                return $super.__showHandler.call(this, e);
+            },
+
             show : function(e) {
                 if (this.menuManager.openedMenu != this.id) {
                     this.menuManager.shutdownMenu();

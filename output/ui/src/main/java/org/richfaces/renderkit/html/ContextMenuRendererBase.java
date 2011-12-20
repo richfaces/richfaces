@@ -28,7 +28,7 @@ import java.util.Map;
         @ResourceDependency(library = "org.richfaces", name = "menu-base.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu.js"),
         @ResourceDependency(library = "org.richfaces", name = "contextmenu.js"),
-        @ResourceDependency(library = "org.richfaces", name = "contextmenu.ecss", target = "head") })
+        @ResourceDependency(library = "org.richfaces", name = "dropdownmenu.ecss", target = "head") })
 public abstract class ContextMenuRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.ContextMenuRenderer";
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
