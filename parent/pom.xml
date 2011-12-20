@@ -17,8 +17,8 @@
 
     <parent>
         <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-bom</artifactId>
-        <version>4.1.1-SNAPSHOT</version>
+        <artifactId>richfaces-parent</artifactId>
+        <version>11</version>
         <relativePath>../bom/pom.xml</relativePath>
     </parent>
 
@@ -41,6 +41,15 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- RichFaces BOM Import -->
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>4.1.1-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- Validation -->
             <dependency>
                 <groupId>org.hibernate</groupId>

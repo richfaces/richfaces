@@ -15,13 +15,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>11</version>
-        <relativePath>../../parent/pom.xml</relativePath>
-    </parent>
-
+    <groupId>org.richfaces</groupId>
     <artifactId>richfaces-bom</artifactId>
     <packaging>pom</packaging>
     <version>4.1.1-SNAPSHOT</version>
