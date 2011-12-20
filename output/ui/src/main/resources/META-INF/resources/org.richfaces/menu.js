@@ -18,7 +18,8 @@
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.groupList = new Array();
 
-        rf.Event.bindById(this.id + "_label", this.options.showEvent, $.proxy(this.__showHandler, this), this);
+        this.attachId = this.getAttachId();
+        rf.Event.bindById(this.attachId, this.options.showEvent, $.proxy(this.__showHandler, this), this);
         this.element = $(rf.getDomElement(this.id));
 
         if (!rf.ui.MenuManager) {
@@ -55,11 +56,15 @@
                 }
             },
 
+            getAttachId : function() {
+                return this.id + "_label";
+            },
+
             show : function(e) {
                 if (this.menuManager.openedMenu != this.id) {
                     this.menuManager.shutdownMenu();
                     this.menuManager.addMenuId(this.id);
-                    this.__showPopup(e);
+                    this.__showPopup();
                 }
             },
 
@@ -91,7 +96,7 @@
                 // clean up code here
                 this.detach(this.id);
 
-                rf.Event.unbindById(this.id + "_label", this.options.showEvent);
+                rf.Event.unbindById(this.attachId, this.options.showEvent);
 
                 // call parent's destroy method
                 $super.destroy.call(this);

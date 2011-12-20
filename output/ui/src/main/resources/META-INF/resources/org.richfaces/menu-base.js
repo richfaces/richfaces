@@ -17,8 +17,7 @@
         disabledItemCss : "rf-ddm-itm-dis",
         labelCss: "rf-ddm-lbl",
         listCss : "rf-ddm-lst",
-        listContainerCss : "rf-ddm-lst-bg",
-        attachTo : ""
+        listContainerCss : "rf-ddm-lst-bg"
     };
 
     rf.ui.MenuBase = function(componentId, options) {
@@ -33,9 +32,6 @@
         this.element = rf.getDomElement(this.id);
 
         this.displayed = false;
-
-        this.options.attachTo = this.id;
-        this.options.attachToBody = false;
 
         this.options.positionOffset = [this.options.horizontalOffset, this.options.verticalOffset];
         this.popup = new RichFaces.ui.Popup(this.id + "_list", {
@@ -96,10 +92,10 @@
                 rf.Event.fireById(item.attr('id'), 'click');
             },
 
-            __showPopup : function() {
+            __showPopup : function(e) {
                 if (!this.__isShown()) {
                     this.invokeEvent("show", rf.getDomElement(this.id), null);
-                    this.popup.show();
+                    this.popup.show(e);
                     this.displayed = true;
                     rf.ui.MenuManager.setActiveSubMenu(rf.$(this.element));
                 }
@@ -200,8 +196,9 @@
             __showHandler : function(e) {
                 if (!this.__isShown()) {
                     this.showTimeoutId = window.setTimeout($.proxy(function() {
-                        this.show();
+                        this.show(e);
                     }, this), this.options.showDelay);
+                    return false;
                 }
             },
 

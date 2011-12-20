@@ -27,6 +27,7 @@ import java.util.Map;
         @ResourceDependency(library = "org.richfaces", name = "menuKeyNavigation.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu-base.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu.js"),
+        @ResourceDependency(library = "org.richfaces", name = "contextmenu.js"),
         @ResourceDependency(library = "org.richfaces", name = "contextmenu.ecss", target = "head") })
 public abstract class ContextMenuRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.ContextMenuRenderer";
@@ -55,11 +56,11 @@ public abstract class ContextMenuRendererBase extends RendererBase {
 
     protected UIComponent getLabelFacet(FacesContext facesContext, UIComponent component) {
         UIComponent facet = null;
-        AbstractContextMenu ddmenu = (AbstractContextMenu) component;
-        if (ddmenu != null) {
-            facet = ddmenu.getFacet(AbstractContextMenu.Facets.labelDisabled.toString());
-            if (!ddmenu.isDisabled() || facet == null) {
-                facet = ddmenu.getFacet(AbstractContextMenu.Facets.label.toString());
+        AbstractContextMenu ctxMenu = (AbstractContextMenu) component;
+        if (ctxMenu != null) {
+            facet = ctxMenu.getFacet(AbstractContextMenu.Facets.labelDisabled.toString());
+            if (!ctxMenu.isDisabled() || facet == null) {
+                facet = ctxMenu.getFacet(AbstractContextMenu.Facets.label.toString());
             }
         }
         return facet;
