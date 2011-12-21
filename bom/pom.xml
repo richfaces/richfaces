@@ -25,6 +25,10 @@
         The RichFaces "Bill of Materials". This defines all runtime dependency
         versions for RichFaces.
     </description>
+    
+    <properties>
+        <version.richfaces>4.1.1-SNAPSHOT</version.richfaces>
+    </properties>
 
     <!-- Runtime dependency management -->
     <dependencyManagement>
@@ -33,102 +37,102 @@
             <dependency>
                 <groupId>org.richfaces.core</groupId>
                 <artifactId>richfaces-core-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.core</groupId>
                 <artifactId>richfaces-core-impl</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.common</groupId>
                 <artifactId>richfaces-ui-common-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.common</groupId>
                 <artifactId>richfaces-ui-common-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.core</groupId>
                 <artifactId>richfaces-ui-core-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.core</groupId>
                 <artifactId>richfaces-ui-core-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.iteration</groupId>
                 <artifactId>richfaces-ui-iteration-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.iteration</groupId>
                 <artifactId>richfaces-ui-iteration-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.output</groupId>
                 <artifactId>richfaces-ui-output-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.output</groupId>
                 <artifactId>richfaces-ui-output-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.misc</groupId>
                 <artifactId>richfaces-ui-misc-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.input</groupId>
                 <artifactId>richfaces-ui-input-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.input</groupId>
                 <artifactId>richfaces-ui-input-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.validator</groupId>
                 <artifactId>richfaces-ui-validator-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.validator</groupId>
                 <artifactId>richfaces-ui-validator-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.dnd</groupId>
                 <artifactId>richfaces-ui-dnd-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.dnd</groupId>
                 <artifactId>richfaces-ui-dnd-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui</groupId>
                 <artifactId>richfaces-components-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui</groupId>
                 <artifactId>richfaces-components-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui</groupId>
                 <artifactId>static-resources</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <!-- JSF 2.1 RI:
                 API should be used as provided since jsf-impl does bundle

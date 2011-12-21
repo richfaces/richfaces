@@ -18,11 +18,12 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>11</version>
-        <relativePath>../bom/pom.xml</relativePath>
+        <version>12-SNAPSHOT</version>
+        <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>richfaces-root-parent</artifactId>
+    <version>4.1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>RichFaces Root Parent</name>
 
@@ -33,10 +34,47 @@
     </description>
 
     <properties>
-        <richfaces.checkstyle.version>3</richfaces.checkstyle.version>
-        <test-jsf.version>1.1.0</test-jsf.version>
-        <version.hibernate-validator>4.2.0.Final</version.hibernate-validator>
+        <version.richfaces>4.1.1-SNAPSHOT</version.richfaces>
+        <version.test-jsf>1.1.0</version.test-jsf>
+        <version.richfaces-checkstyle>3</version.richfaces-checkstyle>
+        <version.vdl-doc>1</version.vdl-doc>
+        <version.shade-transformers>7</version.shade-transformers>
+
+        <version.javax.inject>1</version.javax.inject>
+        <version.cdi-api>1.0-SP4</version.cdi-api>
+        <version.weld>1.1.0.Final</version.weld><version.hibernate-validator>4.2.0.Final</version.hibernate-validator>
+        <version.hsqldb>2.0.0</version.hsqldb>
+        <version.openjpa>2.1.0</version.openjpa>
+        <version.jpa-api>2.0-cr-1</version.jpa-api>
+        <version.hibernate-entitymanager>3.6.3.Final</version.hibernate-entitymanager>
+        <version.hornetq>2.2.6.Final</version.hornetq>
+        <version.netty>3.2.2.Final</version.netty>
         <version.slf4j>1.6.1</version.slf4j>
+        <version.easymock>2.5.2</version.easymock>
+        <version.jboss-el>1.0_02.CR6</version.jboss-el>
+        <version.sun-el>1.0</version.sun-el>
+        <version.jboss-as7>7.0.2.Final</version.jboss-as7>
+        <version.commons-logging>1.0.4</version.commons-logging>
+        <version.xsom>20081112</version.xsom>
+        <version.google-functional-collections>1.1.7</version.google-functional-collections>
+        <version.google-guice>3.0-rc2</version.google-guice>
+        <version.sonatype-sisu>2.9.0</version.sonatype-sisu>
+        <version.freemarker>2.3.9</version.freemarker>
+        <version.jaxb>2.2</version.jaxb>
+        <version.xerces>2.9.1</version.xerces>
+        <version.dom4j>1.6.1</version.dom4j>
+        <version.saxon>8.7</version.saxon>
+        <version.reflections>0.9.5</version.reflections>
+        <version.yuicompressor>2.3.6</version.yuicompressor>
+        <version.junit>4.7</version.junit>
+        <version.xmlunit>1.3</version.xmlunit>
+        <version.easymock>2.5.2</version.easymock>
+        <version.maven-core>2.0.10</version.maven-core>
+        <version.maven-archiver>2.4</version.maven-archiver>
+        <version.maven-file-management>1.2.1</version.maven-file-management>
+        <version.plexus-utils>1.5.15</version.plexus-utils>
+        <version.plexus-velocity>1.1.2</version.plexus-velocity>
+        <version.google-javaparser>1.0.1</version.google-javaparser>
     </properties>
 
     <dependencyManagement>
@@ -45,9 +83,34 @@
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-bom</artifactId>
-                <version>4.1.1-SNAPSHOT</version>
+                <version>${version.richfaces}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.richfaces.build.resources</groupId>
+                <artifactId>faces-vdl-documentation</artifactId>
+                <version>${version.vdl-doc}</version>
+            </dependency>
+            
+            <!-- Dependency Injection (JSR-330) API -->
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>${version.javax.inject}</version>
+            </dependency>
+            
+            <!-- Context and Dependency Injection (JSR-299) -->
+            <dependency>
+                <groupId>javax.enterprise</groupId>
+                <artifactId>cdi-api</artifactId>
+                <version>${version.cdi-api}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld.servlet</groupId>
+                <artifactId>weld-servlet</artifactId>
+                <version>${version.weld}</version>
             </dependency>
 
             <!-- Validation -->
@@ -56,6 +119,52 @@
                 <artifactId>hibernate-validator</artifactId>
                 <version>${version.hibernate-validator}</version>
             </dependency>
+            
+            <!-- Persistence -->
+            <dependency>
+                <groupId>org.hsqldb</groupId>
+                <artifactId>hsqldb-j5</artifactId>
+                <version>${version.hsqldb}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.openjpa</groupId>
+                <artifactId>openjpa</artifactId>
+                <version>${version.openjpa}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.java-persistence</groupId>
+                <artifactId>jpa-api</artifactId>
+                <version>${version.jpa-api}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${version.hibernate-entitymanager}</version>
+            </dependency>
+            
+            <!-- JMS -->
+            <dependency>
+                <groupId>org.hornetq</groupId>
+                <artifactId>hornetq-core</artifactId>
+                <version>${version.hornetq}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hornetq</groupId>
+                <artifactId>hornetq-jms</artifactId>
+                <version>${version.hornetq}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hornetq</groupId>
+                <artifactId>hornetq-logging</artifactId>
+                <version>${version.hornetq}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.netty</groupId>
+                <artifactId>netty</artifactId>
+                <version>${version.netty}</version>
+            </dependency>
+            
+            <!-- SLF4J Logging -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -72,67 +181,307 @@
                 <version>${version.slf4j}</version>
             </dependency>
             
-            <!-- Archetypes dependency -->
+            <!-- CDK -->
             <dependency>
-                <groupId>org.apache.maven.archetype</groupId>
-                <artifactId>archetype-packaging</artifactId>
-                <version>2.0-alpha-4</version>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>commons</artifactId>
+                <version>${version.richfaces}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>commons</artifactId>
+                <classifier>tests</classifier>
+                <version>${version.richfaces}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>annotations</artifactId>
+                <version>${version.richfaces}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>attributes</artifactId>
+                <version>${version.richfaces}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>xinclude</artifactId>
+                <version>${version.richfaces}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>generator</artifactId>
+                <version>${version.richfaces}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.jboss.el</groupId>
+                <artifactId>jboss-el</artifactId>
+                <version>${version.jboss-el}</version>
+            </dependency>
+            
+            <!-- JBoss AS7 integration -->
+            <dependency>
+                <groupId>org.jboss.as</groupId>
+                <artifactId>jboss-as-controller-client</artifactId>
+                <version>${version.jboss-as7}</version>
+            </dependency>
+            
+            <!-- Common libraries -->
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${version.commons-logging}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xsom</groupId>
+                <artifactId>xsom</artifactId>
+                <version>${version.xsom}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.functional-collections</groupId>
+                <artifactId>functional-collections</artifactId>
+                <version>${version.google-functional-collections}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.collections</groupId>
+                        <artifactId>google-collections</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            
+            <!-- Guice -->
+            <dependency>
+                <groupId>com.google.inject</groupId>
+                <artifactId>guice</artifactId>
+                <version>${version.google-guice}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.inject.extensions</groupId>
+                <artifactId>guice-grapher</artifactId>
+                <version>${version.google-guice}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.inject.extensions</groupId>
+                <artifactId>guice-assistedinject</artifactId>
+                <version>${version.google-guice}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.inject.extensions</groupId>
+                <artifactId>guice-multibindings</artifactId>
+                <version>${version.google-guice}</version>
+            </dependency>
+            
+            <!-- Sonatype Sisu (Guice) -->
+            <dependency>
+                <groupId>org.sonatype.sisu</groupId>
+                <artifactId>sisu-guice</artifactId>
+                <version>${version.sonatype-sisu}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.sonatype.sisu.inject</groupId>
+                <artifactId>guice-multibindings</artifactId>
+                <version>${version.sonatype-sisu}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.inject</groupId>
+                        <artifactId>guice</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            
+            <!-- Freemarker -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${version.freemarker}</version>
+            </dependency>
+            
+            <!-- JAXB -->
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${version.jaxb}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${version.jaxb}</version>
+            </dependency>
+            
+            <!-- Xerces -->
+            <dependency>
+                <groupId>xerces</groupId>
+                <artifactId>xercesImpl</artifactId>
+                <version>${version.xerces}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>xml-apis</artifactId>
+                        <groupId>xml-apis</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            
+            <!-- DOM4J -->
+            <dependency>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>${version.dom4j}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>xml-apis</artifactId>
+                        <groupId>xml-apis</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            
+            <!-- Saxon -->
+            <dependency>
+                <groupId>net.sf.saxon</groupId>
+                <artifactId>saxon</artifactId>
+                <version>${version.saxon}</version>
             </dependency>
 
-            <!-- tests -->
+            <!-- Resources plugin dependencies -->
+            
+            <!-- TODO why two ELs ? -->
+            <dependency>
+                <groupId>com.sun.el</groupId>
+                <artifactId>el-ri</artifactId>
+                <version>${version.sun-el}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${version.reflections}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.collections</groupId>
+                        <artifactId>google-collections</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.yahoo.platform.yui</groupId>
+                <artifactId>yuicompressor</artifactId>
+                <version>${version.yuicompressor}</version>
+            </dependency>
+            
+            <!-- Tests -->
+
+            <!-- jsf-test -->
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>htmlunit-client</artifactId>
-                <version>${test-jsf.version}</version>
+                <version>${version.test-jsf}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-mock</artifactId>
-                <version>${test-jsf.version}</version>
+                <version>${version.test-jsf}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-test-stage</artifactId>
-                <version>${test-jsf.version}</version>
+                <version>${version.test-jsf}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-test-jetty</artifactId>
-                <version>${test-jsf.version}</version>
+                <version>${version.test-jsf}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-test-scriptunit</artifactId>
-                <version>${test-jsf.version}</version>
+                <version>${version.test-jsf}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.7</version>
+                <version>${version.junit}</version>
             </dependency>
-            <!-- Test Dependencies -->
-            <!-- These dependencies are usually provided by org.jboss.test-jsf:htmlunit-client,
-                   but the latest 2.7 HtmlUnit version has problems with jQuery, so we are overriding
-                   version back to 2.5. -->
-            <!-- <dependency> -->
-            <!-- <groupId>net.sourceforge.htmlunit</groupId> -->
-            <!-- <artifactId>htmlunit</artifactId> -->
-            <!-- <version>2.8</version> -->
-            <!-- </dependency> -->
-            <!-- <dependency> -->
-            <!-- <groupId>net.sourceforge.htmlunit</groupId> -->
-            <!-- <artifactId>htmlunit-core-js</artifactId> -->
-            <!-- <version>2.8</version> -->
-            <!-- </dependency> -->
             <dependency>
                 <groupId>org.easymock</groupId>
                 <artifactId>easymock</artifactId>
-                <version>2.5.2</version>
+                <version>${version.easymock}</version>
             </dependency>
             <dependency>
                 <groupId>org.easymock</groupId>
                 <artifactId>easymockclassextension</artifactId>
-                <version>2.5.2</version>
+                <version>${version.easymock}</version>
+            </dependency>
+            
+            <!-- JUnit -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+            </dependency>
+            
+            <!-- XMLUnit -->
+            <dependency>
+                <groupId>xmlunit</groupId>
+                <artifactId>xmlunit</artifactId>
+                <version>${version.xmlunit}</version>
+            </dependency>
+            
+            <!-- EasyMock -->
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>${version.easymock}</version>
+            </dependency>
+            
+            <!-- Maven -->
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-model</artifactId>
+                <version>${version.maven-core}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-core</artifactId>
+                <version>${version.maven-core}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-artifact</artifactId>
+                <version>${version.maven-core}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-plugin-api</artifactId>
+                <version>${version.maven-core}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-project</artifactId>
+                <version>${version.maven-core}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-archiver</artifactId>
+                <version>${version.maven-archiver}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.shared</groupId>
+                <artifactId>file-management</artifactId>
+                <version>${version.maven-file-management}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-utils</artifactId>
+                <version>${version.plexus-utils}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-velocity</artifactId>
+                <version>${version.plexus-velocity}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.javaparser</groupId>
+                <artifactId>javaparser</artifactId>
+                <version>${version.google-javaparser}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -143,6 +492,28 @@
               some are inherited from jboss-parent, others from richfaces-parent -->
         <pluginManagement>
             <plugins>
+                <!-- Plugin Version Management -->
+                <plugin>
+                    <groupId>org.richfaces.cdk</groupId>
+                    <artifactId>maven-cdk-plugin</artifactId>
+                    <version>${version.richfaces}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.richfaces.cdk</groupId>
+                    <artifactId>maven-richfaces-resources-plugin</artifactId>
+                    <version>${version.richfaces}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jboss.test-jsf</groupId>
+                    <artifactId>maven-mockgenerator-plugin</artifactId>
+                    <version>${version.test-jsf}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jboss.as.plugins</groupId>
+                    <artifactId>jboss-as-maven-plugin</artifactId>
+                    <version>${version.jboss-as7}</version>
+                </plugin>
+                
                 <!-- Build -->
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -173,21 +544,11 @@
                         </archive>
                     </configuration>
                 </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>javacc-maven-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
 
                 <!-- reporting -->
                 <plugin>
-                    <groupId>com.atlassian.maven.plugins</groupId>
-                    <artifactId>maven-clover2-plugin</artifactId>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.5</version>
                     <configuration>
                         <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml</configLocation>
                         <logViolationsToConsole>true</logViolationsToConsole>
@@ -196,7 +557,7 @@
                     <executions>
                         <execution>
                             <id>richfaces-checkstyle-report</id>
-                            <phase>process-sources</phase>
+                            <phase>process-classes</phase>
                             <goals>
                                 <goal>check</goal>
                             </goals>
@@ -206,7 +567,7 @@
                         <dependency>
                             <groupId>org.richfaces</groupId>
                             <artifactId>richfaces-build-checkstyle</artifactId>
-                            <version>${richfaces.checkstyle.version}</version>
+                            <version>${version.richfaces-checkstyle}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -214,7 +575,6 @@
                 <plugin>
                     <groupId>gr.abiss.mvn.plugins</groupId>
                     <artifactId>maven-jstools-plugin</artifactId>
-                    <version>0.7</version>
                     <configuration>
                         <jsDir>${project.basedir}/src/main/resources/META-INF/resources
                         </jsDir>
@@ -225,7 +585,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.7</version>
                     <configuration>
                         <keywords>true</keywords>
                         <quiet>true</quiet>
