@@ -34,8 +34,6 @@
     <name>RichFaces UI Components UI</name>
 
     <properties>
-        <shade-transformers.version>7</shade-transformers.version>
-        <faces-vdl-documentation.version>1</faces-vdl-documentation.version>
         <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
     </properties>
 
@@ -158,7 +156,7 @@
                     <dependency>
                         <groupId>org.richfaces.build.resources</groupId>
                         <artifactId>faces-shade-transformers</artifactId>
-                        <version>${shade-transformers.version}</version>
+                        <version>${version.shade-transformers}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -211,7 +209,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>xml-maven-plugin</artifactId>
-                        <version>1.0</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -244,7 +241,7 @@
                             <dependency>
                                 <groupId>net.sf.saxon</groupId>
                                 <artifactId>saxon</artifactId>
-                                <version>8.7</version>
+                                <version>${version.saxon}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -273,7 +270,6 @@
                 <dependency>
                     <groupId>org.richfaces.build.resources</groupId>
                     <artifactId>faces-vdl-documentation</artifactId>
-                    <version>${faces-vdl-documentation.version}</version>
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
