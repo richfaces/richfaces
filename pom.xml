@@ -88,6 +88,10 @@
                         <releaseProfiles>release</releaseProfiles>
                         <!-- Some modules (dist) need release items installed during prepare -->
                         <preparationGoals>clean install</preparationGoals>
+                        <!-- Use a local checkout instead of doing a checkout from the upstream repository -->
+                        <localCheckout>true</localCheckout>
+                        <!-- Will not push changes to the upstream repository -->
+                        <pushChanges>false</pushChanges>
                     </configuration>
                 </plugin>
 
