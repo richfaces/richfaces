@@ -65,6 +65,15 @@
         
         <!-- version.plugin.plugin: upgrade requested in jboss-parent:pom JBBUILD-709 -->
         <version.plugin.plugin>2.9</version.plugin.plugin>
+        
+        <!-- Plugin Management: versions -->
+        <version.xml.plugin>1.0</version.xml.plugin>
+        <version.javacc.plugin>2.4.1</version.javacc.plugin>
+        <version.invoker.plugin>1.3</version.invoker.plugin>
+        <version.modello.plugin>1.0.2</version.modello.plugin>
+        <version.guice.plugin>2.2.0</version.guice.plugin>
+        <version.gmaven.plugin>1.0</version.gmaven.plugin>
+        <version.jstools.plugin>0.7</version.jstools.plugin>
     </properties>
 
     <prerequisites>
@@ -110,50 +119,49 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>xml-maven-plugin</artifactId>
-                    <version>1.0-beta-2</version>
+                    <version>${version.xml.plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>javacc-maven-plugin</artifactId>
-                    <version>2.4.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-archetype-plugin</artifactId>
-                    <version>2.0-alpha-4</version>
-                    <extensions>true</extensions>
+                    <version>${version.javacc.plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-invoker-plugin</artifactId>
-                    <version>1.3</version>
+                    <version>${version.invoker.plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.modello</groupId>
                     <artifactId>modello-maven-plugin</artifactId>
-                    <version>1.0.2</version>
+                    <version>${version.modello.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>gr.abiss.mvn.plugins</groupId>
+                    <artifactId>maven-jstools-plugin</artifactId>
+                    <version>${version.jstools.plugin}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.camel</groupId>
                     <artifactId>guice-maven-plugin</artifactId>
-                    <version>2.2.0</version>
+                    <version>${version.guice.plugin}</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.camel</groupId>
                             <artifactId>camel-guice</artifactId>
-                            <version>2.2.0</version>
+                            <version>${version.guice.plugin}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.groovy.maven</groupId>
                     <artifactId>gmaven-plugin</artifactId>
-                    <version>1.0</version>
+                    <version>${version.gmaven.plugin}</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.codehaus.groovy.maven.runtime</groupId>
                             <artifactId>gmaven-runtime-1.6</artifactId>
-                            <version>1.0</version>
+                            <version>${version.gmaven.plugin}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
