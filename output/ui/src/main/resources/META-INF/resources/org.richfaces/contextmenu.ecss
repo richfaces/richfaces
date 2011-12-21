@@ -7,7 +7,8 @@
 }
 
 .rf-ctx-lbl {
-    padding: 2px 5px;
+    padding : 0 !important;
+    border-width : 0 !important;
 }
 
 .rf-ctx-unsel {

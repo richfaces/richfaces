@@ -45,13 +45,8 @@
                     this.menuManager.addMenuId(this.id);
                     this.__showPopup(e); // include the event to position the popup at the cursor
                 }
-            },
-
-            select : function() {
-            },
-
-            unselect : function() {
             }
+
         };
     })());
 
