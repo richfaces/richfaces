@@ -54,18 +54,6 @@ public abstract class ContextMenuRendererBase extends RendererBase {
         return false;
     }
 
-    protected UIComponent getLabelFacet(FacesContext facesContext, UIComponent component) {
-        UIComponent facet = null;
-        AbstractContextMenu ctxMenu = (AbstractContextMenu) component;
-        if (ctxMenu != null) {
-            facet = ctxMenu.getFacet(AbstractContextMenu.Facets.labelDisabled.toString());
-            if (!ctxMenu.isDisabled() || facet == null) {
-                facet = ctxMenu.getFacet(AbstractContextMenu.Facets.label.toString());
-            }
-        }
-        return facet;
-    }
-
     public List<Map<String, Object>> getMenuGroups(FacesContext facesContext, UIComponent component) {
         List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
         List<AbstractMenuGroup> groups = new ArrayList<AbstractMenuGroup>();

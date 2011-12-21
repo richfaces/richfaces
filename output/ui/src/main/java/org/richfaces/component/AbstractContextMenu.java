@@ -23,12 +23,10 @@ package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.ContextMenuRendererBase;
-import org.richfaces.renderkit.html.DropDownMenuRendererBase;
 
 import javax.faces.component.UIComponentBase;
 
@@ -41,6 +39,9 @@ import javax.faces.component.UIComponentBase;
 public abstract class AbstractContextMenu extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.ContextMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.ContextMenu";
+
+    @Attribute
+    public abstract String getAttachTo();
 
     @Attribute
     public abstract String getShowEvent();
@@ -94,11 +95,6 @@ public abstract class AbstractContextMenu extends UIComponentBase {
     @Attribute(generate = false, hidden = true, readOnly = true)
     public Object getCssRoot() {
         return "ctx";
-    }
-
-    public enum Facets {
-        label,
-        labelDisabled
     }
 }
 
