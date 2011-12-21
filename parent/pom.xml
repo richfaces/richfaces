@@ -42,22 +42,22 @@
 
         <version.javax.inject>1</version.javax.inject>
         <version.cdi-api>1.0-SP4</version.cdi-api>
-        <version.weld>1.1.0.Final</version.weld><version.hibernate-validator>4.2.0.Final</version.hibernate-validator>
+        <version.weld>1.1.4.Final</version.weld>
+        <version.hibernate-validator>4.2.0.Final</version.hibernate-validator>
         <version.hsqldb>2.0.0</version.hsqldb>
-        <version.openjpa>2.1.0</version.openjpa>
+        <version.openjpa>2.1.1</version.openjpa>
         <version.jpa-api>2.0-cr-1</version.jpa-api>
-        <version.hibernate-entitymanager>3.6.3.Final</version.hibernate-entitymanager>
-        <version.hornetq>2.2.6.Final</version.hornetq>
-        <version.netty>3.2.2.Final</version.netty>
+        <version.hibernate-entitymanager>4.0.0.Final</version.hibernate-entitymanager>
+        <version.hornetq>2.2.7.Final</version.hornetq>
+        <version.netty>3.2.5.Final</version.netty>
         <version.slf4j>1.6.1</version.slf4j>
-        <version.easymock>2.5.2</version.easymock>
         <version.jboss-el>1.0_02.CR6</version.jboss-el>
         <version.sun-el>1.0</version.sun-el>
         <version.jboss-as7>7.0.2.Final</version.jboss-as7>
-        <version.commons-logging>1.0.4</version.commons-logging>
+        <version.commons-logging>1.1.1</version.commons-logging>
         <version.xsom>20081112</version.xsom>
         <version.google-functional-collections>1.1.7</version.google-functional-collections>
-        <version.google-guice>3.0-rc2</version.google-guice>
+        <version.google-guice>3.0</version.google-guice>
         <version.sonatype-sisu>2.9.0</version.sonatype-sisu>
         <version.freemarker>2.3.9</version.freemarker>
         <version.jaxb>2.2</version.jaxb>
@@ -66,8 +66,8 @@
         <version.saxon>8.7</version.saxon>
         <version.reflections>0.9.5</version.reflections>
         <version.yuicompressor>2.3.6</version.yuicompressor>
-        <version.junit>4.7</version.junit>
-        <version.xmlunit>1.3</version.xmlunit>
+        <version.junit>4.8.2</version.junit>
+        <version.xmlunit>1.2</version.xmlunit>
         <version.easymock>2.5.2</version.easymock>
         <version.maven-core>2.0.10</version.maven-core>
         <version.maven-archiver>2.4</version.maven-archiver>
@@ -423,13 +423,6 @@
                 <groupId>xmlunit</groupId>
                 <artifactId>xmlunit</artifactId>
                 <version>${version.xmlunit}</version>
-            </dependency>
-            
-            <!-- EasyMock -->
-            <dependency>
-                <groupId>org.easymock</groupId>
-                <artifactId>easymock</artifactId>
-                <version>${version.easymock}</version>
             </dependency>
             
             <!-- Maven -->
