@@ -21,7 +21,9 @@
  */
 package demo;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
@@ -36,7 +38,6 @@ import org.hornetq.api.core.TransportConfiguration;
 import org.hornetq.core.config.Configuration;
 import org.hornetq.core.config.impl.ConfigurationImpl;
 import org.hornetq.core.remoting.impl.netty.NettyAcceptorFactory;
-import org.hornetq.core.remoting.impl.netty.NettyConnectorFactory;
 import org.hornetq.core.server.HornetQServer;
 import org.hornetq.core.server.HornetQServers;
 import org.hornetq.jms.server.JMSServerManager;
@@ -112,8 +113,9 @@ public class HornetQInitializer implements SystemEventListener {
         serverManager.setContext(context);
         serverManager.start();
 
+        List<String> connectors = Arrays.asList(new String[] { "netty" });
         ConnectionFactoryConfiguration connectionFactoryConfiguration = new ConnectionFactoryConfigurationImpl(
-                "ConnectionFactory", new TransportConfiguration(NettyConnectorFactory.class.getName()), (String) null);
+                "ConnectionFactory", false, connectors, (String) null);
         connectionFactoryConfiguration.setUseGlobalPools(false);
 
         serverManager.createConnectionFactory(false, connectionFactoryConfiguration, "ConnectionFactory");

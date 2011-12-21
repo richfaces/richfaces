@@ -49,7 +49,6 @@
         <module>repeater-demo</module>
         <module>iteration-demo</module>
         <module>push-demo</module>
-
         <module>validator-demo</module>
         <module>dnd-demo</module>
         <module>irc-client</module>
