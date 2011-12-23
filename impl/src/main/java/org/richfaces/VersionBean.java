@@ -114,7 +114,14 @@ public final class VersionBean {
                     if (url != null) {
                         InputStream manifestStream = null;
                         try {
-                            manifestStream = URLToStreamHelper.urlToStream(new URL(url, JarFile.MANIFEST_NAME));
+                            URL manifestFileUrl;
+                            if ("vfs".equals(url.getProtocol())) {
+                                String manifestFile = String.format("%s/%s", url.toExternalForm(), JarFile.MANIFEST_NAME);
+                                manifestFileUrl = new URL(manifestFile);
+                            } else {
+                                manifestFileUrl = new URL(url, JarFile.MANIFEST_NAME);
+                            }
+                            manifestStream = URLToStreamHelper.urlToStream(manifestFileUrl);
                             return new Manifest(manifestStream);
                         } catch (MalformedURLException e1) {
                             // that's ok - just log in debug
