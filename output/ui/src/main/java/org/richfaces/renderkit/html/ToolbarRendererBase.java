@@ -85,7 +85,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
 
     private void writeColElement(ResponseWriter writer, UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.COL_ELEMENT, component);
-        writer.writeAttribute(HtmlConstants.WIDTH_ATTRIBUTE, "1px", null);
+        writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "width : 1px", null);
         writer.endElement(HtmlConstants.COL_ELEMENT);
     }
 
@@ -145,14 +145,13 @@ public abstract class ToolbarRendererBase extends RendererBase {
         List<UIComponent> childrenToTheRight = new LinkedList<UIComponent>();
 
         getChildrenToLeftAndRight(context, component, childrenToTheLeft, childrenToTheRight);
-        int columnAmount = getCountSeparators((AbstractToolbar) component, childrenToTheLeft)
-            + getColumnCount(childrenToTheLeft);
+        int columnAmount = getCountSeparators((AbstractToolbar) component, childrenToTheLeft) + getColumnCount(childrenToTheLeft);
         for (int i = 0; i < columnAmount; i++) {
             writeColElement(writer, component);
         }
 
         writer.startElement(HtmlConstants.COL_ELEMENT, component);
-        writer.writeAttribute(HtmlConstants.WIDTH_ATTRIBUTE, "*", null);
+        writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "width : 100%", null);
         writer.endElement(HtmlConstants.COL_ELEMENT);
 
         columnAmount = getCountSeparators((AbstractToolbar) component, childrenToTheRight) + getColumnCount(childrenToTheRight);
