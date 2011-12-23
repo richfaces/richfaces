@@ -11,6 +11,8 @@
     background-repeat: repeat-x;
     /*check gradient  from headerGradientColor to headerBackgroundColor*/
     background-image: url("#{resource['org.richfaces.images:gradientA.png']}");
+    border-collapse: collapse;
+    border-spacing : 0;
 }
 
 .rf-tb-itm {
