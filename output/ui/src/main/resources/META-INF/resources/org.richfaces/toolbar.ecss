@@ -17,13 +17,19 @@
 
 .rf-tb-itm {
     padding: 0 8px;
+    border: 0;
     white-space: nowrap;
 }
 
 .rf-tb-sep {
     padding: 0 10px;
+    border: 0;
     text-align: center;
     height: 100%;
+}
+
+.rf-tb-emp {
+    border: 0;
 }
 
 .rf-tb-cntr {

@@ -12,7 +12,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <table border="0" id="#{clientId}" width="#{getWidthToolbar(component)}" height="#{getHeightToolbar(component)}"
+        <table id="#{clientId}" width="#{getWidthToolbar(component)}" height="#{getHeightToolbar(component)}"
             class="rf-tb #{component.attributes['styleClass']}" style="#{ component.attributes['style']}"
             cdk:passThroughWithExclusions="">
             <cdk:call expression="renderColElements(facesContext, component)" />
