@@ -38,7 +38,7 @@
 
         <div id="#{clientId}" class="rf-ddm-itm #{isDisabled ? 'rf-ddm-itm-dis '+disabledClass : 'rf-ddm-itm-unsel '+styleClass}"
             style="#{style}" cdk:passThroughWithExclusions="">
-            <span class="rf-ddm-itm-ic #{iconClass}">
+            <div class="rf-ddm-itm-ic #{iconClass}">
                 <c:choose>
                     <c:when test="#{iconFacet != null and iconFacet.isRendered()}">
                         <cdk:call expression="iconFacet.encodeAll(facesContext)" />
@@ -47,10 +47,10 @@
                         <img width="16" height="16" src="#{RenderKitUtils.getResourceURL(iconAttribute, facesContext)}" alt="" />
                     </c:when>
                     <c:otherwise>
-                        <div class="rf-ddm-emptyIcon"></div>
+                        <div class="rf-ddm-emptyIcon" />
                     </c:otherwise>
                 </c:choose>
-            </span>
+            </div>
 
             <c:choose>
                 <c:when test="#{not isDisabled}">
