@@ -59,6 +59,17 @@
         <url>https://jira.jboss.org/jira/browse/RF</url>
     </issueManagement>
 
+    <mailingLists>
+        <mailingList>
+            <name>RichFaces User Forums</name>
+            <archive>http://community.jboss.org/en/richfaces</archive>
+        </mailingList>
+        <mailingList>
+            <name>RichFaces Developer Forums</name>
+            <archive>http://community.jboss.org/en/richfaces/dev</archive>
+        </mailingList>
+    </mailingLists>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
