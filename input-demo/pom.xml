@@ -82,14 +82,5 @@
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
         </dependency>
-
-        <!-- Tests -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>5.10</version>
-            <classifier>jdk15</classifier>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 </project>

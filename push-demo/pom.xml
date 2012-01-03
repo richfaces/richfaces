@@ -33,46 +33,28 @@
     <packaging>war</packaging>
     <name>RichFaces Examples Push</name>
 
-    <properties>
-        <hornetq.version>2.1.2.Final</hornetq.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.hornetq</groupId>
             <artifactId>hornetq-core</artifactId>
-            <version>${hornetq.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hornetq</groupId>
             <artifactId>hornetq-jms</artifactId>
-            <version>${hornetq.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hornetq</groupId>
             <artifactId>hornetq-logging</artifactId>
-            <version>${hornetq.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.netty</groupId>
             <artifactId>netty</artifactId>
-            <version>3.2.2.Final</version>
         </dependency>
         <dependency>
             <groupId>javax.jms</groupId>
             <artifactId>jms</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
+        
         <dependency>
             <groupId>org.atmosphere</groupId>
             <artifactId>atmosphere-runtime</artifactId>
@@ -113,7 +95,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.6.1</version>
         </dependency>
     </dependencies>
 
@@ -122,33 +103,8 @@
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>jetty</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-websocket</artifactId>
-                    <version>8.0.0.M2</version>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.mortbay.jetty</groupId>
-                        <artifactId>jetty-maven-plugin</artifactId>
-                        <version>8.0.0.M2</version>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
     <scm>
         <connection>scm:git:git://github.com/richfaces/dev-examples.git</connection>

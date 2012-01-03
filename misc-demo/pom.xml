@@ -33,14 +33,6 @@
     <packaging>war</packaging>
     <name>RichFaces Examples Miscellanous</name>
 
-    <properties>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.richfaces.ui.misc</groupId>
@@ -85,13 +77,6 @@
         <plugins>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
