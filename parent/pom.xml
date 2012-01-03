@@ -86,7 +86,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.richfaces.build.resources</groupId>
                 <artifactId>faces-vdl-documentation</artifactId>
@@ -212,7 +212,7 @@
                 <artifactId>generator</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.jboss.el</groupId>
                 <artifactId>jboss-el</artifactId>
@@ -394,21 +394,6 @@
                 <artifactId>jsf-test-scriptunit</artifactId>
                 <version>${version.test-jsf}</version>
             </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${version.junit}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.easymock</groupId>
-                <artifactId>easymock</artifactId>
-                <version>${version.easymock}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.easymock</groupId>
-                <artifactId>easymockclassextension</artifactId>
-                <version>${version.easymock}</version>
-            </dependency>
             
             <!-- JUnit -->
             <dependency>
@@ -422,6 +407,18 @@
                 <groupId>xmlunit</groupId>
                 <artifactId>xmlunit</artifactId>
                 <version>${version.xmlunit}</version>
+            </dependency>
+            
+            <!-- EasyMock -->
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>${version.easymock}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymockclassextension</artifactId>
+                <version>${version.easymock}</version>
             </dependency>
             
             <!-- Maven -->
