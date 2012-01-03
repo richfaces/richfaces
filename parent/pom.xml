@@ -45,7 +45,7 @@
             <dependency>
                 <groupId>org.richfaces.examples</groupId>
                 <artifactId>template</artifactId>
-                <version>${version.richfaces}</version>
+                <version>${project.version}</version>
                 <type>war</type>
             </dependency>
         </dependencies>
