@@ -15,13 +15,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>11</version>
-        <relativePath>../../parent/pom.xml</relativePath>
-    </parent>
-
+    <groupId>org.richfaces</groupId>
     <artifactId>richfaces-bom</artifactId>
     <packaging>pom</packaging>
     <version>4.1.1-SNAPSHOT</version>
@@ -31,8 +25,29 @@
         The RichFaces "Bill of Materials". This defines all runtime dependency
         versions for RichFaces.
     </description>
-
+    
     <properties>
+        <version.richfaces>4.1.1-SNAPSHOT</version.richfaces>
+        <version.javax.faces-api>2.1</version.javax.faces-api>
+        <version.com.sun.faces.jsf-api>2.1.0</version.com.sun.faces.jsf-api>
+        <version.org.glassfish.javax.faces>2.1.5</version.org.glassfish.javax.faces>
+        <version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>2.0.0.Beta1</version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>
+        <version.org.jboss.javax.faces.jsf-impl>2.1.5-jbossorg-1</version.org.jboss.javax.faces.jsf-impl>
+        <version.org.apache.myfaces.core.myfaces-api>2.1.5</version.org.apache.myfaces.core.myfaces-api>
+        <version.org.apache.myfaces.core.myfaces-impl>2.1.5</version.org.apache.myfaces.core.myfaces-impl>
+        <version.el-api>1.0</version.el-api>
+        <version.servlet-api>2.5</version.servlet-api>
+        <version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>1.0.0.Final</version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>
+        <version.jsf-api>2.1</version.jsf-api>
+        <version.jstl-api>1.2</version.jstl-api>
+        <version.google-guava>10.0.1</version.google-guava>
+        <version.validation-api>1.0.0.GA</version.validation-api>
+        <version.cssparser>0.9.5</version.cssparser>
+        <version.oscache>2.3</version.oscache>
+        <version.jbosscache>3.2.5.GA</version.jbosscache>
+        <version.ehcache>1.6.0</version.ehcache>
+        <version.atmosphere>0.8.0-RC1</version.atmosphere>
+        <version.jms-api>1.1</version.jms-api>
     </properties>
 
     <!-- Runtime dependency management -->
@@ -42,102 +57,102 @@
             <dependency>
                 <groupId>org.richfaces.core</groupId>
                 <artifactId>richfaces-core-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.core</groupId>
                 <artifactId>richfaces-core-impl</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.common</groupId>
                 <artifactId>richfaces-ui-common-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.common</groupId>
                 <artifactId>richfaces-ui-common-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.core</groupId>
                 <artifactId>richfaces-ui-core-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.core</groupId>
                 <artifactId>richfaces-ui-core-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.iteration</groupId>
                 <artifactId>richfaces-ui-iteration-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.iteration</groupId>
                 <artifactId>richfaces-ui-iteration-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.output</groupId>
                 <artifactId>richfaces-ui-output-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.output</groupId>
                 <artifactId>richfaces-ui-output-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.misc</groupId>
                 <artifactId>richfaces-ui-misc-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.input</groupId>
                 <artifactId>richfaces-ui-input-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.input</groupId>
                 <artifactId>richfaces-ui-input-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.validator</groupId>
                 <artifactId>richfaces-ui-validator-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.validator</groupId>
                 <artifactId>richfaces-ui-validator-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.dnd</groupId>
                 <artifactId>richfaces-ui-dnd-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.dnd</groupId>
                 <artifactId>richfaces-ui-dnd-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui</groupId>
                 <artifactId>richfaces-components-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui</groupId>
                 <artifactId>richfaces-components-ui</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui</groupId>
                 <artifactId>static-resources</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <!-- JSF 2.1 RI:
                 API should be used as provided since jsf-impl does bundle
@@ -148,111 +163,111 @@
             <dependency>
                 <groupId>javax.faces</groupId>
                 <artifactId>javax.faces-api</artifactId>
-                <version>2.1</version>
+                <version>${version.javax.faces-api}</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.faces</groupId>
                 <artifactId>jsf-api</artifactId>
-                <version>2.1.0</version>
+                <version>${version.com.sun.faces.jsf-api}</version>
             </dependency>
             <dependency>
                 <groupId>org.glassfish</groupId>
                 <artifactId>javax.faces</artifactId>
-                <version>2.1.3</version>
+                <version>${version.org.glassfish.javax.faces}</version>
             </dependency>
             <!-- JBoss JSF 2.1 -->
             <dependency>
                 <groupId>org.jboss.spec.javax.faces</groupId>
                 <artifactId>jboss-jsf-api_2.1_spec</artifactId>
-                <version>2.0.0.Beta1</version>
+                <version>${version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec}</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.faces</groupId>
                 <artifactId>jsf-impl</artifactId>
-                <version>2.1.3-b02-jbossorg-2</version>
+                <version>${version.org.jboss.javax.faces.jsf-impl}</version>
             </dependency>
             <!-- MyFaces JSF 2.1 -->
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
                 <artifactId>myfaces-api</artifactId>
-                <version>2.1.1</version>
+                <version>${version.org.apache.myfaces.core.myfaces-api}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.myfaces.core</groupId>
                 <artifactId>myfaces-impl</artifactId>
-                <version>2.1.1</version>
+                <version>${version.org.apache.myfaces.core.myfaces-impl}</version>
             </dependency>
 
             <!-- Misc -->
             <dependency>
                 <groupId>javax.el</groupId>
                 <artifactId>el-api</artifactId>
-                <version>1.0</version>
+                <version>${version.el-api}</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
-                <version>2.5</version>
+                <version>${version.servlet-api}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec.javax.servlet</groupId>
                 <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-                <version>1.0.0.Final</version>
+                <version>${version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec}</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet.jsp</groupId>
                 <artifactId>jsp-api</artifactId>
-                <version>2.1</version>
+                <version>${version.jsf-api}</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet.jsp.jstl</groupId>
                 <artifactId>jstl-api</artifactId>
-                <version>1.2</version>
+                <version>${version.jstl-api}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>r08</version>
+                <version>${version.google-guava}</version>
             </dependency>
             <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
-                <version>1.0.0.GA</version>
+                <version>${version.validation-api}</version>
             </dependency>
             <!-- Required for EL-CSS func -->
             <dependency>
                 <groupId>net.sourceforge.cssparser</groupId>
                 <artifactId>cssparser</artifactId>
-                <version>0.9.5</version>
+                <version>${version.cssparser}</version>
             </dependency>
 
             <!-- Optional cache dependencies -->
             <dependency>
                 <groupId>opensymphony</groupId>
                 <artifactId>oscache</artifactId>
-                <version>2.3</version>
+                <version>${version.oscache}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.cache</groupId>
                 <artifactId>jbosscache-core</artifactId>
-                <version>3.2.5.GA</version>
+                <version>${version.jbosscache}</version>
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache</artifactId>
-                <version>1.6.0</version>
+                <version>${version.ehcache}</version>
             </dependency>
 
             <!-- Push dependencies -->
             <dependency>
                 <groupId>org.atmosphere</groupId>
                 <artifactId>atmosphere-runtime</artifactId>
-                <version>0.8.0-RC1</version>
+                <version>${version.atmosphere}</version>
             </dependency>
             <dependency>
                 <groupId>javax.jms</groupId>
                 <artifactId>jms</artifactId>
-                <version>1.1</version>
+                <version>${version.jms-api}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
