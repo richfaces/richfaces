@@ -34,7 +34,6 @@
     </description>
 
     <properties>
-        <version.richfaces>4.1.1-SNAPSHOT</version.richfaces>
         <version.test-jsf>1.1.0</version.test-jsf>
         <version.richfaces-checkstyle>3</version.richfaces-checkstyle>
         <version.vdl-doc>1</version.vdl-doc>
@@ -83,7 +82,7 @@
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-bom</artifactId>
-                <version>${version.richfaces}</version>
+                <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -185,33 +184,33 @@
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>commons</artifactId>
-                <version>${version.richfaces}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>commons</artifactId>
                 <classifier>tests</classifier>
-                <version>${version.richfaces}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>annotations</artifactId>
-                <version>${version.richfaces}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>attributes</artifactId>
-                <version>${version.richfaces}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>xinclude</artifactId>
-                <version>${version.richfaces}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>generator</artifactId>
-                <version>${version.richfaces}</version>
+                <version>${project.version}</version>
             </dependency>
             
             <dependency>
@@ -489,12 +488,12 @@
                 <plugin>
                     <groupId>org.richfaces.cdk</groupId>
                     <artifactId>maven-cdk-plugin</artifactId>
-                    <version>${version.richfaces}</version>
+                    <version>${project.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.richfaces.cdk</groupId>
                     <artifactId>maven-richfaces-resources-plugin</artifactId>
-                    <version>${version.richfaces}</version>
+                    <version>${project.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.jboss.test-jsf</groupId>
