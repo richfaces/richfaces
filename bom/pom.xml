@@ -25,7 +25,28 @@
         The RichFaces "Bill of Materials". This defines all runtime dependency
         versions for RichFaces.
     </description>
-    
+
+    <url>http://richfaces.org</url>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 2.1</name>
+            <distribution>repo</distribution>
+            <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>RichFaces committers</name>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>jira</system>
+        <url>https://jira.jboss.org/jira/browse/RF</url>
+    </issueManagement>
+
     <properties>
         <version.richfaces>4.1.1-SNAPSHOT</version.richfaces>
         <version.javax.faces-api>2.1</version.javax.faces-api>
@@ -48,6 +69,10 @@
         <version.ehcache>1.6.0</version.ehcache>
         <version.atmosphere>0.8.0-RC1</version.atmosphere>
         <version.jms-api>1.1</version.jms-api>
+        
+        <!-- Release repositories -->
+        <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
+        <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
     </properties>
 
     <!-- Runtime dependency management -->
@@ -272,10 +297,43 @@
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.3.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
     <scm>
         <connection>scm:git:git://github.com/richfaces/build.git</connection>
         <developerConnection>scm:git:git@github.com:richfaces/build.git</developerConnection>
         <url>https://github.com/richfaces/build</url>
     </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>jboss-releases-repository</id>
+            <name>JBoss Releases Repository</name>
+            <url>${jboss.releases.repo.url}</url>
+        </repository>
+        <snapshotRepository>
+            <id>jboss-snapshots-repository</id>
+            <name>JBoss Snapshots Repository</name>
+            <url>${jboss.snapshots.repo.url}</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
