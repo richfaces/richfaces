@@ -43,7 +43,12 @@
 
 		var origHandler = handleObj.handler,
 			keys = options.key.toLowerCase().split(" ");
-
+		
+		// when no key binding is defined
+		if (keys.length === 1 && keys[0] === '') {
+		    return;
+		}
+		
 		handleObj.handler = function( event ) {
 			var character = String.fromCharCode( event.which ).toLowerCase(),
 					isTextInput = (/textarea|select/i.test( event.target.nodeName ) || event.target.type === "text");
