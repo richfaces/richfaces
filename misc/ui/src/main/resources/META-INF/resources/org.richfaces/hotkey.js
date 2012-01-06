@@ -12,7 +12,7 @@
         preventDefault : true
     };
     
-    var types = [ 'keypress', 'keydown', 'keyup' ];
+    var types = [ 'keydown', 'keyup' ];
 
     rf.ui.HotKey = function(componentId, options) {
         $super.constructor.call(this, componentId);

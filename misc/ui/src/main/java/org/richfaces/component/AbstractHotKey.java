@@ -57,7 +57,4 @@ public abstract class AbstractHotKey extends UIComponentBase {
 
     @Attribute(events = @EventName(value = "keyup"), description = @Description("Event handler to be fired when registered key sequence is pressed up"))
     public abstract String getOnkeyup();
-
-    @Attribute(events = @EventName(value = "keypress"), description = @Description("Event handler to be fired when registered key sequence is pressed"))
-    public abstract String getOnkeypress();
 }
