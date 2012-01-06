@@ -16,8 +16,9 @@
 
     rf.ui.HotKey = function(componentId, options) {
         $super.constructor.call(this, componentId);
-        this.options = $.extend({}, defaultOptions, options);
+        this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.attachToDom(this.componentId);
+        this.options = $.extend({}, defaultOptions, options);
         this.__handlers = {};
         
         this.options.selector = (this.options.selector) ? this.options.selector : document;
@@ -53,7 +54,7 @@
                 }
                 return result;
             }, this);
-            $(this.options.selector).bind(type, this.options, this.__handlers[type]);
+            $(this.options.selector).bind(type + this.namespace, this.options, this.__handlers[type]);
         },
 
         destroy : function() {
@@ -61,7 +62,7 @@
 
             for (var type in this.__handlers) {
                 if (this.__handlers.hasOwnProperty(type)) {
-                    $(this.options.selector).unbind(type, this.__handlers[type]);
+                    $(this.options.selector).unbind(type + this.namespace, this.__handlers[type]);
                 }
             }
 
