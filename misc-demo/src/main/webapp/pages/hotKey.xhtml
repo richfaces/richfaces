@@ -8,7 +8,7 @@
                 alert(string);
             }; 
         </script>
-    
+
     </h:head>
     <h:body>
 
@@ -26,28 +26,28 @@
         <a4j:outputPanel id="panel">
             <a4j:outputPanel>
                 <p>CTRL A(on document) works in both cases if input focused or not (and it has attached ajax behavior)</p>
-                <misc:hotKey key="CTRL+a" onpress="alert('CTRL+a');" enabledInInput="true"
+                <misc:hotKey key="CTRL+a" onkeydown="alert('CTRL+a');" enabledInInput="true"
                     rendered="#{requestScope.panelRendered || !facesContext.postback}">
                     <a4j:ajax />
                 </misc:hotKey>
 
                 <p>CTRL B(on document) works only if inputs not focused</p>
-                <misc:hotKey key="CTRL+b" onpress="alert('CTRL+b');"
+                <misc:hotKey key="CTRL+b" onkeydown="alert('CTRL+b');"
                     rendered="#{requestScope.panelRendered || !facesContext.postback}" />
 
                 <p>CTRL X works only if second input focused(class selector used)</p>
-                <misc:hotKey key="CTRL+x" selector=".second" onpress="alert('CTRL+x in second');" enabledInInput="true"
+                <misc:hotKey key="CTRL+x" selector=".second" onkeydown="alert('CTRL+x in second');" enabledInInput="true"
                     rendered="#{requestScope.panelRendered || !facesContext.postback}" />
 
 
                 <p>CTRL X works only if third input focused (componentId selector used)</p>
-                <misc:hotKey key="CTRL+x" selector="#thirdInput" onpress="myCallback(event, 'CTRL+x in third input');" enabledInInput="true"
-                    rendered="#{requestScope.panelRendered || !facesContext.postback}" />
+                <misc:hotKey key="CTRL+x" selector="#thirdInput" onkeydown="myCallback(event, 'CTRL+x in third input');"
+                    enabledInInput="true" rendered="#{requestScope.panelRendered || !facesContext.postback}" />
                 <br />
-                <misc:hotKey key="CTRL+z" selector="#thirdInput" onpress="myCallback(event, 'CTRL+z in third input');" enabledInInput="true"
-                    rendered="#{requestScope.panelRendered || !facesContext.postback}" />
-                    
-                    
+                <misc:hotKey key="CTRL+z" selector="#thirdInput" onkeydown="myCallback(event, 'CTRL+z in third input');"
+                    enabledInInput="true" rendered="#{requestScope.panelRendered || !facesContext.postback}" />
+
+
             </a4j:outputPanel>
         </a4j:outputPanel>
 
