@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>6</version>
+        <version>8</version>
     </parent>
 
     <groupId>org.richfaces</groupId>
@@ -63,8 +63,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
-        <!-- version.plugin.plugin: upgrade requested in jboss-parent:pom JBBUILD-709 -->
-        <version.plugin.plugin>2.9</version.plugin.plugin>
+        <!-- Versions rewritten from jboss-parent -->
+        <!-- * surefire: requested for upgrade in JBBUILD-713 -->
+        <version.surefire.plugin>2.11</version.surefire.plugin>
         
         <!-- Plugin Management: versions -->
         <version.xml.plugin>1.0</version.xml.plugin>
@@ -115,7 +116,7 @@
                         <downloadSources>true</downloadSources>
                     </configuration>
                 </plugin>
-                
+
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>xml-maven-plugin</artifactId>
