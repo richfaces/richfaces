@@ -144,7 +144,7 @@
                     <execution>
                         <id>copy-archetypes</id>
                         <goals>
-                            <goal>unpack-dependencies</goal>
+                            <goal>copy-dependencies</goal>
                         </goals>
 
                         <phase>package</phase>
@@ -152,7 +152,6 @@
                             <includeGroupIds>org.richfaces.archetypes</includeGroupIds>
                             <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                             <stripVersion>true</stripVersion>
-                            <classifier>sources</classifier>
                         </configuration>
                     </execution>
                 </executions>

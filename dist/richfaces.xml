@@ -106,8 +106,8 @@
 
         <!-- Archetypes -->
         <fileSet>
-            <directory>target/dependency/richfaces-archetype-simpleapp-sources-java-source</directory>
-            <outputDirectory>archetypes/richfaces-archetype-simpleapp/</outputDirectory>
+            <directory>target/dependency/richfaces-archetype-simpleapp-jar</directory>
+            <outputDirectory>archetypes/</outputDirectory>
         </fileSet>
     </fileSets>
 </assembly>
