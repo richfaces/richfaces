@@ -46,6 +46,9 @@ public abstract class AbstractHotKey extends UIComponentBase {
     @Attribute(defaultValue = "false", description = @Description("The switch which enables handling events coming from input"))
     public abstract boolean isEnabledInInput();
 
+    @Attribute(defaultValue = "true", description = @Description("The switch which prevents native browser actions (prevents default) to be taken and stops event propagation up to the tree"))
+    public abstract boolean isPreventDefault();
+
     @Attribute(description = @Description("The CSS selector of the DOM root from which key events should be handled. When no value provided, events are handled for whole document. ID selectors starting with hash sign (#) will be expanded from componentId to clientId form. (e.g. #component is expanded to #form:component in case that component is nested in form)"))
     public abstract String getSelector();
 

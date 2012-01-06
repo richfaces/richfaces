@@ -8,7 +8,8 @@
     rf.ui = rf.ui || {};
 
     var defaultOptions = {
-        enabledInInput : false
+        enabledInInput : false,
+        preventDefault : true
     };
     
     var types = [ 'keypress', 'keydown', 'keyup' ];
@@ -44,7 +45,13 @@
         
         __bindHandler : function(type) {
             this.__handlers[type] = $.proxy(function(event) {
-                this.invokeEvent.call(this, type, document.getElementById(this.id), event);
+                var result = this.invokeEvent.call(this, type, document.getElementById(this.id), event);
+                if (this.options.preventDefault) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false;
+                }
+                return result;
             }, this);
             $(this.options.selector).bind(type, this.options, this.__handlers[type]);
         },
