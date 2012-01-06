@@ -5,7 +5,8 @@
     <h:head>
         <script>
             var myCallback = function(event, string) {
-                alert(string);
+                document.title = string;
+                console.log(string);
             }; 
         </script>
 
@@ -25,18 +26,20 @@
 
         <a4j:outputPanel id="panel">
             <a4j:outputPanel>
+                <b>Note</b> key actions can be seen in document title and in JS console log.<br />
+                
                 <p>CTRL A(on document) works in both cases if input focused or not (and it has attached ajax behavior)</p>
-                <misc:hotKey key="CTRL+a" onkeydown="alert('CTRL+a');" enabledInInput="true"
+                <misc:hotKey key="CTRL+a" onkeydown="myCallback(event, 'CTRL+a');" enabledInInput="true"
                     rendered="#{requestScope.panelRendered || !facesContext.postback}">
-                    <a4j:ajax />
+                    <!-- <a4j:ajax />  -->
                 </misc:hotKey>
 
                 <p>CTRL B(on document) works only if inputs not focused</p>
-                <misc:hotKey key="CTRL+b" onkeydown="alert('CTRL+b');"
+                <misc:hotKey key="CTRL+b" onkeydown="myCallback(event, 'CTRL+b');"
                     rendered="#{requestScope.panelRendered || !facesContext.postback}" />
 
                 <p>CTRL X works only if second input focused(class selector used)</p>
-                <misc:hotKey key="CTRL+x" selector=".second" onkeydown="alert('CTRL+x in second');" enabledInInput="true"
+                <misc:hotKey key="CTRL+x" selector=".second" onkeydown="myCallback(event, 'CTRL+x in second');" enabledInInput="true"
                     rendered="#{requestScope.panelRendered || !facesContext.postback}" />
 
 
@@ -46,7 +49,6 @@
                 <br />
                 <misc:hotKey key="CTRL+z" selector="#thirdInput" onkeydown="myCallback(event, 'CTRL+z in third input');"
                     enabledInInput="true" rendered="#{requestScope.panelRendered || !facesContext.postback}" />
-
 
             </a4j:outputPanel>
         </a4j:outputPanel>
