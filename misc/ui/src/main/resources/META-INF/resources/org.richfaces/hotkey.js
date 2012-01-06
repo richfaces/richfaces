@@ -8,20 +8,21 @@
     rf.ui = rf.ui || {};
 
     var defaultOptions = {
-        type : 'keyup',
         enabledInInput : false
     };
+    
+    var types = [ 'keypress', 'keydown', 'keyup' ];
 
     rf.ui.HotKey = function(componentId, options) {
         $super.constructor.call(this, componentId);
         this.options = $.extend({}, defaultOptions, options);
         this.attachToDom(this.componentId);
-
-        this.handler = $.proxy(this.__pressHandler, this);
+        this.__handlers = {};
+        
         this.options.selector = (this.options.selector) ? this.options.selector : document;
 
         $(document).ready($.proxy(function() {
-            $(this.options.selector).bind(this.options.type, this.options, this.handler);
+            this.__bindDefinedHandlers();
         }, this));
     };
 
@@ -32,15 +33,30 @@
     $.extend(rf.ui.HotKey.prototype, {
 
         name : "HotKey",
-
-        __pressHandler : function(event) {
-            this.invokeEvent.call(this, 'press', document.getElementById(this.id), event);
+        
+        __bindDefinedHandlers : function() {
+            for (var i = 0; i < types.length; i++) {
+                if (this.options['on' + types[i]]) {
+                    this.__bindHandler(types[i]);
+                }
+            }
+        },
+        
+        __bindHandler : function(type) {
+            this.__handlers[type] = $.proxy(function(event) {
+                this.invokeEvent.call(this, type, document.getElementById(this.id), event);
+            }, this);
+            $(this.options.selector).bind(type, this.options, this.__handlers[type]);
         },
 
         destroy : function() {
             rf.Event.unbindById(this.id, this.namespace);
 
-            $(this.options.selector).unbind(this.options.type, this.handler);
+            for (var type in this.__handlers) {
+                if (this.__handlers.hasOwnProperty(type)) {
+                    $(this.options.selector).unbind(type, this.__handlers[type]);
+                }
+            }
 
             $super.destroy.call(this);
         }
