@@ -20,17 +20,17 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.jboss</groupId>
+        <artifactId>jboss-parent</artifactId>
+        <version>8</version>
+    </parent>
+
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-parent</artifactId>
     <packaging>pom</packaging>
     <version>12-SNAPSHOT</version>
     <name>RichFaces Parent</name>
-
-    <parent>
-        <groupId>org.jboss</groupId>
-        <artifactId>jboss-parent</artifactId>
-        <version>6</version>
-    </parent>
 
     <description>
         This is the parent for all RichFaces artifacts, and contains project
@@ -73,6 +73,19 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        
+        <!-- Versions rewritten from jboss-parent -->
+        <!-- * surefire: requested for upgrade in JBBUILD-713 -->
+        <version.surefire.plugin>2.11</version.surefire.plugin>
+        
+        <!-- Plugin Management: versions -->
+        <version.xml.plugin>1.0</version.xml.plugin>
+        <version.javacc.plugin>2.4.1</version.javacc.plugin>
+        <version.invoker.plugin>1.3</version.invoker.plugin>
+        <version.modello.plugin>1.0.2</version.modello.plugin>
+        <version.guice.plugin>2.2.0</version.guice.plugin>
+        <version.gmaven.plugin>1.0</version.gmaven.plugin>
+        <version.jstools.plugin>0.7</version.jstools.plugin>
     </properties>
 
     <prerequisites>
@@ -113,6 +126,56 @@
                         <wtpversion>2.0</wtpversion>
                         <downloadSources>true</downloadSources>
                     </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>xml-maven-plugin</artifactId>
+                    <version>${version.xml.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>javacc-maven-plugin</artifactId>
+                    <version>${version.javacc.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-invoker-plugin</artifactId>
+                    <version>${version.invoker.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.modello</groupId>
+                    <artifactId>modello-maven-plugin</artifactId>
+                    <version>${version.modello.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>gr.abiss.mvn.plugins</groupId>
+                    <artifactId>maven-jstools-plugin</artifactId>
+                    <version>${version.jstools.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>guice-maven-plugin</artifactId>
+                    <version>${version.guice.plugin}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.camel</groupId>
+                            <artifactId>camel-guice</artifactId>
+                            <version>${version.guice.plugin}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.groovy.maven</groupId>
+                    <artifactId>gmaven-plugin</artifactId>
+                    <version>${version.gmaven.plugin}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.codehaus.groovy.maven.runtime</groupId>
+                            <artifactId>gmaven-runtime-1.6</artifactId>
+                            <version>${version.gmaven.plugin}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>
