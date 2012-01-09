@@ -3,7 +3,7 @@
     rf.ui = rf.ui || {};
     
     var defaultOptions = {
-        position: "topRight",
+        position: "tl",
         direction: "vertical",
         method: "last",
         notifications: [],
@@ -31,19 +31,19 @@
             stack.push = isFirst ? 'top' : 'bottom';
             
             switch (stack.position) {
-                case "topLeft":
+                case "tl": // topLeft
                     stack.dir1 = isVertical ? 'down' : 'right';
                     stack.dir2 = isVertical ? 'right' : 'down';
                     break;
-                case "topRight":
+                case "tr": // topRight
                     stack.dir1 = isVertical ? 'down' : 'left';
                     stack.dir2 = isVertical ? 'left' : 'down';
                     break;
-                case "bottomLeft":
+                case "bl": // bottomLeft
                     stack.dir1 = isVertical ? 'up' : 'right';
                     stack.dir2 = isVertical ? 'right' : 'up';
                     break;
-                case "bottomRight":
+                case "br": // bottomRight
                     stack.dir1 = isVertical ? 'up' : 'left';
                     stack.dir2 = isVertical ? 'left' : 'up';
                     break;

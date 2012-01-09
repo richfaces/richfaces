@@ -148,28 +148,28 @@ html > body .rf-ntf {
     background-image: "url(#{resource['org.richfaces:fatal.png']})";
 }
 
-.rf-ntf-pos-topLeft {
+.rf-ntf-pos-tl {
     bottom: auto;
     left: 10px;
     top: 10px;
     right: auto;
 }
 
-.rf-ntf-pos-topRight {
+.rf-ntf-pos-tr {
     bottom: auto;
     right: 10px;
     top: 10px;
     left: auto;
 }
 
-.rf-ntf-pos-bottomLeft {
+.rf-ntf-pos-bl {
     bottom: 10px;
     left: 10px;
     top: auto;
     right: auto;
 }
 
-.rf-ntf-pos-bottomRight {
+.rf-ntf-pos-br {
     bottom: 10px;
     right: 10px;
     top: auto;
