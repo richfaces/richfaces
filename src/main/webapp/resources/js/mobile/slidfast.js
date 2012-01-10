@@ -37,7 +37,7 @@
 
         defaultPageID = "",
 
-        defaultPageHash = "",
+        callback = null;
 
         backButtonID = "",
 
@@ -53,10 +53,12 @@
                 if(options){
                     try{
                         defaultPageID = options.defaultPageID;
-                        defaultPageHash = options.defaultPageHash;
+                        if(options.callback){
+                            callback = window[options.callback];
+                        }
                         backButtonID = options.backButtonID;
                     }catch(e){
-
+                        alert('Problem with configuration options.')
                     }
                 }
                 try{
@@ -104,7 +106,7 @@
 
                 window.addEventListener('load', function(e) {
                     isReady = true;
-                    slidfast.core.start(defaultPageID, defaultPageHash);
+                    slidfast.core.start(defaultPageID);
                 }, false);
 
                 window.addEventListener('hashchange', function(e) {
@@ -116,32 +118,53 @@
             },
 
             locationChange: function() {
-                if (location.hash === "#" + defaultPageHash || location.hash == '') {
+                var locationHash = location.hash;
+                if (locationHash === "#" + defaultPageID || locationHash == '') {
                     slidfast.core.slideTo(defaultPageID);
+                    location.hash = defaultPageID;
+
+                    //todo - instead of manually tracking backbutton, lets dispatch an event
+                    //this is hard-coded for now
                     if(backButtonID){
                         //we're on the default page, so no need for back button
                         document.getElementById(backButtonID).className = 'hide-button';
                     }
                 } else {
-                    var hashArray = location.hash.split(':');
-                    var id;
-                    var sample;
+
+                    var hashArray = locationHash.split(':');
+                    var param1;
+                    var param2;
                     if (hashArray.length === 2) {
-                        id = hashArray[0].replace('#', '');
-                        sample = hashArray[1];
+                        param1 = hashArray[0].replace('#', '');
+                        param2 = hashArray[1];
+                    }else{
+                        param1 = locationHash.replace('#', '');
+                        param2 = null;
+                    }
+                    //todo accomodate more (or less) than 2 level breadcrumb
+
+                    if(callback != null){
                         try{
-                        //method defined in a4j:jsFunction
-                        handleHashChange(id, sample);
+                        //after location changes, call this method supplied in config
+                        //if using RichFaces, this would be the method name supplied in the
+                        //a4j:jsFunction component...
+                        callback(param1, param2);
                         }catch(e){
-                           alert('you must define an a4j:jsFunction component with name=\"handleHashChange\"')
+                           alert('you must define an a4j:jsFunction component with name=' + callback)
                         }
-                        if(backButtonID){
-                            //show the back button and attach functions
-                            document.getElementById(backButtonID).className = 'basic-button left-header-button';
-                            document.getElementById(backButtonID).onclick = function() {
-                                location.hash = defaultPageHash;
-                            };
-                        }
+                    }else{
+                        //attempt to slide to a page id if not using a callback
+                        slidfast.core.slideTo(param1);
+                    }
+
+                    //todo - instead of manually tracking backbutton, lets dispatch an event
+                    if(backButtonID){
+                        //show the back button and attach functions
+                        document.getElementById(backButtonID).className = 'basic-button left-header-button';
+                        document.getElementById(backButtonID).onclick = function() {
+                            //todo should (possibly) go back in history
+                            location.hash = defaultPageID;
+                        };
                     }
 
                 }
