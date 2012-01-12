@@ -40,6 +40,7 @@ input,select,textarea,button,keygen,isindex {
 button,input[type="reset"],input[type="submit"],input[type="button"] {
     border-width: 1px;
     border-color: '#{richSkin.panelBorderColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
     font-size: '#{richSkin.generalSizeFont}';
     font-family: '#{richSkin.generalFamilyFont}';
     color: '#{richSkin.headerTextColor}';
