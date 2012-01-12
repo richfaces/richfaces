@@ -1,15 +1,18 @@
 .rf-ac {
-    border-width: 1px;
+    border-width: 0px;
     border-style: solid;
     border-color: '#{richSkin.panelBorderColor}';
     border-bottom: 0px;
+    border-radius: '#{richSkin.panelBorderRadius}';
     background: '#{richSkin.generalBackgroundColor}';
 }
 
 .rf-ac-itm-hdr {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: '#{richSkin.panelBorderColor}';
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    border-top-left-radius: '#{richSkin.panelBorderRadius}';
+    border-top-right-radius: '#{richSkin.panelBorderRadius}';
     background-image: "url(#{resource['org.richfaces.images:gradientA.png']})";
     background-repeat: repeat-x;
     background-position: top left;
@@ -26,9 +29,11 @@
 }
 
 .rf-ac-itm-cnt {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: '#{richSkin.panelBorderColor}';
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    border-bottom-left-radius: '#{richSkin.panelBorderRadius}';
+    border-bottom-right-radius: '#{richSkin.panelBorderRadius}';
     position: relative;
     overflow: auto;
     overflow-x: hidden;
@@ -43,7 +48,7 @@
 }
 
 .rf-ac-itm-hdr-inact {
-    
+    border-radius: '#{richSkin.panelBorderRadius}';
 }
 
 .rf-ac-itm-hdr-dis {

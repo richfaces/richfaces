@@ -30,7 +30,7 @@ html > body .rf-ntf {
     margin: 0;
     padding: 8px;
     opacity: .3;
-    border-radius: 8px;
+    border-radius: '#{richSkin.panelBorderRadius}';
     position: absolute;
     z-index: -1;
     top: .1em;
