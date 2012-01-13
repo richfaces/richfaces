@@ -84,6 +84,7 @@ input.rf-insl-inp {
     border-width: 1px;
     border-style: solid;
     border-color: '#{richSkin.panelBorderColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
     display: block;
     height: 6px;
     clear: both;

@@ -175,6 +175,7 @@
     border-width: 1px;
     border-style: solid;
     border-color: '#{richSkin.panelBorderColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
     margin-bottom: 3px;
 }
 
@@ -284,12 +285,21 @@
     
 }
 
+.rf-pm-hdr-exp {
+    border-top-left-radius: '#{richSkin.panelBorderRadius}';
+    border-top-right-radius: '#{richSkin.panelBorderRadius}';
+}
+
 .rf-pm-hdr-exp .rf-pm-ico-exp {
     display: block;
 }
 
 .rf-pm-hdr-exp .rf-pm-ico-colps {
     display: none;
+}
+
+.rf-pm-hdr-colps {
+    border-radius: '#{richSkin.panelBorderRadius}';
 }
 
 .rf-pm-hdr-colps .rf-pm-ico-exp {
