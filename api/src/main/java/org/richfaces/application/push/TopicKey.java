@@ -69,11 +69,11 @@ public class TopicKey implements Serializable {
         this.subtopicName = subtopicName;
 
         if (!NAME_PATTERN.matcher(topicName).matches()) {
-            throw new IllegalArgumentException(topicName);
+            throw new IllegalArgumentException("Topic name '" + topicName + "' does not match pattern " + NAME_PATTERN.pattern());
         }
 
         if (subtopicName != null && !NAME_PATTERN.matcher(subtopicName).matches()) {
-            throw new IllegalArgumentException(subtopicName);
+            throw new IllegalArgumentException("Subtopic name '" + subtopicName + "' does not match pattern " + NAME_PATTERN.pattern());
         }
     }
 
