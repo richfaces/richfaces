@@ -44,6 +44,7 @@
 .rf-ddm-lst {
     border: 1px solid; /*#bfbfc0*/ /*panelBorderColor*/
     border-color: '#{richSkin.panelBorderColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
     background-color: '#{richSkin.additionalBackgroundColor}'; /*#e7f2fb;/  /*additionalBackgroundColor*/
     min-width: 250px;
     position: absolute;
@@ -60,6 +61,7 @@
 .rf-ddm-lst-bg {
     border: 1px solid; /* #e7f2fb;*/ /*additionalBackgroundColor*/
     border-color: '#{richSkin.additionalBackgroundColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
     background-repeat: repeat-y;
     background-position: left;
     background-image: "url(#{resource['org.richfaces.images:menu_list_bg.gif']})";
@@ -82,6 +84,7 @@
 .rf-ddm-itm-sel {
     border: 1px solid; /* #4a70ab;*/ /*headerBackgroundColor*/
     border-color: '#{richSkin.headerBackgroundColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
     cursor: pointer;
     padding: 1px 36px 2px 2px;
     background-color: '#{richSkin.additionalBackgroundColor}';

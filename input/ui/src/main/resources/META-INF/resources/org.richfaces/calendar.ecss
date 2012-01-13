@@ -1,6 +1,7 @@
 .rf-cal-extr {
     border: 1px solid;
     border-color: '#{richSkin.panelBorderColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
 }
 
 .rf-cal-popup {
@@ -26,9 +27,19 @@
     border-right: 0px solid;
     border-bottom: 1px solid;
     border-bottom-color: '#{richSkin.panelBorderColor}';
+    border-top-left-radius: '#{richSkin.panelBorderRadius}';
+    border-top-right-radius: '#{richSkin.panelBorderRadius}';
     background-color: '#{richSkin.additionalBackgroundColor}';
     font-size: '#{richSkin.generalSizeFont}';
     font-family: '#{richSkin.generalFamilyFont}';
+}
+
+.rf-cal-hdr>table>tbody>tr>td:first-child {
+    border-top-left-radius: '#{richSkin.panelBorderRadius}';
+}
+
+.rf-cal-hdr>table>tbody>tr>td:last-child {
+    border-top-right-radius: '#{richSkin.panelBorderRadius}';
 }
 
 .rf-cal-c-cnt-overflow {
@@ -126,6 +137,8 @@
 .rf-cal-ftr-optnl {
     border-top: 1px solid;
     border-right: 0px solid;
+    border-bottom-left-radius: '#{richSkin.panelBorderRadius}';
+    border-bottom-right-radius: '#{richSkin.panelBorderRadius}';
     padding: 7px;
     height: 22px;
     font-weight: bold;

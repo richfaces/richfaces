@@ -24,6 +24,7 @@
     border-color: '#{richSkin.panelBorderColor}';
     border-style: solid;
     border-width: 1px;
+    border-radius: '#{richSkin.panelBorderRadius}';
     width: 400px; /*TODO Remove it*/
 }
 
@@ -33,6 +34,8 @@
     border-color: '#{richSkin.headerBackgroundColor}';
     border-style: solid;
     border-width: 1px;
+    border-top-left-radius: '#{richSkin.panelBorderRadius}';
+    border-top-right-radius: '#{richSkin.panelBorderRadius}';
     margin-left: 1px;
     margin-top: 1px;
     white-space: nowrap;
