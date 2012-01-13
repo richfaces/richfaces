@@ -3,7 +3,7 @@
     rf.ui = rf.ui || {};
     
     var defaultOptions = {
-        position: "tl",
+        position: "tr",
         direction: "vertical",
         method: "last",
         notifications: [],

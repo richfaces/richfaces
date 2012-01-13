@@ -28,7 +28,7 @@ public enum CornerPosition {
 
     topLeft("tl"),
     topRight("tr"),
-    bottomLeft("tl"),
+    bottomLeft("bl"),
     bottomRight("br");
 
     private String shortcut;
