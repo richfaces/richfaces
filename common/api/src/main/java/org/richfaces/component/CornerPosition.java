@@ -25,8 +25,24 @@ package org.richfaces.component;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
 public enum CornerPosition {
-    topLeft,
-    topRight,
-    bottomLeft,
-    bottomRight
+
+    topLeft("tl"),
+    topRight("tr"),
+    bottomLeft("bl"),
+    bottomRight("br");
+
+    private String shortcut;
+
+    private CornerPosition(String shortcut) {
+        this.shortcut = shortcut;
+    }
+
+    public String getShortcut() {
+        return shortcut;
+    }
+
+    @Override
+    public String toString() {
+        return shortcut;
+    }
 }

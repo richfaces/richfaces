@@ -22,6 +22,7 @@ package org.richfaces.renderkit.html;
 
 import java.io.IOException;
 
+import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -33,7 +34,8 @@ import org.richfaces.renderkit.RendererBase;
  * @author amarkhel
  * @since Jun 14, 2010
  */
-@ResourceDependency(library = "org.richfaces", name = "panel.ecss")
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "panel.ecss") })
 public class PanelBaseRenderer extends RendererBase {
     public PanelBaseRenderer() {
     }
