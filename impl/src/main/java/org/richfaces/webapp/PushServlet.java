@@ -30,6 +30,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
+import org.atmosphere.cpr.ApplicationConfig;
 import org.atmosphere.cpr.AtmosphereServlet;
 import org.atmosphere.cpr.MeteorServlet;
 
@@ -49,7 +50,7 @@ public final class PushServlet extends MeteorServlet {
 
         static {
             DEFAULT_INIT_PARAMETERS.put("org.atmosphere.filter", PushHandlerFilter.class.getName());
-            DEFAULT_INIT_PARAMETERS.put(AtmosphereServlet.DISABLE_ONSTATE_EVENT, "true");
+            DEFAULT_INIT_PARAMETERS.put(ApplicationConfig.DISABLE_ONSTATE_EVENT, "true");
         }
 
         private final ServletConfig config;
