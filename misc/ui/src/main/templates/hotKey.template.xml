@@ -15,9 +15,9 @@
         <span id="#{clientId}" style="display: none;">
             <script type="text/javascript">
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="type key enabledInInput" />
+                    <cdk:scriptOption attributes="key enabledInInput preventDefault" />
                     <cdk:scriptOption name="selector" value="#{getEscapedSelector(facesContext, component)}" />
-                    <cdk:scriptOption wrapper="eventHandler" attributes="onpress" />
+                    <cdk:scriptOption wrapper="eventHandler" attributes="onkeydown onkeyup" />
                 </cdk:scriptObject>
 				new RichFaces.ui.HotKey("#{clientId}",  #{toScriptArgs(options)});
             </script>

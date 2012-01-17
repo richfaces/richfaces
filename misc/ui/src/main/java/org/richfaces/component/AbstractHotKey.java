@@ -40,18 +40,21 @@ public abstract class AbstractHotKey extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.HotKey";
     public static final String COMPONENT_FAMILY = "org.richfaces.HotKey";
 
-    @Attribute(required = true, description = @Description("The key sequence to be pressed, single keys separated by + (e.g. 'ctrl+a'). Special keys are accepted as follows: backspace, tab, return, shift, ctrl, alt, pause, capslock, esc, space, pageup, pagedown, end, home, left, up, right, down, insert, del, numlock, scroll, meta, f1, f2, ..., f12"))
+    @Attribute(required = true, description = @Description("The key sequence to be pressed, single keys separated by + (e.g. 'ctrl+a'), more key sequences separated by space. Special keys are accepted as follows: backspace, tab, return, shift, ctrl, alt, pause, capslock, esc, space, pageup, pagedown, end, home, left, up, right, down, insert, del, numlock, scroll, meta, f1, f2, ..., f12"))
     public abstract String getKey();
-
-    @Attribute(description = @Description("The key event for which the event handler should be registered: keydown, keyup, keypress"))
-    public abstract String getType();
 
     @Attribute(defaultValue = "false", description = @Description("The switch which enables handling events coming from input"))
     public abstract boolean isEnabledInInput();
 
+    @Attribute(defaultValue = "true", description = @Description("The switch which prevents native browser actions (prevents default) to be taken and stops event propagation up to the tree"))
+    public abstract boolean isPreventDefault();
+
     @Attribute(description = @Description("The CSS selector of the DOM root from which key events should be handled. When no value provided, events are handled for whole document. ID selectors starting with hash sign (#) will be expanded from componentId to clientId form. (e.g. #component is expanded to #form:component in case that component is nested in form)"))
     public abstract String getSelector();
 
-    @Attribute(events = @EventName(value = "press", defaultEvent = true), description = @Description("Event handler to be fired when registered key sequence is pressed"))
-    public abstract String getOnpress();
+    @Attribute(events = @EventName(value = "keydown", defaultEvent = true), description = @Description("Event handler to be fired when registered key sequence is pressed down"))
+    public abstract String getOnkeydown();
+
+    @Attribute(events = @EventName(value = "keyup"), description = @Description("Event handler to be fired when registered key sequence is pressed up"))
+    public abstract String getOnkeyup();
 }

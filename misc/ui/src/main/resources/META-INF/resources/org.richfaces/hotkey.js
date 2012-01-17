@@ -8,23 +8,24 @@
     rf.ui = rf.ui || {};
 
     var defaultOptions = {
-        type : 'keyup',
-        enabledInInput : false
+        enabledInInput : false,
+        preventDefault : true
     };
+    
+    var types = [ 'keydown', 'keyup' ];
 
     rf.ui.HotKey = function(componentId, options) {
         $super.constructor.call(this, componentId);
-        this.options = $.extend({}, defaultOptions, options);
-        this.options.disableInInput = !this.options.enabledInInput;
+        this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.attachToDom(this.componentId);
-
-        this.handler = $.proxy(this.__pressHandler, this);
+        this.options = $.extend({}, defaultOptions, options);
+        this.__handlers = {};
         
-        if (!this.options.selector) {
-            $(document).bind(this.options.type, this.options, this.handler);
-        } else {
-            $(this.options.selector).live(this.options.type, this.options, this.handler);
-        }
+        this.options.selector = (this.options.selector) ? this.options.selector : document;
+
+        $(document).ready($.proxy(function() {
+            this.__bindDefinedHandlers();
+        }, this));
     };
 
     rf.BaseComponent.extend(rf.ui.HotKey);
@@ -34,18 +35,35 @@
     $.extend(rf.ui.HotKey.prototype, {
 
         name : "HotKey",
-
-        __pressHandler : function() {
-            this.invokeEvent.call(this, 'press', document.getElementById(this.id));
+        
+        __bindDefinedHandlers : function() {
+            for (var i = 0; i < types.length; i++) {
+                if (this.options['on' + types[i]]) {
+                    this.__bindHandler(types[i]);
+                }
+            }
+        },
+        
+        __bindHandler : function(type) {
+            this.__handlers[type] = $.proxy(function(event) {
+                var result = this.invokeEvent.call(this, type, document.getElementById(this.id), event);
+                if (this.options.preventDefault) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false;
+                }
+                return result;
+            }, this);
+            $(this.options.selector).bind(type + this.namespace, this.options, this.__handlers[type]);
         },
 
         destroy : function() {
             rf.Event.unbindById(this.id, this.namespace);
 
-            if (!this.options.selector) {
-                $(document).unbind(this.options.type, this.handler)
-            } else {
-                $(this.options.selector).die(this.options.type, this.handler);
+            for (var type in this.__handlers) {
+                if (this.__handlers.hasOwnProperty(type)) {
+                    $(this.options.selector).unbind(type + this.namespace, this.__handlers[type]);
+                }
             }
 
             $super.destroy.call(this);

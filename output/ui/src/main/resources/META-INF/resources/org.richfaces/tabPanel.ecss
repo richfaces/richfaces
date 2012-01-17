@@ -20,6 +20,11 @@
     cursor: default;
 }
 
+.rf-tab-hdr-top {
+    border-top-left-radius: '#{richSkin.panelBorderRadius}';
+    border-top-right-radius: '#{richSkin.panelBorderRadius}';
+}
+
 .rf-tab-hdr-act.rf-tab-hdr-top {
     padding: 0px 5px 3px 5px;
     border-bottom: 0px;
@@ -56,6 +61,12 @@
     color: "#{richSkin.tabDisabledTextColor}";
     cursor: default;
 }
+
+.rf-tab-hdr-tabline-top {
+    border-top-left-radius: '#{richSkin.panelBorderRadius}';
+    border-top-right-radius: '#{richSkin.panelBorderRadius}';
+}
+
 .rf-tab-hdr-tabline-vis.rf-tab-hdr-tabline-top {
     background: url("#{resource['org.richfaces.images:tabLineBg.png']}") repeat-x scroll center top;
     background-color: "#{richSkin.additionalBackgroundColor}";

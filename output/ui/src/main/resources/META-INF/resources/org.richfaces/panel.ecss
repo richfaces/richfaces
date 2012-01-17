@@ -3,12 +3,15 @@
     color: '#{richSkin.panelBorderColor}';
     border-width: 1px;
     border-style: solid;
+    border-radius: '#{richSkin.panelBorderRadius}';
     padding: 1px;
 }
 
 .rf-p-hdr {
     background-color: '#{richSkin.headerBackgroundColor}';
     border-color: '#{richSkin.headerBackgroundColor}';
+    border-top-left-radius: '#{richSkin.panelBorderRadius}';
+    border-top-right-radius: '#{richSkin.panelBorderRadius}';
     font-size: '#{richSkin.headerSizeFont}';
     color: '#{richSkin.headerTextColor}';
     font-weight: '#{richSkin.headerWeightFont}';

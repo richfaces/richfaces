@@ -4,7 +4,7 @@ It utilizes core HTML5 APIs for WebKit based web browsers.
 Include the slidfast.js, slidfast.css and rf-mobile-skin.css files in your project, then initialize with:
 //initialize mobile RichFaces with slidfast
 slidfast({
-   defaultPageID:'home-page',
-   defaultPageHash: 'home',
-   backButtonID: 'back-button'
+   defaultPageID:'home-page', //the ID of your default page
+   callback: 'handleHashChange', //a javascript function to call after navigation happens (typically your a4j:jsfunction method)
+   backButtonID: 'back-button' //optional
 });

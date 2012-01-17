@@ -38,6 +38,7 @@
     border: 1px solid;
     /*  color: generalFontColor; */
     border-color: '#{richSkin.tipBorderColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
     font-family: '#{richSkin.generalFamilyFont}';
     font-size: '#{richSkin.generalSizeFont}';
     display: inline-block;

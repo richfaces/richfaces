@@ -254,9 +254,11 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         }
         if (tabPanel.getChildCount() > 0) {
             for (UIComponent child : tabPanel.getChildren()) {
-                AbstractTab tab = (AbstractTab) child;
-                TabRenderer renderer = (TabRenderer) tab.getRenderer(context);
-                renderer.writeJavaScript(writer, context, tab);
+                if (child instanceof AbstractTab) {
+                    AbstractTab tab = (AbstractTab) child;
+                    TabRenderer renderer = (TabRenderer) tab.getRenderer(context);
+                    renderer.writeJavaScript(writer, context, tab);
+                }
             }
         }
         writer.endElement(HtmlConstants.DIV_ELEM);

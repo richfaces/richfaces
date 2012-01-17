@@ -42,19 +42,8 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>xml-maven-plugin</artifactId>
-                    <version>1.0-beta-2</version>
-                </plugin>
-                <plugin>
                     <groupId>org.richfaces.cdk</groupId>
                     <artifactId>maven-cdk-plugin</artifactId>
-                    <version>${project.version}</version>
                     <executions>
                         <execution>
                             <id>cdk-generate-sources</id>
@@ -96,14 +85,13 @@
         <dependency>
             <groupId>org.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
-            <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <!-- JSF with dependencies -->
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -121,7 +109,6 @@
             <artifactId>jstl-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- validation -->
 
         <!-- tests -->
         <dependency>

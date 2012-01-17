@@ -46,7 +46,6 @@
             <plugin>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>maven-mockgenerator-plugin</artifactId>
-                <version>1.0.7</version>
                 <executions>
                     <execution>
                         <id>generateTestMocks</id>
