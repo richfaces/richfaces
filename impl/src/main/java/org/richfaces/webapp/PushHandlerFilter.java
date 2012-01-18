@@ -22,12 +22,15 @@
 package org.richfaces.webapp;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.Collections;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -51,21 +54,19 @@ import org.richfaces.log.RichfacesLogger;
  * @author Nick Belaevski
  *
  */
-public class PushHandlerFilter implements Filter {
+public class PushHandlerFilter implements Filter, Serializable {
     public static final String SESSION_ATTRIBUTE_NAME = Session.class.getName();
     public static final String REQUEST_ATTRIBUTE_NAME = Request.class.getName();
+    private static final long serialVersionUID = 5724886106704391903L;
     private static final String PUSH_SESSION_ID_PARAM = "pushSessionId";
-    private static final long serialVersionUID = 7616370505508715222L;
     private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
-    private SessionManager sessionManager;
+    private AtomicReference<SessionManager> sessionManagerReference = new AtomicReference<SessionManager>();
 
     public void init(FilterConfig filterConfig) throws ServletException {
-        PushContext pushContext = (PushContext) filterConfig.getServletContext().getAttribute(PushContext.INSTANCE_KEY_NAME);
-        sessionManager = pushContext.getSessionManager();
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
-        ServletException {
+            ServletException {
         if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpServletResponse httpResp = (HttpServletResponse) response;
@@ -80,7 +81,7 @@ public class PushHandlerFilter implements Filter {
                 Session session = null;
 
                 if (pushSessionId != null) {
-                    session = sessionManager.getPushSession(pushSessionId);
+                    session = getSessionManager(request).getPushSession(pushSessionId);
                 }
 
                 if (session == null) {
@@ -109,7 +110,23 @@ public class PushHandlerFilter implements Filter {
         }
     }
 
+    /**
+     * Get instance of {@link SessionManager}.
+     *
+     * Instance of {@link SessionManager} is initialized from Current {@link SessionManager} is stored in
+     * {@link #sessionManagerReference}, since it needs to be initialized lazily.
+     *
+     * It can be initialized by providing {@link ServletRequest}.
+     */
+    private SessionManager getSessionManager(ServletRequest request) {
+        if (sessionManagerReference.get() == null) {
+            ServletContext servletContext = request.getServletContext();
+            PushContext pushContext = (PushContext) servletContext.getAttribute(PushContext.INSTANCE_KEY_NAME);
+            sessionManagerReference.compareAndSet(null, pushContext.getSessionManager());
+        }
+        return sessionManagerReference.get();
+    }
+
     public void destroy() {
-        sessionManager = null;
     }
 }
