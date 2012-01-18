@@ -51,6 +51,13 @@ public class ExtTableSelectionBean implements Serializable {
         this.inventoryItems = inventoryItems;
     }
 
+    public InventoryItem getSelectionItem() {
+        if (selectionItems == null || selectionItems.isEmpty()) {
+            return null;
+        }
+        return selectionItems.get(0);
+    }
+
     public List<InventoryItem> getSelectionItems() {
         return selectionItems;
     }

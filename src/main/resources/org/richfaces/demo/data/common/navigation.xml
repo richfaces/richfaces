@@ -540,6 +540,20 @@
                     </sample>
                 </samples>
             </demo>
+            <demo new="true">
+                <id>contextMenu</id>
+                <name>rich:contextMenu</name>
+                <samples>
+                    <sample>
+                        <id>simple</id>
+                        <name>Simple ContextMenu</name>
+                    </sample>
+                    <sample>
+                        <id>table</id>
+                        <name>Table ContextMenu</name>
+                    </sample>
+                </samples>
+            </demo>
             <demo>
                 <id>dropDownMenu</id>
                 <name>rich:dropDownMenu</name>
