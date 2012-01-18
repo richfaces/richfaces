@@ -66,6 +66,11 @@ public abstract class AbstractDropDownMenu extends UIComponentBase {
     @Attribute
     public abstract String getLabel();
 
+    @Attribute(generate = false, hidden = true, readOnly = true)
+    public Object getCssRoot() {
+        return "ddm";
+    }
+
     public enum Facets {
         label,
         labelDisabled

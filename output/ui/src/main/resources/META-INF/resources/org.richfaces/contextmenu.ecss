@@ -1,4 +1,4 @@
-.rf-ddm-lbl,.rf-ddm-lbl-dis {
+.rf-ctx-lbl,.rf-ctx-lbl-dis {
     font-family: '#{richSkin.generalFamilyFont}';
     font-size: '#{richSkin.generalSizeFont}';
     font-weight: '#{richSkin.headerWeightFont}';
@@ -6,15 +6,16 @@
     white-space: nowrap;
 }
 
-.rf-ddm-lbl {
-    padding: 2px 5px;
+.rf-ctx-lbl {
+    padding : 0 !important;
+    border-width : 0 !important;
 }
 
-.rf-ddm-unsel {
+.rf-ctx-unsel {
     border: 1px solid transparent;
 }
 
-.rf-ddm-sel {
+.rf-ctx-sel {
     background-image: "url(#{resource['org.richfaces.images:menu_item_bg.gif']})";
     background-repeat: repeat-x;
     background-position: bottom left;
@@ -25,26 +26,25 @@
     cursor: pointer;
 }
 
-.rf-ddm-pos {
+.rf-ctx-pos {
     top: 20px;
     left: 0;
     position: absolute;
 }
 
-.rf-ddm-dis {
+.rf-ctx-dis {
     color: '#{richSkin.tabDisabledTextColor}'; /* #8DB7F3*/
     cursor: default;
 }
 
-.rf-ddm-lbl-dec {
+.rf-ctx-lbl-dec {
     font-weight: '#{richSkin.headerWeightFont}';
     cursor: pointer;
 }
 
-.rf-ddm-lst {
+.rf-ctx-lst {
     border: 1px solid; /*#bfbfc0*/ /*panelBorderColor*/
     border-color: '#{richSkin.panelBorderColor}';
-    border-radius: '#{richSkin.panelBorderRadius}';
     background-color: '#{richSkin.additionalBackgroundColor}'; /*#e7f2fb;/  /*additionalBackgroundColor*/
     min-width: 250px;
     position: absolute;
@@ -52,23 +52,22 @@
     outline: none;
 }
 
-.rf-ddm-sublst {
+.rf-ctx-sublst {
     position: absolute;
     top: -8px;
     left: 13px;
 }
 
-.rf-ddm-lst-bg {
+.rf-ctx-lst-bg {
     border: 1px solid; /* #e7f2fb;*/ /*additionalBackgroundColor*/
     border-color: '#{richSkin.additionalBackgroundColor}';
-    border-radius: '#{richSkin.panelBorderRadius}';
     background-repeat: repeat-y;
     background-position: left;
     background-image: "url(#{resource['org.richfaces.images:menu_list_bg.gif']})";
     /*from additionalBackgroundColor (left) to tabBackgroundColor (right)*/
 }
 
-.rf-ddm-itm {
+.rf-ctx-itm {
     padding: 1px 35px 1px 1px;
     white-space: nowrap;
     font-family: '#{richSkin.generalFamilyFont}'; /*verdana;*/ /*generalFamilyFont*/
@@ -76,15 +75,14 @@
     position: relative;
 }
 
-.rf-ddm-itm-unsel {
+.rf-ctx-itm-unsel {
     border: 1px solid transparent;
     padding: 1px 36px 2px 2px;
 }
 
-.rf-ddm-itm-sel {
+.rf-ctx-itm-sel {
     border: 1px solid; /* #4a70ab;*/ /*headerBackgroundColor*/
     border-color: '#{richSkin.headerBackgroundColor}';
-    border-radius: '#{richSkin.panelBorderRadius}';
     cursor: pointer;
     padding: 1px 36px 2px 2px;
     background-color: '#{richSkin.additionalBackgroundColor}';
@@ -94,19 +92,19 @@
     z-index: 10;
 }
 
-.rf-ddm-itm-dis {
+.rf-ctx-itm-dis {
     border: 1px solid transparent;
     cursor: default;
     color: '#{richSkin.tabDisabledTextColor}'; /*#839eca;*/ /*tabDisabledTextColor*/
 }
 
-.rf-ddm-itm-ic {
+.rf-ctx-itm-ic {
     display: inline-block;
     margin: 0 10px 0 0;
     vertical-align: middle;
 }
 
-.rf-ddm-itm-lbl {
+.rf-ctx-itm-lbl {
     color: '#{richSkin.generalTextColor}'; /*#000000;*/ /*generalTextColor*/
     display: inline-block;
     text-decoration: none;
@@ -114,14 +112,14 @@
     z-index: 2;
 }
 
-.rf-ddm-sep {
+.rf-ctx-sep {
     font-size: 0px;
     border-top: 1px solid; /*  #BED6F8;*/ /*panelBorderColor*/
     border-top-color: '#{richSkin.panelBorderColor}';
     margin: 2px 0px 2px 24px;
 }
 
-.rf-ddm-nd {
+.rf-ctx-nd {
     background-image: "url(#{resource['org.richfaces.images:menuNodeImage.gif']})";
     background-repeat: no-repeat;
     background-position: top;
@@ -133,22 +131,22 @@
     position: absolute;
 }
 
-.rf-ddm-itm-dis .rf-ddm-nd {
+.rf-ctx-itm-dis .rf-ctx-nd {
     background-position: bottom;
 }
 
-.rf-ddm-emptyIcon {
+.rf-ctx-emptyIcon {
     width: 16px;
     height: 16px;
     line-height: 16px;
 }
 
-.rf-ddm-itm-ic input[type="checkbox"] {
+.rf-ctx-itm-ic input[type="checkbox"] {
     margin: 0;
     width: 16px;
 }
 
-.rf-ddm-itm-lbl input[type="text"] {
+.rf-ctx-itm-lbl input[type="text"] {
     font-family: Arial, Verdana, sans-serif;
     font-size: 11px;
     background-position: 1px 1px;

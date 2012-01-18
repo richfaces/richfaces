@@ -1,17 +1,6 @@
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
-import org.richfaces.component.AbstractDropDownMenu;
+import org.richfaces.component.AbstractContextMenu;
 import org.richfaces.component.AbstractMenuGroup;
 import org.richfaces.component.AbstractMenuItem;
 import org.richfaces.component.AbstractMenuSeparator;
@@ -21,6 +10,16 @@ import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.RendererBase;
 
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
@@ -28,17 +27,18 @@ import org.richfaces.renderkit.RendererBase;
         @ResourceDependency(library = "org.richfaces", name = "menuKeyNavigation.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu-base.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu.js"),
-        @ResourceDependency(library = "org.richfaces", name = "dropdownmenu.ecss", target = "head") })
-public abstract class DropDownMenuRendererBase extends RendererBase {
-    public static final String RENDERER_TYPE = "org.richfaces.DropDownMenuRenderer";
+        @ResourceDependency(library = "org.richfaces", name = "contextmenu.js"),
+        @ResourceDependency(library = "org.richfaces", name = "contextmenu.ecss", target = "head") })
+public abstract class ContextMenuRendererBase extends RendererBase {
+    public static final String RENDERER_TYPE = "org.richfaces.ContextMenuRenderer";
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
     public static final String DEFAULT_SHOWEVENT = "mouseover";
 
     @Override
     public void renderChildren(FacesContext facesContext, UIComponent component) throws IOException {
-        AbstractDropDownMenu dropDownMenu = (AbstractDropDownMenu) component;
+        AbstractContextMenu contextMenu = (AbstractContextMenu) component;
 
-        for (UIComponent child : dropDownMenu.getChildren()) {
+        for (UIComponent child : contextMenu.getChildren()) {
             if (child.isRendered()
                     && (child instanceof AbstractMenuGroup || child instanceof AbstractMenuItem || child instanceof AbstractMenuSeparator)) {
 
@@ -48,29 +48,17 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
     }
 
     protected boolean isDisabled(FacesContext facesContext, UIComponent component) {
-        if (component instanceof AbstractDropDownMenu) {
-            return ((AbstractDropDownMenu) component).isDisabled();
+        if (component instanceof AbstractContextMenu) {
+            return ((AbstractContextMenu) component).isDisabled();
         }
         return false;
-    }
-
-    protected UIComponent getLabelFacet(FacesContext facesContext, UIComponent component) {
-        UIComponent facet = null;
-        AbstractDropDownMenu ddmenu = (AbstractDropDownMenu) component;
-        if (ddmenu != null) {
-            facet = ddmenu.getFacet(AbstractDropDownMenu.Facets.labelDisabled.toString());
-            if (!ddmenu.isDisabled() || facet == null) {
-                facet = ddmenu.getFacet(AbstractDropDownMenu.Facets.label.toString());
-            }
-        }
-        return facet;
     }
 
     public List<Map<String, Object>> getMenuGroups(FacesContext facesContext, UIComponent component) {
         List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
         List<AbstractMenuGroup> groups = new ArrayList<AbstractMenuGroup>();
-        if (component instanceof AbstractDropDownMenu) {
-            if (component.isRendered() && !((AbstractDropDownMenu) component).isDisabled()) {
+        if (component instanceof AbstractContextMenu) {
+            if (component.isRendered() && !((AbstractContextMenu) component).isDisabled()) {
                 getMenuGroups(component, groups);
             }
         }
@@ -85,19 +73,19 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
 
                 Positioning jointPoint = group.getJointPoint();
                 if (jointPoint == null) {
-                    jointPoint = org.richfaces.component.Positioning.DEFAULT;
+                    jointPoint = Positioning.DEFAULT;
                 }
                 RenderKitUtils.addToScriptHash(map, "jointPoint", jointPoint.getValue(),
-                        org.richfaces.component.Positioning.DEFAULT.getValue());
+                        Positioning.DEFAULT.getValue());
 
                 Positioning direction = group.getDirection();
                 if (direction == null) {
-                    direction = org.richfaces.component.Positioning.DEFAULT;
+                    direction = Positioning.DEFAULT;
                 }
                 RenderKitUtils.addToScriptHash(map, "direction", direction.getValue(),
-                        org.richfaces.component.Positioning.DEFAULT.getValue());
+                        Positioning.DEFAULT.getValue());
 
-                RenderKitUtils.addToScriptHash(map, "cssRoot", component.getAttributes().get("cssRoot"), "ddm");
+                RenderKitUtils.addToScriptHash(map, "cssRoot", component.getAttributes().get("cssRoot"), "ddm"); // ddm is the default in the javascript
 
                 results.add(map);
             }
@@ -106,7 +94,7 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
     }
 
     protected int getPopupWidth(UIComponent component) {
-        int width = ((AbstractDropDownMenu) component).getPopupWidth();
+        int width = ((AbstractContextMenu) component).getPopupWidth();
         if (width <= 0) {
             width = DEFAULT_MIN_POPUP_WIDTH;
         }
@@ -114,7 +102,7 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
     }
 
     protected Mode getMode(UIComponent component) {
-        Mode mode = ((AbstractDropDownMenu) component).getMode();
+        Mode mode = ((AbstractContextMenu) component).getMode();
         if (mode == null) {
             mode = Mode.server;
         }
@@ -122,17 +110,17 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
     }
 
     protected Positioning getJointPoint(UIComponent component) {
-        Positioning jointPoint = ((AbstractDropDownMenu) component).getJointPoint();
+        Positioning jointPoint = ((AbstractContextMenu) component).getJointPoint();
         if (jointPoint == null) {
-            jointPoint = org.richfaces.component.Positioning.DEFAULT;
+            jointPoint = Positioning.DEFAULT;
         }
         return jointPoint;
     }
 
     protected Positioning getDirection(UIComponent component) {
-        Positioning direction = ((AbstractDropDownMenu) component).getDirection();
+        Positioning direction = ((AbstractContextMenu) component).getDirection();
         if (direction == null) {
-            direction = org.richfaces.component.Positioning.DEFAULT;
+            direction = Positioning.DEFAULT;
         }
         return direction;
     }
@@ -149,7 +137,7 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
     }
 
     protected String getShowEvent(UIComponent component) {
-        String value = ((AbstractDropDownMenu) component).getShowEvent();
+        String value = ((AbstractContextMenu) component).getShowEvent();
         if (value == null || "".equals(value)) {
             value = DEFAULT_SHOWEVENT;
         }

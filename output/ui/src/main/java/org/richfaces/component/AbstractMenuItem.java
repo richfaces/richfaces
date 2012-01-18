@@ -12,6 +12,7 @@ import org.richfaces.renderkit.html.MenuItemRendererBase;
         "events-props.xml", "core-props.xml", "i18n-props.xml", "ajax-props.xml" })
 public abstract class AbstractMenuItem extends AbstractActionComponent {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuItem";
+    public static final String CSS_ROOT_DEFAULT = "ddm";
 
     @Attribute
     public abstract Mode getMode();
@@ -30,6 +31,15 @@ public abstract class AbstractMenuItem extends AbstractActionComponent {
 
     @Attribute(hidden = true)
     public abstract Object getValue();
+
+    @Attribute(generate = false, hidden = true, readOnly = true)
+    public Object getCssRoot() {
+        Object cssRoot = getParent().getAttributes().get("cssRoot");
+        if (cssRoot == null) {
+            cssRoot = CSS_ROOT_DEFAULT;
+        }
+        return cssRoot;
+    }
 
     public enum Facets {
         icon,

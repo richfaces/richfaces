@@ -18,6 +18,7 @@
 
     <cc:implementation>
         <cdk:object name="style" value="#{component.attributes['style']}" />
+        <cdk:object name="cssRoot" value="#{component.attributes['cssRoot']}" />
         <cdk:object name="iconClass" value="#{component.attributes['iconClass']}" />
         <cdk:object name="labelClass" value="#{component.attributes['labelClass']}" />
         <cdk:object name="styleClass" type="java.lang.String" value="#{getStyleClass(facesContext, component, 'groupClass', 'styleClass')}" />
@@ -30,9 +31,9 @@
         <cdk:object name="iconFacet" value="#{getIconFacet(facesContext, component)}" type="javax.faces.component.UIComponent" />
         <cdk:object name="iconAttribute" value="#{getIconAttribute(facesContext, component)}" type="java.lang.String" />
 
-        <div id="#{clientId}" class="rf-ddm-itm #{isDisabled ? 'rf-ddm-itm-dis '+disabledClass : 'rf-ddm-itm-unsel '+styleClass}"
+        <div id="#{clientId}" class="rf-#{cssRoot}-itm #{isDisabled ? 'rf-' +cssRoot+ '-itm-dis '+disabledClass : 'rf-' +cssRoot+ '-itm-unsel '+styleClass}"
             style="#{style}" cdk:passThroughWithExclusions="">
-            <div class="rf-ddm-itm-ic #{iconClass}">
+            <div class="rf-#{cssRoot}-itm-ic #{iconClass}">
                 <c:choose>
                     <c:when test="iconFacet != null and iconFacet.isRendered()">
                         <cdk:call expression="iconFacet.encodeAll(facesContext)" />
@@ -41,26 +42,26 @@
                         <img width="16" height="16" src="#{RenderKitUtils.getResourceURL(iconAttribute, facesContext)}" alt="" />
                     </c:when>
                     <c:otherwise>
-                        <div class="rf-ddm-emptyIcon" />
+                        <div class="rf-#{cssRoot}-emptyIcon" />
                     </c:otherwise>
                 </c:choose>
             </div>
 
             <c:choose>
                 <c:when test="#{not isDisabled}">
-                    <span class="rf-ddm-itm-lbl #{labelClass}">#{component.attributes['label']}</span>
+                    <span class="rf-#{cssRoot}-itm-lbl #{labelClass}">#{component.attributes['label']}</span>
                 </c:when>
                 <c:otherwise>
                     #{component.attributes['label']}
                 </c:otherwise>
             </c:choose>
 
-            <div class="rf-ddm-nd">
+            <div class="rf-#{cssRoot}-nd">
                 <c:choose>
                     <c:when test="#{not isDisabled}">
-                        <div id="#{clientId}_list" class="rf-ddm-lst rf-ddm-sublst"
+                        <div id="#{clientId}_list" class="rf-#{cssRoot}-lst rf-#{cssRoot}-sublst"
                             style="display:none;min-width:#{getMinPopupWidth(facesContext, component)}px;">
-                            <div class="rf-ddm-lst-bg">
+                            <div class="rf-#{cssRoot}-lst-bg">
                                 <cdk:call expression="renderChildren(facesContext, component)" />
                             </div>
                         </div>
