@@ -60,7 +60,7 @@ ORIG_VERSION=
 NEW_VERSION=
 OTHER_FILES=
 
-while getopts "n:o:d:h" OPTION
+while getopts "n:o:d:h:r" OPTION
 do
      case $OPTION in
          n)
