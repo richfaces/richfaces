@@ -40,6 +40,9 @@ public abstract class AbstractContextMenu extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.ContextMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.ContextMenu";
 
+    @Attribute(defaultValue = "true")
+    public abstract boolean isAttached();
+
     @Attribute
     public abstract String getAttachTo();
 
@@ -88,9 +91,6 @@ public abstract class AbstractContextMenu extends UIComponentBase {
 
     @Attribute(events = @EventName("itemclick"))
     public abstract String getOnitemclick();
-
-    @Attribute
-    public abstract String getLabel();
 
     @Attribute(generate = false, hidden = true, readOnly = true)
     public Object getCssRoot() {

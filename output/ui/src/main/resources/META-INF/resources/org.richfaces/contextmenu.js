@@ -4,7 +4,8 @@
     var defaultOptions = {
         showEvent : 'contextmenu',
         cssRoot : "ctx",
-        cssClasses : {}
+        cssClasses : {},
+        attached : true
     };
 
     // constructor definition
@@ -14,7 +15,9 @@
         $super.constructor.call(this, componentId, this.options);
         this.id = componentId;
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
-        rf.getDomElement(this.attachId).appendChild(this.element[0]);
+        if (this.options.attached) {
+            rf.getDomElement(this.attachId).appendChild(this.element[0]);
+        }
     }
 
     rf.ui.Menu.extend(rf.ui.ContextMenu);
@@ -44,6 +47,10 @@
                     this.menuManager.shutdownMenu();
                     this.menuManager.addMenuId(this.id);
                     this.__showPopup(e); // include the event to position the popup at the cursor
+                    var parent = rf.$(this.attachId);
+                    if (parent.selectionClickListener) {
+                        parent.selectionClickListener(e);
+                    }
                 }
             }
 
