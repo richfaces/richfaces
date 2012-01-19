@@ -56,18 +56,6 @@
                         <br />
                         <cm:contextMenu hideDelay="600" jointPoint="bottomLeft" direction="autoRight" attachTo="form:panelClick"
                             id="ctxmenu" disabled="#{menuBean.disabled}" mode="#{menuBean.mode}">
-                            <f:facet name="label">
-                                <h:panelGroup>
-                                    <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
-                                    <h:outputText value="File" />
-                                </h:panelGroup>
-                            </f:facet>
-                            <f:facet name="labelDisabled">
-                                <h:panelGroup>
-                                    <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
-                                    <h:outputText value="(disabled)File" />
-                                </h:panelGroup>
-                            </f:facet>
                             <cm:menuItem id="menuNew1" label="New" icon="/images/ddmenu/create_doc.gif"
                                 action="#{menuBean.doNew}" execute="@form">
                                 <f:facet name="icon">
