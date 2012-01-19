@@ -48,7 +48,7 @@
                     this.menuManager.addMenuId(this.id);
                     this.__showPopup(e); // include the event to position the popup at the cursor
                     var parent = rf.$(this.attachId);
-                    if (parent.selectionClickListener) {
+                    if (parent && parent.selectionClickListener) {
                         parent.selectionClickListener(e);
                     }
                 }
