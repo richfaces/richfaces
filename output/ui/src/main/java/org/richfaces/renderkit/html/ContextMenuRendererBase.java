@@ -9,6 +9,7 @@ import org.richfaces.component.Positioning;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.RendererBase;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -33,6 +34,7 @@ public abstract class ContextMenuRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.ContextMenuRenderer";
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
     public static final String DEFAULT_SHOWEVENT = "mouseover";
+    protected static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     @Override
     public void renderChildren(FacesContext facesContext, UIComponent component) throws IOException {
@@ -142,5 +144,17 @@ public abstract class ContextMenuRendererBase extends RendererBase {
             value = DEFAULT_SHOWEVENT;
         }
         return value;
+    }
+
+    protected String getTarget(FacesContext context, UIComponent component) {
+        String target = ((AbstractContextMenu) component).getAttachTo();
+        if (target == null || target.isEmpty()) {
+            return null;
+        }
+        UIComponent foundComponent = RENDERER_UTILS.findComponentFor(component, target);
+        if (foundComponent == null) {
+            throw new IllegalArgumentException(String.format("Unable to find target component with id: %s", target));
+        }
+        return foundComponent.getClientId(context);
     }
 }
