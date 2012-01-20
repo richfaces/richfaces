@@ -40,6 +40,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 
 import org.richfaces.VersionBean;
+import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
@@ -124,6 +125,15 @@ public class InitializationListener implements SystemEventListener {
                 AWTInitializer.initialize();
             } catch (NoClassDefFoundError e) {
                 LOGGER.warn(MessageFormat.format("There were problems loading class: {0} - AWTInitializer won't be run",
+                    e.getMessage()));
+            }
+        }
+        if (getBooleanConfigurationValue(context, CoreConfiguration.Items.pushInitializeContextOnStartup)) {
+            try {
+                LOGGER.info("Startup initialization of PushContext");
+                ServiceTracker.getService(PushContextFactory.class).getPushContext();
+            } catch (NoClassDefFoundError e) {
+                LOGGER.error(MessageFormat.format("There were problems initializing PushContext on startup: {0}",
                     e.getMessage()));
             }
         }

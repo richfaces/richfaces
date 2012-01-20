@@ -89,7 +89,9 @@ public final class CoreConfiguration {
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionPassword")
         pushJMSConnectionPassword,
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionPassword", source = ConfigurationItemSource.webEnvironmentEntry)
-        pushJMSConnectionPasswordEnvRef
+        pushJMSConnectionPasswordEnvRef,
+        @ConfigurationItem(defaultValue = "false", names="org.richfaces.push.initializeOnStartup")
+        pushInitializeContextOnStartup
 
     }
 
