@@ -67,7 +67,7 @@
         <version.oscache>2.3</version.oscache>
         <version.jbosscache>3.2.5.GA</version.jbosscache>
         <version.ehcache>1.6.0</version.ehcache>
-        <version.atmosphere>0.8.3</version.atmosphere>
+        <version.atmosphere>0.8.4</version.atmosphere>
         <version.jms-api>1.1</version.jms-api>
         
         <!-- Release repositories -->
