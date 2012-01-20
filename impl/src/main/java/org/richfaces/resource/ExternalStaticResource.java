@@ -30,7 +30,6 @@ import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.skin.SkinFactory;
-import org.richfaces.util.FastJoiner;
 
 /**
  * @author Nick Belaevski
@@ -38,7 +37,6 @@ import org.richfaces.util.FastJoiner;
  */
 public class ExternalStaticResource extends Resource {
     public static final String STATIC_RESOURCE_LOCATION_VARIABLE = "resourceLocation";
-    private static final FastJoiner RESOURCE_PATH_JOINER = FastJoiner.on('/');
     private String location;
     private boolean skinDependent;
 
@@ -49,14 +47,13 @@ public class ExternalStaticResource extends Resource {
     }
 
     private String getResourceLocation(FacesContext facesContext) {
-        String skinName = null;
-
         if (skinDependent) {
             SkinFactory skinFactory = SkinFactory.getInstance(facesContext);
-            skinName = skinFactory.getSkin(facesContext).getName();
+            String skinName = skinFactory.getSkin(facesContext).getName();
+            return location.replace(ResourceFactory.SKINNED_RESOURCE_PLACEHOLDER, skinName);
         }
 
-        return RESOURCE_PATH_JOINER.join(skinName, location);
+        return location;
     }
 
     @Override

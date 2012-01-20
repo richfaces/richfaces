@@ -107,8 +107,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
             String resourceLocation = entry.getValue();
             boolean skinDependent = false;
-            if (resourceLocation.startsWith(SKINNED_RESOURCE_PREFIX)) {
-                resourceLocation = resourceLocation.substring(SKINNED_RESOURCE_PREFIX.length());
+            if (resourceLocation.contains(SKINNED_RESOURCE_PLACEHOLDER)) {
                 skinDependent = true;
             }
 
