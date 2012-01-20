@@ -32,7 +32,7 @@ import javax.faces.context.FacesContext;
  */
 public interface ResourceFactory {
     String DYNAMIC_RESOURCE_MAPPINGS = "META-INF/richfaces/resource-mappings.properties";
-    String SKINNED_RESOURCE_PLACEHOLDER = "%skin%";
+    String SKINNED_RESOURCE_PLACEHOLDER = "%skin%/";
 
     Collection<ResourceKey> getMappedDynamicResourceKeys();
 
