@@ -21,7 +21,10 @@
 
         this.attachId = this.getAttachId();
         if (this.attachId) {
-            rf.Event.bindById(this.attachId, this.options.showEvent, $.proxy(this.__showHandler, this), this);
+            var that = this;
+            $(document).ready(function() {
+                rf.Event.bindById(that.attachId, that.options.showEvent, $.proxy(that.__showHandler, that), that)
+            });
         }
         this.element = $(rf.getDomElement(this.id));
 
