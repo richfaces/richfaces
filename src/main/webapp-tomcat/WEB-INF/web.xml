@@ -69,7 +69,15 @@
         <auth-method>BASIC</auth-method>
     </login-config>
     
-    <!-- Registers Push -->
+    <!-- Configures Push -->
+    <context-param>
+        <param-name>org.richfaces.push.initializeOnStartup</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.push.jms.enabled</param-name>
+        <param-value>true</param-value>
+    </context-param>
     <context-param>
         <param-name>org.richfaces.push.jms.connectionUsername</param-name>
         <param-value>guest</param-value>
@@ -78,10 +86,8 @@
         <param-name>org.richfaces.push.jms.connectionPassword</param-name>
         <param-value>guest</param-value>
     </context-param>
-    <context-param>
-        <param-name>org.richfaces.push.initializeOnStartup</param-name>
-        <param-value>true</param-value>
-    </context-param>
+    
+    <!-- Configures PushFilter -->
     <filter>
         <filter-name>PushFilter</filter-name>
         <filter-class>org.richfaces.webapp.PushFilter</filter-class>

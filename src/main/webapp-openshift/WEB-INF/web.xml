@@ -60,11 +60,7 @@
         <auth-method>BASIC</auth-method>
     </login-config>
     
-    <!-- Disables Push JMS integration -->
-    <context-param>
-        <param-name>org.richfaces.push.jms.disable</param-name>
-        <param-value>true</param-value>
-    </context-param>
+    <!-- Configures Push -->
     <context-param>
         <param-name>org.richfaces.push.initializeOnStartup</param-name>
         <param-value>true</param-value>
