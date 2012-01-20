@@ -22,6 +22,7 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -40,16 +41,23 @@ public abstract class AbstractContextMenu extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.ContextMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.ContextMenu";
 
-    @Attribute(defaultValue = "true")
+    @Attribute(defaultValue = "true", description = @Description(
+            "If the value of the 'attached' attribute is true, the component is attached to the component, specified in " +
+            "the 'attachTo' attribute or to the parent component, if 'attachTo' is not defined. Default value is 'true'."))
     public abstract boolean isAttached();
 
-    @Attribute
+    @Attribute(description = @Description(
+            "Client identifier of the component or id of the existing DOM element that is a source for a given event. " +
+            "If attachTo is defined, the event is attached on the client. If both attached and attachTo attributes are " +
+            "defined, and attribute attached has value 'false', it is considered to have higher priority."))
     public abstract String getAttachTo();
 
-    @Attribute
+    @Attribute(description = @Description("Defines an event on the parent element to display the menu. Default value is 'oncontextmenu'."))
     public abstract String getShowEvent();
 
-    @Attribute
+    @Attribute(description = @Description(
+            "Sets the submission mode for all menu items of the menu except those where this attribute redefined. " +
+            "Possible value are 'ajax','client' and 'server'. Default value is 'server'."))
     public abstract Mode getMode();
 
     @Attribute

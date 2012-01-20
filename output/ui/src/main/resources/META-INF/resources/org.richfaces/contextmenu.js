@@ -15,9 +15,6 @@
         $super.constructor.call(this, componentId, this.options);
         this.id = componentId;
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
-        if (this.options.attached) {
-            rf.getDomElement(this.attachId).appendChild(this.element[0]);
-        }
     }
 
     rf.ui.Menu.extend(rf.ui.ContextMenu);
@@ -30,6 +27,9 @@
             name : "ContextMenu",
 
             getAttachId : function() {
+                if (!this.options.attached) {
+                    return null;
+                }
                 var attachId = typeof this.options.attachTo === 'undefined' ?
                     this.element.parentNode.id : this.options.attachTo;
                 return attachId;

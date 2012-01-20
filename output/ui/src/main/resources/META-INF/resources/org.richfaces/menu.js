@@ -20,7 +20,9 @@
         this.groupList = new Array();
 
         this.attachId = this.getAttachId();
-        rf.Event.bindById(this.attachId, this.options.showEvent, $.proxy(this.__showHandler, this), this);
+        if (this.attachId) {
+            rf.Event.bindById(this.attachId, this.options.showEvent, $.proxy(this.__showHandler, this), this);
+        }
         this.element = $(rf.getDomElement(this.id));
 
         if (!rf.ui.MenuManager) {
@@ -106,7 +108,9 @@
                 // clean up code here
                 this.detach(this.id);
 
-                rf.Event.unbindById(this.attachId, this.options.showEvent);
+                if (this.attachId) {
+                    rf.Event.unbindById(this.attachId, this.options.showEvent);
+                }
 
                 // call parent's destroy method
                 $super.destroy.call(this);
