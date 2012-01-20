@@ -66,7 +66,7 @@ public abstract class TopicsContext {
     public void publish(TopicKey key, Object data) throws MessageException {
         TopicKey resolvedKey = getTopicKeyWithResolvedExpressions(key);
 
-        Topic topic = getTopic(resolvedKey);
+        Topic topic = getOrCreateTopic(resolvedKey);
 
         if (topic == null) {
             throw new MessageException(MessageFormat.format("Topic {0} not found", resolvedKey.getTopicName()));

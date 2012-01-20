@@ -134,7 +134,7 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
                                 String subtopicName = message.getStringProperty(SUBTOPIC_PROPERTY);
                                 TopicKey topicKey = new TopicKey(name, subtopicName);
 
-                                org.richfaces.application.push.Topic pushTopic = getTopic(topicKey);
+                                org.richfaces.application.push.Topic pushTopic = getOrCreateTopic(topicKey);
                                 if (pushTopic != null) {
                                     try {
                                         Object messageData = getMessageData(message);

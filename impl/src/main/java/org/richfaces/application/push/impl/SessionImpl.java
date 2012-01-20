@@ -179,7 +179,7 @@ public class SessionImpl implements Session, DestroyableSession {
 
     private void createSubscriptions(Iterable<TopicKey> topicKeys) {
         for (TopicKey topicKey : topicKeys) {
-            Topic pushTopic = topicsContext.getTopic(topicKey);
+            Topic pushTopic = topicsContext.getOrCreateTopic(topicKey);
 
             String errorMessage = null;
 
