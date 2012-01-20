@@ -48,9 +48,9 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
  */
 public class PushContextImpl implements PushContext, SystemEventListener {
     private static final ThreadFactory PUBLISH_THREAD_FACTORY = new ThreadFactoryBuilder().setDaemon(true)
-        .setNameFormat("push-publish-thread-%1$s").build();
+            .setNameFormat("push-publish-thread-%1$s").build();
     private static final ThreadFactory SESSION_MANAGER_THREAD_FACTORY = new ThreadFactoryBuilder().setDaemon(true)
-        .setNameFormat("push-session-manager-thread-%1$s").build();
+            .setNameFormat("push-session-manager-thread-%1$s").build();
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     private String pushHandlerUrl;
     private TopicsContextImpl topicsContext;
@@ -66,10 +66,9 @@ public class PushContextImpl implements PushContext, SystemEventListener {
         try {
             facesContext.getApplication().subscribeToEvent(PreDestroyApplicationEvent.class, this);
 
-            boolean jmsEnabled = ConfigurationServiceHelper.getBooleanConfigurationValue(facesContext,
-                CoreConfiguration.Items.pushJMSEnabled);
+            boolean isJmsEnabled = isJmsEnabled(facesContext);
 
-            if (jmsEnabled) {
+            if (isJmsEnabled) {
                 topicsContext = JMSTopicsContextImpl.getInstanceInitializedFromContext(PUBLISH_THREAD_FACTORY, facesContext);
             } else {
                 topicsContext = new TopicsContextImpl(PUBLISH_THREAD_FACTORY);
@@ -83,6 +82,13 @@ public class PushContextImpl implements PushContext, SystemEventListener {
         } catch (Exception e) {
             throw new FacesException(e.getMessage(), e);
         }
+    }
+
+    private boolean isJmsEnabled(FacesContext facesContext) {
+        Boolean jmsEnabled = ConfigurationServiceHelper.getBooleanConfigurationValue(facesContext,
+                CoreConfiguration.Items.pushJMSEnabled);
+        jmsEnabled = (jmsEnabled == null) ? false : jmsEnabled;
+        return jmsEnabled;
     }
 
     public void destroy() {

@@ -21,6 +21,9 @@
  */
 package org.richfaces.application;
 
+import static org.richfaces.application.CoreConfiguration.Items.executeAWTInitializer;
+import static org.richfaces.application.CoreConfiguration.Items.pushInitializePushContextOnStartup;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSEnabled;
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
 import java.awt.Toolkit;
@@ -50,6 +53,102 @@ import org.richfaces.log.RichfacesLogger;
  */
 public class InitializationListener implements SystemEventListener {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see javax.faces.event.SystemEventListener#isListenerForSource(java.lang.Object)
+     */
+    public boolean isListenerForSource(Object source) {
+        return true;
+    }
+
+    protected void onStart() {
+        createFactory();
+
+        if (LOGGER.isInfoEnabled()) {
+            String versionString = VersionBean.VERSION.toString();
+            if (versionString != null && versionString.length() != 0) {
+                LOGGER.info(versionString);
+            }
+        }
+
+        if (getConfiguration(executeAWTInitializer)) {
+            initializeAWT();
+        }
+
+        if (getConfiguration(pushInitializePushContextOnStartup)) {
+            initializePushContext();
+        }
+
+        if (getConfiguration(pushJMSEnabled) == null || !getConfiguration(pushJMSEnabled)) {
+            logWarningWhenConnectionFactoryPresent();
+        }
+    }
+
+    private void initializeAWT() {
+        try {
+            AWTInitializer.initialize();
+        } catch (NoClassDefFoundError e) {
+            LOGGER.warn(MessageFormat.format("There were problems loading class: {0} - AWTInitializer won't be run",
+                    e.getMessage()));
+        }
+    }
+
+    private void initializePushContext() {
+        try {
+            LOGGER.info("Startup initialization of PushContext");
+            ServiceTracker.getService(PushContextFactory.class).getPushContext();
+        } catch (Exception e) {
+            LOGGER.error(MessageFormat.format("There were problems initializing PushContext on startup: {0}", e.getMessage()));
+        }
+    }
+
+    private void logWarningWhenConnectionFactoryPresent() {
+        try {
+            Class.forName("javax.jms.ConnectionFactory");
+            LOGGER.warn("JMS API was found on the classpath; if you want to enable RichFaces Push JMS integration, set context-param 'org.richfaces.push.jms.enabled' in web.xml");
+        } catch (ClassNotFoundException e) {
+        }
+    }
+
+    private Boolean getConfiguration(Enum<?> configuration) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        return getBooleanConfigurationValue(facesContext, configuration);
+    }
+
+    protected ServicesFactory createFactory() {
+        ServicesFactoryImpl injector = new ServicesFactoryImpl();
+        ServiceTracker.setFactory(injector);
+        ArrayList<Module> modules = new ArrayList<Module>();
+        modules.add(new DefaultModule());
+        try {
+            modules.addAll(ServiceLoader.loadServices(Module.class));
+            injector.init(modules);
+        } catch (ServiceException e) {
+            throw new FacesException(e);
+        }
+        return injector;
+    }
+
+    protected void onStop() {
+        ServiceTracker.release();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see javax.faces.event.SystemEventListener#processEvent(javax.faces.event.SystemEvent)
+     */
+    public void processEvent(SystemEvent event) throws AbortProcessingException {
+        if (event instanceof PostConstructApplicationEvent) {
+            onStart();
+        } else if (event instanceof PreDestroyApplicationEvent) {
+            onStop();
+        } else {
+            throw new IllegalArgumentException(MessageFormat.format("Event {0} is not supported!", event));
+        }
+    }
 
     private static final class AWTInitializer {
         private AWTInitializer() {
@@ -97,78 +196,6 @@ public class InitializationListener implements SystemEventListener {
 
                 thread.setContextClassLoader(initialTCCL);
             }
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.faces.event.SystemEventListener#isListenerForSource(java.lang.Object)
-     */
-    public boolean isListenerForSource(Object source) {
-        return true;
-    }
-
-    protected void onStart() {
-        ServicesFactory injector = createFactory();
-
-        if (LOGGER.isInfoEnabled()) {
-            String versionString = VersionBean.VERSION.toString();
-            if (versionString != null && versionString.length() != 0) {
-                LOGGER.info(versionString);
-            }
-        }
-
-        FacesContext context = FacesContext.getCurrentInstance();
-        if (getBooleanConfigurationValue(context, CoreConfiguration.Items.executeAWTInitializer)) {
-            try {
-                AWTInitializer.initialize();
-            } catch (NoClassDefFoundError e) {
-                LOGGER.warn(MessageFormat.format("There were problems loading class: {0} - AWTInitializer won't be run",
-                    e.getMessage()));
-            }
-        }
-        if (getBooleanConfigurationValue(context, CoreConfiguration.Items.pushInitializeContextOnStartup)) {
-            try {
-                LOGGER.info("Startup initialization of PushContext");
-                ServiceTracker.getService(PushContextFactory.class).getPushContext();
-            } catch (NoClassDefFoundError e) {
-                LOGGER.error(MessageFormat.format("There were problems initializing PushContext on startup: {0}",
-                    e.getMessage()));
-            }
-        }
-    }
-
-    protected ServicesFactory createFactory() {
-        ServicesFactoryImpl injector = new ServicesFactoryImpl();
-        ServiceTracker.setFactory(injector);
-        ArrayList<Module> modules = new ArrayList<Module>();
-        modules.add(new DefaultModule());
-        try {
-            modules.addAll(ServiceLoader.loadServices(Module.class));
-            injector.init(modules);
-        } catch (ServiceException e) {
-            throw new FacesException(e);
-        }
-        return injector;
-    }
-
-    protected void onStop() {
-        ServiceTracker.release();
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.faces.event.SystemEventListener#processEvent(javax.faces.event.SystemEvent)
-     */
-    public void processEvent(SystemEvent event) throws AbortProcessingException {
-        if (event instanceof PostConstructApplicationEvent) {
-            onStart();
-        } else if (event instanceof PreDestroyApplicationEvent) {
-            onStop();
-        } else {
-            throw new IllegalArgumentException(MessageFormat.format("Event {0} is not supported!", event));
         }
     }
 }
