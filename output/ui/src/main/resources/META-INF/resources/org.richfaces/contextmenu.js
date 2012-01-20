@@ -26,13 +26,13 @@
         return {
             name : "ContextMenu",
 
-            getAttachId : function() {
+            getTarget : function() {
                 if (!this.options.attached) {
                     return null;
                 }
-                var attachId = typeof this.options.attachTo === 'undefined' ?
-                    this.element.parentNode.id : this.options.attachTo;
-                return attachId;
+                var target = typeof this.options.target === 'undefined' ?
+                    this.element.parentNode.id : this.options.target;
+                return target;
             },
 
             __showHandler : function(e) {
@@ -47,7 +47,7 @@
                     this.menuManager.shutdownMenu();
                     this.menuManager.addMenuId(this.id);
                     this.__showPopup(e); // include the event to position the popup at the cursor
-                    var parent = rf.$(this.attachId);
+                    var parent = rf.$(this.target);
                     if (parent && parent.selectionClickListener) {
                         parent.selectionClickListener(e);
                     }

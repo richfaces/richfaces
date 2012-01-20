@@ -19,11 +19,11 @@
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.groupList = new Array();
 
-        this.attachId = this.getAttachId();
-        if (this.attachId) {
+        this.target = this.getTarget();
+        if (this.target) {
             var that = this;
             $(document).ready(function() {
-                rf.Event.bindById(that.attachId, that.options.showEvent, $.proxy(that.__showHandler, that), that)
+                rf.Event.bindById(that.target, that.options.showEvent, $.proxy(that.__showHandler, that), that)
             });
         }
         this.element = $(rf.getDomElement(this.id));
@@ -71,7 +71,7 @@
                 }
             },
 
-            getAttachId : function() {
+            getTarget : function() {
                 return this.id + "_label";
             },
 
@@ -111,8 +111,8 @@
                 // clean up code here
                 this.detach(this.id);
 
-                if (this.attachId) {
-                    rf.Event.unbindById(this.attachId, this.options.showEvent);
+                if (this.target) {
+                    rf.Event.unbindById(this.target, this.options.showEvent);
                 }
 
                 // call parent's destroy method

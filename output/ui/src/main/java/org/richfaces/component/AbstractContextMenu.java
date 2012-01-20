@@ -43,14 +43,14 @@ public abstract class AbstractContextMenu extends UIComponentBase {
 
     @Attribute(defaultValue = "true", description = @Description(
             "If the value of the 'attached' attribute is true, the component is attached to the component, specified in " +
-            "the 'attachTo' attribute or to the parent component, if 'attachTo' is not defined. Default value is 'true'."))
+            "the 'target' attribute or to the parent component, if 'target' is not defined. Default value is 'true'."))
     public abstract boolean isAttached();
 
     @Attribute(description = @Description(
             "Client identifier of the component or id of the existing DOM element that is a source for a given event. " +
-            "If attachTo is defined, the event is attached on the client. If both attached and attachTo attributes are " +
+            "If target is defined, the event is attached on the client. If both attached and target attributes are " +
             "defined, and attribute attached has value 'false', it is considered to have higher priority."))
-    public abstract String getAttachTo();
+    public abstract String getTarget();
 
     @Attribute(description = @Description("Defines an event on the parent element to display the menu. Default value is 'oncontextmenu'."))
     public abstract String getShowEvent();

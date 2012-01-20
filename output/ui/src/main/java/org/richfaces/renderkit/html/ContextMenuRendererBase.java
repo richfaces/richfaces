@@ -147,7 +147,7 @@ public abstract class ContextMenuRendererBase extends RendererBase {
     }
 
     protected String getTarget(FacesContext context, UIComponent component) {
-        String target = ((AbstractContextMenu) component).getAttachTo();
+        String target = ((AbstractContextMenu) component).getTarget();
         if (target == null || target.isEmpty()) {
             return null;
         }

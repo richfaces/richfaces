@@ -37,7 +37,7 @@
                         <cdk:scriptOption name="direction" value="#{getDirection(component).getValue()}" defaultValue="org.richfaces.component.Positioning.DEFAULT.getValue()" />
                         <cdk:scriptOption name="jointPoint" value="#{getJointPoint(component).getValue()}" defaultValue="org.richfaces.component.Positioning.DEFAULT.getValue()" />
                         <cdk:scriptOption name="showEvent" value="#{getShowEvent(component)}" defaultValue='this.DEFAULT_SHOWEVENT' />
-                        <cdk:scriptOption name="attachTo" value="#{getTarget(facesContext, component)}" defaultValue='""' />
+                        <cdk:scriptOption name="target" value="#{getTarget(facesContext, component)}" defaultValue='""' />
                         <cdk:scriptOption name="attached" value="#{component.attributes['attached']}" defaultValue='true' />
                         <cdk:scriptOption name="mode" value="#{getMode(component)}" defaultValue="org.richfaces.component.Mode.server" />
                         <cdk:scriptOption name="horizontalOffset" value="#{component.attributes['horizontalOffset']}" defaultValue='0' />
