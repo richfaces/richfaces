@@ -78,8 +78,8 @@ public final class CoreConfiguration {
         pushHandlerMapping,
         @ConfigurationItem(defaultValue = "/ConnectionFactory", names = "org.richfaces.push.jms.connectionFactory")
         pushJMSConnectionFactory,
-        @ConfigurationItem(defaultValue = "false", names = "org.richfaces.push.jms.disable")
-        pushJMSDisable,
+        @ConfigurationItem(defaultValue = "false", names = "org.richfaces.push.jms.enabled")
+        pushJMSEnabled,
         @ConfigurationItem(defaultValue = "/topic", names = "org.richfaces.push.jms.topicsNamespace")
         pushJMSTopicsNamespace,
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionUsername")

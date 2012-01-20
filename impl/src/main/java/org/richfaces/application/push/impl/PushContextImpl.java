@@ -66,13 +66,13 @@ public class PushContextImpl implements PushContext, SystemEventListener {
         try {
             facesContext.getApplication().subscribeToEvent(PreDestroyApplicationEvent.class, this);
 
-            boolean disableJMS = ConfigurationServiceHelper.getBooleanConfigurationValue(facesContext,
-                CoreConfiguration.Items.pushJMSDisable);
+            boolean jmsEnabled = ConfigurationServiceHelper.getBooleanConfigurationValue(facesContext,
+                CoreConfiguration.Items.pushJMSEnabled);
 
-            if (disableJMS) {
-                topicsContext = new TopicsContextImpl(PUBLISH_THREAD_FACTORY);
-            } else {
+            if (jmsEnabled) {
                 topicsContext = JMSTopicsContextImpl.getInstanceInitializedFromContext(PUBLISH_THREAD_FACTORY, facesContext);
+            } else {
+                topicsContext = new TopicsContextImpl(PUBLISH_THREAD_FACTORY);
             }
 
             sessionManager = new SessionManagerImpl(SESSION_MANAGER_THREAD_FACTORY);
