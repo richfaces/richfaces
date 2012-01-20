@@ -16,6 +16,14 @@
         <param-value>#{skinBean.skin}</param-value>
     </context-param>
     <context-param>
+        <param-name>org.richfaces.push.initializeOnStartup</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.push.jms.enabled</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
         <param-name>org.richfaces.push.jms.connectionUsername</param-name>
         <param-value>guest</param-value>
     </context-param>
