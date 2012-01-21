@@ -37,7 +37,7 @@ import javax.faces.component.UIComponentBase;
 @JsfComponent(family = AbstractContextMenu.COMPONENT_FAMILY, type = AbstractContextMenu.COMPONENT_TYPE,
         renderer = @JsfRenderer(type = ContextMenuRendererBase.RENDERER_TYPE),
         tag = @Tag(name = "contextMenu"), attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml" })
-public abstract class AbstractContextMenu extends UIComponentBase {
+public abstract class AbstractContextMenu extends AbstractMenuContainer {
     public static final String COMPONENT_TYPE = "org.richfaces.ContextMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.ContextMenu";
 
@@ -52,55 +52,6 @@ public abstract class AbstractContextMenu extends UIComponentBase {
             "defined, and attribute attached has value 'false', it is considered to have higher priority."))
     public abstract String getTarget();
 
-    @Attribute(description = @Description("Defines an event on the parent element to display the menu. Default value is 'oncontextmenu'."))
-    public abstract String getShowEvent();
-
-    @Attribute(description = @Description(
-            "Sets the submission mode for all menu items of the menu except those where this attribute redefined. " +
-            "Possible value are 'ajax','client' and 'server'. Default value is 'server'."))
-    public abstract Mode getMode();
-
-    @Attribute
-    public abstract boolean isDisabled();
-
-    @Attribute
-    public abstract int getHideDelay();
-
-    @Attribute
-    public abstract int getShowDelay();
-
-    @Attribute
-    public abstract int getPopupWidth();
-
-    @Attribute
-    public abstract int getHorizontalOffset();
-
-    @Attribute
-    public abstract int getVerticalOffset();
-
-    // TODO is it correct or cdk issue
-    @Attribute
-    public abstract Positioning getJointPoint();
-
-    @Attribute
-    public abstract Positioning getDirection();
-
-    @Attribute(events = @EventName("groupshow"))
-    public abstract String getOngroupshow();
-
-    @Attribute(events = @EventName("grouphide"))
-    public abstract String getOngrouphide();
-
-    @Attribute(events = @EventName("show"))
-    public abstract String getOnshow();
-
-    @Attribute(events = @EventName("hide"))
-    public abstract String getOnhide();
-
-    @Attribute(events = @EventName("itemclick"))
-    public abstract String getOnitemclick();
-
-    @Attribute(generate = false, hidden = true, readOnly = true)
     public Object getCssRoot() {
         return "ctx";
     }
