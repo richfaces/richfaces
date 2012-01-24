@@ -455,7 +455,9 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
 
             encodeStyleClass(writer, context, column, facetName + "Class", cellClass);
 
-            writer.writeAttribute(HtmlConstants.SCOPE_ATTRIBUTE, HtmlConstants.COL_ELEMENT, null);
+            if (HtmlConstants.TH_ELEM.equals(element)) { // HTML5 allows scope attr only on th elements
+                writer.writeAttribute(HtmlConstants.SCOPE_ATTRIBUTE, HtmlConstants.COL_ELEMENT, null);
+            }
             getUtils().encodeAttribute(context, column, HtmlConstants.COLSPAN_ATTRIBUTE);
 
             EncodeStrategy strategy = getHeaderEncodeStrategy(column, facetName);
@@ -502,7 +504,9 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, String.valueOf(columns), null);
             }
 
-            writer.writeAttribute(HtmlConstants.SCOPE_ATTRIBUTE, HtmlConstants.COLGROUP_ELEMENT, null);
+            if (HtmlConstants.TH_ELEM.equals(element)) { // HTML5 allows scope attr only on th elements
+                writer.writeAttribute(HtmlConstants.SCOPE_ATTRIBUTE, HtmlConstants.COLGROUP_ELEMENT, null);
+            }
         }
 
         if (encodePartialUpdate && !partialUpdateEncoded) {
