@@ -60,7 +60,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true" enabled="#{pushConfiguration.pushEnabled}">
+            <demo enabled="#{pushConfiguration.pushEnabled}">
                 <id>push</id>
                 <name>a4j:push</name>
                 <samples>
@@ -237,7 +237,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true" mobileExclude="true">
+            <demo mobileExclude="true">
                 <id>notify</id>
                 <name>rich:notify</name>
                 <samples>
@@ -613,7 +613,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true" mobileExclude="true">
+            <demo mobileExclude="true">
                 <id>editor</id>
                 <name>rich:editor</name>
                 <samples>
@@ -696,7 +696,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo>
                 <id>orderingList</id>
                 <name>rich:orderingList</name>
                 <samples>
@@ -706,7 +706,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo>
                 <id>pickList</id>
                 <name>rich:pickList</name>
                 <samples>
@@ -780,7 +780,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo mobileExclude="true">
+            <demo new="true" mobileExclude="true">
                 <id>hotKey</id>
                 <name>rich:hotKey</name>
                 <samples>
