@@ -73,6 +73,27 @@ pull_upstream_all_modules() {
         popd >/dev/null
 }
 
+status_all_modules() {
+	pushd $TOPDIR >/dev/null
+		for MODULE in $MODULES; do
+		        tput setaf 3
+			echo "Running 'git status' on module '$MODULE'"
+		        tput setaf 7
+                        if [[ ! -d "$MODULE" ]]; then
+				tput setaf 1
+                                echo "Module $MODULE does not exist. Skipping over it."
+				tput setaf 7
+                        else
+                                pushd $MODULE >/dev/null
+				git status
+				popd >/dev/null
+			fi
+		done
+	popd >/dev/null
+}
+
+
+
 usage() {
 	cat << EOF
 usage: $0 options
@@ -84,6 +105,7 @@ OPTIONS:
    -v      Be verbose.
    -p      Pull updates rather than clone fresh modules.
    -f      Automatically fork the source before cloning it (you will be prompted for your github password).
+   -s      Run git status on all modules
    -t      Transport one of http, git or ssh (default).
    -u      Github username to checkout with required for http transport or to ensure checkout from your forked modules.
    -m      Specify the modules to clone from github in a space seperated quoted string ie. -m "core cdk components". You may also use "all" as an alias for ($MODULES).
@@ -101,12 +123,13 @@ get_resty_if_required() {
 QUIET="-q"
 USERNAME=richfaces
 PASSWORD=""
+STATUS=false
 TYPE=ssh
 PULL=false
 FORK=false
 CURL_FOUND=false
 
-while getopts "hvpfu:b:t:m:" OPTION
+while getopts "hvpsfu:b:t:m:" OPTION
 do
      case $OPTION in
 	h)
@@ -137,6 +160,9 @@ do
 	b)
 		BRANCH=$OPTARG
 		;;
+	s)
+		STATUS=true
+		;;
         t)
         	TYPE=$OPTARG
         	;;
@@ -166,11 +192,15 @@ case "$TYPE" in
 		;;
 esac
 
-if [[ $PULL == false ]]; then
-	if [[ $FORK == true && $USERNAME != "richfaces" ]]; then
-		fork_all_modules
-	fi
-	checkout_all_modules
+if [[ $STATUS == true ]]; then
+	status_all_modules
 else
-	pull_upstream_all_modules
+	if [[ $PULL == false ]]; then
+		if [[ $FORK == true && $USERNAME != "richfaces" ]]; then
+			fork_all_modules
+		fi
+		checkout_all_modules
+	else
+		pull_upstream_all_modules
+	fi
 fi
