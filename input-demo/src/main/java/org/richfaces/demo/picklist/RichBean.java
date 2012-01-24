@@ -22,6 +22,7 @@
 package org.richfaces.demo.picklist;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import java.util.List;
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@ViewScoped
+@RequestScoped
 @ManagedBean(name="richBean")
 public class RichBean implements Serializable {
 

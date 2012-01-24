@@ -119,8 +119,9 @@
     <fieldset>
         <legend>PickList f:selectItems</legend>
         <h:form>
-            <in:pickList id="pickList3b" value="#{inputBean.values}" sourceCaption="Source Items" targetCaption="target Items" listHeight="" >
+            <in:pickList id="pickList3b" value="#{richBean.values}" sourceCaption="Source Items" targetCaption="target Items" listHeight="" >
                 <f:selectItems value="#{entityBeanSelector.values}" var="item" itemValue="#{item}" itemLabel="#{item.title}"/>
+                <f:converter converterId="EntityBeanConverter" />
                 <f:ajax event="change" execute="@form" render="out3b" />
             </in:pickList>
             <h:commandButton value="submit">
@@ -128,8 +129,8 @@
             </h:commandButton>
 
             <h:panelGroup id="out3b" class="out">
-                <ui:repeat value="#{inputBean.values}" var="value">
-                    <h:outputText value="#{value}"/>
+                <ui:repeat value="#{richBean.values}" var="value">
+                    <h:outputText value="#{value.title}"/>
                     <br/>
                 </ui:repeat>
             </h:panelGroup>
