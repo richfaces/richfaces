@@ -14,7 +14,7 @@ NoColor="$(tput sgr0)"
 Ruler="$Green################################################$NoColor"
 
 for_each_module() {
-	EXECUTE=$1
+	EXECUTE=$*
 	echo $Ruler
 	for MODULE in $MODULES; do
 		echo -n $Brown
@@ -216,7 +216,7 @@ case "$TYPE" in
 esac
 
 if [[ $EACH == true ]]; then
-	for_each_module '$CMD_ARGS'
+	for_each_module $CMD_ARGS
 elif [[ $STATUS == true ]]; then
 	for_each_module 'git status'
 else
