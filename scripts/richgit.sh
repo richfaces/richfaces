@@ -48,12 +48,16 @@ pull_upstream_all_modules() {
         pushd $TOPDIR >/dev/null
                 for MODULE in $MODULES; do
                         if [[ ! -d "$MODULE" ]]; then
+			        tput setaf 1
                                 echo "Module $MODULE does not exist. Skipping over it."
+				tput setaf 7
                         fi
                         if [[ "$USERNAME" != "richfaces" ]]; then
                                 pushd $MODULE >/dev/null
 					RESULT=`git stash`
+				        tput setaf 3
 					echo Updating ${MODULE}...
+				        tput setaf 7
                                         git pull $QUIET --rebase upstream $BRANCH
 					if [[ ! $RESULT =~ "No local changes to save" ]]; then
 						git stash pop $QUIET
@@ -62,7 +66,9 @@ pull_upstream_all_modules() {
 			else
 				pushd $MODULE >/dev/null
 					RESULT=`git stash`
+				        tput setaf 3
 					echo Updating ${MODULE}...
+				        tput setaf 7
                                         git pull $QUIET --rebase origin $BRANCH
 					if [[ ! $RESULT =~ "No local changes to save" ]]; then
                                                 git stash pop $QUIET
