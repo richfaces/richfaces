@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MODULES="archetypes build cdk components core dev-examples showcase"
+MODULES="archetypes build cdk2 components core dev-examples showcase"
 SCRIPTS=`dirname $(readlink -f $0)`
 TOPDIR=`readlink -f $SCRIPTS/../..`
 BRANCH="develop"
@@ -21,9 +21,7 @@ for_each_module() {
 		echo "$ $EXECUTE [$Green $MODULE $Brown]"
 		echo -n $NoColor
 		if [[ ! -d "$TOPDIR/$MODULE" ]]; then
-			echo -n $Red
-			echo "*** Module [$Green $MODULE $Red] does not exist.$NoColor Skipping over it."
-			echo -n $NoColor
+		        module_does_not_exist
 		else
 			pushd "$TOPDIR/$MODULE" >/dev/null
 			eval "$EXECUTE"
@@ -71,20 +69,25 @@ checkout_all_modules() {
 	popd >/dev/null
 }
 
+module_does_not_exist() {
+	echo -n $Red
+	echo "*** Module [$Green $MODULE $Red] does not exist.$NoColor Skipping over it."
+	echo -n $NoColor
+}
+
 pull_upstream_all_modules() {
         pushd $TOPDIR >/dev/null
                 for MODULE in $MODULES; do
                         if [[ ! -d "$MODULE" ]]; then
-			        tput setaf 1
-                                echo "Module $MODULE does not exist. Skipping over it."
-				tput setaf 7
+			        module_does_not_exist
+				continue
                         fi
                         if [[ "$USERNAME" != "richfaces" ]]; then
                                 pushd $MODULE >/dev/null
 					RESULT=`git stash`
-				        tput setaf 3
-					echo Updating ${MODULE}...
-				        tput setaf 7
+					echo -n $Brown
+					echo "Updating [$Green $MODULE $Brown] from upstream"
+					echo -n $NoColor
                                         git pull $QUIET --rebase upstream $BRANCH
 					if [[ ! $RESULT =~ "No local changes to save" ]]; then
 						git stash pop $QUIET
@@ -93,9 +96,9 @@ pull_upstream_all_modules() {
 			else
 				pushd $MODULE >/dev/null
 					RESULT=`git stash`
-				        tput setaf 3
-					echo Updating ${MODULE}...
-				        tput setaf 7
+					echo -n $Brown
+					echo "Updating [$Green $MODULE $Brown] from origin"
+					echo -n $NoColor
                                         git pull $QUIET --rebase origin $BRANCH
 					if [[ ! $RESULT =~ "No local changes to save" ]]; then
                                                 git stash pop $QUIET
