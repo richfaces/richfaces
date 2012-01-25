@@ -50,7 +50,7 @@ public class ExternalStaticResource extends Resource {
         if (skinDependent) {
             SkinFactory skinFactory = SkinFactory.getInstance(facesContext);
             String skinName = skinFactory.getSkin(facesContext).getName();
-            return location.replace(ResourceFactory.SKINNED_RESOURCE_PLACEHOLDER, skinName);
+            return ResourceSkinUtils.evaluateSkinInPath(location, skinName);
         }
 
         return location;
