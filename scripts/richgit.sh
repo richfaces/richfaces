@@ -9,18 +9,26 @@ CURL=/usr/bin/curl
 #Colors
 Brown="$(tput setaf 3)"
 Green="$(tput setaf 2)"
+Red="$(tput setaf 1)"
 NoColor="$(tput sgr0)"
 Ruler="$Green################################################$NoColor"
 
 for_each_module() {
+	EXECUTE=$1
 	echo $Ruler
 	for MODULE in $MODULES; do
-		pushd "$TOPDIR/$MODULE" >/dev/null
-			echo -n $Brown
-			echo "$ $EXECUTE [$Green $MODULE $Brown]"
-		        echo -n $NoColor
+		echo -n $Brown
+		echo "$ $EXECUTE [$Green $MODULE $Brown]"
+		echo -n $NoColor
+		if [[ ! -d "$TOPDIR/$MODULE" ]]; then
+			echo -n $Red
+			echo "*** Module [$Green $MODULE $Red] does not exist.$NoColor Skipping over it."
+			echo -n $NoColor
+		else
+			pushd "$TOPDIR/$MODULE" >/dev/null
 			eval "$EXECUTE"
-		popd >/dev/null
+			popd >/dev/null
+		fi
 	done
 	echo $Ruler
 }
@@ -97,27 +105,6 @@ pull_upstream_all_modules() {
                 done
         popd >/dev/null
 }
-
-status_all_modules() {
-	pushd $TOPDIR >/dev/null
-		for MODULE in $MODULES; do
-		        tput setaf 3
-			echo "Running 'git status' on module '$MODULE'"
-		        tput setaf 7
-                        if [[ ! -d "$MODULE" ]]; then
-				tput setaf 1
-                                echo "Module $MODULE does not exist. Skipping over it."
-				tput setaf 7
-                        else
-                                pushd $MODULE >/dev/null
-				git status
-				popd >/dev/null
-			fi
-		done
-	popd >/dev/null
-}
-
-
 
 usage() {
 	cat << EOF
@@ -207,7 +194,7 @@ do
 done
 
 shift $(($OPTIND - 1))
-EXECUTE=$*
+CMD_ARGS=$*
 
 case "$TYPE" in
 	http)
@@ -226,9 +213,9 @@ case "$TYPE" in
 esac
 
 if [[ $EACH == true ]]; then
-	for_each_module
+	for_each_module '$CMD_ARGS'
 elif [[ $STATUS == true ]]; then
-	status_all_modules
+	for_each_module 'git status'
 else
 	if [[ $PULL == false ]]; then
 		if [[ $FORK == true && $USERNAME != "richfaces" ]]; then
