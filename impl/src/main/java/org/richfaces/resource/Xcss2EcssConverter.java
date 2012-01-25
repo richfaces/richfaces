@@ -27,8 +27,8 @@ public final class Xcss2EcssConverter {
         CreateParser parser = new CreateParser(handler);
 
         // Parse the XML file, handler generates the output
-        String string = "E:/projs/richafces4/framework/trunk/impl/src/test/java/org/ajax4jsf/cache/extended.xcss";
-        parser.parse(string);
+        String filename = args[0];
+        parser.parse(filename);
     }
 }
 
