@@ -6,6 +6,25 @@ TOPDIR=`readlink -f $SCRIPTS/../..`
 BRANCH="develop"
 CURL=/usr/bin/curl
 
+#Colors
+Brown="$(tput setaf 3)"
+Green="$(tput setaf 2)"
+NoColor="$(tput sgr0)"
+Ruler="$Green################################################$NoColor"
+
+for_each_module() {
+	echo $Ruler
+	for MODULE in $MODULES; do
+		pushd "$TOPDIR/$MODULE" >/dev/null
+			echo -n $Brown
+			echo "$ $EXECUTE [$Green $MODULE $Brown]"
+		        echo -n $NoColor
+			eval "$EXECUTE"
+		popd >/dev/null
+	done
+	echo $Ruler
+}
+
 fork_all_modules() {
 	get_resty_if_required
 	. $SCRIPTS/resty
@@ -110,6 +129,7 @@ OPTIONS:
    -h      Show this message.
    -v      Be verbose.
    -p      Pull updates rather than clone fresh modules.
+   -e      Run a command against each module
    -f      Automatically fork the source before cloning it (you will be prompted for your github password).
    -s      Run git status on all modules
    -t      Transport one of http, git or ssh (default).
@@ -135,7 +155,7 @@ PULL=false
 FORK=false
 CURL_FOUND=false
 
-while getopts "hvpsfu:b:t:m:" OPTION
+while getopts "hvpsefu:b:t:m:" OPTION
 do
      case $OPTION in
 	h)
@@ -147,6 +167,10 @@ do
 		;;
         p)
 		PULL=true
+		;;
+
+	e)
+		EACH=true
 		;;
 	f)
 		FORK=true
@@ -182,6 +206,9 @@ do
      esac
 done
 
+shift $(($OPTIND - 1))
+EXECUTE=$*
+
 case "$TYPE" in
 	http)
 		BASE=https://$USERNAME@github.com/$USERNAME
@@ -198,7 +225,9 @@ case "$TYPE" in
 		;;
 esac
 
-if [[ $STATUS == true ]]; then
+if [[ $EACH == true ]]; then
+	for_each_module
+elif [[ $STATUS == true ]]; then
 	status_all_modules
 else
 	if [[ $PULL == false ]]; then
