@@ -17,7 +17,7 @@ echo $Ruler
 for MODULE in $MODULES; do
 	pushd "$TOPDIR/$MODULE" >/dev/null
 		echo -n $Brown
-		echo "[ $MODULE ] > $EXECUTE"
+		echo "$ $EXECUTE [$Green $MODULE $Brown]"
 	        echo -n $NoColor
 		eval "$EXECUTE"
 	popd >/dev/null
