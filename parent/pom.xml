@@ -34,7 +34,7 @@
     </description>
 
     <properties>
-        <version.test-jsf>1.1.0</version.test-jsf>
+        <version.test-jsf>1.1.1-SNAPSHOT</version.test-jsf>
         <version.richfaces-checkstyle>3</version.richfaces-checkstyle>
         <version.vdl-doc>1</version.vdl-doc>
         <version.shade-transformers>7</version.shade-transformers>
@@ -68,6 +68,7 @@
         <version.junit>4.8.2</version.junit>
         <version.xmlunit>1.2</version.xmlunit>
         <version.easymock>2.5.2</version.easymock>
+        <version.mockito>1.8.5</version.mockito>
         <version.maven-core>2.0.10</version.maven-core>
         <version.maven-archiver>2.4</version.maven-archiver>
         <version.maven-file-management>1.2.1</version.maven-file-management>
@@ -381,6 +382,11 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
+                <artifactId>jsf-mockito</artifactId>
+                <version>${version.test-jsf}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-test-stage</artifactId>
                 <version>${version.test-jsf}</version>
             </dependency>
@@ -419,6 +425,11 @@
                 <groupId>org.easymock</groupId>
                 <artifactId>easymockclassextension</artifactId>
                 <version>${version.easymock}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${version.mockito}</version>
             </dependency>
             
             <!-- Maven -->
