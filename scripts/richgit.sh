@@ -88,7 +88,8 @@ pull_upstream_all_modules() {
 					echo -n $Brown
 					echo "Updating [$Green $MODULE $Brown] from upstream"
 					echo -n $NoColor
-                                        git pull $QUIET --rebase upstream $BRANCH
+					git fetch $QUIET
+					git pull $QUIET --rebase upstream $BRANCH
 					if [[ ! $RESULT =~ "No local changes to save" ]]; then
 						git stash pop $QUIET
 					fi
@@ -99,7 +100,8 @@ pull_upstream_all_modules() {
 					echo -n $Brown
 					echo "Updating [$Green $MODULE $Brown] from origin"
 					echo -n $NoColor
-                                        git pull $QUIET --rebase origin $BRANCH
+					git fetch $QUIET
+					git pull $QUIET --rebase origin $BRANCH
 					if [[ ! $RESULT =~ "No local changes to save" ]]; then
                                                 git stash pop $QUIET
                                         fi
