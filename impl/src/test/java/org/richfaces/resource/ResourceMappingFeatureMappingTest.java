@@ -23,10 +23,10 @@ package org.richfaces.resource;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.richfaces.application.CoreConfiguration.Items.resourceLoadingCompressionStages;
-import static org.richfaces.application.CoreConfiguration.Items.resourceLoadingOptimization;
+import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationCompressionStages;
+import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
-import static org.richfaces.application.CoreConfiguration.Items.resourceLoadingPackagingStages;
+import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationPackagingStages;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,67 +51,67 @@ public class ResourceMappingFeatureMappingTest extends AbstractResourceMappingTe
 
     @Test
     public void testDefaultMappingFilesWhenResourceLoadingOptimizationDisabled() {
-        configure(resourceLoadingOptimization, false);
+        configure(resourceOptimizationEnabled, false);
         testMappingFile(null, DEFAULT);
     }
 
     @Test
     public void testDefaultMappingFileWhenResourceLoadingOptimizationEnabled() {
-        configure(resourceLoadingOptimization, true);
+        configure(resourceOptimizationEnabled, true);
         testMappingFile(null, STATIC, DEFAULT);
     }
 
     @Test
     public void testCustomMappingFileWhenResourceLoadingOptimizationDisabled() {
-        configure(resourceLoadingOptimization, false);
+        configure(resourceOptimizationEnabled, false);
         testMappingFile("some_path", DEFAULT, "some_path");
     }
 
     @Test
     public void testCustomMappingFileWhenResourceLoadingOptimizationEnabled() {
-        configure(resourceLoadingOptimization, true);
+        configure(resourceOptimizationEnabled, true);
         testMappingFile("some_path", STATIC, DEFAULT, "some_path");
     }
 
     @Test
     public void testMultipleMappingFiles() {
-        configure(resourceLoadingOptimization, true);
+        configure(resourceOptimizationEnabled, true);
         testMappingFile("some_path,another_path", STATIC, DEFAULT, "some_path", "another_path");
     }
 
     @Test
     public void testCustomStagesWhenResourceLoadingOptimizationDisabled() {
-        configure(resourceLoadingOptimization, false);
+        configure(resourceOptimizationEnabled, false);
         when(application.getProjectStage()).thenReturn(ProjectStage.Development);
 
-        configure(resourceLoadingPackagingStages, "All");
-        configure(resourceLoadingCompressionStages, "All");
+        configure(resourceOptimizationPackagingStages, "All");
+        configure(resourceOptimizationCompressionStages, "All");
         testMappingFile(null, DEFAULT);
     }
 
     @Test
     public void testCustomStagesWhenResourceLoadingOptimizationEnabled() {
-        configure(resourceLoadingOptimization, true);
+        configure(resourceOptimizationEnabled, true);
         when(application.getProjectStage()).thenReturn(ProjectStage.Development);
 
-        configure(resourceLoadingPackagingStages, "None");
-        configure(resourceLoadingCompressionStages, "None");
+        configure(resourceOptimizationPackagingStages, "None");
+        configure(resourceOptimizationCompressionStages, "None");
         testMappingFile(null, STATIC, DEFAULT);
 
-        configure(resourceLoadingPackagingStages, "All");
-        configure(resourceLoadingCompressionStages, "All");
+        configure(resourceOptimizationPackagingStages, "All");
+        configure(resourceOptimizationCompressionStages, "All");
         testMappingFile(null, PACKED_COMPRESSED, DEFAULT);
 
-        configure(resourceLoadingPackagingStages, "Development");
-        configure(resourceLoadingCompressionStages, "Production");
+        configure(resourceOptimizationPackagingStages, "Development");
+        configure(resourceOptimizationCompressionStages, "Production");
         testMappingFile(null, PACKED, DEFAULT);
 
-        configure(resourceLoadingPackagingStages, "Production");
-        configure(resourceLoadingCompressionStages, "Development");
+        configure(resourceOptimizationPackagingStages, "Production");
+        configure(resourceOptimizationCompressionStages, "Development");
         testMappingFile(null, COMPRESSED, DEFAULT);
 
-        configure(resourceLoadingPackagingStages, "Development,Production");
-        configure(resourceLoadingCompressionStages, "Production,Development");
+        configure(resourceOptimizationPackagingStages, "Development,Production");
+        configure(resourceOptimizationCompressionStages, "Production,Development");
         testMappingFile(null, PACKED_COMPRESSED, DEFAULT);
     }
 

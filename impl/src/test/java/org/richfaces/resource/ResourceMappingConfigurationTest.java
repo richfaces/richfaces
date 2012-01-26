@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.richfaces.application.CoreConfiguration.Items.resourceLoadingOptimization;
+import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
 import static org.richfaces.application.CoreConfiguration.Items.staticResourceLocation;
@@ -44,7 +44,7 @@ public class ResourceMappingConfigurationTest extends AbstractResourceMappingTes
     @Test
     public void testMappingDisabled() {
         // when
-        configure(resourceLoadingOptimization, (Boolean) false);
+        configure(resourceOptimizationEnabled, (Boolean) false);
 
         // then
         boolean enabled = ResourceLoadingOptimization.isEnabled();
@@ -56,7 +56,7 @@ public class ResourceMappingConfigurationTest extends AbstractResourceMappingTes
     @Test
     public void testMappingEnabled() {
         // when
-        configure(resourceLoadingOptimization, true);
+        configure(resourceOptimizationEnabled, true);
 
         // then
         boolean enabled = ResourceLoadingOptimization.isEnabled();

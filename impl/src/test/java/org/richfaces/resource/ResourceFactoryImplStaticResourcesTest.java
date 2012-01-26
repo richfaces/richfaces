@@ -26,7 +26,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.richfaces.application.CoreConfiguration.Items.resourceLoadingOptimization;
+import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
 import static org.richfaces.resource.ResourceMappingFeature.DEFAULT_LOCATION;
@@ -88,7 +88,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
 
     @Test
     public void testDefaultMappingFile() {
-        configure(resourceLoadingOptimization, false);
+        configure(resourceOptimizationEnabled, false);
 
         verifyResourcesPresent(resourceInDefaultMapping);
         verifyResourcesInDefaultMappingFilePresent();
@@ -97,7 +97,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
 
     @Test
     public void testFeatureSpecificMappingFile() {
-        configure(resourceLoadingOptimization, true);
+        configure(resourceOptimizationEnabled, true);
 
         verifyResourcesPresent(resourceInDefaultMapping, onlyInFeatureSpecificMappingFile);
         verifyResourcesInDefaultMappingFilePresent();
@@ -106,7 +106,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
 
     @Test
     public void testFirstCustomMappingFile() {
-        configure(resourceLoadingOptimization, true);
+        configure(resourceOptimizationEnabled, true);
         configureCustomMappingFiles("mapping-test1.properties");
 
         verifyResourcesPresent(resourceInFirstCustomMapping, onlyInFeatureSpecificMappingFile, onlyInFirstCustomMappingFile);
@@ -116,7 +116,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
 
     @Test
     public void testMultipleCustomMappingFile() {
-        configure(resourceLoadingOptimization, true);
+        configure(resourceOptimizationEnabled, true);
         configureCustomMappingFiles("mapping-test1.properties", "mapping-test2.properties");
 
         verifyResourcesPresent(resourceInSecondCustomMapping, onlyInFeatureSpecificMappingFile, onlyInFirstCustomMappingFile,

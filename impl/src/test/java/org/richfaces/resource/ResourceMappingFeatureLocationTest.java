@@ -24,7 +24,7 @@ package org.richfaces.resource;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.richfaces.application.CoreConfiguration.Items.resourceLoadingOptimization;
+import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
 
 import javax.el.ExpressionFactory;
@@ -42,25 +42,25 @@ public class ResourceMappingFeatureLocationTest extends AbstractResourceMappingT
 
     @Test
     public void shouldThrowExceptionWhenResourceLoadingOptimizationDisabled() {
-        configure(resourceLoadingOptimization, false);
+        configure(resourceOptimizationEnabled, false);
         testLocation(null, ResourceMappingFeature.DEFAULT_LOCATION);
     }
 
     @Test
     public void testDefaultLocationWhenResourceLoadingOptimizationEnabled() {
-        configure(resourceLoadingOptimization, true);
+        configure(resourceOptimizationEnabled, true);
         testLocation(null, ResourceMappingFeature.DEFAULT_LOCATION);
     }
 
     @Test
     public void testCustomLocationWhenResourceLoadingOptimizationDisabled() {
-        configure(resourceLoadingOptimization, false);
+        configure(resourceOptimizationEnabled, false);
         testLocation("some_expression", "some_expression");
     }
 
     @Test
     public void testCustomLocationWhenResourceLoadingOptimizationEnabled() {
-        configure(resourceLoadingOptimization, true);
+        configure(resourceOptimizationEnabled, true);
         testLocation("some_expression", "some_expression");
     }
 
