@@ -41,6 +41,16 @@
                 </samples>
             </demo>
             <demo>
+                <id>actionListener</id>
+                <name>a4j:actionListener</name>
+                <samples>
+                    <sample>
+                        <id>actionListener</id>
+                        <name>Action Listener Simple</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
                 <id>jsFunction</id>
                 <name>a4j:jsFunction</name>
                 <samples>
