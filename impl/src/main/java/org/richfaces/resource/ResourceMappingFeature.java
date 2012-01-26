@@ -48,7 +48,7 @@ public enum ResourceMappingFeature {
 
     private static final String STATIC_RESOURCES_FEATURE_NAME = "Static";
     private static final String FEATURES_PLACEHOLDER = "%Features%";
-    private static final String DEFAULT_LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/#{resourceLocation}";
+    static final String DEFAULT_LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/#{resourceLocation}";
     private static final String DEFAULT_MAPPING_FILE = "META-INF/richfaces/staticResourceMapping/%Features%.properties";
 
     private CoreConfiguration.Items associatedConfiguration;
