@@ -24,7 +24,7 @@
         <param-value>${javax.faces.PROJECT_STAGE}</param-value>
     </context-param>
     <context-param>
-        <param-name>org.richfaces.resourceMapping.enabled</param-name>
+        <param-name>org.richfaces.resourceOptimization.enabled</param-name>
         <param-value>true</param-value>
     </context-param>
     <context-param>

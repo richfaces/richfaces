@@ -40,7 +40,7 @@
         <param-value>Production</param-value>
     </context-param>
     <context-param>
-        <param-name>org.richfaces.resourceMapping.enabled</param-name>
+        <param-name>org.richfaces.resourceOptimization.enabled</param-name>
         <param-value>true</param-value>
     </context-param>
     <context-param>
