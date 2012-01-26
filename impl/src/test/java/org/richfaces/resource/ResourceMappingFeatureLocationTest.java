@@ -24,15 +24,11 @@ package org.richfaces.resource;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.richfaces.application.CoreConfiguration.Items.resourceMappingCompressedStages;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingEnabled;
-import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
-import static org.richfaces.application.CoreConfiguration.Items.resourceMappingPackedStages;
 
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
-import javax.faces.application.ProjectStage;
 
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Test;
@@ -42,73 +38,30 @@ import org.junit.runner.RunWith;
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
 @RunWith(FacesMockitoRunner.class)
-public class ResourceMappingFeatureTest extends AbstractResourceMappingTest {
-
-    @Test(expected = IllegalStateException.class)
-    public void shouldThrowExceptionWhenResourceMappingDisabled1() {
-        ResourceMappingFeature.getLocation();
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void shouldThrowExceptionWhenResourceMappingDisabled2() {
-        ResourceMappingFeature.getMappingFile();
-    }
+public class ResourceMappingFeatureLocationTest extends AbstractResourceMappingTest {
 
     @Test
-    public void testDefaultMappingFile() {
-        testMappingFile(null, "META-INF/richfaces/staticResourceMapping/Static.properties");
-    }
-
-    @Test
-    public void testCustomMappingFile() {
-        testMappingFile("some_path", "some_path");
-    }
-
-    @Test
-    public void testDefaultLocation() {
+    public void shouldThrowExceptionWhenResourceMappingDisabled() {
+        configure(resourceMappingEnabled, false);
         testLocation(null, ResourceMappingFeature.DEFAULT_LOCATION);
     }
 
     @Test
-    public void testCustomLocation() {
+    public void testDefaultLocationWhenResourceMappingEnabled() {
+        configure(resourceMappingEnabled, true);
+        testLocation(null, ResourceMappingFeature.DEFAULT_LOCATION);
+    }
+
+    @Test
+    public void testCustomLocationWhenResourceMappingDisabled() {
+        configure(resourceMappingEnabled, false);
         testLocation("some_expression", "some_expression");
     }
 
     @Test
-    public void testCustomStages() {
-        when(application.getProjectStage()).thenReturn(ProjectStage.Development);
-
-        configure(resourceMappingPackedStages, "None");
-        configure(resourceMappingCompressedStages, "None");
-        testMappingFile(null, "META-INF/richfaces/staticResourceMapping/Static.properties");
-
-        configure(resourceMappingPackedStages, "All");
-        configure(resourceMappingCompressedStages, "All");
-        testMappingFile(null, "META-INF/richfaces/staticResourceMapping/PackedCompressed.properties");
-
-        configure(resourceMappingPackedStages, "Development");
-        configure(resourceMappingCompressedStages, "Production");
-        testMappingFile(null, "META-INF/richfaces/staticResourceMapping/Packed.properties");
-
-        configure(resourceMappingPackedStages, "Production");
-        configure(resourceMappingCompressedStages, "Development");
-        testMappingFile(null, "META-INF/richfaces/staticResourceMapping/Compressed.properties");
-
-        configure(resourceMappingPackedStages, "Development,Production");
-        configure(resourceMappingCompressedStages, "Production,Development");
-        testMappingFile(null, "META-INF/richfaces/staticResourceMapping/PackedCompressed.properties");
-    }
-
-    private void testMappingFile(String configuredValue, String expectedResolvedMappingFile) {
-        // given
+    public void testCustomLocationWhenResourceMappingEnabled() {
         configure(resourceMappingEnabled, true);
-        configure(resourceMappingFile, configuredValue);
-
-        // when
-        String mappingFile = ResourceMappingFeature.getMappingFile();
-
-        // then
-        assertEquals(expectedResolvedMappingFile, mappingFile);
+        testLocation("some_expression", "some_expression");
     }
 
     private void testLocation(String configuredValue, String expectedResolvedLocationExpression) {
@@ -117,7 +70,6 @@ public class ResourceMappingFeatureTest extends AbstractResourceMappingTest {
         ValueExpression valueExpression = mock(ValueExpression.class);
 
         // given
-        configure(resourceMappingEnabled, true);
         configure(resourceMappingLocation, (String) expectedResolvedLocationExpression);
         when(application.getExpressionFactory()).thenReturn(expressionFactory);
         when(expressionFactory.createValueExpression(elContext, expectedResolvedLocationExpression, Object.class)).thenReturn(

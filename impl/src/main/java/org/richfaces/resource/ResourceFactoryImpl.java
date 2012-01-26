@@ -25,6 +25,7 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -508,11 +509,30 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
         @Override
         protected Map<ResourceKey, ExternalStaticResourceFactory> loadData() {
-            if (!ResourceMappingConfiguration.isEnabled()) {
-                return Maps.newHashMap();
+            Map<ResourceKey, ExternalStaticResourceFactory> result = Maps.newHashMap();
+            
+            List<String> mappingFiles = ResourceMappingFeature.getMappingFiles();
+            
+            for (String mappingFile : mappingFiles) {
+                if (resourceExistsForLocation(mappingFile)) {
+                    result.putAll(readMappings(EXTERNAL_MAPPINGS_FACTORY_PRODUCER, mappingFile));
+                } else {
+                   if (!isDefaultResource(mappingFile)) {
+                       LOGGER.warn("Resource mapping is configured to load non-existent resource: '" + mappingFile + "'");
+                   }
+                }
             }
-            String mappingLocation = ResourceMappingFeature.getMappingFile();
-            return readMappings(EXTERNAL_MAPPINGS_FACTORY_PRODUCER, mappingLocation);
+            
+            return result;
+        }
+        
+        private boolean resourceExistsForLocation(String location) {
+            ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+            return contextClassLoader.getResource(location) != null;
+        }
+        
+        private boolean isDefaultResource(String location) {
+            return ResourceMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION.equals(location);
         }
     }
 }
