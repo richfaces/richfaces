@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.richfaces.application.CoreConfiguration.Items.resourceMappingEnabled;
+import static org.richfaces.application.CoreConfiguration.Items.resourceLoadingOptimization;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
 import static org.richfaces.application.CoreConfiguration.Items.staticResourceLocation;
@@ -42,39 +42,24 @@ import org.junit.runner.RunWith;
 public class ResourceMappingConfigurationTest extends AbstractResourceMappingTest {
 
     @Test
-    public void testMappingDisabled1() {
+    public void testMappingDisabled() {
         // when
-        configure(staticResourceLocation, (String) null);
-        configure(resourceMappingEnabled, (Boolean) false);
+        configure(resourceLoadingOptimization, (Boolean) false);
 
         // then
-        boolean enabled = ResourceMappingConfiguration.isEnabled();
+        boolean enabled = ResourceLoadingOptimization.isEnabled();
 
         // verify
         assertFalse(enabled);
     }
 
     @Test
-    public void testMappingEnabled1() {
+    public void testMappingEnabled() {
         // when
-        configure(staticResourceLocation, "some_value");
-        configure(resourceMappingEnabled, false);
+        configure(resourceLoadingOptimization, true);
 
         // then
-        boolean enabled = ResourceMappingConfiguration.isEnabled();
-
-        // verify
-        assertTrue(enabled);
-    }
-
-    @Test
-    public void testMappingEnabled2() {
-        // when
-        configure(staticResourceLocation, (String) null);
-        configure(resourceMappingEnabled, true);
-
-        // then
-        boolean enabled = ResourceMappingConfiguration.isEnabled();
+        boolean enabled = ResourceLoadingOptimization.isEnabled();
 
         // verify
         assertTrue(enabled);

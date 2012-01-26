@@ -62,16 +62,16 @@ public final class CoreConfiguration {
         @Deprecated
         @ConfigurationItem(names = "org.richfaces.staticResourceLocation")
         staticResourceLocation,
-        @ConfigurationItem(defaultValue = "false", names = "org.richfaces.resourceMapping.enabled", literal = true)
-        resourceMappingEnabled,
         @ConfigurationItem(names = "org.richfaces.resourceMapping.location", literal = true)
         resourceMappingLocation,
         @ConfigurationItem(names = "org.richfaces.resourceMapping.mappingFile")
         resourceMappingFile,
-        @ConfigurationItem(defaultValue = "Production,SystemTest", names = "org.richfaces.resourceMapping.compressedStages", literal = true)
-        resourceMappingCompressedStages,
-        @ConfigurationItem(defaultValue = "All", names = "org.richfaces.resourceMapping.packedStages", literal = true)
-        resourceMappingPackedStages,
+        @ConfigurationItem(defaultValue = "false", names = { "org.richfaces.resourceLoading.optimization.enabled", "org.richfaces.resourceMapping.enabled" }, literal = true)
+        resourceLoadingOptimization,
+        @ConfigurationItem(defaultValue = "Production,SystemTest", names = { "org.richfaces.resourceLoading.optimization.compression.stages", "org.richfaces.resourceMapping.compressedStages" }, literal = true)
+        resourceLoadingCompressionStages,
+        @ConfigurationItem(defaultValue = "All", names = { "org.richfaces.resourceLoading.optimization.packaging.stages", "org.richfaces.resourceMapping.packedStages" }, literal = true)
+        resourceLoadingPackagingStages,
         @ConfigurationItem(defaultValue = "true", names = "org.richfaces.executeAWTInitializer", literal = true)
         executeAWTInitializer,
         @ConfigurationItem(names = "org.richfaces.push.handlerMapping", literal = true)

@@ -24,22 +24,18 @@ package org.richfaces.resource;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.richfaces.application.CoreConfiguration.Items.resourceMappingEnabled;
+import static org.richfaces.application.CoreConfiguration.Items.resourceLoadingOptimization;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
 import static org.richfaces.resource.ResourceMappingFeature.DEFAULT_LOCATION;
-
-import java.io.PrintStream;
 
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.application.Resource;
 
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -92,7 +88,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
 
     @Test
     public void testDefaultMappingFile() {
-        configure(resourceMappingEnabled, false);
+        configure(resourceLoadingOptimization, false);
 
         verifyResourcesPresent(resourceInDefaultMapping);
         verifyResourcesInDefaultMappingFilePresent();
@@ -101,7 +97,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
 
     @Test
     public void testFeatureSpecificMappingFile() {
-        configure(resourceMappingEnabled, true);
+        configure(resourceLoadingOptimization, true);
 
         verifyResourcesPresent(resourceInDefaultMapping, onlyInFeatureSpecificMappingFile);
         verifyResourcesInDefaultMappingFilePresent();
@@ -110,7 +106,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
 
     @Test
     public void testFirstCustomMappingFile() {
-        configure(resourceMappingEnabled, true);
+        configure(resourceLoadingOptimization, true);
         configureCustomMappingFiles("mapping-test1.properties");
 
         verifyResourcesPresent(resourceInFirstCustomMapping, onlyInFeatureSpecificMappingFile, onlyInFirstCustomMappingFile);
@@ -120,7 +116,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
 
     @Test
     public void testMultipleCustomMappingFile() {
-        configure(resourceMappingEnabled, true);
+        configure(resourceLoadingOptimization, true);
         configureCustomMappingFiles("mapping-test1.properties", "mapping-test2.properties");
 
         verifyResourcesPresent(resourceInSecondCustomMapping, onlyInFeatureSpecificMappingFile, onlyInFirstCustomMappingFile,
@@ -134,24 +130,6 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
         configure(resourceMappingLocation, configuredLocation);
 
         testFeatureSpecificMappingFile();
-    }
-
-    // RF-11909: new tests
-    @Test
-    public void testLoadingNonExistentMappingFileShouldLogWarning() {
-        String nonExistent = "nonExistent";
-        configure(resourceMappingFile, nonExistent);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream origErr = System.out;
-        System.setErr(new PrintStream(baos));
-
-        verifyResourcesPresent(resourceInDefaultMapping);
-
-        System.setErr(origErr);
-        String output = new String(baos.toByteArray());
-
-        assertTrue(output.contains("WARNING"));
-        assertTrue(output.contains(nonExistent));
     }
 
     private void verifyResourcesPresent(Resource... expectedResources) {

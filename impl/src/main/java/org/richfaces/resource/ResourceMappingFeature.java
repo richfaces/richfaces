@@ -25,57 +25,40 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.el.ValueExpression;
-import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.CoreConfiguration;
 import org.richfaces.el.util.ELUtils;
 
 import com.google.common.collect.Lists;
 
 /**
  * <p>
- * Determines the state, mappings and request path for mapped resources.
+ * Determines resource mappings and request path for mapped resources.
  * </p>
- * 
+ *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public enum ResourceMappingFeature {
+public final class ResourceMappingFeature {
 
-    /**
-     * Packaging of selected static resources of certain types (CSS/JS)
-     */
-    Packed(CoreConfiguration.Items.resourceMappingPackedStages),
-    /**
-     * Compression of static resources which is supported (CSS/JS)
-     */
-    Compressed(CoreConfiguration.Items.resourceMappingCompressedStages);
-
-    private static final String STATIC_RESOURCES_FEATURE_NAME = "Static";
-    private static final String FEATURES_PLACEHOLDER = "%Features%";
-    static final String DEFAULT_LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/#{resourceLocation}";
-    private static final String DEFAULT_FEATURE_MAPPING_FILE = "META-INF/richfaces/staticResourceMapping/%Features%.properties";
-
-    private CoreConfiguration.Items associatedConfiguration;
-
-    private ResourceMappingFeature(CoreConfiguration.Items associatedConfiguration) {
-        this.associatedConfiguration = associatedConfiguration;
+    private ResourceMappingFeature() {
     }
+
+    static final String DEFAULT_LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/#{resourceLocation}";
 
     /**
      * Returns locations of static resource mapping configuration files for current application stage.
-     * 
+     *
      * @return locations of static resource mapping configuration files for current application stage
      */
     public static List<String> getMappingFiles() {
         List<String> mappingFiles = Lists.newLinkedList();
 
-        if (ResourceMappingConfiguration.isEnabled()) {
-            mappingFiles.add(getFeatureSpecificMappingFile());
+        if (ResourceLoadingOptimization.isEnabled()) {
+            mappingFiles.add(ResourceLoadingOptimization.getResourceLoadingSpecificMappingFile());
         }
         mappingFiles.add(getDefaultMappingFile());
         mappingFiles.addAll(getUserConfiguredMappingFile());
-        
+
         return mappingFiles;
     }
 
@@ -83,23 +66,18 @@ public enum ResourceMappingFeature {
         return ResourceMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION;
     }
 
-    private static String getFeatureSpecificMappingFile() {
-        return format(DEFAULT_FEATURE_MAPPING_FILE, getEnabledFeatures());
-    }
-    
     private static List<String> getUserConfiguredMappingFile() {
         String configured = ResourceMappingConfiguration.getResourceMappingFile();
         if (configured == null) {
             return Arrays.asList();
         }
         return Arrays.asList(configured.split(","));
-            
     }
 
     /**
      * Returns the configured location of static resources as string evaluated against EL expressions in current context, either
      * from configuration option or predefined location corresponding to current application stage.
-     * 
+     *
      * @return the configured location of static resources as string evaluated against EL expressions in current context
      */
     public static String getLocation() {
@@ -110,7 +88,7 @@ public enum ResourceMappingFeature {
     /**
      * Returns the configured location of static resources as string with EL expressions, either from configuration option or
      * predefined location corresponding to current application stage.
-     * 
+     *
      * @return the configured location of static resources as string with EL expressions
      */
     private static String getLocationAsExpression() {
@@ -119,59 +97,5 @@ public enum ResourceMappingFeature {
             return DEFAULT_LOCATION;
         }
         return location;
-    }
-
-    /**
-     * <p>
-     * Determines if the feature is enabled in current project stage.
-     * </p>
-     * 
-     * <p>
-     * Can be configured with either any {@link ProjectStage} items separated by comma, or with keyword 'All' or 'None'
-     * representing all application stages or no stage respectively.
-     * </p>
-     * 
-     * @return true if the feature is enabled in current stage; false otherwise
-     */
-    private boolean isEnabled() {
-        String configuredPhases = ResourceMappingConfiguration.getConfiguration(associatedConfiguration);
-        if (configuredPhases == null) {
-            return false;
-        }
-        ProjectStage projectStage = FacesContext.getCurrentInstance().getApplication().getProjectStage();
-        return "All".equals(configuredPhases) || configuredPhases.matches("(^|.*,)" + projectStage.toString() + "($|,.*)");
-    }
-
-    /**
-     * <p>
-     * Constructs infix composed from items of enumeration of features which are turned on in current {@link ProjectStage}.
-     * </p>
-     * 
-     * <p>
-     * If no feature is enabled, infix "Static" is returned.
-     * </p>
-     * 
-     * <p>
-     * Items are composed in order in which are specified in {@link ResourceMappingFeature} enumeration.
-     * </p>
-     * 
-     * @return infix composed from items of enumeration of features which are turned on in current {@link ProjectStage};
-     *         "Static" is returned when no other feature enabled
-     */
-    private static String getEnabledFeatures() {
-        StringBuffer affix = new StringBuffer();
-        for (ResourceMappingFeature feature : ResourceMappingFeature.values()) {
-            if (feature.isEnabled()) {
-                affix.append(feature.toString());
-            }
-        }
-        if (affix.length() == 0) {
-            return STATIC_RESOURCES_FEATURE_NAME;
-        }
-        return affix.toString();
-    }
-
-    private static String format(String string, String message) {
-        return string.replace(FEATURES_PLACEHOLDER, message);
     }
 }

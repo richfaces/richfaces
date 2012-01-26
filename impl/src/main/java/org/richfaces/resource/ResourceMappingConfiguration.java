@@ -46,19 +46,6 @@ public final class ResourceMappingConfiguration {
     private static final String STATIC_RESOURCE_DEPRECATION_LOGGED = "org.richfaces.staticResourceLocation.deprecation.logged";
 
     /**
-     * Returns true if resource mapping feature is enabled in configuration.
-     *
-     * @return true if resource mapping feature is enabled in configuration; false otherwise
-     */
-    static boolean isEnabled() {
-        if (getStaticResourceLocation() != null) {
-            return true;
-        }
-        return ConfigurationServiceHelper.getBooleanConfigurationValue(FacesContext.getCurrentInstance(),
-                CoreConfiguration.Items.resourceMappingEnabled);
-    }
-
-    /**
      * Returns configured location for resource mapping
      *
      * @return configured location for resource mapping
