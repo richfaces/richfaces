@@ -125,6 +125,10 @@
                 this.queueOptions.requestGroupingId = typeof this.source == "string" ? this.source : this.source.id;
             }
 
+            // Remove the layerX and layerY events (generated in WebKit browsers)
+            delete event.layerX;
+            delete event.layerY;
+
             // copy of event should be created otherwise IE will fail
             this.event = $.extend({}, event);
 
