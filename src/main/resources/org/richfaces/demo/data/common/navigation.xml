@@ -145,7 +145,7 @@
                         <name>outputPanel Simple</name>
                     </sample>
                     <sample>
-                        <id>compositemessages</id>
+                        <id>compositeMessages</id>
                         <name>Auto update for h:messages component</name>
                     </sample>
                 </samples>
@@ -155,7 +155,7 @@
                 <name>a4j:status</name>
                 <samples>
                     <sample>
-                        <id>viewusage</id>
+                        <id>viewUsage</id>
                         <name>Common status for view</name>
                     </sample>
                     <sample>
@@ -163,7 +163,7 @@
                         <name>Status Simple</name>
                     </sample>
                     <sample>
-                        <id>referencedusage</id>
+                        <id>referencedUsage</id>
                         <name>Referenced status</name>
                     </sample>
                 </samples>
