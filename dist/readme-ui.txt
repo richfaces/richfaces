@@ -2,7 +2,7 @@
 
                       RichFaces - Ajax enabled JSF 2.0 component library
 
-                                                 RichFaces 4.1.0-SNAPHOT
+                                                 RichFaces 4.2.0-SNAPHOT
                                                     http://richfaces.org
                                                               March 2011
                      This software is distributed under the terms of the 
@@ -25,7 +25,7 @@ FEATURES
     - Many AJAX enabled components in two libraries.
            * a4j page centric AJAX controls.
            * rich self contained, ready to use components.
-    - Complete JSF2 support with advanced extentions
+    - Complete JSF2 support with advanced extensions
     - Easily skin your entire application
     - Component Development Kit (CDK).
     - Dynamic resource handling.
@@ -222,6 +222,7 @@ rich:isUserInRole
 rich:findComponent
 rich:componentControl
 rich:hashParam
+rich:hotKey
 
 ---------------------------------
 Output:
@@ -250,6 +251,7 @@ Menus:
 ---------------------------------
 rich:toolbar
 rich:toolbarGroup
+rich:contextMenu
 rich:dropDownMenu
 rich:menuGroup
 rich:menuItem
