@@ -1,3 +1,95 @@
+New in Version 4.2.0.CR1
+------------------------
+
+    Bug
+    [RF-11533] - Notify and IE 8: can't close a message
+    [RF-11588] - HeaderClass is ignored on ExtendedDataTable column
+    [RF-11657] - Better integration with JBossAS 7.1
+    [RF-11760] - Remove parent section from richfaces-bom
+    [RF-11775] - mobile showcase - rich:panelMenu - sub menus are not indented accordingly
+    [RF-11778] - mobile showcase - rich:calendar - days of new month are smaller than others
+    [RF-11779] - showcase and rich:togglePanel sample: bad position of 'View Source' link
+    [RF-11806] - UIDataAdaptor breaks with Spring Webflow 2.3 when rendering pages for existing flows
+    [RF-11807] - TabPanel does not accept Comment as XML-child
+    [RF-11810] - Fix the richfaces-components-ui build to do not overwrite assemblied JAR
+    [RF-11813] - Drop down menu generates non-valid HTML
+    [RF-11815] - RichFaces version not displayed via EL expression #{a4j} on JBoss AS 7
+    [RF-11816] - Notify stack: names of CSS classes do not follow naming conventions
+    [RF-11817] - rich:inputNumberSlider has no id=>so it is not testable
+    [RF-11820] - rich:hotKey - when used selector for binding to specific component, all hotKeys defined on component are called
+    [RF-11829] - Toolbar: cellspacing and cellpadding should be implemented using CSS
+    [RF-11830] - Toolbar: attribute width is always generated
+    [RF-11831] - Toolbar: col elements should use CSS for width
+    [RF-11832] - Toolbar: attribute border should be replaced with CSS
+    [RF-11837] - Hot key: remove onkeypress attribute since it doesn't work with special keys and breaks compatibility with other onkeyup/onkeydown
+    [RF-11838] - Warning in Chrome console for pages with ajax
+    [RF-11840] - jquery.hotkeys.js prevents pickList to observe key events
+    [RF-11850] - RF 4.1.0.Final: Problem using columnResize with more than one extendedDataTable on the same page.
+    [RF-11860] - Data table: The scope attribute on the td element is obsolete
+    [RF-11861] - richfaces 4.1.Final showcase: Non-resolvable parent POM: Could not find artifact org.richfaces:richfaces-root-parent:pom:4.1.0.Final
+    [RF-11863] - showcase - rich:hotKey - mistake in demo description
+    [RF-11870] - Eliminate SNAPSHOT artifacts in non-default profiles
+    [RF-11889] - maven-resources-plugin: ResourceWriter: close streams appropriately
+    [RF-11891] - Simple bug in org.richfaces.resource.Xcss2EcssConverter
+    [RF-11894] - PushHandlerFilter initialization fails when PushServlet registered manually
+    [RF-11895] - Richfaces showcase import into JBoss Tools/JBDS
+    [RF-11897] - menuItems do not inherit the mode of the parent contextMenu
+    [RF-11898] - Attaching a contextMenu to a h:graphicImage results in a contextMenu that does not display
+    [RF-11899] - the attachId of the contextMenu requires the fully qualified path
+    [RF-11900] - contextMenu has to be defined after the extendedDatatable, or it cannot attach
+    [RF-11909] - Custom resource mapping can't simply reuse pre-generated RichFaces resources
+    [RF-11911] - contextMenu API for attaching to components should match that of tooltip
+    [RF-11917] - Multiselect in pickList broken
+    [RF-11925] - PushHandlerFilter - release SessionManager reference at destroy
+    [RF-11926] - Unit tests failures in core module
+    [RF-11927] - RichFaces polling is broken
+
+    Component Upgrade
+    [RF-11471] - Upgrade to Atmosphere 0.8.4
+    [RF-11615] - Upgrade to JBoss Parent version 8
+    [RF-11788] - Update build version of MyFaces to 2.1.5
+    [RF-11791] - Upgrade build version of JSF RI to 2.1.5
+    [RF-11826] - Parent: upgrade maven-plugin-plugin to 2.9 and setup project to use richfaces-parent:12-SNAPSHOT
+    [RF-11847] - Upgrade to the latest jQuery
+    [RF-11877] - Upgrade Servlets API to 3.0 in BOM
+
+    Enhancement
+    [RF-11866] - Push: Provide more useful message when subtopic does not meet criteria
+    [RF-11873] - Enhancements to slidfast.js library
+    [RF-11919] - showcase - names of some samples do not follow camel case naming convention
+
+    Feature Request
+    [RF-10197] - Right click menu - rich:contextMenu - should be ported from RF 3
+    [RF-10848] - New component : rich:hotkey for 4.0
+    [RF-11483] - Elegant way for Push topic creating
+    [RF-11808] - Archetypes : remove the generation of *-source jars plumbing
+    [RF-11824] - rich:hotKey - add option to prevent default event handling
+    [RF-11844] - richfaces-parent: setup for local git release builds with maven-release-plugin
+    [RF-11848] - round corner support out of the box
+    [RF-11883] - Support dynamic attachment of the contextMenu
+    [RF-11906] - Warning when JMS integration is off but JMS is available
+    [RF-11907] - Push: add configuration switch for PushContext initialization on startup (org.richfaces.push.initializeOnStartup)
+
+    Task
+    [RF-11666] - Manage dependencies across whole framework
+    [RF-11794] - Define mailingLists POM section in richfaces-parent
+    [RF-11835] - Remove repositories and pluginRepositories sections from richfaces-parent
+    [RF-11851] - rich:hotKey - add support for onkeypress, onkeydown and onkeyup
+    [RF-11876] - Add jsf.js resource dependency to all components to work around RF-11739
+    [RF-11879] - Add examle of usage of a4j:actionListener into RF showcase
+    [RF-11892] - Push: turn off JMS integration by default
+    [RF-11893] - Increment version number to 4.2.0-SNAPSHOT
+    [RF-11901] - Review the "new" label on showcase compnents
+    [RF-11918] - Create a showcase profile for JBoss AS 7.1
+    [RF-11921] - Update the release-notes
+
+    Sub-task
+    [RF-11811] - Add rich:hotkey to developer examples
+    [RF-11812] - Add rich:hotkey to Showcase
+
+    Full Release Notes:
+    https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310341&version=12318573
+
 New in Version 4.1.0.Final
 --------------------------
     Bug
@@ -5,6 +97,7 @@ New in Version 4.1.0.Final
 
     Task
     [RF-11789] - Rename CDK maven-resources-plugin to maven-richfaces-resources-plugin
+
     Full Release Notes:
     https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310341&version=12318600
 
