@@ -69,6 +69,7 @@ html > body .rf-ntf {
 }
 
 .rf-ntf-sum {
+    margin: 0;
     font-weight: bold;
 }
 
