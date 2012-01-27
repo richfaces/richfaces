@@ -128,5 +128,6 @@ public class PushHandlerFilter implements Filter, Serializable {
     }
 
     public void destroy() {
+        sessionManagerReference.set(null);
     }
 }
