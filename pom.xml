@@ -29,6 +29,7 @@
         <version.gae.plugin>0.9.1</version.gae.plugin>
         <jee6.excluded.libraries>WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*</jee6.excluded.libraries>
         <jbas7.excluded.libraries>${jee6.excluded.libraries},WEB-INF/lib/cssparser-*,WEB-INF/lib/sac-*</jbas7.excluded.libraries>
+        <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/guava-*</jbas71.excluded.libraries>
     </properties>
 
     <dependencies>
@@ -289,6 +290,42 @@
             </build>
         </profile>
         <profile>
+            <id>jbas71</id>
+            <properties>
+                <container.classifier>jbas71</container.classifier>
+                <container.resources>src/main/resources-jbas7</container.resources>
+                <container.webapp>src/main/webapp-jbas7</container.webapp>
+                <dependency.scope>provided</dependency.scope>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- any changes in this plugin configuration should be repeated in the "release" profile executions -->
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <classifier>jbas71</classifier>
+                            <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas71
+                            </webappDirectory>
+
+                            <packagingExcludes>
+                                ${jbas71.excluded.libraries}
+                            </packagingExcludes>
+                            <warSourceExcludes>
+                                ${jbas71.excluded.libraries}
+                            </warSourceExcludes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jboss.as.plugins</groupId>
+                        <artifactId>jboss-as-maven-plugin</artifactId>
+                        <configuration>
+                            <filename>richfaces-showcase-jbas71.war</filename>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>openshift</id>
             <properties>
                 <container.classifier>openshift</container.classifier>
@@ -512,6 +549,49 @@
                                     </packagingExcludes>
                                     <warSourceExcludes>
                                         ${jbas7.excluded.libraries}
+                                    </warSourceExcludes>
+                                    <webResources>
+                                        <resource>
+                                            <directory>src/main/webapp</directory>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/webapp-tomcat</directory>
+                                            <excludes>
+                                                <exclude>**</exclude>
+                                            </excludes>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/webapp-jbas7</directory>
+                                            <targetPath>/</targetPath>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/resources-jbas7</directory>
+                                            <targetPath>WEB-INF/classes</targetPath>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/java</directory>
+                                            <targetPath>WEB-INF/src</targetPath>
+                                        </resource>
+                                    </webResources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>jbas71</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>war</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>jbas71</classifier>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas71
+                                    </webappDirectory>
+
+                                    <packagingExcludes>
+                                        ${jbas71.excluded.libraries}
+                                    </packagingExcludes>
+                                    <warSourceExcludes>
+                                        ${jbas71.excluded.libraries}
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
