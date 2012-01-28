@@ -126,8 +126,10 @@
             }
 
             // Remove the layerX and layerY events (generated in WebKit browsers)
-            delete event.layerX;
-            delete event.layerY;
+            if (event) {
+                delete event.layerX;
+                delete event.layerY;
+            }
 
             // copy of event should be created otherwise IE will fail
             this.event = $.extend({}, event);
