@@ -29,7 +29,7 @@
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-parent</artifactId>
     <packaging>pom</packaging>
-    <version>12</version>
+    <version>13-SNAPSHOT</version>
     <name>RichFaces Parent</name>
 
     <description>
