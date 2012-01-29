@@ -34,7 +34,7 @@
     </description>
 
     <properties>
-        <version.test-jsf>1.1.1-SNAPSHOT</version.test-jsf>
+        <version.test-jsf>1.1.1</version.test-jsf>
         <version.richfaces-checkstyle>3</version.richfaces-checkstyle>
         <version.vdl-doc>1</version.vdl-doc>
         <version.shade-transformers>7</version.shade-transformers>
