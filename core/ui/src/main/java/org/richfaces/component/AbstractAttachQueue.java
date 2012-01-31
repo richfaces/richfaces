@@ -54,24 +54,48 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
     private transient List<UIComponent> componentsToAssociate;
     private transient List<AjaxBehavior> behaviorsToAssociate;
 
+    /**
+     *
+     */
     @Attribute
     public abstract String getRequestGroupingId();
 
+    /**
+     * Attribute defines the time (in ms) the request will be waiting in the queue before it is ready to be sent.
+     */
     @Attribute
     public abstract int getRequestDelay();
 
+    /**
+     * Attribute allows you to ignore an Ajax response produced by a request if the newest 'similar' request is in the
+     * queue already. ignoreDupResponses="true" does not cancel the request while it is processed on the server, but
+     * just allows avoiding unnecessary updates on the client side if the response isn't actual now
+     */
     @Attribute
     public abstract boolean isIgnoreDupResponses();
 
+    /**
+     * The client-side script method to be called when the request is added to the queue
+     * @return
+     */
     @Attribute
     public abstract String getOnrequestqueue();
 
+    /**
+     * The client-side script method to be called after the request is removed from the queue
+     */
     @Attribute
     public abstract String getOnrequestdequeue();
 
+    /**
+     *
+     */
     @Attribute
     public abstract String getName();
 
+    /**
+     *
+     */
     public String getQueueId() {
         return getName();
     }

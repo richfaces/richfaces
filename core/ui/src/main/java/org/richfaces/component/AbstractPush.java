@@ -21,14 +21,14 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIComponentBase;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+
+import javax.faces.component.UIComponentBase;
 
 /**
  * @author Nick Belaevski
@@ -44,12 +44,21 @@ public abstract class AbstractPush extends UIComponentBase {
         return COMPONENT_FAMILY;
     }
 
+    /**
+     * References the topic on the JMS server that contains the pushed messages
+     */
     @Attribute(required = true)
     public abstract String getAddress();
 
+    /**
+     * The client-side script method to be called when a push notification is received
+     */
     @Attribute(events = { @EventName("dataavailable") })
     public abstract String getOndataavailable();
 
+    /**
+     * The client-side script method to be called when an error has occurred with the push notifications
+     */
     @Attribute(events = { @EventName("error") })
     public abstract String getOnerror();
 }

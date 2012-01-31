@@ -21,18 +21,23 @@
  */
 package org.richfaces.component;
 
+import org.richfaces.cdk.annotations.Attribute;
+
 import javax.faces.component.UICommand;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
-
-import org.richfaces.cdk.annotations.Attribute;
 
 /**
  * @author Nick Belaevski
  *
  */
 public abstract class AbstractActionComponent extends UICommand {
+
+    /**
+     * If "true", after process validations phase it skips updates of model beans on a force render response.
+     * It can be used for validating components input"
+     */
     @Attribute
     public abstract boolean isBypassUpdates();
 
