@@ -42,7 +42,7 @@ public abstract class AbstractCommandButton extends AbstractActionComponent impl
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
 
     /**
-     * "Absolute or relative URL of the image to be displayed for this button. If specified, this "input" element will
+     * Absolute or relative URL of the image to be displayed for this button. If specified, this "input" element will
      * be of type "image". Otherwise, it will be of the type specified by the "type" property with a label specified
      * by the "value" property
      */

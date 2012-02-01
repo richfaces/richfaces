@@ -36,6 +36,9 @@ public abstract class AbstractAjaxFunction extends AbstractActionComponent {
     public static final String COMPONENT_FAMILY = "javax.faces.Command";
     public static final String COMPONENT_TYPE = "org.richfaces.Function";
 
+    /**
+     * The name of the generated javascript function
+     */
     @Attribute(required = true)
     public abstract String getName();
 }

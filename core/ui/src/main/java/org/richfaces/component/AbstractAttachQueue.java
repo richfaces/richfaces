@@ -55,7 +55,8 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
     private transient List<AjaxBehavior> behaviorsToAssociate;
 
     /**
-     *
+     * Specify the groupingId to process multiple requests together. Requests from multiple <a4j:attachQueue> behaviors
+     * can use the same identifier to group requests together
      */
     @Attribute
     public abstract String getRequestGroupingId();
@@ -88,14 +89,11 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
     public abstract String getOnrequestdequeue();
 
     /**
-     *
+     * Identify the name of the destination queue
      */
     @Attribute
     public abstract String getName();
 
-    /**
-     *
-     */
     public String getQueueId() {
         return getName();
     }

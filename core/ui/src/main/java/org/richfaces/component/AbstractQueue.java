@@ -64,7 +64,7 @@ public abstract class AbstractQueue extends UIComponentBase {
     public abstract String getOnbeforedomupdate();
 
     /**
-     * The client-side script method to be called whenever a JavaScript error occurs
+     * The client-side script method to be called when an error has occurred during Ajax communications
      */
     @Attribute
     public abstract String getOnerror();
@@ -97,7 +97,7 @@ public abstract class AbstractQueue extends UIComponentBase {
     public abstract boolean isIgnoreDupResponses();
 
     /**
-     * Specifies the name for the named queue.
+     * Specifies the name for the queue, allowing it to be referenced via the name attribute of the attachQueue component
      */
     @Attribute
     public abstract String getName();

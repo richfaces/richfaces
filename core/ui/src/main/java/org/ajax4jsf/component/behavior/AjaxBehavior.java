@@ -53,7 +53,8 @@ import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
  * @author Anton Belevich
  *
  */
-@JsfBehavior(id = "org.ajax4jsf.behavior.Ajax", tag = @Tag(name = "ajax", handler = "org.richfaces.view.facelets.html.AjaxHandler", type = TagType.Facelets), attributes = { "ajaxBehavior-prop.xml" })
+@JsfBehavior(id = "org.ajax4jsf.behavior.Ajax", tag = @Tag(name = "ajax", handler = "org.richfaces.view.facelets.html.AjaxHandler", type = TagType.Facelets),
+        attributes = { "ajaxBehavior-prop.xml" })
 public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     public static final String BEHAVIOR_ID = "org.ajax4jsf.behavior.Ajax";
     private static final Set<ClientBehaviorHint> HINTS = Collections.unmodifiableSet(EnumSet.of(ClientBehaviorHint.SUBMITTING));
@@ -136,6 +137,11 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         return result;
     }
 
+    /**
+     * Serialized (on default with JSON) data passed to the client by a developer on an AJAX request. It's accessible
+     * via "event.data" syntax. Both primitive types and complex types such as arrays and collections can be serialized
+     * and used with data
+     */
     @Attribute
     public Object getData() {
         return getStateHelper().eval(PropertyKeys.data);
@@ -145,6 +151,12 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.data, data);
     }
 
+    /**
+     * Ids of components that will participate in the "execute" portion of the Request Processing Lifecycle.
+     * Can be a single id, a space or comma separated list of Id's, or an EL Expression evaluating to an array or Collection.
+     * Any of the keywords "@this", "@form", "@all", "@none", "@region" may be specified in the identifier list.
+     * Some components make use of additional keywords
+     */
     @Attribute
     public Collection<String> getExecute() {
         return getCollectionValue(PropertyKeys.execute, execute);
@@ -155,6 +167,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         clearInitialState();
     }
 
+    /**
+     * The client-side script method to be called after the ajax response comes back, but before the DOM is updated
+     */
     @Attribute
     public String getOnbeforedomupdate() {
         return (String) getStateHelper().eval(PropertyKeys.onbeforedomupdate);
@@ -164,6 +179,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.onbeforedomupdate, onbeforedomupdate);
     }
 
+    /**
+     * The client-side script method to be called before an ajax request.
+     */
     @Attribute
     public String getOnbegin() {
         return (String) getStateHelper().eval(PropertyKeys.onbegin);
@@ -173,6 +191,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.onbegin, onbegin);
     }
 
+    /**
+     * The client-side script method to be called before the AJAX request is submitted
+     */
     @Attribute
     public String getOnbeforesubmit() {
         return (String) getStateHelper().eval(PropertyKeys.onbeforesubmit);
@@ -182,6 +203,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.onbeforesubmit, onbeforesubmit);
     }
 
+    /**
+     * The client-side script method to be called after the DOM is updated
+     */
     @Attribute
     public String getOncomplete() {
         return (String) getStateHelper().eval(PropertyKeys.oncomplete);
@@ -191,6 +215,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.oncomplete, oncomplete);
     }
 
+    /**
+     * The client-side script method to be called when an error has occurred during Ajax communications
+     */
     @Attribute
     public String getOnerror() {
         return (String) getStateHelper().eval(PropertyKeys.onerror);
@@ -200,6 +227,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.onerror, onerror);
     }
 
+    /**
+     * Identify the name of the destination queue
+     */
     @Attribute
     public String getQueueId() {
         return (String) getStateHelper().eval(PropertyKeys.queueId);
@@ -209,6 +239,12 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.queueId, queueId);
     }
 
+    /**
+     * Ids of components that will participate in the "render" portion of the Request Processing Lifecycle.
+     * Can be a single id, a space or comma separated list of Id's, or an EL Expression evaluating to an array or Collection.
+     * Any of the keywords "@this", "@form", "@all", "@none", "@region" may be specified in the identifier list.
+     * Some components make use of additional keywords
+     */
     @Attribute
     public Collection<String> getRender() {
         return getCollectionValue(PropertyKeys.render, render);
@@ -219,6 +255,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         clearInitialState();
     }
 
+    /**
+     * ID of the request status component
+     */
     @Attribute
     public String getStatus() {
         return (String) getStateHelper().eval(PropertyKeys.status);
@@ -228,6 +267,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.status, status);
     }
 
+    /**
+     * If "true", do not initiate an ajax request when the associated event is observed
+     */
     @Attribute
     public boolean isDisabled() {
         return (Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
@@ -237,6 +279,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.disabled, disabled);
     }
 
+    /**
+     * If "true", render only those ids specified in the "render" attribute, forgoing the render of the auto-rendered panels
+     */
     @Attribute
     public boolean isLimitRender() {
         return (Boolean) getStateHelper().eval(PropertyKeys.limitRender, false);
@@ -246,6 +291,11 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.limitRender, limitRender);
     }
 
+    /**
+     * Flag indicating that, if this component is activated by the user, notifications should be delivered to interested
+     * listeners and actions immediately (that is, during Apply Request Values phase) rather than waiting until Invoke
+     * Application phase.
+     */
     @Attribute
     public boolean isImmediate() {
         return (Boolean) getStateHelper().eval(PropertyKeys.immediate, false);
@@ -255,6 +305,10 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.immediate, immediate);
     }
 
+    /**
+     * If "true", after process validations phase it skips updates of model beans on a force render response.
+     * It can be used for validating components input
+     */
     @Attribute
     public boolean isBypassUpdates() {
         return (Boolean) getStateHelper().eval(PropertyKeys.bypassUpdates, false);
