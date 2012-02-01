@@ -50,8 +50,10 @@ import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
 import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
 /**
- * @author Anton Belevich
+ * The "a4j:ajax" behavior allows Ajax capability to be added to a non-Ajax component. The non-Ajax component must
+ * implement the ClientBehaviorHolder interface for all the event attributes that support behavior rendering.
  *
+ * @author Anton Belevich
  */
 @JsfBehavior(id = "org.ajax4jsf.behavior.Ajax", tag = @Tag(name = "ajax", handler = "org.richfaces.view.facelets.html.AjaxHandler", type = TagType.Facelets),
         attributes = { "ajaxBehavior-prop.xml" })

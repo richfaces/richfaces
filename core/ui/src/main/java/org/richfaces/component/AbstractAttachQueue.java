@@ -41,8 +41,11 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 /**
- * @author Nick Belaevski
+ * The "a4j:attachQueue" behavior is used together with a "a4j:queue" component to further customize queuing for
+ * particular components and behaviors. The "a4j:attachQueue" behavior can override the scope-wide queue settings for
+ * an individual component, or attach specific requests to a queue.
  *
+ * @author Nick Belaevski
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.AttachQueueRenderer"), tag = @Tag(name = "attachQueue", handler = "org.richfaces.view.facelets.html.AttachQueueHandler",
 

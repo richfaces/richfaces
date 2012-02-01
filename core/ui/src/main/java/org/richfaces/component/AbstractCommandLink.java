@@ -32,6 +32,9 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.AjaxConstants;
 
 /**
+ * The "a4j:commandLink" component is similar to the JavaServer Faces (JSF) "h:commandLink" component, except that it
+ * includes plugged-in Ajax behavior.
+ *
  * @author Nick Belaevski
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandLinkRenderer"), tag = @Tag(type = TagType.Facelets),

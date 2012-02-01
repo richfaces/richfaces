@@ -32,8 +32,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /**
- * @author Nick Belaevski
+ * The "a4j:commandButton" component is similar to the JavaServer Faces (JSF) "h:commandButton" component, but
+ * additionally includes Ajax support.
  *
+ * @author Nick Belaevski
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandButtonRenderer"), tag = @Tag(type = TagType.Facelets),
         attributes = {"ajax-props.xml", "command-button-props.xml", "core-props.xml" })

@@ -30,8 +30,10 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
- * @author Nick Belaevski
+ * The "a4j:queue" component manages the JSF queue of Ajax requests. It provides additional options for a finer control
+ * of request processing.
  *
+ * @author Nick Belaevski
  */
 @JsfComponent(tag = @Tag(name = "queue", generate = false, type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.QueueRenderer"))
 public abstract class AbstractQueue extends UIComponentBase {

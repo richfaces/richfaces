@@ -31,8 +31,10 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
- * @author Nick Belaevski
+ * The "a4j:log" component generates JavaScript that opens a debug window, logging application information such as
+ * requests, responses, and DOM changes.
  *
+ * @author Nick Belaevski
  */
 @ResourceDependencies(value = { @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "log.js"),
@@ -42,6 +44,9 @@ public abstract class AbstractAjaxLog extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.AjaxLog";
     public static final String COMPONENT_FAMILY = "org.richfaces.AjaxLog";
 
+    /**
+     *
+     */
     @Attribute
     public abstract String getStyle();
 
