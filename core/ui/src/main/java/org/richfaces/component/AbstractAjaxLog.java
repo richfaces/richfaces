@@ -45,17 +45,28 @@ public abstract class AbstractAjaxLog extends UIComponentBase {
     public static final String COMPONENT_FAMILY = "org.richfaces.AjaxLog";
 
     /**
-     *
+     * CSS style(s) to be applied when this component is rendered.
      */
     @Attribute
     public abstract String getStyle();
 
+    /**
+     * Sets the logging level, can be one of "ERROR", "FATAL", "INFO", "WARN", "ALL"
+     */
     @Attribute
     public abstract String getLevel();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
+     * passed through as the "class" attribute on generated markup.
+     */
     @Attribute
     public abstract String getStyleClass();
 
+    /**
+     * Determines how the log appears on the page, can be one of: "inline", "popup". When set to "popup", the popup
+     * window is opened by pressing the key combination Ctrl + Shift + L
+     */
     @Attribute
     public abstract LogMode getMode();
 
