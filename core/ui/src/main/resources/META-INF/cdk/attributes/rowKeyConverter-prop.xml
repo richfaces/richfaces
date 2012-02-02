@@ -16,6 +16,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee">
 
     <property>
+        <description>Converter for a row key object</description>
         <property-name>rowKeyConverter</property-name>
         <property-class>javax.faces.convert.Converter</property-class>
     </property>
