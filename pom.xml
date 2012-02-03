@@ -27,9 +27,9 @@
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
         <version.gae>1.5.4</version.gae>
         <version.gae.plugin>0.9.1</version.gae.plugin>
-        <jee6.excluded.libraries>WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*</jee6.excluded.libraries>
-        <jbas7.excluded.libraries>${jee6.excluded.libraries},WEB-INF/lib/cssparser-*,WEB-INF/lib/sac-*</jbas7.excluded.libraries>
-        <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/guava-*</jbas71.excluded.libraries>
+        <jee6.excluded.libraries>WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/classmate*,WEB-INF/lib/jandex*,WEB-INF/lib/jboss-logging*,WEB-INF/lib/jboss-transaction-api*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*</jee6.excluded.libraries>
+        <jbas7.excluded.libraries>${jee6.excluded.libraries},WEB-INF/lib/cssparser*,WEB-INF/lib/sac*</jbas7.excluded.libraries>
+        <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/guava*,WEB-INF/lib/jsr305*</jbas71.excluded.libraries>
     </properties>
 
     <dependencies>
@@ -143,6 +143,12 @@
             <groupId>org.jboss.weld.servlet</groupId>
             <artifactId>weld-servlet</artifactId>
             <scope>${dependency.scope}</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.weld</groupId>
+                    <artifactId>weld-build-config</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         
         <!-- JBoss AS7 management -->
@@ -334,20 +340,6 @@
                 <dependency.scope>provided</dependency.scope>
                 <war.outputFileNameMapping>@{artifactId}@.@{extension}@</war.outputFileNameMapping>
             </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                    <version>1.5.8</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-jdk14</artifactId>
-                    <version>1.5.8</version>
-                    <scope>runtime</scope>
-                </dependency>
-            </dependencies>
         </profile>
         <profile>
             <id>gae</id>
@@ -502,10 +494,10 @@
                                     </webappDirectory>
 
                                     <packagingExcludes>
-                                        ${jee6.excluded.libraries},WEB-INF/lib/slf4j-*
-                                </packagingExcludes>
+                                        ${jee6.excluded.libraries}
+                                    </packagingExcludes>
                                     <warSourceExcludes>
-                                        ${jee6.excluded.libraries},WEB-INF/lib/slf4j-*
+                                        ${jee6.excluded.libraries}
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
