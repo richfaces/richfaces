@@ -30,8 +30,17 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
- * @author Nick Belaevski
+ * <p>
+ * The "a4j:region" component specifies a part of the JSF component tree to be processed on the server.
+ * The region causes all the a4j and rich Ajax controls to execute: decoding, validating, and updating the model.
+ * The region causes these components to execute even if not explicitly declared. As such, processing areas can more
+ * easily be marked using a declarative approach.
+ * </p>
+ * <p>
+ * Regions can be nested, in which case only the parent region of the component initiating the request will be processed.
+ * </p>
  *
+ * @author Nick Belaevski
  */
 @JsfComponent(tag = @Tag(name = "region", type = TagType.Facelets))
 public abstract class AbstractRegion extends UIComponentBase implements MetaComponentResolver, AjaxContainer {
