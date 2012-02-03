@@ -178,7 +178,6 @@
                         <manifestEntries>
                             <SCM-Revision>${buildNumber}</SCM-Revision>
                             <SCM-Timestamp>${timestamp}</SCM-Timestamp>
-                            <Dependencies>org.w3c.css.sac,net.sourceforge.cssparser,com.google.guava</Dependencies>
                         </manifestEntries>
                     </archive>
                 </configuration>
