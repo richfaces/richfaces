@@ -29,7 +29,9 @@
         <version.gae.plugin>0.9.1</version.gae.plugin>
         <jee6.excluded.libraries>WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*</jee6.excluded.libraries>
         <jbas7.excluded.libraries>${jee6.excluded.libraries},WEB-INF/lib/cssparser-*,WEB-INF/lib/sac-*</jbas7.excluded.libraries>
+        <jbas7.manifest.dependencies>org.slf4j,org.jboss.as.controller-client,org.jboss.as.protocol,org.jboss.dmr,org.jboss.logging,org.jboss.marshalling,org.jboss.marshalling.river,org.jboss.remoting3,org.jboss.threads</jbas7.manifest.dependencies>
         <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/guava-*</jbas71.excluded.libraries>
+        <jbas71.manifest.dependencies>${jbas7.manifest.dependencies},com.google.guava</jbas71.manifest.dependencies>
     </properties>
 
     <dependencies>
@@ -191,11 +193,6 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
-                        <manifestEntries>
-                            <Dependencies>
-                                org.slf4j,org.jboss.as.controller-client,org.jboss.as.protocol,org.jboss.dmr,org.jboss.logging,org.jboss.marshalling,org.jboss.marshalling.river,org.jboss.remoting3,org.jboss.threads
-                            </Dependencies>
-                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
@@ -271,12 +268,13 @@
                             <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas7
                             </webappDirectory>
 
-                            <packagingExcludes>
-                                ${jbas7.excluded.libraries}
-                            </packagingExcludes>
-                            <warSourceExcludes>
-                                ${jbas7.excluded.libraries}
-                            </warSourceExcludes>
+                            <packagingExcludes>${jbas7.excluded.libraries}</packagingExcludes>
+                            <warSourceExcludes>${jbas7.excluded.libraries}</warSourceExcludes>
+                            <archive>
+                                <manifestEntries>
+                                    <Dependencies>${jbas7.manifest.dependencies}</Dependencies>
+                                </manifestEntries>
+                            </archive>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -307,12 +305,13 @@
                             <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas71
                             </webappDirectory>
 
-                            <packagingExcludes>
-                                ${jbas71.excluded.libraries}
-                            </packagingExcludes>
-                            <warSourceExcludes>
-                                ${jbas71.excluded.libraries}
-                            </warSourceExcludes>
+                            <packagingExcludes>${jbas71.excluded.libraries}</packagingExcludes>
+                            <warSourceExcludes>${jbas71.excluded.libraries}</warSourceExcludes>
+                            <archive>
+                                <manifestEntries>
+                                    <Dependencies>${jbas71.manifest.dependencies}</Dependencies>
+                                </manifestEntries>
+                            </archive>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -544,12 +543,13 @@
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas7
                                     </webappDirectory>
 
-                                    <packagingExcludes>
-                                        ${jbas7.excluded.libraries}
-                                    </packagingExcludes>
-                                    <warSourceExcludes>
-                                        ${jbas7.excluded.libraries}
-                                    </warSourceExcludes>
+                                    <packagingExcludes>${jbas7.excluded.libraries}</packagingExcludes>
+                                    <warSourceExcludes>${jbas7.excluded.libraries}</warSourceExcludes>
+                                    <archive>
+                                        <manifestEntries>
+                                            <Dependencies>${jbas7.manifest.dependencies}</Dependencies>
+                                        </manifestEntries>
+                                    </archive>
                                     <webResources>
                                         <resource>
                                             <directory>src/main/webapp</directory>
@@ -587,12 +587,13 @@
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas71
                                     </webappDirectory>
 
-                                    <packagingExcludes>
-                                        ${jbas71.excluded.libraries}
-                                    </packagingExcludes>
-                                    <warSourceExcludes>
-                                        ${jbas71.excluded.libraries}
-                                    </warSourceExcludes>
+                                    <packagingExcludes>${jbas71.excluded.libraries}</packagingExcludes>
+                                    <warSourceExcludes>${jbas71.excluded.libraries}</warSourceExcludes>
+                                    <archive>
+                                        <manifestEntries>
+                                            <Dependencies>${jbas71.manifest.dependencies}</Dependencies>
+                                        </manifestEntries>
+                                    </archive>
                                     <webResources>
                                         <resource>
                                             <directory>src/main/webapp</directory>
@@ -629,12 +630,13 @@
                                     <classifier>openshift</classifier>
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-openshift
                                     </webappDirectory>
-                                    <packagingExcludes>
-                                        ${jbas7.excluded.libraries}
-                                    </packagingExcludes>
-                                    <warSourceExcludes>
-                                        ${jbas7.excluded.libraries}
-                                    </warSourceExcludes>
+                                    <packagingExcludes>${jbas7.excluded.libraries}</packagingExcludes>
+                                    <warSourceExcludes>${jbas7.excluded.libraries}</warSourceExcludes>
+                                    <archive>
+                                        <manifestEntries>
+                                            <Dependencies>${jbas7.manifest.dependencies}</Dependencies>
+                                        </manifestEntries>
+                                    </archive>
                                     <outputFileNameMapping>@{artifactId}@.@{extension}@</outputFileNameMapping>
                                     <webResources>
                                         <resource>
