@@ -31,7 +31,7 @@ import org.richfaces.cdk.annotations.TagType;
  *
  */
 @JsfComponent(tag = @Tag(name = "repeat", handler = "org.richfaces.view.facelets.html.RepeatHandler", type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.RepeatRenderer"), attributes = "rowKeyConverter-prop.xml")
+        renderer = @JsfRenderer(type = "org.richfaces.RepeatRenderer"), attributes = {"rowKeyConverter-prop.xml", "iteration-props.xml"})
 public class UIRepeat extends UISequence {
     public static final String COMPONENT_TYPE = "org.richfaces.Repeat";
     public static final String COMPONENT_FAMILY = "javax.faces.Data";

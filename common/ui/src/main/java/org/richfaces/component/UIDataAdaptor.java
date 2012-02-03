@@ -481,9 +481,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         this.extendedDataModel = extendedDataModel;
     }
 
-    /**
-     * A request-scope attribute via which the data object for the current row will be used when iterating
-     */
     @Attribute
     public String getVar() {
         return (String) getStateHelper().get(PropertyKeys.var);
@@ -493,9 +490,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         getStateHelper().put(PropertyKeys.var, var);
     }
 
-    /**
-     * Provides access to the row key in a Request scope
-     */
     @Attribute
     public String getRowKeyVar() {
         return (String) getStateHelper().get(PropertyKeys.rowKeyVar);
@@ -505,9 +499,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         getStateHelper().put(PropertyKeys.rowKeyVar, rowKeyVar);
     }
 
-    /**
-     * Provides access to the state in a Request scope.
-     */
     @Attribute
     public String getStateVar() {
         return (String) getStateHelper().get(PropertyKeys.stateVar);
@@ -530,10 +521,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return getExtendedDataModel().isRowAvailable();
     }
 
-    /**
-     * Boolean attribute that defines whether this iteration component will reset saved children's state before rendering. By
-     * default state is reset if there are no faces messages with severity error or higher.
-     */
     @Attribute
     public boolean isKeepSaved() {
         Object value = getStateHelper().eval(PropertyKeys.keepSaved);

@@ -154,9 +154,6 @@ public class UISequence extends UIDataAdaptor {
         return converter;
     }
 
-    /**
-     * Specifies which item in the data model to start from
-     */
     @Attribute
     public int getFirst() {
         return (Integer) getStateHelper().eval(PropertyKeys.first, 0);
@@ -167,9 +164,6 @@ public class UISequence extends UIDataAdaptor {
         updateState();
     }
 
-    /**
-     * Specifies the number of items to list
-     */
     @Attribute
     public int getRows() {
         return (Integer) getStateHelper().eval(PropertyKeys.rows, 0);
@@ -180,9 +174,6 @@ public class UISequence extends UIDataAdaptor {
         updateState();
     }
 
-    /**
-     * Points to the data model
-     */
     @Attribute
     public Object getValue() {
         return getStateHelper().eval(PropertyKeys.value);
@@ -193,9 +184,6 @@ public class UISequence extends UIDataAdaptor {
         getStateHelper().put(PropertyKeys.value, value);
     }
 
-    /**
-     * Provides access to the iteration status in a Request scope
-     */
     @Attribute
     public String getIterationStatusVar() {
         return (String) getStateHelper().get(PropertyKeys.iterationStatusVar);
