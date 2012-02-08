@@ -142,7 +142,6 @@
 
             resizeData: {},
             idOfReorderingColumn: "",
-            newWidths: {},
             timeoutId: null,
 
             init: function (id, rowCount, ajaxFunction, options) {
@@ -158,6 +157,7 @@
                 this.reorderElement = document.getElementById(id + ":r");
                 this.reorderMarkerElement = document.getElementById(id + ":rm");
                 this.widthInput = document.getElementById(id + ":wi");
+                this.newWidths = {};
                 this.selectionInput = document.getElementById(id + ":si");
                 this.header = jQuery(this.element).children(".rf-edt-hdr");
                 this.headerCells = this.header.find(".rf-edt-hdr-c");

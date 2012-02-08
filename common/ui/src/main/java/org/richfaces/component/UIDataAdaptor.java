@@ -55,8 +55,8 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.FacesEvent;
-import javax.faces.event.ListenerFor;
 import javax.faces.event.PhaseId;
+import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PostRestoreStateEvent;
 import javax.faces.event.PostValidateEvent;
 import javax.faces.event.PreRenderViewEvent;
@@ -80,8 +80,8 @@ import org.richfaces.log.RichfacesLogger;
  * rendering on AJAX responces for one or more selected iterations.
  *
  * @author shura
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-@ListenerFor(systemEventClass = PostRestoreStateEvent.class)
 public abstract class UIDataAdaptor extends UIComponentBase implements NamingContainer, UniqueIdVendor, IterationStateHolder,
         ComponentSystemEventListener, SystemEventListener {
     /**
@@ -96,6 +96,9 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * </p>
      */
     public static final String COMPONENT_TYPE = "org.richfaces.Data";
+
+    private String PRE_RENDER_VIEW_EVENT_REGISTERED = UIDataAdaptor.class.getName() + ":preRenderViewEventRegistered";
+
     private static final VisitCallback STUB_CALLBACK = new VisitCallback() {
         public VisitResult visit(VisitContext context, UIComponent target) {
             return VisitResult.ACCEPT;
@@ -223,7 +226,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     public UIDataAdaptor() {
         super();
-        getFacesContext().getViewRoot().subscribeToViewEvent(PreRenderViewEvent.class, this);
+        subscribeToEvents();
     }
 
     protected Map<String, Object> getVariablesMap(FacesContext facesContext) {
@@ -1429,23 +1432,57 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         public abstract void processComponent(FacesContext context, UIComponent c, Object argument);
     }
 
+    private void subscribeToEvents() {
+        this.subscribeToEvent(PostAddToViewEvent.class, this);
+        this.subscribeToEvent(PostRestoreStateEvent.class, this);
+    }
+
+    @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         this.processEvent((SystemEvent) event);
     }
 
+    @Override
     public void processEvent(SystemEvent event) throws AbortProcessingException {
+        FacesContext facesContext = getFacesContext();
+
+        if (event instanceof PostAddToViewEvent) {
+            subscribeToPreRenderViewEventOncePerRequest(facesContext, ((PostAddToViewEvent) event).getComponent());
+        }
+
         if (event instanceof PostRestoreStateEvent) {
-            preDecode(getFacesContext());
+            subscribeToPreRenderViewEventOncePerRequest(facesContext, ((PostRestoreStateEvent) event).getComponent());
+            preDecode(facesContext);
         }
 
         if (event instanceof PreRenderViewEvent) {
-            preEncodeBegin(getFacesContext());
+            preEncodeBegin(facesContext);
         }
+    }
+
+    private void subscribeToPreRenderViewEventOncePerRequest(FacesContext facesContext, UIComponent component) {
+        Map<Object, Object> contextMap = facesContext.getAttributes();
+        if (contextMap.get(this.getClientId() + PRE_RENDER_VIEW_EVENT_REGISTERED) == null) {
+            contextMap.put(this.getClientId() + PRE_RENDER_VIEW_EVENT_REGISTERED, Boolean.TRUE);
+            UIViewRoot viewRoot = getUIViewRoot(component);
+            viewRoot.subscribeToViewEvent(PreRenderViewEvent.class, this);
+        }
+    }
+
+    private UIViewRoot getUIViewRoot(UIComponent component) {
+        UIComponent resolved = component;
+        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+            if (resolved instanceof UIViewRoot) {
+                return (UIViewRoot) resolved;
+            }
+            resolved = resolved.getParent();
+        }
+        throw new IllegalStateException("No UIViewRoot found in tree");
     }
 
     @Override
     public boolean isListenerForSource(Object source) {
-        return source instanceof UIViewRoot;
+        return this.equals(source) || source instanceof UIViewRoot;
     }
 
     protected DataComponentState getLocalComponentState() {

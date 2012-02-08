@@ -58,12 +58,12 @@
             },
 
             select : function() {
-                this.jqueryElement.removeClass(this.options.unselectItemCss);
-                this.jqueryElement.addClass(this.options.selectItemCss);
+                this.jqueryElement.removeClass(this.options.cssClasses.unselectItemCss);
+                this.jqueryElement.addClass(this.options.cssClasses.selectItemCss);
             },
             unselect : function() {
-                this.jqueryElement.removeClass(this.options.selectItemCss);
-                this.jqueryElement.addClass(this.options.unselectItemCss);
+                this.jqueryElement.removeClass(this.options.cssClasses.selectItemCss);
+                this.jqueryElement.addClass(this.options.cssClasses.unselectItemCss);
             },
 
             __showHandler : function() {

@@ -31,10 +31,12 @@
     left: 6px;
     bottom: -6px;
     z-index: -1;
+    border-radius: '#{richSkin.panelBorderRadius}';
 }
 
 .rf-pp-cntr {
     border: '1px solid #{richSkin.panelBorderColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
     background: '#{richSkin.generalBackgroundColor}';
     z-index: 100;
 }
@@ -46,6 +48,8 @@
     padding-left: 10px;
     cursor: move;
     padding: 2px;
+    border-top-left-radius: '#{richSkin.panelBorderRadius}';
+    border-top-right-radius: '#{richSkin.panelBorderRadius}';
 }
 
 .rf-pp-hdr-cnt {
@@ -78,6 +82,8 @@
     left: 0px;
     overflow: auto;
     background: '#{richSkin.generalBackgroundColor}';
+    border-bottom-left-radius: '#{richSkin.panelBorderRadius}';
+    border-bottom-right-radius: '#{richSkin.panelBorderRadius}';
 }
 
 .rf-pp-cnt {
@@ -85,6 +91,8 @@
     color: '#{richSkin.generalTextColor}';
     font-family: '#{richSkin.generalFamilyFont}';
     font-size: '#{richSkin.generalSizeFont}';
+    border-bottom-left-radius: '#{richSkin.panelBorderRadius}';
+    border-bottom-right-radius: '#{richSkin.panelBorderRadius}';
 }
 
 .rf-pp-hndlr {

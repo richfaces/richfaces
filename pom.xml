@@ -27,13 +27,13 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>11</version>
+        <version>12</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-ui-aggregator</artifactId>
-    <version>4.1.0.Final</version>
+    <version>4.2.0.CR1</version>
     <packaging>pom</packaging>
     <name>RichFaces UI Components Aggregator</name>
 

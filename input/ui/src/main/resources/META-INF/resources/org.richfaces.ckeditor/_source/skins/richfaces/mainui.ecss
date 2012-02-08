@@ -28,12 +28,17 @@ span.cke_skin_richfaces
 	background-image: url(images/sprites.png);
 	background-repeat: repeat-x;
 	background-position: 0 -1950px;
+    border-radius: '#{richSkin.panelBorderRadius}';
 	display: block;
 	/* IE Quirks: editor chrome overflow horizontally without an explicit width. */
 	_display: inline-block;
 	padding: 5px;
 
 	/*background-color: Red;*/
+}
+
+.rf-ed {
+    border-radius: '#{richSkin.panelBorderRadius}';
 }
 
 .cke_shared .cke_skin_richfaces .cke_wrapper

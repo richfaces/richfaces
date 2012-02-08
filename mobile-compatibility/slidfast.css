@@ -20,6 +20,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *
  *  Author: Wesley Hales
+ *  Description: SlidFast is a minimalistic framework to writing mobile web apps.
+ *  It utilizes core HTML5 APIs for today's mobile web browsers.
  */
 
 html {
@@ -122,56 +124,11 @@ Device Specific Styles
     overflow: hidden;
     opacity: 0;
 }
-/* iOS/android phone landscape screen width*/
-@media screen and (max-device-width: 480px) and (orientation:landscape) {
-    .stage-left {
-        left: -480px;
-    }
 
-    .stage-right {
-        left: 480px;
-    }
+.stage-left {
+    left: -100%;
 }
 
-@media screen and (max-device-width: 480px) and (orientation:portrait) {
-    .stage-left {
-        left: -320px;
-    }
-
-    .stage-right {
-        left: 320px;
-    }
-}
-
-@media screen and (min-device-width: 600px) and (orientation:portrait) {
-    .stage-left {
-        left: -600px;
-    }
-
-    .stage-right {
-        left: 600px;
-    }
-}
-
-/* iOS/android phone portrait screen width*/
-@media screen and (max-device-width: 320px) {
-    .stage-left {
-        left: -320px;
-    }
-
-    .stage-right {
-        left: 320px;
-    }
-}
-
-/*catch all for at or larger than handheld landscape device widths*/
-@media screen and (min-device-width: 1000px) {
-    .stage-left {
-        left: -1024px;
-    }
-
-    .stage-right {
-        left: 1024px;
-    }
-
+.stage-right {
+    left: 100%;
 }

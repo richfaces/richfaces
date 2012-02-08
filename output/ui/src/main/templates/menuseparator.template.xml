@@ -13,7 +13,8 @@
     </cc:interface>
 
     <cc:implementation>
-        <div class="rf-ddm-sep"></div>
+        <cdk:object name="cssRoot" value="#{component.attributes['cssRoot']}" />
+        <div class="rf-#{cssRoot}-sep"></div>
     </cc:implementation>
 
 </cdk:root>

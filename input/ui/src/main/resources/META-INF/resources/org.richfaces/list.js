@@ -167,7 +167,7 @@
 
             __keydownHandler: function(e) {
                 if (e.isDefaultPrevented()) return;
-                if (e.metaKey) return;
+                if (e.metaKey || e.ctrlKey) return;
 
                 var code;
                 if (e.keyCode) {
@@ -206,7 +206,7 @@
                 this.setFocus();
                 var item = this.__getItem(e);
                 this.processItem(item);
-                var clickModified = e.metaKey;
+                var clickModified = e.metaKey || e.ctrlKey;
                 if (!this.disabled) {
                     this.__select(item, clickModified && this.clickRequiredToSelect);
                 }

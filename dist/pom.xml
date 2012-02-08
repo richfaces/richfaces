@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.1.0.Final</version>
+        <version>4.2.0.CR1</version>
         <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
 
@@ -48,20 +48,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>build-force</id>
-
-            <!-- TODO these are out of date -->
-            <modules>
-                <module>../../core</module>
-                <module>../../misc/dist</module>
-                <module>../../iteration/dist</module>
-                <module>../../output/dist</module>
-            </modules>
-        </profile>
-    </profiles>
 
     <scm>
         <connection>scm:git:git://github.com/richfaces/components.git</connection>

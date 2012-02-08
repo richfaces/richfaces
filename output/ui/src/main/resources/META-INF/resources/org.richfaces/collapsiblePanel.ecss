@@ -3,6 +3,7 @@
     color: '#{richSkin.panelBorderColor}';
     border-width: 1px;
     border-style: solid;
+    border-radius: '#{richSkin.panelBorderRadius}';
     padding: 1px;
 }
 
@@ -10,6 +11,8 @@
     cursor: pointer;
     background-color: '#{richSkin.headerBackgroundColor}';
     border-color: '#{richSkin.headerBackgroundColor}';
+    border-top-left-radius: '#{richSkin.panelBorderRadius}';
+    border-top-right-radius: '#{richSkin.panelBorderRadius}';
     font-size: '#{richSkin.headerSizeFont}';
     color: '#{richSkin.headerTextColor}';
     font-weight: '#{richSkin.headerWeightFont}';
@@ -27,7 +30,8 @@
 }
 
 .rf-cp-hdr-colps {
-    
+    border-bottom-left-radius: '#{richSkin.panelBorderRadius}';
+    border-bottom-right-radius: '#{richSkin.panelBorderRadius}';
 }
 
 .rf-cp-b {

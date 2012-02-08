@@ -1,8 +1,7 @@
 <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:menuItem">
-    <span class="rf-ddm-itm-ic ">
-        <div class="rf-ddm-emptyIcon">
-        </div>
-    </span>
+    <div class="rf-ddm-itm-ic ">
+        <div class="rf-ddm-emptyIcon" />
+    </div>
     <span class="rf-ddm-itm-lbl ">
         Test
     </span>

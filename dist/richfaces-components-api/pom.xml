@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.1.0.Final</version>
+        <version>4.2.0.CR1</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -69,37 +69,49 @@
             <artifactId>richfaces-ui-validator-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- for javadoc generation -->
-        <!-- <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
-            <scope>provided</scope>
-        </dependency> -->
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/assembly</directory>
+                <targetPath>${project.build.directory}/assembly</targetPath>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
         <plugins>
+            <!-- disable default jar packaging -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- disable default sources packaging -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <!-- unpack necessary dependencies for collecting javadocs -->
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -133,7 +145,7 @@
                         <configuration>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
-                                <descriptor>assembler.xml</descriptor>
+                                <descriptor>${project.build.directory}/assembly/assembler-jar.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>
@@ -145,7 +157,7 @@
                         </goals>
                         <configuration>
                             <descriptors>
-                                <descriptor>assembler-sources.xml</descriptor>
+                                <descriptor>${project.build.directory}/assembly/assembler-sources.xml</descriptor>
                             </descriptors>
                         </configuration>
                     </execution>

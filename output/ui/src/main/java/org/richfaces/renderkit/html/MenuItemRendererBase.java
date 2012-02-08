@@ -4,7 +4,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.component.AbstractDropDownMenu;
+import org.richfaces.component.AbstractMenuContainer;
 import org.richfaces.component.AbstractMenuGroup;
 import org.richfaces.component.AbstractMenuItem;
 import org.richfaces.component.Mode;
@@ -120,20 +120,20 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         if (menuItem.getMode() != null) {
             return menuItem.getMode();
         }
-        AbstractDropDownMenu parent = getDDMenu(menuItem);
+        AbstractMenuContainer parent = getMenuParent(menuItem);
         if (parent != null && parent.getMode() != null) {
             return parent.getMode();
         }
         return Mode.server;
     }
 
-    protected String getStyleClass(FacesContext facesContext, UIComponent component, String ddMenuStyle, String menuGroupStyle,
+    protected String getStyleClass(FacesContext facesContext, UIComponent component, String menuParentStyle, String menuGroupStyle,
         String menuItemStyle) {
-        UIComponent ddMenu = getDDMenu(component);
+        UIComponent parent = getMenuParent(component);
         UIComponent menuGroup = getMenuGroup(component);
         Object styleClass = null;
-        if (ddMenu != null && ddMenuStyle != null && ddMenuStyle.length() > 0) {
-            styleClass = ddMenu.getAttributes().get(ddMenuStyle);
+        if (parent != null && menuParentStyle != null && menuParentStyle.length() > 0) {
+            styleClass = parent.getAttributes().get(menuParentStyle);
         }
         if (menuGroup != null && menuGroupStyle != null && menuGroupStyle.length() > 0) {
             styleClass = concatClasses(styleClass, menuGroup.getAttributes().get(menuGroupStyle));
@@ -168,8 +168,8 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
      * @param component
      * @return <code>AbstractDropDownMenu</code>
      */
-    protected AbstractDropDownMenu getDDMenu(UIComponent component) {
-        return (AbstractDropDownMenu) getParent(component, AbstractDropDownMenu.class);
+    protected AbstractMenuContainer getMenuParent(UIComponent component) {
+        return (AbstractMenuContainer) getParent(component, AbstractMenuContainer.class);
     }
 
     /**

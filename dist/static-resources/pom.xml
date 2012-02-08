@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.1.0.Final</version>
+        <version>4.2.0.CR1</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -136,7 +136,7 @@
 
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -161,7 +161,6 @@
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>maven-richfaces-resources-plugin</artifactId>
-                <version>${project.version}</version>
                 <configuration>
                     <skins>
                         <skin>blueSky</skin>
@@ -209,6 +208,7 @@
                             <compress>false</compress>
                             <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Static/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Static.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Static/</staticResourcePrefix>
                         </configuration>
                     </execution>
                     <execution>
@@ -221,6 +221,7 @@
                             <compress>true</compress>
                             <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Compressed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Compressed.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Compressed/</staticResourcePrefix>
                         </configuration>
                     </execution>
                     <execution>
@@ -233,6 +234,7 @@
                             <compress>false</compress>
                             <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Packed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Packed.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Packed/</staticResourcePrefix>
                         </configuration>
                     </execution>
                     <execution>
@@ -245,6 +247,7 @@
                             <compress>true</compress>
                             <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/PackedCompressed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/PackedCompressed.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/PackedCompressed/</staticResourcePrefix>
                         </configuration>
                     </execution>
                 </executions>

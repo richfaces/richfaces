@@ -5,28 +5,42 @@
         positionType : "DROPDOWN",
         direction : "AA",
         jointPoint : "AA",
-        selectMenuCss : "rf-ddm-sel",
-        unselectMenuCss : "rf-ddm-unsel"
+        cssRoot : "ddm",
+        cssClasses : {}
     };
 
     // constructor definition
     rf.ui.Menu = function(componentId, options) {
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
+        $.extend(this.options.cssClasses, buildCssClasses.call(this, this.options.cssRoot));
         $super.constructor.call(this, componentId, this.options);
         this.id = componentId;
-        this.namespace = this.namespace || "."
-            + rf.Event.createNamespace(this.name, this.id);
+        this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.groupList = new Array();
 
-        rf.Event.bindById(this.id + "_label", this.options.showEvent, $.proxy(
-            this.__showHandler, this), this);
+        this.target = this.getTarget();
+        if (this.target) {
+            var that = this;
+            $(document).ready(function() {
+                rf.Event.bindById(that.target, that.options.showEvent, $.proxy(that.__showHandler, that), that)
+            });
+        }
         this.element = $(rf.getDomElement(this.id));
 
-        if (!rf.ui.MenuManager)
+        if (!rf.ui.MenuManager) {
             rf.ui.MenuManager = {};
+        }
         this.menuManager = rf.ui.MenuManager;
     };
+
+    var buildCssClasses = function(cssRoot) {
+        var cssClasses = {
+            selectMenuCss : "rf-" +cssRoot+ "-sel",
+            unselectMenuCss : "rf-" +cssRoot+ "-unsel"
+        }
+        return cssClasses;
+    }
 
     rf.ui.MenuBase.extend(rf.ui.Menu);
 
@@ -50,17 +64,22 @@
                                 horizontalOffset: groupOptions[i].horizontalOffset,
                                 verticalOffset: groupOptions[i].verticalOffset,
                                 jointPoint : groupOptions[i].jointPoint,
-                                direction : groupOptions[i].direction
+                                direction : groupOptions[i].direction,
+                                cssRoot : groupOptions[i].cssRoot
                             });
                     }
                 }
+            },
+
+            getTarget : function() {
+                return this.id + "_label";
             },
 
             show : function(e) {
                 if (this.menuManager.openedMenu != this.id) {
                     this.menuManager.shutdownMenu();
                     this.menuManager.addMenuId(this.id);
-                    this.__showPopup(e);
+                    this.__showPopup();
                 }
             },
 
@@ -70,12 +89,12 @@
             },
 
             select : function() {
-                this.element.removeClass(this.options.unselectMenuCss);
-                this.element.addClass(this.options.selectMenuCss);
+                this.element.removeClass(this.options.cssClasses.unselectMenuCss);
+                this.element.addClass(this.options.cssClasses.selectMenuCss);
             },
             unselect : function() {
-                this.element.removeClass(this.options.selectMenuCss);
-                this.element.addClass(this.options.unselectMenuCss);
+                this.element.removeClass(this.options.cssClasses.selectMenuCss);
+                this.element.addClass(this.options.cssClasses.unselectMenuCss);
             },
 
             __overHandler : function() {
@@ -92,7 +111,9 @@
                 // clean up code here
                 this.detach(this.id);
 
-                rf.Event.unbindById(this.id + "_label", this.options.showEvent);
+                if (this.target) {
+                    rf.Event.unbindById(this.target, this.options.showEvent);
+                }
 
                 // call parent's destroy method
                 $super.destroy.call(this);

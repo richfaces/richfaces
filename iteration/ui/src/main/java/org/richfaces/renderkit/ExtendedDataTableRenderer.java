@@ -250,10 +250,10 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             }
             writer.startElement(HtmlConstants.DIV_ELEM, column);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-"
-                + getFacetClassName(facetName) + "-c", "rf-edt-c-" + column.getId(),
-                (String) column.getAttributes().get(classAttribute)), null);
+                + getFacetClassName(facetName) + "-c", "rf-edt-c-" + column.getId()), null);
             writer.startElement(HtmlConstants.DIV_ELEM, column);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-" + getFacetClassName(facetName) + "-c-cnt", null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-"
+                + getFacetClassName(facetName) + "-c-cnt", column.getAttributes().get(classAttribute)), null);
             UIComponent facet = column.getFacet(facetName);
             if (facet != null && facet.isRendered()) {
                 facet.encodeAll(context);
