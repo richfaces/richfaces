@@ -223,7 +223,7 @@ RichFaces panelMenu styles overwriting
     color: #305f7b;
 }
 
-.rf-pm-exp .rf-pm-itm-ico {
+nav .rf-pm-exp .rf-pm-itm-ico {
     padding: 0 !important;
     width: 5px;
 }
@@ -502,6 +502,10 @@ rich:calendar
 
 .rf-cal-btn {
     cursor: pointer;
+    padding: 10px;
+}
+
+.rf-btm-c {
     padding: 10px;
 }
 

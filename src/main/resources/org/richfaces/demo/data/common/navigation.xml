@@ -41,6 +41,16 @@
                 </samples>
             </demo>
             <demo>
+                <id>actionListener</id>
+                <name>a4j:actionListener</name>
+                <samples>
+                    <sample>
+                        <id>actionListener</id>
+                        <name>Action Listener Simple</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
                 <id>jsFunction</id>
                 <name>a4j:jsFunction</name>
                 <samples>
@@ -60,7 +70,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true" enabled="#{pushConfiguration.pushEnabled}">
+            <demo enabled="#{pushConfiguration.pushEnabled}">
                 <id>push</id>
                 <name>a4j:push</name>
                 <samples>
@@ -135,7 +145,7 @@
                         <name>outputPanel Simple</name>
                     </sample>
                     <sample>
-                        <id>compositemessages</id>
+                        <id>compositeMessages</id>
                         <name>Auto update for h:messages component</name>
                     </sample>
                 </samples>
@@ -145,7 +155,7 @@
                 <name>a4j:status</name>
                 <samples>
                     <sample>
-                        <id>viewusage</id>
+                        <id>viewUsage</id>
                         <name>Common status for view</name>
                     </sample>
                     <sample>
@@ -153,7 +163,7 @@
                         <name>Status Simple</name>
                     </sample>
                     <sample>
-                        <id>referencedusage</id>
+                        <id>referencedUsage</id>
                         <name>Referenced status</name>
                     </sample>
                 </samples>
@@ -237,7 +247,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true" mobileExclude="true">
+            <demo mobileExclude="true">
                 <id>notify</id>
                 <name>rich:notify</name>
                 <samples>
@@ -540,6 +550,24 @@
                     </sample>
                 </samples>
             </demo>
+            <demo new="true">
+                <id>contextMenu</id>
+                <name>rich:contextMenu</name>
+                <samples>
+                    <sample>
+                        <id>simple</id>
+                        <name>Simple ContextMenu</name>
+                    </sample>
+                    <sample>
+                        <id>table</id>
+                        <name>Table ContextMenu</name>
+                    </sample>
+                    <sample>
+                        <id>tree</id>
+                        <name>Tree ContextMenu</name>
+                    </sample>
+                </samples>
+            </demo>
             <demo>
                 <id>dropDownMenu</id>
                 <name>rich:dropDownMenu</name>
@@ -595,7 +623,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true" mobileExclude="true">
+            <demo mobileExclude="true">
                 <id>editor</id>
                 <name>rich:editor</name>
                 <samples>
@@ -678,7 +706,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo>
                 <id>orderingList</id>
                 <name>rich:orderingList</name>
                 <samples>
@@ -688,7 +716,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo>
                 <id>pickList</id>
                 <name>rich:pickList</name>
                 <samples>
@@ -759,6 +787,16 @@
                     <sample>
                         <id>hashOptionsPopup</id>
                         <name>Passing hash options to rich:popupPanel</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo new="true" mobileExclude="true">
+                <id>hotKey</id>
+                <name>rich:hotKey</name>
+                <samples>
+                    <sample>
+                        <id>pickListHotKeys</id>
+                        <name>HotKeys for Pick List</name>
                     </sample>
                 </samples>
             </demo>

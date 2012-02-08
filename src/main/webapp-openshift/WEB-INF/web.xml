@@ -24,7 +24,7 @@
         <param-value>${javax.faces.PROJECT_STAGE}</param-value>
     </context-param>
     <context-param>
-        <param-name>org.richfaces.resourceMapping.enabled</param-name>
+        <param-name>org.richfaces.resourceOptimization.enabled</param-name>
         <param-value>true</param-value>
     </context-param>
     <context-param>
@@ -60,9 +60,9 @@
         <auth-method>BASIC</auth-method>
     </login-config>
     
-    <!-- Disables Push JMS integration -->
+    <!-- Configures Push -->
     <context-param>
-        <param-name>org.richfaces.push.jms.disable</param-name>
+        <param-name>org.richfaces.push.initializeOnStartup</param-name>
         <param-value>true</param-value>
     </context-param>
 </web-app>

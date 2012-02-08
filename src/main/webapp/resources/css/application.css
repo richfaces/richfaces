@@ -185,7 +185,6 @@ a.show,a.hide {
 
 /*--- RichFaces panelMenu styles overwriting ---*/
 .left-menu .rf-pm {
-    border: 1px solid #B0BDC5;
     border-bottom: 0;
 }
 

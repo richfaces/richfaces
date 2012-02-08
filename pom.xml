@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.1.0.Final</version>
+        <version>4.2.0.CR1</version>
         <relativePath>../build/parent/pom.xml</relativePath>
     </parent>
 
@@ -17,21 +17,7 @@
     <packaging>war</packaging>
     <name>RichFaces Showcase</name>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-bom</artifactId>
-                <version>${project.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <properties>
-        <gae.version>1.5.4</gae.version>
-        <hornetq.version>2.2.6.Final</hornetq.version>
         <dependency.scope>compile</dependency.scope>
         <container.classifier>tomcat6</container.classifier>
         <container.resources>src/main/resources-tomcat</container.resources>
@@ -39,6 +25,13 @@
         <container.webapp>src/main/webapp-tomcat</container.webapp>
         <war.outputFileNameMapping>@{artifactId}@@{dashClassifier?}@-@{version}@.@{extension}@</war.outputFileNameMapping>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
+        <version.gae>1.5.4</version.gae>
+        <version.gae.plugin>0.9.1</version.gae.plugin>
+        <jee6.excluded.libraries>WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/classmate*,WEB-INF/lib/jandex*,WEB-INF/lib/jboss-logging*,WEB-INF/lib/jboss-transaction-api*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*</jee6.excluded.libraries>
+        <jbas7.excluded.libraries>${jee6.excluded.libraries},WEB-INF/lib/cssparser*,WEB-INF/lib/sac*</jbas7.excluded.libraries>
+        <jbas7.manifest.dependencies>net.sourceforge.cssparser,org.w3c.css.sac,org.slf4j,org.jboss.as.controller-client,org.jboss.as.protocol,org.jboss.dmr,org.jboss.logging,org.jboss.marshalling,org.jboss.marshalling.river,org.jboss.remoting3,org.jboss.threads</jbas7.manifest.dependencies>
+        <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/guava*,WEB-INF/lib/jsr305*</jbas71.excluded.libraries>
+        <jbas71.manifest.dependencies>com.google.guava,${jbas7.manifest.dependencies}</jbas71.manifest.dependencies>
     </properties>
 
     <dependencies>
@@ -56,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -73,6 +66,12 @@
             <groupId>javax.servlet.jsp.jstl</groupId>
             <artifactId>jstl-api</artifactId>
             <scope>${dependency.scope}</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>servlet-api</artifactId>
+                    <groupId>javax.servlet</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -97,13 +96,11 @@
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb-j5</artifactId>
-            <version>2.0.0</version>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.6.3.Final</version>
             <scope>${dependency.scope}</scope>
         </dependency>
 
@@ -120,25 +117,21 @@
         <dependency>
             <groupId>org.hornetq</groupId>
             <artifactId>hornetq-core</artifactId>
-            <version>${hornetq.version}</version>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.hornetq</groupId>
             <artifactId>hornetq-jms</artifactId>
-            <version>${hornetq.version}</version>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.hornetq</groupId>
             <artifactId>hornetq-logging</artifactId>
-            <version>${hornetq.version}</version>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.netty</groupId>
             <artifactId>netty</artifactId>
-            <version>3.2.2.Final</version>
             <scope>${dependency.scope}</scope>
         </dependency>
         
@@ -146,21 +139,24 @@
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
-            <version>1.0-SP4</version>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.weld.servlet</groupId>
             <artifactId>weld-servlet</artifactId>
-            <version>1.1.0.Final</version>
             <scope>${dependency.scope}</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.weld</groupId>
+                    <artifactId>weld-build-config</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         
         <!-- JBoss AS7 management -->
         <dependency>
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-controller-client</artifactId>
-            <version>7.0.2.Final</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -180,36 +176,9 @@
             </resource>
         </resources>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>net.kindleit</groupId>
-                    <artifactId>maven-gae-plugin</artifactId>
-                    <version>0.9.1</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.18</version>
-                <configuration>
-                    <scanIntervalSeconds>10</scanIntervalSeconds>
-                    <connectors>
-                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                            <port>${jetty.port}</port>
-                            <maxIdleTime>60000</maxIdleTime>
-                        </connector>
-                    </connectors>
-                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
@@ -230,11 +199,6 @@
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
-                        <manifestEntries>
-                            <Dependencies>
-                                org.slf4j,org.jboss.as.controller-client,org.jboss.as.protocol,org.jboss.dmr,org.jboss.logging,org.jboss.marshalling,org.jboss.marshalling.river,org.jboss.remoting3,org.jboss.threads
-                            </Dependencies>
-                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
@@ -303,11 +267,64 @@
             <build>
                 <plugins>
                     <plugin>
+                        <!-- any changes in this plugin configuration should be repeated in the "release" profile executions -->
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <classifier>jbas7</classifier>
+                            <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas7
+                            </webappDirectory>
+
+                            <packagingExcludes>${jbas7.excluded.libraries}</packagingExcludes>
+                            <warSourceExcludes>${jbas7.excluded.libraries}</warSourceExcludes>
+                            <archive>
+                                <manifestEntries>
+                                    <Dependencies>${jbas7.manifest.dependencies}</Dependencies>
+                                </manifestEntries>
+                            </archive>
+                        </configuration>
+                    </plugin>
+                    <plugin>
                         <groupId>org.jboss.as.plugins</groupId>
                         <artifactId>jboss-as-maven-plugin</artifactId>
-                        <version>7.0.2.Final</version>
                         <configuration>
                             <filename>richfaces-showcase-jbas7.war</filename>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jbas71</id>
+            <properties>
+                <container.classifier>jbas71</container.classifier>
+                <container.resources>src/main/resources-jbas7</container.resources>
+                <container.webapp>src/main/webapp-jbas7</container.webapp>
+                <dependency.scope>provided</dependency.scope>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- any changes in this plugin configuration should be repeated in the "release" profile executions -->
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <classifier>jbas71</classifier>
+                            <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas71
+                            </webappDirectory>
+
+                            <packagingExcludes>${jbas71.excluded.libraries}</packagingExcludes>
+                            <warSourceExcludes>${jbas71.excluded.libraries}</warSourceExcludes>
+                            <archive>
+                                <manifestEntries>
+                                    <Dependencies>${jbas71.manifest.dependencies}</Dependencies>
+                                </manifestEntries>
+                            </archive>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jboss.as.plugins</groupId>
+                        <artifactId>jboss-as-maven-plugin</artifactId>
+                        <configuration>
+                            <filename>richfaces-showcase-jbas71.war</filename>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -322,20 +339,6 @@
                 <dependency.scope>provided</dependency.scope>
                 <war.outputFileNameMapping>@{artifactId}@.@{extension}@</war.outputFileNameMapping>
             </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                    <version>1.5.8</version>
-                    <scope>runtime</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-jdk14</artifactId>
-                    <version>1.5.8</version>
-                    <scope>runtime</scope>
-                </dependency>
-            </dependencies>
         </profile>
         <profile>
             <id>gae</id>
@@ -407,11 +410,12 @@
                     <plugin>
                         <groupId>net.kindleit</groupId>
                         <artifactId>maven-gae-plugin</artifactId>
+                        <version>${version.gae.plugin}</version>
                         <dependencies>
                             <dependency>
                                 <groupId>net.kindleit</groupId>
                                 <artifactId>gae-runtime</artifactId>
-                                <version>${gae.version}</version>
+                                <version>${version.gae}</version>
                                 <type>pom</type>
                                 <exclusions>
                                     <exclusion>
@@ -442,19 +446,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>jdk5</id>
-            <activation>
-                <jdk>1.5</jdk>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
-                    <version>2.2</version>
-                </dependency>
-            </dependencies>
         </profile>
         <profile>
             <id>release</id>
@@ -502,10 +493,10 @@
                                     </webappDirectory>
 
                                     <packagingExcludes>
-                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*
+                                        ${jee6.excluded.libraries}
                                     </packagingExcludes>
                                     <warSourceExcludes>
-                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*
+                                        ${jee6.excluded.libraries}
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
@@ -544,12 +535,57 @@
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas7
                                     </webappDirectory>
 
-                                    <packagingExcludes>
-                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*
-                                    </packagingExcludes>
-                                    <warSourceExcludes>
-                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*
-                                    </warSourceExcludes>
+                                    <packagingExcludes>${jbas7.excluded.libraries}</packagingExcludes>
+                                    <warSourceExcludes>${jbas7.excluded.libraries}</warSourceExcludes>
+                                    <archive>
+                                        <manifestEntries>
+                                            <Dependencies>${jbas7.manifest.dependencies}</Dependencies>
+                                        </manifestEntries>
+                                    </archive>
+                                    <webResources>
+                                        <resource>
+                                            <directory>src/main/webapp</directory>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/webapp-tomcat</directory>
+                                            <excludes>
+                                                <exclude>**</exclude>
+                                            </excludes>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/webapp-jbas7</directory>
+                                            <targetPath>/</targetPath>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/resources-jbas7</directory>
+                                            <targetPath>WEB-INF/classes</targetPath>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/java</directory>
+                                            <targetPath>WEB-INF/src</targetPath>
+                                        </resource>
+                                    </webResources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>jbas71</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>war</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>jbas71</classifier>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas71
+                                    </webappDirectory>
+
+                                    <packagingExcludes>${jbas71.excluded.libraries}</packagingExcludes>
+                                    <warSourceExcludes>${jbas71.excluded.libraries}</warSourceExcludes>
+                                    <archive>
+                                        <manifestEntries>
+                                            <Dependencies>${jbas71.manifest.dependencies}</Dependencies>
+                                        </manifestEntries>
+                                    </archive>
                                     <webResources>
                                         <resource>
                                             <directory>src/main/webapp</directory>
@@ -586,12 +622,13 @@
                                     <classifier>openshift</classifier>
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-openshift
                                     </webappDirectory>
-                                    <packagingExcludes>
-                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*
-                                    </packagingExcludes>
-                                    <warSourceExcludes>
-                                        WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*
-                                    </warSourceExcludes>
+                                    <packagingExcludes>${jbas7.excluded.libraries}</packagingExcludes>
+                                    <warSourceExcludes>${jbas7.excluded.libraries}</warSourceExcludes>
+                                    <archive>
+                                        <manifestEntries>
+                                            <Dependencies>${jbas7.manifest.dependencies}</Dependencies>
+                                        </manifestEntries>
+                                    </archive>
                                     <outputFileNameMapping>@{artifactId}@.@{extension}@</outputFileNameMapping>
                                     <webResources>
                                         <resource>
