@@ -75,6 +75,7 @@
         <version.plexus-utils>1.5.15</version.plexus-utils>
         <version.plexus-velocity>1.1.2</version.plexus-velocity>
         <version.google-javaparser>1.0.1</version.google-javaparser>
+        <version.jacoco.plugin>0.5.5.201112152213</version.jacoco.plugin>
     </properties>
 
     <dependencyManagement>
@@ -867,6 +868,49 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>jacoco</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <debug>true</debug>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <argLine>-Xmx256m ${coverageAgent}</argLine>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${version.jacoco.plugin}</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <phase>process-test-classes</phase>
+                                <configuration>
+                                    <propertyName>coverageAgent</propertyName>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>        
     </profiles>
 
     <!-- SCM and distribution management -->
