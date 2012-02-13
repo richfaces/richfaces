@@ -30,9 +30,10 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
- * The "a4j:status" component displays the status of current Ajax requests. The status can be either in progress,
+ * <p>
+ * The &lt;a4j:status&gt; component displays the status of current Ajax requests. The status can be either in progress,
  * complete, or an error is shown after a failed request.
- *
+ * </p>
  * @author Nick Belaevski
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.StatusRenderer"), tag = @Tag(type = TagType.Facelets))

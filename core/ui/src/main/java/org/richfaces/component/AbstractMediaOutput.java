@@ -37,7 +37,7 @@ import org.richfaces.resource.MediaOutputResource;
 
 /**
  * <p>
- *     The "a4j:mediaOutput" component is used for generating images, video, sounds, and other resources defined on the fly.
+ * The &lt;a4j:mediaOutput&gt; component is used for generating images, video, sounds, and other resources defined on the fly.
  * </p>
  *
  * @author shura
@@ -169,7 +169,6 @@ public abstract class AbstractMediaOutput extends UIOutput {
 
     /**
      * Use server-side image map
-     * @return
      */
     @Attribute
     public abstract boolean isIsmap();
@@ -181,7 +180,6 @@ public abstract class AbstractMediaOutput extends UIOutput {
      * The attribute allows to manage caching. A browser can send request with the header "If-Modified-Since" for
      * necessity of object reloading.
      * If time of modification is earlier, then the framework doesn't call generation and return code 304.
-     * @return
      */
     @Attribute
     public abstract Date getLastModified();

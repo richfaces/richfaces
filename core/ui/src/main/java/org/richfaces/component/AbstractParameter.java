@@ -40,8 +40,11 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.util.PartialStateHolderUtil;
 
 /**
- * @author shura (latest modification by $Author: alexsmirnov $)
- * @version $Revision: 1.1.2.2 $ $Date: 2007/02/01 15:31:55 $
+ * <p>
+ * The &lt;a4j:param&gt; behavior combines the functionality of the JavaServer Faces (JSF) components
+ * &lt;f:param&gt; and &lt;f:actionListener&gt;.
+ * </p>
+ * @author shura, alexsmirnov
  */
 @JsfComponent(tag = @Tag(name = "param", handler = "org.richfaces.view.facelets.html.ParameterHandler", generate = false, type = TagType.Facelets), attributes = "param-assignTo-prop.xml")
 public abstract class AbstractParameter extends UIParameter implements ActionListener, JavaScriptParameter {

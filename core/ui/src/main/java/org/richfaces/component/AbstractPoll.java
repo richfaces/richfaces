@@ -28,8 +28,10 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
- * The "a4j:poll" component allows periodical sending of Ajax requests to the server. It is used for repeatedly updating a page at specific time intervals.
- *
+ * <p>
+ * The &lt;a4j:poll&gt; component allows periodical sending of Ajax requests to the server. It is used for repeatedly
+ * updating a page at specific time intervals.
+ * </p>
  * @author shura
  */
 @JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.html.AjaxPollHandler", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PollRenderer"), attributes = { "ajax-props.xml" })
