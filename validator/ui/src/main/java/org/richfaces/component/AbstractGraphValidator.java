@@ -212,6 +212,7 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
             BeanValidatorService validatorService = ServiceTracker.getService(BeanValidatorService.class);
             messages = validatorService.validateObject(context, value, getGroups());
             if (!messages.isEmpty()) {
+                context.validationFailed();
                 context.renderResponse();
                 // send all validation messages.
                 String clientId = getClientId(context);
