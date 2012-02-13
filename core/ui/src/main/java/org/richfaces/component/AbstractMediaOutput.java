@@ -44,7 +44,7 @@ import org.richfaces.resource.MediaOutputResource;
  */
 @JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.html.MediaOutputHandler", type = TagType.Facelets),
         renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer"),
-        attributes = {"events-props.xml", "focus-props.xml"})
+        attributes = {"events-props.xml", "focus-props.xml", "i18n-props.xml"})
 public abstract class AbstractMediaOutput extends UIOutput {
     public static final String COMPONENT_TYPE = "org.richfaces.MediaOutput";
     public static final String COMPONENT_FAMILY = "org.richfaces.MediaOutput";
@@ -146,10 +146,6 @@ public abstract class AbstractMediaOutput extends UIOutput {
     @Attribute
     public abstract String getDeclare();
 
-    /**
-     * Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left)
-     */
-    @Attribute
     public abstract String getDir();
 
     /**
@@ -178,9 +174,6 @@ public abstract class AbstractMediaOutput extends UIOutput {
     @Attribute
     public abstract boolean isIsmap();
 
-    /**
-     * Code describing the language used in the generated markup for this component
-     */
     @Attribute
     public abstract String getLang();
 
