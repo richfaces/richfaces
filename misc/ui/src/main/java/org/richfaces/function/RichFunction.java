@@ -80,6 +80,10 @@ public final class RichFunction {
         return null;
     }
 
+    /**
+     * The rich:clientId('id') function returns the client identifier related to the passed component identifier ('id').
+     * If the specified component identifier is not found, null is returned instead.
+     */
     @Function
     public static String clientId(String id) {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -87,6 +91,12 @@ public final class RichFunction {
         return component != null ? component.getClientId(context) : null;
     }
 
+    /**
+     * The rich:component('id') function is equivalent to the RichFaces.$('clientId') code. It returns the client object
+     * instance based on the passed server-side component identifier ('id'). If the specified component identifier is
+     * not found, null is returned instead. The function can be used to get an object from a component to call a
+     * JavaScript API function without using the <rich:componentControl> component.
+     */
     @Function
     public static String component(String id) {
         String clientId = clientId(id);
@@ -98,6 +108,11 @@ public final class RichFunction {
         return null;
     }
 
+    /**
+     * The rich:element('id') function is a shortcut for the equivalent document.getElementById(#{rich:clientId('id')})
+     * code. It returns the element from the client, based on the passed server-side component identifier. If the
+     * specified component identifier is not found, null is returned instead.
+     */
     @Function
     public static String element(String id) {
         String clientId = clientId(id);
@@ -108,15 +123,22 @@ public final class RichFunction {
         return null;
     }
 
+    /**
+     * The rich:findComponent('id') function returns the a UIComponent instance of the passed component identifier.
+     * If the specified component identifier is not found, null is returned instead.
+     */
     @Function
     public static UIComponent findComponent(String id) {
         return findComponent(FacesContext.getCurrentInstance(), id);
     }
 
     /**
+     * <p>
+     * The rich:isUserInRole(Object) function checks whether the logged-in user belongs to a certain user role, such as
+     * being an administrator. User roles are defined in the web.xml settings file.
+     * </p>
+     *
      * @since 3.3.1
-     * @param rolesObject
-     * @return
      */
     @Function
     public static boolean isUserInRole(Object rolesObject) {
@@ -136,6 +158,9 @@ public final class RichFunction {
         return false;
     }
 
+    /**
+     * Convert any Java Object to JavaScript representation ( as possible ).
+     */
     @Function
     public static String toScript(Object o) {
         return ScriptUtils.toScript(o);
