@@ -127,8 +127,8 @@
 
             // Remove the layerX and layerY events (generated in WebKit browsers)
             if (event) {
-                delete event.layerX;
-                delete event.layerY;
+                if ('layerX' in event) delete event.layerX;
+                if ('layerY' in event) delete event.layerY;
             }
 
             // copy of event should be created otherwise IE will fail
