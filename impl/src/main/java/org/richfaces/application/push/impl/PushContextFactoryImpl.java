@@ -21,6 +21,7 @@
  */
 package org.richfaces.application.push.impl;
 
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
 
 import javax.faces.context.FacesContext;
@@ -30,6 +31,7 @@ import org.richfaces.application.CoreConfiguration;
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.application.push.PushContext;
 import org.richfaces.application.push.PushContextFactory;
+import org.richfaces.application.push.PushContextInitializationException;
 
 /**
  * @author Nick Belaevski
@@ -39,12 +41,7 @@ public class PushContextFactoryImpl implements PushContextFactory {
     public static final String PUSH_HANDLER_MAPPING_ATTRIBUTE = PushContextFactoryImpl.class.getName();
     public static final String PUSH_CONTEXT_RESOURCE_NAME = "__richfaces_push";
 
-    private static final class PushContextHolder {
-        static final PushContext INSTANCE = createInstance();
-
-        private PushContextHolder() {
-        }
-    }
+    private static final AtomicReference<PushContext> PUSH_CONTEXT_HOLDER = new AtomicReference<PushContext>();
 
     private static String getApplicationContextName(FacesContext facesContext) {
         Object contextObject = facesContext.getExternalContext().getContext();
@@ -71,12 +68,17 @@ public class PushContextFactoryImpl implements PushContextFactory {
     private static PushContext createInstance() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
+        if (facesContext == null) {
+            throw new PushContextInitializationException(
+                    "FacesContext is not available when trying to initialize PushContext - use startup initialization (web.xml context-param org.richfaces.push.initializeOnStartup = true)");
+        }
+
         String pushHandlerMapping = (String) facesContext.getExternalContext().getApplicationMap()
-            .get(PUSH_HANDLER_MAPPING_ATTRIBUTE);
+                .get(PUSH_HANDLER_MAPPING_ATTRIBUTE);
 
         if (pushHandlerMapping == null) {
             pushHandlerMapping = ConfigurationServiceHelper.getStringConfigurationValue(facesContext,
-                CoreConfiguration.Items.pushHandlerMapping);
+                    CoreConfiguration.Items.pushHandlerMapping);
         }
 
         PushContextImpl pushContext = new PushContextImpl(convertToUrl(facesContext, pushHandlerMapping));
@@ -86,6 +88,14 @@ public class PushContextFactoryImpl implements PushContextFactory {
     }
 
     public PushContext getPushContext() {
-        return PushContextHolder.INSTANCE;
+        if (PUSH_CONTEXT_HOLDER.get() == null) {
+            synchronized (PUSH_CONTEXT_HOLDER) {
+                if (PUSH_CONTEXT_HOLDER.get() == null) {
+                    PushContext pushContext = createInstance();
+                    PUSH_CONTEXT_HOLDER.set(pushContext);
+                }
+            }
+        }
+        return PUSH_CONTEXT_HOLDER.get();
     }
 }

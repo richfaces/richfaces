@@ -77,11 +77,13 @@ public class InitializationListener implements SystemEventListener {
             initializeAWT();
         }
 
-        if (getConfiguration(pushInitializePushContextOnStartup)) {
+        boolean jmsEnabled = getConfiguration(pushJMSEnabled) != null && getConfiguration(pushJMSEnabled);
+
+        if (jmsEnabled || getConfiguration(pushInitializePushContextOnStartup)) {
             initializePushContext();
         }
 
-        if (getConfiguration(pushJMSEnabled) == null || !getConfiguration(pushJMSEnabled)) {
+        if (!jmsEnabled) {
             logWarningWhenConnectionFactoryPresent();
         }
     }
