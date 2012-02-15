@@ -34,10 +34,10 @@
     </description>
 
     <properties>
-        <version.test-jsf>1.1.1</version.test-jsf>
-        <version.richfaces-checkstyle>3</version.richfaces-checkstyle>
-        <version.vdl-doc>1</version.vdl-doc>
-        <version.shade-transformers>7</version.shade-transformers>
+        <version.test-jsf>1.1.2</version.test-jsf>
+        <version.richfaces-checkstyle>5</version.richfaces-checkstyle>
+        <version.vdl-doc>2</version.vdl-doc>
+        <version.shade-transformers>8</version.shade-transformers>
 
         <version.javax.inject>1</version.javax.inject>
         <version.cdi-api>1.0-SP4</version.cdi-api>
