@@ -26,7 +26,7 @@
 
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-build-checkstyle</artifactId>
-    <version>5-SNAPSHOT</version>
+    <version>5</version>
     <name>Richfaces Checkstyle</name>
 
     <description>Contains the checkstyle settings for the RichFaces project</description>
