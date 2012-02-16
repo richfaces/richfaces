@@ -38,7 +38,7 @@ import org.richfaces.cdk.annotations.TagType;
  * @author asmirnov@exadel.com
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.OutputPanelRenderer"), tag = @Tag(type = TagType.Facelets),
-        attributes = {"events-props.xml", "i18n-props.xml", "core-props.xml"})
+        attributes = {"events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "core-props.xml"})
 public abstract class AbstractOutputPanel extends UIPanel implements AjaxOutput {
     public static final String COMPONENT_TYPE = "org.richfaces.OutputPanel";
     public static final String COMPONENT_FAMILY = "javax.faces.Panel";

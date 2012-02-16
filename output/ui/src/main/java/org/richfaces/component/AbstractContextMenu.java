@@ -36,7 +36,7 @@ import javax.faces.component.UIComponentBase;
  */
 @JsfComponent(family = AbstractContextMenu.COMPONENT_FAMILY, type = AbstractContextMenu.COMPONENT_TYPE,
         renderer = @JsfRenderer(type = ContextMenuRendererBase.RENDERER_TYPE),
-        tag = @Tag(name = "contextMenu"), attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml" })
+        tag = @Tag(name = "contextMenu"), attributes = {"events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml" })
 public abstract class AbstractContextMenu extends AbstractMenuContainer {
     public static final String COMPONENT_TYPE = "org.richfaces.ContextMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.ContextMenu";

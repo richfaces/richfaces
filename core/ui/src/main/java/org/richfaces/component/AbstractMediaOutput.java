@@ -44,7 +44,7 @@ import org.richfaces.resource.MediaOutputResource;
  */
 @JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.html.MediaOutputHandler", type = TagType.Facelets),
         renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer"),
-        attributes = {"events-props.xml", "focus-props.xml", "i18n-props.xml"})
+        attributes = {"events-mouse-props.xml", "events-key-props.xml", "focus-props.xml", "i18n-props.xml"})
 public abstract class AbstractMediaOutput extends UIOutput {
     public static final String COMPONENT_TYPE = "org.richfaces.MediaOutput";
     public static final String COMPONENT_FAMILY = "org.richfaces.MediaOutput";

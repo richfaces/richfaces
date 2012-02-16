@@ -52,7 +52,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  *
  */
 @JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY, tag = @Tag(name = "treeNode", handler = "org.richfaces.view.facelets.TreeNodeHandler"), renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"), attributes = {
-        "events-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml",
+        "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml",
         "treeNode-serverEventListeners-props.xml" })
 public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder,
     IterationStateHolder, TreeToggleSource {

@@ -9,7 +9,7 @@ import org.richfaces.renderkit.html.MenuItemRendererBase;
 
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuItem.COMPONENT_TYPE, facets = {
         @Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) }, renderer = @JsfRenderer(type = MenuItemRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuItem"), attributes = {
-        "events-props.xml", "core-props.xml", "i18n-props.xml", "ajax-props.xml" })
+        "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "ajax-props.xml" })
 public abstract class AbstractMenuItem extends AbstractActionComponent {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuItem";
     public static final String CSS_ROOT_DEFAULT = "ddm";

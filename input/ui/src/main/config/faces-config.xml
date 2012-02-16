@@ -28,7 +28,9 @@
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
             href="urn:attributes:javax.faces.component.UIInput.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-            href="urn:attributes:events-props.xml" />
+            href="urn:attributes:events-mouse-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:events-key-props.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
             href="urn:attributes:base-props.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
@@ -239,7 +241,9 @@
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
             href="urn:attributes:javax.faces.component.UIInput.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-            href="urn:attributes:events-props.xml" />
+            href="urn:attributes:events-mouse-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:events-key-props.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
             href="urn:attributes:base-props.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"

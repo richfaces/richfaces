@@ -12,7 +12,7 @@ import org.richfaces.renderkit.html.DropDownMenuRendererBase;
 
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractDropDownMenu.COMPONENT_TYPE, facets = {
         @Facet(name = "label", generate = false), @Facet(name = "labelDisabled", generate = false) }, renderer = @JsfRenderer(type = DropDownMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "dropDownMenu"), attributes = {
-        "events-props.xml", "core-props.xml", "i18n-props.xml" })
+        "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml" })
 public abstract class AbstractDropDownMenu extends AbstractMenuContainer {
     public static final String COMPONENT_TYPE = "org.richfaces.DropDownMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.DropDownMenu";

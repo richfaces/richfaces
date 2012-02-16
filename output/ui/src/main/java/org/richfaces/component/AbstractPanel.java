@@ -33,7 +33,7 @@ import org.richfaces.cdk.annotations.TagType;
  *
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PanelRenderer"), attributes = {
-        "core-props.xml", "events-props.xml" })
+        "core-props.xml", "events-mouse-props.xml", "events-key-props.xml" })
 public abstract class AbstractPanel extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.Panel";
     public static final String COMPONENT_FAMILY = "org.richfaces.Panel";
