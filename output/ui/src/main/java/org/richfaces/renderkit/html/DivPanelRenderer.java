@@ -42,6 +42,7 @@ import org.richfaces.renderkit.RendererBase;
  *
  */
 public abstract class DivPanelRenderer extends RendererBase {
+    // Attributes defined in org.richfaces.component.AbstractDivPanel
     private static final RenderKitUtils.Attributes PASS_THROUGH_ATTRIBUTES = attributes("lang", "onclick", "ondblclick",
         "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "title", "dir");
 

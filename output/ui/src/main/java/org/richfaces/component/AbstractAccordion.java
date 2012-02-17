@@ -32,7 +32,8 @@ import org.richfaces.cdk.annotations.TagType;
  * @author akolonitsky
  * @since 2010-08-05
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.AccordionRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"),
+        renderer = @JsfRenderer(type = "org.richfaces.AccordionRenderer"), attributes = {"events-mouse-props.xml", "i18n-props.xml", "core-props.xml"})
 public abstract class AbstractAccordion extends AbstractTogglePanel {
     public static final String COMPONENT_TYPE = "org.richfaces.Accordion";
     public static final String COMPONENT_FAMILY = "org.richfaces.Accordion";
@@ -46,6 +47,10 @@ public abstract class AbstractAccordion extends AbstractTogglePanel {
         return COMPONENT_FAMILY;
     }
 
+    /**
+     * Holds the active tab name. This name is a reference to the name identifier of the active child &lt;rich:tab&gt;
+     * component.
+     */
     @Override
     @Attribute
     public String getActiveItem() {
@@ -63,48 +68,93 @@ public abstract class AbstractAccordion extends AbstractTogglePanel {
 
     // ------------------------------------------------ Html Attributes
 
+    /**
+     * The icon displayed on the left of the panel header when the panel is active
+     */
     @Attribute
     public abstract String getItemActiveLeftIcon();
 
+    /**
+     * The icon displayed on the left of the panel header when the panel is not active
+     */
     @Attribute
     public abstract String getItemInactiveLeftIcon();
 
+    /**
+     * The icon displayed on the left of the panel header when the panel is disabled
+     */
     @Attribute
     public abstract String getItemDisabledLeftIcon();
 
+    /**
+     * The icon displayed on the right of the panel header when the panel is active
+     */
     @Attribute
     public abstract String getItemActiveRightIcon();
 
+    /**
+     * The icon displayed on the right of the panel header when the panel is not active
+     */
     @Attribute
     public abstract String getItemInactiveRightIcon();
 
+    /**
+     * The icon displayed on the right of the panel header when the panel is disabled
+     */
     @Attribute
     public abstract String getItemDisabledRightIcon();
 
+    /**
+     * The width of the panel
+     */
     @Attribute
     public abstract String getWidth();
 
+    /**
+     * The height of the panel
+     */
     @Attribute
     public abstract String getHeight();
 
+    /**
+     * The CSS class applied to the panel header when the panel is active
+     */
     @Attribute
     public abstract String getItemActiveHeaderClass();
 
+    /**
+     * The CSS class applied to the panel header when the panel is disabled
+     */
     @Attribute
     public abstract String getItemDisabledHeaderClass();
 
+    /**
+     * The CSS class applied to the panel header when the panel is not active
+     */
     @Attribute
     public abstract String getItemInactiveHeaderClass();
 
+    /**
+     * A CSS class applied to each of the accordionItem children
+     */
     @Attribute
     public abstract String getItemContentClass();
 
+    /**
+     * The CSS class applied to the panel header
+     */
     @Attribute
     public abstract String getItemHeaderClass();
 
+    /**
+     * Points to the function to perform when the switchable item is changed.
+     */
     @Attribute(events = @EventName(value = "itemchange", defaultEvent = true))
     public abstract String getOnitemchange();
 
+    /**
+     *  Points to the function to perform when before the switchable item is changed
+     */
     @Attribute(events = @EventName("beforeitemchange"))
     public abstract String getOnbeforeitemchange();
 }

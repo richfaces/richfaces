@@ -144,6 +144,10 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         getStateHelper().put(PropertyKeys.required, required);
     }
 
+    /**
+     * Flag indicating that this component's value must be converted and validated immediately (that is, during
+     * Apply Request Values phase), rather than waiting until Process Validations phase.
+     */
     @Attribute
     public boolean isImmediate() {
         return (Boolean) getStateHelper().eval(PropertyKeys.immediate, false);
@@ -593,6 +597,10 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         setLocalValueSet(true);
     }
 
+    /**
+     * Holds the active tab name. This name is a reference to the name identifier of the active child &lt;rich:tab&gt;
+     * component.
+     */
     @Attribute
     public String getActiveItem() {
         return (String) getValue();
@@ -611,6 +619,9 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         }
     }
 
+    /**
+     * The switch mode when a panel is activated.  One of: "client", "server", "ajax". Default: "ajax"
+     */
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
         SwitchType switchType = (SwitchType) getStateHelper().eval(PropertyKeys.switchType);
@@ -627,6 +638,12 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     @Attribute(hidden = true)
     public abstract boolean isLimitRender();
 
+    /**
+     * Applicable when cycling through the tabs.  If "true", then when the last tab is active, cycling to next will
+     * activate the first tab, if "false", cycling to next will have not effect.  The inverse applies for the first tab,
+     * and cycling to previous.
+     * Whether to  Default: false
+     */
     @Attribute
     public abstract boolean isCycledSwitching();
 
@@ -642,6 +659,9 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     @Attribute(hidden = true)
     public abstract Object getRender();
 
+    /**
+     * Occurs on the server side when an item is changed through Ajax using the server mode
+     */
     @Attribute
     public abstract MethodExpression getItemChangeListener();
 
