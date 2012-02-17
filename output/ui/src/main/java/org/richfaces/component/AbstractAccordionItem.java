@@ -29,14 +29,16 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.renderkit.html.DivPanelRenderer;
 
 /**
  * @author akolonitsky
  * @since 2010-08-13
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.AccordionItemRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.AccordionItemRenderer"),
+        attributes = {"events-mouse-props.xml", "i18n-props.xml", "core-props.xml"})
 public abstract class AbstractAccordionItem extends AbstractTogglePanelItem implements AbstractTogglePanelTitledItem,
-    ClientBehaviorHolder {
+        ClientBehaviorHolder {
     public static final String COMPONENT_TYPE = "org.richfaces.AccordionItem";
     public static final String COMPONENT_FAMILY = "org.richfaces.AccordionItem";
 
@@ -75,6 +77,15 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
 
     // ------------------------------------------------ Component Attributes
 
+    /**
+     * <p>
+     * Provides the text on the panel header. The panel header is all that is visible when the accordion item is collapsed.
+     * </p>
+     * <p>
+     * Alternatively the header facet could be used in place of the header attribute.
+     * This would allow for additional styles and custom content to be applied to the tab.
+     * </p>
+     */
     @Attribute(generate = false)
     public String getHeader() {
         return (String) getStateHelper().eval(Properties.header, getName());
@@ -84,6 +95,9 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.header, header);
     }
 
+    /**
+     * The icon displayed on the left of the panel header when the panel is active
+     */
     @Attribute(generate = false)
     public String getLeftActiveIcon() {
         return (String) getStateHelper().eval(Properties.leftActiveIcon, getAccordion().getItemActiveLeftIcon());
@@ -93,6 +107,9 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.leftActiveIcon, leftActiveIcon);
     }
 
+    /**
+     * The icon displayed on the left of the panel header when the panel is not active
+     */
     @Attribute(generate = false)
     public String getLeftDisabledIcon() {
         return (String) getStateHelper().eval(Properties.leftDisabledIcon, getAccordion().getItemDisabledLeftIcon());
@@ -102,6 +119,9 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.leftDisabledIcon, leftDisabledIcon);
     }
 
+    /**
+     * The icon displayed on the left of the panel header when the panel is disabled
+     */
     @Attribute(generate = false)
     public String getLeftInactiveIcon() {
         return (String) getStateHelper().eval(Properties.leftInactiveIcon, getAccordion().getItemInactiveLeftIcon());
@@ -111,6 +131,9 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.leftInactiveIcon, leftInactiveIcon);
     }
 
+    /**
+     * The icon displayed on the right of the panel header when the panel is active
+     */
     @Attribute(generate = false)
     public String getRightActiveIcon() {
         return (String) getStateHelper().eval(Properties.rightActiveIcon, getAccordion().getItemActiveRightIcon());
@@ -120,6 +143,9 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.rightActiveIcon, rightActiveIcon);
     }
 
+    /**
+     * The icon displayed on the right of the panel header when the panel is disabled
+     */
     @Attribute(generate = false)
     public String getRightDisabledIcon() {
         return (String) getStateHelper().eval(Properties.rightDisabledIcon, getAccordion().getItemDisabledRightIcon());
@@ -129,6 +155,9 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.rightDisabledIcon, rightDisabledIcon);
     }
 
+    /**
+     * The icon displayed on the right of the panel header when the panel is not active
+     */
     @Attribute(generate = false)
     public String getRightInactiveIcon() {
         return (String) getStateHelper().eval(Properties.rightInactiveIcon, getAccordion().getItemInactiveRightIcon());
@@ -138,6 +167,9 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.rightInactiveIcon, inactiveRightIcon);
     }
 
+    /**
+     * The CSS class applied to the header when this panel is active
+     */
     @Attribute(generate = false)
     public String getHeaderActiveClass() {
         return (String) getStateHelper().eval(Properties.headerActiveClass, getAccordion().getItemActiveHeaderClass());
@@ -147,6 +179,9 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.headerActiveClass, headerActiveClass);
     }
 
+    /**
+     * The CSS class applied to the header when this panel is disabled
+     */
     @Attribute(generate = false)
     public String getHeaderDisabledClass() {
         return (String) getStateHelper().eval(Properties.headerDisabledClass, getAccordion().getItemDisabledHeaderClass());
@@ -156,6 +191,9 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.headerDisabledClass, headerDisabledClass);
     }
 
+    /**
+     * The CSS class applied to the header when this panel is inactive
+     */
     @Attribute(generate = false)
     public String getHeaderInactiveClass() {
         return (String) getStateHelper().eval(Properties.headerInactiveClass, getAccordion().getItemInactiveHeaderClass());
@@ -165,6 +203,9 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.headerInactiveClass, headerInactiveClass);
     }
 
+    /**
+     * The CSS class applied to the header
+     */
     @Attribute(defaultValue = "getAccordion().getItemHeaderClass()")
     public String getHeaderClass() {
         return (String) getStateHelper().eval(Properties.headerClass, getAccordion().getItemHeaderClass());
@@ -174,6 +215,9 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.headerClass, headerClass);
     }
 
+    /**
+     * The CSS class applied to the panel content
+     */
     @Attribute(defaultValue = "getAccordion().getItemContentClass()")
     public String getContentClass() {
         return (String) getStateHelper().eval(Properties.contentClass, getAccordion().getItemContentClass());
@@ -183,6 +227,9 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.contentClass, contentClass);
     }
 
+    /**
+     * The switch mode when a panel is activated.  One of: "client", "server", "ajax". Default: "ajax"
+     */
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
         SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType);

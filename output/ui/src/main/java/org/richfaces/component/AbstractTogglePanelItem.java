@@ -66,6 +66,9 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
 
     // ------------------------------------------------ Component Attributes
 
+    /**
+     * The name of the panel, used for identifying and manipulating the active panel
+     */
     @Attribute(generate = false)
     public String getName() {
         return (String) getStateHelper().eval(NAME, getId());

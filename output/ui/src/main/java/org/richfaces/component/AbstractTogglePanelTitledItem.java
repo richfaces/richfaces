@@ -51,6 +51,9 @@ public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemIn
 
     // ------------------------------------------------ Component Attributes
 
+    /**
+     * Flag indicating whether toggling of this panel is disabled
+     */
     @Attribute
     boolean isDisabled();
 
@@ -58,36 +61,71 @@ public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemIn
 
     // ------------------------------------------------ Html Attributes
 
-    @Attribute
-    String getHeaderActiveClass();
-
-    @Attribute
-    String getHeaderDisabledClass();
-
-    @Attribute
-    String getHeaderInactiveClass();
-
-    @Attribute
-    String getHeaderClass();
-
-    @Attribute
-    String getHeaderStyle();
-
+    /**
+     * The CSS class applied to the panel content
+     */
     @Attribute
     String getContentClass();
 
+    // ------------------------------------------------ Header Attributes
+
+    /**
+     * The CSS class applied to the header when this panel is active
+     */
+    @Attribute
+    String getHeaderActiveClass();
+
+    /**
+     * The CSS class applied to the header when this panel is disabled
+     */
+    @Attribute
+    String getHeaderDisabledClass();
+
+    /**
+     * The CSS class applied to the header when this panel is inactive
+     */
+    @Attribute
+    String getHeaderInactiveClass();
+
+    /**
+     * The CSS class applied to the header
+     */
+    @Attribute
+    String getHeaderClass();
+
+    /**
+     * The CSS style applied to the header
+     */
+    @Attribute
+    String getHeaderStyle();
+
+    /**
+     * Javascript code executed when a pointer button is clicked over the header of this element.
+     */
     @Attribute(events = @EventName("headerclick"))
     String getOnheaderclick();
 
+    /**
+     * Javascript code executed when a pointer button is double clicked over the header of this element.
+     */
     @Attribute(events = @EventName("headerdblclick"))
     String getOnheaderdblclick();
 
+    /**
+     * Javascript code executed when a pointer button is pressed down over the header of this element.
+     */
     @Attribute(events = @EventName("headermousedown"))
     String getOnheadermousedown();
 
+    /**
+     * Javascript code executed when a pointer button is moved within the header of this element.
+     */
     @Attribute(events = @EventName("headermousemove"))
     String getOnheadermousemove();
 
+    /**
+     * Javascript code executed when a pointer button is released over the header of this element.
+     */
     @Attribute(events = @EventName("headermouseup"))
     String getOnheadermouseup();
 }
