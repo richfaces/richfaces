@@ -151,9 +151,6 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     @Attribute
     public abstract String getRowClasses();
 
-    /**
-     * CSS style(s) to be applied when this component is rendered
-     */
     @Attribute
     public abstract String getStyle();
 
