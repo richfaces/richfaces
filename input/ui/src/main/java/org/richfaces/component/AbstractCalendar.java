@@ -66,7 +66,7 @@ import org.richfaces.utils.CalendarHelper;
  *
  */
 @JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, generate = "org.richfaces.component.UICalendar",
-        renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), attributes = {},
+        renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), attributes = {"position-props.xml"},
         tag = @Tag(name = "calendar", handler = "org.richfaces.view.facelets.CalendarHandler"))
 public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
     public static final String DAYSDATA_META_COMPONENT_ID = "daysData";
@@ -211,21 +211,11 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute
     public abstract boolean isResetTimeOnDateSelect();
 
-    /**
-     * <p>
-     * Set the corner of the button for the popup to be connected with (top-left, top-right, bottom-left (Default), bottom-right, auto).
-     * </p>
-     * <p>Default value is "bottom-left"</p>
-     */
+    //---------- position-props.xml
+
     @Attribute
     public abstract Positioning getJointPoint();
 
-    /**
-     * <p>
-     * Defines direction of the calendar popup ("top-left", "top-right", "bottom-left", "bottom-right" (Default), "auto")
-     * </p>
-     * <p>Default value is "bottom-right"</p>
-     */
     @Attribute
     public abstract Positioning getDirection();
 
