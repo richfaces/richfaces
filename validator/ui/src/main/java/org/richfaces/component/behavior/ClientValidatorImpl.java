@@ -76,7 +76,8 @@ import com.google.common.collect.Lists;
  * @author asmirnov@exadel.com
  *
  */
-@JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handler = "org.richfaces.view.facelets.html.ClientValidatorHandler", type = TagType.Facelets))
+@JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handler = "org.richfaces.view.facelets.html.ClientValidatorHandler", type = TagType.Facelets), attributes = {
+        "ajax-props.xml", "validator-disabled-prop.xml" })
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior {
     private static final Set<String> NONE = Collections.emptySet();
     private static final Set<String> THIS = Collections.singleton("@this");
@@ -91,7 +92,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
             return super.getScript(behaviorContext);
         } else if (behaviorContext.getComponent() instanceof ActionSource) {
             ClientBehaviorRenderer renderer = getRenderer(behaviorContext.getFacesContext(),
-                FormClientValidatorRenderer.RENDERER_TYPE);
+                    FormClientValidatorRenderer.RENDERER_TYPE);
             return renderer.getScript(behaviorContext, this);
         } else {
             throw new FacesException("Invalid target for client-side validator behavior");
@@ -161,7 +162,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
      * @return
      */
     protected boolean findMessages(UIComponent parent, UIComponent component, Set<UIComponent> messages, boolean found,
-        Object id) {
+            Object id) {
         Iterator<UIComponent> facetsAndChildren = parent.getFacetsAndChildren();
         while (facetsAndChildren.hasNext()) {
             UIComponent child = (UIComponent) facetsAndChildren.next();
@@ -275,27 +276,27 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
                 String validatorMessage = (String) component.getAttributes().get("validatorMessage");
                 boolean beanValidatorsProcessed = false;
                 FacesValidatorService facesValidatorService = ServiceTracker.getService(facesContext,
-                    FacesValidatorService.class);
+                        FacesValidatorService.class);
                 for (Validator validator : facesValidators) {
                     if (validator instanceof BeanValidator || validator instanceof FacesBeanValidator) {
                         ValueExpression valueExpression = component.getValueExpression(VALUE);
                         if (null != valueExpression && !beanValidatorsProcessed) {
                             BeanValidatorService beanValidatorService = ServiceTracker.getService(facesContext,
-                                BeanValidatorService.class);
+                                    BeanValidatorService.class);
                             validators.addAll(beanValidatorService.getConstrains(facesContext, valueExpression,
-                                validatorMessage, getGroups()));
+                                    validatorMessage, getGroups()));
                             beanValidatorsProcessed = true;
                         }
                     } else {
                         validators.add(facesValidatorService.getValidatorDescription(facesContext, input, validator,
-                            validatorMessage));
+                                validatorMessage));
                     }
                 }
             }
             return validators;
         } else {
             throw new FacesException("Component " + component.getClass().getName()
-                + " does not implement EditableValueHolder interface");
+                    + " does not implement EditableValueHolder interface");
         }
     }
 
