@@ -46,70 +46,254 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  * @author Nick Belaevski
  *
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.AutocompleteHandler"), renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.AutocompleteHandler"),
+        renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"),
+        attributes = {"focus-int-props.xml", "events-mouse-props.xml", "events-key-props.xml"})
 public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
     public static final String ITEMS_META_COMPONENT_ID = "items";
     public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
 
-    // TODO nick - change to Object - https://jira.jboss.org/browse/RF-8897
+    /**
+     * A collection of suggestions that will be resented to the user
+     */
     @Attribute()
     public abstract Object getAutocompleteList();
 
+    /**
+     * A method which returns a list of suggestions according to a supplied prefix
+     */
     @Attribute(signature = @Signature(returnType = Object.class, parameters = { FacesContext.class, UIComponent.class,
             String.class }))
     public abstract MethodExpression getAutocompleteMethod();
 
     public abstract void setAutocompleteMethod(MethodExpression expression);
 
+    /**
+     * A request-scope attribute via which the data object for the current row will be used when iterating
+     */
     @Attribute(literal = true)
     public abstract String getVar();
 
     // TODO nick - el-only?
+
+    /**
+     * A value to set in the target input element on a choice suggestion that isn't shown in the suggestion table.
+     * It can be used for descriptive output comments or suggestions. If not set, all text in the suggestion row is set as a value
+     */
     @Attribute(literal = false)
     public abstract Object getFetchValue();
 
+    /**
+     * Minimal number of chars in input to activate suggestion popup
+     */
     @Attribute
     public abstract int getMinChars();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the selected suggestion entry
+     */
     @Attribute(defaultValue = "rf-au-itm-sel")
     public abstract String getSelectedItemClass();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the content of the popup suggestion element
+     */
     @Attribute()
     public abstract String getPopupClass();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the input element
+     */
     @Attribute()
     public abstract String getInputClass();
 
+    /**
+     *  <p>Determine how the suggestion list is requested:</p>
+     *  <dl>
+     *      <dt>client</dt>
+     *      <dd>pre-loads data to the client and uses the input to filter the possible suggestions</dd>
+     *      <dt>ajax</dt>
+     *      <dd>fetches suggestions with every input change using Ajax requests</dd>
+     *      <dt>lazyClient</dt>
+     *      <dd>
+     * pre-loads data to the client and uses the input to filter the possible suggestions. The filtering does not start
+     * until the input length matches a minimum value. Set the minimum value with the minChars attribute.
+     *      </dd>
+     *      <dt>cachedAjax</dt>
+     *      <dd>
+     * pre-loads data via Ajax requests when the input length matches a minimum value. Set the minimum value with the
+     * minChars attribute. All suggestions are handled on the client until the input prefix is changed, at which point
+     * a new request is made based on the new input prefix
+     *      </dd>
+     *  </dl>
+     *  <p>Default: cachedAjax</p>
+     */
     @Attribute
     public abstract AutocompleteMode getMode();
 
+    /**
+     * <p>
+     * Type of the layout encoded using nested components should be defined using layout attribute.
+     * Possible values are:
+     * </p>
+     * <dl>
+     *      <dt>list</dt>
+     *      <dd>suggestions wrapped to HTML unordered list</dd>
+     *      <dt>div</dt>
+     *      <dd>suggestions wrapped with just div element</dd>
+     *      <dt>table</dt>
+     *      <dd>suggestions are encoded as table rows, column definitions are required in this case</dd>
+     * </dl>
+     * <p>Default: div</p>
+     */
     @Attribute
     public abstract String getLayout();
 
-    @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute
-    public abstract int getTabindex();
-
+    /**
+     * Allow a user to enter multiple values separated by specific characters. As the user types, a suggestion will
+     * present as normal. When they enter the specified token character, this begins a new suggestion process,
+     * and the component will then only use text entered after the token character for suggestions
+     */
     @Attribute
     public abstract String getTokens();
 
+    /**
+     * Causes the combo-box to fill the text field box with a matching suggestion as the user types
+     */
     @Attribute(defaultValue = "true")
     public abstract boolean isAutofill();
 
+    /**
+     * Boolean value indicating whether this component is disabled
+     * <p>Default: false</p>
+     */
     @Attribute
     public abstract boolean isDisabled();
 
+    /**
+     * <p>Boolean value indicating whether to display a button to expand the popup suggestion element</p>
+     * <p>Default: false</p>
+     */
     @Attribute
     public abstract boolean isShowButton();
 
+    /**
+     * Boolean value indicating whether the first suggestion item is selected as the user types
+     * <p>Default: true</p>
+     */
     @Attribute(defaultValue = "true")
     public abstract boolean isSelectFirst();
+
+    /**
+     * <p>
+     * A javascript function used to filter the result list returned from the ajax call to the server.
+     * This function should have two parameters; subString(current input value considering tokens)
+     * and value (currently iterated item value) and return boolean flag which means if the value satisfies the substring passed.
+     * The function will be called for every available suggestion in order to construct a new list of suggestions.
+     * </p>
+     * <p>Default: A javascript method called <i>startsWith</i></p>
+     */
+    @Attribute
+    public abstract String getClientFilterFunction();
+
+    // ----------- selected core-props.xml
+
+    /**
+     * CSS style(s) to be applied when this component is rendered.
+     */
+    @Attribute
+    public abstract String getStyle();
+
+    /**
+     * Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
+     * passed through as the "class" attribute on generated markup.
+     */
+    @Attribute
+    public abstract String getStyleClass();
+
+
+    // ----------- focus-props.xml
+
+    public abstract int getTabindex();
+
+    // ----------- Event Attributes
+
+    /**
+     * Javascript code executed when an item is selected
+     */
+    @Attribute(events = @EventName("selectitem"))
+    public abstract String getOnselectitem();
+
+    /**
+     * Javascript code executed when this element loses focus and its value has been modified since gaining focus.
+     */
+    @Attribute(events = @EventName(value = "change", defaultEvent = true))
+    public abstract String getOnchange();
+
+    // ----------- List events
+
+    /**
+     * Javascript code executed when a pointer button is clicked over the popup list element.
+     */
+    @Attribute(events = @EventName("listclick"))
+    public abstract String getOnlistclick();
+
+    /**
+     * Javascript code executed when a pointer button is double clicked over this element.
+     */
+    @Attribute(events = @EventName("listdblclick"))
+    public abstract String getOnlistdblclick();
+
+    /**
+     * Javascript code executed when a pointer button is pressed down over this element.
+     */
+    @Attribute(events = @EventName("listmousedown"))
+    public abstract String getOnlistmousedown();
+
+    /**
+     * Javascript code executed when a pointer button is released over this element.
+     */
+    @Attribute(events = @EventName("listmouseup"))
+    public abstract String getOnlistmouseup();
+
+    /**
+     * Javascript code executed when a pointer button is moved onto this element.
+     */
+    @Attribute(events = @EventName("listmouseover"))
+    public abstract String getOnlistmouseover();
+
+    /**
+     * Javascript code executed when a pointer button is moved within this element.
+     */
+    @Attribute(events = @EventName("listmousemove"))
+    public abstract String getOnlistmousemove();
+
+    /**
+     * Javascript code executed when a pointer button is moved away from this element.
+     */
+    @Attribute(events = @EventName("listmouseout"))
+    public abstract String getOnlistmouseout();
+
+    /**
+     * Javascript code executed when a key is pressed and released over this element.
+     */
+    @Attribute(events = @EventName("listkeypress"))
+    public abstract String getOnlistkeypress();
+
+    /**
+     * Javascript code executed when a key is pressed down over this element.
+     */
+    @Attribute(events = @EventName("listkeydown"))
+    public abstract String getOnlistkeydown();
+
+    /**
+     * Javascript code executed when a key is released over this element.
+     */
+    @Attribute(events = @EventName("listkeyup"))
+    public abstract String getOnlistkeyup();
+
+    // ----------- events-mouse-props.xml
 
     @Attribute(events = @EventName("click"))
     public abstract String getOnclick();
@@ -132,6 +316,8 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(events = @EventName("mouseout"))
     public abstract String getOnmouseout();
 
+    // ----------- events-key-props.xml
+
     @Attribute(events = @EventName("keypress"))
     public abstract String getOnkeypress();
 
@@ -141,38 +327,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(events = @EventName("keyup"))
     public abstract String getOnkeyup();
 
-    @Attribute(events = @EventName("listclick"))
-    public abstract String getOnlistclick();
-
-    @Attribute(events = @EventName("listdblclick"))
-    public abstract String getOnlistdblclick();
-
-    @Attribute(events = @EventName("listmousedown"))
-    public abstract String getOnlistmousedown();
-
-    @Attribute(events = @EventName("listmouseup"))
-    public abstract String getOnlistmouseup();
-
-    @Attribute(events = @EventName("listmouseover"))
-    public abstract String getOnlistmouseover();
-
-    @Attribute(events = @EventName("listmousemove"))
-    public abstract String getOnlistmousemove();
-
-    @Attribute(events = @EventName("listmouseout"))
-    public abstract String getOnlistmouseout();
-
-    @Attribute(events = @EventName("listkeypress"))
-    public abstract String getOnlistkeypress();
-
-    @Attribute(events = @EventName("listkeydown"))
-    public abstract String getOnlistkeydown();
-
-    @Attribute(events = @EventName("listkeyup"))
-    public abstract String getOnlistkeyup();
-
-    @Attribute(events = @EventName(value = "change", defaultEvent = true))
-    public abstract String getOnchange();
+    // ----------- focus-props.xml
 
     @Attribute(events = @EventName("blur"))
     public abstract String getOnblur();
@@ -180,23 +335,31 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(events = @EventName("focus"))
     public abstract String getOnfocus();
 
-    @Attribute(events = @EventName("selectitem"))
-    public abstract String getOnselectitem();
+    // ----------- selected ajax props
 
+    /**
+     * The client-side script method to be called before an ajax request.
+     */
     @Attribute(events = @EventName("begin"))
     public abstract String getOnbegin();
 
+    /**
+     * The client-side script method to be called when an error has occurred during Ajax communications
+     */
     @Attribute(events = @EventName("error"))
     public abstract String getOnerror();
 
+    /**
+     * The client-side script method to be called after the DOM is updated
+     */
     @Attribute(events = @EventName("complete"))
     public abstract String getOncomplete();
 
+    /**
+     * The client-side script method to be called after the ajax response comes back, but before the DOM is updated
+     */
     @Attribute(events = @EventName("beforedomupdate"))
     public abstract String getOnbeforedomupdate();
-
-    @Attribute
-    public abstract String getClientFilterFunction();
 
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         if (ITEMS_META_COMPONENT_ID.equals(metaComponentId)) {
