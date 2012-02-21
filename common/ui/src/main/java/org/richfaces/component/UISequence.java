@@ -45,7 +45,6 @@ import org.ajax4jsf.model.SequenceDataModel;
 import org.ajax4jsf.model.SequenceRange;
 import org.ajax4jsf.model.SequenceState;
 import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.Description;
 
 /**
  * @author Nick Belaevski
@@ -55,10 +54,7 @@ public class UISequence extends UIDataAdaptor {
     private Converter defaultRowKeyConverter;
 
     protected enum PropertyKeys {
-        first,
-        rows,
-        value,
-        iterationStatusVar
+        first, rows, value, iterationStatusVar
     }
 
     protected void updateState(SequenceState state) {
@@ -154,6 +150,9 @@ public class UISequence extends UIDataAdaptor {
         return converter;
     }
 
+    /**
+     * A zero-relative row number of the first row to display
+     */
     @Attribute
     public int getFirst() {
         return (Integer) getStateHelper().eval(PropertyKeys.first, 0);
@@ -164,6 +163,9 @@ public class UISequence extends UIDataAdaptor {
         updateState();
     }
 
+    /**
+     * A number of rows to display, or zero for all remaining rows in the table
+     */
     @Attribute
     public int getRows() {
         return (Integer) getStateHelper().eval(PropertyKeys.rows, 0);
@@ -316,7 +318,7 @@ public class UISequence extends UIDataAdaptor {
         setRowKey(savedRowKey);
 
         String result = baseId.append(UINamingContainer.getSeparatorChar(facesContext)).append(getRelativeRowIndex())
-            .toString();
+                .toString();
 
         return result;
     }

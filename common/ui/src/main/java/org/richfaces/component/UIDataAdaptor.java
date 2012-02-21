@@ -214,14 +214,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     private enum PropertyKeys {
-        lastId,
-        var,
-        rowKeyVar,
-        stateVar,
-        childState,
-        rowKeyConverter,
-        rowKeyConverterSet,
-        keepSaved
+        lastId, var, rowKeyVar, stateVar, childState, rowKeyConverter, rowKeyConverterSet, keepSaved
     }
 
     public UIDataAdaptor() {
@@ -258,7 +251,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * @return the rowKey
+     * The attribute provides access to a row key in a Request scope
      */
     public Object getRowKey() {
         return rowKey;
@@ -349,7 +342,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (getChildCount() > 0) {
             return getChildren().iterator();
         } else {
-            return Collections.<UIComponent>emptyList().iterator();
+            return Collections.<UIComponent> emptyList().iterator();
         }
     }
 
@@ -357,7 +350,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (getFacetCount() > 0) {
             return getFacets().values().iterator();
         } else {
-            return Collections.<UIComponent>emptyList().iterator();
+            return Collections.<UIComponent> emptyList().iterator();
         }
     }
 
@@ -365,7 +358,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (getFacetCount() > 0) {
             return getFacets().values().iterator();
         } else {
-            return Collections.<UIComponent>emptyList().iterator();
+            return Collections.<UIComponent> emptyList().iterator();
         }
     }
 
@@ -499,6 +492,9 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         getStateHelper().put(PropertyKeys.rowKeyVar, rowKeyVar);
     }
 
+    /**
+     * The attribute provides access to a component state on the client side
+     */
     @Attribute
     public String getStateVar() {
         return (String) getStateHelper().get(PropertyKeys.stateVar);
@@ -521,6 +517,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return getExtendedDataModel().isRowAvailable();
     }
 
+    /**
+     * Boolean attribute that defines whether this iteration component will reset saved children's state before rendering. By
+     * default state is reset if there are no faces messages with severity error or higher.
+     */
     @Attribute
     public boolean isKeepSaved() {
         Object value = getStateHelper().eval(PropertyKeys.keepSaved);

@@ -54,6 +54,9 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
         expanded
     }
 
+    /**
+     * Determines the state of sub table: true (expanded), false (collapsed)
+     */
     @Attribute
     public boolean isExpanded() {
         return (Boolean) getStateHelper().eval(PropertyKeys.expanded, true);
@@ -63,6 +66,9 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
         getStateHelper().put(PropertyKeys.expanded, expanded);
     }
 
+    /**
+     * Specifies what mode will be used to expand the sub table: client (default), ajax, server, none (can't be expanded)
+     */
     @Attribute
     public abstract String getExpandMode();
 
