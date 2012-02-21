@@ -219,6 +219,12 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute
     public abstract Positioning getDirection();
 
+    @Attribute
+    public abstract int getHorizontalOffset();
+
+    @Attribute
+    public abstract int getVerticalOffset();
+
     /**
      * <p>
      * This attribute is responsible for behaviour of dates from the previous and next months which are displayed in the current month.
@@ -229,20 +235,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
      */
     @Attribute
     public abstract String getBoundaryDatesMode();
-
-    /**
-     * <p>Sets the horizontal offset between button and calendar element conjunction point</p>
-     * <p>Default value is "0"</p>
-     */
-    @Attribute
-    public abstract int getHorizontalOffset();
-
-    /**
-     * <p>Sets the vertical offset between button and calendar element conjunction point</p>
-     * <p>Default value is "0"</p>
-     */
-    @Attribute
-    public abstract int getVerticalOffset();
 
     /**
      * <p>Attribute is similar to the standard HTML attribute and can specify window placement relative to the content</p>
