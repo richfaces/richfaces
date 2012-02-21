@@ -45,45 +45,88 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
     public static final String COMPONENT_TYPE = "org.richfaces.Column";
     public static final String COMPONENT_FAMILY = "org.richfaces.Column";
 
+    /**
+     * if "true" next column begins from the first row
+     */
     @Attribute
     public abstract boolean isBreakRowBefore();
 
+    /**
+     * Defines order which will be used for sorting column: unsorted (default), ascending, descending
+     */
     @Attribute
     public abstract SortOrder getSortOrder();
 
+    /**
+     * Provides Filter instance which determines if given row value will be displayed.
+     */
     @Attribute
     public abstract Filter<?> getFilter();
 
+    /**
+     * Defines current filtering value
+     */
     @Attribute
     public abstract Object getFilterValue();
 
+    /**
+     * Corresponds to the HTML rowspan attribute
+     */
     @Attribute
     public abstract int getRowspan();
 
+    /**
+     * Corresponds to the HTML colspan attribute
+     */
     @Attribute
     public abstract int getColspan();
 
+    /**
+     * Defines value binding to the comparator that is used to compare the values
+     */
     @Attribute
     public abstract Comparator<?> getComparator();
 
+    /**
+     * Defines EL expression which returns true if given row should be displayed (EL expressions should use variable defined in
+     * filterVar attribute of dataTable)
+     */
     @Attribute
     public abstract Object getFilterExpression();
 
+    /**
+     * Defines a bean property which is used for sorting of a column.
+     */
     @Attribute
     public abstract Object getSortBy();
 
+    /**
+     * Assigns one or more space-separated CSS class names to any footer generated for this component
+     */
     @Attribute
     public abstract String getFooterClass();
 
+    /**
+     * Assigns one or more space-separated CSS class names to any header generated for this component
+     */
     @Attribute
     public abstract String getHeaderClass();
 
+    /**
+     * Attribute defines width of column.
+     */
     @Attribute
     public abstract String getWidth();
 
+    /**
+     * CSS style rules to be applied to the component
+     */
     @Attribute
     public abstract String getStyle();
 
+    /**
+     * Assigns one or more CSS class names to the component. Corresponds to the HTML "class" attribute.
+     */
     @Attribute
     public abstract String getStyleClass();
 
