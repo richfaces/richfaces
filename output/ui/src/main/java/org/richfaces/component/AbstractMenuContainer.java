@@ -36,51 +36,100 @@ import javax.faces.component.UIComponentBase;
  */
 public abstract class AbstractMenuContainer extends UIComponentBase {
 
-    @Attribute(description = @Description("Defines an event on the parent element to display the menu. Default value is 'oncontextmenu'."))
+    /**
+     * <p>Defines an event on the parent element to display the menu</p>
+     * <p>Default value is 'oncontextmenu'</p>
+     */
+    @Attribute()
     public abstract String getShowEvent();
 
-    @Attribute(description = @Description(
-            "Sets the submission mode for all menu items of the menu except those where this attribute redefined. " +
-            "Possible value are 'ajax','client' and 'server'. Default value is 'server'."))
+    /**
+     * <p>
+     * Sets the submission mode for all menu items of the menu except those where this attribute redefined.
+     * Possible value are 'ajax','client' and 'server'
+     * </p>
+     * <p>Default value is 'server'</p>
+     */
+    @Attribute()
     public abstract Mode getMode();
 
+    /**
+     * Disables the menu component, so it will not activate/expand
+     */
     @Attribute
     public abstract boolean isDisabled();
 
+    /**
+     * <p>Delay (in ms) between losing focus and menu closing</p>
+     * <p>Default value is "300"</p>
+     */
     @Attribute
     public abstract int getHideDelay();
 
+    /**
+     * <p>Delay (in ms) between observing the showEvent and menu opening</p>
+     * <p>Default value is "50"</p>
+     */
     @Attribute
     public abstract int getShowDelay();
 
+    /**
+     * Sets minimum width for all lists that will appear.
+     */
     @Attribute
     public abstract int getPopupWidth();
 
+    /**
+     * <p>Sets the horizontal offset between popup list and label element</p>
+     * <p>Default value is "0"</p>
+     */
     @Attribute
     public abstract int getHorizontalOffset();
 
+    /**
+     * <p>Sets the vertical offset between popup list and label element</p>
+     * <p>Default value is "0"</p>
+     */
     @Attribute
     public abstract int getVerticalOffset();
+
+    //---------- position-props.xml
 
     // TODO is it correct or cdk issue
     @Attribute
     public abstract Positioning getJointPoint();
 
+
     @Attribute
     public abstract Positioning getDirection();
 
+    /**
+     * The client-side script method to be called when a child menuGroup is expanded
+     */
     @Attribute(events = @EventName("groupshow"))
     public abstract String getOngroupshow();
 
+    /**
+     * The client-side script method to be called when a child menuGroup is hidden
+     */
     @Attribute(events = @EventName("grouphide"))
     public abstract String getOngrouphide();
 
+    /**
+     * The client-side script method to be called this menu component is shown
+     */
     @Attribute(events = @EventName("show"))
     public abstract String getOnshow();
 
+    /**
+     * The client-side script method to be called this menu component is hidden
+     */
     @Attribute(events = @EventName("hide"))
     public abstract String getOnhide();
 
+    /**
+     * The client-side script method to be called when a menu item is clicked
+     */
     @Attribute(events = @EventName("itemclick"))
     public abstract String getOnitemclick();
 
