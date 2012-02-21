@@ -38,21 +38,39 @@ public abstract class AbstractCollapsibleSubTableToggler extends UIComponentBase
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsibleSubTableToggler";
     public static final String DEFAULT_EVENT = "onclick";
 
+    /**
+     * The label of the toggler when the sub-table is expanded
+     */
     @Attribute
     public abstract String getExpandedLabel();
 
+    /**
+     * The label of the toggler when the sub-table is collapsed
+     */
     @Attribute
     public abstract String getCollapsedLabel();
 
+    /**
+     * The icon of the toggler when the sub-table is expanded
+     */
     @Attribute
     public abstract String getExpandedIcon();
 
+    /**
+     * The icon of the toggler when the sub-table is collapsed
+     */
     @Attribute
     public abstract String getCollapsedIcon();
 
+    /**
+     * The mouse event which toggler reacts to toggle the sub-table: click (default), dblclick, mousedown, mouseup, etc.
+     */
     @Attribute
     public abstract String getEvent();
 
+    /**
+     * Specifies table which will toggler control
+     */
     @Attribute
     public String getFor() {
         return (String) getStateHelper().eval("for");
