@@ -75,6 +75,9 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
         columns
     }
 
+    /**
+     * Number of elements displayed in the grid
+     */
     @Attribute(aliases = @Alias(value = "rows"))
     public abstract int getElements();
 
@@ -90,6 +93,9 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
     @Facet
     public abstract UIComponent getNoData();
 
+    /**
+     * Number of columns to display
+     */
     @Attribute
     public int getColumns() {
         int columns = (Integer) getStateHelper().eval(PropertyKeys.columns, 1);
