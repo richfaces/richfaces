@@ -79,29 +79,20 @@ public abstract class AbstractMenuContainer extends UIComponentBase {
     @Attribute
     public abstract int getPopupWidth();
 
-    /**
-     * <p>Sets the horizontal offset between popup list and label element</p>
-     * <p>Default value is "0"</p>
-     */
-    @Attribute
-    public abstract int getHorizontalOffset();
-
-    /**
-     * <p>Sets the vertical offset between popup list and label element</p>
-     * <p>Default value is "0"</p>
-     */
-    @Attribute
-    public abstract int getVerticalOffset();
-
     //---------- position-props.xml
 
     // TODO is it correct or cdk issue
     @Attribute
     public abstract Positioning getJointPoint();
 
-
     @Attribute
     public abstract Positioning getDirection();
+
+    @Attribute
+    public abstract int getHorizontalOffset();
+
+    @Attribute
+    public abstract int getVerticalOffset();
 
     /**
      * The client-side script method to be called when a child menuGroup is expanded
@@ -116,13 +107,13 @@ public abstract class AbstractMenuContainer extends UIComponentBase {
     public abstract String getOngrouphide();
 
     /**
-     * The client-side script method to be called this menu component is shown
+     * The client-side script method to be called when this menu component is shown
      */
     @Attribute(events = @EventName("show"))
     public abstract String getOnshow();
 
     /**
-     * The client-side script method to be called this menu component is hidden
+     * The client-side script method to be called when this menu component is hidden
      */
     @Attribute(events = @EventName("hide"))
     public abstract String getOnhide();
