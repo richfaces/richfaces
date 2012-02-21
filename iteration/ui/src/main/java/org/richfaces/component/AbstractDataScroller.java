@@ -68,15 +68,26 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     public static final String PAGEMODE_SHORT = "short";
     private Integer page;
 
+    /**
+     * If renderIfSinglePage is "true" then datascroller is displayed on condition that the data hold on one page. Default value
+     * is "true".
+     */
     @Attribute(defaultValue = "true")
     public abstract boolean isRenderIfSinglePage();
 
+    /**
+     * The attribute to control whether last page of datascroller shows "rows" number of items or just the rest. Possible values
+     * are "full" and "short". Default value is "short".
+     */
     @Attribute
     public abstract String getLastPageMode();
 
     @Attribute
     public abstract Object getRender();
 
+    /**
+     * Maximum quantity of pages. Default value is "10".
+     */
     @Attribute
     public abstract int getMaxPages();
 
@@ -89,15 +100,32 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         return maxPages;
     }
 
+    /**
+     * The attribute specifies the visibility of boundaryControls. Possible values are: "show" (controls are always visible ).
+     * "hide" (controls are hidden. "auto" (unnecessary controls are hidden). Default value is "show".
+     */
     @Attribute
     public abstract DataScrollerControlsMode getBoundaryControls();
 
+    /**
+     * The attribute specifies the visibility of fastControls. Possible values are: "show" (controls are always visible ).
+     * "hide" (controls are hidden. "auto" (unnecessary controls are hidden). Default value is "show".
+     */
     @Attribute
     public abstract DataScrollerControlsMode getFastControls();
 
+    /**
+     * The attribute specifies the visibility of stepControls. Possible values are: "show" (controls are always visible ).
+     * "hide" (controls are hidden. "auto" (unnecessary controls are hidden). Default value is "show".
+     */
     @Attribute
     public abstract DataScrollerControlsMode getStepControls();
 
+    /**
+     * The attribute indicates pages quantity to switch onto when fast scrolling is used. Default value is "1".
+     *
+     * @return
+     */
     @Attribute
     public abstract int getFastStep();
 
@@ -109,6 +137,9 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         return fastStep;
     }
 
+    /**
+     * Component ID of the table whose data is scrolled
+     */
     @Attribute
     public String getFor() {
         return (String) getStateHelper().eval("for");
@@ -275,6 +306,9 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         this.page = newPage;
     }
 
+    /**
+     * If page >= 1 then it's a page number to show
+     */
     @Attribute
     public int getPage() {
 
