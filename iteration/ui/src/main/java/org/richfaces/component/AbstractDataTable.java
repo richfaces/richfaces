@@ -34,12 +34,16 @@ import org.richfaces.cdk.annotations.TagType;
  * @author Anton Belevich
  *
  */
-@JsfComponent(type = AbstractDataTable.COMPONENT_TYPE, family = AbstractDataTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataTable", renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"), tag = @Tag(name = "dataTable", handler = "org.richfaces.taglib.DataTableHandler", type = TagType.Facelets), attributes = "rowKeyConverter-prop.xml")
+@JsfComponent(type = AbstractDataTable.COMPONENT_TYPE, family = AbstractDataTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataTable", renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"), tag = @Tag(name = "dataTable", handler = "org.richfaces.taglib.DataTableHandler", type = TagType.Facelets), attributes = {
+        "core-props.xml", "rowKeyConverter-prop.xml" })
 public abstract class AbstractDataTable extends UIDataTableBase {
     public static final String COMPONENT_TYPE = "org.richfaces.DataTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String CAPTION_FACET_NAME = "caption";
 
+    /**
+     * Assigns one or more space-separated CSS class names to the component caption
+     */
     @Attribute
     public abstract String getCaptionClass();
 
