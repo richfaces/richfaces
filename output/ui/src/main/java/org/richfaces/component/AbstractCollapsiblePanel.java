@@ -43,7 +43,8 @@ import org.richfaces.event.PanelToggleSource;
  * @author akolonitsky
  * @since 2010-08-27
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.CollapsiblePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.CollapsiblePanelTagHandler"),
+        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"), attributes = {"core-props.xml", "events-mouse-props.xml", "i18n-props.xml"})
 public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsiblePanel";
@@ -86,6 +87,9 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
         return isExpanded();
     }
 
+    /**
+     * When true, the panel is expanded, when false, the panel is collapsed
+     */
     @Attribute(defaultValue = "true")
     public abstract boolean isExpanded();
 
@@ -106,9 +110,21 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
 
     // ------------------------------------------------ Component Attributes
 
+    /**
+     * <p>
+     * Provides the text on the panel header. The panel header is all that is visible when the panel is collapsed.
+     * </p>
+     * <p>
+     * Alternatively the header facet could be used in place of the header attribute.
+     * This would allow for additional styles and custom content to be applied to the tab.
+     * </p>
+     */
     @Attribute
     public abstract String getHeader();
 
+    /**
+     * A Server-side MethodExpression to be called when the panel is toggled
+     */
     @Attribute
     public abstract MethodExpression getToggleListener();
 
@@ -117,27 +133,53 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
 
     // ------------------------------------------------ Html Attributes
 
+    /**
+     * The icon displayed on the left of the panel header when the panel is collapsed
+     */
     @Attribute
     public abstract String getLeftCollapsedIcon();
 
+    /**
+     * The icon displayed on the left of the panel header when the panel is expanded
+     */
     @Attribute
     public abstract String getLeftExpandedIcon();
 
+    /**
+     * The icon displayed on the right of the panel header when the panel is collapsed
+     */
     @Attribute
     public abstract String getRightCollapsedIcon();
 
+    /**
+     * The icon displayed on the right of the panel header when the panel is expanded
+     */
     @Attribute
     public abstract String getRightExpandedIcon();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the panel content. This value must be
+     * passed through as the "class" attribute on generated markup.
+     */
     @Attribute
     public abstract String getBodyClass();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the panel header. This value must be
+     * passed through as the "class" attribute on generated markup.
+     */
     @Attribute
     public abstract String getHeaderClass();
 
+    /**
+     * The client-side script method to be called after the panel state is switched
+     */
     @Attribute(events = @EventName("switch"))
     public abstract String getOnswitch();
 
+    /**
+     * The client-side script method to be called before the panel state is switched
+     */
     @Attribute(events = @EventName("beforeswitch"))
     public abstract String getOnbeforeswitch();
 
@@ -147,8 +189,15 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     @Attribute(events = @EventName("itemchange"), hidden = true)
     public abstract String getOnitemchange();
 
+    // ---------------- i18ln-props.xml
+
     @Attribute
     public abstract String getLang();
+
+    @Attribute
+    public abstract String getDir();
+
+    // ---------------- core-props.xml
 
     @Attribute
     public abstract String getTitle();
@@ -159,8 +208,7 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     @Attribute
     public abstract String getStyleClass();
 
-    @Attribute
-    public abstract String getDir();
+    // ---------------- events-mouse-props.xml
 
     @Attribute(events = @EventName("click"))
     public abstract String getOnclick();
