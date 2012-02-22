@@ -52,6 +52,10 @@ public class UIHashParameter extends UIComponentBase {
         setRendererType(null);
     }
 
+    /**
+     * The name of the javascript hash property which this hash should be assigned to (can be used as nested hashParameter) or
+     * null if no property should be used (can be used simply as function parameter).
+     */
     @Attribute
     public String getName() {
         return (String) getStateHelper().eval(PropertyKeys.name);
@@ -61,7 +65,7 @@ public class UIHashParameter extends UIComponentBase {
         getStateHelper().put(PropertyKeys.name, name);
     }
 
-    @Attribute
+    @Attribute(hidden = true)
     public Map<String, Object> getValue() {
         List<UIComponent> children = getChildren();
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -78,7 +82,7 @@ public class UIHashParameter extends UIComponentBase {
                 Map<String, Object> value = hashParameter.getValue();
                 if (name == null) {
                     throw new FacesException("attribute 'name' for the nested " + UIHashParameter.class.getName()
-                        + " component (id = '" + hashParameter.getClientId() + "') should not be 'null'");
+                            + " component (id = '" + hashParameter.getClientId() + "') should not be 'null'");
                 } else {
                     parameters.put(name, value);
                 }
