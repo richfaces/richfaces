@@ -33,7 +33,8 @@ import org.richfaces.cdk.annotations.TagType;
  * @author akolonitsky
  * @version 1.0
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"), attributes = {
+        "core-props.xml", "ajax-props.xml", "bypass-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
 public abstract class AbstractTogglePanelItem extends UIOutput implements AbstractTogglePanelItemInterface {
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelItem";
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelItem";
@@ -82,6 +83,9 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
         return "TogglePanelItem {name: " + getName() + ", switchType: " + getSwitchType() + '}';
     }
 
+    /**
+     * The switch type for this toggle panel: client, ajax (default), server
+     */
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
         SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType);

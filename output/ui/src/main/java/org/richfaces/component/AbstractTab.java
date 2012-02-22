@@ -38,9 +38,10 @@ import org.richfaces.renderkit.html.DivPanelRenderer;
  * @author akolonitsky
  * @since 2010-10-19
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), facets = { @Facet(name = "header", generate = false) }, renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets), facets = { @Facet(name = "header", generate = false) }, renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"), attributes = {
+        "core-props.xml", "ajax-props.xml", "bypass-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
 public abstract class AbstractTab extends AbstractActionComponent implements AbstractTogglePanelTitledItem, AjaxProps,
-    ClientBehaviorHolder {
+        ClientBehaviorHolder {
     public static final String COMPONENT_TYPE = "org.richfaces.Tab";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tab";
 
@@ -50,16 +51,12 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
 
     // ------------------------------------------------ Html Attributes
     enum Properties {
-        headerDisabledClass,
-        headerInactiveClass,
-        headerClass,
-        contentClass,
-        execute,
-        headerActiveClass,
-        header,
-        switchType
+        headerDisabledClass, headerInactiveClass, headerClass, contentClass, execute, headerActiveClass, header, switchType
     }
 
+    /**
+     * The CSS class applied to the header when this panel is active
+     */
     @Attribute(generate = false)
     public String getHeaderActiveClass() {
         String value = (String) getStateHelper().eval(Properties.headerActiveClass);
@@ -74,6 +71,9 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         getStateHelper().put(Properties.headerActiveClass, headerActiveClass);
     }
 
+    /**
+     * The CSS class applied to the header when this panel is disabled
+     */
     @Attribute(generate = false)
     public String getHeaderDisabledClass() {
         String value = (String) getStateHelper().eval(Properties.headerDisabledClass);
@@ -88,6 +88,9 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         getStateHelper().put(Properties.headerDisabledClass, headerDisabledClass);
     }
 
+    /**
+     * The CSS class applied to the header when this panel is inactive
+     */
     @Attribute(generate = false)
     public String getHeaderInactiveClass() {
         String value = (String) getStateHelper().eval(Properties.headerInactiveClass);
@@ -102,6 +105,9 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         getStateHelper().put(Properties.headerInactiveClass, headerInactiveClass);
     }
 
+    /**
+     * The CSS class applied to the header
+     */
     @Attribute(generate = false)
     public String getHeaderClass() {
         String value = (String) getStateHelper().eval(Properties.headerClass);
@@ -116,6 +122,9 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         getStateHelper().put(Properties.headerClass, headerClass);
     }
 
+    /**
+     * The CSS class applied to the panel content
+     */
     @Attribute(generate = false)
     public String getContentClass() {
         String value = (String) getStateHelper().eval(Properties.contentClass);
@@ -163,6 +172,9 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
 
     // ------------------------------------------------ Component Attributes
 
+    /**
+     * The header label of the tab
+     */
     @Attribute(generate = false)
     public String getHeader() {
         return (String) getStateHelper().eval(Properties.header, getName());
@@ -190,6 +202,9 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         return isActive() || getSwitchType() == SwitchType.client;
     }
 
+    /**
+     * The name of the tab, used for identifying and manipulating the active panel
+     */
     @Attribute(generate = false)
     public String getName() {
         return (String) getStateHelper().eval(AbstractTogglePanelItem.NAME, getId());
@@ -203,6 +218,9 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         return "TogglePanelItem {name: " + getName() + ", switchType: " + getSwitchType() + '}';
     }
 
+    /**
+     * The switch type for this toggle panel: client, ajax (default), server
+     */
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
         SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType);
