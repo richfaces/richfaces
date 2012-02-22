@@ -62,18 +62,31 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
         clientFirst, clientRows
     }
 
+    /**
+     * Determines how many columns should not be vertically scrollable (should be "frozen").
+     */
     @Attribute
     public abstract int getFrozenColumns();
 
     @Attribute
     public abstract String getStyleClass();
 
+    /**
+     * Defines selection mode for the table: none, single (only one row can be selected), multiple (Ctrl/Shift keys are used for
+     * multi-selection), multipleKeyboardFree (clicks are used for multi-selection)
+     */
     @Attribute
     public abstract SelectionMode getSelectionMode();
 
+    /**
+     * The client-side script method to be called after the selection is changed.
+     */
     @Attribute(events = @EventName(value = "selectionchange", defaultEvent = true))
     public abstract String getOnselectionchange();
 
+    /**
+     * The client-side script method to be called before the selection is changed.
+     */
     @Attribute(events = @EventName("beforeselectionchange"))
     public abstract String getOnbeforeselectionchange();
 
@@ -193,6 +206,9 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
         }
     }
 
+    /**
+     * The collection of keys for currently selected table rows (generated from data model by rowKeyConverter).
+     */
     @Attribute
     public abstract Collection<Object> getSelection();
 }
