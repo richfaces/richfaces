@@ -38,12 +38,21 @@ public abstract class AbstractPanel extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.Panel";
     public static final String COMPONENT_FAMILY = "org.richfaces.Panel";
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the panel header.
+     */
     @Attribute
     public abstract String getHeader();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the panel header.
+     */
     @Attribute
     public abstract String getHeaderClass();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the panel header.
+     */
     @Attribute
     public abstract String getBodyClass();
 
