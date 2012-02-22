@@ -41,12 +41,21 @@ public abstract class AbstractDragIndicator extends UIComponentBase {
         return COMPONENT_FAMILY;
     }
 
+    /**
+     * Assigns one or more space-separated CSS class names to the indicator which are applied when a drop is accepted
+     */
     @Attribute
     public abstract String getAcceptClass();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the indicator which are applied when a drop is rejected
+     */
     @Attribute
     public abstract String getRejectClass();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the component. Corresponds to the HTML "class" attribute.
+     */
     @Attribute
     public abstract String getDraggingClass();
 }
