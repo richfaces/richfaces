@@ -41,7 +41,7 @@ import org.richfaces.event.CollapsibleSubTableToggleListener;
  *
  */
 @JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE, family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UICollapsibleSubTable", renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"), tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets), attributes = {
-        "core-props.xml", "iteration-props.xml", "sequence-props.xml" })
+        "core-props.xml", "iteration-props.xml", "sequence-props.xml", "events-row-props.xml" })
 public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;

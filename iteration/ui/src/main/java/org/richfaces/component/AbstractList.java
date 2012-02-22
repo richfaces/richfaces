@@ -42,7 +42,8 @@ import com.google.common.collect.Maps;
  *
  */
 @JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM), tag = @Tag(name = "list", handler = "org.richfaces.taglib.ListHandler", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"), attributes = {
-        "core-props.xml", "iteration-props.xml", "sequence-props.xml" })
+        "core-props.xml", "iteration-props.xml", "sequence-props.xml", "events-mouse-props.xml", "events-key-props.xml",
+        "events-row-props.xml", "i18n-props.xml" })
 public abstract class AbstractList extends UISequence {
     public static final String TERM = "term";
     private static final Predicate<String> TERM_PREDICATE = new Predicate<String>() {
@@ -68,6 +69,9 @@ public abstract class AbstractList extends UISequence {
         return getFacetsIterator(NON_TERM_PREDICATE);
     }
 
+    /**
+     * The type of the list: unordered (default), ordered, definitions
+     */
     @Attribute(defaultValue = "ListType.unordered")
     public abstract ListType getType();
 
@@ -150,9 +154,18 @@ public abstract class AbstractList extends UISequence {
     @Attribute
     public abstract String getLang();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the rows of the table. If the CSS class names are comma-separated,
+     * each class will be assigned to a particular row in the order they follow in the attribute. If you have less class names
+     * than rows, the class will be applied to every n-fold row where n is the order in which the class is listed in the
+     * attribute. If there are more class names than rows, the overflow ones are ignored.
+     */
     @Attribute
     public abstract String getRowClasses();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the list rows
+     */
     @Attribute
     public abstract String getRowClass();
 }

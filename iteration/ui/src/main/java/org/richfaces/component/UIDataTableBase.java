@@ -166,63 +166,33 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     @Attribute
     public abstract SortMode getSortMode();
 
-    /**
-     * Javascript code executed when a pointer button is clicked over table row.
-     */
     @Attribute(events = @EventName("rowclick"))
     public abstract String getOnrowclick();
 
-    /**
-     * Javascript code executed when a pointer button is double clicked over table row.
-     */
     @Attribute(events = @EventName("rowdblclick"))
     public abstract String getOnrowdblclick();
 
-    /**
-     * Javascript code executed when a pointer button is pressed down over table row.
-     */
     @Attribute(events = @EventName("rowmousedown"))
     public abstract String getOnrowmousedown();
 
-    /**
-     * Javascript code executed when a pointer button is released over the table row.
-     */
     @Attribute(events = @EventName("rowmouseup"))
     public abstract String getOnrowmouseup();
 
-    /**
-     * Javascript code executed when a pointer button is moved onto the table row.
-     */
     @Attribute(events = @EventName("rowmouseover"))
     public abstract String getOnrowmouseover();
 
-    /**
-     * Javascript code executed when a pointer button is moved within the table row.
-     */
     @Attribute(events = @EventName("rowmousemove"))
     public abstract String getOnrowmousemove();
 
-    /**
-     * Javascript code executed when a pointer button is moved away from the table row.
-     */
     @Attribute(events = @EventName("rowmouseout"))
     public abstract String getOnrowmouseout();
 
-    /**
-     * Javascript code executed when a key is pressed and released over the table row.
-     */
     @Attribute(events = @EventName("rowkeypress"))
     public abstract String getOnrowkeypress();
 
-    /**
-     * Javascript code executed when a key is pressed down over the table row.
-     */
     @Attribute(events = @EventName("rowkeydown"))
     public abstract String getOnrowkeydown();
 
-    /**
-     * Javascript code executed when a key is released over the table row.
-     */
     @Attribute(events = @EventName("rowkeyup"))
     public abstract String getOnrowkeyup();
 
