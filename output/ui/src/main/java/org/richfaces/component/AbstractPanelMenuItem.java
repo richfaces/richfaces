@@ -36,7 +36,8 @@ import com.google.common.base.Predicate;
  * @author akolonitsky
  * @since 2010-10-25
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets))
+@JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "core-props.xml", "ajax-props.xml", "bypass-props.xml",
+        "events-mouse-props.xml" })
 public abstract class AbstractPanelMenuItem extends AbstractActionComponent implements AjaxProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuItem";
@@ -69,15 +70,24 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
 
     // ------------------------------------------------ Component Attributes
 
+    /**
+     * Defines whenever the item is selectable.
+     */
     @Attribute(defaultValue = "Boolean.TRUE")
     public abstract Boolean isSelectable();
 
     @Attribute(defaultValue = "Boolean.FALSE", hidden = true)
     public abstract Boolean isUnselectable();
 
+    /**
+     * Mode used for selecting of this item: default value is inherited from panelMenu
+     */
     @Attribute(defaultValue = "getPanelMenu().getItemMode()")
     public abstract PanelMenuMode getMode();
 
+    /**
+     * The name of this component
+     */
     @Attribute(generate = false)
     public String getName() {
         return (String) getStateHelper().eval(Properties.name, getId());
@@ -87,9 +97,15 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
         getStateHelper().put(Properties.name, name);
     }
 
+    /**
+     * A localized user presentable name for this component.
+     */
     @Attribute
     public abstract String getLabel();
 
+    /**
+     * Defines whenever this component should be disabled.
+     */
     @Attribute
     public abstract boolean isDisabled();
 
@@ -108,67 +124,80 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
 
     // ------------------------------------------------ Html Attributes
     enum Properties {
-        leftIcon,
-        leftDisabledIcon,
-        rightIcon,
-        rightDisabledIcon,
-        styleClass,
-        disabledClass,
-        execute,
-        name,
-        value
+        leftIcon, leftDisabledIcon, rightIcon, rightDisabledIcon, styleClass, disabledClass, execute, name, value
     }
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the panel menu item when it is disabled.
+     */
     @Attribute(generate = false)
     public String getDisabledClass() {
         return (String) getStateHelper().eval(Properties.disabledClass,
-            isTopItem() ? getPanelMenu().getTopItemDisabledClass() : getPanelMenu().getItemDisabledClass());
+                isTopItem() ? getPanelMenu().getTopItemDisabledClass() : getPanelMenu().getItemDisabledClass());
     }
 
     public void setDisabledClass(String disabledClass) {
         getStateHelper().put(Properties.disabledClass, disabledClass);
     }
 
+    /**
+     * The icon displayed on the left of the menu item label
+     */
     @Attribute(generate = false)
     public String getLeftIcon() {
         return (String) getStateHelper().eval(Properties.leftIcon,
-            isTopItem() ? getPanelMenu().getTopItemLeftIcon() : getPanelMenu().getItemLeftIcon());
+                isTopItem() ? getPanelMenu().getTopItemLeftIcon() : getPanelMenu().getItemLeftIcon());
     }
 
     public void setLeftIcon(String leftIcon) {
         getStateHelper().put(Properties.leftIcon, leftIcon);
     }
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the left icon of the panel menu item.
+     */
     @Attribute
     public abstract String getLeftIconClass();
 
+    /**
+     * The icon displayed on the left of the menu item when it is disabled
+     */
     @Attribute(generate = false)
     public String getLeftDisabledIcon() {
         return (String) getStateHelper().eval(Properties.leftDisabledIcon,
-            isTopItem() ? getPanelMenu().getTopItemDisabledLeftIcon() : getPanelMenu().getItemDisabledLeftIcon());
+                isTopItem() ? getPanelMenu().getTopItemDisabledLeftIcon() : getPanelMenu().getItemDisabledLeftIcon());
     }
 
     public void setLeftDisabledIcon(String leftDisabledIcon) {
         getStateHelper().put(Properties.leftDisabledIcon, leftDisabledIcon);
     }
 
+    /**
+     * The icon displayed on the right of the menu item label
+     */
     @Attribute(generate = false)
     public String getRightIcon() {
         return (String) getStateHelper().eval(Properties.rightIcon,
-            isTopItem() ? getPanelMenu().getTopItemRightIcon() : getPanelMenu().getItemRightIcon());
+                isTopItem() ? getPanelMenu().getTopItemRightIcon() : getPanelMenu().getItemRightIcon());
     }
 
     public void setRightIcon(String iconRight) {
         getStateHelper().put(Properties.rightIcon, iconRight);
     }
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the right icon of the panel menu item.
+     */
     @Attribute
     public abstract String getRightIconClass();
 
+    /**
+     * The icon displayed on the right of the menu item when it is disabled
+     */
     @Attribute(generate = false)
     public String getRightDisabledIcon() {
         return (String) getStateHelper().eval(Properties.rightDisabledIcon,
-            isTopItem() ? getPanelMenu().getTopItemDisabledRightIcon() : getPanelMenu().getItemDisabledRightIcon());
+                isTopItem() ? getPanelMenu().getTopItemDisabledRightIcon() : getPanelMenu().getItemDisabledRightIcon());
     }
 
     public void setRightDisabledIcon(String rightDisabledIcon) {
@@ -181,7 +210,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     @Attribute(generate = false)
     public String getStyleClass() {
         return (String) getStateHelper().eval(Properties.styleClass,
-            isTopItem() ? getPanelMenu().getTopItemClass() : getPanelMenu().getItemClass());
+                isTopItem() ? getPanelMenu().getTopItemClass() : getPanelMenu().getItemClass());
     }
 
     public void setStyleClass(String styleClass) {
@@ -209,12 +238,21 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     @Attribute(events = @EventName("mouseup"))
     public abstract String getOnmouseup();
 
+    /**
+     * The client-side script method to be called after the menu group is unselected
+     */
     @Attribute(events = @EventName("unselect"))
     public abstract String getOnunselect();
 
+    /**
+     * The client-side script method to be called after the menu group is selected
+     */
     @Attribute(events = @EventName("select"))
     public abstract String getOnselect();
 
+    /**
+     * The client-side script method to be called before the menu group is selected
+     */
     @Attribute(events = @EventName("beforeselect"))
     public abstract String getOnbeforeselect();
 
