@@ -16,18 +16,32 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee">
 
     <property>
-        <property-name>treeSelectionChangeListener</property-name>
+        <property-name>selectionChangeListener</property-name>
         <property-class>javax.el.MethodExpression</property-class>
         <property-extension>
             <cdk:generate>false</cdk:generate>
         </property-extension>
+        <description>
+            MethodExpression representing an tree node toggle listener method that will be notified when the tree node
+            is toggled. The expression must evaluate to a public method that takes an TreeToggleEvent parameter, with a
+            return type of void, or to a public method that takes no arguments with a return type of void.
+            In the latter case, the method has no way of easily knowing where the event came from, but this can be
+            useful in cases where a notification is needed that "some action happened".
+        </description>
     </property>
     <property>
-        <property-name>treeToggleListener</property-name>
+        <property-name>toggleListener</property-name>
         <property-class>javax.el.MethodExpression</property-class>
         <property-extension>
             <cdk:generate>false</cdk:generate>
         </property-extension>
+        <description>
+            MethodExpression representing an tree node toggle listener method that will be notified when the tree node
+            is selected. The expression must evaluate to a public method that takes an TreeSelectionChangeEvent
+            parameter, with a return type of void, or to a public method that takes no arguments with a return type of
+            void. In the latter case, the method has no way of easily knowing where the event came from, but this can
+            be useful in cases where a notification is needed that "some action happened".
+        </description>
     </property>
 
 </cdk:properties>

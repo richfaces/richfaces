@@ -53,9 +53,9 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  */
 @JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY, tag = @Tag(name = "treeNode", handler = "org.richfaces.view.facelets.TreeNodeHandler"), renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"), attributes = {
         "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml",
-        "treeNode-serverEventListeners-props.xml" })
+        "ajax-props.xml", "tree-serverEventListeners-props.xml" })
 public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder,
-    IterationStateHolder, TreeToggleSource {
+        IterationStateHolder, TreeToggleSource {
     public static final String COMPONENT_TYPE = "org.richfaces.TreeNode";
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeNode";
     public static final String SUBTREE_META_COMPONENT_ID = "subtree";
@@ -76,12 +76,22 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     @Attribute
     public abstract boolean isImmediate();
 
+    /**
+     * The type of the this component. More treeNodes could be defined in tree with different types and it is decided about
+     * which is used for rendering by nodeType expression of tree component.
+     */
     @Attribute
     public abstract String getType();
 
+    /**
+     * The client-side script method to be called after the node is toggle.
+     */
     @Attribute(events = @EventName("toggle"))
     public abstract String getOntoggle();
 
+    /**
+     * The client-side script method to be called before the node is toggle.
+     */
     @Attribute(events = @EventName("beforetoggle"))
     public abstract String getOnbeforetoggle();
 
@@ -89,6 +99,10 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
         return (Boolean) getStateHelper().get(PropertyKeys.expanded);
     }
 
+    /**
+     * Determines if this tree node is expanded. When EL expression used, it should use request-scoped variable with name defied
+     * in tree attribute 'var' which points to current node.
+     */
     @Attribute
     public boolean isExpanded() {
         FacesContext context = getFacesContext();
@@ -131,7 +145,7 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
         if (this.equals(event.getComponent())) {
             if (event instanceof TreeToggleEvent) {
                 PhaseId targetPhase = (isImmediate() || findTreeComponent().isImmediate()) ? PhaseId.APPLY_REQUEST_VALUES
-                    : PhaseId.PROCESS_VALIDATIONS;
+                        : PhaseId.PROCESS_VALIDATIONS;
                 event.setPhaseId(targetPhase);
             }
         }
@@ -181,7 +195,7 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
             ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
             if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
                 VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
-                    SUBTREE_META_COMPONENT_ID);
+                        SUBTREE_META_COMPONENT_ID);
 
                 if (result != VisitResult.ACCEPT) {
                     return result == VisitResult.COMPLETE;

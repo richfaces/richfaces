@@ -29,15 +29,13 @@ import org.richfaces.cdk.annotations.Tag;
  * @author Nick Belaevski
  *
  */
-@JsfComponent(type = UITreeModelRecursiveAdaptor.COMPONENT_TYPE, family = UITreeModelRecursiveAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelRecursiveAdaptor", handler = "org.richfaces.view.facelets.TreeModelRecursiveAdaptorHandler"))
+@JsfComponent(type = UITreeModelRecursiveAdaptor.COMPONENT_TYPE, family = UITreeModelRecursiveAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelRecursiveAdaptor", handler = "org.richfaces.view.facelets.TreeModelRecursiveAdaptorHandler"), attributes = "tree-model-props.xml")
 public class UITreeModelRecursiveAdaptor extends AbstractTreeModelAdaptor implements TreeModelRecursiveAdaptor {
     public static final String COMPONENT_TYPE = "org.richfaces.TreeModelRecursiveAdaptor";
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelRecursiveAdaptor";
 
     private enum PropertyKeys {
-        roots,
-        nodes,
-        leaf
+        roots, nodes, leaf
     }
 
     @Override
