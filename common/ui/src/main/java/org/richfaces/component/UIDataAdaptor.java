@@ -462,9 +462,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return extendedDataModel;
     }
 
-    /**
-     * @return
-     */
     protected abstract ExtendedDataModel<?> createExtendedDataModel();
 
     /**
@@ -565,9 +562,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
-    /**
-     * @return
-     */
     public DataComponentState getComponentState() {
         if (componentState != null) {
             return componentState;
@@ -738,7 +732,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * Check for validation errors on children components. If true, saved values must be keep on render phase
      *
      * @param context
-     * @return
      */
     protected boolean keepSaved(FacesContext context) {
 
@@ -1378,7 +1371,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     /**
      * @param context
-     * @return
      */
     private boolean requiresRowIteration(FacesContext context) {
         return (!PhaseId.RESTORE_VIEW.equals(context.getCurrentPhaseId()));
@@ -1387,7 +1379,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /**
      * @param context
      * @param substring
-     * @return
      */
     // TODO review!
     protected String extractKeySegment(FacesContext context, String substring) {

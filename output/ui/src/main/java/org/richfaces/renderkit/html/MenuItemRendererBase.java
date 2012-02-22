@@ -91,7 +91,6 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
      *
      * @param context
      * @param component
-     * @return
      */
     @Override
     public String getOnClick(FacesContext context, UIComponent component) {
@@ -189,7 +188,6 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
      * It is introduced due to RF-10004 CDK: isEmpty method is generated incorrectly
      *
      * @param str
-     * @return
      */
     protected boolean isStringEmpty(String str) {
         if (str != null && str.trim().length() > 0) {

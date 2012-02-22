@@ -22,7 +22,6 @@ public interface BeanValidatorService {
      * @param context
      * @param expression
      * @param message TODO
-     * @return
      */
     Collection<ValidatorDescriptor> getConstrains(FacesContext context, ValueExpression expression, String message,
         Class<?>... groups);
@@ -36,7 +35,6 @@ public interface BeanValidatorService {
      * @param expression
      * @param newValue
      * @param groups
-     * @return
      */
     Collection<String> validateExpression(FacesContext context, ValueExpression expression, Object newValue, Class<?>... groups);
 
@@ -48,7 +46,6 @@ public interface BeanValidatorService {
      * @param context
      * @param object
      * @param groups
-     * @return
      */
     Collection<String> validateObject(FacesContext context, Object object, Class<?>... groups);
 }

@@ -16,7 +16,6 @@ public class MessageForRender {
      * <p class="changed_added_4_0">
      * </p>
      *
-     * @return
      * @see javax.faces.application.FacesMessage#getDetail()
      */
     public String getDetail() {
@@ -27,7 +26,6 @@ public class MessageForRender {
      * <p class="changed_added_4_0">
      * </p>
      *
-     * @return
      * @see javax.faces.application.FacesMessage#getSeverity()
      */
     public Severity getSeverity() {
@@ -38,7 +36,6 @@ public class MessageForRender {
      * <p class="changed_added_4_0">
      * </p>
      *
-     * @return
      * @see javax.faces.application.FacesMessage#getSummary()
      */
     public String getSummary() {
@@ -49,7 +46,6 @@ public class MessageForRender {
      * <p class="changed_added_4_0">
      * </p>
      *
-     * @return
      * @see javax.faces.application.FacesMessage#isRendered()
      */
     public boolean isRendered() {

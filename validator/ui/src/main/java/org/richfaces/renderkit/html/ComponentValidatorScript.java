@@ -10,7 +10,6 @@ public interface ComponentValidatorScript extends FunctionDefWithDependencies {
      *
      * @param clientId
      * @param sourceId
-     * @return
      */
     String createCallScript(String clientId, String sourceId);
 }

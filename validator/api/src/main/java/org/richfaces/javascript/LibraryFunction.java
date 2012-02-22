@@ -37,8 +37,6 @@ public interface LibraryFunction extends ResourceLibrary {
      * <p class="changed_added_4_0">
      * JavaScript function name in resource library
      * </p>
-     *
-     * @return
      */
     String getName();
 }

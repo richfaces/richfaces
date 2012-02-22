@@ -63,7 +63,6 @@ public final class Strings {
      *
      * @param in input string
      * @param size number of characters to remove.
-     * @return
      */
     public static String cut(String in, int size) {
         if (size > 0) {

@@ -98,7 +98,6 @@ public abstract class MenuGroupRendererBase extends RendererBase {
      * It is introduced due to RF-10004 CDK: isEmpty method is generated incorrectly
      *
      * @param str
-     * @return
      */
     protected boolean isStringEmpty(String str) {
         if (str != null && str.trim().length() > 0) {

@@ -87,7 +87,6 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
      * </p>
      *
      * @param renderer
-     * @return
      */
     private ComponentValidatorScript callGetScript(ClientValidatorRenderer renderer) {
         controller.replay();

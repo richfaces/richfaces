@@ -159,7 +159,6 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
      * @param component
      * @param messages
      * @param id
-     * @return
      */
     protected boolean findMessages(UIComponent parent, UIComponent component, Set<UIComponent> messages, boolean found,
             Object id) {
