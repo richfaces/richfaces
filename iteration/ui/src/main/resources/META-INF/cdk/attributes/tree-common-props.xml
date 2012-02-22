@@ -126,5 +126,14 @@
             Client-side event used for toggling tree nodes (click, dblclick, etc.)
         </description>
     </property>
+    
+    <property>
+        <property-name>nodeType</property-name>
+        <property-class>java.lang.String</property-class>
+        <description>
+            Determines which treeNode should be used for rendering. Should contain EL expressions which uses request-scoped variable
+            with name defied in attribute 'var'.
+        </description>
+    </property>
 
 </cdk:properties>
