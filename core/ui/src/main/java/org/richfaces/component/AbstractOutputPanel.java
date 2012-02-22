@@ -35,36 +35,26 @@ import org.richfaces.cdk.annotations.TagType;
  * The &lt;a4j:outputPanel&gt; component is used to group together components in to update them as a whole, rather than having
  * to specify the components individually.
  * <p>
+ *
  * @author asmirnov@exadel.com
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.OutputPanelRenderer"), tag = @Tag(type = TagType.Facelets),
-        attributes = {"events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "core-props.xml"})
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.OutputPanelRenderer"), tag = @Tag(type = TagType.Facelets), attributes = {
+        "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "core-props.xml", "AjaxOutput-props.xml" })
 public abstract class AbstractOutputPanel extends UIPanel implements AjaxOutput {
     public static final String COMPONENT_TYPE = "org.richfaces.OutputPanel";
     public static final String COMPONENT_FAMILY = "javax.faces.Panel";
 
-    /**
-     * Defines, whether the content of this component must be (or not) included in AJAX response created by parent AJAX
-     * Container, even if it is not forced by reRender list of ajax action. Ignored if component marked to output by
-     * some Ajax action component. Default value is "false".
-     */
-    @Attribute
+    @Attribute(defaultValue = "false")
     public abstract boolean isAjaxRendered();
 
-    /**
-     * Flag to mark all child components to non-transient. If true, all children components will be set to non-transient
-     * state and keep in saved components tree. For output in self-renderer region all content ( By default, all content
-     * in &lt;f:verbatim&gt; tags and non-jsf elements in facelets, marked as transient - since, self-rendered ajax
-     * regions don't plain output for ajax processing ). Default value is "true"
-     */
-    @Attribute
+    @Attribute(defaultValue= "true")
     public abstract boolean isKeepTransient();
 
     /**
-     * HTML layout for generated markup. Possible values: "block" for generating an HTML &lt;div&gt; element, "inline"
-     * for generating an HTML &lt;span&gt; element, and "none" for generating no HTML element. There is a minor exception
-     * for the "none" case where a child element has the property "rendered" set to "false". In this case, we create an
-     * empty &lt;span&gt; element with same ID as the child element to use as a placeholder for later processing.
+     * HTML layout for generated markup. Possible values: "block" for generating an HTML &lt;div&gt; element, "inline" for
+     * generating an HTML &lt;span&gt; element, and "none" for generating no HTML element. There is a minor exception for the
+     * "none" case where a child element has the property "rendered" set to "false". In this case, we create an empty
+     * &lt;span&gt; element with same ID as the child element to use as a placeholder for later processing.
      * <p>
      * Default value is "inline"
      */

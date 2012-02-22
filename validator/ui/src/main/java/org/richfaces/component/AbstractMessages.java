@@ -40,7 +40,8 @@ import org.richfaces.cdk.annotations.Tag;
  *
  */
 @JsfComponent(generate = "org.richfaces.component.UIRichMessages", type = "org.richfaces.Messages", components = @RendererSpecificComponent(tag = @Tag(name = "messages"), generate = "org.richfaces.component.html.HtmlMessages", attributes = {
-        "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml" }, renderer = @JsfRenderer(template = "messages.template.xml")))
+        "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml",
+        "output-format-props.xml" }, renderer = @JsfRenderer(template = "messages.template.xml")))
 public abstract class AbstractMessages extends UIMessages implements AjaxOutput, ClientSideMessage {
     @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();
