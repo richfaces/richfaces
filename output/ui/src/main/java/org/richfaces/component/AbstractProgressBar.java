@@ -60,6 +60,8 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
     public static final String COMPONENT_FAMILY = "org.richfaces.ProgressBar";
     public static final String STATE_META_COMPONENT_ID = "state";
 
+    //--------- events-mouse-props.xml
+
     @Attribute(events = @EventName("click"))
     public abstract String getOnclick();
 
@@ -81,62 +83,116 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
     @Attribute(events = @EventName("mouseout"))
     public abstract String getOnmouseout();
 
+    /**
+     *
+     */
     @Attribute(events = @EventName("begin"))
     public abstract String getOnbegin();
 
+    /**
+     *
+     */
     @Attribute
     public abstract String getLabel();
 
+    /**
+     *
+     */
     @Attribute
     public abstract Object getData();
 
     public abstract void setData(Object data);
 
+    /**
+     *
+     */
     @Attribute
     public abstract int getInterval();
 
+    /**
+     *
+     */
     @Attribute
     public abstract boolean isEnabled();
 
+    /**
+     *
+     */
     @Attribute(events = @EventName("beforedomupdate"))
     public abstract String getOnbeforedomupdate();
 
+    /**
+     *
+     */
     @Attribute(events = @EventName("complete"))
     public abstract String getOncomplete();
 
+    /**
+     *
+     */
     @Attribute(events = @EventName("finish"))
     public abstract String getOnfinish();
 
+    /**
+     *
+     */
     @Attribute
     public abstract String getInitialClass();
 
+    /**
+     *
+     */
     @Attribute
     public abstract String getRemainingClass();
 
+    /**
+     *
+     */
     @Attribute
     public abstract String getProgressClass();
 
+    /**
+     *
+     */
     @Attribute
     public abstract String getFinishClass();
 
+    /**
+     *
+     */
     @Attribute
     public abstract SwitchType getMode();
 
+    /**
+     *
+     */
     @Attribute
     public abstract Object getMaxValue();
 
+    /**
+     *
+     */
     @Attribute
     public abstract Object getMinValue();
 
+    /**
+     *
+     */
     @Attribute
     public abstract Object getValue();
 
     @Attribute(hidden = true)
     public abstract String getResource();
 
+    /**
+     *
+     */
     @Attribute
     public abstract String getStyle();
 
+    /**
+     *
+     */
     @Attribute
     public abstract String getStyleClass();
 

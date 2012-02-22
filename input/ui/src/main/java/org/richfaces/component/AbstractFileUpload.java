@@ -51,54 +51,111 @@ public abstract class AbstractFileUpload extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.FileUpload";
     public static final String COMPONENT_FAMILY = "org.richfaces.FileUpload";
 
+    /**
+     * Defines comma separated list of file extensions accepted by component.
+     * The component does not provide any feedback when rejecting file.
+     * For introducing feedback for rejection, use ontyperejected parameter.
+     */
     @Attribute
     public abstract String getAcceptedTypes();
 
+    /**
+     * Defines maximum number of files allowed to be uploaded. After a number of files in the list equals to the value
+     * of this attribute, "Add" button disappears and nothing could be uploaded even if you clear the whole list.
+     * In order to upload files again you should rerender the component
+     */
     @Attribute
     public abstract String getMaxFilesQuantity();
 
+    /**
+     * If "true", this component is disabled
+     */
     @Attribute(defaultValue = "false")
     public abstract boolean isDisabled();
 
+    /**
+     * <p>If "true" duplicate file uploads are prevented</p>
+     * <p>Default is "false"</p>
+     */
     @Attribute(defaultValue = "false")
     public abstract boolean isNoDuplicate();
 
+    /**
+     * Javascript code executed when a file is submitted
+     */
     @Attribute(events = @EventName("filesubmit"))
     public abstract String getOnfilesubmit();
 
+    /**
+     * Javascript code executed when a file does not meet the conditions stated by acceptedTypes parameter.
+     */
     @Attribute(events = @EventName("typerejected"))
     public abstract String getOntyperejected();
 
+    /**
+     * Javascript code executed when a file upload is complete
+     */
     @Attribute(events = @EventName("uploadcomplete"))
     public abstract String getOnuploadcomplete();
 
+    /**
+     * Javascript code executed when a file is cleared
+     */
     @Attribute(events = @EventName("clear"))
     public abstract String getOnclear();
 
+    /**
+     *  The label for the Add button.
+     */
     @Attribute
     public abstract String getAddLabel();
 
+    /**
+     *  The label for the Add button.
+     */
     @Attribute
     public abstract String getUploadLabel();
 
+    /**
+     *  The label for the Clear button.
+     */
     @Attribute
     public abstract String getClearAllLabel();
 
+    /**
+     *  The label displayed when a file is successfully uploaded.
+     */
     @Attribute
     public abstract String getDoneLabel();
 
+    /**
+     *  The label displayed when a file exceeds the size limit.
+     */
     @Attribute
     public abstract String getSizeExceededLabel();
 
+    /**
+     *  The label displayed when a file upload fails due to a server error.
+     */
     @Attribute
     public abstract String getServerErrorLabel();
 
+    /**
+     *  The label displayed for the Clear link
+     */
     @Attribute
     public abstract String getClearLabel();
 
+    /**
+     *  The label displayed for the Delete link
+     */
     @Attribute
     public abstract String getDeleteLabel();
 
+    /**
+     * <p>Defines height of file list.</p>
+     * <p>Default value is "210px".</p>
+     */
     @Attribute(defaultValue = "210px")
     public abstract String getListHeight();
 
