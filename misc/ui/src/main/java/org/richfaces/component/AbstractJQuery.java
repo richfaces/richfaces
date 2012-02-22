@@ -43,21 +43,45 @@ public abstract class AbstractJQuery extends UIComponentBase {
         setRendererType("org.richfaces.JQueryRenderer");
     }
 
+    /**
+     * The name of a function that will be generated to execute a query.
+     */
     @Attribute
     public abstract String getName();
 
+    /**
+     * Selector for query. The "selector" attribute uses defined by w3c consortium syntax for CSS rule selector with some jQuery
+     * extensions.
+     */
     @Attribute
     public abstract String getSelector();
 
+    /**
+     * The DOM event which should be the query bound to.
+     */
     @Attribute
     public abstract String getEvent();
 
+    /**
+     * The query string that is executed for a given selector.
+     */
     @Attribute
     public abstract String getQuery();
 
+    /**
+     * The type of the attachment - decides about how is operation attached to the selected elements: "bind" (default - binds to
+     * the selected elements immediately, elements which could be matched by selector in the future won't be considered - offers
+     * a best performance), "live" (attach an event handler for all elements which match the current selector, now and in the
+     * future - may cause a slow performance), "one" (attach a handler to an event for the elements, the handler is executed at
+     * most once per element)
+     */
     @Attribute
     public abstract JQueryAttachType getAttachType();
 
+    /**
+     * The timing of the jQuery attachment: "domready" (when DOM is ready), "immediate" (immediately after component client-side
+     * code is processed). This attribute is ignored when attribute "name" is provided.
+     */
     @Attribute
     public abstract JQueryTiming getTiming();
 }
