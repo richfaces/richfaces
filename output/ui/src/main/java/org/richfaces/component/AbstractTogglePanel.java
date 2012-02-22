@@ -70,7 +70,8 @@ import com.google.common.base.Strings;
  * @author akolonitsky
  * @version 1.0
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"), attributes = {
+        "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
 public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource,
         MetaComponentResolver, MetaComponentEncoder {
     public static final String ACTIVE_ITEM_META_COMPONENT = "activeItem";
@@ -85,11 +86,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     private String submittedActiveItem = null;
 
     private enum PropertyKeys {
-        localValueSet,
-        required,
-        valid,
-        immediate,
-        switchType
+        localValueSet, required, valid, immediate, switchType
     }
 
     protected AbstractTogglePanel() {
@@ -145,8 +142,8 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     }
 
     /**
-     * Flag indicating that this component's value must be converted and validated immediately (that is, during
-     * Apply Request Values phase), rather than waiting until Process Validations phase.
+     * Flag indicating that this component's value must be converted and validated immediately (that is, during Apply Request
+     * Values phase), rather than waiting until Process Validations phase.
      */
     @Attribute
     public boolean isImmediate() {
@@ -598,8 +595,8 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     }
 
     /**
-     * Holds the active tab name. This name is a reference to the name identifier of the active child &lt;rich:tab&gt;
-     * component.
+     * Holds the active panel name. This name is a reference to the name identifier of the active child
+     * &lt;rich:togglePanelItem&gt; component.
      */
     @Attribute
     public String getActiveItem() {
@@ -620,7 +617,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     }
 
     /**
-     * The switch mode when a panel is activated.  One of: "client", "server", "ajax". Default: "ajax"
+     * The switch mode when a panel is activated. One of: "client", "server", "ajax". Default: "ajax"
      */
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
@@ -639,10 +636,9 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     public abstract boolean isLimitRender();
 
     /**
-     * Applicable when cycling through the tabs.  If "true", then when the last tab is active, cycling to next will
-     * activate the first tab, if "false", cycling to next will have not effect.  The inverse applies for the first tab,
-     * and cycling to previous.
-     * Whether to  Default: false
+     * Applicable when cycling through the tabs. If "true", then when the last tab is active, cycling to next will activate the
+     * first tab, if "false", cycling to next will have not effect. The inverse applies for the first tab, and cycling to
+     * previous. Whether to Default: false
      */
     @Attribute
     public abstract boolean isCycledSwitching();
@@ -665,11 +661,15 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     @Attribute
     public abstract MethodExpression getItemChangeListener();
 
-    // ------------------------------------------------ Html Attributes
-
+    /**
+     * The client-side script method to be called after the item is changed.
+     */
     @Attribute(events = @EventName("itemchange"))
     public abstract String getOnitemchange();
 
+    /**
+     * The client-side script method to be called before the item is changed.
+     */
     @Attribute(events = @EventName("beforeitemchange"))
     public abstract String getOnbeforeitemchange();
 
