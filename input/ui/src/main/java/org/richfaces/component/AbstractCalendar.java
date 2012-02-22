@@ -65,9 +65,8 @@ import org.richfaces.utils.CalendarHelper;
  * @author amarkhel
  *
  */
-@JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, generate = "org.richfaces.component.UICalendar",
-        renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), attributes = {"position-props.xml"},
-        tag = @Tag(name = "calendar", handler = "org.richfaces.view.facelets.CalendarHandler"))
+@JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, generate = "org.richfaces.component.UICalendar", renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), attributes = {
+        "position-props.xml", "popups-props.xml", "events-popups-props.xml" }, tag = @Tag(name = "calendar", handler = "org.richfaces.view.facelets.CalendarHandler"))
 public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
     public static final String DAYSDATA_META_COMPONENT_ID = "daysData";
     public static final String COMPONENT_TYPE = "org.richfaces.Calendar";
@@ -82,8 +81,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     }
 
     public enum Mode {
-        client,
-        ajax
+        client, ajax
     }
 
     /**
@@ -93,29 +91,37 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract String getDatePattern();
 
     /**
-     * <p>Used for current date calculations</p>
-     * <p>Default value is "getDefaultTimeZone()"</p>
+     * <p>
+     * Used for current date calculations
+     * </p>
+     * <p>
+     * Default value is "getDefaultTimeZone()"
+     * </p>
      */
     @Attribute
     public abstract TimeZone getTimeZone();
 
     /**
      * <p>
-     * Determines the first day of the week is; e.g., SUNDAY in the U.S., MONDAY in France.
-     * Possible values should be integers from 0 to 6, 0 corresponds to Sunday
+     * Determines the first day of the week is; e.g., SUNDAY in the U.S., MONDAY in France. Possible values should be integers
+     * from 0 to 6, 0 corresponds to Sunday
      * </p>
-     * <p>Default value is "getDefaultFirstWeekDay()"</p>
+     * <p>
+     * Default value is "getDefaultFirstWeekDay()"
+     * </p>
      */
     @Attribute
     public abstract int getFirstWeekDay();
 
     /**
      * <p>
-     * Gets what the minimal days required in the first week of the year are; e.g., if the first week is defined as one
-     * that contains the first day of the first month of a year, this method returns 1. If the minimal days required
-     * must be a full week, this method returns 7.
+     * Gets what the minimal days required in the first week of the year are; e.g., if the first week is defined as one that
+     * contains the first day of the first month of a year, this method returns 1. If the minimal days required must be a full
+     * week, this method returns 7.
      * </p>
-     * <p>Default value is "getDefaultMinDaysInFirstWeek()"</p>
+     * <p>
+     * Default value is "getDefaultMinDaysInFirstWeek()"
+     * </p>
      */
     @Attribute
     public abstract int getMinDaysInFirstWeek();
@@ -124,94 +130,134 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
      * <p>
      * This attribute defines the mode for "today" control. Possible values are "scroll", "select", "hidden"
      * </p>
-     * <p>Default value is "select"</p>
+     * <p>
+     * Default value is "select"
+     * </p>
      */
     @Attribute
     public abstract String getTodayControlMode();
 
     /**
-     * <p>If false this bar should not be shown</p>
-     * <p>Default value is "true"</p>
+     * <p>
+     * If false this bar should not be shown
+     * </p>
+     * <p>
+     * Default value is "true"
+     * </p>
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isShowWeekDaysBar();
 
     /**
-     * <p>If false this bar should not be shown</p>
-     * <p>Default value is "true"</p>
+     * <p>
+     * If false this bar should not be shown
+     * </p>
+     * <p>
+     * Default value is "true"
+     * </p>
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isShowWeeksBar();
 
     /**
-     * <p>If false Calendar's footer should not be shown</p>
-     * <p>Default value is "true"</p>
+     * <p>
+     * If false Calendar's footer should not be shown
+     * </p>
+     * <p>
+     * Default value is "true"
+     * </p>
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isShowFooter();
 
     /**
-     * <p>If false Calendar's header should not be shown</p>
-     * <p>Default value is "true"</p>
+     * <p>
+     * If false Calendar's header should not be shown
+     * </p>
+     * <p>
+     * Default value is "true"
+     * </p>
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isShowHeader();
 
     /**
      * <p>
-     * "false" value for this attribute makes text field invisible.
-     * It works only if popupMode="true" If showInput is "true" - input field will be shown
+     * "false" value for this attribute makes text field invisible. It works only if popupMode="true" If showInput is "true" -
+     * input field will be shown
      * </p>
-     * <p>Default value is "true"</p>
+     * <p>
+     * Default value is "true"
+     * </p>
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isShowInput();
 
     /**
-     * <p>If "true", the calendar will be rendered initially as hidden with additional elements for calling as popup</p>
-     * <p>Default value is "true"</p>
+     * <p>
+     * If "true", the calendar will be rendered initially as hidden with additional elements for calling as popup
+     * </p>
+     * <p>
+     * Default value is "true"
+     * </p>
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isPopup();
 
     /**
-     * <p>If "true", rendered is disabled. In "popup" mode both controls are disabled</p>
-     * <p>Default value is "false"</p>
+     * <p>
+     * If "true", rendered is disabled. In "popup" mode both controls are disabled
+     * </p>
+     * <p>
+     * Default value is "false"
+     * </p>
      */
     @Attribute
     public abstract boolean isDisabled();
 
     /**
      * <p>
-     * If "true" calendar input will be editable and it will be possible to change the date manually.
-     * If "false" the text field will be "read-only", so the value can be changed only from a handle.
+     * If "true" calendar input will be editable and it will be possible to change the date manually. If "false" the text field
+     * will be "read-only", so the value can be changed only from a handle.
      * </p>
-     * <p>Default value is "false"</p>
+     * <p>
+     * Default value is "false"
+     * </p>
      */
     @Attribute
     public abstract boolean isEnableManualInput();
 
     /**
-     * <p>The javascript function that enables or disables a day cell</p>
+     * <p>
+     * The javascript function that enables or disables a day cell
+     * </p>
      */
     @Attribute
     public abstract String getDayDisableFunction();
 
     /**
-     * <p>If false ApplyButton should not be shown</p>
-     * <p>Default value is "false"</p>
+     * <p>
+     * If false ApplyButton should not be shown
+     * </p>
+     * <p>
+     * Default value is "false"
+     * </p>
      */
     @Attribute
     public abstract boolean isShowApplyButton();
 
     /**
-     * <p>If value is true then calendar should change time to defaultTime for newly-selected dates</p>
-     * <p>Default value is "false"</p>
+     * <p>
+     * If value is true then calendar should change time to defaultTime for newly-selected dates
+     * </p>
+     * <p>
+     * Default value is "false"
+     * </p>
      */
     @Attribute
     public abstract boolean isResetTimeOnDateSelect();
 
-    //---------- position-props.xml
+    // ---------- position-props.xml
 
     @Attribute
     public abstract Positioning getJointPoint();
@@ -227,32 +273,34 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
 
     /**
      * <p>
-     * This attribute is responsible for behaviour of dates from the previous and next months which are displayed in the current month.
-     * Valid values are "inactive" (Default) dates inactive and gray colored, "scroll" boundaries work as month scrolling controls,
-     * and "select" boundaries work in the same way as "scroll" but with the date clicked selection
+     * This attribute is responsible for behaviour of dates from the previous and next months which are displayed in the current
+     * month. Valid values are "inactive" (Default) dates inactive and gray colored, "scroll" boundaries work as month scrolling
+     * controls, and "select" boundaries work in the same way as "scroll" but with the date clicked selection
      * </p>
-     * <p>Default value is "inactive"</p>
+     * <p>
+     * Default value is "inactive"
+     * </p>
      */
     @Attribute
     public abstract String getBoundaryDatesMode();
 
-    /**
-     * <p>Attribute is similar to the standard HTML attribute and can specify window placement relative to the content</p>
-     * <p>Default value is "3"</p>
-     */
     @Attribute
     public abstract int getZindex();
 
     /**
-     * <p>Valid values: ajax or client</p>
-     * <p>Default value is "client"</p>
+     * <p>
+     * Valid values: ajax or client
+     * </p>
+     * <p>
+     * Default value is "client"
+     * </p>
      */
     @Attribute
     public abstract Mode getMode();
 
     /**
-     * The starting label can be set when in the initial view state.  If the initial value is already set through the
-     * value attribute, this is displayed instead.
+     * The starting label can be set when in the initial view state. If the initial value is already set through the value
+     * attribute, this is displayed instead.
      */
     @Attribute
     public abstract String getDefaultLabel();
@@ -264,8 +312,8 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract String getStyle();
 
     /**
-     * Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed
+     * through as the "class" attribute on generated markup.
      */
     @Attribute
     public abstract String getStyleClass();
@@ -277,8 +325,8 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract String getPopupStyle();
 
     /**
-     * Space-separated list of CSS style class(es) to be applied to the popup element. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Space-separated list of CSS style class(es) to be applied to the popup element. This value must be passed through as the
+     * "class" attribute on generated markup.
      */
     @Attribute
     public abstract String getPopupClass();
@@ -314,7 +362,8 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract String getDayClassFunction();
 
     /**
-     * Position of this element in the tabbing order for the current document. This value must be an integer between 0 and 32767.
+     * Position of this element in the tabbing order for the current document. This value must be an integer between 0 and
+     * 32767.
      */
     @Attribute
     public abstract String getTabindex();
@@ -326,15 +375,15 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract String getInputStyle();
 
     /**
-     * Space-separated list of CSS style class(es) to be applied to the button element. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Space-separated list of CSS style class(es) to be applied to the button element. This value must be passed through as the
+     * "class" attribute on generated markup.
      */
     @Attribute
     public abstract String getButtonClass();
 
     /**
-     * Space-separated list of CSS style class(es) to be applied to the input element. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Space-separated list of CSS style class(es) to be applied to the input element. This value must be passed through as the
+     * "class" attribute on generated markup.
      */
     @Attribute
     public abstract String getInputClass();
@@ -373,19 +422,27 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract String getButtonDisabledIcon();
 
     /**
-     * <p>Defines time that will be used:</p>
+     * <p>
+     * Defines time that will be used:
+     * </p>
      * <ol>
-     *     <li>to set time when the value is empty</li>
-     *     <li>to set time when date changes and flag "resetTimeOnDateSelect" is true</li>
+     * <li>to set time when the value is empty</li>
+     * <li>to set time when date changes and flag "resetTimeOnDateSelect" is true</li>
      * </ol>
-     * <p>Default value is "getDefaultValueOfDefaultTime()"</p>
+     * <p>
+     * Default value is "getDefaultValueOfDefaultTime()"
+     * </p>
      */
     @Attribute
     public abstract Object getDefaultTime();
 
     /**
-     * <p>Defines the last range of date which will be loaded to client from dataModel under rendering</p>
-     * <p>Default value is "getDefaultPreloadEnd(getCurrentDateOrDefault())"</p>
+     * <p>
+     * Defines the last range of date which will be loaded to client from dataModel under rendering
+     * </p>
+     * <p>
+     * Default value is "getDefaultPreloadEnd(getCurrentDateOrDefault())"
+     * </p>
      */
     @Attribute
     public abstract Object getPreloadDateRangeBegin();
@@ -393,8 +450,12 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract void setPreloadDateRangeBegin(Object date);
 
     /**
-     * <p>Define the initial range of date which will be loaded to client from dataModel under rendering</p>
-     * <p>Default value is "getDefaultPreloadBegin(getCurrentDateOrDefault())"</p>
+     * <p>
+     * Define the initial range of date which will be loaded to client from dataModel under rendering
+     * </p>
+     * <p>
+     * Default value is "getDefaultPreloadBegin(getCurrentDateOrDefault())"
+     * </p>
      */
     @Attribute
     public abstract Object getPreloadDateRangeEnd();
@@ -407,7 +468,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute
     public abstract CalendarDataModel getDataModel();
 
-    //---------------- Input events
+    // ---------------- Input events
 
     /**
      * Javascript code executed when a pointer button is clicked over the input element.
@@ -493,7 +554,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute(events = @EventName("inputblur"))
     public abstract String getOninputblur();
 
-    //---------------------
+    // ---------------------
 
     /**
      * Javascript code executed when this element loses focus and its value has been modified since gaining focus.
@@ -504,7 +565,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     /**
      * The client-side script method to be called when some date cell is selected
      */
-    //-------------- Date select events
+    // -------------- Date select events
     @Attribute(events = @EventName("dateselect"))
     public abstract String getOndateselect();
 
@@ -526,7 +587,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute(events = @EventName("beforecurrentdateselect"))
     public abstract String getOnbeforecurrentdateselect();
 
-    //----------------
+    // ----------------
 
     /**
      * The client-side script method to be called after the DOM is updated
@@ -534,9 +595,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute(events = @EventName("complete"))
     public abstract String getOncomplete();
 
-    /**
-     * The client-side script method to be called when the popup is hidden
-     */
     @Attribute(events = @EventName("hide"))
     public abstract String getOnhide();
 
@@ -552,9 +610,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute(events = @EventName("datemouseover"))
     public abstract String getOndatemouseover();
 
-    /**
-     * The client-side script method to be called when the popup is shown
-     */
     @Attribute(events = @EventName("show"))
     public abstract String getOnshow();
 
@@ -577,8 +632,12 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract String getOnclean();
 
     /**
-     * <p>Used for locale definition</p>
-     * <p>Default value is "getDefaultLocale()"</p>
+     * <p>
+     * Used for locale definition
+     * </p>
+     * <p>
+     * Default value is "getDefaultLocale()"
+     * </p>
      */
     @Attribute
     public Object getLocale() {
@@ -696,7 +755,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     protected Date getDefaultPreloadBegin(Date date) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Calendar calendar = Calendar.getInstance(CalendarHelper.getTimeZoneOrDefault(this),
-            CalendarHelper.getAsLocale(facesContext, this, getLocale()));
+                CalendarHelper.getAsLocale(facesContext, this, getLocale()));
         calendar.setTime(date);
         calendar.set(Calendar.DATE, calendar.getActualMinimum(Calendar.DATE));
         return calendar.getTime();
@@ -705,7 +764,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     protected Date getDefaultPreloadEnd(Date date) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Calendar calendar = Calendar.getInstance(CalendarHelper.getTimeZoneOrDefault(this),
-            CalendarHelper.getAsLocale(facesContext, this, getLocale()));
+                CalendarHelper.getAsLocale(facesContext, this, getLocale()));
         calendar.setTime(date);
         calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DATE));
         /*
@@ -764,7 +823,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
                     if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
 
                         result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
-                            DAYSDATA_META_COMPONENT_ID);
+                                DAYSDATA_META_COMPONENT_ID);
                         if (result == VisitResult.COMPLETE) {
                             return true;
                         }
@@ -852,7 +911,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
 
         if (Mode.ajax.equals(mode)) {
             dateRangeBegin = CalendarHelper.getAsDate(facesContext, this,
-                getDefaultPreloadBegin((Date) getCurrentDateOrDefault()));
+                    getDefaultPreloadBegin((Date) getCurrentDateOrDefault()));
             dateRangeEnd = CalendarHelper.getAsDate(facesContext, this, getDefaultPreloadEnd((Date) getCurrentDateOrDefault()));
         } else {
 
@@ -883,7 +942,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
             List<Date> dates = new ArrayList<Date>();
 
             Calendar calendar = Calendar.getInstance(CalendarHelper.getTimeZoneOrDefault(this),
-                CalendarHelper.getAsLocale(facesContext, this, this.getLocale()));
+                    CalendarHelper.getAsLocale(facesContext, this, this.getLocale()));
             Calendar calendar2 = (Calendar) calendar.clone();
             calendar.setTime(dateRangeBegin);
             calendar2.setTime(dateRangeEnd);

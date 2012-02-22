@@ -47,7 +47,8 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  * @since 2010-10-24
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"), attributes = {
-        "tooltip-props.xml", "ajax-props.xml" })
+        "core-props.xml", "tooltip-props.xml", "ajax-props.xml", "i18n-props.xml", "position-props.xml",
+        "events-mouse-props.xml", "popups-props.xml", "events-popups-props.xml", "events-popups-before-props.xml" })
 public abstract class AbstractTooltip extends UIOutput implements AbstractDivPanel, MetaComponentResolver, MetaComponentEncoder {
     public static final String COMPONENT_TYPE = "org.richfaces.Tooltip";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tooltip";
@@ -67,6 +68,9 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
         target
     }
 
+    /**
+     * Component ID of the target component or "null" if the component should be attached to the parent component.
+     */
     @Attribute(generate = false)
     public String getTarget() {
         UIComponent parent2 = getParent();
@@ -86,9 +90,17 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
      * @Attribute public abstract String getValue();
      */
 
+    /**
+     * Block/inline mode flag. Possible value are: "inline" or "block". Default value is "inline". Tooltip will contain div/span
+     * elements respectively.
+     */
     @Attribute(defaultValue = "TooltipLayout.DEFAULT")
     public abstract TooltipLayout getLayout();
 
+    /**
+     * If the value of the "attached" attribute is "true", a component is attached to the parent component; if "false",
+     * component does not listen to activating browser events, but could be activated externally. Default value is "true"
+     */
     @Attribute(defaultValue = "true")
     public abstract boolean isAttached();
 
@@ -98,27 +110,51 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
     @Attribute(defaultValue = "Positioning.DEFAULT")
     public abstract Positioning getDirection();
 
+    /**
+     * If "true" tooltip should follow the mouse while it moves over the parent element. Default value is "false"
+     */
     @Attribute(defaultValue = "true")
     public abstract boolean isFollowMouse();
 
+    /**
+     * Delay in milliseconds before tooltip will be hidden. Default value is "0"
+     */
     @Attribute(defaultValue = "0")
     public abstract int getHideDelay();
 
+    /**
+     * Event that triggers the tooltip disappearance. Default value is "mouseleave"
+     */
     @Attribute(defaultValue = "mouseleave")
     public abstract String getHideEvent();
 
+    /**
+     * Sets the horizontal offset between pop-up list and mouse pointer. Default value is "10"
+     */
     @Attribute(defaultValue = "10")
     public abstract int getHorizontalOffset();
 
+    /**
+     * Controls the way of data loading to a tooltip. May have following values: "client" (default) and "ajax"
+     */
     @Attribute(defaultValue = "TooltipMode.DEFAULT")
     public abstract TooltipMode getMode();
 
+    /**
+     * Delay in milliseconds before tooltip will be displayed. Default value is "0"
+     */
     @Attribute(defaultValue = "0")
     public abstract int getShowDelay();
 
+    /**
+     * Event that triggers the tooltip. Default value is "mouseenter"
+     */
     @Attribute(defaultValue = "mouseenter")
     public abstract String getShowEvent();
 
+    /**
+     * Sets the vertical offset between pop-up list and mouse pointer. Default value is "10"
+     */
     @Attribute(defaultValue = "10")
     public abstract int getVerticalOffset();
 
@@ -154,7 +190,7 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
             if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
 
                 VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
-                    CONTENT_META_COMPONENT_ID);
+                        CONTENT_META_COMPONENT_ID);
                 if (result == VisitResult.COMPLETE) {
                     return true;
                 } else if (result == VisitResult.REJECT) {
