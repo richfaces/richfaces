@@ -32,8 +32,11 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.DivPanelRenderer;
 
 /**
+ * <p>The &lt;rich:accordionItem&gt; component is a panel for use with the &lt;rich:accordion&gt; component.
+ * &lt;rich:accordionItem&gt; components can be added dynamically using iteration models with the &lt;c:forEach&gt;
+ * tag.</p>
+ *
  * @author akolonitsky
- * @since 2010-08-13
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.AccordionItemRenderer"),
         attributes = {"events-mouse-props.xml", "i18n-props.xml", "core-props.xml"})

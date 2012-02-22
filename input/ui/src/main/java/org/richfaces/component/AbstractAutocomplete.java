@@ -43,8 +43,10 @@ import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
- * @author Nick Belaevski
+ * <p>The &lt;rich:autocomplete&gt; component is an auto-completing input-box with built-in Ajax capabilities. It
+ * supports client-side suggestions, browser-like selection, and customization of the look and feel.</p>
  *
+ * @author Nick Belaevski
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.AutocompleteHandler"),
         renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"),

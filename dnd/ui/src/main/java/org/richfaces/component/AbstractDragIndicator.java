@@ -29,8 +29,11 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
+ * <p>
+ *     The &lt;rich:dragIndicator&gt; component defines a graphical element to display under the mouse cursor during a
+ *     drag-and-drop operation.
+ * </p>
  * @author abelevich
- *
  */
 @JsfComponent(type = AbstractDragIndicator.COMPONENT_TYPE, family = AbstractDragIndicator.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDragIndicator", renderer = @JsfRenderer(type = "org.richfaces.DragIndicatorRenderer"), tag = @Tag(name = "dragIndicator"))
 public abstract class AbstractDragIndicator extends UIComponentBase {

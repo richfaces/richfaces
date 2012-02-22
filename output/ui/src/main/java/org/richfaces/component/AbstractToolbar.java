@@ -30,6 +30,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.ToolbarRendererBase;
 
+/**
+ * <p>The &lt;rich:toolbar&gt; component is a horizontal toolbar. Any JavaServer Faces (JSF) component can be added to the
+ * toolbar.</p>
+ */
 @JsfComponent(family = AbstractToolbar.COMPONENT_FAMILY, type = AbstractToolbar.COMPONENT_TYPE, renderer = @JsfRenderer(type = ToolbarRendererBase.RENDERER_TYPE), tag = @Tag(name = "toolbar"), attributes = { "core-props.xml" })
 public abstract class AbstractToolbar extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.Toolbar";

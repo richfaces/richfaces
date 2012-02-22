@@ -40,8 +40,11 @@ import org.richfaces.event.PanelToggleListener;
 import org.richfaces.event.PanelToggleSource;
 
 /**
+ * <p>
+ *     The &lt;rich:collapsiblePanel&gt; component is a collapsible panel that shows or hides content when the header bar is activated.
+ *     It is a simplified version of &lt;rich:togglePanel&gt; component.
+ * </p>
  * @author akolonitsky
- * @since 2010-08-27
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.CollapsiblePanelTagHandler"),
         renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"), attributes = {"core-props.xml", "events-mouse-props.xml", "i18n-props.xml"})

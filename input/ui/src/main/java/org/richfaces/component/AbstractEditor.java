@@ -34,6 +34,8 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.EditorRendererBase;
 
 /**
+ * <p> The &lt;rich:editor&gt; component is used for creating a WYSIWYG editor on a page. </p>
+ *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
 @JsfComponent(type = AbstractEditor.COMPONENT_TYPE, family = AbstractEditor.COMPONENT_FAMILY, generate = "org.richfaces.component.UIEditor", renderer = @JsfRenderer(type = "org.richfaces.EditorRenderer"), facets = @Facet(name = "config", description = @Description("Detailed configuration of editor in JSON format")), tag = @Tag(name = "editor"), attributes = "core-props.xml")

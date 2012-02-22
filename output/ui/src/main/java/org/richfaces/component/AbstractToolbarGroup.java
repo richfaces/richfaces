@@ -36,8 +36,8 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.ToolbarGroupRenderer;
 
 /**
- * The &lt;rich:toolbarGroup&gt; component is a child component of the &lt;rich:toolbar&gt; component.
- * The &lt;rich:toolbarGroup&gt; component is used to group a number of items together on a toolbar.
+ * <p>The &lt;rich:toolbarGroup&gt; component is a child component of the &lt;rich:toolbar&gt; component. The
+ * &lt;rich:toolbarGroup&gt; component is used to group a number of items together on a toolbar.</p>
  */
 @JsfComponent(family = AbstractToolbar.COMPONENT_FAMILY, type = AbstractToolbarGroup.COMPONENT_TYPE, renderer = @JsfRenderer(type = ToolbarGroupRenderer.RENDERER_TYPE), tag = @Tag(name = "toolbarGroup"))
 public abstract class AbstractToolbarGroup extends UIComponentBase {

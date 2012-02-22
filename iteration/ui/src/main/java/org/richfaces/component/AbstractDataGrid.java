@@ -47,8 +47,11 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
- * @author Anton Belevich
+ * <p> The &lt;rich:dataGrid&gt; component is used to arrange data objects in a grid. Values in the grid can be updated
+ * dynamically from the data model, and Ajax updates can be limited to specific rows. The component supports header,
+ * footer, and caption facets. </p>
  *
+ * @author Anton Belevich
  */
 @JsfComponent(type = AbstractDataGrid.COMPONENT_TYPE, family = AbstractDataGrid.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataGrid", renderer = @JsfRenderer(type = "org.richfaces.DataGridRenderer"), tag = @Tag(name = "dataGrid", handler = "org.richfaces.taglib.DataGridHandler", type = TagType.Facelets), attributes = {
         "core-props.xml", "iteration-props.xml", "sequence-props.xml" })

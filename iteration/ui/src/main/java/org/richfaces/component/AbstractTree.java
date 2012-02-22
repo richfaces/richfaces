@@ -84,8 +84,11 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
 
 /**
- * @author Nick Belaevski
+ * <p>The &lt;rich:tree&gt; component provides a hierarchical tree control. Each &lt;rich:tree&gt; component typically
+ * consists of &lt;rich:treeNode&gt; child components. The appearance and behavior of the tree and its nodes can be
+ * fully customized.</p>
  *
+ * @author Nick Belaevski
  */
 @JsfComponent(type = AbstractTree.COMPONENT_TYPE, family = AbstractTree.COMPONENT_FAMILY, tag = @Tag(name = "tree", handler = "org.richfaces.view.facelets.TreeHandler"), renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"), attributes = {
         "ajax-props.xml", "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml",

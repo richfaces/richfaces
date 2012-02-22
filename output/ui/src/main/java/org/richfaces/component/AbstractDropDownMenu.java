@@ -10,6 +10,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.DropDownMenuRendererBase;
 
+/**
+ * The &lt;rich:dropDownMenu&gt; component is used for creating a drop-down, hierarchical menu. It can be used with the
+ * &lt;rich:toolbar&gt; component to create menus in an application's toolbar.
+ */
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractDropDownMenu.COMPONENT_TYPE, facets = {
         @Facet(name = "label", generate = false), @Facet(name = "labelDisabled", generate = false) }, renderer = @JsfRenderer(type = DropDownMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "dropDownMenu"), attributes = {
         "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "position-props.xml" })

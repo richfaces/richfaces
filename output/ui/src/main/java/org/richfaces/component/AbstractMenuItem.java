@@ -7,6 +7,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.MenuItemRendererBase;
 
+/**
+ * <p>The &lt;rich:menuItem&gt; component represents a single item in a menu control. The &lt;rich:menuItem&gt;
+ * component can be also be used as a seperate component without a parent menu component, such as on a toolbar.</p>
+ */
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuItem.COMPONENT_TYPE, facets = {
         @Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) }, renderer = @JsfRenderer(type = MenuItemRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuItem"),
         attributes = {"events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "ajax-props.xml", "bypass-props.xml" })

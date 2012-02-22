@@ -33,8 +33,10 @@ import org.richfaces.cdk.annotations.TagType;
 import com.google.common.base.Predicate;
 
 /**
+ * <p>The &lt;rich:panelMenuItem&gt; component represents a single item inside a &lt;rich:panelMenuGroup&gt; component,
+ * which is in turn part of a &lt;rich:panelMenu&gt; component.</p>
+ *
  * @author akolonitsky
- * @since 2010-10-25
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "core-props.xml", "ajax-props.xml", "bypass-props.xml",
         "events-mouse-props.xml" })

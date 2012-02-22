@@ -30,8 +30,10 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
- * JSF component class
- *
+ * <p>The &lt;rich:popupPanel&gt; component provides a pop-up panel or window that appears in front of the rest of the
+ * application. The &lt;rich:popupPanel&gt; component functions either as a modal window which blocks interaction with
+ * the rest of the application while active, or as a non-modal window. It can be positioned on the screen, dragged to a
+ * new position by the user, and re-sized.</p>
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PopupPanelRenderer"), attributes = {
         "styles-props.xml", "popups-props.xml", "events-popups-props.xml", "events-popups-before-props.xml" })

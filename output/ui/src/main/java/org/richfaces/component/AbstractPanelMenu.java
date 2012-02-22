@@ -43,8 +43,11 @@ import org.richfaces.event.ItemChangeSource;
 import org.richfaces.renderkit.util.PanelIcons;
 
 /**
+ * <p>The &lt;rich:panelMenu&gt; component is used in conjunction with &lt;rich:panelMenuItem&gt; and
+ * &lt;rich:panelMenuGroup&gt; to create an expanding, hierarchical menu. The &lt;rich:panelMenu&gt; component's
+ * appearance can be highly customized, and the hierarchy can stretch to any number of sub-levels.</p>
+ *
  * @author akolonitsky
- * @since 2010-10-25
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.PanelMenuTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.PanelMenuRenderer"), attributes = {
         "core-props.xml", "ajax-props.xml", "events-mouse-props.xml", "i18n-props.xml" })

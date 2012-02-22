@@ -43,8 +43,10 @@ import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
+ * <p>The &lt;rich:tooltip&gt; component provides an informational tool-tip. The tool-tip can be attached to any control
+ * and is displayed when hovering the mouse cursor over the control.</p>
+ *
  * @author amarkhel
- * @since 2010-10-24
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"), attributes = {
         "core-props.xml", "tooltip-props.xml", "ajax-props.xml", "i18n-props.xml", "position-props.xml",

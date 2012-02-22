@@ -41,8 +41,10 @@ import org.richfaces.event.FileUploadListener;
 import org.richfaces.renderkit.RenderKitUtils;
 
 /**
- * @author Konstantin Mishin
+ * <p> The &lt;rich:fileUpload&gt; component allows the user to upload files to a server. It features multiple uploads,
+ * progress bars, restrictions on file types, and restrictions on sizes of the files to be uploaded. </p>
  *
+ * @author Konstantin Mishin
  */
 @JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.FileUploadHandler"), renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"), attributes = {
         "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "ajax-props.xml", "i18n-props.xml", "fileUploadListener-props.xml" })

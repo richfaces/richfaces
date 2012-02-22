@@ -45,8 +45,12 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.SelectionMode;
 
 /**
- * @author Konstantin Mishin
+ * <p> The &lt;rich:extendedDataTable&gt; component builds on the functionality of the &lt;rich:dataTable&gt; component,
+ * adding features such as scrolling for the table body (both horizontal and vertical), Ajax loading for vertical
+ * scrolling, frozen columns, row selection, and rearranging of columns. It also supports all the basic table features
+ * such as sorting, filtering, and paging using the &lt;rich:dataScroller&gt; component. </p>
  *
+ * @author Konstantin Mishin
  */
 @JsfComponent(type = AbstractExtendedDataTable.COMPONENT_TYPE, family = AbstractExtendedDataTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UIExtendedDataTable", renderer = @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer"), tag = @Tag(name = "extendedDataTable", handler = "org.richfaces.taglib.ExtendedDataTableHandler", type = TagType.Facelets), attributes = {
         "core-props.xml", "iteration-props.xml", "sequence-props.xml", "events-row-props.xml" })

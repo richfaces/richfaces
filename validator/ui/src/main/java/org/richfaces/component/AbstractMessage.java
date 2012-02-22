@@ -32,15 +32,15 @@ import org.richfaces.cdk.annotations.RendererSpecificComponent;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * <p class="changed_added_4_0">
- * </p>
+ * <p>The &lt;rich:message&gt; component renders a single FacesMessage message instance added for the component. The
+ * appearance of the message can be customized, and tool-tips can be used for further information about the
+ * message.</p>
  *
  * @author asmirnov@exadel.com
- *
  */
-@JsfComponent(generate = "org.richfaces.component.UIRichMessage", type = "org.richfaces.Message", components = @RendererSpecificComponent(tag = @Tag(name = "message"), generate = "org.richfaces.component.html.HtmlMessage", attributes = {
-        "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml",
-        "output-format-props.xml" }, renderer = @JsfRenderer(template = "message.template.xml")))
+@JsfComponent(generate = "org.richfaces.component.UIRichMessage", type = "org.richfaces.Message", components = @RendererSpecificComponent(tag = @Tag(name = "message"),
+        generate = "org.richfaces.component.html.HtmlMessage", renderer = @JsfRenderer(template = "message.template.xml")),
+        attributes = {"core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml", "output-format-props.xml" })
 public abstract class AbstractMessage extends UIMessage implements AjaxOutput {
     @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();

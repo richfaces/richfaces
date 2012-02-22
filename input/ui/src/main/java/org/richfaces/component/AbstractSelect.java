@@ -6,8 +6,12 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * @author abelevich
+ * <p> The &lt;rich:select&gt; component provides a drop-down list box for selecting a single value from multiple
+ * options. The &lt;rich:select&gt; component can be configured as a combo-box, where it will accept typed input. The
+ * component also supports keyboard navigation. The &lt;rich:select&gt; component functions similarly to the JSF
+ * UISelectOne component. </p>
  *
+ * @author abelevich
  */
 @JsfComponent(type = AbstractSelect.COMPONENT_TYPE, family = AbstractSelect.COMPONENT_FAMILY, generate = "org.richfaces.component.UISelect",
         renderer = @JsfRenderer(type = "org.richfaces.SelectRenderer"), tag = @Tag(name = "select"),

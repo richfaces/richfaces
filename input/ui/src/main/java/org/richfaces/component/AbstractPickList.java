@@ -7,8 +7,11 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ * <p> The &lt;rich:pickList&gt; is a component for selecting items from a list. Additionally, it allows for the selected
+ * items to be ordered (client-side). From the client side perspective, items are added/removed from the source list,
+ * and removed/added to the target list. </p>
  *
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(type = AbstractPickList.COMPONENT_TYPE, family = AbstractPickList.COMPONENT_FAMILY, generate = "org.richfaces.component.UIPickList",
         renderer = @JsfRenderer(type = "org.richfaces.PickListRenderer"), tag = @Tag(name = "pickList"),

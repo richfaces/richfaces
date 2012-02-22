@@ -48,8 +48,10 @@ import org.richfaces.event.TreeToggleSource;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
- * @author Nick Belaevski
+ * <p> The <rich:treeNode> component is a child component of the <rich:tree> component. It represents nodes in the
+ * parent tree. The appearance and functionality of each tree node can be customized. </p>
  *
+ * @author Nick Belaevski
  */
 @JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY, tag = @Tag(name = "treeNode", handler = "org.richfaces.view.facelets.TreeNodeHandler"), renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"), attributes = {
         "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml",

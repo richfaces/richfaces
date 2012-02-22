@@ -35,8 +35,10 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.convert.ConverterUtil;
 
 /**
- * @author Nick Belaevski
+ * <p>The &lt;rich:treeModelAdaptor&gt; component takes an object which implements the Map or Iterable interfaces. It
+ * adds all the object entries to the parent node as child nodes.</p>
  *
+ * @author Nick Belaevski
  */
 public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
     private enum PropertyKeys {

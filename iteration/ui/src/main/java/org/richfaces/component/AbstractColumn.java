@@ -35,8 +35,10 @@ import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
 
 /**
- * @author Anton Belevich
+ * <p> The &lt;rich:column&gt; component facilitates columns in a table. It supports merging columns and rows, sorting,
+ * filtering, and customized skinning. </p>
  *
+ * @author Anton Belevich
  */
 @JsfComponent(type = AbstractColumn.COMPONENT_TYPE, family = AbstractColumn.COMPONENT_FAMILY, facets = {
         @Facet(name = "header", description = @Description("Column header")),

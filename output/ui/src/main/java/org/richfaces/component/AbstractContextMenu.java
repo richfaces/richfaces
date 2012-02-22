@@ -32,6 +32,10 @@ import org.richfaces.renderkit.html.ContextMenuRendererBase;
 import javax.faces.component.UIComponentBase;
 
 /**
+ * <p>
+ *     The &lt;rich:contextMenu&gt; component is used for creating a hierarchical context menu that are activated on
+ *     events like onmouseover, onclick etc. The component can be applied to any element on the page.
+ * </p>
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(family = AbstractContextMenu.COMPONENT_FAMILY, type = AbstractContextMenu.COMPONENT_TYPE,

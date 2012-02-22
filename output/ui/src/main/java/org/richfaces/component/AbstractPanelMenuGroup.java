@@ -38,8 +38,10 @@ import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.PanelToggleEvent;
 
 /**
+ * <p>The &lt;rich:panelMenuGroup&gt; component defines a group of &lt;rich:panelMenuItem&gt; components inside a
+ * &lt;rich:panelMenu&gt;.</p>
+ *
  * @author akolonitsky
- * @since 2010-10-25
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "core-props.xml", "ajax-props.xml", "bypass-props.xml",
         "events-mouse-props.xml" })

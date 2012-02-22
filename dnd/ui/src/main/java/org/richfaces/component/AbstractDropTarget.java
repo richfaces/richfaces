@@ -37,8 +37,11 @@ import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
 
 /**
+ * <p>
+ *     The &lt;rich:dropTarget&gt; component can be added to a component so that the component can accept dragged items.
+ *     The dragged items must be defined with a compatible drop type for the &lt;rich:dragSource&gt; component.
+ * </p>
  * @author abelevich
- *
  */
 @JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDropTarget", renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"), attributes = {
         "ajax-props.xml", "bypass-props.xml", "dropListener-props.xml" }, tag = @Tag(name = "dropTarget", handler = "org.richfaces.view.facelets.DropHandler", type = TagType.Facelets))

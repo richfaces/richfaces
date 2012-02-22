@@ -37,8 +37,11 @@ import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.event.CollapsibleSubTableToggleListener;
 
 /**
- * @author Anton Belevich
+ * <p> The &lt;rich:collapsibleSubTable&gt; component acts as a child element to a &lt;rich:dataTable&gt; component. The
+ * &lt;rich:collapsibleSubTable&gt; component iterates through the child collections in the currently iterated object to
+ * create master-detail tables. </p>
  *
+ * @author Anton Belevich
  */
 @JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE, family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UICollapsibleSubTable", renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"), tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets), attributes = {
         "core-props.xml", "iteration-props.xml", "sequence-props.xml", "events-row-props.xml" })

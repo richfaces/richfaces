@@ -10,6 +10,11 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.MenuGroupRendererBase;
 
+/**
+ * <p>The &lt;rich:menuGroup&gt; component represents an expandable sub-menu in a menu control. The
+ * &lt;rich:menuGroup&gt; component can contain a number of &lt;rich:menuItem&gt; components, or further nested
+ * &lt;rich:menuGroup&gt; components.</p>
+ */
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuGroup.COMPONENT_TYPE, facets = {
         @Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) }, renderer = @JsfRenderer(type = MenuGroupRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuGroup"), attributes = {
         "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "position-props.xml" })

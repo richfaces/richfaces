@@ -29,8 +29,12 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
+ * <p>The &lt;rich:accordion&gt; is a series of panels stacked on top of each other, each collapsed such that only the
+ * header of the panel is showing. When the header of a panel is clicked, it is expanded to show the content of the
+ * panel. Clicking on a different header will collapse the previous panel and epand the selected one. Each panel
+ * contained in a &lt;rich:accordion&gt; component is a &lt;rich:accordionItem&gt; component.</p>
+ *
  * @author akolonitsky
- * @since 2010-08-05
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"),
         renderer = @JsfRenderer(type = "org.richfaces.AccordionRenderer"), attributes = {"events-mouse-props.xml", "i18n-props.xml", "core-props.xml"})

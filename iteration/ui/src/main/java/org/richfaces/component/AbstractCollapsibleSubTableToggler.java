@@ -29,8 +29,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * @author Anton Belevich
+ * <p> The &lt;rich:collapsibleSubTableToggler&gt; component provides a toggle control for the user to expand and
+ * collapse sub-tables. </p>
  *
+ * @author Anton Belevich
  */
 @JsfComponent(type = AbstractCollapsibleSubTableToggler.COMPONENT_TYPE, family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY, generate = "org.richfaces.component.UICollapsibleSubTableToggleControl", renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableTogglerRenderer"), tag = @Tag(name = "collapsibleSubTableToggler"))
 public abstract class AbstractCollapsibleSubTableToggler extends UIComponentBase {

@@ -35,8 +35,10 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.DivPanelRenderer;
 
 /**
+ * <p>The &lt;rich:tab&gt; component represents an individual tab inside a &lt;rich:tabPanel&gt; component, including
+ * the tab's content. Clicking on the tab header will bring its corresponding content to the front of other tabs.</p>
+ *
  * @author akolonitsky
- * @since 2010-10-19
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), facets = { @Facet(name = "header", generate = false) }, renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"), attributes = {
         "core-props.xml", "ajax-props.xml", "bypass-props.xml", "events-mouse-props.xml", "i18n-props.xml" })

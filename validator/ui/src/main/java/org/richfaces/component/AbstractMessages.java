@@ -33,11 +33,10 @@ import org.richfaces.cdk.annotations.RendererSpecificComponent;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * <p class="changed_added_4_0">
- * </p>
+ * <p>The &lt;rich:messages&gt; components works similarly to the &lt;rich:message&gt; component, but can display all
+ * the validation messages added for the current view instead of just a single message.</p>
  *
  * @author asmirnov@exadel.com
- *
  */
 @JsfComponent(generate = "org.richfaces.component.UIRichMessages", type = "org.richfaces.Messages", components = @RendererSpecificComponent(tag = @Tag(name = "messages"), generate = "org.richfaces.component.html.HtmlMessages", attributes = {
         "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml",

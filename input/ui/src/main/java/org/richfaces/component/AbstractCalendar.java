@@ -62,8 +62,11 @@ import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.utils.CalendarHelper;
 
 /**
- * @author amarkhel
+ * <p> The &lt;rich:calendar&gt; component allows the user to enter a date and time through an in-line or pop-up
+ * calendar. The pop-up calendar can navigate through months and years, and its look and feel can be highly customized.
+ * </p>
  *
+ * @author amarkhel
  */
 @JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, generate = "org.richfaces.component.UICalendar", renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), attributes = {
         "position-props.xml", "popups-props.xml", "events-popups-props.xml" }, tag = @Tag(name = "calendar", handler = "org.richfaces.view.facelets.CalendarHandler"))

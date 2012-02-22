@@ -30,8 +30,11 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
+ * <p>The &lt;rich:tabPanel&gt; component provides a set of tabbed panels for displaying one panel of content at a time.
+ * The tabs can be highly customized and themed. Each tab within a &lt;rich:tabPanel&gt; container is a &lt;rich:tab&gt;
+ * component.</p>
+ *
  * @author akolonitsky
- * @since 2010-08-24
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TabPanelRenderer"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })

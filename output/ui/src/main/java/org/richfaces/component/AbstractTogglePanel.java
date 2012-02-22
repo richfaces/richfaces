@@ -67,8 +67,12 @@ import org.richfaces.renderkit.util.RendererUtils;
 import com.google.common.base.Strings;
 
 /**
+ * <p>The &lt;rich:togglePanel&gt; component is used as a base for the other switchable components, the
+ * &lt;rich:accordion&gt; component and the &lt;rich:tabPanel&gt; component. It provides an abstract switchable
+ * component without any associated markup. As such, the &lt;rich:togglePanel&gt; component could be customized to
+ * provide a switchable component when neither an accordion component or a tab panel component is appropriate.</p>
+ *
  * @author akolonitsky
- * @version 1.0
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })

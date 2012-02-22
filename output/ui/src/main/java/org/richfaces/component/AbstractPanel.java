@@ -29,8 +29,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
- * JSF component class
- *
+ * <p>The &lt;rich:panel&gt; component is a bordered panel with an optional header.</p>
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PanelRenderer"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "events-key-props.xml" })

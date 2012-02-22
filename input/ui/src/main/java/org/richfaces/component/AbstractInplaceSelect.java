@@ -28,8 +28,13 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * @author Anton Belevich
+ * <p> The &lt;rich:inplaceSelect&gt; component is similar to the &lt;rich:inplaceInput&gt; component, except that the
+ * &lt;rich:inplaceSelect&gt; component uses a drop-down selection box to enter text instead of a regular text field.
+ * Changes can be rendered either in-line or for the whole block, and inputs can be focused with keyboard navigation.
+ * The component is based on the JSF UISelectOne component, so all the standard rules for value definition, processing,
+ * conversion, and validation apply. </p>
  *
+ * @author Anton Belevich
  */
 @JsfComponent(type = AbstractInplaceSelect.COMPONENT_TYPE, family = AbstractInplaceSelect.COMPONENT_FAMILY, generate = "org.richfaces.component.UIInplaceSelect",
         renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"), tag = @Tag(name = "inplaceSelect"),

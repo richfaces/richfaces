@@ -30,8 +30,13 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * @author Anton Belevich
+ * <p> The &lt;rich:inplaceInput&gt; component allows information to be entered in-line in blocks of text, improving
+ * readability of the text. Multiple input regions can be navigated with keyboard navigation. The component has three
+ * functional states: the view state, where the component displays its initial setting, such as &quot;click to
+ * edit&quot;; the edit state, where the user can input text; and the &quot;changed&quot; state, where the new value for
+ * the component has been confirmed but can be edited again if required. </p>
  *
+ * @author Anton Belevich
  */
 @JsfComponent(type = AbstractInplaceInput.COMPONENT_TYPE, family = AbstractInplaceInput.COMPONENT_FAMILY, generate = "org.richfaces.component.UIInplaceInput",
         renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"), tag = @Tag(name = "inplaceInput"),

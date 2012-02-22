@@ -31,6 +31,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
+ * <p>The &lt;rich:notify&gt; component serves for advanced user interaction, using notification boxes to give the user
+ * instant feedback on what's happening within the application. Each time this component is rendered, a floating
+ * notification box is displayed in the selected corner of the browser screen.</p>
+ *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
 @JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY, generate = "org.richfaces.component.UINotify", renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"), attributes = "core-props.xml", facets = {

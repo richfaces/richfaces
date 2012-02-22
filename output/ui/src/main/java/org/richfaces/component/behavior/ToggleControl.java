@@ -37,10 +37,10 @@ import org.richfaces.component.ComponentIterators;
 import org.richfaces.renderkit.util.RendererUtils;
 
 /**
- * <p>
- * The &lt;rich:toggleControl&gt; behavior can be attached to any interface component, whether inside or outside the controlled panel itself.
- * It works with a &lt;rich:togglePanel&gt; component to switch between different &lt;rich:togglePanelItem&gt; components.
- * </p>
+ * <p> The &lt;rich:toggleControl&gt; behavior can be attached to any interface component, whether inside or outside the
+ * controlled panel itself. It works with a &lt;rich:togglePanel&gt; component to switch between different
+ * &lt;rich:togglePanelItem&gt; components. </p>
+ *
  * @author akolonitsky
  */
 @JsfBehavior(id = "org.richfaces.component.behavior.ToggleControl", tag = @Tag(name = "toggleControl", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets), renderer = @JsfBehaviorRenderer(type = "org.richfaces.component.behavior.ToggleControl"))

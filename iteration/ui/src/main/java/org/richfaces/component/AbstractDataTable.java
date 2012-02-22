@@ -31,8 +31,11 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
- * @author Anton Belevich
+ * <p> The &lt;rich:dataTable&gt; component is used to render a table, including the table's caption. It works in
+ * conjunction with the &lt;rich:column&gt; and &lt;rich:columnGroup&gt; components to list the contents of a data
+ * model. </p>
  *
+ * @author Anton Belevich
  */
 @JsfComponent(type = AbstractDataTable.COMPONENT_TYPE, family = AbstractDataTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataTable", renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"), tag = @Tag(name = "dataTable", handler = "org.richfaces.taglib.DataTableHandler", type = TagType.Facelets), attributes = {
         "core-props.xml", "iteration-props.xml", "sequence-props.xml", "events-row-props.xml" })

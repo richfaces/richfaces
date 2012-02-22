@@ -47,10 +47,10 @@ import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
- * Class provides base component class for progress bar
+ * <p> The &lt;rich:progressBar&gt; component displays a progress bar to indicate the status of a process to the user.
+ * It can update either through Ajax or on the client side, and the look and feel can be fully customized. </p>
  *
  * @author "Andrey Markavtsov"
- *
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ProgressBarRenderer"),
         attributes = "events-mouse-props.xml")
