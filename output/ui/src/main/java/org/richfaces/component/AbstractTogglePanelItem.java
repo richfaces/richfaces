@@ -37,7 +37,7 @@ import org.richfaces.cdk.annotations.TagType;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"), attributes = {
-        "core-props.xml", "ajax-props.xml", "bypass-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
+        "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
 public abstract class AbstractTogglePanelItem extends UIOutput implements AbstractTogglePanelItemInterface {
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelItem";
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelItem";

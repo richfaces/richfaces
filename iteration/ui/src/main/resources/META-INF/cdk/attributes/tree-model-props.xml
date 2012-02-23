@@ -42,19 +42,6 @@
             inner nodes recursively and return null or empty map/collection for leafs.)
         </description>
     </property>
-
-    <property>
-        <property-name>roots</property-name>
-        <property-class>java.lang.Object</property-class>
-        <property-extension>
-            <cdk:generate>false</cdk:generate>
-        </property-extension>
-        <description>
-            EL expression pointing to top-level nodes (roots) which should tree model iterate over. Implementation
-            of java.util.Map or java.util.List. When map is provided, map keys are used as keys for the model,
-            otherwise, keys are generated.
-        </description>
-    </property>
     
     <property>
         <description>Converter for a row key object</description>

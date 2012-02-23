@@ -53,7 +53,8 @@ import org.richfaces.model.SelectionMode;
  * @author Konstantin Mishin
  */
 @JsfComponent(type = AbstractExtendedDataTable.COMPONENT_TYPE, family = AbstractExtendedDataTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UIExtendedDataTable", renderer = @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer"), tag = @Tag(name = "extendedDataTable", handler = "org.richfaces.taglib.ExtendedDataTableHandler", type = TagType.Facelets), attributes = {
-        "core-props.xml", "iteration-props.xml", "sequence-props.xml", "events-row-props.xml" })
+        "style-prop.xml", "styleClass-prop.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml",
+        "events-row-props.xml" })
 public abstract class AbstractExtendedDataTable extends UIDataTableBase implements MetaComponentResolver, MetaComponentEncoder {
     public static final String COMPONENT_TYPE = "org.richfaces.ExtendedDataTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;

@@ -43,8 +43,8 @@ import com.google.common.collect.Maps;
  * which can be updated dynamically.</p>
  */
 @JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM), tag = @Tag(name = "list", handler = "org.richfaces.taglib.ListHandler", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"), attributes = {
-        "core-props.xml", "iteration-props.xml", "sequence-props.xml", "events-mouse-props.xml", "events-key-props.xml",
-        "events-row-props.xml", "i18n-props.xml" })
+        "core-props.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml", "events-mouse-props.xml",
+        "events-key-props.xml", "events-row-props.xml", "i18n-props.xml" })
 public abstract class AbstractList extends UISequence {
     public static final String TERM = "term";
     private static final Predicate<String> TERM_PREDICATE = new Predicate<String>() {

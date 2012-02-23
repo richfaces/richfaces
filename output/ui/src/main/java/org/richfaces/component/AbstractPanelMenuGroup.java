@@ -43,8 +43,8 @@ import org.richfaces.event.PanelToggleEvent;
  *
  * @author akolonitsky
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "core-props.xml", "ajax-props.xml", "bypass-props.xml",
-        "events-mouse-props.xml" })
+@JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "style-prop.xml", "styleClass-prop.xml", "ajax-props.xml",
+        "bypass-props.xml", "events-mouse-props.xml" })
 public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuGroup";
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuGroup";

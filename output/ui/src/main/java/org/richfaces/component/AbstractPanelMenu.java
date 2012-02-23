@@ -50,7 +50,7 @@ import org.richfaces.renderkit.util.PanelIcons;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.PanelMenuTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.PanelMenuRenderer"), attributes = {
-        "core-props.xml", "ajax-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
+        "style-prop.xml", "styleClass-prop.xml", "immediate-prop.xml", "events-mouse-props.xml" })
 public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSource {
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenu";

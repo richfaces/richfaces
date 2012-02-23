@@ -67,7 +67,11 @@ public class UIHashParameter extends UIComponentBase {
         getStateHelper().put(PropertyKeys.name, name);
     }
 
-    @Attribute(hidden = true)
+    /**
+     * <i>Not used, it is computed automatically</i>
+     */
+    // TODO should be hidden
+    @Attribute
     public Map<String, Object> getValue() {
         List<UIComponent> children = getChildren();
         Map<String, Object> parameters = new HashMap<String, Object>();

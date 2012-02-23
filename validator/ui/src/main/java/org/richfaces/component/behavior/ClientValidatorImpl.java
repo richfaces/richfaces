@@ -77,7 +77,7 @@ import com.google.common.collect.Lists;
  *
  */
 @JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handler = "org.richfaces.view.facelets.html.ClientValidatorHandler", type = TagType.Facelets), attributes = {
-        "ajax-props.xml", "validator-disabled-prop.xml" })
+        "validator-props.xml", "immediate-prop.xml" })
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior {
     private static final Set<String> NONE = Collections.emptySet();
     private static final Set<String> THIS = Collections.singleton("@this");

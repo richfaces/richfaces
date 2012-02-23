@@ -92,7 +92,7 @@ import com.google.common.collect.Maps;
  */
 @JsfComponent(type = AbstractTree.COMPONENT_TYPE, family = AbstractTree.COMPONENT_FAMILY, tag = @Tag(name = "tree", handler = "org.richfaces.view.facelets.TreeHandler"), renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"), attributes = {
         "ajax-props.xml", "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml",
-        "tree-common-props.xml", "iteration-props.xml", "sequence-props.xml", "tree-serverEventListeners-props.xml" })
+        "tree-common-props.xml", "tree-props.xml", "sequence-props.xml", "immediate-prop.xml" })
 // TODO add rowData caching for wrapper events
 public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder,
         TreeSelectionChangeSource, TreeToggleSource {

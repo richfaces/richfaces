@@ -38,7 +38,8 @@ import org.richfaces.cdk.annotations.TagType;
  * @author Anton Belevich
  */
 @JsfComponent(type = AbstractDataTable.COMPONENT_TYPE, family = AbstractDataTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataTable", renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"), tag = @Tag(name = "dataTable", handler = "org.richfaces.taglib.DataTableHandler", type = TagType.Facelets), attributes = {
-        "core-props.xml", "iteration-props.xml", "sequence-props.xml", "events-row-props.xml" })
+        "style-prop.xml", "styleClass-prop.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml",
+        "events-row-props.xml" })
 public abstract class AbstractDataTable extends UIDataTableBase {
     public static final String COMPONENT_TYPE = "org.richfaces.DataTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;

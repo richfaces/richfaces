@@ -37,7 +37,7 @@ import org.richfaces.cdk.annotations.Tag;
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-@JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY, generate = "org.richfaces.component.UINotify", renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"), attributes = "core-props.xml", facets = {
+@JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY, generate = "org.richfaces.component.UINotify", renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"), attributes = "styleClass-prop.xml", facets = {
         @Facet(name = "summary", description = @Description("Summary of the notification message")),
         @Facet(name = "detail", description = @Description("Detail of the notification message")) })
 public abstract class AbstractNotify extends UIComponentBase implements NotifyAttributes {

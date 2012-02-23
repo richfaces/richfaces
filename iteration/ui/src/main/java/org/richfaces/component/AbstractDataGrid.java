@@ -84,6 +84,9 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
     @Attribute(aliases = @Alias(value = "rows"))
     public abstract int getElements();
 
+    @Attribute(hidden = true)
+    public abstract int getRows();
+
     @Facet
     public abstract UIComponent getHeader();
 
