@@ -36,7 +36,7 @@ import org.richfaces.cdk.annotations.Tag;
  * when stack is re-rendered, current notifications are destroyed, freeing place for new notifications.</p>
  *
  * @author Bernard Labno
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @JsfComponent(tag = @Tag(name = "notifyStack"), type = AbstractNotifyStack.COMPONENT_TYPE, family = AbstractNotifyStack.COMPONENT_FAMILY, generate = "org.richfaces.component.UINotifyStack", renderer = @JsfRenderer(type = "org.richfaces.NotifyStackRenderer"))
 public abstract class AbstractNotifyStack extends UIComponentBase {

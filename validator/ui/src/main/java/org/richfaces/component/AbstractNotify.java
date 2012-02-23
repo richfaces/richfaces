@@ -35,7 +35,7 @@ import org.richfaces.cdk.annotations.Tag;
  * instant feedback on what's happening within the application. Each time this component is rendered, a floating
  * notification box is displayed in the selected corner of the browser screen.</p>
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY, generate = "org.richfaces.component.UINotify", renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"), attributes = "styleClass-prop.xml", facets = {
         @Facet(name = "summary", description = @Description("Summary of the notification message")),

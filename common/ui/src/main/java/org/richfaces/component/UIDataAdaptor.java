@@ -80,7 +80,7 @@ import org.richfaces.log.RichfacesLogger;
  * rendering on AJAX responces for one or more selected iterations.
  *
  * @author shura
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public abstract class UIDataAdaptor extends UIComponentBase implements NamingContainer, UniqueIdVendor, IterationStateHolder,
         ComponentSystemEventListener, SystemEventListener {
