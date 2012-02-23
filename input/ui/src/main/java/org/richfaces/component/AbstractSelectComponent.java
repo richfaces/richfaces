@@ -77,11 +77,17 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     @Attribute
     public abstract String getListClass();
 
-    //--------- focus-props.xml
+    //--------- Some of focus-props.xml (TODO: add tabindex here)
 
+    /**
+     * Javascript code executed when this element loses focus.
+     */
     @Attribute(events = @EventName("blur"))
     public abstract String getOnblur();
 
+    /**
+     * Javascript code executed when this element receives focus.
+     */
     @Attribute(events = @EventName("focus"))
     public abstract String getOnfocus();
 

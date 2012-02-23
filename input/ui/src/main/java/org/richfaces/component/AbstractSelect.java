@@ -15,7 +15,7 @@ import org.richfaces.cdk.annotations.Tag;
  */
 @JsfComponent(type = AbstractSelect.COMPONENT_TYPE, family = AbstractSelect.COMPONENT_FAMILY, generate = "org.richfaces.component.UISelect",
         renderer = @JsfRenderer(type = "org.richfaces.SelectRenderer"), tag = @Tag(name = "select"),
-        attributes = {"core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "focus-props.xml", "select-props.xml"})
+        attributes = {"core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "select-props.xml"})
 public abstract class AbstractSelect extends AbstractSelectComponent {
     public static final String COMPONENT_TYPE = "org.richfaces.Select";
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";

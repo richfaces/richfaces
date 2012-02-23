@@ -92,6 +92,19 @@ public abstract class AbstractPickList extends AbstractOrderingComponent {
     //-------- Source List Events
 
     /**
+     * Javascript code executed when the source list element receives focus.
+     */
+    @Attribute(events = @EventName("sourcefocus"))
+    public abstract String getOnsourcefocus();
+
+    /**
+     * Javascript code executed when the source list element loses focus.
+     */
+    @Attribute(events = @EventName("sourceblur"))
+    public abstract String getOnsourceblur();
+
+
+    /**
      * Javascript code executed when a pointer button is clicked over the source list element .
      */
     @Attribute(events = @EventName("listclick"))
@@ -153,6 +166,18 @@ public abstract class AbstractPickList extends AbstractOrderingComponent {
 
 
     //-------- Target List Events
+
+    /**
+     * Javascript code executed when the target list element receives focus.
+     */
+    @Attribute(events = @EventName("targetfocus"))
+    public abstract String getOntargetfocus();
+
+    /**
+     * Javascript code executed when the target list element loses focus.
+     */
+    @Attribute(events = @EventName("targetblur"))
+    public abstract String getOntargetblur();
 
     /**
      * Javascript code executed when a pointer button is clicked over the target list element .
