@@ -28,10 +28,11 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
- * Component for periodically call AJAX events on server ( poll actions )
- *
+ * <p>
+ * The &lt;a4j:poll&gt; component allows periodical sending of Ajax requests to the server. It is used for repeatedly
+ * updating a page at specific time intervals.
+ * </p>
  * @author shura
- *
  */
 @JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.html.AjaxPollHandler", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PollRenderer"), attributes = { "ajax-props.xml" })
 public abstract class AbstractPoll extends AbstractActionComponent {
@@ -46,12 +47,22 @@ public abstract class AbstractPoll extends AbstractActionComponent {
     public static final String BEFOREDOMUPDATE = "beforedomupdate";
     public static final String ON_BEFOREDOMUPDATE = "onbeforedomupdate";
 
+    /**
+     * Specifies the time in milliseconds between requests. The default for this value is 1000 ms (1 second)
+     */
     @Attribute
     public abstract int getInterval();
 
+    /**
+     * Enables/disables polling to the server.  Using Expression Language (EL), the enabled attribute can point to a
+     * bean property to apply a particular attribute value
+     */
     @Attribute(defaultValue = "true")
     public abstract boolean isEnabled();
 
+    /**
+     * The client-side script method to be called after the timer counts down, but before the Ajax request is initiated
+     */
     @Attribute(events = @EventName(value = TIMER, defaultEvent = true))
     public abstract String getOntimer();
 }

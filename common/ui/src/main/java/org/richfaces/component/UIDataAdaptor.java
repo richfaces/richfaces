@@ -521,12 +521,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return getExtendedDataModel().isRowAvailable();
     }
 
-    /**
-     * Boolean attribute that defines whether this iteration component will reset saved children's state before rendering. By
-     * default state is reset if there are no faces messages with severity error or higher.
-     *
-     * @return
-     */
     @Attribute
     public boolean isKeepSaved() {
         Object value = getStateHelper().eval(PropertyKeys.keepSaved);

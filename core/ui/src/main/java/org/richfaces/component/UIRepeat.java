@@ -27,10 +27,14 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
+ * <p>
+ * The non-visual &lt;a4j:repeat&gt; component is used to iterate through a data model. The component renders child
+ * content for every iteration according to the current object data.
+ * </p>
  * @author Nick Belaevski
- *
  */
-@JsfComponent(tag = @Tag(name = "repeat", handler = "org.richfaces.view.facelets.html.RepeatHandler", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.RepeatRenderer"), attributes = "rowKeyConverter-prop.xml")
+@JsfComponent(tag = @Tag(name = "repeat", handler = "org.richfaces.view.facelets.html.RepeatHandler", type = TagType.Facelets),
+        renderer = @JsfRenderer(type = "org.richfaces.RepeatRenderer"), attributes = {"rowKeyConverter-prop.xml", "iteration-props.xml"})
 public class UIRepeat extends UISequence {
     public static final String COMPONENT_TYPE = "org.richfaces.Repeat";
     public static final String COMPONENT_FAMILY = "javax.faces.Data";

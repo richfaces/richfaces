@@ -27,15 +27,21 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
- * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
- * @version $Revision: 1.1.2.2 $ $Date: 2007/01/23 20:01:04 $
- *
+ * <p>
+ * The &lt;a4j:jsFunction&gt; component performs Ajax requests directly from JavaScript code and retrieves server-side data.
+ * The server-side data is returned in JavaScript Object Notation (JSON) format prior to the execution of any JavaScript
+ * code defined using the "oncomplete" attribute.
+ * </p>
+ * @author asmirnov@exadel.com
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.FunctionRenderer"), tag = @Tag(name = "jsFunction", type = TagType.Facelets), attributes = { "ajax-props.xml" })
 public abstract class AbstractAjaxFunction extends AbstractActionComponent {
     public static final String COMPONENT_FAMILY = "javax.faces.Command";
     public static final String COMPONENT_TYPE = "org.richfaces.Function";
 
+    /**
+     * The name of the generated javascript function
+     */
     @Attribute(required = true)
     public abstract String getName();
 }

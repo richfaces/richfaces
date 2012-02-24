@@ -45,6 +45,7 @@ import org.ajax4jsf.model.SequenceDataModel;
 import org.ajax4jsf.model.SequenceRange;
 import org.ajax4jsf.model.SequenceState;
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 
 /**
  * @author Nick Belaevski

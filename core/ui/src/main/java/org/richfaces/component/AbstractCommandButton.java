@@ -20,10 +20,6 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -31,16 +27,28 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.AjaxConstants;
 
+import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
 /**
+ * <p>
+ * The &lt;a4j:commandButton&gt; component is similar to the JavaServer Faces (JSF) &lt;h:commandButton&gt; component,
+ * but additionally includes Ajax support.
+ * </p>
  * @author Nick Belaevski
- *
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandButtonRenderer"), tag = @Tag(type = TagType.Facelets), attributes = {
-        "ajax-props.xml", "command-button-props.xml", "core-props.xml" })
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandButtonRenderer"), tag = @Tag(type = TagType.Facelets),
+        attributes = {"ajax-props.xml", "command-button-props.xml", "core-props.xml" })
 public abstract class AbstractCommandButton extends AbstractActionComponent implements MetaComponentResolver {
     public static final String COMPONENT_TYPE = "org.richfaces.CommandButton";
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
 
+    /**
+     * Absolute or relative URL of the image to be displayed for this button. If specified, this "input" element will
+     * be of type "image". Otherwise, it will be of the type specified by the "type" property with a label specified
+     * by the "value" property
+     */
     @Attribute
     public abstract String getImage();
 

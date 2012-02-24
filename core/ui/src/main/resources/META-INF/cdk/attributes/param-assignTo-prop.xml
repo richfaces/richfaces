@@ -16,6 +16,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee">
 
     <property>
+        <description>
+            EL expression for updatable bean property. This property will be updated if the parent command component performs an actionEvent.
+        </description>
         <property-name>assignTo</property-name>
         <property-class>java.lang.Object</property-class>
         <property-extension>

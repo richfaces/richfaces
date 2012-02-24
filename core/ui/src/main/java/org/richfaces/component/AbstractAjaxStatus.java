@@ -30,53 +30,98 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
+ * <p>
+ * The &lt;a4j:status&gt; component displays the status of current Ajax requests. The status can be either in progress,
+ * complete, or an error is shown after a failed request.
+ * </p>
  * @author Nick Belaevski
- *
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.StatusRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractAjaxStatus extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.Status";
     public static final String COMPONENT_FAMILY = "org.richfaces.Status";
 
+    /**
+     * The client-side script method to be called when the request starts
+     */
     @Attribute(events = @EventName("start"))
     public abstract String getOnstart();
 
+    /**
+     * The client-side script method to be called when the request stops
+     */
     @Attribute(events = @EventName("stop"))
     public abstract String getOnstop();
 
+    /**
+     * The client-side script method to be called when the request results in an error
+     */
     @Attribute(events = @EventName("error"))
     public abstract String getOnerror();
 
+    /**
+     * The client-side script method to be called when the request completes successfully
+     */
     @Attribute(events = @EventName("success"))
     public abstract String getOnsuccess();
 
+    /**
+     * The name of the status component
+     */
     @Attribute
     public abstract String getName();
 
+    /**
+     * The text shown after the request has been started and is currently in progress
+     */
     @Attribute
     public abstract String getStartText();
 
+    /**
+     * The text shown once the request is complete
+     */
     @Attribute
     public abstract String getStopText();
 
+    /**
+     * The text shown when an error has occurred
+     */
     @Attribute
     public abstract String getErrorText();
 
+    /**
+     * The css style attribute for the start text
+     */
     @Attribute
     public abstract String getStartStyle();
 
+    /**
+     * The css style attribute for the stop text
+     */
     @Attribute
     public abstract String getStopStyle();
 
+    /**
+     * The css style attribute for the error text
+     */
     @Attribute
     public abstract String getErrorStyle();
 
+    /**
+     * The css class attribute used to style the start text
+     */
     @Attribute
     public abstract String getStartStyleClass();
 
+    /**
+     * The css class attribute used to style the stop text
+     */
     @Attribute
     public abstract String getStopStyleClass();
 
+    /**
+     * The css class attribute used to style the error text
+     */
     @Attribute
     public abstract String getErrorStyleClass();
 }

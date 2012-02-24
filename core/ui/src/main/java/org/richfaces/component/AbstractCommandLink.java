@@ -32,13 +32,18 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.AjaxConstants;
 
 /**
+ * <p>
+ * The &lt;a4j:commandLink&gt; component is similar to the JavaServer Faces (JSF) &lt;h:commandLink&gt; component, except that it
+ * includes plugged-in Ajax behavior.
+ * </p>
  * @author Nick Belaevski
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandLinkRenderer"), tag = @Tag(type = TagType.Facelets), attributes = {
-        "commandLink-target-prop.xml", "ajax-props.xml", "link-props.xml", "core-props.xml" })
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandLinkRenderer"), tag = @Tag(type = TagType.Facelets),
+        attributes = {"commandLink-target-prop.xml", "ajax-props.xml", "link-props.xml", "core-props.xml" })
 public abstract class AbstractCommandLink extends AbstractActionComponent implements MetaComponentResolver {
     public static final String COMPONENT_TYPE = "org.richfaces.CommandLink";
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
+
     @Attribute(hidden = true)
     private String target;
 
@@ -47,11 +52,9 @@ public abstract class AbstractCommandLink extends AbstractActionComponent implem
     }
 
     public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
-
         if (AjaxContainer.META_COMPONENT_ID.equals(metaComponentId)) {
             return AjaxConstants.FORM;
         }
-
         return null;
     }
 }

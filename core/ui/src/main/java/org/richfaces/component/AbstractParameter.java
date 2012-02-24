@@ -40,8 +40,11 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.util.PartialStateHolderUtil;
 
 /**
- * @author shura (latest modification by $Author: alexsmirnov $)
- * @version $Revision: 1.1.2.2 $ $Date: 2007/02/01 15:31:55 $
+ * <p>
+ * The &lt;a4j:param&gt; behavior combines the functionality of the JavaServer Faces (JSF) components
+ * &lt;f:param&gt; and &lt;f:actionListener&gt;.
+ * </p>
+ * @author shura, alexsmirnov
  */
 @JsfComponent(tag = @Tag(name = "param", handler = "org.richfaces.view.facelets.html.ParameterHandler", generate = false, type = TagType.Facelets), attributes = "param-assignTo-prop.xml")
 public abstract class AbstractParameter extends UIParameter implements ActionListener, JavaScriptParameter {
@@ -56,7 +59,9 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
     private Converter converter = null;
 
     /**
-     * ********************************************************
+     * If set to true, the value will not enclosed within single quotes and there will be no escaping of characters.
+     * This allows the use of the value as JavaScript code for calculating value on the client-side.
+     * This doesn't work with non-AJAX components.
      */
     @Attribute
     public abstract boolean isNoEscape();
