@@ -67,10 +67,15 @@ import org.richfaces.renderkit.util.RendererUtils;
 import com.google.common.base.Strings;
 
 /**
+ * <p>The &lt;rich:togglePanel&gt; component is used as a base for the other switchable components, the
+ * &lt;rich:accordion&gt; component and the &lt;rich:tabPanel&gt; component. It provides an abstract switchable
+ * component without any associated markup. As such, the &lt;rich:togglePanel&gt; component could be customized to
+ * provide a switchable component when neither an accordion component or a tab panel component is appropriate.</p>
+ *
  * @author akolonitsky
- * @version 1.0
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"), attributes = {
+        "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
 public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource,
         MetaComponentResolver, MetaComponentEncoder {
     public static final String ACTIVE_ITEM_META_COMPONENT = "activeItem";
@@ -85,11 +90,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     private String submittedActiveItem = null;
 
     private enum PropertyKeys {
-        localValueSet,
-        required,
-        valid,
-        immediate,
-        switchType
+        localValueSet, required, valid, immediate, switchType
     }
 
     protected AbstractTogglePanel() {
@@ -144,6 +145,10 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         getStateHelper().put(PropertyKeys.required, required);
     }
 
+    /**
+     * Flag indicating that this component's value must be converted and validated immediately (that is, during Apply Request
+     * Values phase), rather than waiting until Process Validations phase.
+     */
     @Attribute
     public boolean isImmediate() {
         return (Boolean) getStateHelper().eval(PropertyKeys.immediate, false);
@@ -593,6 +598,10 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         setLocalValueSet(true);
     }
 
+    /**
+     * Holds the active panel name. This name is a reference to the name identifier of the active child
+     * &lt;rich:togglePanelItem&gt; component.
+     */
     @Attribute
     public String getActiveItem() {
         return (String) getValue();
@@ -611,6 +620,9 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         }
     }
 
+    /**
+     * The switch mode when a panel is activated. One of: "client", "server", "ajax". Default: "ajax"
+     */
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
         SwitchType switchType = (SwitchType) getStateHelper().eval(PropertyKeys.switchType);
@@ -627,6 +639,11 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     @Attribute(hidden = true)
     public abstract boolean isLimitRender();
 
+    /**
+     * Applicable when cycling through the tabs. If "true", then when the last tab is active, cycling to next will activate the
+     * first tab, if "false", cycling to next will have not effect. The inverse applies for the first tab, and cycling to
+     * previous. Whether to Default: false
+     */
     @Attribute
     public abstract boolean isCycledSwitching();
 
@@ -642,14 +659,21 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     @Attribute(hidden = true)
     public abstract Object getRender();
 
+    /**
+     * Occurs on the server side when an item is changed through Ajax using the server mode
+     */
     @Attribute
     public abstract MethodExpression getItemChangeListener();
 
-    // ------------------------------------------------ Html Attributes
-
+    /**
+     * The client-side script method to be called after the item is changed.
+     */
     @Attribute(events = @EventName("itemchange"))
     public abstract String getOnitemchange();
 
+    /**
+     * The client-side script method to be called before the item is changed.
+     */
     @Attribute(events = @EventName("beforeitemchange"))
     public abstract String getOnbeforeitemchange();
 

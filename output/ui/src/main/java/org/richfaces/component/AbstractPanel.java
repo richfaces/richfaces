@@ -29,21 +29,29 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
- * JSF component class
- *
+ * <p>The &lt;rich:panel&gt; component is a bordered panel with an optional header.</p>
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PanelRenderer"), attributes = {
-        "core-props.xml", "events-props.xml" })
+        "core-props.xml", "events-mouse-props.xml", "events-key-props.xml" })
 public abstract class AbstractPanel extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.Panel";
     public static final String COMPONENT_FAMILY = "org.richfaces.Panel";
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the panel header.
+     */
     @Attribute
     public abstract String getHeader();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the panel header.
+     */
     @Attribute
     public abstract String getHeaderClass();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the panel header.
+     */
     @Attribute
     public abstract String getBodyClass();
 

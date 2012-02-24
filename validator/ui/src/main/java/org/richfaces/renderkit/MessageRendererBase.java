@@ -105,7 +105,6 @@ public class MessageRendererBase extends RendererBase {
      *
      * @param context
      * @param component
-     * @return
      */
     protected Iterable<MessageForRender> getVisibleMessages(FacesContext context, UIComponent component) {
         String forId = getFor(component);

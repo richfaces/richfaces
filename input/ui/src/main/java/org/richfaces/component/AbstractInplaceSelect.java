@@ -28,95 +28,139 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * @author Anton Belevich
+ * <p> The &lt;rich:inplaceSelect&gt; component is similar to the &lt;rich:inplaceInput&gt; component, except that the
+ * &lt;rich:inplaceSelect&gt; component uses a drop-down selection box to enter text instead of a regular text field.
+ * Changes can be rendered either in-line or for the whole block, and inputs can be focused with keyboard navigation.
+ * The component is based on the JSF UISelectOne component, so all the standard rules for value definition, processing,
+ * conversion, and validation apply. </p>
  *
+ * @author Anton Belevich
  */
-@JsfComponent(type = AbstractInplaceSelect.COMPONENT_TYPE, family = AbstractInplaceSelect.COMPONENT_FAMILY, generate = "org.richfaces.component.UIInplaceSelect", renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"), tag = @Tag(name = "inplaceSelect"), attributes = "core-props.xml")
+@JsfComponent(type = AbstractInplaceSelect.COMPONENT_TYPE, family = AbstractInplaceSelect.COMPONENT_FAMILY, generate = "org.richfaces.component.UIInplaceSelect",
+        renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"), tag = @Tag(name = "inplaceSelect"),
+        attributes = {"core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "focus-props.xml", "select-props.xml"})
 public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent {
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceSelect";
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
 
+    /**
+     * The width of the input element
+     */
     @Attribute
     public abstract String getInputWidth();
 
-    @Attribute(hidden = true)
-    public abstract InplaceState getState();
-
+    /**
+     * If "true", this component is disabled
+     */
     @Attribute
     public abstract boolean isDisabled();
 
+    /**
+     * If "false" do not switch the component to the edit state on "click"
+     */
     @Attribute(defaultValue = "true")
     public abstract boolean isOpenOnEdit();
 
+    /**
+     * When "false" do not save the item as the new control value when the user selects an item from the drop-down list
+     */
     @Attribute(defaultValue = "true")
     public abstract boolean isSaveOnSelect();
 
+    /**
+     *  If "true", apply the changes when the focus is lost
+     */
     @Attribute(defaultValue = "true")
     public abstract boolean isSaveOnBlur();
 
+    /**
+     * If "true" is set, buttons for confirming or canceling are added to the component
+     */
     @Attribute
     public abstract boolean isShowControls();
 
+    //--------- focus-props.xml
     @Attribute
     public abstract int getTabindex();
-
-    @Override
-    @Attribute
-    public abstract String getItemClass();
-
-    @Override
-    @Attribute
-    public abstract String getSelectItemClass();
-
-    @Override
-    @Attribute
-    public abstract String getListClass();
-
-    @Attribute
-    public abstract String getChangedClass();
 
     @Attribute
     public abstract String getDefaultLabel();
 
-    @Attribute
-    public abstract String getDisabledClass();
-
-    @Attribute
-    public abstract String getActiveClass();
-
+    /**
+     * <p>The event on which to switch the component to the edit state</p>
+     * <p>Default is "click"</p>
+     */
     @Attribute()
     public abstract String getEditEvent();
 
+    //--------- input events
+
+    /**
+     * Javascript code executed when a pointer button is clicked over the input element.
+     */
     @Attribute(events = @EventName("inputclick"))
     public abstract String getOninputclick();
 
+    /**
+     * Javascript code executed when a pointer button is double clicked over the input element.
+     */
     @Attribute(events = @EventName("inputdblclick"))
     public abstract String getOninputdblclick();
 
+    /**
+     * Javascript code executed when a pointer button is pressed down over the input element.
+     */
     @Attribute(events = @EventName("inputmousedown"))
     public abstract String getOninputmousedown();
 
-    @Attribute(events = @EventName("inputmousemove"))
-    public abstract String getOninputmousemove();
-
-    @Attribute(events = @EventName("inputmouseout"))
-    public abstract String getOninputmouseout();
-
-    @Attribute(events = @EventName("inputmouseover"))
-    public abstract String getOninputmouseover();
-
+    /**
+     * Javascript code executed when a pointer button is released over the input element.
+     */
     @Attribute(events = @EventName("inputmouseup"))
     public abstract String getOninputmouseup();
 
+    /**
+     * Javascript code executed when a pointer button is moved onto the input element.
+     */
+    @Attribute(events = @EventName("inputmouseover"))
+    public abstract String getOninputmouseover();
+
+    /**
+     * Javascript code executed when a pointer button is moved within the input element.
+     */
+    @Attribute(events = @EventName("inputmousemove"))
+    public abstract String getOninputmousemove();
+
+    /**
+     * Javascript code executed when a pointer button is moved away from the input element.
+     */
+    @Attribute(events = @EventName("inputmouseout"))
+    public abstract String getOninputmouseout();
+
+    /**
+     * Javascript code executed when a key is pressed down over the input element.
+     */
     @Attribute(events = @EventName("inputkeydown"))
     public abstract String getOninputkeydown();
 
+    /**
+     * Javascript code executed when a key is pressed and released over the input element.
+     */
     @Attribute(events = @EventName("inputkeypress"))
     public abstract String getOninputkeypress();
 
+    /**
+     * Javascript code executed when a key is released over the input element.
+     */
     @Attribute(events = @EventName("inputkeyup"))
     public abstract String getOninputkeyup();
 
+    /**
+     * Javascript code executed when text in the input element is selected
+     */
     @Attribute(events = @EventName("inputselect"))
     public abstract String getOninputselect();
+
+    @Attribute(hidden = true)
+    public abstract InplaceState getState();
 }

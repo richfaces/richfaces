@@ -17,15 +17,27 @@ public abstract class AbstractOrderingComponent extends AbstractSelectManyCompon
     @Attribute(defaultValue = "true", hidden = true) // TODO: unhide once javascript API's are available RF-11209
     public abstract boolean isShowButton();
 
+    /**
+     * The text to display in the move-to-top button
+     */
     @Attribute(defaultValue = "⇑ First")
     public abstract String getUpTopText();
 
+    /**
+     * The text to display in the move-up button
+     */
     @Attribute(defaultValue = "↑ Up")
     public abstract String getUpText();
 
+    /**
+     * The text to display in the move-down button
+     */
     @Attribute(defaultValue = "↓ Down")
     public abstract String getDownText();
 
+    /**
+     * The text to display in the move-to-bottom button
+     */
     @Attribute(defaultValue = "⇓ Last")
     public abstract String getDownBottomText();
 

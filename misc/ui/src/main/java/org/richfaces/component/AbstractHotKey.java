@@ -32,10 +32,13 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
+ * <p>The &lt;rich:hotKey&gt; component allows registering hot keys on the page or particular elements and defining
+ * client side processing functions for these keys.</p>
+ *
  * @author ilya_shaikovsky
  * @author Lukas Fryc
  */
-@JsfComponent(type = AbstractHotKey.COMPONENT_TYPE, family = AbstractHotKey.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.HotKeyRenderer"), tag = @Tag(type = TagType.Facelets), description = @Description("The HotKey component triggers press event handler for all key events which corresponds to given key sequence."))
+@JsfComponent(type = AbstractHotKey.COMPONENT_TYPE, family = AbstractHotKey.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.HotKeyRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractHotKey extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.HotKey";
     public static final String COMPONENT_FAMILY = "org.richfaces.HotKey";

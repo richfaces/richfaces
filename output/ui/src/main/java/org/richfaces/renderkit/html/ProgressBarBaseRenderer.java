@@ -85,7 +85,6 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
      * Check if component mode is AJAX
      *
      * @param component
-     * @return
      */
     protected boolean isAjaxMode(UIComponent component) {
         if (isResourceMode(component)) {

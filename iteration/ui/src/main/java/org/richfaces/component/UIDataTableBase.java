@@ -81,52 +81,88 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     }
 
     protected enum PropertyKeys {
-        filterVar,
-        sortPriority,
-        sortMode,
-        first,
-        rows,
-        noDataLabel,
-        selection,
-        header
+        filterVar, sortPriority, sortMode, first, rows, noDataLabel, selection, header
     }
 
+    /**
+     * The header of the table
+     */
     @Facet
     public abstract UIComponent getHeader();
 
+    /**
+     * The footer of the table
+     */
     @Facet
     public abstract UIComponent getFooter();
 
+    /**
+     * The content to be displayed when table contains no rows (no data provided).
+     */
     @Facet
     public abstract UIComponent getNoData();
 
+    /**
+     * The label to be displayed when table contains no rows (no data provided).
+     */
     @Attribute
     public abstract String getNoDataLabel();
 
+    /**
+     * Name of the variable used in EL expression provided in filterExpression in order to decide about displaying particular
+     * row.
+     */
     @Attribute
     public abstract String getFilterVar();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the table cells
+     */
     @Attribute
     public abstract String getRowClass();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the table header
+     */
     @Attribute
     public abstract String getHeaderClass();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the table footer
+     */
     @Attribute
     public abstract String getFooterClass();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the columns of the table. If the CSS class names are
+     * comma-separated, each class will be assigned to a particular column in the order they follow in the attribute. If you
+     * have less class names than columns, the class will be applied to every n-fold column where n is the order in which the
+     * class is listed in the attribute. If there are more class names than columns, the overflow ones are ignored.
+     */
     @Attribute
     public abstract String getColumnClasses();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the rows of the table. If the CSS class names are comma-separated,
+     * each class will be assigned to a particular row in the order they follow in the attribute. If you have less class names
+     * than rows, the class will be applied to every n-fold row where n is the order in which the class is listed in the
+     * attribute. If there are more class names than rows, the overflow ones are ignored.
+     */
     @Attribute
     public abstract String getRowClasses();
 
     @Attribute
     public abstract String getStyle();
 
+    /**
+     * Comma-separated list of column names determining priority of row sorting.
+     */
     @Attribute
     public abstract Collection<Object> getSortPriority();
 
+    /**
+     * Specifies when table will be sorted according to one column (single) or multiple columns (multi).
+     */
     @Attribute
     public abstract SortMode getSortMode();
 

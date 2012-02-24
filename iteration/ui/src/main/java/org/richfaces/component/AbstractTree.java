@@ -84,15 +84,18 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
 
 /**
- * @author Nick Belaevski
+ * <p>The &lt;rich:tree&gt; component provides a hierarchical tree control. Each &lt;rich:tree&gt; component typically
+ * consists of &lt;rich:treeNode&gt; child components. The appearance and behavior of the tree and its nodes can be
+ * fully customized.</p>
  *
+ * @author Nick Belaevski
  */
 @JsfComponent(type = AbstractTree.COMPONENT_TYPE, family = AbstractTree.COMPONENT_FAMILY, tag = @Tag(name = "tree", handler = "org.richfaces.view.facelets.TreeHandler"), renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"), attributes = {
-        "ajax-props.xml", "events-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml",
-        "rowKeyConverter-prop.xml", "tree-serverEventListeners-props.xml" })
+        "ajax-props.xml", "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml",
+        "tree-common-props.xml", "tree-props.xml", "sequence-props.xml", "immediate-prop.xml" })
 // TODO add rowData caching for wrapper events
 public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder,
-    TreeSelectionChangeSource, TreeToggleSource {
+        TreeSelectionChangeSource, TreeToggleSource {
     public static final String COMPONENT_TYPE = "org.richfaces.Tree";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tree";
     public static final String SELECTION_META_COMPONENT_ID = "selection";
@@ -289,7 +292,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
             FacesContext context = getFacesContext();
             ValueExpression expression = treeNodeComponent
-                .getValueExpression(AbstractTreeNode.PropertyKeys.expanded.toString());
+                    .getValueExpression(AbstractTreeNode.PropertyKeys.expanded.toString());
             if (expression != null) {
                 ELContext elContext = context.getELContext();
                 Exception caught = null;
@@ -307,7 +310,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
                     if (null == messageStr) {
                         MessageFactory messageFactory = ServiceTracker.getService(MessageFactory.class);
                         message = messageFactory.createMessage(context, FacesMessages.UIINPUT_UPDATE,
-                            MessageUtil.getLabel(context, this));
+                                MessageUtil.getLabel(context, this));
                     } else {
                         message = new FacesMessage(FacesMessage.SEVERITY_ERROR, messageStr, messageStr);
                     }
@@ -315,13 +318,13 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
                     caught = e;
                     MessageFactory messageFactory = ServiceTracker.getService(MessageFactory.class);
                     message = messageFactory.createMessage(context, FacesMessages.UIINPUT_UPDATE,
-                        MessageUtil.getLabel(context, this));
+                            MessageUtil.getLabel(context, this));
                 }
                 if (caught != null) {
                     assert (message != null);
                     UpdateModelException toQueue = new UpdateModelException(message, caught);
                     ExceptionQueuedEventContext eventContext = new ExceptionQueuedEventContext(context, toQueue, this,
-                        PhaseId.UPDATE_MODEL_VALUES);
+                            PhaseId.UPDATE_MODEL_VALUES);
                     context.getApplication().publishEvent(context, ExceptionQueuedEvent.class, eventContext);
                 }
             } else {
@@ -337,7 +340,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
             if (ExtendedVisitContextMode.RENDER == extendedVisitContext.getVisitMode()) {
                 VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
-                    SELECTION_META_COMPONENT_ID);
+                        SELECTION_META_COMPONENT_ID);
                 if (result != VisitResult.ACCEPT) {
                     return result == VisitResult.COMPLETE;
                 }
@@ -372,9 +375,9 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     protected Iterator<UIComponent> dataChildren() {
         AbstractTreeNode treeNodeComponent = findTreeNodeComponent();
         if (treeNodeComponent != null) {
-            return Iterators.<UIComponent>singletonIterator(treeNodeComponent);
+            return Iterators.<UIComponent> singletonIterator(treeNodeComponent);
         } else {
-            return Iterators.<UIComponent>emptyIterator();
+            return Iterators.<UIComponent> emptyIterator();
         }
     }
 
@@ -461,7 +464,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
                 dataModel = (ExtendedDataModel<?>) value;
             } else {
                 throw new IllegalArgumentException(MessageFormat.format(
-                    "TreeDataModel implementation {0} is not a subclass of ExtendedDataModel", value.getClass().getName()));
+                        "TreeDataModel implementation {0} is not a subclass of ExtendedDataModel", value.getClass().getName()));
             }
         } else {
             dataModel = new SwingTreeNodeDataModelImpl();
@@ -562,7 +565,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     }
 
     public String convertDeclarativeKeyToString(FacesContext context, DeclarativeModelKey declarativeKey)
-        throws ConverterException {
+            throws ConverterException {
         try {
             UIComponent component = findDeclarativeModel(declarativeKey.getModelId());
 
@@ -582,7 +585,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     }
 
     public DeclarativeModelKey convertDeclarativeKeyFromString(FacesContext context, String modelId, String modelKeyAsString)
-        throws ConverterException {
+            throws ConverterException {
 
         try {
             UIComponent component = findDeclarativeModel(modelId);

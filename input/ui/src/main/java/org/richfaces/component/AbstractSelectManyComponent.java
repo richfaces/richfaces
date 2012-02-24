@@ -45,8 +45,13 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
         return Iterators.filter(getChildren().iterator(), UIColumn.class);
     }
 
+    //-------- multiselect-props.xml
+
     @Attribute()
     public abstract String getVar();
+
+    @Attribute
+    public abstract boolean isDisabled();
 
     @Attribute()
     public abstract String getListWidth();
@@ -82,28 +87,30 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     public abstract String getDisabledClass();
 
     @Attribute
-    public abstract boolean isDisabled();
-
-    @Attribute
     public abstract String getColumnClasses();
 
     @Attribute
     public abstract String getHeaderClass();
 
-    @Attribute(events = @EventName("blur"))
-    public abstract String getOnblur();
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
+    /**
+     * Javascript code executed when the list element loses focus and its value has been modified since gaining focus.
+     */
     @Attribute(events = @EventName(value = "change", defaultEvent = true))
     public abstract String getOnchange();
 
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
+    /**
+     * Javascript code executed when this element receives focus
+     */
     @Attribute(events = @EventName("focus"))
     public abstract String getOnfocus();
+
+    /**
+     * Javascript code executed when this element loses focus.
+     */
+    @Attribute(events = @EventName("blur"))
+    public abstract String getOnblur();
+
+    //---------- events-key-props.xml
 
     @Attribute(events = @EventName("keydown"))
     public abstract String getOnkeydown();
@@ -113,6 +120,14 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
 
     @Attribute(events = @EventName("keyup"))
     public abstract String getOnkeyup();
+
+    //---------- events-mouse-props.xml
+
+    @Attribute(events = @EventName("click"))
+    public abstract String getOnclick();
+
+    @Attribute(events = @EventName("dblclick"))
+    public abstract String getOndblclick();
 
     @Attribute(events = @EventName("mousedown"))
     public abstract String getOnmousedown();

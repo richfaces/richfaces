@@ -22,6 +22,7 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 
 /**
@@ -30,9 +31,14 @@ import org.richfaces.cdk.annotations.EventName;
  *
  */
 public interface AbstractDivPanel {
+    // -------- i18n-props.xml
     @Attribute
     String getLang();
 
+    @Attribute
+    String getDir();
+
+    // -------- core-props.xml
     @Attribute
     String getTitle();
 
@@ -42,9 +48,7 @@ public interface AbstractDivPanel {
     @Attribute
     String getStyleClass();
 
-    @Attribute
-    String getDir();
-
+    // -------- events-mouse-props.xml
     @Attribute(events = @EventName("click"))
     String getOnclick();
 

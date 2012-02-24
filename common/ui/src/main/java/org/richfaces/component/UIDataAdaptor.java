@@ -80,7 +80,7 @@ import org.richfaces.log.RichfacesLogger;
  * rendering on AJAX responces for one or more selected iterations.
  *
  * @author shura
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public abstract class UIDataAdaptor extends UIComponentBase implements NamingContainer, UniqueIdVendor, IterationStateHolder,
         ComponentSystemEventListener, SystemEventListener {
@@ -214,14 +214,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     private enum PropertyKeys {
-        lastId,
-        var,
-        rowKeyVar,
-        stateVar,
-        childState,
-        rowKeyConverter,
-        rowKeyConverterSet,
-        keepSaved
+        lastId, var, rowKeyVar, stateVar, childState, rowKeyConverter, rowKeyConverterSet, keepSaved
     }
 
     public UIDataAdaptor() {
@@ -258,7 +251,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * @return the rowKey
+     * The attribute provides access to a row key in a Request scope
      */
     public Object getRowKey() {
         return rowKey;
@@ -349,7 +342,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (getChildCount() > 0) {
             return getChildren().iterator();
         } else {
-            return Collections.<UIComponent>emptyList().iterator();
+            return Collections.<UIComponent> emptyList().iterator();
         }
     }
 
@@ -357,7 +350,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (getFacetCount() > 0) {
             return getFacets().values().iterator();
         } else {
-            return Collections.<UIComponent>emptyList().iterator();
+            return Collections.<UIComponent> emptyList().iterator();
         }
     }
 
@@ -365,7 +358,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (getFacetCount() > 0) {
             return getFacets().values().iterator();
         } else {
-            return Collections.<UIComponent>emptyList().iterator();
+            return Collections.<UIComponent> emptyList().iterator();
         }
     }
 
@@ -469,9 +462,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return extendedDataModel;
     }
 
-    /**
-     * @return
-     */
     protected abstract ExtendedDataModel<?> createExtendedDataModel();
 
     /**
@@ -499,6 +489,9 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         getStateHelper().put(PropertyKeys.rowKeyVar, rowKeyVar);
     }
 
+    /**
+     * The attribute provides access to a component state on the client side
+     */
     @Attribute
     public String getStateVar() {
         return (String) getStateHelper().get(PropertyKeys.stateVar);
@@ -521,6 +514,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return getExtendedDataModel().isRowAvailable();
     }
 
+    /**
+     * Boolean attribute that defines whether this iteration component will reset saved children's state before rendering. By
+     * default state is reset if there are no faces messages with severity error or higher.
+     */
     @Attribute
     public boolean isKeepSaved() {
         Object value = getStateHelper().eval(PropertyKeys.keepSaved);
@@ -565,9 +562,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
-    /**
-     * @return
-     */
     public DataComponentState getComponentState() {
         if (componentState != null) {
             return componentState;
@@ -738,7 +732,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * Check for validation errors on children components. If true, saved values must be keep on render phase
      *
      * @param context
-     * @return
      */
     protected boolean keepSaved(FacesContext context) {
 
@@ -1378,7 +1371,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     /**
      * @param context
-     * @return
      */
     private boolean requiresRowIteration(FacesContext context) {
         return (!PhaseId.RESTORE_VIEW.equals(context.getCurrentPhaseId()));
@@ -1387,7 +1379,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /**
      * @param context
      * @param substring
-     * @return
      */
     // TODO review!
     protected String extractKeySegment(FacesContext context, String substring) {

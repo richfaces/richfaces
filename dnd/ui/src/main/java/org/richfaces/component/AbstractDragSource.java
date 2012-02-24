@@ -29,20 +29,32 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
+ * <p>
+ *     The &lt;rich:dragSource&gt; component can be added to a component to indicate it is capable of being dragged by the user.
+ *     The dragged item can then be dropped into a compatible drop area, designated using the &lt;rich:dropTarget&gt; component.
+ * </p>
  * @author abelevich
- *
  */
 @JsfComponent(type = AbstractDragSource.COMPONENT_TYPE, family = AbstractDragSource.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDragSource", renderer = @JsfRenderer(type = "org.richfaces.DragSourceRenderer"), tag = @Tag(name = "dragSource"))
 public abstract class AbstractDragSource extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.DragSource";
     public static final String COMPONENT_FAMILY = "org.richfaces.DragSource";
 
+    /**
+     * Component ID of a dragIndicator component that is used as drag pointer during the drag operation
+     */
     @Attribute
     public abstract String getDragIndicator();
 
+    /**
+     * A drag zone type that is used for zone definition, which elements can be accepted by a drop zone
+     */
     @Attribute
     public abstract String getType();
 
+    /**
+     * Data to be sent to a drop zone after a drop event
+     */
     @Attribute
     public abstract Object getDragValue();
 }

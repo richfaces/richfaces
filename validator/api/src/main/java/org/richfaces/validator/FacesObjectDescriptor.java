@@ -18,8 +18,6 @@ public interface FacesObjectDescriptor {
      * <p class="changed_added_4_0">
      * Returns JSF {@link javax.faces.validator.Validator} implementation class or JSR-303 annotation class.
      * </p>
-     *
-     * @return
      */
     Class<?> getImplementationClass();
 
@@ -36,8 +34,6 @@ public interface FacesObjectDescriptor {
      * <p class="changed_added_4_0">
      * Localized validator message
      * </p>
-     *
-     * @return
      */
     Message getMessage();
 }

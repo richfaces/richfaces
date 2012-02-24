@@ -25,7 +25,6 @@ import org.richfaces.cdk.annotations.Attribute;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface TreeModelRecursiveAdaptor extends TreeModelAdaptor {
     @Attribute

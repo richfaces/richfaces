@@ -16,6 +16,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
     xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions">
     <component>
+        <description>The &amp;lt;rich:inputNumberSlider&amp;gt; component provides a slider for changing numerical values. Optional features include control arrows to step through the values, a tool-tip to display the value while sliding, and a text field for typing the numerical value which can then be validated against the slider's range.</description>
         <component-type>org.richfaces.InputNumberSlider</component-type>
         <component-class>org.richfaces.component.html.HtmlInputNumberSlider</component-class>
         <property>
@@ -28,7 +29,9 @@
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
             href="urn:attributes:javax.faces.component.UIInput.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-            href="urn:attributes:events-props.xml" />
+            href="urn:attributes:events-mouse-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:events-key-props.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
             href="urn:attributes:base-props.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
@@ -38,8 +41,11 @@
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
             href="urn:attributes:focus-props.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:accesskey-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
             href="urn:attributes:i18n-props.xml" />
         <property>
+            <description>Assigns one or more space-separated CSS class names to the decrease arrow element</description>
             <property-name>decreaseClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -48,6 +54,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Assigns one or more space-separated CSS class names to the decrease arrow element selected</description>
             <property-name>decreaseSelectedClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -56,6 +63,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Delay in pressed increase/decrease arrows in miliseconds. &lt;br /&gt;Default value is "200".</description>
             <property-name>delay</property-name>
             <property-class>int</property-class>
             <default-value>200</default-value>
@@ -64,6 +72,7 @@
             </property-extension>
         </property>
         <property>
+            <description>If "true", this component is disabled</description>
             <property-name>disabled</property-name>
             <property-class>boolean</property-class>
             <default-value>false</default-value>
@@ -72,6 +81,7 @@
             </property-extension>
         </property>
         <property>
+            <description>If set to "false" this attribute makes the text field "read-only", so the value can be changed only from a handle. &lt;br /&gt;Default value is "true".</description>
             <property-name>enableManualInput</property-name>
             <property-class>boolean</property-class>
             <default-value>true</default-value>
@@ -80,6 +90,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Assigns one or more space-separated CSS class names to the handle element</description>
             <property-name>handleClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -88,6 +99,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Assigns one or more space-separated CSS class names to the handle element selected</description>
             <property-name>handleSelectedClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -96,6 +108,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Assigns one or more space-separated CSS class names to the increase arrow element</description>
             <property-name>increaseClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -104,6 +117,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Assigns one or more space-separated CSS class names to the increase arrow element selected</description>
             <property-name>increaseSelectedClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -112,6 +126,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Assigns one or more space-separated CSS class names to the component input field</description>
             <property-name>inputClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -120,6 +135,7 @@
             </property-extension>
         </property>
         <property>
+            <description>If "right", the InputText Box would be rendered on the right side of the ruler. If "left", the InputText Box would be rendered on the left side of the ruler. If "top", the InputText Box would be rendered on the top of the ruler. If "bottom", the InputText Box would be rendered on the bottom of the ruler.</description>
             <property-name>inputPosition</property-name>
             <property-class>org.richfaces.component.InputNumberSliderInputPosition</property-class>
             <default-value>InputNumberSliderInputPosition.DEFAULT</default-value>
@@ -128,6 +144,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Similar to the "Size" attribute of h:inputText. &lt;br /&gt;Default value is "3".</description>
             <property-name>inputSize</property-name>
             <property-class>int</property-class>
             <default-value>3</default-value>
@@ -136,6 +153,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Attribute to set an "end" value. &lt;br /&gt;Default value is "100"</description>
             <property-name>maxValue</property-name>
             <property-class>java.lang.String</property-class>
             <default-value>"100"</default-value>
@@ -144,6 +162,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Specifies the maximum number of digits that could be entered into the input field. The maximum number is unlimited by default. If entered value exceeds the value specified in "maxValue" attribute than the slider takes a maximum value position.</description>
             <property-name>maxlength</property-name>
             <property-class>int</property-class>
             <default-value>Integer.MIN_VALUE</default-value>
@@ -152,6 +171,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Attribute to set the "start" value. &lt;br /&gt;Default value is "0".</description>
             <property-name>minValue</property-name>
             <property-class>java.lang.String</property-class>
             <default-value>"0"</default-value>
@@ -160,6 +180,7 @@
             </property-extension>
         </property>
         <property>
+            <description>False value for this attribute makes increase/decrease arrows invisible. &lt;br /&gt;Default value is "false".</description>
             <property-name>showArrows</property-name>
             <property-class>boolean</property-class>
             <default-value>false</default-value>
@@ -168,6 +189,7 @@
             </property-extension>
         </property>
         <property>
+            <description>If the min/max values are shown on the right/left borders of a control. &lt;br /&gt;Default value is "true".</description>
             <property-name>showBoundaryValues</property-name>
             <property-class>boolean</property-class>
             <default-value>true</default-value>
@@ -176,6 +198,7 @@
             </property-extension>
         </property>
         <property>
+            <description>False value for this attribute makes text a field invisible. &lt;br /&gt;Default value is "true".</description>
             <property-name>showInput</property-name>
             <property-class>boolean</property-class>
             <default-value>true</default-value>
@@ -184,6 +207,7 @@
             </property-extension>
         </property>
         <property>
+            <description>If "true"the current value is shown in the tooltip when a handle control is in a "dragged" state. &lt;br /&gt;Default value is "true".</description>
             <property-name>showTooltip</property-name>
             <property-class>boolean</property-class>
             <default-value>true</default-value>
@@ -192,6 +216,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Parameter that determines a step between the nearest values while using a handle. &lt;br /&gt;Default value is "1".</description>
             <property-name>step</property-name>
             <property-class>java.lang.String</property-class>
             <default-value>"1"</default-value>
@@ -200,6 +225,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Assigns one or more space-separated CSS class names to the tooltip element of the handle</description>
             <property-name>tooltipClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -208,6 +234,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Assigns one or more space-separated CSS class names to the track slider element</description>
             <property-name>trackClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -227,6 +254,7 @@
         </component-extension>
     </component>
     <component>
+        <description>The &amp;lt;rich:inputNumberSpinner&amp;gt; component is a single-line input field with buttons to increase and decrease a numerical value. The value can be changed using the corresponding directional keys on a keyboard, or by typing into the field.</description>
         <component-type>org.richfaces.InputNumberSpinner</component-type>
         <component-class>org.richfaces.component.html.HtmlInputNumberSpinner</component-class>
         <property>
@@ -239,7 +267,9 @@
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
             href="urn:attributes:javax.faces.component.UIInput.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-            href="urn:attributes:events-props.xml" />
+            href="urn:attributes:events-mouse-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:events-key-props.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
             href="urn:attributes:base-props.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
@@ -249,8 +279,11 @@
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
             href="urn:attributes:focus-props.xml" />
         <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:accesskey-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
             href="urn:attributes:i18n-props.xml" />
         <property>
+            <description>If "true", this component is disabled</description>
             <property-name>disabled</property-name>
             <property-class>boolean</property-class>
             <default-value>false</default-value>
@@ -259,6 +292,7 @@
             </property-extension>
         </property>
         <property>
+            <description>If "true" after the current value reaches the border value it is reversed to another border value after next increasing/decreasing. In other case possibilities of next increasing (or decreasing) will be locked. &lt;br /&gt;Default value is " true ".</description>
             <property-name>cycled</property-name>
             <property-class>boolean</property-class>
             <default-value>true</default-value>
@@ -267,6 +301,7 @@
             </property-extension>
         </property>
         <property>
+            <description>if "false" your's input to the text field using keyboard will be locked. &lt;br /&gt;Default value is "true"</description>
             <property-name>enableManualInput</property-name>
             <property-class>boolean</property-class>
             <default-value>true</default-value>
@@ -275,6 +310,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Assigns one or more space-separated CSS class names to the component input field</description>
             <property-name>inputClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -282,6 +318,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Attribute specifies the initial length of input in characters. &lt;br /&gt;Default value is "10".</description>
             <property-name>inputSize</property-name>
             <property-class>int</property-class>
             <default-value>10</default-value>
@@ -290,6 +327,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Maximum value. &lt;br /&gt;Default value is "100".</description>
             <property-name>maxValue</property-name>
             <property-class>java.lang.String</property-class>
             <default-value>"100"</default-value>
@@ -298,6 +336,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Minimum value. &lt;br /&gt;Default value is "0".</description>
             <property-name>minValue</property-name>
             <property-class>java.lang.String</property-class>
             <default-value>"0"</default-value>
@@ -306,6 +345,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when the 'Down' button is clicked</description>
             <property-name>ondownclick</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -314,6 +354,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when the component input field is clicked</description>
             <property-name>oninputclick</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -322,6 +363,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when the component input field is double-clicked</description>
             <property-name>oninputdblclick</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -330,6 +372,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when a key is pressed down in the input field</description>
             <property-name>oninputkeydown</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -338,6 +381,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when a key is pressed and released in the input field</description>
             <property-name>oninputkeypress</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -346,6 +390,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when a key is released in the input field</description>
             <property-name>oninputkeyup</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -354,6 +399,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when a mouse button is pressed down in the input field</description>
             <property-name>oninputmousedown</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -362,6 +408,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when a pointer is moved within the input field</description>
             <property-name>oninputmousemove</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -370,6 +417,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when a pointer is moved away from the input field</description>
             <property-name>oninputmouseout</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -378,6 +426,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when a pointer is moved onto the input field</description>
             <property-name>oninputmouseover</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -386,6 +435,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when a mouse button is released</description>
             <property-name>oninputmouseup</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -394,6 +444,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when some text is selected in the text field. This attribute can be used with the INPUT and TEXTAREA elements.</description>
             <property-name>onselect</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -402,6 +453,7 @@
             </property-extension>
         </property>
         <property>
+            <description>The client-side script method to be called when the 'Up' button is clicked</description>
             <property-name>onupclick</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -410,6 +462,7 @@
             </property-extension>
         </property>
         <property>
+            <description>Parameter that determines the step between nearest values while using controls. &lt;br /&gt;Default value is "1"</description>
             <property-name>step</property-name>
             <property-class>java.lang.String</property-class>
             <default-value>"1"</default-value>

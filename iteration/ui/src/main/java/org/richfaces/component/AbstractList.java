@@ -38,10 +38,13 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
 
 /**
- * JSF component class
- *
+ * <p>The &lt;rich:list&gt; component renders a list of items. The list can be an numerically ordered list, an
+ * un-ordered bullet-point list, or a data definition list. The component uses a data model for managing the list items,
+ * which can be updated dynamically.</p>
  */
-@JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM), tag = @Tag(name = "list", handler = "org.richfaces.taglib.ListHandler", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"), attributes = "rowKeyConverter-prop.xml")
+@JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM), tag = @Tag(name = "list", handler = "org.richfaces.taglib.ListHandler", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"), attributes = {
+        "core-props.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml", "events-mouse-props.xml",
+        "events-key-props.xml", "events-row-props.xml", "i18n-props.xml" })
 public abstract class AbstractList extends UISequence {
     public static final String TERM = "term";
     private static final Predicate<String> TERM_PREDICATE = new Predicate<String>() {
@@ -67,6 +70,9 @@ public abstract class AbstractList extends UISequence {
         return getFacetsIterator(NON_TERM_PREDICATE);
     }
 
+    /**
+     * The type of the list: unordered (default), ordered, definitions
+     */
     @Attribute(defaultValue = "ListType.unordered")
     public abstract ListType getType();
 
@@ -149,9 +155,18 @@ public abstract class AbstractList extends UISequence {
     @Attribute
     public abstract String getLang();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the rows of the table. If the CSS class names are comma-separated,
+     * each class will be assigned to a particular row in the order they follow in the attribute. If you have less class names
+     * than rows, the class will be applied to every n-fold row where n is the order in which the class is listed in the
+     * attribute. If there are more class names than rows, the overflow ones are ignored.
+     */
     @Attribute
     public abstract String getRowClasses();
 
+    /**
+     * Assigns one or more space-separated CSS class names to the list rows
+     */
     @Attribute
     public abstract String getRowClass();
 }

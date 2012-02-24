@@ -30,10 +30,14 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
+ * <p>The &lt;rich:togglePanelItem&gt; component is a switchable panel for use with the &lt;rich:togglePanel&gt;
+ * component. Use the &lt;rich:togglePanelItem&gt; component to define the content for a panel using nested components.
+ * Switching between &lt;rich:togglePanelItem&gt; components is handled by the &lt;rich:toggleControl&gt; behavior.</p>
+ *
  * @author akolonitsky
- * @version 1.0
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"), attributes = {
+        "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
 public abstract class AbstractTogglePanelItem extends UIOutput implements AbstractTogglePanelItemInterface {
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelItem";
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelItem";
@@ -66,6 +70,9 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
 
     // ------------------------------------------------ Component Attributes
 
+    /**
+     * The name of the panel, used for identifying and manipulating the active panel
+     */
     @Attribute(generate = false)
     public String getName() {
         return (String) getStateHelper().eval(NAME, getId());
@@ -79,6 +86,9 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
         return "TogglePanelItem {name: " + getName() + ", switchType: " + getSwitchType() + '}';
     }
 
+    /**
+     * The switch type for this toggle panel: client, ajax (default), server
+     */
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
         SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType);

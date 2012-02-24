@@ -26,7 +26,6 @@ public interface ClientValidatorBehavior extends ClientBehavior {
      * </p>
      *
      * @param context
-     * @return
      */
     String getAjaxScript(ClientBehaviorContext context);
 
@@ -45,7 +44,6 @@ public interface ClientValidatorBehavior extends ClientBehavior {
      * </p>
      *
      * @param context
-     * @return
      */
     Collection<ValidatorDescriptor> getValidators(ClientBehaviorContext context);
 
@@ -54,7 +52,6 @@ public interface ClientValidatorBehavior extends ClientBehavior {
      * Returns array of classes that represents JSR-303 validation groups.
      * </p>
      *
-     * @return
      */
     Class<?>[] getGroups();
 
