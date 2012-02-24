@@ -42,7 +42,7 @@ import org.richfaces.resource.ResourceFactoryImpl;
  * In constructor, interfaces which will implement provided proxy can be passed.
  * </p>
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public abstract class LazyLoadingObject<T> {
 

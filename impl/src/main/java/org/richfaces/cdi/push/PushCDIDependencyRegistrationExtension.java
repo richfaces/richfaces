@@ -31,7 +31,7 @@ import org.richfaces.cdi.push.producer.TopicsContextProducer;
 /**
  * Registers all necessary beans required by {@link PushCDIExtension} extension.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class PushCDIDependencyRegistrationExtension implements Extension {
 

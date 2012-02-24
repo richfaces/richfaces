@@ -38,7 +38,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @RunWith(FacesMockitoRunner.class)
 public class ResourceMappingFeatureMappingTest extends AbstractResourceMappingTest {

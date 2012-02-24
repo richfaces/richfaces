@@ -45,7 +45,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @RunWith(FacesMockitoRunner.class)
 public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMappingTest {

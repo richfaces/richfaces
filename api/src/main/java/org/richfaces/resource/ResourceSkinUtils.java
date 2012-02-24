@@ -24,7 +24,7 @@ package org.richfaces.resource;
 /**
  * Utility class for manipulation with skin dependent resources.
  *
- * @author "<a href="mailto:lfryc@redhat.com">Lukas Fryc</a>"
+ * @author "<a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>"
  */
 public final class ResourceSkinUtils {
 

@@ -53,7 +53,7 @@ import org.richfaces.resource.ResourceHandlerImpl;
  * </p>
  *
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class ResourceServlet implements Servlet {
 

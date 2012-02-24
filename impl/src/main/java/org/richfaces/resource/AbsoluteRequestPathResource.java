@@ -38,7 +38,7 @@ import javax.faces.context.FacesContext;
  * Thus it does provide only {@link #getRequestPath()} method, all other methods throws {@link UnsupportedOperationException}.
  * </p>
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class AbsoluteRequestPathResource extends Resource {
 

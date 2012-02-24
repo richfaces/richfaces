@@ -35,7 +35,7 @@ import javax.inject.Qualifier;
 /**
  * Defines end-point for messages going through Push message bus.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD, FIELD, PARAMETER })

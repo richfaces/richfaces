@@ -32,7 +32,7 @@ import org.richfaces.application.configuration.ConfigurationServiceHelper;
  * Determines whenever RichFaces resources should be loaded optimized and how should be optimized.
  * </p>
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public enum ResourceLoadingOptimization {
 

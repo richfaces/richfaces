@@ -28,7 +28,7 @@ import org.richfaces.application.push.TopicKey;
 /**
  * Bean for resolving {@link TopicKey} from {@link Push} annotation properties.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @ApplicationScoped
 public class TopicKeyResolver {

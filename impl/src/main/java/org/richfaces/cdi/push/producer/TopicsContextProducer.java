@@ -29,7 +29,7 @@ import org.richfaces.application.push.TopicsContext;
 /**
  * Producer for {@link TopicsContext} reference.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class TopicsContextProducer {
 

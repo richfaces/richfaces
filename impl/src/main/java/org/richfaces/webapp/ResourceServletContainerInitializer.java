@@ -39,7 +39,7 @@ import javax.servlet.ServletRegistration.Dynamic;
  * </p>
  *
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class ResourceServletContainerInitializer extends GenericServletContainerInitializer {
 
