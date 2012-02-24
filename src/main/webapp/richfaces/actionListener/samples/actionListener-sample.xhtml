@@ -19,12 +19,12 @@
                 <f:ajax render="messages"/>
             </h:commandButton>
 
-            <f:facet name="footer">
-                <rich:panel header="Messages">
-                    <h:messages id="messages"/>
-                </rich:panel>
-            </f:facet>
-
         </h:panelGrid>
+
+        <fieldset>
+            <legend>Messages</legend>
+            <h:messages id="messages"/>
+        </fieldset>
+
     </h:form>
 </ui:composition>
