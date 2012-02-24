@@ -24,7 +24,7 @@ package org.richfaces.demo.push;
 /**
  * Interface for implementations producing messages.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public interface MessageProducer {
 

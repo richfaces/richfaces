@@ -33,7 +33,7 @@ import javax.inject.Named;
 import org.richfaces.cdi.push.Push;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @Named
 @SessionScoped

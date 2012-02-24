@@ -28,7 +28,7 @@ import javax.servlet.ServletContext;
 /**
  * Initializes JMS server and creates requested topics.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @ApplicationScoped
 @ManagedBean

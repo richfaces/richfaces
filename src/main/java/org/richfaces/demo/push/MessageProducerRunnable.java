@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 /**
  * Runnable which are periodically sending messages until it is stopped or underlying thread is interrupted.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class MessageProducerRunnable implements Runnable {
 

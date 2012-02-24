@@ -42,7 +42,7 @@ import org.hornetq.api.jms.management.JMSServerControl;
 /**
  * Connects to JMS RMI interface and creates topics using {@link JMSServerControl}.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class AS6MessagingProviderManagement implements MessagingProviderManagement {
 
