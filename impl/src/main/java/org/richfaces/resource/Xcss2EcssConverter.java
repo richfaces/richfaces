@@ -110,7 +110,7 @@ public final class Xcss2EcssConverter {
                     ecssContent.append(":");
                     if (null != defaultAttr) {
                         if (skin != null) {
-                            conditions.add("#{richSkin." + skin + "}");
+                            conditions.add("#{not empty richSkin." + skin + "}");
                             ecssContent.append(cssValue("#{richSkin." + skin + "}", defaultAttr));
                             conditions.remove(conditions.size() - 1);
                         } else {
@@ -168,7 +168,7 @@ public final class Xcss2EcssConverter {
             if (IF.equals(localName)) {
                 String condition = atts.getValue("when");
                 if (condition == null) {
-                    condition = "#{richSkin." + atts.getValue("skin") + "}";
+                    condition = "#{not empty richSkin." + atts.getValue("skin") + "}";
                 }
                 conditions.add(condition);
             }
