@@ -173,8 +173,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
                     if (resource == null) {
                         // don't cache it on Development stage
-                        ProjectStage projectStage = FacesContext.getCurrentInstance().getApplication().getProjectStage();
-                        if (!ProjectStage.Development.equals(projectStage)) {
+                        if (!ProjectStage.Development.equals(context.getApplication().getProjectStage())) {
                             Date cacheExpirationDate = cachedResource.getExpired(context);
                             if (LOGGER.isDebugEnabled()) {
                                 LOGGER.debug(new MessageFormat(
