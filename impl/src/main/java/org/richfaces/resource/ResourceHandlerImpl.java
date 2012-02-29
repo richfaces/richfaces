@@ -29,6 +29,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.faces.application.ProjectStage;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceHandlerWrapper;
@@ -171,15 +172,16 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
                     resource = lookupInCache(cache, data.getResourceKey());
 
                     if (resource == null) {
-                        Date cacheExpirationDate = cachedResource.getExpired(context);
-
-                        if (LOGGER.isDebugEnabled()) {
-                            LOGGER.debug(new MessageFormat(
-                                "Storing {0} resource in cache until {1,date,dd MMM yyyy HH:mm:ss zzz}", Locale.US)
-                                .format(new Object[] { data.getResourceKey(), cacheExpirationDate }));
+                        // don't cache it on Development stage
+                        if (!ProjectStage.Development.equals(context.getApplication().getProjectStage())) {
+                            Date cacheExpirationDate = cachedResource.getExpired(context);
+                            if (LOGGER.isDebugEnabled()) {
+                                LOGGER.debug(new MessageFormat(
+                                        "Storing {0} resource in cache until {1,date,dd MMM yyyy HH:mm:ss zzz}", Locale.US)
+                                        .format(new Object[]{data.getResourceKey(), cacheExpirationDate}));
+                            }
+                            cache.put(data.getResourceKey(), cachedResource, cacheExpirationDate);
                         }
-
-                        cache.put(data.getResourceKey(), cachedResource, cacheExpirationDate);
                         resource = cachedResource;
                     }
                 }
