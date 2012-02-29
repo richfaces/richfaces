@@ -57,12 +57,10 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
     private ResourceFactory resourceFactory;
     private ResourceHandler defaultHandler;
-    private boolean developmentMode;
 
     public ResourceHandlerImpl(ResourceHandler defaultHandler) {
         this.defaultHandler = defaultHandler;
         this.resourceFactory = new ResourceFactoryImpl(defaultHandler);
-        this.developmentMode = ProjectStage.Development.equals(FacesContext.getCurrentInstance().getApplication().getProjectStage());
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug(MessageFormat.format("Instance of {0} resource handler created", getClass().getName()));
@@ -175,7 +173,8 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
                     if (resource == null) {
                         // don't cache it on Development stage
-                        if (!developmentMode) {
+                        ProjectStage projectStage = FacesContext.getCurrentInstance().getApplication().getProjectStage();
+                        if (!ProjectStage.Development.equals(projectStage)) {
                             Date cacheExpirationDate = cachedResource.getExpired(context);
                             if (LOGGER.isDebugEnabled()) {
                                 LOGGER.debug(new MessageFormat(
