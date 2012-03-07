@@ -491,6 +491,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 table.captureOrigValue(context);
                 table.setRowKey(context, null);
                 final RendererState state = createRowHolder(context, table, null);
+                state.setCurrentRow(addRange.getFirstRow());
                 String clientId = table.getClientId(context);
                 // TODO 1. Encode fixed children
                 for (state.startIterate(); state.hasNextPart();) {
@@ -519,9 +520,11 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                             } catch (IOException e) {
                                 throw new FacesException(e);
                             }
+                            RowHolderBase holder = (RowHolderBase) argument;
+                            holder.nextRow();
                             return DataVisitResult.CONTINUE;
                         }
-                    }, addRange, null);
+                    }, addRange, state);
                     writer.startEval();
                     if (difference < 0) {
                         difference += clientRows;
