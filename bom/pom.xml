@@ -59,7 +59,7 @@
         <version.el-api>1.0</version.el-api>
         <version.servlet-api>3.0.1</version.servlet-api>
         <version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>1.0.0.Final</version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>
-        <version.jsf-api>2.1</version.jsf-api>
+        <version.jsp-api>2.1</version.jsp-api>
         <version.jstl-api>1.2</version.jstl-api>
         <version.google-guava>10.0.1</version.google-guava>
         <version.validation-api>1.0.0.GA</version.validation-api>
@@ -242,7 +242,7 @@
             <dependency>
                 <groupId>javax.servlet.jsp</groupId>
                 <artifactId>jsp-api</artifactId>
-                <version>${version.jsf-api}</version>
+                <version>${version.jsp-api}</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet.jsp.jstl</groupId>
