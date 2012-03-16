@@ -297,8 +297,8 @@
             <id>jbas71</id>
             <properties>
                 <container.classifier>jbas71</container.classifier>
-                <container.resources>src/main/resources-jbas7</container.resources>
-                <container.webapp>src/main/webapp-jbas7</container.webapp>
+                <container.resources>src/main/resources-jbas71</container.resources>
+                <container.webapp>src/main/webapp-jbas71</container.webapp>
                 <dependency.scope>provided</dependency.scope>
             </properties>
             <build>
