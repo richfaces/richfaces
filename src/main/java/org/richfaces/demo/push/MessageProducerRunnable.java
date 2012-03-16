@@ -54,16 +54,16 @@ public class MessageProducerRunnable implements Runnable {
     public void run() {
         while (runFlag.get()) {
             try {
-                messageProducer.sendMessage();
-            } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            }
-
-            try {
                 Thread.sleep(messageProducer.getInterval());
             } catch (InterruptedException e) {
                 LOGGER.log(Level.INFO, "MessageProducer has been interrupted");
                 break;
+            }
+
+            try {
+                messageProducer.sendMessage();
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, e.getMessage(), e);
             }
         }
     }

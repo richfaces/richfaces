@@ -21,9 +21,10 @@
  */
 package org.richfaces.demo.push;
 
-import org.richfaces.application.push.MessageException;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * Sends message to topic using TopicsContext.
@@ -33,6 +34,8 @@ import org.richfaces.application.push.TopicsContext;
 public class TopicsContextMessageProducer implements MessageProducer {
 
     public static final String PUSH_TOPICS_CONTEXT_TOPIC = "pushTopicsContext";
+
+    private Logger log = RichfacesLogger.WEBAPP.getLogger();
 
     /*
      * (non-Javadoc)
@@ -44,9 +47,11 @@ public class TopicsContextMessageProducer implements MessageProducer {
             TopicKey topicKey = new TopicKey(PUSH_TOPICS_CONTEXT_TOPIC);
             TopicsContext topicsContext = TopicsContext.lookup();
             topicsContext.publish(topicKey, "message");
-        } catch (MessageException e) {
-            if (!e.getMessage().matches("^Topic .* not found$")) {
-                throw e;
+        } catch (Exception e) {
+            log.info("Sending push message using TopicContext failed (" + e.getMessage()
+                    + ") - the JMS subsystem might not be ready yet - operation will be repeated in few seconds");
+            if (log.isDebugEnabled()) {
+                log.debug(e);
             }
         }
     }
