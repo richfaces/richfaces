@@ -21,7 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -213,12 +212,6 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
      */
     @Attribute
     public abstract String getExpandEvent();
-
-    /**
-     * <i>Not used</i>
-     */
-    @Attribute
-    public abstract MethodExpression getChangeExpandListener();
 
     // ------------------------------------------------ Html Attributes
 
