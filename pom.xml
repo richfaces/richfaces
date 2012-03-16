@@ -597,12 +597,12 @@
                                             </excludes>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/webapp-jbas7</directory>
+                                            <directory>src/main/webapp-jbas71</directory>
                                             <targetPath>/</targetPath>
                                             <filtering>true</filtering>
                                         </resource>
                                         <resource>
-                                            <directory>src/main/resources-jbas7</directory>
+                                            <directory>src/main/resources-jbas71</directory>
                                             <targetPath>WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
