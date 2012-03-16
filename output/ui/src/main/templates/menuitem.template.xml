@@ -37,7 +37,7 @@
         <cdk:object name="iconAttribute" value="#{getIconAttribute(facesContext, component)}" type="java.lang.String" />
 
         <div id="#{clientId}" class="rf-#{cssRoot}-itm #{isDisabled ? 'rf-' +cssRoot+ '-itm-dis '+disabledClass : 'rf-' +cssRoot+ '-itm-unsel '+styleClass}"
-            style="#{style}" cdk:passThroughWithExclusions="">
+            style="#{style}" cdk:passThroughWithExclusions="onclick">
             <div class="rf-#{cssRoot}-itm-ic #{iconClass}">
                 <c:choose>
                     <c:when test="#{iconFacet != null and iconFacet.isRendered()}">
@@ -84,7 +84,7 @@
                                 value="${RendererUtils.getInstance().createParametersMap(facesContext, component)}" />
                             <cdk:scriptOption name="mode" value="#{getSubmitMode(component)}" defaultValue="org.richfaces.component.Mode.server" />
                             <cdk:scriptOption name="cssRoot" value="#{cssRoot}" defaultValue='"ddm"' />
-                            <cdk:scriptOption name="submitFunction" value="#{getOnClickFunction(facesContext, component)}"
+                            <cdk:scriptOption name="onClickHandler" value="#{getOnClick(facesContext, component)}"
                                 wrapper="eventHandler" />
                         </cdk:scriptObject>
 

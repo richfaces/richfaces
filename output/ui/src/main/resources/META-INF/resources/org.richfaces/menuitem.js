@@ -68,26 +68,16 @@
                 if (parentMenu) {
                     parentMenu.processItem(this.element);
                 }
-
-                this.__submitForm(rf.getDomElement(this.id), e,
-                    this.options.params);
-            },
-
-            /**
-             *
-             * @param item DOM element
-             */
-            __submitForm : function(item, e, params) {
+                
+                var item = rf.getDomElement(this.id);
+                var params = this.options.params;
                 var form = this.__getParentForm(item);
                 var itemId = {};
                 itemId[item.id] = item.id;
                 $.extend(itemId, params || {});
-                if (this.options.mode == "server") {
-                    rf.submitForm(form, itemId);
-                }
-                if (this.options.mode == "ajax" && this.options.submitFunction) {
-                    this.options.submitFunction.call(this, e);
-                }
+                e.form = form;
+                e.itemId = itemId;
+                this.options.onClickHandler.call(this, e);
             },
 
             __getParentForm : function(item) {
