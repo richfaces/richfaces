@@ -21,6 +21,8 @@
  */
 package org.richfaces.application.push.impl;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,14 +38,14 @@ import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
- *
+ * @author Lukas Fryc
  */
 public class RequestImpl implements Request, AtmosphereResourceEventListener {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     private static final int SUSPEND_TIMEOUT = 30 * 1000;
     private Session session;
     private final Meteor meteor;
-    private boolean hasActiveBroadcaster = false;
+    private AtomicBoolean hasActiveBroadcaster = new AtomicBoolean(false);
     private BroadcasterLifeCyclePolicy policy;
 
     public RequestImpl(Meteor meteor, Session session) {
@@ -54,9 +56,10 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
 
         this.session = session;
 
-        //Set policy to EMPTY_DESTROY so that Broadcaster is removed from BroadcasterFactory and releases resources if
-        //there is no AtmosphereResource associated with it.
-        policy = new BroadcasterLifeCyclePolicy.Builder().policy(BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.EMPTY_DESTROY).build();
+        // Set policy to EMPTY_DESTROY so that Broadcaster is removed from BroadcasterFactory and releases resources if
+        // there is no AtmosphereResource associated with it.
+        policy = new BroadcasterLifeCyclePolicy.Builder().policy(
+                BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.EMPTY_DESTROY).build();
         this.meteor.getBroadcaster().setBroadcasterLifeCyclePolicy(policy);
     }
 
@@ -71,7 +74,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
     public boolean isPolling() {
         HttpServletRequest req = meteor.getAtmosphereResource().getRequest();
         boolean isWebsocket = req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) != null
-            || req.getAttribute(WebSocket.WEBSOCKET_RESUME) != null;
+                || req.getAttribute(WebSocket.WEBSOCKET_RESUME) != null;
 
         // TODO how to detect non-polling transports?
         return !isWebsocket;
@@ -81,10 +84,28 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
         return session;
     }
 
-    public synchronized void postMessages() {
-        if (!hasActiveBroadcaster && !session.getMessages().isEmpty()) {
-            hasActiveBroadcaster = true;
-            meteor.getBroadcaster().broadcast(new MessageDataScriptString(getSession().getMessages()));
+    /**
+     * <p>
+     * Tries to push messages, when there are some in the session's queue.
+     * </p>
+     *
+     * <p>
+     * When detects that request is currently broadcasting, it ignores the call, since the sending of the messages will be
+     * proceed later as stated by {@link #onBroadcast(AtmosphereResourceEvent)} method.
+     * </p>
+     */
+    public void postMessages() {
+        if (!session.getMessages().isEmpty()) {
+            if (lockBroadcaster()) {
+                if (!session.getMessages().isEmpty()) {
+                    meteor.getBroadcaster().broadcast(new MessageDataScriptString(getSession().getMessages()));
+                } else {
+                    unlockBroadcaster();
+                    // since no messages were sent, it might happen that someone called postMessages and there are new messages
+                    // waiting, if so, we try to post them
+                    postMessages();
+                }
+            }
         }
     }
 
@@ -119,11 +140,33 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
         disconnect();
     }
 
-    public synchronized void onBroadcast(AtmosphereResourceEvent<HttpServletRequest, HttpServletResponse> event) {
+    /**
+     * <p>
+     * This method is called once the broadcast event occurs.
+     * </p>
+     *
+     * <p>
+     * Once this event occurs, he broadcasting is done, so we can clean up.
+     * </p>
+     *
+     * <p>
+     * This method clears the broadcasted messages from session and then opens the request for further broadcasting.
+     * </p>
+     *
+     * <p>
+     * In case this request is long-polling, the request is completed and client needs to start new request for receiving new
+     * messages.
+     * </p>
+     *
+     * <p>
+     * In another case - the request is done by websocket - it tries to send messages which could be posted when broadcasting.
+     * </p>
+     */
+    public void onBroadcast(AtmosphereResourceEvent<HttpServletRequest, HttpServletResponse> event) {
         MessageDataScriptString serializedMessages = (MessageDataScriptString) event.getMessage();
         getSession().clearBroadcastedMessages(serializedMessages.getLastSequenceNumber());
 
-        hasActiveBroadcaster = false;
+        unlockBroadcaster();
 
         if (isPolling()) {
             event.getResource().resume();
@@ -136,5 +179,33 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
         // TODO Auto-generated method stub
         Throwable throwable = event.throwable();
         LOGGER.error(throwable.getMessage(), throwable);
+    }
+
+    /**
+     * <p>
+     * Use atomic operation to try locking broadcaster.
+     * </p>
+     *
+     * <p>
+     * You must ensure that after each call to this method with result true, you will call {@link #unlockBroadcaster()} method
+     * later once broadcaster is ready to broadcaster new messages.
+     * </p>
+     *
+     * @return true if the broadcaster has been locked; false otherwise
+     */
+    private boolean lockBroadcaster() {
+        return hasActiveBroadcaster.compareAndSet(false, true);
+    }
+
+    /**
+     * Unlocks broadcaster.
+     *
+     * @throws IllegalStateException when this method is called in state where the broadcaster is not blocked
+     */
+    private void unlockBroadcaster() {
+        boolean previousValue = hasActiveBroadcaster.getAndSet(false);
+        if (false == previousValue) {
+            throw new IllegalStateException("Request should be blocked in time of broadcasting");
+        }
     }
 }
