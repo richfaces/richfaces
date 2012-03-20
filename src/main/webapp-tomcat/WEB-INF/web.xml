@@ -84,7 +84,7 @@
     </context-param>
     <context-param>
         <param-name>org.richfaces.push.jms.connectionPassword</param-name>
-        <param-value>guest</param-value>
+        <param-value>password</param-value>
     </context-param>
     
     <!-- Configures PushFilter -->
