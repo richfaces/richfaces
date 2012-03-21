@@ -479,7 +479,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     }
 
     protected boolean isActiveItem(UIComponent kid, String value) {
-        if (kid == null || value == null) {
+        if (kid == null || value == null || ! (kid instanceof AbstractTogglePanelItemInterface)) {
             return false;
         }
 
