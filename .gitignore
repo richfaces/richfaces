@@ -6,3 +6,5 @@ test-output
 .clover
 .externalToolBuilders
 MANIFEST.MF
+.faces-config.xml.jsfdia
+
