@@ -40,7 +40,7 @@ done
    echo =================================
    echo "Changing <version>$ORIG_VERSION</version> into <version>$NEW_VERSION</version>" for all POMs
 
-   eval "find $DESTINATION -name 'pom.xml' $OMIT_PATHS -exec sed -ri 's#<version([^>]*)>$ORIG_VERSION<\/version([^>]*)>#<version\1>$NEW_VERSION<\/version\2>#' {} \;"
+   eval "find $DESTINATION -name 'pom.xml' $OMIT_PATHS -exec sed -ri 's#<([^>]*)version([^>]*)>$ORIG_VERSION<\/([^>]*)version([^>]*)>#<\1version\2>$NEW_VERSION<\/\3version\4>#' {} \;"
 
    if [ -n "$OTHER_FILES" ]; then
 	   echo =================================
