@@ -44,6 +44,7 @@
 
         rf.Event.bindById(this.id, "mouseenter", $.proxy(this.__overHandler, this), this);
         rf.Event.bindById(this.id, "mouseleave", $.proxy(this.__leaveHandler, this), this);
+        rf.Event.bind('body', 'click', $.proxy(this.__leaveHandler, this));
 
         this.popupElement = rf.getDomElement(this.popup.id);
         this.popupElement.tabIndex = -1;
