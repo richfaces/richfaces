@@ -126,7 +126,7 @@
             }
 
             // Remove the layerX and layerY events (generated in WebKit browsers)
-            if (event) {
+            if (event && event instanceof Object) {
                 if ('layerX' in event) delete event.layerX;
                 if ('layerY' in event) delete event.layerY;
             }
