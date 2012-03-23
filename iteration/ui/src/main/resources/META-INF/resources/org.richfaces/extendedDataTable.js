@@ -384,6 +384,7 @@
                 this.parts = jQuery(this.element).find(".rf-edt-cnt, .rf-edt-ftr-cnt");
                 this.updateLayout();
                 this.updateScrollPosition(); //TODO Restore horizontal scroll position
+                jQuery(this.element).triggerHandler("rich:ready", this);
             },
 
             drag: function(event) {
