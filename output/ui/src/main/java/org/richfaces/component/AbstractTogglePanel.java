@@ -486,7 +486,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         return getChildName(kid).equals(value);
     }
 
-    private static String getChildName(UIComponent item) {
+    static String getChildName(UIComponent item) {
         if (item == null) {
             return null;
         }
