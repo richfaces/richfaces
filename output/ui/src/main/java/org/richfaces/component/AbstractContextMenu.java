@@ -59,5 +59,8 @@ public abstract class AbstractContextMenu extends AbstractMenuContainer {
     public Object getCssRoot() {
         return "ctx";
     }
+
+    @Attribute(hidden = true)
+    public abstract Positioning getJointPoint();
 }
 
