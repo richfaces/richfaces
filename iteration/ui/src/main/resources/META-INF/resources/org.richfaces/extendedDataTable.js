@@ -719,6 +719,18 @@
                         this.spacerElement.style.height = (data.first * this.rowHeight) + "px";
                     }
                 }
+            },
+
+            contextMenuAttach: function (menu) {
+                var selector = "[id='" + this.element.id + "'] ";
+                selector += (typeof menu.options.targetSelector === 'undefined')
+                    ?  ".rf-edt-b td" : menu.options.targetSelector;
+                selector = jQuery.trim(selector);
+                richfaces.Event.bind(selector, menu.options.showEvent, $.proxy(menu.__showHandler, menu), menu);
+            },
+
+            contextMenuShow: function (menu, event) {
+                this.selectionClickListener(event);
             }
         });
 
