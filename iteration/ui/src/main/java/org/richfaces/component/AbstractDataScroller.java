@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.el.ELException;
+import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
@@ -53,8 +54,10 @@ import org.richfaces.event.DataScrollSource;
 /**
  * <p> The &lt;rich:dataScroller&gt; component is used for navigating through multiple pages of tables or grids. </p>
  */
-@JsfComponent(type = AbstractDataScroller.COMPONENT_TYPE, family = AbstractDataScroller.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataScroller", renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"), tag = @Tag(name = "dataScroller", handler = "org.richfaces.taglib.DataScrollerHandler", type = TagType.Facelets), attributes = {
-        "ajax-props.xml", "core-props.xml" })
+@JsfComponent(type = AbstractDataScroller.COMPONENT_TYPE, family = AbstractDataScroller.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataScroller",
+        renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"),
+        tag = @Tag(name = "dataScroller", handler = "org.richfaces.taglib.DataScrollerHandler", type = TagType.Facelets),
+        attributes = {"ajax-props.xml", "core-props.xml" })
 public abstract class AbstractDataScroller extends UIComponentBase implements DataScrollSource, IterationStateHolder {
     public static final String COMPONENT_TYPE = "org.richfaces.DataScroller";
     public static final String COMPONENT_FAMILY = "org.richfaces.DataScroller";
@@ -151,6 +154,9 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     public void setFor(String forId) {
         getStateHelper().put("for", forId);
     }
+
+    @Attribute
+    public abstract MethodExpression getScrollListener();
 
     public void addScrollListener(DataScrollListener listener) {
         addFacesListener(listener);
