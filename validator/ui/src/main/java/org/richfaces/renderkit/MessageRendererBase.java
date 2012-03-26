@@ -260,6 +260,9 @@ public class MessageRendererBase extends RendererBase {
         if (rendererUtils.isBooleanAttribute(component, "tooltip")) {
             parametersBuilder.put("tooltip", true);
         }
+        if (isComponentMessages(component) && rendererUtils.isBooleanAttribute(component, "globalOnly")) {
+            parametersBuilder.put("globalOnly", true);
+        }
         if (isComponentMessages(component)) {
             parametersBuilder.put("isMessages", true);
         }

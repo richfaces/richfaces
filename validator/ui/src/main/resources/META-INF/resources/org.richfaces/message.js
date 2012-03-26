@@ -24,7 +24,8 @@
     var defaultOptions = {
         showSummary:true,
         level:0,
-        isMessages: false
+        isMessages: false,
+        globalOnly: false
     };
 
 
@@ -33,7 +34,7 @@
         var sourceId = data.sourceId;
         var message = data.message;
         if (!this.options.forComponentId) {
-            if (!message) {
+            if (!message || this.options.globalOnly) {
                 // rf.csv.clearMessage
                 var element;
                 while (element = rf.getDomElement(this.id + ':' + sourceId)) {

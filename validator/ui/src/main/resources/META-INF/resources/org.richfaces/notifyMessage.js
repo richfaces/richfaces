@@ -16,7 +16,8 @@
     var defaultOptions = {
         showSummary:true,
         level:0,
-        isMessages: false
+        isMessages: false,
+        globalOnly: false
     };
 
 
@@ -24,7 +25,7 @@
         var sourceId = data.sourceId;
         var message = data.message;
         if (!this.options.forComponentId) {
-            if (message) {
+            if (!this.options.globalOnly && message) {
                 renderMessage.call(this, sourceId, message);
             }
         } else if (this.options.forComponentId === sourceId) {
