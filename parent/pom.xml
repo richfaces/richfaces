@@ -141,7 +141,6 @@
     <profiles>
         <profile>
             <id>release</id>
-
             <build>
                 <plugins>
                     <plugin>
@@ -157,6 +156,43 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <!-- Profile for quick CDK turnaround using JRebel and CDK command-line generator -->
+        <profile>
+            <id>jrebel</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-dependencies</id>
+                                <phase>process-sources</phase>
+                                <goals>
+                                    <goal>unpack-dependencies</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.zeroturnaround</groupId>
+                        <artifactId>jrebel-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-rebel-xml</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <rebelXmlDirectory>src/main/resources</rebelXmlDirectory>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
