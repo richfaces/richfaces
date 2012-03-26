@@ -159,6 +159,13 @@
             <artifactId>jboss-as-controller-client</artifactId>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- Jsoup used for validation of safe html input -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.6.1</version>
+        </dependency>
     </dependencies>
 
     <build>
