@@ -730,7 +730,14 @@
             },
 
             contextMenuShow: function (menu, event) {
-                this.selectionClickListener(event);
+                var tr = event.target;
+                while (this.tbodies.index(tr.parentNode) == -1) {
+                    tr = tr.parentNode;
+                }
+                var index = tr.rowIndex;
+                if (! this.ranges.contains(index) ) {
+                    this.selectionClickListener(event);
+                }
             }
         });
 
