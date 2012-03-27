@@ -28,11 +28,17 @@
     var EVENT_NAMESPACE_SEPARATOR = richfaces.Event.EVENT_NAMESPACE_SEPARATOR;
 
     var DATA_EVENT_NAME = 'dataAvailable' + EVENT_NAMESPACE_SEPARATOR + RICH_NAMESPACE + EVENT_NAMESPACE_SEPARATOR + COMPONENT_NAME;
+    
+    var SUBSCRIBED_EVENT_NAME = 'subscribed' + EVENT_NAMESPACE_SEPARATOR + RICH_NAMESPACE + EVENT_NAMESPACE_SEPARATOR + COMPONENT_NAME;
 
     var ERROR_EVENT_NAME = 'error' + EVENT_NAMESPACE_SEPARATOR + RICH_NAMESPACE + EVENT_NAMESPACE_SEPARATOR + COMPONENT_NAME;
 
     var getDataEventNamespace = function(address) {
         return DATA_EVENT_NAME + EVENT_NAMESPACE_SEPARATOR + address;
+    };
+    
+    var getSubscribedEventNamespace = function(address) {
+        return SUBSCRIBED_EVENT_NAME + EVENT_NAMESPACE_SEPARATOR + address;
     };
 
     var getErrorEventNamespace = function(address) {
@@ -44,6 +50,8 @@
         var addedTopics = {};
 
         var removedTopics = {};
+        
+        var subscribedTopics = {};
 
         var handlersCounter = {};
 
@@ -94,6 +102,8 @@
         };
 
         var connect = function() {
+            var newlySubcribed = {}; 
+            
             var pushSessionIdRequestHandler = function(data) {
                 var subscriptionData = _$.parseJSON(data);
 
@@ -113,12 +123,21 @@
                             transport: richfaces.Push.transport,
                             fallbackTransport: richfaces.Push.fallbackTransport
                         });
+                    
+                    // fire subscribed events
+                    for (var topicName in newlySubcribed) {
+                        subscribedTopics[topicName] = true;
+                        richfaces.Event.fire(document, getSubscribedEventNamespace(topicName));
+                    }
                 }
             };
 
             var topics = new Array();
             for (var topicName in handlersCounter) {
                 topics.push(topicName);
+                if (!subscribedTopics[topicName]) {
+                    newlySubcribed[topicName] = true;
+                }
             }
 
             var data = {
@@ -156,6 +175,7 @@
                 if (--handlersCounter[address] == 0) {
                     delete handlersCounter[address];
                     removedTopics[address] = true;
+                    subscribedTopics[address] = false;
                 }
             },
 
@@ -216,12 +236,14 @@
                 this.__handlers = {};
 
                 if (options.ondataavailable) {
-                    //TODO check compatibility with f:ajax
                     this.__bindDataHandler(options.ondataavailable);
+                }
+                
+                if (options.onsubscribed) {
+                    this.__bindSubscribedHandler(options.onsubscribed);
                 }
 
                 if (options.onerror) {
-                    //TODO check compatibility with f:ajax
                     this.__bindErrorHandler(options.onerror);
                 }
 
@@ -239,6 +261,20 @@
                     richfaces.Event.unbind(document, ns, this.__handlers.data);
 
                     this.__handlers.data = null;
+                }
+            },
+            
+            __bindSubscribedHandler: function(handlerCode) {
+                var ns = getSubscribedEventNamespace(this.__address);
+                this.__handlers.subscribed = richfaces.Event.bind(document, ns, $.proxy(handlerCode, document.getElementById(this.id)), this);
+            },
+
+            __unbindSubscribedHandler: function() {
+                if (this.__handlers.subscribed) {
+                    var ns = getSubscribedEventNamespace(this.__address);
+                    richfaces.Event.unbind(document, ns, this.__handlers.subscribed);
+
+                    this.__handlers.subscribed = null;
                 }
             },
 
@@ -259,6 +295,7 @@
             destroy: function() {
                 this.__unbindDataHandler();
                 this.__unbindErrorHandler();
+                this.__unbindSubscribedHandler();
 
                 richfaces.Push.decreaseSubscriptionCounters(this.__address);
                 $super.destroy.call(this);
