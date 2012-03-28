@@ -176,6 +176,9 @@
                 //bodyElem.style.width = "500px";
                 //this.headerElement.style.width = "500px";
 
+                if (options['onready'] && typeof options['onready'] == 'function') {
+                    richfaces.Event.bind(this.element, "rich:ready", options['onready']);
+                }
                 jQuery(document).ready(jQuery.proxy(this.initialize, this));
                 jQuery(window).bind("resize", jQuery.proxy(this.updateLayout, this));
                 jQuery(this.scrollElement).bind("scroll", jQuery.proxy(this.updateScrollPosition, this));

@@ -84,6 +84,12 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     public abstract SelectionMode getSelectionMode();
 
     /**
+     * The client-side script method to be called after the EDT has been initialized, either after a page load, and an ajax update.
+     */
+    @Attribute(events = @EventName(value = "ready"))
+    public abstract String getOnready();
+
+    /**
      * The client-side script method to be called after the selection is changed.
      */
     @Attribute(events = @EventName(value = "selectionchange", defaultEvent = true))

@@ -67,7 +67,9 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"),
-        @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.js"), @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.ecss") })
+        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.js"),
+        @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.ecss") })
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
     private static final JSReference CLIENT_PARAMS = new JSReference("clientParams");
 
@@ -222,7 +224,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
     private static final Map<java.lang.String, org.richfaces.renderkit.ComponentAttribute> EVENT_ATTRIBUTES = Collections
         .unmodifiableMap(ComponentAttribute.createMap(
             new ComponentAttribute("onselectionchange").setEventNames(new String[] { "selectionchange" }),
-            new ComponentAttribute("onbeforeselectionchange").setEventNames(new String[] { "beforeselectionchange" })));
+            new ComponentAttribute("onbeforeselectionchange").setEventNames(new String[] { "beforeselectionchange" }),
+            new ComponentAttribute("onready").setEventNames(new String[] { "ready" })));
 
     private void encodeEmptyFooterCell(FacesContext context, ResponseWriter writer, UIComponent column) throws IOException {
         if (column.isRendered()) {
@@ -699,8 +702,11 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             RenderKitUtils.getAttributeAndBehaviorsValue(context, component, EVENT_ATTRIBUTES.get("onbeforeselectionchange")),
             null, ScriptHashVariableWrapper.eventHandler);
         addToScriptHash(options, "onselectionchange",
-            RenderKitUtils.getAttributeAndBehaviorsValue(context, component, EVENT_ATTRIBUTES.get("onselectionchange")), null,
-            ScriptHashVariableWrapper.eventHandler);
+            RenderKitUtils.getAttributeAndBehaviorsValue(context, component, EVENT_ATTRIBUTES.get("onselectionchange")),
+            null, ScriptHashVariableWrapper.eventHandler);
+        addToScriptHash(options, "onready",
+            RenderKitUtils.getAttributeAndBehaviorsValue(context, component, EVENT_ATTRIBUTES.get("onready")),
+            null, ScriptHashVariableWrapper.eventHandler);
         StringBuilder builder = new StringBuilder("new RichFaces.ui.ExtendedDataTable('");
         builder.append(clientId).append("', ").append(getRowCount(component)).append(", function(event, clientParams) {")
             .append(ajaxFunction.toScript()).append(";}");
