@@ -67,8 +67,18 @@
 }
 
 div.rf-edt-ftr-cnt {
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: visible;
+}
+
+.rf-edt-scrl {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.rf-edt-scrl-cnt {
+    height: 1px;
+    overflow-y: hidden;
 }
 
 .rf-edt-rsz-cntr {

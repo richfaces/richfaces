@@ -167,7 +167,14 @@
                 this.frozenHeaderPartElement = document.getElementById(id + ":frozenHeader");
                 this.frozenColumnCount = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.firstChild.rows[0].cells.length : 0;//TODO Richfaces.firstDescendant;
 
-                this.scrollElement = document.getElementById(id + ":footer");
+                this.headerElement = document.getElementById(id + ":header");
+                this.footerElement = document.getElementById(id + ":footer");
+                this.scrollElement = document.getElementById(id + ":scrl");
+                this.scrollContentElement = document.getElementById(id + ":scrl-cnt");
+                var bodyElem = document.getElementById(id + ":body");
+                
+                //bodyElem.style.width = "500px";
+                //this.headerElement.style.width = "500px";
 
                 jQuery(document).ready(jQuery.proxy(this.initialize, this));
                 jQuery(window).bind("resize", jQuery.proxy(this.updateLayout, this));
@@ -280,18 +287,26 @@
                 var offsetWidth = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.offsetWidth : 0;
                 var width = Math.max(0, this.element.clientWidth - offsetWidth);
                 if (width) {
-                    if (this.parts.width() > width) {
+                    var contentWidth = this.parts.width();
+                    if (contentWidth > width) {
                         this.normalPartStyle.width = width + "px";
                     }
                     this.normalPartStyle.display = "block";
-                    this.scrollElement.style.overflowX = "";
-                    if (this.scrollElement.clientWidth < this.scrollElement.scrollWidth
-                        && this.scrollElement.scrollHeight == this.scrollElement.offsetHeight) {
+                    // update scroller and scroll-content
+                    if (contentWidth > width) {
+                        this.parts.each(function() {
+                            this.style.width = width + "px";
+                        });
+                        this.scrollElement.style.display = "block";
                         this.scrollElement.style.overflowX = "scroll";
-                    }
-                    var delta = this.scrollElement.firstChild.offsetHeight - this.scrollElement.clientHeight;
-                    if (delta) {
-                        this.scrollElement.style.height = this.scrollElement.offsetHeight + delta;
+                        this.scrollElement.style.width = width + "px";
+                        this.scrollContentElement.style.width = contentWidth + "px";
+                        
+                    } else {
+                        this.parts.each(function() {
+                            this.style.width = "";
+                        });
+                        this.scrollElement.style.display = "none";
                     }
                 } else {
                     this.normalPartStyle.display = "none";
