@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.richfaces.examples</groupId>
         <artifactId>richfaces-example-parent</artifactId>
-        <version>4.2.1-SNAPSHOT</version>
+        <version>4.2.1.CR1</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
