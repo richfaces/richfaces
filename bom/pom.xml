@@ -18,7 +18,7 @@
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-bom</artifactId>
     <packaging>pom</packaging>
-    <version>4.2.1-SNAPSHOT</version>
+    <version>4.2.1.CR1</version>
     <name>RichFaces BOM</name>
 
     <description>
@@ -48,7 +48,7 @@
     </issueManagement>
 
     <properties>
-        <version.richfaces>4.2.1-SNAPSHOT</version.richfaces>
+        <version.richfaces>4.2.1.CR1</version.richfaces>
         <version.javax.faces-api>2.1</version.javax.faces-api>
         <version.com.sun.faces.jsf-api>2.1.0</version.com.sun.faces.jsf-api>
         <version.org.glassfish.javax.faces>2.1.5</version.org.glassfish.javax.faces>
