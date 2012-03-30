@@ -147,6 +147,11 @@
         __log: function(level, message) {
             //TODO scroll to the added message
             //TODO check popup is opened
+            if (this.mode == 'console') {
+                console[level]('RichFaces: ' + message);
+                return;
+            }
+            
             if (!this.__contentsElement) {
                 return;
             }
@@ -179,7 +184,9 @@
             this.hotkey = options.hotkey;
             this.mode = (options.mode || 'inline');
 
-            if (this.mode == 'popup') {
+            if (this.mode == 'console') {
+                // do nothing
+            } else if (this.mode == 'popup') {
                 this.__boundHotkeyHandler = jquery.proxy(this.__hotkeyHandler, this);
                 jquery(document).bind('keydown', this.__boundHotkeyHandler);
             } else {
