@@ -152,6 +152,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- The rewrite library allows us to do url rewriting - used here for rewriting mobile devices to mobile specific views -->
+        <dependency>
+            <groupId>org.ocpsoft.rewrite</groupId>
+            <artifactId>rewrite-servlet</artifactId>
+            <version>1.0.3.Final</version>
+        </dependency>
         
         <!-- JBoss AS7 management -->
         <dependency>
