@@ -99,7 +99,7 @@
         </dependency>
         <dependency>
             <groupId>javax.jms</groupId>
-            <artifactId>jms</artifactId>
+            <artifactId>jms-api</artifactId>
             <optional>true</optional>
         </dependency>
 
