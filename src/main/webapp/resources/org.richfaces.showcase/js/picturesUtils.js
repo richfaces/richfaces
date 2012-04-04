@@ -1,6 +1,4 @@
-function resize(id, coeff) {
-	var pic = document.getElementById(id);
-
+function resize(pic, coeff) {
 	var w = Math.round(pic.width * coeff);
 	var h = Math.round(pic.height * coeff);
 
@@ -10,10 +8,10 @@ function resize(id, coeff) {
 	}
 }
 
-function enlarge(id){
-	resize(id, 1.1);
+function enlarge(element){
+	resize(element, 1.1);
 }
 
-function decrease(id){
-	resize(id, 0.9);
+function decrease(element){
+	resize(element, 0.9);
 }
