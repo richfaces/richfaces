@@ -20,6 +20,8 @@
     
     var defaultStackId = "org.richfaces.notifyStack.default";
     
+    var events = "click dblclick  keydown keypress keyup mousedown mousemove mouseout mouseover mouseup";
+    
     var propertyTranslation = {
         'summary':'pnotify_title',
         'detail': 'pnotify_text',
@@ -45,7 +47,7 @@
             var targetAttr = translation[attr] != null ? translation[attr] : attr;
             target[targetAttr] = source[attr];
             if (target[targetAttr] instanceof Object) {
-                target[targetAttr] = extend({}, target[targetAttr], translation);
+                target[targetAttr] = $.extend({}, target[targetAttr], translation);
             }
         }
         return target;
@@ -95,6 +97,11 @@
                 }
             }
             var pnotify = $.pnotify(pnotifyOptions);
+            pnotify.on(events, function(e) {
+                if (options['on' + e.type]) {
+                    options['on' + e.type].call(this, e);
+                }
+            });
             stack.addNotification(pnotify);
         }
         
