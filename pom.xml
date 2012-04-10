@@ -157,7 +157,6 @@
         <dependency>
             <groupId>org.ocpsoft.rewrite</groupId>
             <artifactId>rewrite-servlet</artifactId>
-            <version>1.0.3.Final</version>
         </dependency>
         
         <!-- JBoss AS7 management -->
