@@ -110,8 +110,6 @@ public class ComponentControlBehavior extends ClientBehavior {
 
     /**
      * Javascript invoked just before the operation will be invoked on target component.
-     *
-     * @return
      */
     @Attribute
     public String getOnbeforeoperation() {
