@@ -41,6 +41,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	        <script type="text/javascript">
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption attributes="position sticky stayTime delay styleClass appearAnimation hideAnimation animationSpeed showHistory nonblocking showShadow showCloseButton nonblockingOpacity" />
+                    <cdk:scriptOption wrapper="eventHandler" attributes="onclick ondblclick  onkeydown onkeypress onkeyup onmousedown onmousemove onmouseout onmouseover onmouseup" />
                 </cdk:scriptObject>
                 <cdk:call expression="addStackIdOption(options, facesContext, component)" />
                 <cdk:call expression="addFacetOrAttributeAsOption(&quot;summary&quot;, options, facesContext, component)" />
