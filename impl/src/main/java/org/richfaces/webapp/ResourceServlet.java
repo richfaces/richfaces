@@ -22,11 +22,6 @@
 package org.richfaces.webapp;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.Servlet;
@@ -61,15 +56,8 @@ public class ResourceServlet implements Servlet {
 
     private static final String JAVAX_FACES_RESOURCE_IDENTIFIER = "/javax.faces.resource/";
 
-    private static final Library[] LIBRARIES_TO_SERVE = new Library[] { new StaticResourceLibrary(), new CKEditorLibrary(),
-            new RichFacesImageLibrary() };
-
     private ServletConfig servletConfig;
     private FacesServlet facesServlet;
-
-    private interface Library {
-        boolean allowServerRequest(String resourcePath, HttpServletRequest request);
-    }
 
     public void init(ServletConfig config) throws ServletException {
         servletConfig = config;
@@ -116,13 +104,13 @@ public class ResourceServlet implements Servlet {
     private boolean handleRequestByEditorResourceServlet(HttpServletRequest request) {
         String resourcePath = getResourcePathFromRequest(request);
 
-        for (Library library : LIBRARIES_TO_SERVE) {
-            if (library.allowServerRequest(resourcePath, request)) {
-                return true;
-            }
+        if (resourcePath == null) {
+            LOGGER.debug("ResourceServlet detected request which is not JSF resource request: " + request.getPathInfo());
+            return false;
         }
 
-        return false;
+        // when resource path found in the request path, then we can handle the request
+        return true;
     }
 
     private static String getResourcePathFromRequest(HttpServletRequest request) {
@@ -131,15 +119,12 @@ public class ResourceServlet implements Servlet {
         if (resourceName != null) {
             if (resourceName.startsWith(JAVAX_FACES_RESOURCE_IDENTIFIER)) {
                 return resourceName.substring(JAVAX_FACES_RESOURCE_IDENTIFIER.length());
-            } else if (resourceName.startsWith(ResourceHandlerImpl.RICHFACES_RESOURCE_IDENTIFIER)) {
-                return resourceName;
-            } else {
-                return null;
             }
-        } else {
-            LOGGER.warn("Resource key not found" + resourceName);
-            return null;
+            if (resourceName.startsWith(ResourceHandlerImpl.RICHFACES_RESOURCE_IDENTIFIER)) {
+                return resourceName;
+            }
         }
+        return null;
     }
 
     private static String decodeResourceURL(HttpServletRequest request) {
@@ -188,68 +173,6 @@ public class ResourceServlet implements Servlet {
             return servletPath;
         } else {
             return servletPath.substring(idx);
-        }
-    }
-
-    private static class CKEditorLibrary implements Library {
-        private Set<String> ALLOWED_PARAMETERS = Collections
-                .unmodifiableSortedSet(new TreeSet<String>(Arrays.asList("t", "db")));
-
-        public boolean allowServerRequest(String resourcePath, HttpServletRequest request) {
-            if (resourcePath.startsWith("org.richfaces.ckeditor/")) {
-                Enumeration<String> parameters = request.getParameterNames();
-                while (parameters.hasMoreElements()) {
-                    String parameter = parameters.nextElement();
-                    if (!ALLOWED_PARAMETERS.contains(parameter)) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            return false;
-        }
-    }
-
-    private static class StaticResourceLibrary implements Library {
-        public boolean allowServerRequest(String resourcePath, HttpServletRequest request) {
-            if (resourcePath.startsWith("org.richfaces.staticResource/")) {
-                Enumeration<String> parameters = request.getParameterNames();
-                if (parameters.hasMoreElements()) {
-                    return false;
-                }
-                return true;
-            }
-            return false;
-        }
-    }
-
-    private static class RichFacesImageLibrary implements Library {
-        private Set<String> ALLOWED_PARAMETERS = Collections.unmodifiableSortedSet(new TreeSet<String>(Arrays.asList("ln",
-                "db", "v")));
-
-        public boolean allowServerRequest(String resourcePath, HttpServletRequest request) {
-            if (resourcePath.startsWith(ResourceHandlerImpl.RICHFACES_RESOURCE_IDENTIFIER)) {
-                resourcePath = resourcePath.substring(ResourceHandlerImpl.RICHFACES_RESOURCE_IDENTIFIER.length());
-                if (resourcePath.contains("/")) {
-                    return false;
-                }
-                if (!resourcePath.endsWith(".png")) {
-                    return false;
-                }
-                if (!"org.richfaces.images".equals(request.getParameter("ln"))) {
-                    return false;
-                }
-
-                Enumeration<String> parameters = request.getParameterNames();
-                while (parameters.hasMoreElements()) {
-                    String parameter = parameters.nextElement();
-                    if (!ALLOWED_PARAMETERS.contains(parameter)) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            return false;
         }
     }
 }
