@@ -115,7 +115,7 @@ public class DemoNavigator implements Serializable {
                     + getCurrentDemo().getId() + SEPARATOR + getCurrentSample().getId());
 
             if (navCase == null) {
-                navCase = new NavigationCase("/welcome.xhtml", null, null, null, "/richfaces/ajax/ajax.xhtml", null, false,
+                navCase = new NavigationCase("/index.xhtml", null, null, null, "/richfaces/ajax/ajax.xhtml", null, false,
                         true);
             }
 

@@ -5,7 +5,7 @@
 
     <h:form>
         <h:panelGrid columns="3">
-            <a4j:push address="#{userIdentifier}@pushCdi"
+            <a4j:push address="pushCdi"
                 ondataavailable="jQuery('&lt;li /&gt;').prependTo('#messages').text(event.rf.data)" />
 
             <ul id="messages" />

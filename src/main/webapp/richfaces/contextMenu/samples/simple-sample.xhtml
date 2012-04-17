@@ -26,8 +26,8 @@
         <h:graphicImage library="org.richfaces.showcase/img" name="pic1.jpg" id="pic" style="border : 5px solid #E4EAEF"/>
 
         <rich:contextMenu target="pic" mode="client" showEvent="click">
-            <rich:menuItem label="Zoom In" onclick="enlarge('form:pic');" id="zin"/>
-            <rich:menuItem label="Zoom Out" onclick="decrease('form:pic');" id="zout"/>
+            <rich:menuItem label="Zoom In" onclick="enlarge(#{rich:element('pic')});" id="zin"/>
+            <rich:menuItem label="Zoom Out" onclick="decrease(#{rich:element('pic')});" id="zout"/>
         </rich:contextMenu>
     </h:form>
 

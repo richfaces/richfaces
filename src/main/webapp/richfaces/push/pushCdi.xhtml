@@ -19,9 +19,7 @@
     <h:outputScript library="js" name="jquery.popupWindow.js" target="head" />
 
     <p>
-        <h:link class="popupLink" value="Messages Consumer" outcome="/richfaces/push/pushCdiConsumer" includeViewParams="true">
-            <f:param name="userIdentifier" value="#{pushBean.userIdentifier}" />
-        </h:link>
+        <h:link class="popupLink" value="Messages Consumer" outcome="/richfaces/push/pushCdiConsumer" />
     </p>
 
     <script>
@@ -55,10 +53,10 @@
         <ui:param name="hideLabel" value="Hide Consumer Source" />
     </ui:include>
     <ui:include src="/templates/includes/source-view.xhtml">
-        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/push/PushBean.java" />
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/push/PushCdiBean.java" />
         <ui:param name="sourceType" value="java" />
-        <ui:param name="openLabel" value="View PushBean.java" />
-        <ui:param name="hideLabel" value="Hide PushBean.java" />
+        <ui:param name="openLabel" value="View PushCdiBean.java" />
+        <ui:param name="hideLabel" value="Hide PushCdiBean.java" />
     </ui:include>
 
 </ui:composition>

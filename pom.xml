@@ -27,7 +27,7 @@
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
         <version.gae>1.5.4</version.gae>
         <version.gae.plugin>0.9.1</version.gae.plugin>
-        <jee6.excluded.libraries>WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/classmate*,WEB-INF/lib/jandex*,WEB-INF/lib/jboss-logging*,WEB-INF/lib/jboss-transaction-api*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*</jee6.excluded.libraries>
+        <jee6.excluded.libraries>WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/classmate*,WEB-INF/lib/jandex*,WEB-INF/lib/jboss-logging*,WEB-INF/lib/jboss-transaction-api*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms-api*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*</jee6.excluded.libraries>
         <jbas7.excluded.libraries>${jee6.excluded.libraries},WEB-INF/lib/cssparser*,WEB-INF/lib/sac*</jbas7.excluded.libraries>
         <jbas7.manifest.dependencies>net.sourceforge.cssparser,org.w3c.css.sac,org.slf4j,org.jboss.as.controller-client,org.jboss.as.protocol,org.jboss.dmr,org.jboss.logging,org.jboss.marshalling,org.jboss.marshalling.river,org.jboss.remoting3,org.jboss.threads</jbas7.manifest.dependencies>
         <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/guava*,WEB-INF/lib/jsr305*</jbas71.excluded.libraries>
@@ -111,7 +111,7 @@
         </dependency>
         <dependency>
             <groupId>javax.jms</groupId>
-            <artifactId>jms</artifactId>
+            <artifactId>jms-api</artifactId>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
@@ -152,12 +152,25 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- The rewrite library allows us to do url rewriting - used here for rewriting mobile devices to mobile specific views -->
+        <dependency>
+            <groupId>org.ocpsoft.rewrite</groupId>
+            <artifactId>rewrite-servlet</artifactId>
+        </dependency>
         
         <!-- JBoss AS7 management -->
         <dependency>
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-controller-client</artifactId>
             <scope>provided</scope>
+        </dependency>
+        
+        <!-- Jsoup used for validation of safe html input -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.5.2</version>
         </dependency>
     </dependencies>
 

@@ -23,7 +23,7 @@ package org.richfaces.demo.push;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 import static org.richfaces.demo.push.JMSMessageProducer.PUSH_JMS_TOPIC;
-import static org.richfaces.demo.push.PushBean.PUSH_CDI_TOPIC;
+import static org.richfaces.demo.push.PushCdiBean.PUSH_CDI_TOPIC;
 import static org.richfaces.demo.push.TopicsContextMessageProducer.PUSH_TOPICS_CONTEXT_TOPIC;
 
 import java.util.concurrent.atomic.AtomicReference;
