@@ -1,0 +1,16 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:csv="http://richfaces.org/csv" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Resource Mapping" />
+    <!-- Page header -->
+    <ui:define name="header">
+        <h1>Resource Mapping usage</h1>
+    </ui:define>
+    <!-- content -->
+    <ui:define name="content">
+        <h:outputScript library="javax.faces" name="jsf.js" />
+        <h:outputScript name="jquery.js" />
+    </ui:define>
+</ui:composition>
+</html>
