@@ -25,8 +25,6 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
@@ -37,19 +35,21 @@ import javax.jms.TopicConnectionFactory;
 import javax.jms.TopicPublisher;
 import javax.jms.TopicSession;
 import javax.naming.InitialContext;
-import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
+
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * Sends message to JMS topic.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class JMSMessageProducer implements MessageProducer {
 
     public static final String PUSH_JMS_TOPIC = "pushJms";
 
-    private static final Logger LOGGER = Logger.getLogger(JMSMessageProducer.class.getName());
+    private Logger log = RichfacesLogger.WEBAPP.getLogger();
 
     private Topic topic;
     private TopicConnection connection = null;
@@ -66,10 +66,12 @@ public class JMSMessageProducer implements MessageProducer {
             initializeMessaging();
             ObjectMessage message = session.createObjectMessage(createMessage());
             publisher.publish(message);
-        } catch (NameNotFoundException e) {
-            LOGGER.fine(e.getMessage());
-        } catch (JMSException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        } catch (Exception e) {
+            log.info("Sending push message using JMS failed (" + e.getMessage()
+                    + ") - the JMS subsystem might not be ready yet - operation will be repeated in few seconds");
+            if (log.isDebugEnabled()) {
+                log.debug(e);
+            }
         }
     }
 
@@ -115,21 +117,21 @@ public class JMSMessageProducer implements MessageProducer {
             try {
                 publisher.close();
             } catch (JMSException e) {
-                LOGGER.severe("unable to close publisher");
+                log.warn("unable to close publisher");
             }
         }
         if (session != null) {
             try {
                 session.close();
             } catch (JMSException e) {
-                LOGGER.severe("unable to close session");
+                log.warn("unable to close session");
             }
         }
         if (connection != null) {
             try {
                 connection.close();
             } catch (JMSException e) {
-                LOGGER.severe("unable to close connection");
+                log.warn("unable to close connection");
             }
         }
     }

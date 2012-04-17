@@ -2,7 +2,7 @@
 
                       RichFaces - Ajax enabled JSF 2.0 component library
 
-                                       RichFaces 4.2.0.Final SHOWCASE
+                                       RichFaces 4.2.1.Final SHOWCASE
                                                     http://richfaces.org
                                                               March 2011
                      This software is distributed under the terms of the 
@@ -24,7 +24,7 @@ We removed some components from the RichFaces Mobile Showcase which
 were not mobile ready. For example, rich:tooltip, rich:extendedDataTable,
 rich:jquery, and rich:popupPanel either did not make sense in a mobile
 environment or needed a heavy rewrite for touch interfaces.
-rich:dragDrop however, does work on iOSÕ Mobile Safari, but not on Android.
+rich:dragDrop however, does work on iOSï¿½ Mobile Safari, but not on Android.
 To use rich:dragDrop in Mobile Safari browsers, you can include this snippet
 of JavaScript
 (https://github.com/richfaces/components/blob/develop/mobile-compatibility/rf-dnd.js)
@@ -101,6 +101,13 @@ BUILDING AND RUNNING THE APPLICATION
 	 First, make sure the application server is running.  To start the server:
 
 	    launch the standalone.sh or standalone.bat script from JBOSS_HOME/bin/
+
+	 As of JBoass AS 7.1 you must create the JMS user account/password to
+	 enable the JMS push sample.  Add a new user to the ApplicationRealm with the
+	 $JBOSS_HOME/bin/add-user.bat or add-user.sh script, with the:
+	    username: guest
+	    password: password
+	        role: guest
 
 	 To deploy it on the application server, use either:
 

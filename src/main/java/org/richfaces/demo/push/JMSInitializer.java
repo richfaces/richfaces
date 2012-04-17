@@ -21,18 +21,21 @@
  */
 package org.richfaces.demo.push;
 
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 import static org.richfaces.demo.push.JMSMessageProducer.PUSH_JMS_TOPIC;
-import static org.richfaces.demo.push.PushBean.PUSH_CDI_TOPIC;
+import static org.richfaces.demo.push.PushCdiBean.PUSH_CDI_TOPIC;
 import static org.richfaces.demo.push.TopicsContextMessageProducer.PUSH_TOPICS_CONTEXT_TOPIC;
 
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.demo.push.provider.AS6MessagingProviderManagement;
 import org.richfaces.demo.push.provider.AS7MessagingProviderManagement;
 import org.richfaces.demo.push.provider.CustomMessagingServerManagement;
@@ -42,7 +45,7 @@ import org.richfaces.demo.push.provider.MessagingProviderManagement;
 /**
  * Initializes JMS server and creates requested topics.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class JMSInitializer extends AbstractCapabilityInitializer {
 
@@ -86,20 +89,11 @@ public class JMSInitializer extends AbstractCapabilityInitializer {
 
     protected static boolean isJmsEnabled() {
         if (null == JMS_ENABLED.get()) {
-            boolean isJmsEnabled = isConnectionFactoryRegistered() || isTomcat();
+            boolean isJmsEnabled = getConfiguration(CoreConfiguration.Items.pushJMSEnabled) != null
+                    && getConfiguration(CoreConfiguration.Items.pushJMSEnabled);
             JMS_ENABLED.compareAndSet(null, isJmsEnabled);
         }
         return JMS_ENABLED.get();
-    }
-
-    private static boolean isTomcat() {
-        try {
-            Class<?> clazz = Class.forName("org.apache.catalina.util.ServerInfo");
-            String serverInfo = (String) clazz.getMethod("getServerInfo").invoke(null);
-            return serverInfo.contains("Tomcat");
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     /*
@@ -163,6 +157,11 @@ public class JMSInitializer extends AbstractCapabilityInitializer {
             }
             return false;
         }
+    }
+
+    private static Boolean getConfiguration(Enum<?> configuration) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        return getBooleanConfigurationValue(facesContext, configuration);
     }
 
 }

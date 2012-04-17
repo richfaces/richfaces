@@ -4,12 +4,18 @@
     xmlns:rich="http://richfaces.org/rich">
 
     <h:form>
-        <h:panelGrid columns="3">
+        <h:panelGrid columns="4">
             <h:outputLabel value="Message:" />
-            <h:inputText styleClass="message" value="#{pushBean.message}" />
+            <h:inputText id="messageInput" styleClass="message" value="#{pushCdiBean.message}">
+                <f:validator validatorId="safeHtml" />
+            </h:inputText>
 
-            <a4j:commandButton value="Send" action="#{pushBean.sendMessage}" execute="@form"
-                oncomplete="jQuery('.message').val('')" />
+            <a4j:commandButton value="Send" action="#{pushCdiBean.sendMessage}"
+                execute="@form" render="messageInput" />
+                
+            <rich:messages for="messageInput" />
         </h:panelGrid>
+
+        
     </h:form>
 </ui:composition>

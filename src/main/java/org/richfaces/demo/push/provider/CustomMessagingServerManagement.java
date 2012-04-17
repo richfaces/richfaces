@@ -45,7 +45,7 @@ import org.hornetq.jms.server.impl.JMSServerManagerImpl;
  * Starts HornetQ, binds ConnectionFactory to the context and create topics.
  *
  * @author Nick Belaevski
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class CustomMessagingServerManagement implements MessagingProviderManagement {
 

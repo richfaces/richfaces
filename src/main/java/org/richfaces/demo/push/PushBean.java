@@ -21,58 +21,17 @@
  */
 package org.richfaces.demo.push;
 
-import java.io.Serializable;
 import java.util.UUID;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.richfaces.cdi.push.Push;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-@Named
-@SessionScoped
-public class PushBean implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-    public static final String PUSH_CDI_TOPIC = "pushCdi";
-
-    private String userIdentifier;
-    private String message;
-
-    @Inject
-    @Push(topic = PUSH_CDI_TOPIC, subtopic = "#{pushBean.userIdentifier}")
-    Event<String> pushEvent;
-
-    @PostConstruct
-    public void initialize() {
-        if (userIdentifier == null) {
-            userIdentifier = getUUID().replace("-", "");
-        }
-    }
-
-    /**
-     * Sends message.
-     *
-     * @param message to send
-     */
-    public void sendMessage() {
-        pushEvent.fire(message);
-    }
-
-    /**
-     * Returns current user identifier.
-     *
-     * @return current user identifier.
-     */
-    public String getUserIdentifier() {
-        return userIdentifier;
-    }
+@ManagedBean
+@RequestScoped
+public class PushBean {
 
     /**
      * Generates unique ID as string.
@@ -81,13 +40,5 @@ public class PushBean implements Serializable {
      */
     public String getUUID() {
         return UUID.randomUUID().toString();
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

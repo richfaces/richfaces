@@ -24,7 +24,7 @@ package org.richfaces.demo.push.provider;
 /**
  * Thrown when messaging provider management initialization fails.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class InitializationFailedException extends Exception {
     private static final long serialVersionUID = 1L;

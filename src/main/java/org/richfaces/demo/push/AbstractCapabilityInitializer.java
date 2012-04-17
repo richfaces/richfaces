@@ -41,7 +41,7 @@ import javax.servlet.ServletContextListener;
  * After observing PostConstructApplicationEvent, it registers to PreDestroyApplicationEvent to observe finalization phase.
  * </p>
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public abstract class AbstractCapabilityInitializer implements CapabilityInitializer, SystemEventListener,
         ServletContextListener {

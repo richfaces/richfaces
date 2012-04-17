@@ -26,7 +26,7 @@ package org.richfaces.demo.push.provider;
  *
  * Is able to initialize, createTopic and finalize.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public interface MessagingProviderManagement {
     /**

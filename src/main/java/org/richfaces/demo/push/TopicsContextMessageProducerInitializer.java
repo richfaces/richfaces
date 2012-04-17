@@ -24,7 +24,7 @@ package org.richfaces.demo.push;
 /**
  * Starts the thread with TopicsContext message producer.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class TopicsContextMessageProducerInitializer extends AbstractMessageProducerInitializer {
     /*

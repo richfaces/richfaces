@@ -34,7 +34,7 @@ import org.jboss.dmr.ModelNode;
 /**
  * Manages AS7 to create JMS topics using ModelControllerClient.
  *
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class AS7MessagingProviderManagement implements MessagingProviderManagement {
 
