@@ -167,8 +167,18 @@
                 this.frozenHeaderPartElement = document.getElementById(id + ":frozenHeader");
                 this.frozenColumnCount = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.firstChild.rows[0].cells.length : 0;//TODO Richfaces.firstDescendant;
 
-                this.scrollElement = document.getElementById(id + ":footer");
+                this.headerElement = document.getElementById(id + ":header");
+                this.footerElement = document.getElementById(id + ":footer");
+                this.scrollElement = document.getElementById(id + ":scrl");
+                this.scrollContentElement = document.getElementById(id + ":scrl-cnt");
+                var bodyElem = document.getElementById(id + ":body");
+                
+                //bodyElem.style.width = "500px";
+                //this.headerElement.style.width = "500px";
 
+                if (this.options['onready'] && typeof this.options['onready'] == 'function') {
+                    richfaces.Event.bind(this.element, "rich:ready", this.options['onready']);
+                }
                 jQuery(document).ready(jQuery.proxy(this.initialize, this));
                 jQuery(window).bind("resize", jQuery.proxy(this.updateLayout, this));
                 jQuery(this.scrollElement).bind("scroll", jQuery.proxy(this.updateScrollPosition, this));
@@ -280,18 +290,26 @@
                 var offsetWidth = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.offsetWidth : 0;
                 var width = Math.max(0, this.element.clientWidth - offsetWidth);
                 if (width) {
-                    if (this.parts.width() > width) {
+                    var contentWidth = this.parts.width();
+                    if (contentWidth > width) {
                         this.normalPartStyle.width = width + "px";
                     }
                     this.normalPartStyle.display = "block";
-                    this.scrollElement.style.overflowX = "";
-                    if (this.scrollElement.clientWidth < this.scrollElement.scrollWidth
-                        && this.scrollElement.scrollHeight == this.scrollElement.offsetHeight) {
+                    // update scroller and scroll-content
+                    if (contentWidth > width) {
+                        this.parts.each(function() {
+                            this.style.width = width + "px";
+                        });
+                        this.scrollElement.style.display = "block";
                         this.scrollElement.style.overflowX = "scroll";
-                    }
-                    var delta = this.scrollElement.firstChild.offsetHeight - this.scrollElement.clientHeight;
-                    if (delta) {
-                        this.scrollElement.style.height = this.scrollElement.offsetHeight + delta;
+                        this.scrollElement.style.width = width + "px";
+                        this.scrollContentElement.style.width = contentWidth + "px";
+                        
+                    } else {
+                        this.parts.each(function() {
+                            this.style.width = "";
+                        });
+                        this.scrollElement.style.display = "none";
                     }
                 } else {
                     this.normalPartStyle.display = "none";
@@ -384,6 +402,7 @@
                 this.parts = jQuery(this.element).find(".rf-edt-cnt, .rf-edt-ftr-cnt");
                 this.updateLayout();
                 this.updateScrollPosition(); //TODO Restore horizontal scroll position
+                jQuery(this.element).triggerHandler("rich:ready", this);
             },
 
             drag: function(event) {
@@ -717,6 +736,25 @@
                     if (this.spacerElement) {
                         this.spacerElement.style.height = (data.first * this.rowHeight) + "px";
                     }
+                }
+            },
+
+            contextMenuAttach: function (menu) {
+                var selector = "[id='" + this.element.id + "'] ";
+                selector += (typeof menu.options.targetSelector === 'undefined')
+                    ?  ".rf-edt-b td" : menu.options.targetSelector;
+                selector = jQuery.trim(selector);
+                richfaces.Event.bind(selector, menu.options.showEvent, $.proxy(menu.__showHandler, menu), menu);
+            },
+
+            contextMenuShow: function (menu, event) {
+                var tr = event.target;
+                while (this.tbodies.index(tr.parentNode) == -1) {
+                    tr = tr.parentNode;
+                }
+                var index = tr.rowIndex;
+                if (! this.ranges.contains(index) ) {
+                    this.selectionClickListener(event);
                 }
             }
         });

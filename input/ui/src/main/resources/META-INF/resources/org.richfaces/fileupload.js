@@ -21,12 +21,60 @@
  */
 (function(richfaces, jQuery) {
 
+    richfaces.ui = richfaces.ui || {};
+
+    richfaces.ui.FileUpload = function(id, options) {
+        this.id = id;
+        this.items = [];
+        this.submitedItems = [];
+
+        jQuery.extend(this, options);
+        if (this.acceptedTypes) {
+            this.acceptedTypes = jQuery.trim(this.acceptedTypes).toUpperCase().split(/\s*,\s*/);
+        }
+        if (this.maxFilesQuantity) {
+            this.maxFilesQuantity = parseInt(jQuery.trim(this.maxFilesQuantity));
+        }
+        this.element = jQuery(this.attachToDom());
+        this.form = this.element.parents("form:first");
+        var header = this.element.children(".rf-fu-hdr:first");
+        var leftButtons = header.children(".rf-fu-btns-lft:first");
+        this.addButton = leftButtons.children(".rf-fu-btn-add:first");
+        this.uploadButton = this.addButton.next();
+        this.clearButton = leftButtons.next().children(".rf-fu-btn-clr:first");
+        this.inputContainer = this.addButton.find(".rf-fu-inp-cntr:first");
+        this.input = this.inputContainer.children("input");
+        this.list = header.next();
+        this.hiddenContainer = this.list.next();
+        this.iframe = this.hiddenContainer.children("iframe:first");
+        this.progressBarElement = this.iframe.next();
+        this.progressBar = richfaces.$(this.progressBarElement);
+        this.cleanInput = this.input.clone();
+        this.addProxy = jQuery.proxy(this.__addItem, this);
+        this.input.change(this.addProxy);
+        this.addButton.mousedown(pressButton).mouseup(unpressButton).mouseout(unpressButton);
+        this.uploadButton.click(jQuery.proxy(this.__startUpload, this)).mousedown(pressButton)
+            .mouseup(unpressButton).mouseout(unpressButton);
+        this.clearButton.click(jQuery.proxy(this.__removeAllItems, this)).mousedown(pressButton)
+            .mouseup(unpressButton).mouseout(unpressButton);
+        this.iframe.load(jQuery.proxy(this.__load, this));
+        if (this.onfilesubmit) {
+            richfaces.Event.bind(this.element, "onfilesubmit", new Function("event", this.onfilesubmit));
+        }
+        if (this.ontyperejected) {
+            richfaces.Event.bind(this.element, "ontyperejected", new Function("event", this.ontyperejected));
+        }
+        if (this.onuploadcomplete) {
+            richfaces.Event.bind(this.element, "onuploadcomplete", new Function("event", this.onuploadcomplete));
+        }
+        if (this.onclear) {
+            richfaces.Event.bind(this.element, "onclear", new Function("event", this.onclear));
+        }
+    }
+
     var UID = "rf_fu_uid";
-
     var UID_ALT = "rf_fu_uid_alt";
-
     var FAKE_PATH = "C:\\fakepath\\";
-
     var ITEM_HTML = '<div class="rf-fu-itm">'
         + '<span class="rf-fu-itm-lft"><span class="rf-fu-itm-lbl"/><span class="rf-fu-itm-st"/></span>'
         + '<span class="rf-fu-itm-rgh"><a href="javascript:void(0)" class="rf-fu-itm-lnk"/></span></div>';
@@ -48,14 +96,12 @@
         jQuery(this).children(":first").css("background-position", "2px 2px").css("padding", "3px 5px 3px 21px");
     };
 
-    richfaces.ui = richfaces.ui || {};
+    richfaces.BaseComponent.extend(richfaces.ui.FileUpload);
 
-    richfaces.ui.FileUpload = richfaces.BaseComponent.extendClass({
+    $.extend(richfaces.ui.FileUpload.prototype, (function () {
 
+        return {
             name: "FileUpload",
-
-            items: [],
-            submitedItems: [],
 
             doneLabel: "Done",
             sizeExceededLabel: "File size is exceeded",
@@ -63,52 +109,6 @@
             serverErrorLabel: "Server error",
             clearLabel: "Clear",
             deleteLabel: "Delete",
-
-            init: function(id, options) {
-                this.id = id;
-                jQuery.extend(this, options);
-                if (this.acceptedTypes) {
-                    this.acceptedTypes = jQuery.trim(this.acceptedTypes).toUpperCase().split(/\s*,\s*/);
-                }
-                if (this.maxFilesQuantity) {
-                    this.maxFilesQuantity = parseInt(jQuery.trim(this.maxFilesQuantity));
-                }
-                this.element = jQuery(this.attachToDom());
-                this.form = this.element.parents("form:first");
-                var header = this.element.children(".rf-fu-hdr:first");
-                var leftButtons = header.children(".rf-fu-btns-lft:first");
-                this.addButton = leftButtons.children(".rf-fu-btn-add:first");
-                this.uploadButton = this.addButton.next();
-                this.clearButton = leftButtons.next().children(".rf-fu-btn-clr:first");
-                this.inputContainer = this.addButton.find(".rf-fu-inp-cntr:first");
-                this.input = this.inputContainer.children("input");
-                this.list = header.next();
-                this.hiddenContainer = this.list.next();
-                this.iframe = this.hiddenContainer.children("iframe:first");
-                this.progressBarElement = this.iframe.next();
-                this.progressBar = richfaces.$(this.progressBarElement);
-                this.cleanInput = this.input.clone();
-                this.addProxy = jQuery.proxy(this.__addItem, this);
-                this.input.change(this.addProxy);
-                this.addButton.mousedown(pressButton).mouseup(unpressButton).mouseout(unpressButton);
-                this.uploadButton.click(jQuery.proxy(this.__startUpload, this)).mousedown(pressButton)
-                    .mouseup(unpressButton).mouseout(unpressButton);
-                this.clearButton.click(jQuery.proxy(this.__removeAllItems, this)).mousedown(pressButton)
-                    .mouseup(unpressButton).mouseout(unpressButton);
-                this.iframe.load(jQuery.proxy(this.__load, this));
-                if (this.onfilesubmit) {
-                    richfaces.Event.bind(this.element, "onfilesubmit", new Function("event", this.onfilesubmit));
-                }
-                if (this.ontyperejected) {
-                    richfaces.Event.bind(this.element, "ontyperejected", new Function("event", this.ontyperejected));
-                }
-                if (this.onuploadcomplete) {
-                    richfaces.Event.bind(this.element, "onuploadcomplete", new Function("event", this.onuploadcomplete));
-                }
-                if (this.onclear) {
-                    richfaces.Event.bind(this.element, "onclear", new Function("event", this.onclear));
-                }
-            },
 
             __addItem: function() {
                 var fileName = this.input.val();
@@ -286,7 +286,9 @@
                 }
                 return s;
             }
-        });
+        };
+    })());
+
 
     var Item = function(fileUpload, fileName) {
         this.fileUpload = fileUpload;

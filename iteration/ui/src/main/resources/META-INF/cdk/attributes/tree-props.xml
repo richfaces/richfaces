@@ -95,7 +95,7 @@
     </property>
 
     <property>
-        <property-name>treeSelectionChangeListener</property-name>
+        <property-name>selectionChangeListener</property-name>
         <property-class>javax.el.MethodExpression</property-class>
         <property-extension>
             <cdk:generate>false</cdk:generate>
@@ -109,7 +109,7 @@
         </description>
     </property>
     <property>
-        <property-name>treeToggleListener</property-name>
+        <property-name>toggleListener</property-name>
         <property-class>javax.el.MethodExpression</property-class>
         <property-extension>
             <cdk:generate>false</cdk:generate>

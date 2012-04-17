@@ -499,6 +499,14 @@
 
             getSelection: function() {
                 return this.__selection;
+            },
+
+            contextMenuAttach: function (menu) {
+                var selector = "[id='" + this.id[0].id + "'] ";
+                selector += (typeof menu.options.targetSelector === 'undefined')
+                    ?  ".rf-trn-cnt" : menu.options.targetSelector;
+                selector = jQuery.trim(selector);
+                richfaces.Event.bind(selector, menu.options.showEvent, $.proxy(menu.__showHandler, menu), menu);
             }
 
         });

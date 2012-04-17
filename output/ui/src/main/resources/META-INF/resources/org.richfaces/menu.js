@@ -21,9 +21,14 @@
 
         this.target = this.getTarget();
         if (this.target) {
-            var that = this;
+            var menu = this;
             $(document).ready(function() {
-                rf.Event.bindById(that.target, that.options.showEvent, $.proxy(that.__showHandler, that), that)
+                var targetComponent = RichFaces.$(menu.target);
+                if (targetComponent && targetComponent.contextMenuAttach) {
+                    targetComponent.contextMenuAttach(menu);
+                } else {
+                    rf.Event.bindById(menu.target, menu.options.showEvent, $.proxy(menu.__showHandler, menu), menu)
+                }
             });
         }
         this.element = $(rf.getDomElement(this.id));

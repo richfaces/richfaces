@@ -8,3 +8,5 @@ test-output
 MANIFEST.MF
 dependency-reduced-pom.xml
 *.orig
+.checkstyle
+rebel.xml

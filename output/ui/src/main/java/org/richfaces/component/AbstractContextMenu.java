@@ -45,19 +45,32 @@ public abstract class AbstractContextMenu extends AbstractMenuContainer {
     public static final String COMPONENT_TYPE = "org.richfaces.ContextMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.ContextMenu";
 
-    @Attribute(defaultValue = "true", description = @Description(
-            "If the value of the 'attached' attribute is true, the component is attached to the component, specified in " +
-            "the 'target' attribute or to the parent component, if 'target' is not defined. Default value is 'true'."))
+    /**
+     * If the value of the 'attached' attribute is true, the component is attached to the component, specified in the
+     * 'target' attribute or to the parent component, if 'target' is not defined. Default value is 'true'.
+     */
+    @Attribute(defaultValue = "true")
     public abstract boolean isAttached();
 
-    @Attribute(description = @Description(
-            "Client identifier of the component or id of the existing DOM element that is a source for a given event. " +
-            "If target is defined, the event is attached on the client. If both attached and target attributes are " +
-            "defined, and attribute attached has value 'false', it is considered to have higher priority."))
+    /**
+     * Client identifier of the component or id of the existing DOM element that is a source for a given event.
+     * If target is defined, the event is attached on the client. If both attached and target attributes are
+     * defined, and attribute attached has value 'false', it is considered to have higher priority.
+     */
+    @Attribute
     public abstract String getTarget();
+
+    /**
+     * The jQuery selector used to filter which child DOM elements of the target/parent to which the contextMenu will
+     * be attached.
+     */
+    @Attribute
+    public abstract String getTargetSelector();
 
     public Object getCssRoot() {
         return "ctx";
     }
-}
 
+    @Attribute(hidden = true)
+    public abstract Positioning getJointPoint();
+}
