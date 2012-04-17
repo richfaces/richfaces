@@ -68,7 +68,9 @@
         <version.jbosscache>3.2.5.GA</version.jbosscache>
         <version.ehcache>1.6.0</version.ehcache>
         <version.atmosphere>0.8.4</version.atmosphere>
-        <version.jms-api>1.1</version.jms-api>
+        <version.jms-api>1.1-rev-1</version.jms-api>
+        <version.jms-deprecated>1.1</version.jms-deprecated>
+        <version.rewrite>1.0.4.Final</version.rewrite>
         
         <!-- Release repositories -->
         <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
@@ -259,6 +261,17 @@
                 <artifactId>validation-api</artifactId>
                 <version>${version.validation-api}</version>
             </dependency>
+            <dependency>
+                <groupId>org.ocpsoft.rewrite</groupId>
+                <artifactId>rewrite-servlet</artifactId>
+                <version>${version.rewrite}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ocpsoft.rewrite</groupId>
+                <artifactId>rewrite-integration-cdi</artifactId>
+                <version>${version.rewrite}</version>
+            </dependency>
+
             <!-- Required for EL-CSS func -->
             <dependency>
                 <groupId>net.sourceforge.cssparser</groupId>
@@ -291,8 +304,14 @@
             </dependency>
             <dependency>
                 <groupId>javax.jms</groupId>
-                <artifactId>jms</artifactId>
+                <artifactId>jms-api</artifactId>
                 <version>${version.jms-api}</version>
+            </dependency>
+            <!-- Deprecated in 4.2.1.Final (RF-12119), use jms-api instead -->
+            <dependency>
+                <groupId>javax.jms</groupId>
+                <artifactId>jms</artifactId>
+                <version>${version.jms-deprecated}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
