@@ -52,7 +52,6 @@ public abstract class FacesServiceBase<T> {
      * @param component
      * @param input TODO
      * @param msg
-     * @return
      */
     public FacesMessage getMessage(FacesContext context, T component, EditableValueHolder input, String msg) {
         if (null == msg) {

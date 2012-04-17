@@ -7,3 +7,6 @@ test-output
 .externalToolBuilders
 MANIFEST.MF
 dependency-reduced-pom.xml
+*.orig
+.checkstyle
+rebel.xml

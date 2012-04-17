@@ -36,7 +36,7 @@ import org.richfaces.component.NotifyAttributes;
 import org.richfaces.renderkit.util.RendererUtils;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class NotifyRendererUtils {
 

@@ -7,119 +7,236 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ * <p> The &lt;rich:pickList&gt; is a component for selecting items from a list. Additionally, it allows for the selected
+ * items to be ordered (client-side). From the client side perspective, items are added/removed from the source list,
+ * and removed/added to the target list. </p>
  *
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@JsfComponent(type = AbstractPickList.COMPONENT_TYPE, family = AbstractPickList.COMPONENT_FAMILY, generate = "org.richfaces.component.UIPickList", renderer = @JsfRenderer(type = "org.richfaces.PickListRenderer"), tag = @Tag(name = "pickList"))
+@JsfComponent(type = AbstractPickList.COMPONENT_TYPE, family = AbstractPickList.COMPONENT_FAMILY, generate = "org.richfaces.component.UIPickList",
+        renderer = @JsfRenderer(type = "org.richfaces.PickListRenderer"), tag = @Tag(name = "pickList"),
+        attributes = {"events-mouse-props.xml", "events-key-props.xml", "multiselect-props.xml"})
 public abstract class AbstractPickList extends AbstractOrderingComponent {
     public static final String COMPONENT_TYPE = "org.richfaces.PickList";
     public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 
+    /**
+     * <p>If "true", then the target list is orderable, and the ordering controls are displayed</p>
+     * <p>Default is "false"</p>
+     */
     @Attribute(defaultValue = "false")
     public abstract boolean isOrderable();
 
+    /**
+      * The text placed above the source list of items
+      */
     @Attribute
     public abstract String getSourceCaption();
 
+    /**
+      * The text placed above the target list of items
+      */
     @Attribute
     public abstract String getTargetCaption();
 
+    /**
+     * The text to display in the add-all button
+     */
     @Attribute(defaultValue = "⇒ Add all")
     public abstract String getAddAllText();
 
+    /**
+     * The text to display in the add button
+     */
     @Attribute(defaultValue = "→ Add")
     public abstract String getAddText();
 
+    /**
+     * The text to display in the remove button
+     */
     @Attribute(defaultValue = "← Remove")
     public abstract String getRemoveText();
 
+    /**
+     * The text to display in the remove-all button
+     */
     @Attribute(defaultValue = "⇐ Remove all")
     public abstract String getRemoveAllText();
 
+    /**
+     * <p>if "true", then clicking an item moves it from one list to another</p>
+     * <p>Default is "false"</p>
+     */
     @Attribute(defaultValue = "false")
     public abstract boolean isSwitchByClick();
 
+    /**
+     * <p>if "true", then double-clicking an item moves it from one list to another</p>
+     * <p>Default is "true"</p>
+     */
     @Attribute(defaultValue = "true")
     public abstract boolean isSwitchByDblClick();
 
-    // Source list attributes
-    @Attribute(events = @EventName("sourceclick"))
-    public abstract String getOnsourceclick();
-
-    @Attribute(events = @EventName("sourcedblclick"))
-    public abstract String getOnsourcedblclick();
-
-    @Attribute(events = @EventName("sourcemousedown"))
-    public abstract String getOnsourcemousedown();
-
-    @Attribute(events = @EventName("sourcemouseup"))
-    public abstract String getOnsourcemouseup();
-
-    @Attribute(events = @EventName("sourcemouseover"))
-    public abstract String getOnsourcemouseover();
-
-    @Attribute(events = @EventName("sourcemousemove"))
-    public abstract String getOnsourcemousemove();
-
-    @Attribute(events = @EventName("sourcemouseout"))
-    public abstract String getOnsourcemouseout();
-
-    @Attribute(events = @EventName("sourcekeypress"))
-    public abstract String getOnsourcekeypress();
-
-    @Attribute(events = @EventName("sourcekeydown"))
-    public abstract String getOnsourcekeydown();
-
-    @Attribute(events = @EventName("sourcekeyup"))
-    public abstract String getOnsourcekeyup();
-
-    @Attribute(events = @EventName("sourcefocus"))
-    public abstract String getOnsourcefocus();
-
-    @Attribute(events = @EventName("sourceblur"))
-    public abstract String getOnsourceblur();
-
-    // Target list events
-    @Attribute(events = @EventName("targetclick"))
-    public abstract String getOntargetclick();
-
-    @Attribute(events = @EventName("targetdblclick"))
-    public abstract String getOntargetdblclick();
-
-    @Attribute(events = @EventName("targetmousedown"))
-    public abstract String getOntargetmousedown();
-
-    @Attribute(events = @EventName("targetmouseup"))
-    public abstract String getOntargetmouseup();
-
-    @Attribute(events = @EventName("targetmouseover"))
-    public abstract String getOntargetmouseover();
-
-    @Attribute(events = @EventName("targetmousemove"))
-    public abstract String getOntargetmousemove();
-
-    @Attribute(events = @EventName("targetmouseout"))
-    public abstract String getOntargetmouseout();
-
-    @Attribute(events = @EventName("targetkeypress"))
-    public abstract String getOntargetkeypress();
-
-    @Attribute(events = @EventName("targetkeydown"))
-    public abstract String getOntargetkeydown();
-
-    @Attribute(events = @EventName("targetkeyup"))
-    public abstract String getOntargetkeyup();
-
-    @Attribute(events = @EventName("targetfocus"))
-    public abstract String getOntargetfocus();
-
-    @Attribute(events = @EventName("targetblur"))
-    public abstract String getOntargetblur();
-
+    /**
+     * Javascript code executed when items are removed from the source list, and added to the target list
+     */
     @Attribute(events = @EventName("additems"))
     public abstract String getOnadditems();
 
+    /**
+     * Javascript code executed when items are removed from the target list, and added to the source list
+     */
     @Attribute(events = @EventName("removeitems"))
     public abstract String getOnremoveitems();
+
+    //-------- Source List Events
+
+    /**
+     * Javascript code executed when the source list element receives focus.
+     */
+    @Attribute(events = @EventName("sourcefocus"))
+    public abstract String getOnsourcefocus();
+
+    /**
+     * Javascript code executed when the source list element loses focus.
+     */
+    @Attribute(events = @EventName("sourceblur"))
+    public abstract String getOnsourceblur();
+
+
+    /**
+     * Javascript code executed when a pointer button is clicked over the source list element .
+     */
+    @Attribute(events = @EventName("listclick"))
+    public abstract String getOnsourceclick();
+
+    /**
+     * Javascript code executed when a pointer button is double clicked over the source list element .
+     */
+    @Attribute(events = @EventName("listdblclick"))
+    public abstract String getOnsourcedblclick();
+
+    /**
+     * Javascript code executed when a pointer button is pressed down over the source list element .
+     */
+    @Attribute(events = @EventName("listmousedown"))
+    public abstract String getOnsourcemousedown();
+
+    /**
+     * Javascript code executed when a pointer button is released over the source list element .
+     */
+    @Attribute(events = @EventName("listmouseup"))
+    public abstract String getOnsourcemouseup();
+
+    /**
+     * Javascript code executed when a pointer button is moved onto the source list element .
+     */
+    @Attribute(events = @EventName("listmouseover"))
+    public abstract String getOnsourcemouseover();
+
+    /**
+     * Javascript code executed when a pointer button is moved within the source list element .
+     */
+    @Attribute(events = @EventName("listmousemove"))
+    public abstract String getOnsourcemousemove();
+
+    /**
+     * Javascript code executed when a pointer button is moved away from the source list element .
+     */
+    @Attribute(events = @EventName("listmouseout"))
+    public abstract String getOnsourcemouseout();
+
+    /**
+     * Javascript code executed when a key is pressed and released over the source list element .
+     */
+    @Attribute(events = @EventName("listkeypress"))
+    public abstract String getOnsourcekeypress();
+
+    /**
+     * Javascript code executed when a key is pressed down over the source list element .
+     */
+    @Attribute(events = @EventName("listkeydown"))
+    public abstract String getOnsourcekeydown();
+
+    /**
+     * Javascript code executed when a key is released over the source list element .
+     */
+    @Attribute(events = @EventName("listkeyup"))
+    public abstract String getOnsourcekeyup();
+
+
+    //-------- Target List Events
+
+    /**
+     * Javascript code executed when the target list element receives focus.
+     */
+    @Attribute(events = @EventName("targetfocus"))
+    public abstract String getOntargetfocus();
+
+    /**
+     * Javascript code executed when the target list element loses focus.
+     */
+    @Attribute(events = @EventName("targetblur"))
+    public abstract String getOntargetblur();
+
+    /**
+     * Javascript code executed when a pointer button is clicked over the target list element .
+     */
+    @Attribute(events = @EventName("listclick"))
+    public abstract String getOntargetclick();
+
+    /**
+     * Javascript code executed when a pointer button is double clicked over the target list element .
+     */
+    @Attribute(events = @EventName("listdblclick"))
+    public abstract String getOntargetdblclick();
+
+    /**
+     * Javascript code executed when a pointer button is pressed down over the target list element .
+     */
+    @Attribute(events = @EventName("listmousedown"))
+    public abstract String getOntargetmousedown();
+
+    /**
+     * Javascript code executed when a pointer button is released over the target list element .
+     */
+    @Attribute(events = @EventName("listmouseup"))
+    public abstract String getOntargetmouseup();
+
+    /**
+     * Javascript code executed when a pointer button is moved onto the target list element .
+     */
+    @Attribute(events = @EventName("listmouseover"))
+    public abstract String getOntargetmouseover();
+
+    /**
+     * Javascript code executed when a pointer button is moved within the target list element .
+     */
+    @Attribute(events = @EventName("listmousemove"))
+    public abstract String getOntargetmousemove();
+
+    /**
+     * Javascript code executed when a pointer button is moved away from the target list element .
+     */
+    @Attribute(events = @EventName("listmouseout"))
+    public abstract String getOntargetmouseout();
+
+    /**
+     * Javascript code executed when a key is pressed and released over the target list element .
+     */
+    @Attribute(events = @EventName("listkeypress"))
+    public abstract String getOntargetkeypress();
+
+    /**
+     * Javascript code executed when a key is pressed down over the target list element .
+     */
+    @Attribute(events = @EventName("listkeydown"))
+    public abstract String getOntargetkeydown();
+
+    /**
+     * Javascript code executed when a key is released over the target list element .
+     */
+    @Attribute(events = @EventName("listkeyup"))
+    public abstract String getOntargetkeyup();
 
 }

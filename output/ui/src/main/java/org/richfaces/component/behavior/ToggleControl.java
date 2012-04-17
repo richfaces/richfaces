@@ -37,8 +37,11 @@ import org.richfaces.component.ComponentIterators;
 import org.richfaces.renderkit.util.RendererUtils;
 
 /**
- * @author akolonitsky
+ * <p> The &lt;rich:toggleControl&gt; behavior can be attached to any interface component, whether inside or outside the
+ * controlled panel itself. It works with a &lt;rich:togglePanel&gt; component to switch between different
+ * &lt;rich:togglePanelItem&gt; components. </p>
  *
+ * @author akolonitsky
  */
 @JsfBehavior(id = "org.richfaces.component.behavior.ToggleControl", tag = @Tag(name = "toggleControl", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets), renderer = @JsfBehaviorRenderer(type = "org.richfaces.component.behavior.ToggleControl"))
 public class ToggleControl extends ClientBehavior {
@@ -52,6 +55,9 @@ public class ToggleControl extends ClientBehavior {
         disableDefault
     }
 
+    /**
+     * The event on which to toggle the target panel
+     */
     @Attribute
     public String getEvent() {
         return (String) getStateHelper().eval(PropertyKeys.event);
@@ -61,6 +67,9 @@ public class ToggleControl extends ClientBehavior {
         getStateHelper().eval(PropertyKeys.event, eventName);
     }
 
+    /**
+     * The next &lt;rich:togglePanelItem&gt; to switch to
+     */
     @Attribute
     public String getTargetItem() {
         return (String) getStateHelper().eval(PropertyKeys.targetItem, AbstractTogglePanel.META_NAME_NEXT);
@@ -70,6 +79,9 @@ public class ToggleControl extends ClientBehavior {
         getStateHelper().put(PropertyKeys.targetItem, target);
     }
 
+    /**
+     * The &lt;rich:togglePanel&gt; to switch when this &lt;rich:toggleControl&gt; is not a child of a &lt;rich:togglePanel&gt;
+     */
     @Attribute
     public String getTargetPanel() {
         return (String) getStateHelper().eval(PropertyKeys.targetPanel);
@@ -79,6 +91,9 @@ public class ToggleControl extends ClientBehavior {
         getStateHelper().put(PropertyKeys.targetPanel, selector);
     }
 
+    /**
+     * If "true", disable the default action of the parent component
+     */
     @Attribute
     public void setDisableDefault(Boolean disableDefault) {
         getStateHelper().put(PropertyKeys.disableDefault, disableDefault);

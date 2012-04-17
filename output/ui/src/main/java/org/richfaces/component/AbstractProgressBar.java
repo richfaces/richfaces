@@ -47,18 +47,21 @@ import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
- * Class provides base component class for progress bar
+ * <p> The &lt;rich:progressBar&gt; component displays a progress bar to indicate the status of a process to the user.
+ * It can update either through Ajax or on the client side, and the look and feel can be fully customized. </p>
  *
  * @author "Andrey Markavtsov"
- *
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ProgressBarRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ProgressBarRenderer"),
+        attributes = "events-mouse-props.xml")
 public abstract class AbstractProgressBar extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder {
     /** Component type */
     public static final String COMPONENT_TYPE = "org.richfaces.ProgressBar";
     /** Component family */
     public static final String COMPONENT_FAMILY = "org.richfaces.ProgressBar";
     public static final String STATE_META_COMPONENT_ID = "state";
+
+    //--------- events-mouse-props.xml
 
     @Attribute(events = @EventName("click"))
     public abstract String getOnclick();
@@ -81,62 +84,133 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
     @Attribute(events = @EventName("mouseout"))
     public abstract String getOnmouseout();
 
+    /**
+     * The client-side script method to be called before an ajax request.
+     */
     @Attribute(events = @EventName("begin"))
     public abstract String getOnbegin();
 
+    /**
+     * Defines a simple label instead of rendering children component
+     */
     @Attribute
     public abstract String getLabel();
 
+    /**
+     * Serialized (on default with JSON) data passed on the client by a developer on AJAX request.
+     * It's accessible via "data.foo" syntax
+     */
     @Attribute
     public abstract Object getData();
 
     public abstract void setData(Object data);
 
+    /**
+     * <p>Interval (in ms) for call poll requests.</p>
+     * <p>Default value 1000 ms (1 sec)</p>
+     */
     @Attribute
     public abstract int getInterval();
 
+    /**
+     * <p>Enables/disables polling.</p>
+     * <p>Default value is "true".</p>
+     */
     @Attribute
     public abstract boolean isEnabled();
 
+    /**
+     * The client-side script method to be called after the ajax response comes back, but before the DOM is updated
+     */
     @Attribute(events = @EventName("beforedomupdate"))
     public abstract String getOnbeforedomupdate();
 
+    /**
+     * The client-side script method to be called after the DOM is updated
+     */
     @Attribute(events = @EventName("complete"))
     public abstract String getOncomplete();
 
+    /**
+     * The client-side script method to be called when progress is finished
+     */
     @Attribute(events = @EventName("finish"))
     public abstract String getOnfinish();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied when before progress starts.
+     * This value must be passed through as the "class" attribute on generated markup.
+     */
     @Attribute
     public abstract String getInitialClass();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the remaining part of the progress bar.
+     * This value must be passed through as the "class" attribute on generated markup.
+     */
     @Attribute
     public abstract String getRemainingClass();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the progress bar element.
+     * This value must be passed through as the "class" attribute on generated markup.
+     */
     @Attribute
     public abstract String getProgressClass();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied when before progress finishes.
+     * This value must be passed through as the "class" attribute on generated markup.
+     */
     @Attribute
     public abstract String getFinishClass();
 
+    /**
+     * <p>The mode for updating the progress bar, can be one of:</p>
+     * <dl>
+     *     <dt>ajax</dt>
+     *     <dd>The progress bar updates in the same way as the &lt;a4j:poll&gt; component. The &lt;rich:progressBar&gt; component repeatedly polls the server for the current progress value.</dd>
+     *     <dt>client</dt>
+     *     <dd>The progress bar must be explicitly updated on the client side through the JavaScript API.</dd>
+     * </dl>
+     * <p>Default is "ajax"</p>
+     */
     @Attribute
     public abstract SwitchType getMode();
 
+    /**
+     * <p>Max value, after which complete state should be rendered.</p>
+     * <p>Default value is "100".</p>
+     */
     @Attribute
     public abstract Object getMaxValue();
 
+    /**
+     * <p>Min value when initial state should be rendered.</p>
+     * <p>Default value is "0".</p>
+     */
     @Attribute
     public abstract Object getMinValue();
 
+    /**
+     * Sets the current value of the progress
+     */
     @Attribute
     public abstract Object getValue();
 
     @Attribute(hidden = true)
     public abstract String getResource();
 
+    /**
+     * CSS style(s) to be applied when this component is rendered.
+     */
     @Attribute
     public abstract String getStyle();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied when this element is rendered.
+     * This value must be passed through as the "class" attribute on generated markup.
+     */
     @Attribute
     public abstract String getStyleClass();
 

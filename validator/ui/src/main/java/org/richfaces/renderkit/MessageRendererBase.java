@@ -105,7 +105,6 @@ public class MessageRendererBase extends RendererBase {
      *
      * @param context
      * @param component
-     * @return
      */
     protected Iterable<MessageForRender> getVisibleMessages(FacesContext context, UIComponent component) {
         String forId = getFor(component);
@@ -260,6 +259,9 @@ public class MessageRendererBase extends RendererBase {
         }
         if (rendererUtils.isBooleanAttribute(component, "tooltip")) {
             parametersBuilder.put("tooltip", true);
+        }
+        if (isComponentMessages(component) && rendererUtils.isBooleanAttribute(component, "globalOnly")) {
+            parametersBuilder.put("globalOnly", true);
         }
         if (isComponentMessages(component)) {
             parametersBuilder.put("isMessages", true);

@@ -45,10 +45,16 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.SelectionMode;
 
 /**
- * @author Konstantin Mishin
+ * <p> The &lt;rich:extendedDataTable&gt; component builds on the functionality of the &lt;rich:dataTable&gt; component,
+ * adding features such as scrolling for the table body (both horizontal and vertical), Ajax loading for vertical
+ * scrolling, frozen columns, row selection, and rearranging of columns. It also supports all the basic table features
+ * such as sorting, filtering, and paging using the &lt;rich:dataScroller&gt; component. </p>
  *
+ * @author Konstantin Mishin
  */
-@JsfComponent(type = AbstractExtendedDataTable.COMPONENT_TYPE, family = AbstractExtendedDataTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UIExtendedDataTable", renderer = @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer"), tag = @Tag(name = "extendedDataTable", handler = "org.richfaces.taglib.ExtendedDataTableHandler", type = TagType.Facelets), attributes = "rowKeyConverter-prop.xml")
+@JsfComponent(type = AbstractExtendedDataTable.COMPONENT_TYPE, family = AbstractExtendedDataTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UIExtendedDataTable", renderer = @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer"), tag = @Tag(name = "extendedDataTable", handler = "org.richfaces.taglib.ExtendedDataTableHandler", type = TagType.Facelets), attributes = {
+        "style-prop.xml", "styleClass-prop.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml",
+        "events-row-props.xml" })
 public abstract class AbstractExtendedDataTable extends UIDataTableBase implements MetaComponentResolver, MetaComponentEncoder {
     public static final String COMPONENT_TYPE = "org.richfaces.ExtendedDataTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
@@ -58,22 +64,40 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     private static final Logger RENDERKIT_LOG = RichfacesLogger.RENDERKIT.getLogger();
 
     protected enum PropertyKeys {
-        clientFirst,
-        clientRows
+        clientFirst, clientRows
     }
 
+    /**
+     * Determines how many columns should not be vertically scrollable (should be "frozen").
+     */
     @Attribute
     public abstract int getFrozenColumns();
 
     @Attribute
     public abstract String getStyleClass();
 
+    /**
+     * Defines selection mode for the table: none, single (only one row can be selected), multiple (Ctrl/Shift keys are used for
+     * multi-selection), multipleKeyboardFree (clicks are used for multi-selection)
+     */
     @Attribute
     public abstract SelectionMode getSelectionMode();
 
+    /**
+     * The client-side script method to be called after the EDT has been initialized, either after a page load, and an ajax update.
+     */
+    @Attribute(events = @EventName(value = "ready"))
+    public abstract String getOnready();
+
+    /**
+     * The client-side script method to be called after the selection is changed.
+     */
     @Attribute(events = @EventName(value = "selectionchange", defaultEvent = true))
     public abstract String getOnselectionchange();
 
+    /**
+     * The client-side script method to be called before the selection is changed.
+     */
     @Attribute(events = @EventName("beforeselectionchange"))
     public abstract String getOnbeforeselectionchange();
 
@@ -193,6 +217,9 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
         }
     }
 
+    /**
+     * The collection of keys for currently selected table rows (generated from data model by rowKeyConverter).
+     */
     @Attribute
     public abstract Collection<Object> getSelection();
 }

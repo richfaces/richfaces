@@ -15,6 +15,8 @@
         $super.constructor.call(this, componentId, this.options);
         this.id = componentId;
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
+        rf.Event.bind('body', 'click' + this.namespace, $.proxy(this.__leaveHandler, this));
+        rf.Event.bindById(this.id, 'click' + this.namespace, $.proxy(this.__clilckHandler, this));
     }
 
     rf.ui.Menu.extend(rf.ui.ContextMenu);
@@ -48,11 +50,25 @@
                     this.menuManager.addMenuId(this.id);
                     this.__showPopup(e); // include the event to position the popup at the cursor
                     var parent = rf.$(this.target);
-                    if (parent && parent.selectionClickListener) {
-                        parent.selectionClickListener(e);
+                    if (parent && parent.contextMenuShow) {
+                        parent.contextMenuShow(this, e);
                     }
                 }
+            },
+
+            __clilckHandler : function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            },
+
+            destroy : function() {
+                rf.Event.unbind('body', 'click' + this.namespace);
+                rf.Event.unbindById(this.id, 'click' + this.namespace);
+
+                // call parent's destroy method
+                $super.destroy.call(this);
             }
+
 
         };
     })());

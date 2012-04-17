@@ -32,8 +32,13 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
+ * <p>
+ *     The &lt;rich:componentControl&gt; behavior allows JavaScript API functions to be called on target components.
+ *     The functions are called after defined events are triggered on the component to with the
+ *     &lt;rich:componentControl&gt; behavior is attached. Initialization variants and activation events can be
+ *     customized, and parameters can be passed to the target component.
+ * </p>
  * @author Anton Belevich
- *
  */
 @JsfBehavior(id = "org.richfaces.behavior.ComponentControlBehavior", tag = @Tag(name = "componentControl", handler = "org.richfaces.taglib.ComponentControlHandler", type = TagType.Facelets))
 public class ComponentControlBehavior extends ClientBehavior {
@@ -41,11 +46,7 @@ public class ComponentControlBehavior extends ClientBehavior {
     private List<UIComponent> children;
 
     enum PropertyKeys {
-        target,
-        selector,
-        operation,
-        onbeforeoperation,
-        event
+        target, selector, operation, onbeforeoperation, event
     }
 
     public List<UIComponent> getChildren() {
@@ -55,6 +56,11 @@ public class ComponentControlBehavior extends ClientBehavior {
         return children;
     }
 
+    /**
+     * Name of JavaScript event property (click, change, etc.) of parent component that triggers the behavior. If the event
+     * attribute is not defined, the behavior is triggered on the event that normally provides interaction behavior for the
+     * parent component
+     */
     @Attribute
     public String getEvent() {
         return (String) getStateHelper().eval(PropertyKeys.event);
@@ -64,6 +70,10 @@ public class ComponentControlBehavior extends ClientBehavior {
         getStateHelper().put(PropertyKeys.event, event);
     }
 
+    /**
+     * Comma-separated list of component IDs of components which will be the operation fired on. (Alternatively you can use
+     * selector attribute).
+     */
     @Attribute
     public String getTarget() {
         return (String) getStateHelper().eval(PropertyKeys.target);
@@ -73,6 +83,9 @@ public class ComponentControlBehavior extends ClientBehavior {
         getStateHelper().put(PropertyKeys.target, target);
     }
 
+    /**
+     * jQuery selector (CSS selector with jQuery extensions) which finds target component which will be the operation fired on.
+     */
     @Attribute
     public String getSelector() {
         return (String) getStateHelper().eval(PropertyKeys.selector);
@@ -82,6 +95,10 @@ public class ComponentControlBehavior extends ClientBehavior {
         getStateHelper().put(PropertyKeys.selector, selector);
     }
 
+    /**
+     * The function of JavaScript API that will be invoked on the target components (selected with target or selector
+     * attributes).
+     */
     @Attribute
     public String getOperation() {
         return (String) getStateHelper().eval(PropertyKeys.operation);
@@ -91,6 +108,9 @@ public class ComponentControlBehavior extends ClientBehavior {
         getStateHelper().put(PropertyKeys.operation, operation);
     }
 
+    /**
+     * Javascript invoked just before the operation will be invoked on target component.
+     */
     @Attribute
     public String getOnbeforeoperation() {
         return (String) getStateHelper().eval(PropertyKeys.onbeforeoperation);

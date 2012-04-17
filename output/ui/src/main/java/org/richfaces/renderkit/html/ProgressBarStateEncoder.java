@@ -94,7 +94,6 @@ class ProgressBarStateEncoder {
      * @param value
      * @param minValue
      * @param maxValue
-     * @return
      */
     protected Number calculatePercent(Number value, Number minValue, Number maxValue) {
         if (minValue.doubleValue() < value.doubleValue() && value.doubleValue() < maxValue.doubleValue()) {

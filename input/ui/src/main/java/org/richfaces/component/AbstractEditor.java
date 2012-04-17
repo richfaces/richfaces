@@ -34,46 +34,93 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.EditorRendererBase;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * <p> The &lt;rich:editor&gt; component is used for creating a WYSIWYG editor on a page. </p>
+ *
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @JsfComponent(type = AbstractEditor.COMPONENT_TYPE, family = AbstractEditor.COMPONENT_FAMILY, generate = "org.richfaces.component.UIEditor", renderer = @JsfRenderer(type = "org.richfaces.EditorRenderer"), facets = @Facet(name = "config", description = @Description("Detailed configuration of editor in JSON format")), tag = @Tag(name = "editor"), attributes = "core-props.xml")
 public abstract class AbstractEditor extends UIInput {
     public static final String COMPONENT_TYPE = "org.richfaces.Editor";
     public static final String COMPONENT_FAMILY = "org.richfaces.Editor";
 
+    /**
+     * <p>
+     * Used to change the configuration of the toolbar's button set. There are two configurations available:
+     * basic (default), full (enables all of the features).
+     * <p>
+     * It is also possible to define a custom toolbar using the CKEditor toolbar configuration in a config facet
+     * </p>
+     * <p>
+     * Default is basic
+     * </p>
+     */
     @Attribute(defaultValue = "Basic")
     public abstract String getToolbar();
 
+    /**
+     * <p>Set the skin of the richfaces editor.  Bundled skins include: richfaces, kama, v2, office2003</p>
+     * <p>Default is richfaces</p>
+     */
     @Attribute(defaultValue = "richfaces")
     public abstract String getSkin();
 
+    /**
+     * Used to switch the editor into a read-only mode.
+     */
     @Attribute(defaultValue = "false")
     public abstract boolean isReadonly();
 
+    /**
+     * The width of the editor
+     */
     @Attribute(defaultValue = EditorRendererBase.DEFAULT_WIDTH)
     public abstract String getWidth();
 
+    /**
+     * The hieght of the editor
+     */
     @Attribute(defaultValue = EditorRendererBase.DEFAULT_HEIGHT)
     public abstract String getHeight();
 
+    /**
+     * Code describing the language used in the generated markup for this component.
+     */
     @Attribute
     public abstract String getLang();
 
+    /**
+     * The client-side script method to be called once the editor is initialized and ready to be handle user interaction
+     */
     @Attribute(events = @EventName("init"))
     public abstract String getOninit();
 
+    /**
+     * The client-side script method to be called when the editor loses focus
+     */
     @Attribute(events = @EventName("blur"))
     public abstract String getOnblur();
 
+    /**
+     * The client-side script method to be called when the editor receives focus
+     */
     @Attribute(events = @EventName("focus"))
     public abstract String getOnfocus();
 
+    /**
+     * The client-side script method to be called on blur event when editor content has been changed after previous focus
+     */
     @Attribute(events = @EventName(value = "change", defaultEvent = true))
     public abstract String getOnchange();
 
+    /**
+     * The client-side script method to be called immediately after the editor content has been changed
+     */
     @Attribute(events = @EventName("dirty"))
     public abstract String getOndirty();
 
-    @Attribute(description = @Description("Detailed configuration of editor in JSON format"))
+    /**
+     * Detailed configuration of editor in JSON format
+     */
+    @Attribute
     public abstract UIComponent getConfig();
 }

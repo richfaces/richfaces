@@ -7,9 +7,9 @@
         <div class="rf-ddm-lst" id="form:ddmenu_list" style="display:none;min-width:250px;" tabindex="-1">
             <div class="rf-ddm-lst-bg">
                 <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:open">
-                    <div class="rf-ddm-itm-ic ">
-                        <div class="rf-ddm-emptyIcon" />
-                    </div>
+                    <span class="rf-ddm-itm-ic ">
+                        <span class="rf-ddm-emptyIcon" />
+                    </span>
                     <span class="rf-ddm-itm-lbl ">
                         Open
                     </span>
@@ -21,9 +21,9 @@ new RichFaces.ui.MenuItem("form:open",{"submitFunction":function(event){RichFace
                 </div>
 
                 <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:group">
-                    <div class="rf-ddm-itm-ic ">
-                        <div class="rf-ddm-emptyIcon" />
-                    </div>
+                    <span class="rf-ddm-itm-ic ">
+                        <span class="rf-ddm-emptyIcon" />
+                    </span>
                     <span class="rf-ddm-itm-lbl ">
                         Save As...
                     </span>
@@ -32,9 +32,9 @@ new RichFaces.ui.MenuItem("form:open",{"submitFunction":function(event){RichFace
                             tabindex="-1">
                             <div class="rf-ddm-lst-bg">
                                 <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:save">
-                                    <div class="rf-ddm-itm-ic ">
+                                    <span class="rf-ddm-itm-ic ">
                                         <img src="/images/ddmenu/save.gif" />
-                                    </div>
+                                    </span>
                                     <span class="rf-ddm-itm-lbl ">
                                         Save
                                     </span>
@@ -49,9 +49,9 @@ new RichFaces.ui.MenuItem("form:save",{"submitFunction":function(event){RichFace
                                 </div>
 
                                 <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:saveAll">
-                                    <div class="rf-ddm-itm-ic ">
-                                        <div class="rf-ddm-emptyIcon" />
-                                    </div>
+                                    <span class="rf-ddm-itm-ic ">
+                                        <span class="rf-ddm-emptyIcon" />
+                                    </span>
                                     <span class="rf-ddm-itm-lbl ">
                                         SaveAll
                                     </span>

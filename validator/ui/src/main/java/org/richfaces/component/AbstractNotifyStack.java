@@ -30,8 +30,13 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
+ * <p>Notifications emited by &lt;rich:notify&gt;, &lt;rich:notifyMessage&gt; and &lt;rich:notifyMessages&gt; are
+ * displayed in top-right corner of the screen by default.</p> <p> It is &lt;rich:notifyStack&gt; which defines where
+ * messages will appear and handles their stacking. </p><p> Stack also provides way how to remove messages from screen -
+ * when stack is re-rendered, current notifications are destroyed, freeing place for new notifications.</p>
+ *
  * @author Bernard Labno
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @JsfComponent(tag = @Tag(name = "notifyStack"), type = AbstractNotifyStack.COMPONENT_TYPE, family = AbstractNotifyStack.COMPONENT_FAMILY, generate = "org.richfaces.component.UINotifyStack", renderer = @JsfRenderer(type = "org.richfaces.NotifyStackRenderer"))
 public abstract class AbstractNotifyStack extends UIComponentBase {

@@ -29,7 +29,7 @@ import org.richfaces.cdk.annotations.Tag;
  * @author Nick Belaevski
  *
  */
-@JsfComponent(type = UITreeModelAdaptor.COMPONENT_TYPE, family = UITreeModelAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelAdaptor", handler = "org.richfaces.view.facelets.TreeModelAdaptorHandler"))
+@JsfComponent(type = UITreeModelAdaptor.COMPONENT_TYPE, family = UITreeModelAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelAdaptor", handler = "org.richfaces.view.facelets.TreeModelAdaptorHandler"), attributes = "tree-model-props.xml")
 public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements TreeModelAdaptor {
     public static final String COMPONENT_TYPE = "org.richfaces.TreeModelAdaptor";
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelAdaptor";

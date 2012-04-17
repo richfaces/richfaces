@@ -76,32 +76,31 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         return null;
     }
 
-    protected String getOnClickFunction(FacesContext facesContext, UIComponent component) {
-        AbstractMenuItem menuItem = (AbstractMenuItem) component;
-        Mode subminMode = resolveSubmitMode(menuItem);
-        if (Mode.ajax.equals(subminMode)) {
-            return getOnClick(facesContext, menuItem);
-        } else {
-            return "";
-        }
-    }
-
     /**
      * overridden due to {@link https://issues.jboss.org/browse/RF-10695}
      *
      * @param context
      * @param component
-     * @return
      */
     @Override
     public String getOnClick(FacesContext context, UIComponent component) {
+        AbstractMenuItem menuItem = (AbstractMenuItem) component;
+        Mode submitMode = resolveSubmitMode(menuItem);
         StringBuffer onClick = new StringBuffer();
 
         if (!getUtils().isBooleanAttribute(component, "disabled")) {
             HandlersChain handlersChain = new HandlersChain(context, component);
 
+            handlersChain.addInlineHandlerFromAttribute("onclick");
             handlersChain.addBehaviors("click", "action");
-            handlersChain.addAjaxSubmitFunction();
+
+            switch (submitMode) {
+                case ajax:
+                    handlersChain.addAjaxSubmitFunction();
+                    break;
+                case server:
+                    handlersChain.addInlineHandlerAsValue("RichFaces.submitForm(event.form, event.itemId)");
+            }
 
             String handlerScript = handlersChain.toScript();
 
@@ -130,8 +129,8 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         return Mode.server;
     }
 
-    protected String getStyleClass(FacesContext facesContext, UIComponent component, String menuParentStyle, String menuGroupStyle,
-        String menuItemStyle) {
+    protected String getStyleClass(FacesContext facesContext, UIComponent component, String menuParentStyle,
+            String menuGroupStyle, String menuItemStyle) {
         UIComponent parent = getMenuParent(component);
         UIComponent menuGroup = getMenuGroup(component);
         Object styleClass = null;
@@ -189,7 +188,6 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
      * It is introduced due to RF-10004 CDK: isEmpty method is generated incorrectly
      *
      * @param str
-     * @return
      */
     protected boolean isStringEmpty(String str) {
         if (str != null && str.trim().length() > 0) {

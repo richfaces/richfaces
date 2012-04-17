@@ -37,10 +37,14 @@ import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.event.CollapsibleSubTableToggleListener;
 
 /**
- * @author Anton Belevich
+ * <p> The &lt;rich:collapsibleSubTable&gt; component acts as a child element to a &lt;rich:dataTable&gt; component. The
+ * &lt;rich:collapsibleSubTable&gt; component iterates through the child collections in the currently iterated object to
+ * create master-detail tables. </p>
  *
+ * @author Anton Belevich
  */
-@JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE, family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UICollapsibleSubTable", renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"), tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets), attributes = "rowKeyConverter-prop.xml")
+@JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE, family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UICollapsibleSubTable", renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"), tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets), attributes = {
+        "style-prop.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml", "events-row-props.xml" })
 public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
@@ -54,6 +58,9 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
         expanded
     }
 
+    /**
+     * Determines the state of sub table: true (expanded), false (collapsed)
+     */
     @Attribute
     public boolean isExpanded() {
         return (Boolean) getStateHelper().eval(PropertyKeys.expanded, true);
@@ -63,6 +70,9 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
         getStateHelper().put(PropertyKeys.expanded, expanded);
     }
 
+    /**
+     * Specifies what mode will be used to expand the sub table: client (default), ajax, server, none (can't be expanded)
+     */
     @Attribute
     public abstract String getExpandMode();
 

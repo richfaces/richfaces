@@ -13,7 +13,8 @@
         <cdk:renderer-type>org.richfaces.TreeNodeRenderer
         </cdk:renderer-type>
 
-        <cdk:import-attributes src="urn:attributes:events-props.xml" />
+        <cdk:import-attributes src="urn:attributes:events-mouse-props.xml" />
+        <cdk:import-attributes src="urn:attributes:events-key-props.xml" />
         <cdk:import-attributes src="urn:attributes:core-props.xml" />
         <cdk:import-attributes src="urn:attributes:i18n-props.xml" />
     </cc:interface>

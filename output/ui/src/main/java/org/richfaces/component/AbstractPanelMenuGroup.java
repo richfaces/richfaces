@@ -21,7 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -38,18 +37,20 @@ import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.PanelToggleEvent;
 
 /**
+ * <p>The &lt;rich:panelMenuGroup&gt; component defines a group of &lt;rich:panelMenuItem&gt; components inside a
+ * &lt;rich:panelMenu&gt;.</p>
+ *
  * @author akolonitsky
- * @since 2010-10-25
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets))
+@JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "style-prop.xml", "styleClass-prop.xml", "ajax-props.xml",
+        "bypass-props.xml", "events-mouse-props.xml" })
 public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuGroup";
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuGroup";
     private Boolean submittedExpanded;
 
     private enum PropertyKeys {
-        selectable,
-        immediate
+        selectable, immediate
     }
 
     protected AbstractPanelMenuGroup() {
@@ -157,6 +158,9 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
         this.submittedExpanded = Boolean.parseBoolean(String.valueOf(submittedValue));
     }
 
+    /**
+     * Defines whenever this group is expanded
+     */
     @Attribute
     public Boolean isExpanded() {
         return (Boolean) getValue();
@@ -185,128 +189,178 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
 
     // ------------------------------------------------ Component Attributes
 
+    /**
+     * Defines whenever the group is selectable.
+     */
     @Attribute(defaultValue = "Boolean.FALSE")
     public abstract Boolean isSelectable();
 
+    /**
+     * Mode used for expanding/collapsing of this group: default value is inherited from panelMenu
+     */
     @Attribute(defaultValue = "getPanelMenu().getGroupMode()")
     public abstract PanelMenuMode getMode();
 
+    /**
+     * The mouse event used for collapsing.
+     */
     @Attribute
     public abstract String getCollapseEvent();
 
+    /**
+     * The mouse event used for expansion.
+     */
     @Attribute
     public abstract String getExpandEvent();
-
-    @Attribute
-    public abstract MethodExpression getChangeExpandListener();
 
     // ------------------------------------------------ Html Attributes
 
     enum Properties {
-        leftDisabledIcon,
-        leftExpandedIcon,
-        rightCollapsedIcon,
-        rightDisabledIcon,
-        rightExpandedIcon,
-        disabledClass,
-        styleClass,
-        leftCollapsedIcon
+        leftDisabledIcon, leftExpandedIcon, rightCollapsedIcon, rightDisabledIcon, rightExpandedIcon, disabledClass, styleClass, leftCollapsedIcon
     }
 
+    /**
+     * The icon displayed on the left of the menu group label when the group is collapsed
+     */
     @Attribute(generate = false)
     public String getLeftCollapsedIcon() {
         return (String) getStateHelper().eval(Properties.leftCollapsedIcon,
-            isTopItem() ? getPanelMenu().getTopGroupCollapsedLeftIcon() : getPanelMenu().getGroupCollapsedLeftIcon());
+                isTopItem() ? getPanelMenu().getTopGroupCollapsedLeftIcon() : getPanelMenu().getGroupCollapsedLeftIcon());
     }
 
     public void setLeftCollapsedIcon(String leftCollapsedIcon) {
         getStateHelper().put(Properties.leftCollapsedIcon, leftCollapsedIcon);
     }
 
+    /**
+     * The icon displayed on the left of the menu group label when the group is disabled
+     */
     @Attribute(generate = false)
     public String getLeftDisabledIcon() {
         return (String) getStateHelper().eval(Properties.leftDisabledIcon,
-            isTopItem() ? getPanelMenu().getTopGroupDisabledLeftIcon() : getPanelMenu().getGroupDisabledLeftIcon());
+                isTopItem() ? getPanelMenu().getTopGroupDisabledLeftIcon() : getPanelMenu().getGroupDisabledLeftIcon());
     }
 
     public void setLeftDisabledIcon(String leftDisabledIcon) {
         getStateHelper().put(Properties.leftDisabledIcon, leftDisabledIcon);
     }
 
+    /**
+     * The icon displayed on the left of the menu group label when the group is expanded
+     */
     @Attribute(generate = false)
     public String getLeftExpandedIcon() {
         return (String) getStateHelper().eval(Properties.leftExpandedIcon,
-            isTopItem() ? getPanelMenu().getTopGroupExpandedLeftIcon() : getPanelMenu().getGroupExpandedLeftIcon());
+                isTopItem() ? getPanelMenu().getTopGroupExpandedLeftIcon() : getPanelMenu().getGroupExpandedLeftIcon());
     }
 
     public void setLeftExpandedIcon(String leftExpandedIcon) {
         getStateHelper().put(Properties.leftExpandedIcon, leftExpandedIcon);
     }
 
+    /**
+     * The icon displayed on the right of the menu group label when the group is collapsed
+     */
     @Attribute(generate = false)
     public String getRightCollapsedIcon() {
         return (String) getStateHelper().eval(Properties.rightCollapsedIcon,
-            isTopItem() ? getPanelMenu().getTopGroupCollapsedRightIcon() : getPanelMenu().getGroupCollapsedRightIcon());
+                isTopItem() ? getPanelMenu().getTopGroupCollapsedRightIcon() : getPanelMenu().getGroupCollapsedRightIcon());
     }
 
     public void setRightCollapsedIcon(String rightCollapsedIcon) {
         getStateHelper().put(Properties.rightCollapsedIcon, rightCollapsedIcon);
     }
 
+    /**
+     * The icon displayed on the left of the menu group label when the group is disabled
+     */
     @Attribute(generate = false)
     public String getRightDisabledIcon() {
         return (String) getStateHelper().eval(Properties.rightDisabledIcon,
-            isTopItem() ? getPanelMenu().getTopGroupDisabledRightIcon() : getPanelMenu().getGroupDisabledRightIcon());
+                isTopItem() ? getPanelMenu().getTopGroupDisabledRightIcon() : getPanelMenu().getGroupDisabledRightIcon());
     }
 
     public void setRightDisabledIcon(String rightDisabledIcon) {
         getStateHelper().put(Properties.rightDisabledIcon, rightDisabledIcon);
     }
 
+    /**
+     * The icon displayed on the left of the menu group label when the group is expanded
+     */
     @Attribute(generate = false)
     public String getRightExpandedIcon() {
         return (String) getStateHelper().eval(Properties.rightExpandedIcon,
-            isTopItem() ? getPanelMenu().getTopGroupExpandedRightIcon() : getPanelMenu().getGroupExpandedRightIcon());
+                isTopItem() ? getPanelMenu().getTopGroupExpandedRightIcon() : getPanelMenu().getGroupExpandedRightIcon());
     }
 
     public void setRightExpandedIcon(String rightExpandedIcon) {
         getStateHelper().put(Properties.rightExpandedIcon, rightExpandedIcon);
     }
 
+    /**
+     * The client-side script method to be called after the menu group is collapsed
+     */
     @Attribute(events = @EventName("collapse"))
     public abstract String getOncollapse();
 
+    /**
+     * The client-side script method to be called after the menu group is expanded
+     */
     @Attribute(events = @EventName("expand"))
     public abstract String getOnexpand();
 
+    /**
+     * The client-side script method to be called after the menu group is switched (toggled)
+     */
     @Attribute(events = @EventName("switch"))
     public abstract String getOnswitch();
 
+    /**
+     * The client-side script method to be called before the menu group is collapsed
+     */
     @Attribute(events = @EventName("beforecollapse"))
     public abstract String getOnbeforecollapse();
 
+    /**
+     * The client-side script method to be called before the menu group is expanded
+     */
     @Attribute(events = @EventName("beforeexpand"))
     public abstract String getOnbeforeexpand();
 
+    /**
+     * The client-side script method to be called before the menu group is switched (toggled)
+     */
     @Attribute(events = @EventName("beforeswitch"))
     public abstract String getOnbeforeswitch();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the panel menu group when it is disabled.
+     */
     @Attribute(generate = false)
     public String getDisabledClass() {
         return (String) getStateHelper().eval(Properties.disabledClass,
-            isTopItem() ? getPanelMenu().getTopGroupDisabledClass() : getPanelMenu().getGroupDisabledClass());
+                isTopItem() ? getPanelMenu().getTopGroupDisabledClass() : getPanelMenu().getGroupDisabledClass());
     }
 
     public void setDisabledClass(String disabledClass) {
         getStateHelper().put(Properties.disabledClass, disabledClass);
     }
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the panel menu group when it is hovered.
+     */
     @Attribute
     public abstract String getHoverClass();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the left icon of the panel menu group.
+     */
     @Attribute
     public abstract String getLeftIconClass();
 
+    /**
+     * Space-separated list of CSS style class(es) to be applied to the right icon of the panel menu group.
+     */
     @Attribute
     public abstract String getRightIconClass();
 
@@ -319,7 +373,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     @Attribute(generate = false)
     public String getStyleClass() {
         return (String) getStateHelper().eval(Properties.styleClass,
-            isTopItem() ? getPanelMenu().getTopGroupClass() : getPanelMenu().getGroupClass());
+                isTopItem() ? getPanelMenu().getTopGroupClass() : getPanelMenu().getGroupClass());
     }
 
     public void setStyleClass(String styleClass) {
@@ -353,12 +407,21 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     @Attribute(events = @EventName("mouseup"))
     public abstract String getOnmouseup();
 
+    /**
+     * The client-side script method to be called after the menu group is unselected
+     */
     @Attribute(events = @EventName("unselect"))
     public abstract String getOnunselect();
 
+    /**
+     * The client-side script method to be called after the menu group is selected
+     */
     @Attribute(events = @EventName("select"))
     public abstract String getOnselect();
 
+    /**
+     * The client-side script method to be called before the menu group is selected
+     */
     @Attribute(events = @EventName("beforeselect"))
     public abstract String getOnbeforeselect();
 

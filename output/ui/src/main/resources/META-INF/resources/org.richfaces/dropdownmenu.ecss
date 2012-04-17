@@ -141,6 +141,7 @@
     width: 16px;
     height: 16px;
     line-height: 16px;
+    display: inline-block;
 }
 
 .rf-ddm-itm-ic input[type="checkbox"] {

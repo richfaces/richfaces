@@ -194,12 +194,14 @@ jQuery.atmosphere = function() {
             } else if (jQuery.browser.opera) {
                 return true;
             }
+            /* RF-11940
             // Force Android to use CORS as some version like 2.2.3 fail otherwise
             var ua = navigator.userAgent.toLowerCase();
             var isAndroid = ua.indexOf("android") > -1;
             if (isAndroid) {
                 return true;
             }
+            */
             return false;
         },
 
@@ -456,8 +458,9 @@ jQuery.atmosphere = function() {
             if (url.indexOf("X-Atmosphere-Framework") != -1) {
                 return url;
             }
-
-            url += "?X-Atmosphere-tracking-id=" + jQuery.atmosphere.uuid;
+            
+            url += (url.indexOf('?') != -1) ? '&' : '?';
+            url +=  "X-Atmosphere-tracking-id=" + jQuery.atmosphere.uuid;
             url += "&X-Atmosphere-Framework=" + jQuery.atmosphere.version;
             url += "&X-Atmosphere-Transport=" + request.transport;
             url += "&X-Cache-Date=" + new Date().getTime();

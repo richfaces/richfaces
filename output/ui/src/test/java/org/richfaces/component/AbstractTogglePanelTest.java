@@ -137,18 +137,25 @@ public class AbstractTogglePanelTest {
         Assert.assertEquals(item3, panel.getLastItem());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testGetChildName() {
+    public void isActiveItem() {
         panel.setActiveItem(ITEM1);
         Assert.assertTrue(panel.isActiveItem(item1));
         Assert.assertFalse(panel.isActiveItem(item2));
         Assert.assertFalse(panel.isActiveItem(null));
-
-        panel.isActiveItem(panel);
+        Assert.assertFalse(panel.isActiveItem(panel));
     }
 
-    private static UITogglePanelItem createItem(String name) {
-        UITogglePanelItem item = new UITogglePanelItem();
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetChildName() {
+        Assert.assertEquals(item1.getName(), panel.getChildName(item1));
+        Assert.assertEquals(item2.getName(), panel.getChildName(item2));
+        Assert.assertNull(panel.getChildName(null));
+
+        panel.getChildName(panel);
+    }
+
+    private static org.richfaces.component.UITogglePanelItem createItem(String name) {
+        org.richfaces.component.UITogglePanelItem item = new org.richfaces.component.UITogglePanelItem();
         item.setName(name);
 
         return item;

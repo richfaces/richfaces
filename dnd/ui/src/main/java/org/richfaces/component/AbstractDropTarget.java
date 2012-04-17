@@ -37,14 +37,21 @@ import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
 
 /**
+ * <p>
+ *     The &lt;rich:dropTarget&gt; component can be added to a component so that the component can accept dragged items.
+ *     The dragged items must be defined with a compatible drop type for the &lt;rich:dragSource&gt; component.
+ * </p>
  * @author abelevich
- *
  */
-@JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDropTarget", renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"), attributes = { "dropListener-props.xml" }, tag = @Tag(name = "dropTarget", handler = "org.richfaces.view.facelets.DropHandler", type = TagType.Facelets))
+@JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDropTarget", renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"), attributes = {
+        "ajax-props.xml", "immediate-prop.xml", "bypass-props.xml", "dropListener-props.xml" }, tag = @Tag(name = "dropTarget", handler = "org.richfaces.view.facelets.DropHandler", type = TagType.Facelets))
 public abstract class AbstractDropTarget extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.DropTarget";
     public static final String COMPONENT_FAMILY = "org.richfaces.DropTarget";
 
+    /**
+     * Data to be processed after a drop event
+     */
     @Attribute
     public abstract Object getDropValue();
 
@@ -60,6 +67,9 @@ public abstract class AbstractDropTarget extends UIComponentBase {
     @Attribute
     public abstract Object getRender();
 
+    /**
+     * A list of drag zones types, which elements are accepted by a drop zone
+     */
     @Attribute
     public abstract Object getAcceptedTypes();
 

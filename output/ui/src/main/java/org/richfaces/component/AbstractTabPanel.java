@@ -30,10 +30,14 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 
 /**
+ * <p>The &lt;rich:tabPanel&gt; component provides a set of tabbed panels for displaying one panel of content at a time.
+ * The tabs can be highly customized and themed. Each tab within a &lt;rich:tabPanel&gt; container is a &lt;rich:tab&gt;
+ * component.</p>
+ *
  * @author akolonitsky
- * @since 2010-08-24
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TabPanelRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TabPanelRenderer"), attributes = {
+        "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
 public abstract class AbstractTabPanel extends AbstractTogglePanel {
     public static final String COMPONENT_TYPE = "org.richfaces.TabPanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.TabPanel";
@@ -47,41 +51,64 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
         return COMPONENT_FAMILY;
     }
 
+    /**
+     * Holds the active tab name. This name is a reference to the name identifier of the active child &lt;rich:tab&gt;
+     * component.
+     */
     @Override
     @Attribute(generate = false)
     public String getActiveItem() {
         String res = super.getActiveItem();
-        if ((res == null)||(res.equals(""))) {
+        if ((res == null) || (res.equals(""))) {
             res = getFirstItem().getName();
         } else {
             AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) super.getItemByIndex(super.getChildIndex(res));
-            if ((item == null)||(item.isDisabled())) {
+            if ((item == null) || (item.isDisabled())) {
                 res = getFirstItem().getName();
             }
         }
         return res;
     }
 
-    // ------------------------------------------------ Html Attributes
-
+    /**
+     * The position of the header: top, bottom, left, right
+     */
     @Attribute
     public abstract HeaderPosition getHeaderPosition();
 
+    /**
+     * The alignment of the tab panel header: left, center, right, bottom, top
+     */
     @Attribute
     public abstract HeaderAlignment getHeaderAlignment();
 
+    /**
+     * Space-separated list of CSS style class(es) for active tab header.
+     */
     @Attribute
     public abstract String getTabActiveHeaderClass();
 
+    /**
+     * Space-separated list of CSS style class(es) for disabled tab headers.
+     */
     @Attribute
     public abstract String getTabDisabledHeaderClass();
 
+    /**
+     * Space-separated list of CSS style class(es) for inactive tab headers.
+     */
     @Attribute
     public abstract String getTabInactiveHeaderClass();
 
+    /**
+     * Space-separated list of CSS style class(es) for tab content
+     */
     @Attribute
     public abstract String getTabContentClass();
 
+    /**
+     * Space-separated list of CSS style class(es) for tab headers.
+     */
     @Attribute
     public abstract String getTabHeaderClass();
 

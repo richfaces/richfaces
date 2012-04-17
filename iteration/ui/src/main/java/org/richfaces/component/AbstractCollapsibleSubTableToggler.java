@@ -29,8 +29,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * @author Anton Belevich
+ * <p> The &lt;rich:collapsibleSubTableToggler&gt; component provides a toggle control for the user to expand and
+ * collapse sub-tables. </p>
  *
+ * @author Anton Belevich
  */
 @JsfComponent(type = AbstractCollapsibleSubTableToggler.COMPONENT_TYPE, family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY, generate = "org.richfaces.component.UICollapsibleSubTableToggleControl", renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableTogglerRenderer"), tag = @Tag(name = "collapsibleSubTableToggler"))
 public abstract class AbstractCollapsibleSubTableToggler extends UIComponentBase {
@@ -38,21 +40,39 @@ public abstract class AbstractCollapsibleSubTableToggler extends UIComponentBase
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsibleSubTableToggler";
     public static final String DEFAULT_EVENT = "onclick";
 
+    /**
+     * The label of the toggler when the sub-table is expanded
+     */
     @Attribute
     public abstract String getExpandedLabel();
 
+    /**
+     * The label of the toggler when the sub-table is collapsed
+     */
     @Attribute
     public abstract String getCollapsedLabel();
 
+    /**
+     * The icon of the toggler when the sub-table is expanded
+     */
     @Attribute
     public abstract String getExpandedIcon();
 
+    /**
+     * The icon of the toggler when the sub-table is collapsed
+     */
     @Attribute
     public abstract String getCollapsedIcon();
 
+    /**
+     * The mouse event which toggler reacts to toggle the sub-table: click (default), dblclick, mousedown, mouseup, etc.
+     */
     @Attribute
     public abstract String getEvent();
 
+    /**
+     * Specifies table which will toggler control
+     */
     @Attribute
     public String getFor() {
         return (String) getStateHelper().eval("for");

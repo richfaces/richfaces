@@ -32,10 +32,16 @@ import org.richfaces.cdk.annotations.RendererSpecificComponent;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * <p>The &lt;rich:notifyMessage&gt; component is built on top of &lt;rich:notify&gt;, the difference is in usage. The
+ * &lt;rich:notifyMessage&gt; component displays FacesMessages associated with a given component, similar to
+ * &lt;rich:message&gt;: one notification is displayed for first FacesMessage in the stack that is risen either
+ * programatically or during conversion/validation of the component. The severity of the message determines the color
+ * and icon of the resulting notification.</p>
+ *
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @JsfComponent(generate = "org.richfaces.component.UINotifyMessage", type = "org.richfaces.NotifyMessage", components = @RendererSpecificComponent(tag = @Tag(name = "notifyMessage"), generate = "org.richfaces.component.html.HtmlNotifyMessage", attributes = {
-        "core-props.xml", "events-props.xml", "i18n-props.xml" }, renderer = @JsfRenderer(template = "notifyMessage.template.xml")))
+        "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml" }, renderer = @JsfRenderer(template = "notifyMessage.template.xml")))
 public abstract class AbstractNotifyMessage extends UIMessage implements AjaxOutput, ClientSideMessage, NotifyAttributes {
 
     @Attribute(defaultValue = "true")

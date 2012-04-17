@@ -41,7 +41,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 
 /**
- * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class NotifyMessageRendererBase extends MessageRendererBase {
     @Override
@@ -75,6 +75,9 @@ public class NotifyMessageRendererBase extends MessageRendererBase {
         }
         if (rendererUtils.isBooleanAttribute(component, "tooltip")) {
             parametersBuilder.put("tooltip", true);
+        }
+        if (isComponentMessages(component) && rendererUtils.isBooleanAttribute(component, "globalOnly")) {
+            parametersBuilder.put("globalOnly", true);
         }
         if (isComponentMessages(component)) {
             parametersBuilder.put("isMessages", true);

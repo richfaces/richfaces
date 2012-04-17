@@ -47,11 +47,14 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
- * @author Anton Belevich
+ * <p> The &lt;rich:dataGrid&gt; component is used to arrange data objects in a grid. Values in the grid can be updated
+ * dynamically from the data model, and Ajax updates can be limited to specific rows. The component supports header,
+ * footer, and caption facets. </p>
  *
+ * @author Anton Belevich
  */
 @JsfComponent(type = AbstractDataGrid.COMPONENT_TYPE, family = AbstractDataGrid.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataGrid", renderer = @JsfRenderer(type = "org.richfaces.DataGridRenderer"), tag = @Tag(name = "dataGrid", handler = "org.richfaces.taglib.DataGridHandler", type = TagType.Facelets), attributes = {
-        "core-props.xml", "dataGrid-rows-props.xml", "rowKeyConverter-prop.xml" })
+        "core-props.xml", "iteration-props.xml", "sequence-props.xml" })
 public abstract class AbstractDataGrid extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
     public static final String COMPONENT_TYPE = "org.richfaces.DataGrid";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
@@ -75,8 +78,14 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
         columns
     }
 
+    /**
+     * Number of elements displayed in the grid
+     */
     @Attribute(aliases = @Alias(value = "rows"))
     public abstract int getElements();
+
+    @Attribute(hidden = true)
+    public abstract int getRows();
 
     @Facet
     public abstract UIComponent getHeader();
@@ -90,6 +99,9 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
     @Facet
     public abstract UIComponent getNoData();
 
+    /**
+     * Number of columns to display
+     */
     @Attribute
     public int getColumns() {
         int columns = (Integer) getStateHelper().eval(PropertyKeys.columns, 1);

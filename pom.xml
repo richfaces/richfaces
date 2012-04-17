@@ -33,7 +33,7 @@
 
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-ui-aggregator</artifactId>
-    <version>4.2.0.Final</version>
+    <version>4.2.1.Final</version>
     <packaging>pom</packaging>
     <name>RichFaces UI Components Aggregator</name>
 
