@@ -58,9 +58,9 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
         if (behavior instanceof ClientValidatorBehavior) {
             ClientValidatorBehavior clientValidator = (ClientValidatorBehavior) behavior;
             if (clientValidator.isDisabled()){
-            	return null;
+                return null;
             } else {
-            	return buildAndStoreValidatorScript(behaviorContext, clientValidator);
+                return buildAndStoreValidatorScript(behaviorContext, clientValidator);
             }
         } else {
             throw new FacesException(
