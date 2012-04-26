@@ -108,7 +108,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
             Map<String, String> parametersMap = context.getExternalContext().getRequestParameterMap();
             final String behaviorEvent = parametersMap.get(BEHAVIOR_EVENT_NAME);
 
-            if (!behaviorEvent.startsWith(ROW)) {
+            if (behaviorEvent == null || !behaviorEvent.startsWith(ROW)) {
                 return;
             }
 
