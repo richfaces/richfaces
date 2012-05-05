@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -200,8 +199,12 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         RenderKitUtils.addToScriptHash(options, "showDelay", tooltip.getShowDelay(), 0);
         RenderKitUtils.addToScriptHash(options, "showEvent", tooltip.getShowEvent(), "mouseenter");
         RenderKitUtils.addToScriptHash(options, "followMouse", tooltip.isFollowMouse(), true);
-        RenderKitUtils.addToScriptHash(options, "target", RENDERER_UTILS.findComponentFor(component, tooltip.getTarget())
-            .getClientId(context));
+        String target = tooltip.getTarget();
+        UIComponent targetComponent = RENDERER_UTILS.findComponentFor(component, target);
+        if (targetComponent != null) {
+            target = targetComponent.getClientId();
+        }
+        RenderKitUtils.addToScriptHash(options, "target", target);
 
         addEventOption(context, tooltip, options, HIDE);
         addEventOption(context, tooltip, options, SHOW);
