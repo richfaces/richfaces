@@ -41,10 +41,12 @@ import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.TooltipMode;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTooltip;
 import org.richfaces.component.Positioning;
 import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.RenderKitUtils;
@@ -236,6 +238,16 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         writeJavaScript(writer, context, component);
 
         writer.endElement(getMarkupElement((AbstractTooltip) component));
+    }
+
+    protected void writeJavaScript(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        Object script = getScriptObject(context, component);
+        if (script == null) {
+            return;
+        }
+
+        JavaScriptService javaScriptService = ServiceTracker.getService(JavaScriptService.class);
+        javaScriptService.addScript(context, script);
     }
 
     public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
