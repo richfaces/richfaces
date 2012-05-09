@@ -122,8 +122,10 @@
                 if (!isNaN(value)) {
                     if (value > this.maxValue) {
                         value = this.maxValue;
+                        this.input.val(value);
                     } else if (value < this.minValue) {
                         value = this.minValue;
+                        this.input.val(value);
                     }
                     if (value != this.value) {
                         this.input.val(value);
