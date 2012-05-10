@@ -70,6 +70,12 @@
             <artifactId>richfaces-archetype-simpleapp</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.richfaces.archetypes</groupId>
+            <artifactId>richfaces-archetype-kitchensink</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
