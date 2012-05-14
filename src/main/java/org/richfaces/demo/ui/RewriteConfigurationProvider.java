@@ -56,10 +56,8 @@ public class RewriteConfigurationProvider extends HttpConfigurationProvider {
     @Override
     public Configuration getConfiguration(final ServletContext context) {
         return ConfigurationBuilder.begin()
-                .addRule(Join.path("/").to("/index.jsf").withInboundCorrection())
-                .addRule(Join.path("/mobile/").to("/mobile/index.jsf").withInboundCorrection())
                 .defineRule()
-                .when(Direction.isInbound().and(Path.matches("/").or(Path.matches("/index.jsf"))).and(new HttpCondition() {
+                .when(Direction.isInbound().and(Path.matches("/").or(Path.matches("/index.jsp"))).and(new HttpCondition() {
                     @Override
                     public boolean evaluateHttp(HttpServletRewrite httpServletRewrite, EvaluationContext evaluationContext) {
                         HttpServletRequest request = httpServletRewrite.getRequest();
@@ -69,6 +67,6 @@ public class RewriteConfigurationProvider extends HttpConfigurationProvider {
                         return uAgentInfo.detectTierIphone() || uAgentInfo.detectTierTablet();
                     }
                 }))
-                .perform(Forward.to("/mobile/index.jsf"));
+                .perform(Forward.to("/mobile/index.jsp"));
     }
 }
