@@ -69,7 +69,7 @@ SETTING UP YOUR PROJECT
       
       a.  sac-1.3, cssparser-0.9.5 - required for components CSS work.
 
-      b.  google-guava-r08 - core runtime dependency.
+      b.  google-guava-11.0.2 - core runtime dependency.
 
       c.  annotations.jar  - from org.richfaces.cdk. 
           

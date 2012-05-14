@@ -1,3 +1,119 @@
+New in Version 4.2.2.Final
+--------------------------
+
+    Bug
+    [RF-10839] - tooltip: attachment using target not works if tooltip defined before the component to which it attaches.
+    [RF-11343] - tooltip: does not work attached to parent input
+    [RF-11370] - Metamer: rich:toolTip: targetted example causes NPE for some IDs
+    [RF-11821] - RF4 extendedDataTable rowClasses not working in lazyloading of rows as it was working in Richfaces3.3.3.Final
+    [RF-11970] - Ajax event create exception on form submission when defined on dataTable inside that form
+    [RF-11994] - Xcss2EcssConverter error handling f:importResource
+    [RF-12084] - Richfaces 4.2 <a4j:ajax> when inside <ui:fragment> dont work and causes 'identifier resolved to null'
+    [RF-12103] - onmouse events dont working on rich:notifyMessage
+    [RF-12154] - richValidator: @disabled=true throws exception
+    [RF-12167] - rich:extendedDatatable - onbeforeselectionchange is wrongly evaluated
+    [RF-12172] - JBoss AS 7.1.2 no longer bundles the w3c.css.sac modulebb
+    [RF-12197] - rich:tooltip incorrect VDL documenation or incorrect implemenation
+    [RF-12198] - rich:tooltip does not work inside a4j:commandButton
+    [RF-12199] - rich:tooltip does not work inside h:graphicImage
+    [RF-12227] - push to androidp devices broken in the kitchensink-rf quickstart
+
+    Feature Request
+    [RF-11294] - Log: implement console mode
+    [RF-12010] - ecss hot reloading
+    [RF-12196] - remove the height in the msg.ecss for rf-msg and rf-msgs
+
+    Task
+    [RF-12140] - Upgrade com.google.guava:guava from 10.x to 11.x
+    [RF-12180] - Migrate the RF-12103 fix to 4.2 branch
+
+New in Version 4.2.1.Final
+--------------------------
+
+    Bug
+    [RF-11940] - mobile showcase - a4j:push - not retrieving pushes from server on Android
+    [RF-12099] - Kitchensink archetype - mobile demo - loading the about page causes error on the server side
+    [RF-12100] - Kitchensink archetype - mobile demo - adding new member causes rendering blank page
+    [RF-12119] - Richfaces showcase import into JBoss Tools/JBDS
+    [RF-12124] - showcase - a4j:repeat demo - the rendered grid is broken
+    [RF-12125] - showcase - demo rich:dataGrid - outputText elements nested in panelGrids have big font and exceed the edges
+    [RF-12126] - showcase - rich:editor - autosaving and toolbar & skinning demos exceed the edges
+    [RF-12128] - mobile showcase - rich:dropDownMenu - can not select an item from menu on Android tablet
+    [RF-12129] - mobile showcase - rich:contextMenu - selecting an item from menu causes JS error
+    [RF-12136] - Archetype in JBoss Central - "right-hadn corner, or clck anywhere on" typos in readme.md
+    [RF-12141] - itemChangeListener wrong description for attributes @type and @listener in VDL-DOC
+    [RF-12155] - Kitchensink archetype - missing org.richfaces.bom.version property in generated pom.xml
+    [RF-12156] - richComponentControl: fix vdl-doc for @onbeforeoperation
+
+    Feature Request
+    [RF-12137] - Replace the jstl c:if tag in the showcase welcome file with url rewriting
+
+New in Version 4.2.1.CR1
+------------------------
+
+    Bug
+    [RF-7351] - Regression: "messages: globalOnly does not work properly"
+    [RF-10754] - extendedDataTable: two or more components placed on the page causes horizontal scroll to disappear
+    [RF-10941] - a4j:command* components misses default behavior event
+    [RF-10968] - Tree: treeSelectionChangeListener and treeToggleListener attributes should be removed
+    [RF-11872] - Mobile Showcase and a4j:region demo: submit button doesn't respond on the first click
+    [RF-11884] - Multiple Errors with IE8/9
+    [RF-11905] - showcase - shutdown of the JBoss AS with showcase deployed throws DB error
+    [RF-11936] - rich:contextMenu activation is possible outside of tree nodes
+    [RF-11948] - rich:extendedDataTable create an onready event to trigger javascript interactions after the EDT has been initialized
+    [RF-11965] - showcase - a4j:push - error thrown after creating topic for pushCdi
+    [RF-11971] - rich:menuItem onclick return value ignored
+    [RF-11977] - Multiple fileUpload controls on the same page do not work
+    [RF-11978] - Graph Validator - does not mark context to fail validation
+    [RF-11989] - The jointpoint attribute of the contextMenu should be removed
+    [RF-12007] - AbstractPanelMenuGroup.getChangeExpandListener is not used
+    [RF-12013] - Deadlock in push component
+    [RF-12018] - Typo in BOM: jsf-api should be jsp-api
+    [RF-12020] - Reduce number of absolute opened files
+    [RF-12026] - Javascript error in AjaxRequests on FireFox "invalid 'in' operand event"
+    [RF-12042] - Metamer: rich:contextMenu doesn't disappear after clicking out of the menu in IE9 and Google Chrome
+    [RF-12043] - Metamer: rich:contextMenu isn't rendered correctly in IE 9 compatibility mode
+    [RF-12070] - Kitschensink archetype - broken formatting of comments in generated pom.xml
+    [RF-12072] - Push: add onsubscribed event (was: Lost event in push)
+    [RF-12074] - Showcase mediaOutput refers to GAE limitations
+    [RF-12075] - Kitchensink archetype - link for JBoss AS 7 project site is broken
+    [RF-12083] - Components: Output UI module doesn't pass unit tests (MenuItemRendererTest and DropDownMenuRendererTest)
+    [RF-12085] - The richfaces version change script is missing version strings in the kitchensink archetype file
+    [RF-12093] - ResourceServlet can't handle resources outside of specific libraries
+    [RF-12109] - Showcase in AS 7.1.1 (JSF 2.1.7) missing doctype and <html> root
+
+    Enhancement
+    [RF-12048] - Showcase: Change the password for JMS guest connection
+    [RF-12051] - Showcase: simplified Push CDI sample which wouldn't use subtopics
+    [RF-12066] - Kitchensink archetype is not listed in the modules of the parent pom
+
+    Feature Request
+    [RF-11996] - rich:contextMenu on several rows in extendedDataTable
+    [RF-12052] - rich:TabPanel - HTML comments should be supported inside the tabPanel
+    [RF-12090] - Components: add jrebel profile to allow rapid development
+
+    Task
+    [RF-12064] - Remove the superfluous versions from the generated pom in the kitchensink archetype
+    [RF-12086] - Update the RichFaces WFK version in the archetypes
+    [RF-12091] - rich:dataScroller scrollListener not documented
+
+New in Version 4.2.0.Final
+--------------------------
+
+    Bug
+    [RF-11930] - showcase - a4j:actionListener - typo in demo description
+    [RF-11938] - Mobile Showcase - small font in a4j:actionListener demo
+    [RF-11939] - Mobile Showcase - rich:contextMenu demo and "right click" action
+    [RF-11943] - [a4j:commandLink] [a4j:queue] IE8 throws an js error if using an global queue within site
+    [RF-11953] - showcase - a4j:push - demos do not work on Tomcats
+    [RF-11958] - Menu item: ecss for drop down menu not rendered
+    [RF-11980] - Readme.txt is outdated
+
+    Enhancement
+    [RF-11929] - showcase - a4j:actionListener - move commandButtons from panelGrid to make it look better
+    [RF-11933] - Push: user-friendly topics initialization on startup
+    [RF-11949] - Exclude jquery.js from resource packaging
+
 New in Version 4.2.0.CR1
 ------------------------
 
