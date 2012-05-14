@@ -109,5 +109,9 @@
             <directory>target/dependency/richfaces-archetype-simpleapp-jar</directory>
             <outputDirectory>archetypes/</outputDirectory>
         </fileSet>
+        <fileSet>
+            <directory>target/dependency/richfaces-archetype-kitchensink-jar</directory>
+            <outputDirectory>archetypes/</outputDirectory>
+        </fileSet>
     </fileSets>
 </assembly>

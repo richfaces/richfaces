@@ -2,7 +2,7 @@
 
                       RichFaces - Ajax enabled JSF 2.0 component library
 
-                                                 RichFaces 4.2.2-SNAPSHOT
+                                                 RichFaces 4.2.2.Final
                                                     http://richfaces.org
                                                               March 2011
                      This software is distributed under the terms of the 
@@ -69,7 +69,7 @@ SETTING UP YOUR PROJECT
       
       a.  sac-1.3, cssparser-0.9.5 - required for components CSS work.
 
-      b.  google-guava-r08 - core runtime dependency.
+      b.  google-guava-11.0.2 - core runtime dependency.
 
       c.  annotations.jar  - from org.richfaces.cdk. 
           
