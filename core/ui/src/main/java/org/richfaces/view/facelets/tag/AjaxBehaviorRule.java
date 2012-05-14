@@ -21,6 +21,7 @@
  */
 package org.richfaces.view.facelets.tag;
 
+import javax.el.MethodExpression;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.Metadata;
@@ -37,6 +38,7 @@ import org.ajax4jsf.component.behavior.MethodExpressionAjaxBehaviorListener;
  */
 public class AjaxBehaviorRule extends BehaviorRule {
     public static final Class<?>[] AJAX_BEHAVIOR_LISTENER_SIG = new Class[] { AjaxBehaviorEvent.class };
+    private static final Class<?>[] AJAX_BEHAVIOR_ZEROARG_SIG = new Class[] {};
     public static final AjaxBehaviorRule INSTANCE = new AjaxBehaviorRule();
     public static final String EXECUTE = "execute";
     public static final String RENDER = "render";
@@ -80,8 +82,11 @@ public class AjaxBehaviorRule extends BehaviorRule {
         }
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((AjaxClientBehavior) instance).addAjaxBehaviorListener(new MethodExpressionAjaxBehaviorListener(this.attr
-                .getMethodExpression(ctx, null, AjaxBehaviorRule.AJAX_BEHAVIOR_LISTENER_SIG)));
+            MethodExpression methodExpressionOneArg = this.attr
+                .getMethodExpression(ctx, null, AjaxBehaviorRule.AJAX_BEHAVIOR_LISTENER_SIG);
+            MethodExpression methodExpressionZeroArg = this.attr
+                    .getMethodExpression(ctx, null, AjaxBehaviorRule.AJAX_BEHAVIOR_ZEROARG_SIG);
+            ((AjaxClientBehavior) instance).addAjaxBehaviorListener(new MethodExpressionAjaxBehaviorListener(methodExpressionOneArg, methodExpressionZeroArg));
         }
     }
 }

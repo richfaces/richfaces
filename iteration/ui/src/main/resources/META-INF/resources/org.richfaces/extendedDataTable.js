@@ -638,7 +638,7 @@
             },
 
             onbeforeselectionchange: function (event) {
-                return !this.options.onbeforeselectionchange || this.options.onbeforeselectionchange.call(this.element, event) !== false;
+                return !this.options.onbeforeselectionchange || this.options.onbeforeselectionchange.call(this.element, event) != false;
             },
 
             onselectionchange: function (event, index, changed) {

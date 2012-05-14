@@ -113,7 +113,7 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
     public abstract Positioning getDirection();
 
     /**
-     * If "true" tooltip should follow the mouse while it moves over the parent element. Default value is "false"
+     * If "true" tooltip should follow the mouse while it moves over the parent element. Default value is "true"
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isFollowMouse();

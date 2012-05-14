@@ -55,7 +55,7 @@ public class MethodExpressionAjaxBehaviorListener implements AjaxBehaviorListene
                 ACTION_LISTENER_ZEROARG_SIG);
     }
 
-    MethodExpressionAjaxBehaviorListener(MethodExpression methodExpressionOneArg, MethodExpression methodExpressionZeroArg) {
+    public MethodExpressionAjaxBehaviorListener(MethodExpression methodExpressionOneArg, MethodExpression methodExpressionZeroArg) {
         this.methodExpressionOneArg = methodExpressionOneArg;
         this.methodExpressionZeroArg = methodExpressionZeroArg;
     }
