@@ -55,6 +55,7 @@
         <version.sun-el>1.0</version.sun-el>
         <version.jboss-as7>7.0.2.Final</version.jboss-as7>
         <version.commons-logging>1.1.1</version.commons-logging>
+        <version.commons-io>2.1</version.commons-io>
         <version.xsom>20081112</version.xsom>
         <version.google-functional-collections>1.1.7</version.google-functional-collections>
         <version.google-guice>3.0</version.google-guice>
@@ -76,6 +77,7 @@
         <version.plexus-utils>1.5.15</version.plexus-utils>
         <version.plexus-velocity>1.1.2</version.plexus-velocity>
         <version.google-javaparser>1.0.1</version.google-javaparser>
+        <version.jcommander>1.20</version.jcommander>
         
         <!-- plugin versions -->
         <version.jacoco.plugin>0.5.5.201112152213</version.jacoco.plugin>
@@ -239,6 +241,11 @@
                 <version>${version.commons-logging}</version>
             </dependency>
             <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${version.commons-io}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.sun.xsom</groupId>
                 <artifactId>xsom</artifactId>
                 <version>${version.xsom}</version>
@@ -345,6 +352,13 @@
                 <groupId>net.sf.saxon</groupId>
                 <artifactId>saxon</artifactId>
                 <version>${version.saxon}</version>
+            </dependency>
+            
+            <!-- JCommander -->
+            <dependency>
+                <groupId>com.beust</groupId>
+                <artifactId>jcommander</artifactId>
+                <version>${version.jcommander}</version>
             </dependency>
 
             <!-- Resources plugin dependencies -->
