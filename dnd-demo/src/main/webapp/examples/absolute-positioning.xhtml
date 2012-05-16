@@ -1,0 +1,133 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:dnd="http://richfaces.org/dnd" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Absolutely Positioned Div" />
+    
+    <!-- Head -->
+    <ui:define name="head">
+        <style type="text/css">
+            .droppable {
+                border: 1px solid blue;
+                margin: 4px;
+                height: 200px;
+                width: 200px;
+                background-color: yellow;
+                overflow: auto;
+            }
+            
+            .draggable {
+                border: 1px solid #000000;
+                background-color: gray;
+                opacity: 0.3;
+                margin: 2px;
+                height: 50px;
+                width: 100px;
+            }
+            
+            .rf-ind {
+                height: 20px;
+                width: 20px;
+                border: 1px dotted red;
+                background-color: blue
+            }
+            
+            .rf-ind-acpt {
+                height: 20px;
+                width: 20px;
+                border: 1px dotted red;
+                background-color: green;
+            }
+            
+            .rf-ind-rejt {
+                height: 20px;
+                width: 20px;
+                border: 1px dotted green;
+                background-color: red;
+            }
+            #testDND {
+                position: absolute;
+                top: 400px;
+                left: 400px;
+                width:300px;
+                height: 300px;
+                overflow: scroll;
+            }
+            #testDNDDiv {
+                position: absolute;
+            }
+        </style>
+    </ui:define>
+    
+    <!-- Content -->
+    <ui:define name="content">
+        <h:form>
+            <ul>
+                <li><a href="https://issues.jboss.org/browse/RF-12256">RF-12256: DragAndDrop + position: absolute results in broken positioning</a></li>
+            </ul>
+            
+            
+            <dnd:dragIndicator id="ind" />
+            
+            <div  id="testDNDDiv">
+                <table id="testDND">
+                    <tr>
+                        <td><a4j:outputPanel id="drg1" layout="block" styleClass="draggable">
+                                <h:outputText value="#{dataBean.dragValue1}" />
+                                <dnd:dragSource type="drg1" dragValue="#{dataBean.dragValue1}" />
+                            </a4j:outputPanel></td>
+                        <td><a4j:outputPanel id="drg2" layout="block" styleClass="draggable">
+                                <h:outputText value="#{dataBean.dragValue2}" />
+                                <dnd:dragSource type="drg2" dragIndicator="ind" dragValue="#{dataBean.dragValue2}" />
+                            </a4j:outputPanel></td>
+                        <td><a4j:outputPanel id="drg3" layout="block" styleClass="draggable">
+                                <h:outputText value="#{dataBean.dragValue3}" />
+                                <dnd:dragSource type="drg3" dragIndicator="ind" dragValue="#{dataBean.dragValue3}" />
+                            </a4j:outputPanel></td>
+                        <td>
+                            <ul>
+                                <li><a4j:commandLink value="Set acceptedTypes to [drg1, drg2]"
+                                        action="#{dataBean.resetAcceptedTypes}" render="drp" /></li>
+                                <li><a4j:commandLink value="Make every type be accepted."
+                                        action="#{dataBean.makeAcceptedTypeIsAny}" render="drp" /></li>
+                                <li><h:outputText value="Immediate:" /> <h:selectBooleanCheckbox value="#{dataBean.immediate}">
+                                        <a4j:ajax render="drp @this" />
+                                    </h:selectBooleanCheckbox></li>
+                                <li><h:outputText value="bypassUpdates:" /> <h:selectBooleanCheckbox
+                                        value="#{dataBean.bypassUpdates}">
+                                        <a4j:ajax render="drp @this" />
+                                    </h:selectBooleanCheckbox></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <a4j:outputPanel id="drp" layout="block" styleClass="droppable">
+                <dnd:dropTarget acceptedTypes="#{dataBean.acceptedTypes}" dropListener="#{dataBean.processDrop}"
+                    render="grid executeOut" execute="executeIn" immediate="#{dataBean.immediate}"
+                    onbeforedomupdate="alert('onbeforedomupdate')" oncomplete="alert('oncomlete')" status="dndstatus"
+                    bypassUpdates="#{dataBean.bypassUpdates}" />
+                <h:dataTable id="grid" var="dropValue" value="#{dataBean.dropValues}">
+                    <h:column>
+                        <h:outputText value="#{dropValue}" />
+                    :
+                    <h:outputText value="#{dataBean.phaseId}" />
+                    ;
+                </h:column>
+                </h:dataTable>
+            </a4j:outputPanel>
+
+            <a4j:outputPanel id="execute" layout="block">
+                <h:inputText id="executeIn" value="#{dataBean.executeTest}" />
+                <br />
+                <h:outputText id="executeOut" value="#{dataBean.executeTest}" />
+                <br />
+                <a4j:status name="dndstatus" startText="...named status request start...">
+                </a4j:status>
+
+            </a4j:outputPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>
