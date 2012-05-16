@@ -4,12 +4,15 @@
 <f:view contentType="text/html">
     <h:head>
         <title>#{title}</title>
+        <ui:insert name="head" />
     </h:head>
     <h:body>
         <h:outputStylesheet name="reset-fonts-grids.css" library="org.richfaces.template" />
         <div id="doc3" class="yui-t2">
             <div id="hd">
-                <ui:insert name="header" />
+                <ui:insert name="header">
+                    <h1>#{title}</h1>
+                </ui:insert>
             </div>
             <div id="bd">
                 <div id="yui-main">
