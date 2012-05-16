@@ -43,6 +43,8 @@
         }
 
         this.dragElement.draggable("option", "addClasses", false);
+        this.dragElement.draggable( "option", "appendTo", "body" );
+        
 
         this.dragElement.data('type', this.options.type);
         this.dragElement.data("init", true);
@@ -67,14 +69,16 @@
                 var ui = e.rf.data;
                 var element = ui.helper[0];
                 this.parentElement = element.parentNode;
-                ui.helper.detach().appendTo("body").setPosition(e).show();
 
                 if (this.__isCustomDragIndicator()) {
+                    ui.helper.detach().appendTo("body").show();
+                    
                     // move cursor to the center of custom dragIndicator;
                     var left = (ui.helper.width() / 2);
                     var top = (ui.helper.height() / 2);
                     this.dragElement.data('draggable').offset.click.left = left;
                     this.dragElement.data('draggable').offset.click.top = top;
+                    
                 }
             },
 
