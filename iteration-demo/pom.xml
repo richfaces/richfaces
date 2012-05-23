@@ -52,42 +52,15 @@
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
-        </dependency>
 
         <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb-j5</artifactId>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <version>3.0.0.Final</version>
+            <type>pom</type>
+            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.openjpa</groupId>
-            <artifactId>openjpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.java-persistence</groupId>
-            <artifactId>jpa-api</artifactId>
-        </dependency>
+
     </dependencies>
 
     <build>
