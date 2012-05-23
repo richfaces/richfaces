@@ -577,6 +577,7 @@
                         <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml</configLocation>
                         <logViolationsToConsole>true</logViolationsToConsole>
                         <violationSeverity>error</violationSeverity>
+                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     </configuration>
                     <executions>
                         <execution>
