@@ -102,7 +102,7 @@ public final class VersionBean {
         }
 
         private void initializeDerivativeProperties() {
-            fullVersionString = MessageFormat.format("v.{0}", implementationVersion);
+            fullVersionString = MessageFormat.format("{0}", implementationVersion);
         }
 
         private Manifest readManifest() {
