@@ -1,61 +1,39 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:fu="http://richfaces.org/input"
-      xmlns:ou="http://richfaces.org/output" xmlns:it="http://richfaces.org/iteration">
-<!--
-JBoss, Home of Professional Open Source
-Copyright ${year}, Red Hat, Inc. and individual contributors
-by the @authors tag. See the copyright.txt in the distribution for a
-full listing of individual contributors.
+      xmlns:fu="http://richfaces.org/input" xmlns:ou="http://richfaces.org/output">
+<ui:composition template="/layout/template.xhtml">
 
+    <!-- Page header -->
+    <ui:define name="header">
+        <h1>&lt;input:fileupload (rf-11977)&gt; usage</h1>
+    </ui:define>
 
-This is free software; you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License as
-published by the Free Software Foundation; either version 2.1 of
-the License, or (at your option) any later version.
+    <!-- content -->
+    <ui:define name="content">
+        <h:form id="form">
 
+            <ou:panel>
+                <fu:fileUpload id="uploadFile1"
+                               fileUploadListener="#{richFileUploadBean2.listener}"
+                               maxFilesQuantity="1"
+                               immediateUpload="true"
+                               listHeight="65px"/>
+            </ou:panel>
 
-This software is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-Lesser General Public License for more details.
+            <ou:panel>
+                <fu:fileUpload id="uploadFile2"
+                               fileUploadListener="#{richFileUploadBean2.listener2}"
+                               maxFilesQuantity="1"
+                               immediateUpload="true"
+                               listHeight="65px"/>
+            </ou:panel>
 
-
-You should have received a copy of the GNU Lesser General Public
-License along with this software; if not, write to the Free
-Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-02110-1301 USA, or see the FSF site: http://www.fsf.org.
--->
-<h:head>
-    <title>RF-11977 | Richfaces FileUpload</title>
-</h:head>
-<h:body>
-    <h:form id="form">
-
-        <ou:panel>
-            <fu:fileUpload id="uploadFile1"
-                           fileUploadListener="#{richFileUploadBean2.listener}"
-                           maxFilesQuantity="1"
-                           immediateUpload="true"
-                           listHeight="65px"/>
-        </ou:panel>
-
-        <ou:panel>
-            <fu:fileUpload id="uploadFile2"
-                           fileUploadListener="#{richFileUploadBean2.listener2}"
-                           maxFilesQuantity="1"
-                           immediateUpload="true"
-                           listHeight="65px"/>
-        </ou:panel>
-
-        <!-- rich:panel>
-            <a4j:commandButton id="addB" value="value" action="#{bean.method3}"
-                render="stg" />
-        </rich:panel-->
-    </h:form>
-</h:body>
-
+            <!-- rich:panel>
+                <a4j:commandButton id="addB" value="value" action="#{bean.method3}"
+                    render="stg" />
+            </rich:panel-->
+        </h:form>
+    </ui:define>
+</ui:composition>
 </html>
