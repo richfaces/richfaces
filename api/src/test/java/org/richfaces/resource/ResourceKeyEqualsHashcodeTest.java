@@ -44,7 +44,7 @@ public class ResourceKeyEqualsHashcodeTest {
     public void testLibsEmptyAndNull() {
         assertKeysEqual(resourceKey(NAME, ""), resourceKey(NAME, null));
     }
-    
+
     @Test
     public void testLibsNonEmptyAndNull() {
         assertKeysNotEqual(resourceKey(NAME, "lib1"), resourceKey(NAME, null));
