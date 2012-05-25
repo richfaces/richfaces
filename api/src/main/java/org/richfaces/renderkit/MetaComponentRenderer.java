@@ -27,8 +27,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /**
- * @author Nick Belaevski
+ * MetaComponentRenderer is a variant of renderer that is capable of handling meta-components.  Meta-components have
+ * ids like "table@header" and can be the value of render and target attributes.
  *
+ * Components should invoke methods of MetaComponentRenderer explicitly.
+ *
+ * @author Nick Belaevski
  */
 public interface MetaComponentRenderer {
     void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException;

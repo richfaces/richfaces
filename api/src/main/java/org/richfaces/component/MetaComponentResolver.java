@@ -25,8 +25,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /**
- * @author Nick Belaevski
+ * MetaComponentResolver interface is used to customize resolution of meta-components
  *
+ * @author Nick Belaevski
  */
 public interface MetaComponentResolver {
     // TODO - do we want to make this configurable in web.xml?

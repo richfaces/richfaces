@@ -26,8 +26,9 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 
 /**
- * @author Nick Belaevski
+ * The MetaComponentEncoder is used to control the rendering of a meta component
  *
+ * @author Nick Belaevski
  */
 public interface MetaComponentEncoder {
     void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException;
