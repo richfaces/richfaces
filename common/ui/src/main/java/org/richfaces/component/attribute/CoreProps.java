@@ -22,10 +22,11 @@
 package org.richfaces.component.attribute;
 
 import org.richfaces.cdk.annotations.Attribute;
-
+import org.richfaces.cdk.annotations.Description;
 
 /**
  * Interface defining the methods for core-props.xml
+ *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public interface CoreProps {
@@ -33,19 +34,19 @@ public interface CoreProps {
     /**
      * CSS style(s) to be applied when this component is rendered.
      */
-    @Attribute
+    @Attribute(passThrough = true, description = @Description("CSS style(s) to be applied when this component is rendered."))
     String getStyle();
 
     /**
-    * Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-    * passed through as the "class" attribute on generated markup.
-    */
-    @Attribute
+     * Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed
+     * through as the "class" attribute on generated markup.
+     */
+    @Attribute(passThrough = false, description = @Description("Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the \"class\" attribute on generated markup."))
     String getStyleClass();
 
     /**
      * Advisory title information about markup elements generated for this component.
      */
-    @Attribute
-    String getTtile();
+    @Attribute(passThrough = true, description = @Description("Advisory title information about markup elements generated for this component."))
+    String getTitle();
 }

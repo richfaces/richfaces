@@ -22,30 +22,31 @@
 package org.richfaces.component.attribute;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
-
 
 /**
  * Interface defining the methods for events-key-props.xml
+ *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public interface EventsKeyProps {
     /**
      * Javascript code executed when a key is pressed and released over this element.
      */
-    @Attribute(events = @EventName(value = "onkeypress"))
+    @Attribute(events = @EventName(value = "onkeypress"), description = @Description("Javascript code executed when a key is pressed and released over this element."))
     String getOnkeypress();
 
     /**
      * Javascript code executed when a key is pressed down over this element.
      */
-    @Attribute(events = @EventName(value = "onkeydown"))
+    @Attribute(events = @EventName(value = "onkeydown"), description = @Description("Javascript code executed when a key is pressed down over this element."))
     String getOnkeydown();
 
     /**
      * Javascript code executed when a key is released over this element.
      */
-    @Attribute(events = @EventName(value = "onkeyup"))
+    @Attribute(events = @EventName(value = "onkeyup"), description = @Description("Javascript code executed when a key is released over this element."))
     String getOnkeyup();
 
 }

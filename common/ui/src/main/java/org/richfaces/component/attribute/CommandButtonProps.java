@@ -22,31 +22,32 @@
 package org.richfaces.component.attribute;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
-
 
 /**
  * Interface defining the methods for command-button-props.xml
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathe</a>
+ *
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public interface CommandButtonProps extends EventsMouseProps, EventsKeyProps {
     /**
-     * Type of button to create. Can be one of "submit", "button", "image" and "reset".
-     * If not specified, the default value is "submit".
+     * Type of button to create. Can be one of "submit", "button", "image" and "reset". If not specified, the default value is
+     * "submit".
      */
-    @Attribute(defaultValue = "submit")
+    @Attribute(defaultValue = "submit", description = @Description("Type of button to create. Can be one of \"submit\", \"button\", \"image\" and \"reset\". If not specified, the default value is \"submit\"."))
     String getType();
 
     /**
      * Flag indicating that this element must never receive focus or be included in a subsequent submit.
      */
-    @Attribute(passThrough = false)
+    @Attribute(passThrough = false, description = @Description("Flag indicating that this element must never receive focus or be included in a subsequent submit."))
     boolean isDisabled();
 
     /**
      * Javascript code executed when a pointer button is clicked over this element.
      */
     @Override
-    @Attribute(passThrough = false, events = {@EventName(value = "click", defaultEvent = true), @EventName(value = "action")})
+    @Attribute(passThrough = false, events = { @EventName(value = "click", defaultEvent = true), @EventName(value = "action") }, description = @Description("Javascript code executed when a pointer button is clicked over this element."))
     String getOnclick();
 }

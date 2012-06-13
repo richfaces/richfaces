@@ -22,53 +22,54 @@
 package org.richfaces.component.attribute;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
-
 
 /**
  * Interface defining the methods for events-mouse-props.xml
+ *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public interface EventsMouseProps {
     /**
      * Javascript code executed when a pointer button is clicked over this element.
      */
-    @Attribute(events = @EventName(value = "click"))
+    @Attribute(events = @EventName(value = "click"), passThrough = true, description = @Description("Javascript code executed when a pointer button is clicked over this element."))
     String getOnclick();
 
     /**
      * Javascript code executed when a pointer button is double clicked over this element.
      */
-    @Attribute(events = @EventName(value = "dblclick"))
+    @Attribute(events = @EventName(value = "dblclick"), passThrough = true, description = @Description("Javascript code executed when a pointer button is double clicked over this element."))
     String getOndblclick();
 
     /**
      * Javascript code executed when a pointer button is pressed down over this element.
      */
-    @Attribute(events = @EventName(value = "mousedown"))
+    @Attribute(events = @EventName(value = "mousedown"), passThrough = true, description = @Description("Javascript code executed when a pointer button is pressed down over this element."))
     String getOnmousedown();
 
     /**
      * Javascript code executed when a pointer button is released over this element.
      */
-    @Attribute(events = @EventName(value = "mouseup"))
+    @Attribute(events = @EventName(value = "mouseup"), passThrough = true, description = @Description("Javascript code executed when a pointer button is released over this element."))
     String getOnmouseup();
 
     /**
      * Javascript code executed when a pointer button is moved onto this element.
      */
-    @Attribute(events = @EventName(value = "mouseover"))
+    @Attribute(events = @EventName(value = "mouseover"), passThrough = true, description = @Description("Javascript code executed when a pointer button is moved onto this element."))
     String getOnmouseover();
 
     /**
      * Javascript code executed when a pointer button is moved within this element.
      */
-    @Attribute(events = @EventName(value = "mousemove"))
+    @Attribute(events = @EventName(value = "mousemove"), passThrough = true, description = @Description("Javascript code executed when a pointer button is moved within this element."))
     String getOnmousemove();
 
     /**
      * Javascript code executed when a pointer button is moved away from this element.
      */
-    @Attribute(events = @EventName(value = "mouseout"))
+    @Attribute(events = @EventName(value = "mouseout"), passThrough = true, description = @Description("Javascript code executed when a pointer button is moved away from this element."))
     String getOnmouseout();
 }
