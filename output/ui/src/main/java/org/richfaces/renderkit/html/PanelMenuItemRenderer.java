@@ -224,8 +224,8 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         options.put("disabled", PanelMenuItemRenderer.isParentPanelMenuDisabled(panelMenuItem) || panelMenuItem.isDisabled());
         options.put("mode", panelMenuItem.getMode());
         options.put("name", panelMenuItem.getName());
-        options.put("selectable", panelMenuItem.isSelectable());
-        options.put("unselectable", panelMenuItem.isUnselectable());
+        options.put("selectable", panelMenuItem.getSelectable());
+        options.put("unselectable", panelMenuItem.getUnselectable());
         options.put("stylePrefix", getCssClass(panelMenuItem, ""));
 
         addEventOption(context, panelMenuItem, options, UNSELECT);

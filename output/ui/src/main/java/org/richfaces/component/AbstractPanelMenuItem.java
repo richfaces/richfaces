@@ -77,10 +77,10 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
      * Defines whenever the item is selectable.
      */
     @Attribute(defaultValue = "Boolean.TRUE")
-    public abstract Boolean isSelectable();
+    public abstract Boolean getSelectable();
 
     @Attribute(defaultValue = "Boolean.FALSE", hidden = true)
-    public abstract Boolean isUnselectable();
+    public abstract Boolean getUnselectable();
 
     /**
      * Mode used for selecting of this item: default value is inherited from panelMenu
