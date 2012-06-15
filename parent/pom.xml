@@ -34,6 +34,7 @@
     </description>
 
     <properties>
+        <version.richfaces>4.3.0-SNAPSHOT</version.richfaces>
         <version.test-jsf>1.1.2</version.test-jsf>
         <version.richfaces-checkstyle>5</version.richfaces-checkstyle>
         <version.vdl-doc>2</version.vdl-doc>
@@ -90,7 +91,7 @@
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-bom</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -192,33 +193,33 @@
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>commons</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>commons</artifactId>
                 <classifier>tests</classifier>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>annotations</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>attributes</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>xinclude</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>generator</artifactId>
-                <version>${project.version}</version>
+                <version>${version.richfaces}</version>
             </dependency>
 
             <dependency>
@@ -515,12 +516,12 @@
                 <plugin>
                     <groupId>org.richfaces.cdk</groupId>
                     <artifactId>maven-cdk-plugin</artifactId>
-                    <version>${project.version}</version>
+                    <version>${version.richfaces}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.richfaces.cdk</groupId>
                     <artifactId>maven-richfaces-resources-plugin</artifactId>
-                    <version>${project.version}</version>
+                    <version>${version.richfaces}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.jboss.test-jsf</groupId>
@@ -645,7 +646,7 @@
                                     <pluginExecutionFilter>
                                         <groupId>org.richfaces.cdk</groupId>
                                         <artifactId>maven-cdk-plugin</artifactId>
-                                        <versionRange>${project.version}</versionRange>
+                                        <versionRange>${version.richfaces}</versionRange>
                                         <goals>
                                             <goal>generate</goal>
                                         </goals>
@@ -658,7 +659,7 @@
                                     <pluginExecutionFilter>
                                         <groupId>org.richfaces.cdk</groupId>
                                         <artifactId>maven-resources-plugin</artifactId>
-                                        <versionRange>${project.version}</versionRange>
+                                        <versionRange>${version.richfaces}</versionRange>
                                         <goals>
                                             <goal>process</goal>
                                         </goals>
