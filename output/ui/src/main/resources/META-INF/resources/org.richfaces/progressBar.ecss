@@ -12,7 +12,6 @@
     font-family: '#{richSkin.generalFamilyFont}';
     font-size: '#{richSkin.generalSizeFont}';
     font-weight: bold;
-    text-color: '#{richSkin.controlTextColor}';
     background-color: '#{richSkin.controlBackgroundColor}';
     padding: 0px;
 }
