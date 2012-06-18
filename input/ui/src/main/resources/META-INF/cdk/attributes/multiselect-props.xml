@@ -23,7 +23,7 @@
 
     <property>
         <description>
-            The height of the item list.
+            The height of the item list (in pixels).
         </description>
         <property-name>listHeight</property-name>
         <property-class>java.lang.String</property-class>
@@ -31,7 +31,7 @@
 
     <property>
         <description>
-            The width of the item list.
+            The width of the item list (in pixels).
         </description>
         <property-name>listWidth</property-name>
         <property-class>java.lang.String</property-class>
@@ -39,7 +39,7 @@
 
     <property>
         <description>
-            The maximum height of the item list.
+            The maximum height of the item list (in pixels).
         </description>
         <property-name>maxListHeight</property-name>
         <property-class>java.lang.String</property-class>
@@ -47,7 +47,7 @@
 
     <property>
         <description>
-            The minimum height of the item list.
+            The minimum height of the item list (in pixels).
         </description>
         <property-name>minListHeight</property-name>
         <property-class>java.lang.String</property-class>
