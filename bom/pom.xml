@@ -69,7 +69,6 @@
         <version.ehcache>1.6.0</version.ehcache>
         <version.atmosphere>0.8.4</version.atmosphere>
         <version.jms-api>1.1-rev-1</version.jms-api>
-        <version.jms-deprecated>1.1</version.jms-deprecated>
         <version.rewrite>1.0.4.Final</version.rewrite>
         
         <!-- Release repositories -->
@@ -306,12 +305,6 @@
                 <groupId>javax.jms</groupId>
                 <artifactId>jms-api</artifactId>
                 <version>${version.jms-api}</version>
-            </dependency>
-            <!-- Deprecated in 4.2.1.Final (RF-12119), use jms-api instead -->
-            <dependency>
-                <groupId>javax.jms</groupId>
-                <artifactId>jms</artifactId>
-                <version>${version.jms-deprecated}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
