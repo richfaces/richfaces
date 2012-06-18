@@ -30,19 +30,6 @@
     <name>Richfaces Checkstyle</name>
 
     <description>Contains the checkstyle settings for the RichFaces project</description>
-
-    <build>
-        <plugins>
-            <!-- For the release this parent pom -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <tagBase>https://svn.jboss.org/repos/richfaces/modules/build/resources/tags</tagBase>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
     
     <!-- SCM and distribution management -->
     <scm>
