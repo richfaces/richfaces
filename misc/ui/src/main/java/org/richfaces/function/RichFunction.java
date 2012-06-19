@@ -124,6 +124,37 @@ public final class RichFunction {
     }
 
     /**
+     * The rich:jQuerySelector('id') function will perform nearly the same function as rich:clientId('id')
+     * but will transform the resulting id into a jQuery id selector which means that it will add a "#"
+     * character at the beginning and escape all reserved characters in CSS selectors.
+     */
+    @Function
+    public static String jQuerySelector(String id) {
+        String clientId = clientId(id);
+        if (clientId != null) {
+            return "#" + ScriptUtils.escapeCSSMetachars(ScriptUtils.escapeCSSMetachars(clientId));
+        }
+
+        return null;
+    }
+
+    /**
+     * The rich:jQuery('id') function is a shortcut for the equivalent jQuery('#{rich:jquerySelector('id')}') code.
+     * It returns the jQuery object from the client, based on the passed server-side component identifier. If
+     * the specified component identifier is not found, null is returned instead. The function takes care of
+     * escaping all reserved characters in CSS selectors.
+     */
+    @Function
+    public static String jQuery(String id) {
+        String jQuerySelector = jQuerySelector(id);
+        if (jQuerySelector != null) {
+            return "jQuery('" + jQuerySelector + "')";
+        }
+
+        return null;
+    }
+
+    /**
      * The rich:findComponent('id') function returns the a UIComponent instance of the passed component identifier.
      * If the specified component identifier is not found, null is returned instead.
      */
