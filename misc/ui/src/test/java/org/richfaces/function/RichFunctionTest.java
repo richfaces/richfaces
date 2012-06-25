@@ -160,7 +160,7 @@ public class RichFunctionTest {
         assertNull(RichFunction.clientId(null));
         assertNull(RichFunction.component(null));
         assertNull(RichFunction.element(null));
-        assertNull(RichFunction.jQuerySelector(null));
+        assertNull(RichFunction.jQuerySelector((String) null));
         assertNull(RichFunction.jQuery(null));
         assertNull(RichFunction.findComponent(null));
 
@@ -191,7 +191,7 @@ public class RichFunctionTest {
         assertNull(RichFunction.clientId(null));
         assertNull(RichFunction.component(null));
         assertNull(RichFunction.element(null));
-        assertNull(RichFunction.jQuerySelector(null));
+        assertNull(RichFunction.jQuerySelector((String) null));
         assertNull(RichFunction.jQuery(null));
         assertNull(RichFunction.findComponent(null));
     }
