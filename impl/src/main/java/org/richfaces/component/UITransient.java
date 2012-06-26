@@ -17,6 +17,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
+import javax.faces.event.SystemEvent;
+import javax.faces.event.SystemEventListener;
 import javax.faces.render.Renderer;
 
 import org.richfaces.renderkit.html.ScriptsRenderer;
@@ -35,20 +37,24 @@ public abstract class UITransient extends UIComponent {
         super();
     }
 
+    @Override
     public Object saveState(FacesContext context) {
         // This is transient component
         return null;
     }
 
+    @Override
     public void restoreState(FacesContext context, Object state) {
         // Do nothing, this component never saved
 
     }
 
+    @Override
     public boolean isTransient() {
         return true;
     }
 
+    @Override
     public void setTransient(boolean newTransientValue) {
 
     }
@@ -111,7 +117,7 @@ public abstract class UITransient extends UIComponent {
             if (parentId != null) {
                 StringBuilder idBuilder = new StringBuilder(parentId.length() + 1 + clientId.length());
                 clientId = idBuilder.append(parentId).append(UINamingContainer.getSeparatorChar(context)).append(clientId)
-                    .toString();
+                        .toString();
             }
 
             // allow the renderer to convert the clientId
@@ -302,24 +308,29 @@ public abstract class UITransient extends UIComponent {
     }
 
     final class AttributesMap implements Map<String, Object> {
+        @Override
         public void clear() {
             // do nothing
 
         }
 
+        @Override
         public boolean containsKey(Object key) {
 
             return "target".equals(key) || "id".equals(key) || "clientId".equals(key) || hasAttribute(key);
         }
 
+        @Override
         public boolean containsValue(Object value) {
             return false;
         }
 
+        @Override
         public Set<java.util.Map.Entry<String, Object>> entrySet() {
             return Collections.emptySet();
         }
 
+        @Override
         public Object get(Object key) {
             if ("id".equals(key)) {
                 return getId();
@@ -330,14 +341,17 @@ public abstract class UITransient extends UIComponent {
             }
         }
 
+        @Override
         public boolean isEmpty() {
             return false;
         }
 
+        @Override
         public Set<String> keySet() {
             return ImmutableSet.of("target", "id", "clientId");
         }
 
+        @Override
         public Object put(String key, Object value) {
             if ("id".equals(key)) {
                 String id = getId();
@@ -348,21 +362,30 @@ public abstract class UITransient extends UIComponent {
             }
         }
 
+        @Override
         public void putAll(Map<? extends String, ? extends Object> m) {
 
         }
 
+        @Override
         public Object remove(Object key) {
             return null;
         }
 
+        @Override
         public int size() {
             return 3;
         }
 
+        @Override
         public Collection<Object> values() {
             return ImmutableList.<Object>of(getId(), getClientId());
         }
+    }
+
+    @Override
+    public List<SystemEventListener> getListenersForEventClass(Class<? extends SystemEvent> eventClass) {
+        return Collections.EMPTY_LIST;
     }
 
     protected abstract boolean hasAttribute(Object key);

@@ -50,6 +50,7 @@ public class UIScripts extends UITransient implements ScriptsHolder {
      *
      * @see org.richfaces.component.ScriptsHolder#getScripts()
      */
+    @Override
     public Collection<Object> getScripts() {
         return scripts;
     }
@@ -59,6 +60,7 @@ public class UIScripts extends UITransient implements ScriptsHolder {
      *
      * @see org.richfaces.component.ScriptsHolder#getPageReadyScripts()
      */
+    @Override
     public Collection<Object> getPageReadyScripts() {
         return this.pageReadyScripts;
     }
