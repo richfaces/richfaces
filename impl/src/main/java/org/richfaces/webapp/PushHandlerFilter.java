@@ -67,16 +67,18 @@ public class PushHandlerFilter implements Filter, Serializable {
         servletMajorVersion = servletContext.getMajorVersion();
     }
 
+    /**
+     * Note: Filter does not delegate to chain, since it would lead into cycle by calling
+     * {@link PushServlet#service(ServletRequest, ServletResponse)}.
+     */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
             ServletException {
         if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpServletResponse httpResp = (HttpServletResponse) response;
 
-            chain.doFilter(request, response);
-
             if ("GET".equals(httpReq.getMethod())) {
-                Meteor meteor = Meteor.build(httpReq, SCOPE.REQUEST, Collections.<BroadcastFilter> emptyList(), null);
+                Meteor meteor = Meteor.build(httpReq, SCOPE.REQUEST, Collections.<BroadcastFilter>emptyList(), null);
 
                 String pushSessionId = httpReq.getParameter(PUSH_SESSION_ID_PARAM);
 
