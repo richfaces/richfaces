@@ -24,7 +24,6 @@ package org.richfaces.application.push.impl;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.atmosphere.cpr.AtmosphereResourceEvent;
 import org.atmosphere.cpr.AtmosphereResourceEventListener;
@@ -114,7 +113,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
      *
      * @see org.atmosphere.cpr.AtmosphereResourceEventListener#onSuspend(org.atmosphere.cpr.AtmosphereResourceEvent)
      */
-    public void onSuspend(AtmosphereResourceEvent<HttpServletRequest, HttpServletResponse> event) {
+    public void onSuspend(AtmosphereResourceEvent event) {
         try {
             getSession().connect(this);
         } catch (Exception e) {
@@ -132,11 +131,11 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
         }
     }
 
-    public void onResume(AtmosphereResourceEvent<HttpServletRequest, HttpServletResponse> event) {
+    public void onResume(AtmosphereResourceEvent event) {
         disconnect();
     }
 
-    public void onDisconnect(AtmosphereResourceEvent<HttpServletRequest, HttpServletResponse> event) {
+    public void onDisconnect(AtmosphereResourceEvent event) {
         disconnect();
     }
 
@@ -162,7 +161,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
      * In another case - the request is done by websocket - it tries to send messages which could be posted when broadcasting.
      * </p>
      */
-    public void onBroadcast(AtmosphereResourceEvent<HttpServletRequest, HttpServletResponse> event) {
+    public void onBroadcast(AtmosphereResourceEvent event) {
         MessageDataScriptString serializedMessages = (MessageDataScriptString) event.getMessage();
         getSession().clearBroadcastedMessages(serializedMessages.getLastSequenceNumber());
 
@@ -175,7 +174,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
         }
     }
 
-    public void onThrowable(AtmosphereResourceEvent<HttpServletRequest, HttpServletResponse> event) {
+    public void onThrowable(AtmosphereResourceEvent event) {
         // TODO Auto-generated method stub
         Throwable throwable = event.throwable();
         LOGGER.error(throwable.getMessage(), throwable);
