@@ -96,9 +96,6 @@
                     lastMessageNumber = message.number;
                 }
             }
-
-            //TODO - hotfix for jQuery-Atmosphere not resetting requestCount until message is pushed from client to server - review
-            jQuery.atmosphere.request.requestCount = 0;
         };
 
         var connect = function() {
@@ -160,7 +157,7 @@
         };
 
         var disconnect = function() {
-            _$.atmosphere.closeSuspendedConnection();
+            _$.atmosphere.unsubscribe();
         };
 
         return {
