@@ -8,9 +8,4 @@
         <param-value>Development</param-value>
     </context-param>
 
-    <context-param>
-        <param-name>org.atmosphere.useWebSocket</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
 </web-app>

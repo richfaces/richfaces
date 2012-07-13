@@ -9,18 +9,7 @@
     </h:head>
     <h:body>
         <h:form>
-            <br /><br /><br /><br />
             <a4j:commandButton value="Push!" action="#{richBean.push}" />
-            
-            <a4j:log mode="console" />
-            
-            <a4j:push address="sampleAddress"  ondataavailable="$('*[id$=outputDate]').text(event.rf.data)" />
-
-
-
-            <a4j:outputPanel id="outputDate">
-                Date: #{richBean.date}
-            </a4j:outputPanel>
         </h:form>
     </h:body>
 </f:view>

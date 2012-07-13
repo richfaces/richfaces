@@ -3,29 +3,5 @@
 <faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
-    <application>
-        <system-event-listener>
-            <system-event-listener-class>demo.HornetQInitializer</system-event-listener-class>
-            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
-        </system-event-listener>
-        <system-event-listener>
-            <system-event-listener-class>demo.TopicsInitializer</system-event-listener-class>
-            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
-        </system-event-listener>
-    </application>
-
-    <navigation-rule>
-        <from-view-id>*</from-view-id>
-        <navigation-case>
-            <from-outcome>chat</from-outcome>
-            <to-view-id>/chat.xhtml</to-view-id>
-            <redirect>
-                <view-param>
-                    <name>username</name>
-                    <value>#{username}</value>
-                </view-param>
-            </redirect>
-        </navigation-case>
-    </navigation-rule>
 
 </faces-config>
