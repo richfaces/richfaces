@@ -79,6 +79,12 @@
             <groupId>org.jboss.cache</groupId>
             <artifactId>jbosscache-core</artifactId>
             <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jboss-logging-spi</artifactId>
+                    <groupId>org.jboss.logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
@@ -140,10 +146,18 @@
             <artifactId>mockito-all</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Arquillian -->
+        <dependency>
+            <groupId>org.richfaces.test</groupId>
+            <artifactId>richfaces-arquillian</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+
             <plugin>
                 <!-- Checkstyle only required here because suppressions needed -->
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -244,4 +258,13 @@
         <developerConnection>scm:git:git@github.com:richfaces/core.git</developerConnection>
         <url>https://github.com/richfaces/core</url>
     </scm>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-model</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
