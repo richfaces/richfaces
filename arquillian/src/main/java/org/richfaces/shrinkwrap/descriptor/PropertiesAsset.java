@@ -30,7 +30,7 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 
 /**
  * Assert for simplified creation of properties files with fluent API
- * 
+ *
  * @author Lukas Fryc
  */
 public class PropertiesAsset implements Asset {

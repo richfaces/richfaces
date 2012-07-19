@@ -30,8 +30,8 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 
 /**
- * Assert simplifying process of creating facelets XHTML definitions out of template. 
- * 
+ * Assert simplifying process of creating facelets XHTML definitions out of template.
+ *
  * @author Lukas Fryc
  */
 public class FaceletAsset implements Asset {
