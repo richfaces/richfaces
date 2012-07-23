@@ -26,9 +26,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
 import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
+import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
 import static org.richfaces.resource.ResourceMappingFeature.DEFAULT_LOCATION;
 
 import javax.el.ELContext;
@@ -43,6 +43,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.richfaces.resource.external.ExternalStaticResource;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
@@ -138,7 +139,9 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
             Resource resource = resourceFactory.createResource(expectedResource.getResourceName(),
                     expectedResource.getLibraryName(), null);
 
-            assertNotNull(resource);
+            assertNotNull(
+                    "resource is present: " + expectedResource.getLibraryName() + ":" + expectedResource.getResourceName(),
+                    resource);
             assertEquals(expectedResource.getLibraryName(), resource.getLibraryName());
             assertEquals(expectedResource.getResourceName(), resource.getResourceName());
             assertEquals(expectedResource.getRequestPath(), resource.getRequestPath());

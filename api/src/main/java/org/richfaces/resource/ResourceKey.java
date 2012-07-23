@@ -21,6 +21,8 @@
  */
 package org.richfaces.resource;
 
+import javax.faces.application.Resource;
+
 import com.google.common.base.Function;
 
 /**
@@ -50,6 +52,10 @@ public final class ResourceKey {
 
     public static ResourceKey create(String resourceName, String libraryName) {
         return new ResourceKey(resourceName, libraryName);
+    }
+
+    public static ResourceKey create(Resource resource) {
+        return new ResourceKey(resource.getResourceName(), resource.getLibraryName());
     }
 
     private static String extractResourceName(String resourceQualifier) {

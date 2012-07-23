@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource;
+package org.richfaces.resource.external;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,7 +40,7 @@ import javax.faces.context.FacesContext;
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public class AbsoluteRequestPathResource extends Resource {
+public class AbsoluteRequestPathResource extends ExternalResource {
 
     private String absoluteRequestPath;
 
@@ -72,5 +72,10 @@ public class AbsoluteRequestPathResource extends Resource {
     @Override
     public boolean userAgentNeedsUpdate(FacesContext context) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String getExternalLocation() {
+        return absoluteRequestPath;
     }
 }

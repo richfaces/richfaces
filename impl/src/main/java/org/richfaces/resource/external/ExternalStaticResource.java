@@ -19,23 +19,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource;
+package org.richfaces.resource.external;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
-import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.resource.ResourceMappingFeature;
+import org.richfaces.resource.ResourceSkinUtils;
 import org.richfaces.skin.SkinFactory;
 
 /**
  * @author Nick Belaevski
  *
  */
-public class ExternalStaticResource extends Resource {
+public class ExternalStaticResource extends ExternalResource {
     public static final String STATIC_RESOURCE_LOCATION_VARIABLE = "resourceLocation";
     private String location;
     private boolean skinDependent;
@@ -93,5 +94,10 @@ public class ExternalStaticResource extends Resource {
     @Override
     public boolean userAgentNeedsUpdate(FacesContext context) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String getExternalLocation() {
+        return location;
     }
 }

@@ -123,7 +123,7 @@ public class InitializationListener implements SystemEventListener {
         ServicesFactoryImpl injector = new ServicesFactoryImpl();
         ServiceTracker.setFactory(injector);
         ArrayList<Module> modules = new ArrayList<Module>();
-        modules.add(new DefaultModule());
+        modules.add(createDefaultModule());
         try {
             modules.addAll(ServiceLoader.loadServices(Module.class));
             injector.init(modules);
@@ -131,6 +131,10 @@ public class InitializationListener implements SystemEventListener {
             throw new FacesException(e);
         }
         return injector;
+    }
+
+    protected Module createDefaultModule() {
+        return new DefaultModule();
     }
 
     protected void onStop() {

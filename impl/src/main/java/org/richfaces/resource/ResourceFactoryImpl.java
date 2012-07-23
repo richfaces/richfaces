@@ -25,7 +25,6 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -38,50 +37,19 @@ import org.richfaces.application.DependencyInjector;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.util.LazyLoadingObject;
-import org.richfaces.util.PropertiesUtil;
-import org.richfaces.util.URLUtils;
+import org.richfaces.resource.external.ExternalResource;
+import org.richfaces.resource.external.ExternalResourceTracker;
+import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.util.Util;
 
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
  *
  */
 public class ResourceFactoryImpl implements ResourceFactory {
-    private static class ExternalStaticResourceFactory {
-        private ResourceKey resourceKey;
-        private String resourceLocation;
-        private boolean skinDependent;
-
-        public ExternalStaticResourceFactory(ResourceKey resourceKey, String resourceLocation, boolean skinDependent) {
-            super();
-            this.resourceKey = resourceKey;
-            this.resourceLocation = resourceLocation;
-            this.skinDependent = skinDependent;
-        }
-
-        public Resource createResource() {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            Resource resource;
-
-            // checks that provided resourceLocation is valid URL = then it is considered absolute URL
-            if (URLUtils.isValidURL(resourceLocation)) {
-                resource = new AbsoluteRequestPathResource(resourceLocation);
-            } else {
-                resource = new ExternalStaticResource(resourceLocation, skinDependent);
-            }
-
-            resource.setResourceName(resourceKey.getResourceName());
-            resource.setLibraryName(resourceKey.getLibraryName());
-            resource.setContentType(facesContext.getExternalContext().getMimeType(resourceLocation));
-
-            return resource;
-        }
-    }
 
     private static class MappedResourceData {
         private ResourceKey resourceKey;
@@ -102,19 +70,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
     }
 
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
-    private static final Function<Entry<String, String>, ExternalStaticResourceFactory> EXTERNAL_MAPPINGS_FACTORY_PRODUCER = new Function<Entry<String, String>, ExternalStaticResourceFactory>() {
-        public ExternalStaticResourceFactory apply(Entry<String, String> entry) {
-            String resourceQualifier = entry.getKey();
 
-            String resourceLocation = entry.getValue();
-            boolean skinDependent = false;
-            if (ResourceSkinUtils.isSkinDependent(resourceLocation)) {
-                skinDependent = true;
-            }
-
-            return new ExternalStaticResourceFactory(ResourceKey.create(resourceQualifier), resourceLocation, skinDependent);
-        }
-    };
     private static final Function<Entry<String, String>, MappedResourceData> DYNAMIC_MAPPINGS_DATA_PRODUCER = new Function<Entry<String, String>, MappedResourceData>() {
         public MappedResourceData apply(Entry<String, String> from) {
             String resourceLocation = from.getValue();
@@ -125,17 +81,19 @@ public class ResourceFactoryImpl implements ResourceFactory {
         }
     };
     private ResourceHandler defaultHandler;
-    private Map<ResourceKey, ExternalStaticResourceFactory> externalStaticResourceFactories;
+    // private Map<ResourceKey, ExternalStaticResourceFactory> externalStaticResourceFactories;
     private Map<ResourceKey, MappedResourceData> mappedResourceDataMap;
+    private ExternalStaticResourceFactory externalStaticResourceFactory;
+    private ExternalResourceTracker resourceTracker;
 
     public ResourceFactoryImpl(ResourceHandler defaultHandler) {
         super();
 
         this.defaultHandler = defaultHandler;
-        this.mappedResourceDataMap = readMappings(DYNAMIC_MAPPINGS_DATA_PRODUCER, ResourceFactory.DYNAMIC_RESOURCE_MAPPINGS);
-
-        // needs to be loaded lazily on first usage since reads ConfigurationService internally
-        this.externalStaticResourceFactories = new ExternalStaticResourceFactories().getLazilyLoaded();
+        this.mappedResourceDataMap = ResourceUtils.readMappings(DYNAMIC_MAPPINGS_DATA_PRODUCER,
+                ResourceFactory.DYNAMIC_RESOURCE_MAPPINGS);
+        this.externalStaticResourceFactory = ServiceTracker.getProxy(ExternalStaticResourceFactory.class);
+        this.resourceTracker = ServiceTracker.getProxy(ExternalResourceTracker.class);
     }
 
     private static String extractParametersFromResourceName(String resourceName) {
@@ -165,17 +123,6 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
     private void logMissingResource(FacesContext context, String resourceData) {
         logResourceProblem(context, null, "Resource {0} was not found", resourceData);
-    }
-
-    private <V> Map<ResourceKey, V> readMappings(Function<Entry<String, String>, V> producer, String mappingFileName) {
-        Map<ResourceKey, V> result = Maps.newHashMap();
-
-        for (Entry<String, String> entry : PropertiesUtil.loadProperties(mappingFileName).entrySet()) {
-            result.put(ResourceKey.create(entry.getKey()), producer.apply(entry));
-        }
-
-        result = Collections.unmodifiableMap(result);
-        return result;
     }
 
     private Resource createCompiledCSSResource(ResourceKey resourceKey) {
@@ -404,38 +351,15 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
     public Resource createResource(String resourceName, String libraryName, String contentType) {
         ResourceKey resourceKey = new ResourceKey(resourceName, libraryName);
-        ExternalStaticResourceFactory externalStaticResourceFactory = externalStaticResourceFactories.get(resourceKey);
-        if (externalStaticResourceFactory != null) {
-            addResourcesToContextMap(externalStaticResourceFactory);
-            return externalStaticResourceFactory.createResource();
-        }
-        return createDynamicResource(resourceKey, true);
-    }
-
-    private void addResourcesToContextMap(ExternalStaticResourceFactory externalStaticResourceFactory) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        Map<Object, Object> contextMap = facesContext.getAttributes();
-        for (Entry<ResourceKey, ExternalStaticResourceFactory> entry : externalStaticResourceFactories.entrySet()) {
-            ExternalStaticResourceFactory externalStaticResourceFactoryLoop = entry.getValue();
-            if (externalStaticResourceFactory.resourceLocation.equals(externalStaticResourceFactoryLoop.resourceLocation)) {
-                ResourceKey resourceKeyLoop = entry.getKey();
-                String resourceName = resourceKeyLoop.getResourceName();
-                String libraryName = resourceKeyLoop.getLibraryName();
-                String key = resourceName + libraryName;
-                if (!contextMap.containsKey(key)) { // stylesheets (with this name + library) will not be rendered multiple
-                                                    // times per request
-                    contextMap.put(key, Boolean.TRUE);
-                }
-                if (libraryName == null || libraryName.isEmpty()) { // also store this in the context map with library as "null"
-                    libraryName = "null";
-                    key = resourceName + libraryName;
-                    if (!contextMap.containsKey(key)) {
-                        contextMap.put(key, Boolean.TRUE);
-                    }
-                }
-            }
 
+        ExternalResource externalResource = externalStaticResourceFactory.createResource(facesContext, resourceKey);
+        if (externalResource != null) {
+            resourceTracker.markExternalResourceRendered(facesContext, externalResource);
+            return externalResource;
         }
+
+        return createDynamicResource(resourceKey, true);
     }
 
     protected Resource createDynamicResource(ResourceKey resourceKey, boolean useDependencyInjection) {
@@ -501,38 +425,4 @@ public class ResourceFactoryImpl implements ResourceFactory {
         return new UserResourceWrapperImpl(resource, cacheable, versioned);
     }
 
-    private class ExternalStaticResourceFactories extends LazyLoadingObject<Map<ResourceKey, ExternalStaticResourceFactory>> {
-
-        public ExternalStaticResourceFactories() {
-            super(Map.class);
-        }
-
-        @Override
-        protected Map<ResourceKey, ExternalStaticResourceFactory> loadData() {
-            Map<ResourceKey, ExternalStaticResourceFactory> result = Maps.newHashMap();
-
-            List<String> mappingFiles = ResourceMappingFeature.getMappingFiles();
-
-            for (String mappingFile : mappingFiles) {
-                if (resourceExistsForLocation(mappingFile)) {
-                    result.putAll(readMappings(EXTERNAL_MAPPINGS_FACTORY_PRODUCER, mappingFile));
-                } else {
-                   if (!isDefaultResource(mappingFile)) {
-                       LOGGER.warn("Resource mapping is configured to load non-existent resource: '" + mappingFile + "'");
-                   }
-                }
-            }
-
-            return result;
-        }
-
-        private boolean resourceExistsForLocation(String location) {
-            ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-            return contextClassLoader.getResource(location) != null;
-        }
-
-        private boolean isDefaultResource(String location) {
-            return ResourceMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION.equals(location);
-        }
-    }
 }

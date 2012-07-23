@@ -21,6 +21,9 @@
  */
 package org.richfaces.application;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -130,5 +133,25 @@ public final class ServiceTracker {
     public static void release() {
         ServicesFactory servicesFactory = INSTANCES.remove(getCurrentLoader());
         servicesFactory.release();
+    }
+
+    /**
+     * Provides proxy which delegates to the given targetService
+     *
+     * @param targetService the service to delegate operations to
+     * @return proxy which delegates to the given targetService
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T getProxy(final Class<T> targetService) {
+        return (T) Proxy.newProxyInstance(getCurrentLoader(), new Class<?>[] { targetService }, new InvocationHandler() {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                T service = ServiceTracker.getService(targetService);
+                if (service == null) {
+                    throw new IllegalStateException("Failed to obtain service " + targetService.getSimpleName());
+                }
+                return method.invoke(service, args);
+            }
+        });
     }
 }

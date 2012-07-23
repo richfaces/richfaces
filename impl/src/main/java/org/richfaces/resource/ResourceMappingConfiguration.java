@@ -41,7 +41,7 @@ import org.richfaces.log.RichfacesLogger;
  */
 public final class ResourceMappingConfiguration {
 
-    static final String DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION = "META-INF/richfaces/static-resource-mappings.properties";
+    public static final String DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION = "META-INF/richfaces/static-resource-mappings.properties";
     private static final Logger LOG = RichfacesLogger.CONFIG.getLogger();
     private static final String STATIC_RESOURCE_DEPRECATION_LOGGED = "org.richfaces.staticResourceLocation.deprecation.logged";
 

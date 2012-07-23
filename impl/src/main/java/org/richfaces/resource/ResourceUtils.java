@@ -20,8 +20,16 @@
  */
 package org.richfaces.resource;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.richfaces.util.PropertiesUtil;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
@@ -86,5 +94,16 @@ public final class ResourceUtils {
 
     public static long secondToMillis(long second) {
         return second * MILLISECOND_IN_SECOND;
+    }
+
+    static <V> Map<ResourceKey, V> readMappings(Function<Entry<String, String>, V> producer, String mappingFileName) {
+        Map<ResourceKey, V> result = Maps.newHashMap();
+
+        for (Entry<String, String> entry : PropertiesUtil.loadProperties(mappingFileName).entrySet()) {
+            result.put(ResourceKey.create(entry.getKey()), producer.apply(entry));
+        }
+
+        result = Collections.unmodifiableMap(result);
+        return result;
     }
 }
