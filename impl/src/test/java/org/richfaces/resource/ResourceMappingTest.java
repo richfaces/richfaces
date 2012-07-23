@@ -6,6 +6,9 @@ import static org.junit.Assert.assertTrue;
 import java.net.URL;
 import java.util.List;
 
+import javax.faces.event.PostConstructApplicationEvent;
+import javax.faces.event.PreDestroyApplicationEvent;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -19,7 +22,16 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.richfaces.application.InitializationListener;
+import org.richfaces.application.Module;
+import org.richfaces.application.ServicesFactory;
+import org.richfaces.application.configuration.ConfigurationService;
+import org.richfaces.application.configuration.ConfigurationServiceImpl;
 import org.richfaces.deployment.CoreDeployment;
+import org.richfaces.resource.external.ExternalResourceTracker;
+import org.richfaces.resource.external.MojarraExternalResourceTracker;
+import org.richfaces.resource.external.ExternalStaticResourceFactory;
+import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 
@@ -39,6 +51,12 @@ public class ResourceMappingTest {
         CoreDeployment deployment = new CoreDeployment(ResourceMappingTest.class);
 
         deployment.facesConfig().getOrCreateApplication().resourceHandler(ResourceHandlerImpl.class.getName());
+        deployment.facesConfig().getOrCreateApplication().getOrCreateSystemEventListener()
+                .systemEventClass(PostConstructApplicationEvent.class.getName())
+                .systemEventListenerClass(CustomInitializationListener.class.getName());
+        deployment.facesConfig().getOrCreateApplication().getOrCreateSystemEventListener()
+                .systemEventClass(PreDestroyApplicationEvent.class.getName())
+                .systemEventListenerClass(CustomInitializationListener.class.getName());
 
         PropertiesAsset staticResourceMapping = new PropertiesAsset()
                 .key(":original.css").value("relocated.css")
@@ -90,5 +108,22 @@ public class ResourceMappingTest {
         String href = element.getAttribute("href");
 
         assertTrue("href must end with the aggregated.css resource path", href.contains("/javax.faces.resource/aggregated.css"));
+    }
+
+    public static class CustomInitializationListener extends InitializationListener {
+        @Override
+        protected Module createDefaultModule() {
+            return new CustomModule();
+        }
+    }
+
+    public static class CustomModule implements Module {
+
+        @Override
+        public void configure(ServicesFactory factory) {
+            factory.setInstance(ConfigurationService.class, new ConfigurationServiceImpl());
+            factory.setInstance(ExternalResourceTracker.class, new MojarraExternalResourceTracker());
+            factory.setInstance(ExternalStaticResourceFactory.class, new ExternalStaticResourceFactoryImpl());
+        }
     }
 }
