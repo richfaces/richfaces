@@ -5,12 +5,15 @@ import static org.junit.Assert.assertTrue;
 import java.net.URL;
 import java.util.Collection;
 
+import javax.faces.webapp.FacesServlet;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
+import org.jboss.arquillian.warp.utils.URLUtils;
 import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -28,7 +31,6 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.resource.ResourceHandlerImpl;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 
@@ -69,6 +71,19 @@ public class ResourceMappingTest {
                 .getOrCreateContextParam()
                     .paramName("org.richfaces.enableControlSkinning")
                     .paramValue("false")
+                .up()
+                .getOrCreateServlet()
+                    .servletName(FacesServlet.class.getSimpleName())
+                    .servletClass(FacesServlet.class.getName())
+                    .loadOnStartup(1)
+                .up()
+                .getOrCreateServletMapping()
+                    .servletName(FacesServlet.class.getSimpleName())
+                    .urlPattern("*.jsf")
+                .up()
+                .getOrCreateServletMapping()
+                    .servletName(FacesServlet.class.getSimpleName())
+                    .urlPattern("/faces/*")
                 .up();
         
         PropertiesAsset staticResourceMapping = new PropertiesAsset()
@@ -102,7 +117,11 @@ public class ResourceMappingTest {
 
         WebElement element = driver.findElement(By.cssSelector("head > link[rel=stylesheet]"));
         String href = element.getAttribute("href");
-
-        assertTrue("href must end with the routed.js resource path", href.endsWith("/javax.faces.resource/routed.js"));
+        URL url = URLUtils.buildUrl(href);
+        String path = url.getPath();
+        
+        
+        
+        assertTrue("href must end with the routed.js resource path", path.contains("/javax.faces.resource/routed.js"));
     }
 }
