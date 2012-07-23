@@ -72,22 +72,13 @@ public class Deployment {
                     .servletName(FacesServlet.class.getSimpleName())
                     .urlPattern("/faces/*")
                 .up();
-    }
-
-    public WebArchive archive() {
 
         archive
             .addAsWebInfResource(new StringAsset(facesConfig.exportAsString()), "faces-config.xml")
             .addAsWebInfResource(new StringAsset(webXml.exportAsString()), "web.xml");
+    }
 
+    public WebArchive archive() {
         return archive;
-    }
-
-    public WebFacesConfigDescriptor facesConfig() {
-        return facesConfig;
-    }
-
-    public WebAppDescriptor webXml() {
-        return webXml;
     }
 }
