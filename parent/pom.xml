@@ -86,10 +86,6 @@
         <version.arquillian.warp>1.0.0.Alpha2-SNAPSHOT</version.arquillian.warp>
         <version.shrinkwrap.resolver>2.0.0-alpha-1</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-3</version.shrinkwrap.descriptors>
-        
-        <!-- Arquillian test properties -->
-        <arquillian.drone.browser>htmlUnit</arquillian.drone.browser>
-        <arquillian.drone.reusable>false</arquillian.drone.reusable>
     </properties>
 
     <dependencyManagement>
@@ -586,12 +582,6 @@
 
     <!-- Build -->
     <build>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <filtering>true</filtering>
-            </testResource>
-        </testResources>
         <!-- PluginManagement config, including versions to use in the build. Note:
               some are inherited from jboss-parent, others from richfaces-parent -->
         <pluginManagement>
@@ -811,41 +801,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>container-jbossas-remote-7</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.spec</groupId>
-                    <artifactId>jboss-javaee-6.0</artifactId>
-                    <version>${version.jboss-javaee}</version>
-                    <type>pom</type>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>${version.jboss-as7}</version>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>browser-chrome</id>
-            <properties>
-                <arquillian.drone.browser>chrome</arquillian.drone.browser>
-            </properties>
-        </profile>
-        <profile>
-            <id>browser-firefox</id>
-            <properties>
-                <arquillian.drone.browser>firefox</arquillian.drone.browser>
-            </properties>
-        </profile>
-        <profile>
-            <id>browser-remote-reusable</id>
-            <properties>
-                <arquillian.drone.reusable>true</arquillian.drone.reusable>
-            </properties>
         </profile>
     </profiles>
 
