@@ -93,7 +93,11 @@ BUILDING AND RUNNING THE APPLICATION
 	 To build the project for a JEE6 server you need to navigate to the
 	 /examples/richfaces-showcase and run
 
+		for JBoss AS 7.0.x:
 	 	mvn clean package -Pjbas7
+	
+		or for JBoss AS 7.1.x
+		mvn clean package -Pjbas71
 
 	 When you see the BUILD SUCCESSFUL message you can deploy the
 	 application on the server.
@@ -101,6 +105,9 @@ BUILDING AND RUNNING THE APPLICATION
 	 First, make sure the application server is running.  To start the server:
 
 	    launch the standalone.sh or standalone.bat script from JBOSS_HOME/bin/
+
+	    together with parameter --server-config=standalone-full.xml for both 
+	    latest JBoss AS 7.1.x and for latest JBoss AS 7.0.x.
 
 	 As of JBoass AS 7.1 you must create the JMS user account/password to
 	 enable the JMS push sample.  Add a new user to the ApplicationRealm with the
