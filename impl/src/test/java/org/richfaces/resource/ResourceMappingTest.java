@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.net.URL;
 import java.util.List;
 
+import org.ajax4jsf.util.base64.Codec;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -14,14 +15,21 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.deployment.CoreDeployment;
+import org.richfaces.resource.external.ExternalResourceTracker;
+import org.richfaces.resource.external.ExternalResourceTrackerWrapper;
+import org.richfaces.resource.external.ExternalStaticResourceFactory;
+import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
+
+import com.google.common.base.Function;
 
 @RunWith(Arquillian.class)
 @WarpTest
@@ -51,6 +59,10 @@ public class ResourceMappingTest {
                 + "<h:outputStylesheet name=\"part2.css\" />");
 
         deployment.archive()
+                /** classes */
+                .addPackage(ResourceHandlerImpl.class.getPackage())
+                .addPackage(ExternalStaticResourceFactory.class.getPackage())
+                .addClasses(Codec.class)
                 /** META-INF */
                 .addAsResource(staticResourceMapping, "META-INF/richfaces/static-resource-mappings.properties")
                 /** ROOT */
@@ -62,7 +74,22 @@ public class ResourceMappingTest {
                 .addAsWebResource(stylesheetResource, "resources/relocated.css")
                 .addAsWebResource(stylesheetResource, "resources/aggregated.css");
 
-        return deployment.archive();
+        deployment.withService(ExternalStaticResourceFactory.class, ExternalStaticResourceFactoryImpl.class);
+        deployment.withService(ExternalResourceTracker.class, ExternalResourceTrackerWrapper.class);
+
+
+        deployment.facesConfig(new Function<WebFacesConfigDescriptor, WebFacesConfigDescriptor>() {
+
+            @Override
+            public WebFacesConfigDescriptor apply(WebFacesConfigDescriptor facesConfig) {
+                return facesConfig
+                    .getOrCreateApplication()
+                        .resourceHandler(ResourceHandlerImpl.class.getName())
+                    .up();
+            }
+        });
+
+        return deployment.getFinalArchive();
     }
 
     @Test
@@ -74,7 +101,7 @@ public class ResourceMappingTest {
         WebElement element = driver.findElement(By.cssSelector("head > link[rel=stylesheet]"));
         String href = element.getAttribute("href");
 
-        assertTrue("href must end with the relocated.css resource path", href.contains("/javax.faces.resource/relocated.css"));
+        assertTrue("href must contain relocated.css resource path: " + href, href.contains("/javax.faces.resource/relocated.css"));
     }
 
     @Test
@@ -90,6 +117,6 @@ public class ResourceMappingTest {
         WebElement element = elements.get(0);
         String href = element.getAttribute("href");
 
-        assertTrue("href must end with the aggregated.css resource path", href.contains("/javax.faces.resource/aggregated.css"));
+        assertTrue("href must contain aggregated.css resource path: " + href, href.contains("/javax.faces.resource/aggregated.css"));
     }
 }

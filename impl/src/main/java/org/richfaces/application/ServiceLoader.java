@@ -50,7 +50,7 @@ import com.google.common.collect.Iterables;
  */
 public final class ServiceLoader {
     private static final String META_INF_SERVICES = "META-INF/services/";
-    private static final Pattern LEGAL_JAVA_NAME = Pattern.compile("^(([A-Za-z0-9_])+\\.)+[A-Z]([A-Za-z0-9_]*)$");
+    private static final Pattern LEGAL_JAVA_NAME = Pattern.compile("^(([A-Za-z0-9_])+[\\.\\$])+[A-Z]([A-Za-z0-9_]*)$");
 
     private ServiceLoader() {
 
