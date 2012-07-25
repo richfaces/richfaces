@@ -82,7 +82,7 @@
         <version.jcommander>1.20</version.jcommander>
         
         <!-- Arquillian test deps -->
-        <version.arquillian.core>1.0.0.Final</version.arquillian.core>
+        <version.arquillian.core>1.0.1.Final</version.arquillian.core>
         <version.arquillian.drone>1.1.0.CR2</version.arquillian.drone>
         <version.arquillian.warp>1.0.0.Alpha2-SNAPSHOT</version.arquillian.warp>
         <version.shrinkwrap.resolver>2.0.0-alpha-1</version.shrinkwrap.resolver>
