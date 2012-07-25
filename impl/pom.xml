@@ -32,12 +32,6 @@
         The RichFaces Core Implementation.
     </description>
 
-    <properties>
-        <!-- Arquillian test properties -->
-        <arquillian.drone.browser>htmlUnit</arquillian.drone.browser>
-        <arquillian.drone.reusable>false</arquillian.drone.reusable>
-    </properties>
-
     <dependencies>
         <!-- Runtime Dependencies -->
         <dependency>
@@ -152,13 +146,6 @@
             <artifactId>mockito-all</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- Arquillian -->
-        <dependency>
-            <groupId>org.richfaces.test</groupId>
-            <artifactId>richfaces-arquillian</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -208,15 +195,91 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/integration/**/*.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
+
     <profiles>
+        <profile>
+            <id>integration-tests</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                </property>
+            </activation>
+            <properties>
+                <integration.test.source>src/test/integration</integration.test.source>
+
+                <arquillian.drone.browser>htmlUnit</arquillian.drone.browser>
+                <arquillian.drone.reusable>false</arquillian.drone.reusable>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.richfaces.test</groupId>
+                    <artifactId>richfaces-arquillian</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-test-source</id>
+                                <phase>process-test-sources</phase>
+                                <goals>
+                                    <goal>add-test-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>${integration.test.source}</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.12</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>integration-test</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <testSourceDirectory>${integration.test.source}</testSourceDirectory>
+                            <includes>
+                                <include>**/integration/**/*.java</include>
+                            </includes>
+                            <skipTests>${skipITs}</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    
         <!-- Containers -->
         <profile>
             <id>container-jbossas-managed-7</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>integration</name>
+                    <value>jbossas</value>
+                </property>
             </activation>
             <properties>
                 <jbossHome>${project.build.directory}/jboss-as-${version.jboss-as7}</jbossHome>
@@ -286,6 +349,12 @@
         </profile>
         <profile>
             <id>container-tomee-remote</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomee</value>
+                </property>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.openejb</groupId>

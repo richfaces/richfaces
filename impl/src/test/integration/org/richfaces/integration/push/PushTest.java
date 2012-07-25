@@ -1,4 +1,4 @@
-package org.richfaces.application.push;
+package org.richfaces.integration.push;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,7 +24,13 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
-import org.richfaces.arquillian.CoreDeployment;
+import org.richfaces.application.push.MessageException;
+import org.richfaces.application.push.PushContext;
+import org.richfaces.application.push.PushContextFactory;
+import org.richfaces.application.push.Session;
+import org.richfaces.application.push.TopicKey;
+import org.richfaces.application.push.TopicsContext;
+import org.richfaces.integration.CoreDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.wait.Condition;
 import org.richfaces.wait.Wait;

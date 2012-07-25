@@ -1,4 +1,4 @@
-package org.richfaces.resource;
+package org.richfaces.integration.resource;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -20,7 +20,8 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.arquillian.CoreDeployment;
+import org.richfaces.integration.CoreDeployment;
+import org.richfaces.resource.ResourceHandlerImpl;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;

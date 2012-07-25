@@ -11,3 +11,4 @@ MANIFEST.MF
 
 # Selenium 
 log.txt
+chromedriver.log
