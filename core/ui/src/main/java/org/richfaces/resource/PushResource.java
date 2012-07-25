@@ -82,7 +82,7 @@ public class PushResource extends AbstractUserResource {
         String[] topicNames = externalContext.getRequestParameterValuesMap().get(PUSH_TOPIC_PARAM);
 
         if (topicNames == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(PUSH_TOPIC_PARAM + " request parameter must be present");
         }
 
         session.subscribe(topicNames);
