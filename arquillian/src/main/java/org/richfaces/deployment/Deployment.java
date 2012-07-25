@@ -31,6 +31,8 @@ import org.jboss.shrinkwrap.descriptor.api.facesconfig20.FacesConfigVersionType;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 
+import com.google.common.base.Function;
+
 /**
  * Provides base for all test deployments
  *
@@ -41,23 +43,39 @@ public class Deployment {
     private WebArchive archive;
 
     private WebFacesConfigDescriptor facesConfig;
-    WebAppDescriptor webXml;
+    private WebAppDescriptor webXml;
 
+    /**
+     * Constructs base deployment with:
+     *
+     * <ul>
+     * <li>archive named by test case</li>
+     * <li>empty faces-config.xml</li>
+     * <li>web.xml with default FacesServlet mapping, welcome file index.xhtml and disabled some features which are not
+     * necessary by default and Development stage turned on</li>
+     * </ul>
+     *
+     * @param testClass
+     */
     protected Deployment(Class<?> testClass) {
 
         this.archive = ShrinkWrap.create(WebArchive.class, testClass.getSimpleName() + ".war");
 
-        this.facesConfig = Descriptors
-                .create(WebFacesConfigDescriptor.class)
-                .version(FacesConfigVersionType._2_0);
+        this.facesConfig = Descriptors.create(WebFacesConfigDescriptor.class).version(FacesConfigVersionType._2_0);
 
         this.webXml = Descriptors.create(WebAppDescriptor.class)
+                .version("3.0")
+                .addNamespace("xmlns:web", "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd")
                 .getOrCreateWelcomeFileList()
                     .welcomeFile("faces/index.xhtml")
                 .up()
                 .getOrCreateContextParam()
                     .paramName("org.richfaces.enableControlSkinning")
                     .paramValue("false")
+                .up()
+                .getOrCreateContextParam()
+                    .paramName("javax.faces.PROJECT_STAGE")
+                    .paramValue("Development")
                 .up()
                 .getOrCreateServlet()
                     .servletName(FacesServlet.class.getSimpleName())
@@ -72,13 +90,30 @@ public class Deployment {
                     .servletName(FacesServlet.class.getSimpleName())
                     .urlPattern("/faces/*")
                 .up();
-
-        archive
-            .addAsWebInfResource(new StringAsset(facesConfig.exportAsString()), "faces-config.xml")
-            .addAsWebInfResource(new StringAsset(webXml.exportAsString()), "web.xml");
     }
 
+    /**
+     * Provides {@link WebArchive} available for modifications
+     */
     public WebArchive archive() {
         return archive;
+    }
+
+    /**
+     * Returns the final testable archive - packages all the resources which were configured separately
+     */
+    public WebArchive getFinalArchive() {
+        return archive
+                .addAsWebInfResource(new StringAsset(facesConfig.exportAsString()), "faces-config.xml")
+                .addAsWebInfResource(new StringAsset(webXml.exportAsString()), "web.xml");
+    }
+
+    /**
+     * Allows to modify contents of faces-config.xml.
+     *
+     * Takes function which transforms original faces-config.xml and returns modified one
+     */
+    public void facesConfig(Function<WebFacesConfigDescriptor, WebFacesConfigDescriptor> transform) {
+        this.facesConfig = transform.apply(this.facesConfig);
     }
 }
