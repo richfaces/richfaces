@@ -106,6 +106,11 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
     }
 
     private Resource lookupInCache(Cache cache, String resourceKey) {
+        if (cache == null) {
+            LOGGER.debug("No cache was provided");
+            return null;
+        }
+
         Resource resource = (Resource) cache.get(resourceKey);
 
         if (LOGGER.isDebugEnabled()) {
@@ -178,7 +183,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
                             if (LOGGER.isDebugEnabled()) {
                                 LOGGER.debug(new MessageFormat(
                                         "Storing {0} resource in cache until {1,date,dd MMM yyyy HH:mm:ss zzz}", Locale.US)
-                                        .format(new Object[]{data.getResourceKey(), cacheExpirationDate}));
+                                        .format(new Object[] { data.getResourceKey(), cacheExpirationDate }));
                             }
                             cache.put(data.getResourceKey(), cachedResource, cacheExpirationDate);
                         }

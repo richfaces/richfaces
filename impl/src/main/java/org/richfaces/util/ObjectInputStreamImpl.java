@@ -32,7 +32,7 @@ import java.util.Map;
  * @author Nick Belaevski
  *
  */
-class ObjectInputStreamImpl extends ObjectInputStream {
+public class ObjectInputStreamImpl extends ObjectInputStream {
     private static final Map<String, Class<?>> PRIMITIVE_CLASSES = new HashMap<String, Class<?>>(9, 1.0F);
 
     static {

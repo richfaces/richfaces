@@ -50,6 +50,7 @@ public final class PushServlet extends AtmosphereServlet {
      * Prevents multi-initialization since ReflectorServletProcessor tries to initialize provided Servlet
      */
     private boolean initialized = false;
+    private boolean destroyed = false;
 
     @Override
     public void init(final ServletConfig sc) throws ServletException {
@@ -64,6 +65,14 @@ public final class PushServlet extends AtmosphereServlet {
             r.setFilterClassName(PushHandlerFilter.class.getName());
 
             framework.addAtmosphereHandler(mapping, r).initAtmosphereHandler(sc);
+        }
+    }
+
+    @Override
+    public void destroy() {
+        if (!destroyed) {
+            this.destroyed = true;
+            super.destroy();
         }
     }
 }

@@ -11,7 +11,7 @@ import javax.servlet.ServletContext;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Sets;
 
-final class ServletConfigDefaultsWrapper implements ServletConfig {
+public final class ServletConfigDefaultsWrapper implements ServletConfig {
 
     private final ServletConfig config;
     private final Map<String, String> defaults;

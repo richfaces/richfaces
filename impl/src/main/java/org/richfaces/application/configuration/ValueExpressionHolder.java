@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
  * @author Nick Belaevski
  *
  */
-final class ValueExpressionHolder {
+public final class ValueExpressionHolder {
     private ValueExpression valueExpression;
     private Object defaultValue;
 

@@ -56,7 +56,7 @@ public class PushHandlerFilter implements Filter, Serializable {
     public static final String SESSION_ATTRIBUTE_NAME = Session.class.getName();
     public static final String REQUEST_ATTRIBUTE_NAME = Request.class.getName();
     private static final long serialVersionUID = 5724886106704391903L;
-    private static final String PUSH_SESSION_ID_PARAM = "pushSessionId";
+    public static final String PUSH_SESSION_ID_PARAM = "pushSessionId";
     private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
 
     private int servletMajorVersion;

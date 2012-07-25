@@ -27,7 +27,7 @@ import org.richfaces.util.Util;
  * @author Nick Belaevski
  *
  */
-final class DefaultCodecResourceRequestData implements ResourceRequestData {
+public final class DefaultCodecResourceRequestData implements ResourceRequestData {
     private DefaultResourceCodec defaultResourceCodec;
     private String resourceName;
     private String libraryName;

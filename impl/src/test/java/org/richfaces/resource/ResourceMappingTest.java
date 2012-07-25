@@ -15,21 +15,15 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.deployment.CoreDeployment;
-import org.richfaces.resource.external.ExternalResourceTracker;
-import org.richfaces.resource.external.ExternalResourceTrackerWrapper;
+import org.richfaces.arquillian.CoreDeployment;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
-import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
-
-import com.google.common.base.Function;
 
 @RunWith(Arquillian.class)
 @WarpTest
@@ -58,6 +52,8 @@ public class ResourceMappingTest {
         FaceletAsset aggregationPage = new FaceletAsset().head("<h:outputStylesheet name=\"part1.css\" />"
                 + "<h:outputStylesheet name=\"part2.css\" />");
 
+        deployment.withResourceHandler();
+
         deployment.archive()
                 /** classes */
                 .addPackage(ResourceHandlerImpl.class.getPackage())
@@ -73,21 +69,6 @@ public class ResourceMappingTest {
                 .addAsWebResource(stylesheetResource, "resources/part2.css")
                 .addAsWebResource(stylesheetResource, "resources/relocated.css")
                 .addAsWebResource(stylesheetResource, "resources/aggregated.css");
-
-        deployment.withService(ExternalStaticResourceFactory.class, ExternalStaticResourceFactoryImpl.class);
-        deployment.withService(ExternalResourceTracker.class, ExternalResourceTrackerWrapper.class);
-
-
-        deployment.facesConfig(new Function<WebFacesConfigDescriptor, WebFacesConfigDescriptor>() {
-
-            @Override
-            public WebFacesConfigDescriptor apply(WebFacesConfigDescriptor facesConfig) {
-                return facesConfig
-                    .getOrCreateApplication()
-                        .resourceHandler(ResourceHandlerImpl.class.getName())
-                    .up();
-            }
-        });
 
         return deployment.getFinalArchive();
     }

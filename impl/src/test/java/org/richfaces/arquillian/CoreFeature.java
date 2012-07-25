@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.deployment;
+package org.richfaces.arquillian;
 
 /**
  * The features of Core which can be added per deployment by {@link CoreDeployment}
@@ -29,5 +29,13 @@ package org.richfaces.deployment;
 public enum CoreFeature {
 
     SERVICE_LOADER,
-    CONFIGURATION_SERVICE
+    CONFIGURATION_SERVICE,
+    RESOURCE_HANDLER,
+    RESOURCE_LIBRARIES,
+    DEPENDENCY_INJECTOR,
+    RESOURCE_CODEC,
+    LOGGING,
+    LOCALIZATION,
+    CACHE,
+    PUSH
 }

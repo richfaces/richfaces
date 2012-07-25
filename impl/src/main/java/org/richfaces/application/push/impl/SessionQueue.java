@@ -38,7 +38,7 @@ import org.richfaces.application.push.Session;
  */
 // TODO - optimize algorithm
 // TODO - use BlockingQueue ?
-final class SessionQueue {
+public final class SessionQueue {
     private static final Comparator<? super Session> SESSIONS_COMPARATOR = new Comparator<Session>() {
         public int compare(Session o1, Session o2) {
             Long expTime1 = getExpirationTime(o1);
