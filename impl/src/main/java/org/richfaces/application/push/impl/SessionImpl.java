@@ -30,6 +30,10 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.faces.context.FacesContext;
+
+import org.richfaces.application.CoreConfiguration;
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.application.push.MessageData;
 import org.richfaces.application.push.Request;
 import org.richfaces.application.push.Session;
@@ -55,7 +59,7 @@ import com.google.common.collect.Sets;
  */
 public class SessionImpl implements Session, DestroyableSession {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-    private static final int MAX_INACTIVE_INTERVAL = 5 * 60 * 1000;
+    private final int maxInactiveInterval;
     private final String id;
     private final SessionManager sessionManager;
     private volatile long lastAccessedTime;
@@ -73,6 +77,10 @@ public class SessionImpl implements Session, DestroyableSession {
         this.id = id;
         this.sessionManager = sessionManager;
         this.topicsContext = topicsContext;
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        this.maxInactiveInterval = ConfigurationServiceHelper.getIntConfigurationValue(facesContext,
+                CoreConfiguration.Items.pushSessionMaxInactiveInterval);
 
         resetLastAccessedTimeToCurrent();
     }
@@ -131,7 +139,7 @@ public class SessionImpl implements Session, DestroyableSession {
     }
 
     public int getMaxInactiveInterval() {
-        return MAX_INACTIVE_INTERVAL;
+        return maxInactiveInterval;
     }
 
     public String getId() {

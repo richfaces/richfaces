@@ -91,7 +91,12 @@ public final class CoreConfiguration {
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionPassword", source = ConfigurationItemSource.webEnvironmentEntry)
         pushJMSConnectionPasswordEnvRef,
         @ConfigurationItem(defaultValue = "false", names="org.richfaces.push.initializeOnStartup")
-        pushInitializePushContextOnStartup
+        pushInitializePushContextOnStartup,
+        /**
+         * The interval of Push session invalidation when inactive (experimental configuration option: RF-12370)
+         */
+        @ConfigurationItem(defaultValue = "300000", names="org.richfaces.push.session.maxInactiveInterval")
+        pushSessionMaxInactiveInterval
 
     }
 
