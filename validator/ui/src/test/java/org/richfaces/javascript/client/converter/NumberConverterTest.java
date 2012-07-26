@@ -38,7 +38,16 @@ public class NumberConverterTest extends ConverterTestBase {
 
     @Parameters
     public static List<RunParameters[]> getRunParameterss() {
-        return options(pass("true"), pass("123"), pass("0"), pass("1"), pass("255"), pass("-128"), pass("-129"), pass("256"),
-            pass("-0"), pass("0.05"));
+        return options(
+                pass("true"),
+                pass("123"),
+                pass("0"),
+                pass("1"),
+                pass("255"),
+                pass("-128"),
+                pass("-129"),
+                pass("256"),
+                pass("-0"),
+                pass("0.05"));
     }
 }

@@ -15,6 +15,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+
 public abstract class IntegrationTestBase {
 
     private HtmlUnitEnvironment environment;
