@@ -742,8 +742,13 @@
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
-                    <scope>compile</scope>
-                    <optional>true</optional>
+                    <scope>provided</scope>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.apache.myfaces.core</groupId>
+                            <artifactId>myfaces-api</artifactId>
+                        </exclusion>
+                    </exclusions>
                 </dependency>
             </dependencies>
         </profile>
@@ -760,6 +765,7 @@
                     <groupId>org.jboss.spec.javax.faces</groupId>
                     <artifactId>jboss-jsf-api_2.1_spec</artifactId>
                     <scope>compile</scope>
+                    <optional>true</optional>
                 </dependency>
                 <dependency>
                     <groupId>com.sun.faces</groupId>
@@ -781,6 +787,7 @@
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-api</artifactId>
                     <scope>compile</scope>
+                    <optional>true</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
