@@ -73,7 +73,7 @@
         <version.xmlunit>1.2</version.xmlunit>
         <version.easymock>2.5.2</version.easymock>
         <version.mockito>1.8.5</version.mockito>
-        <version.maven-core>2.0.10</version.maven-core>
+        <version.maven-core>3.0.4</version.maven-core>
         <version.maven-archiver>2.4</version.maven-archiver>
         <version.maven-file-management>1.2.1</version.maven-file-management>
         <version.plexus-utils>1.5.15</version.plexus-utils>
@@ -484,7 +484,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
-                <artifactId>maven-project</artifactId>
+                <artifactId>maven-core</artifactId>
                 <version>${version.maven-core}</version>
             </dependency>
             <dependency>
