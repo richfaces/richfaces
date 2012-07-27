@@ -52,7 +52,6 @@ public abstract class IntegrationTestBase {
         HtmlInput input = getInput(page);
         page = (HtmlPage) input.setValueAttribute(value);
         page = submit(page);
-        System.out.println(page.asXml());
         checkMessage(page, "uiMessage", matcher);
         return page;
     }
