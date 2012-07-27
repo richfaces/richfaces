@@ -43,7 +43,7 @@ public class GraphValidationTest extends IntegrationTestBase {
 
     @Test
     public void testSubmitTooShortValue() throws Exception {
-        HtmlPage page = submitValueAndCheckMessage("", equalTo(GraphBean.SHORT_MSG));
+        HtmlPage page = submitValueAndCheckMessage("", containsString(GraphBean.SHORT_MSG));
         checkMessage(page, "textMessage", containsString(GraphBean.SHORT_MSG));
         checkMessage(page, "graphMessage", equalTo(""));
     }
