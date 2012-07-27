@@ -106,6 +106,20 @@
                 <version>${version.vdl-doc}</version>
             </dependency>
             
+            <!-- Java EE -->
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-6.0</artifactId>
+                <version>${version.jboss-javaee}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-web-6.0</artifactId>
+                <version>${version.jboss-javaee}</version>
+                <type>pom</type>
+            </dependency>
+            
             <!-- Dependency Injection (JSR-330) API -->
             <dependency>
                 <groupId>javax.inject</groupId>
