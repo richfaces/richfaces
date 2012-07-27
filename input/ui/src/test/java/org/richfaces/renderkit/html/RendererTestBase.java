@@ -78,10 +78,12 @@ public abstract class RendererTestBase {
 
     protected void doTest(String pageName, String xmlunitPageName, String pageElementToTest) throws IOException, SAXException {
         HtmlPage page = environment.getPage('/' + pageName + ".jsf");
-        HtmlElement panel = page.getElementById(pageElementToTest);
-        assertNotNull(panel);
+        HtmlElement htmlElement = page.getElementById(pageElementToTest);
+        assertNotNull(htmlElement);
 
-        checkXmlStructure(pageName, xmlunitPageName, panel.asXml());
+        String pageCode = htmlElement.asXml();
+
+        checkXmlStructure(pageName, xmlunitPageName, pageCode);
     }
 
     protected void checkXmlStructure(String pageName, String xmlunitPageName, String pageCode) throws SAXException, IOException {
@@ -95,6 +97,13 @@ public abstract class RendererTestBase {
 
         Diff xmlDiff = new Diff(new StringReader(pageCode), new InputStreamReader(expectedPageCode));
         xmlDiff.overrideDifferenceListener(new IgnoreScriptsContent());
-        Assert.assertTrue("XML was not similar:" + xmlDiff.toString(), xmlDiff.similar());
+
+        if (!xmlDiff.similar()) {
+            System.out.println("=== ACTUAL PAGE CODE ===");
+            System.out.println(pageCode);
+            System.out.println("========================");
+            Assert.fail("XML was not similar:" + xmlDiff.toString());
+        }
+
     }
 }
