@@ -21,6 +21,7 @@
  */
 package org.richfaces.application;
 
+import org.richfaces.annotation.Experimental;
 import org.richfaces.application.configuration.ConfigurationItem;
 import org.richfaces.application.configuration.ConfigurationItemSource;
 import org.richfaces.application.configuration.ConfigurationItemsBundle;
@@ -95,6 +96,7 @@ public final class CoreConfiguration {
         /**
          * The interval of Push session invalidation when inactive (experimental configuration option: RF-12370)
          */
+        @Experimental
         @ConfigurationItem(defaultValue = "300000", names="org.richfaces.push.session.maxInactiveInterval")
         pushSessionMaxInactiveInterval
 
