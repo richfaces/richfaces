@@ -284,7 +284,9 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <execute>
+                                            <runOnIncremental>false</runOnIncremental>
+                                        </execute>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
