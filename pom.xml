@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>12</version>
+        <version>13</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
