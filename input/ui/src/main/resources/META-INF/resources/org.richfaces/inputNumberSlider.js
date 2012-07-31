@@ -117,12 +117,20 @@
 
             __setValue: function (value, event, skipOnchange) {
                 if (!isNaN(value)) {
+                    var changed = false;
+                    if (this.input.val() == "") {
+                        // value already changed from "" to 0, compare to real value to track changes
+                        changed = true;
+                    }
+
                     if (value > this.maxValue) {
                         value = this.maxValue;
+                        changed = true;
                     } else if (value < this.minValue) {
                         value = this.minValue;
+                        changed = true;
                     }
-                    if (value != this.value) {
+                    if (value != this.value || changed) {
                         this.input.val(value);
                         var left = 100 * (value - this.minValue) / this.range;
                         this.handleContainer.css("padding-left", left + "%");
