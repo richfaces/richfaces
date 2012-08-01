@@ -7,10 +7,7 @@ import java.net.URL;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.ClientAction;
 import org.jboss.arquillian.warp.HttpRequest;
@@ -20,9 +17,6 @@ import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.arquillian.warp.extension.servlet.AfterServlet;
 import org.jboss.arquillian.warp.extension.servlet.BeforeServlet;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.richfaces.application.push.MessageException;
 import org.richfaces.application.push.PushContext;
@@ -36,20 +30,18 @@ import org.richfaces.wait.Condition;
 import org.richfaces.wait.Wait;
 import org.richfaces.webapp.PushHandlerFilter;
 
-@RunWith(Arquillian.class)
 @WarpTest
-public class PushTest {
+public class AbstractPushTest {
 
     @Drone
     WebDriver driver;
 
     @ArquillianResource
     URL contextPath;
+    
+    public static CoreDeployment createBasicDeployment() {
 
-    @Deployment
-    public static WebArchive createDeployment() {
-
-        CoreDeployment deployment = new CoreDeployment(PushTest.class);
+        CoreDeployment deployment = new CoreDeployment(null);
 
 
         deployment.addMavenDependency(
@@ -61,6 +53,7 @@ public class PushTest {
         FaceletAsset pushPage = new FaceletAsset().body("<a4j:push address=\"" + Commons.TOPIC + "\" />");
 
         deployment.archive()
+                .addClass(AbstractPushTest.class)
                 /** ROOT */
                 .addAsWebResource(pushPage, "index.xhtml")
                 .addAsResource("META-INF/resources/richfaces-event.js")
@@ -75,13 +68,12 @@ public class PushTest {
         deployment.withResourceLibraries();
         deployment.withPush();
 
-        return deployment.getFinalArchive();
+        return deployment;
     }
 
-    @Test
-    @RunAsClient
-    public void test_push() {
-        Warp.filter(new UriRequestFilter("__richfaces_push")).execute(new ClientAction() {
+    
+    public void testSimplePush() {
+        Warp.filter(new UriRequestFilter("__richfacesPushAsync")).execute(new ClientAction() {
 
             @Override
             public void action() {

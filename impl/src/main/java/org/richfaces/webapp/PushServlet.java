@@ -61,10 +61,15 @@ public final class PushServlet extends AtmosphereServlet {
             String mapping = (String) sc.getServletContext()
                     .getAttribute(PushContextFactoryImpl.PUSH_HANDLER_MAPPING_ATTRIBUTE);
 
+            if (mapping == null) {
+                mapping = "*";
+            }
+
             ReflectorServletProcessor r = new ReflectorServletProcessor(this);
             r.setFilterClassName(PushHandlerFilter.class.getName());
 
             framework.addAtmosphereHandler(mapping, r).initAtmosphereHandler(sc);
+
         }
     }
 
