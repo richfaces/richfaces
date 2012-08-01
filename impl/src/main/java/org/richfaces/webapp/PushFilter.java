@@ -37,7 +37,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.push.PushContext;
+import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
@@ -88,18 +90,11 @@ public class PushFilter implements Filter {
     }
 
     private PushServlet pushServlet;
+    private ServletConfigFacade servletConfig;
 
     public void init(FilterConfig filterConfig) throws ServletException {
-        PushContext handlerProvider = (PushContext) filterConfig.getServletContext()
-            .getAttribute(PushContext.INSTANCE_KEY_NAME);
-
-        if (handlerProvider != null) {
-            logPushFilterWarning(filterConfig.getServletContext());
-
-            pushServlet = new PushServlet();
-            ServletConfigFacade servletConfig = new ServletConfigFacade(filterConfig);
-            pushServlet.init(servletConfig);
-        }
+        logPushFilterWarning(filterConfig.getServletContext());
+        servletConfig = new ServletConfigFacade(filterConfig);
     }
 
     private void logPushFilterWarning(ServletContext servletContext) {
@@ -116,12 +111,16 @@ public class PushFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
         ServletException {
-        if (pushServlet != null && request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
+        if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpServletResponse httpResp = (HttpServletResponse) response;
 
             if ("GET".equals(httpReq.getMethod()) && httpReq.getQueryString() != null
                 && httpReq.getQueryString().contains("__richfacesPushAsync")) {
+                if (pushServlet == null) {
+                    pushServlet = new PushServlet();
+                    pushServlet.init(servletConfig);
+                }
                 pushServlet.doGet(httpReq, httpResp);
                 return;
             }

@@ -79,6 +79,7 @@ public class PushContextFactoryImpl implements PushContextFactory {
         if (pushHandlerMapping == null) {
             pushHandlerMapping = ConfigurationServiceHelper.getStringConfigurationValue(facesContext,
                     CoreConfiguration.Items.pushHandlerMapping);
+            facesContext.getExternalContext().getApplicationMap().put(PUSH_HANDLER_MAPPING_ATTRIBUTE, pushHandlerMapping);
         }
 
         PushContextImpl pushContext = new PushContextImpl(convertToUrl(facesContext, pushHandlerMapping));
