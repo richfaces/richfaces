@@ -59,7 +59,11 @@ public class Deployment {
      */
     protected Deployment(Class<?> testClass) {
 
-        this.archive = ShrinkWrap.create(WebArchive.class, testClass.getSimpleName() + ".war");
+        if (testClass != null) {
+            this.archive = ShrinkWrap.create(WebArchive.class, testClass.getSimpleName() + ".war");
+        } else {
+            this.archive = ShrinkWrap.create(WebArchive.class);
+        }
 
         this.facesConfig = Descriptors.create(WebFacesConfigDescriptor.class).version(FacesConfigVersionType._2_0);
 
@@ -115,5 +119,14 @@ public class Deployment {
      */
     public void facesConfig(Function<WebFacesConfigDescriptor, WebFacesConfigDescriptor> transform) {
         this.facesConfig = transform.apply(this.facesConfig);
+    }
+
+    /**
+     * Allows to modify contents of web.xml.
+     *
+     * Takes function which transforms original web.xml and returns modified one
+     */
+    public void webXml(Function<WebAppDescriptor, WebAppDescriptor> transform) {
+        this.webXml = transform.apply(this.webXml);
     }
 }
