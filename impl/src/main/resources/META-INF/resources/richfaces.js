@@ -110,6 +110,9 @@ if (!window.RichFaces) {
             e = jQuery('body').get(0);
         }
         if (e) {
+            // Fire a DOM cleanup event
+//            $(e).trigger("beforeDomClean" + RichFaces.Event.RICH_NAMESPACE);
+            $(e).trigger("beforeDomClean" + ".RICH");
             var elements = e.getElementsByTagName("*");
             if (elements.length) {
                 jQuery.each(elements, function(index) {
@@ -119,6 +122,8 @@ if (!window.RichFaces) {
             }
             richfaces.cleanComponent(e);
             jQuery.cleanData([e]);
+//            $(e).trigger("afterDomClean" + RichFaces.Event.RICH_NAMESPACE);
+            $(e).trigger("afterDomClean" + ".RICH");
         }
     };
 
