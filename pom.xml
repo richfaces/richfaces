@@ -261,6 +261,27 @@
             </dependencies>
         </profile>
         <profile>
+            <id>myfaces</id>
+            <activation>
+                <property>
+                    <name>jsf_profile</name>
+                    <value>myfaces</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl</artifactId>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>jee6</id>
             <properties>
                 <container.classifier>jee6</container.classifier>
