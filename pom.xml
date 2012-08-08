@@ -251,7 +251,7 @@
                 <dependency>
                     <groupId>org.jboss.spec.javax.faces</groupId>
                     <artifactId>jboss-jsf-api_2.1_spec</artifactId>
-                    <scope>compile</scope>
+                    <scope>${dependency.scope}</scope>
                 </dependency>
                 <dependency>
                     <groupId>com.sun.faces</groupId>
@@ -272,7 +272,7 @@
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-api</artifactId>
-                    <scope>compile</scope>
+                    <scope>${dependency.scope}</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
