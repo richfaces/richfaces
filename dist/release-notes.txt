@@ -1,3 +1,67 @@
+New in Version 4.3.0.M1
+-----------------------
+
+	Bug
+	[RF-10758] - Input fields in popupPanel loose focus
+	[RF-10980] - Impossible to set tabindex of input inside rich:popupPanel
+	[RF-11051] - a4j.version does not work
+	[RF-11313] - Calendar: converter message not displayed in MyFaces
+	[RF-11618] - Build with jsf_profile=myfaces does not work
+	[RF-11668] - CDK should support arbitrary objects with the <cdk:object> tag
+	[RF-11924] - showcase - rich:context - tree ContextMenu - header of popup should be bigger
+	[RF-11960] - RichFaces Checkstyle contains svn link in POM
+	[RF-11974] - Resource packaging does not work on MyFaces
+	[RF-11976] - Showcase: BaseDescriptor is using com.sun.faces.ELUtils
+	[RF-12022] - showcase - UAgentInfo is not serialized
+	[RF-12113] - rich:inputNumberSpinner minValue and maxValue being ignored after second request
+	[RF-12114] - Richfaces 4.2 rich:autocomplete don't fire ajax on blur event
+	[RF-12221] - rich:orderingList: fix VDL-DOC of @listHeight, @maxListHeight, @minListHeight, @listWidth
+	[RF-12230] - [CDK] c:foreach in a cast component will result on a List<Object> instead of List<UIComponent>
+	[RF-12231] - [CDK] EL empty method doesn't work for Collection
+	[RF-12249] - CDK: generate get* method for Boolean and is* for boolean expression
+	[RF-12256] - DragAndDrop + position: absolute results in broken positioning
+	[RF-12266] - progressBar: CSS contains text-color and color
+	[RF-12317] - maven-cdk-plugin: two phase source compilation needed for consuming projects to determine types during CDK build
+	[RF-12318] - CDK Generator: can't determine return/parameter types of methods for "this" object
+	[RF-12376] - Showcase - JS errors on mobile devices (resource packaging failed)
+	[RF-12377] - PushServlet with customized mapping fails
+
+	Component Upgrade
+	[RF-12176] - Upgrade to Atmosphere 1.0.0.beta4
+	[RF-12334] - Upgrade Mojarra to 2.1.7
+	[RF-12335] - Upgrade MyFaces to 2.1.8
+	[RF-12336] - Upgrade jQuery to 1.7.2
+	[RF-12371] - Upgrade Maven project dependency from 2.0.10 to 3.0.4
+
+	Enhancement
+	[RF-11559] - showcase - rich:calendar - sample Simple Calendar - apply checkbox should be disabled when popup is unchecked
+	[RF-12187] - CDK: improve messages for errors in parsing XML configs
+	[RF-12200] - Support wildcard on CDK cdk:passThrough and cdk:passThroughWithException
+	[RF-12216] - Improve richgit.sh to support renamed forks.
+	[RF-12235] - Do not overwrite encodeBegin/encodeEnd when extending RendererBase
+	[RF-12248] - CDK: Auto-casting #{component} inside the encodeBegin / encodeEnd methods
+	[RF-12261] - CDK: fix scanning for interfaces
+	[RF-12364] - Showcase - readme update, reflect JBoss AS containers configurations
+	[RF-12370] - Push: Add configuration option for max session's inactive interval
+
+	Feature Request
+	[RF-11132] - Develop standalone command-line equivalent to maven-cdk-plugin for integration with IDEs
+	[RF-11192] - Add ckeditor_pack.sh to build/scripts
+	[RF-11548] - showcase - define our own error messages for rich:message, rich:messages and other components to have consistent error messages
+	[RF-12226] - Support for CDK fragments to allow recursion and abstraction of code
+	[RF-12232] - [CDK] Support "varStatus" attribute on c:forEach
+	[RF-12260] - Support for cdk:renderFacet
+	[RF-12328] - Add a rich:jquery function in EL to call a jQuery object from a JSF id
+	[RF-12341] - CDK: add hasFacet function to CDK EL
+	[RF-12365] - Spinner: NPE in InputNumberSpinnerRenderer.convertToBoolean
+
+	Task
+	[RF-10037] - CDK: <c:forEach > should generate while(){} loop for Iterator and Enumeration
+	[RF-11070] - Turn on Checkstyle check for tests
+	[RF-11836] - Replace ${project.version} definitions in the poms with actual version
+	[RF-11853] - Remove checkstyle-supressions.xml files
+	[RF-12139] - Remove deprecated javax.jms:jms dependency from BOM
+      
 New in Version 4.2.2.Final
 --------------------------
 
