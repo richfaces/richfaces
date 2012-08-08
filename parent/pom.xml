@@ -23,7 +23,7 @@
     </parent>
 
     <artifactId>richfaces-root-parent</artifactId>
-    <version>4.3.0-SNAPSHOT</version>
+    <version>4.3.0.20120802-M1</version>
     <packaging>pom</packaging>
     <name>RichFaces Root Parent</name>
 
@@ -34,7 +34,7 @@
     </description>
 
     <properties>
-        <version.richfaces>4.3.0-SNAPSHOT</version.richfaces>
+        <version.richfaces>4.3.0.20120802-M1</version.richfaces>
         <version.test-jsf>1.1.2</version.test-jsf>
         <version.vdl-doc>2</version.vdl-doc>
         <version.shade-transformers>8</version.shade-transformers>
@@ -84,7 +84,7 @@
         <!-- Arquillian test deps -->
         <version.arquillian.core>1.0.1.Final</version.arquillian.core>
         <version.arquillian.drone>1.1.0.CR2</version.arquillian.drone>
-        <version.arquillian.warp>1.0.0.Alpha2-SNAPSHOT</version.arquillian.warp>
+        <version.arquillian.warp>1.0.0.Alpha1</version.arquillian.warp>
         <version.shrinkwrap.resolver>2.0.0-alpha-1</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-3</version.shrinkwrap.descriptors>
     </properties>
