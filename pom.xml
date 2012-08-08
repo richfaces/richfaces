@@ -277,7 +277,7 @@
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
-                    <scope>compile</scope>
+                    <scope>${dependency.scope}</scope>
                 </dependency>
             </dependencies>
         </profile>
