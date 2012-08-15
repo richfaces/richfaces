@@ -118,7 +118,8 @@
 
                     _$.atmosphere.subscribe((pushHandlerUrl || pushResourceUrl) + "?__richfacesPushAsync=1&pushSessionId=" + pushSessionId, messageCallback, {
                             transport: richfaces.Push.transport,
-                            fallbackTransport: richfaces.Push.fallbackTransport
+                            fallbackTransport: richfaces.Push.fallbackTransport,
+                            logLevel: richfaces.Push.logLevel
                         });
                     
                     // fire subscribed events
@@ -203,6 +204,7 @@
 
     richfaces.Push.transport = "long-polling";// "websocket";
     richfaces.Push.fallbackTransport = undefined;//"long-polling";
+    richfaces.Push.logLevel = "info";
 
     var ajaxEventHandler = function(event) {
         if (event.type == 'event') {
