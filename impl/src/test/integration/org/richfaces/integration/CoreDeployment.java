@@ -27,6 +27,11 @@ import static org.richfaces.integration.CoreFeature.RESOURCE_CODEC;
 import static org.richfaces.integration.CoreFeature.RESOURCE_HANDLER;
 import static org.richfaces.integration.CoreFeature.SERVICE_LOADER;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
@@ -43,11 +48,12 @@ import javax.servlet.ServletContainerInitializer;
 
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.ajax4jsf.util.base64.Codec;
+import org.apache.commons.io.IOUtils;
 import org.jboss.arquillian.container.test.spi.RemoteLoadableExtension;
-import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.exporter.ZipExporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
@@ -219,14 +225,56 @@ public class CoreDeployment extends Deployment {
         finalArchive.addAsResource(testingModules, TESTING_MODULE);
 
         // add library dependencies
-        String[] dependencyList = mavenDependencies.toArray(new String[mavenDependencies.size()]);
-        Collection<GenericArchive> dependencies = DependencyResolvers
-                .use(MavenDependencyResolver.class)
-                .loadEffectivePom("pom.xml")
-                .artifacts(dependencyList).resolveAs(GenericArchive.class);
-        finalArchive.addAsLibraries(dependencies);
+        addMavenDependencies(finalArchive);
 
         return finalArchive;
+    }
+    
+    /**
+     * Resolves maven dependencies, either by {@link MavenDependencyResolver} or from file cache
+     */
+    private void addMavenDependencies(WebArchive finalArchive) {
+        
+        Set<File> jarFiles =  Sets.newHashSet();
+        
+        for (String dependency : mavenDependencies) {
+            File cacheDir = new File("target/shrinkwrap-resolver-cache/" + dependency);
+            if (!cacheDir.exists()) {
+                resolveMavenDependency(dependency, cacheDir);
+            }
+            File[] listFiles = cacheDir.listFiles(new FilenameFilter() {
+                
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.endsWith(".jar");
+                }
+            });
+            jarFiles.addAll(Arrays.asList(listFiles));
+        }
+        
+        File[] files = jarFiles.toArray(new File[jarFiles.size()]);
+        finalArchive.addAsLibraries(files);
+    }
+    
+    /**
+     * Resolves Maven dependency and writes it to the cache, so it can be reused next run
+     */
+    private void resolveMavenDependency(String missingDependency, File dir) {
+        Collection<JavaArchive> dependencies = DependencyResolvers
+                .use(MavenDependencyResolver.class)
+                .loadEffectivePom("pom.xml")
+                .artifact(missingDependency).resolveAs(JavaArchive.class);
+        
+        for (JavaArchive archive : dependencies) {
+            dir.mkdirs();
+            File outputFile = new File(dir, archive.getName());
+            InputStream zipStream = archive.as(ZipExporter.class).exportAsInputStream();
+            try {
+                IOUtils.copy(zipStream, new FileOutputStream(outputFile));
+            } catch (IOException e) {
+                throw new IllegalStateException(e);
+            }
+        }
     }
 
     /**
