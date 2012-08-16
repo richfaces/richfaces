@@ -74,7 +74,13 @@
         <!-- Release repositories -->
         <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
         <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
+        
+        <maven.min.version>3.0</maven.min.version>
     </properties>
+    
+    <prerequisites>
+        <maven>${maven.min.version}</maven>
+    </prerequisites>
 
     <!-- Runtime dependency management -->
     <dependencyManagement>
