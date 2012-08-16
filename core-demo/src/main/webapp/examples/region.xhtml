@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:demo="http://java.sun.com/jsf/composite/demo"
     xmlns:utils="http://java.sun.com/jsf/composite/utils">
-<f:view>
-    <h:head>
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Region" />
+    <!--  head -->
+    <ui:define name="header">
         <h:outputScript name="jquery.js" />
         <script type="text/javascript">/*<![CDATA[*/
         function randomize() {
@@ -21,8 +23,9 @@
             });
         }
         /*]]>*/</script>
-    </h:head>
-    <h:body>
+    </ui:define>
+    <!-- content -->
+    <ui:define name="content">
         <utils:highlighter />
 
         <h:form>
@@ -100,6 +103,6 @@
                 </a4j:region>
             </fieldset>
         </h:form>
-    </h:body>
-</f:view>
+    </ui:define>
+</ui:composition>
 </html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:demo="http://java.sun.com/jsf/composite/demo">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Ajax" />
+    <!-- content -->
+    <ui:define name="content">
+        <script type="text/javascript">
+            function selectEventSource(source, borderStyle) {
+                jQuery(source).css('border', borderStyle);
+            }
+        </script>
+    
+        <h:form>
+            <a:status name="ilStatus" startText="...start..." stopText="...stop..." />
+            <h:panelGrid columns="2">
+                <h:outputText value="a:ajax attached fires ajax submit on 'keyup' event" />
+                <h:inputText value="#{supportBean.text1}">
+                    <a:ajax event="keyup" render="text1" status="ilStatus" listener="#{supportBean.behaviorListener}" />
+                </h:inputText>
+            </h:panelGrid>
+    
+            <h:panelGrid columns="1">
+                <h:outputText value="a:ajax for 'keyup' event wrapping several elements" />
+                <a:ajax event="keyup" execute="@this" render="text1" status="ilStatus" listener="#{supportBean.behaviorListener}">
+                    <h:inputText value="#{supportBean.text1}" />
+                    <h:inputText value="#{supportBean.text1}" />
+                    <h:inputText value="#{supportBean.text1}" />
+                </a:ajax>
+            </h:panelGrid>
+    
+            <h:panelGrid columns="2" style="border: 1px solid green;">
+                <h:outputText value="reRender text1: " />
+                <h:outputText id="text1" value="#{supportBean.text1}" />
+    
+                <h:outputText value="Ajax Panel ajaxRendered='true':" />
+                <a:outputPanel ajaxRendered="true" style="border: 1px solid red;">
+                    <f:facet name="header">test</f:facet>
+                    <h:outputText value="Ajax Panel ajaxRendered='true':" />
+                    <h:panelGroup style="padding: 2px;">
+                        <h:outputText value="#{supportBean.text1}" />
+                    </h:panelGroup>
+                </a:outputPanel>
+            </h:panelGrid>
+    
+            <h:panelGrid columns="2">
+                <h:outputText value="a:ajax attached fires ajax submit on default event" />
+                <h:inputText value="#{supportBean.text2}">
+                    <a:ajax render="text2" status="ilStatus" limitRender="true" />
+                </h:inputText>
+            </h:panelGrid>
+    
+            <h:panelGrid columns="2" style="border: 1px solid green;">
+                <h:outputText value="reRender text2 limitRender='true': " />
+                <h:outputText id="text2" value="#{supportBean.text2}" />
+    
+                <h:outputText value="Ajax Panel shouldn't work coz &lt; a:ajax limitRender='true' /&gt; :" />
+                <a:outputPanel ajaxRendered="true" style="border: 1px solid red;">
+                    <h:outputText value="Ajax Panel ajaxRendered='true':" />
+                    <h:panelGroup style="padding: 2px;">
+                        <h:outputText value="#{supportBean.text2}" />
+                    </h:panelGroup>
+                </a:outputPanel>
+            </h:panelGrid>
+    
+        </h:form>
+    
+        <h:form>
+            <h:panelGrid columns="3">
+                bypassUpdates undefined
+                <h:inputText>
+                    <a:ajax event="keyup" />
+                </h:inputText>
+                <h:commandLink value="Link">
+                    <a:ajax />
+                </h:commandLink>
+    
+                bypassUpdates="true"
+                <h:inputText>
+                    <a:ajax bypassUpdates="true" event="keyup" />
+                </h:inputText>
+                <h:commandLink value="Link">
+                    <a:ajax bypassUpdates="true" />
+                </h:commandLink>
+    
+                bypassUpdates="#{'#'}{true}"
+                <h:inputText>
+                    <a:ajax bypassUpdates="#{true}" event="keyup" />
+                </h:inputText>
+                <h:commandLink value="Link">
+                    <a:ajax bypassUpdates="#{true}" />
+                </h:commandLink>
+    
+            </h:panelGrid>
+        </h:form>
+    
+        <!-- https://issues.jboss.org/browse/RF-10728 -->
+        <h:form>
+            <h:panelGrid columns="2">
+                f:ajax with h:commandLink
+                <h:commandLink value="commandLink">
+                    <f:ajax disabled="false" />
+                </h:commandLink>
+                disabled f:ajax with h:commandLink
+                <h:commandLink value="commandLink">
+                    <f:ajax disabled="true" />
+                </h:commandLink>
+            </h:panelGrid>
+    
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+</html>

@@ -32,6 +32,19 @@
     <artifactId>core-demo</artifactId>
     <packaging>war</packaging>
     <name>RichFaces Examples Core</name>
+    
+    <dependencyManagement>
+        <dependencies>
+            <!-- RichFaces BOM Import -->
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${version.richfaces}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
 
@@ -40,6 +53,12 @@
             <artifactId>jboss-javaee-web-6.0</artifactId>
             <type>pom</type>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.richfaces.examples</groupId>
+            <artifactId>template</artifactId>
+            <type>war</type>
         </dependency>
 
         <dependency>
