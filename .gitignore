@@ -7,3 +7,4 @@ test-output
 .externalToolBuilders
 MANIFEST.MF
 .faces-config.xml.jsfdia
+rebel.xml
