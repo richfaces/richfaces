@@ -14,6 +14,19 @@
     <artifactId>input-demo</artifactId>
     <name>RichFaces Examples Inputs</name>
     <packaging>war</packaging>
+    
+    <dependencyManagement>
+        <dependencies>
+            <!-- RichFaces BOM Import -->
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${version.richfaces}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
 
