@@ -41,7 +41,7 @@ RichFaces.QUnit.run(function() {
 
         for (var i in PUBLIC_API) {
             var funcName = PUBLIC_API[i];
-            ok(c.[funcName], funcName + "present in component");
+            ok(c[funcName], funcName + "present in component");
             // TODO check other functions + check is it function
         }
     });

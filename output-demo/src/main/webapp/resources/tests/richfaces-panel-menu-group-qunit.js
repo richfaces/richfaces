@@ -127,8 +127,7 @@ RichFaces.QUnit.run(function() {
         var switchHandler = handler("switch handler invoked", undefined);
         var switchHandlerWrapper = RichFaces.Event.bindById(PANEL_MENU_GROUP_ID, "switch", switchHandler);
 
-        c.
-        switch () ;
+        c.__switch() ;
 
             RichFaces.Event.unbindById(PANEL_MENU_GROUP_ID, "beforeswitch", beforeSwitchHandlerWrapper);
             RichFaces.Event.unbindById(PANEL_MENU_GROUP_ID, "switch", switchHandlerWrapper);
