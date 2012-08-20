@@ -9,7 +9,7 @@
 		<version>3.3.4-SNAPSHOT</version>
 	</parent>
 
-	<groupId>org.richfaces.examples</groupId>
+	<!-- <groupId>org.richfaces.examples</groupId> -->
 	<artifactId>${projectName}-web</artifactId>
 	<name>${appName} WAR module</name>
 	<packaging>war</packaging>

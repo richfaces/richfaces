@@ -9,7 +9,7 @@
 		<version>3.3.4-SNAPSHOT</version>
 	</parent>
 
-	<groupId>org.richfaces.examples</groupId>
+	<!--  <groupId>org.richfaces.examples</groupId> -->
 	<artifactId>${projectName}-ejb</artifactId>
 	<name>${appName} EJB module</name>
 	<packaging>ejb</packaging>
