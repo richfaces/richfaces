@@ -46,160 +46,170 @@ import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.MetadataException;
-import com.drew.metadata.exif.ExifDirectory;
+//import com.drew.metadata.exif.ExifDirectory;
+import com.drew.metadata.exif.ExifIFD0Directory;
+import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.jpeg.JpegDirectory;
 
 /**
  * Class encapsulated all functionality, related to file-upload process.
- *
+ * 
  * @author Andrey Markhel
  */
 @Name("fileUploadManager")
 @Scope(ScopeType.EVENT)
 public class FileUploadManager implements Serializable {
-	
-	private static final long serialVersionUID = 4969087557225414955L;
-	
-	@In IImageAction imageAction;
-	
-	@In(required = true, scope=ScopeType.CONVERSATION) @Out(scope=ScopeType.CONVERSATION)
-	FileWrapper fileWrapper;
 
-	@In Model model;
-	
-	@In private FileManager fileManager;
+    private static final long serialVersionUID = 4969087557225414955L;
 
-	/**
-	 * Listenet, that invoked  during file upload process. Only registered users can upload images.
-	 *
-	 * @param event - event, indicated that file upload started
-	 */
-	@Restrict("#{s:hasRole('admin')}")
-	public void listener(UploadEvent event){
-		UploadItem item = event.getUploadItem();
-		//Construct image from item
-		Image image = constructImage(item);
-		try {
-			//Extract metadata(size, camera model etc..)
-			extractMetadata(item, image);
-		} catch (Exception e1) {
-			addError(item, image, Constants.FILE_PROCESSING_ERROR);
-			return;
-		}
-		image.setAlbum(model.getSelectedAlbum());
-		if(image.getAlbum() == null){
-			addError(item, image, Constants.NO_ALBUM_TO_DOWNLOAD_ERROR);
-			return;
-		}
-		try{
-			//Check if image with given name already exist
-			if(imageAction.isImageWithThisPathExist(image.getAlbum(), image.getPath())){
-				//If exist generate new path for image
-				String newPath = generateNewPath(image);
-				image.setPath(newPath);
-				image.setName(newPath);
-			}
-			//Save to database
-			imageAction.addImage(image);
-		}catch(Exception e){
-			addError(item, image, Constants.IMAGE_SAVING_ERROR);
-			return;
-		}
-		//Save to disk
-		if(!fileManager.addImage(image.getFullPath(), item.getFile().getPath())){
-			addError(item, image, Constants.FILE_SAVE_ERROR);
-			return;
-		}
-		//Prepare to show in UI
-		fileWrapper.setComplete(false);
-		fileWrapper.getFiles().add(image);
-		Events.instance().raiseEvent(Constants.IMAGE_ADDED_EVENT, image);
-		//Delete temporary file
-		item.getFile().delete();
-	}
+    @In
+    IImageAction imageAction;
 
-	private String generateNewPath(Image image) throws PhotoAlbumException{
-		String path = image.getPath().substring(0, image.getPath().lastIndexOf(Constants.DOT));
-		Long countCopies = imageAction.getCountIdenticalImages(image.getAlbum(), path) + 1;
-		String newPath = fileManager.transformPath(image.getPath(), "_" + countCopies);
-		return newPath;
-	}
+    @In(required = true, scope = ScopeType.CONVERSATION)
+    @Out(scope = ScopeType.CONVERSATION)
+    FileWrapper fileWrapper;
 
-	private void addError(UploadItem item, Image image, String error) {
-		fileWrapper.onFileUploadError(image, error);
-		item.getFile().delete();
-	}
-	
-	private void addError(Image image, String error) {
-		fileWrapper.onFileUploadError(image, error);
-	}
+    @In
+    Model model;
 
-	private Image constructImage(UploadItem item) {
-		Image image = new Image();
-		image.setUploaded(new Date());
-		image.setDescription(item.getFileName());
-		image.setName(item.getFileName());
-		image.setSize(item.getFileSize());
-		image.setPath(item.getFileName());
-		image.setAllowComments(true);
-		return image;
-	}
-	
-	private void extractMetadata(UploadItem item, Image image){
-		InputStream in = null;
-		try{
-			in = new FileInputStream(item.getFile());
-			Metadata metadata = JpegMetadataReader.readMetadata(in);
-			Directory exifDirectory = metadata.getDirectory(ExifDirectory.class);
-			Directory jpgDirectory = metadata.getDirectory(JpegDirectory.class);
-			setupCameraModel(image, exifDirectory);
-			setupDimensions(image, exifDirectory, jpgDirectory);
-			setupCreatedDate(image, exifDirectory);
-		}catch(Exception e){
-			addError(item, image, Constants.IMAGE_SAVING_ERROR);
-		}finally{
-			try {
-				in.close();
-			} catch (IOException e) {
-				addError(item, image, Constants.IMAGE_SAVING_ERROR);
-			}
-		}
-	}
+    @In
+    private FileManager fileManager;
 
-	private void setupCreatedDate(Image image, Directory exifDirectory)
-			throws MetadataException {
-		if (exifDirectory.containsTag(ExifDirectory.TAG_DATETIME_ORIGINAL)) {
-			Date time = exifDirectory.getDate(ExifDirectory.TAG_DATETIME_ORIGINAL);
-			image.setCreated(time);
-		}
-	}
+    /**
+     * Listenet, that invoked during file upload process. Only registered users can upload images.
+     * 
+     * @param event - event, indicated that file upload started
+     */
+    @Restrict("#{s:hasRole('admin')}")
+    public void listener(UploadEvent event) {
+        UploadItem item = event.getUploadItem();
+        // Construct image from item
+        Image image = constructImage(item);
+        try {
+            // Extract metadata(size, camera model etc..)
+            extractMetadata(item, image);
+        } catch (Exception e1) {
+            addError(item, image, Constants.FILE_PROCESSING_ERROR);
+            return;
+        }
+        image.setAlbum(model.getSelectedAlbum());
+        if (image.getAlbum() == null) {
+            addError(item, image, Constants.NO_ALBUM_TO_DOWNLOAD_ERROR);
+            return;
+        }
+        try {
+            // Check if image with given name already exist
+            if (imageAction.isImageWithThisPathExist(image.getAlbum(), image.getPath())) {
+                // If exist generate new path for image
+                String newPath = generateNewPath(image);
+                image.setPath(newPath);
+                image.setName(newPath);
+            }
+            // Save to database
+            imageAction.addImage(image);
+        } catch (Exception e) {
+            addError(item, image, Constants.IMAGE_SAVING_ERROR);
+            return;
+        }
+        // Save to disk
+        if (!fileManager.addImage(image.getFullPath(), item.getFile().getPath())) {
+            addError(item, image, Constants.FILE_SAVE_ERROR);
+            return;
+        }
+        // Prepare to show in UI
+        fileWrapper.setComplete(false);
+        fileWrapper.getFiles().add(image);
+        Events.instance().raiseEvent(Constants.IMAGE_ADDED_EVENT, image);
+        // Delete temporary file
+        item.getFile().delete();
+    }
 
-	private void setupDimensions(Image image, Directory exifDirectory, Directory jpgDirectory){
-		try{
-			if (exifDirectory.containsTag(ExifDirectory.TAG_EXIF_IMAGE_WIDTH) && exifDirectory.containsTag(ExifDirectory.TAG_EXIF_IMAGE_HEIGHT)) {
-				int width = exifDirectory.getInt(ExifDirectory.TAG_EXIF_IMAGE_WIDTH);
-				image.setWidth(width);
-				int height = exifDirectory.getInt(ExifDirectory.TAG_EXIF_IMAGE_HEIGHT);
-				image.setHeight(height);
-			} else {
-				if (jpgDirectory.containsTag(JpegDirectory.TAG_JPEG_IMAGE_HEIGHT)) {
-					int width = jpgDirectory.getInt(JpegDirectory.TAG_JPEG_IMAGE_WIDTH);
-					image.setWidth(width);
-					int height = jpgDirectory.getInt(JpegDirectory.TAG_JPEG_IMAGE_HEIGHT);
-					image.setHeight(height);
-				}
-			}
-		}catch(MetadataException e){
-			addError(image, Constants.IMAGE_SAVING_ERROR);
-		}
-	}
+    private String generateNewPath(Image image) throws PhotoAlbumException {
+        String path = image.getPath().substring(0, image.getPath().lastIndexOf(Constants.DOT));
+        Long countCopies = imageAction.getCountIdenticalImages(image.getAlbum(), path) + 1;
+        String newPath = fileManager.transformPath(image.getPath(), "_" + countCopies);
+        return newPath;
+    }
 
-	private void setupCameraModel(Image image, Directory exifDirectory) {
-		if (exifDirectory.containsTag(ExifDirectory.TAG_MODEL)) {
-			String cameraModel = exifDirectory.getString(ExifDirectory.TAG_MODEL);
-			image.setCameraModel(cameraModel);
-		}else{
-			image.setCameraModel("");
-		}
-	}
+    private void addError(UploadItem item, Image image, String error) {
+        fileWrapper.onFileUploadError(image, error);
+        item.getFile().delete();
+    }
+
+    private void addError(Image image, String error) {
+        fileWrapper.onFileUploadError(image, error);
+    }
+
+    private Image constructImage(UploadItem item) {
+        Image image = new Image();
+        image.setUploaded(new Date());
+        image.setDescription(item.getFileName());
+        image.setName(item.getFileName());
+        image.setSize(item.getFileSize());
+        image.setPath(item.getFileName());
+        image.setAllowComments(true);
+        return image;
+    }
+
+    /*
+     * NOTE: all the following classes may not work like they used to in the previous version; this is due to certain classes no
+     * longer being part of the com.drew.* libraries
+     */
+    private void extractMetadata(UploadItem item, Image image) {
+        InputStream in = null;
+        try {
+            in = new FileInputStream(item.getFile());
+            Metadata metadata = JpegMetadataReader.readMetadata(in);
+            Directory exifDirectory = metadata.getDirectory(ExifIFD0Directory.class);
+            Directory jpgDirectory = metadata.getDirectory(JpegDirectory.class);
+            setupCameraModel(image, exifDirectory);
+            setupDimensions(image, exifDirectory, jpgDirectory);
+            setupCreatedDate(image, exifDirectory);
+        } catch (Exception e) {
+            addError(item, image, Constants.IMAGE_SAVING_ERROR);
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                addError(item, image, Constants.IMAGE_SAVING_ERROR);
+            }
+        }
+    }
+
+    private void setupCreatedDate(Image image, Directory exifDirectory) throws MetadataException {
+        if (exifDirectory.containsTag(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL)) {
+            Date time = exifDirectory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL);
+            image.setCreated(time);
+        }
+    }
+
+    private void setupDimensions(Image image, Directory exifDirectory, Directory jpgDirectory) {
+        try {
+            if (exifDirectory.containsTag(ExifSubIFDDirectory.TAG_EXIF_IMAGE_WIDTH)
+                && exifDirectory.containsTag(ExifSubIFDDirectory.TAG_EXIF_IMAGE_HEIGHT)) {
+                int width = exifDirectory.getInt(ExifSubIFDDirectory.TAG_EXIF_IMAGE_WIDTH);
+                image.setWidth(width);
+                int height = exifDirectory.getInt(ExifSubIFDDirectory.TAG_EXIF_IMAGE_HEIGHT);
+                image.setHeight(height);
+            } else {
+                if (jpgDirectory.containsTag(JpegDirectory.TAG_JPEG_IMAGE_HEIGHT)) {
+                    int width = jpgDirectory.getInt(JpegDirectory.TAG_JPEG_IMAGE_WIDTH);
+                    image.setWidth(width);
+                    int height = jpgDirectory.getInt(JpegDirectory.TAG_JPEG_IMAGE_HEIGHT);
+                    image.setHeight(height);
+                }
+            }
+        } catch (MetadataException e) {
+            addError(image, Constants.IMAGE_SAVING_ERROR);
+        }
+    }
+
+    private void setupCameraModel(Image image, Directory exifDirectory) {
+        if (exifDirectory.containsTag(ExifIFD0Directory.TAG_MODEL)) {
+            String cameraModel = exifDirectory.getString(ExifIFD0Directory.TAG_MODEL);
+            image.setCameraModel(cameraModel);
+        } else {
+            image.setCameraModel("");
+        }
+    }
 }
