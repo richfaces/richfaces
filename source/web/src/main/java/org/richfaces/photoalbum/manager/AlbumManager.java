@@ -27,9 +27,13 @@ package org.richfaces.photoalbum.manager;
  */
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Shelf;
@@ -135,11 +139,11 @@ public class AlbumManager implements Serializable {
             }
             if (editFromInplace) {
                 // We need validate album name manually
-                ClassValidator<Album> shelfValidator = new ClassValidator<Album>(Album.class);
-                InvalidValue[] validationMessages = shelfValidator.getInvalidValues(album, "name");
-                if (validationMessages.length > 0) {
-                    for (InvalidValue i : validationMessages) {
-                        Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, i.getMessage());
+                Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+                Set<ConstraintViolation<Album>> constraintViolations = validator.validate(album);
+                if (constraintViolations.size() > 0) {
+                    for (ConstraintViolation<Album> cv : constraintViolations) {
+                        Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, cv.getMessage());
                     }
                     // If error occured we need refresh album to display correct value in inplaceInput
                     albumAction.resetAlbum(album);
