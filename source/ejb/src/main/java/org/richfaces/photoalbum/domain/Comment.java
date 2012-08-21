@@ -23,6 +23,7 @@ package org.richfaces.photoalbum.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,15 +33,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.validator.Length;
-import org.hibernate.validator.NotEmpty;
-import org.hibernate.validator.NotNull;
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Class for representing Comment Entity. EJB3 Entity Bean
  *
@@ -48,8 +47,7 @@ import org.jboss.seam.annotations.Scope;
  */
 
 @Entity
-@Name("comment")
-@Scope(ScopeType.EVENT)
+@RequestScoped
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = 3429270322123226071L;
@@ -59,23 +57,23 @@ public class Comment implements Serializable {
     private Long id;
 
     @ManyToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JoinColumn(nullable = false)
-	private Image image;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(nullable = false)
+    private Image image;
 
     @ManyToOne(fetch = FetchType.LAZY)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JoinColumn(nullable = true)
-	private User author;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(nullable = true)
+    private User author;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
 
     @NotNull
     @NotEmpty
     @Length(min = 2)
-	@Column(length = 1024, nullable = false)
-	private String message;
+    @Column(length = 1024, nullable = false)
+    private String message;
 
     /**
      * Getter for property preDefined
@@ -83,9 +81,10 @@ public class Comment implements Serializable {
      * @return is this shelf is predefined
      */
     public boolean isPreDefined() {
-		return getImage().isPreDefined();
-	}
-    //---------------------------------------Getters, Setters
+        return getImage().isPreDefined();
+    }
+
+    // ---------------------------------------Getters, Setters
     public Long getId() {
         return id;
     }
@@ -123,25 +122,24 @@ public class Comment implements Serializable {
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (this == obj) {
-			return true;
-		}
-		
-		if (obj == null || getClass() != obj.getClass()) {
-			return false;
-		}
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
 
         final Comment comment = (Comment) obj;
 
         return (id == null ? comment.getId() == null : id.equals(comment.getId()))
-				&& (author == null ? comment.getAuthor() == null : author.equals(comment.getAuthor()))
-				&& image.equals(comment.getImage())
-				&& message.equals(comment.getMessage());
+            && (author == null ? comment.getAuthor() == null : author.equals(comment.getAuthor()))
+            && image.equals(comment.getImage()) && message.equals(comment.getMessage());
     }
 
     @Override
-	public int hashCode() {
+    public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + image.hashCode();
         result = 31 * result + author.hashCode();

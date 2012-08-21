@@ -27,29 +27,30 @@ import javax.persistence.Query;
 
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.service.Constants;
+
 /**
  * Strategy to retrieve albums, that belongs to user, that perform search
  *
  * @author Andrey Markhel
  */
 public class SearchMyAlbumsStrategy implements ISearchStrategy {
-	/**
-	 * Create query to retrieve albums, that belongs to user, that perform search
-	 *
-	 * @param em - entityManager
-	 * @param params - map of additional params for this query
-	 * @param searchQuery - string to search
-	 * @return List of albums, that belongs to user, that perform search
-	 */
-	public Query getQuery(EntityManager em, Map<String, Object> params, String searchQuery) {
-		Query query = em.createQuery(Constants.SEARCH_ALBUM_QUERY + Constants.SEARCH_ALBUM_MY_ADDON);
-		query.setParameter(Constants.QUERY_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
-		User user = (User)params.get(Constants.USER_PARAMETER);
-		if(null == user){
-			return null;
-		}
-		query.setParameter(Constants.LOGIN_PARAMETER, user.getLogin());
-		return query;
-	}
+    /**
+     * Create query to retrieve albums, that belongs to user, that perform search
+     *
+     * @param em - entityManager
+     * @param params - map of additional params for this query
+     * @param searchQuery - string to search
+     * @return List of albums, that belongs to user, that perform search
+     */
+    public Query getQuery(EntityManager em, Map<String, Object> params, String searchQuery) {
+        Query query = em.createQuery(Constants.SEARCH_ALBUM_QUERY + Constants.SEARCH_ALBUM_MY_ADDON);
+        query.setParameter(Constants.QUERY_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
+        User user = (User) params.get(Constants.USER_PARAMETER);
+        if (null == user) {
+            return null;
+        }
+        query.setParameter(Constants.LOGIN_PARAMETER, user.getLogin());
+        return query;
+    }
 
 }

@@ -33,12 +33,12 @@ import org.richfaces.photoalbum.domain.Album;
 @Local
 public interface IAlbumAction {
 
-	void addAlbum(Album album) throws PhotoAlbumException;
-	
-	void deleteAlbum(Album album) throws PhotoAlbumException;
-	
-	void editAlbum(Album album) throws PhotoAlbumException;
-	
-	public void resetAlbum(Album album);
+    void addAlbum(Album album) throws PhotoAlbumException;
+
+    void deleteAlbum(Album album) throws PhotoAlbumException;
+
+    void editAlbum(Album album) throws PhotoAlbumException;
+
+    public void resetAlbum(Album album);
 
 }

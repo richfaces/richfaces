@@ -20,12 +20,12 @@
  */
 package org.richfaces.photoalbum.service;
 
-
 import java.util.List;
 
 import javax.ejb.Local;
 
 import org.richfaces.photoalbum.domain.Shelf;
+
 /**
  * Interface for manipulating with shelf entity
  *
@@ -35,13 +35,13 @@ import org.richfaces.photoalbum.domain.Shelf;
 @Local
 public interface IShelfAction {
 
-	void addShelf(Shelf shelf) throws PhotoAlbumException;
-	
-	void deleteShelf(Shelf shelf) throws PhotoAlbumException;
-	
-	void editShelf(Shelf shelf) throws PhotoAlbumException;
-	
-	List<Shelf> getPredefinedShelves();
+    void addShelf(Shelf shelf) throws PhotoAlbumException;
 
-	void resetShelf(Shelf shelf);
+    void deleteShelf(Shelf shelf) throws PhotoAlbumException;
+
+    void editShelf(Shelf shelf) throws PhotoAlbumException;
+
+    List<Shelf> getPredefinedShelves();
+
+    void resetShelf(Shelf shelf);
 }

@@ -39,28 +39,28 @@ import org.richfaces.photoalbum.domain.User;
 @Local
 public interface IImageAction {
 
-	public void deleteImage(Image image) throws PhotoAlbumException;
+    public void deleteImage(Image image) throws PhotoAlbumException;
 
-	public void editImage(Image image, boolean metatagsChanged) throws PhotoAlbumException;
+    public void editImage(Image image, boolean metatagsChanged) throws PhotoAlbumException;
 
-	public void addImage(Image image) throws PhotoAlbumException;
-	
-	public void deleteComment(Comment comment) throws PhotoAlbumException;
-	
-	public void addComment(Comment comment) throws PhotoAlbumException;
+    public void addImage(Image image) throws PhotoAlbumException;
 
-	public MetaTag getTagByName(String tag);
+    public void deleteComment(Comment comment) throws PhotoAlbumException;
 
-	public List<MetaTag> getPopularTags();
+    public void addComment(Comment comment) throws PhotoAlbumException;
 
-	public List<MetaTag> getTagsLikeString(String suggest);
+    public MetaTag getTagByName(String tag);
 
-	public boolean isImageWithThisPathExist(Album album, String path);
-	
-	public Long getCountIdenticalImages(Album album, String path);
+    public List<MetaTag> getPopularTags();
 
-	public List<Comment> findAllUserComments(User user);
-	
-	public void resetImage(Image imageo);
+    public List<MetaTag> getTagsLikeString(String suggest);
+
+    public boolean isImageWithThisPathExist(Album album, String path);
+
+    public Long getCountIdenticalImages(Album album, String path);
+
+    public List<Comment> findAllUserComments(User user);
+
+    public void resetImage(Image imageo);
 
 }

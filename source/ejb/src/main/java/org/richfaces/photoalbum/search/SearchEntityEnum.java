@@ -19,11 +19,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.photoalbum.search;
+
 /**
  * This enumeration represent all possible entities for search
  *
  * @author Andrey Markhel
  */
 public enum SearchEntityEnum {
-	USER,SHELF,ALBUM,IMAGE,METATAG;
+    USER,
+    SHELF,
+    ALBUM,
+    IMAGE,
+    METATAG;
 }

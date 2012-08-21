@@ -26,23 +26,24 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.richfaces.photoalbum.service.Constants;
+
 /**
  * Strategy to retrieve shelves, that are shared
  *
  * @author Andrey Markhel
  */
 public class SearchSharedShelvesStrategy implements ISearchStrategy {
-	/**
-	 * Create query to retrieve shelves, that are shared
-	 *
-	 * @param em - entityManager
-	 * @param params - map of additional params for this query
-	 * @param searchQuery - string to search
-	 * @return List of shelves that are shared
-	 */
-	public Query getQuery(EntityManager em, Map<String, Object> params, String searchQuery) {
-		Query query = em.createQuery(Constants.SEARCH_SHELVES_QUERY + Constants.SEARCH_SHELF_SHARED_ADDON);
-		query.setParameter(Constants.QUERY_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
-		return query;
-	}
+    /**
+     * Create query to retrieve shelves, that are shared
+     *
+     * @param em - entityManager
+     * @param params - map of additional params for this query
+     * @param searchQuery - string to search
+     * @return List of shelves that are shared
+     */
+    public Query getQuery(EntityManager em, Map<String, Object> params, String searchQuery) {
+        Query query = em.createQuery(Constants.SEARCH_SHELVES_QUERY + Constants.SEARCH_SHELF_SHARED_ADDON);
+        query.setParameter(Constants.QUERY_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
+        return query;
+    }
 }

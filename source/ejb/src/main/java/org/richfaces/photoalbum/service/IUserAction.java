@@ -32,10 +32,15 @@ import org.richfaces.photoalbum.domain.User;
 
 @Local
 public interface IUserAction {
-	public User login(String username, String password);
-	public void register(User user) throws PhotoAlbumException;
-	public boolean isUserExist(String login) ;
-	public User updateUser() throws PhotoAlbumException;
-	public User refreshUser();
-	public boolean isEmailExist(String email);
+    public User login(String username, String password);
+
+    public void register(User user) throws PhotoAlbumException;
+
+    public boolean isUserExist(String login);
+
+    public User updateUser() throws PhotoAlbumException;
+
+    public User refreshUser();
+
+    public boolean isEmailExist(String email);
 }

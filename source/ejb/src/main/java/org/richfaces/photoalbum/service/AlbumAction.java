@@ -21,87 +21,83 @@
 package org.richfaces.photoalbum.service;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.jboss.seam.annotations.AutoCreate;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Shelf;
 
 /**
- * Class for manipulating with album entity. Analogous to DAO pattern.
- * EJB3 Bean
+ * Class for manipulating with album entity. Analogous to DAO pattern. EJB3 Bean
  *
  * @author Andrey Markhel
  */
-@Name("albumAction")
 @Stateless
-@AutoCreate
 public class AlbumAction implements IAlbumAction {
 
-	@In(value = "entityManager")
-	EntityManager em;
+    @Inject
+    EntityManager em;
 
-	/**
-	 * Persist album entity to database
-	 *
-	 * @param album - album to add
-	 * @throws PhotoAlbumException
-	 */
-	public void addAlbum(Album album) throws PhotoAlbumException {
-		try {
-			em.persist(album);
-			//Add to shelf
-			album.getShelf().addAlbum(album);
-			em.flush();
-		} catch (Exception e) {
-			throw new PhotoAlbumException(e.getMessage());
-		}
-	}
+    /**
+     * Persist album entity to database
+     *
+     * @param album - album to add
+     * @throws PhotoAlbumException
+     */
+    public void addAlbum(Album album) throws PhotoAlbumException {
+        try {
+            em.persist(album);
+            // Add to shelf
+            album.getShelf().addAlbum(album);
+            em.flush();
+        } catch (Exception e) {
+            throw new PhotoAlbumException(e.getMessage());
+        }
+    }
 
-	/**
-	 * Remove album entity from database
-	 *
-	 * @param album - album to delete
-	 * @throws PhotoAlbumException
-	 */
-	public void deleteAlbum(Album album) throws PhotoAlbumException {
-		Shelf parentShelf = album.getShelf();
-		try {
-			if(parentShelf == null){
-				return;
-			}
-			album.setCoveringImage(null);
-			//Remove from previous shelf 
-			parentShelf.removeAlbum(album);
-			em.remove(album);
-			em.flush();
-		} catch (Exception e) {
-			parentShelf.addAlbum(album);
-			throw new PhotoAlbumException(e.getMessage());
-		}
-	}
+    /**
+     * Remove album entity from database
+     *
+     * @param album - album to delete
+     * @throws PhotoAlbumException
+     */
+    public void deleteAlbum(Album album) throws PhotoAlbumException {
+        Shelf parentShelf = album.getShelf();
+        try {
+            if (parentShelf == null) {
+                return;
+            }
+            album.setCoveringImage(null);
+            // Remove from previous shelf
+            parentShelf.removeAlbum(album);
+            em.remove(album);
+            em.flush();
+        } catch (Exception e) {
+            parentShelf.addAlbum(album);
+            throw new PhotoAlbumException(e.getMessage());
+        }
+    }
 
-	/**
-	 * Synchronize state of album entity with database
-	 *
-	 * @param album - album to Synchronize
-	 * @throws PhotoAlbumException
-	 */
-	public void editAlbum(Album album) throws PhotoAlbumException {
-		try {
-			em.flush();
-		} catch (Exception e) {
-			throw new PhotoAlbumException(e.getMessage());
-		}
-	}
-	
-	/**
+    /**
+     * Synchronize state of album entity with database
+     *
+     * @param album - album to Synchronize
+     * @throws PhotoAlbumException
+     */
+    public void editAlbum(Album album) throws PhotoAlbumException {
+        try {
+            em.flush();
+        } catch (Exception e) {
+            throw new PhotoAlbumException(e.getMessage());
+        }
+    }
+
+    /**
      * Refresh state of given album
+     *
      * @param album - album to Synchronize
      */
-	public void resetAlbum(Album album) {
-		em.refresh(album);
-	}
+    public void resetAlbum(Album album) {
+        em.refresh(album);
+    }
 }

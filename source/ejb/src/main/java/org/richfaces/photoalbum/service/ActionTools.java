@@ -20,25 +20,25 @@
  */
 package org.richfaces.photoalbum.service;
 
-import java.util.Date;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Utility class
- * @user: akolonitsky
- * Date: Apr 1, 2009
+ *
+ * @user: akolonitsky Date: Apr 1, 2009
  */
 public class ActionTools {
-	private static final int RECENTLY_DAYS = 15;
+    private static final int RECENTLY_DAYS = 15;
 
-	/**
+    /**
      * This method return "recently date". Used to determine is image "is new"
      *
      * @return "recently date"
      */
-	public static Date getRecentlyDate() {
-		final Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_YEAR, -RECENTLY_DAYS);
-		return calendar.getTime();
-	}
+    public static Date getRecentlyDate() {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -RECENTLY_DAYS);
+        return calendar.getTime();
+    }
 }

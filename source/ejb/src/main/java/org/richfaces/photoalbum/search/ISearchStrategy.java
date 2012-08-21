@@ -44,13 +44,14 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
 /**
  * Generic interface for determine what query need for particular entity and other parameters
- * 
+ *
  *
  * @author Andrey Markhel
  */
 public interface ISearchStrategy {
-	
-	public abstract Query getQuery(EntityManager em, Map<String, Object> params, String name);
+
+    public abstract Query getQuery(EntityManager em, Map<String, Object> params, String name);
 }

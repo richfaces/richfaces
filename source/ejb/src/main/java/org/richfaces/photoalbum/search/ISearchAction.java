@@ -38,14 +38,16 @@ import org.richfaces.photoalbum.service.PhotoAlbumException;
  */
 @Local
 public interface ISearchAction {
-	public List<Image> searchByImage(String query, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException;
-	
-	public List<MetaTag> searchByTags(String query, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException;
-	
-	public List<Album> searchByAlbum(String query, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException;
-	
-	public List<User> searchByUsers(String query, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException;
-	
-	public List<Shelf> searchByShelves(String query,boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException;
-	
+    public List<Image> searchByImage(String query, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException;
+
+    public List<MetaTag> searchByTags(String query, boolean searchInMyAlbums, boolean searchInShared)
+        throws PhotoAlbumException;
+
+    public List<Album> searchByAlbum(String query, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException;
+
+    public List<User> searchByUsers(String query, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException;
+
+    public List<Shelf> searchByShelves(String query, boolean searchInMyAlbums, boolean searchInShared)
+        throws PhotoAlbumException;
+
 }

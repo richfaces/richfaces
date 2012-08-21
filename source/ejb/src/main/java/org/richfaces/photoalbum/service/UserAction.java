@@ -21,102 +21,98 @@
 package org.richfaces.photoalbum.service;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.jboss.seam.annotations.AutoCreate;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
 import org.richfaces.photoalbum.domain.User;
 
 /**
- * Class for manipulating with user entity. Analogous to DAO pattern.
- *  EJB3 Bean
+ * Class for manipulating with user entity. Analogous to DAO pattern. EJB3 Bean
  *
  * @author Andrey Markhel
  */
 
-@Name("userAction")
 @Stateless
-@AutoCreate
 public class UserAction implements IUserAction {
 
-	@In(value="entityManager")
-	EntityManager em;
-	
-	@In private User user;
+    @Inject
+    EntityManager em;
 
-	/**
+    @Inject
+    private User user;
+
+    /**
      * Login user. If succes return logged user, otherwise return null
+     *
      * @param username - username
      * @param password - password
      * @return user if success
      */
-	public User login(String username, String password) {
-		return (User)em.createNamedQuery(Constants.USER_LOGIN_QUERY)
-		.setParameter(Constants.USERNAME_PARAMETER, username)
-		.setParameter(Constants.PASSWORD_PARAMETER, password)
-		.getSingleResult();
-	}
+    public User login(String username, String password) {
+        return (User) em.createNamedQuery(Constants.USER_LOGIN_QUERY).setParameter(Constants.USERNAME_PARAMETER, username)
+            .setParameter(Constants.PASSWORD_PARAMETER, password).getSingleResult();
+    }
 
-	/**
+    /**
      * Persist user entity to database
+     *
      * @param user - user to register
-	 * @throws PhotoAlbumException
+     * @throws PhotoAlbumException
      */
-	public void register(User user) throws PhotoAlbumException {
-		try{
-		em.persist(user);
-		em.flush();
-		}
-        catch(Exception e){
-        	throw new PhotoAlbumException(e.getMessage());
+    public void register(User user) throws PhotoAlbumException {
+        try {
+            em.persist(user);
+            em.flush();
+        } catch (Exception e) {
+            throw new PhotoAlbumException(e.getMessage());
         }
-	}
-	
-	/**
+    }
+
+    /**
      * Synchronize state of user entity with database
+     *
      * @return user if success
-	 * @throws PhotoAlbumException
+     * @throws PhotoAlbumException
      */
-	public User updateUser() throws PhotoAlbumException {
-		try{
-		em.flush();
-		}
-        catch(Exception e){
-        	throw new PhotoAlbumException(e.getMessage());
+    public User updateUser() throws PhotoAlbumException {
+        try {
+            em.flush();
+        } catch (Exception e) {
+            throw new PhotoAlbumException(e.getMessage());
         }
-		return user;
-	}
-	
-	/**
+        return user;
+    }
+
+    /**
      * Refresh state of user entity with database
+     *
      * @Param user - user to refresh
      * @return user if success
-	 * @throws PhotoAlbumException
+     * @throws PhotoAlbumException
      */
-	public User refreshUser(){
-		user = em.find(User.class, user.getId());
-		em.refresh(user);
-		return user;
-	}
-	
-	/**
+    public User refreshUser() {
+        user = em.find(User.class, user.getId());
+        em.refresh(user);
+        return user;
+    }
+
+    /**
      * Check if user with specified login already exist
+     *
      * @return is user with specified login already exist
      */
-	public boolean isUserExist(String login) {
-		return em.createNamedQuery(Constants.USER_EXIST_QUERY)
-		.setParameter(Constants.LOGIN_PARAMETER, login)
-		.getResultList().size() != 0;
-	}
-	
-	/**
+    public boolean isUserExist(String login) {
+        return em.createNamedQuery(Constants.USER_EXIST_QUERY).setParameter(Constants.LOGIN_PARAMETER, login).getResultList()
+            .size() != 0;
+    }
+
+    /**
      * Check if user with specified email already exist
+     *
      * @return is user with specified email already exist
      */
-	public boolean isEmailExist(String email){
-		return em.createNamedQuery(Constants.EMAIL_EXIST_QUERY)
-		.setParameter(Constants.EMAIL_PARAMETER, email)
-		.getResultList().size() != 0;
-	}
+    public boolean isEmailExist(String email) {
+        return em.createNamedQuery(Constants.EMAIL_EXIST_QUERY).setParameter(Constants.EMAIL_PARAMETER, email).getResultList()
+            .size() != 0;
+    }
 }

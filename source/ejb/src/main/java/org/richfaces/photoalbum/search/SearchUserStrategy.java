@@ -26,24 +26,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.richfaces.photoalbum.service.Constants;
+
 /**
  * Strategy to retrieve users
  *
  * @author Andrey Markhel
  */
 public class SearchUserStrategy implements ISearchStrategy {
-	/**
-	 * Create query to retrieve users
-	 *
-	 * @param em - entityManager
-	 * @param params - map of additional params for this query
-	 * @param searchQuery - string to search
-	 * @return List of users
-	 */
-	public Query getQuery(EntityManager em, Map<String, Object> params, String searchQuery) {
-		Query query = em.createQuery(Constants.SEARCH_USERS_QUERY);
-		query.setParameter(Constants.QUERY_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
-		return query;
-	}
+    /**
+     * Create query to retrieve users
+     *
+     * @param em - entityManager
+     * @param params - map of additional params for this query
+     * @param searchQuery - string to search
+     * @return List of users
+     */
+    public Query getQuery(EntityManager em, Map<String, Object> params, String searchQuery) {
+        Query query = em.createQuery(Constants.SEARCH_USERS_QUERY);
+        query.setParameter(Constants.QUERY_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
+        return query;
+    }
 
 }
