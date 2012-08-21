@@ -32,11 +32,18 @@ import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.AlbumEvent;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.ImageEvent;
+import org.richfaces.photoalbum.event.ShelfEvent;
+import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.util.FileUtils;
 import org.richfaces.photoalbum.util.ImageDimension;
@@ -47,6 +54,9 @@ public class FileManager {
     private File uploadRoot;
 
     private String uploadRootPath;
+
+    @Inject
+    User user;
 
     /**
      * Method, that invoked at startup application. Used to determine where application will be write new images. This method
@@ -90,9 +100,8 @@ public class FileManager {
      *
      */
     @AdminRestricted
-    @Observer(Constants.ALBUM_DELETED_EVENT)
-    public void onAlbumDeleted(Album album, String path) {
-        deleteDirectory(path);
+    public void onAlbumDeleted(@Observes @EventType(Events.ALBUM_DELETED_EVENT) AlbumEvent ae) {
+        deleteDirectory(ae.getPath());
     }
 
     /**
@@ -103,9 +112,8 @@ public class FileManager {
      * @param path - relative path of the shelf directory
      */
     @AdminRestricted
-    @Observer(Constants.SHELF_DELETED_EVENT)
-    public void onShelfDeleted(Shelf shelf, String path) {
-        deleteDirectory(path);
+    public void onShelfDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
+        deleteDirectory(se.getPath());
     }
 
     /**
@@ -115,8 +123,8 @@ public class FileManager {
      * @param user - deleted user
      * @param path - relative path of the user directory
      */
-    @Observer(Constants.USER_DELETED_EVENT)
-    public void onUserDeleted(User user) {
+    // Might not work properly due to injection
+    public void onUserDeleted(@Observes @EventType(Events.USER_DELETED_EVENT) SimpleEvent se) {
         deleteDirectory(user.getPath());
     }
 
@@ -126,9 +134,8 @@ public class FileManager {
      *
      * @param shelf - added shelf
      */
-    @Observer(Constants.SHELF_ADDED_EVENT)
-    public void onShelfAdded(Shelf shelf) {
-        File directory = getFileByPath(shelf.getPath());
+    public void onShelfAdded(@Observes @EventType(Events.SHELF_ADDED_EVENT) ShelfEvent se) {
+        File directory = getFileByPath(se.getShelf().getPath());
         FileUtils.addDirectory(directory);
     }
 
@@ -138,9 +145,8 @@ public class FileManager {
      *
      * @param album - added album
      */
-    @Observer(Constants.ALBUM_ADDED_EVENT)
-    public void onAlbumAdded(Album album) {
-        File directory = getFileByPath(album.getPath());
+    public void onAlbumAdded(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
+        File directory = getFileByPath(ae.getAlbum().getPath());
         FileUtils.addDirectory(directory);
     }
 
@@ -164,10 +170,9 @@ public class FileManager {
      * @param path - relative path of the image file
      */
     @AdminRestricted
-    @Observer(Constants.IMAGE_DELETED_EVENT)
-    public void deleteImage(Image image, String path) {
+    public void deleteImage(@Observes @EventType(Events.IMAGE_DELETED_EVENT) ImageEvent ie) {
         for (ImageDimension d : ImageDimension.values()) {
-            FileUtils.deleteFile(getFileByPath(transformPath(path, d.getFilePostfix())));
+            FileUtils.deleteFile(getFileByPath(transformPath(ie.getPath(), d.getFilePostfix())));
         }
     }
 
@@ -243,8 +248,9 @@ public class FileManager {
      * @param album - dragged album
      * @param pathOld - old path of album directory
      */
-    @Observer(Constants.ALBUM_DRAGGED_EVENT)
-    public void renameAlbumDirectory(Album album, String pathOld) {
+    public void renameAlbumDirectory(@Observes @EventType(Events.ALBUM_DRAGGED_EVENT) AlbumEvent ae) {
+        String pathOld = ae.getPath();
+        Album album = ae.getAlbum();
         File file = getFileByPath(pathOld);
         File file2 = getFileByPath(album.getPath());
         if (file2.exists()) {
@@ -264,10 +270,12 @@ public class FileManager {
      * @param image - dragged image
      * @param pathOld - old path of image file
      */
-    @Observer(Constants.IMAGE_DRAGGED_EVENT)
-    public void renameImageFile(Image image, String pathOld) {
+    public void renameImageFile(@Observes @EventType(Events.IMAGE_DRAGGED_EVENT) ImageEvent ie) {
         File file = null;
         File file2 = null;
+
+        String pathOld = ie.getPath();
+        Image image = ie.getImage();
         for (ImageDimension dimension : ImageDimension.values()) {
             file = getFileByPath(transformPath(pathOld, dimension.getFilePostfix()));
             file2 = getFileByPath(transformPath(image.getFullPath(), dimension.getFilePostfix()));

@@ -24,8 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Observes;
 
-import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.SimpleEvent;
 
 /**
  * Convenience UI class for global eeror-checking mechanism
@@ -50,8 +53,7 @@ public class ErrorHandlerBean {
      *
      * @param e - string representation of error.
      */
-    @Observer(Constants.ADD_ERROR_EVENT)
-    public void addToErrors(String e) {
-        errors.add(e);
+    public void addToErrors(@Observes @EventType(Events.ADD_ERROR_EVENT) SimpleEvent se) {
+        errors.add(se.getMessage());
     }
 }

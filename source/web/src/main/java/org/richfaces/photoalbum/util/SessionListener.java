@@ -30,18 +30,28 @@ import java.util.List;
 
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.transaction.Transactional;
 import org.richfaces.photoalbum.domain.Comment;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.manager.LoggedUserTracker;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IImageAction;
+import java.io.Serializable;
 
 @SessionScoped
-public class SessionListener {
+public class SessionListener implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
     // @In(required=false)
     @Inject
@@ -53,10 +63,12 @@ public class SessionListener {
     private EntityManager em;
     @Inject
     LoggedUserTracker userTracker;
+    
+    @Inject @EventType(Events.USER_DELETED_EVENT) Event<SimpleEvent> event;
 
     @PreDestroy
     @Transactional
-    @Observer("org.jboss.seam.sessionExpired")
+    //@Observer("org.jboss.seam.sessionExpired")
     public void onDestroy() {
         if (!Environment.isInProduction()) {
             return;
@@ -71,7 +83,8 @@ public class SessionListener {
             em.remove(user);
             em.flush();
 
-            Events.instance().raiseEvent(Constants.USER_DELETED_EVENT, user);
+            // may not work
+            event.fire(new SimpleEvent());
         }
     }
 

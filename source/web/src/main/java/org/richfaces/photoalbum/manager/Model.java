@@ -24,18 +24,26 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Any;
+import javax.inject.Inject;
 
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.EventTypeQualifier;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.NavEvent;
+import org.richfaces.photoalbum.event.SimpleEvent;
 
 /**
  * This class represent 'M' in MVC pattern. It is storage to application flow related data such as selectedAlbum, image,
  * mainArea to preview etc..
- * 
+ *
  * @author Andrey Markhel
  */
 @ConversationScoped
@@ -57,9 +65,12 @@ public class Model implements Serializable {
 
     private List<Image> images;
 
+    @Inject @Any Event<SimpleEvent> event;
+    @Inject MetaTag metatag;
+
     /**
      * This method invoked after the almost user actions, to prepare properly data to show in the UI.
-     * 
+     *
      * @param mainArea - next Area to show(determined in controller)
      * @param selectedUser - user, that was selected(determined in controller)
      * @param selectedShelf - shelf, that was selected(determined in controller)
@@ -73,35 +84,35 @@ public class Model implements Serializable {
         this.setSelectedImage(selectedImage);
         this.setSelectedShelf(selectedShelf);
         this.setSelectedUser(selectedUser);
-        this.setMainArea(mainArea);
+        //this.setMainArea(mainArea);
+        this.mainArea = mainArea;
         this.images = images;
     }
 
     /**
      * This method observes <code> Constants.UPDATE_MAIN_AREA_EVENT </code>event and invoked after the user actions, that not
      * change model, but change area to preview
-     * 
+     *
      * @param mainArea - next Area to show
-     * 
+     *
      */
-    @Observer(Constants.UPDATE_MAIN_AREA_EVENT)
-    public void setMainArea(NavigationEnum mainArea) {
+    public void setMainArea(@Observes @EventType(Events.UPDATE_MAIN_AREA_EVENT) NavEvent ne) {
         if (this.mainArea != null && this.mainArea.equals(NavigationEnum.FILE_UPLOAD)) {
-            Events.instance().raiseEvent(Constants.CLEAR_FILE_UPLOAD_EVENT);
+            event.select(new EventTypeQualifier(Events.CLEAR_FILE_UPLOAD_EVENT)).fire(new SimpleEvent());
         }
-        this.mainArea = mainArea;
+        this.mainArea = ne.getNav();
     }
 
     /**
      * This method observes <code> Constants.UPDATE_SELECTED_TAG_EVENT </code>event and invoked after the user click on any
      * metatag.
-     * 
+     *
      * @param selectedTag - clicked tag
-     * 
+     *
      */
-    @Observer(Constants.UPDATE_SELECTED_TAG_EVENT)
-    public void setSelectedTag(MetaTag selectedTag) {
-        this.selectedTag = selectedTag;
+    // Might not work properly due to injection
+    public void setSelectedTag(@Observes @EventType(Events.UPDATE_SELECTED_TAG_EVENT) SimpleEvent se) {
+        this.selectedTag = metatag;
     }
 
     public NavigationEnum getMainArea() {

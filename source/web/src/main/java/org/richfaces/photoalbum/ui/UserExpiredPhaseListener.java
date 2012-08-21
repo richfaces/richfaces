@@ -21,12 +21,15 @@
 package org.richfaces.photoalbum.ui;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.inject.Inject;
 
-import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.util.Utils;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.SimpleEvent;
 
 /**
  * Special <code>PhaseListener</code> for check is the user session was expired or user were login in another browser. By
@@ -40,8 +43,12 @@ public class UserExpiredPhaseListener implements PhaseListener {
     private static final long serialVersionUID = 1L;
     private PhaseId phase = PhaseId.RESTORE_VIEW;
 
+    @Inject @EventType(Events.CHECK_USER_EXPIRED_EVENT) Event<SimpleEvent> event;
+
     public void beforePhase(PhaseEvent e) {
-        Events.instance().raiseEvent(Constants.CHECK_USER_EXPIRED_EVENT, Utils.getSession());
+        //Events.instance().raiseEvent(Constants.CHECK_USER_EXPIRED_EVENT, Utils.getSession());
+        // this may not work
+        event.fire(new SimpleEvent());
     }
 
     public void afterPhase(PhaseEvent e) {

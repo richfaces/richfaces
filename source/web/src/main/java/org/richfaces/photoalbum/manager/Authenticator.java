@@ -29,6 +29,8 @@ import java.io.File;
 import java.io.Serializable;
 
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -36,6 +38,11 @@ import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.picketlink.idm.impl.api.PasswordCredential;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.EventTypeQualifier;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.NavEvent;
+import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IUserAction;
 import org.richfaces.photoalbum.util.Environment;
@@ -70,6 +77,13 @@ public class Authenticator implements Serializable {
 
     private boolean conversationStarted = false;
 
+    @Inject
+    @Any
+    Event<SimpleEvent> event;
+    @Inject
+    @EventType(Events.UPDATE_MAIN_AREA_EVENT)
+    Event<NavEvent> navEvent;
+
     /**
      * Method, that invoked when user try to login to the application.
      *
@@ -95,7 +109,8 @@ public class Authenticator implements Serializable {
                 userTracker.addUserId(user.getId(), Utils.getSession().getId());
                 identity.addRole(Constants.ADMIN_ROLE, "Users", "GROUP");
                 // Raise event to controller to update Model
-                Events.instance().raiseEvent(Constants.AUTHENTICATED_EVENT, user);
+                // Events.instance().raiseEvent(Constants.AUTHENTICATED_EVENT, user);
+                event.select(new EventTypeQualifier(Events.AUTHENTICATED_EVENT)).fire(new SimpleEvent());
                 // Login was succesfull
                 setLoginFailed(false);
                 return true;
@@ -147,7 +162,7 @@ public class Authenticator implements Serializable {
         try {
             userAction.register(user);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.REGISTRATION_ERROR);
+            event.select(new EventTypeQualifier(Events.ADD_ERROR_EVENT)).fire(new SimpleEvent(Constants.REGISTRATION_ERROR));
             return;
         }
         // Registration was successfull, so we can login this user.
@@ -160,7 +175,7 @@ public class Authenticator implements Serializable {
         // }
         String response = identity.login();
         if (!response.equals("RESPONSE_LOGIN_SUCCESS")) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.LOGIN_ERROR);
+            event.select(new EventTypeQualifier(Events.ADD_ERROR_EVENT)).fire(new SimpleEvent(Constants.LOGIN_ERROR));
         }
 
     }
@@ -176,7 +191,7 @@ public class Authenticator implements Serializable {
         Contexts.getConversationContext().set(Constants.AVATAR_DATA_COMPONENT, null);
         setLoginFailed(false);
         // raise event to controller to prepare Model.
-        Events.instance().raiseEvent(Constants.START_REGISTER_EVENT);
+        event.select(new EventTypeQualifier(Events.START_REGISTER_EVENT)).fire(new SimpleEvent());
     }
 
     /**
@@ -186,7 +201,7 @@ public class Authenticator implements Serializable {
      * @return string outcome to properly redirect on the current page(to assign to page parameters conversationId.
      */
     public String startConversation() {
-        Events.instance().raiseEvent(Constants.UPDATE_MAIN_AREA_EVENT, NavigationEnum.ANONYM);
+        navEvent.fire(new NavEvent(NavigationEnum.ANONYM));
         setConversationStarted(true);
         return "";
     }
@@ -197,7 +212,8 @@ public class Authenticator implements Serializable {
             user.setHasAvatar(true);
             FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
             if (fileManager == null || !fileManager.saveAvatar(avatarData, user)) {
-                Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.AVATAR_SAVING_ERROR);
+                event.select(new EventTypeQualifier(Events.ADD_ERROR_EVENT)).fire(
+                    new SimpleEvent(Constants.AVATAR_SAVING_ERROR));
                 return false;
             }
         }

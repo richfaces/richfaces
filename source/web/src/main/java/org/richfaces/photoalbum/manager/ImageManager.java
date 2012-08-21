@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -38,11 +40,15 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Comment;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.EventTypeQualifier;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.ImageEvent;
+import org.richfaces.photoalbum.event.NavEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IImageAction;
@@ -58,6 +64,11 @@ public class ImageManager {
     @Inject
     User user;
 
+    @Inject @EventType(Events.ADD_ERROR_EVENT) Event<SimpleEvent> error;
+    @Inject @Any Event<SimpleEvent> event;
+    @Inject @EventType(Events.UPDATE_MAIN_AREA_EVENT) Event<NavEvent> navEvent;
+    @Inject @EventType(Events.IMAGE_DELETED_EVENT) Event<ImageEvent> imageEvent;
+
     /**
      * Method, that invoked when user click 'Delete image' button. Only registered users can delete images.
      *
@@ -70,11 +81,11 @@ public class ImageManager {
         try {
             imageAction.deleteImage(image);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.IMAGE_DELETING_ERROR);
+            error.fire(new SimpleEvent(Constants.IMAGE_DELETING_ERROR));
             return;
         }
         // Raise 'imageDeleted' event, parameter path - path of file to delete
-        Events.instance().raiseEvent(Constants.IMAGE_DELETED_EVENT, image, pathToDelete);
+        imageEvent.fire(new ImageEvent(image, pathToDelete));
     }
 
     /**
@@ -87,7 +98,7 @@ public class ImageManager {
     public void editImage(Image image, boolean editFromInplace) {
         try {
             if (user.hasImageWithName(image)) {
-                Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SAME_IMAGE_EXIST_ERROR);
+                error.fire(new SimpleEvent(Constants.SAME_IMAGE_EXIST_ERROR));
                 imageAction.resetImage(image);
                 return;
             }
@@ -97,7 +108,7 @@ public class ImageManager {
                 Set<ConstraintViolation<Image>> constraintViolations = validator.validate(image);
                 if (constraintViolations.size() > 0) {
                     for (ConstraintViolation<Image> cv : constraintViolations) {
-                        Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, cv.getMessage());
+                        error.fire(new SimpleEvent(cv.getMessage()));
                     }
                     // If error occured we need refresh album to display correct value in inplaceInput
                     imageAction.resetImage(image);
@@ -106,11 +117,11 @@ public class ImageManager {
             }
             imageAction.editImage(image, !editFromInplace);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.IMAGE_SAVING_ERROR);
+            error.fire(new SimpleEvent(Constants.IMAGE_SAVING_ERROR));
             imageAction.resetImage(image);
             return;
         }
-        Events.instance().raiseEvent(Constants.UPDATE_MAIN_AREA_EVENT, NavigationEnum.ALBUM_IMAGE_PREVIEW);
+        navEvent.fire(new NavEvent(NavigationEnum.ALBUM_IMAGE_PREVIEW));
     }
 
     /**
@@ -123,11 +134,11 @@ public class ImageManager {
     @AdminRestricted
     public void addComment(Image image, String message) {
         if (null == user.getLogin()) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.ADDING_COMMENT_ERROR);
+            error.fire(new SimpleEvent(Constants.ADDING_COMMENT_ERROR));
             return;
         }
         if (message.trim().equals("")) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.NULL_COMMENT_ERROR);
+            error.fire(new SimpleEvent(Constants.NULL_COMMENT_ERROR));
             return;
         }
         Comment comment = new Comment();
@@ -138,11 +149,11 @@ public class ImageManager {
         try {
             imageAction.addComment(comment);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SAVE_COMMENT_ERROR);
+            error.fire(new SimpleEvent(Constants.SAVE_COMMENT_ERROR));
             return;
         }
         // Clear rich:editor component
-        Events.instance().raiseEvent(Constants.CLEAR_EDITOR_EVENT, "");
+        event.select(new EventTypeQualifier(Events.CLEAR_EDITOR_EVENT)).fire(new SimpleEvent());
     }
 
     /**
@@ -156,7 +167,7 @@ public class ImageManager {
         try {
             imageAction.deleteComment(comment);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.DELETE_COMMENT_ERROR);
+            error.fire(new SimpleEvent(Constants.DELETE_COMMENT_ERROR));
             return;
         }
     }

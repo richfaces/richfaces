@@ -30,6 +30,8 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -38,6 +40,11 @@ import javax.validation.Validator;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.AlbumEvent;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.EventTypeQualifier;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IAlbumAction;
 
@@ -59,6 +66,13 @@ public class AlbumManager implements Serializable {
     Model model;
     @Inject
     FacesMessages facesMessages;
+    
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    Event<SimpleEvent> error;
+    @Inject
+    @Any
+    Event<AlbumEvent> albumEvent;
 
     /**
      * Method, that invoked on creation of the new album. Only registered users can create new albums.
@@ -76,7 +90,7 @@ public class AlbumManager implements Serializable {
         }
         // Album name must be unique in shelf
         if (user.hasAlbumWithName(album)) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SAME_ALBUM_EXIST_ERROR);
+            error.fire(new SimpleEvent(Constants.SAME_ALBUM_EXIST_ERROR));
             return;
         }
         // All data is valid
@@ -86,13 +100,13 @@ public class AlbumManager implements Serializable {
             album.setCreated(new Date());
             albumAction.addAlbum(album);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.ALBUM_SAVING_ERROR);
+            error.fire(new SimpleEvent(Constants.ALBUM_SAVING_ERROR));
             return;
         }
         // Reset 'album' component in conversation scope
         Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, null);
         // Raise 'albumAdded' event
-        Events.instance().raiseEvent(Constants.ALBUM_ADDED_EVENT, album);
+        albumEvent.select(new EventTypeQualifier(Events.ALBUM_ADDED_EVENT)).fire(new AlbumEvent(album));
     }
 
     /**
@@ -112,7 +126,7 @@ public class AlbumManager implements Serializable {
                 shelf = user.getShelves().get(0);
             }
             if (shelf == null) {
-                Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.NO_SHELF_ERROR);
+                error.fire(new SimpleEvent(Constants.NO_SHELF_ERROR));
                 setErrorInCreate(true);
                 return;
             }
@@ -133,7 +147,7 @@ public class AlbumManager implements Serializable {
     public void editAlbum(Album album, boolean editFromInplace) {
         try {
             if (user.hasAlbumWithName(album)) {
-                Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SAME_ALBUM_EXIST_ERROR);
+                error.fire(new SimpleEvent(Constants.SAME_ALBUM_EXIST_ERROR));
                 albumAction.resetAlbum(album);
                 return;
             }
@@ -143,7 +157,7 @@ public class AlbumManager implements Serializable {
                 Set<ConstraintViolation<Album>> constraintViolations = validator.validate(album);
                 if (constraintViolations.size() > 0) {
                     for (ConstraintViolation<Album> cv : constraintViolations) {
-                        Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, cv.getMessage());
+                        error.fire(new SimpleEvent(cv.getMessage()));
                     }
                     // If error occured we need refresh album to display correct value in inplaceInput
                     albumAction.resetAlbum(album);
@@ -152,12 +166,12 @@ public class AlbumManager implements Serializable {
             }
             albumAction.editAlbum(album);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.ALBUM_SAVING_ERROR);
+            error.fire(new SimpleEvent(Constants.ALBUM_SAVING_ERROR));
             albumAction.resetAlbum(album);
             return;
         }
         // Reset 'album' component in conversation scope
-        Events.instance().raiseEvent(Constants.ALBUM_EDITED_EVENT, album);
+        albumEvent.select(new EventTypeQualifier(Events.ALBUM_EDITED_EVENT)).fire(new AlbumEvent(album));
     }
 
     /**
@@ -172,11 +186,11 @@ public class AlbumManager implements Serializable {
         try {
             albumAction.deleteAlbum(album);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.ALBUM_DELETING_ERROR);
+            error.fire(new SimpleEvent(Constants.ALBUM_DELETING_ERROR));
             return;
         }
         // Raise 'albumDeleted' event, parameter path - path of Directory to delete
-        Events.instance().raiseEvent(Constants.ALBUM_DELETED_EVENT, album, pathToDelete);
+        albumEvent.select(new EventTypeQualifier(Events.ALBUM_DELETED_EVENT)).fire(new AlbumEvent(album, pathToDelete));
     }
 
     public boolean isValidationSuccess() {

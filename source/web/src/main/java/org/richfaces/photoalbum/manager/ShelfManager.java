@@ -31,14 +31,20 @@ import java.util.List;
 import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
-import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.EventTypeQualifier;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.ShelfEvent;
+import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IShelfAction;
 
@@ -56,6 +62,9 @@ public class ShelfManager implements Serializable {
 
     @Inject
     User user;
+
+    @Inject @EventType(Events.ADD_ERROR_EVENT) Event<SimpleEvent> error;
+    @Inject @Any Event<ShelfEvent> shelfEvent;
 
     /**
      * Method, that invoked when user want to create new shelf. Only registered users can create new shelves.
@@ -76,7 +85,7 @@ public class ShelfManager implements Serializable {
     @AdminRestricted
     public void addShelf(Shelf shelf) {
         if (user.hasShelfWithName(shelf)) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SAME_SHELF_EXIST_ERROR);
+            error.fire(new SimpleEvent(Constants.SAME_SHELF_EXIST_ERROR));
             return;
         }
         validationSuccess = true;
@@ -84,10 +93,10 @@ public class ShelfManager implements Serializable {
             shelf.setCreated(new Date());
             shelfAction.addShelf(shelf);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SHELF_SAVING_ERROR);
+            error.fire(new SimpleEvent(Constants.SHELF_SAVING_ERROR));
             return;
         }
-        Events.instance().raiseEvent(Constants.SHELF_ADDED_EVENT, shelf);
+        shelfEvent.select(new EventTypeQualifier(Events.SHELF_ADDED_EVENT)).fire(new ShelfEvent(shelf));
     }
 
     /**
@@ -102,7 +111,7 @@ public class ShelfManager implements Serializable {
     public void editShelf(Shelf shelf, boolean editFromInplace) {
         try {
             if (user.hasShelfWithName(shelf)) {
-                Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SAME_SHELF_EXIST_ERROR);
+                error.fire(new SimpleEvent(Constants.SAME_SHELF_EXIST_ERROR));
                 shelfAction.resetShelf(shelf);
                 return;
             }
@@ -112,7 +121,7 @@ public class ShelfManager implements Serializable {
                 Set<ConstraintViolation<Shelf>> constraintViolations = validator.validate(shelf);
                 if (constraintViolations.size() > 0) {
                     for (ConstraintViolation<Shelf> cv : constraintViolations) {
-                        Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, cv.getMessage());
+                        error.fire(new SimpleEvent(cv.getMessage()));
                     }
                     // If error occured we need refresh album to display correct value in inplaceInput
                     shelfAction.resetShelf(shelf);
@@ -121,11 +130,11 @@ public class ShelfManager implements Serializable {
             }
             shelfAction.editShelf(shelf);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SHELF_SAVING_ERROR);
+            error.fire(new SimpleEvent(Constants.SHELF_SAVING_ERROR));
             shelfAction.resetShelf(shelf);
             return;
         }
-        Events.instance().raiseEvent(Constants.SHELF_EDITED_EVENT, shelf);
+        shelfEvent.select(new EventTypeQualifier(Events.SHELF_EDITED_EVENT)).fire(new ShelfEvent(shelf));
     }
 
     /**
@@ -140,10 +149,10 @@ public class ShelfManager implements Serializable {
         try {
             shelfAction.deleteShelf(shelf);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SHELF_DELETING_ERROR);
+            error.fire(new SimpleEvent(Constants.SHELF_DELETING_ERROR));
             return;
         }
-        Events.instance().raiseEvent(Constants.SHELF_DELETED_EVENT, shelf, pathToDelete);
+        shelfEvent.select(new EventTypeQualifier(Events.SHELF_DELETED_EVENT)).fire(new ShelfEvent(shelf, pathToDelete));
     }
 
     /**

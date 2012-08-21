@@ -29,10 +29,15 @@ import java.io.File;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.AlbumEvent;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IUserAction;
 
@@ -55,16 +60,19 @@ public class UserManager implements Serializable {
     @Inject
     IUserAction userAction;
 
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    Event<SimpleEvent> error;
+
     /**
      * Method, that invoked when user want to edit her profile.
      *
      */
-    @Observer(Constants.EDIT_USER_EVENT)
-    public void editUser() {
+    public void editUser(@Observes @EventType(Events.EDIT_USER_EVENT) SimpleEvent se) {
         // If new avatar was uploaded
         if (avatarData != null) {
             if (!fileManager.saveAvatar(avatarData, user)) {
-                Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.FILE_IO_ERROR);
+                error.fire(new SimpleEvent(Constants.FILE_IO_ERROR));
                 return;
             }
             avatarData.delete();
@@ -78,7 +86,7 @@ public class UserManager implements Serializable {
             // user.setPasswordHash(HashUtils.hash(user.getPassword()));
             user = userAction.updateUser();
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.UPDATE_USER_ERROR);
+            error.fire(new SimpleEvent(Constants.UPDATE_USER_ERROR));
             return;
         }
     }
@@ -88,8 +96,7 @@ public class UserManager implements Serializable {
      *
      * @param album - added album
      */
-    @Observer(Constants.ALBUM_ADDED_EVENT)
-    public void onAlbumAdded(Album album) {
+    public void onAlbumAdded(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
         user = userAction.refreshUser();
     }
 
@@ -97,8 +104,7 @@ public class UserManager implements Serializable {
      * Method, that invoked when user click 'Cancel' button during edit her profile.
      *
      */
-    @Observer(Constants.CANCEL_EDIT_USER_EVENT)
-    public void cancelEditUser() {
+    public void cancelEditUser(@Observes @EventType(Events.CANCEL_EDIT_USER_EVENT) SimpleEvent se) {
         avatarData = null;
     }
 }

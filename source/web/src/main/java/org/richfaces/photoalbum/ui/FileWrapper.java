@@ -25,9 +25,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.event.Observes;
 
 import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.ImageEvent;
+import org.richfaces.photoalbum.event.SimpleEvent;
 
 @ConversationScoped
 public class FileWrapper implements Serializable {
@@ -78,13 +82,11 @@ public class FileWrapper implements Serializable {
         this.files = files;
     }
 
-    @Observer(Constants.IMAGE_DRAGGED_EVENT)
-    public void removeImage(Image image, String pathOld) {
-        files.remove(image);
+    public void removeImage(@Observes @EventType(Events.IMAGE_DRAGGED_EVENT) ImageEvent ie) {
+        files.remove(ie.getImage());
     }
 
-    @Observer(Constants.CLEAR_FILE_UPLOAD_EVENT)
-    public void clear() {
+    public void clear(@Observes @EventType(Events.CLEAR_FILE_UPLOAD_EVENT) SimpleEvent se) {
         files.clear();
         errorFiles.clear();
         complete = false;

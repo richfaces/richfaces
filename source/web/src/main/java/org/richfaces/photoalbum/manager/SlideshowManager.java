@@ -28,9 +28,14 @@ package org.richfaces.photoalbum.manager;
 import java.io.Serializable;
 
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import org.richfaces.photoalbum.domain.Image;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.util.Utils;
 
@@ -51,6 +56,10 @@ public class SlideshowManager implements Serializable {
 
     @Inject
     Model model;
+
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    Event<SimpleEvent> error;
 
     private int interval = Constants.INITIAL_DELAY;
 
@@ -73,7 +82,7 @@ public class SlideshowManager implements Serializable {
     /**
      * This method invoked after user click on 'Start slideshow' button and no image is selected. After execution of this method
      * slideshow will be activated.
-     *
+     * 
      */
     public void startSlideshow() {
         initSlideshow();
@@ -91,7 +100,7 @@ public class SlideshowManager implements Serializable {
     /**
      * This method invoked after user click on 'Start slideshow' button. After execution of this method slideshow will be
      * activated starting from selected image.
-     *
+     * 
      * @param selectedImage - first image to show during slideshow
      */
     public void startSlideshow(Image selectedImage) {
@@ -112,10 +121,9 @@ public class SlideshowManager implements Serializable {
     /**
      * This method invoked after user click on 'Stop slideshow' button. After execution of this method slideshow will be
      * de-activated.
-     *
+     * 
      */
-    @Observer(Constants.STOP_SLIDESHOW_EVENT)
-    public void stopSlideshow() {
+    public void stopSlideshow(@Observes @EventType(Events.STOP_SLIDESHOW_EVENT) SimpleEvent se) {
         active = false;
         errorDetected = false;
         this.selectedImage = null;
@@ -141,7 +149,7 @@ public class SlideshowManager implements Serializable {
 
     /**
      * This method used to prepare next image to show during slideshow
-     *
+     * 
      */
     public void showNextImage() {
         if (!active) {
@@ -189,11 +197,12 @@ public class SlideshowManager implements Serializable {
     }
 
     private void onError(boolean isShowOnUI) {
-        stopSlideshow();
+        //stopSlideshow();
+        stopSlideshow(new SimpleEvent());
         errorDetected = true;
         Utils.addToRerender(Constants.MAINAREA_ID);
         if (isShowOnUI) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.NO_IMAGES_FOR_SLIDESHOW_ERROR);
+            error.fire(new SimpleEvent(Constants.NO_IMAGES_FOR_SLIDESHOW_ERROR));
         }
         return;
     }
@@ -201,7 +210,7 @@ public class SlideshowManager implements Serializable {
     private void checkIsFileRecentlyDeleted() {
         FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         if (!fileManager.isFilePresent(this.selectedImage.getFullPath())) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.IMAGE_RECENTLY_DELETED_ERROR);
+            error.fire(new SimpleEvent(Constants.IMAGE_RECENTLY_DELETED_ERROR));
             active = false;
             errorDetected = true;
             Utils.addToRerender(Constants.MAINAREA_ID);

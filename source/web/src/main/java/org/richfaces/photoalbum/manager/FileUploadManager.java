@@ -28,11 +28,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 import org.richfaces.photoalbum.domain.Image;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.ImageEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IImageAction;
 import org.richfaces.photoalbum.service.PhotoAlbumException;
@@ -69,6 +73,8 @@ public class FileUploadManager implements Serializable {
 
     @Inject
     private FileManager fileManager;
+    
+    @Inject @EventType(Events.IMAGE_ADDED_EVENT) Event<ImageEvent> imageEvent;
 
     /**
      * Listenet, that invoked during file upload process. Only registered users can upload images.
@@ -114,7 +120,7 @@ public class FileUploadManager implements Serializable {
         // Prepare to show in UI
         fileWrapper.setComplete(false);
         fileWrapper.getFiles().add(image);
-        Events.instance().raiseEvent(Constants.IMAGE_ADDED_EVENT, image);
+        imageEvent.fire(new ImageEvent(image));
         // Delete temporary file
         item.getFile().delete();
     }

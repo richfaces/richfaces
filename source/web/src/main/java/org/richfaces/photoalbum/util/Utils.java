@@ -64,6 +64,7 @@ public class Utils {
      *
      * @return session object
      */
+    @Produces
     public static HttpSession getSession() {
         return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
     }

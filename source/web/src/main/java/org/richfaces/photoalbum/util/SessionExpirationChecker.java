@@ -23,12 +23,16 @@ package org.richfaces.photoalbum.util;
 import java.io.IOException;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Observes;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.jboss.seam.security.Identity;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.manager.LoggedUserTracker;
 import org.richfaces.photoalbum.service.Constants;
 
@@ -47,6 +51,8 @@ public class SessionExpirationChecker {
     Identity identity;
     @Inject
     LoggedUserTracker userTracker;
+    
+    @Inject HttpSession session;
 
     /**
      * Utility method for check is the user session was expired or user were login in another browser. Observes
@@ -54,8 +60,7 @@ public class SessionExpirationChecker {
      * 
      * @param session - user's session
      */
-    @Observer(Constants.CHECK_USER_EXPIRED_EVENT)
-    public void checkUserExpiration(HttpSession session) {
+    public void checkUserExpiration(@Observes @EventType(Events.CHECK_USER_EXPIRED_EVENT) SimpleEvent se) {
         if (isShouldExpireUser(session)) {
             try {
                 Session.instance().invalidate();

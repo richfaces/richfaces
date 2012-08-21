@@ -20,7 +20,11 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import org.richfaces.photoalbum.service.Constants;
+import javax.enterprise.event.Observes;
+
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.SimpleEvent;
 
 /**
  * Convenience UI class for rich:editor component
@@ -38,9 +42,8 @@ public class EditorBean {
         return message;
     }
 
-    @Observer(Constants.CLEAR_EDITOR_EVENT)
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessage(@Observes @EventType(Events.CLEAR_EDITOR_EVENT) SimpleEvent se) {
+        this.message = se.getMessage();
     }
 
     public String getCurrentConfiguration() {

@@ -25,6 +25,7 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import org.richfaces.component.Dropzone;
@@ -34,6 +35,11 @@ import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.AlbumEvent;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.ImageEvent;
+import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IAlbumAction;
 import org.richfaces.photoalbum.util.Utils;
@@ -49,6 +55,16 @@ public class DnDManager implements DropListener {
     @Inject
     IAlbumAction albumAction;
 
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    Event<SimpleEvent> error;
+    @Inject
+    @EventType(Events.ALBUM_DRAGGED_EVENT)
+    Event<AlbumEvent> albumEvent;
+    @Inject
+    @EventType(Events.IMAGE_DRAGGED_EVENT)
+    Event<ImageEvent> imageEvent;
+
     /**
      * Listenet, that invoked during drag'n'drop process. Only registered users can drag images.
      *
@@ -63,7 +79,7 @@ public class DnDManager implements DropListener {
             // If user drag image
             if (!((Album) dropValue).getOwner().getLogin().equals(user.getLogin())) {
                 // Drag in the album, that not belongs to user
-                Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.DND_PHOTO_ERROR);
+                error.fire(new SimpleEvent(Constants.DND_PHOTO_ERROR));
                 return;
             }
             handleImage((Image) dragValue, (Album) dropValue);
@@ -71,7 +87,7 @@ public class DnDManager implements DropListener {
             // If user drag album
             if (!((Shelf) dropValue).getOwner().getLogin().equals(user.getLogin())) {
                 // Drag in the shelf, that not belongs to user
-                Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.DND_ALBUM_ERROR);
+                error.fire(new SimpleEvent(Constants.DND_ALBUM_ERROR));
                 return;
             }
             handleAlbum((Album) dragValue, (Shelf) dropValue);
@@ -84,10 +100,10 @@ public class DnDManager implements DropListener {
         try {
             albumAction.editAlbum(dragValue);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.ERROR_IN_DB);
+            error.fire(new SimpleEvent(Constants.ERROR_IN_DB));
             return;
         }
-        Events.instance().raiseEvent(Constants.ALBUM_DRAGGED_EVENT, dragValue, pathOld);
+        albumEvent.fire(new AlbumEvent(dragValue, pathOld));
         Utils.addToRerender(Constants.TREE_ID);
     }
 
@@ -100,10 +116,10 @@ public class DnDManager implements DropListener {
         try {
             albumAction.editAlbum(dropValue);
         } catch (Exception e) {
-            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.ERROR_IN_DB);
+            error.fire(new SimpleEvent(Constants.ERROR_IN_DB));
             return;
         }
-        Events.instance().raiseEvent(Constants.IMAGE_DRAGGED_EVENT, dragValue, pathOld);
+        imageEvent.fire(new ImageEvent(dragValue, pathOld));
         Utils.addToRerender(Constants.TREE_ID);
     }
 

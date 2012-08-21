@@ -23,6 +23,9 @@ package org.richfaces.photoalbum.manager;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 
 import org.richfaces.component.UITree;
@@ -31,6 +34,13 @@ import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.AlbumEvent;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.EventTypeQualifier;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.ImageEvent;
+import org.richfaces.photoalbum.event.ShelfEvent;
+import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 
 /**
@@ -52,6 +62,13 @@ public class Controller implements Serializable {
     // @In(scope = ScopeType.SESSION)
     @Inject
     User user;
+
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    Event<SimpleEvent> error;
+    @Inject
+    @Any
+    Event<SimpleEvent> event;
 
     /**
      * This method invoked after the user want to see all predefined shelves, existed in application
@@ -89,7 +106,7 @@ public class Controller implements Serializable {
     @AdminRestricted
     public void startEditShelf(Shelf shelf) {
         if (!canViewShelf(shelf)) {
-            pushEvent(Constants.ADD_ERROR_EVENT, Constants.HAVENT_ACCESS);
+            showError(Constants.HAVENT_ACCESS);
             return;
         }
         model.resetModel(NavigationEnum.SHELF_EDIT, shelf.getOwner(), shelf, null, null, null);
@@ -111,13 +128,13 @@ public class Controller implements Serializable {
      */
     public void showAlbum(Album album) {
         if (!canViewAlbum(album)) {
-            pushEvent(Constants.ADD_ERROR_EVENT, Constants.HAVENT_ACCESS);
+            showError(Constants.HAVENT_ACCESS);
             return;
         }
         FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         // Check, that album was not deleted recently.
         if (!fileManager.isDirectoryPresent(album.getPath())) {
-            pushEvent(Constants.ADD_ERROR_EVENT, Constants.ALBUM_RECENTLY_DELETED_ERROR);
+            showError(Constants.ALBUM_RECENTLY_DELETED_ERROR);
             model.resetModel(NavigationEnum.SHELF_PREVIEW, album.getOwner(), album.getShelf(), null, null, null);
             return;
         }
@@ -129,7 +146,7 @@ public class Controller implements Serializable {
      *
      */
     public void resetFileUpload() {
-        pushEvent(Constants.CLEAR_FILE_UPLOAD_EVENT);
+        pushEvent(Events.CLEAR_FILE_UPLOAD_EVENT);
     }
 
     /**
@@ -139,15 +156,15 @@ public class Controller implements Serializable {
      */
     public void showImage(Image image) {
         // Clear not-saved comment in editor
-        pushEvent(Constants.CLEAR_EDITOR_EVENT, "");
+        pushEvent(Events.CLEAR_EDITOR_EVENT);
         if (!canViewImage(image)) {
-            pushEvent(Constants.ADD_ERROR_EVENT, Constants.HAVENT_ACCESS);
+            showError(Constants.HAVENT_ACCESS);
             return;
         }
         // Check, that image was not deleted recently
         final FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         if (!fileManager.isFilePresent(image.getFullPath())) {
-            pushEvent(Constants.ADD_ERROR_EVENT, Constants.IMAGE_RECENTLY_DELETED_ERROR);
+            showError(Constants.IMAGE_RECENTLY_DELETED_ERROR);
             model.resetModel(NavigationEnum.ALBUM_PREVIEW, image.getAlbum().getOwner(), image.getAlbum().getShelf(),
                 image.getAlbum(), null, image.getAlbum().getImages());
             return;
@@ -165,7 +182,7 @@ public class Controller implements Serializable {
     @AdminRestricted
     public void startEditImage(Image image) {
         if (!canViewImage(image)) {
-            pushEvent(Constants.ADD_ERROR_EVENT, Constants.HAVENT_ACCESS);
+            showError(Constants.HAVENT_ACCESS);
             return;
         }
         model.resetModel(NavigationEnum.ALBUM_IMAGE_EDIT, image.getOwner(), image.getAlbum().getShelf(), image.getAlbum(),
@@ -178,7 +195,7 @@ public class Controller implements Serializable {
      */
     @AdminRestricted
     public void editUser() {
-        pushEvent(Constants.EDIT_USER_EVENT);
+        pushEvent(Events.EDIT_USER_EVENT);
         model.resetModel(NavigationEnum.ALL_SHELFS, user, model.getSelectedShelf(), model.getSelectedAlbum(),
             model.getSelectedImage(), model.getImages());
     }
@@ -188,7 +205,7 @@ public class Controller implements Serializable {
      *
      */
     public void cancelEditUser() {
-        pushEvent(Constants.CANCEL_EDIT_USER_EVENT);
+        pushEvent(Events.CANCEL_EDIT_USER_EVENT);
         model.resetModel(NavigationEnum.ANONYM, user, null, null, null, null);
     }
 
@@ -210,7 +227,7 @@ public class Controller implements Serializable {
     public void showShelf(Shelf shelf) {
         final FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         if (!fileManager.isDirectoryPresent(shelf.getPath())) {
-            pushEvent(Constants.ADD_ERROR_EVENT, Constants.SHELF_RECENTLY_DELETED_ERROR);
+            showError(Constants.SHELF_RECENTLY_DELETED_ERROR);
             model.resetModel(NavigationEnum.ANONYM, shelf.getOwner(), null, null, null, null);
             return;
         }
@@ -225,7 +242,7 @@ public class Controller implements Serializable {
     @AdminRestricted
     public void startEditAlbum(Album album) {
         if (!album.isOwner(user)) {
-            pushEvent(Constants.ADD_ERROR_EVENT, Constants.HAVENT_ACCESS);
+            showError(Constants.HAVENT_ACCESS);
             return;
         }
         model.resetModel(NavigationEnum.ALBUM_EDIT, album.getOwner(), album.getShelf(), album, null, album.getImages());
@@ -245,8 +262,8 @@ public class Controller implements Serializable {
      *
      * @param album - added album
      */
-    @Observer(Constants.ALBUM_ADDED_EVENT)
-    public void onAlbumAdded(Album album) {
+    public void onAlbumAdded(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
+        Album album = ae.getAlbum();
         if (album.isShowAfterCreate()) {
             model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), album.getShelf(), album, null, album.getImages());
         }
@@ -257,8 +274,8 @@ public class Controller implements Serializable {
      *
      * @param album - edited album
      */
-    @Observer(Constants.ALBUM_EDITED_EVENT)
-    public void onAlbumEdited(Album album) {
+    public void onAlbumEdited(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
+        Album album = ae.getAlbum();
         model.resetModel(NavigationEnum.ALBUM_PREVIEW, model.getSelectedUser(), model.getSelectedShelf(), album, null,
             album.getImages());
     }
@@ -269,8 +286,7 @@ public class Controller implements Serializable {
      * @param album - deleted album
      * @param path - relative path of the album directory
      */
-    @Observer(Constants.ALBUM_DELETED_EVENT)
-    public void onAlbumDeleted(Album album, String path) {
+    public void onAlbumDeleted(@Observes @EventType(Events.ALBUM_DELETED_EVENT) AlbumEvent ae) {
         model.resetModel(NavigationEnum.ALL_ALBUMS, model.getSelectedUser(), model.getSelectedShelf(), null, null, null);
     }
 
@@ -280,8 +296,7 @@ public class Controller implements Serializable {
      * @param shelf - deleted shelf
      * @param path - relative path of the shelf directory
      */
-    @Observer(Constants.SHELF_DELETED_EVENT)
-    public void onShelfDeleted(Shelf shelf, String path) {
+    public void onShelfDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
         model.resetModel(NavigationEnum.ALL_SHELFS, model.getSelectedUser(), null, null, null, null);
     }
 
@@ -290,8 +305,8 @@ public class Controller implements Serializable {
      *
      * @param shelf - added shelf
      */
-    @Observer(Constants.SHELF_ADDED_EVENT)
-    public void onShelfAdded(Shelf shelf) {
+    public void onShelfAdded(@Observes @EventType(Events.SHELF_ADDED_EVENT) ShelfEvent se) {
+        Shelf shelf = se.getShelf();
         model.resetModel(NavigationEnum.SHELF_PREVIEW, shelf.getOwner(), shelf, null, null, null);
     }
 
@@ -300,8 +315,8 @@ public class Controller implements Serializable {
      *
      * @param shelf - edited shelf
      */
-    @Observer(Constants.SHELF_EDITED_EVENT)
-    public void onShelfEdited(Shelf shelf) {
+    public void onShelfEdited(@Observes @EventType(Events.SHELF_EDITED_EVENT) ShelfEvent se) {
+        Shelf shelf = se.getShelf();
         model.resetModel(NavigationEnum.SHELF_PREVIEW, shelf.getOwner(), shelf, null, null, null);
     }
 
@@ -311,8 +326,7 @@ public class Controller implements Serializable {
      * @param image - deleted image
      * @param path - relative path of the image file
      */
-    @Observer(Constants.IMAGE_DELETED_EVENT)
-    public void onImageDeleted(Image image, String path) {
+    public void onImageDeleted(@Observes @EventType(Events.IMAGE_DELETED_EVENT) ImageEvent ie) {
         model.resetModel(NavigationEnum.ALBUM_PREVIEW, model.getSelectedUser(), model.getSelectedShelf(),
             model.getSelectedAlbum(), null, model.getSelectedAlbum().getImages());
     }
@@ -323,9 +337,9 @@ public class Controller implements Serializable {
      *
      * @param u - authenticated user
      */
-    @Observer(Constants.AUTHENTICATED_EVENT)
-    public void onAuthenticate(User u) {
-        model.resetModel(NavigationEnum.ALL_SHELFS, u, null, null, null, null);
+    // might not work properly due to injection
+    public void onAuthenticate(@Observes @EventType(Events.AUTHENTICATED_EVENT) SimpleEvent se) {
+        model.resetModel(NavigationEnum.ALL_SHELFS, user, null, null, null, null);
     }
 
     /**
@@ -335,7 +349,7 @@ public class Controller implements Serializable {
     public void showFileUpload() {
         if (!(user.getShelves().size() > 0)) {
             // If user have no shelves, that can start fileupload process
-            pushEvent(Constants.ADD_ERROR_EVENT, Constants.FILE_UPLOAD_SHOW_ERROR);
+            showError(Constants.FILE_UPLOAD_SHOW_ERROR);
             return;
         }
         Album alb = null;
@@ -425,22 +439,11 @@ public class Controller implements Serializable {
     }
 
     /**
-     * This utility method invoked in case if you want to show to the user specified error in popup
-     *
-     * @param error - error to show
-     *
-     */
-    public void showError(String error) {
-        pushEvent(Constants.ADD_ERROR_EVENT, error);
-    }
-
-    /**
      * This method observes <code>Constants.START_REGISTER_EVENT</code> and invoked after the user want to start registration
      * process.
      *
      */
-    @Observer(Constants.START_REGISTER_EVENT)
-    public void startRegistration() {
+    public void startRegistration(@Observes @EventType(Events.START_REGISTER_EVENT) SimpleEvent se) {
         model.resetModel(NavigationEnum.REGISTER, user, null, null, null, null);
     }
 
@@ -540,8 +543,18 @@ public class Controller implements Serializable {
             && (image.getAlbum().getShelf().isShared() || image.isOwner(user));
     }
 
-    private void pushEvent(String type, Object... parameters) {
-        Events.instance().raiseEvent(type, parameters);
+    /**
+     * This utility method invoked in case if you want to show to the user specified error in popup
+     *
+     * @param error - error to show
+     *
+     */
+    public void showError(String errorMessage) {
+        error.fire(new SimpleEvent(errorMessage));
+    }
+
+    private void pushEvent(Events eventType) {
+        event.select(new EventTypeQualifier(eventType)).fire(new SimpleEvent());
     }
 
     private Album setDefaultAlbumToUpload(Album alb) {
