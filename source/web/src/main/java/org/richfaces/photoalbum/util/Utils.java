@@ -20,9 +20,12 @@
  */
 package org.richfaces.photoalbum.util;
 
+import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 
 import org.ajax4jsf.context.AjaxContext;
@@ -33,6 +36,11 @@ import org.ajax4jsf.context.AjaxContext;
  * @author Andrey Markhel
  */
 public class Utils {
+    
+    @SuppressWarnings("unused")
+    @Produces
+    @PersistenceContext
+    private EntityManager em;
 
     private Utils() {
 
