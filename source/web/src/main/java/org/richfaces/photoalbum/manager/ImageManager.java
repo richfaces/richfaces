@@ -27,17 +27,23 @@ package org.richfaces.photoalbum.manager;
  */
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
+import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Comment;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IImageAction;
 
@@ -87,13 +93,13 @@ public class ImageManager {
             }
             if (editFromInplace) {
                 // We need validate image name manually
-                ClassValidator<Image> shelfValidator = new ClassValidator<Image>(Image.class);
-                InvalidValue[] validationMessages = shelfValidator.getInvalidValues(image, "name");
-                if (validationMessages.length > 0) {
-                    for (InvalidValue i : validationMessages) {
-                        Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, i.getMessage());
+                Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+                Set<ConstraintViolation<Image>> constraintViolations = validator.validate(image);
+                if (constraintViolations.size() > 0) {
+                    for (ConstraintViolation<Image> cv : constraintViolations) {
+                        Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, cv.getMessage());
                     }
-                    // If error occured we need refresh image to display correct value in inplaceInput
+                    // If error occured we need refresh album to display correct value in inplaceInput
                     imageAction.resetImage(image);
                     return;
                 }

@@ -28,10 +28,15 @@ package org.richfaces.photoalbum.manager;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
+import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.service.Constants;
@@ -103,13 +108,13 @@ public class ShelfManager implements Serializable {
             }
             if (editFromInplace) {
                 // We need validate shelf name manually
-                ClassValidator<Shelf> shelfValidator = new ClassValidator<Shelf>(Shelf.class);
-                InvalidValue[] validationMessages = shelfValidator.getInvalidValues(shelf, "name");
-                if (validationMessages.length > 0) {
-                    for (InvalidValue i : validationMessages) {
-                        Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, i.getMessage());
+                Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+                Set<ConstraintViolation<Shelf>> constraintViolations = validator.validate(shelf);
+                if (constraintViolations.size() > 0) {
+                    for (ConstraintViolation<Shelf> cv : constraintViolations) {
+                        Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, cv.getMessage());
                     }
-                    // If error occured we need refresh shelf to display correct value in inplaceInput
+                    // If error occured we need refresh album to display correct value in inplaceInput
                     shelfAction.resetShelf(shelf);
                     return;
                 }
