@@ -67,16 +67,17 @@
         </dependency> -->
         <dependency>
             <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>1.2_08</version>
+            <artifactId>javax.faces-api</artifactId>
+            <version>2.1</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+            
+        <!-- <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <version>1.2_08</version>
             <scope>provided</scope>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>com.uwyn</groupId>
             <artifactId>jhighlight</artifactId>
