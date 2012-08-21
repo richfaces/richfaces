@@ -24,99 +24,98 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.AutoCreate;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Observer;
-import org.jboss.seam.annotations.Scope;
+import javax.enterprise.context.ConversationScoped;
+
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.service.Constants;
 
-@Name("fileWrapper")
-@Scope(ScopeType.CONVERSATION)
-@AutoCreate
-public class FileWrapper implements Serializable{
+@ConversationScoped
+public class FileWrapper implements Serializable {
 
-	private static final long serialVersionUID = -1767281809514660171L;
-	
-	private boolean complete = false;
-	
-	private List<Image> files = new ArrayList<Image>();
-	
-	private List<ErrorImage> errorFiles = new ArrayList<ErrorImage>();
-	
-	class ErrorImage{
-		private Image image;
-		private String errorDescription;
-		ErrorImage(Image i, String description){
-			image = i;
-			errorDescription = description;
-		}
-		
-		public Image getImage() {
-			return image;
-		}
-		public void setImage(Image image) {
-			this.image = image;
-		}
-		public String getErrorDescription() {
-			return errorDescription;
-		}
-		public void setErrorDescription(String errorDescription) {
-			this.errorDescription = errorDescription;
-		}
-	}
-	
-	public int getSize() {
-		return getFiles().size();
-	}
-	
-	public List<Image> getFiles() {
-		return files;
-	}
+    private static final long serialVersionUID = -1767281809514660171L;
 
-	public void setFiles(List<Image> files) { 
-		this.files = files;
-	}
-	
-	@Observer(Constants.IMAGE_DRAGGED_EVENT)
-	public void removeImage(Image image, String pathOld){
-		files.remove(image);
-	}
-	
-	@Observer(Constants.CLEAR_FILE_UPLOAD_EVENT)
-	public void clear(){
-		files.clear();
-		errorFiles.clear();
-		complete = false;
-	}
+    private boolean complete = false;
 
-	public void onFileUploadError(Image image, String error){
-		ErrorImage e = new ErrorImage(image, error);
-		errorFiles.add(e);
-	}
-	
-	public Image getErrorImage(ErrorImage e){
-		return e.getImage();
-	}
-	
-	public String getErrorDescription(ErrorImage e){
-		return e.getErrorDescription();
-	}
-	
-	public boolean isComplete() {
-		return complete;
-	}
+    private List<Image> files = new ArrayList<Image>();
 
-	public void setComplete(boolean complete) {
-		this.complete = complete;
-	}
+    private List<ErrorImage> errorFiles = new ArrayList<ErrorImage>();
 
-	public List<ErrorImage> getErrorFiles() {
-		return errorFiles;
-	}
+    class ErrorImage {
+        private Image image;
+        private String errorDescription;
 
-	public void setErrorFiles(List<ErrorImage> errorFiles) {
-		this.errorFiles = errorFiles;
-	}
+        ErrorImage(Image i, String description) {
+            image = i;
+            errorDescription = description;
+        }
+
+        public Image getImage() {
+            return image;
+        }
+
+        public void setImage(Image image) {
+            this.image = image;
+        }
+
+        public String getErrorDescription() {
+            return errorDescription;
+        }
+
+        public void setErrorDescription(String errorDescription) {
+            this.errorDescription = errorDescription;
+        }
+    }
+
+    public int getSize() {
+        return getFiles().size();
+    }
+
+    public List<Image> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<Image> files) {
+        this.files = files;
+    }
+
+    @Observer(Constants.IMAGE_DRAGGED_EVENT)
+    public void removeImage(Image image, String pathOld) {
+        files.remove(image);
+    }
+
+    @Observer(Constants.CLEAR_FILE_UPLOAD_EVENT)
+    public void clear() {
+        files.clear();
+        errorFiles.clear();
+        complete = false;
+    }
+
+    public void onFileUploadError(Image image, String error) {
+        ErrorImage e = new ErrorImage(image, error);
+        errorFiles.add(e);
+    }
+
+    public Image getErrorImage(ErrorImage e) {
+        return e.getImage();
+    }
+
+    public String getErrorDescription(ErrorImage e) {
+        return e.getErrorDescription();
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    public List<ErrorImage> getErrorFiles() {
+        return errorFiles;
+    }
+
+    public void setErrorFiles(List<ErrorImage> errorFiles) {
+        this.errorFiles = errorFiles;
+    }
 }

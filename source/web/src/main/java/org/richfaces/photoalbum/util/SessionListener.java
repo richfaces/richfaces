@@ -19,64 +19,60 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 package org.richfaces.photoalbum.util;
+
 /**
  * This class is session listener that observes <code>"org.jboss.seam.sessionExpired"</code> event to delete in production systems users when it's session is expired
  * to prevent flood. Used only on livedemo server. If you don't want this functionality simply delete this class from distributive.
- * 
+ *
  * @author Andrey Markhel
  */
 import java.util.List;
 
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Destroy;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Observer;
-import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.annotations.Startup;
-import org.jboss.seam.annotations.Transactional;
-import org.jboss.seam.core.Events;
+import org.jboss.seam.transaction.Transactional;
 import org.richfaces.photoalbum.domain.Comment;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.manager.LoggedUserTracker;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IImageAction;
 
-@Scope(ScopeType.SESSION)
-@Name("sessionListener")
-@Startup
+@SessionScoped
 public class SessionListener {
-	
-	@In(required=false)
-	private User user;
 
-	@In
-	private IImageAction imageAction;
-	@In(value="entityManager")
-	private EntityManager em;
-	@In LoggedUserTracker userTracker;
-	@Destroy
-	@Transactional
-	@Observer("org.jboss.seam.sessionExpired")
-	public void onDestroy(){
-		if (!Environment.isInProduction()) {
-			return;
-		}
+    // @In(required=false)
+    @Inject
+    private User user;
 
-		if(user.getId() != null && !user.isPreDefined() && !userTracker.containsUserId(user.getId())){
-			user = em.merge(user);
-			final List<Comment> userComments = imageAction.findAllUserComments(user);
-			for (Comment c : userComments) {
-				em.remove(c);
-			}
-			em.remove(user);
-			em.flush();
-			
-			Events.instance().raiseEvent(Constants.USER_DELETED_EVENT, user);
-		}
-	}
+    @Inject
+    private IImageAction imageAction;
+    @Inject
+    private EntityManager em;
+    @Inject
+    LoggedUserTracker userTracker;
 
-	
+    @PreDestroy
+    @Transactional
+    @Observer("org.jboss.seam.sessionExpired")
+    public void onDestroy() {
+        if (!Environment.isInProduction()) {
+            return;
+        }
+
+        if (user.getId() != null && !user.isPreDefined() && !userTracker.containsUserId(user.getId())) {
+            user = em.merge(user);
+            final List<Comment> userComments = imageAction.findAllUserComments(user);
+            for (Comment c : userComments) {
+                em.remove(c);
+            }
+            em.remove(user);
+            em.flush();
+
+            Events.instance().raiseEvent(Constants.USER_DELETED_EVENT, user);
+        }
+    }
+
 }

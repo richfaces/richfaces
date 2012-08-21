@@ -43,154 +43,155 @@ import com.sun.facelets.tag.TagHandler;
 
 public class ActionMapperTagHandler extends TagHandler {
 
-	private static final Class<?>[] ACTION_PARAM_TYPES = new Class[0];
+    private static final Class<?>[] ACTION_PARAM_TYPES = new Class[0];
 
-	private static final Class<?>[] ACTION_LISTENER_PARAM_TYPES = new Class[] {ActionEvent.class};
+    private static final Class<?>[] ACTION_LISTENER_PARAM_TYPES = new Class[] { ActionEvent.class };
 
-	private static final MethodInfo NOOP_ACTION_INFO = new MethodInfo("$$$noOpAction", String.class, ACTION_PARAM_TYPES);
+    private static final MethodInfo NOOP_ACTION_INFO = new MethodInfo("$$$noOpAction", String.class, ACTION_PARAM_TYPES);
 
-	private static final MethodExpression NOOP_ACTION_EXPRESSION = new MethodExpression() {
+    private static final MethodExpression NOOP_ACTION_EXPRESSION = new MethodExpression() {
 
-		/**
-		 * 
+        /**
+		 *
 		 */
-		private static final long serialVersionUID = 8901807727474303033L;
+        private static final long serialVersionUID = 8901807727474303033L;
 
+        @Override
+        public MethodInfo getMethodInfo(ELContext context) {
+            return NOOP_ACTION_INFO;
+        }
 
-		@Override
-		public MethodInfo getMethodInfo(ELContext context) {
-			return NOOP_ACTION_INFO;
-		}
+        @Override
+        public Object invoke(ELContext context, Object[] params) {
+            return null;
+        }
 
-		@Override
-		public Object invoke(ELContext context, Object[] params) {
-			return null;
-		}
+        // IDE does not like the following EL syntax (string not closed)
+        @SuppressWarnings("all")
+        @Override
+        public String getExpressionString() {
+            return "#{" + NOOP_ACTION_INFO.getName() + "}";
+        }
 
-		@Override
-		public String getExpressionString() {
-			return "#{" + NOOP_ACTION_INFO.getName() + "}";
-		}
+        @Override
+        public boolean isLiteralText() {
+            return false;
+        }
 
-		@Override
-		public boolean isLiteralText() {
-			return false;
-		}
+        @Override
+        public boolean equals(Object obj) {
+            return this == obj;
+        }
 
-		@Override
-		public boolean equals(Object obj) {
-			return this == obj;
-		}
+        @Override
+        public int hashCode() {
+            return NOOP_ACTION_INFO.hashCode();
+        }
 
-		@Override
-		public int hashCode() {
-			return NOOP_ACTION_INFO.hashCode();
-		}
-		
-	};
-	
-	private static final MethodInfo NOOP_ACTION_LISTENER_INFO = new MethodInfo("$$$noOpActionListener", Void.class, ACTION_LISTENER_PARAM_TYPES);
+    };
 
-	private static final MethodExpression NOOP_ACTION_LISTENER_EXPRESSION = new MethodExpression() {
-		
-		/**
-		 * 
+    private static final MethodInfo NOOP_ACTION_LISTENER_INFO = new MethodInfo("$$$noOpActionListener", Void.class,
+        ACTION_LISTENER_PARAM_TYPES);
+
+    private static final MethodExpression NOOP_ACTION_LISTENER_EXPRESSION = new MethodExpression() {
+
+        /**
+		 *
 		 */
-		private static final long serialVersionUID = 6246200728401095532L;
+        private static final long serialVersionUID = 6246200728401095532L;
 
-		@Override
-		public MethodInfo getMethodInfo(ELContext context) {
-			return NOOP_ACTION_LISTENER_INFO;
-		}
+        @Override
+        public MethodInfo getMethodInfo(ELContext context) {
+            return NOOP_ACTION_LISTENER_INFO;
+        }
 
-		@Override
-		public Object invoke(ELContext context, Object[] params) {
-			return null;
-		}
+        @Override
+        public Object invoke(ELContext context, Object[] params) {
+            return null;
+        }
 
-		@Override
-		public String getExpressionString() {
-			return "#{" + NOOP_ACTION_LISTENER_INFO.getName() + "}";
-		}
+        // IDE does not like the following EL syntax (string not closed)
+        @SuppressWarnings("all")
+        @Override
+        public String getExpressionString() {
+            return "#{" + NOOP_ACTION_LISTENER_INFO.getName() + "}";
+        }
 
-		@Override
-		public boolean isLiteralText() {
-			return false;
-		}
+        @Override
+        public boolean isLiteralText() {
+            return false;
+        }
 
-		@Override
-		public boolean equals(Object obj) {
-			return this == obj;
-		}
+        @Override
+        public boolean equals(Object obj) {
+            return this == obj;
+        }
 
-		@Override
-		public int hashCode() {
-			return NOOP_ACTION_LISTENER_INFO.hashCode();
-		}
-	};
+        @Override
+        public int hashCode() {
+            return NOOP_ACTION_LISTENER_INFO.hashCode();
+        }
+    };
 
-	private static final String ACTION = "action";
+    private static final String ACTION = "action";
 
-	private static final String ACTION_LISTENER = "actionListener";
+    private static final String ACTION_LISTENER = "actionListener";
 
-	private static final String MAPPED_ACTION = "mappedAction";
-	
-	private static final String MAPPED_ACTION_LISTENER = "mappedActionListener";
+    private static final String MAPPED_ACTION = "mappedAction";
 
-	public ActionMapperTagHandler(TagConfig config) {
-		super(config);
-	}
+    private static final String MAPPED_ACTION_LISTENER = "mappedActionListener";
 
-	private MethodExpression remap(FaceletContext faceletContext, String varName, 
-			Class<?> expectedReturnType, Class<?>[] expectedParamTypes) {
-		
-		MethodExpression result = null;
-		
-		VariableMapper mapper = faceletContext.getVariableMapper();
-		ValueExpression valueExpression = mapper.resolveVariable(varName);
-		if (valueExpression != null) {
-			ExpressionFactory ef = faceletContext.getExpressionFactory();
-			ELContext elContext = faceletContext.getFacesContext().getELContext();
-			
-			result = ef.createMethodExpression(elContext, valueExpression.getExpressionString(), 
-				expectedReturnType, expectedParamTypes);
-		}
-		
-		return result;
-	}
-	
-	public void apply(FaceletContext ctx, UIComponent parent)
-			throws IOException, FacesException, FaceletException, ELException {
+    public ActionMapperTagHandler(TagConfig config) {
+        super(config);
+    }
 
-		MethodExpression actionExpression = remap(ctx, ACTION, String.class, ACTION_PARAM_TYPES);
-		MethodExpression actionListenerExpression = remap(ctx, ACTION_LISTENER, null, ACTION_LISTENER_PARAM_TYPES);
-		
-			VariableMapper initialVarMapper = ctx.getVariableMapper();
-			try {
-				VariableMapperWrapper varMapper = new VariableMapperWrapper(initialVarMapper);
-			
-				if (actionExpression == null) {
-					actionExpression = NOOP_ACTION_EXPRESSION;
-				}
-				
-				varMapper.setVariable(MAPPED_ACTION, 
-					ctx.getExpressionFactory().createValueExpression(actionExpression, 
-						MethodExpression.class));
+    private MethodExpression remap(FaceletContext faceletContext, String varName, Class<?> expectedReturnType,
+        Class<?>[] expectedParamTypes) {
 
-				if (actionListenerExpression == null) {
-					actionListenerExpression = NOOP_ACTION_LISTENER_EXPRESSION;
-				}
+        MethodExpression result = null;
 
-				varMapper.setVariable(MAPPED_ACTION_LISTENER, 
-						ctx.getExpressionFactory().createValueExpression(actionListenerExpression, 
-							MethodExpression.class));
-				
-				ctx.setVariableMapper(varMapper);
-				
-				nextHandler.apply(ctx, parent);
-				
-			} finally {
-				ctx.setVariableMapper(initialVarMapper);
-			}
-	}
+        VariableMapper mapper = faceletContext.getVariableMapper();
+        ValueExpression valueExpression = mapper.resolveVariable(varName);
+        if (valueExpression != null) {
+            ExpressionFactory ef = faceletContext.getExpressionFactory();
+            ELContext elContext = faceletContext.getFacesContext().getELContext();
+
+            result = ef.createMethodExpression(elContext, valueExpression.getExpressionString(), expectedReturnType,
+                expectedParamTypes);
+        }
+
+        return result;
+    }
+
+    public void apply(FaceletContext ctx, UIComponent parent) throws IOException, FacesException, FaceletException, ELException {
+
+        MethodExpression actionExpression = remap(ctx, ACTION, String.class, ACTION_PARAM_TYPES);
+        MethodExpression actionListenerExpression = remap(ctx, ACTION_LISTENER, null, ACTION_LISTENER_PARAM_TYPES);
+
+        VariableMapper initialVarMapper = ctx.getVariableMapper();
+        try {
+            VariableMapperWrapper varMapper = new VariableMapperWrapper(initialVarMapper);
+
+            if (actionExpression == null) {
+                actionExpression = NOOP_ACTION_EXPRESSION;
+            }
+
+            varMapper.setVariable(MAPPED_ACTION,
+                ctx.getExpressionFactory().createValueExpression(actionExpression, MethodExpression.class));
+
+            if (actionListenerExpression == null) {
+                actionListenerExpression = NOOP_ACTION_LISTENER_EXPRESSION;
+            }
+
+            varMapper.setVariable(MAPPED_ACTION_LISTENER,
+                ctx.getExpressionFactory().createValueExpression(actionListenerExpression, MethodExpression.class));
+
+            ctx.setVariableMapper(varMapper);
+
+            nextHandler.apply(ctx, parent);
+
+        } finally {
+            ctx.setVariableMapper(initialVarMapper);
+        }
+    }
 }

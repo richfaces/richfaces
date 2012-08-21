@@ -20,41 +20,38 @@
  */
 package org.richfaces.photoalbum.ui;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.core.Events;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.util.Utils;
+
 /**
- * Special <code>PhaseListener</code> for check is the user session was expired or user were login in another browser.
- * By default phaseListener works on <code>PhaseId.RESTORE_VIEW</code> JSF lifecycle phase.
+ * Special <code>PhaseListener</code> for check is the user session was expired or user were login in another browser. By
+ * default phaseListener works on <code>PhaseId.RESTORE_VIEW</code> JSF lifecycle phase.
+ *
  * @author Andrey Markhel
  */
-@Name("phaseListener")
-@Scope(ScopeType.EVENT)
+@RequestScoped
 public class UserExpiredPhaseListener implements PhaseListener {
 
-	private static final long serialVersionUID = 1L;
-	private PhaseId phase = PhaseId.RESTORE_VIEW; 
+    private static final long serialVersionUID = 1L;
+    private PhaseId phase = PhaseId.RESTORE_VIEW;
 
-	  public void beforePhase(PhaseEvent e)
-	  {
-		 Events.instance().raiseEvent(Constants.CHECK_USER_EXPIRED_EVENT, Utils.getSession());
-	  }         
+    public void beforePhase(PhaseEvent e) {
+        Events.instance().raiseEvent(Constants.CHECK_USER_EXPIRED_EVENT, Utils.getSession());
+    }
 
-	  public void afterPhase(PhaseEvent e) {
-	  }         
+    public void afterPhase(PhaseEvent e) {
+    }
 
-	  public void setPhase(PhaseId phase) {
-	    this.phase = phase;
-	  }         
+    public void setPhase(PhaseId phase) {
+        this.phase = phase;
+    }
 
-	  public PhaseId getPhaseId() {
-	    return phase;
-	  }
-	}
+    public PhaseId getPhaseId() {
+        return phase;
+    }
+}

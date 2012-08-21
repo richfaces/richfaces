@@ -22,52 +22,52 @@ package org.richfaces.photoalbum.util;
 
 import java.io.IOException;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.AutoCreate;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Observer;
-import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.security.Identity;
-import org.jboss.seam.web.Session;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.manager.LoggedUserTracker;
 import org.richfaces.photoalbum.service.Constants;
+
 /**
- * Utility class for check is the user session was expired or user were login in another browser.
- * Observes <code>Constants.CHECK_USER_EXPIRED_EVENT</code> event
+ * Utility class for check is the user session was expired or user were login in another browser. Observes
+ * <code>Constants.CHECK_USER_EXPIRED_EVENT</code> event
+ * 
  * @author Andrey Markhel
  */
-@Scope(ScopeType.EVENT)
-@Name("sessionExpirationChecker")
-@AutoCreate
+@RequestScoped
 public class SessionExpirationChecker {
 
-	@In User user;
-	@In Identity identity;
-	@In LoggedUserTracker userTracker;
-	/**
-	 * Utility method for check is the user session was expired or user were login in another browser.
-	 * Observes <code>Constants.CHECK_USER_EXPIRED_EVENT</code> event.
-	 * Redirects to error page if user were login in another browser.
-	 * @param session - user's session
-	 */
-	@Observer(Constants.CHECK_USER_EXPIRED_EVENT)
-	public void checkUserExpiration(HttpSession session){
-		if(isShouldExpireUser(session)){
-	    	 try {
-	    		Session.instance().invalidate();
-				FacesContext.getCurrentInstance().getExternalContext().redirect("error.seam");
-			} catch (IOException e1) {
-				FacesContext.getCurrentInstance().responseComplete();
-			}
-	     }
-	}
-	
-	private boolean isShouldExpireUser(HttpSession session) {
-		return identity.isLoggedIn() && user!= null && userTracker.containsUserId(user.getId()) && !userTracker.containsUser(user.getId(), session.getId());
-	}
+    @Inject
+    User user;
+    @Inject
+    Identity identity;
+    @Inject
+    LoggedUserTracker userTracker;
+
+    /**
+     * Utility method for check is the user session was expired or user were login in another browser. Observes
+     * <code>Constants.CHECK_USER_EXPIRED_EVENT</code> event. Redirects to error page if user were login in another browser.
+     * 
+     * @param session - user's session
+     */
+    @Observer(Constants.CHECK_USER_EXPIRED_EVENT)
+    public void checkUserExpiration(HttpSession session) {
+        if (isShouldExpireUser(session)) {
+            try {
+                Session.instance().invalidate();
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.seam");
+            } catch (IOException e1) {
+                FacesContext.getCurrentInstance().responseComplete();
+            }
+        }
+    }
+
+    private boolean isShouldExpireUser(HttpSession session) {
+        return identity.isLoggedIn() && user != null && userTracker.containsUserId(user.getId())
+            && !userTracker.containsUser(user.getId(), session.getId());
+    }
 }

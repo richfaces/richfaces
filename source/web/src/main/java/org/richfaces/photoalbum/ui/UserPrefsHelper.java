@@ -23,13 +23,10 @@ package org.richfaces.photoalbum.ui;
 import java.io.File;
 import java.io.Serializable;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
-import org.jboss.seam.annotations.Scope;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 import org.richfaces.photoalbum.domain.Sex;
@@ -42,37 +39,38 @@ import org.richfaces.photoalbum.service.IUserAction;
  * @author Andrey Markhel
  */
 
-@Name("userPrefsBean")
-@Scope(ScopeType.EVENT)
-public class UserPrefsHelper implements Serializable{
-	private static final long serialVersionUID = -1767281809514660171L;
-	@In IUserAction userAction;
-	
-	@In(required=false, scope=ScopeType.CONVERSATION) @Out(required=false, scope=ScopeType.CONVERSATION) private File avatarData;
+@RequestScoped
+public class UserPrefsHelper implements Serializable {
+    private static final long serialVersionUID = -1767281809514660171L;
+    @Inject
+    IUserAction userAction;
 
-	static final SelectItem[] sexs = new SelectItem[] {
-			new SelectItem(Sex.MALE, Constants.MALE),
-			new SelectItem(Sex.FEMALE, Constants.FEMALE) };
-	
-	public SelectItem [] getSexs() {
-		return sexs;
-	}
+    // @In(required=false, scope=ScopeType.CONVERSATION) @Out(required=false, scope=ScopeType.CONVERSATION)
+    @Inject
+    private File avatarData;
 
-	/**
-	 * Convenience method invoked after user add avatar and outject avatar to conversation
-	 *
-	 * param event - upload event
-	 */
-	public void uploadAvatar(UploadEvent event) {
-		UploadItem item = event.getUploadItem();
-		avatarData = item.getFile();
-	}
-	
-	public File getAvatarData() {
-		return avatarData;
-	}
+    static final SelectItem[] sexs = new SelectItem[] { new SelectItem(Sex.MALE, Constants.MALE),
+            new SelectItem(Sex.FEMALE, Constants.FEMALE) };
 
-	public void setAvatarData(File avatarData) {
-		this.avatarData = avatarData;
-	}
+    public SelectItem[] getSexs() {
+        return sexs;
+    }
+
+    /**
+     * Convenience method invoked after user add avatar and outject avatar to conversation
+     *
+     * param event - upload event
+     */
+    public void uploadAvatar(UploadEvent event) {
+        UploadItem item = event.getUploadItem();
+        avatarData = item.getFile();
+    }
+
+    public File getAvatarData() {
+        return avatarData;
+    }
+
+    public void setAvatarData(File avatarData) {
+        this.avatarData = avatarData;
+    }
 }

@@ -26,258 +26,260 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.AutoCreate;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.core.Events;
+import javax.enterprise.context.ConversationScoped;
+import javax.inject.Inject;
+
 import org.richfaces.photoalbum.manager.NavigationEnum;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.PhotoAlbumException;
-import org.richfaces.photoalbum.search.ISearchAction;
+
 /**
  * Class, that encapsulate functionality related to search process.
+ *
  * @author Andrey Markavtsov
  *
  */
-@Name("searchImageHelper")
-@Scope(ScopeType.CONVERSATION)
-@AutoCreate
+@ConversationScoped
 public class ImageSearchHelper implements Serializable {
 
-	private static final long serialVersionUID = -304368268896942902L;
-	
-	@In ISearchAction searchAction;
+    private static final long serialVersionUID = -304368268896942902L;
 
-	ISearchOption selectedOption;
+    @Inject
+    ISearchAction searchAction;
 
-	List<ISearchOption> options;
-	
-	String selectedTab;
-	
-	String searchQuery;
-	
-	String selectedKeyword;
-	
-	List<String> keywords = new ArrayList<String>();
-	
-	boolean seachInMyAlbums;
-	
-	boolean searchInShared = true;
-	private SearchInformationHolder searchOptionsHolder;
-	
-	/**
-	 * Default constructor. During instantiation populate in field options all possible search options
-	 *
-	 */
-	public ImageSearchHelper() {
-		options = new ArrayList<ISearchOption>();
-		options.add(new SearchOptionByShelf());
-		options.add(new SearchOptionByAlbum());
-		options.add(new SearchOptionByImage());
-		options.add(new SearchOptionByUser());
-		options.add(new SearchOptionByTag());
-	}
-	
-	/**
-	 * Method, used to construct criteria string, to represent this string in UI.
-	 */
-	public String getCriteriaString(){
-		StringBuilder s = new StringBuilder();
-		for(ISearchOption option:options) {
-			if(option.getSelected()){
-				s.append(option.getName() + Constants.COMMA + " ");
-			}
-		}
-		if (s.length() >= 2) {
-			s.delete(s.length() - 2, s.length());
-		}
-		return s.toString();
-	}
-	
-	/**
-	 * Method, that perform search, when user clicks by 'Find' button.
-	 */
-	public void search() {
-		searchOptionsHolder = null;
-		if(!isSearchOptionSelected()){
-			//If no options selected
-			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SEARCH_NO_OPTIONS_ERROR);
-			return;
-		}
-		if(!isWhereSearchOptionSelected()){
-			//If both search in My and search is shared unselected
-			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SEARCH_NO_WHERE_OPTIONS_ERROR);
-			return;
-		}
-		keywords = new ArrayList<String>();
-		//Update view
-		Events.instance().raiseEvent(Constants.UPDATE_MAIN_AREA_EVENT, NavigationEnum.SEARCH);
-		// parse query
-		keywords = parse(searchQuery);
-		Iterator<ISearchOption> it = options.iterator();
-		//Search by first keyword by default
-		selectedKeyword = keywords.get(0).trim();
-		while (it.hasNext()) {
-			ISearchOption option = it.next();
-			try{
-				if (option.getSelected()) {
-					option.search(searchAction, selectedKeyword , seachInMyAlbums, searchInShared);
-				}
-			}catch(PhotoAlbumException e){
-				Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, option.getName() + ":" + e.getMessage());
-			}
-		}
-		searchOptionsHolder = new SearchInformationHolder(new ArrayList<ISearchOption>(options),seachInMyAlbums, searchInShared);
-	}
+    ISearchOption selectedOption;
 
-	/**
-	 * Method, that perform search by particular phrase
-	 * @param keyword - keyword to search
-	 */
-	public void search(String keyword) {
-		if(!isSearchOptionSelected()){
-			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SEARCH_NO_OPTIONS_ERROR);
-			return;
-		}
-		Iterator<ISearchOption> it = searchOptionsHolder.getOptions().iterator();
-		selectedKeyword = keyword.trim();
-		while (it.hasNext()) {
-			ISearchOption option = it.next();
-			try{
-				if (option.getSelected()) {
-					option.search(searchAction, selectedKeyword , searchOptionsHolder.isSeachInMyAlbums(), searchOptionsHolder.isSearchInShared());
-				}
-			}catch(PhotoAlbumException e){
-				Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, option.getName() + ":" + e.getMessage());
-			}
-		}
-	}
-	
-	/**
-	 * Method, invoked when user select or unselect search option.
-	 */
-	public void processSelection() {
-		Iterator<ISearchOption> it = options.iterator();
-		while (it.hasNext()) {
-			ISearchOption option = it.next();
-			if (option.getSelected()) {
-				selectedOption = option;
-				break;
-			}
-		}
-	}
+    List<ISearchOption> options;
 
-	public ISearchOption getSelectedOption() {
-		return selectedOption;
-	}
+    String selectedTab;
 
-	public void setSelectedOption(ISearchOption selectedOption) {
-		this.selectedOption = selectedOption;
-	}
-	
-	public List<ISearchOption> getOptions() {
-		return options;
-	}
+    String searchQuery;
 
-	public void setOptions(List<ISearchOption> options) {
-		this.options = options;
-	}
+    String selectedKeyword;
 
-	public String getSearchQuery() {
-		return searchQuery;
-	}
+    List<String> keywords = new ArrayList<String>();
 
-	public void setSearchQuery(String searchQuery) {
-		this.searchQuery = searchQuery;
-	}
+    boolean seachInMyAlbums;
 
-	public boolean isSeachInMyAlbums() {
-		return seachInMyAlbums;
-	}
+    boolean searchInShared = true;
+    private SearchInformationHolder searchOptionsHolder;
 
-	public void setSeachInMyAlbums(boolean seachInMyAlbums) {
-		this.seachInMyAlbums = seachInMyAlbums;
-	}
+    /**
+     * Default constructor. During instantiation populate in field options all possible search options
+     *
+     */
+    public ImageSearchHelper() {
+        options = new ArrayList<ISearchOption>();
+        options.add(new SearchOptionByShelf());
+        options.add(new SearchOptionByAlbum());
+        options.add(new SearchOptionByImage());
+        options.add(new SearchOptionByUser());
+        options.add(new SearchOptionByTag());
+    }
 
-	public boolean isSearchInShared() {
-		return searchInShared;
-	}
+    /**
+     * Method, used to construct criteria string, to represent this string in UI.
+     */
+    public String getCriteriaString() {
+        StringBuilder s = new StringBuilder();
+        for (ISearchOption option : options) {
+            if (option.getSelected()) {
+                s.append(option.getName() + Constants.COMMA + " ");
+            }
+        }
+        if (s.length() >= 2) {
+            s.delete(s.length() - 2, s.length());
+        }
+        return s.toString();
+    }
 
-	public void setSearchInShared(boolean searchInShared) {
-		this.searchInShared = searchInShared;
-	}
+    /**
+     * Method, that perform search, when user clicks by 'Find' button.
+     */
+    public void search() {
+        searchOptionsHolder = null;
+        if (!isSearchOptionSelected()) {
+            // If no options selected
+            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SEARCH_NO_OPTIONS_ERROR);
+            return;
+        }
+        if (!isWhereSearchOptionSelected()) {
+            // If both search in My and search is shared unselected
+            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SEARCH_NO_WHERE_OPTIONS_ERROR);
+            return;
+        }
+        keywords = new ArrayList<String>();
+        // Update view
+        Events.instance().raiseEvent(Constants.UPDATE_MAIN_AREA_EVENT, NavigationEnum.SEARCH);
+        // parse query
+        keywords = parse(searchQuery);
+        Iterator<ISearchOption> it = options.iterator();
+        // Search by first keyword by default
+        selectedKeyword = keywords.get(0).trim();
+        while (it.hasNext()) {
+            ISearchOption option = it.next();
+            try {
+                if (option.getSelected()) {
+                    option.search(searchAction, selectedKeyword, seachInMyAlbums, searchInShared);
+                }
+            } catch (PhotoAlbumException e) {
+                Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, option.getName() + ":" + e.getMessage());
+            }
+        }
+        searchOptionsHolder = new SearchInformationHolder(new ArrayList<ISearchOption>(options), seachInMyAlbums,
+            searchInShared);
+    }
 
-	public List<String> getKeywords() {
-		return keywords;
-	}
+    /**
+     * Method, that perform search by particular phrase
+     *
+     * @param keyword - keyword to search
+     */
+    public void search(String keyword) {
+        if (!isSearchOptionSelected()) {
+            Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SEARCH_NO_OPTIONS_ERROR);
+            return;
+        }
+        Iterator<ISearchOption> it = searchOptionsHolder.getOptions().iterator();
+        selectedKeyword = keyword.trim();
+        while (it.hasNext()) {
+            ISearchOption option = it.next();
+            try {
+                if (option.getSelected()) {
+                    option.search(searchAction, selectedKeyword, searchOptionsHolder.isSeachInMyAlbums(),
+                        searchOptionsHolder.isSearchInShared());
+                }
+            } catch (PhotoAlbumException e) {
+                Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, option.getName() + ":" + e.getMessage());
+            }
+        }
+    }
 
-	public void setKeywords(List<String> keywords) {
-		this.keywords = keywords;
-	}
+    /**
+     * Method, invoked when user select or unselect search option.
+     */
+    public void processSelection() {
+        Iterator<ISearchOption> it = options.iterator();
+        while (it.hasNext()) {
+            ISearchOption option = it.next();
+            if (option.getSelected()) {
+                selectedOption = option;
+                break;
+            }
+        }
+    }
 
-	public String getSelectedKeyword() {
-		return selectedKeyword;
-	}
+    public ISearchOption getSelectedOption() {
+        return selectedOption;
+    }
 
-	public void setSelectedKeyword(String selectedKeyword) {
-		this.selectedKeyword = selectedKeyword;
-	}
-	
-	public boolean isResultExist(){
-		for(ISearchOption option : options){
-			if(option.getSelected() && option.getSearchResult() != null && option.getSearchResult().size() > 0){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private List<String> parse(String searchQuery2) {
-		return Arrays.asList(searchQuery2.split(Constants.COMMA));
-	}
+    public void setSelectedOption(ISearchOption selectedOption) {
+        this.selectedOption = selectedOption;
+    }
 
-	private boolean isWhereSearchOptionSelected() {
-		return seachInMyAlbums || searchInShared;
-	}
-	
-	boolean isOptionSelected() {
-		return selectedOption != null;
-	}
-	
-	private boolean isSearchOptionSelected() {
-		boolean isOptionSelected = false;
-		for(ISearchOption i : options){
-			if(i.getSelected()){
-				isOptionSelected = true;
-				break;
-			}
-		}
-		return isOptionSelected;
-	}
+    public List<ISearchOption> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<ISearchOption> options) {
+        this.options = options;
+    }
+
+    public String getSearchQuery() {
+        return searchQuery;
+    }
+
+    public void setSearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
+    }
+
+    public boolean isSeachInMyAlbums() {
+        return seachInMyAlbums;
+    }
+
+    public void setSeachInMyAlbums(boolean seachInMyAlbums) {
+        this.seachInMyAlbums = seachInMyAlbums;
+    }
+
+    public boolean isSearchInShared() {
+        return searchInShared;
+    }
+
+    public void setSearchInShared(boolean searchInShared) {
+        this.searchInShared = searchInShared;
+    }
+
+    public List<String> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    public String getSelectedKeyword() {
+        return selectedKeyword;
+    }
+
+    public void setSelectedKeyword(String selectedKeyword) {
+        this.selectedKeyword = selectedKeyword;
+    }
+
+    public boolean isResultExist() {
+        for (ISearchOption option : options) {
+            if (option.getSelected() && option.getSearchResult() != null && option.getSearchResult().size() > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<String> parse(String searchQuery2) {
+        return Arrays.asList(searchQuery2.split(Constants.COMMA));
+    }
+
+    private boolean isWhereSearchOptionSelected() {
+        return seachInMyAlbums || searchInShared;
+    }
+
+    boolean isOptionSelected() {
+        return selectedOption != null;
+    }
+
+    private boolean isSearchOptionSelected() {
+        boolean isOptionSelected = false;
+        for (ISearchOption i : options) {
+            if (i.getSelected()) {
+                isOptionSelected = true;
+                break;
+            }
+        }
+        return isOptionSelected;
+    }
 }
-class SearchInformationHolder{
-	SearchInformationHolder(List<ISearchOption> options, boolean seachInMyAlbums, boolean searchInShared){
-		this.options = options;
-		this.seachInMyAlbums = seachInMyAlbums;
-		this.searchInShared = searchInShared;
-	}
-	List<ISearchOption> options;
-	
-	boolean seachInMyAlbums;
-	
-	boolean searchInShared;
 
-	public List<ISearchOption> getOptions() {
-		return options;
-	}
+class SearchInformationHolder {
+    SearchInformationHolder(List<ISearchOption> options, boolean seachInMyAlbums, boolean searchInShared) {
+        this.options = options;
+        this.seachInMyAlbums = seachInMyAlbums;
+        this.searchInShared = searchInShared;
+    }
 
-	public boolean isSeachInMyAlbums() {
-		return seachInMyAlbums;
-	}
+    List<ISearchOption> options;
 
-	public boolean isSearchInShared() {
-		return searchInShared;
-	}
+    boolean seachInMyAlbums;
+
+    boolean searchInShared;
+
+    public List<ISearchOption> getOptions() {
+        return options;
+    }
+
+    public boolean isSeachInMyAlbums() {
+        return seachInMyAlbums;
+    }
+
+    public boolean isSearchInShared() {
+        return searchInShared;
+    }
 }

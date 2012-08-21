@@ -23,38 +23,35 @@ package org.richfaces.photoalbum.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.AutoCreate;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Observer;
-import org.jboss.seam.annotations.Scope;
+import javax.enterprise.context.RequestScoped;
+
 import org.richfaces.photoalbum.service.Constants;
+
 /**
  * Convenience UI class for global eeror-checking mechanism
  *
  * @author Andrey Markhel
  */
-@Name("errorHandlerBean")
-@Scope(ScopeType.EVENT)
-@AutoCreate
+@RequestScoped
 public class ErrorHandlerBean {
-	private List<String> errors = new ArrayList<String>();
+    private List<String> errors = new ArrayList<String>();
 
-	public List<String> getErrors() {
-		return errors;
-	}
-	
-	public boolean isErrorExist(){
-		return errors.size() > 0 ;
-	}
-	
-	/**
-	 * Convenience method that observes <code>Constants.ADD_ERROR_EVENT</code>. After error occured add error to the list of erors andon rerendering modal panel with all errors will be showed.
-	 *
-	 * @param e - string representation of error.
-	 */
-	@Observer(Constants.ADD_ERROR_EVENT)
-	public void addToErrors(String e){
-		errors.add(e);
-	}
+    public List<String> getErrors() {
+        return errors;
+    }
+
+    public boolean isErrorExist() {
+        return errors.size() > 0;
+    }
+
+    /**
+     * Convenience method that observes <code>Constants.ADD_ERROR_EVENT</code>. After error occured add error to the list of
+     * erors andon rerendering modal panel with all errors will be showed.
+     *
+     * @param e - string representation of error.
+     */
+    @Observer(Constants.ADD_ERROR_EVENT)
+    public void addToErrors(String e) {
+        errors.add(e);
+    }
 }

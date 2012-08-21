@@ -27,13 +27,9 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
-import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.annotations.security.Restrict;
-import org.jboss.seam.core.Events;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 import org.richfaces.photoalbum.domain.Image;
@@ -46,38 +42,37 @@ import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.MetadataException;
-//import com.drew.metadata.exif.ExifDirectory;
 import com.drew.metadata.exif.ExifIFD0Directory;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.jpeg.JpegDirectory;
 
 /**
  * Class encapsulated all functionality, related to file-upload process.
- * 
+ *
  * @author Andrey Markhel
  */
-@Name("fileUploadManager")
-@Scope(ScopeType.EVENT)
+@RequestScoped
 public class FileUploadManager implements Serializable {
 
     private static final long serialVersionUID = 4969087557225414955L;
 
-    @In
+    @Inject
     IImageAction imageAction;
 
-    @In(required = true, scope = ScopeType.CONVERSATION)
-    @Out(scope = ScopeType.CONVERSATION)
+    // @In(required = true, scope = ScopeType.CONVERSATION)
+    // @Out(scope = ScopeType.CONVERSATION)
+    @Inject
     FileWrapper fileWrapper;
 
-    @In
+    @Inject
     Model model;
 
-    @In
+    @Inject
     private FileManager fileManager;
 
     /**
      * Listenet, that invoked during file upload process. Only registered users can upload images.
-     * 
+     *
      * @param event - event, indicated that file upload started
      */
     @Restrict("#{s:hasRole('admin')}")

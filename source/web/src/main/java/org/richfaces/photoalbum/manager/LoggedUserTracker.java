@@ -23,57 +23,57 @@ package org.richfaces.photoalbum.manager;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.annotations.Startup;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
- * Special wrapper for Map, that contains pairs(userId, sessionId) to track what sessionId is actual by specified user.
- * Used to determine need to expire user's session, that session's id not equal to stored in this map.
+ * Special wrapper for Map, that contains pairs(userId, sessionId) to track what sessionId is actual by specified user. Used to
+ * determine need to expire user's session, that session's id not equal to stored in this map.
+ *
  * @author Andrey Markhel
  */
-@Name("userTracker")
-@Scope(ScopeType.APPLICATION)
-@Startup
+@ApplicationScoped
 public class LoggedUserTracker {
 
-	private Map<Long, String> loginnedUserIds = new HashMap<Long, String>();
-	
-	/**
-	 * Add user id and session id to store after each successfull authentication. Last authentication will be current
-	 * @param id - user id to add
-	 * @param sessionId - sessionId
-	 */
-	public void addUserId(Long id, String sessionId){
-		loginnedUserIds.put(id, sessionId);
-	}
-	
-	/**
-	 * Remove user id from store after each logout
-	 * @param id - user id to remove
-	 */
-	public void removeUserId(Long id){
-		loginnedUserIds.remove(id);
-	}
-	
-	/**
-	 * Checks if in the store contained user with specified user id and session id
-	 * @param id - user id to check
-	 * @param sessionId - session id to check
-	 * @return true if such user contained in the store, that indicating that current user is actual.
-	 */
-	public boolean containsUser(Long id, String sessionId){
-		String sessId = loginnedUserIds.get(id);
-		return sessId != null && sessId.equals(sessionId);
-	}
-	
-	/**
-	 * Checks if in the store contained user with specified user id
-	 * @param id - user id to check
-	 * @return true if user with specified id contained in the store
-	 */
-	public boolean containsUserId(Long id){
-		return loginnedUserIds.containsKey(id);
-	}
+    private Map<Long, String> loginnedUserIds = new HashMap<Long, String>();
+
+    /**
+     * Add user id and session id to store after each successfull authentication. Last authentication will be current
+     *
+     * @param id - user id to add
+     * @param sessionId - sessionId
+     */
+    public void addUserId(Long id, String sessionId) {
+        loginnedUserIds.put(id, sessionId);
+    }
+
+    /**
+     * Remove user id from store after each logout
+     *
+     * @param id - user id to remove
+     */
+    public void removeUserId(Long id) {
+        loginnedUserIds.remove(id);
+    }
+
+    /**
+     * Checks if in the store contained user with specified user id and session id
+     *
+     * @param id - user id to check
+     * @param sessionId - session id to check
+     * @return true if such user contained in the store, that indicating that current user is actual.
+     */
+    public boolean containsUser(Long id, String sessionId) {
+        String sessId = loginnedUserIds.get(id);
+        return sessId != null && sessId.equals(sessionId);
+    }
+
+    /**
+     * Checks if in the store contained user with specified user id
+     *
+     * @param id - user id to check
+     * @return true if user with specified id contained in the store
+     */
+    public boolean containsUserId(Long id) {
+        return loginnedUserIds.containsKey(id);
+    }
 }

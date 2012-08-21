@@ -20,31 +20,30 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Observer;
 import org.richfaces.photoalbum.service.Constants;
+
 /**
  * Convenience UI class for rich:editor component
  *
  * @author Andrey Markhel
  */
-@Name("editorBean")
+
 public class EditorBean {
 
-	private String currentConfiguration = "/org/richfaces/photoalbum/editor/advanced";
-	
-	private String message;
-	
-	public String getMessage() {
-		return message;
-	}
+    private String currentConfiguration = "/org/richfaces/photoalbum/editor/advanced";
 
-	@Observer(Constants.CLEAR_EDITOR_EVENT)
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    private String message;
 
-	public String getCurrentConfiguration() {
-		return currentConfiguration;
-	}
+    public String getMessage() {
+        return message;
+    }
+
+    @Observer(Constants.CLEAR_EDITOR_EVENT)
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getCurrentConfiguration() {
+        return currentConfiguration;
+    }
 }
