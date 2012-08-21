@@ -29,7 +29,7 @@
         <appName>Photoalbum Demo Application</appName>
         <projectName>photoalbum</projectName>
         <richfacesVersion>${project.version}</richfacesVersion>
-        <seamVersion>2.1.1.GA</seamVersion>
+        <seamVersion>3.1.0.Final</seamVersion>
         <faceletsVersion>1.1.15.B1</faceletsVersion>
         <jbosscontext>default</jbosscontext>
 		<!--<imageset>short</imageset>-->

@@ -1,39 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.richfaces.examples</groupId>
-		<artifactId>photoalbum</artifactId>
-		<version>3.3.4-SNAPSHOT</version>
-	</parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.richfaces.examples</groupId>
+        <artifactId>photoalbum</artifactId>
+        <version>3.3.4-SNAPSHOT</version>
+    </parent>
 
 	<!--  <groupId>org.richfaces.examples</groupId> -->
-	<artifactId>${projectName}-ejb</artifactId>
-	<name>${appName} EJB module</name>
-	<packaging>ejb</packaging>
+    <artifactId>${projectName}-ejb</artifactId>
+    <name>${appName} EJB module</name>
+    <packaging>ejb</packaging>
 
-	<dependencies>
-		<dependency>
-			<groupId>javax.ejb</groupId>
-			<artifactId>ejb-api</artifactId>
-			<version>3.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>persistence-api</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <javaee6.with.tools.version>1.0.0.Final</javaee6.with.tools.version>
+        <!-- <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version> -->
+        <org.richfaces.bom.version>3.3.4-SNAPSHOT</org.richfaces.bom.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+                <version>${javaee6.with.tools.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${org.richfaces.bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency> -->
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>1.0.2.Final</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
 		<!--<dependency>-->
 		<!-- runtime requirement hibernate needs -->
 		<!--<groupId>org.slf4j</groupId>-->
 		<!--<artifactId>slf4j-log4j12</artifactId>-->
 		<!--<version>1.5.2</version>-->
 		<!--</dependency>-->
-		<dependency>
+        
+		<!-- <dependency>
 			<groupId>org.jboss.seam</groupId>
 			<artifactId>jboss-seam</artifactId>
 			<version>${seamVersion}</version>
@@ -56,87 +94,105 @@
 					<artifactId>jsf-facelets</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency> -->
 
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>3.0.0.ga</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>3.4.0.GA</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.3.0.Final</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.5.6-Final</version>
+            <scope>provided</scope>
+        </dependency>
 
-	<profiles>
-		<profile>
-			<id>livedemo</id>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <!-- <version>4.10</version> -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-			<properties>
-				<imageset>full</imageset>
-			</properties>
-		</profile>
-	</profiles>
+    <profiles>
+        <profile>
+            <id>livedemo</id>
+
+            <properties>
+                <imageset>full</imageset>
+            </properties>
+        </profile>
+    </profiles>
 
 
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-			<resource>
-				<directory>${project.build.directory}/resources-filtered</directory>
-			</resource>
-			<resource>
-				<directory>sql/${imageset}</directory>
-			</resource>
-		</resources>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${project.build.directory}/resources-filtered</directory>
+            </resource>
+            <resource>
+                <directory>sql/${imageset}</directory>
+            </resource>
+        </resources>
 
-		<plugins>
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
-				<executions>
-				  <execution>
-					<id>copy-resources</id>
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
 					<!-- here the phase you need -->
-					<phase>validate</phase>
-					<goals>
-						<goal>copy-resources</goal>
-					</goals>
-					<configuration>
-						<outputDirectory>${project.build.directory}/resources-filtered</outputDirectory>
-						<resources>
-							<resource>
-								<directory>src/main/resources-filtered</directory>
-								<filtering>true</filtering>
-							</resource>
-						</resources>
-					</configuration>
-				  </execution>
-				</executions>
-			</plugin>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/resources-filtered</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources-filtered</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-			<plugin>
-				<artifactId>maven-ejb-plugin</artifactId>
-				<configuration>
-					<ejbVersion>3.0</ejbVersion>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.4</version>
-			</plugin>
-		</plugins>
-	</build>
+            <plugin>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <configuration>
+                    <ejbVersion>3.0</ejbVersion>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>
