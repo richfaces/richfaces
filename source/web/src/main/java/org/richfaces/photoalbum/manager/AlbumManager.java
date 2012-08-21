@@ -62,7 +62,7 @@ public class AlbumManager implements Serializable {
      * @param album - new album
      *
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void addAlbum(Album album) {
         // Shelf must be not-null
         if (album.getShelf() == null) {
@@ -98,7 +98,7 @@ public class AlbumManager implements Serializable {
      * @param isShowAlbumAfterCreate - indicate is we need to show created album after create.
      *
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void createAlbum(Shelf shelf, boolean isShowAlbumAfterCreate) {
         Album album = new Album();
         if (shelf == null) {
@@ -125,7 +125,7 @@ public class AlbumManager implements Serializable {
      * @param album - edited album
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void editAlbum(Album album, boolean editFromInplace) {
         try {
             if (user.hasAlbumWithName(album)) {
@@ -162,7 +162,7 @@ public class AlbumManager implements Serializable {
      * @param album - album to delete
      *
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void deleteAlbum(Album album) {
         String pathToDelete = album.getPath();
         try {

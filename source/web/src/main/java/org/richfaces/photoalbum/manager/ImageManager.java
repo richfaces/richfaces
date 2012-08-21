@@ -58,7 +58,7 @@ public class ImageManager {
      * @param image - image to delete
      *
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void deleteImage(Image image) {
         String pathToDelete = image.getFullPath();
         try {
@@ -77,7 +77,7 @@ public class ImageManager {
      * @param image - image to edit
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void editImage(Image image, boolean editFromInplace) {
         try {
             if (user.hasImageWithName(image)) {
@@ -114,7 +114,7 @@ public class ImageManager {
      * @param message - comment text
      *
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void addComment(Image image, String message) {
         if (null == user.getLogin()) {
             Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.ADDING_COMMENT_ERROR);
@@ -145,7 +145,7 @@ public class ImageManager {
      * @param comment - comment to delete
      *
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void deleteComment(Comment comment) {
         try {
             imageAction.deleteComment(comment);

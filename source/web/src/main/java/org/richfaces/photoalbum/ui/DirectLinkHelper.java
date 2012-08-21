@@ -74,7 +74,7 @@ public class DirectLinkHelper {
 
     private boolean isImageSharedOrBelongsToUser(Image im) {
         return im.getAlbum().getShelf().isShared()
-            || (identity.hasRole(Constants.ADMIN_ROLE) && im.getAlbum().getOwner().getLogin().equals(credentials.getUsername()));
+            || (identity.hasRole(Constants.ADMIN_ROLE, "Users", "GROUP") && im.getAlbum().getOwner().getLogin().equals(credentials.getUsername()));
     }
 
     private boolean isImageRecentlyRemoved(Image im) {

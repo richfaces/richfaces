@@ -86,7 +86,7 @@ public class Controller implements Serializable {
      *
      * @param shelf - shelf to edit
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void startEditShelf(Shelf shelf) {
         if (!canViewShelf(shelf)) {
             pushEvent(Constants.ADD_ERROR_EVENT, Constants.HAVENT_ACCESS);
@@ -162,7 +162,7 @@ public class Controller implements Serializable {
      *
      * @param image - image to edit
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void startEditImage(Image image) {
         if (!canViewImage(image)) {
             pushEvent(Constants.ADD_ERROR_EVENT, Constants.HAVENT_ACCESS);
@@ -176,7 +176,7 @@ public class Controller implements Serializable {
      * This method invoked after the user want to save just edited user to database.
      *
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void editUser() {
         pushEvent(Constants.EDIT_USER_EVENT);
         model.resetModel(NavigationEnum.ALL_SHELFS, user, model.getSelectedShelf(), model.getSelectedAlbum(),
@@ -222,7 +222,7 @@ public class Controller implements Serializable {
      *
      * @param album - album to edit
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void startEditAlbum(Album album) {
         if (!album.isOwner(user)) {
             pushEvent(Constants.ADD_ERROR_EVENT, Constants.HAVENT_ACCESS);

@@ -54,7 +54,7 @@ public class DnDManager implements DropListener {
      *
      * @param event - event, indicated that drag'n'drop started
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void processDrop(DropEvent dropEvent) {
         Dropzone dropzone = (Dropzone) dropEvent.getComponent();
         Object dragValue = dropEvent.getDragValue();

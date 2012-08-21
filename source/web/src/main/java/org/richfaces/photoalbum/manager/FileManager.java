@@ -89,7 +89,7 @@ public class FileManager {
      * @param path - relative path of the album directory
      *
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     @Observer(Constants.ALBUM_DELETED_EVENT)
     public void onAlbumDeleted(Album album, String path) {
         deleteDirectory(path);
@@ -102,7 +102,7 @@ public class FileManager {
      * @param shelf - deleted shelf
      * @param path - relative path of the shelf directory
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     @Observer(Constants.SHELF_DELETED_EVENT)
     public void onShelfDeleted(Shelf shelf, String path) {
         deleteDirectory(path);
@@ -163,7 +163,7 @@ public class FileManager {
      * @param image - deleted image
      * @param path - relative path of the image file
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     @Observer(Constants.IMAGE_DELETED_EVENT)
     public void deleteImage(Image image, String path) {
         for (ImageDimension d : ImageDimension.values()) {
@@ -177,7 +177,7 @@ public class FileManager {
      * @param fileName - new relative path to the image file
      * @param tempFilePath - absolute path to uploaded image
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public boolean addImage(String fileName, String tempFilePath) {
         createDirectoryIfNotExist(fileName);
         for (ImageDimension d : ImageDimension.values()) {

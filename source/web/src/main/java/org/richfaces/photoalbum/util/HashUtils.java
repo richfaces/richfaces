@@ -36,7 +36,7 @@ public class HashUtils {
 
     /**
      * Convenience method to hash user passwords.
-     *
+     * 
      * @param plainTextPassword - password to hash
      */
     public static String hash(String plainTextPassword) {

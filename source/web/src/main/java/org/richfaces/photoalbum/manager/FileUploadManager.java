@@ -75,7 +75,7 @@ public class FileUploadManager implements Serializable {
      *
      * @param event - event, indicated that file upload started
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void listener(UploadEvent event) {
         UploadItem item = event.getUploadItem();
         // Construct image from item

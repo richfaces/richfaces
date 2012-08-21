@@ -31,10 +31,10 @@ import java.io.Serializable;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.security.auth.login.LoginException;
 
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
+import org.picketlink.idm.impl.api.PasswordCredential;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IUserAction;
@@ -93,7 +93,7 @@ public class Authenticator implements Serializable {
                 userTracker.removeUserId(user.getId());
                 // Mark current user as actual
                 userTracker.addUserId(user.getId(), Utils.getSession().getId());
-                identity.addRole(Constants.ADMIN_ROLE);
+                identity.addRole(Constants.ADMIN_ROLE, "Users", "GROUP");
                 // Raise event to controller to update Model
                 Events.instance().raiseEvent(Constants.AUTHENTICATED_EVENT, user);
                 // Login was succesfull
@@ -151,11 +151,15 @@ public class Authenticator implements Serializable {
             return;
         }
         // Registration was successfull, so we can login this user.
-        credentials.setPassword(user.getPassword());
+        credentials.setCredential(new PasswordCredential(user.getPassword()));
         credentials.setUsername(user.getLogin());
-        try {
-            identity.authenticate();
-        } catch (LoginException e) {
+        // try {
+        // identity.authenticate();
+        // } catch (LoginException e) {
+        // Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.LOGIN_ERROR);
+        // }
+        String response = identity.login();
+        if (!response.equals("RESPONSE_LOGIN_SUCCESS")) {
             Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.LOGIN_ERROR);
         }
 

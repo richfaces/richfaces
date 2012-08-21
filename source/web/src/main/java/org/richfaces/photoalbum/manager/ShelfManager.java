@@ -56,7 +56,7 @@ public class ShelfManager implements Serializable {
      * Method, that invoked when user want to create new shelf. Only registered users can create new shelves.
      *
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void createShelf() {
         Shelf shelf = new Shelf();
         Contexts.getConversationContext().set(Constants.SHELF_VARIABLE, shelf);
@@ -68,7 +68,7 @@ public class ShelfManager implements Serializable {
      * @param album - new album
      *
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void addShelf(Shelf shelf) {
         if (user.hasShelfWithName(shelf)) {
             Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SAME_SHELF_EXIST_ERROR);
@@ -93,7 +93,7 @@ public class ShelfManager implements Serializable {
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
      *
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void editShelf(Shelf shelf, boolean editFromInplace) {
         try {
             if (user.hasShelfWithName(shelf)) {
@@ -129,7 +129,7 @@ public class ShelfManager implements Serializable {
      * @param image - shelf to delete
      *
      */
-    @Restrict("#{s:hasRole('admin')}")
+    @AdminRestricted
     public void deleteShelf(Shelf shelf) {
         String pathToDelete = shelf.getPath();
         try {

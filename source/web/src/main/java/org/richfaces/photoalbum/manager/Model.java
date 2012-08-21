@@ -35,7 +35,7 @@ import org.richfaces.photoalbum.service.Constants;
 /**
  * This class represent 'M' in MVC pattern. It is storage to application flow related data such as selectedAlbum, image,
  * mainArea to preview etc..
- *
+ * 
  * @author Andrey Markhel
  */
 @ConversationScoped
@@ -59,7 +59,7 @@ public class Model implements Serializable {
 
     /**
      * This method invoked after the almost user actions, to prepare properly data to show in the UI.
-     *
+     * 
      * @param mainArea - next Area to show(determined in controller)
      * @param selectedUser - user, that was selected(determined in controller)
      * @param selectedShelf - shelf, that was selected(determined in controller)
@@ -80,9 +80,9 @@ public class Model implements Serializable {
     /**
      * This method observes <code> Constants.UPDATE_MAIN_AREA_EVENT </code>event and invoked after the user actions, that not
      * change model, but change area to preview
-     *
+     * 
      * @param mainArea - next Area to show
-     *
+     * 
      */
     @Observer(Constants.UPDATE_MAIN_AREA_EVENT)
     public void setMainArea(NavigationEnum mainArea) {
@@ -95,9 +95,9 @@ public class Model implements Serializable {
     /**
      * This method observes <code> Constants.UPDATE_SELECTED_TAG_EVENT </code>event and invoked after the user click on any
      * metatag.
-     *
+     * 
      * @param selectedTag - clicked tag
-     *
+     * 
      */
     @Observer(Constants.UPDATE_SELECTED_TAG_EVENT)
     public void setSelectedTag(MetaTag selectedTag) {
