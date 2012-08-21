@@ -27,31 +27,6 @@ package org.richfaces.photoalbum.service;
  */
 public class Constants {
 
-    // Events
-    public static final String CHECK_USER_EXPIRED_EVENT = "checkUserExpiredEvent";
-    public static final String ADD_ERROR_EVENT = "addErrorEvent";
-    public static final String ALBUM_DELETED_EVENT = "albumDeleted";
-    public static final String ALBUM_EDITED_EVENT = "albumEdited";
-    public static final String UPDATE_MAIN_AREA_EVENT = "updateMainArea";
-    public static final String CLEAR_EDITOR_EVENT = "clearEditor";
-    public static final String START_REGISTER_EVENT = "startRegisterEvent";
-    public static final String ALBUM_ADDED_EVENT = "albumAdded";
-    public static final String IMAGE_DRAGGED_EVENT = "imageDraggedEvent";
-    public static final String ALBUM_DRAGGED_EVENT = "albumDraggedEvent";
-    public static final String ADD_IMAGE_EVENT = "addImage";
-    public static final String SHELF_DELETED_EVENT = "shelfDeleted";
-    public static final String CLEAR_FILE_UPLOAD_EVENT = "clearFileUpload";
-    public static final String UPDATE_SELECTED_TAG_EVENT = "updateSelectedTag";
-    public static final String STOP_SLIDESHOW_EVENT = "StopSlideshow";
-    public static final String IMAGE_DELETED_EVENT = "imageDeleted";
-    public static final String IMAGE_ADDED_EVENT = "imageAdded";
-    public static final String EDIT_USER_EVENT = "editUserEvent";
-    public static final String CANCEL_EDIT_USER_EVENT = "cancelEditUserEvent";
-    public static final String AUTHENTICATED_EVENT = "authenticateEvent";
-    public static final String SHELF_ADDED_EVENT = "shelfAddedEvent";
-    public static final String SHELF_EDITED_EVENT = "shelfEditEvent";
-    public static final String USER_DELETED_EVENT = "userDeletedEvent";
-
     // Errors(Internationalization pending)
     public static final String WRONG_SEARCH_PARAMETERS_ERROR = "Wrong search parameters";
     public static final String YOU_ALREADY_DOWNLOAD_MANY_COPIES_OF_THIS_IMAGE_ERROR = "You already download 256 copies of this image. Please specify another name for uploaded image";
