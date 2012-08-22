@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/iteration" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="List" />
+    
+    <!-- content -->
+    <ui:define name="content">
+    
+        <h:form>
+            <h:selectOneListbox value="#{listBean.listType}" onchange="submit()">
+                <f:selectItem itemValue="ordered" />
+                <f:selectItem itemValue="unordered" />
+                <f:selectItem itemValue="definitions" />
+            </h:selectOneListbox>
+        </h:form>
+    
+        <h:form id="form1">
+            <rich:list id="list" var="item" value="#{dataBean.employeeList}" rows="20" type="#{listBean.listType}">
+                <f:facet name="term">
+                    E-mail: #{item.EMail}
+                </f:facet>
+    
+                Name: #{item.name}
+            </rich:list>
+    
+            <rich:dataScroller for="list" />
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

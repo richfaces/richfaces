@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/iteration" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="JPA Column" />
+    
+    <!-- content -->
+    <ui:define name="content">
+    
+    <rich:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" filterValue="#{bean.filterValues[property]}"
+        filterExpression="#{property}">
+        <f:facet name="header">
+            <h:commandLink style="color: white;" action="#{bean.switchSortOrder(property)}">
+                #{bean.getSortOrder(property)}
+                <a4j:ajax render="richTable" />
+            </h:commandLink>
+            <br />
+            <h:inputText value="#{bean.filterValues[property]}">
+                <a4j:ajax render="richTable@body scroller" event="keyup" />
+            </h:inputText>
+        </f:facet>
+
+        <h:outputText value="#{record[property]}" />
+    </rich:column>
+    
+    </ui:define>
+</ui:composition>
+</html>

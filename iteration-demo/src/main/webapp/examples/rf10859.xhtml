@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/iteration" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Repeat - RF-10859" />
+    
+    <!-- content -->
+    <ui:define name="content">
+    
+        <h:form id="form">
+            <h:messages />
+    
+            <a4j:repeat id="outer" value="#{rf10859.listDataItems}" var="item">
+                <a4j:repeat id="inner" value="#{item.list}" var="inner">
+                    <h:inputText id="input" value="#{inner.status}" />
+                </a4j:repeat>
+                <br />
+            </a4j:repeat>
+    
+            <h:commandLink id="regular" value="Regular submit" />
+            <br />
+            <a4j:commandLink id="ajax" value="Ajax submit" render="form" />
+    
+        </h:form>
+    
+    </ui:define>
+</ui:composition>
+</html>

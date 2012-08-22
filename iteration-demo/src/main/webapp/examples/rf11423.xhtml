@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/iteration" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Data Table - RF-11423" />
+    
+    <!-- content -->
+    <ui:define name="content">
+    
+        <h:form>
+            <a4j:commandLink value="Re-render self" render="jLT"/>
+            |
+            <a4j:commandLink value="Re-render table" render="jLT"/>
+            |
+            <h:commandLink value="Regular submit"/>
+
+            <!--jLT=jobLineTable-->
+            <rich:dataTable id="jLT" value="#{rf11423.titles}" var="title" rowClasses="even,odd">
+
+                <rich:column>
+                    <f:facet name="header">Hero</f:facet>
+                    <h:outputText value="#{title}" />
+                    
+                </rich:column>
+
+            </rich:dataTable>
+        </h:form>
+    
+    </ui:define>
+</ui:composition>
+</html>

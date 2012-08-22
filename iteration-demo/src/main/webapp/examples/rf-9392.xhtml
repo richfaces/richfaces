@@ -1,32 +1,33 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
-
-<f:view>
-    <h:head>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/iteration" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="RF-9392" />
+    
+    <!-- content -->
+    <ui:define name="content">
+    
         <h:outputScript name="jquery.js" />
         <h:outputScript library="qunit" name="qunit.js" />
 
         <h:outputStylesheet library="qunit" name="qunit.css" />
         <style type="text/css">
-.additionTestClass,.removalTestClass {
-    position: absolute;
-    line-height: 0px;
-    font-size: 0px;
-}
-</style>
+        .additionTestClass,.removalTestClass {
+            position: absolute;
+            line-height: 0px;
+            font-size: 0px;
+        }
+        </style>
+        
+                <style type="text/css" id="removalTest">
+        .removalTestClass {
+            width: 200px;
+            height: 180px;
+            background-color: #EEE;
+        }
+        </style>
 
-        <style type="text/css" id="removalTest">
-.removalTestClass {
-    width: 200px;
-    height: 180px;
-    background-color: #EEE;
-}
-</style>
-    </h:head>
-    <h:body>
         <h1 id="qunit-header">QUnit example</h1>
 
         <h2 id="qunit-banner"></h2>
@@ -75,6 +76,7 @@
             });
         });
         /* ]]> */</script>
-    </h:body>
-</f:view>
+    
+    </ui:define>
+</ui:composition>
 </html>
