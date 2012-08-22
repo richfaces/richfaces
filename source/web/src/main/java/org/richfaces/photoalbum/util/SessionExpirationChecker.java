@@ -34,12 +34,11 @@ import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.manager.LoggedUserTracker;
-import org.richfaces.photoalbum.service.Constants;
 
 /**
  * Utility class for check is the user session was expired or user were login in another browser. Observes
  * <code>Constants.CHECK_USER_EXPIRED_EVENT</code> event
- * 
+ *
  * @author Andrey Markhel
  */
 @RequestScoped
@@ -51,19 +50,21 @@ public class SessionExpirationChecker {
     Identity identity;
     @Inject
     LoggedUserTracker userTracker;
-    
-    @Inject HttpSession session;
+
+    @Inject
+    @Preferred
+    HttpSession session;
 
     /**
      * Utility method for check is the user session was expired or user were login in another browser. Observes
      * <code>Constants.CHECK_USER_EXPIRED_EVENT</code> event. Redirects to error page if user were login in another browser.
-     * 
+     *
      * @param session - user's session
      */
     public void checkUserExpiration(@Observes @EventType(Events.CHECK_USER_EXPIRED_EVENT) SimpleEvent se) {
         if (isShouldExpireUser(session)) {
             try {
-                Session.instance().invalidate();
+                Utils.getSession().invalidate();
                 FacesContext.getCurrentInstance().getExternalContext().redirect("error.seam");
             } catch (IOException e1) {
                 FacesContext.getCurrentInstance().responseComplete();

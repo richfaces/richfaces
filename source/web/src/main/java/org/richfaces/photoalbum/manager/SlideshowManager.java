@@ -58,6 +58,9 @@ public class SlideshowManager implements Serializable {
     Model model;
 
     @Inject
+    FileManager fileManager;
+
+    @Inject
     @EventType(Events.ADD_ERROR_EVENT)
     Event<SimpleEvent> error;
 
@@ -197,7 +200,7 @@ public class SlideshowManager implements Serializable {
     }
 
     private void onError(boolean isShowOnUI) {
-        //stopSlideshow();
+        // stopSlideshow();
         stopSlideshow(new SimpleEvent());
         errorDetected = true;
         Utils.addToRerender(Constants.MAINAREA_ID);
@@ -208,7 +211,7 @@ public class SlideshowManager implements Serializable {
     }
 
     private void checkIsFileRecentlyDeleted() {
-        FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
+        //FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         if (!fileManager.isFilePresent(this.selectedImage.getFullPath())) {
             error.fire(new SimpleEvent(Constants.IMAGE_RECENTLY_DELETED_ERROR));
             active = false;

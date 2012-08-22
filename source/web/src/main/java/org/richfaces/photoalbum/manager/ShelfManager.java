@@ -72,8 +72,9 @@ public class ShelfManager implements Serializable {
      */
     @AdminRestricted
     public void createShelf() {
+        @SuppressWarnings("unused")
         Shelf shelf = new Shelf();
-        Contexts.getConversationContext().set(Constants.SHELF_VARIABLE, shelf);
+        //Contexts.getConversationContext().set(Constants.SHELF_VARIABLE, shelf);
     }
 
     /**

@@ -40,6 +40,7 @@ public class Utils {
     @SuppressWarnings("unused")
     @Produces
     @PersistenceContext
+    @Preferred
     private EntityManager em;
 
     private Utils() {
@@ -65,6 +66,7 @@ public class Utils {
      * @return session object
      */
     @Produces
+    @Preferred
     public static HttpSession getSession() {
         return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
     }

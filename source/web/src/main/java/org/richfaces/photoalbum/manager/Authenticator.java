@@ -190,7 +190,7 @@ public class Authenticator implements Serializable {
         // create new User object
         user = new User();
         // Clear avatarData component in conversation scope
-        Contexts.getConversationContext().set(Constants.AVATAR_DATA_COMPONENT, null);
+        // Contexts.getConversationContext().set(Constants.AVATAR_DATA_COMPONENT, null);
         setLoginFailed(false);
         // raise event to controller to prepare Model.
         event.select(new EventTypeQualifier(Events.START_REGISTER_EVENT)).fire(new SimpleEvent());
@@ -208,8 +208,10 @@ public class Authenticator implements Serializable {
         return "";
     }
 
+    @SuppressWarnings("unused")
     private boolean handleAvatar(User user) {
-        File avatarData = (File) Contexts.getConversationContext().get(Constants.AVATAR_DATA_COMPONENT);
+        // File avatarData = (File) Contexts.getConversationContext().get(Constants.AVATAR_DATA_COMPONENT);
+        File avatarData = null; // temporary hack
         if (avatarData != null) {
             user.setHasAvatar(true);
             // FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);

@@ -110,8 +110,12 @@ public class Model implements Serializable {
      * @param selectedTag - clicked tag
      *
      */
+    public void setSelectedTag(MetaTag tag) {
+        this.selectedTag = tag;
+    }
+    
     // Might not work properly due to injection
-    public void setSelectedTag(@Observes @EventType(Events.UPDATE_SELECTED_TAG_EVENT) SimpleEvent se) {
+    public void observeSelectedTag(@Observes @EventType(Events.UPDATE_SELECTED_TAG_EVENT) SimpleEvent se) {
         this.selectedTag = metatag;
     }
 

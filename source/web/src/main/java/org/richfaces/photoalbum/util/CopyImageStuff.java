@@ -35,7 +35,9 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
 
 /**
  * Utility class, that perform copying images from ear file to temp folder at startup application
@@ -52,6 +54,7 @@ public class CopyImageStuff {
     private File uploadRoot;
 
     // @Out(scope = ScopeType.APPLICATION)
+    @SuppressWarnings("unused")
     @Produces
     private String uploadRootPath;
 
@@ -78,11 +81,13 @@ public class CopyImageStuff {
     }
 
     private void resolveImageFolder() throws MalformedURLException {
-        final ServletContext servletContext = ServletLifecycle.getServletContext();
+        final ServletContext servletContext = ((HttpServlet) (FacesContext
+            .getCurrentInstance().getExternalContext().getSession(false)))
+            .getServletContext();
 
         if (servletContext != null) {
             // this.imageSrc = getClass().getClassLoader().getResource(IMAGE_FOLDER).getPath();
-            this.imageSrc = ServletLifecycle.getServletContext().getRealPath("WEB-INF/classes/Upload");
+            this.imageSrc = servletContext.getRealPath("WEB-INF/classes/Upload");
         } else {
             throw new IllegalStateException(UPLOAD_FOLDER_PATH_ERROR);
         }

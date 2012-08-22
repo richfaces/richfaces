@@ -26,6 +26,7 @@ package org.richfaces.photoalbum.util;
  *
  * @author Andrey Markhel
  */
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PreDestroy;
@@ -41,15 +42,13 @@ import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.manager.LoggedUserTracker;
-import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IImageAction;
-import java.io.Serializable;
 
 @SessionScoped
 public class SessionListener implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 
@@ -60,15 +59,18 @@ public class SessionListener implements Serializable {
     @Inject
     private IImageAction imageAction;
     @Inject
+    @Preferred
     private EntityManager em;
     @Inject
     LoggedUserTracker userTracker;
-    
-    @Inject @EventType(Events.USER_DELETED_EVENT) Event<SimpleEvent> event;
+
+    @Inject
+    @EventType(Events.USER_DELETED_EVENT)
+    Event<SimpleEvent> event;
 
     @PreDestroy
     @Transactional
-    //@Observer("org.jboss.seam.sessionExpired")
+    // @Observer("org.jboss.seam.sessionExpired")
     public void onDestroy() {
         if (!Environment.isInProduction()) {
             return;

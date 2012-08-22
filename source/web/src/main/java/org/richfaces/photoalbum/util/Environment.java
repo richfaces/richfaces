@@ -30,6 +30,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
+
 public class Environment {
 
     private static final String SHOW_HELP_ICONS_STRATEGY = "showHelpIconsStrategy";
@@ -45,8 +49,9 @@ public class Environment {
     private static String getEnvironment() {
         try {
             final Properties props = new Properties();
-            props.load(new FileInputStream(ServletLifecycle.getServletContext().getRealPath(
-                "WEB-INF/classes/" + ENVIRONMENT_PROPERTIES)));
+            final ServletContext servletContext = ((HttpServlet) FacesContext.getCurrentInstance().getExternalContext()
+                .getSession(false)).getServletContext();
+            props.load(new FileInputStream(servletContext.getRealPath("WEB-INF/classes/" + ENVIRONMENT_PROPERTIES)));
             return props.getProperty(ENVIRONMENT);
         } catch (FileNotFoundException e) {
             // Do nothing.
@@ -60,8 +65,9 @@ public class Environment {
     private static String getShowHelpIconsStrategy() {
         try {
             final Properties props = new Properties();
-            props.load(new FileInputStream(ServletLifecycle.getServletContext().getRealPath(
-                "WEB-INF/classes/" + ENVIRONMENT_PROPERTIES)));
+            final ServletContext servletContext = ((HttpServlet) FacesContext.getCurrentInstance().getExternalContext()
+                .getSession(false)).getServletContext();
+            props.load(new FileInputStream(servletContext.getRealPath("WEB-INF/classes/" + ENVIRONMENT_PROPERTIES)));
             return props.getProperty(SHOW_HELP_ICONS_STRATEGY);
         } catch (FileNotFoundException e) {
             // Do nothing.
@@ -74,7 +80,7 @@ public class Environment {
 
     /**
      * Convenience method to determine is the application running in production mode.
-     *
+     * 
      * @return true if application running in production mode
      */
     public static boolean isInProduction() {
@@ -87,7 +93,7 @@ public class Environment {
 
     /**
      * Convenience method to determine is the application help system will be rendered
-     *
+     * 
      * @return true if the application help system need to be rendered
      */
     public static boolean isShowHelp() {

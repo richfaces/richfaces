@@ -87,7 +87,7 @@ public class AlbumManager implements Serializable {
             // facesMessages.addToControl(Constants.SHELF_ID, Constants.SHELF_MUST_BE_NOT_NULL_ERROR, new Object[0]);
             FacesContext.getCurrentInstance().addMessage(Constants.SHELF_ID,
                 new FacesMessage(Constants.SHELF_MUST_BE_NOT_NULL_ERROR));
-            Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
+            //Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
             return;
         }
         // Album name must be unique in shelf
@@ -106,7 +106,7 @@ public class AlbumManager implements Serializable {
             return;
         }
         // Reset 'album' component in conversation scope
-        Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, null);
+        //Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, null);
         // Raise 'albumAdded' event
         albumEvent.select(new EventTypeQualifier(Events.ALBUM_ADDED_EVENT)).fire(new AlbumEvent(album));
     }
@@ -136,7 +136,7 @@ public class AlbumManager implements Serializable {
         album.setShelf(shelf);
         album.setShowAfterCreate(isShowAlbumAfterCreate);
         // Reset 'album' component in conversation scope
-        Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
+        //Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
     }
 
     /**

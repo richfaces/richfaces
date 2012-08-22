@@ -64,6 +64,9 @@ public class Controller implements Serializable {
     User user;
 
     @Inject
+    FileManager fileManager;
+
+    @Inject
     @EventType(Events.ADD_ERROR_EVENT)
     Event<SimpleEvent> error;
     @Inject
@@ -131,7 +134,7 @@ public class Controller implements Serializable {
             showError(Constants.HAVENT_ACCESS);
             return;
         }
-        FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
+        //FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         // Check, that album was not deleted recently.
         if (!fileManager.isDirectoryPresent(album.getPath())) {
             showError(Constants.ALBUM_RECENTLY_DELETED_ERROR);
@@ -162,7 +165,7 @@ public class Controller implements Serializable {
             return;
         }
         // Check, that image was not deleted recently
-        final FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
+        //final FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         if (!fileManager.isFilePresent(image.getFullPath())) {
             showError(Constants.IMAGE_RECENTLY_DELETED_ERROR);
             model.resetModel(NavigationEnum.ALBUM_PREVIEW, image.getAlbum().getOwner(), image.getAlbum().getShelf(),
@@ -225,7 +228,7 @@ public class Controller implements Serializable {
      * @param album - album to show
      */
     public void showShelf(Shelf shelf) {
-        final FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
+        //final FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         if (!fileManager.isDirectoryPresent(shelf.getPath())) {
             showError(Constants.SHELF_RECENTLY_DELETED_ERROR);
             model.resetModel(NavigationEnum.ANONYM, shelf.getOwner(), null, null, null, null);
@@ -402,7 +405,7 @@ public class Controller implements Serializable {
      */
     public void showUser(User user) {
         model.resetModel(NavigationEnum.USER_PREFS, user, null, null, null, null);
-        Contexts.getConversationContext().set(Constants.AVATAR_DATA_COMPONENT, null);
+        // Contexts.getConversationContext().set(Constants.AVATAR_DATA_COMPONENT, null);
     }
 
     /**
@@ -458,7 +461,6 @@ public class Controller implements Serializable {
     /**
      * This utility method determine if the specified node should be marked as selected. Used in internal rich:tree mechanism
      */
-    @SuppressWarnings("unchecked")
     public Boolean adviseNodeSelected(UITree tree) {
         Object currentNode = tree.getRowData();
         if (currentNode.equals(model.getSelectedAlbum()) || currentNode.equals(model.getSelectedShelf())) {

@@ -51,8 +51,10 @@ import org.richfaces.photoalbum.util.ImageDimension;
 @ApplicationScoped
 public class FileManager {
 
+    @Inject
     private File uploadRoot;
 
+    @Inject
     private String uploadRootPath;
 
     @Inject
@@ -64,8 +66,8 @@ public class FileManager {
      */
     @PostConstruct
     public void create() {
-        uploadRoot = (File) Component.getInstance(Constants.UPLOAD_ROOT_COMPONENT_NAME, ScopeType.APPLICATION);
-        uploadRootPath = (String) Component.getInstance(Constants.UPLOAD_ROOT_PATH_COMPONENT_NAME, ScopeType.APPLICATION);
+        //uploadRoot = (File) Component.getInstance(Constants.UPLOAD_ROOT_COMPONENT_NAME, Scope.APPLICATION);
+        //uploadRootPath = (String) Component.getInstance(Constants.UPLOAD_ROOT_PATH_COMPONENT_NAME, ScopeType.APPLICATION);
     }
 
     /**
