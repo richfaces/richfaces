@@ -14,6 +14,19 @@
     <artifactId>validator-demo</artifactId>
     <name>RichFaces Examples Validators</name>
     <packaging>war</packaging>
+    
+    <dependencyManagement>
+        <dependencies>
+            <!-- RichFaces BOM Import -->
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${version.richfaces}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
 
@@ -22,6 +35,12 @@
             <artifactId>jboss-javaee-web-6.0</artifactId>
             <type>pom</type>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.richfaces.examples</groupId>
+            <artifactId>template</artifactId>
+            <type>war</type>
         </dependency>
 
         <dependency>
@@ -32,14 +51,6 @@
             <groupId>org.richfaces.ui.validator</groupId>
             <artifactId>richfaces-ui-validator-ui</artifactId>
         </dependency>
-        
-        <!-- Brings common dev-example files -->
-        <dependency>
-            <groupId>org.richfaces.examples</groupId>
-            <artifactId>template</artifactId>
-            <type>war</type>
-        </dependency>
-
 
         <!-- Support of additional constrains, e.g. @NotEmpty - won't work on MyFaces -->
         <dependency>

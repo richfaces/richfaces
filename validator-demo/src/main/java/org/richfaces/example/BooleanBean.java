@@ -3,12 +3,16 @@
  */
 package org.richfaces.example;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.validation.constraints.AssertTrue;
 
 /**
  * @author asmirnov
  *
  */
+@ManagedBean
+@RequestScoped
 public class BooleanBean extends Validable<Boolean> {
     @AssertTrue()
     private Boolean value = false;

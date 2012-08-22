@@ -1,11 +1,15 @@
 package org.richfaces.example;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+@ManagedBean(name = "test")
+@RequestScoped
 public class Bean {
     public static final String FOO_VALUE = "fooValue";
     private String value = FOO_VALUE;

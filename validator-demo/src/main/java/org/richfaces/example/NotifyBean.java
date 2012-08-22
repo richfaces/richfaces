@@ -32,6 +32,8 @@ import java.io.Serializable;
 @ManagedBean
 public class NotifyBean implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private String greeting;
     private boolean nonblocking;
     private boolean showDetail;

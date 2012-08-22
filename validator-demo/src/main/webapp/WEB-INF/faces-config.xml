@@ -1,26 +1,7 @@
 <?xml version="1.0"?>
 <faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
-    <managed-bean>
-        <managed-bean-name>test</managed-bean-name>
-        <managed-bean-class>org.richfaces.example.Bean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>graphValidatorBean</managed-bean-name>
-        <managed-bean-class>org.richfaces.example.GraphValidatorBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>dataBean</managed-bean-name>
-        <managed-bean-class>org.richfaces.example.DataBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>booleanBean</managed-bean-name>
-        <managed-bean-class>org.richfaces.example.BooleanBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+
     <validator>
         <validator-id>custom</validator-id>
         <validator-class>org.richfaces.example.CustomValidator</validator-class>

@@ -6,6 +6,8 @@ package org.richfaces.example;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 
@@ -13,6 +15,8 @@ import javax.validation.constraints.Max;
  * @author asmirnov
  *
  */
+@ManagedBean
+@SessionScoped
 public class DataBean {
     private final List<Validable<?>> beans;
 

@@ -3,6 +3,8 @@
  */
 package org.richfaces.example;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
@@ -10,6 +12,8 @@ import javax.validation.constraints.Min;
  * @author asmirnov
  *
  */
+@ManagedBean
+@RequestScoped
 public class GraphValidatorBean implements Cloneable {
     @Min(0)
     @Max(10)
