@@ -1,40 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:pn="http://richfaces.org/output">
-
-<body>
-    <ui:composition template="/templates/template.xhtml">
-        <ui:define name="body">
-            <pn:panel>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:rich="http://richfaces.org/output">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Panel" />
+    <!-- content -->
+    <ui:define name="content">
+        <rich:panel>
+            <f:facet name="header">
+            Test
+        </f:facet>
+            <rich:panel>
                 <f:facet name="header">
                 Test
             </f:facet>
-                <pn:panel>
+                <rich:panel>
                     <f:facet name="header">
                     Test
                 </f:facet>
-                    <pn:panel>
-                        <f:facet name="header">
-                        Test
-                    </f:facet>
-                    Body text
-                </pn:panel>
-                </pn:panel>
-            </pn:panel>
-            <br />
-            <pn:panel>
-                <f:facet name="header">
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                Test<br />
-                </f:facet>
-                <h:form>
-                    <h:outputText value="inside the form" />
-                </h:form>
-            </pn:panel>
-        </ui:define>
-    </ui:composition>
-</body>
+                Body text
+            </rich:panel>
+            </rich:panel>
+        </rich:panel>
+        <br />
+        <rich:panel>
+            <f:facet name="header">
+            Test<br />
+            Test<br />
+            Test<br />
+            Test<br />
+            Test<br />
+            </f:facet>
+            <h:form>
+                <h:outputText value="inside the form" />
+            </h:form>
+        </rich:panel>
+    </ui:define>
+</ui:composition>
 </html>
+

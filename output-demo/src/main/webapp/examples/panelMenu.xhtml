@@ -1,67 +1,40 @@
-<!--
-    JBoss, Home of Professional Open Source
-    Copyright ${year}, Red Hat, Inc. and individual contributors
-    by the @authors tag. See the copyright.txt in the distribution for a
-    full listing of individual contributors.
-    
-    This is free software; you can redistribute it and/or modify it
-    under the terms of the GNU Lesser General Public License as
-    published by the Free Software Foundation; either version 2.1 of
-    the License, or (at your option) any later version.
-    
-    This software is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-    Lesser General Public License for more details.
-    
-    You should have received a copy of the GNU Lesser General Public
-    License along with this software; if not, write to the Free
-    Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-    02110-1301 USA, or see the FSF site: http://www.fsf.org.
--->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:rich="http://richfaces.org/output">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Panel Menu" />
+    <!-- content -->
+    <ui:define name="content">
+        <h:form id="f">
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/output">
-
-<body>
-    <ui:composition template="/templates/template.xhtml">
-
-        <ui:define name="scripts">
-        </ui:define>
-
-        <ui:define name="title">PANEL MENU JS Development</ui:define>
-        <ui:define name="body_head">PANEL MENU JS Development</ui:define>
-
-        <ui:define name="body">
-            <h:form id="f">
-
-                <rich:panelMenu id="panelMenu" itemLeftIcon="grid" groupCollapsedLeftIcon="grid"
-                    topGroupCollapsedLeftIcon="grid" topGroupExpandedLeftIcon="chevronLeft" topGroupDisabledLeftIcon="disc"
-                    itemDisabledLeftIcon="triangleLeft" topItemDisabledLeftIcon="triangleUp" topItemLeftIcon="triangleDown"
-                    groupMode="client" activeItem="item41" bubbleSelection="true" expandSingle="true">
-                    <rich:panelMenuGroup id="group1" label="Group 1" selectable="true"
-                        onbeforecollapse="alert('onbeforecollapse')" onbeforeexpand="alert('onbeforeexpand')"
-                        onbeforeselect="alert('onbeforeselect')" oncollapse="alert('oncollapse')" onexpand="alert('onexpand')"
-                        onselect="alert('onselect')" onswitch="alert('onswitch')" onbeforeswitch="alert('onbeforeswitch')">
-                        <rich:panelMenuItem id="item11" label="Item 1.1" onbeforeselect="alert('onbeforeselect-Item')"
-                            onselect="alert('onselect-Item')" />
-                        <rich:panelMenuItem id="item12" label="Item 1.2" rightIcon="chevron" rightIconClass="rightIconClass"
-                            leftIconClass="aaaa" />
+            <rich:panelMenu id="panelMenu" itemLeftIcon="grid" groupCollapsedLeftIcon="grid"
+                topGroupCollapsedLeftIcon="grid" topGroupExpandedLeftIcon="chevronLeft" topGroupDisabledLeftIcon="disc"
+                itemDisabledLeftIcon="triangleLeft" topItemDisabledLeftIcon="triangleUp" topItemLeftIcon="triangleDown"
+                groupMode="client" activeItem="item41" bubbleSelection="true" expandSingle="true">
+                <rich:panelMenuGroup id="group1" label="Group 1" selectable="true"
+                    onbeforecollapse="alert('onbeforecollapse')" onbeforeexpand="alert('onbeforeexpand')"
+                    onbeforeselect="alert('onbeforeselect')" oncollapse="alert('oncollapse')" onexpand="alert('onexpand')"
+                    onselect="alert('onselect')" onswitch="alert('onswitch')" onbeforeswitch="alert('onbeforeswitch')">
+                    <rich:panelMenuItem id="item11" label="Item 1.1" onbeforeselect="alert('onbeforeselect-Item')"
+                        onselect="alert('onselect-Item')" />
+                    <rich:panelMenuItem id="item12" label="Item 1.2" rightIcon="chevron" rightIconClass="rightIconClass"
+                        leftIconClass="aaaa" />
+                </rich:panelMenuGroup>
+                <rich:panelMenuItem id="item2" label="Item 2" disabled="true" />
+                <rich:panelMenuItem id="item3" label="Item 3" />
+                <rich:panelMenuGroup id="group4" label="Group 4" expanded="false">
+                    <rich:panelMenuItem id="item41" label="Item 4.1" />
+                    <rich:panelMenuItem id="item42" label="Item 4.2" disabled="true" />
+                    <rich:panelMenuGroup id="group43" label="Group 4.1" disabled="true">
+                        <rich:panelMenuItem id="item431" label="Item 4.1.1" />
                     </rich:panelMenuGroup>
-                    <rich:panelMenuItem id="item2" label="Item 2" disabled="true" />
-                    <rich:panelMenuItem id="item3" label="Item 3" />
-                    <rich:panelMenuGroup id="group4" label="Group 4" expanded="false">
-                        <rich:panelMenuItem id="item41" label="Item 4.1" />
-                        <rich:panelMenuItem id="item42" label="Item 4.2" disabled="true" />
-                        <rich:panelMenuGroup id="group43" label="Group 4.1" disabled="true">
-                            <rich:panelMenuItem id="item431" label="Item 4.1.1" />
-                        </rich:panelMenuGroup>
-                    </rich:panelMenuGroup>
-                </rich:panelMenu>
-            </h:form>
-        </ui:define>
-    </ui:composition>
-</body>
+                </rich:panelMenuGroup>
+            </rich:panelMenu>
+        </h:form>
+    </ui:define>
+</ui:composition>
 </html>
+
+
 
