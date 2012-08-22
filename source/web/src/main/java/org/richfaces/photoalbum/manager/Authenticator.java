@@ -31,6 +31,7 @@ import java.io.Serializable;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -68,9 +69,6 @@ public class Authenticator implements Serializable {
     Credentials credentials;
 
     @Inject
-    FacesMessages facesMessages;
-
-    @Inject
     IUserAction userAction;
 
     private boolean loginFailed = false;
@@ -84,6 +82,9 @@ public class Authenticator implements Serializable {
     @EventType(Events.UPDATE_MAIN_AREA_EVENT)
     Event<NavEvent> navEvent;
 
+    @Inject
+    FileManager fileManager;
+
     /**
      * Method, that invoked when user try to login to the application.
      *
@@ -93,7 +94,8 @@ public class Authenticator implements Serializable {
     public boolean authenticate() {
         try {
             // If user with this login and password exist, the user object will be returned
-            user = userAction.login(credentials.getUsername(), HashUtils.hash(credentials.getPassword()));
+            user = userAction.login(credentials.getUsername(),
+                HashUtils.hash(((PasswordCredential) credentials.getCredential()).getValue()));
             if (user != null) {
                 // This check is actual only on livedemo server to prevent hacks.
                 // Check if pre-defined user login.
@@ -210,7 +212,7 @@ public class Authenticator implements Serializable {
         File avatarData = (File) Contexts.getConversationContext().get(Constants.AVATAR_DATA_COMPONENT);
         if (avatarData != null) {
             user.setHasAvatar(true);
-            FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
+            // FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
             if (fileManager == null || !fileManager.saveAvatar(avatarData, user)) {
                 event.select(new EventTypeQualifier(Events.ADD_ERROR_EVENT)).fire(
                     new SimpleEvent(Constants.AVATAR_SAVING_ERROR));
@@ -246,8 +248,9 @@ public class Authenticator implements Serializable {
 
     private void loginFailed() {
         setLoginFailed(true);
-        facesMessages.clear();
-        facesMessages.add(Constants.INVALID_LOGIN_OR_PASSWORD);
+        // facesMessages.clear();
+        // facesMessages.add(Constants.INVALID_LOGIN_OR_PASSWORD);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(Constants.INVALID_LOGIN_OR_PASSWORD));
         FacesContext.getCurrentInstance().renderResponse();
     }
 

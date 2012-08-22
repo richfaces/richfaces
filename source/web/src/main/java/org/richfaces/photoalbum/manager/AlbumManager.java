@@ -32,6 +32,8 @@ import java.util.Set;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -64,9 +66,7 @@ public class AlbumManager implements Serializable {
     private User user;
     @Inject
     Model model;
-    @Inject
-    FacesMessages facesMessages;
-    
+
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
     Event<SimpleEvent> error;
@@ -84,7 +84,9 @@ public class AlbumManager implements Serializable {
     public void addAlbum(Album album) {
         // Shelf must be not-null
         if (album.getShelf() == null) {
-            facesMessages.addToControl(Constants.SHELF_ID, Constants.SHELF_MUST_BE_NOT_NULL_ERROR, new Object[0]);
+            // facesMessages.addToControl(Constants.SHELF_ID, Constants.SHELF_MUST_BE_NOT_NULL_ERROR, new Object[0]);
+            FacesContext.getCurrentInstance().addMessage(Constants.SHELF_ID,
+                new FacesMessage(Constants.SHELF_MUST_BE_NOT_NULL_ERROR));
             Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
             return;
         }
