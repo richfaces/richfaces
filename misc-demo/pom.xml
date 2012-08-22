@@ -43,6 +43,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.richfaces.examples</groupId>
+            <artifactId>template</artifactId>
+            <type>war</type>
+        </dependency>
+
+        <dependency>
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-impl</artifactId>
         </dependency>
