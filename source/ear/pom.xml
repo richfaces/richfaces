@@ -1,41 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.richfaces.examples</groupId>
-		<artifactId>photoalbum</artifactId>
-		<version>3.3.4-SNAPSHOT</version>
-	</parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.richfaces.examples</groupId>
+        <artifactId>photoalbum</artifactId>
+        <version>3.3.4-SNAPSHOT</version>
+    </parent>
 
 	<!-- <groupId>org.richfaces.examples</groupId> -->
-	<artifactId>${projectName}-ear</artifactId>
-	<name>${appName} EAR module</name>
-	<packaging>ear</packaging>
+    <artifactId>${projectName}-ear</artifactId>
+    <name>${appName} EAR module</name>
+    <packaging>ear</packaging>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <javaee6.with.tools.version>1.0.0.Final</javaee6.with.tools.version>
+        <!-- <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version> -->
+        <org.richfaces.bom.version>3.3.4-SNAPSHOT</org.richfaces.bom.version>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.richfaces.examples</groupId>
-			<artifactId>${projectName}-web</artifactId>
-			<version>${project.version}</version>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>org.richfaces.framework</groupId>
-			<artifactId>richfaces-api</artifactId>
-			<version>${richfacesVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.richfaces.examples</groupId>
-			<artifactId>${projectName}-ejb</artifactId>
-			<version>${project.version}</version>
-			<type>ejb</type>
-		</dependency>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.bom</groupId>
+                <artifactId>jboss-javaee-6.0-with-tools</artifactId>
+                <version>${javaee6.with.tools.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.richfaces.examples</groupId>
+            <artifactId>${projectName}-web</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.framework</groupId>
+            <artifactId>richfaces-api</artifactId>
+            <version>${richfacesVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.examples</groupId>
+            <artifactId>${projectName}-ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.14</version>
         </dependency>
-	<dependency>
+
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+	<!-- <dependency>
       <groupId>org.jboss.seam</groupId>
       <artifactId>jboss-seam</artifactId>
       <version>${seamVersion}</version>
@@ -58,54 +84,55 @@
                   <artifactId>jsf-facelets</artifactId>
             </exclusion>
 			</exclusions>
-    </dependency>
-	</dependencies>
-	<build>
-		<finalName>${projectName}-ear-${project.version}</finalName>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<configuration>
-					<skip>false</skip>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-ear-plugin</artifactId>
-				<version>2.7</version>
-				<configuration>
-					<generateApplicationXml>true</generateApplicationXml>
-					<includeJar>false</includeJar>
-					<defaultLibBundleDir>lib</defaultLibBundleDir>
-					<modules>
-						<webModule>
-							<groupId>org.richfaces.examples</groupId>
-							<artifactId>${projectName}-web</artifactId>
-							<contextRoot>/${projectName}</contextRoot>
-						</webModule>
-						<ejbModule>
-							<groupId>org.richfaces.examples</groupId>
-							<artifactId>${projectName}-ejb</artifactId>
-						</ejbModule>
-						<ejbModule>
-							<groupId>org.jboss.seam</groupId>
-							<artifactId>jboss-seam</artifactId>
-						</ejbModule>
-					</modules>
-					<jboss>
-						<version>4.2</version>
-						<loader-repository>org.richfaces.examples:loader=${project.build.finalName}</loader-repository>
-					</jboss>
-				</configuration>
-			</plugin>
-	
-		</plugins>
-	</build>
+    </dependency> -->
+    </dependencies>
 
-	<profiles>
-		<profile>
-			<id>livedemo</id>
+    <build>
+        <finalName>${projectName}-ear-${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <generateApplicationXml>true</generateApplicationXml>
+                    <includeJar>false</includeJar>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <modules>
+                        <webModule>
+                            <groupId>org.richfaces.examples</groupId>
+                            <artifactId>${projectName}-web</artifactId>
+                            <contextRoot>/${projectName}</contextRoot>
+                        </webModule>
+                        <ejbModule>
+                            <groupId>org.richfaces.examples</groupId>
+                            <artifactId>${projectName}-ejb</artifactId>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>org.jboss.seam</groupId>
+                            <artifactId>jboss-seam</artifactId>
+                        </ejbModule>
+                    </modules>
+                    <jboss>
+                        <version>4.2</version>
+                        <loader-repository>org.richfaces.examples:loader=${project.build.finalName}</loader-repository>
+                    </jboss>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>livedemo</id>
 			
 			<!--<build>-->
 				<!--<plugins>-->
@@ -134,7 +161,7 @@
 					<!--</plugin>-->
 				<!--</plugins>-->
 			<!--</build>-->
-		</profile>
-	</profiles>
+        </profile>
+    </profiles>
 
 </project>
