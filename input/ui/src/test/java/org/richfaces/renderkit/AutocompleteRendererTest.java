@@ -1,14 +1,9 @@
 package org.richfaces.renderkit;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.DifferenceListener;
 import org.custommonkey.xmlunit.IgnoreTextAndAttributeValuesDifferenceListener;
@@ -16,7 +11,6 @@ import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.Assert;
 import org.junit.Test;
 import org.richfaces.renderkit.html.RendererTestBase;
-import org.xml.sax.SAXException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
@@ -47,25 +41,29 @@ public class AutocompleteRendererTest extends RendererTestBase {
         HtmlElement autocompleteList = page.getElementById("form:myAutocompleteList");
         Assert.assertNotNull(autocompleteList);
 
-        List<?> coutnryList = autocompleteList.getByXPath("div/div/div/div/div");
-        Assert.assertEquals(30, coutnryList.size());
+        List<?> countryList = autocompleteList.getByXPath("div/div/div/div/div");
+        Assert.assertEquals(30, countryList.size());
 
         HtmlInput input = (HtmlInput) page.getElementById("form:myAutocompleteInput");
         Assert.assertNotNull(input);
         input.type("al");
 
-        // try 7 times to wait 5 second each for filling the page.
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 20; i++) {
             synchronized (page) {
-                page.wait(5000);
+                autocompleteList = page.getElementById("form:myAutocompleteList");
+                Assert.assertNotNull(autocompleteList);
+
+                countryList = autocompleteList.getByXPath("div/div/div/div/div");
+
+                if (countryList.size() == 2) {
+                    break;
+                } else {
+                    page.wait(500);
+                }
             }
         }
 
-        autocompleteList = page.getElementById("form:myAutocompleteList");
-        Assert.assertNotNull(autocompleteList);
-
-        coutnryList = autocompleteList.getByXPath("div/div/div/div/div");
-        Assert.assertEquals(2, coutnryList.size());
+        Assert.assertEquals(2, countryList.size());
     }
 
     @Test
@@ -74,43 +72,36 @@ public class AutocompleteRendererTest extends RendererTestBase {
         HtmlElement autocompleteList = page.getElementById("form:myAutocompleteList");
         Assert.assertNotNull(autocompleteList);
 
-        List<?> coutnryList = autocompleteList.getByXPath("div/div/div/ul/li");
-        Assert.assertEquals(30, coutnryList.size());
+        List<?> countryList = autocompleteList.getByXPath("div/div/div/ul/li");
+        Assert.assertEquals(30, countryList.size());
 
         HtmlInput input = (HtmlInput) page.getElementById("form:myAutocompleteInput");
         Assert.assertNotNull(input);
         input.type("be");
 
-        // try 5 times to wait 5 second each for filling the page.
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 20; i++) {
             synchronized (page) {
-                page.wait(5000);
+                autocompleteList = page.getElementById("form:myAutocompleteList");
+                Assert.assertNotNull(autocompleteList);
+
+                countryList = autocompleteList.getByXPath("div/div/div/ul/li");
+
+                if (countryList.size() == 5) {
+                    break;
+                } else {
+                    page.wait(500);
+                }
             }
         }
 
-        autocompleteList = page.getElementById("form:myAutocompleteList");
-        Assert.assertNotNull(autocompleteList);
+        Assert.assertEquals(5, countryList.size());
 
-        coutnryList = autocompleteList.getByXPath("div/div/div/ul/li");
-        Assert.assertEquals(5, coutnryList.size());
     }
 
     @Override
-    protected void checkXmlStructure(String pageName, String xmlunitPageName, String pageCode) throws SAXException, IOException {
-        if (xmlunitPageName == null) {
-            xmlunitPageName = pageName + ".xmlunit.xml";
-        }
-        InputStream expectedPageCode = this.getClass().getResourceAsStream(xmlunitPageName + ".xmlunit.xml");
-        if (expectedPageCode == null) {
-            return;
-        }
+    protected DifferenceListener getDifferenceListener() {
+        final String skipAttribute = "(jquery|sizcache)\\d*";
 
-        Diff xmlDiff = new Diff(new StringReader(pageCode), new InputStreamReader(expectedPageCode));
-        xmlDiff.overrideDifferenceListener(getDifferenceListener("jquery\\d*"));
-        Assert.assertTrue("XML was not similar:" + xmlDiff.toString(), xmlDiff.similar());
-    }
-
-    private DifferenceListener getDifferenceListener(final String skipAttribute) {
         return new IgnoreTextAndAttributeValuesDifferenceListener() {
             @Override
             public int differenceFound(Difference difference) {

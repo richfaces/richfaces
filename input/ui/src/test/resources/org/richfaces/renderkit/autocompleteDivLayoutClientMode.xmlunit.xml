@@ -2,7 +2,7 @@
 <span class="rf-au" id="form:myAutocomplete">
     <input id="form:myAutocompleteValue" name="form:myAutocompleteValue" type="hidden" />
     <span class="rf-au-fld-btn">
-        <input autocomplete="off" class="rf-au-fnt rf-au-inp" id="form:myAutocompleteInput" name="form:myAutocomplete"
+        <input autocomplete="off" class="rf-au-fnt rf-au-inp" id="form:myAutocompleteInput" name="form:myAutocompleteInput"
             type="text" />
         <span class="rf-au-btn" id="form:myAutocompleteButton">
             <span class="rf-au-btn-arrow">
@@ -21,11 +21,11 @@
             </div>
             <div class="rf-au-lst-dcrtn">
                 <div class="rf-au-lst-scrl">
-                    <div id="" jquery1294309401675="" align="" accesskey="" tabindex="" children="" outerhtml="" lang=""
-                        scrollwidth="" scopename="" title="" scrollheight="" document="" innerhtml="" style="" clienttop="" dir=""
-                        scrolltop="" classname="" offsettop="" clientwidth="" all="" currentstyle="" runtimestyle="" uniqueid=""
-                        innertext="" parentelement="" offsetheight="" clientleft="" offsetparent="" tagname="" scrollleft=""
-                        attributes="" language="" offsetleft="" offsetwidth="" disabled="">
+                    <div id="" jquery18005933404450644453="" sizcache06169776827941771="" sizset="" innerhtml="" align=""
+                            accesskey="" tabindex="" children="" outerhtml="" lang="" scrollwidth="" scopename="" title="" scrollheight="" document=""
+                            style="" clienttop="" dir="" scrolltop="" classname="" offsettop="" clientwidth="" all="" currentstyle="" runtimestyle=""
+                            uniqueid="" parentelement="" offsetheight="" clientleft="" offsetparent="" tagname="" scrollleft="" attributes="" language=""
+                            offsetleft="" offsetwidth="" disabled="">
                         <div class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
 
                             Afghanistan AF/AFG/4 .af
