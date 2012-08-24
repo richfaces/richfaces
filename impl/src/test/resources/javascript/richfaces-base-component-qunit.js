@@ -15,7 +15,7 @@ RichFaces.QUnit.run(function() {
         jQuery.extend(MyComponent.prototype, (function () {
             return { name:"MyComponent"}
         })());
-        equals(MyComponent.$super, richfaces.BaseComponent.prototype, "New component: MyComponent from");
+        equal(MyComponent.$super, richfaces.BaseComponent.prototype, "New component: MyComponent from");
     };
 
     // BaseComponent.constructor
@@ -23,10 +23,10 @@ RichFaces.QUnit.run(function() {
         expect(5);
         var c = new RichFaces.BaseComponent("myId");
         ok(c instanceof RichFaces.BaseComponent, "inctance of RichFaces.BaseComponent");
-        equals(c.name, "BaseComponent", "name");
-        equals(c.id, "myId", "id");
-        equals(c.toString(), "BaseComponent", "toString");
-        equals(c.getEventElement(), "myId", "getEventElement");
+        equal(c.name, "BaseComponent", "name");
+        equal(c.id, "myId", "id");
+        equal(c.toString(), "BaseComponent", "toString");
+        equal(c.getEventElement(), "myId", "getEventElement");
     });
 
     // BaseComponent inheritance
@@ -37,10 +37,10 @@ RichFaces.QUnit.run(function() {
 
         var c = new MyComponent("myId");
         ok(c instanceof MyComponent, "inctance of MyComponent");
-        equals(c.name, "MyComponent", "name");
-        equals(c.id, "myId", "id");
-        equals(c.toString(), "BaseComponent, MyComponent", "toString");
-        equals(c.getEventElement(), "myId", "getEventElement");
+        equal(c.name, "MyComponent", "name");
+        equal(c.id, "myId", "id");
+        equal(c.toString(), "BaseComponent, MyComponent", "toString");
+        equal(c.getEventElement(), "myId", "getEventElement");
 
         (function (richfaces) {
             MyComponent2 = function(componentId) {
@@ -48,22 +48,22 @@ RichFaces.QUnit.run(function() {
             };
             var $p = {b:"b"};
             $p = MyComponent.extend(MyComponent2, $p);
-            equals(typeof $p.a, "function", "ComponentCreation: inherit protected method from MyComponent2");
+            equal(typeof $p.a, "function", "ComponentCreation: inherit protected method from MyComponent2");
             var $super = MyComponent2.$super;
             jQuery.extend(MyComponent2.prototype, (function () {
                 return { name:"MyComponent2" }
             })());
         })(RichFaces);
-        equals(MyComponent2.$super, MyComponent.prototype, "New component: MyComponent2 from");
+        equal(MyComponent2.$super, MyComponent.prototype, "New component: MyComponent2 from");
 
         var c = new MyComponent2("myId");
         ok(c instanceof MyComponent2, "inctance of MyComponent2");
         ok(c instanceof MyComponent, "inctance of MyComponent");
         ok(c instanceof RichFaces.BaseComponent, "inctance of RichFaces.BaseComponent");
-        equals(c.name, "MyComponent2", "name");
-        equals(c.id, "myId", "id");
-        equals(c.toString(), "BaseComponent, MyComponent, MyComponent2", "toString");
-        equals(c.getEventElement(), "myId", "getEventElement");
+        equal(c.name, "MyComponent2", "name");
+        equal(c.id, "myId", "id");
+        equal(c.toString(), "BaseComponent, MyComponent, MyComponent2", "toString");
+        equal(c.getEventElement(), "myId", "getEventElement");
 
         (function (richfaces) {
             MyComponent3 = function(componentId) {
@@ -71,13 +71,13 @@ RichFaces.QUnit.run(function() {
             };
             var $p = {c:"c"};
             $p = MyComponent2.extend(MyComponent3, $p);
-            equals(typeof $p.a, "function", "ComponentCreation: inherit protected method from MyComponent2");
-            equals(typeof $p.b, "string", "ComponentCreation: inherit static protected property from MyComponent3");
+            equal(typeof $p.a, "function", "ComponentCreation: inherit protected method from MyComponent2");
+            equal(typeof $p.b, "string", "ComponentCreation: inherit static protected property from MyComponent3");
             var $super = MyComponent3.$super;
             jQuery.extend(MyComponent3.prototype, (function () {
                 return { name:"MyComponent3" }
             })());
-            equals(MyComponent3.$super, MyComponent2.prototype, "New component: MyComponent3 from");
+            equal(MyComponent3.$super, MyComponent2.prototype, "New component: MyComponent3 from");
 
 
             var c = new MyComponent3("myId");
@@ -85,10 +85,10 @@ RichFaces.QUnit.run(function() {
             ok(c instanceof MyComponent2, "inctance of MyComponent2");
             ok(c instanceof MyComponent, "inctance of MyComponent");
             ok(c instanceof RichFaces.BaseComponent, "inctance of RichFaces.BaseComponent");
-            equals(c.name, "MyComponent3", "name");
-            equals(c.id, "myId", "id");
-            equals(c.toString(), "BaseComponent, MyComponent, MyComponent2, MyComponent3", "toString");
-            equals(c.getEventElement(), "myId", "getEventElement");
+            equal(c.name, "MyComponent3", "name");
+            equal(c.id, "myId", "id");
+            equal(c.toString(), "BaseComponent, MyComponent, MyComponent2, MyComponent3", "toString");
+            equal(c.getEventElement(), "myId", "getEventElement");
 
         })(RichFaces);
     });
@@ -102,9 +102,9 @@ RichFaces.QUnit.run(function() {
 
         var c = new MyComponent("myId");
         c.attachToDom();
-        equals(RichFaces.$("myId"), c, "attachToDom without params");
+        equal(RichFaces.$("myId"), c, "attachToDom without params");
         c.attachToDom("myId2");
-        equals(RichFaces.$("myId2"), c, "attachToDom with custom id");
+        equal(RichFaces.$("myId2"), c, "attachToDom with custom id");
     });
 
 });

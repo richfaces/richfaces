@@ -5,9 +5,9 @@ RichFaces.QUnit.run(function() {
     var testData2 = {value2:"test2"};
     var i = 0;
     var id = "testElement";
-    var testDiv = document.getElementById("testDiv");
 
     function createNextTestElement() {
+        var testDiv = document.getElementById("testDiv");
         var element = document.createElement("div");
         var newId = id + (++i);
         element.setAttribute("id", newId);
@@ -21,10 +21,10 @@ RichFaces.QUnit.run(function() {
         var domElement = element;
         var callback = function (e, o, d) {
             expect(4);
-            equals(e.type, "click");
-            equals(o, element);
-            equals(d, testData2);
-            equals(this, testData1);
+            equal(e.type, "click");
+            equal(o, element);
+            equal(d, testData2);
+            equal(this, testData1);
         };
         return callback;
     }
@@ -44,7 +44,7 @@ RichFaces.QUnit.run(function() {
         var elementId = element.id;
         var fn = setupEmptyCallback(element);
         var f = RichFaces.Event.bind("#" + elementId, "click", fn);
-        equals(typeof f, "function");
+        equal(typeof f, "function");
         RichFaces.Event.fire("#" + elementId, "click");
         ok(element.onEvent, "fire event");
     });
@@ -56,7 +56,7 @@ RichFaces.QUnit.run(function() {
         var c = new RichFaces.BaseComponent(element.id);
         var fn = setupEmptyCallback(element);
         var f = RichFaces.Event.bind(c, "click", fn);
-        equals(typeof f, "function");
+        equal(typeof f, "function");
         RichFaces.Event.fire(c, "click");
         ok(element.onEvent, "fire event");
     });
@@ -98,7 +98,7 @@ RichFaces.QUnit.run(function() {
         var elementId = element.id;
         var fn = setupEmptyCallback(element);
         var f = RichFaces.Event.bindById(elementId, "click", fn);
-        equals(typeof f, "function");
+        equal(typeof f, "function");
         RichFaces.Event.fireById(elementId, "click");
         ok(element.onEvent, "fire event");
     });
@@ -140,7 +140,7 @@ RichFaces.QUnit.run(function() {
         var elementId = element.id;
         var fn = setupEmptyCallback(element);
         var f = RichFaces.Event.bindOne("#" + elementId, "click", fn);
-        equals(typeof f, "function");
+        equal(typeof f, "function");
         RichFaces.Event.fire("#" + elementId, "click");
         ok(element.onEvent, "fire first event");
         element.onEvent = false;
@@ -155,7 +155,7 @@ RichFaces.QUnit.run(function() {
         var elementId = element.id;
         var fn = setupEmptyCallback(element);
         var f = RichFaces.Event.bindOneById(elementId, "click", fn);
-        equals(typeof f, "function");
+        equal(typeof f, "function");
         RichFaces.Event.fireById(elementId, "click");
         ok(element.onEvent, "fire first event");
         element.onEvent = false;
@@ -166,10 +166,10 @@ RichFaces.QUnit.run(function() {
     // createNamespace
     test("RichFaces.Event.createNamespace", function() {
         expect(5);
-        equals(RichFaces.Event.createNamespace(), RichFaces.Event.RICH_NAMESPACE);
-        equals(RichFaces.Event.createNamespace("Component"), RichFaces.Event.RICH_NAMESPACE + "." + "Component");
-        equals(RichFaces.Event.createNamespace("Component", "id"), RichFaces.Event.RICH_NAMESPACE + ".Component.id");
-        equals(RichFaces.Event.createNamespace("Component", "id", "prefix"), "prefix.Component.id");
-        equals(RichFaces.Event.createNamespace("", "id", "prefix"), "prefix.id");
+        equal(RichFaces.Event.createNamespace(), RichFaces.Event.RICH_NAMESPACE);
+        equal(RichFaces.Event.createNamespace("Component"), RichFaces.Event.RICH_NAMESPACE + "." + "Component");
+        equal(RichFaces.Event.createNamespace("Component", "id"), RichFaces.Event.RICH_NAMESPACE + ".Component.id");
+        equal(RichFaces.Event.createNamespace("Component", "id", "prefix"), "prefix.Component.id");
+        equal(RichFaces.Event.createNamespace("", "id", "prefix"), "prefix.id");
     });
 });
