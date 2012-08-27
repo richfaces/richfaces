@@ -28,6 +28,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -51,7 +52,7 @@ public class MetaTag implements Serializable {
     private static final long serialVersionUID = -9065024051468971330L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 255, nullable = false)
