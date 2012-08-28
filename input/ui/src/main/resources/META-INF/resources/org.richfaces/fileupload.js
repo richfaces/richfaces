@@ -194,7 +194,7 @@
                 var originalEnctype = this.form.attr("enctype");
                 try {
                     var delimiter = originalAction.indexOf("?") == -1 ? "?" : "&";
-                    this.form.attr("action", originalAction + delimiter + UID + "=" + this.loadableItem.uid);
+                    this.form.attr("action", this.form.children("input[name='javax.faces.encodedURL']").val() + delimiter + UID + "=" + this.loadableItem.uid);
                     this.form.attr("encoding", "multipart/form-data");
                     this.form.attr("enctype", "multipart/form-data");
                     richfaces.submitForm(this.form, {"org.richfaces.ajax.component": this.id}, this.id);
