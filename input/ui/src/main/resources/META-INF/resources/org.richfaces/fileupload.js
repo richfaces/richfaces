@@ -182,7 +182,8 @@
             },
 
             __submit: function() {
-                var originalAction = this.form.attr("action");
+                var encodedURLInputs = this.form.children("input[name='javax.faces.encodedURL']");
+                var originalAction = encodedURLInputs.length > 0 ? encodedURLInputs.val() : this.form.attr("action");
                 var originalEncoding = this.form.attr("encoding");
                 var originalEnctype = this.form.attr("enctype");
                 try {
