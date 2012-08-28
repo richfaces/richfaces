@@ -211,7 +211,7 @@
             },
 
             __mousemoveHandler: function (event) {
-                var value = this.range * (event.pageX - this.track.position().left - this.handle.width() / 2) / (this.track.width()
+                var value = this.range * (event.pageX - this.track.offset().left - this.handle.width() / 2) / (this.track.width()
                     - this.handle.width()) + this.minValue;
                 value = Math.round(value / this.step) * this.step;
                 value = this.roundFloat(value);
