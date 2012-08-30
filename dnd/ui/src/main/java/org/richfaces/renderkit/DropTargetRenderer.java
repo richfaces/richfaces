@@ -53,6 +53,8 @@ import com.google.common.base.Strings;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery-ui-core.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery-ui-widget.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery-ui-mouse.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery-dnd.js"),
         @ResourceDependency(library = "org.richfaces", name = "dnd-droppable.js") })
 @JsfRenderer(type = "org.richfaces.DropTargetRenderer", family = AbstractDropTarget.COMPONENT_FAMILY)
