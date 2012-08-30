@@ -51,7 +51,6 @@
         this.dragElement.data("id", this.id);
         rf.Event.bind(this.dragElement, 'dragstart' + this.namespace, this.dragStart, this);
         rf.Event.bind(this.dragElement, 'drag' + this.namespace, this.drag, this);
-        rf.Event.bind(this.dragElement, 'dragstop' + this.namespace, this.dragStop, this);
     };
 
     rf.BaseNonVisualComponent.extend(rf.ui.Draggable);
@@ -93,15 +92,6 @@
                     }
                 }
                 this.__clearDraggableCss(ui.helper);
-            },
-
-            dragStop: function(e) {
-                var ui = e.rf.data;
-                ui.helper.hide().detach().appendTo(this.parentElement);
-                if (ui.helper[0] != this.dragElement[0]) {
-                    //fix to prevent remove custom indicator from DOM tree. see jQuery draggable._clear method for details
-                    ui.helper[0] = this.dragElement[0];
-                }
             },
 
             __isCustomDragIndicator: function() {
