@@ -82,6 +82,10 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
         this.converter = converter;
     }
 
+    /**
+     * The converter attribute can be used to specify how to convert the value before it is submitted to the data model.
+     */
+    @Attribute(generate = false)
     public Converter getConverter() {
         return converter;
     }
