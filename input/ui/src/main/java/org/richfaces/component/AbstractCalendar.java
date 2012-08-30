@@ -232,6 +232,17 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
 
     /**
      * <p>
+     * If "true". Date and time are not selectable. In "popup" mode input is disabled and button is enabled.
+     * </p>
+     * <p>
+     * Default value is "false"
+     * </p>
+     */
+    @Attribute(defaultValue = "false")
+    public abstract boolean isReadonly();
+
+    /**
+     * <p>
      * The javascript function that enables or disables a day cell
      * </p>
      */
