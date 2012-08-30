@@ -39,6 +39,7 @@ public class UserAction implements IUserAction {
     EntityManager em;
 
     @Inject
+    @LoggedIn
     private User user;
 
     /**

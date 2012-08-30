@@ -43,6 +43,7 @@ public class ShelfAction implements IShelfAction {
 
     // @In @Out
     @Inject
+    @LoggedIn
     private User user;
 
     /**
