@@ -80,7 +80,6 @@
         if (!this.focused) {
             this.__focusValue = this.getValue();
             this.focused = true;
-            this.invokeEvent("focus", rf.getDomElement(this.fieldId), event);
             this.invokeEvent("focus", rf.getDomElement(this.id), event);
         }
     };
@@ -98,10 +97,8 @@
             }
             if (this.focused) {
                 this.focused = false;
-                this.invokeEvent("blur", rf.getDomElement(this.fieldId), event);
                 this.invokeEvent("blur", rf.getDomElement(this.id), event);
                 if (this.__focusValue != this.getValue()) {
-                    this.invokeEvent("change", rf.getDomElement(this.fieldId), event);
                     this.invokeEvent("change", rf.getDomElement(this.id), event);
                 }
             }
