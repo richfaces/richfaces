@@ -15,6 +15,15 @@
 <cdk:properties xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions" xmlns="http://java.sun.com/xml/ns/javaee">
     <property>
         <description>
+            Optional attribute that is a literal string that is the fully qualified class name of a concrete class that
+            implements java.util.Collection, or an EL expression that evaluates to either 1. such a String, or 2. the Class object itself.
+        </description>
+        <property-name>collectionType</property-name>
+        <property-class>java.lang.String</property-class>
+    </property>
+
+    <property>
+        <description>
             If "true", this component is disabled.
         </description>
         <property-name>disabled</property-name>
