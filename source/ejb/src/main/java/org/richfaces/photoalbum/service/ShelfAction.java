@@ -26,8 +26,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.Shelf;
-import org.richfaces.photoalbum.domain.User;
 
 /**
  * Class for manipulating with shelf entity. Analogous to DAO pattern. EJB3 Bean
@@ -42,9 +42,9 @@ public class ShelfAction implements IShelfAction {
     private EntityManager em;
 
     // @In @Out
+//    private User user;
     @Inject
-    @LoggedIn
-    private User user;
+    UserBean userBean;
 
     /**
      * Persist shelf entity to database
@@ -56,9 +56,11 @@ public class ShelfAction implements IShelfAction {
         try {
             em.persist(shelf);
             // Add reference to user
-            user.addShelf(shelf);
+            //user.addShelf(shelf);
+            userBean.getUser().addShelf(shelf);
             em.flush();
         } catch (Exception e) {
+            System.out.println(userBean.getUser() == null);
             throw new PhotoAlbumException(e.getMessage());
         }
     }
@@ -72,11 +74,13 @@ public class ShelfAction implements IShelfAction {
     public void deleteShelf(Shelf shelf) throws PhotoAlbumException {
         try {
             // Remove reference from user
-            user.removeShelf(shelf);
+            //user.removeShelf(shelf);
+            userBean.getUser().removeShelf(shelf);
             em.remove(shelf);
             em.flush();
         } catch (Exception e) {
-            user.addShelf(shelf);
+            //user.addShelf(shelf);
+            userBean.getUser().addShelf(shelf);
             throw new PhotoAlbumException(e.getMessage());
         }
     }

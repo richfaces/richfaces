@@ -24,6 +24,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.User;
 
 /**
@@ -39,9 +40,9 @@ public class UserAction implements IUserAction {
     EntityManager em;
 
     @Inject
-    @LoggedIn
-    private User user;
+    UserBean userBean;
 
+    //private User user;
     /**
      * Login user. If succes return logged user, otherwise return null
      *
@@ -49,10 +50,12 @@ public class UserAction implements IUserAction {
      * @param password - password
      * @return user if success
      */
-    public User login(String username, String password) {
-        return (User) em.createNamedQuery(Constants.USER_LOGIN_QUERY).setParameter(Constants.USERNAME_PARAMETER, username)
-            .setParameter(Constants.PASSWORD_PARAMETER, password).getSingleResult();
-    }
+//    public User login(String username, String password) {
+//        // new
+//        User user = (User) em.createNamedQuery(Constants.USER_LOGIN_QUERY).setParameter(Constants.USERNAME_PARAMETER, username)
+//            .setParameter(Constants.PASSWORD_PARAMETER, password).getSingleResult();
+//        return user;
+//    }
 
     /**
      * Persist user entity to database
@@ -77,11 +80,12 @@ public class UserAction implements IUserAction {
      */
     public User updateUser() throws PhotoAlbumException {
         try {
-            em.flush();
+            //em.flush(); // this doesn't seem to update anything
+            em.merge(userBean.getUser());
         } catch (Exception e) {
             throw new PhotoAlbumException(e.getMessage());
         }
-        return user;
+        return userBean.getUser();
     }
 
     /**
@@ -92,7 +96,7 @@ public class UserAction implements IUserAction {
      * @throws PhotoAlbumException
      */
     public User refreshUser() {
-        user = em.find(User.class, user.getId());
+        User user = em.find(User.class, userBean.getUser().getId());
         em.refresh(user);
         return user;
     }
