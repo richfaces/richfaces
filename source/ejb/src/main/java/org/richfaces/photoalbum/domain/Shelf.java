@@ -39,6 +39,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OrderBy;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -67,6 +69,7 @@ public class Shelf implements Serializable {
 
     @OneToMany(mappedBy = "shelf", cascade = CascadeType.REMOVE)
     @OrderBy(clause = "NAME asc")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Album> albums = new ArrayList<Album>();
 
     @NotNull

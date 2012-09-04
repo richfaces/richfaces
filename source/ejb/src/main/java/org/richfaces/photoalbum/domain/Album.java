@@ -45,6 +45,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
@@ -67,6 +69,7 @@ public class Album implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "album")
     @Fetch(FetchMode.SELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Image> images = new ArrayList<Image>();
 
     @NotNull

@@ -62,7 +62,8 @@ public class Comment implements Serializable {
     @JoinColumn(nullable = false)
     private Image image;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    // changed from LAZY
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(nullable = true)
     private User author;

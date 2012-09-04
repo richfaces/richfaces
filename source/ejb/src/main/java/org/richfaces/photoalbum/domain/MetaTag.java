@@ -35,6 +35,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -62,6 +64,7 @@ public class MetaTag implements Serializable {
     private String tag;
 
     @ManyToMany(mappedBy = "imageTags")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Image> images = new ArrayList<Image>();
 
     public MetaTag() {

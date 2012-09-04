@@ -47,6 +47,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.OrderBy;
@@ -83,6 +85,7 @@ public class Image implements Serializable {
     @OrderBy(clause = "date asc")
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "image")
     // @Fetch(FetchMode.SUBSELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Comment> comments = new ArrayList<Comment>();
 
     @NotNull
@@ -390,7 +393,7 @@ public class Image implements Serializable {
             throw new IllegalArgumentException("Null comment");
         }
         if (comment.getImage().equals(this)) {
-            comment.setImage(null);
+            //comment.setImage(null);
             comments.remove(comment);
         } else {
             throw new IllegalArgumentException("Comment not belongs to this image");
