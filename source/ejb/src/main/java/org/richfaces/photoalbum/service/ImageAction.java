@@ -38,7 +38,7 @@ import org.richfaces.photoalbum.domain.User;
 
 /**
  * Class for manipulating with image entity. Analogous to DAO pattern. EJB3 Bean
- *
+ * 
  * @author Andrey Markhel
  */
 @Stateless
@@ -49,7 +49,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Remove image entity from database
-     *
+     * 
      * @param image - image to delete
      * @throws PhotoAlbumException
      */
@@ -69,7 +69,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Synchronize state of image entity with database
-     *
+     * 
      * @param image - image to Synchronize
      * @param metatagsChanged - boolean value, that indicates is metatags of this image were changed(add new or delete older)
      * @throws PhotoAlbumException
@@ -139,7 +139,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Persist image entity to database
-     *
+     * 
      * @param image - image to add
      * @throws PhotoAlbumException
      */
@@ -155,15 +155,15 @@ public class ImageAction implements IImageAction {
 
     /**
      * Remove comment from image
-     *
+     * 
      * @param comment - comment to remove
      * @throws PhotoAlbumException
      */
     public void deleteComment(Comment comment) throws PhotoAlbumException {
         try {
             Image image = comment.getImage();
-            em.remove(comment);
             image.removeComment(comment);
+            em.remove(comment);
             em.flush();
         } catch (Exception e) {
             throw new PhotoAlbumException(e.getMessage());
@@ -172,13 +172,17 @@ public class ImageAction implements IImageAction {
 
     /**
      * Add comment from image
-     *
+     * 
      * @param comment - comment to add
      * @throws PhotoAlbumException
      */
     public void addComment(Comment comment) throws PhotoAlbumException {
+        Image image = comment.getImage();
+        if (!image.isAllowComments()) {
+            throw new PhotoAlbumException("Cannot add comments to this image");
+        }
         try {
-            comment.getImage().addComment(comment);
+            image.addComment(comment);
             em.persist(comment);
             em.flush();
         } catch (Exception e) {
@@ -188,7 +192,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Find metatag object by its string representation
-     *
+     * 
      * @param tag - string representation of metatag
      * @return metatag object or null
      */
@@ -206,7 +210,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Find most-popular metatags
-     *
+     * 
      * @return list of most-popular metatags
      */
     @SuppressWarnings("unchecked")
@@ -216,7 +220,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Find List of metatags, similar to specified string. Used in autosuggect
-     *
+     * 
      * @param suggest - string to search
      * @return list of most-popular metatags
      */
@@ -228,7 +232,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Check if image with specified path already exist in specified album
-     *
+     * 
      * @param album - album to check
      * @param path - path to check
      * @return is image with specified path already exist
@@ -240,7 +244,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Return count of images with path, that started from specified path already exist in specified album
-     *
+     * 
      * @param album - album to check
      * @param path - path to check
      * @return count of images
@@ -253,7 +257,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Retrieve all cooments posted by given user.
-     *
+     * 
      * @return list of comments
      */
     @SuppressWarnings("unchecked")
@@ -264,7 +268,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Refresh state of given image
-     *
+     * 
      * @param image - image to Synchronize
      */
     public void resetImage(Image image) {
