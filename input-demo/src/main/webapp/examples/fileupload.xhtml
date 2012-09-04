@@ -48,6 +48,11 @@
                         removeFile(item.name);
                     }
                 };
+                
+                var onfileselect = function (event) {
+                    var data = event.rf.data;
+                    RichFaces.log.info(jQuery('<span><b>onfileselect:</b> ' + data + '</span>'));
+                };
             </h:outputScript>
             <a4j:jsFunction name="removeFile" render="info" action="#{fileUploadBean.clearFile}">
                 <a4j:param name="clearedFile" assignTo="#{fileUploadBean.clearedFile}"/>
@@ -61,7 +66,9 @@
                                onuploadcomplete="onuploadcomplete(event)"
                                ontyperejected="#{fileUploadBean.ontyperejected}"
                                onclear="onclear(event)"
+                               onfileselect="onfileselect(event)"
                                maxFilesQuantity="#{fileUploadBean.maxFilesQuantity}"
+                               immediateUpload="#{fileUploadBean.immediateUpload}"
                         >
                     <a4j:ajax event="uploadcomplete" execute="@none" render="info"/>
                 </fu:fileUpload>
@@ -122,6 +129,11 @@
             <h:inputText value="#{fileUploadBean.ontyperejected}">
                 <f:ajax render="fu"/>
             </h:inputText>
+            <br/>
+            <h:outputText value="immediateUpload: "/>
+            <h:selectBooleanCheckbox value="#{fileUploadBean.immediateUpload}">
+                <f:ajax render="fu"/>
+            </h:selectBooleanCheckbox>
             <br/>
             <input type="submit"/>
             <a4j:log/>

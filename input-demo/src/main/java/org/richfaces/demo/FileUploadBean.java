@@ -49,6 +49,7 @@ public class FileUploadBean {
     private String clearedFile;
     private String ontyperejected = "alert('typerejected')";
     private Integer maxFilesQuantity = 2;
+    private boolean immediateUpload = false;
 
     public UploadedFile getFile() {
         return file;
@@ -125,6 +126,14 @@ public class FileUploadBean {
 
     public void setMaxFilesQuantity(Integer maxFilesQuantity) {
         this.maxFilesQuantity = maxFilesQuantity;
+    }
+    
+    public boolean isImmediateUpload() {
+        return immediateUpload;
+    }
+    
+    public void setImmediateUpload(boolean immediateUpload) {
+        this.immediateUpload = immediateUpload;
     }
 
     public void updateAttribute(AjaxBehaviorEvent event) throws AbortProcessingException {
