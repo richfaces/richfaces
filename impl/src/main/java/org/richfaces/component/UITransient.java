@@ -10,6 +10,7 @@ import java.util.Set;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
 import javax.faces.component.UINamingContainer;
 import javax.faces.component.UniqueIdVendor;
 import javax.faces.context.FacesContext;
@@ -27,7 +28,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;
 
-public abstract class UITransient extends UIComponent {
+public abstract class UITransient extends UIComponentBase {
     private String id;
     private UIComponent parent;
     private final Map<String, Object> attributesMap = new AttributesMap();
