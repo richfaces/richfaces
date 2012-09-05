@@ -80,8 +80,7 @@ public class UserAction implements IUserAction {
      */
     public User updateUser() throws PhotoAlbumException {
         try {
-            //em.flush(); // this doesn't seem to update anything
-            em.merge(userBean.getUser());
+            em.flush();
         } catch (Exception e) {
             throw new PhotoAlbumException(e.getMessage());
         }
