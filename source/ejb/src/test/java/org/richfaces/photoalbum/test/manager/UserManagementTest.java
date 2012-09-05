@@ -42,7 +42,7 @@ public class UserManagementTest {
             .addPackage(User.class.getPackage()).addClass(UserBean.class)
             .addClass(PhotoAlbumTestHelper.class)
             // insert X as Y
-            // .addAsResource("importusers.sql", "import.sql")
+            .addAsResource("importusers.sql", "import.sql")
             .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml") // important
             .addAsWebInfResource("test-ds.xml");
@@ -78,6 +78,8 @@ public class UserManagementTest {
     public void isUserAdded() throws Exception {
         User newUser = new User();
 
+        int originalSize = helper.getAllUsers(em).size();
+        
         newUser.setFirstName("Mike");
         newUser.setSecondName("Johnson");
         newUser.setEmail("mike.johnson@mail.co.uk");
@@ -87,12 +89,11 @@ public class UserManagementTest {
         newUser.setSex(Sex.MALE);
         newUser.setHasAvatar(false);
         newUser.setPreDefined(false);
-        Assert.assertTrue(helper.getAllUsers(em).isEmpty());
 
         ua.register(newUser);
         List<User> users = helper.getAllUsers(em);
         Assert.assertTrue(users.contains(newUser));
-        Assert.assertEquals(1, users.size());
+        Assert.assertEquals(originalSize + 1, users.size());
     }
 
     @Test
@@ -119,13 +120,15 @@ public class UserManagementTest {
 
     @Test
     public void isUserUpdated() throws Exception {
-        userBean.getUser().setEmail("mail@mail.net");
+        userBean.logIn("Noname", "8cb2237d0679ca88db6464eac60da96345513964");
 
+        userBean.getUser().setEmail("mail@mail.net");
+        
         User user = ua.updateUser();
 
         User updatedUser = (User) em.createNamedQuery(Constants.USER_LOGIN_QUERY)
-            .setParameter(Constants.USERNAME_PARAMETER, user.getLogin())
-            .setParameter(Constants.PASSWORD_PARAMETER, user.getPasswordHash()).getSingleResult();
+            .setParameter(Constants.USERNAME_PARAMETER, "Noname")
+            .setParameter(Constants.PASSWORD_PARAMETER, "8cb2237d0679ca88db6464eac60da96345513964").getSingleResult();
 
         Assert.assertTrue("mail: " + updatedUser.getEmail() + " = 'mail@mail.net'",
             "mail@mail.net".equals(updatedUser.getEmail()));
@@ -145,12 +148,14 @@ public class UserManagementTest {
     }
 
     @Test
-    public void doesUserExist_Login() {
-        Assert.assertTrue(ua.isUserExist("jmike"));
+    public void doesUserExist_Login() throws Exception {
+        Assert.assertTrue(ua.isUserExist("amarkhel"));
+        Assert.assertFalse(ua.isUserExist("mpetrov"));
     }
 
     @Test
-    public void doesUserExist_Email() {
-        Assert.assertTrue(ua.isEmailExist("mail@mail.org"));
+    public void doesUserExist_Email() throws Exception {
+        Assert.assertTrue(ua.isEmailExist("amarkhel@exadel.com"));
+        Assert.assertFalse(ua.isEmailExist("jsmith@mail.net"));
     }
 }
