@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Comment;
 import org.richfaces.photoalbum.domain.Image;
+import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
 
@@ -36,5 +37,9 @@ public class PhotoAlbumTestHelper {
 
     public List<Comment> getAllComments(EntityManager em) throws Exception {
         return getAll(em, Comment.class, "Comment");
+    }
+    
+    public List<MetaTag> getAllMetaTags(EntityManager em) throws Exception {
+        return getAll(em, MetaTag.class, "MetaTag");
     }
 }
