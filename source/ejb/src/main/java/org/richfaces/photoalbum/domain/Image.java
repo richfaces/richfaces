@@ -62,7 +62,7 @@ import org.richfaces.photoalbum.service.ActionTools;
         @NamedQuery(name = "user-shelves", query = "select distinct s from Shelf s where (s.shared = true and s.owner.preDefined = true) order by s.name"),
         @NamedQuery(name = "image-exist", query = "select i from Image i where i.path = :path and i.album = :album"),
         @NamedQuery(name = "image-countIdenticalImages", query = "select count(i) from Image i where i.path like :path and i.album = :album"),
-        @NamedQuery(name = "tag-suggest", query = "select m from MetaTag m where lower(m.tag) like :tag") })
+        @NamedQuery(name = "tag-suggest", query = "select m from MetaTag m where lower(m.tag) like lower(:tag)") })
 /**
  * Class for representing Image Entity
  *  EJB3 Entity Bean
