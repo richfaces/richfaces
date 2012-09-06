@@ -20,10 +20,7 @@
  */
 package org.richfaces.photoalbum.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -38,7 +35,7 @@ import org.richfaces.photoalbum.domain.User;
 
 /**
  * Class for manipulating with image entity. Analogous to DAO pattern. EJB3 Bean
- * 
+ *
  * @author Andrey Markhel
  */
 @Stateless
@@ -49,7 +46,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Remove image entity from database
-     * 
+     *
      * @param image - image to delete
      * @throws PhotoAlbumException
      */
@@ -69,66 +66,86 @@ public class ImageAction implements IImageAction {
 
     /**
      * Synchronize state of image entity with database
-     * 
+     *
      * @param image - image to Synchronize
      * @param metatagsChanged - boolean value, that indicates is metatags of this image were changed(add new or delete older)
      * @throws PhotoAlbumException
      */
     public void editImage(Image image, boolean metatagsChanged) throws PhotoAlbumException {
         try {
+            // unsure if this functionality is needed
             if (metatagsChanged) {
-                // Create cash of metatags early associated with image
-                final List<MetaTag> removals = new ArrayList<MetaTag>(image.getImageTags());
+                String tagsByImageId = "select m from MetaTag m join m.images i where i.id = :id"; // all Metatags associated
+                                                                                                   // with given Image
+                List<MetaTag> pointsToImage = em.createQuery(tagsByImageId, MetaTag.class).setParameter("id", image.getId())
+                    .getResultList();
+                List<MetaTag> imageTags = image.getImageTags();
 
-                // Get string representation of current metatgs, associated with image and split them by comma
-                final String[] tokens = image.getMetaString().split(Constants.COMMA);
-
-                // Populate set of tokens - 'candidates to metatags'
-                final Set<String> toks = new HashSet<String>();
-                for (String s : tokens) {
-                    if (!"".equals(s)) {
-                        toks.add(s.trim());
+                for (MetaTag m : pointsToImage) {
+                    if (!imageTags.contains(m)) { // deleted tag that still points to the Image
+                        System.out.println("tag is being removed: " + m.getTag());
+                        removeMetaTag(image, m);
                     }
                 }
 
-                for (String s : toks) {
-                    // Find metatag in early associated tags
-                    MetaTag t = image.getTagByName(s);
-                    if (t != null) {
-                        // If found - no work needed
-                        removals.remove(t);
-                    } else {
-                        // Find metatag in database
-                        t = getTagByName(s);
-                        if (t != null) {
-                            // If found simple add reference to it
-                            image.addMetaTag(t);
-                        } else {
-                            // Create new metatag
-                            t = new MetaTag();
-                            t.setTag(s);
-                            image.addMetaTag(t);
-                            // Persist to database to prevent concurrent creation of other metatags with given name
-                            em.persist(t);
-                        }
+                for (MetaTag m : imageTags) {
+                    if (!m.getImages().contains(image)) { // newly added tag that doesn't yet point to the Image
+                        addMetaTag(image, m);
                     }
-                    t = null;
                 }
 
-                for (MetaTag tag : removals) {
-                    // If metatag in that collection, we need remove them
-                    image.removeMetaTag(tag);
-                }
-                // If this image is covering for album, break the reference
-                if (image.isCovering()) {
-                    if (!image.equals(image.getAlbum().getCoveringImage())) {
-                        image.getAlbum().setCoveringImage(image);
-                    }
-                } else {
-                    if (image.equals(image.getAlbum().getCoveringImage())) {
-                        image.getAlbum().setCoveringImage(image.getAlbum().getImages().get(0));
-                    }
-                }
+                // // Create cash of metatags early associated with image
+                // final List<MetaTag> removals = new ArrayList<MetaTag>(image.getImageTags());
+                //
+                // // Get string representation of current metatgs, associated with image and split them by comma
+                // final String[] tokens = image.getMetaString().split(Constants.COMMA);
+                //
+                // // Populate set of tokens - 'candidates to metatags'
+                // final Set<String> toks = new HashSet<String>();
+                // for (String s : tokens) {
+                // if (!"".equals(s)) {
+                // toks.add(s.trim());
+                // }
+                // }
+                //
+                // for (String s : toks) {
+                // // Find metatag in early associated tags
+                // MetaTag t = image.getTagByName(s);
+                // if (t != null) {
+                // // If found - no work needed
+                // removals.remove(t);
+                // } else {
+                // // Find metatag in database
+                // t = getTagByName(s);
+                // if (t != null) {
+                // // If found simple add reference to it
+                // image.addMetaTag(t);
+                // } else {
+                // // Create new metatag
+                // t = new MetaTag();
+                // t.setTag(s);
+                // image.addMetaTag(t);
+                // // Persist to database to prevent concurrent creation of other metatags with given name
+                // em.persist(t);
+                // }
+                // }
+                // t = null;
+                // }
+                //
+                // for (MetaTag tag : removals) {
+                // // If metatag in that collection, we need remove them
+                // image.removeMetaTag(tag);
+                // }
+                // // If this image is covering for album, break the reference
+                // if (image.isCovering()) {
+                // if (!image.equals(image.getAlbum().getCoveringImage())) {
+                // image.getAlbum().setCoveringImage(image);
+                // }
+                // } else {
+                // if (image.equals(image.getAlbum().getCoveringImage())) {
+                // image.getAlbum().setCoveringImage(image.getAlbum().getImages().get(0));
+                // }
+                // }
 
             }
             em.flush();
@@ -139,7 +156,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Persist image entity to database
-     * 
+     *
      * @param image - image to add
      * @throws PhotoAlbumException
      */
@@ -155,7 +172,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Remove comment from image
-     * 
+     *
      * @param comment - comment to remove
      * @throws PhotoAlbumException
      */
@@ -172,7 +189,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Add comment from image
-     * 
+     *
      * @param comment - comment to add
      * @throws PhotoAlbumException
      */
@@ -191,8 +208,45 @@ public class ImageAction implements IImageAction {
     }
 
     /**
+     * Add MetaTag to image
+     *
+     * @param image - image to which the tag is added
+     * @param metaTage - metaTag to be added
+     * @throws PhotoAlbumException
+     */
+    public void addMetaTag(Image image, MetaTag metaTag) throws PhotoAlbumException {
+        try {
+            if (getTagByName(metaTag.getTag()) == null) {
+                em.persist(metaTag);
+            }
+            image.addMetaTag(metaTag);
+            metaTag.addImage(image);
+            em.flush();
+        } catch (Exception e) {
+            throw new PhotoAlbumException(e.getMessage());
+        }
+    }
+
+    /**
+     * Remove MetaTag to image
+     *
+     * @param image - image to which the tag is added
+     * @param metaTage - metaTag to be added
+     * @throws PhotoAlbumException
+     */
+    public void removeMetaTag(Image image, MetaTag metaTag) throws PhotoAlbumException {
+        try {
+            image.removeMetaTag(metaTag);
+            metaTag.removeImage(image);
+            em.flush();
+        } catch (Exception e) {
+            throw new PhotoAlbumException(e.getMessage());
+        }
+    }
+
+    /**
      * Find metatag object by its string representation
-     * 
+     *
      * @param tag - string representation of metatag
      * @return metatag object or null
      */
@@ -210,7 +264,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Find most-popular metatags
-     * 
+     *
      * @return list of most-popular metatags
      */
     @SuppressWarnings("unchecked")
@@ -220,7 +274,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Find List of metatags, similar to specified string. Used in autosuggect
-     * 
+     *
      * @param suggest - string to search
      * @return list of most-popular metatags
      */
@@ -232,7 +286,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Check if image with specified path already exist in specified album
-     * 
+     *
      * @param album - album to check
      * @param path - path to check
      * @return is image with specified path already exist
@@ -244,7 +298,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Return count of images with path, that started from specified path already exist in specified album
-     * 
+     *
      * @param album - album to check
      * @param path - path to check
      * @return count of images
@@ -257,7 +311,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Retrieve all cooments posted by given user.
-     * 
+     *
      * @return list of comments
      */
     @SuppressWarnings("unchecked")
@@ -268,7 +322,7 @@ public class ImageAction implements IImageAction {
 
     /**
      * Refresh state of given image
-     * 
+     *
      * @param image - image to Synchronize
      */
     public void resetImage(Image image) {
