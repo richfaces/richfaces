@@ -13,8 +13,8 @@ public class ClientAndAjaxScript extends ClientOnlyScript {
     private final Iterable<ResourceKey> resources;
 
     public ClientAndAjaxScript(LibraryScriptFunction clientSideConverterScript,
-        Collection<? extends LibraryScriptFunction> validatorScripts, String ajaxScript) {
-        super(clientSideConverterScript, validatorScripts);
+            Collection<? extends LibraryScriptFunction> validatorScripts, String ajaxScript, String onvalid, String oninvalid) {
+        super(clientSideConverterScript, validatorScripts, onvalid, oninvalid);
         this.ajaxScript = ajaxScript;
         Builder<ResourceKey> builder = ImmutableSet.<ResourceKey>builder();
         builder.add(AjaxOnlyScript.AJAX_RESOURCE);

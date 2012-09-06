@@ -180,6 +180,7 @@
                 }
                 var result = true
                 var validators = params.v;
+                var validationErrorMessage;
                 if (validators) {
                     var validatorFunction,validator;
                     for (var i = 0; i < validators.length; i++) {
@@ -190,14 +191,22 @@
                                 validatorFunction(convertedValue, getLabel(validator, id), validator.p, validator.m);
                             }
                         } catch (e) {
+                            validationErrorMessage = e;
                             e.severity = 2;
                             rf.csv.sendMessage(id, e);
                             result = false;
                         }
                     }
                 }
-                if (result && !params.da && params.a) {
-                    params.a.call(element, event, id);
+                if (!result && params.oninvalid instanceof Function) {
+                    params.oninvalid([validationErrorMessage]);
+                }
+                if (result) {
+                    if (!params.da && params.a) {
+                        params.a.call(element, event, id);
+                    } else if (params.onvalid instanceof Function) {
+                        params.onvalid();
+                    }
                 }
                 return result;
             }
