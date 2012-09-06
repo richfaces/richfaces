@@ -21,6 +21,7 @@ import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Comment;
 import org.richfaces.photoalbum.domain.Image;
+import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.service.AlbumAction;
 import org.richfaces.photoalbum.service.IAlbumAction;
@@ -31,7 +32,7 @@ import org.richfaces.photoalbum.test.PhotoAlbumTestHelper;
 
 /**
  * Test for cascade deletion - e.g. after an Image gets deleted, all Comments associated with it should get deleted too.
- * 
+ *
  * @author mpetrov
  *
  */
@@ -52,7 +53,7 @@ public class DeletionManagementTest {
 
     @Inject
     UserTransaction utx;
-    
+
     @Inject
     PhotoAlbumTestHelper helper;
 
@@ -94,13 +95,29 @@ public class DeletionManagementTest {
 
         ia.deleteImage(image);
 
+        Assert.assertFalse(helper.getAllImages(em).contains(image));
+
         List<Comment> comments = em.createQuery(commentById, Comment.class).setParameter("id", image.getId()).getResultList();
 
         Assert.assertTrue(comments.isEmpty());
         Assert.assertEquals(allCommentsSize - commentsSize, helper.getAllComments(em).size());
     }
-    
-    // TODO MetaTags
+
+    @Test
+    public void areMetaTagsNotPointingToDeletedImage() throws Exception {
+        String metaTagById = "select m from MetaTag m join m.images i where i.id = :id";
+        Image image = helper.getAllImages(em).get(0);
+        Assert.assertNotNull(image);
+
+        List<MetaTag> existingMetaTags = em.createQuery(metaTagById, MetaTag.class).setParameter("id", image.getId())
+            .getResultList();
+        Assert.assertFalse("size: " + existingMetaTags.size(), existingMetaTags.isEmpty());
+
+        ia.deleteImage(image);
+
+        List<MetaTag> metaTags = em.createQuery(metaTagById, MetaTag.class).setParameter("id", image.getId()).getResultList();
+        Assert.assertTrue(metaTags.isEmpty());
+    }
 
     @Test
     public void areImagesDeletedWithAlbum() throws Exception {
@@ -114,6 +131,8 @@ public class DeletionManagementTest {
 
         aa.deleteAlbum(album);
 
+        Assert.assertFalse(helper.getAllAlbums(em).contains(album));
+
         List<Image> images = em.createQuery(imageById, Image.class).setParameter("id", album.getId()).getResultList();
 
         Assert.assertTrue(images.isEmpty());
@@ -122,8 +141,6 @@ public class DeletionManagementTest {
 
     @Test
     public void areAlbumsDeletedWithShelf() throws Exception {
-        userBean.logIn("Noname", "8cb2237d0679ca88db6464eac60da96345513964"); // need user for the shelf
-
         String albumById = "select a from Album a where shelf_id = :id";
         Shelf shelf = helper.getAllShelves(em).get(0);
 
@@ -134,10 +151,11 @@ public class DeletionManagementTest {
 
         sa.deleteShelf(shelf);
 
+        Assert.assertFalse(helper.getAllShelves(em).contains(shelf));
+
         List<Album> albums = em.createQuery(albumById, Album.class).setParameter("id", shelf.getId()).getResultList();
 
         Assert.assertTrue(albums.isEmpty());
         Assert.assertEquals(allAlbumsSize - albumsSize, helper.getAllAlbums(em).size());
-
     }
 }

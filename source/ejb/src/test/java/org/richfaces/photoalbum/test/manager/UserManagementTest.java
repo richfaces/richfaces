@@ -26,8 +26,6 @@ import org.richfaces.photoalbum.service.IUserAction;
 import org.richfaces.photoalbum.service.UserAction;
 import org.richfaces.photoalbum.test.PhotoAlbumTestHelper;
 
-//import org.richfaces.photoalbum.test.TestProducer;
-
 /**
  * Test for user management (creating, searching) performed by UserAction class
  *
@@ -79,7 +77,7 @@ public class UserManagementTest {
         User newUser = new User();
 
         int originalSize = helper.getAllUsers(em).size();
-        
+
         newUser.setFirstName("Mike");
         newUser.setSecondName("Johnson");
         newUser.setEmail("mike.johnson@mail.co.uk");
@@ -98,7 +96,6 @@ public class UserManagementTest {
 
     @Test
     public void canUserLogIn() throws Exception {
-        // will not work if we continue with "jmike"
         User anotherUser = new User();
 
         anotherUser.setFirstName("John");
@@ -123,8 +120,8 @@ public class UserManagementTest {
         userBean.logIn("Noname", "8cb2237d0679ca88db6464eac60da96345513964");
 
         userBean.getUser().setEmail("mail@mail.net");
-        
-        User user = ua.updateUser();
+
+        ua.updateUser();
 
         User updatedUser = (User) em.createNamedQuery(Constants.USER_LOGIN_QUERY)
             .setParameter(Constants.USERNAME_PARAMETER, "Noname")

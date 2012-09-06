@@ -46,9 +46,6 @@ public class AlbumManagementTest {
     @Inject
     PhotoAlbumTestHelper helper;
 
-//    @Inject
-//    UserBean userBean;
-
     @Inject
     IAlbumAction aa;
 
@@ -87,8 +84,6 @@ public class AlbumManagementTest {
     public void isAlbumEdited() throws Exception {
         Album album = helper.getAllAlbums(em).get(0);
 
-        String name = album.getName();
-
         album.setName("edited album");
 
         int originalSize = helper.getAllAlbums(em).size();
@@ -96,7 +91,10 @@ public class AlbumManagementTest {
         aa.editAlbum(album);
 
         Album editedAlbum = helper.getAllAlbums(em).get(0);
-        Assert.assertEquals("original name: " + name,"edited album", editedAlbum.getName());
+        Assert.assertEquals(album.getId(), editedAlbum.getId());
+        Assert.assertEquals("edited album", editedAlbum.getName());
         Assert.assertEquals(originalSize, helper.getAllAlbums(em).size());
     }
+
+    // EntityManager auto-commits, entities don't need refreshing
 }

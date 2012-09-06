@@ -19,25 +19,21 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.photoalbum.bean.UserBean;
-import org.richfaces.photoalbum.domain.Sex;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.service.IShelfAction;
 import org.richfaces.photoalbum.service.ShelfAction;
+import org.richfaces.photoalbum.test.PhotoAlbumTestHelper;
 
-// can't run needs injected user
 @RunWith(Arquillian.class)
 public class ShelfManagementTest {
     @Deployment
     public static Archive<?> createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "test.war")
-            .addPackage(ShelfAction.class.getPackage())
-            .addClass(Sex.class)
-            .addPackage(User.class.getPackage())//.addClass(TestProducer.class)
-            .addClass(UserBean.class)
+        return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(ShelfAction.class.getPackage())
+            .addPackage(User.class.getPackage()).addClass(UserBean.class).addClass(PhotoAlbumTestHelper.class)
             .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml") // important
-            .addAsWebInfResource("test-ds.xml").addAsResource("importusers.sql", "import.sql");
+            .addAsWebInfResource("test-ds.xml").addAsResource("importmin.sql", "import.sql");
     }
 
     @Inject
@@ -50,7 +46,7 @@ public class ShelfManagementTest {
     UserTransaction utx;
 
     @Inject
-    UserBean userBean;
+    PhotoAlbumTestHelper helper;
 
     @Before
     public void startTransaction() throws Exception {
@@ -63,17 +59,9 @@ public class ShelfManagementTest {
         utx.commit();
     }
 
-    private List<Shelf> getAllShelves() {
-        String fetchingAllShelves = "select s from Shelf s order by s.id";
-
-        return em.createQuery(fetchingAllShelves, Shelf.class).getResultList();
-    }
-
     @Test
     public void isShelfAdded() throws Exception {
-        userBean.logIn("Noname", "8cb2237d0679ca88db6464eac60da96345513964");
-
-        Assert.assertTrue(getAllShelves().isEmpty());
+        User user = helper.getAllUsers(em).get(0);
 
         Shelf newShelf = new Shelf();
 
@@ -81,12 +69,87 @@ public class ShelfManagementTest {
         newShelf.setDescription("a new shelf");
         newShelf.setCreated(new Date());
         newShelf.setShared(false);
+        newShelf.setOwner(user);
+
+        int originalSize = helper.getAllShelves(em).size();
 
         sa.addShelf(newShelf);
-        Assert.assertEquals(newShelf.getOwner(), userBean.getUser());
-        List<Shelf> shelves = getAllShelves();
+        List<Shelf> shelves = helper.getAllShelves(em);
 
         Assert.assertTrue(shelves.contains(newShelf));
-        Assert.assertEquals(1, shelves.size());
+        Assert.assertEquals(originalSize + 1, shelves.size());
+    }
+
+    @Test
+    public void isShelfEdited() throws Exception {
+        Shelf shelf = helper.getAllShelves(em).get(0);
+
+        shelf.setName("edited shelf");
+
+        int originalSize = helper.getAllShelves(em).size();
+
+        sa.editShelf(shelf);
+
+        Shelf editedShelf = helper.getAllShelves(em).get(0);
+        Assert.assertEquals(shelf.getId(), editedShelf.getId());
+        Assert.assertEquals("edited shelf", editedShelf.getName());
+        Assert.assertEquals(originalSize, helper.getAllShelves(em).size());
+    }
+
+    @Test
+    public void arePredefinedShelvesFound() throws Exception {
+        // predefined shelf: is shared and owned by a predefined user
+
+        User preDefined = helper.getAllUsers(em).get(0);
+        User notPreDefined = helper.getAllUsers(em).get(1);
+
+        Shelf shelf = helper.getAllShelves(em).get(0); // this is a predefined shelf
+
+        Shelf shelf1 = new Shelf();
+        Shelf shelf2 = new Shelf();
+        Shelf shelf3 = new Shelf();
+        Shelf shelf4 = new Shelf();
+
+        shelf1.setName("shelf1");
+        shelf1.setDescription("predefined and shared shelf");
+        shelf1.setCreated(new Date());
+        shelf1.setShared(true);
+        shelf1.setOwner(preDefined);
+
+        shelf2.setName("shelf2");
+        shelf2.setDescription("not predefined and shared shelf");
+        shelf2.setCreated(new Date());
+        shelf2.setShared(true);
+        shelf2.setOwner(notPreDefined);
+
+        shelf3.setName("shelf3");
+        shelf3.setDescription("predefined and not shared shelf");
+        shelf3.setCreated(new Date());
+        shelf3.setShared(false);
+        shelf3.setOwner(preDefined);
+
+        shelf4.setName("shelf4");
+        shelf4.setDescription("not predefined and not shared shelf");
+        shelf4.setCreated(new Date());
+        shelf4.setShared(false);
+        shelf4.setOwner(notPreDefined);
+
+        sa.addShelf(shelf1);
+        sa.addShelf(shelf2);
+        sa.addShelf(shelf3);
+        sa.addShelf(shelf4);
+
+        List<Shelf> allShelves = helper.getAllShelves(em);
+
+        Assert.assertTrue(allShelves.contains(shelf1));
+        Assert.assertTrue(allShelves.contains(shelf2));
+        Assert.assertTrue(allShelves.contains(shelf3));
+        Assert.assertTrue(allShelves.contains(shelf4));
+
+        List<Shelf> predefinedShelves = sa.getPredefinedShelves();
+
+        Assert.assertEquals(2, predefinedShelves.size());
+        Assert.assertTrue(predefinedShelves.contains(shelf));
+        Assert.assertTrue(predefinedShelves.contains(shelf1));
     }
 }

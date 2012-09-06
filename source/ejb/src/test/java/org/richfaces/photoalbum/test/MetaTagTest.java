@@ -100,9 +100,27 @@ public class MetaTagTest {
         Assert.assertEquals(TAG_NAMES.length, retrievedMetaTags.size());
         final Set<String> retrievedMetaTagTitles = new HashSet<String>();
         for (MetaTag m : retrievedMetaTags) {
-            System.out.println("* " + m);
             retrievedMetaTagTitles.add(m.getTag());
         }
         Assert.assertTrue(retrievedMetaTagTitles.containsAll(Arrays.asList(TAG_NAMES)));
+    }
+
+    @Test
+    public void idsShouldBeUnique() throws Exception {
+        String fetchingAllMetaTagsInJpql = "select m from MetaTag m order by m.id";
+
+        // when
+        System.out.println("Selecting (using JPQL)...");
+        List<MetaTag> metaTags = em.createQuery(fetchingAllMetaTagsInJpql, MetaTag.class).getResultList();
+
+        assertUniqueIds(metaTags);
+    }
+
+    private static void assertUniqueIds(Collection<MetaTag> retrievedMetaTags) {
+        final Set<Long> metaTagIds = new HashSet<Long>();
+        for (MetaTag m : retrievedMetaTags) {
+            metaTagIds.add(m.getId());
+        }
+        Assert.assertTrue(metaTagIds.size() == retrievedMetaTags.size());
     }
 }

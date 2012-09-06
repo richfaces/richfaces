@@ -22,6 +22,7 @@ import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Comment;
 import org.richfaces.photoalbum.domain.Image;
+import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.service.IImageAction;
 import org.richfaces.photoalbum.service.ImageAction;
@@ -76,8 +77,8 @@ public class ImageManagementTest {
 
         int originalSize = helper.getAllImages(em).size();
 
-        Album album = em.createQuery("select a from Album a where a.id = :id", Album.class)
-            .setParameter("id", (long) 0).getSingleResult();
+        Album album = em.createQuery("select a from Album a where a.id = :id", Album.class).setParameter("id", (long) 0)
+            .getSingleResult();
         Image newImage = new Image();
 
         newImage.setName("839245545_5db77619d5_o.jpg");
@@ -102,8 +103,8 @@ public class ImageManagementTest {
     @Test
     public void isCommentAdded() throws Exception {
         Image image = helper.getAllImages(em).get(0);
-        User user = em.createQuery("select u from User u where u.id = :id", User.class)
-            .setParameter("id", (long) 1).getSingleResult();
+        User user = em.createQuery("select u from User u where u.id = :id", User.class).setParameter("id", (long) 1)
+            .getSingleResult();
 
         int originalSize = helper.getAllComments(em).size();
 
@@ -112,6 +113,10 @@ public class ImageManagementTest {
         comment.setDate(new Date());
         comment.setMessage("beautiful");
         comment.setImage(image);
+
+        if (!image.isAllowComments()) {
+            image.setAllowComments(true);
+        }
 
         ia.addComment(comment);
 
@@ -123,7 +128,7 @@ public class ImageManagementTest {
     public void isCommentDeleted() throws Exception {
         Image image = helper.getAllImages(em).get(0);
         int originalSize = helper.getAllComments(em).size();
-        Comment comment = getAllCommentsById(image.getId()).get(1);
+        Comment comment = getAllCommentsById(image.getId()).get(0);
 
         ia.deleteComment(comment);
 
@@ -131,11 +136,11 @@ public class ImageManagementTest {
         Assert.assertEquals(originalSize - 1, helper.getAllComments(em).size());
     }
 
-    @Test(expected=PhotoAlbumException.class)
+    @Test(expected = PhotoAlbumException.class)
     public void isCommentNotAllowed() throws Exception {
         Image image = helper.getAllImages(em).get(0);
-        User user = em.createQuery("select u from User u where u.id = :id", User.class)
-            .setParameter("id", (long) 1).getSingleResult();
+        User user = em.createQuery("select u from User u where u.id = :id", User.class).setParameter("id", (long) 1)
+            .getSingleResult();
 
         image.setAllowComments(false);
 
@@ -149,6 +154,7 @@ public class ImageManagementTest {
 
         ia.addComment(comment);
         // the code below should not get executed
+
         Assert.assertFalse(getAllCommentsById(image.getId()).contains(comment));
         Assert.assertEquals(originalSize, helper.getAllComments(em).size());
     }
@@ -163,12 +169,124 @@ public class ImageManagementTest {
 
         int originalSize = helper.getAllImages(em).size();
 
+        // due to auto-commit this command makes no difference
         ia.editImage(image, false);
 
         Image editedImage = helper.getAllImages(em).get(0);
-        Assert.assertEquals("original name: " + name,"edited image", editedImage.getName());
+        Assert.assertEquals(image.getId(), editedImage.getId());
+        Assert.assertEquals("original name: " + name, "edited image", editedImage.getName());
         Assert.assertEquals(originalSize, helper.getAllImages(em).size());
     }
 
-    // TODO Metatags
+    @Test
+    public void isImageEditedWithMetaTags() throws Exception {
+        Image image = helper.getAllImages(em).get(0);
+        List<MetaTag> tags = image.getImageTags();
+        MetaTag removedTag = tags.get(0);
+
+        String metaTagsByImageId = "select m from MetaTag m join m.images i where i.id = :id";
+        List<MetaTag> _tagsById = em.createQuery(metaTagsByImageId, MetaTag.class).setParameter("id", image.getId())
+            .getResultList();
+
+        Assert.assertTrue(_tagsById.contains(removedTag));
+        Assert.assertTrue(removedTag.getImages().contains(image));
+
+        tags.remove(0);
+        Assert.assertFalse(tags.contains(removedTag));
+
+        removedTag.removeImage(image);
+        Assert.assertFalse(removedTag.getImages().contains(image));
+        image.setImageTags(tags);
+
+        ia.editImage(image, true);
+
+        List<MetaTag> tagsById = em.createQuery(metaTagsByImageId, MetaTag.class).setParameter("id", image.getId())
+            .getResultList();
+
+        Image editedImage = helper.getAllImages(em).get(0);
+
+        String tagById = "select m from MetaTag m where id = :id";
+        MetaTag m = em.createQuery(tagById, MetaTag.class).setParameter("id", removedTag.getId()).getSingleResult();
+
+        Assert.assertFalse(tagsById.contains(removedTag));
+        Assert.assertFalse(m.getImages().contains(editedImage));
+    }
+
+    @Test
+    public void isIdenticalCountCorrect() throws Exception {
+        Image image = helper.getAllImages(em).get(1);
+
+        Assert.assertEquals(1, ia.getCountIdenticalImages(image.getAlbum(), image.getPath()).intValue());
+
+        Image newImage = new Image();
+
+        newImage.setName("new Image");
+        newImage.setPath(image.getPath());
+        newImage.setDescription("new description");
+        newImage.setCreated(new Date());
+        newImage.setAlbum(image.getAlbum());
+        newImage.setCameraModel("Canon PowerShot SX110 IS");
+        newImage.setSize(image.getSize());
+        newImage.setWidth(image.getWidth());
+        newImage.setHeight(image.getHeight());
+        newImage.setAllowComments(true);
+        newImage.setShowMetaInfo(true);
+
+        ia.addImage(newImage);
+
+        Assert.assertEquals(2, ia.getCountIdenticalImages(image.getAlbum(), image.getPath()).intValue());
+    }
+
+    @Test
+    public void isMetaTagFoundByName() throws Exception {
+        MetaTag tag = helper.getAllMetaTags(em).get(0);
+
+        Assert.assertEquals(tag, ia.getTagByName(tag.getTag()));
+
+        Assert.assertNull(ia.getTagByName("*" + tag.getTag()));
+    }
+
+    @Test
+    public void areTagsSuggested() throws Exception {
+        MetaTag tag = helper.getAllMetaTags(em).get(0);
+        String tagName = tag.getTag();
+
+        String[] parts = { tagName.substring(0, 4), tagName.substring(5) };
+
+        List<MetaTag> suggestedTags = ia.getTagsLikeString(parts[0]);
+        Assert.assertTrue("suggestion for '" + parts[0] + "'", suggestedTags.contains(tag));
+        Assert.assertEquals("suggestion for '" + parts[0] + "'", 1, suggestedTags.size());
+
+        suggestedTags = ia.getTagsLikeString(parts[1]);
+        Assert.assertFalse("suggestion for '" + parts[1] + "'", suggestedTags.contains(tag));
+        Assert.assertTrue("suggestion for '" + parts[1] + "'", suggestedTags.isEmpty());
+    }
+
+    @Test
+    public void doesImageWithSamePathExist() throws Exception {
+        Album album1 = helper.getAllAlbums(em).get(0);
+        Album album2 = helper.getAllAlbums(em).get(1);
+
+        String path = album1.getImages().get(0).getPath();
+
+        Assert.assertTrue(ia.isImageWithThisPathExist(album1, path));
+
+        Assert.assertFalse(ia.isImageWithThisPathExist(album2, path));
+        Assert.assertFalse(ia.isImageWithThisPathExist(album1, path + path));
+        Assert.assertFalse(ia.isImageWithThisPathExist(album2, path + path));
+    }
+
+    @Test
+    public void areAllUserCommentsFound() throws Exception {
+        User user = helper.getAllUsers(em).get(1);
+
+        List<Comment> userComments = ia.findAllUserComments(user);
+
+        Assert.assertEquals(4, userComments.size());
+        for (Comment c : helper.getAllComments(em)) {
+            if (c.getAuthor().getId() == user.getId()) {
+                Assert.assertTrue(userComments.contains(c));
+            }
+        }
+    }
 }
