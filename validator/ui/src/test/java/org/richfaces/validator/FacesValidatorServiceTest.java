@@ -2,14 +2,18 @@ package org.richfaces.validator;
 
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.faces.validator.LengthValidator;
 import javax.faces.validator.RequiredValidator;
 import javax.faces.validator.Validator;
@@ -64,7 +68,7 @@ public class FacesValidatorServiceTest {
         validator = new LengthValidator();
         controller.replay();
         ValidatorDescriptor validatorDescription = serviceImpl.getValidatorDescription(environment.getFacesContext(), input,
-            validator, null);
+                validator, null);
         assertEquals(validator.getClass(), validatorDescription.getImplementationClass());
     }
 
@@ -80,9 +84,45 @@ public class FacesValidatorServiceTest {
         }
         assertNotNull(facesMessage);
         ValidatorDescriptor validatorDescription = serviceImpl.getValidatorDescription(environment.getFacesContext(), input,
-            validator, null);
+                validator, null);
         String summary = validatorDescription.getMessage().getSummary();
         summary = summary.replace("{0}", "foo");
         assertEquals(facesMessage.getSummary(), summary);
+    }
+
+    @Test
+    public void validatorWithWriteOnlyProperty() throws Exception {
+        validator = new ValidatorWithWriteOnlyProperty();
+        controller.replay();
+        ((ValidatorWithWriteOnlyProperty) validator).setHandler(123);
+        ((ValidatorWithWriteOnlyProperty) validator).setMin(255);
+        final ValidatorDescriptor validatorDescription = serviceImpl.getValidatorDescription(environment.getFacesContext(),
+                input, validator, null);
+        assertFalse(validatorDescription.getAdditionalParameters().containsKey("handler"));
+        assertTrue(validatorDescription.getAdditionalParameters().containsKey("min"));
+        assertEquals(255, validatorDescription.getAdditionalParameters().get("min"));
+    }
+
+    public static class ValidatorWithWriteOnlyProperty implements Validator {
+
+        private Object handler;
+
+        private Integer min;
+
+        public void setHandler(Object handler) {
+            this.handler = handler;
+        }
+
+        public Integer getMin() {
+            return min;
+        }
+
+        public void setMin(Integer min) {
+            this.min = min;
+        }
+
+        @Override
+        public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        }
     }
 }
