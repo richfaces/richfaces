@@ -297,13 +297,11 @@
                     this.normalPartStyle.display = "block";
                     // update scroller and scroll-content
                     if (contentWidth > width) {
-                        this.parts.each(function() {
-                            this.style.width = width + "px";
-                        });
                         this.scrollElement.style.display = "block";
                         this.scrollElement.style.overflowX = "scroll";
                         this.scrollElement.style.width = width + "px";
                         this.scrollContentElement.style.width = contentWidth + "px";
+                        this.updateScrollPosition();
                         
                     } else {
                         this.parts.each(function() {
