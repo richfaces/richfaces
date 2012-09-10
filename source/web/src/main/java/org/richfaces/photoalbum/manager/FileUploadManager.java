@@ -21,7 +21,6 @@
 
 package org.richfaces.photoalbum.manager;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -31,8 +30,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
@@ -73,8 +72,10 @@ public class FileUploadManager implements Serializable {
 
     @Inject
     private FileManager fileManager;
-    
-    @Inject @EventType(Events.IMAGE_ADDED_EVENT) Event<ImageEvent> imageEvent;
+
+    @Inject
+    @EventType(Events.IMAGE_ADDED_EVENT)
+    Event<ImageEvent> imageEvent;
 
     /**
      * Listenet, that invoked during file upload process. Only registered users can upload images.
@@ -82,20 +83,20 @@ public class FileUploadManager implements Serializable {
      * @param event - event, indicated that file upload started
      */
     @AdminRestricted
-    public void listener(UploadEvent event) {
-        UploadItem item = event.getUploadItem();
+    public void listener(FileUploadEvent event) {
+        UploadedFile file = event.getUploadedFile();
         // Construct image from item
-        Image image = constructImage(item);
+        Image image = constructImage(file);
         try {
             // Extract metadata(size, camera model etc..)
-            extractMetadata(item, image);
+            extractMetadata(file, image);
         } catch (Exception e1) {
-            addError(item, image, Constants.FILE_PROCESSING_ERROR);
+            addError(file, image, Constants.FILE_PROCESSING_ERROR);
             return;
         }
         image.setAlbum(model.getSelectedAlbum());
         if (image.getAlbum() == null) {
-            addError(item, image, Constants.NO_ALBUM_TO_DOWNLOAD_ERROR);
+            addError(file, image, Constants.NO_ALBUM_TO_DOWNLOAD_ERROR);
             return;
         }
         try {
@@ -109,20 +110,29 @@ public class FileUploadManager implements Serializable {
             // Save to database
             imageAction.addImage(image);
         } catch (Exception e) {
-            addError(item, image, Constants.IMAGE_SAVING_ERROR);
+            addError(file, image, Constants.IMAGE_SAVING_ERROR);
             return;
         }
-        // Save to disk
-        if (!fileManager.addImage(image.getFullPath(), item.getFile().getPath())) {
-            addError(item, image, Constants.FILE_SAVE_ERROR);
-            return;
+        try {
+            // Save to disk
+            if (!fileManager.addImage(image.getFullPath(), file.getInputStream())) {
+                addError(file, image, Constants.FILE_SAVE_ERROR);
+                return;
+            }
+        } catch (IOException ioe) {
+            addError(image, Constants.FILE_SAVE_ERROR + " - " + ioe.getMessage());
         }
+
         // Prepare to show in UI
         fileWrapper.setComplete(false);
         fileWrapper.getFiles().add(image);
         imageEvent.fire(new ImageEvent(image));
         // Delete temporary file
-        item.getFile().delete();
+        try {
+            file.delete();
+        } catch (IOException ioe) {
+            addError(image, "Error deleting file - " + ioe.getMessage());
+        }
     }
 
     private String generateNewPath(Image image) throws PhotoAlbumException {
@@ -132,22 +142,26 @@ public class FileUploadManager implements Serializable {
         return newPath;
     }
 
-    private void addError(UploadItem item, Image image, String error) {
+    private void addError(UploadedFile file, Image image, String error) {
         fileWrapper.onFileUploadError(image, error);
-        item.getFile().delete();
+        try {
+            file.delete();
+        } catch (IOException e) {
+            addError(image, e.getMessage());
+        }
     }
 
     private void addError(Image image, String error) {
         fileWrapper.onFileUploadError(image, error);
     }
 
-    private Image constructImage(UploadItem item) {
+    private Image constructImage(UploadedFile file) {
         Image image = new Image();
         image.setUploaded(new Date());
-        image.setDescription(item.getFileName());
-        image.setName(item.getFileName());
-        image.setSize(item.getFileSize());
-        image.setPath(item.getFileName());
+        image.setDescription(file.getName());
+        image.setName(file.getName());
+        image.setSize(file.getSize());
+        image.setPath(file.getName());
         image.setAllowComments(true);
         return image;
     }
@@ -156,10 +170,10 @@ public class FileUploadManager implements Serializable {
      * NOTE: all the following classes may not work like they used to in the previous version; this is due to certain classes no
      * longer being part of the com.drew.* libraries
      */
-    private void extractMetadata(UploadItem item, Image image) {
+    private void extractMetadata(UploadedFile file, Image image) {
         InputStream in = null;
         try {
-            in = new FileInputStream(item.getFile());
+            in = file.getInputStream();
             Metadata metadata = JpegMetadataReader.readMetadata(in);
             Directory exifDirectory = metadata.getDirectory(ExifIFD0Directory.class);
             Directory jpgDirectory = metadata.getDirectory(JpegDirectory.class);
@@ -167,12 +181,12 @@ public class FileUploadManager implements Serializable {
             setupDimensions(image, exifDirectory, jpgDirectory);
             setupCreatedDate(image, exifDirectory);
         } catch (Exception e) {
-            addError(item, image, Constants.IMAGE_SAVING_ERROR);
+            addError(file, image, Constants.IMAGE_SAVING_ERROR);
         } finally {
             try {
                 in.close();
             } catch (IOException e) {
-                addError(item, image, Constants.IMAGE_SAVING_ERROR);
+                addError(file, image, Constants.IMAGE_SAVING_ERROR);
             }
         }
     }

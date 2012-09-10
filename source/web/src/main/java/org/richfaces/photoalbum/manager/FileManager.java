@@ -28,7 +28,9 @@ package org.richfaces.photoalbum.manager;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -66,8 +68,8 @@ public class FileManager {
      */
     @PostConstruct
     public void create() {
-        //uploadRoot = (File) Component.getInstance(Constants.UPLOAD_ROOT_COMPONENT_NAME, Scope.APPLICATION);
-        //uploadRootPath = (String) Component.getInstance(Constants.UPLOAD_ROOT_PATH_COMPONENT_NAME, ScopeType.APPLICATION);
+        // uploadRoot = (File) Component.getInstance(Constants.UPLOAD_ROOT_COMPONENT_NAME, Scope.APPLICATION);
+        // uploadRootPath = (String) Component.getInstance(Constants.UPLOAD_ROOT_PATH_COMPONENT_NAME, ScopeType.APPLICATION);
     }
 
     /**
@@ -161,7 +163,12 @@ public class FileManager {
     public boolean saveAvatar(File avatarData, User user) {
         String avatarPath = File.separator + user.getLogin() + File.separator + Constants.AVATAR_JPG;
         createDirectoryIfNotExist(avatarPath);
-        return writeFile(avatarPath, avatarData.getPath(), "", Constants.AVATAR_SIZE, true);
+        try {
+            InputStream is = new FileInputStream(avatarData);
+            return writeFile(avatarPath, is, "", Constants.AVATAR_SIZE, true);
+        } catch (IOException ioe) {
+            return false;
+        }
     }
 
     /**
@@ -185,10 +192,10 @@ public class FileManager {
      * @param tempFilePath - absolute path to uploaded image
      */
     @AdminRestricted
-    public boolean addImage(String fileName, String tempFilePath) {
+    public boolean addImage(String fileName, InputStream inputStream) {
         createDirectoryIfNotExist(fileName);
         for (ImageDimension d : ImageDimension.values()) {
-            if (!writeFile(fileName, tempFilePath, d.getFilePostfix(), d.getX(), true)) {
+            if (!writeFile(fileName, inputStream, d.getFilePostfix(), d.getX(), true)) {
                 return false;
             }
         }
@@ -292,11 +299,11 @@ public class FileManager {
         }
     }
 
-    private boolean writeFile(String newFileName, String fileName, String pattern, int size, boolean includeUploadRoot) {
+    private boolean writeFile(String newFileName, InputStream inputStream, String pattern, int size, boolean includeUploadRoot) {
         BufferedImage bsrc = null;
         try {
             // Read file form disk
-            bsrc = FileUtils.bitmapToImage(fileName, Constants.JPG);
+            bsrc = FileUtils.bitmapToImage(inputStream, Constants.JPG);
         } catch (IOException e1) {
             return false;
         }

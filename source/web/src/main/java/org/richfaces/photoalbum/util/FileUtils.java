@@ -39,7 +39,7 @@ import javax.imageio.stream.ImageInputStream;
 
 /**
  * Utility class for operations with file-system
- * 
+ *
  */
 
 public class FileUtils {
@@ -52,7 +52,7 @@ public class FileUtils {
 
     /**
      * Utility method for copying file
-     * 
+     *
      * @param srcFile - source file
      * @param destFile - destination file
      */
@@ -92,7 +92,7 @@ public class FileUtils {
 
     /**
      * Utility method for copying directory
-     * 
+     *
      * @param srcDir - source directory
      * @param dstDir - destination directory
      */
@@ -117,7 +117,7 @@ public class FileUtils {
 
     /**
      * Utility method for delete directory
-     * 
+     *
      * @param dir - directory to delete
      * @param isInitialDelete - determine if the deleting process running at startup or on destroy of application
      * @return true if directory succesfully deleted
@@ -150,7 +150,7 @@ public class FileUtils {
 
     /**
      * Utility method for concatenation names of collection of files
-     * 
+     *
      * @param files - array of strings to concatenate
      * @return concatenated string
      */
@@ -165,7 +165,7 @@ public class FileUtils {
 
     /**
      * Utility method for delete file
-     * 
+     *
      * @param file - file to delete
      */
     public static void deleteFile(File file) {
@@ -176,30 +176,29 @@ public class FileUtils {
 
     /**
      * Utility method to read image from disk and transform image to BufferedImage object
-     * 
+     *
      * @param data - relative path to the image
      * @param format - file prefix of the image
      * @return BufferedImage representation of the image
-     * 
+     *
      */
-    public static BufferedImage bitmapToImage(String data, String format) throws IOException {
-        final InputStream inb = new FileInputStream(data);
+    public static BufferedImage bitmapToImage(InputStream is, String format) throws IOException {
         final ImageReader rdr = ImageIO.getImageReadersByFormatName(format).next();
-        final ImageInputStream imageInput = ImageIO.createImageInputStream(inb);
+        final ImageInputStream imageInput = ImageIO.createImageInputStream(is);
         rdr.setInput(imageInput);
         final BufferedImage image = rdr.read(0);
-        inb.close();
+        is.close();
         return image;
     }
 
     /**
      * Utility method to write BufferedImage object to disk
-     * 
+     *
      * @param image - BufferedImage object to save.
      * @param data - relative path to the image
      * @param format - file prefix of the image
      * @return BufferedImage representation of the image
-     * 
+     *
      */
     public static void imageToBitmap(BufferedImage image, String data, String format) throws IOException {
         final OutputStream inb = new FileOutputStream(data);
@@ -212,7 +211,7 @@ public class FileUtils {
 
     /**
      * Convenience method that returns a scaled instance of the provided {@code BufferedImage}.
-     * 
+     *
      * @param img the original image to be scaled
      * @param targetWidth the desired width of the scaled instance, in pixels
      * @param targetHeight the desired height of the scaled instance, in pixels
@@ -273,9 +272,9 @@ public class FileUtils {
 
     /**
      * Utility method for creation of directory
-     * 
+     *
      * @param directory - directory to create
-     * 
+     *
      */
     public static void addDirectory(File directory) {
         if (directory.exists()) {
