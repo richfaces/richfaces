@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.richfaces.examples</groupId>
         <artifactId>photoalbum</artifactId>
-        <version>3.3.4-SNAPSHOT</version>
+        <version>4.2.2.Final</version>
     </parent>
 
 	<!-- <groupId>org.richfaces.examples</groupId> -->
@@ -16,8 +16,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javaee6.with.tools.version>1.0.0.Final</javaee6.with.tools.version>
-        <!-- <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version> -->
-        <org.richfaces.bom.version>3.3.4-SNAPSHOT</org.richfaces.bom.version>
+        <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version>
     </properties>
 
     <dependencyManagement>
@@ -247,7 +246,7 @@
             <artifactId>jsf-facelets</artifactId>
             <version>${faceletsVersion}</version>
         </dependency>
-        <dependency>
+       <!-- <dependency>
             <groupId>org.richfaces.framework</groupId>
             <artifactId>richfaces-impl</artifactId>
             <version>${richfacesVersion}</version>
@@ -265,7 +264,7 @@
                     <artifactId>commons-digester</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
@@ -283,6 +282,16 @@
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-ui</artifactId>
+            <version>${richfacesVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.core</groupId>
+            <artifactId>richfaces-core-impl</artifactId>
+            <version>${richfacesVersion}</version>
+        </dependency>
+        <!--  <dependency>
+            <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-ui</artifactId>
             <version>${richfacesVersion}</version>
         </dependency>
@@ -297,7 +306,7 @@
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.richfaces.examples</groupId>
             <artifactId>${projectName}-ejb</artifactId>

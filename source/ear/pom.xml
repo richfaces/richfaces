@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.richfaces.examples</groupId>
         <artifactId>photoalbum</artifactId>
-        <version>3.3.4-SNAPSHOT</version>
+        <version>4.2.2.Final</version>
     </parent>
 
 	<!-- <groupId>org.richfaces.examples</groupId> -->
@@ -16,8 +16,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javaee6.with.tools.version>1.0.0.Final</javaee6.with.tools.version>
-        <!-- <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version> -->
-        <org.richfaces.bom.version>3.3.4-SNAPSHOT</org.richfaces.bom.version>
+        <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version>
     </properties>
 
     <dependencyManagement>
@@ -39,11 +38,11 @@
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
-        <dependency>
-            <groupId>org.richfaces.framework</groupId>
-            <artifactId>richfaces-api</artifactId>
-            <version>${richfacesVersion}</version>
-        </dependency>
+<!--         <dependency> -->
+<!--             <groupId>org.richfaces.framework</groupId> -->
+<!--             <artifactId>richfaces-api</artifactId> -->
+<!--             <version>${richfacesVersion}</version> -->
+<!--         </dependency> -->
         <dependency>
             <groupId>org.richfaces.examples</groupId>
             <artifactId>${projectName}-ejb</artifactId>
@@ -53,7 +52,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.14</version>
+            <version>1.2.17</version>
         </dependency>
 
         <dependency>

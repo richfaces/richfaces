@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.richfaces.examples</groupId>
         <artifactId>photoalbum</artifactId>
-        <version>3.3.4-SNAPSHOT</version>
+        <version>4.2.2.Final</version>
     </parent>
 
 	<!--  <groupId>org.richfaces.examples</groupId> -->
@@ -16,8 +16,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javaee6.with.tools.version>1.0.0.Final</javaee6.with.tools.version>
-        <!-- <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version> -->
-        <org.richfaces.bom.version>3.3.4-SNAPSHOT</org.richfaces.bom.version>
+        <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version>
     </properties>
 
     <dependencyManagement>

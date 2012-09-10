@@ -4,7 +4,7 @@
     <groupId>org.richfaces.examples</groupId>
     <artifactId>photoalbum-root</artifactId>
     <packaging>pom</packaging>
-    <version>3.3.4-SNAPSHOT</version>
+    <version>4.2.2.Final</version>
  	<name>Photoalbum Demo Application Root</name>
    
 	<modules>
@@ -19,9 +19,9 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.2</version>
+						<version>2.8.1</version>
 						<configuration>
-							<javadocVersion>1.5</javadocVersion>
+							<javadocVersion>1.7</javadocVersion>
 							<reportOutputDirectory>${project.build.directory}/javadocs</reportOutputDirectory>
 							<aggregate>true</aggregate>
 						</configuration>
