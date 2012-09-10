@@ -28,7 +28,6 @@ package org.richfaces.photoalbum.manager;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
-import org.richfaces.component.Dropzone;
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
 import org.richfaces.photoalbum.domain.Album;
@@ -72,9 +71,9 @@ public class DnDManager implements DropListener {
      */
     @AdminRestricted
     public void processDrop(DropEvent dropEvent) {
-        Dropzone dropzone = (Dropzone) dropEvent.getComponent();
+        //Dropzone dropzone = (Dropzone) dropEvent.getComponent();
         Object dragValue = dropEvent.getDragValue();
-        Object dropValue = dropzone.getDropValue();
+        Object dropValue = dropEvent.getDropValue();
         if (dragValue instanceof Image) {
             // If user drag image
             if (!((Album) dropValue).getOwner().getLogin().equals(user.getLogin())) {
