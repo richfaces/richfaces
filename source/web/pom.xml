@@ -55,10 +55,19 @@
 
 
     <dependencies>
+        <!-- transitively needed dependencies -->
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+
+        <!-- "regular" dependencies -->
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
-            <version>2.2</version>
+            <!-- override -->
+            <!-- <version>2.2</version> -->
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -97,7 +106,8 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>4.3.0.Final</version>
+            <!-- override -->
+            <!-- <version>4.3.0.Final</version> -->
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -115,6 +125,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
+            <!-- override, versions 4.0+ depend on an unavailable package -->
             <version>3.6.10.Final</version>
             <scope>provided</scope>
         </dependency>
@@ -204,6 +215,12 @@
         <dependency>
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-impl</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.richfaces.examples</groupId>
@@ -296,7 +313,6 @@
                             <directory>${basedir}/src/main/webapp/WEB-INF
                             </directory>
                             <includes>
-                                <include>components.xml</include>
                                 <include>web.xml</include>
                             </includes>
                             <targetPath>WEB-INF</targetPath>
@@ -306,9 +322,9 @@
                 </configuration>
             </plugin>
 
-            <plugin>
+            <!--  <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-            </plugin>
+            </plugin> -->
         </plugins>
     </build>
 </project>
