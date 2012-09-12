@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javaee6.with.tools.version>1.0.0.Final</javaee6.with.tools.version>
         <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version>
+        <seam.version>3.1.0.Final</seam.version>
     </properties>
 
     <dependencyManagement>
@@ -28,15 +29,20 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- Similarly to the JBoss Java EE 6 BOM above, the RichFaces BOM specifies 
-                the versions of artifacts required for using RichFaces in your project. -->
-            <!--<dependency>
+            <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-bom</artifactId>
                 <version>${org.richfaces.bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency> -->
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.seam</groupId>
+                <artifactId>seam-bom</artifactId>
+                <version>${seam.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
@@ -67,7 +73,7 @@
         <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>javax.faces-api</artifactId>
-            <version>2.1</version>
+            <!--  <version>2.1</version> -->
             <scope>provided</scope>
         </dependency>
             
@@ -91,7 +97,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>4.2.0.Final</version>
+            <version>4.3.0.Final</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -103,13 +109,13 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
-            <version>3.4.0.GA</version>
+            <version>3.5.6-Final</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>3.3.2.GA</version>
+            <version>3.6.10.Final</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -138,8 +144,12 @@
 
         <dependency>
             <groupId>org.jboss.seam.security</groupId>
+            <artifactId>seam-security-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.security</groupId>
             <artifactId>seam-security</artifactId>
-            <version>3.1.0.Final</version>
+            <scope>compile</scope>
         </dependency>
 		<!-- Import the EJB API, we use provided scope as the API is included in 
 			JBoss AS 7 -->
@@ -148,99 +158,6 @@
             <artifactId>jboss-ejb-api_3.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- <dependency>
-            <groupId>org.jboss.seam</groupId>
-            <artifactId>jboss-seam-remoting</artifactId>
-            <version>${seamVersion}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>javassist</artifactId>
-                    <groupId>jboss</groupId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.el</groupId>
-                    <artifactId>el-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.seam</groupId>
-                    <artifactId>jboss-seam</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>dom4j</artifactId>
-                    <groupId>dom4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.seam</groupId>
-            <artifactId>jboss-seam</artifactId>
-            <version>${seamVersion}</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.el</groupId>
-                    <artifactId>el-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-collections</groupId>
-                    <artifactId>commons-collections</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.seam</groupId>
-                    <artifactId>jboss-seam-pdf</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.facelets</groupId>
-                    <artifactId>jsf-facelets</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.seam</groupId>
-            <artifactId>jboss-seam-ui</artifactId>
-            <version>${seamVersion}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.seam</groupId>
-                    <artifactId>jboss-seam</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-beanutils</artifactId>
-                    <groupId>commons-beanutils</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-digester</artifactId>
-                    <groupId>commons-digester</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.seam</groupId>
-            <artifactId>jboss-seam-debug</artifactId>
-            <version>${seamVersion}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.el</groupId>
-                    <artifactId>el-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-collections</groupId>
-                    <artifactId>commons-collections</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.seam</groupId>
-                    <artifactId>jboss-seam-pdf</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.facelets</groupId>
-                    <artifactId>jsf-facelets</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.jboss.seam</groupId>
-                    <artifactId>jboss-seam</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency> -->
         <dependency>
             <groupId>com.sun.facelets</groupId>
             <artifactId>jsf-facelets</artifactId>
@@ -283,30 +200,11 @@
         <dependency>
             <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-components-ui</artifactId>
-            <version>${richfacesVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-impl</artifactId>
-            <version>${richfacesVersion}</version>
         </dependency>
-        <!--  <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-ui</artifactId>
-            <version>${richfacesVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.framework</groupId>
-            <artifactId>richfaces-api</artifactId>
-            <version>${richfacesVersion}</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency> -->
         <dependency>
             <groupId>org.richfaces.examples</groupId>
             <artifactId>${projectName}-ejb</artifactId>
