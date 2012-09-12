@@ -9,7 +9,7 @@
     </parent>
 
 	<!-- <groupId>org.richfaces.examples</groupId> -->
-    <artifactId>${projectName}-ear</artifactId>
+    <artifactId>photoalbum-ear</artifactId>
     <name>${appName} EAR module</name>
     <packaging>ear</packaging>
     
@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>org.richfaces.examples</groupId>
-            <artifactId>${projectName}-web</artifactId>
+            <artifactId>photoalbum-web</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
@@ -59,7 +59,7 @@
 <!--         </dependency> -->
         <dependency>
             <groupId>org.richfaces.examples</groupId>
-            <artifactId>${projectName}-ejb</artifactId>
+            <artifactId>photoalbum-ejb</artifactId>
             <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
@@ -77,7 +77,7 @@
     </dependencies>
 
     <build>
-        <finalName>${projectName}-ear-${project.version}</finalName>
+        <finalName>photoalbum-ear-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -97,12 +97,12 @@
                     <modules>
                         <webModule>
                             <groupId>org.richfaces.examples</groupId>
-                            <artifactId>${projectName}-web</artifactId>
-                            <contextRoot>/${projectName}</contextRoot>
+                            <artifactId>photoalbum-web</artifactId>
+                            <contextRoot>/photoalbum</contextRoot>
                         </webModule>
                         <ejbModule>
                             <groupId>org.richfaces.examples</groupId>
-                            <artifactId>${projectName}-ejb</artifactId>
+                            <artifactId>photoalbum-ejb</artifactId>
                         </ejbModule>
                         <ejbModule>
                             <groupId>org.jboss.seam</groupId>
