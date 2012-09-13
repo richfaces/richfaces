@@ -13,8 +13,8 @@ import org.richfaces.photoalbum.service.Constants;
 /**
  * This bean was created to provide User entity in places where it is needed (UserAction and ShelfAction).
  * This is a temporary solution.
- * 
- * @author mpetrov 
+ *
+ * @author mpetrov
  */
 
 @Singleton
@@ -47,7 +47,7 @@ public class UserBean {
         }
         return user;
     }
-    
+
     public void refreshUser() {
         if (logged) {
             user = (User) em.createNamedQuery(Constants.USER_LOGIN_QUERY).setParameter(Constants.USERNAME_PARAMETER, user.getLogin())

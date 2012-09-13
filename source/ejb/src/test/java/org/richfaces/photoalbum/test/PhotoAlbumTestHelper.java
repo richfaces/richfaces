@@ -38,7 +38,7 @@ public class PhotoAlbumTestHelper {
     public List<Comment> getAllComments(EntityManager em) throws Exception {
         return getAll(em, Comment.class, "Comment");
     }
-    
+
     public List<MetaTag> getAllMetaTags(EntityManager em) throws Exception {
         return getAll(em, MetaTag.class, "MetaTag");
     }

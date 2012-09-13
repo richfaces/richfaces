@@ -22,9 +22,9 @@ import org.richfaces.photoalbum.service.ImageAction;
 
 /**
  * Simple test to check if everything got imported correctly from importmin.sql
- * 
+ *
  * @author mpetrov
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class ImportTest {
@@ -45,14 +45,14 @@ public class ImportTest {
 
     @Inject
     PhotoAlbumTestHelper helper;
-    
+
     private final int numberOfUsers     = 2;
     private final int numberOfShelves   = 1;
     private final int numberOfAlbums    = 2;
     private final int numberOfImages    = 9;
     private final int numberOfMetaTags  = 2;
     private final int numberOfComments  = 13;
-    
+
     @Before
     public void startTransaction() throws Exception {
         utx.begin();
