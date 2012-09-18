@@ -25,7 +25,10 @@
         <f:selectItems value="#{autoCompleteBean.modes}"/>
     </h:selectOneMenu>
     <br/>
-
+    <h:commandButton accesskey="b" value="RF-12481" title="Click when Autocomplete is expanded" >
+        <f:ajax execute="@form" render="@form"/>
+    </h:commandButton>
+    <br/>
     <div style="height: 300px; width: 300px; overflow: auto; float: left;">
         Text block text block text block text block text block text block text block text block
         <script type="text/javascript">
