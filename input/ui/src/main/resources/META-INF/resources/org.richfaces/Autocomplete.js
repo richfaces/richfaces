@@ -472,6 +472,7 @@
              */
             destroy: function () {
                 //TODO: add all unbind
+                this.__hide(event);
                 this.items = null;
                 this.cache = null;
                 var itemsContainer = rf.getDomElement(this.id + ID.ITEMS);
