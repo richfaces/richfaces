@@ -38,6 +38,7 @@ import javax.inject.Inject;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.picketlink.idm.impl.api.PasswordCredential;
+import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.EventTypeQualifier;
@@ -84,6 +85,9 @@ public class Authenticator implements Serializable {
 
     @Inject
     FileManager fileManager;
+    
+    @Inject
+    UserBean userBean;
 
     /**
      * Method, that invoked when user try to login to the application.
@@ -94,7 +98,7 @@ public class Authenticator implements Serializable {
     public boolean authenticate() {
         try {
             // If user with this login and password exist, the user object will be returned
-            user = userAction.login(credentials.getUsername(),
+            user = userBean.logIn(credentials.getUsername(),
                 HashUtils.hash(((PasswordCredential) credentials.getCredential()).getValue()));
             if (user != null) {
                 // This check is actual only on livedemo server to prevent hacks.
