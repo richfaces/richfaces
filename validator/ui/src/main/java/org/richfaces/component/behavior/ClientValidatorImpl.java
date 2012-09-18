@@ -57,7 +57,6 @@ import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.ClientSideMessage;
-import org.richfaces.component.UIRichMessages;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.Message;
 import org.richfaces.log.Logger;
@@ -171,7 +170,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
     }
 
     /**
-     * Find all instances of the {@link UIRichMessages} and update list of the rendered messages.
+     * Find all instances of the {@link org.richfaces.component.UIRichMessages} and update list of the rendered messages.
      *
      * @param context
      * @param component
