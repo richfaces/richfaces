@@ -28,7 +28,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 
-import org.ajax4jsf.context.AjaxContext;
+import org.richfaces.context.ExtendedPartialViewContext;
 
 /**
  * Utility class for actions, related to direct access or modification of current request
@@ -76,12 +76,14 @@ public class Utils {
      *
      * @param componentId - id of component should be added to rerender
      */
+    // will not work, looking for a way around this
+    @SuppressWarnings("unused")
     public static void addToRerender(String componentId) {
         try {
             FacesContext fc = FacesContext.getCurrentInstance();
-            AjaxContext ac = AjaxContext.getCurrentInstance();
+            ExtendedPartialViewContext epvc = ExtendedPartialViewContext.getInstance(fc);
             UIComponent destComponent = fc.getViewRoot().findComponent(componentId);
-            ac.addComponentToAjaxRender(destComponent);
+            //ac.addComponentToAjaxRender(destComponent);
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
