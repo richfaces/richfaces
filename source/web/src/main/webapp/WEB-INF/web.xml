@@ -1,12 +1,13 @@
 <?xml version="1.0" ?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
 
-	<context-param>
-	   <param-name>org.richfaces.queue.global.enabled</param-name>
-	   <param-value>true</param-value>
-	</context-param>
+    <context-param>
+        <param-name>org.richfaces.queue.global.enabled</param-name>
+        <param-value>true</param-value>
+    </context-param>
 
-	<context-param>
+    <context-param>
         <param-name>org.richfaces.skin</param-name>
         <param-value>photoalbum</param-value>
     </context-param>
@@ -26,53 +27,46 @@
 
 	<!-- Facelets development mode (disable in production) -->
 
-	<context-param>
-		<param-name>facelets.DEVELOPMENT</param-name>
-		<param-value>true</param-value>
-	</context-param>
+    <context-param>
+        <param-name>facelets.DEVELOPMENT</param-name>
+        <param-value>true</param-value>
+    </context-param>
 
 	<!-- JSF -->
 
-	<context-param>
-		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-		<param-value>.xhtml</param-value>
-	</context-param>
-	
-	<context-param>
-		<param-name>facelets.LIBRARIES</param-name>
-		<param-value>/WEB-INF/tags/photoalbum-taglib.xml</param-value>
-	</context-param>
-	
+    <context-param>
+        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.xhtml</param-value>
+    </context-param>
 
-	
-	<context-param>
-		<param-name>org.richfaces.LoadScriptStrategy</param-name>
-		<param-value>ALL</param-value>
-	</context-param>
-	
-	<context-param>
-		<param-name>org.richfaces.LoadStyleStrategy</param-name>
-		<param-value>ALL</param-value>
-	</context-param>
+    <context-param>
+        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+        <param-value>/WEB-INF/tags/photoalbum.taglib.xml</param-value>
+    </context-param>
 
-	<servlet>
-		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
+    <context-param>
+        <param-name>org.richfaces.resourceOptimization.enabled</param-name>
+        <param-value>true</param-value>
+    </context-param>
 
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.seam</url-pattern>
-	</servlet-mapping>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-	<security-constraint>
-		<display-name>Restrict raw XHTML Documents</display-name>
-		<web-resource-collection>
-			<web-resource-name>XHTML</web-resource-name>
-			<url-pattern>*.xhtml</url-pattern>
-		</web-resource-collection>
-		<auth-constraint />
-	</security-constraint>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.seam</url-pattern>
+    </servlet-mapping>
+
+    <security-constraint>
+        <display-name>Restrict raw XHTML Documents</display-name>
+        <web-resource-collection>
+            <web-resource-name>XHTML</web-resource-name>
+            <url-pattern>*.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint />
+    </security-constraint>
 
 </web-app>
