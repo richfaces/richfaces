@@ -133,7 +133,11 @@
                     if (value != this.value || changed) {
                         this.input.val(value);
                         var left = 100 * (value - this.minValue) / this.range;
-                        this.handleContainer.css("padding-left", left + "%");
+                        if(this.handleType=='bar') {
+                            this.handleContainer.css("width", left + "%");
+                        } else {
+                            this.handleContainer.css("padding-left", left + "%");
+                        }
                         this.tooltip.text(value);
                         this.tooltip.setPosition(this.handle, {from: 'LT', offset: [0, 5]}); //TODO Seems offset doesn't work now.
                         this.value = value;

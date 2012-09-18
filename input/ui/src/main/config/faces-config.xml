@@ -242,6 +242,15 @@
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
+        <property>
+            <description>Tells how handle should look like. Default is and arrow. Possible values: arrow, bar</description>
+            <property-name>handleType</property-name>
+            <property-class>java.lang.String</property-class>
+            <property-extension>
+                <cdk:pass-through>true</cdk:pass-through>
+                <cdk:generate>true</cdk:generate>
+            </property-extension>
+        </property>
         <component-extension>
             <cdk:generate>true</cdk:generate>
             <cdk:base-class>org.richfaces.component.UIInputNumber</cdk:base-class>

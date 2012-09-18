@@ -21,9 +21,9 @@
  */
 package org.richfaces.renderkit;
 
-import javax.faces.component.UIComponent;
-
 import org.richfaces.component.InputNumberSliderInputPosition;
+
+import javax.faces.component.UIComponent;
 
 /**
  * @author Nick Belaevski
@@ -36,5 +36,9 @@ public abstract class InputNumberSliderRendererBase extends InputRendererBase {
             type = InputNumberSliderInputPosition.DEFAULT;
         }
         return type == InputNumberSliderInputPosition.valueOf(name);
+    }
+
+    protected boolean isBarStyleHandle(UIComponent component) {
+        return "bar".equals(component.getAttributes().get("handleType"));
     }
 }
