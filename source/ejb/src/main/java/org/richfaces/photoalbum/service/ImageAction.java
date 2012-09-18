@@ -275,13 +275,13 @@ public class ImageAction implements IImageAction {
     /**
      * Find List of metatags, similar to specified string. Used in autosuggect
      *
-     * @param suggest - string to search
+     * @param suggest - string to search; has to be set to lowerCase since this cannot be done inside a query
      * @return list of most-popular metatags
      */
     @SuppressWarnings("unchecked")
     public List<MetaTag> getTagsLikeString(String suggest) {
         return (List<MetaTag>) em.createNamedQuery(Constants.TAG_SUGGEST_QUERY)
-            .setParameter(Constants.TAG_PARAMETER, suggest + Constants.PERCENT).getResultList();
+            .setParameter(Constants.TAG_PARAMETER, suggest.toLowerCase() + Constants.PERCENT).getResultList();
     }
 
     /**
