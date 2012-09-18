@@ -21,14 +21,15 @@
 package org.richfaces.photoalbum.ui;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
 import org.richfaces.photoalbum.domain.Sex;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IUserAction;
@@ -61,9 +62,25 @@ public class UserPrefsHelper implements Serializable {
      *
      * param event - upload event
      */
-    public void uploadAvatar(UploadEvent event) {
-        UploadItem item = event.getUploadItem();
-        avatarData = item.getFile();
+    public void uploadAvatar(FileUploadEvent event) {
+        UploadedFile file = event.getUploadedFile();
+        //avatarData = new File(file.getInputStream());
+        try {
+            File f = new File((file.getName() + "avatar"));
+
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(file.getData());
+            fos.flush();
+            fos.close();
+
+            avatarData = f;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public File getAvatarData() {
