@@ -243,9 +243,10 @@
             </property-extension>
         </property>
         <property>
-            <description>Tells how handle should look like. Default is and arrow. Possible values: arrow, bar</description>
+            <description>Tells how handle should look like. Possible values: arrow (default), bar</description>
             <property-name>handleType</property-name>
-            <property-class>java.lang.String</property-class>
+            <property-class>org.richfaces.component.InputNumberSliderHandleType</property-class>
+            <default-value>org.richfaces.component.InputNumberSliderHandleType.DEFAULT</default-value>
             <property-extension>
                 <cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>

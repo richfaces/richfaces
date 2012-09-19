@@ -101,11 +101,11 @@ input.rf-insl-inp {
 
 .rf-insl-bar .rf-insl-hnd-cntr {
     text-align: right;
-    background-color: '#{richSkin.panelBorderColor}';
+    background-image: "url(#{resource['org.richfaces.images:inputNumberSliderBarHandleBg.gif']})";
 }
 
 .rf-insl-bar .rf-insl-trc, .rf-insl-bar .rf-insl-hnd-cntr, .rf-insl-bar .rf-insl-hnd  {
-    height: 20px;
+    height: 13px;
 }
 
 .rf-insl-bar .rf-insl-hnd {
