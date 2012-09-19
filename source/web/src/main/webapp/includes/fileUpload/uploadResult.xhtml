@@ -36,7 +36,8 @@
                 </h:panelGroup>
             </a4j:repeat>
         </h:panelGroup>
-        <rich:effect name="uploadCompleteEffect" type="Highlight" params="duration:2.0" for="completeLabel" />
+        <!-- <rich:effect name="uploadCompleteEffect" type="Highlight" params="duration:2.0" for="completeLabel" /> -->
+        <!-- not implemented in RF 4 -->
         <h:panelGroup style="padding-left:0px;" layout="block">
             <h:panelGroup style="padding-bottom:7px;" rendered="#{fileWrapper.files.size > 0}" layout="block">
                 <h:outputText style="padding-left:-4px;" styleClass="bold" value="Successfully downloaded images:" />
