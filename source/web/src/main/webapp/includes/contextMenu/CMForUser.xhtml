@@ -8,8 +8,8 @@
 	xmlns:richx="http://richfaces.org/richx">
 	<rich:contextMenu disableDefaultMenu="false" event="oncontextmenu" attached="true"
 		submitMode="ajax">
-		<rich:menuItem value="#{messages['user_show_albums']}" limitToList="true"
-			actionListener="#{controller.showUser(CMUser)}" reRender="mainArea">
+		<rich:menuItem value="#{messages['user_show_albums']}" limitRender="true"
+			actionListener="#{controller.showUser(CMUser)}" render="mainArea">
 		</rich:menuItem>
 	</rich:contextMenu>
 </ui:composition>

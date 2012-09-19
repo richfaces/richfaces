@@ -8,19 +8,19 @@
 	xmlns:richx="http://richfaces.org/richx">
 	<rich:contextMenu disableDefaultMenu="false" style="text-align:left;" rendered="#{controller.isUserShelf(shelf)}" event="oncontextmenu" attached="true"
 		submitMode="ajax">
-		<rich:menuItem value="#{messages['add_album']}" limitToList="true"
-			reRender="albumModalPanel" data="#{albumManager.errorInCreate}"
+		<rich:menuItem value="#{messages['add_album']}" limitRender="true"
+			render="albumModalPanel" data="#{albumManager.errorInCreate}"
 			actionListener="#{albumManager.createAlbum(shelf, true)}"
 			oncomplete="if(!data)$('albumModalPanel').component.show()">
 		</rich:menuItem>
-		<rich:menuItem value="#{messages['delete_shelf']}" limitToList="true"
+		<rich:menuItem value="#{messages['delete_shelf']}" limitRender="true"
 			actionListener="#{confirmationPopupHelper.initShelfData('deleteShelf','Are You sure? All nested albums and images will also dropped! ',shelf)}"
 			oncomplete="#{rich:component('confirmation')}.show()"
-			reRender="confirmation">
+			render="confirmation">
 		</rich:menuItem>
-		<rich:menuItem value="#{messages['edit_shelf']}" limitToList="true"
+		<rich:menuItem value="#{messages['edit_shelf']}" limitRender="true"
 			actionListener="#{controller.startEditShelf(shelf)}"
-			reRender="mainArea">
+			render="mainArea">
 		</rich:menuItem>
 	</rich:contextMenu>
 </ui:composition>

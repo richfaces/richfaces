@@ -75,10 +75,10 @@
 		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;false&quot;</span><span
 		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">                  </span><span
-		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">a4j:support</span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">a4j:ajax</span><span
 		class="xml_plain"> </span><span class="xml_attribute_name">event</span><span
 		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;onchange&quot;</span><span
-		class="xml_plain"> </span><span class="xml_attribute_name">reRender</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">render</span><span
 		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;userAlbumImages&quot;</span><span
 		class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">            </span><span
@@ -254,7 +254,7 @@
 <!--  --><br /><span class="java_plain">      </span><span
 		class="java_separator">...</span></pre>
 	<p>After the <span class="bold"><strong><span
-		class="property">&lt;a4j:support&gt;</span></strong></span> is worked out user photos
+		class="property">&lt;a4j:ajax&gt;</span></strong></span> is worked out user photos
 	(more exactly, the <span class="bold"><strong><span
 		class="property">h:panelGroup</span></strong></span> with <code class="code">userAlbumImages</code>
 	id that contains user photos) are rendered correspondingly to a new set
@@ -311,7 +311,7 @@
 		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {controller.showImage(image)}&quot;</span><span
 		class="xml_plain"></span><br />
 <span class="xml_plain">                            </span><span
-		class="xml_attribute_name">reRender</span><span
+		class="xml_attribute_name">render</span><span
 		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;mainArea, treePanel&quot;</span><span
 		class="xml_tag_symbols">&gt;</span><span class="xml_plain">                 </span><br />
 <span class="xml_plain">                                </span><span
@@ -345,7 +345,7 @@
 		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">rich:dragSupport</span><span
 		class="xml_plain"> </span><span class="xml_attribute_name">rendered</span><span
 		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {controller.isUserImage(image)}&quot;</span><span
-		class="xml_plain"> </span><span class="xml_attribute_name">reRender</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">render</span><span
 		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;mainArea, treePanel&quot;</span><span
 		class="xml_plain"> </span><span class="xml_attribute_name">id</span><span
 		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;dragSource&quot;</span><span

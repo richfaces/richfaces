@@ -8,19 +8,19 @@
 	xmlns:richx="http://richfaces.org/richx">
 	<rich:contextMenu disableDefaultMenu="false" style="text-align:left;" rendered="#{controller.isUserAlbum(album)}"
 		event="oncontextmenu" attached="true" submitMode="ajax" attachTo="#{mediaOutput}">
-		<rich:menuItem value="#{messages['album.delete']}" limitToList="true"
+		<rich:menuItem value="#{messages['album.delete']}" limitRender="true"
 			actionListener="#{confirmationPopupHelper.initAlbumData('deleteAlbum',messages['album.delete.confirm'],album)}"
 			oncomplete="#{rich:component('confirmation')}.show()"
-			reRender="confirmation">
+			render="confirmation">
 		</rich:menuItem>
-		<rich:menuItem value="#{messages['album.edit']}" limitToList="true"
+		<rich:menuItem value="#{messages['album.edit']}" limitRender="true"
 			actionListener="#{controller.startEditAlbum(album)}"
-			reRender="mainArea">
+			render="mainArea">
 		</rich:menuItem>
 		<rich:menuItem value="#{messages['album.addImages']}"
-			limitToList="true"
+			limitRender="true"
 			actionListener="#{controller.showFileUpload(album)}"
-			reRender="mainArea">
+			render="mainArea">
 		</rich:menuItem>
 	</rich:contextMenu>
 </ui:composition>

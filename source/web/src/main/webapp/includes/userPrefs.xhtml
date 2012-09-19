@@ -18,12 +18,12 @@
 				styleClass="user-prefs-button">
 				<h:panelGroup layout="block">
 					<richx:commandButton actionListener="#{controller.editUser()}"
-						value="#{messages['user.save']}" reRender="mainArea" />
+						value="#{messages['user.save']}" render="mainArea" />
 				</h:panelGroup>
 				<h:panelGroup layout="block">
 					<richx:commandButton immediate="true"
 						actionListener="#{controller.cancelEditUser()}"
-						value="#{messages['user.cancel']}" reRender="mainArea" />
+						value="#{messages['user.cancel']}" render="mainArea" />
 				</h:panelGroup>
 			</h:panelGrid>
 
@@ -31,7 +31,7 @@
 				rendered="#{!controller.isProfileEditable(model.selectedUser)}"
 				columns="2" style="margin-top : 10px">
 				<richx:commandButton actionListener="#{controller.cancelEditUser()}"
-					reRender="mainArea" value="#{messages['ok']}" />
+					render="mainArea" value="#{messages['ok']}" />
 			</h:panelGrid>
 		</ui:define>
 	</ui:decorate>
