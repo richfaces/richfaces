@@ -84,7 +84,7 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
 
     //--------- focus-props.xml
     @Attribute
-    public abstract int getTabindex();
+    public abstract String getTabindex();
 
     /**
      * Space-separated list of CSS style class(es) to be applied when this element is active. This value must be

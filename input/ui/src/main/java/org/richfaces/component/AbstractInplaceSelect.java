@@ -81,7 +81,7 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
 
     //--------- focus-props.xml
     @Attribute
-    public abstract int getTabindex();
+    public abstract String getTabindex();
 
     @Attribute
     public abstract String getDefaultLabel();

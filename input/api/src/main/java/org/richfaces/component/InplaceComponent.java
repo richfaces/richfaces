@@ -44,5 +44,5 @@ public interface InplaceComponent {
 
     String getDisabledClass();
 
-    int getTabindex();
+    String getTabindex();
 }

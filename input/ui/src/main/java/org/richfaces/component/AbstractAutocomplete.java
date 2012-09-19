@@ -50,7 +50,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.AutocompleteHandler"),
         renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"),
-        attributes = {"focus-int-props.xml", "events-mouse-props.xml", "events-key-props.xml"})
+        attributes = {"focus-props.xml", "events-mouse-props.xml", "events-key-props.xml"})
 public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
     public static final String ITEMS_META_COMPONENT_ID = "items";
     public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
@@ -217,7 +217,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
 
     // ----------- focus-props.xml
 
-    public abstract int getTabindex();
+    public abstract String getTabindex();
 
     // ----------- Event Attributes
 
