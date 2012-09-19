@@ -26,6 +26,7 @@ import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.richfaces.component.InputNumberSliderHandleType;
 import org.richfaces.component.InputNumberSliderInputPosition;
 
 @ManagedBean(name = "inputNumberSliderBean")
@@ -45,6 +46,7 @@ public class InputNumberSliderBean {
     private boolean showInput = true;
     private boolean showTooltip = true;
     private double step = 1;
+    private InputNumberSliderHandleType handleType;
 
     public void setValue(double value) {
         this.value = value;
@@ -164,5 +166,17 @@ public class InputNumberSliderBean {
 
     public Date getDate() {
         return new Date();
+    }
+
+    public InputNumberSliderHandleType getHandleType() {
+        return handleType;
+    }
+
+    public void setHandleType(InputNumberSliderHandleType handleType) {
+        this.handleType = handleType;
+    }
+
+    public InputNumberSliderHandleType[] getHandleTypes() {
+        return InputNumberSliderHandleType.values();
     }
 }

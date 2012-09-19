@@ -28,7 +28,8 @@
                                    showTooltip="#{inputNumberSliderBean.showTooltip}"
                                    maxValue="#{inputNumberSliderBean.maxValue}"
                                    minValue="#{inputNumberSliderBean.minValue}"
-                                   step="#{inputNumberSliderBean.step}">
+                                   step="#{inputNumberSliderBean.step}"
+                                   handleType="#{inputNumberSliderBean.handleType}">
                 <f:ajax render="date"/>
             </ins:inputNumberSlider>
             <br/>
@@ -97,6 +98,11 @@
             <h:inputText value="#{inputNumberSliderBean.step}">
                 <f:ajax render="ins"/>
             </h:inputText>
+            <br />
+            <h:selectOneMenu value="#{inputNumberSliderBean.handleType}">
+                <f:selectItems value="#{inputNumberSliderBean.handleTypes}"/>
+                <f:ajax render="ins"/>
+            </h:selectOneMenu>
         </h:form>
     </ui:define>
 </ui:composition>
