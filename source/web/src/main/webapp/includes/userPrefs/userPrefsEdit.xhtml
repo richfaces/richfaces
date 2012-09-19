@@ -100,7 +100,7 @@
                     <td><a4j:outputPanel id="calendar" layout="block">
                             <rich:calendar id="birthDate" enableManualInput="true" value="#{user.birthDate}" cellWidth="24px"
                                 cellHeight="22px" inputClass="reg-table-input">
-                                <rich:ajaxValidator event="oninputblur" />
+                                <rich:validator event="inputblur" />
                             </rich:calendar>
                         </a4j:outputPanel></td>
                     <td><rich:messages for="birthDate" styleClass="required" /></td>

@@ -12,8 +12,9 @@
                     <td valign="top" nowrap="true" class="image-edit-label">#{messages['photo_name']}</td>
                     <td valign="top" colspan="2">
                         <h:inputText id="image_name" value="#{model.selectedImage.name}" styleClass="image-edit-photo-input">
-                            <rich:ajaxValidator event="onblur" />
+                            <rich:validator event="blur" />
                         </h:inputText>
+                        <rich:message for="image_name" />
                     </td>
                 </tr>
                 <tr>
@@ -28,7 +29,7 @@
                         <a4j:outputPanel id="calendar" layout="block">
                             <rich:calendar id="image_uploaded" styleClass="image-edit-calendar" enableManualInput="true"
                                 value="#{model.selectedImage.created}" cellWidth="24px" cellHeight="22px">
-                                <rich:ajaxValidator event="oninputblur" />
+                                <rich:validator event="inputblur" />
                             </rich:calendar>
                         </a4j:outputPanel>
                     </td>
