@@ -2,7 +2,7 @@
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
     <a4j:outputPanel rendered="#{result.size() > 0}" id="imagesList">
-        <rich:datascroller for="imageList" render="userAlbumImages" />
+        <rich:dataScroller for="imageList" render="userAlbumImages" />
         <ui:include src="/includes/image/inputNumberSlider.xhtml">
             <ui:param name="renderArea" value="imagesList" />
         </ui:include>
