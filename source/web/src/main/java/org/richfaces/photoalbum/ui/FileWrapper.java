@@ -109,6 +109,11 @@ public class FileWrapper implements Serializable {
         return complete;
     }
 
+    // listener method, can't have paramaters
+    public void setCompleted() {
+        setComplete(true);
+    }
+    
     public void setComplete(boolean complete) {
         this.complete = complete;
     }

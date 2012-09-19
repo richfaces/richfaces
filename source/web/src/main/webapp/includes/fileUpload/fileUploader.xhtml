@@ -35,7 +35,7 @@
             <rich:fileUpload allowFlash="true" maxFilesQuantity="100" autoclear="true"
                 fileUploadListener="#{fileUploadManager.listener}" id="fileUpload" disabled="#{model.selectedAlbum == null}"
                 immediateUpload="false" acceptedTypes="jpg,jpeg">
-                <a4j:ajax event="uploadcomplete" render="filesPanel, treePanel" listener="#{fileWrapper.setComplete(true)}" />
+                <a4j:ajax event="uploadcomplete" render="filesPanel, treePanel" listener="#{fileWrapper.setCompleted}" />
                 <a4j:ajax event="fileuploadcomplete" />
                 <!-- this doesn't do anything? -->
             </rich:fileUpload>
