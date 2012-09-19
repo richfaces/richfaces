@@ -38,7 +38,7 @@
                 </h:panelGroup>
             </f:facet>
 
-            <rich:treeNodesAdaptor nodes="#{shelfManager.getPredefinedShelves()}" var="shelf">
+            <rich:treeModelAdaptor nodes="#{shelfManager.getPredefinedShelves()}" var="shelf">
                 <rich:treeNode style="cursor:pointer" render="treePanel,mainArea" selectedClass="tree-selected-node">
                     <f:facet name="icon">
                         <h:graphicImage style="border: none" value="/img/shell/tree_icon_shelf.png" />
@@ -57,7 +57,7 @@
                     </rich:tooltip>
                 </rich:treeNode>
 
-                <rich:treeNodesAdaptor var="album" nodes="#{shelf.albums}">
+                <rich:treeModelAdaptor var="album" nodes="#{shelf.albums}">
                     <rich:treeNode style="cursor:pointer" render="treePanel,mainArea" selectedClass="tree-selected-node"
                         icon="img/shell/tree_icon_album.png">
                         <f:facet name="iconLeaf">
@@ -77,8 +77,8 @@
                         </rich:tooltip>
                     </rich:treeNode>
 
-                </rich:treeNodesAdaptor>
-            </rich:treeNodesAdaptor>
+                </rich:treeModelAdaptor>
+            </rich:treeModelAdaptor>
 
         </rich:tree>
     </h:panelGroup>
@@ -106,7 +106,7 @@
             ajaxSubmitSelection="false" dragIndicator="dragIndicator" treeNodeVar="treeNode" switchType="client"
             iconCollapsed="/img/shell/tree_icon_plus.png" iconExpanded="/img/shell/tree_icon_minus.png"
             dropListener="#{dndManager.processDrop}" showConnectingLines="false">
-            <rich:treeNodesAdaptor nodes="#{user.getShelves()}" var="shelf">
+            <rich:treeModelAdaptor nodes="#{user.getShelves()}" var="shelf">
                 <rich:treeNode style="cursor:pointer" acceptedTypes="album" dropValue="#{shelf}" render="mainArea, treePanel"
                     selectedClass="tree-selected-node">
                     <f:facet name="icon">
@@ -129,7 +129,7 @@
                     </rich:tooltip>
                 </rich:treeNode>
 
-                <rich:treeNodesAdaptor var="album" nodes="#{shelf.albums}">
+                <rich:treeModelAdaptor var="album" nodes="#{shelf.albums}">
                     <rich:treeNode style="cursor:pointer" render="mainArea, treePanel" dragType="album" dragValue="#{album}"
                         dropValue="#{album}" acceptedTypes="image" selectedClass="tree-selected-node"
                         icon="img/shell/tree_icon_album.png">
@@ -154,8 +154,8 @@
                         </rich:tooltip>
                     </rich:treeNode>
 
-                </rich:treeNodesAdaptor>
-            </rich:treeNodesAdaptor>
+                </rich:treeModelAdaptor>
+            </rich:treeModelAdaptor>
 
         </rich:tree>
     </h:panelGroup>
