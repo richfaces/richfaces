@@ -37,9 +37,11 @@ import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes
 import java.io.IOException;
 import java.util.Map;
 
+import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
@@ -50,6 +52,8 @@ import org.richfaces.component.AbstractTabPanel;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItemInterface;
 import org.richfaces.component.AbstractTogglePanelTitledItem;
+import org.richfaces.component.TogglePanelVisitCallback;
+import org.richfaces.component.TogglePanelVisitState;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.HtmlConstants;
@@ -57,7 +61,7 @@ import org.richfaces.renderkit.RenderKitUtils;
 
 /**
  * @author akolonitsky
- * @since 2010-08-24
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
@@ -85,14 +89,15 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
     @Override
     protected boolean isSubmitted(FacesContext context, AbstractTogglePanel panel) {
-        UIComponent item = (UIComponent) panel.getItem(panel.getSubmittedActiveItem());
+        String activePanelName = panel.getSubmittedActiveItem();
+        int itemIndex = panel.getIndexByName(activePanelName);
 
-        if (item == null) {
+        if (itemIndex < 0) {
             return false;
         }
 
         Map<String, String> parameterMap = context.getExternalContext().getRequestParameterMap();
-        return parameterMap.get(item.getClientId(context)) != null;
+        return parameterMap.get(activePanelName) != null;
     }
 
     @Override
@@ -128,11 +133,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
         writeTopTabFirstSpacer(w, comp);
 
-        for (AbstractTogglePanelItemInterface item : ((AbstractTogglePanel) comp).getRenderedItems()) {
-            AbstractTab tab = (AbstractTab) item;
-            writeTopTabHeader(context, w, tab);
-            writeTopTabSpacer(w, comp);
-        }
+        writeTabLine(w, context, tabPanel);
 
         writeTopTabLastSpacer(w, comp);
 
@@ -145,6 +146,25 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         writeTopTabsControl(w, comp, "rf-tab-hdr-scrl-rgh rf-tab-hdn", "\u00BB");
 
         w.endElement(DIV_ELEM);
+    }
+
+    private void writeTabLine(final ResponseWriter w, final FacesContext context, final AbstractTabPanel panel) throws IOException {
+        panel.visitTogglePanels(panel, new TogglePanelVisitCallback() {
+            @Override
+            public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
+                AbstractTogglePanelItemInterface item = visitState.getItem();
+                if (item.isRendered() && item instanceof AbstractTab) {
+                    try {
+                        AbstractTab tab = (AbstractTab) item;
+                        writeTopTabHeader(context, w, tab);
+                        writeTopTabSpacer(w, panel);
+                    } catch (IOException e) {
+                        throw new FacesException(e);
+                    }
+                }
+                return VisitResult.ACCEPT;
+            }
+        });
     }
 
     @Override
@@ -246,20 +266,29 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     }
 
     @Override
-    protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        AbstractTabPanel tabPanel = (AbstractTabPanel) component;
-        if (!tabPanel.isHeaderPositionedTop()) {
+    protected void doEncodeEnd(final ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        AbstractTabPanel panel = (AbstractTabPanel) component;
+        if (!panel.isHeaderPositionedTop()) {
             writeTabsLineSeparator(writer, component);
             writeTabsLine(writer, context, component);
         }
-        if (tabPanel.getChildCount() > 0) {
-            for (UIComponent child : tabPanel.getChildren()) {
-                if (child instanceof AbstractTab) {
-                    AbstractTab tab = (AbstractTab) child;
-                    TabRenderer renderer = (TabRenderer) tab.getRenderer(context);
-                    renderer.writeJavaScript(writer, context, tab);
+        if (panel.getItemCount() > 0) {
+            panel.visitTogglePanels(panel, new TogglePanelVisitCallback() {
+                @Override
+                public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
+                    AbstractTogglePanelItemInterface item = visitState.getItem();
+                    if (item.isRendered() && item instanceof AbstractTab) {
+                        try {
+                            AbstractTab tab = (AbstractTab) item;
+                            TabRenderer renderer = (TabRenderer) tab.getRenderer(context);
+                            renderer.writeJavaScript(writer, context, tab);
+                        } catch (IOException e) {
+                            throw new FacesException(e);
+                        }
+                    }
+                    return VisitResult.ACCEPT;
                 }
-            }
+            });
         }
         writer.endElement(HtmlConstants.DIV_ELEM);
     }

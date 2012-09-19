@@ -80,11 +80,11 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
 
         Map<String, Object> options = new HashMap<String, Object>();
         options.put("name", panelItem.getName());
-        options.put("togglePanelId", component.getParent().getClientId(context));
+        options.put("togglePanelId", panelItem.getParentPanel().getClientId(context));
         options.put("switchMode", panelItem.getSwitchType());
 
         AbstractTogglePanel panel = panelItem.getParentPanel();
-        options.put("index", panel.getChildIndex(panelItem.getName()));
+        options.put("index", panel.getIndexByName(panelItem.getName()));
 
         TogglePanelRenderer.addEventOption(context, component, options, LEAVE);
         TogglePanelRenderer.addEventOption(context, component, options, ENTER);

@@ -35,6 +35,7 @@ import org.richfaces.cdk.annotations.TagType;
  * Switching between &lt;rich:togglePanelItem&gt; components is handled by the &lt;rich:toggleControl&gt; behavior.</p>
  *
  * @author akolonitsky
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
@@ -75,7 +76,22 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
      */
     @Attribute(generate = false)
     public String getName() {
-        return (String) getStateHelper().eval(NAME, getId());
+        return (String) getStateHelper().eval(NAME, getClientId());
+    }
+
+    public String generateName() {
+        String clientId = getClientId();
+        String parentId = getParentPanel().getClientId();
+        return generateName(clientId, parentId);
+
+    }
+
+    protected String generateName(String clientId, String parentId) {
+        int index = clientId.indexOf(parentId);
+        if (index < 0) {
+            return getId();
+        }
+        return clientId.substring(index + parentId.length() + 1);
     }
 
     public void setName(String name) {

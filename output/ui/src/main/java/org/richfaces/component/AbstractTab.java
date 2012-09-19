@@ -48,8 +48,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
     public static final String COMPONENT_TYPE = "org.richfaces.Tab";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tab";
 
-    public AbstractTab() {
-        setRendererType("org.richfaces.TabRenderer");
+    public AbstractTab() {setRendererType("org.richfaces.TabRenderer");
     }
 
     // ------------------------------------------------ Html Attributes
@@ -210,7 +209,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
      */
     @Attribute(generate = false)
     public String getName() {
-        return (String) getStateHelper().eval(AbstractTogglePanelItem.NAME, getId());
+        return (String) getStateHelper().eval(AbstractTogglePanelItem.NAME, getClientId());
     }
 
     public void setName(String name) {

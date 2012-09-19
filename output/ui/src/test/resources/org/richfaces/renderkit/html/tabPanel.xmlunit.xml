@@ -2,7 +2,7 @@
   <input id="f:tabPanel-value" name="f:tabPanel-value" type="hidden" value="tab"/>
   <script type="text/javascript">
 //<![CDATA[
-new RichFaces.ui.TabPanel("f:tabPanel",{"ajax":{"incId":"1"} ,"activeItem":"tab","isKeepHeight":false,"cycledSwitching":false} )
+new RichFaces.ui.TabPanel("f:tabPanel",{"ajax":{"incId":"1"} ,"activeItem":"f:tab","isKeepHeight":false,"cycledSwitching":false} )
 //]]>
   </script>
   <div class="rf-tab-hdr-tabline-vis rf-tab-hdr-tabline-top">

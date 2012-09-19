@@ -3,6 +3,9 @@ package org.richfaces.component;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 
+/**
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ */
 public interface AbstractTogglePanelItemInterface extends AbstractDivPanel {
     AbstractTogglePanel getParentPanel();
 
@@ -13,6 +16,8 @@ public interface AbstractTogglePanelItemInterface extends AbstractDivPanel {
     // ------------------------------------------------ Component Attributes
 
     String getName();
+
+    boolean isRendered();
 
     SwitchType getSwitchType();
 

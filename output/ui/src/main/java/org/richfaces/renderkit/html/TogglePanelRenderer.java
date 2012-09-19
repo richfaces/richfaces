@@ -25,9 +25,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
@@ -39,6 +41,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItemInterface;
 import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.component.TogglePanelVisitCallback;
+import org.richfaces.component.TogglePanelVisitState;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.AjaxOptions;
@@ -50,6 +54,7 @@ import org.richfaces.renderkit.util.HandlersChain;
 
 /**
  * @author akolonitsky
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
@@ -178,13 +183,10 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
     public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
         if (AbstractTogglePanel.ACTIVE_ITEM_META_COMPONENT.equals(metaComponentId)) {
             AbstractTogglePanel panel = (AbstractTogglePanel) component;
-            AbstractTogglePanelItemInterface item = panel.getItem(panel.getActiveItem());
+            int itemIndex = panel.getIndexByName(panel.getActiveItem());
 
-            if (item != null) {
-                partialStart(context, ((UIComponent) item).getClientId(context));
-                ((UIComponent) item).encodeAll(context);
-                partialEnd(context);
-                addOnCompleteParam(context, item.getName(), panel.getClientId(context));
+            if (itemIndex > 0) {
+                encodeActiveItem(panel, itemIndex);
             } else {
                 partialStart(context, component.getClientId(context));
                 component.encodeAll(context);
@@ -194,6 +196,31 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
         } else {
             throw new IllegalArgumentException(metaComponentId);
         }
+    }
+
+    private String encodeActiveItem(final AbstractTogglePanel panel, final int activeIndex) {
+        panel.visitTogglePanels(panel, new TogglePanelVisitCallback() {
+            @Override
+            public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
+                if (activeIndex == visitState.getCount()) {
+                    AbstractTogglePanelItemInterface item = visitState.getItem();
+                    String itemName = item.getName();
+                    try {
+                        partialStart(context, ((UIComponent) item).getClientId(context));
+                        ((UIComponent) item).encodeAll(context);
+                        partialEnd(context);
+                        addOnCompleteParam(context, itemName, panel.getClientId(context));
+                    } catch (IOException e) {
+                        throw new FacesException(e);
+                    }
+                    return VisitResult.COMPLETE;
+                } else {
+                    return VisitResult.ACCEPT;
+                }
+            }
+        });
+
+        return null;
     }
 
     public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {

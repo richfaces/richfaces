@@ -1,5 +1,5 @@
 <div id="f:accordion" class="rf-ac">
-    <input type="hidden" value="item" id="f:accordion-value" name="f:accordion-value" />
+    <input type="hidden" value="f:item" id="f:accordion-value" name="f:accordion-value" />
     <script type="text/javascript">
         //<![CDATA[
 new RichFaces.ui.Accordion("f:accordion",{"ajax":{"incId":"1"} ,"activeItem":"item","isKeepHeight":false,"cycledSwitching":false} )
