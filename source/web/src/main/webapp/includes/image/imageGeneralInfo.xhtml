@@ -31,10 +31,11 @@
                     <a4j:mediaOutput id="img" element="img" styleClass="main-image" createContent="#{imageLoader.paintImage}"
                         style="border : 3px solid #808080;"
                         value="#{fileManager.transformPath(model.selectedImage.fullPath, '_medium')}">
-                        <rich:dragSupport rendered="#{controller.isUserImage(model.selectedImage)}" render="mainArea, treePanel"
+                        <rich:dragSource rendered="#{controller.isUserImage(model.selectedImage)}" render="mainArea, treePanel"
                             id="dragSource" dragIndicator="dragIndicator" dragType="image" dragValue="#{model.selectedImage}">
-                            <rich:dndParam id="dragParam" name="label" value="#{model.selectedImage.name}" />
-                        </rich:dragSupport>
+                            <!-- <rich:dndParam id="dragParam" name="label" value="#{model.selectedImage.name}" /> -->
+                            <!-- not supported in RF 4 -->
+                        </rich:dragSource>
                         <rich:tooltip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip"
                             rendered="#{model.selectedImage.showMetaInfo}">
                             <span style="white-space: nowrap; display: block; text-align: left;"> <h:outputText

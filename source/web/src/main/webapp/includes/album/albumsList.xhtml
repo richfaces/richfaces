@@ -10,10 +10,11 @@
                         <a4j:mediaOutput rendered="#{!album.isEmpty()}" id="img" element="img"
                             createContent="#{imageLoader.paintImage}" styleClass="album-cover-image"
                             value="#{fileManager.transformPath(album.coveringImage.fullPath, '_small120')}">
-                            <rich:dragSupport rendered="#{controller.isUserAlbum(album)}" render="mainArea, treePanel"
+                            <rich:dragSource rendered="#{controller.isUserAlbum(album)}" render="mainArea, treePanel"
                                 id="dragSource2" dragIndicator="dragIndicator" dragType="album" dragValue="#{album}">
-                                <rich:dndParam id="dragParam" name="label" value="#{album.name}" />
-                            </rich:dragSupport>
+                                <!-- <rich:dndParam id="dragParam" name="label" value="#{album.name}" /> -->
+                                <!-- not supported in RF 4 -->
+                            </rich:dragSource>
                         </a4j:mediaOutput>
                         <h:graphicImage rendered="#{album.isEmpty()}" style="width:80px; height:80px;"
                             value="img/shell/frame_album_200.png" styleClass="album-cover-image">

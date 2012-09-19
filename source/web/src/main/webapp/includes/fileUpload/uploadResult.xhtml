@@ -49,10 +49,11 @@
                             <a4j:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel">
                                 <a4j:mediaOutput element="img" createContent="#{imageLoader.paintImage}"
                                     value="#{fileManager.transformPath(image.fullPath, '_small120')}">
-                                    <rich:dragSupport render="mainArea, tree" id="dragSource" dragIndicator="dragIndicator"
+                                    <rich:dragSource render="mainArea, tree" id="dragSource" dragIndicator="dragIndicator"
                                         dragType="image" dragValue="#{image}">
-                                        <rich:dndParam id="dragParam" name="label" value="#{image.name}" />
-                                    </rich:dragSupport>
+                                        <!-- <rich:dndParam id="dragParam" name="label" value="#{image.name}" /> -->
+                                        <!-- not supported in RF 4 -->
+                                    </rich:dragSource>
                                 </a4j:mediaOutput>
                             </a4j:commandLink>
                         </h:panelGroup>

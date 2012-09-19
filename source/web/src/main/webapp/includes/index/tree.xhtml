@@ -139,7 +139,8 @@
                         <ui:include src="/includes/contextMenu/CMForAlbum.xhtml">
                             <ui:param name="album" value="#{album}" />
                         </ui:include>
-                        <rich:dndParam name="label" type="drag" value="#{album.name}" />
+                        <!-- <rich:dndParam name="label" type="drag" value="#{album.name}" /> -->
+                        <!-- not supported in RF 4 -->
                         <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
                             <h:outputText value="#{album.name}" />
                             <h:outputText value=" :: " />
