@@ -2,7 +2,7 @@
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
     <h:form style="margin: 0px">
-        <rich:modalPanel showWhenRendered="#{slideshow.active}" domElementAttachment="parent" id="slideShowModalPanel"
+        <rich:popupPanel show="#{slideshow.active}" domElementAttachment="parent" id="slideShowModalPanel"
             onshow="showPictureEffect();" autosized="true">
             <f:facet name="header">Slideshow panel</f:facet>
             <f:facet name="controls">
@@ -20,12 +20,12 @@
                     <a4j:mediaOutput id="imgSlideShow" element="img" styleClass="main-image"
                         createContent="#{imageLoader.paintImage}" style="opacity: 0.1"
                         value="#{slideshow.selectedImage != null ? fileManager.transformPath(slideshow.selectedImage.fullPath, '_medium') : null}">
-                        <rich:toolTip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
+                        <rich:tooltip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
                             <span style="white-space: nowrap"> #{slideshow.selectedImage.description} </span>
-                        </rich:toolTip>
+                        </rich:tooltip>
                     </a4j:mediaOutput>
                 </h:panelGroup>
             </h:panelGrid>
-        </rich:modalPanel>
+        </rich:popupPanel>
     </h:form>
 </ui:composition>

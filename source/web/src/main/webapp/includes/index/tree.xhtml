@@ -52,9 +52,9 @@
                         <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(shelf)}"
                             similarityGroupingId="sel" />
                     </a4j:outputPanel>
-                    <rich:toolTip direction="top-right" showDelay="1000">
+                    <rich:tooltip direction="top-right" showDelay="1000">
                         <span style="white-space: nowrap">#{shelf.name}</span>
-                    </rich:toolTip>
+                    </rich:tooltip>
                 </rich:treeNode>
 
                 <rich:treeNodesAdaptor var="album" nodes="#{shelf.albums}">
@@ -72,9 +72,9 @@
                             <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showAlbum(album)}"
                                 similarityGroupingId="sel" />
                         </a4j:outputPanel>
-                        <rich:toolTip direction="top-right" showDelay="1000">
+                        <rich:tooltip direction="top-right" showDelay="1000">
                             <span style="white-space: nowrap">#{album.name}</span>
-                        </rich:toolTip>
+                        </rich:tooltip>
                     </rich:treeNode>
 
                 </rich:treeNodesAdaptor>
@@ -124,9 +124,9 @@
                         <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(shelf)}"
                             similarityGroupingId="sel" />
                     </a4j:outputPanel>
-                    <rich:toolTip direction="top-right" showDelay="1000">
+                    <rich:tooltip direction="top-right" showDelay="1000">
                         <span style="white-space: nowrap"> #{shelf.name} </span>
-                    </rich:toolTip>
+                    </rich:tooltip>
                 </rich:treeNode>
 
                 <rich:treeNodesAdaptor var="album" nodes="#{shelf.albums}">
@@ -149,9 +149,9 @@
                             <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showAlbum(album)}"
                                 similarityGroupingId="sel" />
                         </a4j:outputPanel>
-                        <rich:toolTip direction="top-right" showDelay="1000">
+                        <rich:tooltip direction="top-right" showDelay="1000">
                             <span style="white-space: nowrap"> #{shelf.name} </span>
-                        </rich:toolTip>
+                        </rich:tooltip>
                     </rich:treeNode>
 
                 </rich:treeNodesAdaptor>

@@ -3,8 +3,8 @@
     xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
     <h:form id="menuform" style="margin: 0px">
 
-        <rich:toolBar height="37" styleClass="main-menu-toolbar" id="menu">
-            <rich:toolBarGroup styleClass="main-menu-toolbar-content">
+        <rich:toolbar height="37" styleClass="main-menu-toolbar" id="menu">
+            <rich:toolbarGroup styleClass="main-menu-toolbar-content">
                 <h:panelGroup>
                     <h:graphicImage rendered="#{identity.loggedIn}" value="/img/shell/general_panelbar_bullet.gif" width="11"
                         height="15" alt="" styleClass="main-menu-separator-img" />
@@ -35,11 +35,11 @@
                             <h:graphicImage value="/img/shell/informer_bg.png" width="163" height="23" alt=""
                                 styleClass="main-menu-icons-backgroung-img" />
                         </h:panelGroup>
-                        <rich:toolTip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
+                        <rich:tooltip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
                             <span style="white-space: nowrap; display: block; text-align: left; color: #DF6400"> <h:outputText
                                     value="#{messages['my_album_shelves']}" />
                             </span>
-                        </rich:toolTip>
+                        </rich:tooltip>
                     </a4j:outputPanel>
 
                     <a4j:outputPanel ajaxRendered="true" layout="block" rendered="#{identity.loggedIn}"
@@ -55,11 +55,11 @@
                             <h:graphicImage value="/img/shell/informer_bg.png" width="163" height="23" alt=""
                                 styleClass="main-menu-icons-backgroung-img" />
                         </h:panelGroup>
-                        <rich:toolTip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
+                        <rich:tooltip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
                             <span style="white-space: nowrap; display: block; text-align: left; color: #DF6400"> <h:outputText
                                     value="#{messages['my_all_albums']}" />
                             </span>
-                        </rich:toolTip>
+                        </rich:tooltip>
                     </a4j:outputPanel>
 
                     <a4j:outputPanel ajaxRendered="true" layout="block" rendered="#{identity.loggedIn}"
@@ -75,11 +75,11 @@
                             <h:graphicImage value="/img/shell/informer_bg.png" width="163" height="23" alt=""
                                 styleClass="main-menu-icons-backgroung-img" />
                         </h:panelGroup>
-                        <rich:toolTip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
+                        <rich:tooltip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
                             <span style="white-space: nowrap; display: block; text-align: left; color: #DF6400"> <h:outputText
                                     value="#{messages['my_all_photos']}" />
                             </span>
-                        </rich:toolTip>
+                        </rich:tooltip>
                     </a4j:outputPanel>
 
 
@@ -92,11 +92,11 @@
                             render="shelfModalPanel" oncomplete="#{rich:component('shelfModalPanel')}.show()">
                             <h:graphicImage value="/img/shell/icon_add_shelf.png" width="37" height="23" alt=""
                                 styleClass="main-menu-add-icons-img" />
-                            <rich:toolTip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
+                            <rich:tooltip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
                                 <span style="white-space: nowrap; display: block; text-align: left; color: #DF6400"> <h:outputText
                                         value="#{messages['add_shelf']}" />
                                 </span>
-                            </rich:toolTip>
+                            </rich:tooltip>
                         </a4j:commandLink>
                         <a4j:commandLink disabled="#{!controller.isUserHaveShelves()}" rendered="#{identity.loggedIn}"
                             data="#{albumManager.errorInCreate}"
@@ -107,11 +107,11 @@
                             <h:graphicImage rendered="#{!controller.isUserHaveShelves()}"
                                 value="/img/shell/icon_add_album_disabled.jpg" style="cursor:default;" width="37" height="23"
                                 alt="" styleClass="main-menu-add-icons-img" />
-                            <rich:toolTip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
+                            <rich:tooltip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
                                 <span style="white-space: nowrap; display: block; text-align: left; color: #DF6400"> <h:outputText
                                         value="#{messages['add_album']}" />
                                 </span>
-                            </rich:toolTip>
+                            </rich:tooltip>
                         </a4j:commandLink>
                         <a4j:commandLink disabled="#{!controller.isUserHaveAlbums()}" rendered="#{identity.loggedIn}"
                             actionListener="#{controller.showFileUpload()}" render="mainform:mainArea">
@@ -120,17 +120,17 @@
                             <h:graphicImage rendered="#{!controller.isUserHaveAlbums()}"
                                 value="/img/shell/icon_add_photo_disabled.jpg" style="cursor:default;" width="37" height="23"
                                 alt="" styleClass="main-menu-add-icons-img" />
-                            <rich:toolTip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
+                            <rich:tooltip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
                                 <span style="white-space: nowrap; display: block; text-align: left; color: #DF6400"> <h:outputText
                                         value="#{messages['album_addImage']}" />
                                 </span>
-                            </rich:toolTip>
+                            </rich:tooltip>
                         </a4j:commandLink>
                     </h:panelGroup>
                     <h:graphicImage rendered="#{identity.loggedIn}" value="/img/shell/general_panelbar_bullet.gif" width="11"
                         height="15" alt="" styleClass="main-menu-separator-img" />
                 </h:panelGroup>
-            </rich:toolBarGroup>
-        </rich:toolBar>
+            </rich:toolbarGroup>
+        </rich:toolbar>
     </h:form>
 </ui:composition>

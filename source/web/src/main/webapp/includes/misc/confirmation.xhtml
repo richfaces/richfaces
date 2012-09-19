@@ -6,7 +6,7 @@
    xmlns:ui="http://java.sun.com/jsf/facelets"
    xmlns:richx="http://richfaces.org/richx"
    >
-	<rich:modalPanel id="confirmation" width="400" height="180" onshow="applyModalPanelEffect('confirmation', appearFunc,{delay: 0.5})" autosized="false">
+	<rich:popupPanel id="confirmation" width="400" height="180" onshow="applyModalPanelEffect('confirmation', appearFunc,{delay: 0.5})" autosized="false">
 		<f:facet name="header">#{messages['confirm.confirm']}</f:facet>
 		<f:facet name="controls">
 			<h:panelGroup id="confirmPanelHideControl">
@@ -52,5 +52,5 @@
 			</h:panelGroup>
 			
 		</h:form>
-	</rich:modalPanel>
+	</rich:popupPanel>
 </ui:component>

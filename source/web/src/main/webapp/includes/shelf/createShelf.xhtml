@@ -1,7 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
-    <rich:modalPanel id="shelfModalPanel" width="400" height="150" autosized="true"
+    <rich:popupPanel id="shelfModalPanel" width="400" height="150" autosized="true"
         onshow="applyModalPanelEffect('shelfModalPanel', appearFunc,{delay: 0.5, afterFinish: function(){$('form5:name').focus();}})">
         <f:facet name="header">#{messages['add_shelf']}</f:facet>
 
@@ -53,5 +53,5 @@
                 </h:panelGroup>
             </h:panelGroup>
         </h:form>
-    </rich:modalPanel>
+    </rich:popupPanel>
 </ui:composition>

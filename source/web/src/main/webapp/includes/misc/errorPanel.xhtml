@@ -3,7 +3,7 @@
     xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
     <a4j:outputPanel id="errors" ajaxRendered="true" layout="block">
         <h:panelGroup rendered="#{errorHandlerBean.errorExist}">
-            <rich:modalPanel id="errorPanel" showWhenRendered="true" minWidth="300" minHeight="200" autosized="true">
+            <rich:popupPanel id="errorPanel" show="true" minWidth="300" minHeight="200" autosized="true">
 
                 <f:facet name="header">
                     <h:outputText value="#{messages['error_occurred']}" />
@@ -38,7 +38,7 @@
                         </h:panelGrid>
                     </h:panelGroup>
                 </h:panelGroup>
-            </rich:modalPanel>
+            </rich:popupPanel>
         </h:panelGroup>
     </a4j:outputPanel>
 </ui:composition>

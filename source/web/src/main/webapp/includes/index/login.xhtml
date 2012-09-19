@@ -2,9 +2,9 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
 
-    <rich:modalPanel id="loginPanel"
+    <rich:popupPanel id="loginPanel"
         onshow="applyModalPanelEffect('loginPanel', appearFunc,{delay: 0.5, afterFinish: function(){$('loginPanelForm:username').focus();}})"
-        styleClass="login-panel" showWhenRendered="#{authenticator.loginFailed}" width="400" height="150" autosized="true">
+        styleClass="login-panel" show="#{authenticator.loginFailed}" width="400" height="150" autosized="true">
         <f:facet name="header">#{messages['login.login']}</f:facet>
         <f:facet name="controls">
             <h:panelGroup id="loginPanelHideControl">
@@ -48,5 +48,5 @@
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
-    </rich:modalPanel>
+    </rich:popupPanel>
 </ui:composition>
