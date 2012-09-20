@@ -1,5 +1,5 @@
 <div id="f:tabPanel" class="rf-tbp">
-  <input id="f:tabPanel-value" name="f:tabPanel-value" type="hidden" value="tab"/>
+  <input id="f:tabPanel-value" name="f:tabPanel-value" type="hidden" value="f:tab"/>
   <script type="text/javascript">
 //<![CDATA[
 new RichFaces.ui.TabPanel("f:tabPanel",{"ajax":{"incId":"1"} ,"activeItem":"f:tab","isKeepHeight":false,"cycledSwitching":false} )
