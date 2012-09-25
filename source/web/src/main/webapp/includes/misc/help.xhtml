@@ -1,6 +1,6 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j">
     <link rel="stylesheet" href="stylesheet/html.css" type="text/css" />
     <link rel="stylesheet" href="stylesheet/help/html-common.css" type="text/css" />
     <link rel="stylesheet" href="stylesheet/help/html-release.css" type="text/css" />
@@ -8,7 +8,7 @@
     <rich:popupPanel id="helpPanel" onshow="applyModalPanelEffect('helpPanel', appearFunc,{delay: 0.5})" width="1100"
         height="620">
         <f:facet name="header">
-            <h:graphicImage value="/img/icons/help_sign.png"/>
+            <h:graphicImage value="/img/icons/help_sign.png" />
 		#{messages['how_it_works']}</f:facet>
         <f:facet name="controls">
             <h:panelGroup>

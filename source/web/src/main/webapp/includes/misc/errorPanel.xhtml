@@ -1,6 +1,6 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j">
     <a4j:outputPanel id="errors" ajaxRendered="true" layout="block">
         <h:panelGroup rendered="#{errorHandlerBean.errorExist}">
             <rich:popupPanel id="errorPanel" show="true" minWidth="300" minHeight="200" autosized="true">
@@ -34,7 +34,7 @@
 
                             <h:panelGroup style="cursor: pointer; width: 34px; height:34px;">
                                 <h:graphicImage style="border:none;" onclick="sho('/includes/help/errorHelp.xhtml');" border="0"
-                                    width="34" height="34" value="/img/icons/help_sign.png"/>
+                                    width="34" height="34" value="/img/icons/help_sign.png" />
                             </h:panelGroup>
                         </h:panelGrid>
                     </h:panelGroup>
