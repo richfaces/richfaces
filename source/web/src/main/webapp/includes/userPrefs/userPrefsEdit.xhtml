@@ -1,7 +1,6 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core"
-    xmlns:richx="http://richfaces.org/richx">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:richx="http://richfaces.org/richx">
     <h:panelGrid styleClass="album-header-table" cellpadding="0">
         <ui:insert name="header" />
     </h:panelGrid>
@@ -88,8 +87,8 @@
                     <td><h:outputLabel for="sex">#{messages['user.sex']}</h:outputLabel></td>
                     <td><h:panelGrid columns="2">
                             <h:selectOneRadio required="true" id="sex" value="#{user.sex}">
-                                <f:selectItems value="#{userPrefsBean.sexs}" />
-                                <s:convertEnum />
+                                <f:selectItems value="#{userPrefsBean.sexs}" var="sex" itemValue="#{sex}" itemLabel="#{sex." />
+                                <!-- TODO: format output -->
                                 <a4j:ajax event="click" execute="@this" render="avatar" />
                             </h:selectOneRadio>
                         </h:panelGrid></td>

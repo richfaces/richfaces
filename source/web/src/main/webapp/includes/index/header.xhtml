@@ -1,6 +1,6 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
     <rich:panel id="headerPanel" styleClass="header-panel" bodyClass="header-panel-body">
         <h:panelGroup layout="block" styleClass="header-content-div">
             <a href="index.html"><h:graphicImage value="/img/shell/logo_top.gif" width="290" height="79" alt=""
@@ -31,9 +31,11 @@
                                 value="#{messages['menu.login']}" render="loginPanel"
                                 actionListener="#{authenticator.resetCredentials()}"
                                 oncomplete="#{rich:component('loginPanel')}.show(); " />
-
-                            <s:link propagation="end" view="/index.xhtml" action="#{authenticator.logout}"
-                                value="#{messages['menu.logout']}" rendered="#{identity.loggedIn}" />
+                            <!-- this might not work -->
+                            <a4j:commandLink rendered="#{identity.loggedIn}" action="#{authenticator.logout}"
+                                value="#{messages['menu.logout']}" />
+                            <!-- <s:link propagation="end" view="/index.xhtml" action="#{authenticator.logout}"
+                                value="#{messages['menu.logout']}" rendered="#{identity.loggedIn}" /> -->
                         </h:form>
                     </h:panelGroup>
 

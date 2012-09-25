@@ -1,7 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
-    xmlns:richx="http://richfaces.org/richx">
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
     <h:panelGroup layout="block" style="margin-top : 20px">
         <h:outputText styleClass="bold" value="#{messages['tags']}: " />
         <a4j:repeat value="#{model.selectedImage.imageTags}" var="tag">
@@ -50,7 +49,8 @@
                     </h:panelGroup>
                 </h:panelGroup>
                 <h:panelGroup style="width:600px;overflow-x:auto;" layout="block" styleClass="comment-text">
-                    <s:formattedText value="#{comment.message}" />
+                    <!-- this won't be formatted -->
+                    <h:outputText value="#{comment.message}" />
                 </h:panelGroup>
             </h:panelGroup>
         </a4j:repeat>
