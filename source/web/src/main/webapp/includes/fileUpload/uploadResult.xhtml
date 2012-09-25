@@ -51,7 +51,7 @@
                                 <a4j:mediaOutput element="img" createContent="#{imageLoader.paintImage}"
                                     value="#{fileManager.transformPath(image.fullPath, '_small120')}">
                                     <rich:dragSource render="mainArea, tree" id="dragSource" dragIndicator="dragIndicator"
-                                        dragType="image" dragValue="#{image}">
+                                        type="image" dragValue="#{image}">
                                         <!-- <rich:dndParam id="dragParam" name="label" value="#{image.name}" /> -->
                                         <!-- not supported in RF 4 -->
                                     </rich:dragSource>

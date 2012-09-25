@@ -11,7 +11,7 @@
                             createContent="#{imageLoader.paintImage}" styleClass="album-cover-image"
                             value="#{fileManager.transformPath(album.coveringImage.fullPath, '_small120')}">
                             <rich:dragSource rendered="#{controller.isUserAlbum(album)}" render="mainArea, treePanel"
-                                id="dragSource2" dragIndicator="dragIndicator" dragType="album" dragValue="#{album}">
+                                id="dragSource2" dragIndicator="dragIndicator" type="album" dragValue="#{album}">
                                 <!-- <rich:dndParam id="dragParam" name="label" value="#{album.name}" /> -->
                                 <!-- not supported in RF 4 -->
                             </rich:dragSource>
