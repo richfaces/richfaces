@@ -55,7 +55,7 @@
             </h:panelGroup>
         </a4j:repeat>
         <h:panelGroup layout="block" style="padding-top:10px;clear:both">
-            <a4j:region renderRegionOnly="true" rendered="#{identity.hasRole('admin')}">
+            <a4j:region rendered="#{identity.hasRole('admin')}">
                 <h:panelGroup layout="block" id="editContent">
                     <rich:editor value="#{editorBean.message}" configuration="#{editorBean.currentConfiguration}" id="editor2"
                         width="400" height="200" useSeamText="true">
