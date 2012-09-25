@@ -8,12 +8,13 @@
     <rich:popupPanel id="helpPanel" onshow="applyModalPanelEffect('helpPanel', appearFunc,{delay: 0.5})" width="1100"
         height="620">
         <f:facet name="header">
-            <h:graphicImage value="/img/icons/help_sign.png"></h:graphicImage>
+            <h:graphicImage value="/img/icons/help_sign.png"/>
 		#{messages['how_it_works']}</f:facet>
         <f:facet name="controls">
             <h:panelGroup>
-                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hidelink8" />
-                <rich:componentControl for="helpPanel" attachTo="hidelink8" operation="hide" event="onclick" />
+                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hidelink8">
+                    <rich:componentControl target="helpPanel" operation="hide" event="click" />
+                </h:graphicImage>
             </h:panelGroup>
         </f:facet>
 

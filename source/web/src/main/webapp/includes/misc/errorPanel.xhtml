@@ -11,8 +11,9 @@
 
                 <f:facet name="controls">
                     <h:panelGroup id="errorPanelHideControl">
-                        <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="errorPanelHidelink" />
-                        <rich:componentControl for="errorPanel" attachTo="errorPanelHidelink" operation="hide" event="onclick" />
+                        <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="errorPanelHidelink">
+                            <rich:componentControl target="errorPanel" operation="hide" event="click" />
+                        </h:graphicImage>
                     </h:panelGroup>
                 </f:facet>
                 <!-- <rich:effect type="Appear" name="appearFunc" /> -->
@@ -29,12 +30,11 @@
                                     <h:outputText styleClass="error" value="#{error}" />
                                     <br />
                                 </a4j:repeat>
-
                             </h:panelGroup>
 
                             <h:panelGroup style="cursor: pointer; width: 34px; height:34px;">
                                 <h:graphicImage style="border:none;" onclick="sho('/includes/help/errorHelp.xhtml');" border="0"
-                                    width="34" height="34" value="/img/icons/help_sign.png"></h:graphicImage>
+                                    width="34" height="34" value="/img/icons/help_sign.png"/>
                             </h:panelGroup>
                         </h:panelGrid>
                     </h:panelGroup>
