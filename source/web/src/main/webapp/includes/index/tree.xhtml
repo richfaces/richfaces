@@ -20,10 +20,9 @@
         </h:panelGrid>
 
         <br />
-        <rich:tree adviseNodeOpened="#{controller.adviseNodeSelected}" adviseNodeSelected="#{controller.adviseNodeSelected}"
-            ajaxSubmitSelection="false" id="PreDefinedTree" treeNodeVar="treeNode" switchType="client"
-            showConnectingLines="false">
-            <f:facet name="iconCollapsed">
+        <!-- TODO - implememnt adviseNode... behaviour, icons, connecting lines -->
+        <rich:tree ajaxSubmitSelection="false" id="PreDefinedTree" var="treeNode" toggleType="client">
+            <!-- <f:facet name="iconCollapsed">
                 <h:panelGroup
                     style="cursor: hand; width: 25px; height: 16px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/tree_icon_plus.png',sizingMethod='scale');">
                     <h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="16" width="25"
@@ -36,44 +35,44 @@
                     <h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="16" width="25"
                         value="img/shell/tree_icon_minus.png"></h:graphicImage>
                 </h:panelGroup>
-            </f:facet>
+            </f:facet> -->
 
-            <rich:treeModelAdaptor nodes="#{shelfManager.getPredefinedShelves()}" var="shelf">
-                <rich:treeNode style="cursor:pointer" render="treePanel,mainArea" selectedClass="tree-selected-node">
-                    <f:facet name="icon">
+            <rich:treeModelAdaptor nodes="#{shelfManager.predefinedShelves}">
+                <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node">
+                    <!-- <f:facet name="icon">
                         <h:graphicImage style="border: none" value="/img/shell/tree_icon_shelf.png" />
-                    </f:facet>
+                    </f:facet> -->
                     <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
-                        <h:outputText value="#{shelf.name}" />
-                        <h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" :: " />
-                        <h:outputText rendered="#{shelf.unvisitedImages.size > 0}" styleClass="bold"
-                            value="#{shelf.unvisitedImages.size()}" />
-                        <h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" #{messages['new']}" />
-                        <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(shelf)}"
+                        <h:outputText value="#{treeNode.name}" />
+                        <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" value=" :: " />
+                        <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" styleClass="bold"
+                            value="#{treeNode.unvisitedImages.size}" />
+                        <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" value=" #{messages['new']}" />
+                        <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(treeNode)}"
                             similarityGroupingId="sel" />
                     </a4j:outputPanel>
                     <rich:tooltip direction="top-right" showDelay="1000">
-                        <span style="white-space: nowrap">#{shelf.name}</span>
+                        <span style="white-space: nowrap">#{treeNode.name}</span>
                     </rich:tooltip>
                 </rich:treeNode>
 
-                <rich:treeModelAdaptor var="album" nodes="#{shelf.albums}">
-                    <rich:treeNode style="cursor:pointer" render="treePanel,mainArea" selectedClass="tree-selected-node"
+                <rich:treeModelAdaptor var="album" nodes="#{treeNode.albums}">
+                    <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
                         icon="img/shell/tree_icon_album.png">
-                        <f:facet name="iconLeaf">
+                        <!-- <f:facet name="iconLeaf">
                             <h:graphicImage style="border: none" value="img/shell/tree_icon_album.png" />
-                        </f:facet>
+                        </f:facet>-->
                         <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
-                            <h:outputText value="#{album.name}" />
-                            <h:outputText rendered="#{album.unvisitedImages.size > 0}" value=" :: " />
-                            <h:outputText rendered="#{album.unvisitedImages.size > 0}" styleClass="bold"
-                                value="#{album.unvisitedImages.size()}" />
-                            <h:outputText rendered="#{album.unvisitedImages.size > 0}" value=" #{messages['new']}" />
-                            <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showAlbum(album)}"
+                            <h:outputText value="#{treeNode.name}" />
+                            <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" value=" :: " />
+                            <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" styleClass="bold"
+                                value="#{treeNode.unvisitedImages.size()}" />
+                            <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" value=" #{messages['new']}" />
+                            <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showAlbum(treeNode)}"
                                 similarityGroupingId="sel" />
                         </a4j:outputPanel>
                         <rich:tooltip direction="top-right" showDelay="1000">
-                            <span style="white-space: nowrap">#{album.name}</span>
+                            <span style="white-space: nowrap">#{treeNode.name}</span>
                         </rich:tooltip>
                     </rich:treeNode>
 
@@ -102,52 +101,51 @@
         </h:panelGrid>
         <br />
         <rich:dragIndicator id="dragIndicator" />
-        <rich:tree adviseNodeOpened="#{controller.adviseNodeSelected}" adviseNodeSelected="#{controller.adviseNodeSelected}"
-            ajaxSubmitSelection="false" dragIndicator="dragIndicator" treeNodeVar="treeNode" switchType="client"
-            iconCollapsed="/img/shell/tree_icon_plus.png" iconExpanded="/img/shell/tree_icon_minus.png"
-            dropListener="#{dndManager.processDrop}" showConnectingLines="false">
+        <!-- TODO - implememnt adviseNode... behaviour, icons, connecting lines -->
+        <rich:tree ajaxSubmitSelection="false" dragIndicator="dragIndicator" var="treeNode" toggleType="client"
+            dropListener="#{dndManager.processDrop}">
             <rich:treeModelAdaptor nodes="#{user.getShelves()}" var="shelf">
                 <rich:treeNode style="cursor:pointer" acceptedTypes="album" dropValue="#{shelf}" render="mainArea, treePanel"
                     selectedClass="tree-selected-node">
-                    <f:facet name="icon">
+                    <!-- <f:facet name="icon">
                         <h:graphicImage style="border: none" value="/img/shell/tree_icon_shelf.png" />
-                    </f:facet>
+                    </f:facet> -->
                     <ui:include src="/includes/contextMenu/CMForShelf.xhtml">
-                        <ui:param name="shelf" value="#{shelf}" />
+                        <ui:param name="shelf" value="#{treeNode}" />
                     </ui:include>
                     <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
-                        <h:outputText value="#{shelf.name}" />
+                        <h:outputText value="#{treeNode.name}" />
                         <h:outputText value=" :: " />
-                        <h:outputText rendered="#{shelf.unvisitedImages.size > 0}" styleClass="bold"
-                            value="#{shelf.unvisitedImages.size()}" />
-                        <h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" #{messages['new']}" />
-                        <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(shelf)}"
+                        <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" styleClass="bold"
+                            value="#{treeNode.unvisitedImages.size}" />
+                        <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" value=" #{messages['new']}" />
+                        <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(treeNode)}"
                             similarityGroupingId="sel" />
                     </a4j:outputPanel>
                     <rich:tooltip direction="top-right" showDelay="1000">
-                        <span style="white-space: nowrap"> #{shelf.name} </span>
+                        <span style="white-space: nowrap">#{treeNode.name}</span>
                     </rich:tooltip>
                 </rich:treeNode>
 
-                <rich:treeModelAdaptor var="album" nodes="#{shelf.albums}">
+                <rich:treeModelAdaptor var="album" nodes="#{treeNode.albums}">
                     <rich:treeNode style="cursor:pointer" render="mainArea, treePanel" dragType="album" dragValue="#{album}"
                         dropValue="#{album}" acceptedTypes="image" selectedClass="tree-selected-node"
                         icon="img/shell/tree_icon_album.png">
-                        <f:facet name="iconLeaf">
+                        <!-- <f:facet name="iconLeaf">
                             <h:graphicImage style="border: none" value="img/shell/tree_icon_album.png" />
-                        </f:facet>
+                        </f:facet> -->
                         <ui:include src="/includes/contextMenu/CMForAlbum.xhtml">
-                            <ui:param name="album" value="#{album}" />
+                            <ui:param name="album" value="#{treeNode}" />
                         </ui:include>
                         <!-- <rich:dndParam name="label" type="drag" value="#{album.name}" /> -->
                         <!-- not supported in RF 4 -->
                         <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
-                            <h:outputText value="#{album.name}" />
+                            <h:outputText value="#{treeNode.name}" />
                             <h:outputText value=" :: " />
-                            <h:outputText rendered="#{album.unvisitedImages.size > 0}" styleClass="bold"
-                                value="#{album.unvisitedImages.size()}" />
-                            <h:outputText rendered="#{album.unvisitedImages.size > 0}" value=" #{messages['new']}" />
-                            <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showAlbum(album)}"
+                            <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" styleClass="bold"
+                                value="#{treeNode.unvisitedImages.size}" />
+                            <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" value=" #{messages['new']}" />
+                            <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showAlbum(treeNode)}"
                                 similarityGroupingId="sel" />
                         </a4j:outputPanel>
                         <rich:tooltip direction="top-right" showDelay="1000">
