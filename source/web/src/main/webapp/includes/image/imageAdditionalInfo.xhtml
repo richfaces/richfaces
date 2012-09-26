@@ -57,9 +57,8 @@
         <h:panelGroup layout="block" style="padding-top:10px;clear:both">
             <a4j:region rendered="#{identity.hasRole('admin')}">
                 <h:panelGroup layout="block" id="editContent">
-                    <rich:editor value="#{editorBean.message}" configuration="#{editorBean.currentConfiguration}" id="editor2"
-                        width="400" height="200" useSeamText="true">
-                    </rich:editor>
+                    <!-- TODO: add configuration -->
+                    <rich:editor value="#{editorBean.message}" id="editor2" width="400" height="200" useSeamText="true" />
                 </h:panelGroup>
             </a4j:region>
         </h:panelGroup>
