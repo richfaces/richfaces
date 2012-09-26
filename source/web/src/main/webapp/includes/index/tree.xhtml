@@ -51,7 +51,7 @@
                         <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(treeNode)}"
                             similarityGroupingId="sel" />
                     </a4j:outputPanel>
-                    <rich:tooltip direction="top-right" showDelay="1000">
+                    <rich:tooltip direction="topRight" showDelay="1000">
                         <span style="white-space: nowrap">#{treeNode.name}</span>
                     </rich:tooltip>
                 </rich:treeNode>
@@ -71,7 +71,7 @@
                             <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showAlbum(treeNode)}"
                                 similarityGroupingId="sel" />
                         </a4j:outputPanel>
-                        <rich:tooltip direction="top-right" showDelay="1000">
+                        <rich:tooltip direction="topRight" showDelay="1000">
                             <span style="white-space: nowrap">#{treeNode.name}</span>
                         </rich:tooltip>
                     </rich:treeNode>
@@ -125,7 +125,7 @@
                     <rich:dropTarget acceptedTypes="album" dropValue="#{treeNode}" dropListener="#{dndManager.processDrop}"
                         render="treePanel, mainArea" />
 
-                    <rich:tooltip direction="top-right" showDelay="1000">
+                    <rich:tooltip direction="topRight" showDelay="1000">
                         <span style="white-space: nowrap">#{treeNode.name}</span>
                     </rich:tooltip>
                 </rich:treeNode>
@@ -156,7 +156,7 @@
                         <rich:dropTarget acceptedTypes="image" dropValue="#{treeNode}" dropListener="#{dndManager.processDrop}"
                             render="treePanel, mainArea" />
 
-                        <rich:tooltip direction="top-right" showDelay="1000">
+                        <rich:tooltip direction="topRight" showDelay="1000">
                             <span style="white-space: nowrap"> #{treeNode.name} </span>
                         </rich:tooltip>
                     </rich:treeNode>
