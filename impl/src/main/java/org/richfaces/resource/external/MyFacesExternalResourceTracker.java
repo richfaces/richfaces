@@ -21,6 +21,7 @@
  */
 package org.richfaces.resource.external;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import javax.faces.context.FacesContext;
@@ -46,10 +47,10 @@ public class MyFacesExternalResourceTracker implements ExternalResourceTracker {
     public boolean isResourceRenderered(FacesContext facesContext, ResourceKey resourceKey) {
         final String mimeType = facesContext.getExternalContext().getMimeType(resourceKey.getResourceName());
 
-        if (MimeType.STYLESHEET.mimeType.equals(mimeType)) {
+        if (MimeType.STYLESHEET.contains(mimeType)) {
             return ResourceUtils
                     .isRenderedStylesheet(facesContext, resourceKey.getLibraryName(), resourceKey.getResourceName());
-        } else if (MimeType.SCRIPT.mimeType.equals(mimeType)) {
+        } else if (MimeType.SCRIPT.contains(mimeType)) {
             return ResourceUtils.isRenderedScript(facesContext, resourceKey.getLibraryName(), resourceKey.getResourceName());
         }
 
@@ -66,9 +67,9 @@ public class MyFacesExternalResourceTracker implements ExternalResourceTracker {
     public void markResourceRendered(FacesContext facesContext, ResourceKey resourceKey) {
         final String mimeType = facesContext.getExternalContext().getMimeType(resourceKey.getResourceName());
 
-        if (MimeType.STYLESHEET.mimeType.equals(mimeType)) {
+        if (MimeType.STYLESHEET.contains(mimeType)) {
             ResourceUtils.markStylesheetAsRendered(facesContext, resourceKey.getLibraryName(), resourceKey.getResourceName());
-        } else if (MimeType.SCRIPT.mimeType.equals(mimeType)) {
+        } else if (MimeType.SCRIPT.contains(mimeType)) {
             ResourceUtils.markScriptAsRendered(facesContext, resourceKey.getLibraryName(), resourceKey.getResourceName());
         }
     }
@@ -96,13 +97,17 @@ public class MyFacesExternalResourceTracker implements ExternalResourceTracker {
     }
 
     private enum MimeType {
-        SCRIPT("application/javascript"),
+        SCRIPT("application/javascript", "text/javascript"),
         STYLESHEET("text/css");
 
-        private String mimeType;
+        private String[] types;
 
-        private MimeType(String mimeType) {
-            this.mimeType = mimeType;
+        private MimeType(String... types) {
+            this.types = types;
+        }
+
+        public boolean contains(String type) {
+            return Arrays.asList(types).contains(type);
         }
     }
 }

@@ -13,6 +13,7 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
@@ -39,19 +40,24 @@ public class ResourceMappingTest {
     @Deployment
     public static WebArchive createDeployment() {
 
-        CoreDeployment deployment = new CoreDeployment(ResourceMappingTest.class);
+        CoreDeployment deployment = new CoreDeployment(null);
 
         PropertiesAsset staticResourceMapping = new PropertiesAsset()
                 .key(":original.css").value("relocated.css")
                 .key(":part1.css").value("aggregated.css")
-                .key(":part2.css").value("aggregated.css");
+                .key(":part2.css").value("aggregated.css")
+                .key("part1.js").value("aggregated.js")
+                .key("part2.js").value("aggregated.js");
 
-        StringAsset stylesheetResource = new StringAsset("content");
+        EmptyAsset emptyResource = EmptyAsset.INSTANCE;
 
         FaceletAsset relocationPage = new FaceletAsset().head("<h:outputStylesheet name=\"original.css\" />");
 
         FaceletAsset aggregationPage = new FaceletAsset().head("<h:outputStylesheet name=\"part1.css\" />"
                 + "<h:outputStylesheet name=\"part2.css\" />");
+        
+        FaceletAsset javaScriptAggregationPage = new FaceletAsset().head("<h:outputScript name=\"part1.js\" />"
+                + "<h:outputScript name=\"part2.js\" />");
 
         deployment.withResourceHandler();
 
@@ -65,18 +71,22 @@ public class ResourceMappingTest {
                 /** ROOT */
                 .addAsWebResource(relocationPage, "relocation.xhtml")
                 .addAsWebResource(aggregationPage, "aggregation.xhtml")
-                .addAsWebResource(stylesheetResource, "resources/original.css")
-                .addAsWebResource(stylesheetResource, "resources/part1.css")
-                .addAsWebResource(stylesheetResource, "resources/part2.css")
-                .addAsWebResource(stylesheetResource, "resources/relocated.css")
-                .addAsWebResource(stylesheetResource, "resources/aggregated.css");
+                .addAsWebResource(javaScriptAggregationPage, "javaScriptAggregation.xhtml")
+                .addAsWebResource(emptyResource, "resources/original.css")
+                .addAsWebResource(emptyResource, "resources/part1.css")
+                .addAsWebResource(emptyResource, "resources/part2.css")
+                .addAsWebResource(emptyResource, "resources/relocated.css")
+                .addAsWebResource(emptyResource, "resources/aggregated.css")
+                .addAsWebResource(emptyResource, "resources/part1.js")
+                .addAsWebResource(emptyResource, "resources/part2.js")
+                .addAsWebResource(emptyResource, "resources/aggregated.js");
 
         return deployment.getFinalArchive();
     }
 
     @Test
     @RunAsClient
-    public void test_resource_relocation() {
+    public void test_stylesheet_resource_relocation() {
 
         driver.navigate().to(contextPath + "relocation.jsf");
 
@@ -88,7 +98,7 @@ public class ResourceMappingTest {
 
     @Test
     @RunAsClient
-    public void test_resource_aggregation() {
+    public void test_stylesheet_resource_aggregation() {
 
         driver.navigate().to(contextPath + "aggregation.jsf");
 
@@ -100,5 +110,21 @@ public class ResourceMappingTest {
         String href = element.getAttribute("href");
 
         assertTrue("href must contain aggregated.css resource path: " + href, href.contains("/javax.faces.resource/aggregated.css"));
+    }
+    
+    @Test
+    @RunAsClient
+    public void test_javascript_resource_aggregation() {
+
+        driver.navigate().to(contextPath + "javaScriptAggregation.jsf");
+        
+        List<WebElement> elements = driver.findElements(By.cssSelector("head > script"));
+
+        assertEquals("There must be exactly one resource link rendered", 1, elements.size());
+
+        WebElement element = elements.get(0);
+        String src = element.getAttribute("src");
+
+        assertTrue("src must contain aggregated.js resource path: " + src, src.contains("/javax.faces.resource/aggregated.js"));
     }
 }
