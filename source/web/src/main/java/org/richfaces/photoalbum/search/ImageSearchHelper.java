@@ -30,6 +30,7 @@ import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
+import org.richfaces.photoalbum.ejbsearch.ISearchAction;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.NavEvent;

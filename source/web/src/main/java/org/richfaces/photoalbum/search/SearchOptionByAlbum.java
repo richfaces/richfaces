@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.richfaces.photoalbum.domain.Album;
+import org.richfaces.photoalbum.ejbsearch.ISearchAction;
 import org.richfaces.photoalbum.service.PhotoAlbumException;
 
 /**

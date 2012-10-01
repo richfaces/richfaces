@@ -22,6 +22,7 @@ package org.richfaces.photoalbum.search;
 
 import java.util.List;
 
+import org.richfaces.photoalbum.ejbsearch.ISearchAction;
 import org.richfaces.photoalbum.service.PhotoAlbumException;
 
 /**
