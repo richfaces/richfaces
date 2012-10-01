@@ -743,16 +743,11 @@
                 </property>
             </activation>
             <dependencies>
-                <!-- <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
-                    <scope>compile</scope>
-                    <optional>true</optional>
-                </dependency> -->
                 <dependency>
                     <groupId>org.glassfish</groupId>
                     <artifactId>javax.faces</artifactId>
-                    <scope>provided</scope>
+                    <scope>compile</scope>
+                    <optional>true</optional>
                 </dependency>
                 
                 <!-- For MyFaces specific resource loading (RF-11974) -->
