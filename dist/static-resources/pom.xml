@@ -207,6 +207,7 @@
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Static.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Static/</staticResourcePrefix>
                             <excludedFiles>
+                                <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
                             </excludedFiles>
@@ -226,6 +227,7 @@
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Compressed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Compressed/</staticResourcePrefix>
                             <excludedFiles>
+                                <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
                             </excludedFiles>
@@ -245,6 +247,7 @@
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Packed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Packed/</staticResourcePrefix>
                             <excludedFiles>
+                                <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
                                 <exclude>^jquery.js$</exclude>
@@ -281,6 +284,7 @@
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/PackedCompressed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/PackedCompressed/</staticResourcePrefix>
                             <excludedFiles>
+                                <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
                                 <exclude>^jquery\.js$</exclude>
