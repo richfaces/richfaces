@@ -24,9 +24,9 @@ import org.richfaces.photoalbum.domain.Comment;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.ejbservice.IImageAction;
-import org.richfaces.photoalbum.ejbservice.ImageAction;
-import org.richfaces.photoalbum.ejbservice.PhotoAlbumException;
+import org.richfaces.photoalbum.service.IImageAction;
+import org.richfaces.photoalbum.service.ImageAction;
+import org.richfaces.photoalbum.service.PhotoAlbumException;
 import org.richfaces.photoalbum.test.PhotoAlbumTestHelper;
 
 @RunWith(Arquillian.class)

@@ -26,7 +26,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.ejbservice.Constants;
+import org.richfaces.photoalbum.service.Constants;
 
 /**
  * Strategy to retrieve albums, that belongs to user, that perform search

@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.ejbservice.ImageAction;
+import org.richfaces.photoalbum.service.ImageAction;
 
 /**
  * Simple test to check if everything got imported correctly from importmin.sql

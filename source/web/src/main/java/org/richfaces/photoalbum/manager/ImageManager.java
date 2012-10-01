@@ -50,8 +50,8 @@ import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ImageEvent;
 import org.richfaces.photoalbum.event.NavEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
-import org.richfaces.photoalbum.ejbservice.Constants;
-import org.richfaces.photoalbum.ejbservice.IImageAction;
+import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.service.IImageAction;
 
 @RequestScoped
 public class ImageManager {

@@ -54,7 +54,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.OrderBy;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.richfaces.photoalbum.ejbservice.ActionTools;
+import org.richfaces.photoalbum.service.ActionTools;
 
 @NamedQueries({
         @NamedQuery(name = "tag-byName", query = "select m from MetaTag m where m.tag =:tag"),

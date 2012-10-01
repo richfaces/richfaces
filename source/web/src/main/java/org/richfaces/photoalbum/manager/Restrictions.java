@@ -2,7 +2,7 @@ package org.richfaces.photoalbum.manager;
 
 import org.jboss.seam.security.Identity;
 import org.jboss.seam.security.annotations.Secures;
-import org.richfaces.photoalbum.ejbservice.Constants;
+import org.richfaces.photoalbum.service.Constants;
 
 public class Restrictions {
     public @Secures

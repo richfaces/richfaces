@@ -26,7 +26,7 @@ package org.richfaces.photoalbum.util;
  *
  * @author Andrey Markhel
  */
-import org.richfaces.photoalbum.ejbservice.Constants;
+import org.richfaces.photoalbum.service.Constants;
 
 public enum ImageDimension {
 

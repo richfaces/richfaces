@@ -45,8 +45,8 @@ import org.richfaces.photoalbum.event.EventTypeQualifier;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ShelfEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
-import org.richfaces.photoalbum.ejbservice.Constants;
-import org.richfaces.photoalbum.ejbservice.IShelfAction;
+import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.service.IShelfAction;
 
 @RequestScoped
 public class ShelfManager implements Serializable {

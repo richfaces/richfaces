@@ -8,7 +8,7 @@ import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.ejbservice.Constants;
+import org.richfaces.photoalbum.service.Constants;
 
 /**
  * This bean was created to provide User entity in places where it is needed (UserAction and ShelfAction).

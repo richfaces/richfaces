@@ -29,8 +29,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.ejbservice.Constants;
-import org.richfaces.photoalbum.ejbservice.PhotoAlbumException;
+import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.service.PhotoAlbumException;
 
 /**
  * This class is factory to retrieve query object, dependent of type of searched entity and other parameters

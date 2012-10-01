@@ -21,9 +21,9 @@ import org.junit.runner.RunWith;
 import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.Sex;
 import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.ejbservice.Constants;
-import org.richfaces.photoalbum.ejbservice.IUserAction;
-import org.richfaces.photoalbum.ejbservice.UserAction;
+import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.service.IUserAction;
+import org.richfaces.photoalbum.service.UserAction;
 import org.richfaces.photoalbum.test.PhotoAlbumTestHelper;
 
 /**

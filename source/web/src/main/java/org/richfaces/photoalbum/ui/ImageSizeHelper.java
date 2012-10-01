@@ -22,7 +22,7 @@ package org.richfaces.photoalbum.ui;
 
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.photoalbum.ejbservice.Constants;
+import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.util.ImageDimension;
 
 /**

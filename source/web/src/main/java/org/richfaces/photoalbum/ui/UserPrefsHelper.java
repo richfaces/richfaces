@@ -31,8 +31,8 @@ import javax.inject.Inject;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.photoalbum.domain.Sex;
-import org.richfaces.photoalbum.ejbservice.Constants;
-import org.richfaces.photoalbum.ejbservice.IUserAction;
+import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.service.IUserAction;
 
 /**
  * Convenience UI class for userPrefs page

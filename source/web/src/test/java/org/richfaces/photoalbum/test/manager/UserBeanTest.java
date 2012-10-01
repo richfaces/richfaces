@@ -17,8 +17,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.ejbservice.Constants;
-import org.richfaces.photoalbum.ejbservice.Resources;
+import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.service.Resources;
 
 @RunWith(Arquillian.class)
 public class UserBeanTest {

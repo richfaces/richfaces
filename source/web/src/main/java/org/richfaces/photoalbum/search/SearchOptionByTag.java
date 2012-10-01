@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.richfaces.photoalbum.domain.MetaTag;
-import org.richfaces.photoalbum.ejbservice.PhotoAlbumException;
+import org.richfaces.photoalbum.service.PhotoAlbumException;
 
 /**
  * Class, that encapsulate functionality related to search by metatag entity.
@@ -71,7 +71,7 @@ public class SearchOptionByTag extends ISearchOption {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.photoalbum.search.ISearchOption#search(org.richfaces.photoalbum.ejbservice.ISearchAction,
+     * @see org.richfaces.photoalbum.search.ISearchOption#search(org.richfaces.photoalbum.service.ISearchAction,
      * java.lang.String, boolean, boolean)
      */
     @Override
