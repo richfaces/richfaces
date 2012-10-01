@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.richfaces.photoalbum.domain.Album;
-import org.richfaces.photoalbum.service.PhotoAlbumException;
+import org.richfaces.photoalbum.ejbservice.PhotoAlbumException;
 
 /**
  * Class, that encapsulate functionality related to search by album entity.

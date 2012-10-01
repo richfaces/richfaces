@@ -20,9 +20,9 @@
  */
 package org.richfaces.photoalbum.util;
 
-import static org.richfaces.photoalbum.service.Constants.PHOTOALBUM_FOLDER;
-import static org.richfaces.photoalbum.service.Constants.TEMP_DIR;
-import static org.richfaces.photoalbum.service.Constants.UPLOAD_FOLDER_PATH_ERROR;
+import static org.richfaces.photoalbum.ejbservice.Constants.PHOTOALBUM_FOLDER;
+import static org.richfaces.photoalbum.ejbservice.Constants.TEMP_DIR;
+import static org.richfaces.photoalbum.ejbservice.Constants.UPLOAD_FOLDER_PATH_ERROR;
 import static org.richfaces.photoalbum.util.FileUtils.copyDirectory;
 import static org.richfaces.photoalbum.util.FileUtils.deleteDirectory;
 import static org.richfaces.photoalbum.util.FileUtils.joinFiles;

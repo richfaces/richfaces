@@ -42,7 +42,7 @@ import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.manager.LoggedUserTracker;
-import org.richfaces.photoalbum.service.IImageAction;
+import org.richfaces.photoalbum.ejbservice.IImageAction;
 
 @SessionScoped
 public class SessionListener implements Serializable {

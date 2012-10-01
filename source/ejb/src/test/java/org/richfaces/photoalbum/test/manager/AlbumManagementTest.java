@@ -21,8 +21,8 @@ import org.junit.runner.RunWith;
 import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Shelf;
-import org.richfaces.photoalbum.service.AlbumAction;
-import org.richfaces.photoalbum.service.IAlbumAction;
+import org.richfaces.photoalbum.ejbservice.AlbumAction;
+import org.richfaces.photoalbum.ejbservice.IAlbumAction;
 import org.richfaces.photoalbum.test.PhotoAlbumTestHelper;
 
 @RunWith(Arquillian.class)

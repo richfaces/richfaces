@@ -36,9 +36,9 @@ import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ImageEvent;
-import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.service.IImageAction;
-import org.richfaces.photoalbum.service.PhotoAlbumException;
+import org.richfaces.photoalbum.ejbservice.Constants;
+import org.richfaces.photoalbum.ejbservice.IImageAction;
+import org.richfaces.photoalbum.ejbservice.PhotoAlbumException;
 import org.richfaces.photoalbum.ui.FileWrapper;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;

@@ -1,4 +1,4 @@
-package org.richfaces.photoalbum.service;
+package org.richfaces.photoalbum.ejbservice;
 
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;

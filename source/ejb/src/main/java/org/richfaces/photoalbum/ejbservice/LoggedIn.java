@@ -1,4 +1,4 @@
-package org.richfaces.photoalbum.service;
+package org.richfaces.photoalbum.ejbservice;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

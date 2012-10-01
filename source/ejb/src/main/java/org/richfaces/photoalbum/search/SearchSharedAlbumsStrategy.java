@@ -25,7 +25,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.ejbservice.Constants;
 
 /**
  * Strategy to retrieve albums, that are shared

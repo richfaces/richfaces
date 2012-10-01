@@ -23,11 +23,11 @@ import org.richfaces.photoalbum.domain.Comment;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.Shelf;
-import org.richfaces.photoalbum.service.AlbumAction;
-import org.richfaces.photoalbum.service.IAlbumAction;
-import org.richfaces.photoalbum.service.IImageAction;
-import org.richfaces.photoalbum.service.IShelfAction;
-import org.richfaces.photoalbum.service.IUserAction;
+import org.richfaces.photoalbum.ejbservice.AlbumAction;
+import org.richfaces.photoalbum.ejbservice.IAlbumAction;
+import org.richfaces.photoalbum.ejbservice.IImageAction;
+import org.richfaces.photoalbum.ejbservice.IShelfAction;
+import org.richfaces.photoalbum.ejbservice.IUserAction;
 import org.richfaces.photoalbum.test.PhotoAlbumTestHelper;
 
 /**

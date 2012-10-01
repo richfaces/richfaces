@@ -52,8 +52,8 @@ import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.service.PhotoAlbumException;
+import org.richfaces.photoalbum.ejbservice.Constants;
+import org.richfaces.photoalbum.ejbservice.PhotoAlbumException;
 
 /**
  * This class is entry point to retrieve search result EJB3 Bean

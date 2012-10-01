@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.service.PhotoAlbumException;
+import org.richfaces.photoalbum.ejbservice.PhotoAlbumException;
 
 /**
  * Class, that encapsulate functionality related to search by user entity.
@@ -71,7 +71,7 @@ public class SearchOptionByUser extends ISearchOption {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.photoalbum.search.ISearchOption#search(org.richfaces.photoalbum.service.ISearchAction)
+     * @see org.richfaces.photoalbum.search.ISearchOption#search(org.richfaces.photoalbum.ejbservice.ISearchAction)
      */
     @Override
     public void search(ISearchAction action, String q, boolean searchInMyAlbums, boolean searchInShared)

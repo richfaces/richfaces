@@ -30,7 +30,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import org.richfaces.photoalbum.manager.FileManager;
-import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.ejbservice.Constants;
 
 @RequestScoped
 public class ImageLoader implements Serializable {

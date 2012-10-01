@@ -30,7 +30,7 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.ejbservice.Constants;
 import org.richfaces.photoalbum.util.Preferred;
 
 /**

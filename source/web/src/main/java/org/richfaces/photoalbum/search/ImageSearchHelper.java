@@ -35,8 +35,8 @@ import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.NavEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.manager.NavigationEnum;
-import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.service.PhotoAlbumException;
+import org.richfaces.photoalbum.ejbservice.Constants;
+import org.richfaces.photoalbum.ejbservice.PhotoAlbumException;
 
 /**
  * Class, that encapsulate functionality related to search process.

@@ -46,7 +46,7 @@ import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ImageEvent;
 import org.richfaces.photoalbum.event.ShelfEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
-import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.ejbservice.Constants;
 import org.richfaces.photoalbum.util.FileUtils;
 import org.richfaces.photoalbum.util.ImageDimension;
 

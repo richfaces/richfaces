@@ -22,7 +22,7 @@ package org.richfaces.photoalbum.search;
 
 import java.util.List;
 
-import org.richfaces.photoalbum.service.PhotoAlbumException;
+import org.richfaces.photoalbum.ejbservice.PhotoAlbumException;
 
 /**
  * Abstract class, that represent base functionality for particular search option(album, shelf, etc..)

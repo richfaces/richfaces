@@ -47,8 +47,8 @@ import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.EventTypeQualifier;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.SimpleEvent;
-import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.service.IAlbumAction;
+import org.richfaces.photoalbum.ejbservice.Constants;
+import org.richfaces.photoalbum.ejbservice.IAlbumAction;
 
 @RequestScoped
 public class AlbumManager implements Serializable {
