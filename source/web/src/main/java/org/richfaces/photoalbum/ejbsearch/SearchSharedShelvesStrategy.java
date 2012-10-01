@@ -18,7 +18,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.photoalbum.search;
+package org.richfaces.photoalbum.ejbsearch;
 
 import java.util.Map;
 
@@ -28,21 +28,21 @@ import javax.persistence.Query;
 import org.richfaces.photoalbum.ejbservice.Constants;
 
 /**
- * Strategy to retrieve images, that are shared
+ * Strategy to retrieve shelves, that are shared
  *
  * @author Andrey Markhel
  */
-public class SearchSharedImagesStrategy implements ISearchStrategy {
+public class SearchSharedShelvesStrategy implements ISearchStrategy {
     /**
-     * Create query to retrieve images, that are shared
+     * Create query to retrieve shelves, that are shared
      *
      * @param em - entityManager
      * @param params - map of additional params for this query
      * @param searchQuery - string to search
-     * @return List of images that are shared
+     * @return List of shelves that are shared
      */
     public Query getQuery(EntityManager em, Map<String, Object> params, String searchQuery) {
-        Query query = em.createQuery(Constants.SEARCH_IMAGE_QUERY + Constants.SEARCH_IMAGE_SHARED_ADDON);
+        Query query = em.createQuery(Constants.SEARCH_SHELVES_QUERY + Constants.SEARCH_SHELF_SHARED_ADDON);
         query.setParameter(Constants.QUERY_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
         return query;
     }

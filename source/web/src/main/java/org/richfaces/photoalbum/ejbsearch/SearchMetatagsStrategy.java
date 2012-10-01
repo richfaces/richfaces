@@ -18,38 +18,32 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.photoalbum.search;
+package org.richfaces.photoalbum.ejbsearch;
 
 import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.ejbservice.Constants;
 
 /**
- * Strategy to retrieve albums, that are shared or belongs to user, that perform search
+ * Strategy to retrieve metatags
  *
  * @author Andrey Markhel
  */
-public class SearchBothAlbumsStrategy implements ISearchStrategy {
+public class SearchMetatagsStrategy implements ISearchStrategy {
     /**
-     * Create query to retrieve albums, that are shared or belongs to user, that perform search
+     * Create query to retrieve metatags
      *
      * @param em - entityManager
      * @param params - map of additional params for this query
      * @param searchQuery - string to search
-     * @return List of albums that are shared or belongs to user, that perform search
+     * @return List of metatags
      */
     public Query getQuery(EntityManager em, Map<String, Object> params, String searchQuery) {
-        Query query = em.createQuery(Constants.SEARCH_ALBUM_QUERY + Constants.SEARCH_ALBUM_BOTH_ADDON);
+        Query query = em.createQuery(Constants.SEARCH_METATAG_QUERY);
         query.setParameter(Constants.QUERY_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
-        User user = (User) params.get(Constants.USER_PARAMETER);
-        if (null == user) {
-            return null;
-        }
-        query.setParameter(Constants.LOGIN_PARAMETER, user.getLogin());
         return query;
     }
 

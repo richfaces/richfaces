@@ -18,7 +18,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.photoalbum.search;
+package org.richfaces.photoalbum.ejbsearch;
 
 import java.util.Map;
 
@@ -28,21 +28,21 @@ import javax.persistence.Query;
 import org.richfaces.photoalbum.ejbservice.Constants;
 
 /**
- * Strategy to retrieve metatags
+ * Strategy to retrieve albums, that are shared
  *
  * @author Andrey Markhel
  */
-public class SearchMetatagsStrategy implements ISearchStrategy {
+public class SearchSharedAlbumsStrategy implements ISearchStrategy {
     /**
-     * Create query to retrieve metatags
+     * Create query to retrieve albums, that are shared
      *
      * @param em - entityManager
      * @param params - map of additional params for this query
      * @param searchQuery - string to search
-     * @return List of metatags
+     * @return List of albums that are shared
      */
     public Query getQuery(EntityManager em, Map<String, Object> params, String searchQuery) {
-        Query query = em.createQuery(Constants.SEARCH_METATAG_QUERY);
+        Query query = em.createQuery(Constants.SEARCH_ALBUM_QUERY + Constants.SEARCH_ALBUM_SHARED_ADDON);
         query.setParameter(Constants.QUERY_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
         return query;
     }
