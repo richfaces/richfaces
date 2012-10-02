@@ -59,7 +59,6 @@ public class SessionListener implements Serializable {
     @Inject
     private IImageAction imageAction;
     @Inject
-    @Preferred
     private EntityManager em;
     @Inject
     LoggedUserTracker userTracker;

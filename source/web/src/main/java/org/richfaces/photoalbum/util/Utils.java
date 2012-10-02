@@ -40,7 +40,6 @@ public class Utils {
     @SuppressWarnings("unused")
     @Produces
     @PersistenceContext
-    @Preferred
     private EntityManager em;
 
     private Utils() {

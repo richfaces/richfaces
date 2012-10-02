@@ -31,7 +31,6 @@ import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.util.Preferred;
 
 /**
  * Convenience UI class for 'directLink' functionality.
@@ -42,7 +41,6 @@ import org.richfaces.photoalbum.util.Preferred;
 public class DirectLinkHelper {
 
     @Inject
-    @Preferred
     EntityManager em;
 
     @Inject
