@@ -7,4 +7,6 @@ Tests written for the org.richfaces.photoalbum.service package run successfuly. 
 
 Oct 2, 2012
 Almost all Richfaces components have been updated.
-Merged classes and resources into the WAR module (source/web), other packages should no longer be needed (unless I have overlooked something) and you can build the project just from the WAR module (it still won't deploy successfully though).
+Merged classes and resources into the WAR module (source/web), other packages should no longer be needed (unless I have overlooked something).
+----
+The project (source/web) can be successfully built and deployed, but so far it doesn't do anything else than look pretty and show errors.
