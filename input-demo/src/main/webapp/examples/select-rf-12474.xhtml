@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:in="http://richfaces.org/input"
+      xmlns:a4j="http://richfaces.org/a4j">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Select - RF-12474" />
+
+
+    <!-- content -->
+    <ui:define name="content">
+        <h:form>
+            <in:select id="select" enableManualInput="true" value="#{selectBean.value}">
+                <f:selectItems value="#{selectBean.values}" />
+            </in:select>
+            <br />
+            <a4j:commandButton value="Send" render="output" />
+        </h:form>
+        
+        <a4j:outputPanel id="output">
+            Output: <h:outputText value="#{selectBean.value}" />
+            <br/>
+            <h:messages />
+        </a4j:outputPanel>
+    </ui:define>
+</ui:composition>
+</html>
