@@ -32,7 +32,7 @@ import java.util.Properties;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 
 public class Environment {
 
@@ -49,8 +49,10 @@ public class Environment {
     private static String getEnvironment() {
         try {
             final Properties props = new Properties();
-            final ServletContext servletContext = ((HttpServlet) FacesContext.getCurrentInstance().getExternalContext()
-                .getSession(false)).getServletContext();
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+            final ServletContext servletContext = //(FacesContext.getCurrentInstance().getExternalContext()
+                //.getSession(false)).getServletContext();
+                session.getServletContext();
             props.load(new FileInputStream(servletContext.getRealPath("WEB-INF/classes/" + ENVIRONMENT_PROPERTIES)));
             return props.getProperty(ENVIRONMENT);
         } catch (FileNotFoundException e) {
@@ -65,7 +67,7 @@ public class Environment {
     private static String getShowHelpIconsStrategy() {
         try {
             final Properties props = new Properties();
-            final ServletContext servletContext = ((HttpServlet) FacesContext.getCurrentInstance().getExternalContext()
+            final ServletContext servletContext = ((HttpSession) FacesContext.getCurrentInstance().getExternalContext()
                 .getSession(false)).getServletContext();
             props.load(new FileInputStream(servletContext.getRealPath("WEB-INF/classes/" + ENVIRONMENT_PROPERTIES)));
             return props.getProperty(SHOW_HELP_ICONS_STRATEGY);
