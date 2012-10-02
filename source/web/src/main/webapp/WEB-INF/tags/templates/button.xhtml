@@ -2,7 +2,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
 
-    <a4j:loadScript src="/scripts/buttons.js" />
+    <h:outputScript library="js" name="/scripts/buttons.js" />
 
     <richx:actionMapper>
         <a4j:outputPanel layout="block" style="#{style}" styleClass="photoalbumButton #{styleClass}" lang="#{lang}" dir="#{dir}"
