@@ -63,7 +63,7 @@ public class SelectRendererBase extends InputRendererBase {
 
     public void renderListHandlers(FacesContext facesContext, UIComponent component) throws IOException {
         RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component,
-            SelectHelper.SELECT_LIST_HANDLER_ATTRIBUTES);
+                SelectHelper.SELECT_LIST_HANDLER_ATTRIBUTES);
     }
 
     public List<ClientSelectItem> getConvertedSelectItems(FacesContext facesContext, UIComponent component) {
@@ -144,7 +144,7 @@ public class SelectRendererBase extends InputRendererBase {
     }
 
     public void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems)
-        throws IOException {
+            throws IOException {
         SelectHelper.encodeItems(facesContext, component, clientSelectItems, HtmlConstants.DIV_ELEM, ITEM_CSS);
     }
 }
