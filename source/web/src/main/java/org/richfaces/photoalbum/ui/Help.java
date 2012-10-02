@@ -21,6 +21,7 @@
 package org.richfaces.photoalbum.ui;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 
 import org.richfaces.photoalbum.util.Environment;
 
@@ -29,6 +30,8 @@ import org.richfaces.photoalbum.util.Environment;
  *
  * @author Andrey Markhel
  */
+
+@Named
 @RequestScoped
 public class Help {
 

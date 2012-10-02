@@ -35,6 +35,7 @@ import javax.enterprise.inject.Any;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -53,6 +54,7 @@ import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IImageAction;
 
+@Named
 @RequestScoped
 public class ImageManager {
 
@@ -64,10 +66,18 @@ public class ImageManager {
     @Inject
     User user;
 
-    @Inject @EventType(Events.ADD_ERROR_EVENT) Event<SimpleEvent> error;
-    @Inject @Any Event<SimpleEvent> event;
-    @Inject @EventType(Events.UPDATE_MAIN_AREA_EVENT) Event<NavEvent> navEvent;
-    @Inject @EventType(Events.IMAGE_DELETED_EVENT) Event<ImageEvent> imageEvent;
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    Event<SimpleEvent> error;
+    @Inject
+    @Any
+    Event<SimpleEvent> event;
+    @Inject
+    @EventType(Events.UPDATE_MAIN_AREA_EVENT)
+    Event<NavEvent> navEvent;
+    @Inject
+    @EventType(Events.IMAGE_DELETED_EVENT)
+    Event<ImageEvent> imageEvent;
 
     /**
      * Method, that invoked when user click 'Delete image' button. Only registered users can delete images.

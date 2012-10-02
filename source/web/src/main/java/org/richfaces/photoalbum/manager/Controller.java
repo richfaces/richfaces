@@ -27,6 +27,7 @@ import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Any;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.richfaces.component.UITree;
 import org.richfaces.photoalbum.domain.Album;
@@ -50,6 +51,8 @@ import org.richfaces.photoalbum.service.Constants;
  *
  * @author Andrey Markhel
  */
+
+@Named
 @RequestScoped
 public class Controller implements Serializable {
 
@@ -134,7 +137,7 @@ public class Controller implements Serializable {
             showError(Constants.HAVENT_ACCESS);
             return;
         }
-        //FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
+        // FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         // Check, that album was not deleted recently.
         if (!fileManager.isDirectoryPresent(album.getPath())) {
             showError(Constants.ALBUM_RECENTLY_DELETED_ERROR);
@@ -165,7 +168,7 @@ public class Controller implements Serializable {
             return;
         }
         // Check, that image was not deleted recently
-        //final FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
+        // final FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         if (!fileManager.isFilePresent(image.getFullPath())) {
             showError(Constants.IMAGE_RECENTLY_DELETED_ERROR);
             model.resetModel(NavigationEnum.ALBUM_PREVIEW, image.getAlbum().getOwner(), image.getAlbum().getShelf(),
@@ -228,7 +231,7 @@ public class Controller implements Serializable {
      * @param album - album to show
      */
     public void showShelf(Shelf shelf) {
-        //final FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
+        // final FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         if (!fileManager.isDirectoryPresent(shelf.getPath())) {
             showError(Constants.SHELF_RECENTLY_DELETED_ERROR);
             model.resetModel(NavigationEnum.ANONYM, shelf.getOwner(), null, null, null, null);

@@ -29,6 +29,7 @@ import java.util.Date;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
@@ -54,6 +55,8 @@ import com.drew.metadata.jpeg.JpegDirectory;
  *
  * @author Andrey Markhel
  */
+
+@Named
 @RequestScoped
 public class FileUploadManager implements Serializable {
 

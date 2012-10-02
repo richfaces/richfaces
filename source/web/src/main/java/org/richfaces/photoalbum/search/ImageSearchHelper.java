@@ -29,6 +29,7 @@ import java.util.List;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.richfaces.photoalbum.ejbsearch.ISearchAction;
 import org.richfaces.photoalbum.event.EventType;
@@ -45,6 +46,8 @@ import org.richfaces.photoalbum.service.PhotoAlbumException;
  * @author Andrey Markavtsov
  *
  */
+
+@Named
 @ConversationScoped
 public class ImageSearchHelper implements Serializable {
 

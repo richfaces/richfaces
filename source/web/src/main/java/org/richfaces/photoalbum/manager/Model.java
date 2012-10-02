@@ -28,6 +28,7 @@ import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Any;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
@@ -46,6 +47,8 @@ import org.richfaces.photoalbum.event.SimpleEvent;
  *
  * @author Andrey Markhel
  */
+
+@Named
 @ConversationScoped
 public class Model implements Serializable {
 
@@ -113,7 +116,7 @@ public class Model implements Serializable {
     public void setSelectedTag(MetaTag tag) {
         this.selectedTag = tag;
     }
-    
+
     // Might not work properly due to injection
     public void observeSelectedTag(@Observes @EventType(Events.UPDATE_SELECTED_TAG_EVENT) SimpleEvent se) {
         this.selectedTag = metatag;

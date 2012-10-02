@@ -25,6 +25,7 @@ import java.io.OutputStream;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.security.Credentials;
@@ -37,6 +38,8 @@ import org.richfaces.photoalbum.service.Constants;
  *
  * @author Andrey Markhel
  */
+
+@Named
 @RequestScoped
 public class DirectLinkHelper {
 
@@ -74,7 +77,8 @@ public class DirectLinkHelper {
 
     private boolean isImageSharedOrBelongsToUser(Image im) {
         return im.getAlbum().getShelf().isShared()
-            || (identity.hasRole(Constants.ADMIN_ROLE, "Users", "GROUP") && im.getAlbum().getOwner().getLogin().equals(credentials.getUsername()));
+            || (identity.hasRole(Constants.ADMIN_ROLE, "Users", "GROUP") && im.getAlbum().getOwner().getLogin()
+                .equals(credentials.getUsername()));
     }
 
     private boolean isImageRecentlyRemoved(Image im) {

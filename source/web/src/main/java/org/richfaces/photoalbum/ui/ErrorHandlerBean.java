@@ -25,6 +25,7 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
+import javax.inject.Named;
 
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
@@ -35,6 +36,7 @@ import org.richfaces.photoalbum.event.SimpleEvent;
  *
  * @author Andrey Markhel
  */
+@Named
 @RequestScoped
 public class ErrorHandlerBean {
     private List<String> errors = new ArrayList<String>();

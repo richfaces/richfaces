@@ -21,6 +21,7 @@
 package org.richfaces.photoalbum.ui;
 
 import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
 
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.util.ImageDimension;
@@ -31,6 +32,8 @@ import org.richfaces.photoalbum.util.ImageDimension;
  *
  * @author Andrey Markhel
  */
+
+@Named
 @ViewScoped
 public class ImageSizeHelper {
 

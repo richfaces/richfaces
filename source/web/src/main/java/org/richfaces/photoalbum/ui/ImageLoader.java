@@ -28,10 +28,12 @@ import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.richfaces.photoalbum.manager.FileManager;
 import org.richfaces.photoalbum.service.Constants;
 
+@Named
 @RequestScoped
 public class ImageLoader implements Serializable {
 

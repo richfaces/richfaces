@@ -34,6 +34,7 @@ import javax.enterprise.inject.Any;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
@@ -51,6 +52,7 @@ import org.richfaces.photoalbum.util.Environment;
 import org.richfaces.photoalbum.util.HashUtils;
 import org.richfaces.photoalbum.util.Utils;
 
+@Named
 @ConversationScoped
 public class Authenticator implements Serializable {
 
@@ -85,7 +87,7 @@ public class Authenticator implements Serializable {
 
     @Inject
     FileManager fileManager;
-    
+
     @Inject
     UserBean userBean;
 

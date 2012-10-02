@@ -26,6 +26,7 @@ import java.util.List;
 
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.event.Observes;
+import javax.inject.Named;
 
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.event.EventType;
@@ -33,6 +34,7 @@ import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ImageEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 
+@Named
 @ConversationScoped
 public class FileWrapper implements Serializable {
 
@@ -113,7 +115,7 @@ public class FileWrapper implements Serializable {
     public void setCompleted() {
         setComplete(true);
     }
-    
+
     public void setComplete(boolean complete) {
         this.complete = complete;
     }
