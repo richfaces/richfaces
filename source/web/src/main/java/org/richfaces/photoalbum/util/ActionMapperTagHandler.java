@@ -34,12 +34,10 @@ import javax.el.VariableMapper;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.event.ActionEvent;
-
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletException;
-import com.sun.facelets.el.VariableMapperWrapper;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletException;
+import javax.faces.view.facelets.TagConfig;
+import javax.faces.view.facelets.TagHandler;
 
 public class ActionMapperTagHandler extends TagHandler {
 
@@ -170,23 +168,23 @@ public class ActionMapperTagHandler extends TagHandler {
 
         VariableMapper initialVarMapper = ctx.getVariableMapper();
         try {
-            VariableMapperWrapper varMapper = new VariableMapperWrapper(initialVarMapper);
+            //VariableMapperWrapper varMapper = new VariableMapperWrapper(initialVarMapper);
 
             if (actionExpression == null) {
                 actionExpression = NOOP_ACTION_EXPRESSION;
             }
 
-            varMapper.setVariable(MAPPED_ACTION,
+            initialVarMapper.setVariable(MAPPED_ACTION,
                 ctx.getExpressionFactory().createValueExpression(actionExpression, MethodExpression.class));
 
             if (actionListenerExpression == null) {
                 actionListenerExpression = NOOP_ACTION_LISTENER_EXPRESSION;
             }
 
-            varMapper.setVariable(MAPPED_ACTION_LISTENER,
+            initialVarMapper.setVariable(MAPPED_ACTION_LISTENER,
                 ctx.getExpressionFactory().createValueExpression(actionListenerExpression, MethodExpression.class));
 
-            ctx.setVariableMapper(varMapper);
+            ctx.setVariableMapper(initialVarMapper);
 
             nextHandler.apply(ctx, parent);
 
