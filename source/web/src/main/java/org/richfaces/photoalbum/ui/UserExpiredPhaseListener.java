@@ -47,8 +47,10 @@ public class UserExpiredPhaseListener implements PhaseListener {
 
     public void beforePhase(PhaseEvent e) {
         //Events.instance().raiseEvent(Constants.CHECK_USER_EXPIRED_EVENT, Utils.getSession());
-        // this may not work
-        event.fire(new SimpleEvent());
+        
+        // TODO: fix the event firing
+        // this causes error after deployment
+        //event.fire(new SimpleEvent());
     }
 
     public void afterPhase(PhaseEvent e) {
