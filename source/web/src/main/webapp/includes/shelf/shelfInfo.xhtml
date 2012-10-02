@@ -21,7 +21,7 @@
                 <h:outputText value="#{messages['pics_into']}" />
                 <h:outputText styleClass="bold" value=" #{shelf.albums.size()} " />
                 <h:outputText value="#{messages['shelf.albums']}" />
-                <h:panelGroup rendered="#{shelf.unvisitedImages.size > 0}">
+                <h:panelGroup rendered="#{shelf.unvisitedImages.size() > 0}">
                     <h:outputText value=", " />
                     <a4j:commandLink render="mainArea,tree" actionListener="#{controller.showUnvisitedImages(shelf)}">
                         <h:outputText styleClass="bold" value=" #{shelf.unvisitedImages.size()}" />

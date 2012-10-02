@@ -44,10 +44,10 @@
                     </f:facet> -->
                     <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
                         <h:outputText value="#{treeNode.name}" />
-                        <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" value=" :: " />
-                        <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" styleClass="bold"
-                            value="#{treeNode.unvisitedImages.size}" />
-                        <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" value=" #{messages['new']}" />
+                        <h:outputText rendered="#{treeNode.unvisitedImages.size() > 0}" value=" :: " />
+                        <h:outputText rendered="#{treeNode.unvisitedImages.size() > 0}" styleClass="bold"
+                            value="#{treeNode.unvisitedImages.size()}" />
+                        <h:outputText rendered="#{treeNode.unvisitedImages.size() > 0}" value=" #{messages['new']}" />
                         <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(treeNode)}"
                             similarityGroupingId="sel" />
                     </a4j:outputPanel>
@@ -64,10 +64,10 @@
                         </f:facet>-->
                         <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
                             <h:outputText value="#{treeNode.name}" />
-                            <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" value=" :: " />
-                            <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" styleClass="bold"
+                            <h:outputText rendered="#{treeNode.unvisitedImages.size() > 0}" value=" :: " />
+                            <h:outputText rendered="#{treeNode.unvisitedImages.size() > 0}" styleClass="bold"
                                 value="#{treeNode.unvisitedImages.size()}" />
-                            <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" value=" #{messages['new']}" />
+                            <h:outputText rendered="#{treeNode.unvisitedImages.size() > 0}" value=" #{messages['new']}" />
                             <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showAlbum(treeNode)}"
                                 similarityGroupingId="sel" />
                         </a4j:outputPanel>
@@ -115,9 +115,9 @@
                     <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
                         <h:outputText value="#{treeNode.name}" />
                         <h:outputText value=" :: " />
-                        <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" styleClass="bold"
-                            value="#{treeNode.unvisitedImages.size}" />
-                        <h:outputText rendered="#{treeNode.unvisitedImages.size > 0}" value=" #{messages['new']}" />
+                        <h:outputText rendered="#{treeNode.unvisitedImages.size() > 0}" styleClass="bold"
+                            value="#{treeNode.unvisitedImages.size()}" />
+                        <h:outputText rendered="#{treeNode.unvisitedImages.size() > 0}" value=" #{messages['new']}" />
                         <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(treeNode)}"
                             similarityGroupingId="sel" />
                     </a4j:outputPanel>

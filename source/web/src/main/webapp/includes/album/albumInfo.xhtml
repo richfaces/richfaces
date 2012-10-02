@@ -17,7 +17,7 @@
                 <h:outputText value=", #{messages['contain']}" />
                 <h:outputText styleClass="bold" value=" #{album.images.size()}" />
                 <h:outputText value=" #{messages['images_']}" />
-                <h:panelGroup rendered="#{album.unvisitedImages.size > 0}">
+                <h:panelGroup rendered="#{album.unvisitedImages.size() > 0}">
                     <h:outputText value=", " />
                     <a4j:commandLink render="mainArea,treePanel" actionListener="#{controller.showUnvisitedImages(album)}">
                         <h:outputText styleClass="bold" value="#{album.unvisitedImages.size()}" />

@@ -3,7 +3,7 @@
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
     <a4j:outputPanel id="filesPanel" ajaxRendered="true">
         <h:panelGroup layout="block" id="uploadProgress"
-            rendered="#{(fileWrapper.files.size > 0 or fileWrapper.errorFiles.size > 0) and !fileWrapper.complete}"
+            rendered="#{(fileWrapper.files.size() > 0 or fileWrapper.errorFiles.size() > 0) and !fileWrapper.complete}"
             style="clear:both;padding-top:15px;margin : 0px 0px 0px 0px; display : !none; height : 40px">
             <h:outputText styleClass="bold" value="#{messages['photo_upload_progress']} " />
             <h:outputText value="#{fileWrapper.files.size()} #{messages['photos_was_uploaded_to']} " />
@@ -39,7 +39,7 @@
         <!-- <rich:effect name="uploadCompleteEffect" type="Highlight" params="duration:2.0" for="completeLabel" /> -->
         <!-- not implemented in RF 4 -->
         <h:panelGroup style="padding-left:0px;" layout="block">
-            <h:panelGroup style="padding-bottom:7px;" rendered="#{fileWrapper.files.size > 0}" layout="block">
+            <h:panelGroup style="padding-bottom:7px;" rendered="#{fileWrapper.files.size() > 0}" layout="block">
                 <h:outputText style="padding-left:-4px;" styleClass="bold" value="Successfully downloaded images:" />
             </h:panelGroup>
             <a4j:repeat id="files" columns="1" value="#{fileWrapper.files}" var="image" rowKeyVar="row">

@@ -8,7 +8,7 @@
 
     <h:panelGroup layout="block" style="margin : 30px 0px 0px 0px;">
         <h:panelGroup layout="block" style="float : right; cursor : pointer">
-            <a4j:commandLink rendered="#{model.images.size > 0}" actionListener="#{slideshow.startSlideshow()}"
+            <a4j:commandLink rendered="#{model.images.size() > 0}" actionListener="#{slideshow.startSlideshow()}"
                 styleClass="slideshow-link" render="slideShowForm, mainArea, slideShowModalPanel">
                 <h:graphicImage value="/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
                     style="vertical-align : bottom; margin-right : 5px; border:0;" />

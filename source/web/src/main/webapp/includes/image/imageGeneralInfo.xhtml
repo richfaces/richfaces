@@ -9,7 +9,7 @@
         <table cellpadding="0" class="mainImage-table">
             <tr>
                 <td class="mainImage-table-col1" rowspan="2"><h:panelGroup layout="block" styleClass="slideshow-outerdiv">
-                        <a4j:commandLink rendered="#{model.images.size > 0}"
+                        <a4j:commandLink rendered="#{model.images.size() > 0}"
                             actionListener="#{slideshow.startSlideshow(model.selectedImage)}" styleClass="slideshow-link"
                             render="slideShowForm, mainArea, slideShowModalPanel">
                             <h:graphicImage value="img/shell/tree_icon_slid.png" width="27" height="16" alt="" border="0"
@@ -36,7 +36,7 @@
                         <rich:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip"
                             rendered="#{model.selectedImage.showMetaInfo}">
                             <span style="white-space: nowrap; display: block; text-align: left;"> <h:outputText
-                                    value="Size in bytes: #{model.selectedImage.size}" /><br /> <h:outputText
+                                    value="Size in bytes: #{model.selectedImage.size()}" /><br /> <h:outputText
                                     value="#{messages['original_size']}: #{model.selectedImage.height}x#{model.selectedImage.width}" /><br />
                                 <h:outputText value="Captured at: #{model.selectedImage.created}" /><br /> <h:outputText
                                     value="#{messages['camera']}: #{model.selectedImage.cameraModel}" />

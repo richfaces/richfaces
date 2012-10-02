@@ -5,7 +5,7 @@
     <rich:tabPanel rendered="#{searchImageHelper.isResultExist()}" id="searchPanel" switchType="client">
         <c:forEach items="#{searchImageHelper.options}" var="option" varStatus="i">
             <rich:tab label="#{option.searchResultName}" styleClass="bold"
-                rendered="#{option.selected and option.searchResult.size > 0}">
+                rendered="#{option.selected and option.searchResult.size() > 0}">
                 <h:panelGroup layout="block" styleClass="search-criteria">
                     <h:outputText value="#{messages['search_criteria']} " />
                     <h:outputText value="#{searchImageHelper.getCriteriaString()}" />
