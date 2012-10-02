@@ -18,7 +18,7 @@ import org.junit.runner.RunWith;
 import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.service.Resources;
+import org.richfaces.photoalbum.util.Utils;
 
 @RunWith(Arquillian.class)
 public class UserBeanTest {
@@ -26,7 +26,7 @@ public class UserBeanTest {
     @Deployment
     public static Archive<?> createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(User.class.getPackage()).addClass(UserBean.class)
-            .addClass(Resources.class).addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+            .addClass(Utils.class).addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml") // important
             .addAsWebInfResource("test-ds.xml").addAsResource("importusers.sql", "import.sql");
     }
