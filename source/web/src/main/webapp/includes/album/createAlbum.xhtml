@@ -30,7 +30,7 @@
                             <rich:inplaceSelect minSelectWidth="370" listWidth="400" required="true" id="shelf"
                                 value="#{album.shelf}" openOnEdit="true" layout="block" viewClass="inplace"
                                 changedClass="inplace" changedHoverClass="hover" viewHoverClass="hover">
-                                <f:selectItems value="=#{user.shelves}" var="shelf" itemLabel="#{shelf.name}"
+                                <f:selectItems value="#{user.shelves}" var="shelf" itemLabel="#{shelf.name}"
                                     itemValue="#{shelf}" itemDescription="#{shelf.description}" />
                             </rich:inplaceSelect>
                             <rich:messages for="shelf" />
