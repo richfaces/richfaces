@@ -8,6 +8,10 @@
             <supported-locale>en</supported-locale>
          <!--  <supported-locale>ru</supported-locale>-->
         </locale-config>
+        <resource-bundle>
+            <base-name>messages</base-name>
+            <var>messages</var>
+        </resource-bundle>
     </application>
     <lifecycle>
         <!-- getting a warning from IDE about this class not extending javax.faces.event.PhaseListener which it however does -->
