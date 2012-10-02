@@ -37,7 +37,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 
 /**
  * Utility class, that perform copying images from ear file to temp folder at startup application
@@ -81,9 +81,8 @@ public class CopyImageStuff {
     }
 
     private void resolveImageFolder() throws MalformedURLException {
-        final ServletContext servletContext = ((HttpServlet) (FacesContext
-            .getCurrentInstance().getExternalContext().getSession(false)))
-            .getServletContext();
+        final ServletContext servletContext = ((HttpSession) (FacesContext.getCurrentInstance().getExternalContext()
+            .getSession(false))).getServletContext();
 
         if (servletContext != null) {
             // this.imageSrc = getClass().getClassLoader().getResource(IMAGE_FOLDER).getPath();
