@@ -17,7 +17,7 @@
                     <a4j:repeat value="#{imageSearchHelper.keywords}" var="keyword" rowKeyVar="row">
                         <h:outputText rendered="#{imageSearchHelper.selectedKeyword.equals(keyword.trim())}" value="#{keyword}" />
                         <a4j:commandLink rendered="#{!imageSearchHelper.selectedKeyword.equals(keyword.trim())}"
-                            actionListener="#{imageSearchHelper.search(keyword)}" value="#{keyword.trim()}" render="mainArea" />
+                            actionListener="#{imageSearchHelper.searchKeyword(keyword)}" value="#{keyword.trim()}" render="mainArea" />
                         <h:outputText rendered="#{imageSearchHelper.keywords.size() != row+1 }" value=", " />
                     </a4j:repeat>
                 </h:panelGroup>

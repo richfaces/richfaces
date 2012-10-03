@@ -151,7 +151,7 @@ public class ImageSearchHelper implements Serializable {
      *
      * @param keyword - keyword to search
      */
-    public void search(String keyword) {
+    public void searchKeyword(String keyword) {
         if (!isSearchOptionSelected()) {
             error.fire(new SimpleEvent(Constants.SEARCH_NO_OPTIONS_ERROR));
             return;
