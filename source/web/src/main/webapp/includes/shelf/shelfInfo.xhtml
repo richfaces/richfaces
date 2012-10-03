@@ -1,5 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
     <h:panelGrid styleClass="shelf-header-table" cellpadding="0" columns="2" columnClasses="xxx, shelf-header-table-col2">
         <h:panelGroup>
@@ -17,14 +18,14 @@
                 <h:outputText value="#{messages['created.shelf']}" />
                 <h:outputText styleClass="bold" value=" #{shelf.created}, " />
                 <h:outputText value="#{messages['contain']}" />
-                <h:outputText styleClass="bold" value=" #{shelf.images.size()} " />
+                <h:outputText styleClass="bold" value=" #{fn:length(shelf.images)} " />
                 <h:outputText value="#{messages['pics_into']}" />
-                <h:outputText styleClass="bold" value=" #{shelf.albums.size()} " />
+                <h:outputText styleClass="bold" value=" #{fn:length(shelf.albums)} " />
                 <h:outputText value="#{messages['shelf.albums']}" />
-                <h:panelGroup rendered="#{shelf.unvisitedImages.size() > 0}">
+                <h:panelGroup rendered="#{fn:length(shelf.unvisitedImages) > 0}">
                     <h:outputText value=", " />
                     <a4j:commandLink render="mainArea,tree" actionListener="#{controller.showUnvisitedImages(shelf)}">
-                        <h:outputText styleClass="bold" value=" #{shelf.unvisitedImages.size()}" />
+                        <h:outputText styleClass="bold" value=" #{fn:length(shelf.unvisitedImages)}" />
                         <h:outputText value=" #{messages['new']}" />
                     </a4j:commandLink>
                     <h:outputText value=" #{messages['images_']}" />

@@ -1,5 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
     <h:panelGrid styleClass="album-header-table" cellpadding="0" columns="2" columnClasses="xxx, album-header-table-col2">
         <h:panelGroup>
@@ -15,12 +16,12 @@
                 <h:outputText value="#{messages['created.album']}" />
                 <h:outputText styleClass="bold" value=" #{album.created}" />
                 <h:outputText value=", #{messages['contain']}" />
-                <h:outputText styleClass="bold" value=" #{album.images.size()}" />
+                <h:outputText styleClass="bold" value=" #{fn:length(album.images)}" />
                 <h:outputText value=" #{messages['images_']}" />
-                <h:panelGroup rendered="#{album.unvisitedImages.size() > 0}">
+                <h:panelGroup rendered="#{fn:length(album.unvisitedImages) > 0}">
                     <h:outputText value=", " />
                     <a4j:commandLink render="mainArea,treePanel" actionListener="#{controller.showUnvisitedImages(album)}">
-                        <h:outputText styleClass="bold" value="#{album.unvisitedImages.size()}" />
+                        <h:outputText styleClass="bold" value="#{fn:length(album.unvisitedImages)}" />
                         <h:outputText value=" #{messages['new']}" />
                     </a4j:commandLink>
                     <h:outputText value=" #{messages['images_']}" />

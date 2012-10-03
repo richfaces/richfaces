@@ -1,7 +1,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
-    <a4j:outputPanel rendered="#{result.size() > 0}" id="imagesList">
+    <a4j:outputPanel rendered="#{fn:length(result) > 0}" id="imagesList">
         <rich:dataScroller for="imageList" render="userAlbumImages" />
         <ui:include src="/includes/image/inputNumberSlider.xhtml">
             <ui:param name="renderArea" value="imagesList" />
@@ -19,7 +20,7 @@
                                     style="border : 2px solid #FFFFFF;"
                                     value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}">
                                     <f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
-                                 </a4j:mediaOutput>
+                                </a4j:mediaOutput>
                             </a4j:commandLink>
                             <br />
                         </h:panelGroup>
@@ -38,5 +39,5 @@
             </a4j:repeat>
         </h:panelGroup>
     </a4j:outputPanel>
-    <h:outputText rendered="#{result.size() == 0}" value="#{messages['no_results_found']}" />
+    <h:outputText rendered="#{fn:length(result) == 0}" value="#{messages['no_results_found']}" />
 </ui:composition>

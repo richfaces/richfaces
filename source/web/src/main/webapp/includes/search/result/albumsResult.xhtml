@@ -1,7 +1,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
-    <a4j:repeat rendered="#{result.size() > 0}" id="albumsList" value="#{result}" var="album">
+    <a4j:repeat rendered="#{fn:length(result) > 0}" id="albumsList" value="#{result}" var="album">
         <h:panelGroup layout="block" styleClass="preview_box_album_120">
             <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
             <h:panelGrid cellpadding="0">
@@ -32,5 +33,5 @@
             </h:panelGroup>
         </h:panelGroup>
     </a4j:repeat>
-    <h:outputText rendered="#{result.size() == 0}" value="#{messages['no_results_found']}" />
+    <h:outputText rendered="#{fn:length(result) == 0}" value="#{messages['no_results_found']}" />
 </ui:composition>

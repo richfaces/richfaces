@@ -1,5 +1,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
     <h:form id="menuform" style="margin: 0px">
 
@@ -29,7 +30,7 @@
                             <h:graphicImage value="/img/shell/informer_shelf.png" width="31" height="23" alt="" border="0" />
                         </h:panelGroup>
                         <h:panelGroup layout="block" styleClass="main-menu-icons-middle-div">
-                            <h:outputText value="#{user.shelves.size()}" />
+                            <h:outputText value="#{fn:length(user.shelves)}" />
                         </h:panelGroup>
                         <h:panelGroup layout="block" styleClass="main-menu-icons-right-div">
                             <h:graphicImage value="/img/shell/informer_bg.png" width="163" height="23" alt=""
@@ -49,7 +50,7 @@
                             <h:graphicImage value="/img/shell/informer_album.png" width="31" height="23" alt="" border="0" />
                         </h:panelGroup>
                         <h:panelGroup layout="block" styleClass="main-menu-icons-middle-div">
-                            <h:outputText value="#{user.albums.size()}" />
+                            <h:outputText value="#{fn:length(user.albums)}" />
                         </h:panelGroup>
                         <h:panelGroup layout="block" styleClass="main-menu-icons-right-div">
                             <h:graphicImage value="/img/shell/informer_bg.png" width="163" height="23" alt=""
@@ -69,7 +70,7 @@
                             <h:graphicImage value="/img/shell/informer_photo.png" width="31" height="23" alt="" border="0" />
                         </h:panelGroup>
                         <h:panelGroup layout="block" styleClass="main-menu-icons-middle-div">
-                            <h:outputText value="#{user.images.size()}" />
+                            <h:outputText value="#{fn:length(user.images)}" />
                         </h:panelGroup>
                         <h:panelGroup layout="block" styleClass="main-menu-icons-right-div">
                             <h:graphicImage value="/img/shell/informer_bg.png" width="163" height="23" alt=""
