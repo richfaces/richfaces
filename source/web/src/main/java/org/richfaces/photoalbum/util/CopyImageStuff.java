@@ -33,6 +33,7 @@ import java.net.MalformedURLException;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.Startup;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
@@ -46,6 +47,7 @@ import javax.servlet.http.HttpSession;
  *
  */
 
+@Startup
 @ApplicationScoped
 public class CopyImageStuff {
 
