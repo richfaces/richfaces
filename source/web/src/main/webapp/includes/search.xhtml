@@ -2,23 +2,23 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:richx="http://richfaces.org/richx">
     <br />
-    <rich:tabPanel rendered="#{searchImageHelper.isResultExist()}" id="searchPanel" switchType="client">
-        <c:forEach items="#{searchImageHelper.options}" var="option" varStatus="i">
+    <rich:tabPanel rendered="#{imageSearchHelper.isResultExist()}" id="searchPanel" switchType="client">
+        <c:forEach items="#{imageSearchHelper.options}" var="option" varStatus="i">
             <rich:tab label="#{option.searchResultName}" styleClass="bold"
                 rendered="#{option.selected and option.searchResult.size() > 0}">
                 <h:panelGroup layout="block" styleClass="search-criteria">
                     <h:outputText value="#{messages['search_criteria']} " />
-                    <h:outputText value="#{searchImageHelper.getCriteriaString()}" />
+                    <h:outputText value="#{imageSearchHelper.getCriteriaString()}" />
                 </h:panelGroup>
 
                 <h:panelGroup layout="block" styleClass="search-keyword">
                     <h:outputText value="#{messages['keywords']} " />
 
-                    <a4j:repeat value="#{searchImageHelper.keywords}" var="keyword" rowKeyVar="row">
-                        <h:outputText rendered="#{searchImageHelper.selectedKeyword.equals(keyword.trim())}" value="#{keyword}" />
-                        <a4j:commandLink rendered="#{!searchImageHelper.selectedKeyword.equals(keyword.trim())}"
-                            actionListener="#{searchImageHelper.search(keyword)}" value="#{keyword.trim()}" render="mainArea" />
-                        <h:outputText rendered="#{searchImageHelper.keywords.size() != row+1 }" value=", " />
+                    <a4j:repeat value="#{imageSearchHelper.keywords}" var="keyword" rowKeyVar="row">
+                        <h:outputText rendered="#{imageSearchHelper.selectedKeyword.equals(keyword.trim())}" value="#{keyword}" />
+                        <a4j:commandLink rendered="#{!imageSearchHelper.selectedKeyword.equals(keyword.trim())}"
+                            actionListener="#{imageSearchHelper.search(keyword)}" value="#{keyword.trim()}" render="mainArea" />
+                        <h:outputText rendered="#{imageSearchHelper.keywords.size() != row+1 }" value=", " />
                     </a4j:repeat>
                 </h:panelGroup>
                 <ui:include src="#{option.searchResultTemplate}">
@@ -27,7 +27,7 @@
             </rich:tab>
         </c:forEach>
     </rich:tabPanel>
-    <h:panelGroup layout="block" rendered="#{!searchImageHelper.isResultExist()}">
+    <h:panelGroup layout="block" rendered="#{!imageSearchHelper.isResultExist()}">
         <h:outputText value="No results found" />
     </h:panelGroup>
 </ui:composition>

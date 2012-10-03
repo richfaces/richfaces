@@ -11,8 +11,8 @@
             <div class="search-label">#{messages['search']}</div>
             <a4j:commandLink styleClass="search-find-button" id="findLink" value="#{messages['find']}"
                 onclick="hideSearch(); Element.show($('openSeach'))" render="mainArea"
-                actionListener="#{searchImageHelper.search}" />
-            <h:inputText required="true" value="#{searchImageHelper.searchQuery}"
+                actionListener="#{imageSearchHelper.search}" />
+            <h:inputText required="true" value="#{imageSearchHelper.searchQuery}"
                 onkeydown="if (event.keyCode == 13) { #{rich:element('findLink')}.onclick(); return false; }"
                 styleClass="search-input"></h:inputText>
             <div id="openSeach" class="search-option-div">
@@ -25,15 +25,15 @@
             <img height="153" border="0" width="327" class="search-option-img" src="img/search/search_option_bg.png" />
             <div class="search-options-div1">
                 #{messages['in']}
-                <h:selectBooleanCheckbox rendered="#{identity.loggedIn}" value="#{searchImageHelper.seachInMyAlbums}"></h:selectBooleanCheckbox>
+                <h:selectBooleanCheckbox rendered="#{identity.loggedIn}" value="#{imageSearchHelper.seachInMyAlbums}"></h:selectBooleanCheckbox>
                 <h:outputText value=" #{messages['in_my_albums']}" rendered="#{identity.loggedIn}"></h:outputText>
-                <h:selectBooleanCheckbox value="#{searchImageHelper.searchInShared}"></h:selectBooleanCheckbox>
+                <h:selectBooleanCheckbox value="#{imageSearchHelper.searchInShared}"></h:selectBooleanCheckbox>
                 #{messages['in_shared_albums']}
             </div>
             <div class="search-options-div2">
                 <div style="float: left; height: 30px">for</div>
                 <div>
-                    <a4j:repeat value="#{searchImageHelper.options}" var="option">
+                    <a4j:repeat value="#{imageSearchHelper.options}" var="option">
                         <span style="white-space: nowrap"> <h:selectBooleanCheckbox value="#{option.selected}"></h:selectBooleanCheckbox>
                             <h:outputText value="#{option.name}  "></h:outputText>
                         </span>
