@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:in="http://richfaces.org/input"
-      xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:a4j="http://richfaces.org/a4j" xmlns:csv="http://richfaces.org/csv">
 <ui:composition template="/layout/template.xhtml">
     <ui:param name="title" value="Select - RF-12474" />
 
@@ -9,17 +9,32 @@
     <!-- content -->
     <ui:define name="content">
         <h:form>
-            <in:select id="select" enableManualInput="true" value="#{selectBean.value}">
+            <in:select id="select1" enableManualInput="true" value="#{selectBean.value}">
                 <f:selectItems value="#{selectBean.values}" />
             </in:select>
             <br />
-            <a4j:commandButton value="Send" render="output" />
+            <a4j:commandButton value="Send" render="output1" />
         </h:form>
-        
-        <a4j:outputPanel id="output">
+        <a4j:outputPanel id="output1">
             Output: <h:outputText value="#{selectBean.value}" />
             <br/>
-            <h:messages />
+            <csv:messages for="select1" />
+        </a4j:outputPanel>
+        
+        
+        
+        
+        <h:form>
+            <in:select id="select2" enableManualInput="true" value="#{selectBean.value}" defaultLabel="Click here to edit">
+                <f:selectItems value="#{selectBean.values}" />
+            </in:select>
+            <br />
+            <a4j:commandButton value="Send" render="output2" />
+        </h:form>
+        <a4j:outputPanel id="output2">
+            Output: <h:outputText value="#{selectBean.value}" />
+            <br/>
+            <csv:messages for="select2" />
         </a4j:outputPanel>
     </ui:define>
 </ui:composition>
