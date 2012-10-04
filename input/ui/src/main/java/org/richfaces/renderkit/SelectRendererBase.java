@@ -24,15 +24,23 @@ package org.richfaces.renderkit;
 import java.io.IOException;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.JSReference;
+import org.ajax4jsf.javascript.ScriptString;
+import org.richfaces.application.FacesMessages;
+import org.richfaces.application.MessageFactory;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.AbstractSelect;
 import org.richfaces.component.AbstractSelectComponent;
+import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.util.HtmlDimensions;
+import org.richfaces.validator.SelectLabelValueValidator;
+import org.richfaces.validator.csv.AddCSVMessageScript;
 
 /**
  * @author abelevich
@@ -146,5 +154,24 @@ public class SelectRendererBase extends InputRendererBase {
     public void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems)
             throws IOException {
         SelectHelper.encodeItems(facesContext, component, clientSelectItems, HtmlConstants.DIV_ELEM, ITEM_CSS);
+    }
+
+    @Override
+    protected void preEncodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+        ScriptString script = prepareCSVMessageScript(facesContext);
+
+        JavaScriptService jsService = ServiceTracker.getService(JavaScriptService.class);
+        jsService.addScript(facesContext, script);
+    }
+
+    /**
+     * Prepares client-side validation script for {@link SelectLabelValueValidator}
+     */
+    private ScriptString prepareCSVMessageScript(FacesContext facesContext) {
+        MessageFactory messageFactory = ServiceTracker.getService(MessageFactory.class);
+        FacesMessage message = messageFactory.createMessage(facesContext, FacesMessage.SEVERITY_ERROR,
+                FacesMessages.UISELECTONE_INVALID, "{0}");
+
+        return new AddCSVMessageScript(FacesMessages.UISELECTONE_INVALID.name(), message);
     }
 }

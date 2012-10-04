@@ -404,5 +404,18 @@
             }
         }
     })());
+    
+    // client-side validation
+    rf.csv = rf.csv || {};
+    rf.csv.validateSelectLabelValue = function (input, id, params, msg) {
+        var value = $(document.getElementById(id + 'selValue')).val();
+        var label = $(document.getElementById(id + 'Input')).val();
+        
+        var defaultLabel = RichFaces.$(id).defaultLabel;
+        
+        if (!value && label && (label != defaultLabel)) {
+            throw rf.csv.getMessage(null, 'UISELECTONE_INVALID', [id, ""]);
+        }
+    };
 
 })(jQuery, window.RichFaces);
