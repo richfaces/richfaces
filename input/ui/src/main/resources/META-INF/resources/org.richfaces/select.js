@@ -91,7 +91,6 @@
                 this.__hidePopup();
                 this.__setInputFocus();
                 this.__save();
-                console.log('change');
             },
 
             __onBtnMouseDown: function(e) {

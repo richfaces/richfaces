@@ -21,14 +21,23 @@
  */
 package org.richfaces.component;
 
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UISelectOne;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
+import javax.faces.validator.Validator;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.validator.SelectLabelValueValidator;
 
 /**
  * @author abelevich
  */
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractSelectComponent extends UISelectOne {
     /**
      * The width of the list element
@@ -54,7 +63,7 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     @Attribute(events = @EventName("selectitem"))
     public abstract String getOnselectitem();
 
-    //--------- select-props.xml
+    // --------- select-props.xml
 
     @Attribute
     public abstract String getDefaultLabel();
@@ -77,7 +86,7 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     @Attribute
     public abstract String getListClass();
 
-    //--------- Some of focus-props.xml (TODO: add tabindex here)
+    // --------- Some of focus-props.xml (TODO: add tabindex here)
 
     /**
      * Javascript code executed when this element loses focus.
@@ -91,7 +100,7 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     @Attribute(events = @EventName("focus"))
     public abstract String getOnfocus();
 
-    //--------- events-key-props.xml
+    // --------- events-key-props.xml
 
     @Attribute(events = @EventName("keydown"))
     public abstract String getOnkeydown();
@@ -102,7 +111,7 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     @Attribute(events = @EventName("keyup"))
     public abstract String getOnkeyup();
 
-    //--------- events-mouse-props.xml
+    // --------- events-mouse-props.xml
 
     @Attribute(events = @EventName("click"))
     public abstract String getOnclick();
@@ -125,7 +134,7 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     @Attribute(events = @EventName("mouseup"))
     public abstract String getOnmouseup();
 
-    //--------- list events
+    // --------- list events
 
     /**
      * Javascript code executed when the list element is shown
@@ -176,7 +185,7 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     public abstract String getOnlistmousemove();
 
     /**
-     *Javascript code executed when a pointer button is moved away from the list element.
+     * Javascript code executed when a pointer button is moved away from the list element.
      */
     @Attribute(events = @EventName("listmouseout"))
     public abstract String getOnlistmouseout();
@@ -199,4 +208,17 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     @Attribute(events = @EventName("listkeyup"))
     public abstract String getOnlistkeyup();
 
+    @Override
+    public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+        super.processEvent(event);
+
+        if (event instanceof PostAddToViewEvent) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+
+            EditableValueHolder component = (EditableValueHolder) event.getComponent();
+
+            Validator validator = facesContext.getApplication().createValidator(SelectLabelValueValidator.ID);
+            component.addValidator(validator);
+        }
+    }
 }

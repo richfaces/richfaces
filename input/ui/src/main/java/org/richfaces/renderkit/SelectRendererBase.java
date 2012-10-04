@@ -23,22 +23,15 @@ package org.richfaces.renderkit;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.JSReference;
-import org.richfaces.application.FacesMessages;
-import org.richfaces.application.MessageFactory;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.AbstractSelect;
 import org.richfaces.component.AbstractSelectComponent;
-import org.richfaces.component.util.MessageUtil;
 import org.richfaces.renderkit.util.HtmlDimensions;
 
 /**
@@ -57,29 +50,6 @@ import org.richfaces.renderkit.util.HtmlDimensions;
         @ResourceDependency(library = "org.richfaces", name = "select.ecss") })
 public class SelectRendererBase extends InputRendererBase {
     public static final String ITEM_CSS = "rf-sel-opt";
-
-    @Override
-    protected void doDecode(FacesContext context, UIComponent component) {
-        String clientId = component.getClientId(context);
-        Map<String, String> requestParameterMap = context.getExternalContext().getRequestParameterMap();
-        String newValue = (String) requestParameterMap.get(clientId);
-        String newLabel = (String) requestParameterMap.get(clientId + "Input");
-
-        if (null != newValue) {
-            UIInput input = (UIInput) component;
-
-            // throw validation error when value wasn't determined based on manual input of label
-            if ("".equals(newValue) && !"".equals(newLabel)) {
-                String componentLabel = MessageUtil.getLabel(context, component);
-                FacesMessage messageInvalid = ServiceTracker.getService(MessageFactory.class).createMessage(context,
-                        FacesMessage.SEVERITY_ERROR, FacesMessages.UISELECTONE_INVALID, componentLabel);
-                context.addMessage(component.getId(), messageInvalid);
-            } else {
-                input.setSubmittedValue(newValue);
-            }
-
-        }
-    }
 
     public JSReference getClientFilterFunction(UIComponent component) {
         AbstractSelect select = (AbstractSelect) component;
