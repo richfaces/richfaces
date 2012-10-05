@@ -96,8 +96,10 @@ public class TabPanelRenderer extends TogglePanelRenderer {
             return false;
         }
 
+        UIComponent item = (UIComponent) panel.getItem(activePanelName);
+
         Map<String, String> parameterMap = context.getExternalContext().getRequestParameterMap();
-        return parameterMap.get(activePanelName) != null;
+        return parameterMap.get(item.getClientId(context)) != null;
     }
 
     @Override
