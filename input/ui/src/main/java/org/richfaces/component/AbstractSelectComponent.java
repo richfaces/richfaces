@@ -21,23 +21,14 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UISelectOne;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.validator.Validator;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.validator.SelectLabelValueValidator;
 
 /**
  * @author abelevich
  */
-@ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractSelectComponent extends UISelectOne {
     /**
      * The width of the list element
@@ -207,18 +198,4 @@ public abstract class AbstractSelectComponent extends UISelectOne {
      */
     @Attribute(events = @EventName("listkeyup"))
     public abstract String getOnlistkeyup();
-
-    @Override
-    public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
-        super.processEvent(event);
-
-        if (event instanceof PostAddToViewEvent) {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-
-            EditableValueHolder component = (EditableValueHolder) event.getComponent();
-
-            Validator validator = facesContext.getApplication().createValidator(SelectLabelValueValidator.ID);
-            component.addValidator(validator);
-        }
-    }
 }
