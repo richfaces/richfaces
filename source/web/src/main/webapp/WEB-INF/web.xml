@@ -9,7 +9,8 @@
 
     <context-param>
         <param-name>org.richfaces.skin</param-name>
-        <param-value>photoalbum</param-value>
+<!--         <param-value>photoalbum</param-value> -->
+        <param-value>DEFAULT</param-value>
     </context-param>
 
 	<!-- Seam -->
