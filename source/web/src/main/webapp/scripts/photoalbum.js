@@ -7,8 +7,8 @@ function selectPopularTag(tag, target) {
 	}
 }
 
-function applyModalPanelEffect(panelId, effectFunc, params) {
-	if (panelId && effectFunc) {
+function applyModalPanelEffect(panelId, /*effectFunc,*/ params) {
+	if (panelId /*&& effectFunc*/) {
 		
 		var modalPanel = $(panelId);
 		
@@ -16,14 +16,16 @@ function applyModalPanelEffect(panelId, effectFunc, params) {
 			var component = modalPanel.component;
 			var div = component.getSizedElement(); 
 			
-			Element.hide(div);
+			//Element.hide(div);
+			div.style.visibility = 'hidden';
 						
-			effectFunc.call(this, Object.extend({targetId: div.id}, params || {}));
+			//effectFunc.call(this, Object.extend({targetId: div.id}, params || {}));
 		}
 				
 	}
 }
 
+/*
 // fix IE6 footer position
 function kickLayout(selector) {
 	
@@ -32,5 +34,14 @@ function kickLayout(selector) {
 		if(element) {
 			element.css('zoom','normal').css('zoom','100%');
 		}
-	}	
+	}
+	
+} */
+
+function show(id) {
+	document.getElementById(id).style.display = 'inherit';
+}
+
+function hide(id) {
+	document.getElementById(id).style.display = 'none';
 }

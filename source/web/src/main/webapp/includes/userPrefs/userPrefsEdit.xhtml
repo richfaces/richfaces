@@ -87,7 +87,7 @@
                     <td><h:outputLabel for="sex">#{messages['user.sex']}</h:outputLabel></td>
                     <td><h:panelGrid columns="2">
                             <h:selectOneRadio required="true" id="sex" value="#{user.sex}">
-                                <f:selectItems value="#{userPrefsBean.sexs}" var="sex" itemValue="#{sex}" itemLabel="#{sex." />
+                                <f:selectItems value="#{userPrefsBean.sexs}" var="sex" itemValue="#{sex}" itemLabel="#{sex}" />
                                 <!-- TODO: format output -->
                                 <a4j:ajax event="click" execute="@this" render="avatar" />
                             </h:selectOneRadio>

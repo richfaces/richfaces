@@ -3,7 +3,7 @@
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
 
     <rich:popupPanel id="albumModalPanel" width="450" height="140"
-        onshow="applyModalPanelEffect('albumModalPanel', appearFunc,{delay: 0.5, afterFinish: function(){$('form2:name').focus();}});">
+        onshow="applyModalPanelEffect('albumModalPanel', {delay: 0.5, afterFinish: function(){$('form2:name').focus();}});">
         <f:facet name="header">
             <h:outputText value="#{messages['album.add']}" />
         </f:facet>

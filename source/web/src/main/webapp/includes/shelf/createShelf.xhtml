@@ -2,7 +2,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
     <rich:popupPanel id="shelfModalPanel" width="400" height="150" autosized="true"
-        onshow="applyModalPanelEffect('shelfModalPanel', appearFunc,{delay: 0.5, afterFinish: function(){$('form5:name').focus();}})">
+        onshow="applyModalPanelEffect('shelfModalPanel', {delay: 0.5, afterFinish: function(){$('form5:name').focus();}})">
         <f:facet name="header">#{messages['add_shelf']}</f:facet>
 
         <f:facet name="controls">

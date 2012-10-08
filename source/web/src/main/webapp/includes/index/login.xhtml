@@ -3,7 +3,7 @@
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
 
     <rich:popupPanel id="loginPanel"
-        onshow="applyModalPanelEffect('loginPanel', appearFunc,{delay: 0.5, afterFinish: function(){$('loginPanelForm:username').focus();}})"
+        onshow="applyModalPanelEffect('loginPanel', {delay: 0.5, afterFinish: function(){$('loginPanelForm:username').focus();}})"
         styleClass="login-panel" show="#{authenticator.loginFailed}" width="400" height="150" autosized="true">
         <f:facet name="header">#{messages['login.login']}</f:facet>
         <f:facet name="controls">
