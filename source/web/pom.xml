@@ -136,6 +136,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-impl</artifactId>
+            <version>3.1.1.Final</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.jboss.seam.security</groupId>
             <artifactId>seam-security-api</artifactId>
         </dependency>
