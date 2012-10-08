@@ -10,13 +10,13 @@
             </span>
             <div class="search-label">#{messages['search']}</div>
             <a4j:commandLink styleClass="search-find-button" id="findLink" value="#{messages['find']}"
-                onclick="hideSearch(); Element.show($('openSeach'))" render="mainArea"
+                onclick="$('openSeach').show()" render="mainArea"
                 actionListener="#{imageSearchHelper.search}" />
             <h:inputText required="true" value="#{imageSearchHelper.searchQuery}"
                 onkeydown="if (event.keyCode == 13) { #{rich:element('findLink')}.onclick(); return false; }"
                 styleClass="search-input"></h:inputText>
             <div id="openSeach" class="search-option-div">
-                <a class="search-option-link" href="#" onclick="showSearch(); Element.hide($('openSeach'))">#{messages['options']}
+                <a class="search-option-link" href="#" onclick="$('openSeach').hide())">#{messages['options']}
                     <img height="7" border="0" width="7" alt="" src="img/search/bull_arr_down.gif" />
                 </a>
             </div>
