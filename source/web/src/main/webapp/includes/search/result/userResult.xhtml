@@ -10,7 +10,7 @@
                     <a4j:commandLink render="mainArea" actionListener="#{controller.showUser(searchedUser)}">
                         <a4j:mediaOutput rendered="#{searchedUser.hasAvatar}" element="img"
                             createContent="#{imageLoader.paintAvatarImage}" styleClass="avatar"
-                            value="/#{searchedUser.login}/avatar.jpg" />
+                            value="/#{searchedUser.login}/avatar.jpg" mimeType="image/jpeg" />
                         <h:graphicImage rendered="#{!searchedUser.hasAvatar and searchedUser.sex.key =='1' }"
                             value="/img/shell/avatar_default.png" width="80" height="80" alt="" style="border:none" />
                         <h:graphicImage rendered="#{!searchedUser.hasAvatar and searchedUser.sex.key =='0' }"

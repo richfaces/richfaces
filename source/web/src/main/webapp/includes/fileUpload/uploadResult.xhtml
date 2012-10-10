@@ -50,7 +50,7 @@
                         <h:panelGroup>
                             <a4j:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel">
                                 <a4j:mediaOutput element="img" createContent="#{imageLoader.paintImage}"
-                                    value="#{fileManager.transformPath(image.fullPath, '_small120')}">
+                                    value="#{fileManager.transformPath(image.fullPath, '_small120')}" mimeType="image/jpeg">
                                     <rich:dragSource render="mainArea, tree" id="dragSource" dragIndicator="dragIndicator"
                                         type="image" dragValue="#{image}">
                                         <!-- <rich:dndParam id="dragParam" name="label" value="#{image.name}" /> -->

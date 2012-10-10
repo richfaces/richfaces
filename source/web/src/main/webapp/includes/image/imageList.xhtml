@@ -30,7 +30,7 @@
                     <h:panelGroup>
                         <a4j:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel">
                             <a4j:mediaOutput id="img" element="img" createContent="#{imageLoader.paintImage}"
-                                style="border : 1px solid #FFFFFF;"
+                                style="border : 1px solid #FFFFFF;" mimeType="image/jpeg"
                                 value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}">
                                 <f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
                                 <rich:dragSource rendered="#{controller.isUserImage(image)}" render="mainArea, treePanel"

@@ -28,7 +28,7 @@
                         </a4j:commandLink>
                     </h:panelGroup> <a4j:mediaOutput id="img" element="img" styleClass="main-image" createContent="#{imageLoader.paintImage}"
                         style="border : 3px solid #808080;"
-                        value="#{fileManager.transformPath(model.selectedImage.fullPath, '_medium')}">
+                        value="#{fileManager.transformPath(model.selectedImage.fullPath, '_medium')}" mimeType="image/jpeg">
                         <rich:dragSource rendered="#{controller.isUserImage(model.selectedImage)}" render="mainArea, treePanel"
                             id="dragSource" dragIndicator="dragIndicator" type="image" dragValue="#{model.selectedImage}">
                             <!-- <rich:dndParam id="dragParam" name="label" value="#{model.selectedImage.name}" /> -->

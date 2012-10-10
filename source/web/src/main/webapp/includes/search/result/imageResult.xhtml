@@ -59,8 +59,10 @@
                     <h:panelGrid cellpadding="0">
                         <h:panelGroup>
                             <a4j:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel">
-                                <a4j:mediaOutput id="img" element="img" createContent="#{imageLoader.paintImage}" style="border: 2px solid #FFFFFF;"
-                                    value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}">
+                                <a4j:mediaOutput id="img" element="img" createContent="#{imageLoader.paintImage}"
+                                    style="border: 2px solid #FFFFFF;"
+                                    value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}"
+                                    mimeType="image/jpeg">
                                     <f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
                                 </a4j:mediaOutput>
                             </a4j:commandLink>

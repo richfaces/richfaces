@@ -24,7 +24,7 @@
                             <a4j:commandLink render="mainArea" actionListener="#{controller.showUser(comment.author)}">
                                 <a4j:mediaOutput rendered="#{comment.author.hasAvatar}" element="img"
                                     createContent="#{imageLoader.paintImage}" styleClass="additional-info-avatar"
-                                    value="/#{comment.author.login}/avatar.jpg" />
+                                    value="/#{comment.author.login}/avatar.jpg" mimeType="image/jpeg"/>
                                 <h:graphicImage rendered="#{!comment.author.hasAvatar and comment.author.sex.key =='1' }"
                                     value="/img/shell/avatar_default.png" width="80" height="80" alt="" style="border:none" />
                                 <h:graphicImage rendered="#{!comment.author.hasAvatar and comment.author.sex.key =='0' }"

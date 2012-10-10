@@ -9,7 +9,7 @@
                     <a4j:commandLink actionListener="#{controller.showAlbum(album)}" render="mainArea, treePanel">
                         <a4j:mediaOutput rendered="#{!album.isEmpty()}" id="img" element="img"
                             createContent="#{imageLoader.paintImage}" styleClass="album-cover-image"
-                            value="#{fileManager.transformPath(album.coveringImage.fullPath, '_small120')}">
+                            value="#{fileManager.transformPath(album.coveringImage.fullPath, '_small120')}" mimeType="image/jpeg">
                             <rich:dragSource rendered="#{controller.isUserAlbum(album)}" render="mainArea, treePanel"
                                 id="dragSource2" dragIndicator="dragIndicator" type="album" dragValue="#{album}">
                                 <!-- <rich:dndParam id="dragParam" name="label" value="#{album.name}" /> -->

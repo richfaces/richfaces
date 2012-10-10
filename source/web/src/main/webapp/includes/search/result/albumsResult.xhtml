@@ -10,7 +10,7 @@
                     <a4j:commandLink actionListener="#{controller.showAlbum(album)}" render="mainArea, treePanel">
                         <a4j:mediaOutput rendered="#{!album.isEmpty()}" id="img" element="img"
                             createContent="#{imageLoader.paintImage}" styleClass="album-cover-image"
-                            value="#{fileManager.transformPath(album.coveringImage.fullPath, '_small120')}" />
+                            value="#{fileManager.transformPath(album.coveringImage.fullPath, '_small120')}" mimeType="image/jpeg" />
                         <h:graphicImage rendered="#{album.isEmpty()}" style="width:80px; height:80px;"
                             value="img/shell/frame_album_200.png" styleClass="album-cover-image">
                         </h:graphicImage>
