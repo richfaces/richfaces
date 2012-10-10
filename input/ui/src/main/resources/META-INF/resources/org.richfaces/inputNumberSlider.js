@@ -125,9 +125,11 @@
 
                     if (value > this.maxValue) {
                         value = this.maxValue;
+                        this.input.val(value);
                         changed = true;
                     } else if (value < this.minValue) {
                         value = this.minValue;
+                        this.input.val(value);
                         changed = true;
                     }
                     if (value != this.value || changed) {
