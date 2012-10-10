@@ -1,4 +1,4 @@
-@import url("jbossorg.css");
+@import url("jbossorg.css.seam?ln=stylesheet/help");
 
 .expand_collapse_toc {
     float:left;

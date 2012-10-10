@@ -1,0 +1,12 @@
+@import url("documentation.css.seam?ln=stylesheet/help");
+@import url("docnav.css.seam?ln=stylesheet/help");
+@import url("reports.css.seam?ln=stylesheet/help");
+@import url("extensions.css.seam?ln=stylesheet/help");
+@import url("codehighlight.css.seam?ln=stylesheet/help");
+
+/* Links */
+
+div.longdesc-link {
+    float:right;
+    color:#999;
+}

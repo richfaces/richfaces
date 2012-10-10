@@ -13,10 +13,9 @@
     content="richfaces, richfaces demo, richfaces live demo, richfaces examples, datatable, upload, suggestion box, tree, calendar, AJAX, JSF, Seam, JBoss, RIA, Ajax4JSF, java server faces, rich components"
     name="Keywords" />
 <title>RichFaces PhotoAlbum demo</title>
-<link href="stylesheet/photoalbum.css" rel="stylesheet" type="text/css" />
-<script src="scripts/photoalbum.js" type="text/javascript"></script>
+<h:outputStylesheet name="photoalbum.css" library="stylesheet" />
+<h:outputScript name="photoalbum.js" library="scripts"/>
 </h:head>
-
 
 <h:body class="main-body" style="position: relative;">
     <div style="position: relative; height: auto; overflow: hidden; min-height: 100%; zoom: 1;" class="main-panel">
@@ -73,7 +72,6 @@
         <ui:insert name="searchWidget" />
         <ui:include src="/includes/index/status.xhtml" />
     </div>
-
 
     <script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>
 

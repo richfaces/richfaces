@@ -1,4 +1,4 @@
-@import url("html-common.css");
+@import url("html-common.css.seam?ln=stylesheet/help");
 .new, .added { 
 background:transparent url(../images/new.png) no-repeat scroll right top; 
 padding-right:70px; 
