@@ -205,7 +205,21 @@ public final class RichFunction {
     }
 
     /**
-     * Convert any Java Object to JavaScript representation ( as possible ).
+     * Convert any Java Object to JavaScript representation, converting types properly, e.g.:
+     *
+     * <ul>
+     * <li><tt>Java primitives</tt></li>
+     * <li><tt>Arrays: toScript(new int[] { 1, 2, 3 }) -&gt; [1, 2, 3]</tt></li>
+     * <li><tt>Collections (sets, lists): toScript(Arrays.asList(new int[] { 1, 2, 3 })) -&gt; [1, 2, 3]</tt></li>
+     * <li><tt>Maps: toScript((Map&lt;String, String&gt;)map) -&gt; {\"a\":\"foo\",\"b\":\"bar\",\"c\":\"baz\"}</tt></li>
+     * <li><tt>Beans / Objects: toScript(new Bean[] { new Bean(1, true, "bar") }) -&gt; [{\"bool\":true,\"foo\":\"bar\",\"integer\":1}]</tt></li>
+     *
+     * <li><tt>Dates and Timezones</tt></li>
+     *
+     * <li><tt>Combinations of above</tt></li>
+     * </ul>
+     *
+     * This function delegates to org.ajax4jsf.javascript.ScriptUtils#toScript(Object)
      */
     @Function
     public static String toScript(Object o) {
