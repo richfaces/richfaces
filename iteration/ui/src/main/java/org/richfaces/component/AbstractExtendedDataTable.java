@@ -189,6 +189,11 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
         setClientFirst(0);
     }
 
+    /**
+     * Use to switch Extended Data Table to AJAX lazy-loading mode. Specify number of rows rows to be loaded with one request.
+     * If this attribute is set to "0", all rows are loaded. (Default value: 0)
+     */
+    @Attribute(generate = false, defaultValue = "0")
     public int getClientRows() {
         return (Integer) getStateHelper().eval(PropertyKeys.clientRows, 0);
     }
