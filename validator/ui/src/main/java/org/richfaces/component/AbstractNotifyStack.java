@@ -44,7 +44,7 @@ public abstract class AbstractNotifyStack extends UIComponentBase {
     public static final String COMPONENT_FAMILY = "org.richfaces.NotifyStack";
     public static final String COMPONENT_TYPE = "org.richfaces.NotifyStack";
 
-    @Attribute(description = @Description("Defines the position of the start of stack"))
+    @Attribute(description = @Description("Defines the position of the start of stack: topLeft, topRight (default), bottomLeft, bottomRight"))
     public abstract CornerPosition getPosition();
 
     public abstract void setPosition(CornerPosition position);
