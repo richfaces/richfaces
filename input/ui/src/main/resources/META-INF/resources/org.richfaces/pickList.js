@@ -140,10 +140,6 @@
                 if (this.focused) {
                     this.focused = false;
                     rf.Event.fire(this, "listblur" + this.namespace, e);
-                    var newValue = this.targetList.csvEncodeValues();
-                    if (newValue != this.originalValue) {
-                        rf.Event.fire(this, "change" + this.namespace, e);
-                    }
                 }
             },
 
@@ -184,7 +180,12 @@
             },
 
             encodeHiddenValues: function() {
-                this.hiddenValues.val(this.targetList.csvEncodeValues());
+                var oldValues = this.hiddenValues.val();
+                var newValues = this.targetList.csvEncodeValues();
+                if (oldValues !== newValues) {
+                    this.hiddenValues.val(newValues);
+                }
+                rf.Event.fire(this, "change" + this.namespace, {oldValues : oldValues, newValues : newValues});
             },
 
             toggleButtons: function() {
