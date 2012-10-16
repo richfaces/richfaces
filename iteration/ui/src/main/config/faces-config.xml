@@ -25,6 +25,7 @@
             <cdk:listener-class>org.richfaces.event.TreeToggleListener</cdk:listener-class>
             <cdk:source-class>org.richfaces.event.TreeToggleSource</cdk:source-class>
             <cdk:listener-method>processTreeToggle</cdk:listener-method>
+            <cdk:description>Associates tree toggle listener with &lt;rich:tree&gt; component in order to listen for tree toggling events on server-side.</cdk:description>
             <cdk:tag>
                 <cdk:tag-name>treeToggleListener</cdk:tag-name>
                 <cdk:tag-type>Facelets</cdk:tag-type>
@@ -38,6 +39,7 @@
             <cdk:listener-class>org.richfaces.event.TreeSelectionChangeListener</cdk:listener-class>
             <cdk:source-class>org.richfaces.event.TreeSelectionChangeSource</cdk:source-class>
             <cdk:listener-method>processTreeSelectionChange</cdk:listener-method>
+            <cdk:description>Associates tree selection change listener with &lt;rich:tree&gt; component in order to listen for tree selection events on server-side.</cdk:description>
             <cdk:tag>
                 <cdk:tag-name>treeSelectionChangeListener</cdk:tag-name>
                 <cdk:tag-type>Facelets</cdk:tag-type>
