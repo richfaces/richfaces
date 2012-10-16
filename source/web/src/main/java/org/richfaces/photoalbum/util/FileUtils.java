@@ -80,7 +80,8 @@ public class FileUtils {
             }
             if (CLOCK) {
                 millis = System.currentTimeMillis() - millis;
-                System.out.println("Copy file '" + srcFile.getPath() + "' on " + millis / 1000L + " second(s)");
+                // comment for now, kinda clogs the output console
+                // System.out.println("Copy file '" + srcFile.getPath() + "' on " + millis / 1000L + " second(s)");
             }
         } catch (IOException e) {
             throw e;
