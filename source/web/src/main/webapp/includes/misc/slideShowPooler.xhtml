@@ -4,7 +4,8 @@
     <h:form id="slideShowForm" style="margin: 0px;">
         <a4j:poll data="#{slideshow.errorDetected}" render="slideshowImage, treePanel" interval="#{slideshow.interval}"
             enabled="#{slideshow.active}" onsubmit="hidePictureEffect()"
-            oncomplete="if(data)#{rich:component('slideShowModalPanel')}.hide();showPictureEffect();"
+            oncomplete="if(data)#{rich:component('slideShowModalPanel')}.hide();"
             actionListener="#{slideshow.showNextImage()}" />
+            <!-- was oncomplete="...;onshow="showPictureEffect();" -->
     </h:form>
 </ui:composition>
