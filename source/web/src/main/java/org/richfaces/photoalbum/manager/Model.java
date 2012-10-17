@@ -23,7 +23,7 @@ package org.richfaces.photoalbum.manager;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Any;
@@ -49,7 +49,7 @@ import org.richfaces.photoalbum.event.SimpleEvent;
  */
 
 @Named
-@ConversationScoped
+@ApplicationScoped
 public class Model implements Serializable {
 
     private static final long serialVersionUID = -1767281809514660171L;
@@ -68,8 +68,11 @@ public class Model implements Serializable {
 
     private List<Image> images;
 
-    @Inject @Any Event<SimpleEvent> event;
-    @Inject MetaTag metatag;
+    @Inject
+    @Any
+    Event<SimpleEvent> event;
+    @Inject
+    MetaTag metatag;
 
     /**
      * This method invoked after the almost user actions, to prepare properly data to show in the UI.
@@ -87,7 +90,7 @@ public class Model implements Serializable {
         this.setSelectedImage(selectedImage);
         this.setSelectedShelf(selectedShelf);
         this.setSelectedUser(selectedUser);
-        //this.setMainArea(mainArea);
+        // this.setMainArea(mainArea);
         this.mainArea = mainArea;
         this.images = images;
     }

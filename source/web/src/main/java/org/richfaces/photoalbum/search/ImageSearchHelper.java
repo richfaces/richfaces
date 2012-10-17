@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -48,7 +48,7 @@ import org.richfaces.photoalbum.service.PhotoAlbumException;
  */
 
 @Named
-@ConversationScoped
+@ApplicationScoped
 public class ImageSearchHelper implements Serializable {
 
     private static final long serialVersionUID = -304368268896942902L;

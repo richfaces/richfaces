@@ -22,7 +22,7 @@ package org.richfaces.photoalbum.manager;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Any;
@@ -53,7 +53,8 @@ import org.richfaces.photoalbum.service.Constants;
  */
 
 @Named
-@RequestScoped
+// @RequestScoped
+@ApplicationScoped
 public class Controller implements Serializable {
 
     private static final long serialVersionUID = 5656562187249324512L;
@@ -478,6 +479,10 @@ public class Controller implements Serializable {
     public Integer getPage() {
         final Integer index = model.getSelectedAlbum().getIndex(model.getSelectedImage());
         return index / 5 + 1;
+    }
+    
+    public void setPage(int page) {
+        // do nothing, just fooling the scroller
     }
 
     /**

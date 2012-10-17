@@ -20,7 +20,7 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
 import org.richfaces.photoalbum.service.Constants;
@@ -34,7 +34,7 @@ import org.richfaces.photoalbum.util.ImageDimension;
  */
 
 @Named
-@ViewScoped
+@ApplicationScoped
 public class ImageSizeHelper {
 
     int value = Constants.DEFAULT_IMAGE_SIZEVALUE;
@@ -46,7 +46,7 @@ public class ImageSizeHelper {
     }
 
     public int getValue() {
-        return value;
+        return this.value;
     }
 
     /**
