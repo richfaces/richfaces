@@ -12,7 +12,7 @@
     <artifactId>richfaces-photoalbum</artifactId>
 <!--     <name>${appName} WAR module</name> -->
     <name>Photoalbum</name>
-    <version>4.2.2.Final</version>
+    <version>4.2.3.Final</version>
     <packaging>war</packaging>
 
     <properties>
