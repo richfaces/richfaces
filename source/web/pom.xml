@@ -18,7 +18,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javaee6.with.tools.version>1.0.0.Final</javaee6.with.tools.version>
-        <org.richfaces.bom.version>4.2.2.Final</org.richfaces.bom.version>
+        <org.richfaces.bom.version>${project.version}</org.richfaces.bom.version>
         <seam.version>3.1.0.Final</seam.version>
         <faceletsVersion>1.1.15.B1</faceletsVersion>
     </properties>
