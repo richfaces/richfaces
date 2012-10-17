@@ -20,14 +20,14 @@
                                 actionListener="#{controller.showUser(user)}" rendered="#{identity.loggedIn}" />
                         </h:form>
 
-                        <h:outputText styleClass="logged-user" style="color:#FFFFFF" rendered="#{!identity.hasRole('admin')}"
+                        <h:outputText styleClass="logged-user" style="color:#FFFFFF" rendered="#{!identity.hasRole('admin','','')}"
                             value="#{messages['menu.welcome.guest']}" />
                     </h:panelGroup>
                     <h:graphicImage width="3" height="15" alt="" border="0" value="/img/shell/bullet.gif" />
 
                     <h:panelGroup styleClass="top-right-bottom-menu-item-link" layout="block">
                         <h:form id="login-form" style="margin: 0px">
-                            <a4j:commandLink id="loginPanelShowlink" rendered="#{!identity.hasRole('admin')}"
+                            <a4j:commandLink id="loginPanelShowlink" rendered="#{!identity.hasRole('admin','','')}"
                                 value="#{messages['menu.login']}" render="loginPanel"
                                 actionListener="#{authenticator.resetCredentials()}"
                                 oncomplete="#{rich:component('loginPanel')}.show(); " />
