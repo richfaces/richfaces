@@ -80,6 +80,7 @@ public class Image implements Serializable {
     private Long id;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<MetaTag> imageTags = new ArrayList<MetaTag>();
 
     @OrderBy(clause = "date asc")
