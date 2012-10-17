@@ -436,6 +436,10 @@
                         <name>Simple Toggle Panel</name>
                     </sample>
                     <sample>
+                        <id>dynamic</id>
+                        <name>Dynamic Panels</name>
+                    </sample>
+                    <sample>
                         <id>wizard</id>
                         <name>Wizard creation</name>
                     </sample>
@@ -452,6 +456,11 @@
                     </sample>
                     <!-- sample> <id>headerCustomization</id> <description>Headers Customization</description>
                              <name>Headers Customization</name> </sample -->
+                     <sample>
+                        <id>dynamic</id>
+                        <description>Dynamic Tabs</description>
+                        <name>Dynamic Tabs</name>
+                    </sample>
                     <sample>
                         <id>valueManagement</id>
                         <description>Selected Tab Management</description>
@@ -476,6 +485,10 @@
                     <sample>
                         <id>simple</id>
                         <name>Simple Accordion</name>
+                    </sample>
+                    <sample>
+                        <id>dynamic</id>
+                        <name>Dynamic Accordion</name>
                     </sample>
                 </samples>
             </demo>
