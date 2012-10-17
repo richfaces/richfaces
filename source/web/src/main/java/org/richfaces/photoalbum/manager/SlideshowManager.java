@@ -31,6 +31,7 @@ import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.event.EventType;
@@ -40,6 +41,7 @@ import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.util.Utils;
 
 @ConversationScoped
+@Named("slideshow")
 public class SlideshowManager implements Serializable {
 
     private static final long serialVersionUID = 7801877176558409702L;
