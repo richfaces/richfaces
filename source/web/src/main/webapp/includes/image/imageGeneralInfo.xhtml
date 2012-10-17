@@ -37,7 +37,7 @@
                         <rich:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip"
                             rendered="#{model.selectedImage.showMetaInfo}">
                             <span style="white-space: nowrap; display: block; text-align: left;"> <h:outputText
-                                    value="Size in bytes: #{fn:length(model.selectedImage)}" /><br /> <h:outputText
+                                    value="Size in bytes: #{model.selectedImage.size}" /><br /> <h:outputText
                                     value="#{messages['original_size']}: #{model.selectedImage.height}x#{model.selectedImage.width}" /><br />
                                 <h:outputText value="Captured at: #{model.selectedImage.created}" /><br /> <h:outputText
                                     value="#{messages['camera']}: #{model.selectedImage.cameraModel}" />
