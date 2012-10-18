@@ -37,6 +37,9 @@ import javax.faces.context.ResponseWriter;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
+import org.ajax4jsf.javascript.ScriptString;
+import org.ajax4jsf.javascript.ScriptStringBase;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItemInterface;
@@ -44,7 +47,7 @@ import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.TogglePanelVisitCallback;
 import org.richfaces.component.TogglePanelVisitState;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.MetaComponentRenderer;
@@ -94,10 +97,19 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
     }
 
     protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
-        StringBuilder onComplete = new StringBuilder();
+        final StringBuilder onComplete = new StringBuilder();
         onComplete.append("RichFaces.$('").append(panelId).append("').onCompleteHandler('").append(newValue).append("');");
 
-        ExtendedPartialViewContext.getInstance(context).appendOncomplete(onComplete.toString());
+        ScriptString script = new ScriptStringBase() {
+
+            @Override
+            public void appendScript(Appendable target) throws IOException {
+                target.append(onComplete);
+            }
+        };
+
+        JavaScriptService scriptService = ServiceTracker.getService(JavaScriptService.class);
+        scriptService.addScript(context, script);
     }
 
     static String getValueRequestParamName(FacesContext context, UIComponent component) {

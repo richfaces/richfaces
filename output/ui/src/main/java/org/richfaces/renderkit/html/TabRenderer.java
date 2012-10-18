@@ -36,12 +36,13 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 
 import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTab;
 import org.richfaces.component.AbstractTabPanel;
 import org.richfaces.component.AbstractTogglePanelItemInterface;
 import org.richfaces.component.ComponentIterators;
-import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.HtmlConstants;
 
 import com.google.common.base.Predicate;
@@ -74,16 +75,9 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
             if (context.getPartialViewContext().isPartialRequest()) {
                 context.getPartialViewContext().getRenderIds().add(component.getClientId(context));
-                addOnCompleteParam(context, tab.getName(), tab.getTabPanel().getClientId(context));
+                TogglePanelRenderer.addOnCompleteParam(context, tab.getName(), tab.getTabPanel().getClientId(context));
             }
         }
-    }
-
-    protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
-        StringBuilder onComplete = new StringBuilder();
-        onComplete.append("RichFaces.$('").append(panelId).append("').onCompleteHandler('").append(newValue).append("');");
-
-        ExtendedPartialViewContext.getInstance(context).appendOncomplete(onComplete.toString());
     }
 
     @Override
@@ -111,7 +105,10 @@ public class TabRenderer extends TogglePanelItemRenderer {
     @Override
     protected void doEncodeItemEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         encodeContentEnd(component, writer);
-        super.doEncodeItemEnd(writer, context, component);
+
+        jsService().addScript(context, getScriptObject(context, component));
+
+        writer.endElement(HtmlConstants.DIV_ELEM);
     }
 
     @Override
@@ -120,7 +117,12 @@ public class TabRenderer extends TogglePanelItemRenderer {
             doEncodeItemEnd(writer, context, component);
         } else {
             encodePlaceHolder(context, component);
+            jsService().addScript(context, getScriptObject(context, component));
         }
+    }
+
+    private JavaScriptService jsService() {
+        return ServiceTracker.getService(JavaScriptService.class);
     }
 
     @Override

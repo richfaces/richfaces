@@ -49,13 +49,11 @@ import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTab;
 import org.richfaces.component.AbstractTabPanel;
-import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItemInterface;
 import org.richfaces.component.AbstractTogglePanelTitledItem;
 import org.richfaces.component.TogglePanelVisitCallback;
 import org.richfaces.component.TogglePanelVisitState;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 
@@ -79,26 +77,6 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     private static final String DIV = DIV_ELEM;
     private static final String STYLE = STYLE_ATTRIBUTE;
     private static final String CLASS = CLASS_ATTRIBUTE;
-
-    protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
-        StringBuilder onComplete = new StringBuilder();
-        onComplete.append("RichFaces.$('").append(panelId).append("').onCompleteHandler('").append(newValue).append("');");
-
-        ExtendedPartialViewContext.getInstance(context).appendOncomplete(onComplete.toString());
-    }
-
-    @Override
-    protected boolean isSubmitted(FacesContext context, AbstractTogglePanel panel) {
-        String activePanelName = panel.getSubmittedActiveItem();
-        int itemIndex = panel.getIndexByName(activePanelName);
-
-        if (itemIndex < 0) {
-            return false;
-        }
-
-        Map<String, String> parameterMap = context.getExternalContext().getRequestParameterMap();
-        return parameterMap.get(activePanelName) != null;
-    }
 
     @Override
     protected void doEncodeBegin(ResponseWriter w, FacesContext context, UIComponent component) throws IOException {
@@ -271,24 +249,6 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         if (!panel.isHeaderPositionedTop()) {
             writeTabsLineSeparator(writer, component);
             writeTabsLine(writer, context, component);
-        }
-        if (panel.getItemCount() > 0) {
-            panel.visitTogglePanels(panel, new TogglePanelVisitCallback() {
-                @Override
-                public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
-                    AbstractTogglePanelItemInterface item = visitState.getItem();
-                    if (item.isRendered() && item instanceof AbstractTab) {
-                        try {
-                            AbstractTab tab = (AbstractTab) item;
-                            TabRenderer renderer = (TabRenderer) tab.getRenderer(context);
-                            renderer.writeJavaScript(writer, context, tab);
-                        } catch (IOException e) {
-                            throw new FacesException(e);
-                        }
-                    }
-                    return VisitResult.ACCEPT;
-                }
-            });
         }
         writer.endElement(HtmlConstants.DIV_ELEM);
     }
