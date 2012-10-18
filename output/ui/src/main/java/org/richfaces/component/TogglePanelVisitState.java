@@ -28,7 +28,7 @@ public class TogglePanelVisitState {
     private String name;
     private int count;
     private AbstractTogglePanelItemInterface item;
-    private boolean matchFound;
+    private boolean dynamic;
 
     public TogglePanelVisitState() {
         count = 0;
@@ -36,7 +36,6 @@ public class TogglePanelVisitState {
 
     public void setState(String name, AbstractTogglePanelItemInterface item) {
         this.name = name;
-        this.count = count;
         this.item = item;
     }
 
@@ -52,10 +51,6 @@ public class TogglePanelVisitState {
         return count;
     }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     public int increment() {
         return ++count;
     }
@@ -68,11 +63,11 @@ public class TogglePanelVisitState {
         this.item = item;
     }
 
-    public boolean isMatchFound() {
-        return matchFound;
+    public boolean isDynamic() {
+        return dynamic;
     }
 
-    public void setMatchFound(boolean matchFound) {
-        this.matchFound = matchFound;
+    public void setDynamic(boolean dynamic) {
+        this.dynamic = dynamic;
     }
 }

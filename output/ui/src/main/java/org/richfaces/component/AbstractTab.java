@@ -21,11 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -34,6 +29,11 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.AjaxProps;
 import org.richfaces.renderkit.html.DivPanelRenderer;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.FacesContext;
+import javax.faces.render.Renderer;
 
 /**
  * <p>The &lt;rich:tab&gt; component represents an individual tab inside a &lt;rich:tabPanel&gt; component, including
@@ -188,18 +188,26 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
 
     // ------------------------------------------------ AbstractTogglePanelItemInterface
 
+    @Override
     public AbstractTabPanel getParentPanel() {
         return ComponentIterators.getParent(this, AbstractTabPanel.class);
+    }
+
+    @Override
+    public boolean isDynamicPanelItem() {
+        return AbstractTogglePanel.isPanelItemDynamic(this);
     }
 
     public AbstractTabPanel getTabPanel() {
         return getParentPanel();
     }
 
+    @Override
     public boolean isActive() {
         return getTabPanel().isActiveItem(this);
     }
 
+    @Override
     public boolean shouldProcess() {
         return isActive() || getSwitchType() == SwitchType.client;
     }
@@ -208,6 +216,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
      * The name of the tab, used for identifying and manipulating the active panel
      */
     @Attribute(generate = false)
+    @Override
     public String getName() {
         return (String) getStateHelper().eval(AbstractTogglePanelItem.NAME, getClientId());
     }
@@ -216,6 +225,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         getStateHelper().put(AbstractTogglePanelItem.NAME, name);
     }
 
+    @Override
     public String toString() {
         return "TogglePanelItem {name: " + getName() + ", switchType: " + getSwitchType() + '}';
     }
@@ -224,6 +234,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
      * The switch type for this toggle panel: client, ajax (default), server
      */
     @Attribute(generate = false)
+    @Override
     public SwitchType getSwitchType() {
         SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType);
         if (switchType == null) {

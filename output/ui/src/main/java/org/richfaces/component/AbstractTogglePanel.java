@@ -21,31 +21,7 @@
  */
 package org.richfaces.component;
 
-import java.io.IOException;
-import java.util.EnumSet;
-import java.util.Iterator;
-
-import javax.el.ELException;
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.faces.application.Application;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UpdateModelException;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.ExceptionQueuedEventContext;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PostValidateEvent;
-import javax.faces.event.PreValidateEvent;
-
+import com.google.common.base.Strings;
 import org.richfaces.application.FacesMessages;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
@@ -67,7 +43,29 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.util.RendererUtils;
 
-import com.google.common.base.Strings;
+import javax.el.ELException;
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
+import javax.faces.application.Application;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
+import javax.faces.component.UpdateModelException;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ExceptionQueuedEvent;
+import javax.faces.event.ExceptionQueuedEventContext;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PostValidateEvent;
+import javax.faces.event.PreValidateEvent;
+import java.io.IOException;
+import java.util.EnumSet;
+import java.util.Iterator;
 
 /**
  * <p>The &lt;rich:togglePanel&gt; component is used as a base for the other switchable components, the
@@ -103,6 +101,20 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
     protected AbstractTogglePanel() {
         setRendererType("org.richfaces.TogglePanelRenderer");
+    }
+
+    public static boolean isPanelItemDynamic(UIComponent component) {
+        UIComponent parent = component.getParent();
+        while (parent != null) {
+            if (parent instanceof AbstractTogglePanel) {
+                return false;
+            }
+            if (parent instanceof UIRepeat) {
+                return true;
+            }
+            parent = parent.getParent();
+        }
+        return false;
     }
 
     // -------------------------------------------------- Editable Value Holder
@@ -419,10 +431,24 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             UIComponent actvComp = null;
 
             if (previous != null) {
-                prevComp = (UIComponent) getItem(previous);
+                try {
+                    prevComp = (UIComponent) getItem(previous);
+                } catch (TogglePanelVisitException e) {
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Cannot include dynamic TogglePanelComponents in itemChangeEvents");
+                    }
+                    prevComp = null;
+                }
             }
             if (activeItem != null) {
-                actvComp = (UIComponent) getItem(activeItem);
+                try {
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Cannot include dynamic TogglePanelComponents in itemChangeEvents");
+                    }
+                    actvComp = (UIComponent) getItem(activeItem);
+                } catch (TogglePanelVisitException e) {
+                    actvComp = null;
+                }
             }
 
             return new ItemChangeEvent(this, previous, prevComp, activeItem, actvComp);
@@ -529,7 +555,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
                     AbstractTogglePanelItemInterface item = (AbstractTogglePanelItemInterface) target;
                     visitState.setState(item.getName(), item);
                     if (callback.visit(context.getFacesContext(), visitState) == VisitResult.COMPLETE) {
-                        visitState.setMatchFound(true);
+                        visitState.setDynamic(item.isDynamicPanelItem());
                         return VisitResult.COMPLETE;
                     }
                     visitState.increment();
@@ -573,7 +599,9 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
     public AbstractTogglePanelItemInterface getItemByIndex(final int index) {
         TogglePanelVisitState visitState = getvisitStateByIndex(index);
-//        LOG.warn("Warning, calling getItemByIndex on a dynamically generated TogglePanel can result in unpredictable behavior");
+        if (visitState.isDynamic()) {
+            throw new TogglePanelVisitException("Cannot access a dynamically generated AbstractToggleItemInterface directly. Use the visitor pattern instead.");
+        }
         return visitState.getItem();
     }
 

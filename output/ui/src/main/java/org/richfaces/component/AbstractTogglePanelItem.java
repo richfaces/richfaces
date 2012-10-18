@@ -21,13 +21,13 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIOutput;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+
+import javax.faces.component.UIOutput;
 
 /**
  * <p>The &lt;rich:togglePanelItem&gt; component is a switchable panel for use with the &lt;rich:togglePanel&gt;
@@ -57,8 +57,14 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
         return COMPONENT_FAMILY;
     }
 
+    @Override
     public AbstractTogglePanel getParentPanel() {
         return ComponentIterators.getParent(this, AbstractTogglePanel.class);
+    }
+
+    @Override
+    public boolean isDynamicPanelItem() {
+        return AbstractTogglePanel.isPanelItemDynamic(this);
     }
 
     public boolean isActive() {
@@ -77,21 +83,6 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
     @Attribute(generate = false)
     public String getName() {
         return (String) getStateHelper().eval(NAME, getClientId());
-    }
-
-    public String generateName() {
-        String clientId = getClientId();
-        String parentId = getParentPanel().getClientId();
-        return generateName(clientId, parentId);
-
-    }
-
-    protected String generateName(String clientId, String parentId) {
-        int index = clientId.indexOf(parentId);
-        if (index < 0) {
-            return getId();
-        }
-        return clientId.substring(index + parentId.length() + 1);
     }
 
     public void setName(String name) {

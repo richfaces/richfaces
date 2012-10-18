@@ -9,6 +9,8 @@ import org.richfaces.cdk.annotations.EventName;
 public interface AbstractTogglePanelItemInterface extends AbstractDivPanel {
     AbstractTogglePanel getParentPanel();
 
+    boolean isDynamicPanelItem();
+
     boolean isActive();
 
     boolean shouldProcess();

@@ -21,17 +21,23 @@
  **/
 package org.richfaces.component;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public class AbstractTogglePanelItemTest {
-    @Test
-    public void testGenerateName() {
-        UITogglePanelItem item = new UITogglePanelItem();
-        Assert.assertEquals("manual", item.generateName("form:panel:manual", "form:panel"));
-        Assert.assertEquals("repeat:0:dynamic", item.generateName("form:panel:repeat:0:dynamic", "form:panel"));
+public class TogglePanelVisitException extends RuntimeException {
+    public TogglePanelVisitException() {
+        super();
+    }
+
+    public TogglePanelVisitException(String s) {
+        super(s);
+    }
+
+    public TogglePanelVisitException(String s, Throwable throwable) {
+        super(s, throwable);
+    }
+
+    public TogglePanelVisitException(Throwable throwable) {
+        super(throwable);
     }
 }
