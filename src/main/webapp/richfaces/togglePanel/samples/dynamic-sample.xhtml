@@ -11,7 +11,7 @@
             <a4j:repeat value="#{skinBean.skins}" var="skinName">
                 <rich:togglePanelItem name="#{skinName}">
                     
-                    <rich:panel header="#{skinName}">
+                    <rich:panel header="Skin: #{skinName}">
                         <h:form>
                             <h:panelGrid columns="2">
                                 <h:outputText value="Enter Name:" />

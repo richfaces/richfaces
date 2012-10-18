@@ -15,7 +15,7 @@
             
             <a4j:repeat value="#{skinBean.skins}" var="skinName">
             
-                <rich:tab header="#{skinName}">
+                <rich:tab header="#{skinName}" name="#{skinName}">
                     <f:facet name="header">#{skinName}</f:facet>
 
                     <i> All the controls below are just standard JSF components skinned with RichFaces: </i>
