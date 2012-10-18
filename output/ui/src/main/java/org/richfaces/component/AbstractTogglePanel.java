@@ -232,7 +232,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             @Override
             public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
                 AbstractTogglePanelItemInterface item = visitState.getItem();
-                if (item instanceof AbstractTab && (isActiveItem(item, activeItem) || getSwitchType() == SwitchType.client)) {
+                if (item instanceof AbstractTab && isActiveItem(item, activeItem) || getSwitchType() == SwitchType.client) {
                     ((UIComponent) item).processDecodes(context);
                 }
                 return VisitResult.ACCEPT;
@@ -560,10 +560,12 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
                     }
                     visitState.increment();
                     visitState.setState(null, null);
+                    return VisitResult.REJECT;
                 } else if (AbstractTogglePanel.this == target || target instanceof UIRepeat) {
                     return VisitResult.ACCEPT;
+                } else {
+                    return VisitResult.REJECT;
                 }
-                return VisitResult.REJECT;
             }
         });
         return visitState;
