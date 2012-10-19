@@ -181,9 +181,9 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     // ----------------------------------------------------- UIComponent Methods
 
     @Override
-    public void encodeBegin(FacesContext context) throws IOException {
+    public void encodeBegin(FacesContext facesContext) throws IOException {
         updateActiveName(getActiveItem());
-        super.encodeBegin(context);
+        super.encodeBegin(facesContext);
     }
 
     public String updateActiveName(String activeItemName) {
@@ -214,8 +214,8 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public void processDecodes(FacesContext context) {
-        if (context == null) {
+    public void processDecodes(FacesContext facesContext) {
+        if (facesContext == null) {
             throw new NullPointerException();
         }
 
@@ -224,16 +224,17 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             return;
         }
 
-        pushComponentToEL(context, null);
+        pushComponentToEL(facesContext, null);
 
         final String activeItem = getActiveItemValue();
-
-        this.visitTogglePanels(this, new TogglePanelVisitCallback() {
+        EnumSet<VisitHint> hints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
+        VisitContext visitContext = new FullVisitContext(facesContext, hints);
+        this.visitTree(visitContext, new VisitCallback() {
             @Override
-            public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
-                AbstractTogglePanelItemInterface item = visitState.getItem();
-                if (item instanceof AbstractTab && isActiveItem(item, activeItem) || getSwitchType() == SwitchType.client) {
-                    ((UIComponent) item).processDecodes(context);
+            public VisitResult visit(VisitContext context, UIComponent target) {
+                if (AbstractTogglePanel.this != target &&
+                        (isActiveItem(target, activeItem) || getSwitchType() == SwitchType.client)) {
+                    target.processDecodes(context.getFacesContext());
                 }
                 return VisitResult.ACCEPT;
             }
@@ -241,15 +242,15 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
         // Process this component itself
         try {
-            decode(context);
+            decode(facesContext);
         } catch (RuntimeException e) {
-            context.renderResponse();
+            facesContext.renderResponse();
             throw e;
         } finally {
-            popComponentFromEL(context);
+            popComponentFromEL(facesContext);
         }
 
-        ItemChangeEvent event = createItemChangeEvent(context);
+        ItemChangeEvent event = createItemChangeEvent(facesContext);
         if (event != null) {
             event.queue();
         }
@@ -267,9 +268,8 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public void processValidators(FacesContext context) {
-
-        if (context == null) {
+    public void processValidators(FacesContext facesContext) {
+        if (facesContext == null) {
             throw new NullPointerException();
         }
 
@@ -278,26 +278,26 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             return;
         }
 
-        pushComponentToEL(context, null);
-
-        Application app = context.getApplication();
-        app.publishEvent(context, PreValidateEvent.class, this);
+        pushComponentToEL(facesContext, null);
+        Application app = facesContext.getApplication();
+        app.publishEvent(facesContext, PreValidateEvent.class, this);
 
         final String activeItem = getActiveItemValue();
-
-        this.visitTogglePanels(this, new TogglePanelVisitCallback() {
+        EnumSet<VisitHint> hints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
+        VisitContext visitContext = new FullVisitContext(facesContext, hints);
+        this.visitTree(visitContext, new VisitCallback() {
             @Override
-            public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
-                AbstractTogglePanelItemInterface item = visitState.getItem();
-                if (item instanceof AbstractTab && (isActiveItem(item, activeItem) || getSwitchType() == SwitchType.client)) {
-                    ((UIComponent) item).processValidators(context);
+            public VisitResult visit(VisitContext context, UIComponent target) {
+                if (AbstractTogglePanel.this != target &&
+                        (isActiveItem(target, activeItem) || getSwitchType() == SwitchType.client)) {
+                    target.processValidators(context.getFacesContext());
                 }
                 return VisitResult.ACCEPT;
             }
         });
 
-        app.publishEvent(context, PostValidateEvent.class, this);
-        popComponentFromEL(context);
+        app.publishEvent(facesContext, PostValidateEvent.class, this);
+        popComponentFromEL(facesContext);
     }
 
     /**
@@ -311,9 +311,8 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public void processUpdates(FacesContext context) {
-
-        if (context == null) {
+    public void processUpdates(FacesContext facesContext) {
+        if (facesContext == null) {
             throw new NullPointerException();
         }
 
@@ -322,25 +321,26 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             return;
         }
 
-        pushComponentToEL(context, null);
+        pushComponentToEL(facesContext, null);
 
         final String activeItem = getActiveItemValue();
-
-        this.visitTogglePanels(this, new TogglePanelVisitCallback() {
+        EnumSet<VisitHint> hints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
+        VisitContext visitContext = new FullVisitContext(facesContext, hints);
+        this.visitTree(visitContext, new VisitCallback() {
             @Override
-            public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
-                AbstractTogglePanelItemInterface item = visitState.getItem();
-                if (item instanceof AbstractTab && (isActiveItem(item, activeItem) || getSwitchType() == SwitchType.client)) {
-                    ((UIComponent) item).processUpdates(context);
+            public VisitResult visit(VisitContext context, UIComponent target) {
+                if (AbstractTogglePanel.this != target &&
+                        (isActiveItem(target, activeItem) || getSwitchType() == SwitchType.client)) {
+                    target.processUpdates(context.getFacesContext());
                 }
                 return VisitResult.ACCEPT;
             }
         });
 
-        popComponentFromEL(context);
+        popComponentFromEL(facesContext);
 
         if (!isValid()) {
-            context.renderResponse();
+            facesContext.renderResponse();
         }
     }
 
@@ -348,20 +348,19 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public void decode(FacesContext context) {
+    public void decode(FacesContext facesContext) {
 
-        if (context == null) {
+        if (facesContext == null) {
             throw new NullPointerException();
         }
 
         // Force validity back to "true"
         setValid(true);
-        super.decode(context);
+        super.decode(facesContext);
     }
 
-    public void updateModel(FacesContext context) {
-
-        if (context == null) {
+    public void updateModel(FacesContext facesContext) {
+        if (facesContext == null) {
             throw new NullPointerException();
         }
 
@@ -377,7 +376,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         Throwable caught = null;
         FacesMessage message = null;
         try {
-            ve.setValue(context.getELContext(), getLocalValue());
+            ve.setValue(facesContext.getELContext(), getLocalValue());
             setValue(null);
             setLocalValueSet(false);
         } catch (ELException e) {
@@ -390,16 +389,16 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             }
 
             if (messageStr == null) {
-                message = ServiceTracker.getService(MessageFactory.class).createMessage(context, FacesMessage.SEVERITY_ERROR,
-                        FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(context, this));
+                message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext, FacesMessage.SEVERITY_ERROR,
+                        FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(facesContext, this));
             } else {
                 message = new FacesMessage(FacesMessage.SEVERITY_ERROR, messageStr, messageStr);
             }
             setValid(false);
         } catch (Exception e) {
             caught = e;
-            // message = MessageFactory.getMessage(context, UPDATE_MESSAGE_ID,
-            // MessageFactory.getHeader(context, this));
+            // message = MessageFactory.getMessage(facesContext, UPDATE_MESSAGE_ID,
+            // MessageFactory.getHeader(facesContext, this));
             setValid(false);
         }
 
@@ -408,14 +407,14 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
             @SuppressWarnings({ "ThrowableInstanceNeverThrown" })
             UpdateModelException toQueue = new UpdateModelException(message, caught);
-            ExceptionQueuedEventContext eventContext = new ExceptionQueuedEventContext(context, toQueue, this,
+            ExceptionQueuedEventContext eventContext = new ExceptionQueuedEventContext(facesContext, toQueue, this,
                     PhaseId.UPDATE_MODEL_VALUES);
-            context.getApplication().publishEvent(context, ExceptionQueuedEvent.class, eventContext);
+            facesContext.getApplication().publishEvent(facesContext, ExceptionQueuedEvent.class, eventContext);
         }
     }
 
-    private ItemChangeEvent createItemChangeEvent(FacesContext context) {
-        if (context == null) {
+    private ItemChangeEvent createItemChangeEvent(FacesContext facesContext) {
+        if (facesContext == null) {
             throw new NullPointerException();
         }
 
@@ -484,19 +483,19 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
-        FacesContext context = FacesContext.getCurrentInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
         if (event instanceof ItemChangeEvent) {
             setValue(((ItemChangeEvent) event).getNewItemName());
             setSubmittedActiveItem(null);
             if (event.getPhaseId() == PhaseId.UPDATE_MODEL_VALUES) {
                 try {
-                    updateModel(context);
+                    updateModel(facesContext);
                 } catch (RuntimeException e) {
-                    context.renderResponse();
+                    facesContext.renderResponse();
                     throw e;
                 }
             } else {
-                context.renderResponse();
+                facesContext.renderResponse();
             }
         }
         super.broadcast(event);
@@ -542,7 +541,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         return item.getName().equals(value);
     }
 
-    public TogglePanelVisitState visitTogglePanels(final AbstractTogglePanel panel, final TogglePanelVisitCallback callback) {
+    public TogglePanelVisitState visitTogglePanelItems(final AbstractTogglePanel panel, final TogglePanelVisitCallback callback) {
         FacesContext facesContext = getFacesContext();
         EnumSet<VisitHint> hints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
         final TogglePanelVisitState visitState = new TogglePanelVisitState();
@@ -568,9 +567,9 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     }
 
     private TogglePanelVisitState getvisitStateByIndex(final int index) {
-        TogglePanelVisitState visitState = visitTogglePanels(this, new TogglePanelVisitCallback() {
+        TogglePanelVisitState visitState = visitTogglePanelItems(this, new TogglePanelVisitCallback() {
             @Override
-            public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
+            public VisitResult visit(FacesContext facesContext, TogglePanelVisitState visitState) {
                 if (index == visitState.getCount()) {
                     return VisitResult.COMPLETE;
                 } else {
@@ -582,9 +581,9 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     }
 
     public TogglePanelVisitState getvisitStateByName(final String name) {
-        TogglePanelVisitState visitState = visitTogglePanels(this, new TogglePanelVisitCallback() {
+        TogglePanelVisitState visitState = visitTogglePanelItems(this, new TogglePanelVisitCallback() {
             @Override
-            public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
+            public VisitResult visit(FacesContext facesContext, TogglePanelVisitState visitState) {
                 if (name.equals(visitState.getName())) {
                     return VisitResult.COMPLETE;
                 } else {
@@ -627,9 +626,9 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         if (! this.isRendered()) {
             return 0;
         }
-        TogglePanelVisitState visitState = visitTogglePanels(this, new TogglePanelVisitCallback() {
+        TogglePanelVisitState visitState = visitTogglePanelItems(this, new TogglePanelVisitCallback() {
             @Override
-            public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
+            public VisitResult visit(FacesContext facesContext, TogglePanelVisitState visitState) {
                 return VisitResult.ACCEPT;
             }
         });
@@ -807,8 +806,8 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         return null;
     }
 
-    public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
-        ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
+    public void encodeMetaComponent(FacesContext facesContext, String metaComponentId) throws IOException {
+        ((MetaComponentRenderer) getRenderer(facesContext)).encodeMetaComponent(facesContext, this, metaComponentId);
     }
 
     @Override

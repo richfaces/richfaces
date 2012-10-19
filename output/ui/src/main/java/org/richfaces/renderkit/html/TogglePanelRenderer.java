@@ -191,7 +191,7 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
     }
 
     private String encodeActiveItem(final AbstractTogglePanel panel, final int activeIndex) {
-        panel.visitTogglePanels(panel, new TogglePanelVisitCallback() {
+        panel.visitTogglePanelItems(panel, new TogglePanelVisitCallback() {
             @Override
             public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
                 if (activeIndex == visitState.getCount()) {

@@ -127,7 +127,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     }
 
     private void writeTabLine(final ResponseWriter w, final FacesContext context, final AbstractTabPanel panel) throws IOException {
-        panel.visitTogglePanels(panel, new TogglePanelVisitCallback() {
+        panel.visitTogglePanelItems(panel, new TogglePanelVisitCallback() {
             @Override
             public VisitResult visit(FacesContext context, TogglePanelVisitState visitState) {
                 AbstractTogglePanelItemInterface item = visitState.getItem();
