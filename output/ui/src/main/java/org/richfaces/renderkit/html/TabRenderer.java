@@ -75,7 +75,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
             if (context.getPartialViewContext().isPartialRequest()) {
                 context.getPartialViewContext().getRenderIds().add(component.getClientId(context));
-                TogglePanelRenderer.addOnCompleteParam(context, tab.getName(), tab.getTabPanel().getClientId(context));
+                addOnCompleteParam(context, tab.getName(), tab.getTabPanel().getClientId(context));
             }
         }
     }
@@ -123,19 +123,6 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
     private JavaScriptService jsService() {
         return ServiceTracker.getService(JavaScriptService.class);
-    }
-
-    @Override
-    protected void writeJavaScript(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        Object script = getScriptObject(context, component);
-        if (script == null) {
-            return;
-        }
-
-        writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
-        writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", "type");
-        writer.writeText(script, null);
-        writer.endElement(HtmlConstants.SCRIPT_ELEM);
     }
 
     private void encodeContentBegin(FacesContext context, UIComponent component, ResponseWriter writer) throws IOException {

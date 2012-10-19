@@ -44,7 +44,6 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTooltip;
 import org.richfaces.component.Positioning;
-import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.MetaComponentRenderer;
@@ -85,11 +84,6 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
             addOnCompleteParam(context, tooltip.getClientId(context));
             context.renderResponse();
         }
-    }
-
-    protected static void addOnCompleteParam(FacesContext context, String tooltipId) {
-        ExtendedPartialViewContext.getInstance(context).appendOncomplete(
-            new StringBuilder().append("RichFaces.$('").append(tooltipId).append("').onCompleteHandler();").toString());
     }
 
     @Override

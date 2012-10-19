@@ -33,6 +33,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.ajax4jsf.javascript.JSLiteral;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
@@ -129,10 +132,8 @@ public abstract class DivPanelRenderer extends RendererBase {
             return;
         }
 
-        writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
-        writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", "type");
-        writer.writeText(script, null);
-        writer.endElement(HtmlConstants.SCRIPT_ELEM);
+        JavaScriptService service = ServiceTracker.getService(JavaScriptService.class);
+        service.addScript(context, script);
     }
 
     protected Object getScriptObject(FacesContext context, UIComponent component) {
@@ -141,5 +142,30 @@ public abstract class DivPanelRenderer extends RendererBase {
 
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         return null;
+    }
+
+    /**
+     * Calls onCompleteHandler for given panel
+     *
+     * @param context FacesContext
+     * @param panelId the panel
+     */
+    protected void addOnCompleteParam(FacesContext context, String panelId) {
+        addOnCompleteParam(context, "", panelId);
+    }
+
+    /**
+     * Adds script which switches given panel to given item
+     *
+     * @param context FacesContext
+     * @param itemName the item to switch to
+     * @param panelId the panel
+     */
+    protected void addOnCompleteParam(FacesContext context, String itemName, String panelId) {
+        String script = new StringBuilder().append("RichFaces.$('").append(panelId).append("').onCompleteHandler('")
+                .append(itemName).append("');").toString();
+
+        JavaScriptService scriptService = ServiceTracker.getService(JavaScriptService.class);
+        scriptService.addScript(context, new JSLiteral(script.toString()));
     }
 }

@@ -1,8 +1,5 @@
 <div class="rf-cp rf-tgp" id="f:panel">
     <input type="hidden" name="f:panel-value" id="f:panel-value" value="true"></input>
-    <script type="text/javascript">
-        Text
-    </script>
     <div class="rf-cp-hdr rf-cp-hdr-exp" id="f:panel:header">
         <table class="rf-cp-gr">
             <tbody>

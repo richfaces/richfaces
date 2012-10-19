@@ -89,11 +89,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         String clientId = component.getClientId(context);
         if (requestMap.get(clientId) != null) {
             new ActionEvent(component).queue();
-
             context.getPartialViewContext().getRenderIds().add(clientId);
-
-            // TODO nick - this should be done on encode, not on decode
-            PanelMenuItemRenderer.addOnCompleteParam(context, clientId);
         }
     }
 
@@ -229,6 +225,12 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         encodeContentEnd(writer, context, component);
 
         writer.endElement(DIV_ELEM);
+
+        Map<String, String> requestMap = context.getExternalContext().getRequestParameterMap();
+        String clientId = component.getClientId(context);
+        if (requestMap.get(clientId) != null) {
+            addOnCompleteParam(context, clientId);
+        }
     }
 
     @Override
