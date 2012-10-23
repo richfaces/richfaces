@@ -285,11 +285,13 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         this.visitTree(visitContext, new VisitCallback() {
             @Override
             public VisitResult visit(VisitContext context, UIComponent target) {
-                if (AbstractTogglePanel.this != target &&
-                        (isActiveItem(target, activeItem) || getSwitchType() == SwitchType.client)) {
+                if (AbstractTogglePanel.this == target) {
+                    return VisitResult.ACCEPT; // Proceed with visit to target's children
+                }
+                if (isActiveItem(target, activeItem) || getSwitchType() == SwitchType.client) {
                     target.processDecodes(context.getFacesContext());
                 }
-                return VisitResult.ACCEPT;
+                return VisitResult.REJECT; // No need to visit target's children, as they were recursively visited above
             }
         });
 
@@ -341,11 +343,13 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         this.visitTree(visitContext, new VisitCallback() {
             @Override
             public VisitResult visit(VisitContext context, UIComponent target) {
-                if (AbstractTogglePanel.this != target &&
-                        (isActiveItem(target, activeItem) || getSwitchType() == SwitchType.client)) {
+                if (AbstractTogglePanel.this == target) {
+                    return VisitResult.ACCEPT; // Proceed with visit to target's children
+                }
+                if (isActiveItem(target, activeItem) || getSwitchType() == SwitchType.client) {
                     target.processValidators(context.getFacesContext());
                 }
-                return VisitResult.ACCEPT;
+                return VisitResult.REJECT; // No need to visit target's children, as they were recursively visited above
             }
         });
 
@@ -382,11 +386,13 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         this.visitTree(visitContext, new VisitCallback() {
             @Override
             public VisitResult visit(VisitContext context, UIComponent target) {
-                if (AbstractTogglePanel.this != target &&
-                        (isActiveItem(target, activeItem) || getSwitchType() == SwitchType.client)) {
+                if (AbstractTogglePanel.this == target) {
+                    return VisitResult.ACCEPT; // Proceed with visit to target's children
+                }
+                if (isActiveItem(target, activeItem) || getSwitchType() == SwitchType.client) {
                     target.processUpdates(context.getFacesContext());
                 }
-                return VisitResult.ACCEPT;
+                return VisitResult.REJECT; // No need to visit target's children, as they were recursively visited above
             }
         });
 
