@@ -66,6 +66,7 @@ import javax.faces.event.PreValidateEvent;
 import java.io.IOException;
 import java.util.EnumSet;
 import java.util.Iterator;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * <p>The &lt;rich:togglePanel&gt; component is used as a base for the other switchable components, the
@@ -186,21 +187,73 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         super.encodeBegin(facesContext);
     }
 
-    public String updateActiveName(String activeItemName) {
-        int itemIndex = -1;
+    public String updateActiveName(final String activeItemName) {
+        boolean valid = false;
 
         if (!Strings.isNullOrEmpty(activeItemName)) {
-            itemIndex = getIndexByName(activeItemName);
+            valid = isValidName(activeItemName);
         }
 
-        if (itemIndex < 0) {
-            String firstItemName = getNameByIndex(0);
+        if (! valid) {
+            String firstItemName = getFirstNonDisabledItemName();
             if (firstItemName != null) {
                 setActiveItem(firstItemName);
                 return firstItemName;
             }
         }
         return activeItemName;
+    }
+
+    private Boolean isValidName(final String name) {
+        final AtomicReference<Boolean> result = new AtomicReference<Boolean>(Boolean.FALSE);
+
+        visitTogglePanelItems(this, new TogglePanelVisitCallback() {
+            @Override
+            public VisitResult visit(FacesContext facesContext, TogglePanelVisitState visitState) {
+                AbstractTogglePanelItemInterface panelItem = visitState.getItem();
+                if (name.equals(panelItem.getName())) {
+                    if (panelItem instanceof AbstractTogglePanelTitledItem) {
+                        AbstractTogglePanelTitledItem titledItem = (AbstractTogglePanelTitledItem) panelItem;
+                        result.set(! titledItem.isDisabled());
+                    }
+                    else {
+                        result.set(Boolean.TRUE);
+                    }
+                    return VisitResult.COMPLETE;
+                }
+                return VisitResult.ACCEPT;
+            }
+        });
+
+        return result.get();
+    }
+
+    /**
+     * Returns name of first non-disabled item in the list of panel's items.
+     */
+    private String getFirstNonDisabledItemName() {
+        final AtomicReference<String> result = new AtomicReference<String>(null);
+
+        visitTogglePanelItems(this, new TogglePanelVisitCallback() {
+            @Override
+            public VisitResult visit(FacesContext facesContext, TogglePanelVisitState visitState) {
+                AbstractTogglePanelItemInterface panelItem = visitState.getItem();
+                if (panelItem instanceof AbstractTogglePanelTitledItem) {
+                    AbstractTogglePanelTitledItem titledItem = (AbstractTogglePanelTitledItem) panelItem;
+                    if (!titledItem.isDisabled()) {
+                        result.set(titledItem.getName());
+                        return VisitResult.COMPLETE;
+                    } else {
+                        return VisitResult.ACCEPT;
+                    }
+                } else {
+                    result.set(panelItem.getName());
+                    return VisitResult.COMPLETE;
+                }
+            }
+        });
+
+        return result.get();
     }
 
     /**
@@ -585,7 +638,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         return visitState;
     }
 
-    public TogglePanelVisitState getvisitStateByName(final String name) {
+    public TogglePanelVisitState getVisitStateByName(final String name) {
         TogglePanelVisitState visitState = visitTogglePanelItems(this, new TogglePanelVisitCallback() {
             @Override
             public VisitResult visit(FacesContext facesContext, TogglePanelVisitState visitState) {
@@ -619,7 +672,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             return -1;
         }
 
-        TogglePanelVisitState visitState = getvisitStateByName(name);
+        TogglePanelVisitState visitState = getVisitStateByName(name);
         if (visitState.getName() != null) {
             return visitState.getCount();
         } else {
