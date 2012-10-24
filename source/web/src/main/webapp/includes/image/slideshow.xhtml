@@ -20,9 +20,10 @@
             <h:panelGrid styleClass="slideshow-table" columnClasses="slideshow-table-col" rowClasses="slideshow-table-row">
                 <h:panelGroup id="slideshowImage">
                     <a4j:mediaOutput id="imgSlideShow" element="img" styleClass="main-image"
-                        createContent="#{imageLoader.paintImage}" style="opacity: 0.1"
+                        createContent="#{imageLoader.paintImage}"
                         value="#{slideshow.selectedImage != null ? fileManager.transformPath(slideshow.selectedImage.fullPath, '_medium') : null}"
                         mimeType="image/png">
+                        <!-- was style="opacity: 0.1" -->
                         <rich:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
                             <span style="white-space: nowrap"> #{slideshow.selectedImage.description} </span>
                         </rich:tooltip>
