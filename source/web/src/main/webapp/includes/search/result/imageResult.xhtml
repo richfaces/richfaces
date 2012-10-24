@@ -5,7 +5,8 @@
     <a4j:outputPanel rendered="#{fn:length(result) > 0}" id="imagesList">
         <!-- <rich:dataScroller for="imageList" render="userAlbumImages" /> -->
         <ui:include src="/includes/image/inputNumberSlider.xhtml">
-            <ui:param name="renderArea" value="imagesList" />
+            <ui:param name="renderArea" value="userAlbumImages" />
+            <ui:param name="size" value="#{fn:length(result)}" />
         </ui:include>
         <br />
         <br />
