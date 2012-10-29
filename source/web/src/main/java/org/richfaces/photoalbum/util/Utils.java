@@ -20,15 +20,20 @@
  */
 package org.richfaces.photoalbum.util;
 
+import javax.enterprise.event.Event;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 
 import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.SimpleEvent;
 
 /**
  * Utility class for actions, related to direct access or modification of current request
@@ -36,7 +41,7 @@ import org.richfaces.context.ExtendedPartialViewContext;
  * @author Andrey Markhel
  */
 public class Utils {
-    
+
     @SuppressWarnings("unused")
     @Produces
     @PersistenceContext
@@ -45,6 +50,10 @@ public class Utils {
     private Utils() {
 
     }
+
+    @Inject
+    @EventType(Events.CHECK_USER_EXPIRED_EVENT)
+    Event<SimpleEvent> event;
 
     /**
      * Utility method for adding FacesMessages to specified component
@@ -82,9 +91,13 @@ public class Utils {
             FacesContext fc = FacesContext.getCurrentInstance();
             ExtendedPartialViewContext epvc = ExtendedPartialViewContext.getInstance(fc);
             UIComponent destComponent = fc.getViewRoot().findComponent(componentId);
-            //ac.addComponentToAjaxRender(destComponent);
+            // ac.addComponentToAjaxRender(destComponent);
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }
+    }
+
+    public void fireCheckUserExpiredEvent() {
+        event.fire(new SimpleEvent());
     }
 }

@@ -21,15 +21,15 @@
 package org.richfaces.photoalbum.ui;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.event.Event;
+import javax.enterprise.context.spi.CreationalContext;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
-import javax.inject.Inject;
 
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.SimpleEvent;
+import org.jboss.solder.beanManager.BeanManagerLocator;
+import org.richfaces.photoalbum.util.Utils;
 
 /**
  * Special <code>PhaseListener</code> for check is the user session was expired or user were login in another browser. By
@@ -43,14 +43,9 @@ public class UserExpiredPhaseListener implements PhaseListener {
     private static final long serialVersionUID = 1L;
     private PhaseId phase = PhaseId.RESTORE_VIEW;
 
-    @Inject @EventType(Events.CHECK_USER_EXPIRED_EVENT) Event<SimpleEvent> event;
-
     public void beforePhase(PhaseEvent e) {
-        //Events.instance().raiseEvent(Constants.CHECK_USER_EXPIRED_EVENT, Utils.getSession());
-        
-        // TODO: fix the event firing
-        // this causes error after deployment
-        //event.fire(new SimpleEvent());
+        Utils utils = getUtils();
+        utils.fireCheckUserExpiredEvent();
     }
 
     public void afterPhase(PhaseEvent e) {
@@ -62,5 +57,17 @@ public class UserExpiredPhaseListener implements PhaseListener {
 
     public PhaseId getPhaseId() {
         return phase;
+    }
+
+    private BeanManager getBeanManager() {
+        return new BeanManagerLocator().getBeanManager();
+    }
+
+    private Utils getUtils() {
+        BeanManager bm = getBeanManager();
+        Bean<Utils> bean = (Bean<Utils>) bm.getBeans(Utils.class).iterator().next();
+        CreationalContext<Utils> ctx = bm.createCreationalContext(bean);
+        Utils utils = (Utils) bm.getReference(bean, Utils.class, ctx); // this could be inlined, but intentionally left this way
+        return utils;
     }
 }
