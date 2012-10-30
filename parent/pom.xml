@@ -23,7 +23,7 @@
     </parent>
 
     <artifactId>richfaces-root-parent</artifactId>
-    <version>4.3.0.20121024-M2</version>
+    <version>4.3.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>RichFaces Root Parent</name>
 
@@ -34,7 +34,7 @@
     </description>
 
     <properties>
-        <version.richfaces>4.3.0.20121024-M2</version.richfaces>
+        <version.richfaces>4.3.0-SNAPSHOT</version.richfaces>
         <version.test-jsf>1.1.3</version.test-jsf>
         <version.vdl-doc>3</version.vdl-doc>
         <version.shade-transformers>8</version.shade-transformers>
