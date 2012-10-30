@@ -66,7 +66,7 @@
                         <cdk:scriptOption
                             attributes="enableManualInput disabled readonly resetTimeOnDateSelect showApplyButton popup showInput showHeader showFooter showWeeksBar datePattern hidePopupOnScrol showWeekDaysBar defaultLabel" />
                         <cdk:scriptOption
-                            attributes="onchange ondateselect onbeforedateselect onbeforecurrentdateselect onhide onshow ondatemouseover ondatemouseout onclean ontimeselect onbeforetimeselect"
+                            attributes="onchange ondateselect oncurrentdateselect onbeforedateselect onbeforecurrentdateselect onhide onshow ondatemouseover ondatemouseout onclean ontimeselect onbeforetimeselect"
                             wrapper="eventHandler" />
                         <cdk:scriptOption name="mode" value="#{getModeOrDefault(component)}"
                             defaultValue="org.richfaces.component.AbstractCalendar.Mode.client" />
