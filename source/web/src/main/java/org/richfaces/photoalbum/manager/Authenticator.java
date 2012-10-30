@@ -28,7 +28,8 @@ package org.richfaces.photoalbum.manager;
 import java.io.File;
 import java.io.Serializable;
 
-import javax.enterprise.context.ConversationScoped;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
 import javax.faces.application.FacesMessage;
@@ -53,7 +54,7 @@ import org.richfaces.photoalbum.util.HashUtils;
 import org.richfaces.photoalbum.util.Utils;
 
 @Named
-@ConversationScoped
+@ApplicationScoped
 public class Authenticator implements Serializable {
 
     private static final long serialVersionUID = -4585673256547342140L;
@@ -208,6 +209,7 @@ public class Authenticator implements Serializable {
      *
      * @return string outcome to properly redirect on the current page(to assign to page parameters conversationId.
      */
+    @PostConstruct
     public String startConversation() {
         navEvent.fire(new NavEvent(NavigationEnum.ANONYM));
         setConversationStarted(true);
