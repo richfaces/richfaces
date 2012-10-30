@@ -318,7 +318,7 @@
             pattern = '^' + pattern;
         }
         if (! (pattern.slice(-1) === '$') ) {
-            pattern = pattern; + '$';
+            pattern = pattern + '$';
         }
         return pattern;
     }
