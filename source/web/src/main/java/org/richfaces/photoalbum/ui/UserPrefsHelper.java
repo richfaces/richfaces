@@ -27,6 +27,7 @@ import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
@@ -40,6 +41,7 @@ import org.richfaces.photoalbum.service.IUserAction;
  * @author Andrey Markhel
  */
 
+@Named
 @RequestScoped
 public class UserPrefsHelper implements Serializable {
     private static final long serialVersionUID = -1767281809514660171L;
