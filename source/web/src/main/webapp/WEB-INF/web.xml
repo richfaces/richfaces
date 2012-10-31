@@ -17,17 +17,17 @@
 <!--         <param-name>org.richfaces.baseSkin</param-name> -->
 <!--         <param-value>ruby</param-value> -->
 <!--     </context-param> -->
-    
+
     <context-param>
         <param-name>org.richfaces.enableControlSkinning</param-name>
         <param-value>false</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>org.richfaces.enableControlSkinningClasses</param-name>
         <param-value>false</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>org.richfaces.resourceOptimization.enabled</param-name>
         <param-value>true</param-value>
@@ -52,13 +52,18 @@
         <param-name>facelets.DEVELOPMENT</param-name>
         <param-value>true</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
 
 	<!-- JSF -->
+
+    <context-param>
+        <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
+        <param-value>false</param-value>
+    </context-param>
 
     <context-param>
         <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
