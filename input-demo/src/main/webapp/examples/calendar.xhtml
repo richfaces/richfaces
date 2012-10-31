@@ -26,12 +26,12 @@
                                        cellHeight="22px" minDaysInFirstWeek="3"
                                        oncollapse="return onEvent.call(this, event);"
                                        onexpand="return onEvent.call(this, event);"
+                                       onbeforecurrentdateselect="return onEvent.call(this, event);"
                                        oncurrentdateselect="return onEvent.call(this, event);"
-                                       oncurrentdateselected="return onEvent.call(this, event);"
+                                       onbeforedateselect="myFunction(event); return onEvent.call(this, event);"
                                        ondateselect="return onEvent.call(this, event);"
-                                       ondateselected="return onEvent.call(this, event);"
+                                       onbeforetimeselect="return onEvent.call(this, event);"
                                        ontimeselect="return onEvent.call(this, event);"
-                                       ontimeselected="return onEvent.call(this, event);"
                                        oncomplete="return onEvent.call(this, event);"
                                        onclean="return onEvent.call(this, event);"
                                        ondatemouseout="return onEvent.call(this, event);"
@@ -41,7 +41,6 @@
                                        defaultTime="00:00:00" timeZone="#{calendarBean.timeZone}"
                                        valueChangeListener="#{calendarBean.doValueChangeListener}"
                                        currentDataChangeListener="#{calendarBean.doCurrentDataChangeListener}"
-                                       onbeforedateselect="myFunction(event)"
                                        style="width:200px;border:10px solid #000000"
                                        styleClass="hello"
                                        boundaryDatesMode="scroll" defaultLabel="bla-bla-bla" enableManualInput="true"
@@ -115,7 +114,7 @@
                 </h:panelGrid>
                 <h:panelGroup layout="block">
                     <div>
-                        <a4j:log mode="inline"></a4j:log>
+                        <a4j:log mode="console"></a4j:log>
                     </div>
                     <script type="text/javascript">
                         onEvent = function (event, element, data) {
