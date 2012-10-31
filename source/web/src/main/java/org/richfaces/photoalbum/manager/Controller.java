@@ -53,7 +53,6 @@ import org.richfaces.photoalbum.service.Constants;
  */
 
 @Named
-// @RequestScoped
 @ApplicationScoped
 public class Controller implements Serializable {
 
@@ -76,6 +75,8 @@ public class Controller implements Serializable {
     @Inject
     @Any
     Event<SimpleEvent> event;
+
+    private int currentPage = 0;
 
     /**
      * This method invoked after the user want to see all predefined shelves, existed in application
@@ -145,6 +146,7 @@ public class Controller implements Serializable {
             model.resetModel(NavigationEnum.SHELF_PREVIEW, album.getOwner(), album.getShelf(), null, null, null);
             return;
         }
+        setPage(0); //reset page when album changes/resets
         model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), album.getShelf(), album, null, album.getImages());
     }
 
@@ -477,12 +479,15 @@ public class Controller implements Serializable {
      * This utility method used by custom datascroller to determine images to show. Used in internal rich:tree mechanism
      */
     public Integer getPage() {
-        final Integer index = model.getSelectedAlbum().getIndex(model.getSelectedImage());
-        return index / 5 + 1;
+        if (currentPage == 0) {
+            Integer index = model.getSelectedAlbum().getIndex(model.getSelectedImage());
+            currentPage = index / 5 + 1;
+        }
+        return currentPage;
     }
-    
-    public void setPage(int page) {
-        // do nothing, just fooling the scroller
+
+    public void setPage(Integer page) {
+        currentPage = page;
     }
 
     /**
