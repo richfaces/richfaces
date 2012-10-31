@@ -428,11 +428,11 @@
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>maven-richfaces-resources-plugin</artifactId>
-                <version>4.2.3.Final</version>
+                <version>${project.version}</version>
                 <configuration>
                     <skins>
                         <skin>photoalbum</skin>
@@ -486,14 +486,14 @@
                             
                             <!-- resources will be compressed, refer to RichFaces Developer Guide -->
                             <compress>true</compress>
-                            
+
                             <excludedFiles>
                                 <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
                                 <exclude>^jquery\.js$</exclude>
                             </excludedFiles>
-                            
+
                         </configuration>
                     </execution>
                     <execution>
@@ -521,14 +521,14 @@
                             
                             <!-- resources will be compressed, refer to RichFaces Developer Guide -->
                             <compress>false</compress>
-                            
+
                             <excludedFiles>
                                 <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
                                 <exclude>^jquery\.js$</exclude>
                             </excludedFiles>
-                            
+
                         </configuration>
                     </execution>
                 </executions>
