@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/misc" xmlns:in="http://richfaces.org/input"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Placeholder" />
+    <!-- content -->
+    <ui:define name="content">
+
+        <style type="text/css">
+        input.customPlaceholderClass {
+            color: blue !important
+        }
+        </style>
+
+        <h:form>
+            <h:outputLabel value="Placeholder text" for="text" />
+            <h:inputTextarea id="text" value="#{placeholderBean.text}" required="true">
+                <f:ajax event="valueChange" render="@form" />
+            </h:inputTextarea>
+            <h:commandButton value="Submit" action="#{placeholderBean.submit}" />
+
+            <br />
+            <br />
+
+            h:inputText with styleClass:
+            <h:inputText id="with-placeholder" value="#{placeholderBean.placeholderInput}">
+                <rich:placeholder value="#{placeholderBean.text}" styleClass="customPlaceholderClass" />
+            </h:inputText>
+            <br />
+
+            rich:calendar:
+            <in:calendar id="calendar" value="#{placeholderBean.date}" enableManualInput="true" ajaxSingle="true">
+                <rich:placeholder value="#{placeholderBean.text}" />
+            </in:calendar>
+            <br />
+
+            non-JSF input:
+            <input id="htmlInput" type="text" />
+            <rich:placeholder value="#{placeholderBean.textObject}" selector="#htmlInput"
+                converter="#{placeholderBean.converter}" />
+            <br />
+
+            textarea:
+            <h:inputTextarea id="textarea" value="#{placeholderBean.placeholderInput}" rows="10" cols="40">
+                <rich:placeholder value="#{placeholderBean.text}" />
+            </h:inputTextarea>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+</html>
