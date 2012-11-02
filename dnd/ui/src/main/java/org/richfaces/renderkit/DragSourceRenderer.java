@@ -41,10 +41,11 @@ import org.richfaces.javascript.DragScript;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "jquery-ui-core.js"),
-        @ResourceDependency(library = "org.richfaces", name = "jquery-ui-widget.js"),
-        @ResourceDependency(library = "org.richfaces", name = "jquery-ui-mouse.js"),
-        @ResourceDependency(library = "org.richfaces", name = "jquery-dnd.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.widget.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.mouse.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.draggable.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.droppable.js"),
         @ResourceDependency(library = "org.richfaces", name = "dnd-draggable.js") })
 @JsfRenderer(type = "org.richfaces.DragSourceRenderer", family = AbstractDragSource.COMPONENT_FAMILY)
 public class DragSourceRenderer extends DnDRenderBase {

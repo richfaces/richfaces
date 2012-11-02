@@ -52,10 +52,11 @@ import com.google.common.base.Strings;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "jquery-ui-core.js"),
-        @ResourceDependency(library = "org.richfaces", name = "jquery-ui-widget.js"),
-        @ResourceDependency(library = "org.richfaces", name = "jquery-ui-mouse.js"),
-        @ResourceDependency(library = "org.richfaces", name = "jquery-dnd.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.widget.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.mouse.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.draggable.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.droppable.js"),
         @ResourceDependency(library = "org.richfaces", name = "dnd-droppable.js") })
 @JsfRenderer(type = "org.richfaces.DropTargetRenderer", family = AbstractDropTarget.COMPONENT_FAMILY)
 public class DropTargetRenderer extends DnDRenderBase {
