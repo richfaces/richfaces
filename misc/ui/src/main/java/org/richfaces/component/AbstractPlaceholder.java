@@ -21,13 +21,20 @@
  */
 package org.richfaces.component;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.event.PreRenderParentListener;
 import org.richfaces.renderkit.PlaceholderRendererBase;
 
 /**
@@ -36,6 +43,7 @@ import org.richfaces.renderkit.PlaceholderRendererBase;
  * the input or textarea element is used for, or the type of input that is required.
  */
 @JsfComponent(tag = @Tag(name = "placeholder", type = TagType.Facelets), renderer = @JsfRenderer(family = AbstractPlaceholder.COMPONENT_FAMILY, type = PlaceholderRendererBase.RENDERER_TYPE), attributes = { "javax.faces.component.ValueHolder.xml" })
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractPlaceholder extends UIOutput {
     // ------------------------------ FIELDS ------------------------------
 
@@ -59,4 +67,44 @@ public abstract class AbstractPlaceholder extends UIOutput {
      */
     @Attribute
     public abstract String getStyleClass();
+
+    @Override
+    public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+
+        if (event.getSource() == this) {
+            if (event instanceof PostAddToViewEvent) {
+
+                // only for nested usage (workaround for RF-12589)
+                if (this.getSelector() == null) {
+                    UIComponent component = ((PostAddToViewEvent) event).getComponent();
+                    UIComponent parent = component.getParent();
+
+                    new PlaceholderParentPreRenderListener(parent, component);
+                }
+            }
+        }
+
+        super.processEvent(event);
+    }
+
+    private static class PlaceholderParentPreRenderListener extends PreRenderParentListener {
+
+        private static final long serialVersionUID = 1870218106060075543L;
+
+        public PlaceholderParentPreRenderListener(UIComponent parent, UIComponent component) {
+            super(parent, component);
+        }
+
+        @Override
+        protected void preRenderParent(FacesContext facesContext, UIComponent component) {
+            AbstractPlaceholder placeholder = (AbstractPlaceholder) component;
+            PlaceholderRendererBase renderer = (PlaceholderRendererBase) placeholder.getRenderer(facesContext);
+            try {
+                renderer.doEncodeEnd(facesContext.getResponseWriter(), facesContext, component);
+            } catch (Exception e) {
+                throw new IllegalStateException("Rendering of placeholder before its parent has failed", e);
+            }
+        }
+    }
+
 }
