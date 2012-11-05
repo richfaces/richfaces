@@ -143,7 +143,7 @@ public class PushCDIExtension implements Extension {
             try {
                 topicsContext.publish(topicKey, payload);
             } catch (MessageException e) {
-                new PushCDIMessageException("Message wasn't successfully deliver", e);
+                throw new PushCDIMessageException("Message wasn't successfully deliver", e);
             }
         }
 
