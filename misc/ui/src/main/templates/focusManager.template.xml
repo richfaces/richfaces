@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.FocusManagerRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.FocusManagerRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.FocusManager</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.FocusManagerRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.component.AbstractFocusManager</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <span id="#{clientId}" class=".rf-fcs-mngr">
+            <input id="#{clientId}InputFocus" name="#{clientId}InputFocus" type="text" value="#{component.value}" />
+            <script id="#{clientId}Script" type="text/javascript">
+                <cdk:scriptObject name="options">
+                </cdk:scriptObject>
+                new RichFaces.ui.FocusManager("#{clientId}", #{toScriptArgs(options)});
+            </script>
+        </span>
+    </cc:implementation>
+
+</cdk:root>
