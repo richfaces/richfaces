@@ -1,6 +1,6 @@
 * {
-    font-family: verdana !important;
-    font-size: 11px !important;
+    font-family: verdana;
+    font-size: 11px;
 }
 
 html,body {
@@ -56,7 +56,7 @@ html,body {
 
 .top-right-menu-item a {
     font-size: 11px !important;
-    color: #ffffff;
+    color: #ffffff !important;
     text-decoration: none;
     font-weight: normal;
 }
@@ -110,15 +110,15 @@ html,body {
 
 .file-upload-button {
     background: #B34801 !important;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     border: 1px solid #888888 !important;
 }
 
-.avatarUpload .rich-fileupload-ico {
+.avatarUpload .rich-fileupload-ico { /* no direct alternative in RF 4 */
     padding-left: 7px !important;
 }
 
-.avatarUpload .rich-fileupload-toolbar-decor {
+.avatarUpload .rich-fileupload-toolbar-decor { /* no alt. */
     width: 100% !important;
     background-color: #D7D7D7 !important;
     border-bottom: 0px !important;
@@ -127,7 +127,7 @@ html,body {
     padding: 0px !important;
 }
 
-.avatarUpload .rich-fileupload-ico-add {
+.avatarUpload .rich-fileupload-ico-add { /* no alt. */
     background-image: none !important;
 }
 
@@ -136,7 +136,7 @@ html,body {
     margin: 0px !important;
 }
 
-.avatarUpload .rich-fileupload-list-decor {
+.avatarUpload .rich-fileupload-list-decor { /* no alt. */
     width: 100% !important;
     background-color: D7D7D7 !important;
     border-bottom: 0px !important;
@@ -152,7 +152,11 @@ html,body {
     border: 1px solid #B34801 !important;
 }
 
-.avatarUpload .rich-fileupload-button {
+/*.avatarUpload .rich-fileupload-button*/
+.avatarUpload .rf-fu-btn-add,
+.avatarUpload .rf-fu-btn-upl,
+.avatarUpload .rf-fu-btn-clr
+{
     padding: 0px !important;
     background: #B34801 !important;
     border: 1px solid #888888 !important;
@@ -183,12 +187,12 @@ html,body {
 
 .bottom-right-menu-item-content {
     font-size: 11px !important;
-    color: #ffffff;
+    color: #ffffff !important;
     text-decoration: none;
 }
 
 .logged-user {
-    color: #FF7D2A;
+    color: #FF7D2A !important;
     padding: 0 8px 0 0 !important;
 }
 
@@ -198,7 +202,7 @@ html,body {
 }
 
 .main-menu-toolbar-content a {
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     font-size: 11px !important;
     font-weight: bold;
     text-decoration: none;
@@ -234,7 +238,7 @@ html,body {
 
 input[type='submit'],input[type='button'],button {
     background: #414141 !important;
-    color: white;
+    color: white !important;
     margin: 5px !important;
     border-color: black !important;
 }
@@ -273,7 +277,7 @@ input[type='submit'],input[type='button'],button {
     margin-bottom: 5px !important;
     background-color: #F0F8FF !important;
     font-size: 12px !important;
-    color: red;
+    color: red !important;
 }
 
 .name {
@@ -288,11 +292,11 @@ input[type='submit'],input[type='button'],button {
 
 .error {
     padding: 5px !important;
-    color: red;
+    color: red !important;
 }
 
 .errors {
-    color: red;
+    color: red !important;
     vertical-align: middle;
 }
 
@@ -313,7 +317,7 @@ img.errors {
 }
 
 .required {
-    color: red;
+    color: red !important;
     padding-left: 2px !important;
 }
 
@@ -340,7 +344,7 @@ img.errors {
 }
 
 a {
-    color: #DF6400;
+    color: #DF6400 !important;
 }
 
 h1 {
@@ -407,7 +411,7 @@ h1 {
     width: 100px !important;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: #666666;
+    color: #666666 !important;
     font-size: 10px !important;
     height: 14px
 }
@@ -455,7 +459,7 @@ h1 {
     width: 140px !important;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: #666666;
+    color: #666666 !important;
     font-size: 10px !important;
     height: 14px
 }
@@ -503,7 +507,7 @@ h1 {
     width: 180px !important;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: #666666;
+    color: #666666 !important;
     font-size: 10px !important;
     height: 14px
 }
@@ -550,7 +554,7 @@ h1 {
     width: 100px !important;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: #666666;
+    color: #666666 !important;
     font-size: 10px !important;
     height: 14px
 }
@@ -598,7 +602,7 @@ h1 {
     width: 140px !important;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: #666666;
+    color: #666666 !important;
     font-size: 10px !important;
     height: 14px
 }
@@ -646,7 +650,7 @@ h1 {
     width: 180px !important;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: #666666;
+    color: #666666 !important;
     font-size: 10px !important;
     height: 14px
 }
@@ -694,7 +698,7 @@ h1 {
     width: 220px !important;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: #666666;
+    color: #666666 !important;
     font-size: 10px !important;
     height: 14px
 }
@@ -780,7 +784,7 @@ h1 {
 
 .search-label {
     position: absolute;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255) !important;
     font-weight: bold;
     top: 22px;
     left: 20px;
@@ -788,7 +792,7 @@ h1 {
 
 .search-find-button {
     position: absolute;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255) !important;
     font-weight: bold;
     top: 21px;
     left: 277px;
@@ -824,7 +828,7 @@ h1 {
 }
 
 .search-option-link {
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255) !important;
     text-decoration: none;
 }
 
@@ -849,7 +853,7 @@ h1 {
 
 .search-options-div1 {
     position: absolute;
-    color: white;
+    color: white !important;
     top: 7px;
     left: 45px;
 }
@@ -857,7 +861,7 @@ h1 {
 .search-options-div2 {
     border-top: 1px solid rgb(56, 56, 56) !important;
     position: absolute;
-    color: white;
+    color: white !important;
     top: 32px;
     padding-top: 3px !important;
     left: 38px;
@@ -870,7 +874,7 @@ h1 {
 }
 
 .search-hide-options-link {
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255) !important;
     text-decoration: none;
 }
 
@@ -929,7 +933,7 @@ h1 {
 }
 
 .additional-info-text {
-    color: #666666;
+    color: #666666 !important;
 }
 
 .additional-info-avatar {
@@ -1017,7 +1021,7 @@ h1 {
 
 .buttons-body-text-div {
     position: absolute;
-    color: #ffffff;
+    color: #ffffff !important;
     top: 7px;
     left: 8px;
 }
@@ -1107,7 +1111,7 @@ h1 {
     height: 23px !important;
     float: left;
     background: url(../img/shell/informer_bg.png) top left no-repeat !important;
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     padding: 4px 0px 0px 0px !important;
 }
 
@@ -1137,45 +1141,54 @@ h1 {
     border: 0px !important;
 }
 
-.rich-tabpanel-content {
+/* RF specific styles                   */
+
+.rf-tab-cnt {
     border: none !important;
     background: none !important;
 }
 
-.rich-tabhdr-side-cell {
+.rf-tab-hdr {
     border: none !important;
 }
 
-.rich-tabhdr-side-border {
-    border: none !important;
-    background: none !important;
-}
-
-.rich-tab-bottom-line {
+.rf-tab-hdr-brd {
     border: none !important;
     background: none !important;
 }
 
-.rich-tab-active {
+.rf-tab-hdr-tabline-vis {
+    border: none !important;
+    background: none !important;
+}
+
+.rf-tab-hdr-act {
     border-right: 1px solid !important;
     border-right-color: black !important;
     border-left: 0px !important;
     border-top: 0px !important;
-    font-size: 175% !important;
     background: none !important;
-    font-weight: normal;
+    font-weight: normal !important;
     margin: 4px !important;
 }
 
-.rich-tab-inactive {
+.rf-tab-hdr-act .rf-tab-lbl {
+    font-size: 175% !important;
+    font-weight: normal !important;
+}
+
+.rf-tab-hdr-inact {
     border-right: 1px solid !important;
     border-right-color: black !important;
     border-left: 0px !important;
     border-top: 0px !important;
     background: none !important;
-    color: #DF6400;
-    text-decoration: underline;
     cursor: pointer;
+}
+
+.rf-tab-hdr-inact .rf-tab-lbl {
+    color: #DF6400 !important;
+    text-decoration: underline;
 }
 
 .top-right-bottom-menu-item {
@@ -1185,14 +1198,14 @@ h1 {
 
 .top-right-bottom-menu-item-link a {
     font-size: 11px !important;
-    color: #ffffff;
+    color: #ffffff !important;
     text-decoration: none;
     font-weight: normal;
     padding: 0px 0px 0px 15px !important;
 }
 
 .slideshow-link {
-    color: black;
+    color: black !important;
     text-decoration: none;
 }
 
@@ -1222,7 +1235,7 @@ h1 {
 
 .photoalbumButton div {
     position: absolute;
-    color: #ffffff;
+    color: #ffffff !important;
     top: 7px;
     left: 0px;
     width: 103px !important;
@@ -1250,12 +1263,12 @@ h1 {
 }
 
 .search-criteria {
-    color: #666666;
+    color: #666666 !important;
     padding-bottom: 7px !important;
 }
 
 .search-keyword {
-    color: #666666;
+    color: #666666 !important;
     padding-bottom: 25px !important;
 }
 
