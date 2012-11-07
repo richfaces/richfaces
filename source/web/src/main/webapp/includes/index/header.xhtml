@@ -20,7 +20,7 @@
                                 actionListener="#{controller.showUser(user)}" rendered="#{userBean.loggedIn}" />
                         </h:form>
 
-                        <h:outputText styleClass="logged-user" style="color:#FFFFFF" rendered="#{userBean.userAdmin}"
+                        <h:outputText styleClass="logged-user" style="color:#FFFFFF" rendered="#{!userBean.userAdmin}"
                             value="#{messages['menu.welcome.guest']}" />
                     </h:panelGroup>
                     <h:graphicImage width="3" height="15" alt="" border="0" value="/img/shell/bullet.gif" />
