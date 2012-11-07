@@ -7,9 +7,9 @@
         <rich:toolbar height="37" styleClass="main-menu-toolbar" id="menu">
             <rich:toolbarGroup styleClass="main-menu-toolbar-content">
                 <h:panelGroup>
-                    <h:graphicImage rendered="#{identity.loggedIn}" value="/img/shell/general_panelbar_bullet.gif" width="11"
+                    <h:graphicImage rendered="#{userBean.loggedIn}" value="/img/shell/general_panelbar_bullet.gif" width="11"
                         height="15" alt="" styleClass="main-menu-separator-img" />
-                    <h:panelGroup id="my_album_div_id" layout="block" rendered="#{identity.loggedIn}"
+                    <h:panelGroup id="my_album_div_id" layout="block" rendered="#{userBean.loggedIn}"
                         styleClass="main-menu-icons-outer-div" style="cursor:default;">
                         <h:panelGroup layout="block" styleClass="main-menu-icons-left-div">
                             <h:graphicImage value="/img/shell/informer_photo.png" width="31" height="23" alt="" border="0" />
@@ -23,7 +23,7 @@
                         </h:panelGroup>
                     </h:panelGroup>
 
-                    <a4j:outputPanel ajaxRendered="true" layout="block" rendered="#{identity.loggedIn}"
+                    <a4j:outputPanel ajaxRendered="true" layout="block" rendered="#{userBean.loggedIn}"
                         styleClass="main-menu-icons-outer-div">
                         <a4j:ajax listener="#{controller.selectShelves()}" event="click" render="mainArea, treePanel" />
                         <h:panelGroup layout="block" styleClass="main-menu-icons-left-div">
@@ -43,7 +43,7 @@
                         </rich:tooltip>
                     </a4j:outputPanel>
 
-                    <a4j:outputPanel ajaxRendered="true" layout="block" rendered="#{identity.loggedIn}"
+                    <a4j:outputPanel ajaxRendered="true" layout="block" rendered="#{userBean.loggedIn}"
                         styleClass="main-menu-icons-outer-div">
                         <a4j:ajax listener="#{controller.selectAlbums()}" event="click" render="mainArea, treePanel" />
                         <h:panelGroup layout="block" styleClass="main-menu-icons-left-div">
@@ -63,7 +63,7 @@
                         </rich:tooltip>
                     </a4j:outputPanel>
 
-                    <a4j:outputPanel ajaxRendered="true" layout="block" rendered="#{identity.loggedIn}"
+                    <a4j:outputPanel ajaxRendered="true" layout="block" rendered="#{userBean.loggedIn}"
                         styleClass="main-menu-icons-outer-div">
                         <a4j:ajax listener="#{controller.selectImages()}" event="click" render="mainArea, treePanel" />
                         <h:panelGroup layout="block" styleClass="main-menu-icons-left-div">
@@ -84,12 +84,12 @@
                     </a4j:outputPanel>
 
 
-                    <h:graphicImage rendered="#{identity.loggedIn}" value="/img/shell/general_panelbar_bullet.gif" width="11"
+                    <h:graphicImage rendered="#{userBean.loggedIn}" value="/img/shell/general_panelbar_bullet.gif" width="11"
                         height="15" alt="" styleClass="main-menu-separator-img" />
 
 
-                    <h:panelGroup id="add_icons_div_id" layout="block" rendered="#{identity.loggedIn}" style="float: left;">
-                        <a4j:commandLink rendered="#{identity.loggedIn}" actionListener="#{shelfManager.createShelf()}"
+                    <h:panelGroup id="add_icons_div_id" layout="block" rendered="#{userBean.loggedIn}" style="float: left;">
+                        <a4j:commandLink rendered="#{userBean.loggedIn}" actionListener="#{shelfManager.createShelf()}"
                             render="shelfModalPanel" oncomplete="#{rich:component('shelfModalPanel')}.show()">
                             <h:graphicImage value="/img/shell/icon_add_shelf.png" width="37" height="23" alt=""
                                 styleClass="main-menu-add-icons-img" />
@@ -99,7 +99,7 @@
                                 </span>
                             </rich:tooltip>
                         </a4j:commandLink>
-                        <a4j:commandLink disabled="#{!controller.isUserHaveShelves()}" rendered="#{identity.loggedIn}"
+                        <a4j:commandLink disabled="#{!controller.isUserHaveShelves()}" rendered="#{userBean.loggedIn}"
                             data="#{albumManager.errorInCreate}"
                             actionListener="#{albumManager.createAlbum(model.selectedShelf, true)}"
                             oncomplete="if(!data)$('albumModalPanel').component.show()" render="albumModalPanel">
@@ -114,7 +114,7 @@
                                 </span>
                             </rich:tooltip>
                         </a4j:commandLink>
-                        <a4j:commandLink disabled="#{!controller.isUserHaveAlbums()}" rendered="#{identity.loggedIn}"
+                        <a4j:commandLink disabled="#{!controller.isUserHaveAlbums()}" rendered="#{userBean.loggedIn}"
                             actionListener="#{controller.showFileUpload()}" render="mainform:mainArea">
                             <h:graphicImage rendered="#{controller.isUserHaveAlbums()}" value="/img/shell/icon_add_photo.png"
                                 width="37" height="23" alt="" styleClass="main-menu-add-icons-img" />
@@ -128,7 +128,7 @@
                             </rich:tooltip>
                         </a4j:commandLink>
                     </h:panelGroup>
-                    <h:graphicImage rendered="#{identity.loggedIn}" value="/img/shell/general_panelbar_bullet.gif" width="11"
+                    <h:graphicImage rendered="#{userBean.loggedIn}" value="/img/shell/general_panelbar_bullet.gif" width="11"
                         height="15" alt="" styleClass="main-menu-separator-img" />
                 </h:panelGroup>
             </rich:toolbarGroup>

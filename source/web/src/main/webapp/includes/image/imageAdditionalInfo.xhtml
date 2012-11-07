@@ -55,14 +55,16 @@
             </h:panelGroup>
         </a4j:repeat>
         <h:panelGroup layout="block" style="padding-top:10px;clear:both">
-            <a4j:region rendered="#{identity.hasRole('admin', 'Users', 'GROUP')}">
+            <!-- <a4j:region rendered="#{identity.hasRole('admin', 'Users', 'GROUP')}"> -->
+            <a4j:region rendered="#{userBean.userAdmin}" >
                 <h:panelGroup layout="block" id="editContent">
                     <!-- TODO: add configuration -->
                     <rich:editor value="#{editorBean.message}" id="editor2" width="400" height="200" useSeamText="true" />
                 </h:panelGroup>
             </a4j:region>
         </h:panelGroup>
-        <richx:commandButton rendered="#{identity.hasRole('admin', 'Users', 'GROUP')}" value="#{messages['comment.add']}"
+        <!-- rendered="#{identity.hasRole('admin', 'Users', 'GROUP')}" -->
+        <richx:commandButton rendered="#{userBean.userAdmin}" value="#{messages['comment.add']}"
             actionListener="#{imageManager.addComment(model.selectedImage, editorBean.message)}" render="commentPanel" />
     </h:panelGroup>
     <h:panelGroup rendered="#{!model.selectedImage.allowComments}" layout="block" id="commentPanel2" style="margin-top : 30px">

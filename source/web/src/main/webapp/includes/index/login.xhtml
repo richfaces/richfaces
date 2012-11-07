@@ -22,7 +22,7 @@
                 <h:panelGrid columns="2" columnClasses="login-table-col2, xxx" style="margin-left:auto; margin-right:auto;">
                     <h:outputText value="#{messages['login.userName']}" />
                     <!--  value="#{identity.username}" -->
-                    <h:inputText id="username" value="#{credentials.username}"
+                    <h:inputText id="username" value="#{userBean.user.login}"
                         onkeydown="if (event.keyCode == 13) { jQuery(&quot; .login input[type='image']&quot;).click(); return false; }"
                         style="border: 1px solid rgb(144, 144, 144); height: 19px; width: 155px;" />
 

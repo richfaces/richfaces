@@ -81,7 +81,7 @@
         </rich:tree>
     </h:panelGroup>
     <br />
-    <h:panelGroup id="tree" rendered="#{identity.loggedIn}" layout="block">
+    <h:panelGroup id="tree" rendered="#{userBean.loggedIn}" layout="block">
         <h:panelGrid columns="2">
             <a4j:commandLink actionListener="#{controller.selectShelves()}" render="mainArea, treePanel">
                 <h2>

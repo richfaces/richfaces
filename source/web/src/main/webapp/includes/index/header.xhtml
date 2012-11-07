@@ -14,35 +14,35 @@
                     columnClasses="top-right-bottom-menu-item,xxx,top-right-bottom-menu-item,xxx,top-right-bottom-menu-item">
                     <h:panelGroup layout="block">
                         <h:form style="margin: 0px">
-                            <h:outputText styleClass="logged-user" style="color:#FFFFFF" rendered="#{identity.loggedIn}"
-                                value="#{messages['menu.welcome']}" />
-                            <a4j:commandLink styleClass="logged-user" value="#{credentials.username}" render="mainArea"
-                                actionListener="#{controller.showUser(user)}" rendered="#{identity.loggedIn}" />
+                            <h:outputText styleClass="logged-user" style="color:#FFFFFF" rendered="#{userBean.loggedIn}"
+                                value="#{messages['menu.welcome']}" /> <!-- rendered="#{identity.loggedIn}" -->
+                            <a4j:commandLink styleClass="logged-user" value="#{userBean.user.login}" render="mainArea"
+                                actionListener="#{controller.showUser(user)}" rendered="#{userBean.loggedIn}" />
                         </h:form>
 
-                        <h:outputText styleClass="logged-user" style="color:#FFFFFF" rendered="#{!identity.hasRole('admin', 'Users', 'GROUP')}"
+                        <h:outputText styleClass="logged-user" style="color:#FFFFFF" rendered="#{userBean.userAdmin}"
                             value="#{messages['menu.welcome.guest']}" />
                     </h:panelGroup>
                     <h:graphicImage width="3" height="15" alt="" border="0" value="/img/shell/bullet.gif" />
 
                     <h:panelGroup styleClass="top-right-bottom-menu-item-link" layout="block">
                         <h:form id="login-form" style="margin: 0px">
-                            <a4j:commandLink id="loginPanelShowlink" rendered="#{!identity.hasRole('admin', 'Users', 'GROUP')}"
+                            <a4j:commandLink id="loginPanelShowlink" rendered="#{!userBean.userAdmin}"
                                 value="#{messages['menu.login']}" render="loginPanel"
                                 actionListener="#{authenticator.resetCredentials()}"
                                 oncomplete="#{rich:component('loginPanel')}.show(); " />
                             <!-- this might not work -->
-                            <a4j:commandLink rendered="#{identity.loggedIn}" action="#{authenticator.logout}"
+                            <a4j:commandLink rendered="#{userBean.loggedIn}" action="#{authenticator.logout}"
                                 value="#{messages['menu.logout']}" />
                             <!-- <s:link propagation="end" view="/index.xhtml" action="#{authenticator.logout}"
-                                value="#{messages['menu.logout']}" rendered="#{identity.loggedIn}" /> -->
+                                value="#{messages['menu.logout']}" rendered="#{userBean.loggedIn}" /> -->
                         </h:form>
                     </h:panelGroup>
 
-                    <h:graphicImage rendered="#{!identity.loggedIn}" width="3" height="15" alt="" border="0"
+                    <h:graphicImage rendered="#{!userBean.loggedIn}" width="3" height="15" alt="" border="0"
                         style="padding: 0 0 0 8px;" value="/img/shell/bullet.gif" />
 
-                    <h:panelGroup rendered="#{!identity.loggedIn}" styleClass="top-right-bottom-menu-item-link" layout="block">
+                    <h:panelGroup rendered="#{!userBean.loggedIn}" styleClass="top-right-bottom-menu-item-link" layout="block">
                         <h:form style="margin: 0px">
                             <a4j:commandLink value="#{messages['login.register']}"
                                 actionListener="#{authenticator.goToRegister}" render="mainArea" />

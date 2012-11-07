@@ -25,8 +25,8 @@
             <img height="153" border="0" width="327" class="search-option-img" src="img/search/search_option_bg.png" />
             <div class="search-options-div1">
                 #{messages['in']}
-                <h:selectBooleanCheckbox rendered="#{identity.loggedIn}" value="#{imageSearchHelper.seachInMyAlbums}"></h:selectBooleanCheckbox>
-                <h:outputText value=" #{messages['in_my_albums']}" rendered="#{identity.loggedIn}"></h:outputText>
+                <h:selectBooleanCheckbox rendered="#{userBean.loggedIn}" value="#{imageSearchHelper.seachInMyAlbums}"></h:selectBooleanCheckbox>
+                <h:outputText value=" #{messages['in_my_albums']}" rendered="#{userBean.loggedIn}"></h:outputText>
                 <h:selectBooleanCheckbox value="#{imageSearchHelper.searchInShared}"></h:selectBooleanCheckbox>
                 #{messages['in_shared_albums']}
             </div>
