@@ -28,7 +28,7 @@ import org.richfaces.cdk.annotations.TagType;
  */
 @JsfComponent(type = AbstractFocusManager.COMPONENT_TYPE, family = AbstractFocusManager.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.FocusManagerRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractFocusManager extends UIInput {
-    
+
     public static final String COMPONENT_TYPE = "org.richfaces.FocusManager";
     public static final String COMPONENT_FAMILY = "org.richfaces.FocusManager";
 
@@ -64,6 +64,6 @@ public abstract class AbstractFocusManager extends UIInput {
      * Defines whether focus should not be applied right fater rendering, but will need to be triggered by JavaScript function
      * from Focus Manager API: <tt>applyFocus()</tt>.
      */
-    @Attribute(defaultValue = "false")
+    @Attribute(defaultValue = "false", hidden = true)
     public abstract boolean isDelayed();
 }

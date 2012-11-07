@@ -13,9 +13,10 @@
 
     <cc:implementation>
         <span id="#{clientId}" class=".rf-fcs-mngr">
-            <input id="#{clientId}InputFocus" name="#{clientId}InputFocus" type="text" value="#{component.value}" />
+            <input id="#{clientId}InputFocus" name="#{clientId}InputFocus" type="hidden" value="#{component.value}" />
             <script id="#{clientId}Script" type="text/javascript">
                 <cdk:scriptObject name="options">
+                    <cdk:scriptOption name="focusCandidates" value="#{getFocusCandidatesAsString(facesContext, component)}" />
                 </cdk:scriptObject>
                 new RichFaces.ui.FocusManager("#{clientId}", #{toScriptArgs(options)});
             </script>
