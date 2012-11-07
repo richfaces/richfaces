@@ -4,9 +4,9 @@
     xmlns:rich="http://richfaces.org/rich">
 
     <h:panelGroup styleClass="album-header-table" layout="block">
-        <h:outputText value="#{messages['my_all_albums']} #{fn:length(user.albums)}" styleClass="h1-style" />
+        <h:outputText value="#{messages['my_all_albums']} #{fn:length(userBean.user.albums)}" styleClass="h1-style" />
     </h:panelGroup>
     <ui:include src="/includes/album/albumsList.xhtml">
-        <ui:param name="albums" value="#{user.albums}" />
+        <ui:param name="albums" value="#{userBean.user.albums}" />
     </ui:include>
 </ui:composition>

@@ -9,7 +9,7 @@
             <h:panelGroup layout="block" style="padding-top: 10px; padding-left:10px; white-space: nowrap;">
                 <h:outputText style="margin-right:10px;" value="#{messages['choose_album']}" />
                 <h:selectOneMenu value="#{model.selectedAlbum}">
-                    <f:selectItems value="#{user.albums}" var="album" itemLabel="#{album.name}" itemValue="#{album}"
+                    <f:selectItems value="#{userBean.user.albums}" var="album" itemLabel="#{album.name}" itemValue="#{album}"
                         itemDescription="#{album.description}" />
                     <a4j:ajax listener="#{controller.resetFileUpload()}" event="change" />
                 </h:selectOneMenu>

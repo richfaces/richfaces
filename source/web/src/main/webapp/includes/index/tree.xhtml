@@ -103,7 +103,7 @@
         <!-- TODO - implememnt adviseNode... behaviour, icons, connecting lines -->
         <rich:tree ajaxSubmitSelection="false" dragIndicator="dragIndicator" var="treeNode" toggleType="client"
             dropListener="#{dndManager.processDrop}">
-            <rich:treeModelAdaptor nodes="#{user.getShelves()}" var="shelf">
+            <rich:treeModelAdaptor nodes="#{userBean.user.shelves}" var="shelf">
                 <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node">
                     <!-- <f:facet name="icon">
                         <h:graphicImage style="border: none" value="/img/shell/tree_icon_shelf.png" />

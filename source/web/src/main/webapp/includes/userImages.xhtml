@@ -3,7 +3,7 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
     <h:panelGroup styleClass="image-header-table" layout="block">
-        <h:outputText value="#{messages['my_all_photos']} #{fn:length(user.images)}" styleClass="h1-style" />
+        <h:outputText value="#{messages['my_all_photos']} #{fn:length(userBean.user.images)}" styleClass="h1-style" />
     </h:panelGroup>
     <ui:include src="/includes/image/imageList.xhtml" />
 </ui:composition>
