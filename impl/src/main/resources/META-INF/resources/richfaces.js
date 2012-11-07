@@ -13,6 +13,11 @@ if (!window.RichFaces) {
 (function(jQuery, richfaces) {
 
     richfaces.RICH_CONTAINER = "rf";
+    
+    /**
+     * All input elements which can hold value, which are enabled and visible.
+     */
+    richfaces.EDITABLE_INPUT_SELECTOR = ":not(:submit):not(:button):not(:image):input:visible:enabled";
 
     //keys codes
     richfaces.KEYS = {
@@ -59,6 +64,16 @@ if (!window.RichFaces) {
             return (element[richfaces.RICH_CONTAINER] || {})["component"];
         }
     };
+    
+
+    /**
+     * jQuery selector ":editable" which selects only input elements which can be edited, are visible and enabled
+     */
+    $.extend($.expr[':'], {
+        editable : function(element) {
+            return $(element).is(richfaces.EDITABLE_INPUT_SELECTOR);
+        }
+    });
 
     richfaces.$$ = function(componentName, element) {
         while (element.parentNode) {
@@ -171,7 +186,8 @@ if (!window.RichFaces) {
             jQuery(parameterInputs).remove();
         }
     };
-    //
+    
+    
 
     //utils.js
     jQuery.fn.toXML = function () {

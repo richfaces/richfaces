@@ -186,6 +186,15 @@
             equal("some\\.test\\'string", RichFaces.escapeCSSMetachars("some.test'string"));
             equal("\\#table\\[header\\]", RichFaces.escapeCSSMetachars("#table[header]"));
         });
+        
+        test("editable selector", function() {
+            var fixture = $("#editable-selector");
+            
+            $("*", fixture).each(function (i, e) {
+                var e = $(e);
+            	equal(e.is(":editable"), e.is(".editable"), e.get(0));
+            });
+        });
     </script>
 </head>
 <body>
@@ -200,6 +209,19 @@
         <span id="pushElt" />
 
         <div id="richfaces.log" />
+    </div>
+    
+    <div id="qunit-fixture">
+    
+        <div id="editable-selector">
+            <input type="text" class="editable" />
+            <input type="hidden" />
+            <input type="submit" />
+            <input type="button" />
+            <textarea class="editable"></textarea>
+            <input type="password" class="editable" />
+        </div>
+        
     </div>
 </body>
 </html>
