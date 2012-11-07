@@ -29,15 +29,15 @@
                                              auto-create="true"
                                              persistence-unit-jndi-name="java:/photoalbumEntityManager"/>
     <transaction:ejb-transaction/> -->
-    <security:identity authenticate-method="#{authenticator.authenticate}"/>
-    <component name="org.jboss.seam.ui.entityConverter">
-        <property name="entityManager">#{em}</property>
-    </component>
-    <event type="org.jboss.seam.security.notLoggedIn">
-        <action execute="#{redirect.captureCurrentView}"/>
-        <action execute="#{identity.tryLogin()}"/>
-    </event>
-    <event type="org.jboss.seam.security.loginSuccessful">
-        <action execute="#{redirect.returnToCapturedView}"/>
-    </event>
+<!--     <security:identity authenticate-method="#{authenticator.authenticate}"/> -->
+<!--     <component name="org.jboss.seam.ui.entityConverter"> -->
+<!--         <property name="entityManager">#{em}</property> -->
+<!--     </component> -->
+<!--     <event type="org.jboss.seam.security.notLoggedIn"> -->
+<!--         <action execute="#{redirect.captureCurrentView}"/> -->
+<!--         <action execute="#{identity.tryLogin()}"/> -->
+<!--     </event> -->
+<!--     <event type="org.jboss.seam.security.loginSuccessful"> -->
+<!--         <action execute="#{redirect.returnToCapturedView}"/> -->
+<!--     </event> -->
 </components>
