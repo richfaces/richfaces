@@ -8,7 +8,7 @@
     <ui:define name="content">
 
         <h:form>
-            <rich:focusManager />
+            <rich:focusManager preserve="true" />
             
             <h:inputText id="input1" tabindex="2" required="true" />
             
@@ -17,7 +17,7 @@
             <in:calendar id="calendar" enableManualInput="true" tabindex="1" /><br />
             
             <h:commandButton value="submit" /><br />
-            <a4j:commandButton value="ajax" /><br />
+            <a4j:commandButton value="ajax" render="@form" /><br />
             
             Current focus: #{facesContext.attributes['org.richfaces.FocusManager.submittedFocus'].clientId}
         </h:form>
