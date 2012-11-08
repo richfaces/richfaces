@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:csv="http://richfaces.org/csv"
-    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:in="http://richfaces.org/input">
 <ui:composition template="/layout/template.xhtml">
     <ui:param name="title" value="JSF validators on client" />
     <!-- Page header -->
@@ -35,6 +35,22 @@
                 </h:inputText>
                 <h:outputText id="longrangeOut" value="#{test.longValue}"></h:outputText>
                 <csv:message for="longrange" />
+                
+                <h:outputLabel for="calendar" value="Date (non-empty):" />
+                <in:calendar id="calendar" required="true" value="#{calendarValue}">
+                    <f:validateRequired />
+                    <csv:validator event="change" />
+                </in:calendar>
+                <h:outputText id="calendarOut" value="#{calendarValue}"></h:outputText>
+                <csv:message for="calendar" />
+                
+                <h:outputLabel for="inplaceInput" value="Inplace input (required):"  />
+                <in:inplaceInput id="inplaceInput" required="true" value="#{inplaceInputValue}">
+                    <f:validateRequired />
+                    <csv:validator event="blur" />
+                </in:inplaceInput>
+                <h:outputText id="inplaceInputOut" value="#{inplaceInputValue}"></h:outputText>
+                <csv:message for="inplaceInput" />
 
             </h:panelGrid>
             <h:commandButton value="Submit form with client-side validation">
