@@ -117,11 +117,10 @@
             var component = $(element);
             // TODO: add getValue to baseComponent and change jsdocs
             if (component) {
-                if (typeof component["getValue"] === "function") {
-                    value = component.getValue();
+                if (typeof rf.$(component)["getValue"] === "function") {
+                    value = rf.$(component).getValue();
                 } else {
-                    var genericInputSelector = ":not(:submit):not(:button):not(:image):input:visible:enabled:first";
-                    var nestedComponents = $(genericInputSelector, component);
+                    var nestedComponents = $(":editable", component);
                     if (nestedComponents) {
                         var nestedComponent = nestedComponents[0];
                         value = valueExtractors[nestedComponent.type](nestedComponent);

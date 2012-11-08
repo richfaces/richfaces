@@ -6,8 +6,6 @@
         useNative: false
     };
 
-    var inputLocator = "input[type=text], input[type=password], textarea";
-
     rf.ui.Placeholder = rf.BaseComponent.extendClass({
 
         name:"Placeholder",
@@ -20,10 +18,7 @@
                 options.className = 'rf-plhdr ' + ((options.styleClass) ? options.styleClass : '');
                 var elements = (options.selector) ? $(options.selector) : $(document.getElementById(options.targetId));
                 // finds all inputs within the subtree of target elements
-                var inputs = elements
-                    .find(inputLocator)
-                    .andSelf()
-                    .filter(inputLocator);
+                var inputs = elements.find(':editable').andSelf().filter(':editable');
                 inputs.watermark(options.text, options);
             });
         },
