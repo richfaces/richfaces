@@ -263,17 +263,21 @@
             }
             var entry;
             if (items[0].getReadyToSubmit()) {
-                entry = lastRequestedEntry = items.shift();
-                log.debug("richfaces.queue: will submit request NOW");
-                var o = lastRequestedEntry.options;
-                o["AJAX:EVENTS_COUNT"] = lastRequestedEntry.eventsCount;
-                richfaces.ajaxContainer.jsfRequest(lastRequestedEntry.source, lastRequestedEntry.event, o);
+            	try {
+		            entry = lastRequestedEntry = items.shift();
+		            log.debug("richfaces.queue: will submit request NOW");
+		            var o = lastRequestedEntry.options;
+		            o["AJAX:EVENTS_COUNT"] = lastRequestedEntry.eventsCount;
+		            richfaces.ajaxContainer.jsfRequest(lastRequestedEntry.source, lastRequestedEntry.event, o);
 
-                // call event handlers
-                if (o.queueonsubmit) {
-                    o.queueonsubmit.call(entry);
-                }
-                callEventHandler("onrequestdequeue", entry);
+		            // call event handlers
+		            if (o.queueonsubmit) {
+		                o.queueonsubmit.call(entry);
+		            }
+		            callEventHandler("onrequestdequeue", entry);
+            	} catch (error) {
+            		onError(error);
+            	}
             }
         };
 
