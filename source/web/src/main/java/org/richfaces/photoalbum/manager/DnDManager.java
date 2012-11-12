@@ -42,12 +42,14 @@ import org.richfaces.photoalbum.event.ImageEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IAlbumAction;
+import org.richfaces.photoalbum.util.Preferred;
 import org.richfaces.photoalbum.util.Utils;
 
 @Named("dndManager")
 public class DnDManager implements DropListener {
 
     @Inject
+    @Preferred
     User user;
 
     @Inject
