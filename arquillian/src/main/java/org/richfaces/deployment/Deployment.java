@@ -21,17 +21,32 @@
  */
 package org.richfaces.deployment;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
+
 import javax.faces.webapp.FacesServlet;
 
+import org.apache.commons.io.IOUtils;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.exporter.ZipExporter;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.FacesConfigVersionType;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
+import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
+import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 
 import com.google.common.base.Function;
+import com.google.common.collect.Sets;
 
 /**
  * Provides base for all test deployments
@@ -44,6 +59,8 @@ public class Deployment {
 
     private WebFacesConfigDescriptor facesConfig;
     private WebAppDescriptor webXml;
+
+    private Set<String> mavenDependencies = Sets.newHashSet();
 
     /**
      * Constructs base deployment with:
@@ -94,6 +111,9 @@ public class Deployment {
                     .servletName(FacesServlet.class.getSimpleName())
                     .urlPattern("/faces/*")
                 .up();
+
+        // TODO versions have to be loaded from POM
+        addMavenDependency("com.google.guava:guava", "net.sourceforge.cssparser:cssparser:0.9.5", "org.w3c.css:sac:1.3");
     }
 
     /**
@@ -107,9 +127,14 @@ public class Deployment {
      * Returns the final testable archive - packages all the resources which were configured separately
      */
     public WebArchive getFinalArchive() {
-        return archive
+        WebArchive finalArchive = archive
                 .addAsWebInfResource(new StringAsset(facesConfig.exportAsString()), "faces-config.xml")
                 .addAsWebInfResource(new StringAsset(webXml.exportAsString()), "web.xml");
+
+        // add library dependencies
+        exportMavenDependenciesToArchive(finalArchive);
+
+        return finalArchive;
     }
 
     /**
@@ -128,5 +153,58 @@ public class Deployment {
      */
     public void webXml(Function<WebAppDescriptor, WebAppDescriptor> transform) {
         this.webXml = transform.apply(this.webXml);
+    }
+
+    /**
+     * Resolves maven dependencies, either by {@link MavenDependencyResolver} or from file cache
+     */
+    private void exportMavenDependenciesToArchive(WebArchive finalArchive) {
+
+        Set<File> jarFiles = Sets.newHashSet();
+
+        for (String dependency : mavenDependencies) {
+            File cacheDir = new File("target/shrinkwrap-resolver-cache/" + dependency);
+            if (!cacheDir.exists()) {
+                resolveMavenDependency(dependency, cacheDir);
+            }
+            File[] listFiles = cacheDir.listFiles(new FilenameFilter() {
+
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.endsWith(".jar");
+                }
+            });
+            jarFiles.addAll(Arrays.asList(listFiles));
+        }
+
+        File[] files = jarFiles.toArray(new File[jarFiles.size()]);
+        finalArchive.addAsLibraries(files);
+    }
+
+    /**
+     * Adds maven artifact as library dependency
+     */
+    public Deployment addMavenDependency(String... dependencies) {
+        mavenDependencies.addAll(Arrays.asList(dependencies));
+        return this;
+    }
+
+    /**
+     * Resolves Maven dependency and writes it to the cache, so it can be reused next run
+     */
+    private void resolveMavenDependency(String missingDependency, File dir) {
+        Collection<JavaArchive> dependencies = DependencyResolvers.use(MavenDependencyResolver.class)
+                .loadEffectivePom("pom.xml").artifact(missingDependency).resolveAs(JavaArchive.class);
+
+        for (JavaArchive archive : dependencies) {
+            dir.mkdirs();
+            File outputFile = new File(dir, archive.getName());
+            InputStream zipStream = archive.as(ZipExporter.class).exportAsInputStream();
+            try {
+                IOUtils.copy(zipStream, new FileOutputStream(outputFile));
+            } catch (IOException e) {
+                throw new IllegalStateException(e);
+            }
+        }
     }
 }

@@ -23,7 +23,6 @@ package org.richfaces.shrinkwrap.descriptor;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.MessageFormat;
 
 import org.apache.commons.io.IOUtils;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -38,8 +37,9 @@ public class FaceletAsset implements Asset {
 
     private static final String TEMPLATE;
 
-    private String head = "";
-    private String body = "";
+    private StringBuilder head = new StringBuilder();
+    private StringBuilder body = new StringBuilder();
+    private StringBuilder xmlns = new StringBuilder();
 
     static {
         try {
@@ -51,17 +51,29 @@ public class FaceletAsset implements Asset {
 
     @Override
     public InputStream openStream() {
-        return new StringAsset(MessageFormat.format(TEMPLATE, head, body)).openStream();
+        return getAsStringAssert().openStream();
     }
 
-    public FaceletAsset head(String head) {
-        this.head = head;
+    private StringAsset getAsStringAssert() {
+        return new StringAsset(SimplifiedFormat.format(TEMPLATE, head, body, xmlns));
+    }
+
+    public FaceletAsset head(Object... heads) {
+        for (Object head : heads) {
+            this.head.append(head);
+        }
         return this;
     }
 
-    public FaceletAsset body(String body) {
-        this.body = body;
+    public FaceletAsset body(String... bodies) {
+        for (Object body : bodies) {
+            this.body.append(body);
+        }
         return this;
     }
 
+    public FaceletAsset xmlns(String prefix, String uri) {
+        xmlns.append("xmlns:" + prefix + "=\"" + uri + "\" ");
+        return this;
+    }
 }

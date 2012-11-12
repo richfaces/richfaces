@@ -80,14 +80,18 @@
         <version.plexus-velocity>1.1.2</version.plexus-velocity>
         <version.google-javaparser>1.0.1</version.google-javaparser>
         <version.jcommander>1.20</version.jcommander>
+        <version.httpclient>4.2.1</version.httpclient>
         
         <!-- Arquillian test deps -->
-        <version.arquillian.core>1.0.1.Final</version.arquillian.core>
-        <version.arquillian.drone>1.1.0.CR2</version.arquillian.drone>
-        <version.arquillian.warp>1.0.0.Alpha1</version.arquillian.warp>
-        <version.arquillian.graphene>2.0.0.Alpha2</version.arquillian.graphene>
+        <version.arquillian.core>1.0.3.Final</version.arquillian.core>
+        <version.arquillian.drone>1.1.0.Final</version.arquillian.drone>
+        <version.arquillian.warp>1.0.0.Alpha2-SNAPSHOT</version.arquillian.warp>
+        <version.arquillian.graphene>2.0.0.Alpha3-SNAPSHOT</version.arquillian.graphene>
         <version.shrinkwrap.resolver>2.0.0-alpha-1</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-3</version.shrinkwrap.descriptors>
+        
+        <arquillian.drone.browser>htmlUnit</arquillian.drone.browser>
+        <arquillian.drone.reusable>false</arquillian.drone.reusable>
     </properties>
 
     <dependencyManagement>
@@ -607,12 +611,12 @@
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
-                <version>4.1.2</version>
+                <version>${version.httpclient}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpcore</artifactId>
-                <version>4.1.2</version>
+                <version>${version.httpclient}</version>
             </dependency>
 
         </dependencies>
@@ -863,6 +867,179 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>integration-tests</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                </property>
+            </activation>
+            <properties>
+                <integration.test.source>src/test/integration</integration.test.source>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.richfaces.test</groupId>
+                    <artifactId>richfaces-arquillian</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-test-source</id>
+                                <phase>process-test-sources</phase>
+                                <goals>
+                                    <goal>add-test-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>${integration.test.source}</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.12.4</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <testSourceDirectory>${integration.test.source}</testSourceDirectory>
+                            <includes>
+                                <include>**/integration/**/*.java</include>
+                            </includes>
+                            <skipTests>${skipITs}</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    
+        <!-- Containers -->
+        <profile>
+            <id>container-jbossas-managed-7</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>jbossas</value>
+                </property>
+            </activation>
+            <properties>
+                <jbossHome>${project.build.directory}/jboss-as-${version.jboss-as7}</jbossHome>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.jboss.as</groupId>
+                                            <artifactId>jboss-as-dist</artifactId>
+                                            <version>${version.jboss-as7}</version>
+                                            <type>zip</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${project.build.directory}</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-test</id>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <systemPropertyVariables>
+                                        <jbossHome>${jbossHome}</jbossHome>
+                                    </systemPropertyVariables>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>container-jbossas-remote-7</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>container-tomee-remote</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomee</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.openejb</groupId>
+                    <artifactId>arquillian-tomee-remote</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        
+        <!-- Browsers -->
+        <profile>
+            <id>browser-chrome</id>
+            <properties>
+                <arquillian.drone.browser>chrome</arquillian.drone.browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>browser-firefox</id>
+            <properties>
+                <arquillian.drone.browser>firefox</arquillian.drone.browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>browser-remote-reusable</id>
+            <properties>
+                <arquillian.drone.reusable>true</arquillian.drone.reusable>
+            </properties>
+        </profile>
+
     </profiles>
 
     <!-- SCM and distribution management -->
