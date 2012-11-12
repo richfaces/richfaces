@@ -1,6 +1,7 @@
 package org.richfaces.photoalbum.bean;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Produces;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,6 +13,7 @@ import org.jboss.logging.Logger;
 //import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.util.Preferred;
 
 /**
  * This bean will work as a part of a simple security checking
@@ -36,10 +38,11 @@ public class UserBean {
 
     // -- getters and setters
 
-    private boolean autolog = false; //
+    private boolean autolog = true; //
 
     private Logger logger = Logger.getLogger(UserBean.class);
 
+    @SuppressWarnings("unused")
     @PostConstruct
     private void logUser() {
         if (autolog) {
@@ -59,6 +62,8 @@ public class UserBean {
         return user;
     }
 
+    @Produces
+    @Preferred
     public User getUser() {
         if (!logged) {
             return null;
