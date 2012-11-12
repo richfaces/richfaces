@@ -50,10 +50,10 @@
                             value="#{fn:length(treeNode.unvisitedImages)}" />
                         <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" value=" #{messages['new']}" />
                         <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(treeNode)}" />
+                        <rich:tooltip direction="topRight" showDelay="1000">
+                            <span style="white-space: nowrap">#{treeNode.name}</span>
+                        </rich:tooltip>
                     </a4j:outputPanel>
-                    <rich:tooltip direction="topRight" showDelay="1000">
-                        <span style="white-space: nowrap">#{treeNode.name}</span>
-                    </rich:tooltip>
                 </rich:treeNode>
 
                 <rich:treeModelAdaptor var="album" nodes="#{treeNode.albums}">
@@ -69,10 +69,10 @@
                                 value="#{fn:length(treeNode.unvisitedImages)}" />
                             <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" value=" #{messages['new']}" />
                             <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showAlbum(treeNode)}" />
+                            <rich:tooltip direction="topRight" showDelay="1000">
+                                <span style="white-space: nowrap">#{treeNode.name}</span>
+                            </rich:tooltip>
                         </a4j:outputPanel>
-                        <rich:tooltip direction="topRight" showDelay="1000">
-                            <span style="white-space: nowrap">#{treeNode.name}</span>
-                        </rich:tooltip>
                     </rich:treeNode>
 
                 </rich:treeModelAdaptor>
@@ -118,14 +118,14 @@
                             value="#{fn:length(treeNode.unvisitedImages)}" />
                         <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" value=" #{messages['new']}" />
                         <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(treeNode)}" />
+
+                        <rich:dropTarget acceptedTypes="album" dropValue="#{treeNode}" dropListener="#{dndManager.processDrop}"
+                            render="treePanel, mainArea" />
+
+                        <rich:tooltip direction="topRight" showDelay="1000">
+                            <span style="white-space: nowrap">#{treeNode.name}</span>
+                        </rich:tooltip>
                     </a4j:outputPanel>
-
-                    <rich:dropTarget acceptedTypes="album" dropValue="#{treeNode}" dropListener="#{dndManager.processDrop}"
-                        render="treePanel, mainArea" />
-
-                    <rich:tooltip direction="topRight" showDelay="1000">
-                        <span style="white-space: nowrap">#{treeNode.name}</span>
-                    </rich:tooltip>
                 </rich:treeNode>
 
                 <rich:treeModelAdaptor var="album" nodes="#{treeNode.albums}">
@@ -146,16 +146,15 @@
                                 value="#{fn:length(treeNode.unvisitedImages)}" />
                             <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" value=" #{messages['new']}" />
                             <a4j:ajax render="treePanel, mainArea" event="click" listener="#{controller.showAlbum(treeNode)}" />
+
+                            <rich:dragSource type="album" dragIndicator="dragIndicator" dragValue="#{treeNode}" />
+                            <rich:dropTarget acceptedTypes="image" dropValue="#{treeNode}"
+                                dropListener="#{dndManager.processDrop}" render="treePanel, mainArea" />
+
+                            <rich:tooltip direction="topRight" showDelay="1000">
+                                <span style="white-space: nowrap"> #{treeNode.name} </span>
+                            </rich:tooltip>
                         </a4j:outputPanel>
-
-                        <rich:dragSource type="album" dragIndicator="dragIndicator" dragValue="#{treeNode}" />
-                        <!-- dropValue might not work (images are drawn form elsewhere) -->
-                        <rich:dropTarget acceptedTypes="image" dropValue="#{treeNode}" dropListener="#{dndManager.processDrop}"
-                            render="treePanel, mainArea" />
-
-                        <rich:tooltip direction="topRight" showDelay="1000">
-                            <span style="white-space: nowrap"> #{treeNode.name} </span>
-                        </rich:tooltip>
                     </rich:treeNode>
 
                 </rich:treeModelAdaptor>
