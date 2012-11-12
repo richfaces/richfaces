@@ -43,6 +43,7 @@ import org.richfaces.photoalbum.event.ImageEvent;
 import org.richfaces.photoalbum.event.ShelfEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.util.Preferred;
 
 /**
  * This class represent 'C' in MVC pattern. It is logic that determine what actions invoked and what next page need to be
@@ -65,6 +66,10 @@ public class Controller implements Serializable {
     // @In(scope = ScopeType.SESSION)
     @Inject
     User user;
+    
+    @Inject
+    @Preferred
+    User loggedUser;
 
     @Inject
     FileManager fileManager;
@@ -499,7 +504,7 @@ public class Controller implements Serializable {
         if (image == null || image.getOwner() == null) {
             return false;
         }
-        return image.isOwner(user);
+        return image.isOwner(loggedUser);
     }
 
     /**
@@ -507,7 +512,7 @@ public class Controller implements Serializable {
      *
      */
     public boolean isUserHaveShelves() {
-        return user.getShelves().size() > 0;
+        return loggedUser.getShelves().size() > 0;
     }
 
     /**
@@ -515,7 +520,7 @@ public class Controller implements Serializable {
      *
      */
     public boolean isUserHaveAlbums() {
-        return user.getAlbums().size() > 0;
+        return loggedUser.getAlbums().size() > 0;
     }
 
     /**
@@ -524,7 +529,7 @@ public class Controller implements Serializable {
      * @param shelf - shelf to check
      */
     public boolean isUserShelf(Shelf shelf) {
-        return shelf != null && shelf.isOwner(user);
+        return shelf != null && shelf.isOwner(loggedUser);
     }
 
     /**
@@ -533,7 +538,7 @@ public class Controller implements Serializable {
      * @param album - album to check
      */
     public boolean isUserAlbum(Album album) {
-        return album != null && album.isOwner(user);
+        return album != null && album.isOwner(loggedUser);
     }
 
     /**
@@ -542,20 +547,20 @@ public class Controller implements Serializable {
      * @param user - user to check
      */
     public boolean isProfileEditable(User selectedUser) {
-        return selectedUser != null && selectedUser.equals(user);
+        return selectedUser != null && selectedUser.equals(loggedUser);
     }
 
     private boolean canViewShelf(Shelf shelf) {
-        return shelf != null && shelf.isOwner(user);
+        return shelf != null && shelf.isOwner(loggedUser);
     }
 
     private boolean canViewAlbum(Album album) {
-        return album != null && album.getShelf() != null && (album.getShelf().isShared() || album.isOwner(user));
+        return album != null && album.getShelf() != null && (album.getShelf().isShared() || album.isOwner(loggedUser));
     }
 
     private boolean canViewImage(Image image) {
         return image != null && image.getAlbum() != null && image.getAlbum().getShelf() != null
-            && (image.getAlbum().getShelf().isShared() || image.isOwner(user));
+            && (image.getAlbum().getShelf().isShared() || image.isOwner(loggedUser));
     }
 
     /**
@@ -577,8 +582,8 @@ public class Controller implements Serializable {
             alb = model.getSelectedAlbum();
         }
         if (alb == null) {
-            if (user != null && user.getShelves().size() > 0 && user.getShelves().get(0).getAlbums().size() > 0) {
-                for (Shelf s : user.getShelves()) {
+            if (loggedUser != null && loggedUser.getShelves().size() > 0 && loggedUser.getShelves().get(0).getAlbums().size() > 0) {
+                for (Shelf s : loggedUser.getShelves()) {
                     if (s.getAlbums().size() > 0) {
                         alb = s.getAlbums().get(0);
                         break;
