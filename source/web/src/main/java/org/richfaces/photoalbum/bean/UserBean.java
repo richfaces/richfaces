@@ -1,29 +1,33 @@
 package org.richfaces.photoalbum.bean;
 
+import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
-import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.jboss.logging.Logger;
-//import org.richfaces.photoalbum.domain.Album;
-//import org.richfaces.photoalbum.domain.Image;
-//import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.util.Preferred;
 
 /**
  * This bean will work as a part of a simple security checking
- * 
+ *
  * @author mpetrov
  */
 
 @Named
 @SessionScoped
-public class UserBean {
+public class UserBean implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
     @Inject
     EntityManager em;
@@ -34,7 +38,7 @@ public class UserBean {
     // private Album currentAlbum;
     // private Image currentImage;
 
-    private boolean logged;
+    private boolean logged = false;
 
     // -- getters and setters
 
@@ -79,13 +83,15 @@ public class UserBean {
             logged = user != null;
         }
     }
-    
+
     public boolean isLoggedIn() {
         return logged;
     }
 
     public boolean isUserAdmin() {
-        if (user == null) return false;
+        if (user == null) {
+            return false;
+        }
         return user.getLogin().equals("amarkhel") || user.getLogin().equals("Viking");
     }
 
@@ -94,15 +100,15 @@ public class UserBean {
     // }
     /*
      * public Shelf getCurrentShelf() { return currentShelf; }
-     * 
+     *
      * public void setCurrentShelf(Shelf currentShelf) { this.currentShelf = currentShelf; }
-     * 
+     *
      * public Album getCurrentAlbum() { return currentAlbum; }
-     * 
+     *
      * public void setCurrentAlbum(Album currentAlbum) { this.currentAlbum = currentAlbum; }
-     * 
+     *
      * public Image getCurrentImage() { return currentImage; }
-     * 
+     *
      * public void setCurrentImage(Image currentImage) { this.currentImage = currentImage; }
      */
     // -- management classes
