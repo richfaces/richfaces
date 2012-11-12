@@ -25,7 +25,7 @@ public abstract class PlaceholderRendererBase extends RendererBase {
         AbstractPlaceholder placeholder = (AbstractPlaceholder) component;
 
         // skip direct rendering for nested usage (workaround for RF-12589)
-        if (placeholder.getSelector() == null) {
+        if (placeholder.getSelector() == null || placeholder.getSelector().isEmpty()) {
             return;
         }
 

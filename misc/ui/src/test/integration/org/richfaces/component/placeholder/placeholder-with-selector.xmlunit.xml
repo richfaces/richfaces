@@ -1,0 +1,10 @@
+<body>
+  <input id="input" type="text" class="rf-plhdr" value="Placeholder Text"/>
+  <span id="j_idt6">
+    <script id="j_idt6Script" type="text/javascript">
+//<![CDATA[
+new RichFaces.ui.Placeholder("j_idt6", {"selector":"input","text":"Placeholder Text"} );
+//]]>
+    </script>
+  </span>
+</body>

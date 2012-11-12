@@ -75,7 +75,7 @@ public abstract class AbstractPlaceholder extends UIOutput {
             if (event instanceof PostAddToViewEvent) {
 
                 // only for nested usage (workaround for RF-12589)
-                if (this.getSelector() == null) {
+                if (this.getSelector() == null || this.getSelector().isEmpty()) {
                     UIComponent component = ((PostAddToViewEvent) event).getComponent();
                     UIComponent parent = component.getParent();
 
