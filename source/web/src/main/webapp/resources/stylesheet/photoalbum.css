@@ -1361,3 +1361,21 @@ h1 {
 .ie6transparency {
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0 );
 }
+
+/* dragIndicator */
+.rf-ind * {
+    border: 0 !important;
+}
+
+.rf-ind .rf-p-b {
+    padding: 1px !important;
+}
+
+.rf-ind-acpt .rf-p {
+    background-color: #093;
+    
+}
+
+.rf-ind-rejt .rf-p {
+    background-color: #C33;
+}
