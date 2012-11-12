@@ -3,7 +3,7 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
 
-    <ui:include src="/includes/image/inputNumberSlider.xhtml" >
+    <ui:include src="/includes/image/inputNumberSlider.xhtml">
         <ui:param name="size" value="#{fn:length(model.images)}" />
         <ui:param name="renderArea" value="userAlbumImages" />
     </ui:include>
@@ -24,6 +24,13 @@
     </h:panelGroup>
     <br />
     <br />
+
+    <rich:dragIndicator id="iDragIndicator">
+        <rich:panel>
+                [Image]
+        </rich:panel>
+    </rich:dragIndicator>
+
     <h:panelGroup id="userAlbumImages">
         <a4j:repeat id="imageList" value="#{model.images}" var="image" rows="20">
             <h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
@@ -37,7 +44,7 @@
                                 value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}">
                                 <f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
                                 <rich:dragSource rendered="#{controller.isUserImage(image)}" render="mainArea, treePanel"
-                                    id="dragSource" dragIndicator="dragIndicator" type="image" dragValue="#{image}">
+                                    id="dragSource" dragIndicator="iDragIndicator" type="image" dragValue="#{image}">
                                     <!-- <rich:dndParam id="dragParam" name="label" value="#{image.name}" /> -->
                                     <!-- not supported in RF 4 -->
                                 </rich:dragSource>
@@ -55,7 +62,7 @@
             </h:panelGroup>
             <ui:include src="/includes/contextMenu/CMForImage.xhtml">
                 <ui:param name="image" value="#{image}" />
-                <ui:param name="mediaOutput" value="#{rich:clientId('img')}" />
+                <ui:param name="mediaOutput" value="img" />
             </ui:include>
         </a4j:repeat>
     </h:panelGroup>
