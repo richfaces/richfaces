@@ -27,19 +27,11 @@ import static org.richfaces.integration.CoreFeature.RESOURCE_CODEC;
 import static org.richfaces.integration.CoreFeature.RESOURCE_HANDLER;
 import static org.richfaces.integration.CoreFeature.SERVICE_LOADER;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.faces.component.UIOutput;
 import javax.faces.event.PostConstructApplicationEvent;
@@ -48,17 +40,13 @@ import javax.servlet.ServletContainerInitializer;
 
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.ajax4jsf.util.base64.Codec;
-import org.apache.commons.io.IOUtils;
 import org.jboss.arquillian.container.test.spi.RemoteLoadableExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
-import org.jboss.shrinkwrap.api.exporter.ZipExporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
-import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 import org.richfaces.VersionBean;
 import org.richfaces.application.CoreConfiguration;
 import org.richfaces.application.DependencyInjectionServiceImpl;
@@ -177,7 +165,6 @@ import org.richfaces.webapp.PushServletContainerInitializer;
 import org.richfaces.webapp.ServletConfigDefaultsWrapper;
 
 import com.google.common.base.Function;
-import com.google.common.collect.Sets;
 
 /**
  * Provides base for Core test deployment
@@ -190,18 +177,12 @@ public class CoreDeployment extends Deployment {
 
     private PropertiesAsset testingModules = new PropertiesAsset();
     private EnumSet<CoreFeature> addedFeatures = EnumSet.noneOf(CoreFeature.class);
-    private Set<String> mavenDependencies = Sets.newHashSet();
 
     /**
      * Constructs base Core deployment with dependencies, base classes and utilities.
      */
     public CoreDeployment(Class<?> testClass) {
         super(testClass);
-
-        // TODO versions have to be loaded from POM
-        mavenDependencies.add("com.google.guava:guava");
-        mavenDependencies.add("net.sourceforge.cssparser:cssparser:0.9.5");
-        mavenDependencies.add("org.w3c.css:sac:1.3");
 
         this.withBaseClasses().withUtilities().withLogging();
 
@@ -224,65 +205,7 @@ public class CoreDeployment extends Deployment {
         // add testing modules list
         finalArchive.addAsResource(testingModules, TESTING_MODULE);
 
-        // add library dependencies
-        addMavenDependencies(finalArchive);
-
         return finalArchive;
-    }
-    
-    /**
-     * Resolves maven dependencies, either by {@link MavenDependencyResolver} or from file cache
-     */
-    private void addMavenDependencies(WebArchive finalArchive) {
-        
-        Set<File> jarFiles =  Sets.newHashSet();
-        
-        for (String dependency : mavenDependencies) {
-            File cacheDir = new File("target/shrinkwrap-resolver-cache/" + dependency);
-            if (!cacheDir.exists()) {
-                resolveMavenDependency(dependency, cacheDir);
-            }
-            File[] listFiles = cacheDir.listFiles(new FilenameFilter() {
-                
-                @Override
-                public boolean accept(File dir, String name) {
-                    return name.endsWith(".jar");
-                }
-            });
-            jarFiles.addAll(Arrays.asList(listFiles));
-        }
-        
-        File[] files = jarFiles.toArray(new File[jarFiles.size()]);
-        finalArchive.addAsLibraries(files);
-    }
-    
-    /**
-     * Resolves Maven dependency and writes it to the cache, so it can be reused next run
-     */
-    private void resolveMavenDependency(String missingDependency, File dir) {
-        Collection<JavaArchive> dependencies = DependencyResolvers
-                .use(MavenDependencyResolver.class)
-                .loadEffectivePom("pom.xml")
-                .artifact(missingDependency).resolveAs(JavaArchive.class);
-        
-        for (JavaArchive archive : dependencies) {
-            dir.mkdirs();
-            File outputFile = new File(dir, archive.getName());
-            InputStream zipStream = archive.as(ZipExporter.class).exportAsInputStream();
-            try {
-                IOUtils.copy(zipStream, new FileOutputStream(outputFile));
-            } catch (IOException e) {
-                throw new IllegalStateException(e);
-            }
-        }
-    }
-
-    /**
-     * Adds maven artifact as library dependency
-     */
-    public CoreDeployment addMavenDependency(String... dependencies) {
-        mavenDependencies.addAll(Arrays.asList(dependencies));
-        return this;
     }
 
     /**

@@ -22,9 +22,9 @@
 
     <defaultProtocol type="Servlet 3.0" />
 
-    <engine>
+    <!-- <engine>
         <property name="deploymentExportPath">target/</property>
-    </engine>
+    </engine> -->
     
     <container qualifier="jboss" default="true">
         <configuration>
@@ -33,7 +33,7 @@
     </container>
 
     <extension qualifier="webdriver">
-        <property name="useJavaScript">true</property>
+        <property name="javascriptEnabled">true</property>
 
         <property name="browserCapabilities">${arquillian.drone.browser}</property>
         <property name="remoteReusable">${arquillian.drone.reusable}</property>

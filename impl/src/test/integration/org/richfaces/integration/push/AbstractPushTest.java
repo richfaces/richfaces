@@ -6,7 +6,6 @@ import static org.junit.Assert.assertEquals;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,15 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.ClientAction;
-import org.jboss.arquillian.warp.HttpRequest;
-import org.jboss.arquillian.warp.RequestFilter;
 import org.jboss.arquillian.warp.ServerAssertion;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
+import org.jboss.arquillian.warp.client.filter.HttpRequest;
+import org.jboss.arquillian.warp.client.filter.RequestFilter;
 import org.jboss.arquillian.warp.extension.servlet.AfterServlet;
 import org.jboss.arquillian.warp.extension.servlet.BeforeServlet;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.richfaces.application.push.MessageException;
 import org.richfaces.application.push.PushContext;
 import org.richfaces.application.push.PushContextFactory;
@@ -31,12 +29,7 @@ import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
 import org.richfaces.integration.CoreDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import org.richfaces.wait.Condition;
-import org.richfaces.wait.Wait;
 import org.richfaces.webapp.PushHandlerFilter;
-
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 
 @WarpTest
 public class AbstractPushTest {
@@ -58,8 +51,10 @@ public class AbstractPushTest {
                 "org.richfaces.ui.core:richfaces-ui-core-api",
                 "org.richfaces.ui.core:richfaces-ui-core-ui");
 
-        FaceletAsset pushPage = new FaceletAsset().body("<script>document.title = 'waiting-for-message'; RichFaces.Push.logLevel = \"debug\";</script>"
-                + "<a4j:push address=\"" + Commons.TOPIC + "\" ondataavailable=\"console.log('a4j:push message: ' + event.rf.data); document.title = 'message-received: ' + event.rf.data\" />");
+        FaceletAsset pushPage = new FaceletAsset();
+        pushPage.xmlns("a4j", "http://richfaces.org/a4j");
+        pushPage.body("<script>document.title = 'waiting-for-message'; RichFaces.Push.logLevel = \"debug\";</script>");
+        pushPage.body("<a4j:push address=\"" + Commons.TOPIC + "\" ondataavailable=\"console.log('a4j:push message: ' + event.rf.data); document.title = 'message-received: ' + event.rf.data\" />");
 
         deployment.archive()
                 .addClass(AbstractPushTest.class)
@@ -132,18 +127,11 @@ public class AbstractPushTest {
         }
 
         @AfterServlet
-        public void afterServlet() {
+        public void afterServlet() throws InterruptedException {
             // TODO instead of waiting, we should be able intercept Atmosphere's onBroaddcast/.. methods
-            new Wait()
-                .failWith("messages for current session must be cleared (empty) after pushing")
-                .until(new MessagesAreEmpty());
-        }
-
-        private class MessagesAreEmpty implements Condition {
-            @Override
-            public boolean isTrue() {
-                final Session session = getCurrentSession();
-                return session.getMessages().size() == 0;
+            final Session session = getCurrentSession();
+            while (session.getMessages().size() > 0) {
+                Thread.sleep(50);
             }
         }
 
