@@ -41,12 +41,12 @@
                     <h:panelGroup layout="block">
                         <richx:commandButton styleClass="login" data="#{authenticator.loginFailed}" action="gotoindex"
                             oncomplete="if(!data)$('loginPanel').component.hide();" value="#{messages['login.login']}"
-                            render="mainArea,treePanel,searchForm, headerPanel" process="@region" />
+                            render="mainArea,treePanel,searchForm, headerPanel" execute="@region" />
                     </h:panelGroup>
                     <h:panelGroup layout="block">
                         <richx:commandButton value="#{messages['login.register']}" immediate="true"
                             actionListener="#{authenticator.goToRegister}" render="mainArea"
-                            oncomplete="$('loginPanel').component.hide();" process="@region" />
+                            oncomplete="$('loginPanel').component.hide();" execute="@region" />
                     </h:panelGroup>
                 </h:panelGrid>
             </h:panelGrid>

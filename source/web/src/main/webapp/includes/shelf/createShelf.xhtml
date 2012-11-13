@@ -20,7 +20,7 @@
         <a4j:region id="form5">
             <h:panelGroup id="shelfPanel" width="100%" layout="block">
                 <a4j:region>
-                    <rich:graphValidator>
+                    <rich:graphValidator value="#{shelf}">
                         <h:panelGrid columns="3" id="editContent" rowClasses="prop" columnClasses="name,value, error">
                             <h:panelGroup style="width: 115px" layout="block">
                                 <h:outputText value="#{messages['name']}" />
@@ -46,12 +46,12 @@
                             <richx:commandButton oncomplete="if(event.data)#{rich:component('shelfModalPanel')}.hide();"
                                 value="#{messages['save']}" data="#{shelfManager.validationSuccess}"
                                 actionListener="#{shelfManager.addShelf(shelfManager.shelf)}" id="storebutton"
-                                render="treePanel, mainArea, menu" process="@region" styleClass="shelf" />
+                                render="treePanel, mainArea, menu" execute="@region" styleClass="shelf" />
                         </h:panelGroup>
                         <h:panelGroup id="secondButton" layout="block">
                             <richx:commandButton type="button" id="cancelbutton"
                                 onclick="#{rich:component('shelfModalPanel')}.hide(); Event.stop(event); return false;"
-                                value="#{messages['album.cancel']}" />
+                                value="#{messages['album.cancel']}" execute="@this"/>
                         </h:panelGroup>
                     </h:panelGrid>
                 </h:panelGroup>
