@@ -1010,6 +1010,7 @@ h1 {
     position: relative;
     width: 103px !important;
     height: 28px !important;
+    background-image: url('/richfaces-photoalbum/img/shell/button.png');
 }
 
 .buttons-body-image {
