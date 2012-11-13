@@ -774,6 +774,16 @@
                 </samples>
             </demo>
             <demo>
+                <id>placeholder</id>
+                <name>Placeholder</name>
+                <samples>
+                    <sample>
+                        <id>placeholder</id>
+                        <name>Placeholder</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
                 <id>functions</id>
                 <name>RichFaces functions</name>
                 <samples>
