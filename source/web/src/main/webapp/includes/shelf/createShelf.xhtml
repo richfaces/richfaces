@@ -1,8 +1,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
-    <rich:popupPanel id="shelfModalPanel" width="400" height="150" autosized="true"
-        onshow="applyModalPanelEffect('shelfModalPanel', {delay: 0.5, afterFinish: function(){$('form5:name').focus();}})">
+    <rich:popupPanel id="shelfModalPanel" width="400" height="150" autosized="true" modal="true">
+        <!--  onshow="applyModalPanelEffect('shelfModalPanel', {delay: 0.5, afterFinish: function(){$('form5:name').focus();}})"> -->
         <f:facet name="header">#{messages['add_shelf']}</f:facet>
 
         <f:facet name="controls">
@@ -16,22 +16,24 @@
         <!-- <rich:effect type="Appear" name="appearFunc" /> -->
         <!-- not implemented in RF 4 -->
 
-        <h:form id="form5">
-            <h:panelGroup id="panel" width="100%" layout="block">
+        <!-- <h:form id="form5"> -->
+        <a4j:region id="form5">
+            <h:panelGroup id="shelfPanel" width="100%" layout="block">
                 <a4j:region>
                     <rich:graphValidator>
                         <h:panelGrid columns="3" id="editContent" rowClasses="prop" columnClasses="name,value, error">
                             <h:panelGroup style="width: 115px" layout="block">
                                 <h:outputText value="#{messages['name']}" />
                             </h:panelGroup>
-                            <h:inputText id="name" value="#{shelf.name}"
+                            <h:inputText id="name" value="#{shelfManager.shelf.name}"
                                 onkeydown="if (event.keyCode == 13) { jQuery(&quot; .shelf input[type='image']&quot;).click(); return false; }">
                             </h:inputText>
                             <rich:message for="name" />
                             <h:panelGroup style="width: 115px" layout="block">
                                 <h:outputText value="#{messages['album.shared']}" />
                             </h:panelGroup>
-                            <h:selectBooleanCheckbox styleClass="selectBooleanCheckbox" id="shared" value="#{shelf.shared}"
+                            <h:selectBooleanCheckbox styleClass="selectBooleanCheckbox" id="shared"
+                                value="#{shelfManager.shelf.shared}"
                                 onkeydown="if (event.keyCode == 13) { jQuery(&quot; .shelf input[type='image']&quot;).click(); return false; }" />
                             <rich:message for="shared" />
                         </h:panelGrid>
@@ -41,10 +43,10 @@
                 <h:panelGroup id="buttons" layout="block">
                     <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto">
                         <h:panelGroup id="firstButton" layout="block">
-                            <richx:commandButton oncomplete="if(data)$('shelfModalPanel').component.hide();"
+                            <richx:commandButton oncomplete="if(event.data)#{rich:component('shelfModalPanel')}.hide();"
                                 value="#{messages['save']}" data="#{shelfManager.validationSuccess}"
-                                actionListener="#{shelfManager.addShelf(shelf)}" id="storebutton"
-                                render="treePanel, mainArea, menu" styleClass="shelf" />
+                                actionListener="#{shelfManager.addShelf(shelfManager.shelf)}" id="storebutton"
+                                render="treePanel, mainArea, menu" process="@region" styleClass="shelf" />
                         </h:panelGroup>
                         <h:panelGroup id="secondButton" layout="block">
                             <richx:commandButton type="button" id="cancelbutton"
@@ -54,6 +56,7 @@
                     </h:panelGrid>
                 </h:panelGroup>
             </h:panelGroup>
-        </h:form>
+        </a4j:region>
+        <!--        </h:form> -->
     </rich:popupPanel>
 </ui:composition>

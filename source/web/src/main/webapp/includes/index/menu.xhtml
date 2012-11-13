@@ -2,7 +2,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
-    <h:form id="menuform" style="margin: 0px">
+    <!-- <h:form id="menuform" style="margin: 0px"> -->
 
         <rich:toolbar height="37" styleClass="main-menu-toolbar" id="menu">
             <rich:toolbarGroup styleClass="main-menu-toolbar-content">
@@ -90,7 +90,7 @@
 
                     <h:panelGroup id="add_icons_div_id" layout="block" rendered="#{userBean.loggedIn}" style="float: left;">
                         <a4j:commandLink rendered="#{userBean.loggedIn}" actionListener="#{shelfManager.createShelf()}"
-                            render="shelfModalPanel" oncomplete="#{rich:component('shelfModalPanel')}.show()">
+                            render="shelfModalPanel" oncomplete="#{rich:component('shelfModalPanel')}.show()" execute="@this">
                             <h:graphicImage value="/img/shell/icon_add_shelf.png" width="37" height="23" alt=""
                                 styleClass="main-menu-add-icons-img" />
                             <rich:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
@@ -102,7 +102,7 @@
                         <a4j:commandLink disabled="#{!controller.isUserHaveShelves()}" rendered="#{userBean.loggedIn}"
                             data="#{albumManager.errorInCreate}"
                             actionListener="#{albumManager.createAlbum(model.selectedShelf, true)}"
-                            oncomplete="if(!data)$('albumModalPanel').component.show()" render="albumModalPanel">
+                            oncomplete="if(!data)$('albumModalPanel').component.show()" render="albumModalPanel" execute="@this">
                             <h:graphicImage rendered="#{controller.isUserHaveShelves()}" value="/img/shell/icon_add_album.png"
                                 width="37" height="23" alt="" styleClass="main-menu-add-icons-img" />
                             <h:graphicImage rendered="#{!controller.isUserHaveShelves()}"
@@ -115,7 +115,7 @@
                             </rich:tooltip>
                         </a4j:commandLink>
                         <a4j:commandLink disabled="#{!controller.isUserHaveAlbums()}" rendered="#{userBean.loggedIn}"
-                            actionListener="#{controller.showFileUpload()}" render="mainform:mainArea">
+                            actionListener="#{controller.showFileUpload()}" render="mainform:mainArea" execute="@this">
                             <h:graphicImage rendered="#{controller.isUserHaveAlbums()}" value="/img/shell/icon_add_photo.png"
                                 width="37" height="23" alt="" styleClass="main-menu-add-icons-img" />
                             <h:graphicImage rendered="#{!controller.isUserHaveAlbums()}"
@@ -133,5 +133,5 @@
                 </h:panelGroup>
             </rich:toolbarGroup>
         </rich:toolbar>
-    </h:form>
+<!--     </h:form> -->
 </ui:composition>

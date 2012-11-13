@@ -16,8 +16,8 @@
         <!-- <rich:effect type="Appear" name="appearFunc" /> -->
         <!-- not implemented in RF 4 -->
 
-        <h:form id="loginPanelForm">
-
+        <!-- <h:form id="loginPanelForm"> -->
+        <a4j:region id="loginPanelForm">
             <h:panelGrid columns="1" columnClasses="login-table-col" style="width: 100%; text-align:center;">
                 <h:panelGrid columns="2" columnClasses="login-table-col2, xxx" style="margin-left:auto; margin-right:auto;">
                     <h:outputText value="#{messages['login.userName']}" />
@@ -41,15 +41,16 @@
                     <h:panelGroup layout="block">
                         <richx:commandButton styleClass="login" data="#{authenticator.loginFailed}" action="gotoindex"
                             oncomplete="if(!data)$('loginPanel').component.hide();" value="#{messages['login.login']}"
-                            render="mainArea,treePanel,searchForm, headerPanel" />
+                            render="mainArea,treePanel,searchForm, headerPanel" process="@region" />
                     </h:panelGroup>
                     <h:panelGroup layout="block">
                         <richx:commandButton value="#{messages['login.register']}" immediate="true"
                             actionListener="#{authenticator.goToRegister}" render="mainArea"
-                            oncomplete="$('loginPanel').component.hide();" />
+                            oncomplete="$('loginPanel').component.hide();" process="@region" />
                     </h:panelGroup>
                 </h:panelGrid>
             </h:panelGrid>
-        </h:form>
+        </a4j:region>
+        <!-- </h:form> -->
     </rich:popupPanel>
 </ui:composition>

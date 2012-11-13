@@ -3,7 +3,7 @@
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
 
     <rich:popupPanel id="albumModalPanel" width="450" height="140"
-        onshow="applyModalPanelEffect('albumModalPanel', {delay: 0.5, afterFinish: function(){$('form2:name').focus();}});">
+        onshow="applyModalPanelEffect('albumModalPanel', {delay: 0.5, afterFinish: function(){$('form2:albumname').focus();}});">
         <f:facet name="header">
             <h:outputText value="#{messages['album.add']}" />
         </f:facet>
@@ -18,11 +18,12 @@
         <!-- <rich:effect type="Appear" name="appearFunc" /> -->
         <!-- not implemented in RF 4 -->
 
-        <h:form id="form2">
-            <h:panelGroup id="panel" width="100%">
+        <!-- <h:form id="form2"> -->
+        <a4j:region id="form2">
+            <h:panelGroup id="albumPanel" width="100%">
                 <a4j:region>
                     <rich:graphValidator>
-                        <h:panelGrid columns="3" id="editContent" rowClasses="prop" columnClasses="name,value, error">
+                        <h:panelGrid columns="3" id="albumeditContent" rowClasses="prop" columnClasses="name,value, error">
                             <h:panelGroup style="text-align:right;" layout="block">
                                 <h:outputText value="#{messages['shelf']} " />
                             </h:panelGroup>
@@ -38,7 +39,7 @@
                                 <h:outputText value="#{messages['album.name']}" />
                             </h:panelGroup>
                             <h:panelGroup layout="block">
-                                <h:inputText id="name" value="#{album.name}"
+                                <h:inputText id="albumname" value="#{album.name}"
                                     onkeydown="if (event.keyCode == 13) { jQuery(&quot; .album input[type='image']&quot;).click(); return false; }" />
                                 <rich:message styleClass="required" for="name" />
                             </h:panelGroup>
@@ -46,15 +47,15 @@
                     </rich:graphValidator>
                 </a4j:region>
 
-                <h:panelGroup id="buttonPanel" layout="block">
+                <h:panelGroup id="albumbuttonPanel" layout="block">
                     <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto">
-                        <h:panelGroup id="firstButton" layout="block">
+                        <h:panelGroup id="albumFirstButton" layout="block">
                             <richx:commandButton data="#{albumManager.validationSuccess}" value="#{messages['album.store']}"
                                 actionListener="#{albumManager.addAlbum(album)}" id="storebutton"
                                 render="treePanel, mainArea, menu" oncomplete="if(data)$('albumModalPanel').component.hide()"
                                 styleClass="album" />
                         </h:panelGroup>
-                        <h:panelGroup id="secondButton" layout="block">
+                        <h:panelGroup id="albumSecondButton" layout="block">
                             <richx:commandButton type="button" id="cancelbutton"
                                 onclick="#{rich:component('albumModalPanel')}.hide(); Event.stop(event); return false;"
                                 value="#{messages['album.cancel']}" />
@@ -62,6 +63,7 @@
                     </h:panelGrid>
                 </h:panelGroup>
             </h:panelGroup>
-        </h:form>
+        </a4j:region>
+        <!--  </h:form>-->
     </rich:popupPanel>
 </ui:composition>

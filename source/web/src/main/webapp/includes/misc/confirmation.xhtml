@@ -1,8 +1,8 @@
 <ui:component xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:richx="http://richfaces.org/richx">
-    <rich:popupPanel id="confirmation" width="400" height="180"
-        onshow="applyModalPanelEffect('confirmation', {delay: 0.5})" autosized="false">
+    <rich:popupPanel id="confirmation" width="400" height="180" onshow="applyModalPanelEffect('confirmation', {delay: 0.5})"
+        autosized="false">
         <f:facet name="header">#{messages['confirm.confirm']}</f:facet>
         <f:facet name="controls">
             <h:panelGroup id="confirmPanelHideControl">
@@ -14,30 +14,30 @@
         <!-- <rich:effect type="Appear" name="appearFunc" /> -->
         <!-- not implemented in RF 4 -->
 
-        <h:form id="confirmForm">
+        <!-- <h:form id="confirmForm"> -->
+        <a4j:region>
+            <h:panelGroup id="confirmPanel" layout="block" style="width: 100%">
 
-            <h:panelGroup id="panel" layout="block" style="width: 100%">
-
-                <h:panelGroup id="content" layout="block">
+                <h:panelGroup id="confirmContent" layout="block">
                     <h:panelGrid columns="2" width="300px" style="margin-left: auto; margin-right: auto;">
-                        <h:panelGroup id="icon" layout="block" style="width: 43px">
+                        <h:panelGroup id="confirmIcon" layout="block" style="width: 43px">
                             <h:graphicImage value="img/modal/ico_warning.png" />
                         </h:panelGroup>
 
-                        <h:panelGroup id="message" layout="block" style="width: 257px; margin-left: 20px">
+                        <h:panelGroup id="confirmMessage" layout="block" style="width: 257px; margin-left: 20px">
                             <h:outputText value="#{confirmationPopupHelper.caption}" />
                         </h:panelGroup>
                     </h:panelGrid>
                 </h:panelGroup>
 
-                <h:panelGroup id="buttons" layout="block">
+                <h:panelGroup id="confirmButtons" layout="block">
                     <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto;">
-                        <h:panelGroup id="firstButton" layout="block">
+                        <h:panelGroup id="confirmFirstButton" layout="block">
                             <richx:commandButton value="#{messages['confirm.ok']}"
                                 actionListener="#{confirmationPopupHelper[confirmationPopupHelper.actionName]}" id="storebutton"
                                 oncomplete="#{rich:component('confirmation')}.hide()" render="treePanel, mainArea, menu" />
                         </h:panelGroup>
-                        <h:panelGroup id="secondButton" layout="block">
+                        <h:panelGroup id="confirmSecondButton" layout="block">
                             <richx:commandButton value="#{messages['confirm.cancel']}"
                                 onclick="#{rich:component('confirmation')}.hide(); Event.stop(event); return false" />
                         </h:panelGroup>
@@ -45,7 +45,7 @@
                 </h:panelGroup>
 
             </h:panelGroup>
-
-        </h:form>
+        </a4j:region>
+        <!-- </h:form> -->
     </rich:popupPanel>
 </ui:component>

@@ -1,7 +1,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
-    <h:form id="searchForm" style="margin: 0px;">
+    <!-- <h:form id="searchForm" style="margin: 0px;"> -->
+    <a4j:region>
         <div class="search-div">
             <span
                 style="width: 339px; height: 65px; display: inline-block; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/search/search_bg.png', sizingMethod='scale' );">
@@ -11,7 +12,7 @@
             <div class="search-label">#{messages['search']}</div>
             <a4j:commandLink styleClass="search-find-button" id="findLink" value="#{messages['find']}"
                 onclick="hide('searchOptions'); show('openSeach');" render="mainArea"
-                actionListener="#{imageSearchHelper.search}" />
+                actionListener="#{imageSearchHelper.search}" execute="@region"/>
             <h:inputText required="true" value="#{imageSearchHelper.searchQuery}"
                 onkeydown="if (event.keyCode == 13) { #{rich:element('findLink')}.onclick(); return false; }"
                 styleClass="search-input"></h:inputText>
@@ -49,5 +50,6 @@
         <!-- <rich:effect name="showSearch" for="searchOptions" type="Appear" params="duration: 0.5"></rich:effect> -->
         <!-- <rich:effect name="hideSearch" for="searchOptions" type="Fade" params="duration: 0.5"></rich:effect> -->
         <!-- not implemented in RF 4 -->
-    </h:form>
+        </a4j:region>
+    <!-- </h:form> -->
 </ui:composition>
