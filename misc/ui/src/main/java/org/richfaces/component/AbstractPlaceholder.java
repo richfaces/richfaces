@@ -55,8 +55,7 @@ public abstract class AbstractPlaceholder extends UIOutput {
     public abstract Object getValue();
 
     /**
-     * The jQuery selector used to filter which child DOM elements of the target/parent to which the placeholder will be
-     * attached.
+     * The jQuery selector used to filter which child DOM elements will be a placeholder attached to.
      */
     @Attribute
     public abstract String getSelector();
@@ -68,6 +67,10 @@ public abstract class AbstractPlaceholder extends UIOutput {
     @Attribute
     public abstract String getStyleClass();
 
+    /**
+     * Registers component for processing before its parent component when it has empty selector - this logic is used as
+     * workaround for text components which does not render children (RF-12589).
+     */
     @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
 
@@ -87,6 +90,9 @@ public abstract class AbstractPlaceholder extends UIOutput {
         super.processEvent(event);
     }
 
+    /**
+     * Renders component before its parent.
+     */
     private static class PlaceholderParentPreRenderListener extends PreRenderParentListener {
 
         private static final long serialVersionUID = 1870218106060075543L;
