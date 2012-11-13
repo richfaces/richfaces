@@ -2,15 +2,10 @@
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
 
-    <h:outputScript library="scripts" name="buttons.js" />
-
     <richx:actionMapper>
         <a4j:outputPanel layout="block" style="#{style}" styleClass="photoalbumButton #{styleClass}" lang="#{lang}" dir="#{dir}"
-            title="#{title}" rendered="#{empty rendered or rendered}" onmousedown="RF_RW_DEMO.toPressed(this)"
-            onmouseup="RF_RW_DEMO.toReleased(this)" onmouseout="RF_RW_DEMO.toReleased(this)">
-
-            <h:graphicImage value="/img/shell/button.png" alt="" />
-            <h:graphicImage value="/img/shell/button_press.png" style="display: none;" alt="" />
+            title="#{title}" rendered="#{empty rendered or rendered}" onmousedown="$(this).css('background-position', '0 28px');"
+            onmouseup="$(this).css('background-position', '0 0');" onmouseout="$(this).css('background-position', '0 0');">
 
             <div>#{value}</div>
 

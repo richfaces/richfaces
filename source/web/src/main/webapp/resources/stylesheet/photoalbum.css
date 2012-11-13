@@ -1215,6 +1215,8 @@ h1 {
     width: 103px !important;
     height: 28px !important;
     cursor: pointer;
+    background-image: url('/richfaces-photoalbum/img/shell/button.png');
+    background-position: 0 0;
 }
 
 .photoalbumButton input,.photoalbumButton img {
