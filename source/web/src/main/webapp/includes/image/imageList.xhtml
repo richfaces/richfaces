@@ -13,7 +13,7 @@
     <h:panelGroup layout="block" style="margin : 30px 0px 0px 0px;">
         <h:panelGroup layout="block" style="float : right; cursor : pointer">
             <a4j:commandLink rendered="#{fn:length(model.images) > 0}" actionListener="#{slideshow.startSlideshow()}"
-                styleClass="slideshow-link" render="slideShowForm, mainArea, slideShowModalPanel">
+                styleClass="slideshow-link" render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
                 <h:graphicImage value="/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
                     style="vertical-align : bottom; margin-right : 5px; border:0;" />
                 <h:outputText value="#{messages['slideshow.start']}" />
