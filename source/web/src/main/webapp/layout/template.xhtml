@@ -18,8 +18,9 @@
 </h:head>
 
 <h:body class="main-body" style="position: relative;">
-    <h:form id="overForm">
-        <div style="position: relative; height: auto; overflow: hidden; min-height: 100%; zoom: 1;" class="main-panel">
+
+    <div style="position: relative; height: auto; overflow: hidden; min-height: 100%; zoom: 1;" class="main-panel">
+        <h:form id="overForm">
             <div style="padding-bottom: 82px; padding-top: 116px; left: 0px; zoom: 1;">
                 <!--             <ui:include src="/includes/misc/modalPanels.xhtml" /> -->
 
@@ -30,7 +31,6 @@
                     <ui:include src="/includes/shelf/createShelf.xhtml" />
                     <ui:include src="/includes/index/login.xhtml" />
                 </h:panelGroup>
-                <ui:include src="/includes/misc/slideShowPooler.xhtml" />
                 <ui:include src="/includes/image/slideshow.xhtml" />
                 <table cellpadding="0" cellspacing="0" width="100%">
                     <tbody>
@@ -84,16 +84,19 @@
                 <ui:include src="/includes/index/footer.xhtml" />
             </div>
             <ui:insert name="searchWidget" />
-            <ui:include src="/includes/index/status.xhtml" />
-        </div>
-    </h:form>
+            
+        </h:form>
+        <ui:include src="/includes/index/status.xhtml" />
+    </div>
+<!-- 
     <script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>
 
     <script type="text/javascript">
     if (window.location.hostname.indexOf("livedemo.exadel.com") != -1) {
         _uacct = "UA-7306415-2";
         urchinTracker();
-    }
-</script>
+    
+    } 
+</script> -->
 </h:body>
 </html>
