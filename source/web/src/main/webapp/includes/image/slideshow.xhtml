@@ -10,7 +10,7 @@
                 <h:panelGroup>
                     <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hidelink">
                         <a4j:ajax event="click" listener="#{slideshow.stopSlideshow()}"
-                            render="slideShowForm, mainArea, treePanel, slideShowModalPanel" execute="@region" />
+                            render="mainArea, treePanel, slideShowModalPanel" execute="@region" />
                     </h:graphicImage>
                 </h:panelGroup>
             </f:facet>
@@ -30,10 +30,10 @@
                     </a4j:mediaOutput>
                 </h:panelGroup>
             </h:panelGrid>
-            <a4j:poll id="slideShowPoll" data="#{slideshow.errorDetected}" render="slideshowImage, treePanel"
+            <a4j:poll id="slideShowPoll" data="#{slideshow.errorDetected}" render="slideshowImage"
                 interval="#{slideshow.interval}" enabled="#{slideshow.active}"
                 oncomplete="if(event.data)#{rich:component('slideShowModalPanel')}.hide();"
-                actionListener="#{slideshow.showNextImage()}" limitRender="true" />
+                actionListener="#{slideshow.showNextImage()}" />
             <!-- was oncomplete="...;onshow="showPictureEffect();" onsubmit="hidePictureEffect()" -->
         </rich:popupPanel>
     </a4j:region>
