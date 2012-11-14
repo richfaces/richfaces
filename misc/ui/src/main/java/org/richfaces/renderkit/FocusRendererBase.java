@@ -10,7 +10,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.component.AbstractFocusManager;
+import org.richfaces.component.AbstractFocus;
 import org.richfaces.renderkit.util.RendererUtils;
 
 import com.google.common.base.Joiner;
@@ -19,41 +19,20 @@ import com.google.common.collect.Iterators;
 
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
     @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js"),
-    @ResourceDependency(library = "org.richfaces", name = "focusManager.js") })
-public class FocusManagerRendererBase extends RendererBase {
+    @ResourceDependency(library = "org.richfaces", name = "focus.js") })
+public class FocusRendererBase extends RendererBase {
 
-    private static final String SUBMITTED_FOCUS = AbstractFocusManager.COMPONENT_TYPE + ".submittedFocus";
+    public static final String RENDERER_TYPE = "org.richfaces.FocusRenderer";
 
     private final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     /**
-     * Decode focused component ID and save it to context
-     */
-    protected void doDecode(FacesContext context, UIComponent component) {
-        AbstractFocusManager focusManager = (AbstractFocusManager) component;
-
-        String focusClientIds = getFocusClientIds(context, focusManager);
-        if (focusClientIds != null) {
-            focusManager.setSubmittedValue(focusClientIds);
-        }
-
-        UIComponent focusedComponent = getFocusedComponent(context, focusManager, focusClientIds);
-        if (focusedComponent != null) {
-            setSubmittedFocus(context, focusedComponent);
-        }
-
-        if (focusManager.isAjaxRendered() && context.getPartialViewContext().isAjaxRequest()) {
-            context.getPartialViewContext().getRenderIds().add(component.getClientId(context));
-        }
-    }
-
-    /**
      * Get space-separated list of clientIds as component candidates to be focused on client.
      */
-    protected String getFocusCandidatesAsString(FacesContext context, AbstractFocusManager component) {
+    public String getFocusCandidatesAsString(FacesContext context, AbstractFocus component) {
         UIForm form = (UIForm) RENDERER_UTILS.getNestingForm(context, component);
 
-        if (!context.isPostback() || form.isSubmitted()) {
+        if (!context.isPostback() || isFormSubmitted(context, form)) {
             String[] focusCandidates = getFocusCandidates(context, component, form);
             String focusCandidatesAsString = Joiner.on(' ').join(focusCandidates);
             return focusCandidatesAsString;
@@ -61,19 +40,32 @@ public class FocusManagerRendererBase extends RendererBase {
 
         return null;
     }
+    
+    /**
+     * Determines whenever given form has been submitted
+     */
+    private boolean isFormSubmitted(FacesContext context, UIForm form) {
+        if (form != null) {
+            String clientId = form.getClientId(context);
+            String formRequestParam = context.getExternalContext().getRequestParameterMap().get(clientId);
+            boolean isSubmitted = clientId.equals(formRequestParam);
+            return isSubmitted;
+        }
+        return false;
+    }
 
     /**
      * <p>Returns clientIds of component candidates to be focused.</p>
      */
-    private String[] getFocusCandidates(FacesContext context, AbstractFocusManager component, UIForm form) {
-        UIComponent submittedFocus = getSubmittedFocus(context);
+    public String[] getFocusCandidates(FacesContext context, AbstractFocus component, UIForm form) {
+        UIComponent submittedFocus = getSubmittedFocus(context, component);
 
         if (component.isPreserve() && submittedFocus != null) {
             return new String[] { submittedFocus.getClientId(context) };
         }
 
         if (component.isValidationAware()) {
-            return getClientIdsWithMessagesAndFormClientId(context, form);
+            return getClientIdsWithMessages(context, form);
         }
 
         return new String[] { form.getClientId(context) };
@@ -83,19 +75,16 @@ public class FocusManagerRendererBase extends RendererBase {
      * Returns clientIds of component for which validation has failed and adds form's clientId at the end (as a fallback if
      * there is no invalid component or none of invalid components won't be focusable on the client).
      */
-    private String[] getClientIdsWithMessagesAndFormClientId(FacesContext context, UIForm form) {
+    private String[] getClientIdsWithMessages(FacesContext context, UIForm form) {
         Iterator<String> clientIdsWithMessages = context.getClientIdsWithMessages();
-        Iterator<String> formClientId = Iterators.forArray(new String[] { form.getClientId(context) });
-
-        Iterator<String> merged = Iterators.concat(clientIdsWithMessages, formClientId);
-        return Iterators.toArray(merged, String.class);
+        return Iterators.toArray(clientIdsWithMessages, String.class);
     }
 
     /**
      * Finds a currently focused component by the space-separated list of clientIds which are candidates to be real
      * {@link EditableValueHolder} components.
      */
-    private UIComponent getFocusedComponent(FacesContext context, AbstractFocusManager component, String focusClientIds) {
+    private UIComponent getFocusedComponent(FacesContext context, AbstractFocus component, String focusClientIds) {
         Iterable<String> clientIds = Splitter.on(' ').split(focusClientIds);
 
         for (String clientId : clientIds) {
@@ -111,18 +100,21 @@ public class FocusManagerRendererBase extends RendererBase {
     /**
      * Returns the comma-separated list of clientIds which are candidates to be real components.
      */
-    private String getFocusClientIds(FacesContext context, AbstractFocusManager component) {
+    private String getFocusClientIds(FacesContext context, AbstractFocus component) {
         Map<String, String> requestParameterMap = context.getExternalContext().getRequestParameterMap();
         String clientId = component.getClientId(context);
         String inputFocus = requestParameterMap.get(clientId + "InputFocus");
         return inputFocus;
     }
 
-    private void setSubmittedFocus(FacesContext context, UIComponent focusedComponent) {
-        context.getAttributes().put(SUBMITTED_FOCUS, focusedComponent);
-    }
+    private UIComponent getSubmittedFocus(FacesContext context, AbstractFocus component) {
+        String focusClientIds = getFocusClientIds(context, component);
 
-    private UIComponent getSubmittedFocus(FacesContext context) {
-        return (UIComponent) context.getAttributes().get(SUBMITTED_FOCUS);
+        if (focusClientIds == null) {
+            return null;
+        }
+        
+        UIComponent focusedComponent = getFocusedComponent(context, component, focusClientIds);
+        return focusedComponent;
     }
 }

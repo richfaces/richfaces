@@ -6,9 +6,9 @@
         useNative : false
     };
 
-    rf.ui.FocusManager = rf.BaseComponent.extendClass({
+    rf.ui.Focus = rf.BaseComponent.extendClass({
 
-        name : "FocusManager",
+        name : "Focus",
 
         init : function(componentId, options) {
             $super.constructor.call(this, componentId);
@@ -28,28 +28,31 @@
                     }
                 });
                 focusInput.val(ids);
-                rf.log.debug('FocusManager - clientId candidates for components: ' + ids);
+                rf.log.debug('Focus - clientId candidates for components: ' + ids);
             });
 
             jQuery(function() {
                 if (focusCandidates) {
-                    rf.log.debug('FocusManager - focus candidates: ' + focusCandidates);
+                    rf.log.debug('Focus - focus candidates: ' + focusCandidates);
                     focusCandidates = focusCandidates.split(' ');
+                    var tabbables = $();
                     $.each(focusCandidates, function(i, v) {
                         var candidate = $(document.getElementById(v));
-                        var tabbables = $(":tabbable", candidate);
+                        tabbables = tabbables.add($(":tabbable", candidate));
 
                         if (candidate.is(":tabbable")) {
                             tabbables = tabbables.add(candidate);
                         }
-
-                        if (tabbables.length > 0) {
-                            tabbables = tabbables.sort(sortTabindex);
-                            console.log(tabbables);
-                            tabbables.get(0).focus();
-                            return false;
-                        }
                     });
+                    
+                    if (tabbables.length == 0) {
+                        tabbables = $('form').has(focusInput).find(':tabbable')
+                    }
+                    
+                    if (tabbables.length > 0) {
+                        tabbables = tabbables.sort(sortTabindex);
+                        tabbables.get(0).focus();
+                    }
                 }
             });
         },
@@ -154,7 +157,7 @@
     /**
      * Exposes sortTabindex family of functions for testing
      */
-    rf.ui.FocusManager.__fn = {
+    rf.ui.Focus.__fn = {
         'sortTabindex' : sortTabindex,
         'sortTabindexNums' : sortTabindexNums,
         'searchCommonParent' : searchCommonParent,
@@ -162,5 +165,5 @@
     }
 
     // define super class reference - reference to the parent prototype
-    var $super = rf.ui.FocusManager.$super;
+    var $super = rf.ui.Focus.$super;
 })(jQuery, RichFaces);

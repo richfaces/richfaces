@@ -1,12 +1,14 @@
 package org.richfaces.component;
 
-import javax.faces.component.UIInput;
+import javax.faces.component.UIOutput;
 
+import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.renderkit.FocusRendererBase;
 
 /**
  * <p>
@@ -26,11 +28,11 @@ import org.richfaces.cdk.annotations.TagType;
  * cause.
  * </p>
  */
-@JsfComponent(type = AbstractFocusManager.COMPONENT_TYPE, family = AbstractFocusManager.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.FocusManagerRenderer"), tag = @Tag(type = TagType.Facelets))
-public abstract class AbstractFocusManager extends UIInput {
+@JsfComponent(type = AbstractFocus.COMPONENT_TYPE, family = AbstractFocus.COMPONENT_FAMILY, renderer = @JsfRenderer(type = FocusRendererBase.RENDERER_TYPE), tag = @Tag(type = TagType.Facelets))
+public abstract class AbstractFocus extends UIOutput implements AjaxOutput {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.FocusManager";
-    public static final String COMPONENT_FAMILY = "org.richfaces.FocusManager";
+    public static final String COMPONENT_TYPE = "org.richfaces.Focus";
+    public static final String COMPONENT_FAMILY = "org.richfaces.Focus";
 
     /**
      * Defines whether focus manager state should be updated during each AJAX request automatically. (default: true)
@@ -66,4 +68,10 @@ public abstract class AbstractFocusManager extends UIInput {
      */
     @Attribute(defaultValue = "false", hidden = true)
     public abstract boolean isDelayed();
+    
+    /**
+     * Hide keepTransient attribute from AjaxOutput
+     */
+    @Attribute(hidden = true)
+    public abstract boolean isKeepTransient();
 }

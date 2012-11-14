@@ -4,21 +4,25 @@
           xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.FocusManagerRenderer</cdk:class>
-        <cdk:superclass>org.richfaces.renderkit.FocusManagerRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.FocusManager</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.FocusManagerRenderer</cdk:renderer-type>
-        <cdk:component-base-class>org.richfaces.component.AbstractFocusManager</cdk:component-base-class>
+        <cdk:class>org.richfaces.renderkit.html.FocusRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.FocusRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.Focus</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.FocusRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.component.AbstractFocus</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
-        <span id="#{clientId}" class=".rf-fcs-mngr">
+        <span id="#{clientId}" class=".rf-fcs">
             <input id="#{clientId}InputFocus" name="#{clientId}InputFocus" type="hidden" value="#{component.value}" />
             <script id="#{clientId}Script" type="text/javascript">
+
+                <cdk:object name="candidates" value="#{getFocusCandidatesAsString(facesContext, component)}" />
+                <cdk:object name="emptyHash" value="{}" />
+                
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption name="focusCandidates" value="#{getFocusCandidatesAsString(facesContext, component)}" />
+                    <cdk:scriptOption name="focusCandidates" value="#{empty candidates ? emptyHash : candidates}" />
                 </cdk:scriptObject>
-                new RichFaces.ui.FocusManager("#{clientId}", #{toScriptArgs(options)});
+                new RichFaces.ui.Focus("#{clientId}", #{toScriptArgs(options)});
             </script>
         </span>
     </cc:implementation>
