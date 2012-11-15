@@ -14,16 +14,15 @@
     <cc:implementation>
         <span id="#{clientId}" class=".rf-fcs">
             <input id="#{clientId}InputFocus" name="#{clientId}InputFocus" type="hidden" value="#{component.value}" />
-            <script id="#{clientId}Script" type="text/javascript">
-
-                <cdk:object name="candidates" value="#{getFocusCandidatesAsString(facesContext, component)}" />
-                <cdk:object name="emptyHash" value="{}" />
-                
-                <cdk:scriptObject name="options">
-                    <cdk:scriptOption name="focusCandidates" value="#{empty candidates ? emptyHash : candidates}" />
-                </cdk:scriptObject>
-                new RichFaces.ui.Focus("#{clientId}", #{toScriptArgs(options)});
-            </script>
+            <c:if test="#{shouldRender(facesContext, component)}">
+                <script id="#{clientId}Script" type="text/javascript">
+                    <cdk:scriptObject name="options">
+                        <cdk:scriptOption name="focusCandidates" value="#{getFocusCandidatesAsString(facesContext, component)}" />
+                    </cdk:scriptObject>
+                    <cdk:object name="scriptArgs" value="#{toScriptArgs(options)}" />
+                    new RichFaces.ui.Focus("#{clientId}", #{empty scriptArgs ? '{}' : scriptArgs});
+                </script>
+            </c:if>
         </span>
     </cc:implementation>
 

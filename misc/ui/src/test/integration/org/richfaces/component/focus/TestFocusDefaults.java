@@ -86,6 +86,6 @@ public class TestFocusDefaults {
             public void action() {
                 browser.get(contextPath.toExternalForm());
             }
-        }).verify(new VerifyFocusCandidates("There are no invalid components, focus candidates are empty", null, ""));
+        }).verify(new VerifyFocusCandidates("There are no invalid components, whole form is candidate", null, "form"));
     }
 }

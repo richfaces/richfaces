@@ -18,29 +18,62 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Iterators;
 
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-    @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js"),
-    @ResourceDependency(library = "org.richfaces", name = "focus.js") })
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js"),
+        @ResourceDependency(library = "org.richfaces", name = "focus.js") })
 public class FocusRendererBase extends RendererBase {
 
     public static final String RENDERER_TYPE = "org.richfaces.FocusRenderer";
 
+    private static final String FOCUS_PROCESSED_ATTRIBUTE = FocusRendererBase.class.getName() + ".FOCUS_PROCESSED_ATTRIBUTE";
+
     private final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
+
+    /**
+     * Determines whether the currently rendered Focus should be rendered or not based on if request is postback and if Focus
+     * belongs to form which has been submitted.
+     */
+    public boolean shouldRender(FacesContext context, AbstractFocus component) {
+        UIForm form = (UIForm) RENDERER_UTILS.getNestingForm(context, component);
+
+        if (!context.isPostback()) {
+            Boolean shouldProcess = (Boolean) context.getAttributes().get(FOCUS_PROCESSED_ATTRIBUTE);
+            if (Boolean.TRUE.equals(shouldProcess)) {
+                return false;
+            } else {
+                context.getAttributes().put(FOCUS_PROCESSED_ATTRIBUTE, Boolean.TRUE);
+                return true;
+            }
+        } else {
+            return isFormSubmitted(context, form);
+        }
+    }
 
     /**
      * Get space-separated list of clientIds as component candidates to be focused on client.
      */
     public String getFocusCandidatesAsString(FacesContext context, AbstractFocus component) {
+
         UIForm form = (UIForm) RENDERER_UTILS.getNestingForm(context, component);
 
-        if (!context.isPostback() || isFormSubmitted(context, form)) {
+        if (!context.isPostback()) {
+            return form.getClientId(context);
+        }
+
+        if (isFormSubmitted(context, form)) {
             String[] focusCandidates = getFocusCandidates(context, component, form);
+
+            if (focusCandidates.length == 0) {
+                return form.getClientId(context);
+            }
+
             String focusCandidatesAsString = Joiner.on(' ').join(focusCandidates);
+
             return focusCandidatesAsString;
         }
 
         return null;
     }
-    
+
     /**
      * Determines whenever given form has been submitted
      */
@@ -55,7 +88,9 @@ public class FocusRendererBase extends RendererBase {
     }
 
     /**
-     * <p>Returns clientIds of component candidates to be focused.</p>
+     * <p>
+     * Returns clientIds of component candidates to be focused.
+     * </p>
      */
     public String[] getFocusCandidates(FacesContext context, AbstractFocus component, UIForm form) {
         UIComponent submittedFocus = getSubmittedFocus(context, component);
@@ -113,7 +148,7 @@ public class FocusRendererBase extends RendererBase {
         if (focusClientIds == null) {
             return null;
         }
-        
+
         UIComponent focusedComponent = getFocusedComponent(context, component, focusClientIds);
         return focusedComponent;
     }
