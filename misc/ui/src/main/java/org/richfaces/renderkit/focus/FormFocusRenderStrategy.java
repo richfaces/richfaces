@@ -4,6 +4,7 @@ import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractFocus;
+import org.richfaces.focus.FocusRendererUtils;
 
 /**
  * Strategy for rendering Focus in {@link AbstractFocus.Mode#FORM}
@@ -18,13 +19,20 @@ public class FormFocusRenderStrategy extends AbstractFocusRenderStrategy {
 
     @Override
     public boolean shouldRender(FacesContext context, AbstractFocus component) {
+
+        if (FocusRendererUtils.isFocusEnforced(context)) {
+            return false;
+        }
+
         UIForm form = (UIForm) RENDERER_UTILS.getNestingForm(component);
 
         if (!context.isPostback()) {
-            if (FocusRendererUtils.hasViewFocus(context.getViewRoot()) || FocusRendererUtils.isFirstFormFocusRendered(context)) {
+            if (FocusRendererUtils.hasViewFocus(context.getViewRoot())) {
+                return false;
+            } else if (isSomeAnotherFormFocusRenderer(context, component)) {
                 return false;
             } else {
-                FocusRendererUtils.markFirstFormFocusRendered(context);
+                FocusRendererUtils.markFirstFormFocusRendered(context, component);
                 return true;
             }
         } else {
@@ -32,9 +40,19 @@ public class FormFocusRenderStrategy extends AbstractFocusRenderStrategy {
         }
     }
 
+    private boolean isSomeAnotherFormFocusRenderer(FacesContext context, AbstractFocus component) {
+        String firstFormFocusRendered = FocusRendererUtils.getFirstFormFocusRendered(context);
+
+        if (firstFormFocusRendered == null) {
+            return false;
+        }
+
+        return !firstFormFocusRendered.equals(component.getClientId(context));
+    }
+
     @Override
     public String getFocusCandidatesAsString(FacesContext context, AbstractFocus component) {
-        UIForm form = (UIForm) RENDERER_UTILS.getNestingForm(context, component);
+        UIForm form = (UIForm) RENDERER_UTILS.getNestingForm(component);
 
         if (!context.isPostback()) {
             return form.getClientId(context);

@@ -4,6 +4,7 @@ import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractFocus;
+import org.richfaces.focus.FocusRendererUtils;
 
 /**
  * Strategy for rendering Focus in {@link AbstractFocus.Mode#VIEW}
@@ -17,8 +18,12 @@ public class ViewFocusRenderStrategy extends AbstractFocusRenderStrategy {
 
     @Override
     public boolean shouldRender(FacesContext context, AbstractFocus component) {
+
+        if (FocusRendererUtils.isFocusEnforced(context)) {
+            return false;
+        }
+
         if (!context.isPostback()) {
-            // TODO do not render Form based renderers
             return true;
         } else {
             UIForm form = (UIForm) RENDERER_UTILS.getSubmittedForm(context);
