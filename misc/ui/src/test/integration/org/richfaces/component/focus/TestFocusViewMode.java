@@ -104,7 +104,7 @@ public class TestFocusViewMode {
     public void when_form_focus_is_defined_then_it_overrides_view_focus_settings() {
         // having
         browser.get(contextPath.toExternalForm());
-        assertEquals(form3.input2, getFocusedElement());
+        assertEquals(form1.input2, getFocusedElement());
 
         // then
         form3.input1.click();

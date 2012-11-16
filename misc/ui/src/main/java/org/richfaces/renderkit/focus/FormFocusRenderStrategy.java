@@ -21,7 +21,7 @@ public class FormFocusRenderStrategy extends AbstractFocusRenderStrategy {
         UIForm form = (UIForm) RENDERER_UTILS.getNestingForm(component);
 
         if (!context.isPostback()) {
-            if (FocusRendererUtils.isFirstFormFocusRendered(context)) {
+            if (FocusRendererUtils.hasViewFocus(context.getViewRoot()) || FocusRendererUtils.isFirstFormFocusRendered(context)) {
                 return false;
             } else {
                 FocusRendererUtils.markFirstFormFocusRendered(context);
