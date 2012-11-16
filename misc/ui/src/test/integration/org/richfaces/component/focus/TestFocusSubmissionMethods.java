@@ -16,12 +16,16 @@ import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.integration.MiscDeployment;
+import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.renderkit.FocusRendererBase;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -77,7 +81,13 @@ public class TestFocusSubmissionMethods {
         assertEquals(input2, FocusRetriever.retrieveActiveElement());
     }
 
+    /**
+     * Won't work with f:ajax since it does not support {@link ExtendedPartialViewContext} with oncomplete, which is used by
+     * {@link JavaScriptService} in method
+     * {@link FocusRendererBase#renderOncompleteScript(javax.faces.context.FacesContext, String)}.
+     */
     @Test
+    @Ignore
     public void testFocusAfterAjaxJSF() {
         // when
         input2.click();

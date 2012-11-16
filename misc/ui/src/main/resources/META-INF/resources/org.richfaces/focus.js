@@ -18,7 +18,7 @@
             var focusInput = $(document.getElementById(componentId + 'InputFocus'));
             var focusCandidates = options.focusCandidates;
 
-            $(document).on('focus', ':input', function(e) {
+            $(document).on('focus', ':tabbable', function(e) {
                 var target = $(e.target);
                 var ids = e.target.id || '';
                 target.parents().each(function() {
@@ -30,12 +30,24 @@
                 focusInput.val(ids);
                 rf.log.debug('Focus - clientId candidates for components: ' + ids);
             });
+            
+            if (options.mode === 'VIEW') {
+                $(document).on('ajaxsubmit submit', 'form', function(e) {
+                    var form = $(e.target);
+                    var input = $("input[name='org.richfaces.focus']", form);
+                    if (!input.length) {
+                        input = $('<input name="org.richfaces.focus" type="hidden" />').appendTo(form);
+                    }
+                    input.val(focusInput.val());
+                });
+            }
 
             jQuery(function() {
+                var tabbables = $();
+                
                 if (focusCandidates) {
                     rf.log.debug('Focus - focus candidates: ' + focusCandidates);
                     focusCandidates = focusCandidates.split(' ');
-                    var tabbables = $();
                     $.each(focusCandidates, function(i, v) {
                         var candidate = $(document.getElementById(v));
                         tabbables = tabbables.add($(":tabbable", candidate));
@@ -48,11 +60,13 @@
                     if (tabbables.length == 0) {
                         tabbables = $('form').has(focusInput).find(':tabbable')
                     }
-                    
-                    if (tabbables.length > 0) {
-                        tabbables = tabbables.sort(sortTabindex);
-                        tabbables.get(0).focus();
-                    }
+                } else if (options.mode == 'VIEW') {
+                    tabbables = $("body form:first :tabbable");
+                }
+
+                if (tabbables.length > 0) {
+                    tabbables = tabbables.sort(sortTabindex);
+                    tabbables.get(0).focus();
                 }
             });
         },
