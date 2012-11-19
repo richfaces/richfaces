@@ -70,7 +70,7 @@ public class AlbumAction implements IAlbumAction {
             album.setCoveringImage(null);
             // Remove from previous shelf
             parentShelf.removeAlbum(album);
-            em.remove(album);
+            em.remove(em.merge(album));
             em.flush();
         } catch (Exception e) {
             parentShelf.addAlbum(album);

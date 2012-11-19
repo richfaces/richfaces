@@ -56,7 +56,7 @@ public class ImageAction implements IImageAction {
             parentAlbum.removeImage(image);
             image.setImageTags(null);
 
-            em.remove(image);
+            em.remove(em.merge(image));
             em.flush();
         } catch (Exception e) {
             parentAlbum.addImage(image);
@@ -180,7 +180,7 @@ public class ImageAction implements IImageAction {
         try {
             Image image = comment.getImage();
             image.removeComment(comment);
-            em.remove(comment);
+            em.remove(em.merge(comment));
             em.flush();
         } catch (Exception e) {
             throw new PhotoAlbumException(e.getMessage());
