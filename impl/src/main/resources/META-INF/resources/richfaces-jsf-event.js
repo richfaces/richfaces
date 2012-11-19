@@ -26,7 +26,7 @@
         }
         
         if (form && richfaces.Event && richfaces.Event.callHandler) {
-            richfaces.Event.callHandler(form, 'ajaxsubmit');
+            $(form).trigger('ajaxsubmit');
         }
         
         jsfAjaxRequest(source, event, options);

@@ -23,7 +23,6 @@ package org.richfaces.resource;
 
 import static org.mockito.Mockito.when;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,22 +32,19 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import org.junit.After;
 import org.junit.Before;
 import org.mockito.Mock;
-import org.richfaces.application.Module;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.ServicesFactory;
-import org.richfaces.application.ServicesFactoryImpl;
 import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.resource.external.ExternalResourceTracker;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
+import org.richfaces.test.AbstractServicesTest;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public class AbstractResourceMappingTest {
+public class AbstractResourceMappingTest extends AbstractServicesTest {
 
     @Inject
     FacesContext facesContext;
@@ -75,19 +71,11 @@ public class AbstractResourceMappingTest {
 
     @Before
     public void setUp() {
-        setupServiceTracker();
-
         facesAttributes = new HashMap<Object, Object>();
         when(facesContext.getAttributes()).thenReturn(facesAttributes);
 
         requestMap = new HashMap<String, Object>();
         when(externalContext.getRequestMap()).thenReturn(requestMap);
-    }
-
-    @After
-    public void tearDown() {
-        configurationService = null;
-        releaseServiceTracker();
     }
 
     protected void configure(Enum<?> key, Boolean value) {
@@ -102,20 +90,10 @@ public class AbstractResourceMappingTest {
         externalStaticResourceFactory.init();
     }
 
-    protected void setupServiceTracker() {
-        ServicesFactoryImpl injector = new ServicesFactoryImpl();
-        ServiceTracker.setFactory(injector);
-        injector.init(Collections.<Module>singletonList(new Module() {
-            public void configure(ServicesFactory injector) {
-                injector.setInstance(ConfigurationService.class, configurationService);
-                injector.setInstance(ExternalStaticResourceFactory.class, externalStaticResourceFactory);
-                injector.setInstance(ExternalResourceTracker.class, externalResourceTracker);
-
-            }
-        }));
-    }
-
-    private void releaseServiceTracker() {
-        ServiceTracker.release();
+    @Override
+    protected void configureServices(ServicesFactory injector) {
+        injector.setInstance(ConfigurationService.class, configurationService);
+        injector.setInstance(ExternalStaticResourceFactory.class, externalStaticResourceFactory);
+        injector.setInstance(ExternalResourceTracker.class, externalResourceTracker);
     }
 }

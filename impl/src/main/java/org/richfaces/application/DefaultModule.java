@@ -7,6 +7,8 @@ import org.richfaces.application.push.impl.PushContextFactoryImpl;
 import org.richfaces.cache.Cache;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.el.GenericsIntrospectionServiceImpl;
+import org.richfaces.focus.FocusManager;
+import org.richfaces.focus.FocusManagerImpl;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.JavaScriptServiceImpl;
 import org.richfaces.l10n.BundleLoader;
@@ -35,10 +37,11 @@ public class DefaultModule implements Module {
         factory.setInstance(MessageFactory.class, new MessageFactoryImpl(new BundleLoader()));
         factory.setInstance(ResourceLibraryFactory.class, new ResourceLibraryFactoryImpl());
         factory.setInstance(PushContextFactory.class,
-            ServiceLoader.loadService(PushContextFactory.class, PushContextFactoryImpl.class));
+                ServiceLoader.loadService(PushContextFactory.class, PushContextFactoryImpl.class));
         factory.setInstance(JavaScriptService.class, new JavaScriptServiceImpl());
         factory.setInstance(GenericsIntrospectionService.class, new GenericsIntrospectionServiceImpl());
         factory.setInstance(ExternalResourceTracker.class, new ExternalResourceTrackerWrapper());
         factory.setInstance(ExternalStaticResourceFactory.class, new ExternalStaticResourceFactoryImpl());
+        factory.setInstance(FocusManager.class, ServiceLoader.loadService(FocusManager.class, FocusManagerImpl.class));
     }
 }
