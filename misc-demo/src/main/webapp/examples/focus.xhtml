@@ -8,7 +8,12 @@
     <ui:define name="content">
 
         <h:form>
-            <rich:focus />
+            <rich:focus id="focus" delayed="true" />
+            
+            <h:commandButton value="Apply Focus">
+                <rich:componentControl target="focus" operation="applyFocus" />
+            </h:commandButton>
+            <br />
             
             <h:inputText id="input1" tabindex="2" required="true" />
             
