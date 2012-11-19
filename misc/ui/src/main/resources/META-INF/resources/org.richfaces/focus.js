@@ -42,7 +42,7 @@
                 });
             }
 
-            this.options.applyFocus = function() {
+            this.options.applyFocus = $.proxy(function() {
                 var tabbables = $();
 
                 if (focusCandidates) {
@@ -69,7 +69,7 @@
                     tabbables = tabbables.sort(sortTabindex);
                     tabbables.get(0).focus();
                 }
-            };
+            }, this);
 
             if (!this.options.delayed) {
                 jQuery(this.options.applyFocus);
