@@ -34,7 +34,7 @@
                     <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto;">
                         <h:panelGroup id="confirmFirstButton" layout="block">
                             <richx:commandButton value="#{messages['confirm.ok']}"
-                                actionListener="#{confirmationPopupHelper[confirmationPopupHelper.actionName]}" id="storebutton"
+                                actionListener="#{confirmationPopupHelper.doAction()}" id="storebutton"
                                 oncomplete="#{rich:component('confirmation')}.hide()" render="treePanel, mainArea, menu" />
                         </h:panelGroup>
                         <h:panelGroup id="confirmSecondButton" layout="block">
