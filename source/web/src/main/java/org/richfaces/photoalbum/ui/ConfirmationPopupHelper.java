@@ -22,7 +22,7 @@ package org.richfaces.photoalbum.ui;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -34,25 +34,43 @@ import org.richfaces.photoalbum.manager.ImageManager;
 import org.richfaces.photoalbum.manager.ShelfManager;
 
 @Named
-@ConversationScoped
+@ApplicationScoped
 public class ConfirmationPopupHelper implements Serializable {
 
     private static final long serialVersionUID = 2561824019376412988L;
 
+    private enum Actions {
+        DELETE_SHELF,
+        DELETE_ALBUM,
+        DELETE_IMAGE
+    }
+
+    public Actions getDeleteShelf() {
+        return Actions.DELETE_SHELF;
+    }
+
+    public Actions getDeleteAlbum() {
+        return Actions.DELETE_ALBUM;
+    }
+
+    public Actions getDeleteImage() {
+        return Actions.DELETE_IMAGE;
+    }
+
     private String caption;
 
-    private String actionName;
+    private Actions action;
 
     // @In @Out
-    @Inject
+    //@Inject
     private Image image;
 
     // @In @Out
-    @Inject
+    //@Inject
     private Shelf shelf;
 
     // @In @Out
-    @Inject
+    //@Inject
     private Album album;
 
     @Inject
@@ -64,21 +82,21 @@ public class ConfirmationPopupHelper implements Serializable {
     @Inject
     ImageManager imageManager;
 
-    public void initImagePopup(String actionName, String caption, Image image) {
+    public void initImagePopup(Actions action, String caption, Image image) {
         this.caption = caption;
-        this.actionName = actionName;
+        this.action = action;
         this.image = image;
     }
 
-    public void initAlbumData(String actionName, String caption, Album album) {
+    public void initAlbumData(Actions action, String caption, Album album) {
         this.caption = caption;
-        this.actionName = actionName;
+        this.action = action;
         this.album = album;
     }
 
-    public void initShelfData(String actionName, String caption, Shelf shelf) {
+    public void initShelfData(Actions action, String caption, Shelf shelf) {
         this.caption = caption;
-        this.actionName = actionName;
+        this.action = action;
         this.shelf = shelf;
     }
 
@@ -98,15 +116,29 @@ public class ConfirmationPopupHelper implements Serializable {
         this.caption = caption;
     }
 
-    public String getActionName() {
-        return actionName;
+    public Actions getaction() {
+        return action;
     }
 
-    public void setActionName(String actionName) {
-        this.actionName = actionName;
+    public void setaction(Actions action) {
+        this.action = action;
     }
 
     public void deleteImage() {
         imageManager.deleteImage(this.image);
+    }
+
+    public void doAction() {
+        switch(action) {
+            case DELETE_SHELF:
+                deleteShelf();
+                break;
+            case DELETE_ALBUM:
+                deleteAlbum();
+                break;
+            case DELETE_IMAGE:
+                deleteImage();
+                break;
+        }
     }
 }
