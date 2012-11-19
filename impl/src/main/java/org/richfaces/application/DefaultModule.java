@@ -8,10 +8,11 @@ import org.richfaces.cache.Cache;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.el.GenericsIntrospectionServiceImpl;
 import org.richfaces.focus.FocusManager;
-import org.richfaces.focus.FocusManagerImpl;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.JavaScriptServiceImpl;
 import org.richfaces.l10n.BundleLoader;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.AjaxDataSerializer;
 import org.richfaces.renderkit.AjaxDataSerializerImpl;
 import org.richfaces.resource.DefaultResourceCodec;
@@ -26,6 +27,9 @@ import org.richfaces.skin.SkinFactory;
 import org.richfaces.skin.SkinFactoryImpl;
 
 public class DefaultModule implements Module {
+
+    private static final Logger LOG = RichfacesLogger.CONFIG.getLogger();
+
     public void configure(ServicesFactory factory) {
         factory.setInstance(ConfigurationService.class, new ConfigurationServiceImpl());
         factory.setInstance(SkinFactory.class, new SkinFactoryImpl());
@@ -42,6 +46,13 @@ public class DefaultModule implements Module {
         factory.setInstance(GenericsIntrospectionService.class, new GenericsIntrospectionServiceImpl());
         factory.setInstance(ExternalResourceTracker.class, new ExternalResourceTrackerWrapper());
         factory.setInstance(ExternalStaticResourceFactory.class, new ExternalStaticResourceFactoryImpl());
-        factory.setInstance(FocusManager.class, ServiceLoader.loadService(FocusManager.class, FocusManagerImpl.class));
+
+        // workaround for loading service from richfaces-ui-common-ui module (needs to be bypassed during tests)
+        FocusManager focusManager = ServiceLoader.loadService(FocusManager.class);
+        if (focusManager == null) {
+            LOG.warn("There was no service " + FocusManager.class.getName() + " found");
+        } else {
+            factory.setInstance(FocusManager.class, focusManager);
+        }
     }
 }

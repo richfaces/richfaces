@@ -19,7 +19,7 @@ public interface FocusManager {
      * phase takes place.
      * </p>
      *
-     * @param clientId clientId of the component to be focused; or null if focus should not be enforced
+     * @param componentId ID of the component to be focused; or null if focus should not be enforced
      */
-    void focus(String clientId);
+    void focus(String componentId);
 }

@@ -84,6 +84,15 @@ public final class ServiceLoader {
         }
     }
 
+    public static <S> S loadService(Class<S> serviceClass) {
+        Collection<Class<? extends S>> serviceClasses = loadServiceClasses(serviceClass);
+        try {
+            return createInstance(Iterables.getLast(serviceClasses));
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+
     private static <S> S createInstance(Class<? extends S> implementationClass) {
         try {
             return implementationClass.newInstance();
