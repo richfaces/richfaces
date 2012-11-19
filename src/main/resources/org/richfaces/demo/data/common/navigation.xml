@@ -806,6 +806,10 @@
                         <name>Preserve Focus</name>
                     </sample>
                     <sample>
+                        <id>focus-delayed</id>
+                        <name>Delayed Focus</name>
+                    </sample>
+                    <sample>
                         <id>focus-manager</id>
                         <name>Focus Manager</name>
                     </sample>
