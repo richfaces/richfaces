@@ -31,10 +31,10 @@
                 render="mainArea, treePanel" value="#{messages['shelf']} #{album.shelf.name}" />
         </h:panelGroup>
         <h:panelGroup>
-            <a4j:commandLink rendered="#{album.owner.id == user.id}" value="#{messages['album.edit']} "
+            <a4j:commandLink rendered="#{album.owner.id == userBean.user.id}" value="#{messages['album.edit']} "
                 actionListener="#{controller.startEditAlbum(album)}" render="mainArea" />
-            <a4j:commandLink rendered="#{album.owner.id == user.id}" value="#{messages['album.delete']} "
-                actionListener="#{confirmationPopupHelper.initAlbumData('deleteAlbum',messages['album.delete.confirm'],album)}"
+            <a4j:commandLink rendered="#{album.owner.id == userBean.user.id}" value="#{messages['album.delete']} "
+                actionListener="#{confirmationPopupHelper.initAlbumData(confirmationPopupHelper.deleteAlbum,messages['album.delete.confirm'],album)}"
                 oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" />
         </h:panelGroup>
     </h:panelGrid>
