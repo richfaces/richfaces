@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <p>
+        Alternatively, focus can be enforced on server-side using <tt>FocusManager</tt> interface.
+    </p>
+    
+    <hr />
+    
+    <p>
+        In a following example, focus is after each request placed on <tt>input2</tt> component, since there is <tt>FocusManager</tt> call bind to <tt>preRenderView</tt> listener: 
+    </p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/focus/FocusManagerBean.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View FocusManagerBean Source" />
+        <ui:param name="hideLabel" value="Hide FocusManagerBean Source" />
+    </ui:include>
+    
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+
+</ui:composition>

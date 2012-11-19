@@ -794,6 +794,24 @@
                 </samples>
             </demo>
             <demo>
+                <id>focus</id>
+                <name>Focus</name>
+                <samples>
+                    <sample>
+                        <id>focus</id>
+                        <name>Focus</name>
+                    </sample>
+                    <sample>
+                        <id>focus-preserve</id>
+                        <name>Preserve Focus</name>
+                    </sample>
+                    <sample>
+                        <id>focus-manager</id>
+                        <name>Focus Manager</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
                 <id>componentControl</id>
                 <name>rich:componentControl</name>
                 <samples>
