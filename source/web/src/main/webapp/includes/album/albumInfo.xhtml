@@ -32,10 +32,10 @@
         </h:panelGroup>
         <h:panelGroup>
             <a4j:commandLink rendered="#{album.owner.id == userBean.user.id}" value="#{messages['album.edit']} "
-                actionListener="#{controller.startEditAlbum(album)}" render="mainArea" />
+                actionListener="#{controller.startEditAlbum(album)}" render="mainArea" execute="@this" />
             <a4j:commandLink rendered="#{album.owner.id == userBean.user.id}" value="#{messages['album.delete']} "
                 actionListener="#{confirmationPopupHelper.initAlbumData(confirmationPopupHelper.deleteAlbum,messages['album.delete.confirm'],album)}"
-                oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" />
+                oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" execute="@this" />
         </h:panelGroup>
     </h:panelGrid>
 

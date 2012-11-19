@@ -65,11 +65,11 @@
             <tr>
                 <td valign="bottom" class="mainImage-table-col3">
                     <richx:commandButton value="Edit image" rendered="#{controller.isUserImage(model.selectedImage)}"
-                        actionListener="#{controller.startEditImage(model.selectedImage)}" render="mainArea" />
+                        actionListener="#{controller.startEditImage(model.selectedImage)}" render="mainArea" execute="@this"/>
                     <richx:commandButton value="#{messages['image.delete']}"
-                        actionListener="#{confirmationPopupHelper.initImagePopup('deleteImage',messages['image.delete.confirm'],model.selectedImage)}"
+                        actionListener="#{confirmationPopupHelper.initImagePopup(confirmationPopupHelper.deleteImage,messages['image.delete.confirm'],model.selectedImage)}"
                         render="confirmation" rendered="#{controller.isUserImage(model.selectedImage)}"
-                        oncomplete="#{rich:component('confirmation')}.show()" />
+                        oncomplete="#{rich:component('confirmation')}.show()" execute="@this" />
                 </td>
             </tr>
         </table>

@@ -37,8 +37,8 @@
                 actionListener="#{controller.startEditShelf(shelf)}" render="mainArea" />
             <h:outputText value=" " />
             <a4j:commandLink rendered="#{controller.isUserShelf(shelf)}" value="#{messages['shelf.delete']} "
-                actionListener="#{confirmationPopupHelper.initShelfData('deleteShelf','Are You sure? All nested albums and images will also dropped! ',shelf)}"
-                oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" />
+                actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}"
+                oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" execute="@this"/>
             <h:outputText value=" " />
             <a4j:commandLink value="#{messages['shelf.view']} " actionListener="#{controller.showShelf(shelf)}"
                 render="mainArea" rendered="#{!mode.equals('show')}" />
