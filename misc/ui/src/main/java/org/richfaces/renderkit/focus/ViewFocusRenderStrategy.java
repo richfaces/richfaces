@@ -4,7 +4,6 @@ import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractFocus;
-import org.richfaces.focus.FocusRendererUtils;
 
 /**
  * Strategy for rendering Focus in {@link AbstractFocus.Mode#VIEW}

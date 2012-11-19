@@ -3,14 +3,19 @@ package org.richfaces.component.focus;
 import static org.junit.Assert.assertTrue;
 
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.PreRenderViewEvent;
 
+import org.jboss.arquillian.warp.extension.phaser.AfterPhase;
 import org.jboss.arquillian.warp.extension.phaser.BeforePhase;
 import org.jboss.arquillian.warp.extension.phaser.Phase;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.focus.FocusManager;
-import org.richfaces.focus.FocusRendererUtils;
+import org.richfaces.renderkit.focus.FocusRendererUtils;
 
-public class VerifyFocusEnforcing extends AbstractComponentAssertion {
+public class VerifyFocusEnforcing extends AbstractComponentAssertion implements ComponentSystemEventListener {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,12 +29,23 @@ public class VerifyFocusEnforcing extends AbstractComponentAssertion {
     }
 
     @BeforePhase(Phase.RENDER_RESPONSE)
-    public void enforce_rendering_second_input() {
+    public void subscribe_to_preRenderViewEvent() {
         FacesContext context = FacesContext.getCurrentInstance();
+        context.getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
+    }
 
-        FocusManager focusManager = ServiceTracker.getService(context, FocusManager.class);
-        focusManager.focus(enforceFocusId);
-
+    @AfterPhase(Phase.RENDER_RESPONSE)
+    public void verify_focus_was_enforced() {
+        FacesContext context = FacesContext.getCurrentInstance();
         assertTrue(FocusRendererUtils.isFocusEnforced(context));
+    }
+
+    @Override
+    public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+        if (event instanceof PreRenderViewEvent) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            FocusManager focusManager = ServiceTracker.getService(context, FocusManager.class);
+            focusManager.focus(enforceFocusId);
+        }
     }
 }

@@ -12,6 +12,7 @@ import org.richfaces.component.AbstractFocus;
 import org.richfaces.renderkit.util.RendererUtils;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Predicate;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterators;
 
@@ -54,7 +55,12 @@ public abstract class AbstractFocusRenderStrategy implements FocusRenderStrategy
      * there is no invalid component or none of invalid components won't be focusable on the client).
      */
     private String[] getClientIdsWithMessages(FacesContext context, UIForm form) {
-        Iterator<String> clientIdsWithMessages = context.getClientIdsWithMessages();
+         Iterator<String> clientIdsWithMessages = Iterators.filter(context.getClientIdsWithMessages(), new Predicate<String>() {
+            @Override
+            public boolean apply(String input) {
+                return input != null;
+            }
+        });
         return Iterators.toArray(clientIdsWithMessages, String.class);
     }
 

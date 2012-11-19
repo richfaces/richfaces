@@ -6,6 +6,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -14,6 +17,9 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.ClientAction;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
+import org.jboss.arquillian.warp.extension.phaser.AfterPhase;
+import org.jboss.arquillian.warp.extension.phaser.BeforePhase;
+import org.jboss.arquillian.warp.extension.phaser.Phase;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
@@ -22,7 +28,9 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.component.AbstractFocus;
 import org.richfaces.integration.MiscDeployment;
+import org.richfaces.renderkit.FocusRendererBase;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -44,6 +52,9 @@ public class TestFocusValidationAware {
 
     @FindBy(id = "form:input2")
     private WebElement input2;
+
+    @FindBy(id = "form:input3")
+    private WebElement input3;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -91,6 +102,39 @@ public class TestFocusValidationAware {
                         "form:input1 form:input2"));
 
         assertEquals(input2, getFocusedElement());
+    }
+    
+    @Test
+    public void testGlobalMessageIsIgnored() {
+        
+        Warp.execute(new ClientAction() {
+            
+            @Override
+            public void action() {
+                guardHttp(submitButton).click();
+            }
+        }).verify(new AbstractComponentAssertion() {
+            private static final long serialVersionUID = 1L;
+
+            @BeforePhase(Phase.RENDER_RESPONSE)
+            public void addGlobalMessage() {
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage("global message"));
+            }
+            
+            @AfterPhase(Phase.RENDER_RESPONSE)
+            public void verifyGlobalMessageIsIgnored() {
+                FacesContext context = FacesContext.getCurrentInstance();
+                
+                AbstractFocus component = bean.getComponent();
+                FocusRendererBase renderer = bean.getRenderer();
+                String candidates = renderer.getFocusCandidatesAsString(context, component);
+                
+                assertEquals("form", candidates);
+            }
+        });
+        
+        assertEquals(input3, getFocusedElement());
     }
 
     private WebElement getFocusedElement() {

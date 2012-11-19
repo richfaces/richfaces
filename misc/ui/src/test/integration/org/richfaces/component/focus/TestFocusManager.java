@@ -79,7 +79,7 @@ public class TestFocusManager {
 
     @Test
     public void test_FocusManager_on_initial_request() {
-        Warp.execute(openPage).verify(new VerifyFocusEnforcing("form:input2"));
+        Warp.execute(openPage).verify(new VerifyFocusEnforcing("input2"));
         assertEquals(input2, getFocusedElement());
     }
 
@@ -90,7 +90,7 @@ public class TestFocusManager {
         // when
         Warp.execute(submit)
         // then
-                .verify(new VerifyFocusEnforcing("form:input2"));
+                .verify(new VerifyFocusEnforcing("input2"));
         assertEquals(input2, getFocusedElement());
     }
 
@@ -101,7 +101,7 @@ public class TestFocusManager {
         // when
         Warp.execute(ajax)
         // then
-                .verify(new VerifyFocusEnforcing("form:input2"));
+                .verify(new VerifyFocusEnforcing("input2"));
         assertEquals(input2, getFocusedElement());
     }
 
@@ -153,7 +153,7 @@ public class TestFocusManager {
 
         p.body("    <a4j:commandButton id='ajax' render='@form' value='Ajax' />");
 
-        p.body("</h:form>");
+        p.body("</h:form> <ui:debug />");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
