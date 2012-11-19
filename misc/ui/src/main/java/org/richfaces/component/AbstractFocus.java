@@ -71,10 +71,10 @@ public abstract class AbstractFocus extends UIOutput implements AjaxOutput {
     public abstract boolean isPreserve();
 
     /**
-     * Defines whether focus should not be applied right fater rendering, but will need to be triggered by JavaScript function
-     * from Focus API: <tt>applyFocus()</tt>.
+     * Defines whether focus should not be applied after initial page load, but will need to be triggered by JavaScript function
+     * from Focus API: <tt>applyFocus()</tt> or via re-rendering (postback).
      */
-    @Attribute(defaultValue = "false", hidden = true)
+    @Attribute(defaultValue = "false")
     public abstract boolean isDelayed();
 
     /**
@@ -88,7 +88,6 @@ public abstract class AbstractFocus extends UIOutput implements AjaxOutput {
      */
     public Mode getMode() {
         UIForm form = (UIForm) RendererUtils.getInstance().getNestingForm(this);
-
         if (form == null) {
             return Mode.VIEW;
         }
@@ -108,11 +107,7 @@ public abstract class AbstractFocus extends UIOutput implements AjaxOutput {
          *
          * The view focus settings can be overridden for each specific form by using {{@link #FORM} mode.
          */
-        VIEW,
-        // /**
-        // * This mode does not give focus immediately, user needs to call client-side API to give focus.
-        // */
-        // DELAYED
+        VIEW
     }
 
     @Override

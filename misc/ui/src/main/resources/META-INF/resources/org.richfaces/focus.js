@@ -12,11 +12,11 @@
 
         init : function(componentId, options) {
             $super.constructor.call(this, componentId);
-            options = $.extend({}, defaultOptions, options);
+            options = this.options = $.extend({}, defaultOptions, options);
             this.attachToDom(this.id);
 
             var focusInput = $(document.getElementById(componentId + 'InputFocus'));
-            var focusCandidates = options.focusCandidates;
+            var focusCandidates = this.options.focusCandidates;
 
             $(document).on('focus', ':tabbable', function(e) {
                 var target = $(e.target);
@@ -30,8 +30,8 @@
                 focusInput.val(ids);
                 rf.log.debug('Focus - clientId candidates for components: ' + ids);
             });
-            
-            if (options.mode === 'VIEW') {
+
+            if (this.options.mode === 'VIEW') {
                 $(document).on('ajaxsubmit submit', 'form', function(e) {
                     var form = $(e.target);
                     var input = $("input[name='org.richfaces.focus']", form);
@@ -42,13 +42,14 @@
                 });
             }
 
-            jQuery(function() {
+            this.options.applyFocus = function() {
                 var tabbables = $();
-                
+
                 if (focusCandidates) {
-                    rf.log.debug('Focus - focus candidates: ' + focusCandidates);
-                    focusCandidates = focusCandidates.split(' ');
-                    $.each(focusCandidates, function(i, v) {
+                    var candidates = focusCandidates;
+                    rf.log.debug('Focus - focus candidates: ' + candidates);
+                    candidates = candidates.split(' ');
+                    $.each(candidates, function(i, v) {
                         var candidate = $(document.getElementById(v));
                         tabbables = tabbables.add($(":tabbable", candidate));
 
@@ -56,11 +57,11 @@
                             tabbables = tabbables.add(candidate);
                         }
                     });
-                    
+
                     if (tabbables.length == 0) {
                         tabbables = $('form').has(focusInput).find(':tabbable')
                     }
-                } else if (options.mode == 'VIEW') {
+                } else if (this.options.mode == 'VIEW') {
                     tabbables = $("body form:first :tabbable");
                 }
 
@@ -68,8 +69,17 @@
                     tabbables = tabbables.sort(sortTabindex);
                     tabbables.get(0).focus();
                 }
-            });
+            };
+
+            if (!this.options.delayed) {
+                jQuery(this.options.applyFocus);
+            }
         },
+
+        applyFocus : function() {
+            jQuery(this.options.applyFocus);
+        },
+
         // destructor definition
         destroy : function() {
             // define destructor if additional cleaning is needed but

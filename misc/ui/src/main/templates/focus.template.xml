@@ -17,6 +17,7 @@
             <c:if test="#{shouldRender(facesContext, component)}">
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption name="mode" value="#{component.getMode()}" />
+                    <cdk:scriptOption name="delayed" value="#{component.delayed and !facesContext.postback}" />
                     <cdk:scriptOption name="focusCandidates" value="#{getFocusCandidatesAsString(facesContext, component)}" />
                 </cdk:scriptObject>
                 <cdk:object name="scriptArgs" value="#{toScriptArgs(options)}" />
