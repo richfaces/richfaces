@@ -109,7 +109,7 @@ BUILDING AND RUNNING THE APPLICATION
 	    together with parameter --server-config=standalone-full.xml for both 
 	    latest JBoss AS 7.1.x and for latest JBoss AS 7.0.x.
 
-	 As of JBoass AS 7.1 you must create the JMS user account/password to
+	 As of JBoss AS 7.1 you must create the JMS user account/password to
 	 enable the JMS push sample.  Add a new user to the ApplicationRealm with the
 	 $JBOSS_HOME/bin/add-user.bat or add-user.sh script, with the:
 	    username: guest
