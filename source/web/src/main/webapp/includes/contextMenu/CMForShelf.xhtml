@@ -6,7 +6,7 @@
             data="#{albumManager.errorInCreate}" actionListener="#{albumManager.createAlbum(shelf, true)}"
             oncomplete="if(!data)$('albumModalPanel').component.show()" />
         <rich:menuItem label="#{messages['delete_shelf']}" limitRender="true"
-            actionListener="#{confirmationPopupHelper.initShelfData('deleteShelf','Are You sure? All nested albums and images will also dropped! ',shelf)}"
+            actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}"
             oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" />
         <rich:menuItem label="#{messages['edit_shelf']}" limitRender="true" actionListener="#{controller.startEditShelf(shelf)}"
             render="mainArea" />

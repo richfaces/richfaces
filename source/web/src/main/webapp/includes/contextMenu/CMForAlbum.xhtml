@@ -3,7 +3,7 @@
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
     <rich:contextMenu style="text-align:left;" rendered="#{controller.isUserAlbum(album)}" mode="ajax" target="#{mediaOutput}">
         <rich:menuItem label="#{messages['album.delete']}" limitRender="true"
-            actionListener="#{confirmationPopupHelper.initAlbumData('deleteAlbum',messages['album.delete.confirm'],album)}"
+            actionListener="#{confirmationPopupHelper.initAlbumData(confirmationPopupHelper.deleteAlbum,messages['album.delete.confirm'],album)}"
             oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" />
         <rich:menuItem label="#{messages['album.edit']}" limitRender="true" actionListener="#{controller.startEditAlbum(album)}"
             render="mainArea" />
