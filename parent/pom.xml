@@ -225,7 +225,7 @@
                 <version>${version.richfaces}</version>
             </dependency>
             <dependency>
-            <groupId>org.richfaces.core</groupId>
+                <groupId>org.richfaces.core</groupId>
                 <artifactId>richfaces-core-impl</artifactId>
                 <classifier>tests</classifier>
                 <version>${version.richfaces}</version>
@@ -907,6 +907,23 @@
                                     <sources>
                                         <source>${integration.test.source}</source>
                                     </sources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>add-test-resource</id>
+                                <phase>generate-test-resources</phase>
+                                <goals>
+                                    <goal>add-test-resource</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>${integration.test.source}</directory>
+                                            <includes>
+                                                <include>**/**.xmlunit.xml</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
                                 </configuration>
                             </execution>
                         </executions>
