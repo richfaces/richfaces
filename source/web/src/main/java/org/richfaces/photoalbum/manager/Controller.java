@@ -94,21 +94,21 @@ public class Controller implements Serializable {
      * This method invoked after the user want to see all her shelves.
      */
     public void selectShelves() {
-        model.resetModel(NavigationEnum.ALL_SHELFS, user, null, null, null, null);
+        model.resetModel(NavigationEnum.ALL_SHELFS, loggedUser, null, null, null, null);
     }
 
     /**
      * This method invoked after the user want to see all her albums.
      */
     public void selectAlbums() {
-        model.resetModel(NavigationEnum.ALL_ALBUMS, user, null, null, null, null);
+        model.resetModel(NavigationEnum.ALL_ALBUMS, loggedUser, null, null, null, null);
     }
 
     /**
      * This method invoked after the user want to see all her images.
      */
     public void selectImages() {
-        model.resetModel(NavigationEnum.ALL_IMAGES, user, null, null, null, user.getImages());
+        model.resetModel(NavigationEnum.ALL_IMAGES, loggedUser, null, null, null, loggedUser.getImages());
     }
 
     /**
@@ -255,7 +255,7 @@ public class Controller implements Serializable {
      */
     @AdminRestricted
     public void startEditAlbum(Album album) {
-        if (!album.isOwner(user)) {
+        if (!album.isOwner(loggedUser)) {
             showError(Constants.HAVENT_ACCESS);
             return;
         }
@@ -288,7 +288,7 @@ public class Controller implements Serializable {
      *
      * @param album - edited album
      */
-    public void onAlbumEdited(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
+    public void onAlbumEdited(@Observes @EventType(Events.ALBUM_EDITED_EVENT) AlbumEvent ae) {
         Album album = ae.getAlbum();
         model.resetModel(NavigationEnum.ALBUM_PREVIEW, model.getSelectedUser(), model.getSelectedShelf(), album, null,
             album.getImages());
@@ -353,7 +353,7 @@ public class Controller implements Serializable {
      */
     // might not work properly due to injection
     public void onAuthenticate(@Observes @EventType(Events.AUTHENTICATED_EVENT) SimpleEvent se) {
-        model.resetModel(NavigationEnum.ALL_SHELFS, user, null, null, null, null);
+        model.resetModel(NavigationEnum.ALL_SHELFS, loggedUser, null, null, null, null);
     }
 
     /**
@@ -361,7 +361,7 @@ public class Controller implements Serializable {
      *
      */
     public void showFileUpload() {
-        if (!(user.getShelves().size() > 0)) {
+        if (!(loggedUser.getShelves().size() > 0)) {
             // If user have no shelves, that can start fileupload process
             showError(Constants.FILE_UPLOAD_SHOW_ERROR);
             return;
@@ -369,7 +369,7 @@ public class Controller implements Serializable {
         Album alb = null;
         // If selected album belongs to user
         alb = setDefaultAlbumToUpload(alb);
-        model.resetModel(NavigationEnum.FILE_UPLOAD, user, alb != null ? alb.getShelf() : null, alb, null,
+        model.resetModel(NavigationEnum.FILE_UPLOAD, loggedUser, alb != null ? alb.getShelf() : null, alb, null,
             alb != null ? alb.getImages() : null);
     }
 
