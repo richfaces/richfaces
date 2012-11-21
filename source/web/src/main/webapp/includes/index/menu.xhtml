@@ -3,7 +3,7 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
     <!-- <h:form id="menuform" style="margin: 0px"> -->
-
+    <a4j:region>
         <rich:toolbar height="37" styleClass="main-menu-toolbar" id="menu">
             <rich:toolbarGroup styleClass="main-menu-toolbar-content">
                 <h:panelGroup>
@@ -102,7 +102,8 @@
                         <a4j:commandLink disabled="#{!controller.isUserHaveShelves()}" rendered="#{userBean.loggedIn}"
                             data="#{albumManager.errorInCreate}"
                             actionListener="#{albumManager.createAlbum(model.selectedShelf, true)}"
-                            oncomplete="if(!data)$('albumModalPanel').component.show()" render="albumModalPanel" execute="@this">
+                            oncomplete="if(!event.data)#{rich:component('albumModalPanel')}.show()" render="albumModalPanel"
+                            execute="@this">
                             <h:graphicImage rendered="#{controller.isUserHaveShelves()}" value="/img/shell/icon_add_album.png"
                                 width="37" height="23" alt="" styleClass="main-menu-add-icons-img" />
                             <h:graphicImage rendered="#{!controller.isUserHaveShelves()}"
@@ -133,5 +134,6 @@
                 </h:panelGroup>
             </rich:toolbarGroup>
         </rich:toolbar>
-<!--     </h:form> -->
+    </a4j:region>
+    <!--     </h:form> -->
 </ui:composition>
