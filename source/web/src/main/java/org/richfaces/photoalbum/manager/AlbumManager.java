@@ -29,7 +29,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
 import javax.faces.application.FacesMessage;
@@ -50,9 +50,10 @@ import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IAlbumAction;
+import org.richfaces.photoalbum.util.Preferred;
 
 @Named
-@RequestScoped
+@ApplicationScoped
 public class AlbumManager implements Serializable {
 
     private static final long serialVersionUID = 2631634926126857691L;
@@ -65,6 +66,7 @@ public class AlbumManager implements Serializable {
     private IAlbumAction albumAction;
 
     @Inject
+    @Preferred
     private User user;
     @Inject
     Model model;
@@ -75,6 +77,16 @@ public class AlbumManager implements Serializable {
     @Inject
     @Any
     Event<AlbumEvent> albumEvent;
+
+    private Album album;
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
 
     /**
      * Method, that invoked on creation of the new album. Only registered users can create new albums.
@@ -89,7 +101,7 @@ public class AlbumManager implements Serializable {
             // facesMessages.addToControl(Constants.SHELF_ID, Constants.SHELF_MUST_BE_NOT_NULL_ERROR, new Object[0]);
             FacesContext.getCurrentInstance().addMessage(Constants.SHELF_ID,
                 new FacesMessage(Constants.SHELF_MUST_BE_NOT_NULL_ERROR));
-            //Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
+            // Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
             return;
         }
         // Album name must be unique in shelf
@@ -108,9 +120,11 @@ public class AlbumManager implements Serializable {
             return;
         }
         // Reset 'album' component in conversation scope
-        //Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, null);
+        // Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, null);
+        
         // Raise 'albumAdded' event
         albumEvent.select(new EventTypeQualifier(Events.ALBUM_ADDED_EVENT)).fire(new AlbumEvent(album));
+        album = null;
     }
 
     /**
@@ -122,7 +136,7 @@ public class AlbumManager implements Serializable {
      */
     @AdminRestricted
     public void createAlbum(Shelf shelf, boolean isShowAlbumAfterCreate) {
-        Album album = new Album();
+        album = new Album();
         if (shelf == null) {
             if (model.getSelectedShelf() != null) {
                 shelf = model.getSelectedShelf();
@@ -138,7 +152,7 @@ public class AlbumManager implements Serializable {
         album.setShelf(shelf);
         album.setShowAfterCreate(isShowAlbumAfterCreate);
         // Reset 'album' component in conversation scope
-        //Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
+        // Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
     }
 
     /**
