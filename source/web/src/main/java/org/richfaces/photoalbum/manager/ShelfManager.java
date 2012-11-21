@@ -30,7 +30,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
 import javax.inject.Inject;
@@ -48,9 +48,10 @@ import org.richfaces.photoalbum.event.ShelfEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IShelfAction;
+import org.richfaces.photoalbum.util.Preferred;
 
 @Named
-@RequestScoped
+@ApplicationScoped
 public class ShelfManager implements Serializable {
 
     private static final long serialVersionUID = 2631634926126857691L;
@@ -63,10 +64,25 @@ public class ShelfManager implements Serializable {
     IShelfAction shelfAction;
 
     @Inject
+    @Preferred
     User user;
 
-    @Inject @EventType(Events.ADD_ERROR_EVENT) Event<SimpleEvent> error;
-    @Inject @Any Event<ShelfEvent> shelfEvent;
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    Event<SimpleEvent> error;
+    @Inject
+    @Any
+    Event<ShelfEvent> shelfEvent;
+
+    private Shelf newShelf;
+
+    public Shelf getShelf() {
+        return newShelf;
+    }
+
+    public void setShelf(Shelf shelf) {
+        newShelf = shelf;
+    }
 
     /**
      * Method, that invoked when user want to create new shelf. Only registered users can create new shelves.
@@ -74,9 +90,8 @@ public class ShelfManager implements Serializable {
      */
     @AdminRestricted
     public void createShelf() {
-        @SuppressWarnings("unused")
-        Shelf shelf = new Shelf();
-        //Contexts.getConversationContext().set(Constants.SHELF_VARIABLE, shelf);
+        newShelf = new Shelf();
+        // Contexts.getConversationContext().set(Constants.SHELF_VARIABLE, shelf);
     }
 
     /**
