@@ -142,7 +142,7 @@ public class FileUtils {
         } else {
             if (dir.exists()) {
                 final boolean isFileDeleted = dir.delete();
-                System.out.println((isFileDeleted ? "OK     " : "ERROR ") + "Delete file '" + dir.getPath() + '\'');
+                //System.out.println((isFileDeleted ? "OK     " : "ERROR ") + "Delete file '" + dir.getPath() + '\'');
             }
         }
         dir.delete();
