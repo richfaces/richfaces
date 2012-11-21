@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.enterprise.context.ConversationScoped;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,7 +45,6 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@ConversationScoped
 public class Shelf implements Serializable {
 
     private static final long serialVersionUID = -7042878411608396483L;
