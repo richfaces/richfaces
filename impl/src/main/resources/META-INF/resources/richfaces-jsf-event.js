@@ -10,6 +10,7 @@
 
     jsf.ajax.request = function request(source, event, options) {
         var element, form;
+        var source = source;
         
         if (typeof source === 'string') {
             element = document.getElementById(source);
@@ -25,8 +26,20 @@
             form = $('form').has(element).get(0);
         }
         
-        if (form && richfaces.Event && richfaces.Event.callHandler) {
+        if (form) {
             $(form).trigger('ajaxsubmit');
+        }
+        
+        // event source re-targeting (javax.faces.source)
+        if (richfaces && richfaces.$) {
+            if (!richfaces.$(element)) {
+                $(element).parents().each(function() {
+                    if (richfaces.$(this)) {
+                        source = this;
+                        return false;
+                    }
+                });
+            }
         }
         
         jsfAjaxRequest(source, event, options);
