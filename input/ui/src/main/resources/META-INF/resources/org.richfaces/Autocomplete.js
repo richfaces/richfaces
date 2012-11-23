@@ -472,12 +472,12 @@
              */
             destroy: function () {
                 //TODO: add all unbind
-                this.__hide(event);
                 this.items = null;
                 this.cache = null;
                 var itemsContainer = rf.getDomElement(this.id + ID.ITEMS);
                 $(itemsContainer).removeData();
                 rf.Event.unbind(itemsContainer.parentNode, this.namespace);
+                this.__conceal();
                 $super.destroy.call(this);
             }
         };
