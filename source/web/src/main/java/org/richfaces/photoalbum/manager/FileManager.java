@@ -38,6 +38,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.richfaces.model.UploadedFile;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.User;
@@ -192,12 +193,13 @@ public class FileManager {
      *
      * @param fileName - new relative path to the image file
      * @param tempFilePath - absolute path to uploaded image
+     * @throws IOException
      */
     @AdminRestricted
-    public boolean addImage(String fileName, InputStream inputStream) {
+    public boolean addImage(String fileName, UploadedFile file) throws IOException {
         createDirectoryIfNotExist(fileName);
         for (ImageDimension d : ImageDimension.values()) {
-            if (!writeFile(fileName, inputStream, d.getFilePostfix(), d.getX(), true)) {
+            if (!writeFile(fileName, file.getInputStream(), d.getFilePostfix(), d.getX(), true)) {
                 return false;
             }
         }

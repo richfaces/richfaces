@@ -118,7 +118,7 @@ public class FileUploadManager implements Serializable {
         }
         try {
             // Save to disk
-            if (!fileManager.addImage(image.getFullPath(), file.getInputStream())) {
+            if (!fileManager.addImage(image.getFullPath(), file)) {
                 addError(file, image, Constants.FILE_SAVE_ERROR);
                 return;
             }
