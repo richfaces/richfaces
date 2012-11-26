@@ -18,10 +18,7 @@
                 <h:outputText styleClass="bold" value="#{messages['photo_upload_complete']} " />
                 <h:outputText value=" #{fn:length(fileWrapper.files)} #{messages['photos_was_uploaded_to']} " />
                 <a4j:commandLink styleClass="bold" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
-                    render="mainArea, tree" value="#{model.selectedAlbum.name}" />
-                <script type="text/javascript">
-				uploadCompleteEffect();
-				</script>
+                    render="mainArea, tree" value="#{model.selectedAlbum.name}" execute="@this" limitRender="true" />
             </h:panelGroup>
         </h:panelGroup>
         <h:panelGroup style="padding-bottom:7px;" layout="block" rendered="#{fn:length(fileWrapper.errorFiles) > 0}">
@@ -33,7 +30,7 @@
                     <h:outputText value="#{messages['file']} #{(fileWrapper.getErrorImage(error)).name}. #{messages['see']} " />
                     <a4j:commandLink style="padding-bottom:7px;"
                         actionListener="#{controller.showError((fileWrapper.getErrorDescription(error)))}"
-                        value="#{messages['error']}" />
+                        value="#{messages['error']}" execute="@this" />
                 </h:panelGroup>
             </a4j:repeat>
         </h:panelGroup>
@@ -48,11 +45,12 @@
                     <h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_200.png" style="border:0" />
                     <h:panelGrid cellpadding="0">
                         <h:panelGroup>
-                            <a4j:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel">
+                            <a4j:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel"
+                                execute="@this" limitRender="true">
                                 <a4j:mediaOutput element="img" createContent="#{imageLoader.paintImage}"
                                     value="#{fileManager.transformPath(image.fullPath, '_small120')}" mimeType="image/jpeg">
-                                    <rich:dragSource render="mainArea, tree" id="dragSource" dragIndicator="dragIndicator"
-                                        type="image" dragValue="#{image}">
+                                    <rich:dragSource id="dragSource" dragIndicator="iDragIndicator" type="image"
+                                        dragValue="#{image}">
                                         <!-- <rich:dndParam id="dragParam" name="label" value="#{image.name}" /> -->
                                         <!-- not supported in RF 4 -->
                                     </rich:dragSource>
