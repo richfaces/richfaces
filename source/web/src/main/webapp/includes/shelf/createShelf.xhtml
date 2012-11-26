@@ -48,8 +48,8 @@
                                 </h:panelGroup>
                                 <h:panelGroup id="shelfSecondButton" layout="block">
                                     <richx:commandButton type="button" id="cancelbutton"
-                                        onclick="#{rich:component('shelfModalPanel')}.hide(); Event.stop(event); return false;"
-                                        value="#{messages['album.cancel']}" execute="@this" />
+                                        onclick="#{rich:component('shelfModalPanel')}.hide(); return false;"
+                                        value="#{messages['album.cancel']}" execute="@none" />
                                 </h:panelGroup>
                             </h:panelGrid>
                         </h:panelGroup>

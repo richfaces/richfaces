@@ -39,7 +39,7 @@
                         </h:panelGroup>
                         <h:panelGroup id="confirmSecondButton" layout="block">
                             <richx:commandButton value="#{messages['confirm.cancel']}"
-                                onclick="#{rich:component('confirmation')}.hide(); Event.stop(event); return false" />
+                                onclick="#{rich:component('confirmation')}.hide(); return false" execute="@none"/>
                         </h:panelGroup>
                     </h:panelGrid>
                 </h:panelGroup>
