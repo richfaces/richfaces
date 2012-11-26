@@ -18,7 +18,8 @@
 </h:head>
 
 <h:body class="main-body" style="position: relative;">
-
+    <rich:messages globalOnly="true" />
+    <rich:messages />
     <div style="position: relative; height: auto; overflow: hidden; min-height: 100%; zoom: 1;" class="main-panel">
         <h:form id="overForm">
             <div style="padding-bottom: 82px; padding-top: 116px; left: 0px; zoom: 1;">
@@ -84,11 +85,11 @@
                 <ui:include src="/includes/index/footer.xhtml" />
             </div>
             <ui:insert name="searchWidget" />
-            
+            <ui:include src="/includes/index/status.xhtml" />
         </h:form>
-        <ui:include src="/includes/index/status.xhtml" />
+        
     </div>
-<!-- 
+    <!-- 
     <script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>
 
     <script type="text/javascript">
@@ -98,5 +99,6 @@
     
     } 
 </script> -->
+
 </h:body>
 </html>
