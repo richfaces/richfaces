@@ -85,9 +85,9 @@
                 <ui:include src="/includes/index/footer.xhtml" />
             </div>
             <ui:insert name="searchWidget" />
-            <ui:include src="/includes/index/status.xhtml" />
+            
         </h:form>
-        
+        <ui:include src="/includes/index/status.xhtml" /> <!-- do not move, will not work inside the form -->
     </div>
     <!-- 
     <script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>
