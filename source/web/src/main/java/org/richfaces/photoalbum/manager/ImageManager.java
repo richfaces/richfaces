@@ -46,13 +46,13 @@ import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.EventTypeQualifier;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ImageEvent;
 import org.richfaces.photoalbum.event.NavEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IImageAction;
+import org.richfaces.photoalbum.util.Preferred;
 
 @Named
 @RequestScoped
@@ -64,6 +64,7 @@ public class ImageManager {
     IImageAction imageAction;
 
     @Inject
+    @Preferred
     User user;
 
     @Inject
@@ -78,6 +79,16 @@ public class ImageManager {
     @Inject
     @EventType(Events.IMAGE_DELETED_EVENT)
     Event<ImageEvent> imageEvent;
+
+    private String message = "";
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     /**
      * Method, that invoked when user click 'Delete image' button. Only registered users can delete images.
@@ -142,7 +153,7 @@ public class ImageManager {
      *
      */
     @AdminRestricted
-    public void addComment(Image image, String message) {
+    public void addComment(Image image) {
         if (null == user.getLogin()) {
             error.fire(new SimpleEvent(Constants.ADDING_COMMENT_ERROR));
             return;
@@ -162,8 +173,7 @@ public class ImageManager {
             error.fire(new SimpleEvent(Constants.SAVE_COMMENT_ERROR));
             return;
         }
-        // Clear rich:editor component
-        event.select(new EventTypeQualifier(Events.CLEAR_EDITOR_EVENT)).fire(new SimpleEvent());
+        message = "";
     }
 
     /**
