@@ -25,12 +25,6 @@
     <br />
     <br />
 
-    <rich:dragIndicator id="iDragIndicator">
-        <rich:panel>
-                [Image]
-        </rich:panel>
-    </rich:dragIndicator>
-
     <h:panelGroup id="userAlbumImages">
         <a4j:repeat id="imageList" value="#{model.images}" var="image" rows="20">
             <h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
