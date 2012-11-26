@@ -24,7 +24,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Named;
 
@@ -35,7 +35,7 @@ import org.richfaces.photoalbum.event.ImageEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 
 @Named
-@ConversationScoped
+@ApplicationScoped
 public class FileWrapper implements Serializable {
 
     private static final long serialVersionUID = -1767281809514660171L;
@@ -109,11 +109,6 @@ public class FileWrapper implements Serializable {
 
     public boolean isComplete() {
         return complete;
-    }
-
-    // listener method, can't have paramaters
-    public void setCompleted() {
-        setComplete(true);
     }
 
     public void setComplete(boolean complete) {
