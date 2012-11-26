@@ -4,11 +4,13 @@ RichFaces.QUnit.run(function() {
     var element;
     var event;
     var jsfRequestBackup;
+    var warnLogBackup;
 
     QUnit.testStart(function(context) {
         element = document.getElementById("testDiv");
         event = {type:"testevent"};
         jsfRequestBackup = RichFaces.ajaxContainer.jsfRequest;
+        warnLogBackup = RichFaces.log.warn;
     });
     
     QUnit.testDone(function(context) {
@@ -16,6 +18,7 @@ RichFaces.QUnit.run(function() {
         event = {type:"testevent"};
         RichFaces.ajaxContainer.jsfRequest = jsfRequestBackup;
         RichFaces.queue.clear();
+        RichFaces.log.warn = warnLogBackup;
     });
     
     // reference to original jsf.ajax.request function
@@ -87,6 +90,31 @@ RichFaces.QUnit.run(function() {
             equal(options['AJAX:EVENTS_COUNT'], 1, "options['AJAX:EVENTS_COUNT']");
             equal(typeof options.parameters, "object", "options.parameters");
             equal(options.parameters.key, "value", "options.parameters.key");
+        }
+
+        var elements = RichFaces.QUnit.appendDomElements(element,
+            '<form id="testForm">' +
+                '<input id="testButton1" type="button" value="hello" onclick="jsf.ajax.request(this,event,{parameters:{key:\'value\'}})"/>' +
+                '</table>' +
+                '</form>');
+
+        document.getElementById("testButton1").click({type:"onclick"});
+        RichFaces.queue.clear();
+    });
+    
+    test("jsf.ajax.request - error", function() {
+        expect(1);
+
+        var messages = [];
+        RichFaces.log.warn =  function(message) {
+            ok(message && message.indexOf("exception during jsf.ajax.request"), "one given log message should be observed");
+        };
+
+        RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
+            for (var i = 0; i < jsf.ajax.eventHandlers.length; i++) {
+                jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
+            }
+            throw new Error("exception during jsf.ajax.request");
         }
 
         var elements = RichFaces.QUnit.appendDomElements(element,

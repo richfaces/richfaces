@@ -183,7 +183,7 @@
                         delay = this.queueOptions.requestDelay || 0;
                     }
 
-                    log.debug("Queue will wait " + (delay || 0) + "ms before submit");
+                    richfaces.log.debug("Queue will wait " + (delay || 0) + "ms before submit");
 
                     if (delay) {
                         var _this = this;
@@ -229,13 +229,17 @@
         var JSF_EVENT_SUCCESS = 'success';
         var JSF_EVENT_COMPLETE = 'complete';
 
-        var log = richfaces.log;
         var items = [];
         var lastRequestedEntry;
 
         //TODO: instance of this function will be created for each queue
         var onError = function (data) {
-            log.debug("richfaces.queue: ajax submit error");
+            var message = "richfaces.queue: ajax submit error";
+            if (data && data.message) {
+                message += ": " + data.message;
+            }
+            richfaces.log.warn(message);
+
             lastRequestedEntry = null;
             //TODO: what if somebody is going to clear queue on error?
             submitFirstEntry();
@@ -243,7 +247,7 @@
 
         var onComplete = function (data) {
             if (data.type == JSF_EVENT_TYPE && data.status == JSF_EVENT_SUCCESS) { // or JSF_EVENT_COMPLETE will be rather
-                log.debug("richfaces.queue: ajax submit successfull");
+                richfaces.log.debug("richfaces.queue: ajax submit successfull");
                 lastRequestedEntry = null;
                 submitFirstEntry();
             }
@@ -254,29 +258,29 @@
 
         var submitFirstEntry = function() {
             if (QUEUE_MODE == QUEUE_MODE_PULL && lastRequestedEntry) {
-                log.debug("richfaces.queue: Waiting for previous submit results");
+                richfaces.log.debug("richfaces.queue: Waiting for previous submit results");
                 return;
             }
             if (isEmpty()) {
-                log.debug("richfaces.queue: Nothing to submit");
+                richfaces.log.debug("richfaces.queue: Nothing to submit");
                 return;
             }
             var entry;
             if (items[0].getReadyToSubmit()) {
             	try {
-		            entry = lastRequestedEntry = items.shift();
-		            log.debug("richfaces.queue: will submit request NOW");
-		            var o = lastRequestedEntry.options;
-		            o["AJAX:EVENTS_COUNT"] = lastRequestedEntry.eventsCount;
-		            richfaces.ajaxContainer.jsfRequest(lastRequestedEntry.source, lastRequestedEntry.event, o);
+                    entry = lastRequestedEntry = items.shift();
+                    richfaces.log.debug("richfaces.queue: will submit request NOW");
+                    var o = lastRequestedEntry.options;
+                    o["AJAX:EVENTS_COUNT"] = lastRequestedEntry.eventsCount;
+                    richfaces.ajaxContainer.jsfRequest(lastRequestedEntry.source, lastRequestedEntry.event, o);
 
-		            // call event handlers
-		            if (o.queueonsubmit) {
-		                o.queueonsubmit.call(entry);
-		            }
-		            callEventHandler("onrequestdequeue", entry);
+                    // call event handlers
+                    if (o.queueonsubmit) {
+                        o.queueonsubmit.call(entry);
+                    }
+                    callEventHandler("onrequestdequeue", entry);
             	} catch (error) {
-            		onError(error);
+                    onError(error);
             	}
             }
         };
@@ -319,7 +323,7 @@
 
         var pushEntry = function (entry) {
             items.push(entry);
-            log.debug("New request added to queue. Queue requestGroupingId changed to " + entry.getRequestGroupId());
+            richfaces.log.debug("New request added to queue. Queue requestGroupingId changed to " + entry.getRequestGroupId());
             // call event handlers
             callEventHandler("onrequestqueue", entry);
         }
@@ -381,9 +385,9 @@
 
                 if (lastEntry) {
                     if (lastEntry.getRequestGroupId() == requestGroupingId) {
-                        log.debug("Similar request currently in queue");
+                        richfaces.log.debug("Similar request currently in queue");
 
-                        log.debug("Combine similar requests and reset timer");
+                        richfaces.log.debug("Combine similar requests and reset timer");
 
                         lastEntry.stopTimer();
                         entry.setEventsCount(lastEntry.getEventsCount() + 1);
@@ -391,7 +395,7 @@
                         updateLastEntry(entry);
                         callEventHandler("onrequestqueue", entry);
                     } else {
-                        log.debug("Last queue entry is not the last anymore. Stopping requestDelay timer and marking entry as ready for submission")
+                        richfaces.log.debug("Last queue entry is not the last anymore. Stopping requestDelay timer and marking entry as ready for submission")
 
                         lastEntry.stopTimer();
                         lastEntry.resetRequestGroupId();
