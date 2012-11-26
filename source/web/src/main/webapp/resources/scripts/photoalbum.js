@@ -1,8 +1,10 @@
 function selectPopularTag(tag, target) {
+	//console.log(target);
+	//console.log(target.value);
 	if(target) {
-		var value = target.value.strip();
+		var value = target.getValue().trim();
 		if(value.indexOf(tag) == -1) {
-			target.value = value.length != 0 ? value + ", " + tag : tag; 
+			target.setValue(value.length != 0 ? value + ", " + tag : tag); 
 		}
 	}
 }
