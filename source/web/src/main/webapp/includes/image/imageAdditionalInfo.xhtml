@@ -37,7 +37,7 @@
 
 
                 <h:panelGroup layout="block" styleClass="comment-deleteLink">
-                    <h:panelGroup rendered="#{comment.author == user}" layout="block" styleClass="additional-info-comment-del">
+                    <h:panelGroup rendered="#{comment.author == userBean.user}" layout="block" styleClass="additional-info-comment-del">
                         <a4j:commandLink value="#{messages['comment.delete']}"
                             actionListener="#{imageManager.deleteComment(comment)}" render="commentPanel" />
                     </h:panelGroup>
@@ -56,16 +56,16 @@
         </a4j:repeat>
         <h:panelGroup layout="block" style="padding-top:10px;clear:both">
             <!-- <a4j:region rendered="#{identity.hasRole('admin', 'Users', 'GROUP')}"> -->
-            <a4j:region rendered="#{userBean.userAdmin}" >
+            <a4j:region rendered="#{userBean.userAdmin}" id="commentEditor" >
                 <h:panelGroup layout="block" id="editContent">
                     <!-- TODO: add configuration -->
-                    <rich:editor value="#{editorBean.message}" id="editor2" width="400" height="200" useSeamText="true" />
+                    <rich:editor value="#{imageManager.message}" toolbar="basic" id="editor2" width="400" height="200" skin="richfaces" />
                 </h:panelGroup>
             </a4j:region>
         </h:panelGroup>
         <!-- rendered="#{identity.hasRole('admin', 'Users', 'GROUP')}" -->
         <richx:commandButton rendered="#{userBean.userAdmin}" value="#{messages['comment.add']}"
-            actionListener="#{imageManager.addComment(model.selectedImage, editorBean.message)}" render="commentPanel" />
+            actionListener="#{imageManager.addComment(model.selectedImage)}" render="commentPanel" execute="commentEditor" />
     </h:panelGroup>
     <h:panelGroup rendered="#{!model.selectedImage.allowComments}" layout="block" id="commentPanel2" style="margin-top : 30px">
         <h:outputText styleClass="bold" value="#{messages['comments_for_this_photo_is_not_allowed']}" />
