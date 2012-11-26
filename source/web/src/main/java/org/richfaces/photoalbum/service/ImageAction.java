@@ -20,7 +20,9 @@
  */
 package org.richfaces.photoalbum.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -73,7 +75,6 @@ public class ImageAction implements IImageAction {
      */
     public void editImage(Image image, boolean metatagsChanged) throws PhotoAlbumException {
         try {
-            // unsure if this functionality is needed
             if (metatagsChanged) {
                 String tagsByImageId = "select m from MetaTag m join m.images i where i.id = :id"; // all Metatags associated
                                                                                                    // with given Image
@@ -83,7 +84,6 @@ public class ImageAction implements IImageAction {
 
                 for (MetaTag m : pointsToImage) {
                     if (!imageTags.contains(m)) { // deleted tag that still points to the Image
-                        System.out.println("tag is being removed: " + m.getTag());
                         removeMetaTag(image, m);
                     }
                 }
@@ -97,55 +97,50 @@ public class ImageAction implements IImageAction {
                 // // Create cash of metatags early associated with image
                 // final List<MetaTag> removals = new ArrayList<MetaTag>(image.getImageTags());
                 //
-                // // Get string representation of current metatgs, associated with image and split them by comma
-                // final String[] tokens = image.getMetaString().split(Constants.COMMA);
-                //
-                // // Populate set of tokens - 'candidates to metatags'
-                // final Set<String> toks = new HashSet<String>();
-                // for (String s : tokens) {
-                // if (!"".equals(s)) {
-                // toks.add(s.trim());
-                // }
-                // }
-                //
-                // for (String s : toks) {
-                // // Find metatag in early associated tags
-                // MetaTag t = image.getTagByName(s);
-                // if (t != null) {
-                // // If found - no work needed
-                // removals.remove(t);
-                // } else {
-                // // Find metatag in database
-                // t = getTagByName(s);
-                // if (t != null) {
-                // // If found simple add reference to it
-                // image.addMetaTag(t);
-                // } else {
-                // // Create new metatag
-                // t = new MetaTag();
-                // t.setTag(s);
-                // image.addMetaTag(t);
-                // // Persist to database to prevent concurrent creation of other metatags with given name
-                // em.persist(t);
-                // }
-                // }
-                // t = null;
-                // }
+                // Get string representation of current metatgs, associated with image and split them by comma
+                final String[] tokens = image.getMetaString().split(Constants.COMMA);
+
+                // Populate set of tokens - 'candidates to metatags'
+                final Set<String> toks = new HashSet<String>();
+                for (String s : tokens) {
+                    if (!"".equals(s)) {
+                        toks.add(s.trim());
+                    }
+                }
+
+                for (String s : toks) {
+                    // Find metatag in early associated tags
+                    MetaTag t = image.getTagByName(s);
+
+                    // Find metatag in database
+                    t = getTagByName(s);
+                    if (t != null) {
+                        // If found simple add reference to it
+                        image.addMetaTag(t);
+                    } else {
+                        // Create new metatag
+                        t = new MetaTag();
+                        t.setTag(s);
+                        image.addMetaTag(t);
+                        // Persist to database to prevent concurrent creation of other metatags with given name
+                        em.persist(t);
+                    }
+                }
                 //
                 // for (MetaTag tag : removals) {
                 // // If metatag in that collection, we need remove them
                 // image.removeMetaTag(tag);
                 // }
-                // // If this image is covering for album, break the reference
-                // if (image.isCovering()) {
-                // if (!image.equals(image.getAlbum().getCoveringImage())) {
-                // image.getAlbum().setCoveringImage(image);
-                // }
-                // } else {
-                // if (image.equals(image.getAlbum().getCoveringImage())) {
-                // image.getAlbum().setCoveringImage(image.getAlbum().getImages().get(0));
-                // }
-                // }
+                // If this image is covering for album, break the reference
+                if (image.isCovering()) {
+                    if (!image.equals(image.getAlbum().getCoveringImage())) {
+                        image.getAlbum().setCoveringImage(image);
+                    }
+                } else {
+                    if (image.equals(image.getAlbum().getCoveringImage())) {
+                        image.getAlbum().setCoveringImage(image.getAlbum().getImages().get(0));
+                    }
+                }
 
             }
             em.flush();
