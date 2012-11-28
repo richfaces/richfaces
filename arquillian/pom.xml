@@ -28,10 +28,6 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-warp-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.extension</groupId>
             <artifactId>arquillian-warp-jsf</artifactId>
         </dependency>
         <dependency>
