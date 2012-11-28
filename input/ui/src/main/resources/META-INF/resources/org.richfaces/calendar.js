@@ -1009,6 +1009,7 @@
                 if (field.value != dateStr) {
                     field.value = dateStr;
                     this.invokeEvent("change", rf.getDomElement(this.id), event, this.selectedDate);
+                    $(rf.getDomElement(this.INPUT_DATE_ID)).blur();
                 }
             },
 
