@@ -8,9 +8,9 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.PreRenderViewEvent;
 
-import org.jboss.arquillian.warp.extension.phaser.AfterPhase;
-import org.jboss.arquillian.warp.extension.phaser.BeforePhase;
-import org.jboss.arquillian.warp.extension.phaser.Phase;
+import org.jboss.arquillian.warp.jsf.AfterPhase;
+import org.jboss.arquillian.warp.jsf.BeforePhase;
+import org.jboss.arquillian.warp.jsf.Phase;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.focus.FocusManager;
 import org.richfaces.renderkit.focus.FocusRendererUtils;

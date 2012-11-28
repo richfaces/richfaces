@@ -4,8 +4,8 @@ import static org.junit.Assert.assertFalse;
 
 import javax.faces.context.FacesContext;
 
-import org.jboss.arquillian.warp.extension.phaser.AfterPhase;
-import org.jboss.arquillian.warp.extension.phaser.Phase;
+import org.jboss.arquillian.warp.jsf.AfterPhase;
+import org.jboss.arquillian.warp.jsf.Phase;
 import org.richfaces.component.AbstractFocus;
 import org.richfaces.renderkit.FocusRendererBase;
 
