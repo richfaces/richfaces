@@ -32,7 +32,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-warp-phaser</artifactId>
+            <artifactId>arquillian-warp-jsf</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
