@@ -274,6 +274,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
 
             renderState(facesContext);
 
+            addJavaScriptServicePageScripts(facesContext, viewRoot);
             // TODO - render extensions for renderAll?
             renderExtensions(facesContext, viewRoot);
 
@@ -413,15 +414,23 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     protected void addImplicitRenderIds(Collection<String> ids, boolean limitRender) {
     }
 
-    protected void renderExtensions(FacesContext context, UIComponent component) throws IOException {
-        // ADD deffered scripts
+    protected void addJavaScriptServicePageScripts(FacesContext context, UIComponent component) {
         ScriptsHolder scriptsHolder = ServiceTracker.getService(JavaScriptService.class).getScriptsHolder(context);
+        StringBuilder scripts = new StringBuilder();
         for (Object script : scriptsHolder.getScripts()) {
-            appendOncomplete(ScriptUtils.toScript(script));
+            scripts.append(ScriptUtils.toScript(script));
+            scripts.append(";");
         }
         for (Object script : scriptsHolder.getPageReadyScripts()) {
-            appendOncomplete(ScriptUtils.toScript(script));
+            scripts.append(ScriptUtils.toScript(script));
+            scripts.append(";");
         }
+        if (scripts.length() > 0) {
+            prependOncomplete(scripts.toString());
+        }
+    }
+
+    protected void renderExtensions(FacesContext context, UIComponent component) throws IOException {
         CoreAjaxRendererUtils.renderAjaxExtensions(context, component);
     }
 

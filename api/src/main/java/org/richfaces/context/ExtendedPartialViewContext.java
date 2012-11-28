@@ -80,6 +80,13 @@ public abstract class ExtendedPartialViewContext extends PartialViewContext {
         }
     }
 
+    public void prependOncomplete(Object handler) {
+        if (handler != null) {
+            completeHandler.insert(0, ';');
+            completeHandler.insert(0, handler.toString());
+        }
+    }
+
     public Object getOncomplete() {
         return completeHandler.toString();
     }
@@ -88,6 +95,13 @@ public abstract class ExtendedPartialViewContext extends PartialViewContext {
         if (handler != null) {
             beforedomupdateHandler.append(handler.toString());
             beforedomupdateHandler.append(';');
+        }
+    }
+
+    public void prependOnbeforedomupdate(Object handler) {
+        if (handler != null) {
+            beforedomupdateHandler.insert(0, handler.toString());
+            beforedomupdateHandler.insert(0, ';');
         }
     }
 
