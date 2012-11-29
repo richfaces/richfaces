@@ -33,6 +33,7 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.NamingContainer;
@@ -729,16 +730,25 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * Check for validation errors on children components. If true, saved values must be keep on render phase
+     * <p>Check for validation errors on children components. If true, saved values must be keep on render phase</p>
      *
-     * @param context
+     * <p>(State is reset if there are no faces messages with severity error or higher.)</p>
+     *
+     * @return true if there are faces messages with severity error or higher
      */
     protected boolean keepSaved(FacesContext context) {
 
         // For an any validation errors, children components state should be preserved
         FacesMessage.Severity sev = context.getMaximumSeverity();
 
-        return (sev != null) && (FacesMessage.SEVERITY_ERROR.compareTo(sev) >= 0);
+        return (sev != null) && (isErrorOrHigher(sev));
+    }
+
+    /**
+     * Returns true if given severity is equal to {@link FacesMessage#SEVERITY_ERROR} or higher.
+     */
+    private boolean isErrorOrHigher(Severity severity) {
+        return FacesMessage.SEVERITY_ERROR.compareTo(severity) <= 0;
     }
 
     /**
