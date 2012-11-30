@@ -33,9 +33,14 @@
 
         if (options.indicator) {
             var element = document.getElementById(options.indicator);
+            var clone = $(element).clone();
+            $("*[id]", clone).each(function() {
+                $(this).remoteAttr("id");
+            });
+            
             this.dragElement.data("indicator", true);
             this.dragElement.draggable("option", "helper", function() {
-                return element
+                return clone;
             });
         } else {
             this.dragElement.data("indicator", false);
