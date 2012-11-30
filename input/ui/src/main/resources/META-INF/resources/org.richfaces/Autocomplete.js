@@ -67,7 +67,7 @@
         this.useTokens = (typeof this.options.tokens == "string" && this.options.tokens.length > 0);
         if (this.useTokens) {
             var escapedTokens = this.options.tokens.split('').join("\\");
-            this.REGEXP_TOKEN_LEFT = new RegExp('[^' + escapedTokens + ']+$', 'i');
+            this.REGEXP_TOKEN_LEFT = new RegExp('[^' + escapedTokens + ' ]+$', 'i');
             this.REGEXP_TOKEN_RIGHT = new RegExp('[' + escapedTokens + ']', 'i');
             this.hasSpaceToken = this.options.tokens.indexOf(' ') != -1;
         }
