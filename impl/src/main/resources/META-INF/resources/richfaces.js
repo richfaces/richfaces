@@ -613,6 +613,12 @@ if (!window.RichFaces) {
             }
         }
     };
+    
+    richfaces.javascriptServiceComplete = function(event) {
+        jQuery(function() {
+            jQuery(document).trigger("javascriptServiceComplete");
+        });
+    };
 
     var attachAjaxDOMCleaner = function() {
         // move this code to somewhere

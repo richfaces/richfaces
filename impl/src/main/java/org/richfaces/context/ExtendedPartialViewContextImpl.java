@@ -426,6 +426,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
             scripts.append(";");
         }
         if (scripts.length() > 0) {
+            scripts.append("RichFaces.javascriptServiceComplete();");
             prependOncomplete(scripts.toString());
         }
     }
