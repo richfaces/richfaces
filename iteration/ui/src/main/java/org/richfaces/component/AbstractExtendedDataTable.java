@@ -96,6 +96,13 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     public abstract String getOnselectionchange();
 
     /**
+     * Determines the order in which the columns should be rendered, left to right.
+     * The Strings are the ids of the columns.
+     */
+    @Attribute
+    public abstract String[] getColumnsOrder();
+
+    /**
      * The client-side script method to be called before the selection is changed.
      */
     @Attribute(events = @EventName("beforeselectionchange"))
