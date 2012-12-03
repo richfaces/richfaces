@@ -953,7 +953,7 @@
     
         <!-- Containers -->
         <profile>
-            <id>container-jbossas-managed-7</id>
+            <id>jbossas-managed-7-1</id>
             <activation>
                 <property>
                     <name>integration</name>
@@ -1018,7 +1018,7 @@
             </build>
         </profile>
         <profile>
-            <id>container-jbossas-remote-7</id>
+            <id>jbossas-remote-7-1</id>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
@@ -1027,7 +1027,7 @@
             </dependencies>
         </profile>
         <profile>
-            <id>container-tomee-remote</id>
+            <id>tomee-remote-1-0</id>
             <activation>
                 <property>
                     <name>integration</name>
