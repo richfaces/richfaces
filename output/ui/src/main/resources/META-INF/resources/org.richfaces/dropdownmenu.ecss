@@ -4,6 +4,7 @@
     font-weight: '#{richSkin.headerWeightFont}';
     position: relative;
     white-space: nowrap;
+    z-index: 10;
 }
 
 .rf-ddm-lbl {
@@ -29,6 +30,7 @@
     top: 20px;
     left: 0;
     position: absolute;
+    z-index: 10000;
 }
 
 .rf-ddm-dis {
