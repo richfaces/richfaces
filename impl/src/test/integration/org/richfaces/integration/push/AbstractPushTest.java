@@ -16,10 +16,10 @@ import org.jboss.arquillian.warp.ClientAction;
 import org.jboss.arquillian.warp.ServerAssertion;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.client.filter.HttpRequest;
 import org.jboss.arquillian.warp.client.filter.RequestFilter;
-import org.jboss.arquillian.warp.extension.servlet.AfterServlet;
-import org.jboss.arquillian.warp.extension.servlet.BeforeServlet;
+import org.jboss.arquillian.warp.client.filter.http.HttpRequest;
+import org.jboss.arquillian.warp.servlet.AfterServlet;
+import org.jboss.arquillian.warp.servlet.BeforeServlet;
 import org.openqa.selenium.WebDriver;
 import org.richfaces.application.push.MessageException;
 import org.richfaces.application.push.PushContext;
@@ -39,7 +39,7 @@ public class AbstractPushTest {
 
     @ArquillianResource
     URL contextPath;
-    
+
     public static CoreDeployment createBasicDeployment() {
 
         CoreDeployment deployment = new CoreDeployment(null);
@@ -75,16 +75,19 @@ public class AbstractPushTest {
         return deployment;
     }
 
-    
-    public void testSimplePush() {
-        Warp.filter(new UriRequestFilter("__richfacesPushAsync")).execute(new ClientAction() {
 
-            @Override
-            public void action() {
-                driver.navigate().to(contextPath);
-            }
-        }).verify(new PushServletAssertion());
-        
+    public void testSimplePush() {
+        Warp.
+            execute(new ClientAction() {
+
+                    @Override
+                    public void action() {
+                        driver.navigate().to(contextPath);
+                    }
+                })
+            .filter(new UriRequestFilter("__richfacesPushAsync"))
+            .verify(new PushServletAssertion());
+
         waitAjax().withTimeout(5,  SECONDS).until(titleIs("message-received: 1"));
     }
 
