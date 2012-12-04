@@ -8,234 +8,133 @@
 
 <!-- content -->
 <ui:define name="content">
-<fieldset>
-    <legend>Configuration</legend>
 
-    <h:form id="form9">
-        <in:editor id="editor9" value="#{editor.value}">
-            <f:facet name="config">
-                toolbar: "MyToolbar",
-                toolbar_MyToolbar:
-                [
-                { name: 'document', items : [ 'NewPage','Preview' ] },
-                { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
-                { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },
-                { name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'
-                ,'Iframe' ] },
-                '/',
-                { name: 'styles', items : [ 'Styles','Format' ] },
-                { name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
-                { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
-                { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
-                { name: 'tools', items : [ 'Maximize','-','About' ] }
-                ]
-            </f:facet>
-        </in:editor>
-    </h:form>
-</fieldset>
-
-<fieldset>
-    <legend>Render All</legend>
-
-    <h:form id="form8a">
-        <in:editor id="editor8a" value="#{editor.value}"/>
-    </h:form>
-
-    <h:form id="form8b">
-        <a4j:commandButton value="Update All" render="@all"/>
-    </h:form>
-</fieldset>
-
-<fieldset>
-    <legend>Validation</legend>
-
-    <h:messages for="editor7"/>
-
-    <h:form id="form7">
-        <in:editor id="editor7" value="#{editor.value}" required="true"/>
-
-        <h:commandButton value="Validate"/>
-    </h:form>
-</fieldset>
-
-
-<fieldset>
-    <legend>Attributes</legend>
-
-    <h:form id="form6">
-        <a4j:outputPanel id="panel6">
-            <in:editor id="editor6" value="#{editor.value}" title="#{editor.title}"
-                       readonly="#{editor.readonly}" width="#{editor.width}" height="#{editor.height}"
-                       rendered="#{editor.rendered}" toolbar="#{editor.toolbar}" skin="#{editor.skin}"
-                       lang="#{editor.lang}"
-                       oninit="#{editor.oninit}" onfocus="#{editor.onfocus}" onblur="#{editor.onblur}"
-                       onchange="#{editor.onchange}"
-                       ondirty="#{editor.ondirty}"
-                       styleClass="#{editor.styleClass}" style="#{editor.style}"
-                       editorClass="#{editor.editorClass}" editorStyle="#{editor.editorStyle}"
-                       textareaClass="#{editor.textareaClass}" textareaStyle="#{editor.textareaStyle}"/>
-        </a4j:outputPanel>
-    </h:form>
-
-    <h:form>
+            
+    <h:form id="form">
+    <a4j:status onstop="console.log('onstop')" />
         <h:panelGrid columns="2">
-            <h:outputLabel value="Readonly:"/>
-            <h:inputText value="#{editor.readonly}"/>
-
-            <h:outputLabel value="Width:"/>
-            <h:inputText value="#{editor.width}"/>
-
-            <h:outputLabel value="Height:"/>
-            <h:inputText value="#{editor.height}"/>
-
-            <h:outputLabel value="Rendered:"/>
-            <h:selectBooleanCheckbox value="#{editor.rendered}"/>
-
-            <h:outputLabel value="Toolbar:"/>
-            <h:inputText value="#{editor.toolbar}"/>
-
-            <h:outputLabel value="Skin:"/>
-            <h:inputText value="#{editor.skin}"/>
-
-            <h:outputLabel value="Lang:"/>
-            <h:inputText value="#{editor.lang}"/>
-
-            <h:outputLabel value="oninit:"/>
-            <h:inputText value="#{editor.oninit}"/>
-
-            <h:outputLabel value="onfocus:"/>
-            <h:inputText value="#{editor.onfocus}"/>
-
-            <h:outputLabel value="onblur:"/>
-            <h:inputText value="#{editor.onblur}"/>
-
-            <h:outputLabel value="onchange:"/>
-            <h:inputText value="#{editor.onchange}"/>
-
-            <h:outputLabel value="ondirty:"/>
-            <h:inputText value="#{editor.ondirty}"/>
-
-            <h:outputLabel value="styleClass:"/>
-            <h:inputText value="#{editor.styleClass}"/>
-
-            <h:outputLabel value="editorClass:"/>
-            <h:inputText value="#{editor.editorClass}"/>
-
-            <h:outputLabel value="textareaClass:"/>
-            <h:inputText value="#{editor.textareaClass}"/>
-
-            <h:outputLabel value="style:"/>
-            <h:inputText value="#{editor.style}"/>
-
-            <h:outputLabel value="editorStyle:"/>
-            <h:inputText value="#{editor.editorStyle}"/>
-
-            <h:outputLabel value="textareaStyle:"/>
-            <h:inputText value="#{editor.textareaStyle}"/>
-
-            <h:outputLabel value="title:"/>
-            <h:inputText value="#{editor.title}"/>
-
-            <a4j:commandButton value="Rerender" render="editor6 inplace6"/>
-            <h:commandButton value="Post"/>
-            <a4j:commandButton value="Rerender Panel" render="panel6"/>
+            
+            <in:editor id="editor" value="#{editor.value}" title="#{editor.title}"
+                           readonly="#{editor.readonly}" width="#{editor.width}" height="#{editor.height}"
+                           rendered="#{editor.rendered}" toolbar="#{editor.toolbar}" skin="#{editor.skin}"
+                           lang="#{editor.lang}"
+                           oninit="#{editor.oninit}" onfocus="#{editor.onfocus}" onblur="#{editor.onblur}"
+                           onchange="#{editor.onchange}"
+                           ondirty="#{editor.ondirty}; document.title = parseInt(document.title) + 1"
+                           styleClass="#{editor.styleClass}" style="#{editor.style}"
+                           editorClass="#{editor.editorClass}" editorStyle="#{editor.editorStyle}"
+                           textareaClass="#{editor.textareaClass}" textareaStyle="#{editor.textareaStyle}">
+                           
+               <f:facet name="config">#{editor.config}</f:facet>
+            </in:editor>
+            
+            <h:panelGrid columns="3">
+                <h:panelGrid columns="1">
+                    <a4j:commandButton value="Re-render @form" process="@form" render="@form"/>
+                    <a4j:commandButton value="Re-render editor" process="@form" render="editor"/>        
+                    <h:commandButton value="Submit form"/>
+                    <a4j:commandButton value="AJAX" process="@form" render="output"/>
+                </h:panelGrid>
+                
+                <h:panelGrid columns="1">
+                    <h:button type="button" value="setReadOnly(true)"
+                           onclick="document.getElementById('form:editor').rf.component.setReadOnly(true); return false;"/>
+                    <h:button type="button" value="setReadOnly(false)"
+                           onclick="document.getElementById('form:editor').rf.component.setReadOnly(false); return false;"/>
+                    <h:button type="button" value="isReadOnly()"
+                           onclick="alert(document.getElementById('form:editor').rf.component.isReadOnly()); return false;"/>
+                    <h:button type="button" value="setValue('test')"
+                           onclick="document.getElementById('form:editor').rf.component.setValue('test'); return false;"/>
+                    <h:button type="button" value="getValue()"
+                           onclick="alert(document.getElementById('form:editor').rf.component.getValue()); return false;"/>
+                    <h:button type="button" value="getEditor()"
+                           onclick="alert(document.getElementById('form:editor').rf.component.getEditor()); return false;"/>
+                    <h:button type="button" value="getInput()"
+                           onclick="alert(document.getElementById('form:editor').rf.component.getInput()); return false;"/>
+                    <h:button type="button" value="focus()"
+                           onclick="document.getElementById('form:editor').rf.component.focus(); return false;"/>
+                    <h:button type="button" value="blur()"
+                           onclick="document.getElementById('form:editor').rf.component.blur(); return false;"/>
+                    <h:button type="button" value="isFocused()"
+                           onclick="alert(document.getElementById('form:editor').rf.component.isFocused()); return false;"/>
+                    <h:button type="button" value="isValueChanged()"
+                           onclick="alert(document.getElementById('form:editor').rf.component.isValueChanged()); return false;"/>
+                    <h:button type="button" value="isDirty()"
+                           onclick="alert(document.getElementById('form:editor').rf.component.isDirty()); return false;"/>
+               </h:panelGrid>
+                
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Readonly:"/>
+                    <h:inputText value="#{editor.readonly}"/>
+        
+                    <h:outputLabel value="Width:"/>
+                    <h:inputText value="#{editor.width}"/>
+        
+                    <h:outputLabel value="Height:"/>
+                    <h:inputText value="#{editor.height}"/>
+        
+                    <h:outputLabel value="Rendered:"/>
+                    <h:selectBooleanCheckbox value="#{editor.rendered}"/>
+        
+                    <h:outputLabel value="Lang:"/>
+                    <h:inputText value="#{editor.lang}"/>
+        
+                    <h:outputLabel value="oninit:"/>
+                    <h:inputText value="#{editor.oninit}"/>
+        
+                    <h:outputLabel value="onfocus:"/>
+                    <h:inputText value="#{editor.onfocus}"/>
+        
+                    <h:outputLabel value="onblur:"/>
+                    <h:inputText value="#{editor.onblur}"/>
+        
+                    <h:outputLabel value="onchange:"/>
+                    <h:inputText value="#{editor.onchange}"/>
+        
+                    <h:outputLabel value="ondirty:"/>
+                    <h:inputText value="#{editor.ondirty}"/>
+        
+                    <h:outputLabel value="styleClass:"/>
+                    <h:inputText value="#{editor.styleClass}"/>
+        
+                    <h:outputLabel value="editorClass:"/>
+                    <h:inputText value="#{editor.editorClass}"/>
+        
+                    <h:outputLabel value="textareaClass:"/>
+                    <h:inputText value="#{editor.textareaClass}"/>
+        
+                    <h:outputLabel value="style:"/>
+                    <h:inputText value="#{editor.style}"/>
+        
+                    <h:outputLabel value="editorStyle:"/>
+                    <h:inputText value="#{editor.editorStyle}"/>
+        
+                    <h:outputLabel value="textareaStyle:"/>
+                    <h:inputText value="#{editor.textareaStyle}"/>
+        
+                    <h:outputLabel value="title:"/>
+                    <h:inputText value="#{editor.title}"/>
+        
+                    <h:outputLabel value="Skin:"/>
+                    <h:inputText value="#{editor.skin}"/>
+        
+                    <h:outputLabel value="Toolbar:"/>
+                    <h:inputText value="#{editor.toolbar}"/>
+                    
+                    <h:outputLabel value="config:" />
+                    <h:inputTextarea value="#{editor.config}" style="width: 500px; height: 300px; font-family: monospace" />
+                </h:panelGrid>
+            </h:panelGrid>
         </h:panelGrid>
-    </h:form>
-</fieldset>
-
-<fieldset>
-    <legend>JavaScript API</legend>
-
-    <h:form id="form5">
-        <in:editor id="editor5" value="#{editor.value}" toolbar="full"
-                   ondirty="document.title = parseInt(document.title) + 1"/>
-
-        <input type="button" value="setReadOnly(true)"
-               onclick="document.getElementById('form5:editor5').rf.component.setReadOnly(true)"/>
-        <input type="button" value="setReadOnly(false)"
-               onclick="document.getElementById('form5:editor5').rf.component.setReadOnly(false)"/>
-        <input type="button" value="isReadOnly()"
-               onclick="alert(document.getElementById('form5:editor5').rf.component.isReadOnly())"/>
-        <input type="button" value="setValue('test')"
-               onclick="document.getElementById('form5:editor5').rf.component.setValue('test')"/>
-        <input type="button" value="getValue()"
-               onclick="alert(document.getElementById('form5:editor5').rf.component.getValue())"/>
-        <input type="button" value="getEditor()"
-               onclick="alert(document.getElementById('form5:editor5').rf.component.getEditor())"/>
-        <input type="button" value="getInput()"
-               onclick="alert(document.getElementById('form5:editor5').rf.component.getInput())"/>
-        <input type="button" value="focus()"
-               onclick="document.getElementById('form5:editor5').rf.component.focus()"/>
-        <input type="button" value="blur()"
-               onclick="document.getElementById('form5:editor5').rf.component.blur()"/>
-        <input type="button" value="isFocused()"
-               onclick="alert(document.getElementById('form5:editor5').rf.component.isFocused())"/>
-        <input type="button" value="isValueChanged()"
-               onclick="alert(document.getElementById('form5:editor5').rf.component.isValueChanged())"/>
-        <input type="button" value="isDirty()"
-               onclick="alert(document.getElementById('form5:editor5').rf.component.isDirty())"/>
-    </h:form>
-</fieldset>
-
-<fieldset>
-    <legend>Events</legend>
-
-    <h:form id="form4">
-        <in:editor id="editor4" value="#{editor.value}">
-            <a4j:ajax event="dirty">
-                <a4j:attachQueue requestDelay="500"/>
-            </a4j:ajax>
-            <a4j:ajax event="change"/>
-        </in:editor>
-    </h:form>
-</fieldset>
-
-<fieldset>
-    <legend>Rereender Editor</legend>
-
-    <h:form id="form3a">
-        <in:editor id="editor3a" value="#{editor.value}"/>
-    </h:form>
-
-    <h:form id="form3b">
-        <in:editor id="editor3b" value="#{editor.value}"/>
-
-        <a4j:commandButton id="commandButton" value="Update" process="@form" render="form3a"/>
-    </h:form>
-</fieldset>
-
-<fieldset>
-    <legend>Update value</legend>
-
-    <h:form id="form2a">
-        <in:editor id="editor2a" value="#{editor.value}"/>
-    </h:form>
-
-    <h:form id="form2b">
-        <in:editor id="editor2b" value="#{editor.value}"/>
-
-        <a4j:commandButton value="Update" process="@form" render="editor2a"/>
-    </h:form>
-</fieldset>
-
-<fieldset>
-    <legend>Trivial submit/ajax</legend>
-
-    <h:form id="form1">
-        <in:editor id="editor1" value="#{editor.value}"/>
-
-        <h:commandButton value="Submit"/>
-
-        <a4j:commandButton value="Ajax" process="@form" render="output1"/>
-
-        <a4j:outputPanel id="output1">
-            #{editor.value}
+        
+        <a4j:outputPanel id="output">
+            Output: <h:outputText value="#{editor.value}" />
         </a4j:outputPanel>
     </h:form>
-</fieldset>
 
 
-<a4j:log mode="inline"/>
+    <a4j:log mode="console"/>
+
 </ui:define>
 </ui:composition>
 </html>

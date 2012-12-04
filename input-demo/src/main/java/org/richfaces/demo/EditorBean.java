@@ -12,10 +12,10 @@ public class EditorBean implements Serializable {
 
     private String value = "Editor Initial Value";
     private boolean readonly = false;
-    private String width = "500px";
-    private String height = "500px";
+    private String width = "400px";
+    private String height = "200px";
     private boolean rendered = true;
-    private String toolbar;
+    private String toolbar = "MyToolbar";
     private String skin;
     private String lang;
     private String oninit;
@@ -30,6 +30,21 @@ public class EditorBean implements Serializable {
     private String textareaStyle;
     private String editorStyle;
     private String title;
+    private String config =
+                    "toolbar_MyToolbar:" +
+                    "[" +
+                    "{ name: 'document', items : [ 'NewPage','Preview' ] }," +
+                    "{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] }," +
+                    "{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] }," +
+                    "{ name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'" +
+                    ",'Iframe' ] }," +
+                    "'/'," +
+                    "{ name: 'styles', items : [ 'Styles','Format' ] }," +
+                    "{ name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] }," +
+                    "{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] }," +
+                    "{ name: 'links', items : [ 'Link','Unlink','Anchor' ] }," +
+                    "{ name: 'tools', items : [ 'Maximize','-','About' ] }" +
+                    "]";
 
     public String getValue() {
         return value;
@@ -193,5 +208,13 @@ public class EditorBean implements Serializable {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getConfig() {
+        return config;
+    }
+
+    public void setConfig(String config) {
+        this.config = config;
     }
 }
