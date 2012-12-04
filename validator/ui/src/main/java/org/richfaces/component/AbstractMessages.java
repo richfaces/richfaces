@@ -45,7 +45,7 @@ public abstract class AbstractMessages extends UIMessages implements AjaxOutput,
     @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();
 
-    @Attribute
+    @Attribute(hidden = true)
     public abstract boolean isKeepTransient();
 
     @Attribute(defaultValue = "true")

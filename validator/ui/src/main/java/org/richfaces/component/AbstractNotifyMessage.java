@@ -47,7 +47,7 @@ public abstract class AbstractNotifyMessage extends UIMessage implements AjaxOut
     @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();
 
-    @Attribute
+    @Attribute(hidden = true)
     public abstract boolean isKeepTransient();
 
     public void updateMessages(FacesContext context, String clientId) {
