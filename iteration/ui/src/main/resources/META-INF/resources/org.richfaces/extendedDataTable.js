@@ -36,11 +36,16 @@
         var rule = null;
         var sheets = document.styleSheets;
         for (var j = 0; !rule && j < sheets.length; j++) {
-            var rules = sheets[j].cssRules ? sheets[j].cssRules : sheets[j].rules;
-            for (var i = 0; !rule && i < rules.length; i++) {
-                if (rules[i].selectorText && rules[i].selectorText.toLowerCase() == className.toLowerCase()) {
-                    rule = rules[i];
+            try {
+                var sheet = sheets[j];
+                var rules = sheet.cssRules ? sheet.cssRules : sheet.rules;
+                for (var i = 0; !rule && i < rules.length; i++) {
+                    if (rules[i].selectorText && rules[i].selectorText.toLowerCase() == className.toLowerCase()) {
+                        rule = rules[i];
+                    }
                 }
+            } catch (e) {
+                richfaces.log.debug("Cannot obtain CSS rule for " + (sheet.href || sheet) + ": " + e);
             }
         }
         return rule;
