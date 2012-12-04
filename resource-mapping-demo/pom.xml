@@ -19,7 +19,7 @@
     </properties>
 
     <build>
-        <finalName>validator-demo</finalName>
+        <finalName>resource-mapping-demo</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
