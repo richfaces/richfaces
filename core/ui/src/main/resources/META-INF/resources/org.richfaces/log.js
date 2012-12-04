@@ -148,7 +148,12 @@
             //TODO scroll to the added message
             //TODO check popup is opened
             if (this.mode == 'console') {
-                console[level]('RichFaces: ' + message);
+                var logMsg = 'RichFaces: ' + message;
+                if (console[level]) {
+                    console[level](logMsg);
+                } else if (console.log) {
+                    console.log(logMsg);
+                }
                 return;
             }
             
