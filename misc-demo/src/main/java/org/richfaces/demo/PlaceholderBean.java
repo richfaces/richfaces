@@ -1,8 +1,8 @@
 package org.richfaces.demo;
 
 import java.io.Serializable;
+import java.util.Date;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
@@ -17,47 +17,54 @@ public class PlaceholderBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Converter converter = new MyConverter();
-    private Object date;
-    private String text = "Watermark text";
+    private Date date;
+    private String placeholderText = "Watermark text";
     private TextObject textObject = new TextObject();
-    private Object placeholderInput;
+
+    private String inputText;
+    private String textarea;
 
     public Converter getConverter() {
         return converter;
     }
 
-    public Object getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Object date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public String getText() {
-        return text;
+    public String getInputText() {
+        return inputText;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setInputText(String inputText) {
+        this.inputText = inputText;
+    }
+
+    public String getTextarea() {
+        return textarea;
+    }
+
+    public void setTextarea(String textarea) {
+        this.textarea = textarea;
+    }
+
+    public String getPlaceholderText() {
+        return placeholderText;
+    }
+
+    public void setPlaceholderText(String text) {
+        this.placeholderText = text;
     }
 
     public TextObject getTextObject() {
         return textObject;
     }
 
-    public Object getPlaceholderInput() {
-        return placeholderInput;
-    }
-
-    public void setPlaceholderInput(Object watermarkedInput) {
-        this.placeholderInput = watermarkedInput;
-    }
-
     public Object submit() {
-        final FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Text:" + getPlaceholderInput()));
-        context.addMessage(null, new FacesMessage("Date:" + getDate()));
         return null;
     }
 
@@ -79,7 +86,7 @@ public class PlaceholderBean implements Serializable {
     private class TextObject {
 
         String getText() {
-            return text;
+            return placeholderText;
         }
     }
 }
