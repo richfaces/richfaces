@@ -37,7 +37,7 @@ public abstract class PlaceholderRendererBase extends RendererBase {
         super.doEncodeEnd(writer, context, component);
     }
 
-    protected String getConvertedValue(FacesContext facesContext, AbstractPlaceholder placeholder) {
+    public String getConvertedValue(FacesContext facesContext, AbstractPlaceholder placeholder) {
         final Object value = placeholder.getValue();
 
         Converter converter = InputUtils.findConverter(facesContext, placeholder, "value");

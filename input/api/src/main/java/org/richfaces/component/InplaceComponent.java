@@ -30,6 +30,8 @@ public interface InplaceComponent {
 
     String getDefaultLabel();
 
+    void setDefaultLabel(String defaultLabel);
+
     String getEditEvent();
 
     boolean isShowControls();

@@ -104,11 +104,20 @@ public abstract class AbstractPlaceholder extends UIOutput {
         @Override
         protected void preRenderParent(FacesContext facesContext, UIComponent component) {
             AbstractPlaceholder placeholder = (AbstractPlaceholder) component;
+            UIComponent parent = component.getParent();
             PlaceholderRendererBase renderer = (PlaceholderRendererBase) placeholder.getRenderer(facesContext);
-            try {
-                renderer.doEncodeEnd(facesContext.getResponseWriter(), facesContext, component);
-            } catch (Exception e) {
-                throw new IllegalStateException("Rendering of placeholder before its parent has failed", e);
+
+            if (parent instanceof InplaceComponent) {
+                String text = renderer.getConvertedValue(facesContext, placeholder);
+                if (placeholder.getValue() != null) {
+                    ((InplaceComponent) parent).setDefaultLabel(text);
+                }
+            } else {
+                try {
+                    renderer.doEncodeEnd(facesContext.getResponseWriter(), facesContext, component);
+                } catch (Exception e) {
+                    throw new IllegalStateException("Rendering of placeholder before its parent has failed", e);
+                }
             }
         }
     }
