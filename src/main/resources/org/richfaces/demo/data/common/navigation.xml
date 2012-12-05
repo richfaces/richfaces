@@ -802,15 +802,15 @@
                         <name>Focus</name>
                     </sample>
                     <sample>
-                        <id>focus-preserve</id>
+                        <id>focusPreserve</id>
                         <name>Preserve Focus</name>
                     </sample>
                     <sample>
-                        <id>focus-delayed</id>
+                        <id>focusDelayed</id>
                         <name>Delayed Focus</name>
                     </sample>
                     <sample>
-                        <id>focus-manager</id>
+                        <id>focusManager</id>
                         <name>Focus Manager</name>
                     </sample>
                 </samples>
