@@ -35,6 +35,8 @@ if (!window.RichFaces) {
         DOWN: 40,
         DEL: 46
     };
+    
+    var jsfAjaxRequest = jsf.ajax.request;
 
     // get DOM element by id or DOM element or jQuery object
     richfaces.getDomElement = function (source) {
@@ -477,7 +479,9 @@ if (!window.RichFaces) {
                 var callResult;
                 for (var i = 0; i < functions.length; i++) {
                     var f = functions[i];
-                    callResult = f.apply(this, arguments);
+                    if (f) {
+                        callResult = f.apply(this, arguments);
+                    }
                 }
 
                 return callResult;
@@ -530,15 +534,16 @@ if (!window.RichFaces) {
     }());
 
     richfaces.ajax = function(source, event, options) {
-        var sourceId;
-        if (options.sourceId) {
-            sourceId = options.sourceId;
-        } else {
-            sourceId = (typeof source == 'object' && source.id) ? source.id : source;
-        }
-
-        options = options || {};
-
+        var options = options || {};
+        
+        var sourceId = getSourceId(source, options);
+        var sourceElement = getSourceElement(source);
+        var form = getFormElement(sourceElement);
+        
+        // event source re-targeting finds a RichFaces component root
+        // to setup javax.faces.source correctly - RF-12616)
+        source = searchForComponentRootOrReturn(sourceElement);
+        
         parameters = options.parameters || {}; // TODO: change "parameters" to "richfaces.ajax.params"
         parameters.execute = "@component";
         parameters.render = "@component";
@@ -581,6 +586,12 @@ if (!window.RichFaces) {
                 eventHandlers.begin = namedStatusEventHandler;
             }
         }
+        
+        // trigger form events: ajaxbegin and ajaxbeforedomupdate
+        if (form) {
+            eventHandlers.begin = chain(function() { jQuery(form).trigger('ajaxbegin'); }, eventHandlers.begin);
+            eventHandlers.beforedomupdate = chain(function() { jQuery(form).trigger('ajaxbeforedomupdate'); }, eventHandlers.beforedomupdate);
+        }
 
         if (options.incId) {
             parameters[sourceId] = sourceId;
@@ -597,6 +608,60 @@ if (!window.RichFaces) {
         }
 
         jsf.ajax.request(source, event, parameters);
+    };
+    
+    // triggers form ajaxsubmit event
+    jsf.ajax.request = function request(source, event, options) {
+        var sourceElement = getSourceElement(source);
+        var form = getFormElement(sourceElement);
+        if (form) {
+            jQuery(form).trigger('ajaxsubmit');
+        }
+        jsfAjaxRequest(source, event, options);
+    }
+    
+    /*
+     * Returns component root for given element in the list of ancestors of sourceElement.
+     * Otherwise returns sourceElement if component root can't be located.
+     */
+    var searchForComponentRootOrReturn = function(sourceElement) {
+        if (richfaces && richfaces.$) {
+            if (!richfaces.$(sourceElement)) {
+                $(sourceElement).parents().each(function() {
+                    if (richfaces.$(this)) {
+                        return  this;
+                        return false;
+                    }
+                });
+            }
+        }
+        return sourceElement;
+    };
+    
+    var getSourceElement = function(source) {
+        if (typeof source === 'string') {
+            return document.getElementById(source);
+        } else if (typeof source === 'object') {
+            return source;
+        } else {
+            throw new Error("jsf.request: source must be object or string");
+        }
+    };
+    
+    var getFormElement = function(sourceElement) {
+        if ($(sourceElement).is('form')) {
+            return source;
+        } else {
+            return $('form').has(sourceElement).get(0);
+        }
+    };
+    
+    var getSourceId = function(source, options) {
+        if (options.sourceId) {
+            return options.sourceId;
+        } else {
+            return (typeof source == 'object' && source.id) ? source.id : source;
+        }
     };
 
     var ajaxOnComplete = function (data) {
