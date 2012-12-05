@@ -30,6 +30,13 @@
             $super.destroy.call(this);
         }
     });
+    
+    // once per all placeholders on a page
+    $(function() {
+        $(document).on('ajaxsubmit', 'form', $.watermark.hideAll);
+        $(document).on('ajaxbegin', 'form', $.watermark.showAll);
+    });
+    
     // define super class reference - reference to the parent prototype
     var $super = rf.ui.Placeholder.$super;
 })(jQuery, RichFaces);
