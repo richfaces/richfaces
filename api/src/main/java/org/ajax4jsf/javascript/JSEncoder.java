@@ -23,9 +23,12 @@ package org.ajax4jsf.javascript;
 /**
  * @author shura Encode chars as JavaScript sequences
  */
+import java.nio.CharBuffer;
+
 public class JSEncoder {
     // private char APOSTROPHE[] = { '\\', '\'' };
     private static final char[] ENCODE_HEX = "0123456789ABCDEF".toCharArray();
+
     private static final char[] ENCODE_QUOT = "\\\"".toCharArray();
     private static final char[] ENCODE_LF = "\\n".toCharArray();
     private static final char[] ENCODE_BC = "\\b".toCharArray();
@@ -34,6 +37,26 @@ public class JSEncoder {
     private static final char[] ENCODE_TAB = "\\t".toCharArray();
     private static final char[] ENCODE_BS = "\\\\".toCharArray();
     private static final char[] ENCODE_FS = "\\/".toCharArray();
+
+    // frequent  '-' ']' '<' '>' chars
+    private static final char[] ENCODE_HM = "\\u002D".toCharArray();
+    private static final char[] ENCODE_RB = "\\u005D".toCharArray();
+    private static final char[] ENCODE_LT = "\\u003C".toCharArray();
+    private static final char[] ENCODE_GT = "\\u003E".toCharArray();
+
+    private static final CharBuffer ENCODE_QUOT_CB = CharBuffer.wrap(ENCODE_QUOT);
+    private static final CharBuffer ENCODE_LF_CB = CharBuffer.wrap(ENCODE_LF);
+    private static final CharBuffer ENCODE_BC_CB = CharBuffer.wrap(ENCODE_BC);
+    private static final CharBuffer ENCODE_FF_CB = CharBuffer.wrap(ENCODE_FF);
+    private static final CharBuffer ENCODE_CR_CB = CharBuffer.wrap(ENCODE_CR);
+    private static final CharBuffer ENCODE_TAB_CB = CharBuffer.wrap(ENCODE_TAB);
+    private static final CharBuffer ENCODE_BS_CB = CharBuffer.wrap(ENCODE_BS);
+    private static final CharBuffer ENCODE_FS_CB = CharBuffer.wrap(ENCODE_FS);
+    private static final CharBuffer ENCODE_HM_CB = CharBuffer.wrap(ENCODE_HM);
+    private static final CharBuffer ENCODE_RB_CB = CharBuffer.wrap(ENCODE_RB);
+    private static final CharBuffer ENCODE_LT_CB = CharBuffer.wrap(ENCODE_LT);
+    private static final CharBuffer ENCODE_GT_CB = CharBuffer.wrap(ENCODE_GT);
+
 
     // private static final char ENCODE_ESC[] = "\\e".toCharArray();
 
@@ -55,7 +78,7 @@ public class JSEncoder {
      * @see <a href="http://www.w3.org/TR/REC-xml#charsets">W3C XML 1.0 </a>
      * @see <a href="http://json.org/">JSON.org</a>
      */
-    public boolean compile(char c) {
+    public static boolean compile(char c) {
         if ((c == '\b') || (c == '\f') | (c == '\t') || (c == '\n') || (c == '\r') || (c == '"') || (c == '\\') || (c == '/')
             || (c == ']') || // ] - to avoid conflicts in CDATA
             (c == '<') || // - escape HTML markup characters
@@ -68,6 +91,53 @@ public class JSEncoder {
         }
 
         return true;
+    }
+
+    public static CharBuffer encodeCharBuffer(char c) {
+        switch (c) {
+            case '\b':
+                return ENCODE_BC_CB;
+
+            case '\f':
+                return ENCODE_FF_CB;
+
+            case '\t':
+                return ENCODE_TAB_CB;
+
+            case '\n':
+                return ENCODE_LF_CB;
+
+            case '\r':
+                return ENCODE_CR_CB;
+
+            case '"':
+                return ENCODE_QUOT_CB;
+
+            case '\\':
+                return ENCODE_BS_CB;
+
+            case '/':
+                return ENCODE_FS_CB;
+
+            case '-':
+                return ENCODE_HM_CB;
+
+            case ']':
+                return ENCODE_RB_CB;
+
+            case '<':
+                return ENCODE_LT_CB;
+
+            case '>':
+                return ENCODE_GT_CB;
+
+            default: {
+                char[] ret = { '\\', 'u', ENCODE_HEX[c >> 0xc & 0xf], ENCODE_HEX[c >> 0x8 & 0xf],
+                     ENCODE_HEX[c >> 0x4 & 0xf], ENCODE_HEX[c & 0xf] };
+
+                return CharBuffer.wrap(ret);
+            }
+        }
     }
 
     /**
@@ -98,6 +168,18 @@ public class JSEncoder {
 
             case '/':
                 return ENCODE_FS;
+
+            case '-':
+                return ENCODE_HM;
+
+            case ']':
+                return ENCODE_RB;
+
+            case '<':
+                return ENCODE_LT;
+
+            case '>':
+                return ENCODE_GT;
 
             default: {
                 char[] ret = { '\\', 'u', ENCODE_HEX[c >> 0xc & 0xf], ENCODE_HEX[c >> 0x8 & 0xf], ENCODE_HEX[c >> 0x4 & 0xf],

@@ -119,9 +119,10 @@ public class ScriptUtilsTest extends TestCase {
      * Test method for {@link org.ajax4jsf.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testStringToScript() {
-        Object obj = "f \b\r\t\f\n\"'\\/ oo";
+        Object obj = "f \b\r\t\f\n\"'\\/ oo ]&<>-";
 
-        assertEquals("\"f \\b\\r\\t\\f\\n\\\"'\\\\\\/ oo\"", ScriptUtils.toScript(obj));
+        assertEquals("\"f \\b\\r\\t\\f\\n\\\"'\\\\\\/ oo \\u005D\\u0026\\u003C\\u003E\\u002D\"",
+            ScriptUtils.toScript(obj));
     }
 
     /**
