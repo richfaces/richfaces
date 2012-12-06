@@ -40,6 +40,7 @@ public class FaceletAsset implements Asset {
     private StringBuilder head = new StringBuilder();
     private StringBuilder body = new StringBuilder();
     private StringBuilder xmlns = new StringBuilder();
+    private StringBuilder form = new StringBuilder();
 
     static {
         try {
@@ -55,7 +56,7 @@ public class FaceletAsset implements Asset {
     }
 
     private StringAsset getAsStringAssert() {
-        return new StringAsset(SimplifiedFormat.format(TEMPLATE, head, body, xmlns));
+        return new StringAsset(SimplifiedFormat.format(TEMPLATE, xmlns, head, body, form));
     }
 
     public FaceletAsset head(Object... heads) {
@@ -68,6 +69,13 @@ public class FaceletAsset implements Asset {
     public FaceletAsset body(String... bodies) {
         for (Object body : bodies) {
             this.body.append(body);
+        }
+        return this;
+    }
+
+    public FaceletAsset form(String... forms) {
+        for (Object form : forms) {
+            this.form.append(form);
         }
         return this;
     }
