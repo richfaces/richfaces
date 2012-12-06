@@ -308,7 +308,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     private void visitActivatorAtExecute() {
         ExecuteComponentCallback callback = new ExecuteComponentCallback(getFacesContext(), behaviorEvent);
 
-        if (visitActivatorComponent(activatorComponentId, callback, EnumSet.of(VisitHint.SKIP_UNRENDERED))) {
+        if (visitActivatorComponent(activatorComponentId, callback, EnumSet.noneOf(VisitHint.class))) {
             setupExecuteCallbackData(callback);
 
             if (!executeIds.contains(ALL)) {
