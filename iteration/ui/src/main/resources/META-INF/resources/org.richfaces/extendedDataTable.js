@@ -185,7 +185,8 @@
                     richfaces.Event.bind(this.element, "rich:ready", this.options['onready']);
                 }
                 jQuery(document).ready(jQuery.proxy(this.initialize, this));
-                jQuery(window).bind("resize", jQuery.proxy(this.updateLayout, this));
+                this.resizeEventName = "resize.rf.edt." + this.id;
+                this.activateResizeListener();
                 jQuery(this.scrollElement).bind("scroll", jQuery.proxy(this.updateScrollPosition, this));
                 this.bindHeaderHandlers();
                 jQuery(this.element).bind("rich:onajaxcomplete", jQuery.proxy(this.ajaxComplete, this));
@@ -275,6 +276,7 @@
             },
 
             updateLayout: function() {
+                this.deActivateResizeListener();
                 this.headerCells.height("auto");
                 var headerCellHeight = 0;
                 this.headerCells.each(function() {
@@ -328,6 +330,7 @@
                 if (this.bodyElement.offsetHeight > height || !this.contentElement) {
                     this.bodyElement.style.height = height + "px";
                 }
+                this.activateResizeListener();
             },
 
             adjustResizers: function() { //For IE7 only.
@@ -378,6 +381,7 @@
             },
 
             initialize: function() {
+                this.deActivateResizeListener();
                 this.bodyElement = document.getElementById(this.id + ":b");
                 this.bodyElement.tabIndex = -1; //TODO don't use tabIndex.
                 this.normalPartStyle = richfaces.utils.getCSSRule("div.rf-edt-cnt").style;
@@ -405,6 +409,7 @@
                 this.parts = jQuery(this.element).find(".rf-edt-cnt, .rf-edt-ftr-cnt");
                 this.updateLayout();
                 this.updateScrollPosition(); //TODO Restore horizontal scroll position
+                this.activateResizeListener();
                 jQuery(this.element).triggerHandler("rich:ready", this);
             },
 
@@ -740,6 +745,14 @@
                         this.spacerElement.style.height = (data.first * this.rowHeight) + "px";
                     }
                 }
+            },
+
+            activateResizeListener: function() {
+                $(window).on(this.resizeEventName, jQuery.proxy(this.updateLayout, this));
+            },
+
+            deActivateResizeListener: function() {
+                $(window).off(this.resizeEventName);
             },
 
             contextMenuAttach: function (menu) {
