@@ -36,13 +36,17 @@ if (!window.RichFaces) {
         DEL: 46
     };
     
-    var jsfAjaxRequest = jsf.ajax.request;
+    if (window.jsf) {
+        var jsfAjaxRequest = jsf.ajax.request;
+    }
 
     // get DOM element by id or DOM element or jQuery object
     richfaces.getDomElement = function (source) {
         var type = typeof source;
         var element;
-        if (type == "string") {
+        if (source == null) {
+            element = null;
+        } else if (type == "string") {
             // id
             element = document.getElementById(source);
         } else if (type == "object") {
@@ -542,7 +546,9 @@ if (!window.RichFaces) {
         
         // event source re-targeting finds a RichFaces component root
         // to setup javax.faces.source correctly - RF-12616)
-        source = searchForComponentRootOrReturn(sourceElement);
+        if (sourceElement) {
+            source = searchForComponentRootOrReturn(sourceElement);
+        }
         
         parameters = options.parameters || {}; // TODO: change "parameters" to "richfaces.ajax.params"
         parameters.execute = "@component";
@@ -611,13 +617,15 @@ if (!window.RichFaces) {
     };
     
     // triggers form ajaxsubmit event
-    jsf.ajax.request = function request(source, event, options) {
-        var sourceElement = getSourceElement(source);
-        var form = getFormElement(sourceElement);
-        if (form) {
-            jQuery(form).trigger('ajaxsubmit');
+    if (window.jsf) {
+        jsf.ajax.request = function request(source, event, options) {
+            var sourceElement = getSourceElement(source);
+            var form = getFormElement(sourceElement);
+            if (form) {
+                jQuery(form).trigger('ajaxsubmit');
+            }
+            jsfAjaxRequest(source, event, options);
         }
-        jsfAjaxRequest(source, event, options);
     }
     
     /*
@@ -627,7 +635,7 @@ if (!window.RichFaces) {
     var searchForComponentRootOrReturn = function(sourceElement) {
         if (richfaces && richfaces.$) {
             if (!richfaces.$(sourceElement)) {
-                $(sourceElement).parents().each(function() {
+                jQuery(sourceElement).parents().each(function() {
                     if (richfaces.$(this)) {
                         return  this;
                         return false;

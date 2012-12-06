@@ -20,5 +20,3 @@ jsf.ajax = (function() {
         }
     }
 })();
-
-window.jsf_ajax_request = jsf.ajax.request;
