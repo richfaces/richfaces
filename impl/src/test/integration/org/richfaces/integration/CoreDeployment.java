@@ -41,9 +41,12 @@ import javax.servlet.ServletContainerInitializer;
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.ajax4jsf.util.base64.Codec;
 import org.jboss.arquillian.container.test.spi.RemoteLoadableExtension;
+import org.jboss.shrinkwrap.api.Filters;
+import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
+import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
@@ -222,6 +225,11 @@ public class CoreDeployment extends Deployment {
         boolean alreadyAdded = addedFeatures.contains(feature);
         addedFeatures.add(feature);
         return alreadyAdded;
+    }
+
+    public CoreDeployment withApi() {
+        addMavenDependency("org.richfaces.core:richfaces-core-api");
+        return this;
     }
 
     /**
@@ -438,6 +446,18 @@ public class CoreDeployment extends Deployment {
                     .up();
             }
         });
+
+        return this;
+    }
+
+    public CoreDeployment withWholeCore() {
+        withApi();
+
+        JavaArchive coreArchive = ShrinkWrap.create(JavaArchive.class, "richfaces-core-impl.jar");
+        coreArchive.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
+            .importDirectory("target/classes/").as(GenericArchive.class),
+            "/", Filters.includeAll());
+        archive().addAsLibrary(coreArchive);
 
         return this;
     }
