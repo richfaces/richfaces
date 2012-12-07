@@ -30,7 +30,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
 import javax.inject.Inject;
@@ -51,7 +51,7 @@ import org.richfaces.photoalbum.service.IShelfAction;
 import org.richfaces.photoalbum.util.Preferred;
 
 @Named
-@ApplicationScoped
+@RequestScoped
 public class ShelfManager implements Serializable {
 
     private static final long serialVersionUID = 2631634926126857691L;
@@ -108,7 +108,7 @@ public class ShelfManager implements Serializable {
         if (user == null) {
             return;
         }
-        
+
         shelf.setOwner(user);
         if (user.hasShelfWithName(shelf)) {
             error.fire(new SimpleEvent(Constants.SAME_SHELF_EXIST_ERROR));
