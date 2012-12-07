@@ -62,6 +62,7 @@ public class FaceletAsset implements Asset {
     public FaceletAsset head(Object... heads) {
         for (Object head : heads) {
             this.head.append(head);
+            this.head.append('\n');
         }
         return this;
     }
@@ -69,6 +70,7 @@ public class FaceletAsset implements Asset {
     public FaceletAsset body(String... bodies) {
         for (Object body : bodies) {
             this.body.append(body);
+            this.body.append('\n');
         }
         return this;
     }
@@ -76,12 +78,13 @@ public class FaceletAsset implements Asset {
     public FaceletAsset form(String... forms) {
         for (Object form : forms) {
             this.form.append(form);
+            this.form.append('\n');
         }
         return this;
     }
 
     public FaceletAsset xmlns(String prefix, String uri) {
-        xmlns.append("xmlns:" + prefix + "=\"" + uri + "\" ");
+        xmlns.append("xmlns:" + prefix + "=\"" + uri + "\" \n");
         return this;
     }
 }
