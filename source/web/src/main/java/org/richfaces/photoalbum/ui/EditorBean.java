@@ -21,6 +21,7 @@
 package org.richfaces.photoalbum.ui;
 
 import javax.enterprise.event.Observes;
+import javax.inject.Named;
 
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
@@ -32,18 +33,27 @@ import org.richfaces.photoalbum.event.SimpleEvent;
  * @author Andrey Markhel
  */
 
+@Named
 public class EditorBean {
 
     private String currentConfiguration = "/org/richfaces/photoalbum/editor/advanced";
 
-    private String message;
+    private String message = "";
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(@Observes @EventType(Events.CLEAR_EDITOR_EVENT) SimpleEvent se) {
-        this.message = se.getMessage();
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+//    public void setMessage(@Observes @EventType(Events.CLEAR_EDITOR_EVENT) SimpleEvent se) {
+//        this.message = se.getMessage();
+//    }
+
+    public void clearMessage(@Observes @EventType(Events.CLEAR_EDITOR_EVENT) SimpleEvent se) {
+        this.message = "";
     }
 
     public String getCurrentConfiguration() {
