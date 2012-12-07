@@ -21,7 +21,7 @@
                 <td></td>
             </tr>
             <tr>
-                <td><h:outputLabel for="loginName">#{messages['user.login']}</h:outputLabel></td>
+                <td><h:outputLabel for="userLoginName">#{messages['user.login']}</h:outputLabel></td>
                 <td><h:outputText value="#{userBean.user.login}" styleClass="reg-table-output" /></td>
                 <td></td>
             </tr>
@@ -29,17 +29,17 @@
                 <td colspan="2"><br /></td>
             </tr>
             <tr>
-                <td><h:outputLabel for="firstname">#{messages['user.firstname']}</h:outputLabel></td>
+                <td><h:outputLabel for="userFirstname">#{messages['user.firstname']}</h:outputLabel></td>
                 <td><h:outputText value="#{userBean.user.firstName}" styleClass="reg-table-output" /></td>
                 <td></td>
             </tr>
             <tr>
-                <td><h:outputLabel for="secondname">#{messages['user.secondname']}</h:outputLabel></td>
+                <td><h:outputLabel for="userSecondname">#{messages['user.secondname']}</h:outputLabel></td>
                 <td><h:outputText value="#{userBean.user.secondName}" styleClass="reg-table-output" /></td>
                 <td></td>
             </tr>
             <tr>
-                <td><h:outputLabel for="sex">#{messages['user.sex']}</h:outputLabel></td>
+                <td><h:outputLabel for="userSex">#{messages['user.sex']}</h:outputLabel></td>
                 <td><h:outputText rendered="#{userBean.user.sex.key =='1'}" value="#{messages['male']}"
                         styleClass="reg-table-output" /> <h:outputText rendered="#{userBean.user.sex.key =='0'}"
                         value="#{messages['female']}" styleClass="reg-table-output" /></td>
