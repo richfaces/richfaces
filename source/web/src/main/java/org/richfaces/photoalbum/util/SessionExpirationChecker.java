@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.jboss.seam.security.Identity;
+import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
@@ -38,16 +38,15 @@ import org.richfaces.photoalbum.manager.LoggedUserTracker;
 /**
  * Utility class for check is the user session was expired or user were login in another browser. Observes
  * <code>Constants.CHECK_USER_EXPIRED_EVENT</code> event
- *
+ * 
  * @author Andrey Markhel
  */
 @RequestScoped
 public class SessionExpirationChecker {
 
     @Inject
-    User user;
-    @Inject
-    Identity identity;
+    UserBean userBean;
+
     @Inject
     LoggedUserTracker userTracker;
 
@@ -58,7 +57,7 @@ public class SessionExpirationChecker {
     /**
      * Utility method for check is the user session was expired or user were login in another browser. Observes
      * <code>Constants.CHECK_USER_EXPIRED_EVENT</code> event. Redirects to error page if user were login in another browser.
-     *
+     * 
      * @param session - user's session
      */
     public void checkUserExpiration(@Observes @EventType(Events.CHECK_USER_EXPIRED_EVENT) SimpleEvent se) {
@@ -73,7 +72,8 @@ public class SessionExpirationChecker {
     }
 
     private boolean isShouldExpireUser(HttpSession session) {
-        return identity.isLoggedIn() && user != null && userTracker.containsUserId(user.getId())
+        User user = userBean.getUser();
+        return userBean.isLoggedIn() && user != null && userTracker.containsUserId(user.getId())
             && !userTracker.containsUser(user.getId(), session.getId());
     }
 }

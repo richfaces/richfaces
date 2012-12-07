@@ -28,10 +28,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import org.jboss.seam.security.Credentials;
-import org.jboss.seam.security.Identity;
 import org.richfaces.photoalbum.domain.Image;
+import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.util.Preferred;
 
 /**
  * Convenience UI class for 'directLink' functionality.
@@ -50,10 +50,8 @@ public class DirectLinkHelper {
     ImageLoader imageLoader;
 
     @Inject
-    Identity identity;
-
-    @Inject
-    Credentials credentials;
+    @Preferred
+    User user;
 
     /**
      * Convenience method to paint full-sized image in new tab or window
@@ -77,8 +75,8 @@ public class DirectLinkHelper {
 
     private boolean isImageSharedOrBelongsToUser(Image im) {
         return im.getAlbum().getShelf().isShared()
-            || (identity.hasRole(Constants.ADMIN_ROLE, "Users", "GROUP") && im.getAlbum().getOwner().getLogin()
-                .equals(credentials.getUsername()));
+            || (user != null) && im.getAlbum().getOwner().getLogin()
+                .equals(user.getLogin());
     }
 
     private boolean isImageRecentlyRemoved(Image im) {
