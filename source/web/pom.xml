@@ -471,7 +471,7 @@
                             <!-- default RichFaces mapping file, can be anywhere on the classpath, but then you will
                                  will need to configure Resource Mapping configuration file location in web.xml,
                                  refer to RichFaces Developer Guide -->
-                            <staticResourceMappingFile>${project.build.outputDirectory}/META-INF/richfaces/photoalbum-packed-resource-mappings.properties</staticResourceMappingFile>
+                            <staticResourceMappingFile>${project.build.outputDirectory}/META-INF/richfaces/photoalbum-packedcompressed-resource-mappings.properties</staticResourceMappingFile>
                             
                             <!-- resources will be placed in JAR/META-INF/resources/com.acme.staticResources/
                                  or WAR/WEB-INF/classes/META-INF/resources/com.acme.staticResources/
