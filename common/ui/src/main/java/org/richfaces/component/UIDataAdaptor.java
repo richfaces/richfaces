@@ -48,6 +48,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.component.UniqueIdVendor;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -1300,7 +1301,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
         // NOTE: that the visitRows local will be obsolete once the
         // appropriate visit hints have been added to the API
-        boolean visitRows = requiresRowIteration(facesContext);
+        boolean visitRows = requiresRowIteration(visitContext);
 
         Object oldRowKey = null;
         if (visitRows) {
@@ -1382,8 +1383,8 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /**
      * @param context
      */
-    private boolean requiresRowIteration(FacesContext context) {
-        return (!PhaseId.RESTORE_VIEW.equals(context.getCurrentPhaseId()));
+    private boolean requiresRowIteration(VisitContext context) {
+        return !context.getHints().contains(VisitHint.SKIP_ITERATION);
     }
 
     /**
