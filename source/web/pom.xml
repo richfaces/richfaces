@@ -141,15 +141,6 @@
             <version>3.1.1.Final</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.jboss.seam.security</groupId>
-            <artifactId>seam-security-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.seam.security</groupId>
-            <artifactId>seam-security</artifactId>
-            <scope>compile</scope>
-        </dependency>
 		<!-- Import the EJB API, we use provided scope as the API is included in 
 			JBoss AS 7 -->
         <dependency>
