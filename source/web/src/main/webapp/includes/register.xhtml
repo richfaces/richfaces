@@ -10,7 +10,7 @@
         <ui:define name="controls">
             <h:panelGrid columns="2" styleClass="user-prefs-button">
                 <h:panelGroup layout="block">
-                    <richx:commandButton actionListener="#{authenticator.register(user)}"
+                    <richx:commandButton actionListener="#{authenticator.register(authenticator.user)}"
                         render="mainArea,treePanel,searchForm, headerPanel" value="#{messages['user.register']}" />
                 </h:panelGroup>
                 <h:panelGroup layout="block">
