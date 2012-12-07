@@ -144,6 +144,7 @@ public class ImageSearchHelper implements Serializable {
         }
         searchOptionsHolder = new SearchInformationHolder(new ArrayList<ISearchOption>(options), seachInMyAlbums,
             searchInShared);
+        searchQuery = "";
     }
 
     /**
