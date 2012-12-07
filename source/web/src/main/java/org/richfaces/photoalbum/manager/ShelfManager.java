@@ -74,7 +74,7 @@ public class ShelfManager implements Serializable {
     @Any
     Event<ShelfEvent> shelfEvent;
 
-    private Shelf newShelf;
+    private Shelf newShelf = new Shelf();
 
     public Shelf getShelf() {
         return newShelf;
@@ -88,8 +88,11 @@ public class ShelfManager implements Serializable {
      * Method, that invoked when user want to create new shelf. Only registered users can create new shelves.
      *
      */
-    @AdminRestricted
+    // @AdminRestricted
     public void createShelf() {
+        if (user == null) {
+            return;
+        }
         newShelf = new Shelf();
         // Contexts.getConversationContext().set(Constants.SHELF_VARIABLE, shelf);
     }
@@ -100,8 +103,11 @@ public class ShelfManager implements Serializable {
      * @param album - new album
      *
      */
-    @AdminRestricted
+    // @AdminRestricted
     public void addShelf(Shelf shelf) {
+        if (user == null) {
+            return;
+        }
         if (user.hasShelfWithName(shelf)) {
             error.fire(new SimpleEvent(Constants.SAME_SHELF_EXIST_ERROR));
             return;
@@ -125,8 +131,11 @@ public class ShelfManager implements Serializable {
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
      *
      */
-    @AdminRestricted
+    // @AdminRestricted
     public void editShelf(Shelf shelf, boolean editFromInplace) {
+        if (user == null) {
+            return;
+        }
         try {
             if (user.hasShelfWithName(shelf)) {
                 error.fire(new SimpleEvent(Constants.SAME_SHELF_EXIST_ERROR));
@@ -161,8 +170,11 @@ public class ShelfManager implements Serializable {
      * @param image - shelf to delete
      *
      */
-    @AdminRestricted
+    // @AdminRestricted
     public void deleteShelf(Shelf shelf) {
+        if (user == null) {
+            return;
+        }
         String pathToDelete = shelf.getPath();
         try {
             shelfAction.deleteShelf(shelf);

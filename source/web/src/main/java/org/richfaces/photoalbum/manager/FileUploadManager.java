@@ -34,6 +34,7 @@ import javax.inject.Named;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.photoalbum.domain.Image;
+import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ImageEvent;
@@ -41,6 +42,7 @@ import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IImageAction;
 import org.richfaces.photoalbum.service.PhotoAlbumException;
 import org.richfaces.photoalbum.ui.FileWrapper;
+import org.richfaces.photoalbum.util.Preferred;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.metadata.Directory;
@@ -72,6 +74,10 @@ public class FileUploadManager implements Serializable {
 
     @Inject
     Model model;
+    
+    @Inject
+    @Preferred
+    User user;
 
     @Inject
     private FileManager fileManager;
@@ -85,8 +91,9 @@ public class FileUploadManager implements Serializable {
      *
      * @param event - event, indicated that file upload started
      */
-    @AdminRestricted
+    //@AdminRestricted
     public void listener(FileUploadEvent event) {
+        if (user == null) return;
         UploadedFile file = event.getUploadedFile();
         // Construct image from item
         Image image = constructImage(file);
@@ -97,6 +104,7 @@ public class FileUploadManager implements Serializable {
             addError(file, image, Constants.FILE_PROCESSING_ERROR);
             return;
         }
+
         image.setAlbum(model.getSelectedAlbum());
         if (image.getAlbum() == null) {
             addError(file, image, Constants.NO_ALBUM_TO_DOWNLOAD_ERROR);

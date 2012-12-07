@@ -96,8 +96,9 @@ public class ImageManager {
      * @param image - image to delete
      *
      */
-    @AdminRestricted
+    //@AdminRestricted
     public void deleteImage(Image image) {
+        if (user == null) return;
         String pathToDelete = image.getFullPath();
         try {
             imageAction.deleteImage(image);
@@ -115,8 +116,9 @@ public class ImageManager {
      * @param image - image to edit
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
      */
-    @AdminRestricted
+    //@AdminRestricted
     public void editImage(Image image, boolean editFromInplace) {
+        if (user == null) return;
         try {
             if (user.hasImageWithName(image)) {
                 error.fire(new SimpleEvent(Constants.SAME_IMAGE_EXIST_ERROR));
@@ -152,8 +154,9 @@ public class ImageManager {
      * @param message - comment text
      *
      */
-    @AdminRestricted
+    //@AdminRestricted
     public void addComment(Image image) {
+        if (user == null) return;
         if (null == user.getLogin()) {
             error.fire(new SimpleEvent(Constants.ADDING_COMMENT_ERROR));
             return;
@@ -182,8 +185,9 @@ public class ImageManager {
      * @param comment - comment to delete
      *
      */
-    @AdminRestricted
+    //@AdminRestricted
     public void deleteComment(Comment comment) {
+        if (user == null) return;
         try {
             imageAction.deleteComment(comment);
         } catch (Exception e) {

@@ -78,7 +78,7 @@ public class AlbumManager implements Serializable {
     @Any
     Event<AlbumEvent> albumEvent;
 
-    private Album album;
+    private Album album = new Album();
 
     public Album getAlbum() {
         return album;
@@ -94,8 +94,9 @@ public class AlbumManager implements Serializable {
      * @param album - new album
      *
      */
-    @AdminRestricted
+    //@AdminRestricted
     public void addAlbum(Album album) {
+        if (user == null) return;
         // Shelf must be not-null
         if (album.getShelf() == null) {
             // facesMessages.addToControl(Constants.SHELF_ID, Constants.SHELF_MUST_BE_NOT_NULL_ERROR, new Object[0]);
@@ -124,7 +125,7 @@ public class AlbumManager implements Serializable {
         
         // Raise 'albumAdded' event
         albumEvent.select(new EventTypeQualifier(Events.ALBUM_ADDED_EVENT)).fire(new AlbumEvent(album));
-        album = null;
+        //album = null;
     }
 
     /**
@@ -134,8 +135,9 @@ public class AlbumManager implements Serializable {
      * @param isShowAlbumAfterCreate - indicate is we need to show created album after create.
      *
      */
-    @AdminRestricted
+    //@AdminRestricted
     public void createAlbum(Shelf shelf, boolean isShowAlbumAfterCreate) {
+        if (user == null) return;
         album = new Album();
         if (shelf == null) {
             if (model.getSelectedShelf() != null) {
@@ -161,8 +163,9 @@ public class AlbumManager implements Serializable {
      * @param album - edited album
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
      */
-    @AdminRestricted
+    //@AdminRestricted
     public void editAlbum(Album album, boolean editFromInplace) {
+        if (user == null) return;
         try {
             if (user.hasAlbumWithName(album)) {
                 error.fire(new SimpleEvent(Constants.SAME_ALBUM_EXIST_ERROR));
@@ -198,8 +201,9 @@ public class AlbumManager implements Serializable {
      * @param album - album to delete
      *
      */
-    @AdminRestricted
+    //@AdminRestricted
     public void deleteAlbum(Album album) {
+        if (user == null) return;
         String pathToDelete = album.getPath();
         try {
             albumAction.deleteAlbum(album);

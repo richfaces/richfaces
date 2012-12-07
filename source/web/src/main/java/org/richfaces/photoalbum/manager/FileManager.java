@@ -106,8 +106,9 @@ public class FileManager {
      * @param path - relative path of the album directory
      *
      */
-    @AdminRestricted
+    //@AdminRestricted
     public void onAlbumDeleted(@Observes @EventType(Events.ALBUM_DELETED_EVENT) AlbumEvent ae) {
+        if (user == null) return;
         deleteDirectory(ae.getPath());
     }
 
@@ -118,8 +119,9 @@ public class FileManager {
      * @param shelf - deleted shelf
      * @param path - relative path of the shelf directory
      */
-    @AdminRestricted
+    //@AdminRestricted
     public void onShelfDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
+        if (user == null) return;
         deleteDirectory(se.getPath());
     }
 
@@ -181,8 +183,9 @@ public class FileManager {
      * @param image - deleted image
      * @param path - relative path of the image file
      */
-    @AdminRestricted
+    //@AdminRestricted
     public void deleteImage(@Observes @EventType(Events.IMAGE_DELETED_EVENT) ImageEvent ie) {
+        if (user == null) return;
         for (ImageDimension d : ImageDimension.values()) {
             FileUtils.deleteFile(getFileByPath(transformPath(ie.getPath(), d.getFilePostfix())));
         }
@@ -195,8 +198,9 @@ public class FileManager {
      * @param tempFilePath - absolute path to uploaded image
      * @throws IOException
      */
-    @AdminRestricted
+    //@AdminRestricted
     public boolean addImage(String fileName, UploadedFile file) throws IOException {
+        if (user == null) return false;
         createDirectoryIfNotExist(fileName);
         for (ImageDimension d : ImageDimension.values()) {
             if (!writeFile(fileName, file.getInputStream(), d.getFilePostfix(), d.getX(), true)) {
