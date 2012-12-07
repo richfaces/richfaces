@@ -21,6 +21,8 @@
  */
 package org.richfaces.util;
 
+
+
 /**
  * @author Nick Belaevski
  *
@@ -60,6 +62,28 @@ public final class FastJoiner {
     }
 
     public String join(String... strings) {
+        StringBuilder sb = new StringBuilder();
+
+        boolean first = true;
+
+        for (String s : strings) {
+            if (s == null) {
+                continue;
+            }
+
+            if (first) {
+                first = false;
+            } else {
+                sb.append(separator);
+            }
+
+            sb.append(s);
+        }
+
+        return sb.toString();
+    }
+
+    public String join(Iterable<String> strings) {
         StringBuilder sb = new StringBuilder();
 
         boolean first = true;

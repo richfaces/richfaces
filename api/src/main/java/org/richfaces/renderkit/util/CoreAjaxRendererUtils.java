@@ -37,6 +37,7 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.AjaxDataSerializer;
 import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.util.FastJoiner;
 
 import com.google.common.base.Strings;
 
@@ -54,9 +55,12 @@ public final class CoreAjaxRendererUtils {
     private static final String EXTENSION_ID = "org.richfaces.extension";
     private static final String BEFOREDOMUPDATE_ELEMENT_NAME = "beforedomupdate";
     private static final String COMPLETE_ELEMENT_NAME = "complete";
+    private static final String RENDER_ELEMENT_NAME = "render";
     private static final String DATA_ELEMENT_NAME = "data";
     private static final String COMPONENT_DATA_ELEMENT_NAME = "componentData";
     private static final Pattern ID_SPLIT_PATTERN = Pattern.compile("\\s*(\\s|,)\\s*");
+
+    private static final FastJoiner SPACE_JOINER = FastJoiner.on(' ');
 
     private CoreAjaxRendererUtils() {
     }
@@ -110,6 +114,15 @@ public final class CoreAjaxRendererUtils {
                 writer.endElement(COMPLETE_ELEMENT_NAME);
             }
         }
+
+        if (!partialContext.getRenderIds().isEmpty()) {
+            String renderIds = SPACE_JOINER.join(partialContext.getRenderIds());
+            startExtensionElementIfNecessary(writer, attributes, writingState);
+            writer.startElement(RENDER_ELEMENT_NAME, component);
+            writer.writeText(renderIds, null);
+            writer.endElement(RENDER_ELEMENT_NAME);
+        }
+
 
         Object responseData = partialContext.getResponseData();
         if (responseData != null) {

@@ -38,6 +38,7 @@ if (!window.RichFaces) {
     
     if (window.jsf) {
         var jsfAjaxRequest = jsf.ajax.request;
+        var jsfAjaxResponse = jsf.ajax.response;
     }
 
     // get DOM element by id or DOM element or jQuery object
@@ -612,7 +613,7 @@ if (!window.RichFaces) {
         if (richfaces.queue) {
             parameters.queueId = options.queueId;
         }
-
+        
         jsf.ajax.request(source, event, parameters);
     };
     
@@ -624,7 +625,17 @@ if (!window.RichFaces) {
             if (form) {
                 jQuery(form).trigger('ajaxsubmit');
             }
-            jsfAjaxRequest(source, event, options);
+            return jsfAjaxRequest(source, event, options);
+        }
+        
+        jsf.ajax.response = function(request, context) {
+            // for RichFaces.ajax requests
+            if (context.render == '@component') {
+                // get updated IDs
+                context.render = $("extension[id='org.richfaces.extension'] render", request.responseXML).text();
+            }
+
+            return jsfAjaxResponse(request, context);
         }
     }
     
@@ -668,7 +679,7 @@ if (!window.RichFaces) {
         if (options.sourceId) {
             return options.sourceId;
         } else {
-            return (typeof source == 'object' && source.id) ? source.id : source;
+            return (typeof source == 'object' && (source.id || source.name)) ? (source.id ? source.id : source.name) : source;
         }
     };
 
