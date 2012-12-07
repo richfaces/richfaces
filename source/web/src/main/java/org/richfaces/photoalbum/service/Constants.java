@@ -84,9 +84,9 @@ public class Constants {
     public static final String USER_VARIABLE = "user";
 
     // ID's
-    public static final String REGISTER_LOGIN_NAME_ID = "mainform:loginName";
-    public static final String REGISTER_CONFIRM_PASSWORD_ID = "mainform:confirmPassword";
-    public static final String REGISTER_EMAIL_ID = "mainform:email";
+    public static final String REGISTER_LOGIN_NAME_ID = "overForm:userLoginName";
+    public static final String REGISTER_CONFIRM_PASSWORD_ID = "overForm:userConfirmPassword";
+    public static final String REGISTER_EMAIL_ID = "overForm:userEmail";
     public static final String SHELF_ID = "shelf";
 
     // Roles
@@ -155,7 +155,7 @@ public class Constants {
     public static final String IMAGE_IDENTICAL_QUERY = "image-countIdenticalImages";
     public static final String SEARCH_NO_OPTIONS_ERROR = "You must select at least one search option";
     public static final String TREE_ID = "treeform";
-    public static final String MAINAREA_ID = "mainform:mainArea";
+    public static final String MAINAREA_ID = "overForm:mainArea";
     public static final String USER_COMMENTS_QUERY = "user-comments";
     public static final String AUTHOR_PARAMETER = "author";
     public static final String EMAIL_EXIST_QUERY = "email-exist";
