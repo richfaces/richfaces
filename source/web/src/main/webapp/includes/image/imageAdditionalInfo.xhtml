@@ -56,7 +56,7 @@
         </a4j:repeat>
         <h:panelGroup layout="block" style="padding-top:10px;clear:both">
             <!-- <a4j:region rendered="#{identity.hasRole('admin', 'Users', 'GROUP')}"> -->
-            <a4j:region rendered="#{userBean.userAdmin}" id="commentEditor" >
+            <a4j:region rendered="#{userBean.loggedIn}" id="commentEditor" >
                 <h:panelGroup layout="block" id="editContent">
                     <!-- TODO: add configuration -->
                     <rich:editor value="#{imageManager.message}" toolbar="basic" id="editor2" width="400" height="200" skin="richfaces" />
@@ -64,7 +64,7 @@
             </a4j:region>
         </h:panelGroup>
         <!-- rendered="#{identity.hasRole('admin', 'Users', 'GROUP')}" -->
-        <richx:commandButton rendered="#{userBean.userAdmin}" value="#{messages['comment.add']}"
+        <richx:commandButton rendered="#{userBean.loggedIn}" value="#{messages['comment.add']}"
             actionListener="#{imageManager.addComment(model.selectedImage)}" render="commentPanel" execute="commentEditor" />
     </h:panelGroup>
     <h:panelGroup rendered="#{!model.selectedImage.allowComments}" layout="block" id="commentPanel2" style="margin-top : 30px">
