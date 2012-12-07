@@ -257,22 +257,20 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
             if (isRenderAll()) {
                 renderAll(facesContext, viewRoot);
                 renderState(facesContext);
-                writer.endDocument();
-                return;
+            } else {
+                // Skip this processing if "none" is specified in the render list,
+                // or there were no render phase client ids.
+                if ((phaseIds != null && !phaseIds.isEmpty())
+                    || (!limitRender && PartialViewContextAjaxOutputTracker.hasNestedAjaxOutputs(viewRoot))) {
+
+                    EnumSet<VisitHint> hints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
+                    VisitContext visitContext = new RenderExtendedVisitContext(facesContext, phaseIds, hints, limitRender);
+                    VisitCallback visitCallback = new RenderVisitCallback(facesContext);
+                    viewRoot.visitTree(visitContext, visitCallback);
+                }
+
+                renderState(facesContext);
             }
-
-            // Skip this processing if "none" is specified in the render list,
-            // or there were no render phase client ids.
-            if ((phaseIds != null && !phaseIds.isEmpty())
-                || (!limitRender && PartialViewContextAjaxOutputTracker.hasNestedAjaxOutputs(viewRoot))) {
-
-                EnumSet<VisitHint> hints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
-                VisitContext visitContext = new RenderExtendedVisitContext(facesContext, phaseIds, hints, limitRender);
-                VisitCallback visitCallback = new RenderVisitCallback(facesContext);
-                viewRoot.visitTree(visitContext, visitCallback);
-            }
-
-            renderState(facesContext);
 
             addJavaScriptServicePageScripts(facesContext, viewRoot);
             // TODO - render extensions for renderAll?
