@@ -35,7 +35,6 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.jboss.seam.transaction.Transactional;
 import org.richfaces.photoalbum.domain.Comment;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.event.EventType;
@@ -68,7 +67,7 @@ public class SessionListener implements Serializable {
     Event<SimpleEvent> event;
 
     @PreDestroy
-    @Transactional
+    // @Transactional
     // @Observer("org.jboss.seam.sessionExpired")
     public void onDestroy() {
         if (!Environment.isInProduction()) {
