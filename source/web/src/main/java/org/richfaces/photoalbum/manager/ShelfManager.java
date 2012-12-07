@@ -108,6 +108,8 @@ public class ShelfManager implements Serializable {
         if (user == null) {
             return;
         }
+        
+        shelf.setOwner(user);
         if (user.hasShelfWithName(shelf)) {
             error.fire(new SimpleEvent(Constants.SAME_SHELF_EXIST_ERROR));
             return;
