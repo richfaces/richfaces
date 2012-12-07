@@ -2,7 +2,8 @@ package org.richfaces.photoalbum.bean;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -21,7 +22,7 @@ import org.richfaces.photoalbum.util.Preferred;
  */
 
 @Named
-@SessionScoped
+@ApplicationScoped
 public class UserBean implements Serializable {
 
     /**
@@ -34,6 +35,25 @@ public class UserBean implements Serializable {
 
     private User user;
 
+    private String username;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String password;
+
     // private Shelf currentShelf;
     // private Album currentAlbum;
     // private Image currentImage;
@@ -42,21 +62,9 @@ public class UserBean implements Serializable {
 
     // -- getters and setters
 
-    private boolean autolog = true; //
+    //private boolean autolog = true; //
 
     private Logger logger = Logger.getLogger(UserBean.class);
-
-    @SuppressWarnings("unused")
-    @PostConstruct
-    private void logUser() {
-        if (autolog) {
-            try {
-                user = logIn("amarkhel", "8cb2237d0679ca88db6464eac60da96345513964");
-            } catch (Exception e) {
-                logger.info("Autolog unsuccessful:" + e.getMessage());
-            }
-        }
-    }
 
     public User logIn(String username, String passwordHash) throws Exception {
         user = (User) em.createNamedQuery(Constants.USER_LOGIN_QUERY).setParameter(Constants.USERNAME_PARAMETER, username)
@@ -68,6 +76,7 @@ public class UserBean implements Serializable {
 
     @Produces
     @Preferred
+    //@RequestScoped
     public User getUser() {
         if (!logged) {
             return null;
@@ -88,11 +97,14 @@ public class UserBean implements Serializable {
         return logged;
     }
 
-    public boolean isUserAdmin() {
-        if (user == null) {
-            return false;
-        }
-        return user.getLogin().equals("amarkhel") || user.getLogin().equals("Viking");
+    public void logout() {
+        user = null;
+        logged = false;
+    }
+
+    public void reset() {
+        username = "";
+        password = "";
     }
 
     // public void setUser(User user) {

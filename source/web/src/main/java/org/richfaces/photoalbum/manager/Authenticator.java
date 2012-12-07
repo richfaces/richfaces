@@ -37,9 +37,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.seam.security.Credentials;
-import org.jboss.seam.security.Identity;
-import org.picketlink.idm.impl.api.PasswordCredential;
+import org.jboss.logging.Logger;
 import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.event.EventType;
@@ -62,18 +60,18 @@ public class Authenticator implements Serializable {
     @Inject
     LoggedUserTracker userTracker;
 
-    // @In @Out
-    @Inject
-    User user;
-
-    @Inject
-    Identity identity;
-
-    @Inject
-    Credentials credentials;
-
     @Inject
     IUserAction userAction;
+
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     private boolean loginFailed = false;
 
@@ -101,8 +99,7 @@ public class Authenticator implements Serializable {
     public boolean authenticate() {
         try {
             // If user with this login and password exist, the user object will be returned
-            user = userBean.logIn(credentials.getUsername(),
-                HashUtils.hash(((PasswordCredential) credentials.getCredential()).getValue()));
+            user = userBean.logIn(userBean.getUsername(), HashUtils.hash(userBean.getPassword()));
             if (user != null) {
                 // This check is actual only on livedemo server to prevent hacks.
                 // Check if pre-defined user login.
@@ -116,9 +113,8 @@ public class Authenticator implements Serializable {
                 userTracker.removeUserId(user.getId());
                 // Mark current user as actual
                 userTracker.addUserId(user.getId(), Utils.getSession().getId());
-                identity.addRole(Constants.ADMIN_ROLE, "Users", "GROUP");
+                // identity.addRole(Constants.ADMIN_ROLE, "Users", "GROUP");
                 // Raise event to controller to update Model
-                // Events.instance().raiseEvent(Constants.AUTHENTICATED_EVENT, user);
                 event.select(new EventTypeQualifier(Events.AUTHENTICATED_EVENT)).fire(new SimpleEvent());
                 // Login was succesfull
                 setLoginFailed(false);
@@ -137,16 +133,16 @@ public class Authenticator implements Serializable {
      * @return outcome string to redirect.
      *
      */
-    public String logout() {
-        identity.logout();
+    public void logout() {
+        long id = userBean.getUser().getId();
+        userBean.logout();
+        this.user = null;
         // Remove user from users store
-        userTracker.removeUserId(user.getId());
+        userTracker.removeUserId(id);
         setConversationStarted(false);
-        return Constants.LOGOUT_OUTCOME;
-    }
-
-    public void resetCredentials() {
-        credentials.clear();
+        //return Constants.LOGOUT_OUTCOME;
+        //return "index.seam";
+        startConversation();
     }
 
     /**
@@ -161,12 +157,14 @@ public class Authenticator implements Serializable {
         if (checkPassword(user) || checkUserExist(user) || checkEmailExist(user.getEmail())) {
             return;
         }
+        
         user.setPasswordHash(HashUtils.hash(user.getPassword()));
         // This check is actual only on livedemo server to prevent hacks.
         // Only admins can mark user as pre-defined
         user.setPreDefined(false);
         if (!handleAvatar(user)) {
             return;
+            
         }
         try {
             userAction.register(user);
@@ -175,17 +173,18 @@ public class Authenticator implements Serializable {
             return;
         }
         // Registration was successfull, so we can login this user.
-        credentials.setCredential(new PasswordCredential(user.getPassword()));
-        credentials.setUsername(user.getLogin());
-        // try {
-        // identity.authenticate();
-        // } catch (LoginException e) {
-        // Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.LOGIN_ERROR);
-        // }
-        String response = identity.login();
-        if (!response.equals("RESPONSE_LOGIN_SUCCESS")) {
+        try {
+            this.user = userBean.logIn(user.getLogin(), HashUtils.hash(user.getPassword()));
+        } catch (Exception e) {
+            event.select(new EventTypeQualifier(Events.ADD_ERROR_EVENT)).fire(
+                new SimpleEvent(Constants.LOGIN_ERROR + "\n" + e.getMessage()));
+            return;
+        }
+        if (this.user == null) {
             event.select(new EventTypeQualifier(Events.ADD_ERROR_EVENT)).fire(new SimpleEvent(Constants.LOGIN_ERROR));
         }
+        
+        //navEvent.fire(new NavEvent(NavigationEnum.ANONYM)); //point to main page?
 
     }
 
