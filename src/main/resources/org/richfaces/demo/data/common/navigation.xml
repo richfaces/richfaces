@@ -793,7 +793,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo mobileExclude="true">
                 <id>focus</id>
                 <name>Focus</name>
                 <samples>
