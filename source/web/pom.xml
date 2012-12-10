@@ -2,15 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-<!--     <parent> -->
-<!--         <groupId>org.richfaces.examples</groupId> -->
-<!--         <artifactId>photoalbum</artifactId> -->
-<!--         <version>4.2.2.Final</version> -->
-<!--     </parent> -->
+
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-photoalbum</artifactId>
-<!--     <name>${appName} WAR module</name> -->
     <name>Photoalbum</name>
     <version>4.2.3.Final</version>
     <packaging>war</packaging>
@@ -19,7 +14,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javaee6.with.tools.version>1.0.0.Final</javaee6.with.tools.version>
         <org.richfaces.bom.version>${project.version}</org.richfaces.bom.version>
-        <seam.version>3.1.0.Final</seam.version>
         <faceletsVersion>1.1.15.B1</faceletsVersion>
     </properties>
 
@@ -40,13 +34,6 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.jboss.seam</groupId>
-                <artifactId>seam-bom</artifactId>
-                <version>${seam.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
                 <version>1.0.3.Final</version>
@@ -60,10 +47,10 @@
     <dependencies>
         <!-- transitively needed dependencies -->
 
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-        </dependency>
+<!--         <dependency> -->
+<!--             <groupId>joda-time</groupId> -->
+<!--             <artifactId>joda-time</artifactId> -->
+<!--         </dependency> -->
 
         <!-- "regular" dependencies -->
         <dependency>
@@ -89,7 +76,7 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <!-- override -->
-            <!-- <version>4.3.0.Final</version> -->
+            <version>4.3.0.Final</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -104,19 +91,7 @@
             <version>3.5.6-Final</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <!-- override, versions 4.0+ depend on an unavailable package -->
-<!--             <version>3.6.10.Final</version> -->
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.common</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
-            <version>4.0.1.Final</version>
-            <scope>provided</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>
@@ -153,40 +128,7 @@
             <artifactId>jsf-facelets</artifactId>
             <version>${faceletsVersion}</version>
         </dependency>
-       <!-- <dependency>
-            <groupId>org.richfaces.framework</groupId>
-            <artifactId>richfaces-impl</artifactId>
-            <version>${richfacesVersion}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.richfaces.framework</groupId>
-                    <artifactId>richfaces-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-digester</groupId>
-                    <artifactId>commons-digester</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency> -->
-        <dependency>
-            <groupId>commons-digester</groupId>
-            <artifactId>commons-digester</artifactId>
-            <version>1.8.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-beanutils</groupId>
-                    <artifactId>commons-beanutils</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
         <dependency>
             <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-components-ui</artifactId>
@@ -207,11 +149,6 @@
             <artifactId>metadata-extractor</artifactId>
             <version>2.6.2</version>
         </dependency>
-        <dependency>
-            <groupId>com.uwyn</groupId>
-            <artifactId>jhighlight</artifactId>
-            <version>1.0</version>
-        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -223,24 +160,6 @@
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-core</artifactId>
-            <version>1.1.5.Final</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.6.6</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.6.6</version>
         </dependency>
     </dependencies>
 
