@@ -35,8 +35,8 @@
                 </h:panelGrid>
             </a4j:region>
             <a4j:outputPanel ajaxRendered="true">
-                <h:panelGroup rendered="#{userBean.loggedIn}">
-                    <rich:messages style="color:red" />
+                <h:panelGroup>
+                    <rich:messages style="color:red" for="loginPanel"/>
                 </h:panelGroup>
             </a4j:outputPanel>
             <h:panelGrid columns="2" style="text-align:center; margin-top : 10px; margin-left:auto; margin-right:auto;">
@@ -44,7 +44,7 @@
                     <!-- action="gotoindex" -->
                     <richx:commandButton styleClass="login" data="#{authenticator.loginFailed}" actionListener="#{authenticator.authenticate()}"
                         value="#{messages['login.login']}" oncomplete="if(!event.data)#{rich:component('loginPanel')}.hide();"
-                        render="mainArea,treePanel,searchForm, headerPanel" execute="loginPanelForm" limitRender="true" />
+                        render="mainArea,treePanel,searchForm, headerPanel, loginPanel" execute="loginPanelForm" limitRender="true" />
                 </h:panelGroup>
                 <h:panelGroup layout="block">
                     <richx:commandButton value="#{messages['login.register']}" immediate="true"

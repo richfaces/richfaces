@@ -37,7 +37,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.logging.Logger;
 import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.event.EventType;
@@ -157,14 +156,14 @@ public class Authenticator implements Serializable {
         if (checkPassword(user) || checkUserExist(user) || checkEmailExist(user.getEmail())) {
             return;
         }
-        
+
         user.setPasswordHash(HashUtils.hash(user.getPassword()));
         // This check is actual only on livedemo server to prevent hacks.
         // Only admins can mark user as pre-defined
         user.setPreDefined(false);
         if (!handleAvatar(user)) {
             return;
-            
+
         }
         try {
             userAction.register(user);
@@ -183,7 +182,7 @@ public class Authenticator implements Serializable {
         if (this.user == null) {
             event.select(new EventTypeQualifier(Events.ADD_ERROR_EVENT)).fire(new SimpleEvent(Constants.LOGIN_ERROR));
         }
-        
+
         //navEvent.fire(new NavEvent(NavigationEnum.ANONYM)); //point to main page?
 
     }
@@ -259,7 +258,8 @@ public class Authenticator implements Serializable {
         setLoginFailed(true);
         // facesMessages.clear();
         // facesMessages.add(Constants.INVALID_LOGIN_OR_PASSWORD);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(Constants.INVALID_LOGIN_OR_PASSWORD));
+        //FacesContext.getCurrentInstance().addMessage("loginPanelForm", new FacesMessage(Constants.INVALID_LOGIN_OR_PASSWORD));
+        Utils.addFacesMessage("overForm:loginPanel", Constants.INVALID_LOGIN_OR_PASSWORD);
         FacesContext.getCurrentInstance().renderResponse();
     }
 
