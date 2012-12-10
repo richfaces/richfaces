@@ -50,7 +50,7 @@ public class ShelfAction implements IShelfAction {
         try {
             em.persist(shelf);
             // Add reference to user
-            // user.addShelf(shelf);
+            shelf.getOwner().addShelf(shelf);
             em.flush();
         } catch (Exception e) {
             throw new PhotoAlbumException(e.getMessage());
