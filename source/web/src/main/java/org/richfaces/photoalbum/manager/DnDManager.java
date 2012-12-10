@@ -99,6 +99,9 @@ public class DnDManager implements DropListener {
     }
 
     private void handleAlbum(Album dragValue, Shelf dropValue) {
+        if (dragValue.getShelf().equals(dropValue)) {
+            return;
+        }
         String pathOld = dragValue.getPath();
         dropValue.addAlbum(dragValue);
         try {
