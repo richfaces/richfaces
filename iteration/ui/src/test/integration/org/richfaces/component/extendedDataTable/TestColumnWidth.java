@@ -5,7 +5,6 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,13 +13,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import java.net.URL;
 
 @RunAsClient
-@WarpTest
 @RunWith(Arquillian.class)
 public class TestColumnWidth {
 
@@ -38,7 +36,7 @@ public class TestColumnWidth {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(TestColumnWidth.class);
+        IterationDeployment deployment = new IterationDeployment(TestColumnWidth.class);
         deployment.archive().addClass(IterationBean.class);
         addIndexPage(deployment);
 
@@ -51,7 +49,7 @@ public class TestColumnWidth {
         Assert.assertEquals("200px", firstRow.findElement(By.cssSelector("td .rf-edt-c-column1")).getCssValue("width"));
     }
 
-    private static void addIndexPage(MiscDeployment deployment) {
+    private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.xmlns("rich", "http://richfaces.org/iteration");
         p.xmlns("a4j", "http://richfaces.org/a4j");

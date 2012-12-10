@@ -7,9 +7,9 @@ import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.richfaces.deployment.Deployment;
 
-public class MiscDeployment extends Deployment {
+public class IterationDeployment extends Deployment {
 
-    public MiscDeployment(Class<?> testClass) {
+    public IterationDeployment(Class<?> testClass) {
         super(testClass);
         
         this.addMavenDependency(
