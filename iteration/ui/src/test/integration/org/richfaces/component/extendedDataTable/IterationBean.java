@@ -33,15 +33,21 @@ import java.util.List;
 @RequestScoped
 public class IterationBean {
     public List<String> values;
+    public String state;
 
     public IterationBean() {
         values = new ArrayList<String>(10);
         for (int i = 0; i < 10; i++) {
             values.add(String.valueOf(i));
         }
+        state = "{'columnsWidthState':{'column1':'210px','column2':'100'}}";
     }
 
     public List<String> getValues() {
         return values;
+    }
+
+    public String getState() {
+        return state;
     }
 }

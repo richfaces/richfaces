@@ -53,6 +53,7 @@ import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.SequenceRange;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractExtendedDataTable;
+import org.richfaces.component.ExtendedDataTableState;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.OnOffResponseWriter;
@@ -764,6 +765,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         sb.append("div.rf-edt-cnt { width: 100%; }"); // TODO getNormalizedId(context, state.getGrid())
 
         Iterator<UIComponent> columns = table.columns();
+        ExtendedDataTableState tableState = ExtendedDataTableState.getExtendedDataTableState((AbstractExtendedDataTable) table);
         while (columns.hasNext()) {
             UIComponent column = (UIComponent) columns.next();
             String id = column.getId();
@@ -771,7 +773,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 column.getClientId(context); // hack initialize id
                 id = column.getId();
             }
-            String width = getColumnWidth(column);
+            String width = tableState.getColumnWidth(column);
             sb.append(".rf-edt-c-" + id + " {"); // TODO getNormalizedId(context,
             sb.append("width: " + width + ";");
             sb.append("}");
@@ -860,8 +862,10 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         if (map.get(clientId) != null) {
             updateClientFirst(context, component, map.get("rich:clientFirst"));
         }
-
         decodeSortingFiltering(context, component);
+
+        ExtendedDataTableState tableState = ExtendedDataTableState.getExtendedDataTableState((AbstractExtendedDataTable) component);
+        updateAttribute(context, component, "tableState", tableState.toString());
     }
 
     private void updateWidthOfColumns(FacesContext context, UIComponent component, String widthString) {
@@ -879,8 +883,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         if (columnsOrderString != null && columnsOrderString.length() > 0) {
             String[] columnsOrder = columnsOrderString.split(",");
             updateAttribute(context, component, "columnsOrder", columnsOrder);
-            context.getPartialViewContext().getRenderIds().add(component.getClientId(context)); // TODO Use partial re-rendering
-                                                                                                // here.
+            context.getPartialViewContext().getRenderIds().add(component.getClientId(context)); // TODO Use partial re-rendering here.
         }
     }
 
@@ -894,18 +897,5 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     .add(component.getClientId(context) + "@" + AbstractExtendedDataTable.SCROLL);
             }
         }
-    }
-
-    /**
-     * @deprecated TODO Remove this method when width in relative units in columns will be implemented.
-     * @param column
-     * @return width
-     */
-    private String getColumnWidth(UIComponent column) {
-        String width = (String) column.getAttributes().get("width");
-        if (width == null || width.length() == 0 || width.indexOf("%") != -1) {
-            width = "100px";
-        }
-        return width;
     }
 }

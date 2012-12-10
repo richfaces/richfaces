@@ -103,6 +103,12 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     public abstract String[] getColumnsOrder();
 
     /**
+     * ValueBinding pointing at a property of a String to hold table state
+     */
+    @Attribute
+    public abstract String getTableState();
+
+    /**
      * The client-side script method to be called before the selection is changed.
      */
     @Attribute(events = @EventName("beforeselectionchange"))
