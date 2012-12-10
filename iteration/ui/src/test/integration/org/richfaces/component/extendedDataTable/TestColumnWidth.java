@@ -46,7 +46,7 @@ public class TestColumnWidth {
     }
 
     @Test
-    public void when_there_are_inputs_with_tabindex_then_the_lowest_tabindex_will_obtain_focus() {
+    public void setting_column_width() {
         browser.get(contextPath.toExternalForm());
         Assert.assertEquals("200px", firstRow.findElement(By.cssSelector("td .rf-edt-c-column1")).getCssValue("width"));
     }
