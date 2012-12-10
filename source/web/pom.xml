@@ -49,7 +49,7 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.0.2.Final</version>
+                <version>1.0.3.Final</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -309,6 +309,16 @@
                         <directory>src/test/resources</directory>
                     </testResource>
                 </testResources>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.12</version>
+                        <configuration>
+                            <skipTests>false</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>
@@ -392,6 +402,15 @@
         </resources>
 
         <plugins>
+            <!-- skip tests by default -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
             <!-- Compiler plugin enforces Java 1.6 compatibility and activates annotation 
                 processors -->
             <plugin>
