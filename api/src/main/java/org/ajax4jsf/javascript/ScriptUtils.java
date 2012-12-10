@@ -234,6 +234,8 @@ public final class ScriptUtils {
      */
     public static String toScript(Object obj) {
         StringBuilder sb = new StringBuilder();
+        if ((obj != null) && (obj instanceof String))
+            sb.ensureCapacity((int)(((String) obj).length() * 1.66));
 
         try {
             appendScript(sb, obj, new IdentityHashMap<Object, Boolean>());
