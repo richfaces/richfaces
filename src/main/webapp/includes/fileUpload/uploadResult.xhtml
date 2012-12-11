@@ -13,7 +13,6 @@
         </h:panelGroup>
         <h:panelGroup layout="block" id="uploadComplete" rendered="#{fileWrapper.complete}"
             style="clear:both;margin : 0px 0px 0px 0px; display : !none; height : 40px;">
-
             <h:panelGroup id="completeLabel">
                 <h:outputText styleClass="bold" value="#{messages['photo_upload_complete']} " />
                 <h:outputText value=" #{fn:length(fileWrapper.files)} #{messages['photos_was_uploaded_to']} " />
@@ -50,10 +49,9 @@
                                 <a4j:mediaOutput element="img" createContent="#{imageLoader.paintImage}"
                                     value="#{fileManager.transformPath(image.fullPath, '_small120')}" mimeType="image/jpeg">
                                     <rich:dragSource id="dragSource" dragIndicator="iDragIndicator" type="image"
-                                        dragValue="#{image}">
-                                        <!-- <rich:dndParam id="dragParam" name="label" value="#{image.name}" /> -->
-                                        <!-- not supported in RF 4 -->
-                                    </rich:dragSource>
+                                        dragValue="#{image}" />
+                                    <!-- <rich:dndParam id="dragParam" name="label" value="#{image.name}" /> -->
+                                    <!-- not supported in RF 4 -->
                                 </a4j:mediaOutput>
                             </a4j:commandLink>
                         </h:panelGroup>

@@ -42,7 +42,6 @@
                                         <!-- <rich:spacer width="300" height="1" style="display: block"> </rich:spacer> -->
                                         <!-- not available in RF 4; repair when the layout can be seen -->
                                     </div>
-                                    <!-- <h:form id="treeform" style="margin: 0"> -->
                                     <a4j:region id="treeRegion">
                                         <rich:panel id="treePanel" styleClass="body-main-panel"
                                             headerClass="body-main-panel-header" bodyClass="body-main-panel-body"
@@ -50,7 +49,6 @@
                                             <ui:insert name="tree" />
                                         </rich:panel>
                                     </a4j:region>
-                                    <!-- </h:form> -->
 
                                     <div class="body-main-bg"
                                         style="position: absolute; height: 30000px; right: 0px; top: 0px; width: 5px;"></div>
@@ -58,7 +56,6 @@
                             </td>
                             <td width="100%" class="panel-header-bg" style="vertical-align: top;">
                                 <div style="position: relative; zoom: 1;">
-                                    <!-- <h:form id="mainform" style="margin: 0;"> -->
                                     <a4j:region>
                                         <a4j:log level="ALL" mode="popup" />
                                         <rich:panel id="bodyPanel" styleClass="body-main-panel"
@@ -66,10 +63,9 @@
                                             <ui:insert name="body" />
                                         </rich:panel>
                                     </a4j:region>
-                                    <!-- </h:form> -->
                                 </div>
                                 <div style="position: absolute; height: 30000px; right: 0px; top: 0px; width: 5px;"
-                                    class="body-main-bg"></div>
+                                    class="body-main-bg" />
                             </td>
                         </tr>
                     </tbody>
@@ -85,9 +81,10 @@
                 <ui:include src="/includes/index/footer.xhtml" />
             </div>
             <ui:insert name="searchWidget" />
-            
+
         </h:form>
-        <ui:include src="/includes/index/status.xhtml" /> <!-- do not move, will not work inside the form -->
+        <ui:include src="/includes/index/status.xhtml" />
+        <!-- do not move, will not work inside the form -->
     </div>
     <!-- 
     <script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>

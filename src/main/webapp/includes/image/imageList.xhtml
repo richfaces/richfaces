@@ -38,10 +38,9 @@
                                 value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}">
                                 <f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
                                 <rich:dragSource rendered="#{controller.isUserImage(image)}" render="mainArea, treePanel"
-                                    id="dragSource" dragIndicator="iDragIndicator" type="image" dragValue="#{image}">
+                                    id="dragSource" dragIndicator="iDragIndicator" type="image" dragValue="#{image}" />
                                     <!-- <rich:dndParam id="dragParam" name="label" value="#{image.name}" /> -->
                                     <!-- not supported in RF 4 -->
-                                </rich:dragSource>
                             </a4j:mediaOutput>
                         </a4j:commandLink>
                         <br />

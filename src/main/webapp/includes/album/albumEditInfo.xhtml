@@ -3,10 +3,10 @@
     xmlns:richx="http://richfaces.org/richx" xmlns:rich="http://richfaces.org/rich">
     <div style="margin: 10px 0px 30px 30px; width: 504px; background: #f1f1f1">
         <rich:graphValidator>
-            <table style="border-collapse: collapse;" cellpadding="5" border="0">
+            <table style="border-collapse: collapse; border: 0; padding: 5px;">
                 <tr>
-                    <td valign="top" nowrap="true" class="album-edit-field">#{messages['album_name']}</td>
-                    <td valign="top" colspan="2">
+                    <td style="vertical-align: top; white-space: nowrap;" class="album-edit-field">#{messages['album_name']}</td>
+                    <td style="vertical-align: top;" colspan="2">
                         <h:inputText id="album_name" value="#{model.selectedAlbum.name}" styleClass="album-edit-input"
                             required="true">
                             <rich:validator event="blur" />
@@ -21,12 +21,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" nowrap="true" class="album-edit-field">#{messages['creation_date']}</td>
-                    <td valign="top">
+                    <td style="vertical-align: top; white-space: nowrap;" class="album-edit-field">#{messages['creation_date']}</td>
+                    <td style="vertical-align: top;">
                         <a4j:outputPanel id="calendar" layout="block">
                             <rich:calendar styleClass="album-edit-calendar" enableManualInput="true"
-                                value="#{model.selectedAlbum.created}" id="album_date" cellWidth="24px" cellHeight="22px"
-                                disabled="true">
+                                value="#{model.selectedAlbum.created}" id="album_date" disabled="true">
                                 <rich:validator event="inputblur" />
                             </rich:calendar>
                         </a4j:outputPanel>
@@ -40,8 +39,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" nowrap="true" class="album-edit-field">#{messages['description']}</td>
-                    <td valign="top" colspan="2">
+                    <td style="vertical-align: top; white-space: nowrap;" class="album-edit-field">#{messages['description']}</td>
+                    <td style="vertical-align: top;" colspan="2">
                         <h:inputTextarea id="album_description" value="#{model.selectedAlbum.description}"
                             styleClass="album-edit-area" />
                     </td>
@@ -53,8 +52,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" />
-                    <td valign="top" align="right" colspan="2" style="padding: 10px;">
+                    <td style="vertical-align: top;" />
+                    <td colspan="2" style="padding: 10px; vertical-align: top; text-align: right;">
                         <richx:commandButton id="saveButton" value="#{messages['save']}" style="float: left"
                             actionListener="#{albumManager.editAlbum(model.selectedAlbum, false)}" render="treePanel, mainArea" />
                         <richx:commandButton id="cancelButton" value="#{messages['cancel']}" immediate="true"

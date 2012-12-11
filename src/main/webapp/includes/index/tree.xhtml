@@ -15,7 +15,7 @@
                 <h:panelGroup
                     style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                     <h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="34" width="34"
-                        value="img/icons/help_sign.png"></h:graphicImage>
+                        value="img/icons/help_sign.png" />
                 </h:panelGroup>
             </a4j:commandLink>
         </h:panelGrid>
@@ -23,21 +23,6 @@
         <br />
         <!-- TODO - implememnt adviseNode... behaviour, icons, connecting lines -->
         <rich:tree ajaxSubmitSelection="false" id="PreDefinedTree" var="treeNode" toggleType="client">
-            <!-- <f:facet name="iconCollapsed">
-                <h:panelGroup
-                    style="cursor: hand; width: 25px; height: 16px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/tree_icon_plus.png',sizingMethod='scale');">
-                    <h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="16" width="25"
-                        value="img/shell/tree_icon_plus.png"></h:graphicImage>
-                </h:panelGroup>
-            </f:facet>
-            <f:facet name="iconExpanded">
-                <h:panelGroup
-                    style="cursor: hand; width: 25px; height: 16px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/tree_icon_minus.png',sizingMethod='scale');">
-                    <h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="16" width="25"
-                        value="img/shell/tree_icon_minus.png"></h:graphicImage>
-                </h:panelGroup>
-            </f:facet> -->
-
             <rich:treeModelAdaptor nodes="#{shelfManager.predefinedShelves}">
                 <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
                     iconCollapsed="img/shell/tree_icon_shelf.png" iconExpanded="img/shell/tree_icon_shelf.png">
@@ -57,9 +42,6 @@
                 <rich:treeModelAdaptor var="album" nodes="#{treeNode.albums}">
                     <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
                         iconLeaf="img/shell/tree_icon_album.png">
-                        <!-- <f:facet name="iconLeaf">
-                            <h:graphicImage style="border: none" value="img/shell/tree_icon_album.png" />
-                        </f:facet>-->
                         <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
                             <h:outputText value="#{treeNode.name}" />
                             <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" value=" :: " />
@@ -92,7 +74,7 @@
                 <h:panelGroup
                     style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                     <h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="34" width="34"
-                        value="img/icons/help_sign.png"></h:graphicImage>
+                        value="img/icons/help_sign.png" />
                 </h:panelGroup>
             </a4j:commandLink>
         </h:panelGrid>
@@ -166,5 +148,4 @@
 
         </rich:tree>
     </h:panelGroup>
-
 </ui:composition>

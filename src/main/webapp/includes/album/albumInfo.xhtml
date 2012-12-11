@@ -7,10 +7,9 @@
             <h1>
                 <h:outputText value="#{album.name}" rendered="#{!controller.isUserAlbum(album)}" />
                 <rich:inplaceInput selectOnEdit="false" value="#{album.name}" rendered="#{controller.isUserAlbum(album)}"
-                    inputWidth="570">
+                    inputWidth="570" />
                     <!-- <a4j:ajax event="viewactivated" render="mainArea, treePanel"
 					action="#{albumManager.editAlbum(album, true)}" /> -->
-                </rich:inplaceInput>
             </h1>
             <h:panelGroup layout="block" style="margin-bottom:15px;" styleClass="additional-info-text">
                 <h:outputText value="#{messages['created.album']}" />

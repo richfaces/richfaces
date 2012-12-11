@@ -6,20 +6,18 @@
         <f:facet name="header">#{messages['confirm.confirm']}</f:facet>
         <f:facet name="controls">
             <h:panelGroup id="confirmPanelHideControl">
-                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hideConfirmation">
-                    <rich:componentControl target="confirmation" operation="hide" event="click" />
-                </h:graphicImage>
+                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hideConfirmation"
+                    onclick="#{rich:component('confirmation')}.hide()" />
             </h:panelGroup>
         </f:facet>
         <!-- <rich:effect type="Appear" name="appearFunc" /> -->
         <!-- not implemented in RF 4 -->
 
-        <!-- <h:form id="confirmForm"> -->
         <a4j:region>
             <h:panelGroup id="confirmPanel" layout="block" style="width: 100%">
 
                 <h:panelGroup id="confirmContent" layout="block">
-                    <h:panelGrid columns="2" width="300px" style="margin-left: auto; margin-right: auto;">
+                    <h:panelGrid columns="2" width="300" style="margin-left: auto; margin-right: auto;">
                         <h:panelGroup id="confirmIcon" layout="block" style="width: 43px">
                             <h:graphicImage value="img/modal/ico_warning.png" />
                         </h:panelGroup>
@@ -39,13 +37,12 @@
                         </h:panelGroup>
                         <h:panelGroup id="confirmSecondButton" layout="block">
                             <richx:commandButton value="#{messages['confirm.cancel']}"
-                                onclick="#{rich:component('confirmation')}.hide(); return false" execute="@none"/>
+                                onclick="#{rich:component('confirmation')}.hide(); return false" execute="@none" />
                         </h:panelGroup>
                     </h:panelGrid>
                 </h:panelGroup>
 
             </h:panelGroup>
         </a4j:region>
-        <!-- </h:form> -->
     </rich:popupPanel>
 </ui:component>

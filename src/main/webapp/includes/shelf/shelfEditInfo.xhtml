@@ -3,10 +3,10 @@
     xmlns:richx="http://richfaces.org/richx" xmlns:rich="http://richfaces.org/rich">
     <div class="shelf-edit">
         <rich:graphValidator>
-            <table style="border-collapse: collapse;" cellpadding="5" border="0">
+            <table style="border-collapse: collapse; padding: 5px; border: 0">
                 <tr>
-                    <td valign="top" nowrap="true" style="padding-top: 8px">#{messages['shelf_name']}</td>
-                    <td valign="top" colspan="2">
+                    <td style="vertical-align: top; white-space: nowrap; padding-top: 8px">#{messages['shelf_name']}</td>
+                    <td style="vertical-align: top;" colspan="2">
                         <h:inputText id="shelf_name" value="#{model.selectedShelf.name}" styleClass="shelf-edit-input"
                             required="true">
                             <rich:validator event="blur" />
@@ -21,11 +21,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" nowrap="true" style="padding-top: 8px">#{messages['creation_date']}</td>
-                    <td valign="top">
+                    <td style="vertical-align: top; white-space: nowrap; padding-top: 8px">#{messages['creation_date']}</td>
+                    <td style="vertical-align: top;">
                         <a4j:outputPanel id="calendar" layout="block">
                             <rich:calendar id="shelf_date" styleClass="shelf-edit-calendar" enableManualInput="true"
-                                value="#{model.selectedShelf.created}" cellWidth="24px" cellHeight="22px" disabled="true">
+                                value="#{model.selectedShelf.created}" disabled="true">
                                 <rich:validator event="inputblur" />
                             </rich:calendar>
                         </a4j:outputPanel>
@@ -39,8 +39,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" nowrap="true" style="padding-top: 8px">#{messages['description']}</td>
-                    <td valign="top" colspan="2">
+                    <td style="vertical-align: top; white-space: nowrap; padding-top: 8px">#{messages['description']}</td>
+                    <td style="vertical-align: top;" colspan="2">
                         <h:inputTextarea id="shelf_description" value="#{model.selectedShelf.description}"
                             styleClass="shelf-edit-area" />
                     </td>
@@ -52,18 +52,18 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top" nowrap="true" style="padding-top: 8px">
+                    <td style="vertical-align: top; white-space: nowrap; padding-top: 8px">
                         <h:outputText value="#{messages['album.shared']}" />
                     </td>
-                    <td valign="top">
+                    <td style="vertical-align: top;">
                         <h:selectBooleanCheckbox styleClass="selectBooleanCheckbox" id="shared"
                             value="#{model.selectedShelf.shared}" />
                         <rich:message for="shared" />
                     </td>
                 </tr>
                 <tr>
-                    <td valign="top"></td>
-                    <td valign="top" align="right" colspan="2" style="padding: 10px;">
+                    <td style="vertical-align: top;" />
+                    <td colspan="2" style="padding: 10px; vertical-align: top; text-align: right">
                         <richx:commandButton id="saveButton" style="float: left" value="#{messages['save']}"
                             actionListener="#{shelfManager.editShelf(model.selectedShelf, false)}" render="treePanel, mainArea" />
                         <richx:commandButton id="cancelButton" value="#{messages['cancel']}" immediate="true"

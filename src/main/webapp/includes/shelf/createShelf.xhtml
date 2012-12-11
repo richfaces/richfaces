@@ -7,16 +7,14 @@
 
         <f:facet name="controls">
             <h:panelGroup id="shelfPanelHideControl">
-                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hidelink19">
-                    <rich:componentControl target="shelfModalPanel" operation="hide" event="click" />
-                </h:graphicImage>
+                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hidelink19"
+                    onclick="#{rich:component('shelfModalPanel')}.hide()" />
             </h:panelGroup>
         </f:facet>
 
         <!-- <rich:effect type="Appear" name="appearFunc" /> -->
         <!-- not implemented in RF 4 -->
 
-        <!-- <h:form id="form5"> -->
         <a4j:region id="form5">
             <h:panelGroup id="shelfPanel" width="100%" layout="block">
                 <a4j:region>
@@ -56,9 +54,7 @@
                     </rich:graphValidator>
                 </a4j:region>
 
-
             </h:panelGroup>
         </a4j:region>
-        <!--        </h:form> -->
     </rich:popupPanel>
 </ui:composition>

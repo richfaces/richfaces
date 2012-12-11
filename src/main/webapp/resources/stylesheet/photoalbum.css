@@ -1415,3 +1415,10 @@ h1 {
 .rf-trn-sel {
     font-weight: bold;
 }
+
+/* calendar */
+
+#calendar .rf-cal-c {
+    width: 24px;
+    height: 22px;
+}

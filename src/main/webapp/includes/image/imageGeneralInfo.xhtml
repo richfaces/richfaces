@@ -7,7 +7,7 @@
 
     <br clear="all" />
     <h:panelGroup id="mainImage" layout="block" styleClass="mainImage-div">
-        <table cellpadding="0" class="mainImage-table">
+        <table style="padding: 0px;" class="mainImage-table">
             <tr>
                 <td class="mainImage-table-col1" rowspan="2">
                     <h:panelGroup layout="block" styleClass="slideshow-outerdiv">
@@ -16,7 +16,7 @@
                             render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
                             <h:graphicImage value="img/shell/tree_icon_slid.png" width="27" height="16" alt="" border="0"
                                 style="vertical-align : bottom; margin-right : 5px; border:0;" />
-                            <h:outputText value="#{messages['slideshow.start']}"/>
+                            <h:outputText value="#{messages['slideshow.start']}" />
                         </a4j:commandLink>
                         <a4j:commandLink rendered="#{help.isShowHelp()}"
                             actionListener="#{help.navigateTo('/includes/help/slideshow.xhtml')}"
@@ -24,7 +24,7 @@
                             <h:panelGroup
                                 style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                                 <h:graphicImage style="border:none;" styleClass="ie6transparency" height="34" width="34"
-                                    value="img/icons/help_sign.png"></h:graphicImage>
+                                    value="img/icons/help_sign.png" />
                             </h:panelGroup>
                         </a4j:commandLink>
                     </h:panelGroup>
@@ -32,14 +32,13 @@
                         style="border : 3px solid #808080;"
                         value="#{fileManager.transformPath(model.selectedImage.fullPath, '_medium')}" mimeType="image/jpeg">
                         <rich:dragSource rendered="#{controller.isUserImage(model.selectedImage)}" render="mainArea, treePanel"
-                            id="dragSource" dragIndicator="dragIndicator" type="image" dragValue="#{model.selectedImage}">
-                            <!-- <rich:dndParam id="dragParam" name="label" value="#{model.selectedImage.name}" /> -->
-                            <!-- not supported in RF 4 -->
-                        </rich:dragSource>
+                            id="dragSource" dragIndicator="dragIndicator" type="image" dragValue="#{model.selectedImage}" />
+                        <!-- <rich:dndParam id="dragParam" name="label" value="#{model.selectedImage.name}" /> -->
+                        <!-- not supported in RF 4 -->
                         <rich:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip"
                             rendered="#{model.selectedImage.showMetaInfo}">
                             <span style="white-space: nowrap; display: block; text-align: left;"> <h:outputText
-                                    value="Size in bytes: #{model.selectedImage.size}" /><br /> <h:outputText
+                                    value="Size in bytes: #{model.selectedImage.size}" /> <br /> <h:outputText
                                     value="#{messages['original_size']}: #{model.selectedImage.height}x#{model.selectedImage.width}" /><br />
                                 <h:outputText value="Captured at: #{model.selectedImage.created}" /><br /> <h:outputText
                                     value="#{messages['camera']}: #{model.selectedImage.cameraModel}" />
@@ -47,10 +46,8 @@
                         </rich:tooltip>
                     </a4j:mediaOutput>
                 </td>
-                <td valign="top">
+                <td style="vertical-align: top;">
                     <h:panelGroup layout="block" styleClass="buttons-body" style="margin : 26px 0px 0px 0px;">
-                        <!--  <h:graphicImage value="/img/shell/button.png" width="103" height="28" alt=""
-                            styleClass="buttons-body-image" /> -->
                         <h:link outcome="/includes/directImage.xhtml" value="#{messages['original_size']}" target="_blank"
                             styleClass="buttons-body-text-div">
                             <!-- <s:link value="#{messages['original_size']}" styleClass="buttons-body-text-div"
@@ -63,9 +60,9 @@
                 </td>
             </tr>
             <tr>
-                <td valign="bottom" class="mainImage-table-col3">
+                <td style="vertical-align: bottom;" class="mainImage-table-col3">
                     <richx:commandButton value="Edit image" rendered="#{controller.isUserImage(model.selectedImage)}"
-                        actionListener="#{controller.startEditImage(model.selectedImage)}" render="mainArea" execute="@this"/>
+                        actionListener="#{controller.startEditImage(model.selectedImage)}" render="mainArea" execute="@this" />
                     <richx:commandButton value="#{messages['image.delete']}"
                         actionListener="#{confirmationPopupHelper.initImagePopup(confirmationPopupHelper.deleteImage,messages['image.delete.confirm'],model.selectedImage)}"
                         render="confirmation" rendered="#{controller.isUserImage(model.selectedImage)}"
