@@ -112,9 +112,10 @@
             dropListener="#{dndManager.processDrop}">
             <rich:treeModelAdaptor nodes="#{userBean.user.shelves}" var="shelf">
                 <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
-                    iconExpanded="/img/shell/tree_icon_shelf.png" iconCollapsed="/img/shell/tree_icon_shelf.png">
+                    iconExpanded="/img/shell/tree_icon_shelf.png" iconCollapsed="/img/shell/tree_icon_shelf.png" id="shelf">
                     <ui:include src="/includes/contextMenu/CMForShelf.xhtml">
                         <ui:param name="shelf" value="#{treeNode}" />
+                        <ui:param name="target" value="shelf" />
                     </ui:include>
                     <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
                         <h:outputText value="#{treeNode.name}" />
@@ -135,9 +136,10 @@
 
                 <rich:treeModelAdaptor var="album" nodes="#{treeNode.albums}">
                     <rich:treeNode style="cursor:pointer" render="mainArea, treePanel" selectedClass="tree-selected-node"
-                        iconLeaf="img/shell/tree_icon_album.png">
+                        iconLeaf="img/shell/tree_icon_album.png" id="album">
                         <ui:include src="/includes/contextMenu/CMForAlbum.xhtml">
                             <ui:param name="album" value="#{treeNode}" />
+                            <ui:param name="target" value="album" />
                         </ui:include>
                         <!-- <rich:dndParam name="label" type="drag" value="#{album.name}" /> -->
                         <!-- not supported in RF 4 -->
