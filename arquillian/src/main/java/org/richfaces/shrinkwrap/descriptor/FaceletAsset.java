@@ -67,7 +67,7 @@ public class FaceletAsset implements Asset {
         return this;
     }
 
-    public FaceletAsset body(String... bodies) {
+    public FaceletAsset body(Object... bodies) {
         for (Object body : bodies) {
             this.body.append(body);
             this.body.append('\n');
@@ -75,7 +75,7 @@ public class FaceletAsset implements Asset {
         return this;
     }
 
-    public FaceletAsset form(String... forms) {
+    public FaceletAsset form(Object... forms) {
         for (Object form : forms) {
             this.form.append(form);
             this.form.append('\n');
