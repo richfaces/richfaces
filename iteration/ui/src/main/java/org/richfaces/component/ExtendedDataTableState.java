@@ -21,6 +21,8 @@
  */
 package org.richfaces.component;
 
+import org.richfaces.json.JSONArray;
+import org.richfaces.json.JSONCollection;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONMap;
 import org.richfaces.json.JSONObject;
@@ -30,10 +32,10 @@ import org.richfaces.json.JSONWriter;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
- *
  */
 public class ExtendedDataTableState implements Serializable {
 
@@ -41,9 +43,10 @@ public class ExtendedDataTableState implements Serializable {
 
     public static final String NONE_COLUMN_ID = "none";
 
-    protected ColumnsWidthState columnsWidthState;
+    protected ColumnsWidth columnsWidthState;
+    protected ColumnsOrder columnsOrderState;
 
-    public static ExtendedDataTableState getExtendedDataTableState(AbstractExtendedDataTable extendedDataTable){
+    public static ExtendedDataTableState getExtendedDataTableState(UIDataTableBase extendedDataTable) {
         ExtendedDataTableState state = new ExtendedDataTableState();
         state.init(extendedDataTable);
         return state;
@@ -52,10 +55,10 @@ public class ExtendedDataTableState implements Serializable {
     /**
      * Initialize with the state of the associated ExtendedDataTable
      */
-    protected void init(AbstractExtendedDataTable extendedDataTable){
-        String tableState = extendedDataTable.getTableState();
+    protected void init(UIDataTableBase extendedDataTable) {
+        String tableState = (String) extendedDataTable.getAttributes().get("tableState");
         JSONMap stateMap = null;
-        if ((tableState != null) && (tableState.length() > 0)){
+        if ((tableState != null) && (tableState.length() > 0)) {
             try {
                 stateMap = new JSONMap(tableState);
             } catch (JSONException e) {
@@ -63,25 +66,22 @@ public class ExtendedDataTableState implements Serializable {
             }
         }
         //initialize columns width
-        try{
-            columnsWidthState = ColumnsWidthState.createColumnsWidthState(extendedDataTable, (stateMap == null ? null : (JSONMap) stateMap.get("columnsWidthState")));
-        }
-        catch(Exception e){
-            columnsWidthState = ColumnsWidthState.createColumnsWidthState(extendedDataTable, (JSONMap) null);
-        }
+        columnsWidthState = ColumnsWidth.createColumnsWidthState(extendedDataTable, (stateMap == null ? null : (JSONMap) stateMap.get("columnsWidthState")));
+        columnsOrderState = ColumnsOrder.createColumnsOrderState(extendedDataTable, (stateMap == null ? null : (JSONCollection) stateMap.get("columnsOrderState")));
     }
 
     /**
      * Converts its state to String representation in JSON format.
      */
-    public String toString(){
+    public String toString() {
         return toJSON().toString();
     }
 
-    public JSONObject toJSON(){
+    public JSONObject toJSON() {
         JSONObject result = new JSONObject();
         try {
             result.put("columnsWidthState", columnsWidthState.toJSON());
+            result.put("columnsOrderState", columnsOrderState.toJSON());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -89,14 +89,22 @@ public class ExtendedDataTableState implements Serializable {
     }
 
     /*
-     * @see ColumnsWidthState#getColumnWidth(UIComponent)
+     * @see ColumnsWidth#getColumnWidth(UIComponent)
      */
     public String getColumnWidth(UIComponent column) {
         return columnsWidthState.getColumnWidth(column);
     }
+
+    /*
+     * @see ColumnsOrder#getColumnsOrder(UIComponent)
+     */
+    public String[] getColumnsOrder() {
+        return columnsOrderState.getColumnsOrder();
+    }
+
 }
 
-class ColumnsWidthState implements Serializable{
+class ColumnsWidth implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -104,13 +112,18 @@ class ColumnsWidthState implements Serializable{
 
     private JSONObject json;
 
-    private ColumnsWidthState() {
+    private ColumnsWidth() {
         super();
     }
 
-    static ColumnsWidthState createColumnsWidthState(AbstractExtendedDataTable extendedDataTable, JSONMap state){
-        ColumnsWidthState columnsWidth = new ColumnsWidthState();
-        columnsWidth.init(extendedDataTable, state);
+    static ColumnsWidth createColumnsWidthState(UIDataTableBase extendedDataTable, JSONMap state) {
+        ColumnsWidth columnsWidth = new ColumnsWidth();
+        try {
+            columnsWidth.init(extendedDataTable, state);
+        } catch ( Exception e) {
+            columnsWidth = new ColumnsWidth();
+            columnsWidth.init(extendedDataTable, null);
+        }
         return columnsWidth;
     }
 
@@ -118,12 +131,12 @@ class ColumnsWidthState implements Serializable{
      * Return the width of the given column.  The return value of the width is determined according to the precedence:
      * 1) the column width stored in the table state if it is not null
      * 2) the width attribute of the column if that is not null
-     * 3) a default value of DEFAULT_WIDTH
+     * 3) a default json of DEFAULT_WIDTH
      *
      * @param column
-     * @return the width of the column.  Returns a default value of DEFAULT_WIDTH if no width is set.
+     * @return the width of the column.  Returns a default json of DEFAULT_WIDTH if no width is set.
      */
-    public String getColumnWidth(UIComponent column){
+    public String getColumnWidth(UIComponent column) {
         String width = null;
         if (json != null) {
             width = (String) json.opt(column.getId());
@@ -140,17 +153,18 @@ class ColumnsWidthState implements Serializable{
 
     /**
      * Get state in JSON format.
+     *
      * @return JSON object contains state
      */
-    public JSONMap toJSON(){
+    public JSONMap toJSON() {
         return new JSONMap(json);
     }
 
     /**
      * Converts its state to String representation in JSON format.
      */
-    public String toString(){
-        if (json == null){
+    public String toString() {
+        if (json == null) {
             return "";
         }
         return json.toString();
@@ -159,13 +173,13 @@ class ColumnsWidthState implements Serializable{
     /**
      * Converts its state from String representation or create default state if it is not set.
      */
-    private void init(AbstractExtendedDataTable extendedDataTable, JSONMap state){
+    private void init(UIDataTableBase extendedDataTable, JSONMap state) {
         json = null;
-        if ((state != null) && (state.size()>0)){
+        if ((state != null) && (state.size()>0)) {
             json = new JSONObject(state);
         }
 
-        if (json == null){
+        if (json == null) {
             try {
                 JSONWriter writer = new JSONStringer().object();
                 for (UIComponent child : extendedDataTable.getChildren()) {
@@ -177,5 +191,81 @@ class ColumnsWidthState implements Serializable{
                 e.printStackTrace();
             }
         }
+    }
+}
+
+class ColumnsOrder implements Serializable {
+
+    private static final long serialVersionUID = 1;
+
+    private JSONArray json;
+
+    private ColumnsOrder() {
+        super();
+    }
+
+    static ColumnsOrder createColumnsOrderState(UIDataTableBase extendedDataTable, JSONCollection collection) {
+        ColumnsOrder columnsOrder = new ColumnsOrder();
+        columnsOrder.init(extendedDataTable, collection);
+        return columnsOrder;
+    }
+
+    /**
+     * Converts the state from String representation or create default state if it is not set.
+     */
+    private void init(UIDataTableBase extendedDataTable, JSONCollection collection) {
+        json = null;
+        if ((collection != null) && (collection.size() > 0)) {
+            //try to restore state from collection
+            json = new JSONArray(collection);
+        }
+        String[] columnsOrder = (String[]) extendedDataTable.getAttributes().get("columnsOrder");
+        if (columnsOrder != null) {
+            json = new JSONArray(Arrays.asList(columnsOrder));
+        }
+
+        if (json == null) {
+            json = new JSONArray();
+            for (UIComponent child : extendedDataTable.getChildren()) {
+                UIColumn col = (UIColumn) child;
+                json.put(col.getId());
+            }
+        }
+    }
+
+    /**
+     * Return the order of the columns.  The column order is determined according to the precedence:
+     * 1) the column order stored in the table state if it is not null
+     * 2) the columnsOrder attribute of the table if that is not null
+     * 3) the order of the columns in the component tree
+     *
+     * @return a String array representing the order of the columns by id.
+     */
+    public String[] getColumnsOrder() {
+        String[] columnsOrder = new String[json.length()];
+        for (int i = 0; i < json.length(); i++) {
+            String columnId = (String) json.opt(i);
+            columnsOrder[i] = columnId;
+        }
+        return columnsOrder;
+    }
+
+    /**
+     * Get state in JSON format.
+     *
+     * @return JSON object contains state
+     */
+    public JSONArray toJSON() {
+        return json;
+    }
+
+    /**
+     * Converts its state to String representation in JSON format.
+     */
+    public String toString() {
+        if (json == null) {
+            return "";
+        }
+        return json.toString();
     }
 }

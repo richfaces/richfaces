@@ -49,8 +49,17 @@ public class TestTableState {
     @Test
     public void set_width_using_table_state() {
         browser.get(contextPath.toExternalForm());
+        // assert the columns widths (selectors are independent of the column order)
         Assert.assertEquals("210px", firstRow.findElement(By.cssSelector("td .rf-edt-c-column1")).getCssValue("width"));
+        Assert.assertEquals("75px", firstRow.findElement(By.cssSelector("td .rf-edt-c-column2")).getCssValue("width"));
     }
+
+    @Test
+    public void set_order_using_table_state() {
+        browser.get(contextPath.toExternalForm());
+        Assert.assertEquals("0", firstRow.findElement(By.cssSelector("td")).getText());
+    }
+
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
@@ -58,11 +67,15 @@ public class TestTableState {
         p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='myForm'>");
-        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBean.values}' var='bean' tableState='#{iterationBean.state}'>");
-        p.body("        <rich:column id='column1' width='200px'>");
+        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBean.values}' var='bean' ");
+        p.body("            columnsOrder='#{iterationBean.columnsOrder}'");
+        p.body("            tableState='#{iterationBean.state}'>");
+        p.body("        <rich:column id='column1' width='50px'>");
+        p.body("            <f:facet name='header'>Text</f:facet>");
         p.body("            <h:outputText value='Bean:' />");
         p.body("        </rich:column>");
-        p.body("        <rich:column id='column2'>");
+        p.body("        <rich:column id='column2' width='50px'>");
+        p.body("            <f:facet name='header'>Value</f:facet>");
         p.body("            <h:outputText value='#{bean}' />");
         p.body("        </rich:column>");
         p.body("    </rich:extendedDataTable>");

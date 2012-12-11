@@ -117,28 +117,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         public RendererState(FacesContext context, UIDataTableBase table) {
             super(context);
             this.table = table;
-            List<UIComponent> frozenColumns;
-            List<UIComponent> columns;
-            columns = new ArrayList<UIComponent>();
-            Iterator<UIComponent> iterator = table.columns();
-            Map<String, UIComponent> columnsMap = new LinkedHashMap<String, UIComponent>();
-            for (; iterator.hasNext();) {
-                UIComponent component = iterator.next();
-                if (component.isRendered()) {
-                    columnsMap.put(component.getId(), component);
-                }
-            }
-            String[] columnsOrder = (String[]) table.getAttributes().get("columnsOrder");
-            if (columnsOrder != null && columnsOrder.length > 0) {
-                int i = 0;
-                for (; i < columnsOrder.length && !columnsMap.isEmpty(); i++) {
-                    columns.add(columnsMap.remove(columnsOrder[i]));
-                }
-            }
-            iterator = columnsMap.values().iterator();
-            for (; iterator.hasNext();) {
-                columns.add(iterator.next());
-            }
+
+            List<UIComponent> columns = getOrderedColumns();
 
             int frozenColumnsAttribute = (Integer) table.getAttributes().get("frozenColumns");
             if (frozenColumnsAttribute < 0) {
@@ -146,7 +126,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             }
 
             int count = Math.min(frozenColumnsAttribute, columns.size());
-            frozenColumns = columns.subList(0, count);
+            List<UIComponent> frozenColumns = columns.subList(0, count);
             columns = columns.subList(count, columns.size());
             parts = new ArrayList<Part>(PartName.values().length);
             if (frozenColumns.size() > 0) {
@@ -155,6 +135,32 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             if (columns.size() > 0) {
                 parts.add(new Part(PartName.normal, columns));
             }
+        }
+
+        private List<UIComponent> getOrderedColumns() {
+            Map<String, UIComponent> columnsMap = new LinkedHashMap<String, UIComponent>();
+            Iterator<UIComponent> iterator = table.columns();
+            while (iterator.hasNext()) { // initialize a map of all the columns
+                UIComponent component = iterator.next();
+                if (component.isRendered()) {
+                    columnsMap.put(component.getId(), component);
+                }
+            }
+
+            List<UIComponent> columns = new ArrayList<UIComponent>();
+
+            ExtendedDataTableState tableState = ExtendedDataTableState.getExtendedDataTableState(table);
+            String[] columnsOrder = tableState.getColumnsOrder();
+            if (columnsOrder != null && columnsOrder.length > 0) { // add columns in the order specified by columnsOrder
+                for (int i = 0; i < columnsOrder.length && !columnsMap.isEmpty(); i++) {
+                    columns.add(columnsMap.remove(columnsOrder[i]));
+                }
+            }
+            for (UIComponent column : columnsMap.values()) { // add the remaining columns
+                columns.add(column);
+            }
+
+            return columns;
         }
 
         public UIDataTableBase getRow() {

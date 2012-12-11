@@ -34,13 +34,15 @@ import java.util.List;
 public class IterationBean {
     public List<String> values;
     public String state;
+    public String[] columnsOrder = null; //{"column2", "column1"};
 
     public IterationBean() {
         values = new ArrayList<String>(10);
         for (int i = 0; i < 10; i++) {
             values.add(String.valueOf(i));
         }
-        state = "{'columnsWidthState':{'column1':'210px','column2':'100'}}";
+        state = "{'columnsOrderState':['column2','column1']," +
+                " 'columnsWidthState':{'column1':'210px','column2':'75px'}}";
     }
 
     public List<String> getValues() {
@@ -49,5 +51,9 @@ public class IterationBean {
 
     public String getState() {
         return state;
+    }
+
+    public String[] getColumnsOrder() {
+        return columnsOrder;
     }
 }
