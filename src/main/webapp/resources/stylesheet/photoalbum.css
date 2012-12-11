@@ -153,10 +153,7 @@ html,body {
 }
 
 /*.avatarUpload .rich-fileupload-button*/
-.avatarUpload .rf-fu-btn-add,
-.avatarUpload .rf-fu-btn-upl,
-.avatarUpload .rf-fu-btn-clr
-{
+.avatarUpload .rf-fu-btn-add,.avatarUpload .rf-fu-btn-upl,.avatarUpload .rf-fu-btn-clr {
     padding: 0px !important;
     background: #B34801 !important;
     border: 1px solid #888888 !important;
@@ -911,7 +908,7 @@ h1 {
 }
 
 .shelf-header-table {
-    border-collapse: collapse!important ;
+    border-collapse: collapse !important;
     margin-bottom: 15px !important;
 }
 
@@ -1017,7 +1014,7 @@ h1 {
     position: absolute;
     top: 0px;
     left: 0px;
-    border: 0px !important; 
+    border: 0px !important;
 }
 
 .buttons-body-text-div {
@@ -1143,7 +1140,6 @@ h1 {
 }
 
 /* RF specific styles                   */
-
 .rf-tab-cnt {
     border: none !important;
     background: none !important;
@@ -1376,7 +1372,6 @@ h1 {
 
 .rf-ind-acpt .rf-p {
     background-color: #093;
-    
 }
 
 .rf-ind-rejt .rf-p {
@@ -1384,9 +1379,17 @@ h1 {
 }
 
 /* tree */
-.rf-trn, .rf-tr-nd {
-    background: none !important; 
+.rf-trn,.rf-tr-nd {
+    background: none !important;
     /* don't show connecting lines in the tree */
+}
+
+.rf-trn {
+    overflow: visible !important;
+}
+
+.rf-trn-cnt {
+    width: 80% !important;
 }
 
 .rf-trn-ico {
@@ -1397,11 +1400,11 @@ h1 {
 }
 
 .rf-trn-hnd-colps {
-    background: url(/richfaces-photoalbum/img/shell/tree_icon_plus.png) no-repeat center !important; 
+    background: url(/richfaces-photoalbum/img/shell/tree_icon_plus.png) no-repeat center !important;
 }
 
 .rf-trn-hnd-exp {
-    background: url(/richfaces-photoalbum/img/shell/tree_icon_minus.png) no-repeat center !important;   
+    background: url(/richfaces-photoalbum/img/shell/tree_icon_minus.png) no-repeat center !important;
 }
 
 .rf-trn-lbl:hover {
