@@ -35,6 +35,7 @@ import javax.faces.context.FacesContext;
 import org.easymock.IAnswer;
 import org.easymock.classextension.EasyMock;
 import org.jboss.test.faces.AbstractFacesTest;
+import org.jboss.test.faces.mock.FacesMock;
 
 /**
  * @author Nick Belaevski
@@ -153,7 +154,7 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         Date afterBaseDate = new Date(baseDate.getTime() + MILLISECONDS_IN_HOUR);
 
         this.connection
-            .addRequestHeaders(Collections.singletonMap("If-Modified-Since", RFC1123_DATE_FORMATTER.format(baseDate)));
+                .addRequestHeaders(Collections.singletonMap("If-Modified-Since", RFC1123_DATE_FORMATTER.format(baseDate)));
 
         MockAbstractResource defaultResource = new MockAbstractResource();
 
@@ -174,8 +175,8 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         BooleanAnswer tagMatches = new BooleanAnswer();
         BooleanAnswer lastModifiedMatches = new BooleanAnswer();
         BooleanAnswer cacheable = new BooleanAnswer();
-        AbstractCacheableResource resource = EasyMock.createNiceMock(AbstractTestResource.class,
-            AbstractTestResource.class.getDeclaredMethods());
+        AbstractCacheableResource resource = FacesMock.createControl().createMock(AbstractTestResource.class,
+                AbstractTestResource.class.getDeclaredMethods());
 
         EasyMock.expect(resource.isCacheable(facesContext)).andStubAnswer(cacheable);
 
@@ -222,7 +223,7 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         assertTrue(resource.userAgentNeedsUpdate(facesContext));
     }
 
-    private abstract static class AbstractTestResource extends AbstractCacheableResource {
+    public abstract static class AbstractTestResource extends AbstractCacheableResource {
         @Override
         public String toString() {
             return "mock";
