@@ -3,8 +3,6 @@ package org.richfaces.photoalbum.bean;
 import java.io.Serializable;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -76,7 +74,6 @@ public class UserBean implements Serializable {
 
     @Produces
     @Preferred
-    //@RequestScoped
     public User getUser() {
         if (!logged) {
             return null;

@@ -8,20 +8,17 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.logging.Logger;
 import org.jboss.solder.beanManager.BeanManagerLocator;
 import org.richfaces.photoalbum.bean.UserBean;
 import org.richfaces.photoalbum.domain.Shelf;
-import org.richfaces.photoalbum.domain.User;
 
 @Named
 @ApplicationScoped
 @FacesConverter("shelfConverter")
 public class ShelfConverter implements Converter {
-    
+
     private BeanManager getBeanManager() {
         return new BeanManagerLocator().getBeanManager();
     }
@@ -32,20 +29,24 @@ public class ShelfConverter implements Converter {
         Bean<UserBean> bean = (Bean<UserBean>) bm.getBeans(UserBean.class).iterator().next();
         CreationalContext<UserBean> ctx = bm.createCreationalContext(bean);
         UserBean userBean = (UserBean) bm.getReference(bean, UserBean.class, ctx); // this could be inlined, but intentionally left this way
-        
-        
+
+
         for(Shelf s : userBean.getUser().getShelves()) {
-            if (s.getName().equals(value)) return s;
+            if (s.getName().equals(value)) {
+                return s;
+            }
         }
-        
+
         return new Shelf();
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value == null) return "";
-        
+        if (value == null) {
+            return "";
+        }
+
         return ((Shelf) value).getName();
     }
-    
+
 }
