@@ -219,11 +219,12 @@ class ColumnsOrder implements Serializable {
             //try to restore state from collection
             json = new JSONArray(collection);
         }
-        String[] columnsOrder = (String[]) extendedDataTable.getAttributes().get("columnsOrder");
-        if (columnsOrder != null) {
-            json = new JSONArray(Arrays.asList(columnsOrder));
+        if (json == null) {
+            String[] columnsOrder = (String[]) extendedDataTable.getAttributes().get("columnsOrder");
+            if (columnsOrder != null) {
+                json = new JSONArray(Arrays.asList(columnsOrder));
+            }
         }
-
         if (json == null) {
             json = new JSONArray();
             for (UIComponent child : extendedDataTable.getChildren()) {

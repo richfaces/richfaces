@@ -21,20 +21,20 @@
  **/
 package org.richfaces.component.extendedDataTable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@ManagedBean
 @RequestScoped
+@Named
 public class IterationBean {
-    public List<String> values;
-    public String state;
-    public String[] columnsOrder = null; //{"column2", "column1"};
+    private List<String> values;
+    private String state;
+    private String[] columnsOrder = null; //{"column1", "column2"};
 
     public IterationBean() {
         values = new ArrayList<String>(10);

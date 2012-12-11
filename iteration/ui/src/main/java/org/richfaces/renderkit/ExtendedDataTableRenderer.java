@@ -780,6 +780,9 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 id = column.getId();
             }
             String width = tableState.getColumnWidth(column);
+            if (! width.equals(column.getAttributes().get("width"))) {
+                updateAttribute(context, column, "width", width);
+            }
             sb.append(".rf-edt-c-" + id + " {"); // TODO getNormalizedId(context,
             sb.append("width: " + width + ";");
             sb.append("}");
@@ -857,6 +860,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         writer.endElement(HtmlConstants.TR_ELEMENT);
     }
 
+    @Override
     protected void doDecode(FacesContext context, UIComponent component) {
         super.doDecode(context, component);
         Map<String, String> map = context.getExternalContext().getRequestParameterMap();
@@ -870,8 +874,15 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
         decodeSortingFiltering(context, component);
 
-        ExtendedDataTableState tableState = ExtendedDataTableState.getExtendedDataTableState((AbstractExtendedDataTable) component);
-        updateAttribute(context, component, "tableState", tableState.toString());
+        String oldTableState = (String) component.getAttributes().get("tableState");
+        try {
+            updateAttribute(context, component, "tableState", "");
+            ExtendedDataTableState tableState = ExtendedDataTableState.getExtendedDataTableState((AbstractExtendedDataTable) component);
+            updateAttribute(context, component, "tableState", tableState.toString());
+        } catch (Exception e) {
+            updateAttribute(context, component, "tableState", oldTableState);
+            throw new RuntimeException(e);
+        }
     }
 
     private void updateWidthOfColumns(FacesContext context, UIComponent component, String widthString) {

@@ -7,6 +7,8 @@ import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.richfaces.deployment.Deployment;
 
+import java.io.File;
+
 public class IterationDeployment extends Deployment {
 
     public IterationDeployment(Class<?> testClass) {
@@ -26,6 +28,7 @@ public class IterationDeployment extends Deployment {
                 .importDirectory("target/classes/").as(GenericArchive.class),
                 "/", Filters.includeAll());
         archive().addAsLibrary(iteration);
+        archive().addAsWebInfResource(new File("src/test/resources/beans.xml"));
         
     }
 }
