@@ -48,6 +48,6 @@ public abstract class SessionTopicEvent extends TopicEvent {
 
     @Override
     public boolean isAppropriateListener(EventListener listener) {
-        return (listener instanceof SessionTopicListener);
+        return (listener instanceof SessionTopicListener2) || (listener instanceof SessionTopicListener);
     }
 }
