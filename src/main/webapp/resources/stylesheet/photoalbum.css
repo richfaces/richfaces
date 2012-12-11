@@ -1382,3 +1382,29 @@ h1 {
 .rf-ind-rejt .rf-p {
     background-color: #C33;
 }
+
+/* tree */
+.rf-trn, .rf-tr-nd {
+    background: none !important; 
+    /* don't show connecting lines in the tree */
+}
+
+.rf-trn-ico {
+    width: auto !important;
+    height: auto !important;
+    cursor: hand !important;
+    display: inline-block;
+}
+
+.rf-trn-hnd-colps {
+    background: url(/richfaces-photoalbum/img/shell/tree_icon_plus.png) no-repeat center !important; 
+}
+
+.rf-trn-hnd-exp {
+    background: url(/richfaces-photoalbum/img/shell/tree_icon_minus.png) no-repeat center !important;   
+}
+
+.rf-trn-lbl:hover {
+    text-decoration: underline;
+    color: #FF7D2A;
+}

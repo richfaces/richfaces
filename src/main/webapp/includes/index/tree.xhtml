@@ -39,10 +39,8 @@
             </f:facet> -->
 
             <rich:treeModelAdaptor nodes="#{shelfManager.predefinedShelves}">
-                <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node">
-                    <!-- <f:facet name="icon">
-                        <h:graphicImage style="border: none" value="/img/shell/tree_icon_shelf.png" />
-                    </f:facet> -->
+                <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
+                    iconCollapsed="img/shell/tree_icon_shelf.png" iconExpanded="img/shell/tree_icon_shelf.png">
                     <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
                         <h:outputText value="#{treeNode.name}" />
                         <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" value=" :: " />
@@ -58,7 +56,7 @@
 
                 <rich:treeModelAdaptor var="album" nodes="#{treeNode.albums}">
                     <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
-                        icon="img/shell/tree_icon_album.png">
+                        iconLeaf="img/shell/tree_icon_album.png">
                         <!-- <f:facet name="iconLeaf">
                             <h:graphicImage style="border: none" value="img/shell/tree_icon_album.png" />
                         </f:facet>-->
@@ -113,10 +111,8 @@
         <rich:tree ajaxSubmitSelection="false" dragIndicator="dragIndicator" var="treeNode" toggleType="client"
             dropListener="#{dndManager.processDrop}">
             <rich:treeModelAdaptor nodes="#{userBean.user.shelves}" var="shelf">
-                <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node">
-                    <!-- <f:facet name="icon">
-                        <h:graphicImage style="border: none" value="/img/shell/tree_icon_shelf.png" />
-                    </f:facet> -->
+                <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
+                    iconExpanded="/img/shell/tree_icon_shelf.png" iconCollapsed="/img/shell/tree_icon_shelf.png">
                     <ui:include src="/includes/contextMenu/CMForShelf.xhtml">
                         <ui:param name="shelf" value="#{treeNode}" />
                     </ui:include>
@@ -139,10 +135,7 @@
 
                 <rich:treeModelAdaptor var="album" nodes="#{treeNode.albums}">
                     <rich:treeNode style="cursor:pointer" render="mainArea, treePanel" selectedClass="tree-selected-node"
-                        icon="img/shell/tree_icon_album.png">
-                        <!-- <f:facet name="iconLeaf">
-                            <h:graphicImage style="border: none" value="img/shell/tree_icon_album.png" />
-                        </f:facet> -->
+                        iconLeaf="img/shell/tree_icon_album.png">
                         <ui:include src="/includes/contextMenu/CMForAlbum.xhtml">
                             <ui:param name="album" value="#{treeNode}" />
                         </ui:include>
@@ -150,7 +143,7 @@
                         <!-- not supported in RF 4 -->
                         <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
                             <h:outputText value="#{treeNode.name}" />
-                            <h:outputText value=" :: " />
+                            <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" value=" :: " />
                             <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" styleClass="bold"
                                 value="#{fn:length(treeNode.unvisitedImages)}" />
                             <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}" value=" #{messages['new']}" />
