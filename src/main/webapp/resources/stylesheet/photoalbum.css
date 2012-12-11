@@ -1411,3 +1411,7 @@ h1 {
     text-decoration: underline;
     color: #FF7D2A;
 }
+
+.rf-trn-sel {
+    font-weight: bold;
+}
