@@ -114,7 +114,7 @@ public class TestTableState {
             public void verify_bean_executed() {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 AbstractExtendedDataTable edtComponent = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("myForm").findComponent("edt");
-                ExtendedDataTableState tableState = ExtendedDataTableState.getExtendedDataTableState(edtComponent);
+                ExtendedDataTableState tableState = new ExtendedDataTableState(edtComponent);
                 String[] expectedOrder = {"column1", "column2"};
                 Assert.assertArrayEquals(expectedOrder, tableState.getColumnsOrder());
             }

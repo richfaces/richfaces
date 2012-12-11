@@ -54,6 +54,7 @@ import org.ajax4jsf.model.SequenceRange;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.ExtendedDataTableState;
+import org.richfaces.component.UIColumn;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.OnOffResponseWriter;
@@ -149,8 +150,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
             List<UIComponent> columns = new ArrayList<UIComponent>();
 
-            ExtendedDataTableState tableState = ExtendedDataTableState.getExtendedDataTableState(table);
-            String[] columnsOrder = tableState.getColumnsOrder();
+            String[] columnsOrder = (String[]) table.getAttributes().get("columnsOrder");
             if (columnsOrder != null && columnsOrder.length > 0) { // add columns in the order specified by columnsOrder
                 for (int i = 0; i < columnsOrder.length && !columnsMap.isEmpty(); i++) {
                     columns.add(columnsMap.remove(columnsOrder[i]));
@@ -643,6 +643,12 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
     }
 
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        String savedTableState = (String) component.getAttributes().get("tableState");
+        if (savedTableState != null && !savedTableState.isEmpty()) { // retrieve table state
+            ExtendedDataTableState tableState = new ExtendedDataTableState(savedTableState);
+            consumeTableState(context, (UIDataTableBase) component, tableState);
+        }
+
         Map<String, Object> attributes = component.getAttributes();
         writer.startElement(HtmlConstants.DIV_ELEM, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context), null);
@@ -771,18 +777,14 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         sb.append("div.rf-edt-cnt { width: 100%; }"); // TODO getNormalizedId(context, state.getGrid())
 
         Iterator<UIComponent> columns = table.columns();
-        ExtendedDataTableState tableState = ExtendedDataTableState.getExtendedDataTableState((AbstractExtendedDataTable) table);
         while (columns.hasNext()) {
-            UIComponent column = (UIComponent) columns.next();
+            UIComponent column = columns.next();
             String id = column.getId();
             if (id == null) {
                 column.getClientId(context); // hack initialize id
                 id = column.getId();
             }
-            String width = tableState.getColumnWidth(column);
-            if (! width.equals(column.getAttributes().get("width"))) {
-                updateAttribute(context, column, "width", width);
-            }
+            String width = getColumnWidth(column);
             sb.append(".rf-edt-c-" + id + " {"); // TODO getNormalizedId(context,
             sb.append("width: " + width + ";");
             sb.append("}");
@@ -874,15 +876,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
         decodeSortingFiltering(context, component);
 
-        String oldTableState = (String) component.getAttributes().get("tableState");
-        try {
-            updateAttribute(context, component, "tableState", "");
-            ExtendedDataTableState tableState = ExtendedDataTableState.getExtendedDataTableState((AbstractExtendedDataTable) component);
-            updateAttribute(context, component, "tableState", tableState.toString());
-        } catch (Exception e) {
-            updateAttribute(context, component, "tableState", oldTableState);
-            throw new RuntimeException(e);
-        }
+        ExtendedDataTableState tableState = new ExtendedDataTableState((UIDataTableBase) component);
+        updateAttribute(context, component, "tableState", tableState.toString());
     }
 
     private void updateWidthOfColumns(FacesContext context, UIComponent component, String widthString) {
@@ -914,5 +909,37 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     .add(component.getClientId(context) + "@" + AbstractExtendedDataTable.SCROLL);
             }
         }
+    }
+
+    public void consumeTableState(FacesContext facesContext, UIDataTableBase table, ExtendedDataTableState tableState) {
+        Iterator<UIComponent> columns = table.columns();
+        while (columns.hasNext()) {
+            UIComponent component = columns.next();
+            if (component instanceof UIColumn) {
+                UIColumn column = (UIColumn) component;
+                String width = tableState.getColumnWidth(column);
+                if (width != null && ! width.equals(column.getWidth())) {
+                    updateAttribute(facesContext, column, "width", width);
+                }
+            }
+        }
+        String[] columnsOrder = tableState.getColumnsOrder();
+        if (columnsOrder != null) {
+            updateAttribute(facesContext, table, "columnsOrder", columnsOrder);
+        }
+    }
+
+
+    /**
+     * @deprecated TODO Remove this method when width in relative units in columns will be implemented.
+     * @param column
+     * @return width
+     */
+    private String getColumnWidth(UIComponent column) {
+        String width = (String) column.getAttributes().get("width");
+        if (width == null || width.length() == 0 || width.indexOf("%") != -1) {
+            width = "100px";
+        }
+        return width;
     }
 }

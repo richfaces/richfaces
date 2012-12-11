@@ -41,33 +41,38 @@ public class ExtendedDataTableState implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String NONE_COLUMN_ID = "none";
-
     protected ColumnsWidth columnsWidthState;
     protected ColumnsOrder columnsOrderState;
 
-    public static ExtendedDataTableState getExtendedDataTableState(UIDataTableBase extendedDataTable) {
-        ExtendedDataTableState state = new ExtendedDataTableState();
-        state.init(extendedDataTable);
-        return state;
+    public ExtendedDataTableState(UIDataTableBase extendedDataTable) {
+        columnsWidthState = new ColumnsWidth(extendedDataTable);
+        columnsOrderState = new ColumnsOrder(extendedDataTable);
     }
 
-    /**
-     * Initialize with the state of the associated ExtendedDataTable
-     */
-    protected void init(UIDataTableBase extendedDataTable) {
-        String tableState = (String) extendedDataTable.getAttributes().get("tableState");
-        JSONMap stateMap = null;
+    public ExtendedDataTableState(String tableState) {
+        JSONMap json = null;
         if ((tableState != null) && (tableState.length() > 0)) {
             try {
-                stateMap = new JSONMap(tableState);
+                json = new JSONMap(tableState);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        //initialize columns width
-        columnsWidthState = ColumnsWidth.createColumnsWidthState(extendedDataTable, (stateMap == null ? null : (JSONMap) stateMap.get("columnsWidthState")));
-        columnsOrderState = ColumnsOrder.createColumnsOrderState(extendedDataTable, (stateMap == null ? null : (JSONCollection) stateMap.get("columnsOrderState")));
+        if (json != null) {
+            columnsWidthState = new ColumnsWidth((JSONMap) json.get("columnsWidthState"));
+            columnsOrderState = new ColumnsOrder((JSONCollection) json.get("columnsOrderState"));
+        }
+    }
+
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("columnsWidthState", columnsWidthState.toJSON());
+            json.put("columnsOrderState", columnsOrderState.toJSON());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 
     /**
@@ -75,17 +80,6 @@ public class ExtendedDataTableState implements Serializable {
      */
     public String toString() {
         return toJSON().toString();
-    }
-
-    public JSONObject toJSON() {
-        JSONObject result = new JSONObject();
-        try {
-            result.put("columnsWidthState", columnsWidthState.toJSON());
-            result.put("columnsOrderState", columnsOrderState.toJSON());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return result;
     }
 
     /*
@@ -108,44 +102,45 @@ class ColumnsWidth implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String DEFAULT_WIDTH = "100px";
-
     private JSONObject json;
 
-    private ColumnsWidth() {
-        super();
-    }
-
-    static ColumnsWidth createColumnsWidthState(UIDataTableBase extendedDataTable, JSONMap state) {
-        ColumnsWidth columnsWidth = new ColumnsWidth();
+    /**
+     * Initialize state from an extendedDataTable
+     */
+    ColumnsWidth (UIDataTableBase extendedDataTable) {
         try {
-            columnsWidth.init(extendedDataTable, state);
-        } catch ( Exception e) {
-            columnsWidth = new ColumnsWidth();
-            columnsWidth.init(extendedDataTable, null);
+            JSONWriter writer = new JSONStringer().object();
+            for (UIComponent child : extendedDataTable.getChildren()) {
+                UIColumn col = (UIColumn) child;
+                writer.key(col.getId()).value(getColumnWidth(col));
+            }
+            json = new JSONObject(writer.endObject().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        return columnsWidth;
     }
 
     /**
-     * Return the width of the given column.  The return value of the width is determined according to the precedence:
-     * 1) the column width stored in the table state if it is not null
-     * 2) the width attribute of the column if that is not null
-     * 3) a default json of DEFAULT_WIDTH
-     *
-     * @param column
-     * @return the width of the column.  Returns a default json of DEFAULT_WIDTH if no width is set.
+     * Initialize state from JSON
      */
+    ColumnsWidth (JSONMap json) {
+        if ((json != null) && (json.size() > 0)) {
+            this.json = new JSONObject(json);
+        }
+    }
+        /**
+        * Return the width of the given column, as stored in the json map.
+        *
+        * @param column
+        * @return the width of the column.  Returns null if not defined in the json map
+        */
     public String getColumnWidth(UIComponent column) {
         String width = null;
         if (json != null) {
-            width = (String) json.opt(column.getId());
-        }
-        if (width == null) {
-            width = (String) column.getAttributes().get("width");
-        }
-        if (width == null || width.length() == 0 || width.indexOf("%") != -1) {
-            width = DEFAULT_WIDTH;
+            Object object = json.opt(column.getId());
+            if (object != null) {
+                width = (String) object;
+            }
         }
         return width;
     }
@@ -170,28 +165,6 @@ class ColumnsWidth implements Serializable {
         return json.toString();
     }
 
-    /**
-     * Converts its state from String representation or create default state if it is not set.
-     */
-    private void init(UIDataTableBase extendedDataTable, JSONMap state) {
-        json = null;
-        if ((state != null) && (state.size()>0)) {
-            json = new JSONObject(state);
-        }
-
-        if (json == null) {
-            try {
-                JSONWriter writer = new JSONStringer().object();
-                for (UIComponent child : extendedDataTable.getChildren()) {
-                    UIColumn col = (UIColumn) child;
-                    writer.key(col.getId()).value(getColumnWidth(col));
-                }
-                json = new JSONObject(writer.endObject().toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }
 
 class ColumnsOrder implements Serializable {
@@ -200,37 +173,22 @@ class ColumnsOrder implements Serializable {
 
     private JSONArray json;
 
-    private ColumnsOrder() {
-        super();
-    }
-
-    static ColumnsOrder createColumnsOrderState(UIDataTableBase extendedDataTable, JSONCollection collection) {
-        ColumnsOrder columnsOrder = new ColumnsOrder();
-        columnsOrder.init(extendedDataTable, collection);
-        return columnsOrder;
+    /**
+     * Initialize state from an extendedDataTable
+     */
+    ColumnsOrder (UIDataTableBase extendedDataTable) {
+        String[] columnsOrder = (String[]) extendedDataTable.getAttributes().get("columnsOrder");
+        if (columnsOrder != null) {
+            json = new JSONArray(Arrays.asList(columnsOrder));
+        }
     }
 
     /**
-     * Converts the state from String representation or create default state if it is not set.
+     * Initialize state from JSON
      */
-    private void init(UIDataTableBase extendedDataTable, JSONCollection collection) {
-        json = null;
-        if ((collection != null) && (collection.size() > 0)) {
-            //try to restore state from collection
-            json = new JSONArray(collection);
-        }
-        if (json == null) {
-            String[] columnsOrder = (String[]) extendedDataTable.getAttributes().get("columnsOrder");
-            if (columnsOrder != null) {
-                json = new JSONArray(Arrays.asList(columnsOrder));
-            }
-        }
-        if (json == null) {
-            json = new JSONArray();
-            for (UIComponent child : extendedDataTable.getChildren()) {
-                UIColumn col = (UIColumn) child;
-                json.put(col.getId());
-            }
+    ColumnsOrder (JSONCollection json) {
+        if ((json != null) && (json.size() > 0)) {
+            this.json = new JSONArray(json);
         }
     }
 
