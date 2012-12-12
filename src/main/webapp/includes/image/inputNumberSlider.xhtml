@@ -4,7 +4,7 @@
     xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
     <div>
         <h:panelGrid columns="3" rendered="#{size > 0}">
-            <h:outputText value="Image Dimension:" />
+            <h:outputText value="#{messages['image.image.dimension']}" />
             <rich:inputNumberSlider enableManualInput="false" value="#{imageSizeHelper.value}" minValue="80" maxValue="200"
                 showArrows="false" showBoundaryValues="true" showInput="false" step="40" width="100">
                 <a4j:ajax event="change" render="#{renderArea}" />

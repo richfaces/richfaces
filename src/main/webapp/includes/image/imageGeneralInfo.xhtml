@@ -38,9 +38,9 @@
                         <rich:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip"
                             rendered="#{model.selectedImage.showMetaInfo}">
                             <span style="white-space: nowrap; display: block; text-align: left;"> <h:outputText
-                                    value="Size in bytes: #{model.selectedImage.size}" /> <br /> <h:outputText
+                                    value="#{messages['image.size']} #{model.selectedImage.size}" /> <br /> <h:outputText
                                     value="#{messages['original_size']}: #{model.selectedImage.height}x#{model.selectedImage.width}" /><br />
-                                <h:outputText value="Captured at: #{model.selectedImage.created}" /><br /> <h:outputText
+                                <h:outputText value="#{messages['image.captured']}: #{model.selectedImage.created}" /><br /> <h:outputText
                                     value="#{messages['camera']}: #{model.selectedImage.cameraModel}" />
                             </span>
                         </rich:tooltip>
@@ -61,7 +61,7 @@
             </tr>
             <tr>
                 <td style="vertical-align: bottom;" class="mainImage-table-col3">
-                    <richx:commandButton value="Edit image" rendered="#{controller.isUserImage(model.selectedImage)}"
+                    <richx:commandButton value="#{messages['image.edit']}" rendered="#{controller.isUserImage(model.selectedImage)}"
                         actionListener="#{controller.startEditImage(model.selectedImage)}" render="mainArea" execute="@this" />
                     <richx:commandButton value="#{messages['image.delete']}"
                         actionListener="#{confirmationPopupHelper.initImagePopup(confirmationPopupHelper.deleteImage,messages['image.delete.confirm'],model.selectedImage)}"
@@ -71,16 +71,16 @@
             </tr>
         </table>
     </h:panelGroup>
-    <h:outputText styleClass="additional-info-text" value="Camera: " />
+    <h:outputText styleClass="additional-info-text" value="#{messages['image.camera']} " />
     <h:outputText value="#{model.selectedImage.cameraModel}" />
     <br />
-    <h:outputText styleClass="additional-info-text" value="Captured at: " />
+    <h:outputText styleClass="additional-info-text" value="#{messages['image.captured']} " />
     <h:outputText value="#{model.selectedImage.created}" />
     <br />
     <h:outputText styleClass="additional-info-text" value="#{messages['uploaded']}: " />
     <h:outputText value="#{model.selectedImage.uploaded}" />
     <br />
-    <h:outputText styleClass="additional-info-text" value="Author: " />
+    <h:outputText styleClass="additional-info-text" value="#{messages['image.author']} " />
     <a4j:commandLink actionListener="#{controller.showUser(model.selectedImage.album.owner)}" render="mainArea"
         value="#{model.selectedImage.album.owner.login}" />
     <br />

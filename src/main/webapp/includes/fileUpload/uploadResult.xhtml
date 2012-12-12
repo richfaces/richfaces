@@ -37,7 +37,7 @@
         <!-- not implemented in RF 4 -->
         <h:panelGroup style="padding-left:0px;" layout="block">
             <h:panelGroup style="padding-bottom:7px;" rendered="#{fn:length(fileWrapper.files) > 0}" layout="block">
-                <h:outputText style="padding-left:-4px;" styleClass="bold" value="Successfully downloaded images:" />
+                <h:outputText style="padding-left:-4px;" styleClass="bold" value="#{messages['downloaded_images']}" />
             </h:panelGroup>
             <a4j:repeat id="files" columns="1" value="#{fileWrapper.files}" var="image" rowKeyVar="row">
                 <h:panelGroup layout="block" styleClass="preview_box_photo_120">

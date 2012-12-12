@@ -30,6 +30,6 @@
         </c:forEach>
     </rich:tabPanel>
     <h:panelGroup layout="block" rendered="#{!imageSearchHelper.isResultExist()}">
-        <h:outputText value="No results found" />
+        <h:outputText value="#{messages['no_results_found']}" />
     </h:panelGroup>
 </ui:composition>
