@@ -114,7 +114,9 @@ public abstract class AbstractPlaceholder extends UIOutput {
                 }
             } else {
                 try {
-                    renderer.doEncodeEnd(facesContext.getResponseWriter(), facesContext, component);
+                    if (component.isRendered()) {
+                        renderer.doEncodeEnd(facesContext.getResponseWriter(), facesContext, component);
+                    }
                 } catch (Exception e) {
                     throw new IllegalStateException("Rendering of placeholder before its parent has failed", e);
                 }
