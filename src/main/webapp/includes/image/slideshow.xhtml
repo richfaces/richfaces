@@ -2,7 +2,8 @@
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
     <a4j:region>
-        <rich:popupPanel show="#{slideshow.active}" domElementAttachment="parent" id="slideShowModalPanel" autosized="true">
+        <rich:popupPanel show="#{slideshow.active}" domElementAttachment="parent" id="slideShowModalPanel" autosized="true"
+            onshow="$(#{rich:element('imgSlideShow')}).fadeIn(600);">
             <!-- onshow="showPictureEffect();" -->
             <f:facet name="header">Slideshow panel</f:facet>
             <f:facet name="controls">
@@ -21,7 +22,7 @@
                     <a4j:mediaOutput id="imgSlideShow" element="img" styleClass="main-image"
                         createContent="#{imageLoader.paintImage}"
                         value="#{slideshow.selectedImage != null ? fileManager.transformPath(slideshow.selectedImage.fullPath, '_medium') : null}"
-                        mimeType="image/png">
+                        mimeType="image/png" style="display:none">
                         <!-- was style="opacity: 0.1" -->
                         <rich:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
                             <span style="white-space: nowrap"> #{slideshow.selectedImage.description} </span>
@@ -31,7 +32,7 @@
             </h:panelGrid>
             <a4j:poll id="slideShowPoll" data="#{slideshow.errorDetected}" render="slideshowImage"
                 interval="#{slideshow.interval}" enabled="#{slideshow.active}"
-                oncomplete="if(event.data)#{rich:component('slideShowModalPanel')}.hide();"
+                oncomplete="if(event.data)#{rich:component('slideShowModalPanel')}.hide(); $(#{rich:element('imgSlideShow')}).fadeIn(600);"
                 actionListener="#{slideshow.showNextImage()}" />
             <!-- was oncomplete="...;onshow="showPictureEffect();" onsubmit="hidePictureEffect()" -->
         </rich:popupPanel>
