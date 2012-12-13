@@ -21,28 +21,12 @@
  **/
 package org.richfaces.component.extendedDataTable;
 
-import org.richfaces.component.AbstractExtendedDataTable;
-import org.richfaces.component.ExtendedDataTableStateLoadedEvent;
 import org.richfaces.component.SortOrder;
-import org.richfaces.component.UIColumn;
-import org.richfaces.model.Filter;
 
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.SystemEvent;
-import javax.faces.event.SystemEventListener;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**

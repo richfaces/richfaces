@@ -95,7 +95,6 @@ public class TestTableState {
     public void table_order_server_side() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm());
-        Thread.sleep(200);
         WebElement column1 = header.findElement(By.cssSelector(".rf-edt-hdr-c.rf-edt-c-column1"));
         WebElement column3 = header.findElement(By.cssSelector(".rf-edt-c-column3 .rf-edt-hdr-c-cnt"));
 
