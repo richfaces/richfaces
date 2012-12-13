@@ -235,9 +235,12 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             new ComponentAttribute("onbeforeselectionchange").setEventNames(new String[] { "beforeselectionchange" }),
             new ComponentAttribute("onready").setEventNames(new String[] { "ready" })));
 
-    private void encodeEmptyFooterCell(FacesContext context, ResponseWriter writer, UIComponent column) throws IOException {
+    private void encodeEmptyFooterCell(FacesContext context, ResponseWriter writer, UIComponent column, boolean isLastColumn) throws IOException {
         if (column.isRendered()) {
             writer.startElement(HtmlConstants.TD_ELEM, column);
+            if (!isLastColumn) {
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-td-" + column.getId(), null);
+            }
             writer.startElement(HtmlConstants.DIV_ELEM, column);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-ftr-c-emp rf-edt-c-" + column.getId(), null);
             writer.endElement(HtmlConstants.DIV_ELEM);
@@ -245,12 +248,15 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
     }
 
-    private void encodeHeaderOrFooterCell(FacesContext context, ResponseWriter writer, UIComponent column, String facetName)
+    private void encodeHeaderOrFooterCell(FacesContext context, ResponseWriter writer, UIComponent column, String facetName, boolean isLastColumn)
         throws IOException {
         if (column.isRendered()) {
 
             String classAttribute = facetName + "Class";
             writer.startElement(HtmlConstants.TD_ELEM, column);
+            if (!isLastColumn) {
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-td-" + column.getId(), null);
+            }
             if ("header".equals(facetName)) {
                 writer.startElement(HtmlConstants.DIV_ELEM, column);
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rsz-cntr rf-edt-c-" + column.getId(), null);
@@ -327,12 +333,15 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-tbl", null);
                     writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
                     writer.startElement(HtmlConstants.TR_ELEMENT, table);
+                    int columnNumber = 0;
+                    int lastColumnNumber = part.getColumns().size() - 1;
                     while (columns.hasNext()) {
                         if (columnFacetPresent) {
-                            encodeHeaderOrFooterCell(context, writer, columns.next(), name);
+                            encodeHeaderOrFooterCell(context, writer, columns.next(), name, columnNumber == lastColumnNumber);
                         } else {
-                            encodeEmptyFooterCell(context, writer, columns.next());
+                            encodeEmptyFooterCell(context, writer, columns.next(), columnNumber == lastColumnNumber);
                         }
+                        columnNumber++;
                     }
                     writer.endElement(HtmlConstants.TR_ELEMENT);
                     writer.endElement(HtmlConstants.TBODY_ELEMENT);
@@ -789,6 +798,10 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             sb.append(".rf-edt-c-" + id + " {"); // TODO getNormalizedId(context,
             sb.append("width: " + width + ";");
             sb.append("}");
+
+            sb.append(".rf-edt-td-" + id + " {"); // TODO getNormalizedId(context,
+            sb.append("width: " + width + ";");
+            sb.append("}");
         }
 
         return sb.toString();
@@ -832,10 +845,14 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             + part.getName().getId(), null);
         columns = part.getColumns().iterator();
         int columnNumber = 0;
+        int lastColumnNumber = part.getColumns().size() - 1;
         while (columns.hasNext()) {
             UIComponent column = (UIComponent) columns.next();
             if (column.isRendered()) {
                 writer.startElement(HtmlConstants.TD_ELEM, table);
+                if (columnNumber != lastColumnNumber) {
+                    writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-td-" + column.getId(), null);
+                }
 
                 String columnClass = concatClasses(getColumnClass(rowHolder, columnNumber),
                     column.getAttributes().get(HtmlConstants.STYLE_CLASS_ATTR));
