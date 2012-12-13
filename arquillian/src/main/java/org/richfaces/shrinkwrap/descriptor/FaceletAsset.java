@@ -52,13 +52,22 @@ public class FaceletAsset implements Asset {
 
     @Override
     public InputStream openStream() {
-        return getAsStringAssert().openStream();
+        return getAsStringAsset().openStream();
     }
 
-    private StringAsset getAsStringAssert() {
-        return new StringAsset(SimplifiedFormat.format(TEMPLATE, xmlns, head, body, form));
+    private StringAsset getAsStringAsset() {
+        StringBuilder formFull = new StringBuilder(form);
+        if (form.length() > 0) {
+            formFull.insert(0, "        <h:form id='form' prependId='false'>");
+            formFull.append("\n        </h:form>");
+        }
+
+        return new StringAsset(SimplifiedFormat.format(TEMPLATE, xmlns, head, body, formFull));
     }
 
+    /**
+     * Places content into &lt;h:head&gt;
+     */
     public FaceletAsset head(Object... heads) {
         for (Object head : heads) {
             this.head.append(head);
@@ -67,6 +76,9 @@ public class FaceletAsset implements Asset {
         return this;
     }
 
+    /**
+     * Places content into &lt;h:body&gt;
+     */
     public FaceletAsset body(Object... bodies) {
         for (Object body : bodies) {
             this.body.append(body);
@@ -75,6 +87,15 @@ public class FaceletAsset implements Asset {
         return this;
     }
 
+    /**
+     * <p>
+     * Adds content enclosed within form: &lt;h:form id='form' prependId='false' /&gt;
+     * </p>
+     *
+     * <p>
+     * No form is inserted when this method is not invoked.
+     * </p>
+     */
     public FaceletAsset form(Object... forms) {
         for (Object form : forms) {
             this.form.append(form);
@@ -83,6 +104,11 @@ public class FaceletAsset implements Asset {
         return this;
     }
 
+    /**
+     * <p>
+     * Adds XMLNS with given prefix and URI
+     * </p>
+     */
     public FaceletAsset xmlns(String prefix, String uri) {
         xmlns.append("xmlns:" + prefix + "=\"" + uri + "\" \n");
         return this;
