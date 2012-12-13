@@ -5,8 +5,8 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.ClientAction;
-import org.jboss.arquillian.warp.ServerAssertion;
+import org.jboss.arquillian.warp.Activity;
+import org.jboss.arquillian.warp.Inspection;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.arquillian.warp.jsf.AfterPhase;
@@ -108,13 +108,13 @@ public class TestTableState {
         guardXhr(dragAndDrop).perform();
 
         // when / then
-        Warp.execute(new ClientAction() {
+        Warp.initiate(new Activity() {
 
             @Override
-            public void action() {
+            public void perform() {
                 guardXhr(button).click();
             }
-        }).verify(new ServerAssertion() {
+        }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
 
             @Inject
@@ -145,13 +145,13 @@ public class TestTableState {
         Assert.assertEquals("0", cell.getText());
 
         // when / then
-        Warp.execute(new ClientAction() {
+        Warp.initiate(new Activity() {
 
             @Override
-            public void action() {
+            public void perform() {
                 guardXhr(button).click();
             }
-        }).verify(new ServerAssertion() {
+        }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
 
             @Inject
@@ -171,7 +171,7 @@ public class TestTableState {
     }
 
     @Test
-    public void table_filter() throws InterruptedException {
+    public void table_observe() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm() + "filter.jsf");
 
@@ -190,13 +190,13 @@ public class TestTableState {
         Assert.assertEquals("3", cell.getText());
 
         // when / then
-        Warp.execute(new ClientAction() {
+        Warp.initiate(new Activity() {
 
             @Override
-            public void action() {
+            public void perform() {
                 guardXhr(button).click();
             }
-        }).verify(new ServerAssertion() {
+        }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
 
             @Inject
@@ -228,7 +228,7 @@ public class TestTableState {
         p.body("} ");
         p.body("function filterEdt(filterValue) { ");
         p.body("  var edt = RichFaces.$('myForm:edt'); ");
-        p.body("  edt.filter('column2', filterValue, true); ");
+        p.body("  edt.observe('column2', filterValue, true); ");
         p.body("} ");
         p.body("</script>");
         p.body("<h:form id='myForm'> ");

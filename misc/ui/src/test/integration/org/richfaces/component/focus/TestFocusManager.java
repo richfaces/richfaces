@@ -11,7 +11,7 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.ClientAction;
+import org.jboss.arquillian.warp.Activity;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.arquillian.warp.impl.utils.URLUtils;
@@ -45,20 +45,20 @@ public class TestFocusManager {
     @FindBy(id = "form:input2")
     private WebElement input2;
 
-    private ClientAction openPage = new ClientAction() {
-        public void action() {
+    private Activity openPage = new Activity() {
+        public void perform() {
             browser.get(contextPath.toExternalForm());
         }
     };
 
-    private ClientAction submit = new ClientAction() {
-        public void action() {
+    private Activity submit = new Activity() {
+        public void perform() {
             guardHttp(submitButton).click();
         }
     };
 
-    private ClientAction ajax = new ClientAction() {
-        public void action() {
+    private Activity ajax = new Activity() {
+        public void perform() {
             guardXhr(ajaxButton).click();
         }
     };
@@ -79,7 +79,7 @@ public class TestFocusManager {
 
     @Test
     public void test_FocusManager_on_initial_request() {
-        Warp.execute(openPage).verify(new VerifyFocusEnforcing("input2"));
+        Warp.initiate(openPage).inspect(new VerifyFocusEnforcing("input2"));
         assertEquals(input2, getFocusedElement());
     }
 
@@ -88,9 +88,9 @@ public class TestFocusManager {
         // given
         browser.get(contextPath.toExternalForm());
         // when
-        Warp.execute(submit)
+        Warp.initiate(submit)
         // then
-                .verify(new VerifyFocusEnforcing("input2"));
+                .inspect(new VerifyFocusEnforcing("input2"));
         assertEquals(input2, getFocusedElement());
     }
 
@@ -99,9 +99,9 @@ public class TestFocusManager {
         // given
         browser.get(contextPath.toExternalForm());
         // when
-        Warp.execute(ajax)
+        Warp.initiate(ajax)
         // then
-                .verify(new VerifyFocusEnforcing("input2"));
+                .inspect(new VerifyFocusEnforcing("input2"));
         assertEquals(input2, getFocusedElement());
     }
 
@@ -110,13 +110,13 @@ public class TestFocusManager {
 
         contextPath = URLUtils.buildUrl(contextPath, "form.jsf");
 
-        Warp.execute(openPage).verify(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+        Warp.initiate(openPage).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
         assertEquals(input2, getFocusedElement());
 
-        Warp.execute(submit).verify(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+        Warp.initiate(submit).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
         assertEquals(input2, getFocusedElement());
 
-        Warp.execute(ajax).verify(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+        Warp.initiate(ajax).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
         assertEquals(input2, getFocusedElement());
     }
 
@@ -125,13 +125,13 @@ public class TestFocusManager {
 
         contextPath = URLUtils.buildUrl(contextPath, "form.jsf");
 
-        Warp.execute(openPage).verify(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+        Warp.initiate(openPage).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
         assertEquals(input2, getFocusedElement());
 
-        Warp.execute(submit).verify(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+        Warp.initiate(submit).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
         assertEquals(input2, getFocusedElement());
 
-        Warp.execute(ajax).verify(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
+        Warp.initiate(ajax).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
         assertEquals(input2, getFocusedElement());
     }
 

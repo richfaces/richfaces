@@ -14,7 +14,7 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.ClientAction;
+import org.jboss.arquillian.warp.Activity;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.arquillian.warp.jsf.AfterPhase;
@@ -79,12 +79,12 @@ public class TestFocusValidationAware {
     @Test
     public void testValidateMultipleInputsDuringFormSubmission() {
 
-        Warp.execute(new ClientAction() {
-            public void action() {
+        Warp.initiate(new Activity() {
+            public void perform() {
                 guardHttp(submitButton).click();
             }
         })
-                .verify(new VerifyFocusCandidates("First input should be focused", "form:input1 form:input2",
+                .inspect(new VerifyFocusCandidates("First input should be focused", "form:input1 form:input2",
                         "form:input1 form:input2"));
 
         assertEquals(input2, getFocusedElement());
@@ -93,12 +93,12 @@ public class TestFocusValidationAware {
     @Test
     public void testValidateMultipleInputsDuringAjax() {
 
-        Warp.execute(new ClientAction() {
-            public void action() {
+        Warp.initiate(new Activity() {
+            public void perform() {
                 guardXhr(ajaxButton).click();
             }
         })
-                .verify(new VerifyFocusCandidates("First input should be focused", "form:input1 form:input2",
+                .inspect(new VerifyFocusCandidates("First input should be focused", "form:input1 form:input2",
                         "form:input1 form:input2"));
 
         assertEquals(input2, getFocusedElement());
@@ -107,13 +107,13 @@ public class TestFocusValidationAware {
     @Test
     public void testGlobalMessageIsIgnored() {
         
-        Warp.execute(new ClientAction() {
+        Warp.initiate(new Activity() {
             
             @Override
-            public void action() {
+            public void perform() {
                 guardHttp(submitButton).click();
             }
-        }).verify(new AbstractComponentAssertion() {
+        }).inspect(new AbstractComponentAssertion() {
             private static final long serialVersionUID = 1L;
 
             @BeforePhase(Phase.RENDER_RESPONSE)

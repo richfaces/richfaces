@@ -14,12 +14,12 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.ClientAction;
-import org.jboss.arquillian.warp.ServerAssertion;
+import org.jboss.arquillian.warp.Activity;
+import org.jboss.arquillian.warp.Inspection;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.extension.phaser.AfterPhase;
-import org.jboss.arquillian.warp.extension.phaser.Phase;
+import org.jboss.arquillian.warp.jsf.AfterPhase;
+import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
@@ -80,13 +80,13 @@ public class TestAutocompleteBehaviors {
         autocompleteItem.click();
 
         // when / then
-        Warp.execute(new ClientAction() {
+        Warp.initiate(new Activity() {
 
             @Override
-            public void action() {
+            public void perform() {
                 guardXhr(body).click();
             }
-        }).verify(new ServerAssertion() {
+        }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
 
             @Inject
