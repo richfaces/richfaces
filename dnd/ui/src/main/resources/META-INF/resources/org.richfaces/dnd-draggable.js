@@ -34,8 +34,8 @@
         if (options.indicator) {
             var element = document.getElementById(options.indicator);
             var clone = $(element).clone();
-            $("*[id]", clone).each(function() {
-                $(this).remoteAttr("id");
+            $("*[id]", clone).andSelf().each(function() {
+                $(this).removeAttr("id");
             });
             
             this.dragElement.data("indicator", true);
