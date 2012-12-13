@@ -11,8 +11,8 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.ClientAction;
-import org.jboss.arquillian.warp.ServerAssertion;
+import org.jboss.arquillian.warp.Activity;
+import org.jboss.arquillian.warp.Inspection;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.arquillian.warp.client.filter.RequestFilter;
@@ -62,17 +62,17 @@ public class RenderAllTest {
         browser.get(contextPath.toExternalForm());
 
         Warp
-            .execute(new ClientAction() {
-                public void action() {
+            .initiate(new Activity() {
+                public void perform() {
                     button.click();
                 }
             })
-            .filter(new RequestFilter<HttpRequest>() {
+            .observe(new RequestFilter<HttpRequest>() {
                 public boolean matches(HttpRequest request) {
                     return request.getUri().contains("/RenderAllTest/");
                 };
             })
-            .verify(new ServerAssertion() {
+            .inspect(new Inspection() {
                 private static final long serialVersionUID = 1L;
 
                 @ArquillianResource

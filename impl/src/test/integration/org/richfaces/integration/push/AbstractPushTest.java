@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.ClientAction;
-import org.jboss.arquillian.warp.ServerAssertion;
+import org.jboss.arquillian.warp.Activity;
+import org.jboss.arquillian.warp.Inspection;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.arquillian.warp.client.filter.RequestFilter;
@@ -78,15 +78,15 @@ public class AbstractPushTest {
 
     public void testSimplePush() {
         Warp.
-            execute(new ClientAction() {
+            initiate(new Activity() {
 
                     @Override
-                    public void action() {
+                    public void perform() {
                         driver.navigate().to(contextPath);
                     }
                 })
-            .filter(new UriRequestFilter("__richfacesPushAsync"))
-            .verify(new PushServletAssertion());
+            .observe(new UriRequestFilter("__richfacesPushAsync"))
+            .inspect(new PushServletAssertion());
 
         waitAjax().withTimeout(5,  SECONDS).until(titleIs("message-received: 1"));
     }
@@ -107,7 +107,7 @@ public class AbstractPushTest {
         }
     }
 
-    public static class PushServletAssertion extends ServerAssertion {
+    public static class PushServletAssertion extends Inspection {
 
         private static final long serialVersionUID = 1L;
 
