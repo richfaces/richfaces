@@ -72,6 +72,22 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
     public abstract Object getFilterValue();
 
     /**
+     * Defines current filter type. Possible values: string, custom.
+     * If custom is used, no filter box is created, you are responsible for e creating your own filter input
+     * Default: string
+     */
+    @Attribute(defaultValue = "string")
+    public abstract String getFilterType();
+
+    /**
+     * Defines current filtering value. Possible values: string, custom.
+     * If custom is used, no filter box is created, you are responsible for e creating your own filter input
+     * Default: string
+     */
+    @Attribute(defaultValue = "string")
+    public abstract String getSortType();
+
+    /**
      * Corresponds to the HTML rowspan attribute
      */
     @Attribute
@@ -154,4 +170,9 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
         }
         return field;
     }
+
+    public boolean useBuiltInFilter() {
+        return getFilterField() != null &&  ! "custom".equals(getFilterType());
+    }
+
 }

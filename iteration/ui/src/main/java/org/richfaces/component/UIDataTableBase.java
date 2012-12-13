@@ -217,6 +217,10 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
                 if (component.isRendered()) {
                     UIComponent facet = component.getFacet(facetName);
                     result = facet != null && facet.isRendered();
+                    // header facet is required if we have built-in filters
+                    if (result == false && "header".equals(facetName) && component instanceof AbstractColumn) {
+                        result = ((AbstractColumn) component).useBuiltInFilter();
+                    }
                 }
             }
         }

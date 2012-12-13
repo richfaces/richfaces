@@ -265,6 +265,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 writer.endElement(HtmlConstants.DIV_ELEM);
                 writer.endElement(HtmlConstants.DIV_ELEM);
             }
+
             writer.startElement(HtmlConstants.DIV_ELEM, column);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-"
                 + getFacetClassName(facetName) + "-c", "rf-edt-c-" + column.getId()), null);
@@ -275,6 +276,23 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             if (facet != null && facet.isRendered()) {
                 facet.encodeAll(context);
             }
+
+            if ("header".equals(facetName) && column.getValueExpression("sortBy") != null && ! "custom".equals(column.getAttributes().get("sortType"))) {
+                writer.startElement(HtmlConstants.SPAN_ELEM, column);
+                String classAttr = "rf-edt-srt rf-edt-srt-btn ";
+                SortOrder sortOrder = (SortOrder) column.getAttributes().get("sortOrder");
+                if (sortOrder == null || sortOrder == SortOrder.unsorted) {
+                    classAttr = classAttr + "rf-edt-srt-uns";
+                } else if (sortOrder == SortOrder.ascending) {
+                    classAttr = classAttr + "rf-edt-srt-asc";
+                } else if (sortOrder == SortOrder.descending) {
+                    classAttr = classAttr + "rf-edt-srt-des";
+                }
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, classAttr, null);
+                writer.writeAttribute("data-columnid", column.getId(), null);
+                writer.endElement(HtmlConstants.SPAN_ELEM);
+            }
+
             writer.endElement(HtmlConstants.DIV_ELEM);
             writer.endElement(HtmlConstants.DIV_ELEM);
             writer.endElement(HtmlConstants.TD_ELEM);
@@ -291,14 +309,14 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         throw new IllegalArgumentException(name);
     }
 
-    private void encodeHeaderOrFooter(RendererState state, String name) throws IOException {
+    private void encodeHeaderOrFooter(RendererState state, String facetName) throws IOException {
         FacesContext context = state.getContext();
         ResponseWriter writer = context.getResponseWriter();
         UIDataTableBase table = state.getRow();
-        boolean columnFacetPresent = table.isColumnFacetPresent(name);
-        if (columnFacetPresent || "footer".equals(name)) {
+        boolean columnFacetPresent = table.isColumnFacetPresent(facetName);
+        if (columnFacetPresent || "footer".equals(facetName)) {
             writer.startElement(HtmlConstants.DIV_ELEM, table);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-" + getFacetClassName(name), null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-" + getFacetClassName(facetName), null);
             writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-tbl", null);
             writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
@@ -310,21 +328,21 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 Iterator<UIComponent> columns = part.getColumns().iterator();
                 if (columns.hasNext()) {
                     writer.startElement(HtmlConstants.TD_ELEM, table);
-                    if (PartName.frozen.equals(partName) && "footer".equals(name)) {
+                    if (PartName.frozen.equals(partName) && "footer".equals(facetName)) {
                         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-ftr-fzn", null);
                     }
                     writer.startElement(HtmlConstants.DIV_ELEM, table);
                     if (PartName.frozen.equals(partName)) {
-                        if ("header".equals(name)) {
+                        if ("header".equals(facetName)) {
                             writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":frozenHeader", null);
                         }
                     } else {
-                        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":" + name, null);
+                        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":" + facetName, null);
                         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-cnt"
-                            + ("footer".equals(name) ? " rf-edt-ftr-cnt" : ""), null);
+                            + ("footer".equals(facetName) ? " rf-edt-ftr-cnt" : ""), null);
                     }
 
-                    String tableId = clientId + ":cf" + name.charAt(0) + partName.getId();
+                    String tableId = clientId + ":cf" + facetName.charAt(0) + partName.getId();
                     EncoderVariance encoderVariance = state.getEncoderVariance();
                     encoderVariance.encodeStartUpdate(context, tableId);
 
@@ -334,16 +352,48 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
                     writer.startElement(HtmlConstants.TR_ELEMENT, table);
                     int columnNumber = 0;
+                    boolean filterRowRequired = false;
                     int lastColumnNumber = part.getColumns().size() - 1;
                     while (columns.hasNext()) {
+                        UIComponent column = columns.next();
+                        if (!filterRowRequired && "header".equals(facetName) && column instanceof AbstractColumn && ((AbstractColumn) column).useBuiltInFilter()) {
+                            filterRowRequired = true;
+                        }
                         if (columnFacetPresent) {
-                            encodeHeaderOrFooterCell(context, writer, columns.next(), name, columnNumber == lastColumnNumber);
+                            encodeHeaderOrFooterCell(context, writer, column, facetName, columnNumber == lastColumnNumber);
                         } else {
-                            encodeEmptyFooterCell(context, writer, columns.next(), columnNumber == lastColumnNumber);
+                            encodeEmptyFooterCell(context, writer, column, columnNumber == lastColumnNumber);
                         }
                         columnNumber++;
                     }
                     writer.endElement(HtmlConstants.TR_ELEMENT);
+                    if (filterRowRequired) {  // filter row
+                        writer.startElement(HtmlConstants.TR_ELEMENT, table);
+                        columns = part.getColumns().iterator();
+                        while (columns.hasNext()) {
+                            UIComponent column = columns.next();
+                            if (column.isRendered()) {
+                                writer.startElement(HtmlConstants.TD_ELEM, column);
+                                writer.startElement(HtmlConstants.DIV_ELEM, column);
+                                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-flt-c rf-edt-c-" + column.getId(), null);
+                                writer.startElement(HtmlConstants.DIV_ELEM, column);
+                                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-flt-cnt", null);
+                                if (column.getAttributes().get("filterField") != null &&  ! "custom".equals(column.getAttributes().get("filterValueType"))) {
+                                    writer.startElement(HtmlConstants.INPUT_ELEM, column);
+                                    writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
+                                    writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
+                                    writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-flt-i", null);
+                                    writer.writeAttribute("data-columnid", column.getId(), null);
+                                    writer.writeAttribute("value", column.getAttributes().get("filterValue"), null);
+                                    writer.endElement(HtmlConstants.INPUT_ELEM);
+                                }
+                                writer.endElement(HtmlConstants.DIV_ELEM);
+                                writer.endElement(HtmlConstants.DIV_ELEM);
+                                writer.endElement(HtmlConstants.TD_ELEM);
+                            }
+                        }
+                        writer.endElement(HtmlConstants.TR_ELEMENT);
+                    }
                     writer.endElement(HtmlConstants.TBODY_ELEMENT);
                     writer.endElement(HtmlConstants.TABLE_ELEMENT);
 
@@ -356,7 +406,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             }
             writer.endElement(HtmlConstants.TR_ELEMENT);
             // the start of the scroller
-            if ("footer".equals(name)) {
+            if ("footer".equals(facetName)) {
                 int frozenColumns = 0;
                 int scrollingColumns = 0;
                 for (state.startIterate(); state.hasNextPart();) {
@@ -882,7 +932,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
-//        super.doDecode(context, component);
+        super.doDecode(context, component);
         Map<String, String> map = context.getExternalContext().getRequestParameterMap();
         String clientId = component.getClientId(context);
         updateWidthOfColumns(context, component, map.get(clientId + ":wi"));

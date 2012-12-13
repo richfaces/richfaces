@@ -13,7 +13,6 @@ import org.jboss.arquillian.warp.jsf.AfterPhase;
 import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -29,14 +28,12 @@ import org.richfaces.component.UIColumn;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.net.URL;
 import java.util.List;
 
-import static org.jboss.arquillian.graphene.Graphene.*;
-import static org.junit.Assert.assertTrue;
+import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 
 @RunAsClient
 @WarpTest
@@ -67,7 +64,7 @@ public class TestTableState {
     @Deployment
     public static WebArchive createDeployment() {
         IterationDeployment deployment = new IterationDeployment(TestTableState.class);
-        deployment.archive().addClass(IterationBean.class);
+        deployment.archive().addClass(IterationTableStateBean.class);
         addIndexPage(deployment);
         addWidthPage(deployment);
         addOrderPage(deployment);
@@ -118,7 +115,7 @@ public class TestTableState {
             private static final long serialVersionUID = 1L;
 
             @Inject
-            IterationBean bean;
+            IterationTableStateBean bean;
 
             @AfterPhase(Phase.INVOKE_APPLICATION)
             public void verify_bean_executed() {
@@ -135,7 +132,6 @@ public class TestTableState {
     public void table_sort() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm() + "sort.jsf");
-        Thread.sleep(500);
         WebElement cell = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt")).get(0);
         Assert.assertEquals("9", cell.getText());
 
@@ -155,7 +151,7 @@ public class TestTableState {
             private static final long serialVersionUID = 1L;
 
             @Inject
-            IterationBean bean;
+            IterationTableStateBean bean;
 
             @AfterPhase(Phase.INVOKE_APPLICATION)
             public void verify_bean_executed() {
@@ -200,7 +196,7 @@ public class TestTableState {
             private static final long serialVersionUID = 1L;
 
             @Inject
-            IterationBean bean;
+            IterationTableStateBean bean;
 
             @AfterPhase(Phase.INVOKE_APPLICATION)
             public void verify_bean_executed() {
@@ -239,14 +235,16 @@ public class TestTableState {
         p.body("        </rich:column> ");
         p.body("        <rich:column id='column2' width='150px' ");
         p.body("                         sortBy='#{bean}' ");
-        p.body("                         sortOrder='#{iterationBean.sortOrder}' ");
-        p.body("                         filterValue='#{iterationBean.filterValue}' ");
+        p.body("                         sortOrder='#{iterationTableStateBean.sortOrder}' ");
+        p.body("                         filterValue='#{iterationTableStateBean.filterValue}' ");
+        p.body("                         filterType='custom' ");
+        p.body("                         sortType='custom' ");
         p.body("                         filterExpression='#{bean le fv}' > ");
         p.body("            <f:facet name='header'> ");
         p.body("                <h:panelGrid columns='1'> ");
-        p.body("                    <h:link id='sort' onclick=\"sortEdt('#{iterationBean.sortOrder}'); return false;\">Column 2</h:link> ");
-        p.body("                    <h:inputText id='filterInput' value='#{iterationBean.filterValue}' label='Filter' ");
-        p.body("                                 onblur='filterEdt(this.value); return false; ' > ");
+        p.body("                    <h:link id='sort' onclick=\"sortEdt('#{iterationTableStateBean.sortOrder}'); return false;\">Column 2</h:link> ");
+        p.body("                    <h:inputText id='filterInput' value='#{iterationTableStateBean.filterValue}' label='Filter' ");
+        p.body("                                 onblur='filterEdt(this.value); return false; ' style='width:80%' > ");
         p.body("                        <f:convertNumber /> ");
         p.body("                        <f:validateLongRange minimum='0' maximum='10' /> ");
         p.body("                    </h:inputText> ");
@@ -266,7 +264,7 @@ public class TestTableState {
 
     private static void addIndexPage(IterationDeployment deployment) {
         String edtAttributes =
-               "            id='edt' value='#{iterationBean.values}' var='bean' ";
+               "            id='edt' value='#{iterationTableStateBean.values}' var='bean' ";
         FaceletAsset p = getPage(edtAttributes);
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
@@ -274,8 +272,8 @@ public class TestTableState {
 
     private static void addWidthPage(IterationDeployment deployment) {
         String edtAttributes =
-               "            id='edt' value='#{iterationBean.values}' var='bean' " +
-               "            tableState='#{iterationBean.widthState}'";
+               "            id='edt' value='#{iterationTableStateBean.values}' var='bean' " +
+               "            tableState='#{iterationTableStateBean.widthState}'";
         FaceletAsset p = getPage(edtAttributes);
 
         deployment.archive().addAsWebResource(p, "width.xhtml");
@@ -283,8 +281,8 @@ public class TestTableState {
 
     private static void addSortPage(IterationDeployment deployment) {
         String edtAttributes =
-               "            id='edt' value='#{iterationBean.values}' var='bean' " +
-               "            tableState='#{iterationBean.sortState}'";
+               "            id='edt' value='#{iterationTableStateBean.values}' var='bean' " +
+               "            tableState='#{iterationTableStateBean.sortState}'";
         FaceletAsset p = getPage(edtAttributes);
 
         deployment.archive().addAsWebResource(p, "sort.xhtml");
@@ -292,8 +290,8 @@ public class TestTableState {
 
     private static void addFilterPage(IterationDeployment deployment) {
         String edtAttributes =
-               "            id='edt' value='#{iterationBean.values}' var='bean' " +
-               "            tableState='#{iterationBean.filterState}'";
+               "            id='edt' value='#{iterationTableStateBean.values}' var='bean' " +
+               "            tableState='#{iterationTableStateBean.filterState}'";
         FaceletAsset p = getPage(edtAttributes);
 
         deployment.archive().addAsWebResource(p, "filter.xhtml");
@@ -301,9 +299,9 @@ public class TestTableState {
 
     private static void addOrderPage(IterationDeployment deployment) {
         String edtAttributes =
-               "            id='edt' value='#{iterationBean.values}' var='bean' " +
-               "            columnsOrder='#{iterationBean.columnsOrder}'" +
-               "            tableState='#{iterationBean.orderState}'";
+               "            id='edt' value='#{iterationTableStateBean.values}' var='bean' " +
+               "            columnsOrder='#{iterationTableStateBean.columnsOrder}'" +
+               "            tableState='#{iterationTableStateBean.orderState}'";
         FaceletAsset p = getPage(edtAttributes);
 
         deployment.archive().addAsWebResource(p, "order.xhtml");

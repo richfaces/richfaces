@@ -128,7 +128,7 @@ div.rf-edt-ftr-cnt {
     border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 }
 
-.rf-edt-c,.rf-edt-hdr-c,.rf-edt-ftr-c {
+.rf-edt-c,.rf-edt-hdr-c,.rf-edt-ftr-c,.rf-edt-flt-c {
     overflow-x: hidden;
     border-bottom: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
     border-right: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
@@ -182,4 +182,33 @@ div.rf-edt-ftr-cnt {
 
 .rf-edt-r-act {
     font-weight: bold; /*TODO Probably use other property.*/
+}
+
+.rf-edt-srt {
+    cursor: pointer;
+    height: 1em;
+    width: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.rf-edt-srt-uns {
+    background: "url(#{resource['org.richfaces:sort_uns.gif']}) no-repeat center";
+}
+
+.rf-edt-srt-asc {
+    background: "url(#{resource['org.richfaces:sort_asc.gif']}) no-repeat center";
+}
+
+.rf-edt-srt-des {
+    background: "url(#{resource['org.richfaces:sort_des.gif']}) no-repeat center";
+}
+
+.rf-edt-flt-cnt {
+    text-align: center;
+    height: 27px;
+}
+
+.rf-edt-flt-i {
+    width: 80%
 }

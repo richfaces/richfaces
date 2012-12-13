@@ -23,7 +23,7 @@ package org.richfaces.component.extendedDataTable;
 
 import org.richfaces.component.SortOrder;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -32,19 +32,44 @@ import java.util.List;
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@SessionScoped
+@RequestScoped
 @Named
-public class IterationBean implements Serializable {
+public class IterationBuiltInBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String[] array = {"3","6","4","8","2","1","5","7","9","0" };
     private List<String> values = Arrays.asList(array);
 
+    private SortOrder sortOrder;// = SortOrder.ascending;
+    private SortOrder sortOrder2;// = SortOrder.ascending;
+    private Long filterValue = 10L;
 
-    public IterationBean() {
+
+    public IterationBuiltInBean() {
     }
 
     public List<String> getValues() {
         return values;
     }
+
+    public SortOrder getSortOrder() {
+        return sortOrder;
+    }
+
+    public SortOrder getSortOrder2() {
+        return sortOrder2;
+    }
+
+    public void setSortOrder(SortOrder sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
+    public Long getFilterValue() {
+        return filterValue;
+    }
+
+    public void setFilterValue(Long filterValue) {
+        this.filterValue = filterValue;
+    }
+
 }
