@@ -29,10 +29,10 @@ import org.richfaces.json.JSONObject;
 import org.richfaces.json.JSONStringer;
 import org.richfaces.json.JSONWriter;
 
-import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
@@ -43,10 +43,14 @@ public class ExtendedDataTableState implements Serializable {
 
     protected ColumnsWidth columnsWidthState;
     protected ColumnsOrder columnsOrderState;
+    protected ColumnsFilter columnsFilterState;
+    protected ColumnsSort columnsSortState;
 
     public ExtendedDataTableState(UIDataTableBase extendedDataTable) {
         columnsWidthState = new ColumnsWidth(extendedDataTable);
         columnsOrderState = new ColumnsOrder(extendedDataTable);
+        columnsFilterState = new ColumnsFilter(extendedDataTable);
+        columnsSortState = new ColumnsSort(extendedDataTable);
     }
 
     public ExtendedDataTableState(String tableState) {
@@ -61,14 +65,26 @@ public class ExtendedDataTableState implements Serializable {
         if (json != null) {
             columnsWidthState = new ColumnsWidth((JSONMap) json.get("columnsWidthState"));
             columnsOrderState = new ColumnsOrder((JSONCollection) json.get("columnsOrderState"));
+            columnsFilterState = new ColumnsFilter((JSONMap) json.get("columnsFilterState"));
+            columnsSortState = new ColumnsSort((JSONMap) json.get("columnsSortState"));
         }
     }
 
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         try {
-            json.put("columnsWidthState", columnsWidthState.toJSON());
-            json.put("columnsOrderState", columnsOrderState.toJSON());
+            if (columnsWidthState != null && !columnsWidthState.isEmpty()) {
+                json.put("columnsWidthState", columnsWidthState.toJSON());
+            }
+            if (columnsOrderState != null && !columnsOrderState.isEmpty()) {
+                json.put("columnsOrderState", columnsOrderState.toJSON());
+            }
+            if (columnsFilterState != null && !columnsFilterState.isEmpty()) {
+                json.put("columnsFilterState", columnsFilterState.toJSON());
+            }
+            if (columnsSortState != null && !columnsSortState.isEmpty()) {
+                json.put("columnsSortState", columnsSortState.toJSON());
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -83,10 +99,24 @@ public class ExtendedDataTableState implements Serializable {
     }
 
     /*
-     * @see ColumnsWidth#getColumnWidth(UIComponent)
+     * @see ColumnsWidth#getColumnState(UIComponent)
      */
     public String getColumnWidth(UIComponent column) {
-        return columnsWidthState.getColumnWidth(column);
+        return columnsWidthState.getColumnState(column);
+    }
+
+    /*
+     * @see ColumnsFilter#getColumnState(UIComponent)
+     */
+    public String getColumnFilter(UIComponent column) {
+        return columnsFilterState.getColumnState(column);
+    }
+
+    /*
+     * @see ColumnsSort#getColumnState(UIComponent)
+     */
+    public String getColumnSort(UIComponent column) {
+        return columnsSortState.getColumnState(column);
     }
 
     /*
@@ -98,21 +128,28 @@ public class ExtendedDataTableState implements Serializable {
 
 }
 
-class ColumnsWidth implements Serializable {
+abstract class ColumnsState implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private JSONObject json;
+    protected JSONObject json;
+
+    /**
+     * Return the value to which the column will map to in the resulting JSONMap
+     */
+    abstract String getValueFromColumn(AbstractColumn column);
 
     /**
      * Initialize state from an extendedDataTable
      */
-    ColumnsWidth (UIDataTableBase extendedDataTable) {
+    ColumnsState (UIDataTableBase extendedDataTable) {
         try {
             JSONWriter writer = new JSONStringer().object();
-            for (UIComponent child : extendedDataTable.getChildren()) {
-                UIColumn col = (UIColumn) child;
-                writer.key(col.getId()).value(getColumnWidth(col));
+            Iterator<UIComponent> iterator = extendedDataTable.columns();
+            while (iterator.hasNext()) { // initialize a map of all the columns
+                UIComponent component = iterator.next();
+                AbstractColumn column = (AbstractColumn) component;
+                writer.key(column.getId()).value(getValueFromColumn(column));
             }
             json = new JSONObject(writer.endObject().toString());
         } catch (JSONException e) {
@@ -123,28 +160,29 @@ class ColumnsWidth implements Serializable {
     /**
      * Initialize state from JSON
      */
-    ColumnsWidth (JSONMap json) {
+    ColumnsState (JSONMap json) {
         if ((json != null) && (json.size() > 0)) {
             this.json = new JSONObject(json);
         }
     }
-        /**
-        * Return the width of the given column, as stored in the json map.
-        *
-        * @param column
-        * @return the width of the column.  Returns null if not defined in the json map
-        */
-    public String getColumnWidth(UIComponent column) {
-        String width = null;
-        if (json != null) {
-            Object object = json.opt(column.getId());
-            if (object != null) {
-                width = (String) object;
-            }
+
+    /**
+     * Return the value mapped to by the given column, as stored in the json map.
+     *
+     * @param column
+     * @return the width of the column.  Returns null if not defined in the json map
+     */
+    public String getColumnState(UIComponent column) {
+        String state = null;
+        if (json != null && !json.isNull(column.getId())) {
+            state = (String) json.opt(column.getId());
         }
-        return width;
+        return state;
     }
 
+    public boolean isEmpty() {
+        return json == null || json.length() == 0;
+    }
 
     /**
      * Get state in JSON format.
@@ -165,6 +203,59 @@ class ColumnsWidth implements Serializable {
         return json.toString();
     }
 
+}
+
+class ColumnsWidth extends ColumnsState implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    ColumnsWidth(UIDataTableBase extendedDataTable) {
+        super(extendedDataTable);
+    }
+
+    ColumnsWidth(JSONMap json) {
+        super(json);
+    }
+
+    String getValueFromColumn(AbstractColumn column) {
+        return column.getWidth();
+    }
+}
+
+class ColumnsFilter extends ColumnsState implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    ColumnsFilter(UIDataTableBase extendedDataTable) {
+        super(extendedDataTable);
+    }
+
+    ColumnsFilter(JSONMap json) {
+        super(json);
+    }
+
+    String getValueFromColumn(AbstractColumn column) {
+        Object filterValue = column.getFilterValue();
+        return filterValue == null ? null : filterValue.toString();
+    }
+}
+
+class ColumnsSort extends ColumnsState implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    ColumnsSort(UIDataTableBase extendedDataTable) {
+        super(extendedDataTable);
+    }
+
+    ColumnsSort(JSONMap json) {
+        super(json);
+    }
+
+    String getValueFromColumn(AbstractColumn column) {
+        Object sortOrder = column.getSortOrder();
+        return sortOrder == null ? null : sortOrder.toString();
+    }
 }
 
 class ColumnsOrder implements Serializable {
@@ -201,12 +292,19 @@ class ColumnsOrder implements Serializable {
      * @return a String array representing the order of the columns by id.
      */
     public String[] getColumnsOrder() {
+        if (json == null) {
+            return null;
+        }
         String[] columnsOrder = new String[json.length()];
         for (int i = 0; i < json.length(); i++) {
             String columnId = (String) json.opt(i);
             columnsOrder[i] = columnId;
         }
         return columnsOrder;
+    }
+
+    public boolean isEmpty() {
+        return json == null || json.length() == 0;
     }
 
     /**
