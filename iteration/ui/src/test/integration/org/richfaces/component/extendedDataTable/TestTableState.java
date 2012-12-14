@@ -228,7 +228,7 @@ public class TestTableState {
         p.body("} ");
         p.body("function filterEdt(filterValue) { ");
         p.body("  var edt = RichFaces.$('myForm:edt'); ");
-        p.body("  edt.observe('column2', filterValue, true); ");
+        p.body("  edt.filter('column2', filterValue, true); ");
         p.body("} ");
         p.body("</script>");
         p.body("<h:form id='myForm'> ");
