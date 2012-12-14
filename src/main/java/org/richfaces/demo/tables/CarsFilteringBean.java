@@ -17,7 +17,9 @@ public class CarsFilteringBean implements Serializable {
     private static final long serialVersionUID = -5680001353441022183L;
     private String vinFilter;
     private String vendorFilter;
+    private String modelFilter;
     private Long mileageFilter;
+    private Long priceFilter;
 
     public Filter<?> getMileageFilterImpl() {
         return new Filter<InventoryItem>() {
@@ -65,5 +67,21 @@ public class CarsFilteringBean implements Serializable {
 
     public void setVinFilter(String vinFilter) {
         this.vinFilter = vinFilter;
+    }
+
+    public String getModelFilter() {
+        return modelFilter;
+    }
+
+    public void setModelFilter(String modelFilter) {
+        this.modelFilter = modelFilter;
+    }
+
+    public Long getPriceFilter() {
+        return priceFilter;
+    }
+
+    public void setPriceFilter(Long priceFilter) {
+        this.priceFilter = priceFilter;
     }
 }

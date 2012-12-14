@@ -330,9 +330,13 @@
                         <name>Selection Management</name>
                     </sample>
                     <sample>
+                        <id>edt-builtin-sorting-and-filtering</id>
+                        <name>Built-in Sorting and Filtering</name>
+                    </sample>    
+                    <sample>
                         <id>edt-sorting</id>
                         <name>Table Sorting</name>
-                    </sample>    
+                    </sample>
                     <sample>
                         <id>edt-filtering</id>
                         <name>Table Filtering</name>
