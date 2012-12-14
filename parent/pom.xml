@@ -35,7 +35,7 @@
 
     <properties>
         <version.richfaces>4.3.0.20121214-M3</version.richfaces>
-        <version.test-jsf>1.1.4-SNAPSHOT</version.test-jsf>
+        <version.test-jsf>1.1.4</version.test-jsf>
         <version.vdl-doc>3</version.vdl-doc>
         <version.shade-transformers>8</version.shade-transformers>
 
@@ -85,8 +85,8 @@
         <!-- Arquillian test deps -->
         <version.arquillian.core>1.0.3.Final</version.arquillian.core>
         <version.arquillian.drone>1.1.0.Final</version.arquillian.drone>
-        <version.arquillian.warp>1.0.0.Alpha2-SNAPSHOT</version.arquillian.warp>
-        <version.arquillian.graphene>2.0.0.Alpha3-SNAPSHOT</version.arquillian.graphene>
+        <version.arquillian.warp>1.0.0.Alpha1</version.arquillian.warp>
+        <version.arquillian.graphene>2.0.0.Alpha2</version.arquillian.graphene>
         <version.shrinkwrap.resolver>2.0.0-alpha-1</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-3</version.shrinkwrap.descriptors>
         
