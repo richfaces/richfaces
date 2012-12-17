@@ -64,7 +64,7 @@ public class Model implements Serializable {
 
     private MetaTag selectedTag;
 
-    private NavigationEnum mainArea;
+    private NavigationEnum mainArea = NavigationEnum.ANONYM;
 
     private List<Image> images;
 
