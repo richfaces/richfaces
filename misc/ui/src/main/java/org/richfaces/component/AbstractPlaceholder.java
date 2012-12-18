@@ -21,6 +21,7 @@
  */
 package org.richfaces.component;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
@@ -108,9 +109,25 @@ public abstract class AbstractPlaceholder extends UIOutput {
             PlaceholderRendererBase renderer = (PlaceholderRendererBase) placeholder.getRenderer(facesContext);
 
             if (parent instanceof InplaceComponent) {
-                String text = renderer.getConvertedValue(facesContext, placeholder);
-                if (placeholder.getValue() != null) {
+                if (placeholder.isRendered() && placeholder.getValue() != null) {
+                    // backup defaultLabel attribute
+                    ValueExpression originalExpression = parent.getValueExpression("defaultLabel");
+                    if (originalExpression != null) {
+                        parent.getAttributes().put("originalDefaultLabel", originalExpression);
+                    } else if (((InplaceComponent) parent).getDefaultLabel() != null) {
+                        parent.getAttributes().put("originalDefaultLabel", ((InplaceComponent) parent).getDefaultLabel());
+                    }
+
+                    String text = renderer.getConvertedValue(facesContext, placeholder);
                     ((InplaceComponent) parent).setDefaultLabel(text);
+                } else {
+                    Object defaultLabel = parent.getAttributes().get("originalDefaultLabel");
+                    ((InplaceComponent) parent).setDefaultLabel(null);
+                    if (defaultLabel instanceof ValueExpression) {
+                        parent.setValueExpression("defaultLabel", (ValueExpression) defaultLabel);
+                    } else if (defaultLabel != null) {
+                        ((InplaceComponent) parent).setDefaultLabel((String) defaultLabel);
+                    }
                 }
             } else {
                 try {
@@ -123,5 +140,4 @@ public abstract class AbstractPlaceholder extends UIOutput {
             }
         }
     }
-
 }
