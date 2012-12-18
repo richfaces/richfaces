@@ -20,7 +20,6 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -33,8 +32,7 @@ import org.richfaces.photoalbum.util.Environment;
  */
 
 @Named
-//@RequestScoped
-@ApplicationScoped
+@RequestScoped
 public class Help {
 
     private String page = "/includes/help/stuff.xhtml";
