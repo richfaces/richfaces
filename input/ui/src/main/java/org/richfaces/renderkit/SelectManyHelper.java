@@ -314,6 +314,7 @@ public class SelectManyHelper {
                         try {
                             // If modelType is a concrete class, let targetForConvertedValues be a new instance of that class.
                             targetForConvertedValues = collectionClass.newInstance();
+                            ((Collection) targetForConvertedValues).clear();
                         } catch (Exception e) {
                             // Otherwise, the concrete type for targetForConvertedValues is taken from the following table
                             if (Collection.class.isAssignableFrom(modelType)) {
