@@ -24,7 +24,7 @@
   background-color: white !important;
 }
 .syntaxhighlighter .line.highlighted.alt1, .syntaxhighlighter .line.highlighted.alt2 {
-  background-color: #e0e0e0 !important;
+  background-color: #ffcc99 !important; /* original value #e0e0e0 */
 }
 .syntaxhighlighter .line.highlighted.number {
   color: black !important;
