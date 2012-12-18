@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import org.jboss.logging.Logger;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.util.Preferred;
@@ -52,17 +51,7 @@ public class UserBean implements Serializable {
 
     private String password;
 
-    // private Shelf currentShelf;
-    // private Album currentAlbum;
-    // private Image currentImage;
-
     private boolean logged = false;
-
-    // -- getters and setters
-
-    //private boolean autolog = true; //
-
-    private Logger logger = Logger.getLogger(UserBean.class);
 
     public User logIn(String username, String passwordHash) throws Exception {
         user = (User) em.createNamedQuery(Constants.USER_LOGIN_QUERY).setParameter(Constants.USERNAME_PARAMETER, username)
@@ -103,22 +92,4 @@ public class UserBean implements Serializable {
         username = "";
         password = "";
     }
-
-    // public void setUser(User user) {
-    // this.user = user;
-    // }
-    /*
-     * public Shelf getCurrentShelf() { return currentShelf; }
-     *
-     * public void setCurrentShelf(Shelf currentShelf) { this.currentShelf = currentShelf; }
-     *
-     * public Album getCurrentAlbum() { return currentAlbum; }
-     *
-     * public void setCurrentAlbum(Album currentAlbum) { this.currentAlbum = currentAlbum; }
-     *
-     * public Image getCurrentImage() { return currentImage; }
-     *
-     * public void setCurrentImage(Image currentImage) { this.currentImage = currentImage; }
-     */
-    // -- management classes
 }
