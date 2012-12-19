@@ -90,12 +90,16 @@ public class SlideshowManager implements Serializable {
      *
      */
     public void startSlideshow() {
-        initSlideshow();
+        if (!this.active) {
+            initSlideshow();
+        }
         if (model.getImages() == null || model.getImages().size() < 1) {
             onError(true);
             return;
         }
-        this.selectedImage = model.getImages().get(this.slideshowIndex);
+        if (this.selectedImage == null) {
+            this.selectedImage = model.getImages().get(this.slideshowIndex);
+        }
         // mark image as 'visited'
         this.selectedImage.setVisited(true);
         // Check if that image was recently deleted. If yes, immediately stop slideshow process
@@ -110,17 +114,11 @@ public class SlideshowManager implements Serializable {
      */
     public void startSlideshow(Image selectedImage) {
         initSlideshow();
-        if (model.getImages() == null || model.getImages().size() < 1) {
-            onError(true);
-            return;
-        }
         this.slideshowIndex = model.getImages().indexOf(selectedImage);
         this.startSlideshowIndex = this.slideshowIndex;
         this.selectedImage = selectedImage;
-        // mark image as 'visited'
-        this.selectedImage.setVisited(true);
-        // Check if that image was recently deleted. If yes, immediately stop slideshow
-        checkIsFileRecentlyDeleted();
+        
+        startSlideshow();
     }
 
     /**
