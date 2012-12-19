@@ -80,7 +80,7 @@ public class TestPlaceholderInputText extends AbstractPlaceholderTest {
     }
 
     @Override
-    Input getFirstInput() {
+    Input input() {
         return firstInput;
     }
 

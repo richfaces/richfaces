@@ -85,7 +85,7 @@ public abstract class AbstractPlaceholderTest {
     @FindBy(id = PLACEHOLDER_ID)
     WebElement placeholderElement;
 
-    abstract Input getFirstInput();
+    abstract Input input();
 
     protected Color getDefaultInputColor() {
         return Color.BLACK;
@@ -105,7 +105,7 @@ public abstract class AbstractPlaceholderTest {
         browser.get(contextPath.toExternalForm() + "converter.jsf");
 
         // then
-        assertEquals(PlaceHolderValue.DEFAULT_VALUE, getFirstInput().getDefaultText());
+        assertEquals(PlaceHolderValue.DEFAULT_VALUE, input().getDefaultText());
     }
 
     @Test
@@ -114,10 +114,10 @@ public abstract class AbstractPlaceholderTest {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
         // then
-        assertEquals(PLACEHOLDER_TEXT, getFirstInput().getDefaultText());
-        assertEquals(DEFAULT_PLACEHOLDER_COLOR, getFirstInput().getTextColor());
+        assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
+        assertEquals(DEFAULT_PLACEHOLDER_COLOR, input().getTextColor());
         assertTrue("placeholder does not contain default class",
-                getFirstInput().getStyleClass().contains(PLACEHOLDER_CLASS));
+                input().getStyleClass().contains(PLACEHOLDER_CLASS));
     }
 
     @Test
@@ -133,7 +133,7 @@ public abstract class AbstractPlaceholderTest {
         // having
         browser.navigate().to(contextPath.toExternalForm() + "selector.jsf");
         // then
-        assertEquals(PLACEHOLDER_TEXT, getFirstInput().getDefaultText());
+        assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
     }
 
     @Test
@@ -142,8 +142,8 @@ public abstract class AbstractPlaceholderTest {
         String className = "some-class";
         browser.navigate().to(contextPath.toExternalForm() + "index.jsf?styleClass=" + className);
         // then
-        assertTrue("input should contain placeholder's default class", getFirstInput().getStyleClass().contains(PLACEHOLDER_CLASS));
-        assertTrue("input should contain specified class", getFirstInput().getStyleClass().contains(className));
+        assertTrue("input should contain placeholder's default class", input().getStyleClass().contains(PLACEHOLDER_CLASS));
+        assertTrue("input should contain specified class", input().getStyleClass().contains(className));
     }
 
     @Test
@@ -152,9 +152,9 @@ public abstract class AbstractPlaceholderTest {
         browser.navigate().to(contextPath.toExternalForm() + "index.jsf");
 
         // when
-        getFirstInput().clickOnInput();
+        input().clickOnInput();
         // then
-        assertEquals("", getFirstInput().getEditedText());
+        assertEquals("", input().getEditedText());
     }
 
     @Test
@@ -162,12 +162,12 @@ public abstract class AbstractPlaceholderTest {
         // having
         browser.navigate().to(contextPath.toExternalForm() + "index.jsf");
         // when
-        getFirstInput().setTestedValue(getTestedValue());
+        input().setTestedValue(getTestedValue());
 
         // then
-        assertFalse("input should not contain placeholder class", getFirstInput().getStyleClass().contains(PLACEHOLDER_CLASS));
-        assertEquals(getDefaultInputColor(), getFirstInput().getTextColor());
-        assertEquals(getTestedValue(), getFirstInput().getEditedText());
+        assertFalse("input should not contain placeholder class", input().getStyleClass().contains(PLACEHOLDER_CLASS));
+        assertEquals(getDefaultInputColor(), input().getTextColor());
+        assertEquals(getTestedValue(), input().getEditedText());
     }
 
     @Test
@@ -176,14 +176,14 @@ public abstract class AbstractPlaceholderTest {
         browser.navigate().to(contextPath.toExternalForm() + "index.jsf");
 
         // when
-        getFirstInput().setTestedValue(getTestedValue());
-        getFirstInput().clear();
+        input().setTestedValue(getTestedValue());
+        input().clear();
         body.click();
 
         // then
-        assertEquals(PLACEHOLDER_TEXT, getFirstInput().getDefaultText());
-        assertEquals(DEFAULT_PLACEHOLDER_COLOR, getFirstInput().getTextColor());
-        assertTrue("input should contain placeholder's default class", getFirstInput().getStyleClass().contains(PLACEHOLDER_CLASS));
+        assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
+        assertEquals(DEFAULT_PLACEHOLDER_COLOR, input().getTextColor());
+        assertTrue("input should contain placeholder's default class", input().getStyleClass().contains(PLACEHOLDER_CLASS));
     }
 
     @Test
@@ -192,19 +192,19 @@ public abstract class AbstractPlaceholderTest {
         browser.navigate().to(contextPath.toExternalForm() + "index.jsf");
 
         // when
-        getFirstInput().setTestedValue(getTestedValue());
+        input().setTestedValue(getTestedValue());
         body.click();
 
         // then
-        assertEquals(getTestedValue(), getFirstInput().getEditedText());
-        assertEquals(getDefaultInputColor(), getFirstInput().getTextColor());
+        assertEquals(getTestedValue(), input().getEditedText());
+        assertEquals(getDefaultInputColor(), input().getTextColor());
     }
 
     @Test
     public void testAjaxSendsEmptyValue() {
         // given
         browser.get(contextPath.toExternalForm() + "submit.jsf");
-        getFirstInput().setTestedValue(getTestedValue());
+        input().setTestedValue(getTestedValue());
         body.click();
 
         guardXhr(a4jSubmitBtn).click();
@@ -213,7 +213,7 @@ public abstract class AbstractPlaceholderTest {
         waitAjax().until().element(output).text().equalTo(getTestedValueResponse());
 
         // when
-        getFirstInput().clear();
+        input().clear();
         guardXhr(a4jSubmitBtn).click();
 
         // then
@@ -225,7 +225,7 @@ public abstract class AbstractPlaceholderTest {
         // given
         browser.get(contextPath.toExternalForm() + "submit.jsf");
         // when
-        getFirstInput().setTestedValue(getTestedValue());
+        input().setTestedValue(getTestedValue());
         guardXhr(a4jSubmitBtn).click();
 
         // then
@@ -250,7 +250,7 @@ public abstract class AbstractPlaceholderTest {
         // given
         browser.get(contextPath.toExternalForm() + "submit.jsf");
         // when
-        getFirstInput().setTestedValue(getTestedValue());
+        input().setTestedValue(getTestedValue());
         guardHttp(httpSubmitBtn).click();
         // then
         waitModel().until(element(output).isVisible());

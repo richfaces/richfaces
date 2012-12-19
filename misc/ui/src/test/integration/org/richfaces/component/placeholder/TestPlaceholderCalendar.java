@@ -77,7 +77,7 @@ public class TestPlaceholderCalendar extends AbstractPlaceholderTest {
     }
 
     @Override
-    Input getFirstInput() {
+    Input input() {
         return firstInput;
     }
 

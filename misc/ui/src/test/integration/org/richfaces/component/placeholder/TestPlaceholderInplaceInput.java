@@ -21,6 +21,8 @@
  */
 package org.richfaces.component.placeholder;
 
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -54,7 +56,7 @@ public class TestPlaceholderInplaceInput extends AbstractPlaceholderTest {
         p.body("<h:inputText id='second-input' />");
 
         p = deployment.baseFacelet("rendered.xhtml");
-        p.body("<input:inplaceInput id='input' >");
+        p.body("<input:inplaceInput id='input' defaultLabel='#{not empty param.defaultLabel ? param.defaultLabel : null}' >");
         p.body("    <misc:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
         p.body("</input:inplaceInput>");
 
@@ -77,37 +79,50 @@ public class TestPlaceholderInplaceInput extends AbstractPlaceholderTest {
     }
 
     @Override
-    Input getFirstInput() {
+    Input input() {
         return inplaceInput;
     }
 
-    @Ignore(value = "https://issues.jboss.org/browse/RF-12651")
     @Test
-    public void testDefaultAttributes() {
-        super.testDefaultAttributes();
+    public void testRendered() {
+        // having
+        browser.navigate().to(contextPath.toExternalForm() + "rendered.jsf");
+        // then
+        assertEquals("", input().getDefaultText().trim());
     }
 
-    @Ignore("https://issues.jboss.org/browse/RF-12623")
+    @Test
+    public void when_placeholder_is_not_rendered_anddefaultLabel_is_defined_then_is_should_be_used() {
+        // having
+        browser.navigate().to(contextPath.toExternalForm() + "rendered.jsf?defaultLabel=defaultLabel");
+        // then
+        assertEquals("defaultLabel", input().getDefaultText());
+    }
+
+    @Ignore("RF-12651")
+    @Test
+    @Override
+    public void testDefaultAttributes() {
+    }
+
+    @Ignore("RF-12651")
     @Test
     public void testSelector() {
-        super.testSelector();
     }
 
-    @Ignore(value = "https://issues.jboss.org/browse/RF-12651")
+    @Ignore("RF-12651")
     @Test
     public void testStyleClass() {
-        super.testStyleClass();
     }
 
-    @Ignore(value = "https://issues.jboss.org/browse/RF-12651")
+    @Ignore("RF-12651")
     @Test
     public void when_text_is_changed_then_text_changes_color_to_default_and_removes_placeholder_style_classes() {
-        super.when_text_is_changed_then_text_changes_color_to_default_and_removes_placeholder_style_classes();
     }
 
-    @Ignore(value = "https://issues.jboss.org/browse/RF-12651")
+    @Ignore("RF-12651")
     @Test
+    @Override
     public void when_text_is_cleared_then_input_gets_placeholder_text_and_style_again() {
-        super.when_text_is_cleared_then_input_gets_placeholder_text_and_style_again();
     }
 }

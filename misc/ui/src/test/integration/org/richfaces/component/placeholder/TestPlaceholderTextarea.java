@@ -75,7 +75,7 @@ public class TestPlaceholderTextarea extends AbstractPlaceholderTest {
     }
 
     @Override
-    Input getFirstInput() {
+    Input input() {
         return firstInput;
     }
 }

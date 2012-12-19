@@ -76,7 +76,7 @@ public class TestPlaceholderSelect extends AbstractPlaceholderTest {
         return deployment.getFinalArchive();
     }
     @Override
-    Input getFirstInput() {
+    Input input() {
         return firstInput;
     }
 
