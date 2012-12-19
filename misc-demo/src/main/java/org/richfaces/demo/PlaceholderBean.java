@@ -19,6 +19,7 @@ public class PlaceholderBean implements Serializable {
     private Converter converter = new MyConverter();
     private Date date;
     private String placeholderText = "Watermark text";
+    private boolean rendered = true;
     private TextObject textObject = new TextObject();
 
     private String inputText;
@@ -58,6 +59,14 @@ public class PlaceholderBean implements Serializable {
 
     public void setPlaceholderText(String text) {
         this.placeholderText = text;
+    }
+
+    public boolean isRendered() {
+        return rendered;
+    }
+
+    public void setRendered(boolean rendered) {
+        this.rendered = rendered;
     }
 
     public TextObject getTextObject() {

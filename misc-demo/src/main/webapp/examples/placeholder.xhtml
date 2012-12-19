@@ -17,35 +17,43 @@
             <fieldset>
                 <legend>Configuration</legend>
                 
-                <h:outputLabel value="Placeholder text" for="text" />
-                <h:inputTextarea id="text" value="#{placeholderBean.placeholderText}" required="true">
-                    <f:ajax event="valueChange" render="@form" />
-                </h:inputTextarea>
-                <h:commandButton value="Submit" action="#{placeholderBean.submit}" />
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Placeholder text" for="text" />
+                    <h:inputTextarea id="text" value="#{placeholderBean.placeholderText}" required="true">
+                        <a4j:ajax event="valueChange" execute="@form" render="samples" />
+                    </h:inputTextarea>
+                    
+                    <h:outputLabel value="Rendered" for="text" />
+                    <h:selectBooleanCheckbox value="#{placeholderBean.rendered}">
+                        <a4j:ajax event="click" execute="@form" render="samples" />
+                    </h:selectBooleanCheckbox>
+                    
+                    <h:commandButton value="Submit" action="#{placeholderBean.submit}" />
+                </h:panelGrid>
             </fieldset>  
         </h:form>
 
-        <h:form>
+        <h:form id="samples">
             <fieldset>
                 <legend>Samples</legend>
                 
                 h:inputText with styleClass:
                 <h:inputText id="with-placeholder" value="#{placeholderBean.inputText}">
-                    <rich:placeholder value="#{placeholderBean.placeholderText}" styleClass="customPlaceholderClass" />
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" styleClass="customPlaceholderClass" rendered="#{placeholderBean.rendered}" />
                 </h:inputText>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
     
                 rich:calendar:
                 <in:calendar id="calendar" value="#{placeholderBean.date}" enableManualInput="true" ajaxSingle="true">
-                    <rich:placeholder value="#{placeholderBean.placeholderText}" />
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
                 </in:calendar>
                 <h:outputText value="Output: #{placeholderBean.date}" />
                 <br />
     
                 textarea:
                 <h:inputTextarea id="textarea" value="#{placeholderBean.textarea}" rows="10" cols="40">
-                    <rich:placeholder value="#{placeholderBean.placeholderText}" />
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
                 </h:inputTextarea>
                 <h:outputText value="Output: #{placeholderBean.textarea}" />
                 <br />
@@ -53,13 +61,13 @@
                 non-JSF input:
                 <input id="htmlInput" type="text" />
                 <rich:placeholder value="#{placeholderBean.textObject}" selector="#htmlInput"
-                    converter="#{placeholderBean.converter}" />
+                    converter="#{placeholderBean.converter}" rendered="#{placeholderBean.rendered}" />
 
                 <br />
                 
                 rich:autocomplete
                 <in:autocomplete id="autocomplete" value="#{placeholderBean.inputText}">
-                    <rich:placeholder value="#{placeholderBean.placeholderText}" />
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
                 </in:autocomplete>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
@@ -68,14 +76,14 @@
                 <in:inplaceSelect id="inplaceSelect" value="#{placeholderBean.inputText}">
                     <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
                     <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
-                    <rich:placeholder value="#{placeholderBean.placeholderText}" />
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
                 </in:inplaceSelect>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
                 
                 rich:inplaceInput
                 <in:inplaceInput id="inplaceInput" value="#{placeholderBean.inputText}">
-                    <rich:placeholder value="#{placeholderBean.placeholderText}" />
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
                 </in:inplaceInput>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
@@ -84,7 +92,7 @@
                 <in:select id="select" value="#{placeholderBean.inputText}">
                     <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
                     <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
-                    <rich:placeholder value="#{placeholderBean.placeholderText}" />
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
                 </in:select>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
