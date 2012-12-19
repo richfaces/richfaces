@@ -34,3 +34,15 @@ To build the project with a full set of images you need to run
 mvn clean install -Plivedemo
 
 To make sure the project is built successfully you need to have a SVN client installed on your local machine, for example Subversion. To launch the application use the instructions given above.
+
+1.4 Predefined users
+
+To use the features available to registered users either create your own account or use one of the predefined ones:
+	- amarkhel
+	- Viking
+	- Noname
+	- user_for_add
+	- user_for_del
+	- user_for_dnd
+
+the password is 12345 in all cases.
