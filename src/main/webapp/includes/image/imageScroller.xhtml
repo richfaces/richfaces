@@ -23,8 +23,7 @@
                             <h:outputText value="#{rk + 1}" />
                         </h:panelGroup>
                     </h:panelGroup>
-
-                    <a4j:ajax disabled="#{model.selectedImage == img}" event="click" render="mainImage, treePanel, imagesTable" listener="#{controller.showImage(img)}" />
+                        <a4j:ajax event="click" render="mainImage" listener="#{controller.showImage(img)}" execute="@this"/>
                 </a4j:outputPanel>
             </a4j:repeat>
         </h:panelGrid>
