@@ -21,7 +21,7 @@
         </h:panelGrid>
 
         <br />
-        <rich:tree ajaxSubmitSelection="false" id="PreDefinedTree" var="treeNode" toggleType="client">
+        <rich:tree id="PreDefinedTree" var="treeNode" toggleType="client">
             <rich:treeModelAdaptor nodes="#{shelfManager.predefinedShelves}">
                 <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
                     iconCollapsed="img/shell/tree_icon_shelf.png" iconExpanded="img/shell/tree_icon_shelf.png">
@@ -38,7 +38,7 @@
                     </a4j:outputPanel>
                 </rich:treeNode>
 
-                <rich:treeModelAdaptor var="album" nodes="#{treeNode.albums}">
+                <rich:treeModelAdaptor nodes="#{treeNode.albums}">
                     <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
                         iconLeaf="img/shell/tree_icon_album.png">
                         <a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
@@ -88,10 +88,8 @@
                 [Image]
             </rich:panel>
         </rich:dragIndicator>
-        <!-- TODO - implememnt adviseNode... behaviour, icons, connecting lines -->
-        <rich:tree ajaxSubmitSelection="false" dragIndicator="dragIndicator" var="treeNode" toggleType="client"
-            dropListener="#{dndManager.processDrop}">
-            <rich:treeModelAdaptor nodes="#{userBean.user.shelves}" var="shelf">
+        <rich:tree id="userTree" var="treeNode" toggleType="client">
+            <rich:treeModelAdaptor nodes="#{userBean.user.shelves}">
                 <rich:treeNode style="cursor:pointer" selectedClass="tree-selected-node"
                     iconExpanded="/img/shell/tree_icon_shelf.png" iconCollapsed="/img/shell/tree_icon_shelf.png" id="shelf">
                     <ui:include src="/includes/contextMenu/CMForShelf.xhtml">
@@ -115,7 +113,7 @@
                     </a4j:outputPanel>
                 </rich:treeNode>
 
-                <rich:treeModelAdaptor var="album" nodes="#{treeNode.albums}">
+                <rich:treeModelAdaptor nodes="#{treeNode.albums}">
                     <rich:treeNode style="cursor:pointer" render="mainArea, treePanel" selectedClass="tree-selected-node"
                         iconLeaf="img/shell/tree_icon_album.png" id="album">
                         <ui:include src="/includes/contextMenu/CMForAlbum.xhtml">
