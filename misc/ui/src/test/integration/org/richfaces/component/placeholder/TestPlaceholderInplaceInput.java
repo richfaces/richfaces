@@ -21,28 +21,64 @@
  */
 package org.richfaces.component.placeholder;
 
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.graphene.enricher.findby.FindBy;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openqa.selenium.support.FindBy;
+import org.richfaces.integration.MiscDeployment;
+import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class TestPlaceholderInplaceInput extends AbstractPlaceholderTest {
 
-    @FindBy(css = INPUT_SELECTOR)
-    private InplaceInput firstInplaceInput;
-    @FindBy(css = SECOND_INPUT_SELECTOR)
-    private InplaceInput secondInplaceInput;
+    @FindBy(id = INPUT_ID)
+    private InplaceInput inplaceInput;
 
-    @Override
-    Input getFirstInput() {
-        return firstInplaceInput;
+    @Deployment
+    public static WebArchive createDeployment() {
+        MiscDeployment deployment = new MiscDeployment(TestPlaceholderInputText.class);
+
+        deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
+
+        FaceletAsset p;
+        p = deployment.baseFacelet("index.xhtml");
+        p.body("<input:inplaceInput id='input' >");
+        p.body("    <misc:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
+        p.body("</input:inplaceInput>");
+
+        p = deployment.baseFacelet("selector.xhtml");
+        p.body("<input:inplaceInput id='input' />");
+        p.body("<h:inputText id='second-input' />");
+
+        p = deployment.baseFacelet("rendered.xhtml");
+        p.body("<input:inplaceInput id='input' >");
+        p.body("    <misc:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
+        p.body("</input:inplaceInput>");
+
+        p = deployment.baseFacelet("converter.xhtml");
+        p.body("<input:inplaceInput id='input' >");
+        p.body("    <misc:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
+        p.body("</input:inplaceInput>");
+
+        p = deployment.baseFacelet("submit.xhtml");
+        p.form("<input:inplaceInput id='input' value='#{placeHolderValue.value2}' >");
+        p.form("    <misc:placeholder id='placeholderID' value='Placeholder Text' />");
+        p.form("</input:inplaceInput>");
+        p.form("<br />");
+        p.form("<a4j:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");
+        p.form("<h:commandButton id='httpSubmit' value='http submit' />");
+        p.form("<br />");
+        p.form("<h:outputText id='output' value='#{placeHolderValue.value2}' />");
+
+        return deployment.getFinalArchive();
     }
 
     @Override
-    public Input getSecondInput() {
-        return secondInplaceInput;
+    Input getFirstInput() {
+        return inplaceInput;
     }
 
     @Ignore(value = "https://issues.jboss.org/browse/RF-12651")
@@ -61,11 +97,6 @@ public class TestPlaceholderInplaceInput extends AbstractPlaceholderTest {
     @Test
     public void testStyleClass() {
         super.testStyleClass();
-    }
-
-    @Override
-    String testedComponent() {
-        return "inplaceInput";
     }
 
     @Ignore(value = "https://issues.jboss.org/browse/RF-12651")

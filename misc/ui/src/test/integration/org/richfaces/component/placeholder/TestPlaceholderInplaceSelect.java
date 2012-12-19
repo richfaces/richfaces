@@ -21,10 +21,14 @@
  */
 package org.richfaces.component.placeholder;
 
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.graphene.Graphene;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.integration.MiscDeployment;
+import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -32,18 +36,52 @@ import org.openqa.selenium.support.FindBy;
 public class TestPlaceholderInplaceSelect extends AbstractPlaceholderTest {
 
     @FindBy(css = INPUT_SELECTOR)
-    private InplaceSelectInput firstInplaceInput;
-    @FindBy(css = SECOND_INPUT_SELECTOR)
-    private InplaceSelectInput secondInplaceInput;
+    private InplaceSelectInput firstInplaceSelect;
 
-    @Override
-    Input getFirstInput() {
-        return firstInplaceInput;
+    @Deployment
+    public static WebArchive createDeployment() {
+        MiscDeployment deployment = new MiscDeployment(TestPlaceholderInputText.class);
+
+        deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
+
+        FaceletAsset p;
+        p = deployment.baseFacelet("index.xhtml");
+        p.body("<input:inplaceSelect id='input'>");
+        p.body("    <f:selectItems value='#{placeHolderValue.items}' />");
+        p.body("    <misc:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
+        p.body("</input:inplaceSelect>");
+
+        p = deployment.baseFacelet("selector.xhtml");
+        p.body("<input:inplaceSelect id='input' />");
+        p.body("<misc:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
+
+        p = deployment.baseFacelet("rendered.xhtml");
+        p.body("<input:inplaceSelect id='input' >");
+        p.body("    <misc:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
+        p.body("</input:inplaceSelect>");
+
+        p = deployment.baseFacelet("converter.xhtml");
+        p.body("<input:inplaceSelect id='input' >");
+        p.body("    <misc:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
+        p.body("</input:inplaceSelect>");
+
+        p = deployment.baseFacelet("submit.xhtml");
+        p.form("<input:inplaceSelect id='input' value='#{placeHolderValue.value2}' >");
+        p.form("    <f:selectItems value='#{placeHolderValue.items}' />");
+        p.form("    <misc:placeholder id='placeholderID' value='Placeholder Text' />");
+        p.form("</input:inplaceSelect>");
+        p.form("<br />");
+        p.form("<a4j:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");
+        p.form("<h:commandButton id='httpSubmit' value='http submit' />");
+        p.form("<br />");
+        p.form("<h:outputText id='output' value='#{placeHolderValue.value2}' />");
+
+        return deployment.getFinalArchive();
     }
 
     @Override
-    Input getSecondInput() {
-        return secondInplaceInput;
+    Input getFirstInput() {
+        return firstInplaceSelect;
     }
 
     @Override
@@ -60,7 +98,7 @@ public class TestPlaceholderInplaceSelect extends AbstractPlaceholderTest {
     @Override
     public void testAjaxSendsEmptyValue() {
         // given
-        browser.get(contextPath.toExternalForm() + "submit-" + testedComponent() + ".jsf");
+        browser.get(contextPath.toExternalForm() + "submit.jsf");
 
         //when
         Graphene.guardXhr(a4jSubmitBtn).click();
@@ -85,11 +123,6 @@ public class TestPlaceholderInplaceSelect extends AbstractPlaceholderTest {
     @Test
     public void testStyleClass() {
         super.testStyleClass();
-    }
-
-    @Override
-    String testedComponent() {
-        return "inplaceSelect";
     }
 
     @Ignore(value = "https://issues.jboss.org/browse/RF-12651")

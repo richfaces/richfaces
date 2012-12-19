@@ -5,8 +5,8 @@ import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.richfaces.component.InplaceComponent;
 import org.richfaces.deployment.Deployment;
+import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 public class MiscDeployment extends Deployment {
 
@@ -28,6 +28,19 @@ public class MiscDeployment extends Deployment {
                 .importDirectory("target/classes/").as(GenericArchive.class),
                 "/", Filters.includeAll());
         archive().addAsLibrary(miscArchive);
+    }
 
+
+
+    public FaceletAsset baseFacelet(String name) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.xmlns("misc", "http://richfaces.org/misc");
+        p.xmlns("a4j", "http://richfaces.org/a4j");
+        p.xmlns("input", "http://richfaces.org/input");
+
+        this.archive().add(p, name);
+
+        return p;
     }
 }

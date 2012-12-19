@@ -1,11 +1,10 @@
-<span id="wrapper">
-    <span id="placeholderID">
-        <script id="placeholderIDScript" type="text/javascript">
+<body>
+  <span id="placeholderID">
+    <script id="placeholderIDScript" type="text/javascript">
 //<![CDATA[
 new RichFaces.ui.Placeholder("placeholderID", {"targetId":"input","text":"Placeholder Text"} );
 //]]>
-        </script>
-    </span>
-    <input id="input" type="text" name="input" value="Placeholder Text" class="rf-plhdr"/>
-    <input id="second-input" type="text" name="second-input"/>
-</span>
+    </script>
+  </span>
+  <input id="input" type="text" name="input" class="rf-plhdr" value="Placeholder Text"/>
+</body>

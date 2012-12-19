@@ -21,7 +21,11 @@
  */
 package org.richfaces.component.placeholder;
 
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.integration.MiscDeployment;
+import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -30,17 +34,50 @@ public class TestPlaceholderSelect extends AbstractPlaceholderTest {
 
     @FindBy(css = INPUT_SELECTOR + " input[id$=Input]")
     private SelectInput firstInput;
-    @FindBy(css = SECOND_INPUT_SELECTOR + " input[id$=Input]")
-    private SelectInput secondInput;
 
+    @Deployment
+    public static WebArchive createDeployment() {
+        MiscDeployment deployment = new MiscDeployment(TestPlaceholderTextarea.class);
+
+        deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
+
+        FaceletAsset p;
+        p = deployment.baseFacelet("index.xhtml");
+        p.body("<input:select id='input' enableManualInput='true'>");
+        p.form("    <f:selectItems value='#{placeHolderValue.items}' />");
+        p.body("    <misc:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
+        p.body("</input:select>");
+
+        p = deployment.baseFacelet("selector.xhtml");
+        p.body("<input:select id='input' />");
+        p.body("<misc:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
+
+        p = deployment.baseFacelet("rendered.xhtml");
+        p.body("<input:select id='input'>");
+        p.body("    <misc:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
+        p.body("</input:select>");
+
+        p = deployment.baseFacelet("converter.xhtml");
+        p.body("<input:select id='input' >");
+        p.body("    <misc:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
+        p.body("</input:select>");
+
+        p = deployment.baseFacelet("submit.xhtml");
+        p.form("<input:select id='input' value='#{placeHolderValue.value2}' enableManualInput='true' >");
+        p.form("    <f:selectItems value='#{placeHolderValue.items}' />");
+        p.form("    <misc:placeholder id='placeholderID' value='Placeholder Text' />");
+        p.form("</input:select>");
+        p.form("<br />");
+        p.form("<a4j:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");
+        p.form("<h:commandButton id='httpSubmit' value='http submit' />");
+        p.form("<br />");
+        p.form("<h:outputText id='output' value='#{placeHolderValue.value2}' />");
+
+        return deployment.getFinalArchive();
+    }
     @Override
     Input getFirstInput() {
         return firstInput;
-    }
-
-    @Override
-    public Input getSecondInput() {
-        return secondInput;
     }
 
     @Override
@@ -51,10 +88,5 @@ public class TestPlaceholderSelect extends AbstractPlaceholderTest {
     @Override
     protected String getTestedValueResponse() {
         return "item1";
-    }
-
-    @Override
-    String testedComponent() {
-        return "select";
     }
 }
