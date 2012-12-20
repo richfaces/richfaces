@@ -466,6 +466,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     protected abstract ExtendedDataModel<?> createExtendedDataModel();
 
+    public void clearExtendedDataModel() {
+        setExtendedDataModel(null);
+    }
+
     /**
      * @param extendedDataModel the extendedDataModel to set
      */
