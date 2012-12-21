@@ -26,6 +26,6 @@ public class VerifyFocusEnforcingOverridesFocusSettings extends VerifyFocusEnfor
 
         AbstractFocus component = bean.getComponent();
         FocusRendererBase renderer = bean.getRenderer();
-        assertFalse(renderer.shouldRender(context, component));
+        assertFalse(renderer.shouldApply(context, component));
     }
 }

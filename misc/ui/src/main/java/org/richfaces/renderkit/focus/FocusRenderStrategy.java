@@ -23,5 +23,5 @@ public interface FocusRenderStrategy {
      * Determines whether the currently rendered Focus should be rendered or not based on if request is postback and if Focus
      * belongs to form which has been submitted.
      */
-    boolean shouldRender(FacesContext context, AbstractFocus component);
+    boolean shouldApply(FacesContext context, AbstractFocus component);
 }

@@ -27,8 +27,8 @@ public class FocusRendererBase extends RendererBase implements FocusRendererInte
      * Determines whether the currently rendered Focus should be rendered or not based on if request is postback and if Focus
      * belongs to form which has been submitted.
      */
-    public boolean shouldRender(FacesContext context, AbstractFocus component) {
-        return getStrategy(component).shouldRender(context, component);
+    public boolean shouldApply(FacesContext context, AbstractFocus component) {
+        return getStrategy(component).shouldApply(context, component);
     }
 
     /**

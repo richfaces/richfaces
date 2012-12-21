@@ -17,9 +17,13 @@ public class FormFocusRenderStrategy extends AbstractFocusRenderStrategy {
     }
 
     @Override
-    public boolean shouldRender(FacesContext context, AbstractFocus component) {
+    public boolean shouldApply(FacesContext context, AbstractFocus component) {
 
         if (FocusRendererUtils.isFocusEnforced(context)) {
+            return false;
+        }
+
+        if (component.isDelayed()) {
             return false;
         }
 
@@ -28,7 +32,7 @@ public class FormFocusRenderStrategy extends AbstractFocusRenderStrategy {
         if (!context.isPostback()) {
             if (FocusRendererUtils.hasViewFocus(context.getViewRoot())) {
                 return false;
-            } else if (isSomeAnotherFormFocusRenderer(context, component)) {
+            } else if (isSomeAnotherFormFocusRendered(context, component)) {
                 return false;
             } else {
                 FocusRendererUtils.markFirstFormFocusRendered(context, component);
@@ -39,7 +43,7 @@ public class FormFocusRenderStrategy extends AbstractFocusRenderStrategy {
         }
     }
 
-    private boolean isSomeAnotherFormFocusRenderer(FacesContext context, AbstractFocus component) {
+    private boolean isSomeAnotherFormFocusRendered(FacesContext context, AbstractFocus component) {
         String firstFormFocusRendered = FocusRendererUtils.getFirstFormFocusRendered(context);
 
         if (firstFormFocusRendered == null) {

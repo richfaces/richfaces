@@ -23,7 +23,7 @@ public class VerifyFocusCandidates extends AbstractComponentAssertion {
     private String message;
 
     /**
-     * 
+     *
      * @param message message to be thrown during focus candidates verification
      * @param invalidatedComponents space separated list of components to invalidate
      * @param focusCandidates candidates for gaining focus
@@ -34,15 +34,17 @@ public class VerifyFocusCandidates extends AbstractComponentAssertion {
         this.message = message;
     }
 
-    @BeforePhase(Phase.PROCESS_VALIDATIONS)
+    @BeforePhase(Phase.RENDER_RESPONSE)
     public void invalidate_first_input() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        
-        for (String invalidate : Splitter.on(" ").split(invalidatedComponents)) {
-            facesContext.addMessage(invalidate, new FacesMessage("invalidated " + invalidate));
+
+        if (invalidatedComponents != null) {
+            for (String invalidate : Splitter.on(" ").split(invalidatedComponents)) {
+                facesContext.addMessage(invalidate, new FacesMessage("invalidated " + invalidate));
+            }
+
+            assertTrue(facesContext.getClientIdsWithMessages().hasNext());
         }
-        
-        assertTrue(facesContext.getClientIdsWithMessages().hasNext());
     }
 
     @AfterPhase(Phase.RENDER_RESPONSE)

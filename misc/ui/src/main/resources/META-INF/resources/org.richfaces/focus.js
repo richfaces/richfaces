@@ -70,10 +70,6 @@
                     tabbables.get(0).focus();
                 }
             }, this);
-
-            if (!this.options.delayed) {
-                jQuery(this.options.applyFocus);
-            }
         },
 
         applyFocus : function() {

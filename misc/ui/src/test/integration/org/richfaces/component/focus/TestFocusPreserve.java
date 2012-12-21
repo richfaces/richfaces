@@ -45,6 +45,9 @@ public class TestFocusPreserve {
     @FindBy(id = "form:ajax")
     private WebElement ajax;
 
+    @FindBy(id = "secondForm:renderFirstForm")
+    private WebElement renderFirstFormFromSecondForm;
+
     @Deployment
     public static WebArchive createDeployment() {
         MiscDeployment deployment = new MiscDeployment(TestFocusPreserve.class);
@@ -76,7 +79,24 @@ public class TestFocusPreserve {
         input3.click();
         guardXhr(ajax).click();
 
+        // then
         waitAjax().until(new ElementIsFocused(input3));
+    }
+
+    @Test
+    public void when_focus_is_rerendered_from_another_form_then_it_is_rendered_and_working_but_not_applied() throws InterruptedException {
+        // having
+        browser.get(contextPath.toExternalForm());
+
+        // when
+        guardXhr(renderFirstFormFromSecondForm).click();
+        Thread.sleep(500);
+
+        input2.click();
+        guardXhr(ajax).click();
+
+        // then
+        waitAjax().until(new ElementIsFocused(input2));
     }
 
     private WebElement getFocusedElement() {
@@ -101,6 +121,10 @@ public class TestFocusPreserve {
         p.body("        <a4j:ajax render='@form' />");
         p.body("    </h:commandButton>");
 
+        p.body("</h:form>");
+
+        p.body("<h:form id='secondForm'>");
+        p.body("    <a4j:commandButton id='renderFirstForm' render='form' value='Re-render form with focus'  />");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");

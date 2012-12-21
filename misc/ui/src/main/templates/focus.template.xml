@@ -12,17 +12,19 @@
     </cc:interface>
 
     <cc:implementation>
-        <span id="#{clientId}" class=".rf-fcs">
+        <span id="#{clientId}" class="rf-fcs">
             <input id="#{clientId}InputFocus" name="org.richfaces.focus" type="hidden" value="#{component.value}" />
-            <c:if test="#{shouldRender(facesContext, component)}">
-                <cdk:scriptObject name="options">
-                    <cdk:scriptOption name="mode" value="#{component.getMode()}" />
-                    <cdk:scriptOption name="delayed" value="#{component.delayed and !facesContext.postback}" />
-                    <cdk:scriptOption name="focusCandidates" value="#{getFocusCandidatesAsString(facesContext, component)}" />
-                </cdk:scriptObject>
-                <cdk:object name="scriptArgs" value="#{toScriptArgs(options)}" />
-                <cdk:object name="script" type="String" value="new RichFaces.ui.Focus('#{clientId}', #{empty scriptArgs ? '{}' : scriptArgs});" />
-                <cdk:call expression="renderOncompleteScript(facesContext, script)" />
+            <cdk:scriptObject name="options">
+                <cdk:scriptOption name="mode" value="#{component.getMode()}" />
+                <cdk:scriptOption name="focusCandidates" value="#{getFocusCandidatesAsString(facesContext, component)}" />
+            </cdk:scriptObject>
+            <cdk:object name="scriptArgs" value="#{toScriptArgs(options)}" />
+            <cdk:object name="script" type="String" value="new RichFaces.ui.Focus('#{clientId}', #{empty scriptArgs ? '{}' : scriptArgs});" />
+            <cdk:call expression="renderOncompleteScript(facesContext, script)" />
+
+            <c:if test="#{shouldApply(facesContext, component)}">
+                <cdk:object name="applyScript" type="String" value="RichFaces.$('#{clientId}').applyFocus()" />
+                <cdk:call expression="renderOncompleteScript(facesContext, applyScript)" />
             </c:if>
         </span>
     </cc:implementation>

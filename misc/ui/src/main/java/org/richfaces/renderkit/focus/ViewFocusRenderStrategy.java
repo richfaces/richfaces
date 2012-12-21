@@ -16,7 +16,7 @@ public class ViewFocusRenderStrategy extends AbstractFocusRenderStrategy {
     }
 
     @Override
-    public boolean shouldRender(FacesContext context, AbstractFocus component) {
+    public boolean shouldApply(FacesContext context, AbstractFocus component) {
 
         if (FocusRendererUtils.isFocusEnforced(context)) {
             return false;
