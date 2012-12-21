@@ -98,8 +98,17 @@ public final class CoreConfiguration {
          */
         @Experimental
         @ConfigurationItem(defaultValue = "300000", names="org.richfaces.push.session.maxInactiveInterval")
-        pushSessionMaxInactiveInterval
-
+        pushSessionMaxInactiveInterval,
+        /**
+         * Whether or not to display the built in sort controls when the sorting attributes are present on a column
+         */
+        @ConfigurationItem(defaultValue = "true", names = "org.richfaces.builtin.sort.enabled")
+        builtInSortControlsEnabled,
+        /**
+         * Whether or not to display the built in filter controls when the filtering attributes are present on a column
+         */
+        @ConfigurationItem(defaultValue = "true", names = "org.richfaces.builtin.filter.enabled")
+        builtInFilterControlsEnabled
     }
 
     @ConfigurationItemsBundle(propertiesFile = "org/richfaces/push.properties")
