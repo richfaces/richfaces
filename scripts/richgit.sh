@@ -220,7 +220,7 @@ esac
 if [[ $EACH == true ]]; then
     for_each_module $CMD_ARGS
 elif [[ $STATUS == true ]]; then
-    for_each_module 'git status'
+    for_each_module 'git status | grep --color -E "On branch \w*|$"'
 else
     if [[ $PULL == false ]]; then
         if [[ $FORK == true && $USERNAME != "richfaces" ]]; then
