@@ -285,7 +285,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         this.visitTree(visitContext, new VisitCallback() {
             @Override
             public VisitResult visit(VisitContext context, UIComponent target) {
-                if (AbstractTogglePanel.this == target) {
+                if (AbstractTogglePanel.this == target || target instanceof UIRepeat) {
                     return VisitResult.ACCEPT; // Proceed with visit to target's children
                 }
                 if (isActiveItem(target, activeItem) || getSwitchType() == SwitchType.client) {
@@ -343,7 +343,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         this.visitTree(visitContext, new VisitCallback() {
             @Override
             public VisitResult visit(VisitContext context, UIComponent target) {
-                if (AbstractTogglePanel.this == target) {
+                if (AbstractTogglePanel.this == target || target instanceof UIRepeat) {
                     return VisitResult.ACCEPT; // Proceed with visit to target's children
                 }
                 if (isActiveItem(target, activeItem) || getSwitchType() == SwitchType.client) {
@@ -386,7 +386,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         this.visitTree(visitContext, new VisitCallback() {
             @Override
             public VisitResult visit(VisitContext context, UIComponent target) {
-                if (AbstractTogglePanel.this == target) {
+                if (AbstractTogglePanel.this == target || target instanceof UIRepeat) {
                     return VisitResult.ACCEPT; // Proceed with visit to target's children
                 }
                 if (isActiveItem(target, activeItem) || getSwitchType() == SwitchType.client) {
