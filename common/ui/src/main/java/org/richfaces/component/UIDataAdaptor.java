@@ -48,7 +48,6 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.component.UniqueIdVendor;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -57,7 +56,6 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PostRestoreStateEvent;
 import javax.faces.event.PostValidateEvent;
@@ -1388,7 +1386,9 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * @param context
      */
     private boolean requiresRowIteration(VisitContext context) {
-        return !context.getHints().contains(VisitHint.SKIP_ITERATION);
+        // The VisitHint.SKIP_ITERATION enum is only available as of JSF 2.1.  Switch to using the enum when we no longer want to support JSF 2.0.
+        // return !context.getHints().contains(VisitHint.SKIP_ITERATION);
+        return ! Boolean.TRUE.equals(context.getFacesContext().getAttributes().get("javax.faces.visit.SKIP_ITERATION"));
     }
 
     /**
