@@ -646,12 +646,16 @@ if (!window.RichFaces) {
     var searchForComponentRootOrReturn = function(sourceElement) {
         if (richfaces && richfaces.$) {
             if (!richfaces.$(sourceElement)) {
+                var parentElement = false;
                 jQuery(sourceElement).parents().each(function() {
                     if (richfaces.$(this)) {
-                        return  this;
+                        parentElement =  this;
                         return false;
                     }
                 });
+                if (parentElement !== false) {
+                    return parentElement;
+                }
             }
         }
         return sourceElement;
