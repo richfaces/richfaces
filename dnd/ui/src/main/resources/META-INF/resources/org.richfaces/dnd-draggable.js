@@ -32,11 +32,14 @@
         this.dragElement.draggable();
 
         if (options.indicator) {
-            var element = document.getElementById(options.indicator);
-            var clone = $(element).clone();
+            var element = $(document.getElementById(options.indicator));
+            var clone = element.clone();
             $("*[id]", clone).andSelf().each(function() {
                 $(this).removeAttr("id");
             });
+            if (element.attr("id")) {
+                clone.attr("id", element.attr("id") + "Clone");
+            }
             
             this.dragElement.data("indicator", true);
             this.dragElement.draggable("option", "helper", function() {
