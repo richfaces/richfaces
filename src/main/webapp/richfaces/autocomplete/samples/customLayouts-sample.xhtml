@@ -9,7 +9,7 @@
 	components wraps the content additionally in order to define
 	cells.</p>
 	<h:form>
-		<rich:autocomplete autocompleteList="#{autocompleteBean.capitals}"
+		<rich:autocomplete mode="client" autocompleteList="#{autocompleteBean.capitals}"
 			var="cap" fetchValue="#{cap.state}" layout="table">
 			<rich:column>
 				<h:graphicImage value="#{cap.stateFlag}" />
@@ -25,7 +25,7 @@
 	<p>And next is the sample of simple div (default) layout. You're responsible to align the inners content 
 	within single div there.</p>
 	<h:form>
-		<rich:autocomplete autocompleteList="#{autocompleteBean.capitals}"
+		<rich:autocomplete mode="client" autocompleteList="#{autocompleteBean.capitals}"
 			var="cap" fetchValue="#{cap.state}" layout="div">
 			<b>#{cap.state}</b> -
         		<i>(#{cap.name}) </i>
