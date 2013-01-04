@@ -27,7 +27,6 @@ import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
@@ -43,7 +42,6 @@ import org.richfaces.component.util.MessageUtil;
  * @author Lukas Fryc
  *
  */
-@FacesValidator(SelectLabelValueValidator.ID)
 public class SelectLabelValueValidator implements Validator, Serializable {
 
     public static final String ID = "org.richfaces.validator.SelectLabelValueValidator";
