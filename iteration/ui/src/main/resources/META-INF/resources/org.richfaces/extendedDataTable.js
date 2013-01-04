@@ -156,31 +156,8 @@
                 this.ajaxFunction = ajaxFunction;
                 this.options = options || {};
                 this.element = this.attachToDom();
-//			var bodyElement, contentElement, spacerElement, dataTableElement, normalPartStyle, rows, rowHeight, parts, tbodies,
-//				shiftIndex, activeIndex, selectionFlag;
-                this.dragElement = document.getElementById(id + ":d");
-                this.reorderElement = document.getElementById(id + ":r");
-                this.reorderMarkerElement = document.getElementById(id + ":rm");
-                this.widthInput = document.getElementById(id + ":wi");
                 this.newWidths = {};
-                this.selectionInput = document.getElementById(id + ":si");
-                this.header = jQuery(this.element).children(".rf-edt-hdr");
-                this.headerCells = this.header.find(".rf-edt-hdr-c");
-                this.footerCells = jQuery(this.element).children(".rf-edt-ftr").find(".rf-edt-ftr-c");
-                this.resizerHolders = this.header.find(".rf-edt-rsz-cntr");
-
-                this.frozenHeaderPartElement = document.getElementById(id + ":frozenHeader");
-                this.frozenColumnCount = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.firstChild.rows[0].cells.length : 0;//TODO Richfaces.firstDescendant;
-
-                this.headerElement = document.getElementById(id + ":header");
-                this.footerElement = document.getElementById(id + ":footer");
-                this.scrollElement = document.getElementById(id + ":scrl");
-                this.scrollContentElement = document.getElementById(id + ":scrl-cnt");
-                var bodyElem = document.getElementById(id + ":body");
-                
-                //bodyElem.style.width = "500px";
-                //this.headerElement.style.width = "500px";
-
+                this.storeDomReferences();
                 if (this.options['onready'] && typeof this.options['onready'] == 'function') {
                     richfaces.Event.bind(this.element, "rich:ready", this.options['onready']);
                 }
@@ -190,6 +167,29 @@
                 jQuery(this.scrollElement).bind("scroll", jQuery.proxy(this.updateScrollPosition, this));
                 this.bindHeaderHandlers();
                 jQuery(this.element).bind("rich:onajaxcomplete", jQuery.proxy(this.ajaxComplete, this));
+            },
+
+            storeDomReferences: function() {
+                this.dragElement = document.getElementById(this.id + ":d");
+                this.reorderElement = document.getElementById(this.id + ":r");
+                this.reorderMarkerElement = document.getElementById(this.id + ":rm");
+                this.widthInput = document.getElementById(this.id + ":wi");
+                this.selectionInput = document.getElementById(this.id + ":si");
+
+
+                this.header = jQuery(this.element).children(".rf-edt-hdr");
+                this.headerCells = this.header.find(".rf-edt-hdr-c");
+                this.footerCells = jQuery(this.element).children(".rf-edt-ftr").find(".rf-edt-ftr-c");
+                this.resizerHolders = this.header.find(".rf-edt-rsz-cntr");
+
+                this.frozenHeaderPartElement = document.getElementById(this.id + ":frozenHeader");
+                this.frozenColumnCount = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.firstChild.rows[0].cells.length : 0;//TODO Richfaces.firstDescendant;
+
+                this.headerElement = document.getElementById(this.id + ":header");
+                this.footerElement = document.getElementById(this.id + ":footer");
+                this.scrollElement = document.getElementById(this.id + ":scrl");
+                this.scrollContentElement = document.getElementById(this.id + ":scrl-cnt");
+
             },
 
             getColumnPosition: function(id) {
@@ -753,8 +753,10 @@
             },
 
             ajaxComplete: function (event, data) {
+                this.storeDomReferences();
                 if (data.reinitializeHeader) {
                     this.bindHeaderHandlers();
+                    this.updateLayout();
                 } else {
                     this.selectionInput = document.getElementById(this.id + ":si");
                     if (data.reinitializeBody) {
