@@ -75,7 +75,7 @@ public class TestAutocompleteBehaviors {
     public void testAjaxOnBlur() {
         // given
         browser.get(contextPath.toExternalForm());
-        autocompleteInput.sendKeys("a");
+        autocompleteInput.sendKeys("t");
         waitGui().withMessage("suggestion list is visible").until(element(suggestionList).isVisible());
         autocompleteItem.click();
 

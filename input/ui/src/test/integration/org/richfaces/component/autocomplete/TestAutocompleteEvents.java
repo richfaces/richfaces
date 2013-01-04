@@ -65,7 +65,7 @@ public class TestAutocompleteEvents {
     public void testOnblurEventPayload() {
         // given
         browser.get(contextPath.toExternalForm());
-        autocompleteInput.sendKeys("a");
+        autocompleteInput.sendKeys("t");
         waitGui().withMessage("suggestion list is visible").until(element(suggestionList).isVisible());
         autocompleteItem.click();
 
@@ -73,7 +73,7 @@ public class TestAutocompleteEvents {
         body.click();
 
         // then
-        waitGui().until(attribute(autocompleteInput, "value").valueEquals("A"));
+        waitGui().until(attribute(autocompleteInput, "value").valueEquals("TORONTO"));
     }
 
     private static void addIndexPage(InputDeployment deployment) {

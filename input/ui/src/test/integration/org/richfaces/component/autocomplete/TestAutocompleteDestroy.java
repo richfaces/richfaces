@@ -3,7 +3,6 @@ package org.richfaces.component.autocomplete;
 import static org.jboss.arquillian.graphene.Graphene.element;
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 import static org.jboss.arquillian.graphene.Graphene.waitGui;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import java.net.URL;
@@ -58,14 +57,13 @@ public class TestAutocompleteDestroy {
     public void when_suggestion_list_opened_and_autocomplete_is_rerendered_then_it_should_not_be_visible() {
         // given
         browser.get(contextPath.toExternalForm());
-        autocompleteInput.sendKeys("a");
+        autocompleteInput.sendKeys("t");
         waitGui().withMessage("suggestion list is visible").until(element(suggestionList).isVisible());
 
         // when
         guardXhr(renderButton).click();
 
         // then
-        assertEquals("there is one suggestion list", 1, browser.findElements(suggestionList).size());
         assertFalse("suggestion list is not displayed", browser.findElement(suggestionList).isDisplayed());
     }
 
