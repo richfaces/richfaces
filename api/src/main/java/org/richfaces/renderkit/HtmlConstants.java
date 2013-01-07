@@ -31,6 +31,7 @@ package org.richfaces.renderkit;
 public interface HtmlConstants {
     // elements
     String A_ELEMENT = "a";
+    String BR_ELEMENT = "br";
     String BODY_ELEMENT = "body";
     String IMG_ELEMENT = "img";
     String INPUT_ELEM = "input";
