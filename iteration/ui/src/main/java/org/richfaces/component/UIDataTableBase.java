@@ -46,7 +46,6 @@ import com.google.common.collect.Iterators;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
-import org.richfaces.DataScrollerUtils;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.Facet;
@@ -237,6 +236,9 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
                         result = ((AbstractColumn) component).useBuiltInFilter();
                     }
                 }
+            }
+            if (result) {
+                break;
             }
         }
         return result;

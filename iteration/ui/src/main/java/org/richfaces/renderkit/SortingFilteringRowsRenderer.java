@@ -31,12 +31,15 @@ import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.component.AbstractColumn;
 import org.richfaces.component.SortOrder;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.model.SortMode;
+import org.richfaces.validator.MessageFactory;
 
 /**
  * @author Anton Belevich
@@ -81,10 +84,34 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
                 }
             }
         } else {
-            updateAttribute(context, dataTableBase.findComponent(values[0]), FILTER_VALUE_STRING, values[1]);
+            UIComponent child = dataTableBase.findComponent(values[0]);
+            try {
+
+                updateAttribute(context, child, FILTER_VALUE_STRING, values[1]);
+            } catch (FacesException e) {
+                if (child instanceof AbstractColumn && ((AbstractColumn)child).isBuiltInFilterControlsEnabled() && e.getCause() instanceof ELException) {
+                    addFilterConverterErrorMessage(context, (AbstractColumn) child, values[1], e);
+                } else {
+                    throw e;
+                }
+            }
         }
         context.getPartialViewContext().getRenderIds().add(dataTableBase.getClientId(context)); // TODO Use partial re-rendering
                                                                                                 // here.
+    }
+
+    private void addFilterConverterErrorMessage(FacesContext context, AbstractColumn column, String submittedValue, Exception exception) {
+        column.getAttributes().put("submittedFilterValue", submittedValue);
+        FacesMessage message;
+        String converterMessageString = column.getFilterConverterMessage();
+        if (null != converterMessageString) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, converterMessageString, converterMessageString);
+        } else {
+            message = MessageFactory.createMessage(context, "org.richfaces.BUILT_IN_FILTER_VALUE_CONVERSION_ERROR");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            message.setDetail(exception.getCause().getLocalizedMessage());
+        }
+        context.addMessage(column.getClientId(), message);
     }
 
     protected void decodeSorting(FacesContext context, UIDataTableBase dataTableBase, String value) {

@@ -53,6 +53,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.richfaces.ui.validator</groupId>
+            <artifactId>richfaces-ui-validator-ui</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-impl</artifactId>
             <classifier>tests</classifier>

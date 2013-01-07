@@ -212,3 +212,8 @@ div.rf-edt-ftr-cnt {
 .rf-edt-flt-i {
     width: 80%
 }
+
+.rf-edt-flt-i-err {
+    background-color: '#{richSkin.warningBackgroundColor}';
+}
+

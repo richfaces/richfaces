@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.FacesException;
+import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -51,8 +52,6 @@ import org.ajax4jsf.javascript.ScriptUtils;
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.SequenceRange;
-import org.richfaces.application.CoreConfiguration;
-import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractColumn;
 import org.richfaces.component.AbstractExtendedDataTable;
@@ -77,8 +76,6 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
         @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.ecss") })
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
     private static final JSReference CLIENT_PARAMS = new JSReference("clientParams");
-    private boolean builtInSortControlsEnabled;
-    private boolean builtInFilterControlsEnabled;
 
     private static enum PartName {
 
@@ -281,7 +278,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 facet.encodeAll(context);
             }
 
-            if ("header".equals(facetName) && builtInSortControlsEnabled && column.getValueExpression("sortBy") != null && ! "custom".equals(column.getAttributes().get("sortType"))) {
+            if ("header".equals(facetName) && column instanceof AbstractColumn && ((AbstractColumn) column).useBuiltInSort()) {
                 writer.startElement(HtmlConstants.SPAN_ELEM, column);
                 String classAttr = "rf-edt-srt rf-edt-srt-btn ";
                 SortOrder sortOrder = (SortOrder) column.getAttributes().get("sortOrder");
@@ -360,7 +357,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     int lastColumnNumber = part.getColumns().size() - 1;
                     while (columns.hasNext()) {
                         UIComponent column = columns.next();
-                        if (builtInFilterControlsEnabled && !filterRowRequired && "header".equals(facetName) && column instanceof AbstractColumn && ((AbstractColumn) column).useBuiltInFilter()) {
+                        if (!filterRowRequired && "header".equals(facetName) && column instanceof AbstractColumn && ((AbstractColumn) column).useBuiltInFilter()) {
                             filterRowRequired = true;
                         }
                         if (columnFacetPresent) {
@@ -386,9 +383,16 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                                     writer.startElement(HtmlConstants.INPUT_ELEM, column);
                                     writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
                                     writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
-                                    writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-flt-i", null);
+                                    String inputClass = "rf-edt-flt-i";
+                                    List<FacesMessage> messages = context.getMessageList(column.getClientId());
+                                    if (! messages.isEmpty()) {
+                                        inputClass += " rf-edt-flt-i-err";
+                                        writer.writeAttribute("value", column.getAttributes().get("submittedFilterValue"), null);
+                                    } else {
+                                        writer.writeAttribute("value", column.getAttributes().get("filterValue"), null);
+                                    }
+                                    writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, inputClass, null);
                                     writer.writeAttribute("data-columnid", column.getId(), null);
-                                    writer.writeAttribute("value", column.getAttributes().get("filterValue"), null);
                                     writer.endElement(HtmlConstants.INPUT_ELEM);
                                 }
                                 writer.endElement(HtmlConstants.DIV_ELEM);
@@ -707,8 +711,6 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
     }
 
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        builtInSortControlsEnabled =  ConfigurationServiceHelper.getBooleanConfigurationValue(context, CoreConfiguration.Items.builtInSortControlsEnabled);
-        builtInFilterControlsEnabled =  ConfigurationServiceHelper.getBooleanConfigurationValue(context, CoreConfiguration.Items.builtInFilterControlsEnabled);
         String savedTableState = (String) component.getAttributes().get("tableState");
         if (savedTableState != null && ! savedTableState.isEmpty()) { // retrieve table state
             ExtendedDataTableState tableState = new ExtendedDataTableState(savedTableState);
@@ -1035,4 +1037,6 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
         return width;
     }
+
+
 }
