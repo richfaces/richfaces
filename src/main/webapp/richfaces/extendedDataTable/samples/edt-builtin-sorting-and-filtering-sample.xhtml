@@ -29,13 +29,15 @@
             </rich:column>
             <rich:column sortBy="#{car.price}"
                          filterExpression="#{empty filterValue or car.price ge filterValue}"
-                         filterValue="#{carsFilteringBean.priceFilter}">
+                         filterValue="#{carsFilteringBean.priceFilter}"
+                         filterConverterMessage="Error converting the 'Price' filter value">
                 <f:facet name="header">Price</f:facet>
                 <h:outputText value="#{car.price}"/>
             </rich:column>
             <rich:column sortBy="#{car.mileage}"
                          filterExpression="#{empty filterValue or car.price ge filterValue}"
-                         filterValue="#{carsFilteringBean.mileageFilter}">
+                         filterValue="#{carsFilteringBean.mileageFilter}"
+                         filterConverterMessage="Error converting the 'Mileage' filter value">
                 <f:facet name="header">Mileage</f:facet>
                 <h:outputText value="#{car.mileage}"/>
             </rich:column>
@@ -52,5 +54,6 @@
                 <h:outputText value="#{car.daysLive}"/>
             </rich:column>
         </rich:extendedDataTable>
+        <rich:messages />
     </h:form>
 </ui:composition>
