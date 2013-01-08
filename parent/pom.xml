@@ -35,7 +35,7 @@
 
     <properties>
         <version.richfaces>4.3.0-SNAPSHOT</version.richfaces>
-        <version.test-jsf>1.1.4</version.test-jsf>
+        <version.test-jsf>1.1.5-SNAPSHOT</version.test-jsf>
         <version.vdl-doc>3</version.vdl-doc>
         <version.shade-transformers>8</version.shade-transformers>
 
