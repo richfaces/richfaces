@@ -64,7 +64,7 @@ public class SessionExpirationChecker {
         if (isShouldExpireUser(session)) {
             try {
                 Utils.getSession().invalidate();
-                FacesContext.getCurrentInstance().getExternalContext().redirect("error.seam");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("error.jsf");
             } catch (IOException e1) {
                 FacesContext.getCurrentInstance().responseComplete();
             }

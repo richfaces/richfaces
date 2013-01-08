@@ -1,8 +1,8 @@
-@import url("documentation.css.seam?ln=stylesheet/help");
-@import url("docnav.css.seam?ln=stylesheet/help");
-@import url("reports.css.seam?ln=stylesheet/help");
-@import url("extensions.css.seam?ln=stylesheet/help");
-@import url("codehighlight.css.seam?ln=stylesheet/help");
+@import url("documentation.css.jsf?ln=stylesheet/help");
+@import url("docnav.css.jsf?ln=stylesheet/help");
+@import url("reports.css.jsf?ln=stylesheet/help");
+@import url("extensions.css.jsf?ln=stylesheet/help");
+@import url("codehighlight.css.jsf?ln=stylesheet/help");
 
 /* Links */
 

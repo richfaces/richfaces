@@ -52,7 +52,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.seam</url-pattern>
+        <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
     <security-constraint>
         <display-name>Restrict raw XHTML Documents</display-name>

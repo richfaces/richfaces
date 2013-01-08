@@ -1,4 +1,4 @@
-@import url("html-common.css.seam?ln=stylesheet/help");
+@import url("html-common.css.jsf?ln=stylesheet/help");
 
 div#overlay{
 	background-image:url(../images/community/bkg_gradient.gif);

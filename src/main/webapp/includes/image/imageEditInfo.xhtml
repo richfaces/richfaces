@@ -57,7 +57,7 @@
                         <td style="vertical-align: top;" colspan="2">
                             <rich:autocomplete id="suggestionBoxId" autocompleteMethod="#{imageManager.autoComplete}"
                                 value="#{model.selectedImage.meta}" minChars="1" var="result" fetchValue="#{result.tag}"
-                                tokens=", " autofill="false" selectFirst="false">
+                                tokens=", " autofill="false" selectFirst="false" mode="client">
                                 <h:outputText value="#{result.tag}" />
                             </rich:autocomplete>
                             <br />
