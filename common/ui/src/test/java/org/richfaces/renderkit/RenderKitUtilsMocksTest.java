@@ -111,7 +111,7 @@ public class RenderKitUtilsMocksTest {
     }
 
     private ClientBehaviorHolder createMockClientBehaviorHolder() {
-        UIComponent component = facesEnvironment.createMock(MockClientBehaviorHolder.class);
+        UIComponent component = facesEnvironment.createMock(AbstractClientBehaviorHolderComponent.class);
         expect(component.getClientId(same(facesContext))).andStubReturn(CLIENT_ID);
         expect(component.getAttributes()).andStubReturn(componentAttributes);
         ClientBehaviorHolder behaviorHolder = (ClientBehaviorHolder) component;
@@ -415,5 +415,8 @@ public class RenderKitUtilsMocksTest {
 
         // then
         assertFalse("hasFacet should return false", hasFacet);
+    }
+
+    private abstract class AbstractClientBehaviorHolderComponent extends UIComponent implements ClientBehaviorHolder {
     }
 }

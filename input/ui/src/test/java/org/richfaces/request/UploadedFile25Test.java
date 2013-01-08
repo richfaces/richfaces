@@ -35,6 +35,9 @@ import java.util.Collection;
 
 import org.easymock.EasyMock;
 import org.easymock.IAnswer;
+import org.jboss.test.faces.mock.Environment;
+import org.jboss.test.faces.mock.Mock;
+import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.After;
 import org.junit.Before;
@@ -63,6 +66,11 @@ public class UploadedFile25Test {
     private UploadedFile25 uploadedFile;
     private MockUploadResource uploadResource;
 
+
+    @Mock
+    @Environment
+    protected MockFacesEnvironment environment;
+
     @Before
     public void setUp() throws Exception {
         Multimap<String, String> headers = LinkedListMultimap.<String, String>create();
@@ -73,7 +81,7 @@ public class UploadedFile25Test {
         headers.put("x-rftest", "of");
         headers.put("x-rftest", "values");
 
-        uploadResource = new MockUploadResource();
+        uploadResource = environment.createMock(MockUploadResource.class);
         uploadedFile = new UploadedFile25("form:fileUpload", uploadResource, headers);
     }
 
@@ -115,7 +123,7 @@ public class UploadedFile25Test {
         uploadResource.delete();
         EasyMock.expectLastCall();
 
-        uploadResource.getControl().replay();
+        environment.getControl().replay();
 
         assertEquals(TEST_DATA.length(), uploadedFile.getSize());
         assertNotNull(uploadedFile.getInputStream());
@@ -132,7 +140,7 @@ public class UploadedFile25Test {
         EasyMock.expect(uploadResource.getSize()).andStubReturn((long) Long.MAX_VALUE);
         EasyMock.expect(uploadResource.getInputStream()).andStubAnswer(INPUT_STREAM_SUPPLIER);
 
-        uploadResource.getControl().replay();
+        environment.getControl().replay();
 
         try {
             uploadedFile.getData();
@@ -142,12 +150,12 @@ public class UploadedFile25Test {
             // expected - ignore
         }
 
-        uploadResource.getControl().reset();
+        environment.getControl().reset();
 
         EasyMock.expect(uploadResource.getSize()).andStubReturn(1L);
         EasyMock.expect(uploadResource.getInputStream()).andStubThrow(new IOException("No stream available"));
 
-        uploadResource.getControl().replay();
+        environment.getControl().replay();
 
         try {
             uploadedFile.getData();
@@ -156,6 +164,12 @@ public class UploadedFile25Test {
         } catch (FileUploadException e) {
             // expected - ignore
             assertTrue(e.getCause() instanceof IOException);
+        }
+    }
+
+    public abstract class MockUploadResource extends FileUploadResource  {
+        public MockUploadResource() {
+            super("", "");
         }
     }
 }
