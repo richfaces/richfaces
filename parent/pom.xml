@@ -87,6 +87,7 @@
         <version.arquillian.drone>1.1.0.Final</version.arquillian.drone>
         <version.arquillian.warp>1.0.0.Alpha2-SNAPSHOT</version.arquillian.warp>
         <version.arquillian.graphene>2.0.0.Alpha3-SNAPSHOT</version.arquillian.graphene>
+        <version.selenium>2.28.0</version.selenium>
         <version.shrinkwrap.resolver>2.0.0-alpha-1</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-3</version.shrinkwrap.descriptors>
         
@@ -553,6 +554,14 @@
                 <groupId>org.jboss.arquillian.extension</groupId>
                 <artifactId>arquillian-warp-bom</artifactId>
                 <version>${version.arquillian.warp}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.arquillian.selenium</groupId>
+                <artifactId>selenium-bom</artifactId>
+                <version>${version.selenium}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

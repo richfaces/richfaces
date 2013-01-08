@@ -20,7 +20,7 @@ import org.openqa.selenium.By.ByTagName;
 import org.xml.sax.SAXException;
 
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class SourceChecker {
@@ -31,20 +31,20 @@ public class SourceChecker {
     public void checkComponentSource(URL pageName, String xmlunitPage, By pageElementToTest) throws IOException, SAXException {
         WebClient client = new WebClient();
         HtmlPage page = client.getPage(pageName);
-        HtmlElement htmlElement;
+        DomElement element;
 
         String locator = pageElementToTest.toString();
         locator = locator.substring(locator.indexOf(':') + 1).trim();
 
         if (pageElementToTest instanceof ById) {
-            htmlElement = page.getElementById(locator);
+            element = page.getElementById(locator);
         } else if (pageElementToTest instanceof ByTagName) {
-            htmlElement = page.getElementsByTagName(locator).get(0);
+            element = page.getElementsByTagName(locator).get(0);
         } else {
             throw new IllegalArgumentException("Only id and name are supported");
         }
 
-        String pageCode = htmlElement.asXml();
+        String pageCode = element.asXml();
 
         checkXmlStructure(xmlunitPage, pageCode);
     }
@@ -68,7 +68,6 @@ public class SourceChecker {
             System.out.println("========================");
             fail("XML was not similar:" + xmlDiff.toString());
         }
-
     }
 
     protected DifferenceListener getDifferenceListener() {
