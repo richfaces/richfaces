@@ -53,7 +53,7 @@
         <version.com.sun.faces.jsf-api>2.1.0</version.com.sun.faces.jsf-api>
         <version.org.glassfish.javax.faces>2.1.13</version.org.glassfish.javax.faces>
         <version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>2.0.7.Final</version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>
-        <version.org.jboss.javax.faces.jsf-impl>2.1.13-jbossorg-1</version.org.jboss.javax.faces.jsf-impl>
+        <version.org.jboss.javax.faces.jsf-impl>2.1.16-jbossorg-1</version.org.jboss.javax.faces.jsf-impl>
         <version.org.apache.myfaces.core.myfaces-api>2.1.8</version.org.apache.myfaces.core.myfaces-api>
         <version.org.apache.myfaces.core.myfaces-impl>2.1.8</version.org.apache.myfaces.core.myfaces-impl>
         <version.el-api>1.0</version.el-api>
