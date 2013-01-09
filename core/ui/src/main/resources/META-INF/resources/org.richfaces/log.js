@@ -108,7 +108,7 @@
 
             var clearBtn = console.children("button.rf-log-element");
             if (clearBtn.length == 0) {
-                clearBtn = jquery("<button type='button' class='rf-log-element'>Clear</button>", doc).appendTo(console);
+                clearBtn = jquery("<button type='button' name='clear' class='rf-log-element'>Clear</button>", doc).appendTo(console);
             }
 
             clearBtn.click(jquery.proxy(this.clear, this));

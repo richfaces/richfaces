@@ -69,22 +69,22 @@
                         <table>
                             <tr>
                                 <td>
-                                    <button type="button" class="#{getButtonClass(component, 'rf-pick-add-all')}" disabled="#{disabled}">#{component.attributes['addAllText']}</button>
+                                    <button type="button" name="#{clientId}addAll" class="#{getButtonClass(component, 'rf-pick-add-all')}" disabled="#{disabled}">#{component.attributes['addAllText']}</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="button" class="#{getButtonClass(component, 'rf-pick-add')}" disabled="#{disabled}">#{component.attributes['addText']}</button>
+                                    <button type="button" name="#{clientId}add" class="#{getButtonClass(component, 'rf-pick-add')}" disabled="#{disabled}">#{component.attributes['addText']}</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="button" class="#{getButtonClass(component, 'rf-pick-rem')}" disabled="#{disabled}">#{component.attributes['removeText']}</button>
+                                    <button type="button" name="#{clientId}remove" class="#{getButtonClass(component, 'rf-pick-rem')}" disabled="#{disabled}">#{component.attributes['removeText']}</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="button" class="#{getButtonClass(component, 'rf-pick-rem-all')}" disabled="#{disabled}">#{component.attributes['removeAllText']}</button>
+                                    <button type="button" name="#{clientId}removeAll" class="#{getButtonClass(component, 'rf-pick-rem-all')}" disabled="#{disabled}">#{component.attributes['removeAllText']}</button>
                                 </td>
                             </tr>
                         </table>
@@ -137,22 +137,22 @@
                                         <table>
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-up-tp')}" disabled="#{disabled}">#{component.attributes['upTopText']}</button>
+                                                    <button type="button" name="#{clientId}upTop" class="#{getButtonClass(component, 'rf-ord-up-tp')}" disabled="#{disabled}">#{component.attributes['upTopText']}</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-up')}" disabled="#{disabled}">#{component.attributes['upText']}</button>
+                                                    <button type="button" name="#{clientId}up" class="#{getButtonClass(component, 'rf-ord-up')}" disabled="#{disabled}">#{component.attributes['upText']}</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-dn')}" disabled="#{disabled}">#{component.attributes['downText']}</button>
+                                                    <button type="button" name="#{clientId}down" class="#{getButtonClass(component, 'rf-ord-dn')}" disabled="#{disabled}">#{component.attributes['downText']}</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-dn-bt')}" disabled="#{disabled}">#{component.attributes['downBottomText']}</button>
+                                                    <button type="button" name="#{clientId}downBottom" class="#{getButtonClass(component, 'rf-ord-dn-bt')}" disabled="#{disabled}">#{component.attributes['downBottomText']}</button>
                                                 </td>
                                             </tr>
                                         </table>
