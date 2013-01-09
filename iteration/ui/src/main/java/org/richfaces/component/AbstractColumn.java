@@ -193,7 +193,7 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
     }
 
     public boolean useBuiltInSort() {
-        return isBuiltInSortControlsEnabled() && getSortBy() != null && ! "custom".equals(getSortType());
+        return isBuiltInSortControlsEnabled() && getValueExpression("sortBy") != null && ! "custom".equals(getSortType());
     }
 
     public static boolean isBuiltInSortControlsEnabled(){
