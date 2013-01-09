@@ -23,6 +23,8 @@ public class FacesValidatorServiceImpl extends FacesServiceBase<Validator> imple
     private static final String MINIMUM = "min";
     private static final String MAXIMUM = "max";
 
+    private final LongRangeValidator LONG_RANGE_VALIDATOR_DEFAULTS = new LongRangeValidator();
+
     /*
      * (non-Javadoc)
      *
@@ -73,13 +75,13 @@ public class FacesValidatorServiceImpl extends FacesServiceBase<Validator> imple
             }
         } else if (component instanceof LongRangeValidator) {
             LongRangeValidator validator = (LongRangeValidator) component;
-            if (validator.getMaximum() != 0) {
-                if (validator.getMinimum() != 0) {
+            if (validator.getMaximum() != LONG_RANGE_VALIDATOR_DEFAULTS.getMaximum()) {
+                if (validator.getMinimum() != LONG_RANGE_VALIDATOR_DEFAULTS.getMinimum()) {
                     messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;
                 } else {
                     messageId = LongRangeValidator.MAXIMUM_MESSAGE_ID;
                 }
-            } else if (validator.getMinimum() != 0) {
+            } else if (validator.getMinimum() != LONG_RANGE_VALIDATOR_DEFAULTS.getMinimum()) {
                 messageId = LongRangeValidator.MINIMUM_MESSAGE_ID;
             } else {
                 messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;// What to use for that case ( no min/max set,
