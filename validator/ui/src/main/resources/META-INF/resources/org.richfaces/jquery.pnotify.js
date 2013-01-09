@@ -1,10 +1,14 @@
 /*
- * jQuery Pines Notify (pnotify) Plugin 1.0.1
+ * jQuery Pines Notify (pnotify) Plugin 1.0.2-richfaces
  *
- * Copyright (c) 2009 Hunter Perrin
+ * Copyright (c) 2009-2011 Hunter Perrin
  *
- * Licensed (along with all of Pines) under the GNU Affero GPL:
- *	  http://www.gnu.org/licenses/agpl.html
+ * Triple license under the GPL, LGPL, and MPL:
+ *    http://www.gnu.org/licenses/gpl.html
+ *    http://www.gnu.org/licenses/lgpl.html
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *    
+ * Modified by: RichFaces team
  */
 
 (function($) {
@@ -309,7 +313,7 @@
             pnotify.container = $("<div />", {"class": "rf-ntf-cnt"})
                     .appendTo(pnotify);
 
-            pnotify.pnotify_version = "1.0.1";
+            pnotify.pnotify_version = "1.0.2";
 
             // This function is for updating the notice.
             pnotify.pnotify = function(options) {
