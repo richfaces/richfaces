@@ -417,6 +417,6 @@ public class RenderKitUtilsMocksTest {
         assertFalse("hasFacet should return false", hasFacet);
     }
 
-    public static abstract class AbstractClientBehaviorHolderComponent extends UIComponent implements ClientBehaviorHolder {
+    public abstract static class AbstractClientBehaviorHolderComponent extends UIComponent implements ClientBehaviorHolder {
     }
 }
