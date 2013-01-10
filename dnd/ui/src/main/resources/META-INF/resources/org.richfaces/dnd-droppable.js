@@ -128,8 +128,10 @@
             
             __getIndicatorObject: function(helper) {
                 var indicatorCloneId = helper.attr('id');
-                var indicatorId = indicatorCloneId.match(/(.*)Clone$/)[1]; 
-                return rf.$(indicatorId);
+                if (indicatorCloneId) {
+                    var indicatorId = indicatorCloneId.match(/(.*)Clone$/)[1];
+                    return rf.$(indicatorId);
+                }
             },
 
             __callAjax : function(e, ui) {
