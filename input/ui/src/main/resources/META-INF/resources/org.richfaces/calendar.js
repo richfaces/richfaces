@@ -1547,10 +1547,14 @@
                 }
             },
 
-            __selectDate: function(date, noUpdate, eventData) {
+            __selectDate: function(date, noUpdate, eventData, applySelection) {
 
                 if (!eventData) {
                     eventData = {event: null, element: null};
+                }
+
+                if (typeof applySelection === "undefined") {
+                    applySelection = !this.options.showApplyButton
                 }
 
                 var oldSelectedDate = this.selectedDate;
@@ -1630,7 +1634,7 @@
                     // call user event
                     if (isDateChange) {
                         this.invokeEvent("dateselect", eventData.element, eventData.event, this.selectedDate);
-                        if (!this.options.showApplyButton) {
+                        if (applySelection === true) {
                             this.setInputField(this.selectedDate != null ? this.__getSelectedDateString(this.options.datePattern) : "", eventData.event);
                         }
                     }
@@ -1791,7 +1795,7 @@
             },
 
             setValue: function(value) {
-                this.__selectDate(value);
+                this.__selectDate(value, undefined, undefined, true);
             },
 
             resetValue: function() {
