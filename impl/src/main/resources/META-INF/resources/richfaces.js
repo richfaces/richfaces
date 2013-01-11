@@ -641,22 +641,23 @@ if (!window.RichFaces) {
     }
     
     /*
-     * Returns component root for given element in the list of ancestors of sourceElement.
-     * Otherwise returns sourceElement if component root can't be located.
+     * Returns RichFaces component root for given element in the list of ancestors of sourceElement.
+     * Otherwise returns sourceElement if RichFaces component root can't be located.
      */
     var searchForComponentRootOrReturn = function(sourceElement) {
-        if (richfaces && richfaces.$) {
-            if (!richfaces.$(sourceElement)) {
-                var parentElement = false;
-                jQuery(sourceElement).parents().each(function() {
-                    if (richfaces.$(this)) {
-                        parentElement =  this;
+        if (sourceElement.id && !richfaces.$(sourceElement)) {
+            var parentElement = false;
+            jQuery(sourceElement).parents().each(function() {
+                if (this.id && sourceElement.id.indexOf(this.id) == 0) { // otherwise parent element is definitely not JSF component
+                    var suffix = sourceElement.id.substring(this.id.length); // extract suffix
+                    if (suffix.match(/^[a-zA-Z]*$/) && richfaces.$(this)) {
+                        parentElement = this;
                         return false;
                     }
-                });
-                if (parentElement !== false) {
-                    return parentElement;
                 }
+            });
+            if (parentElement !== false) {
+                return parentElement;
             }
         }
         return sourceElement;
