@@ -53,8 +53,9 @@ public abstract class AbstractJQuery extends UIComponentBase {
     public abstract String getName();
 
     /**
-     * Selector for query. The "selector" attribute uses defined by w3c consortium syntax for CSS rule selector with some jQuery
-     * extensions.
+     * The jQuery selector (subset of CSS selectors defined by W3C) of the element to which the jQuery function should be applied.
+     *
+     * ID selectors starting with hash sign (#) will be expanded from componentId to clientId form. (e.g. #component is expanded to #form:component in case that component is nested in form)
      */
     @Attribute
     public abstract String getSelector();
