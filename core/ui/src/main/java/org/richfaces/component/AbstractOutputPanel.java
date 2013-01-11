@@ -51,11 +51,9 @@ public abstract class AbstractOutputPanel extends UIPanel implements AjaxOutput 
     public abstract boolean isKeepTransient();
 
     /**
-     * HTML layout for generated markup. Possible values: "block" for generating an HTML &lt;div&gt; element, "inline" for
-     * generating an HTML &lt;span&gt; element, and "none" for generating no HTML element. There is a minor exception for the
-     * "none" case where a child element has the property "rendered" set to "false". In this case, we create an empty
-     * &lt;span&gt; element with same ID as the child element to use as a placeholder for later processing.
-     * <p>
+     * HTML layout for generated markup. Possible values: "block" for generating an HTML &lt;div&gt; element and "inline" for
+     * generating an HTML &lt;span&gt; element.
+     *
      * Default value is "inline"
      */
     @Attribute
