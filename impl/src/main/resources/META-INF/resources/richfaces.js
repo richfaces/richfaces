@@ -598,6 +598,7 @@ if (!window.RichFaces) {
         if (form) {
             eventHandlers.begin = chain(function() { jQuery(form).trigger('ajaxbegin'); }, eventHandlers.begin);
             eventHandlers.beforedomupdate = chain(function() { jQuery(form).trigger('ajaxbeforedomupdate'); }, eventHandlers.beforedomupdate);
+            eventHandlers.complete = chain(function() { jQuery(form).trigger('ajaxcomplete'); }, eventHandlers.complete);
         }
 
         if (options.incId) {
