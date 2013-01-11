@@ -329,7 +329,7 @@
                         <id>exTableSelection</id>
                         <name>Selection Management</name>
                     </sample>
-                    <sample>
+                    <sample new="true">
                         <id>edt-builtin-sorting-and-filtering</id>
                         <name>Built-in Sorting and Filtering</name>
                     </sample>    
@@ -439,7 +439,7 @@
                         <id>simple</id>
                         <name>Simple Toggle Panel</name>
                     </sample>
-                    <sample>
+                    <sample new="true">
                         <id>dynamic</id>
                         <name>Dynamic Panels</name>
                     </sample>
@@ -460,7 +460,7 @@
                     </sample>
                     <!-- sample> <id>headerCustomization</id> <description>Headers Customization</description>
                              <name>Headers Customization</name> </sample -->
-                     <sample>
+                     <sample new="true">
                         <id>dynamic</id>
                         <description>Dynamic Tabs</description>
                         <name>Dynamic Tabs</name>
@@ -490,7 +490,7 @@
                         <id>simple</id>
                         <name>Simple Accordion</name>
                     </sample>
-                    <sample>
+                    <sample new="true">
                         <id>dynamic</id>
                         <name>Dynamic Accordion</name>
                     </sample>
@@ -567,7 +567,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo>
                 <id>contextMenu</id>
                 <name>rich:contextMenu</name>
                 <samples>
@@ -777,7 +777,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo new="true">
                 <id>placeholder</id>
                 <name>Placeholder</name>
                 <samples>
@@ -797,7 +797,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo mobileExclude="true">
+            <demo new="true" mobileExclude="true">
                 <id>focus</id>
                 <name>Focus</name>
                 <samples>
@@ -839,7 +839,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true" mobileExclude="true">
+            <demo mobileExclude="true">
                 <id>hotKey</id>
                 <name>rich:hotKey</name>
                 <samples>
