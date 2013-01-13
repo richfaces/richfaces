@@ -19,19 +19,29 @@ New in Version 4.3.0.CR1
 	[RF-12692] - rich:select - unknown validator SelectLabelValueValidator
 	[RF-12693] - Mojarra fails to encode form inputs correctly when they doesn't have name attribute
 	[RF-12700] - LongRangeValidator client-side messages differs from server-side ones on MyFaces
-	
+	[RF-12703] - showcase - drag and drop - JS error with default dragIndicator
+	[RF-12705] - vdl documentation for a4j:outputPanel contains non-implemented layout="none"
+	[RF-12707] - rich:calendar - setValue(...) method from javascript API doesn't work correctly
+	[RF-12708] - rich:jQuery: wront VDL documentation of selector attribute
+	[RF-12709] - richfaces.js: fire ajaxcomplete event
+	[RF-12713] - Listeners don't work inside panels
+	[RF-12714] - Showcase and rich:dataTable: sorting in Arrangable demo doesn't work
+	[RF-12716] - VDL-doc for a4j:ajax incorrectly states that the listener method cannot accept parameters
+	[RF-12715] - richfaces.js searchForComponentRootOrReturn doesn't recognize non-richfaces components
+
 	Component Upgrade
-	[RF-12447] - Upgrade CKEditor to 3.6.6 (color picking issues in IE10)
-	[RF-12690] - Upgrade Mojarra from 2.1.13 to 2.1.16
+	[RF-12712] - Upgrade to Mojarra 2.1.17
 	[RF-12699] - Upgrade MyFaces to 2.1.10
+	[RF-12447] - Upgrade CKEditor to 3.6.6 (color picking issues in IE10)
 	[RF-12701] - Upgrade the pnotify jquery plugin
-	
+
 	Enhancement
 	[RF-12649] - Placeholder: add fundamental tests for rich Input components
 	[RF-12663] - Showcase - rich:contextMenu - tree sample has incorrectly defined icons
 
 	Feature Request
 	[RF-12683] - Provide a configuration option to disable built-in sorting/filtering
+	[RF-12711] - Add rich:jQuery EL function to Showcase sample
 
 New in Version 4.3.0.M3
 -----------------------
