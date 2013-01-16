@@ -51,6 +51,7 @@
         <module>validator-demo</module>
         <module>dnd-demo</module>
         <module>irc-client</module>
+        <module>photoalbum</module>
     </modules>
 
     <scm>
