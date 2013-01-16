@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Class-Path: avalon-framework-4.1.3.jar 
+ commons-beanutils-1.7.0.jar 
+ commons-digester-1.8.jar 
+ commons-logging-1.1.jar 
+ jboss-seam-debug-2.1.0.SP1.jar 
+ jboss-seam-jul-2.1.0.SP1.jar 
+ jboss-seam-remoting-2.1.0.SP1.jar 
+ jboss-seam-ui-2.1.0.SP1.jar 
+ jsf-facelets-1.1.14.jar 
+ log4j-1.2.14.jar 
+ logkit-1.0.1.jar 
+ richfaces-impl-3.3.0-SNAPSHOT.jar 
+ richfaces-ui-3.3.0-SNAPSHOT.jar
+

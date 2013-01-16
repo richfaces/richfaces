@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
+    <rich:popupPanel id="shelfModalPanel" width="400" height="150" autosized="true" modal="true" domElementAttachment="form">
+        <!--  onshow="applyModalPanelEffect('shelfModalPanel', {delay: 0.5, afterFinish: function(){$('form5:name').focus();}})"> -->
+        <f:facet name="header">#{messages['add_shelf']}</f:facet>
+
+        <f:facet name="controls">
+            <h:panelGroup id="shelfPanelHideControl">
+                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hidelink19"
+                    onclick="#{rich:component('shelfModalPanel')}.hide()" />
+            </h:panelGroup>
+        </f:facet>
+
+        <!-- <rich:effect type="Appear" name="appearFunc" /> -->
+        <!-- not implemented in RF 4 -->
+
+        <a4j:region id="form5">
+            <h:panelGroup id="shelfPanel" width="100%" layout="block">
+                <a4j:region>
+                    <rich:graphValidator value="#{shelf}">
+                        <h:panelGrid columns="3" id="shelfEditContent" rowClasses="prop" columnClasses="name,value, error">
+                            <h:panelGroup style="width: 115px" layout="block">
+                                <h:outputText value="#{messages['name']}" />
+                            </h:panelGroup>
+                            <h:inputText id="shelfName" value="#{shelfManager.shelf.name}"
+                                onkeydown="if (event.keyCode == 13) { jQuery(&quot; .shelf input[type='image']&quot;).click(); return false; }">
+                            </h:inputText>
+                            <rich:message for="shelfName" />
+                            <h:panelGroup style="width: 115px" layout="block">
+                                <h:outputText value="#{messages['album.shared']}" />
+                            </h:panelGroup>
+                            <h:selectBooleanCheckbox styleClass="selectBooleanCheckbox" id="shelfShared"
+                                value="#{shelfManager.shelf.shared}"
+                                onkeydown="if (event.keyCode == 13) { jQuery(&quot; .shelf input[type='image']&quot;).click(); return false; }" />
+                            <rich:message for="shelfShared" />
+                        </h:panelGrid>
+
+                        <h:panelGroup id="shelfButtons" layout="block">
+                            <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto">
+                                <h:panelGroup id="shelfFirstButton" layout="block">
+                                    <richx:commandButton oncomplete="if(event.data)#{rich:component('shelfModalPanel')}.hide();"
+                                        value="#{messages['save']}" data="#{shelfManager.validationSuccess}"
+                                        actionListener="#{shelfManager.addShelf(shelfManager.shelf)}" id="storebutton"
+                                        render="treePanel, mainArea, menu" execute="form5" styleClass="shelf" />
+                                </h:panelGroup>
+                                <h:panelGroup id="shelfSecondButton" layout="block">
+                                    <richx:commandButton type="button" id="cancelbutton"
+                                        onclick="#{rich:component('shelfModalPanel')}.hide(); return false;"
+                                        value="#{messages['album.cancel']}" execute="@none" />
+                                </h:panelGroup>
+                            </h:panelGrid>
+                        </h:panelGroup>
+                    </rich:graphValidator>
+                </a4j:region>
+
+            </h:panelGroup>
+        </a4j:region>
+    </rich:popupPanel>
+</ui:composition>

@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div class="section" lang="en-US">
+        <div class="titlepage">
+            <div>
+                <div>
+                    <h2 class="title">User Input Data Validation</h2>
+                </div>
+            </div>
+        </div>
+        <p>
+            Validation of user input is a very frequent situation for a developer. RichFaces library offers 2 componenta to get
+            this job done: <span class="bold"><strong><span class="property">&lt;rich:graphValidator&gt;</span></strong></span>,
+            and <span class="bold"><strong><span class="property">&lt;rich:validator&gt;</span></strong></span>. <span class="bold"><strong><span
+                    class="property">&lt;rich:graphValidator&gt;</span></strong></span> is intended to validate the whole object or the graph of
+            interrelated objects and the validation occurs when the whole form is submitted. While <span class="bold"><strong><span
+                    class="property">&lt;rich:validator&gt;</span></strong></span> validates only one input field or a value at a time,
+            validation is activated upon some event and adds interactivity to the application. Both components use Hibernate
+            validators which helps to locate validation logic in one place, such approach is really helpful given that usually
+            data validation logic is stored in multiple places including UI pages and in Java code that interacts with a
+            database.
+        </p>
+        <p>Let's have a look at the components usage on the registration page. This is how the page looks like (some
+            irrelevant details were removed from the example):</p>
+        <pre class="brush:xml, gutter: false, highlight: [18]">
+                …
+            &lt;rich:graphValidator&gt;
+                    …
+                &lt;h:inputText id=&quot;userLoginName&quot; value=&quot;#{'#{'}authenticator.user.login}&quot; styleClass=&quot;reg-table-input&quot; /&gt;                  
+                &lt;rich:messages for=&quot;userLoginName&quot; styleClass=&quot;required&quot; /&gt;
+                        
+                &lt;h:inputSecret required=&quot;true&quot; id=&quot;userPassword&quot; value=&quot;#{'#{'}authenticator.user.password}&quot;
+                    styleClass=&quot;reg-table-input&quot; /&gt;
+                &lt;rich:messages for=&quot;userPassword&quot; styleClass=&quot;required&quot; /&gt;
+            
+                &lt;h:inputSecret required=&quot;true&quot; id=&quot;userConfirmPassword&quot;
+                    value=&quot;#{'#{'}authenticator.user.confirmPassword}&quot; styleClass=&quot;reg-table-input&quot; /&gt;           
+                &lt;rich:messages for=&quot;userConfirmPassword&quot; styleClass=&quot;required&quot; /&gt;
+                    …                                             
+                &lt;a4j:outputPanel id=&quot;userCalendar&quot; layout=&quot;block&quot;&gt;
+                    &lt;rich:calendar id=&quot;userBirthDate&quot; enableManualInput=&quot;true&quot; value=&quot;#{'#{'}authenticator.user.birthDate}&quot;
+                        cellWidth=&quot;24px&quot; cellHeight=&quot;22px&quot; inputClass=&quot;reg-table-input&quot;&gt;
+                        &lt;rich:validator event=&quot;inputblur&quot; /&gt;
+                    &lt;/rich:calendar&gt;
+                &lt;/a4j:outputPanel&gt;
+                &lt;rich:messages for=&quot;userBirthDate&quot; styleClass=&quot;required&quot; /&gt;
+                    …
+            &lt;/rich:graphValidator&gt;
+            
+            &lt;richx:commandButton actionListener=&quot;#{'#{'}authenticator.register(authenticator.user)}&quot;
+                render=&quot;mainArea,treePanel,searchForm, headerPanel&quot; value=&quot;#{'#{'}messages['user.register']}&quot; /&gt;        
+            &lt;richx:commandButton actionListener=&quot;#{'#{'}controller.cancelRegistration()}&quot; render=&quot;mainArea&quot; immediate=&quot;true&quot;
+                value=&quot;#{'#{'}messages['user.cancel']}&quot; /&gt;
+        </pre>
+        <p>
+            <span class="bold"><strong><span class="property">&lt;rich:graphValidator&gt;</span></strong></span> validates the
+            entity User object, in which restrictions are set with the help of Hibernate annotations. When the <span
+                class="bold"><strong>Register</strong></span> button is clicked on the <span class="property">name,
+                password, sex</span> etc. fields are validated sequentially. In case of an error (for example, if a <span
+                class="property">loginName</span> contains only on character and the annotation restricts it to at least 3
+            characters to be typed in) a error message in red color is displayed next to the input field and the request is
+            aborted. If all values are valid the
+            <code class="code">authenticator.register(authenticator.user)</code>
+            method will be invoked and the user will be saved to the database.
+        </p>
+        <p>
+            <span class="bold"><strong><span class="property">&lt;rich:validator&gt;</span></strong></span> acts in a
+            slightly different way, in our case it is attached to the
+            <code class="code">authenticator.user.birthDate</code>
+            field. When the value of the field is changed and the field loses focus it is immediately validated. If the input
+            data is incorrect and error message will displayed, which is a quick way to respond to user input errors and avoid
+            sending incorrect data to the server.
+        </p>
+        <p>
+            If you would like to get more details about the validators that RichFaces library provides please visit <a
+                target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
+                href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=clientValidation">Showcase</a> web page and <a
+                target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
+                href="http://docs.jboss.org/richfaces/latest_4_2_X/Component_Reference/en-US/html/chap-Component_Reference-Validation.html">RichFaces
+                Developer Guide</a>.
+        </p>
+    </div>
+
+</ui:composition>
