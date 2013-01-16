@@ -22,20 +22,13 @@ To build the project you need to navigate to the root folder and run
 
 When you see the BUILD SUCCESSFUL message you can deploy the application on the server. 
 
-With the created .war file you also need to deploy a datasource and a database driver for JBOSS. The files are located in _src/main/resources_:
-    
- * h2-1.3.161-redhat-1.jar
- * photoalbum-ds.xml
-    
-In Eclipse you can select those files and choose "Mark as Deployable" from the context menu or you deploy them manually. For further information refer to [this article](https://community.jboss.org/en/tools/blog/2012/02/28/excited-about-jboss-as-71-part-i-deployable-datasources).
-
 You can deploy the application on the server by copying the _target/richfaces-photoalbum.war_ file to the _JBOSS_HOME/standalone/deployments_ folder. Then, launch the run.bat file from JBOSS_HOME/bin/ directory to start the server.
 
 To build the project with a full set of images you need to run
 
 	mvn clean install -Plivedemo
 
-To make sure the project is built successfully you need to have a SVN client installed on your local machine, for example Subversion. To launch the application use the instructions given above.
+To make sure the project is built successfully with this livedemo profile, you need to have a SVN client installed on your local machine, for example Subversion. To launch the application use the instructions given above.
 
 ### Predefined users
 
