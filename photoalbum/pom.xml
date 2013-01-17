@@ -17,6 +17,7 @@
 
     <properties>
         <version.richfaces>${project.version}</version.richfaces>
+        <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
     </properties>
 
     <dependencyManagement>
@@ -101,6 +102,13 @@
     </dependencies>
 
     <profiles>
+
+        <profile>
+            <id>release</id>
+            <properties>
+                <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
+            </properties>
+        </profile>
 
         <profile>
             <id>arquillian-jbossas-managed</id>
@@ -191,6 +199,12 @@
                             <Dependencies>com.google.guava,org.slf4j</Dependencies>
                         </manifestEntries>
                     </archive>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/webapp</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
             
