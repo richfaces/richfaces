@@ -101,41 +101,6 @@
     </dependencies>
 
     <profiles>
-        <profile>
-            <id>livedemo</id>
-            <properties>
-                <environment.properties>environment/prod</environment.properties>
-            </properties>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-scm-plugin</artifactId>
-                        <version>1.2</version>
-                        <configuration>
-                            <connectionType>connection</connectionType>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>fetch-feature</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>export</goal>
-                                </goals>
-
-                                <configuration>
-                                    <connectionType>connection</connectionType>
-                                    <developerConnectionUrl>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/examples-data/photoapp/images/Upload</developerConnectionUrl>
-                                    <skipExportIfExists>true</skipExportIfExists>
-                                    <exportDirectory>src/main/images/full</exportDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
 
         <profile>
             <id>arquillian-jbossas-managed</id>
@@ -240,7 +205,6 @@
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>maven-richfaces-resources-plugin</artifactId>
-                <version>${project.version}</version>
                 <configuration>
                     <skins>
                         <skin>photoalbum</skin>
