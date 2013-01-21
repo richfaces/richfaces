@@ -1,73 +1,8 @@
-<?xml version="1.0"?>
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <name>richfaces_core</name>
+<!-- This file is for the only purpose of defining name that will be used in the assembled file -->
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" version="2.0">
 
-    <application>
-        <system-event-listener>
-            <system-event-listener-class>org.richfaces.application.InitializationListener</system-event-listener-class>
-            <system-event-class>javax.faces.event.PreDestroyApplicationEvent</system-event-class>
-        </system-event-listener>
-        <system-event-listener>
-            <system-event-listener-class>org.richfaces.application.InitializationListener</system-event-listener-class>
-            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
-        </system-event-listener>
-        <system-event-listener>
-            <system-event-listener-class>org.richfaces.skin.SkinFactoryPreRenderViewListener</system-event-listener-class>
-            <system-event-class>javax.faces.event.PreRenderViewEvent</system-event-class>
-        </system-event-listener>
-        <system-event-listener>
-            <system-event-listener-class>org.richfaces.context.PartialViewContextAjaxOutputTracker</system-event-listener-class>
-            <system-event-class>javax.faces.event.PreRemoveFromViewEvent</system-event-class>
-        </system-event-listener>
-        <system-event-listener>
-            <system-event-listener-class>org.richfaces.context.PartialViewContextAjaxOutputTracker</system-event-listener-class>
-            <system-event-class>javax.faces.event.PostAddToViewEvent</system-event-class>
-        </system-event-listener>
-        <view-handler>org.richfaces.application.GlobalResourcesViewHandler</view-handler>
-        <resource-handler>org.richfaces.resource.ResourceHandlerImpl</resource-handler>
-        <el-resolver>org.richfaces.skin.SkinPropertiesELResolver</el-resolver>
-        <el-resolver>org.richfaces.resource.ResourceParameterELResolver</el-resolver>
-    </application>
-
-    <factory>
-        <external-context-factory>org.richfaces.context.SkinningExternalContextFactory</external-context-factory>
-        <partial-view-context-factory>org.richfaces.context.ExtendedPartialViewContextFactoryImpl</partial-view-context-factory>
-    </factory>
-
-    <managed-bean>
-        <managed-bean-name>a4j</managed-bean-name>
-        <managed-bean-class>org.richfaces.VersionBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>a4jSkin</managed-bean-name>
-        <managed-bean-class>org.richfaces.skin.SkinBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>richSkin</managed-bean-name>
-        <managed-bean-class>org.richfaces.skin.SkinBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-
-    <component>
-        <component-type>org.richfaces.Scripts</component-type>
-        <component-class>org.richfaces.component.UIScripts</component-class>
-    </component>
-
-    <render-kit>
-        <renderer>
-            <component-family>org.richfaces.Script</component-family>
-            <renderer-type>org.richfaces.renderer.ScriptsRenderer</renderer-type>
-            <renderer-class>org.richfaces.renderkit.html.ScriptsRenderer</renderer-class>
-        </renderer>
-        <renderer>
-            <component-family>javax.faces.Output</component-family>
-            <renderer-type>org.richfaces.renderkit.ResourceLibraryRenderer</renderer-type>
-            <renderer-class>org.richfaces.renderkit.html.ResourceLibraryRenderer</renderer-class>
-        </renderer>
-    </render-kit>
+    <name>richfaces_ui</name>
 
 </faces-config>
