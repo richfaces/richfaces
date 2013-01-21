@@ -180,10 +180,6 @@ input.rf-ii-fld {
     clip: "rect(0px 0px 1px 1px)";
 }
 
-.rf-ii-none {
-    clip: rect(0px, 0px, 1px, 1px);
-}
-
 .rf-ii-dflt-lbl {
     color: #b3b3b3;
 }
