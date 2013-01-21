@@ -107,8 +107,8 @@ GETTING STARTED
 2. Add RichFaces namespaces/taglibs declarations to your VDL/XHTML pages 
    which will use RichFaces components.
 
-   - Use xmlns:a4j="http://richfaces.org/a4j" namespace for core components
-   - Use xmlns:rich="http://richfaces.org/rich" namespace for rich components
+   - Use xmlns:r="http://richfaces.org/core" namespace for core components
+   - Use xmlns:r="http://richfaces.org/core" namespace for rich components
 
 3. Add on of the available RichFaces components to your page and try it! 
    Take a look at the RichFaces examples for assistance with usage.
