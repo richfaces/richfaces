@@ -24,13 +24,17 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
     <p>
-        The <b>r:jQuery</b> component integrates the jQuery JavaScript framework into your application. This include being
-        able to apply the styles and behavior to the DOM elements dynamically, including the result of JSF components rendering.
+        The <b>r:jQuery</b> component integrates the jQuery JavaScript library into your applications. This allows
+        one to dynamically apply style and behavior to DOM elements as the result of JSF component rendering.
     </p>
 
     <p>
-        The <b>selector</b> attribute defines an object or list of objects that the query defined with the query attribute will
-        be applied to. The <b>query</b> attribute should be defined with valid JavaScript statements or jQuery api calls
+        The <b>selector</b> attribute defines an object (or list of objects) against which the <b>query</b> attribute will
+        be applied. The <b>query</b> attribute should be defined with valid JavaScript statements or jQuery api calls.
+    </p>
+
+    <p>
+        The jQuery javascript is also accessible via EL using the <h:outputLink value="#{facesContext.externalContext.requestContextPath}/richfaces/component-sample.jsf?demo=functions&amp;skin=#{skinBean.skin}"><b>r:jQuery EL function</b></h:outputLink>.
     </p>
 
     <p>r:jQuery can be used in these modes:</p>
