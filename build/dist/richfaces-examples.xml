@@ -1,0 +1,96 @@
+<assembly>
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <files>
+        <file>
+            <source>lgpl.txt</source>
+        </file>
+        <file>
+            <source>readme-examples.txt</source>
+            <destName>readme.txt</destName>
+        </file>
+    </files>
+
+    <moduleSets>
+        <moduleSet>
+            <includeSubModules>true</includeSubModules>
+            <includes>
+                <!--include>org.richfaces.examples:components</include -->
+                <include>org.richfaces.examples:richfaces-showcase</include>
+                <!--<include>org.richfaces.examples:photoalbum</include>-->
+            </includes>
+
+            <sources>
+                <outputDirectoryMapping>${module.artifactId}</outputDirectoryMapping>
+                <excludeSubModuleDirectories>false</excludeSubModuleDirectories>
+                <fileSets>
+                    <fileSet>
+                        <includes>
+                            <include>src/**</include>
+                            <include>readme.txt</include>
+                            <include>pom.xml</include>
+
+                            <include>build.xml</include>
+                            <include>maven-build.properties</include>
+                            <include>maven-build.xml</include>
+                        </includes>
+                    </fileSet>
+                </fileSets>
+            </sources>
+
+            <!--
+                        <binaries>
+                            <outputDirectory>${module.artifactId}</outputDirectory>
+                            <includeDependencies>false</includeDependencies>
+                            <unpack>false</unpack>
+                            <outputFileNameMapping>${module.artifactId}-${module.version}.${module.extension}</outputFileNameMapping>
+                        </binaries>
+            -->
+        </moduleSet>
+
+        <!-- moduleSet>
+            <includeSubModules>true</includeSubModules>
+            <includes>
+                <include>org.richfaces.examples.components:core-demo</include>
+            </includes>
+
+            <sources>
+                <outputDirectoryMapping>components/${module.artifactId}</outputDirectoryMapping>
+                <excludeSubModuleDirectories>false</excludeSubModuleDirectories>
+                <fileSets>
+                    <fileSet>
+                        <includes>
+                            <include>src/**</include>
+							<include>readme.txt</include>
+                            <include>pom.xml</include>
+
+                            <include>build.xml</include>
+                            <include>maven-build.properties</include>
+                            <include>maven-build.xml</include>
+                        </includes>
+                    </fileSet>
+                </fileSets>
+            </sources>
+        </moduleSet -->
+
+        <moduleSet>
+            <includeSubModules>true</includeSubModules>
+            <includes>
+                <include>org.richfaces:examples</include>
+            </includes>
+
+            <sources>
+                <outputDirectoryMapping />
+                <fileSets>
+                    <fileSet>
+                        <includes>
+                            <include>pom.xml</include>
+                        </includes>
+                    </fileSet>
+                </fileSets>
+            </sources>
+        </moduleSet>
+    </moduleSets>
+</assembly>

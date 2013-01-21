@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
+    Inc. and individual contributors by the @authors tag. See the
+    copyright.txt in the distribution for a full listing of
+    individual contributors. This is free software; you can
+    redistribute it and/or modify it under the terms of the GNU
+    Lesser General Public License as published by the Free Software
+    Foundation; either version 2.1 of the License, or (at your
+    option) any later version. This software is distributed in the
+    hope that it will be useful, but WITHOUT ANY WARRANTY; without
+    even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+    PARTICULAR PURPOSE. See the GNU Lesser General Public License
+    for more details. You should have received a copy of the GNU
+    Lesser General Public License along with this software; if not,
+    write to the Free Software Foundation, Inc., 51 Franklin St,
+    Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
+    http://www.fsf.org.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-root-parent</artifactId>
+        <version>4.3.0-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>richfaces-distribution</artifactId>
+    <packaging>pom</packaging>
+    <name>RichFaces Distribution Assembler</name>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-ui</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.richfaces.core</groupId>
+            <artifactId>richfaces-core-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.core</groupId>
+            <artifactId>richfaces-core-impl</artifactId>
+        </dependency>
+
+        <!-- Examples -->
+        <dependency>
+            <groupId>org.richfaces.examples</groupId>
+            <artifactId>richfaces-showcase</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+            <classifier>tomcat6</classifier>
+        </dependency>
+
+        <!-- Archetypes -->
+        <dependency>
+            <groupId>org.richfaces.archetypes</groupId>
+            <artifactId>richfaces-archetype-simpleapp</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.richfaces.archetypes</groupId>
+            <artifactId>richfaces-archetype-kitchensink</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <configuration>
+                    <includeGroupIds>org.richfaces.core,org.richfaces.ui</includeGroupIds>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-bin</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                    <execution>
+                        <id>copy-sources</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <classifier>sources</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-javadoc</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <classifier>javadoc</classifier>
+
+                            <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-jsdoc</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <classifier>jsdoc</classifier>
+
+                            <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
+                            <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>copy-examples</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <classifier>sources</classifier>
+
+                            <includeGroupIds>org.richfaces.examples</includeGroupIds>
+                            <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
+                            <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>copy-archetypes</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+
+                        <phase>package</phase>
+                        <configuration>
+                            <includeGroupIds>org.richfaces.archetypes</includeGroupIds>
+                            <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <finalName>richfaces-${project.version}</finalName>
+                            <descriptor>richfaces.xml</descriptor>
+                            <appendAssemblyId>false</appendAssemblyId>
+                        </configuration>
+                        <id>richfaces</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <scm>
+        <connection>scm:git:git://github.com/richfaces/build.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/build.git</developerConnection>
+        <url>https://github.com/richfaces/build</url>
+    </scm>
+</project>

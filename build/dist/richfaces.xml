@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
+    Inc. and individual contributors by the @authors tag. See the
+    copyright.txt in the distribution for a full listing of
+    individual contributors. This is free software; you can
+    redistribute it and/or modify it under the terms of the GNU
+    Lesser General Public License as published by the Free Software
+    Foundation; either version 2.1 of the License, or (at your
+    option) any later version. This software is distributed in the
+    hope that it will be useful, but WITHOUT ANY WARRANTY; without
+    even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+    PARTICULAR PURPOSE. See the GNU Lesser General Public License
+    for more details. You should have received a copy of the GNU
+    Lesser General Public License along with this software; if not,
+    write to the Free Software Foundation, Inc., 51 Franklin St,
+    Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
+    http://www.fsf.org.
+-->
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.2.1 http://maven.apache.org/xsd/assembly-2.2.1.xsd">
+    <id>richfaces</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <files>
+        <file>
+            <source>lgpl.txt</source>
+        </file>
+        <file>
+            <source>release-notes.txt</source>
+        </file>
+        <file>
+            <source>readme-ui.txt</source>
+            <destName>readme.txt</destName>
+        </file>
+        <file>
+            <source>readme-examples.txt</source>
+            <destName>examples/readme.txt</destName>
+        </file>
+    </files>
+
+    <fileSets>
+        <!-- bin & sources -->
+        <fileSet>
+            <directory>target/dependency</directory>
+            <outputDirectory>artifacts/framework</outputDirectory>
+            <includes>
+                <include>richfaces-core-*.jar</include>
+                <include>richfaces-commons-*.jar</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>target/dependency</directory>
+            <outputDirectory>artifacts/ui</outputDirectory>
+            <includes>
+                <include>richfaces-components-*.jar</include>
+            </includes>
+        </fileSet>
+
+        <!-- javadocs -->
+        <fileSet>
+            <directory>target/dependency/richfaces-core-api-javadoc-java-source</directory>
+            <outputDirectory>docs/javadocs/richfaces-core-api/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/dependency/richfaces-core-impl-javadoc-java-source</directory>
+            <outputDirectory>docs/javadocs/richfaces-core-impl/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/dependency/richfaces-commons-api-javadoc-java-source</directory>
+            <outputDirectory>docs/javadocs/richfaces-commons-api/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/dependency/richfaces-components-api-javadoc-java-source</directory>
+            <outputDirectory>docs/javadocs/richfaces-components-api/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/dependency/richfaces-components-impl-javadoc-java-source</directory>
+            <outputDirectory>docs/javadocs/richfaces-components-impl/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/dependency/richfaces-components-ui-javadoc-java-source</directory>
+            <outputDirectory>docs/javadocs/richfaces-components-ui/</outputDirectory>
+        </fileSet>
+
+        <!-- jsdoc -->
+        <fileSet>
+            <directory>target/dependency/richfaces-core-impl-jsdoc-java-source</directory>
+            <outputDirectory>docs/jsdoc/richfaces-core-impl/</outputDirectory>
+        </fileSet>
+        <!--        <fileSet>
+            <directory>target/dependency/richfaces-components-ui-jsdoc-java-source</directory>
+            <outputDirectory>docs/jsdoc/richfaces-components-ui/</outputDirectory>
+        </fileSet>-->
+
+        <!-- Examples -->
+        <fileSet>
+            <directory>target/dependency/richfaces-showcase-sources-java-source</directory>
+            <outputDirectory>examples/richfaces-showcase/</outputDirectory>
+            <excludes>
+                <exclude>/META-INF/**</exclude>
+            </excludes>
+        </fileSet>
+
+        <!-- Archetypes -->
+        <fileSet>
+            <directory>target/dependency/richfaces-archetype-simpleapp-jar</directory>
+            <outputDirectory>archetypes/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/dependency/richfaces-archetype-kitchensink-jar</directory>
+            <outputDirectory>archetypes/</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>
