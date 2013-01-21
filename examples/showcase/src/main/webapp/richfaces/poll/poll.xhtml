@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+    <p>
+        The <b>a4j:poll</b> component defines a way to periodically poll a server in order to trigger state changes, or update
+        parts of your page. You can use the same options, and settings as the a4j:ajax or a4j:commandButton. So you can set
+        execute, and render attributes, as well as any normal JSF action attributes. RichFaces uses a standard form based
+        request, so the form around the a4j:poll component is required.
+    </p>
+
+    <p>The example below updates the date and time on the page based on the data on the server. To turn off polling, press
+        "Stop Polling" button.</p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/poll/PollBean.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View Bean Source" />
+        <ui:param name="hideLabel" value="Hide Bean Source" />
+    </ui:include>
+    <rich:panel>
+        <b>NOTE:</b> polling is automatically disabled in this demo after one minute.
+    </rich:panel>
+</ui:composition>
+</html>

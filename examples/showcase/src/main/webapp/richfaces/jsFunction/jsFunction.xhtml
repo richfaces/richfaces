@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+
+    <p>
+        The <b>a4j:jsFunction</b> component creates a JavaScript function that allows you to send JSF Ajax requests from any
+        JavaScript. You define the Ajax and JSF properties just like a4j:ajax, or a4j:commandButton, and <b>a4j:jsFunction</b>
+        creates the JavaScript for you. The component sends a request using the standard JSF mechanisms. Note that this means a
+        JSF form is required.
+    </p>
+
+    <p>
+        The following example shows how to use <b>a4j:jsFunction</b> to create a function named updateName. This is then called
+        on mouseover of the different names. This triggers the full round trip Ajax request and renders the updated name.
+    </p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+
+</ui:composition>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:form>
+        <rich:editor id="editor" toolbar="full" value="#{editorBean.value}" style="margin-bottom: 1em">
+            <a4j:ajax event="change" render="panel" status="panelUpdateStatus" />
+            <a4j:ajax event="dirty" render="panel" status="panelUpdateStatus">
+                <a4j:attachQueue requestDelay="1000" />
+            </a4j:ajax>
+        </rich:editor>
+        
+        <rich:panel id="panel">
+            <f:facet name="header">
+                Output from Editor
+                <a4j:status name="panelUpdateStatus">
+                    <f:facet name="start">
+                        (Updating)
+                    </f:facet>
+                </a4j:status>
+            </f:facet>
+            <h:outputText escape="false" value="#{editorBean.value}" />
+        </rich:panel>
+
+
+    </h:form>
+</ui:composition>

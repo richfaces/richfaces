@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        When a suggestion request is sent to the server via an Ajax call you have full control over the suggestion list. Once
+        that data is on the client the default filter is <i>startsWith</i>. This can be changed to any custom JavaScript filter
+        you wish. This example shows you how to define and call a custom filter for <i>contains</i> instead of <i>startsWith</i>.
+    </p>
+
+    <p>
+        The <b>clientFilterFunction</b> attribute accepts a custom JavaScript function name. This function should have two
+        parameters; <b>subString</b>(current input value considering tokens) and <b>value</b> (currently iterated item value)
+        and return boolean flag which means if the value satisfies the substring passed. The function will be called for every
+        available suggestion in order to construct a new list of suggestions.
+    </p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>
+
+</html>

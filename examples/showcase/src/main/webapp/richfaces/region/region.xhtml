@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <b>a4j:region</b> component is used to mark zones which should be processed during Ajax requests without using <b>execute</b>
+        definitions for Ajax behaviors or components. This allows the processing definitions and component identifiers to be
+        decoupled, and declarative wrapping with the <b>a4j:region</b> tag is used instead.
+    </p>
+
+    <p>
+        In <i>RichFaces 3.3</i>, the whole view was processed if no regions were specified, as the <b>ViewRoot</b> itself was
+        the region by default. In <i>RichFaces 4.x</i>, all the controls are set to <b>execute="@this"</b> by default according
+        to JSF 2 specifications. However, if the controls wrapped with the <b>a4j:region</b> tag and have no execute
+        definitions, they use <i> execute="@region"</i> instead.
+    </p>
+
+    <p>
+        The example below contains two similar user info panels. The button inside the first panel will not work, as it does not
+        use execute declarations; by default it uses <i>execute="@this"</i>. A separate definition is needed to make the button
+        work properly. The second panel has its inputs and button wrapped in an <b>a4j:region</b>. This means that the <b>h:commandButton</b>
+        works without any additional execute definitions.
+    </p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <p>
+        Note: <b>a4j:commandButton/Link</b> use <i>execute="@form""</i> as their default and so would work as expected in both
+        panels. They also integrate in the core Ajax functionality, and do not require additional <b>a4j:ajax</b> tags.
+    </p>
+</ui:composition>
+</html>

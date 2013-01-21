@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+
+    <h:outputStylesheet>
+        .pic {
+        margin-bottom: -4px;
+        margin-right: 2px;
+        }
+
+        .search .rf-ddm-itm-sel {
+        background-color: transparent;
+        background-image:none;
+        border-color: transparent;
+        cursor: default;
+        }
+    </h:outputStylesheet>
+
+    <h:form>
+        <rich:toolbar height="26px">
+            <rich:dropDownMenu mode="ajax">
+                <f:facet name="label">
+                    <h:panelGroup>
+                        <h:graphicImage value="/images/icons/copy.gif" styleClass="pic" alt="copy" />
+                        <h:outputText value="File" />
+                    </h:panelGroup>
+                </f:facet>
+                <rich:menuItem label="New" action="#{dropDownMenuBean.doNew}" icon="/images/icons/create_doc.gif">
+                </rich:menuItem>
+                <rich:menuItem label="Open" action="#{dropDownMenuBean.doOpen}" icon="/images/icons/open.gif" />
+                <rich:menuGroup label="Save As...">
+                    <rich:menuItem label="Save" action="#{dropDownMenuBean.doSave}" icon="/images/icons/save.gif" />
+                    <rich:menuItem label="Save All" action="#{dropDownMenuBean.doSaveAll}">
+                        <f:facet name="icon">
+                            <h:graphicImage value="/images/icons/save_all.gif" alt="save_all" />
+                        </f:facet>
+                    </rich:menuItem>
+                </rich:menuGroup>
+                <rich:menuItem label="Close" action="#{dropDownMenuBean.doClose}" />
+                <rich:menuSeparator id="menuSeparator11" />
+                <rich:menuItem label="Exit" action="#{dropDownMenuBean.doExit}" />
+
+            </rich:dropDownMenu>
+
+            <rich:dropDownMenu mode="ajax">
+                <f:facet name="label">
+                    <h:panelGrid cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
+                        <h:outputText value="Links" />
+                    </h:panelGrid>
+                </f:facet>
+                <rich:menuItem submitMode="client" onclick="document.location.href='http://labs.jboss.com/jbossrichfaces/'">
+                    <h:outputText value="RichFaces Home Page" />
+                </rich:menuItem>
+                <rich:menuItem submitMode="client"
+                    onclick="document.location.href='http://jboss.com/index.html?module=bb&amp;op=viewforum&amp;f=261'">
+                    <h:outputText value="RichFaces Forum" />
+                </rich:menuItem>
+            </rich:dropDownMenu>
+        </rich:toolbar>
+    </h:form>
+
+    <br />
+    <a4j:outputPanel ajaxRendered="true">
+        <h:outputText value="Current Selection: "></h:outputText>
+        <h:outputText style="font-weight:bold" value="#{dropDownMenuBean.current}"></h:outputText>
+    </a4j:outputPanel>
+    <br />
+
+</ui:composition>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:outputScript>
+        //<![CDATA[
+        var counter = 1;
+        var intervalID;
+            function updateProgress(i) {
+            	#{rich:component('progressBar')}.setValue(counter*5);
+                if ((counter++)>20){
+                    clearInterval(intervalID);
+                    #{rich:element('start')}.disabled=false;
+                	#{rich:element('pause')}.disabled=true;
+                    counter=1;
+                }
+            }
+            function startProgress(){
+            	#{rich:element('start')}.disabled=true;
+            	#{rich:element('pause')}.disabled=false;
+            	#{rich:component('progressBar')}.enable();
+            	#{rich:component('progressBar')}.setValue(counter*5);
+                intervalID = setInterval(updateProgress,2000);
+            }
+            function pauseProgress(){
+                #{rich:element('start')}.disabled=false;
+            	#{rich:element('pause')}.disabled=true;
+            	#{rich:component('progressBar')}.disable();
+                clearInterval(intervalID);
+            }
+//]]>
+    </h:outputScript>
+    <h:form id="form2">
+        <rich:progressBar mode="client" id="progressBar" value="-1">
+            <f:facet name="initial">
+                <h:outputText value="Process hasn't started yet" />
+            </f:facet>
+            <f:facet name="complete">
+                <h:outputText value="Process Done" />
+            </f:facet>
+        </rich:progressBar>
+        <h:commandButton type="button" onclick="startProgress(); return false;" style="margin: 9px 0px 5px;" id="start"
+            value="Start Progress" />
+        <h:commandButton type="button" onclick="pauseProgress(); return false;" style="margin: 9px 0px 5px;" id="pause"
+            disabled="true" value="Pause Progress" />
+    </h:form>
+</ui:composition>

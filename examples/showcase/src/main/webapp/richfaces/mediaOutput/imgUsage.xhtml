@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <b>a4j:mediaOutput</b> component allows images, video, sounds, and other binary resources to be displayed as defined
+        by a user on the fly.
+    </p>
+
+    <p>
+        The <b>createContent</b> attribute references the method that is used for creating content. The method accepts two
+        parameters:
+    </p>
+    <ul>
+        <li>The <b>OutputStream</b> parameter is a reference to the stream that is used for output.</li>
+        <li>The second parameter is a reference to the <b>value</b> attribute of the component.</li>
+    </ul>
+    <p>
+        The <b>value</b> attribute references data that can be used as input data for the content creator method. The data
+        should be serializable since it is encoded as the URL of the resource.
+    </p>
+
+    <p>
+        The <b>mimeType</b> attribute defines the type of output content. It is used to define the corresponding type in the
+        header of an HTTP response.
+    </p>
+
+    <p>
+        The <b>cacheable</b> attribute is a flag that defines the caching strategy. If <b>cacheable</b> is set to false, the
+        response will not be cached. If set to true, it will be cached and the serialized value of the <b>value</b> attribute is
+        used as a cache key.
+    </p>
+
+    <p>
+        This example reads the existing image and re-indexes the palette using colors you selected below.
+    </p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>
+
+</html>

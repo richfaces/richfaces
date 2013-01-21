@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <strong>hotKey</strong> component allows registering hot keys on the page or particular elements and defining client
+        side processing functions for these keys.
+    </p>
+
+    <p>Main component attributes are:</p>
+
+    <ul>
+        <li><b>key</b> - The key sequence to be pressed, single keys separated by + (e.g. 'ctrl+a', 'up').</li>
+        <li><b>onpress</b> - The event handler defines callback function for this hotKey (behaviors could be also attached
+            to the component default <em>press</em> event)</li>
+        <li><b>selector</b> - JQuery selector, defines elements which will process defined hotKey(html[0] by default)</li>
+        <li><b>enabledInInput</b> - The switch which enables handling events coming from input</li>
+    </ul>
+
+    <hr />
+
+    <p>
+        In next example we've used <b>selector</b> attribute. Hence the keys will work only if <b>pickList</b> component is
+        focused.
+    </p>
+    <p>
+        Press <b>Right</b> or <b>Left</b> keys in order to move some selected items between lists. Press <b>Home</b> or <b>End</b>
+        buttons in order to move all items between lists.
+    </p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+
+</ui:composition>
+
+</html>

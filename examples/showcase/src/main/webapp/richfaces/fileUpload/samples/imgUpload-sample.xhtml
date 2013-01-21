@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+
+    <h:outputStylesheet>
+        .top {
+        vertical-align: top;
+        }
+
+        .info {
+        height: 202px;
+        overflow: auto;
+        }
+    </h:outputStylesheet>
+    <h:form>
+        <h:panelGrid columns="2" columnClasses="top,top">
+            <rich:fileUpload fileUploadListener="#{fileUploadBean.listener}" id="upload" acceptedTypes="jpg, gif, png, bmp"
+                ontyperejected="alert('Only JPG, GIF, PNG and BMP files are accepted');" maxFilesQuantity="5">
+                <a4j:ajax event="uploadcomplete" execute="@none" render="info" />
+            </rich:fileUpload>
+            <h:panelGroup id="info" layout="block">
+                <rich:panel bodyClass="info">
+                    <f:facet name="header">
+                        <h:outputText value="Uploaded Files Info" />
+                    </f:facet>
+                    <h:outputText value="No files currently uploaded" rendered="#{fileUploadBean.size==0}" />
+                    <rich:dataGrid columns="1" value="#{fileUploadBean.files}" var="file" rowKeyVar="row">
+                        <rich:panel bodyClass="rich-laguna-panel-no-header">
+                            <h:panelGrid columns="2">
+                                <a4j:mediaOutput element="img" mimeType="image/jpeg" createContent="#{fileUploadBean.paint}"
+                                    value="#{row}" style="width:100px; height:100px;" cacheable="false">
+                                    <f:param value="#{fileUploadBean.timeStamp}" name="time" />
+                                </a4j:mediaOutput>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="File Name:" />
+                                    <h:outputText value="#{file.name}" />
+                                    <h:outputText value="File Length(bytes):" />
+                                    <h:outputText value="#{file.length}" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </rich:panel>
+                    </rich:dataGrid>
+                </rich:panel>
+                <br />
+                <a4j:commandButton action="#{fileUploadBean.clearUploadData}" render="info, upload" value="Clear Uploaded Data"
+                    rendered="#{fileUploadBean.size>0}" />
+            </h:panelGroup>
+        </h:panelGrid>
+    </h:form>
+</ui:composition>
+
+</html>

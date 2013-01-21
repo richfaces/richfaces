@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:outputStylesheet>
+        .pic {
+        margin-right: 2px;
+        }
+
+        .barsearch {
+        height: 14px;
+        width: 100px;
+        }
+
+        .barsearchbutton {
+        border-width: 1px;
+        background-color: #{ a4jSkin.generalBackgroundColor
+}
+        ;
+        }
+    </h:outputStylesheet>
+
+    <rich:toolbar height="26" itemSeparator="grid">
+        <rich:toolbarGroup>
+            <h:graphicImage value="/images/icons/create_doc.gif" styleClass="pic" alt="create_doc" />
+            <h:graphicImage value="/images/icons/create_folder.gif" styleClass="pic" alt="create_folder" />
+            <h:graphicImage value="/images/icons/copy.gif" styleClass="pic" alt="copy" />
+        </rich:toolbarGroup>
+        <rich:toolbarGroup>
+            <h:graphicImage value="/images/icons/save.gif" styleClass="pic" alt="save" />
+            <h:graphicImage value="/images/icons/save_as.gif" styleClass="pic" alt="save_all" />
+            <h:graphicImage value="/images/icons/save_all.gif" styleClass="pic" alt="save_all" />
+        </rich:toolbarGroup>
+        <rich:toolbarGroup location="right">
+            <h:inputText styleClass="barsearch" />
+            <h:commandButton styleClass="barsearchbutton" onclick="return false;" value="Search" />
+        </rich:toolbarGroup>
+    </rich:toolbar>
+
+
+</ui:composition>

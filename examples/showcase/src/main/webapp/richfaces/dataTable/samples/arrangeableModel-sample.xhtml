@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:form id="form">
+        <rich:dataTable keepSaved="true" id="richTable" var="record" value="#{personBean.dataModel}" rows="20">
+            <ui:include src="jpaColumn.xhtml">
+                <ui:param name="bean" value="#{personBean}" />
+                <ui:param name="property" value="name" />
+            </ui:include>
+            <ui:include src="jpaColumn.xhtml">
+                <ui:param name="bean" value="#{personBean}" />
+                <ui:param name="property" value="surname" />
+            </ui:include>
+            <ui:include src="jpaColumn.xhtml">
+                <ui:param name="bean" value="#{personBean}" />
+                <ui:param name="property" value="email" />
+            </ui:include>
+
+            <f:facet name="footer">
+                <rich:dataScroller id="scroller" />
+            </f:facet>
+        </rich:dataTable>
+    </h:form>
+</ui:composition>

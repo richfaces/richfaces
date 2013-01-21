@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <p>
+        The <b>rich:jQuery</b> component integrates the jQuery JavaScript framework into your application. This include being
+        able to apply the styles and behavior to the DOM elements dynamically, including the result of JSF components rendering.
+    </p>
+
+    <p>
+        The <b>selector</b> attribute defines an object or list of objects that the query defined with the query attribute will
+        be applied to. The <b>query</b> attribute should be defined with valid JavaScript statements or jQuery api calls
+    </p>
+
+    <p>rich:jQuery can be used in these modes:</p>
+    <ul>
+        <li>As a one time query applied immediately or on a document ready event.</li>
+        <li>Define an event handler which is bound to elements returned by selector on some event.</li>
+        <li>As a JavaScript function that can be invoked from custom JavaScript</li>
+    </ul>
+
+    <p>This example shows how to attach events to the mouseover/mouseout event on the DOM objects. The source below will
+        show how to make them enlarged.</p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+
+</ui:composition>

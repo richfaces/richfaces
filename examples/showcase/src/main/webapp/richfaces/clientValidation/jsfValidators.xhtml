@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <b>RichFaces Client Validation</b> feature allows you to have true client side validation without writing a single
+        line of JavaScript!
+    </p>
+
+    <p>
+        The standard JSF validators and JSR-303 (bean validation) constraints will be available on the client side just by
+        adding <b>&lt;rich:validator/&gt;</b> to the desired inputs. If you are using any custom validators or extensions such
+        as from hibernate an Ajax fallback mechanism will be used triggered. This will be basically seamless to the user, as an
+        Ajax request will handle that specific validation. In future versions we plan to implement additional extensions such as
+        these including custom client side validation. The behavior will try to execute all client validators available and then
+        send an Ajax request to get results from server side if needed.
+    </p>
+
+    <p>In this example we are using standard JSF validators and notice that no requests are fired when typing values in
+        these fields.</p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <fieldset>
+        <legend>
+            <b>Notes:</b>
+        </legend>
+        <ul>
+            <li>Some JSR-303 validators are not yet implemented for various reasons (localization primarily). As we
+                complete these implementations they will work transparently after upgrading, plus Ajax fallbacks will work fine
+                for these, so there is no reason not to start using them now!</li>
+            <li>In future versions custom client side validators will be possible, and we'll update our examples to
+                showcase them.</li>
+        </ul>
+    </fieldset>
+</ui:composition>
+</html>

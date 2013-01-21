@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <b>rich:popupPanel</b> component is used to create any kind of popups on the page.
+    </p>
+
+    <p>Main features:</p>
+    <ul>
+        <li>Two states; modal and non-modal</li>
+        <li>Can be defined as resizable</li>
+        <li>Can be autosized according to content</li>
+        <li>Can be moved across the screen</li>
+        <li>Can be automatically positioned as centered or use a defined position</li>
+    </ul>
+    <p>
+        This example shows a simple <b>non-modal popup</b> which is movable but not resizable and defined to use <b>autosizing</b>
+        according to it's content
+    </p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+
+    <p>This example also shows two variants of working with the component JavaScript API:</p>
+    <ul>
+        <li>The popup is called by the <b>rich:componentControl</b> attached to button</li>
+        <li>The popup is closed by a simple JavaScript call which is defined using the <b>rich:component</b> function</li>
+    </ul>
+</ui:composition>
+
+</html>

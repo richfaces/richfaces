@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:at="http://richfaces.org/demo/app-taglib"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+    <f:subview>
+        <h:outputStylesheet>
+            .sourceView{
+            padding-top: 10px;
+            }
+        </h:outputStylesheet>
+        <a4j:outputPanel styleClass="sourceView" layout="block">
+            <a4j:outputPanel layout="block" id="show">
+                <h:outputLink value="#"
+                    onclick="jQuery(#{rich:element('hide')}).slideDown(); jQuery(#{rich:element('show')}).hide(); return false;"
+                    id="sh1" styleClass="show">
+                    <h:outputText value="#{empty openLabel?'View Source' : openLabel }" />
+                </h:outputLink>
+            </a4j:outputPanel>
+
+            <a4j:outputPanel id="hide" layout="block" style="display:none">
+                <h:outputLink styleClass="hide" value="#"
+                    onclick="jQuery(#{rich:element('hide')}).slideUp(); jQuery(#{rich:element('show')}).show(500); return false;">
+                    <h:outputText value="#{empty hideLabel?'Hide Source' : hideLabel }" />
+                </h:outputLink>
+                <at:syntaxHighlighter styleClass="source" src="#{src}" sourceType="#{sourceType}" />
+                <h:outputLink styleClass="hide" value="#"
+                    onclick="jQuery(#{rich:element('hide')}).slideUp(); jQuery(#{rich:element('show')}).show(500); return false;">
+                    <h:outputText value="#{empty hideLabel?'Hide Source' : hideLabel }" />
+                </h:outputLink>
+            </a4j:outputPanel>
+        </a4j:outputPanel>
+    </f:subview>
+</ui:composition>
+</html>

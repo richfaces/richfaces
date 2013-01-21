@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>RichFaces 4.x provides a clean api for popup panels and added non-modal state, so now its easy to use the popup panel
+        for login, and seach panels. The examples below show both variants; login, and search, but of course you could use any
+        content you wanted.</p>
+
+    <p>At the bottom of the page is a description and information for RichFaces 3.3.X users who used rich:dropDownMenu
+        components to accomplish this same task. If that was you - it is worth a read.</p>
+
+    <p>
+        The <b>rich:popupPanel</b> also allows you to pass options to the JavaScript show method such as: <b>min/max width
+            and height</b>, specific <b>width and height</b>, <b>top and left</b> positions for the panel. So with <b>rich:hashParam</b>
+        it's really simple to build declarative calls for the panel which can use dynamic properties.
+    </p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <p>
+        In RichFaces 3.3.x many developers used the <b>rich:dropDownMenu</b> component for creation of Search/Login popups
+        attached to toolbars. There were two main reasons for this:
+    </p>
+    <ul>
+        <li>Simplicity of usage. No script positioning required. rich:dropDownMenu performs popup positioning on its own
+            and was simple to customize by using <b>jointPoint</b> and <b>direction</b> attributes.</li>
+        <li>RichFaces 3.3.x has no lightweight popup panel and <b>rich:modalPanel</b> usage for such cases required
+            workarounds in order to make it non-modal</li>
+    </ul>
+    <p>But that approach also has some disadvantages:</p>
+    <ul>
+        <li><b>rich:dropDownMenu</b> component was created with additional JavaScript code for input processing inside the
+            <b>rich:menuItem</b>'s. That is not really a native task for menus so that code was really superfluous from simple
+            menus point of view.</li>
+        <li>Developer still had to work on styling of menu item removing hover effects and making it looks like panel
+            rather than menuItem</li>
+    </ul>
+    <p>
+        We think that the new features of the <b>rich:popupPanel</b> are an excellent replacement for this and hope you will
+        consider updating to it.
+    </p>
+</ui:composition>
+
+</html>

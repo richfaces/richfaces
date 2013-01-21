@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:form>
+        <a4j:poll id="poll" interval="2000" enabled="#{pollBean.pollEnabled}" render="poll,grid" />
+    </h:form>
+
+    <h:form>
+        <h:panelGrid columns="2" width="80%" id="grid">
+            <h:panelGrid columns="1">
+
+                <h:outputText value="Polling Inactive" rendered="#{not pollBean.pollEnabled}"></h:outputText>
+
+                <h:outputText value="Polling Active" rendered="#{pollBean.pollEnabled}"></h:outputText>
+
+                <a4j:commandButton style="width:120px" id="control" value="#{pollBean.pollEnabled?'Stop':'Start'} Polling"
+                    render="poll, grid">
+                    <a4j:param name="polling" value="#{!pollBean.pollEnabled}" assignTo="#{pollBean.pollEnabled}" />
+                </a4j:commandButton>
+
+            </h:panelGrid>
+
+            <h:outputText id="serverDate" style="font-size:16px" value="Server Date: #{pollBean.date}" />
+        </h:panelGrid>
+    </h:form>
+</ui:composition>

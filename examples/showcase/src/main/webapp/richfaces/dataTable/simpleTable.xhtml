@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        This example shows a simple master-detail table implemented using <b>rich:dataTable</b> and <b>rich:collapsibleSubTable</b>
+        components.
+    </p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tables/ReportBean.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View ReportBean Source" />
+        <ui:param name="hideLabel" value="Hide ReportBean Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tables/model/expenses/ExpenseReport.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View ExpenseReport Source" />
+        <ui:param name="hideLabel" value="Hide ExpenseReport Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tables/model/expenses/ExpenseReportRecord.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View ExpenseReportRecord Source" />
+        <ui:param name="hideLabel" value="Hide ExpenseReportRecord Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tables/model/expenses/ExpenseReportRecordItem.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View ExpenseReportRecordItem Source" />
+        <ui:param name="hideLabel" value="Hide ExpenseReportRecordItem Source" />
+    </ui:include>
+</ui:composition>
+</html>

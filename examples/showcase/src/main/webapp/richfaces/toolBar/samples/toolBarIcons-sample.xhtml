@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <h:form>
+        <h:panelGrid columns="3" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom : 4px">
+            <rich:panel>
+                <h:panelGrid columns="8">
+                    <h:outputText value="Group Separator:" />
+                    <a4j:commandLink value="Line">
+                        <a4j:param name="gs" value="line" assignTo="#{toolBarBean.groupSeparator}" />
+                    </a4j:commandLink>
+
+                    <a4j:commandLink value="Grid">
+                        <a4j:param name="gs" value="grid" assignTo="#{toolBarBean.groupSeparator}" />
+                    </a4j:commandLink>
+
+                    <a4j:commandLink value="Disc">
+                        <a4j:param name="gs" value="disc" assignTo="#{toolBarBean.groupSeparator}" />
+                    </a4j:commandLink>
+
+                    <a4j:commandLink value="Square">
+                        <a4j:param name="gs" value="square" assignTo="#{toolBarBean.groupSeparator}" />
+                    </a4j:commandLink>
+
+                    <a4j:commandLink value="None">
+                        <a4j:param name="gs" value="none" assignTo="#{toolBarBean.groupSeparator}" />
+                    </a4j:commandLink>
+                </h:panelGrid>
+            </rich:panel>
+            <h:panelGroup style="padding-left : 4px">
+                <br />
+            </h:panelGroup>
+            <rich:panel bodyClass="rich-laguna-panel-no-header">
+                <h:panelGrid columns="8">
+                    <h:outputText value="Group Item Separator:" />
+                    <a4j:commandLink value="Line">
+                        <a4j:param name="gs" value="line" assignTo="#{toolBarBean.groupItemSeparator}" />
+                    </a4j:commandLink>
+
+                    <a4j:commandLink value="Grid">
+                        <a4j:param name="gs" value="grid" assignTo="#{toolBarBean.groupItemSeparator}" />
+                    </a4j:commandLink>
+
+                    <a4j:commandLink value="Disc">
+                        <a4j:param name="gs" value="disc" assignTo="#{toolBarBean.groupItemSeparator}" />
+                    </a4j:commandLink>
+
+                    <a4j:commandLink value="Square">
+                        <a4j:param name="gs" value="square" assignTo="#{toolBarBean.groupItemSeparator}" />
+                    </a4j:commandLink>
+
+                    <a4j:commandLink value="None">
+                        <a4j:param name="gs" value="none" assignTo="#{toolBarBean.groupItemSeparator}" />
+                    </a4j:commandLink>
+                </h:panelGrid>
+            </rich:panel>
+        </h:panelGrid>
+    </h:form>
+    <a4j:outputPanel ajaxRendered="true" layout="block">
+        <rich:toolbar id="bar" height="30" itemSeparator="#{toolBarBean.groupSeparator}">
+            <rich:toolbarGroup itemSeparator="#{toolBarBean.groupItemSeparator}">
+                <h:outputText value="Group1.1"></h:outputText>
+                <h:outputText value="Group1.2"></h:outputText>
+                <h:outputText value="Group1.3"></h:outputText>
+            </rich:toolbarGroup>
+            <rich:toolbarGroup itemSeparator="#{toolBarBean.groupItemSeparator}">
+                <h:outputText value="Group2.1"></h:outputText>
+                <h:outputText value="Group2.2"></h:outputText>
+            </rich:toolbarGroup>
+            <rich:toolbarGroup location="right" itemSeparator="#{toolBarBean.groupItemSeparator}">
+                <h:outputText value="Group3.1"></h:outputText>
+                <h:outputText value="Group3.2"></h:outputText>
+            </rich:toolbarGroup>
+        </rich:toolbar>
+    </a4j:outputPanel>
+
+</ui:composition>

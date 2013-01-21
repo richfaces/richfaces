@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:composition>
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:panelGrid>
+                <f:facet name="header">
+                    User Info Panel explicitly executed by identifier
+                </f:facet>
+                <h:panelGrid columns="2" id="userInfoPanel1">
+                    <h:outputText value="User Name: " />
+                    <h:inputText value="#{regionBean.user1.name}" />
+                    <h:outputText value="User email: " />
+                    <h:inputText value="#{regionBean.user1.email}" />
+                </h:panelGrid>
+                <h:commandButton value="broken submit">
+                    <a4j:ajax render="echopanel1" />
+                </h:commandButton>
+            </h:panelGrid>
+            <h:panelGrid columns="2" id="echopanel1">
+                <f:facet name="header">
+                    Echo Panel
+                </f:facet>
+                <h:outputText value="Entered name:" />
+                <h:outputText value="#{regionBean.user1.name}" />
+                <h:outputText value="Entered email:" />
+                <h:outputText value="#{regionBean.user1.email}" />
+            </h:panelGrid>
+        </h:panelGrid>
+        <h:panelGrid columns="2">
+            <h:panelGrid>
+                <f:facet name="header">
+                    User Info Panel with Region
+                </f:facet>
+                <a4j:region>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="User Name: " />
+                        <h:inputText value="#{regionBean.user2.name}" />
+                        <h:outputText value="User email: " />
+                        <h:inputText value="#{regionBean.user2.email}" />
+                    </h:panelGrid>
+                    <h:commandButton value="submit">
+                        <a4j:ajax render="echopanel2" />
+                    </h:commandButton>
+                </a4j:region>
+            </h:panelGrid>
+            <h:panelGrid columns="2" id="echopanel2">
+                <f:facet name="header">
+                    Echo Panel
+                </f:facet>
+                <h:outputText value="Entered name:" />
+                <h:outputText value="#{regionBean.user2.name}" />
+                <h:outputText value="Entered email:" />
+                <h:outputText value="#{regionBean.user2.email}" />
+            </h:panelGrid>
+        </h:panelGrid>
+    </h:form>
+
+</ui:composition>
+</html>

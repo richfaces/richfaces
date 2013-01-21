@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <b>rich:orderingList</b> component allows one to reorder the items in a list.  The orderingList also
+        supports a multi-column list representation.
+    </p>
+
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/lists/ListSelectBean.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View ListSelectBean Source" />
+        <ui:param name="hideLabel" value="Hide ListSelectBean Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tables/model/capitals/CapitalsConverter.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View CapitalsConverter Source" />
+        <ui:param name="hideLabel" value="Hide CapitalsConverter Source" />
+    </ui:include>
+</ui:composition>
+
+</html>

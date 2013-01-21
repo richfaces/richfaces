@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:form>
+        <p>This example shows an orderingList in the simpler, single column display:</p>
+        <rich:panel style="width:300px;">
+            <f:facet name="header">
+                <h:outputText value="Simple ordering list"></h:outputText>
+            </f:facet>
+            <rich:orderingList value="#{listSelectBean.capitals}" var="capital" itemValue="#{capital}" itemLabel="#{capital.name}">
+                <f:converter converterId="CapitalsConverter" />
+            </rich:orderingList>
+        </rich:panel>
+        <br />
+        <p>In the next example, the list of capitals is displayed in a multi-column format:</p>
+        <rich:panel style="width:400px;">
+            <f:facet name="header">
+                <h:outputText value="Ordering list with columns"></h:outputText>
+            </f:facet>
+            <rich:orderingList value="#{listSelectBean.capitals}" var="capital"  listWidth="300px">
+                <f:converter converterId="CapitalsConverter" />
+                <rich:column>
+                    <f:facet name="header">Flag</f:facet>
+                    <h:graphicImage value="#{capital.stateFlag}" alt="flag"  width="33"/>
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">Name</f:facet>
+                    #{capital.name}
+                </rich:column>
+                <rich:column>
+                    <f:facet name="header">State</f:facet>
+                    #{capital.state}
+                </rich:column>
+            </rich:orderingList>
+        </rich:panel>
+    </h:form>
+</ui:composition>

@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <p>
+        JSF 2 provides a queuing mechanism out-of the box in order to sequence client side events with the built-in Ajax
+        implementation. This queue is lacking in some very essential tuning options. The RichFaces <b>a4j:queue</b> provides
+        these basic options in addition to other enhancements. There are two primary options available; 'requestDelay' and
+        'ignoreDupResponse'. These are explained more in the example below.
+    </p>
+
+    <p>Many of the features of the RichFaces 3.3.X queue have been ported to RichFaces 4.0 version. However it is important
+        to remember that the 4.0 queue is a logical queue on top of JSF's. There is only a single physical queue allowed and
+        there is no way to override that (for now).</p>
+
+    <p>In this example you can tweak different queue options and see what effect that has on the number of events fired, and
+        how often the DOM is updated. This provides a good way to learn about Ajax requests flood protection.</p>
+
+    <p>Attribute details:</p>
+    <ul>
+        <li><b>requestDelay</b> is the number of milliseconds to wait before sending a request in order to combine similar
+            requests. The greater the value the fewer requests will be sent when fast typing. Similar requests in the queue are
+            combined while waiting for the request delay</li>
+        <li>If <b>ignoreDupResponse</b> is true then RichFaces will not waste time updating the client side DOM if it knows
+            another request for the same thing is pending. The best way to see that in this demo is set requestDelay to a very
+            small value and type quickly. You will see the number of DOM updates be smaller than requests sent.</li>
+    </ul>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <p>
+        <b>Queue scopes, and names:</b>
+    </p>
+
+    <p>You can define a queue so that it is the default queue for all requests from a complete view, a specific form, or
+        even specific components.</p>
+    <ul>
+        <li><b>View scoped:</b> Place an <b>a4j:queue</b> with no name attribute outside of any form, and it will be the
+            default queue for all requests on the page.</li>
+        <li><b>Form scoped</b> Place a nameless <b>a4j:queue</b> within a form to make it the default queue for all
+            requests within it.</li>
+        <li><b>Named queue</b> Define an <b>a4j:queue</b> with a specific name. Then you can make any component, or
+            behavior use that queue with the <b>a4j:attachQueue</b> component. See the next queue example for details.</li>
+    </ul>
+</ui:composition>
+

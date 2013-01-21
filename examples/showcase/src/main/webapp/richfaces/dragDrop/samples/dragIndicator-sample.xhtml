@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <h:outputStylesheet>
+        .panelc { width:25%; }
+        .valign { vertical-align:top; }
+        .dropTargetPanel { width: 90%; }
+        .footerClass {
+        text-align: center;
+        padding-top: 5px;
+        }
+
+        .default{
+        font-size:11px;
+        cursor:pointer;
+        width:100px;
+        border:1px solid gray;
+        padding:2px
+        }
+        .rf-ind-drag.default{
+        padding-left:30px;
+        background-image: url("#{facesContext.externalContext.requestContextPath}/images/dnd/default.gif");
+        background-position: 5px;
+        background-repeat: no-repeat;
+        }
+        .rf-ind-drag.accept{
+        background-image: url("#{facesContext.externalContext.requestContextPath}/images/dnd/accept.gif");
+        background-position: 5px;
+        background-repeat: no-repeat;
+        border:2px solid green
+        }
+        .rf-ind-drag.reject{
+        border:2px solid red;
+        background-image: url("#{facesContext.externalContext.requestContextPath}/images/dnd/reject.gif");
+        background-position: 5px;
+        background-repeat: no-repeat;
+        }
+    </h:outputStylesheet>
+    <rich:dragIndicator id="ind" acceptClass="accept" rejectClass="reject" draggingClass="default">
+        Drag the item to proper area..
+    </rich:dragIndicator>
+    <h:form id="form">
+
+        <h:panelGrid columnClasses="panelc valign, valign, valign, valign" columns="4" width="100%">
+
+            <rich:panel style="width:133px">
+                <f:facet name="header">
+                    <h:outputText value="Source List" />
+                </f:facet>
+                <h:dataTable id="src" columns="1" value="#{dragDropBean.source}" var="fm" footerClass="footerClass">
+                    <h:column>
+                        <a4j:outputPanel layout="block" styleClass="default">
+                            <rich:dragSource type="#{fm.family}" dragIndicator="ind" dragValue="#{fm}" />
+                            <h:outputText value="#{fm.name}"></h:outputText>
+                        </a4j:outputPanel>
+                    </h:column>
+                    <f:facet name="footer">
+                        <a4j:commandButton action="#{dragDropBean.reset}" value="Start Over"
+                            render="src,phptable,cftable,dnettable" />
+                    </f:facet>
+                </h:dataTable>
+            </rich:panel>
+
+            <rich:panel styleClass="dropTargetPanel">
+                <f:facet name="header">
+                    <h:outputText value="PHP Frameworks" />
+                </f:facet>
+                <rich:dropTarget acceptedTypes="php" dropValue="PHP" dropListener="#{dragDropEventBean.processDrop}"
+                    render="phptable, src" />
+
+                <h:dataTable id="phptable" columns="1" value="#{dragDropBean.targetPHP}" var="fm">
+                    <h:column>
+                        <h:outputText value="#{fm.name}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+
+
+            </rich:panel>
+
+            <rich:panel styleClass="dropTargetPanel">
+                <f:facet name="header">
+                    <h:outputText value=".NET Frameworks" />
+                </f:facet>
+                <rich:dropTarget acceptedTypes="dotNet" dropValue="DNET" dropListener="#{dragDropEventBean.processDrop}"
+                    render="dnettable, src" />
+
+                <h:dataTable id="dnettable" columns="1" value="#{dragDropBean.targetDotNet}" var="fm">
+                    <h:column>
+                        <h:outputText value="#{fm.name}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+
+
+            </rich:panel>
+
+            <rich:panel styleClass="dropTargetPanel">
+                <f:facet name="header">
+                    <h:outputText value="ColdFusion Frameworks" />
+                </f:facet>
+                <rich:dropTarget acceptedTypes="cf" dropValue="CF" dropListener="#{dragDropEventBean.processDrop}"
+                    render="cftable, src" />
+
+                <h:dataTable id="cftable" columns="1" value="#{dragDropBean.targetCF}" var="fm">
+                    <h:column>
+                        <h:outputText value="#{fm.name}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+            </rich:panel>
+        </h:panelGrid>
+
+    </h:form>
+    <a4j:outputPanel ajaxRendered="true">
+        <h:messages></h:messages>
+    </a4j:outputPanel>
+</ui:composition>

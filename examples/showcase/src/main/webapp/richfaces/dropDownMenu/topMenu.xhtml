@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <b>rich:dropDownMenu</b> component provides hierarchical menu systems similar to those found in many desktop
+        applications.
+    </p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <p>
+        The drop-down menu has a label that always appears on the page, and an invisible panel that appears after a set
+        client-side event. Use the <b>showEvent</b> attribute to define the event, such as <i>mouseover</i> or <i>click</i>.
+    </p>
+
+    <p>
+        Drop-down menus can contain a set of <b>rich:menuItem</b> components, <b>rich:menuGroup</b> components, and <b>rich:menuSeparator</b>
+        components. Menu groups are used for secondary levels on the menu. Menu separators are represented with horizontal lines
+        between items or groups. Menu items are active elements that might produce Ajax or non-Ajax requests. The submission
+        mode is defined with <b>mode</b> attribute, which has three possible options: <i>server</i>, <i>ajax</i>, or <i>client</i>.
+        The <i>client</i> mode does not submit a request, but allows you to provide your own functionality inside the menu item
+        with any in-line content. The <b>mode</b> attribute can be over-ridden in child items.
+    </p>
+</ui:composition>
+
+</html>

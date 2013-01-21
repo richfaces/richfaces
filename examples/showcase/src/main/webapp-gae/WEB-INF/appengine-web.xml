@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+    <application>richfaces-showcase</application>
+    <version>49</version>
+    <sessions-enabled>true</sessions-enabled>
+
+    <system-properties>
+        <property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties" />
+    </system-properties>
+
+    <resource-files>
+        <exclude path="/static-resources/**" />
+    </resource-files>
+
+    <static-files>
+        <include path="/images/**.*" />
+        <include path="/static-resources/**.*" />
+        <include path="/*.ico" />
+        <include path="/resources/**.*" />
+        <exclude path="/templates/**.*" />
+        <exclude path="/*.xhtml" />
+    </static-files>
+
+</appengine-web-app>

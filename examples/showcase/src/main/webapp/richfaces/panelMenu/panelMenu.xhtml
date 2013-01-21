@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <b>rich:panelMenu</b> component is used to create a collapsible side-menu panel. The component has a pre-defined
+        look and feel which can be skinned. You can customize it with styles and a set of component attributes. This example
+        demonstrates basic use of the <b>rich:panelMenu</b> component.
+    </p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+
+    <p>
+        The menu uses the parent component <b>itemChangeListener</b> to output the current selection. Alternatively, you could
+        use an <b>action</b> and <b>actionListener</b> pair at each <b>rich:panelMenuItem</b> component to perform the
+        navigation and process any <b>ActionEvent</b> events from there.
+    </p>
+
+    <p>
+        Specify the item switching mode at the <b>rich:panelMenu</b> level with the <b>itemMode</b> attribute. The attribute can
+        be redefined on child <b>rich:panelMenuItem</b> components, and is used instead of the global setting.
+    </p>
+
+    <p>
+        Specify the group switching mode at the <b>rich:panelMenu</b> level with the <b>groupMode</b> attribute. The attribute
+        can be redefined on child <b>rich:panelMenuGroup</b> components, and is used instead of the global setting.
+    </p>
+
+    <p>
+        The <b>itemMode</b> and <b>groupMode</b> attributes can be set to three possible values:
+    </p>
+    <ul>
+        <li><b>server</b> (default): A common submission of the form is performed and the page is completely refreshed.</li>
+        <li><b>ajax</b>: An Ajax form submission is performed. Additionally, elements specified in the <b>render</b>
+            attribute are rendered</li>
+        <li><b>client</b>: No form submission is performed. The behavior is completely defined by the components nested in
+            the menu items. Groups expand on the client side.</li>
+    </ul>
+</ui:composition>
+</html>

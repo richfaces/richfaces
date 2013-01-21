@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <p>Here is an example of default inputNumberSlider:</p>
+
+    <rich:inputNumberSlider value="50" />
+
+    <p>Here is "minimalistic" example:</p>
+
+    <rich:inputNumberSlider value="50" showInput="false" enableManualInput="false" showBoundaryValues="false"
+        showTooltip="false" />
+
+    <p>Another variation of input:</p>
+
+    <rich:inputNumberSlider value="500" width="500" maxValue="1000" step="50" showArrows="true" showTooltip="false" />
+
+    <p>The same variant but the control is disabled:</p>
+
+    <rich:inputNumberSlider value="500" width="500" maxValue="1000" step="50" showArrows="true" showTooltip="false"
+        disabled="true" />
+
+</ui:composition>

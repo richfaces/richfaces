@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <p>
+        Placeholder component brings functionality similar to HTML5 placeholder
+        together with a backward compatibility for non-compliant browsers
+        and together with additional features:
+        
+        <ul>
+            <li>per-component styling (<tt>styleClass</tt> attribute)</li>
+            <li>application to multiple components (<tt>selector</tt> attribute)</li>
+        </ul>
+    </p>
+
+    <p>
+        Placeholder component works with any JSF component which renders input or textarea
+        as well as with non-JSF text inputs (using <tt>selector</tt> attribute).
+    </p>
+
+    <p>
+        Bellow you can see sample of <tt>&lt;rich:placeholder /&gt;</tt> attached to standard inputs.
+    </p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>

@@ -1,0 +1,297 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #94aebc url('#{facesContext.externalContext.requestContextPath}/images/body-bg.jpg') left bottom repeat;
+    font: normal 12px "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
+    height: 100%;
+}
+
+fieldset {
+    margin: 0;
+}
+
+ul.layout {
+    list-style: none;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    margin: 0;
+    padding: 0 0 10px;
+}
+
+#page {
+    margin: 0 auto;
+    width: 987px;
+}
+
+#header {
+    background: url('#{facesContext.externalContext.requestContextPath}/images/header-bg.png') no-repeat top left;
+    height: 90px;
+}
+
+#header .logo {
+    float: left;
+    margin-left: 7px;
+    text-decoration: none;
+}
+
+#header .logo img {
+    border: none;
+}
+
+#header .right-controls {
+    float: right;
+}
+
+#header ul.top-links {
+    margin: 5px 15px 0 0;
+    text-align: right;
+}
+
+#header ul.top-links li {
+    display: inline;
+    font-size: 11px;
+}
+
+#header ul.top-links li a {
+    background: url('#{facesContext.externalContext.requestContextPath}/images/sep.gif') center right no-repeat;
+    color: #fff;
+    padding: 0 8px 0 3px;
+    font: 11px "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
+}
+
+#header ul.top-links li.last a {
+    background: none;
+    padding: 0 0 0 3px;
+}
+
+#header ul.top-links li.download-link a {
+    color: #eccb7b;
+}
+
+#header ul#skin-menu {
+    color: #89a0be;
+    cursor: default;
+    font-weight: bold;
+    margin: 38px 15px 0 0;
+    text-align: right;
+}
+
+#header ul#skin-menu li {
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    height: 25px;
+    margin-left: 4px;
+    padding-left: 5px;
+}
+
+#header ul#skin-menu li a {
+    color: #89A0BE;
+}
+
+#header ul#skin-menu li span {
+    height: 25px;
+    font: bold 12px "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
+    padding: 3px 5px 0 0;
+    display: inline-block;
+}
+
+#header ul#skin-menu li span:hover {
+    text-decoration: underline;
+}
+
+#header ul#skin-menu li.label span {
+    color: #999999;
+    cursor: default;
+    font-weight: normal;
+}
+
+#header ul#skin-menu li.current-skin {
+    background: url('#{facesContext.externalContext.requestContextPath}/images/select-skin-button.png') left -75px no-repeat;
+}
+
+#header ul#skin-menu li.current-skin span {
+    background: url('#{facesContext.externalContext.requestContextPath}/images/select-skin-button.png') right 0 repeat-x;
+    color: #fff;
+}
+
+#header ul#skin-menu li.label span:hover,#header ul#skin-menu li.current-skin span:hover {
+    text-decoration: none;
+}
+
+#page-content {
+    background: url('#{facesContext.externalContext.requestContextPath}/images/page-bg.png') 0 0 repeat-y;
+    height: 100%;
+    min-height: 520px;
+    padding: 13px 20px 5px;
+}
+
+#page-content .left-menu {
+    float: left;
+    margin-right: 10px;
+    min-height: 450px;
+    width: 235px;
+}
+
+#page-content .content-container {
+    float: right;
+    width: 700px;
+}
+
+#page-content .content-container fieldset.example-cnt {
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-top: 0;
+    margin: 0;
+    min-height: 470px;
+    padding: 15px 20px 10px;
+}
+
+.clear {
+    clear: both;
+    height: 0%;
+}
+
+#footer {
+    background: url('#{facesContext.externalContext.requestContextPath}/images/footer.png') top left no-repeat;
+    color: #000000;
+    text-align: center;
+    padding: 15px 20px 10px;
+}
+
+.source,div.rf-log {
+    width: 650px;
+}
+
+a.show,a.hide {
+    font: bold 12px "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
+    color: #5F9CD0;
+    display: block;
+}
+
+/*--- RichFaces panelMenu styles overwriting ---*/
+.left-menu .rf-pm {
+    border-bottom: 0;
+}
+
+.left-menu .rf-pm .rf-pm-top-gr {
+    border: 0;
+    border-bottom: 1px solid #969b9e;
+    margin: 0;
+    padding: 0;
+}
+
+.left-menu .rf-pm .rf-pm-top-gr-hdr {
+    background: #c6cacc url(../images/pmenu_bg.png) left top repeat-x;
+    padding: 3px 1px 2px 3px;
+}
+
+.left-menu .rf-pm .rf-pm-top-gr-hdr:hover {
+    background: #c6cacc url(../images/pmenu_bg.png) left top repeat-x;
+}
+
+.left-menu .rf-pm .rf-pm-top-gr-ico {
+    display: none;
+}
+
+.left-menu .rf-pm .rf-pm-top-gr-lbl {
+    color: #273945;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
+    margin-left: 4px;
+}
+
+.left-menu .rf-pm .rf-pm-top-gr-lbl:hover {
+    color: #5a8eba;
+}
+
+.left-menu .rf-pm-exp {
+    background: #ffffff;
+}
+
+.left-menu .rf-pm-exp .rf-pm-itm {
+    border: 0;
+    border-bottom: 1px solid #dddddd;
+}
+
+.left-menu .rf-pm-exp .rf-pm-itm:hover {
+    background: none;
+}
+
+.left-menu .rf-pm-exp .rf-pm-itm-lbl:hover {
+    color: #5f9cd0;
+}
+
+.left-menu .rf-pm-exp .rf-pm-itm-sel,.left-menu .rf-pm-exp .rf-pm-itm-sel:hover { /*background:#e3e8ef;*/
+    
+}
+
+.left-menu .rf-pm-exp .rf-pm-itm-lbl {
+    color: #305f7b;
+    font: normal 11px "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
+}
+
+.left-menu .rf-pm-exp .rf-pm-itm-sel .rf-pm-itm-lbl {
+    color: #5f9cd0;
+    font-weight: bold;
+}
+
+.left-menu .rf-pm-exp .rf-pm-itm-ico {
+    padding: 0 !important;
+    width: 5px;
+}
+
+/*--- RichFaces tabPanel styles overwriting ---*/
+.navigation .rf-tab-hdr-tabline-vis {
+    background: #ebf6fd;
+    border: 0;
+    height: 31px;
+    padding: 0;
+}
+
+.navigation .rf-tab-hdr {
+    border: 1px solid #dddddd;
+    padding: 6px 10px 0;
+    margin-right: 3px;
+}
+
+.navigation .rf-tab-hdr-act {
+    background: #ffffff;
+    border-bottom: 0;
+    color: #5F9CD0;
+}
+
+.navigation .rf-tab-hdr-act .rf-tab-lbl {
+    font-weight: bold;
+}
+
+.navigation .rf-tab-hdr-inact {
+    background: #c6cacc url(../images/pmenu_bg.png) left top repeat-x;
+    border: 1px solid #bec3c7;
+}
+
+.navigation .rf-tab-hdr-spcr {
+    border-bottom: 1px solid #dddddd;
+    padding: 0 3px 0 0;
+}
+
+.navigation .rf-tab-lbl {
+    font: normal 12px "Lucida Sans Unicode", "Lucida Grande", Geneva, Verdana, Arial, sans-serif;
+}
+
+textarea[disabled],input[type="text"][disabled],input[type="password"][disabled],select[disabled] {
+    -webkit-text-fill-color: #B6AD84;
+}

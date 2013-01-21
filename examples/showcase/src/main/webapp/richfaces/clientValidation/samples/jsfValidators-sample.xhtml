@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:form>
+        <rich:panel>
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="User information" />
+                    <a4j:status>
+                        <f:facet name="start">
+                            <h:graphicImage value="/images/ai.gif" style="height:12px;width:12px;" alt="ai" />
+                        </f:facet>
+                    </a4j:status>
+                </h:panelGroup>
+            </f:facet>
+            <h:panelGrid columns="3">
+                <h:outputText value="Name:" />
+                <h:inputText value="#{userBean.name}" id="name" label="name">
+                    <f:validateLength minimum="3" maximum="8" />
+                    <f:validateRequired />
+                    <rich:validator />
+                </h:inputText>
+                <rich:message for="name" />
+                <h:outputText value="Email" />
+                <h:inputText value="#{userBean.email}" id="email" validatorMessage="Validation Error: Invalid email address">
+                    <f:validateRegex
+                        pattern="^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+)*$"></f:validateRegex>
+                    <rich:validator />
+                </h:inputText>
+                <rich:message for="email" />
+                <h:outputText value="Age" />
+                <h:inputText value="#{userBean.age}" id="age" label="age">
+                    <f:validateLongRange minimum="18" maximum="99" />
+                    <rich:validator />
+                </h:inputText>
+                <rich:message for="age" />
+            </h:panelGrid>
+        </rich:panel>
+    </h:form>
+</ui:composition>

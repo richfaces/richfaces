@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:outputStylesheet>
+        .label {
+        font-weight: bold;
+        }
+        .rf-dg, .rf-dg-c{
+        border:none;
+        }
+        .pbody {
+        width: 200px;
+        }
+    </h:outputStylesheet>
+    <rich:panel>
+        <f:facet name="header">
+            <h:outputText value="Car Store"></h:outputText>
+        </f:facet>
+        <h:form>
+            <rich:dataGrid value="#{carsBean.allInventoryItems}" var="car" columns="3" elements="9" width="600px" border="0">
+                <rich:panel bodyClass="pbody">
+                    <f:facet name="header">
+                        <h:outputText value="#{car.vendor} #{car.model}"></h:outputText>
+                    </f:facet>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Price:" styleClass="label"></h:outputText>
+                        <h:outputText value="#{car.price}" />
+                        <h:outputText value="Mileage:" styleClass="label"></h:outputText>
+                        <h:outputText value="#{car.mileage}" />
+                        <h:outputText value="VIN:" styleClass="label"></h:outputText>
+                        <h:outputText value="#{car.vin}" />
+                        <h:outputText value="Stock:" styleClass="label"></h:outputText>
+                        <h:outputText value="#{car.stock}" />
+                    </h:panelGrid>
+                </rich:panel>
+                <f:facet name="footer">
+                    <rich:dataScroller />
+                </f:facet>
+            </rich:dataGrid>
+        </h:form>
+    </rich:panel>
+</ui:composition>

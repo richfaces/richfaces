@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The Richfaces Drag-n-Drop component suite includes three components: <b>rich:dragSource</b>, <b>rich:dropTarget</b>, and
+        <b>rich:dragIndicator</b>.
+    </p>
+
+    <p>
+        This example demonstrates the basic features of the RichFaces drag and drop mechanism. You can mark several different
+        components as 'draggable' with the <b>rich:dragSource</b> component and define drag types with the <b>type</b>
+        attribute. Then, add corresponding drop zones with the <b>rich:dropTarget</b> and use the <b>acceptType</b> attribute to
+        define which drop zone corresponds to the dragged elements.
+    </p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+
+    <p>
+        The <b>rich:dragSource</b> component defines the JSF component that becomes draggable. If you want to add a draggable
+        feature to an existing component, attach <b>rich:dragSupport</b> as a child component.
+    </p>
+
+    <p>
+        The <b>rich:dropTarget</b> component is used to define the drop zone. The <b>rich:dropTarget</b> component has a
+        built-in Ajax support: it can send an Ajax request and render the specified area on a page when the Ajax response is
+        returned.
+        <!--
+      With the <b>dropListener
+      </b>attribute you can point to a method of the backing bean that accepts <b>
+      DropEvent </b>as a parameter. This event contains information provided by <b>
+      dropValue </b>and <b>dragValue </b>attributes of dropSupport and
+      dragSupport.
+      -->
+    </p>
+
+    <p>
+        The <b>rich:dragIndicator</b> is a visual representation of a dragged object. The markup can be defined the markup of
+        the indicator using nested components. By default, if the component is not defined a copy of the dragged elements are
+        created.
+    </p>
+
+    <fieldset>
+        <legend>Note:</legend>
+        This example shows basic usage without an indicator defined. We are just using predefined CSS classes to customize the
+        appearance for different states.
+    </fieldset>
+
+    <p>
+        Note that the parent component for the <b>rich:dragSource</b> and <b>rich:dropTarget</b> components should be designed
+        to render its children, and should have the <b>mouseover</b> and <b>mouseout</b> event attributes. You can use <b>a4j:outputPanel</b>
+        as a container if the component does not satisfy these requirements. Use <b>&lt;a4j:outputPanel layout="block"&gt;</b>
+        to wrap the component with a block layout.
+    </p>
+
+    <p>The following example demonstrates the drag-and-drop functionality in practice. The left list contains the examples
+        of Ajax frameworks. Do you know them? The demonstration helps you to sort them out. Drag an item over the headers of the
+        other three panels. If the draggable framework is suitable for a certain framework family, it will be accepted and moved
+        from the source list to the target list.</p>
+</ui:composition>
+</html>

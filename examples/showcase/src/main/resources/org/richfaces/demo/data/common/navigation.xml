@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NOTES(TODO: move to some readme in future): id for sample should equals 
+	to xhtml page name with the sample the same for demo id - it should be equals 
+	to name of the folder where samples placed -->
+<root>
+    <group>
+        <name>Ajax Action</name>
+        <demos>
+            <demo>
+                <id>ajax</id>
+                <name>a4j:ajax</name>
+                <samples>
+                    <sample>
+                        <id>ajax</id>
+                        <name>Simple sample</name>
+                    </sample>
+                    <sample>
+                        <id>selectsUpdates</id>
+                        <name>Dynamic Selects</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>commandButton</id>
+                <name>a4j:commandButton</name>
+                <samples>
+                    <sample>
+                        <id>commandButton</id>
+                        <name>Command Button Simple</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>commandLink</id>
+                <name>a4j:commandLink</name>
+                <samples>
+                    <sample>
+                        <id>commandLink</id>
+                        <name>Command Link Simple</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>actionListener</id>
+                <name>a4j:actionListener</name>
+                <samples>
+                    <sample>
+                        <id>actionListener</id>
+                        <name>Action Listener Simple</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>jsFunction</id>
+                <name>a4j:jsFunction</name>
+                <samples>
+                    <sample>
+                        <id>jsFunction</id>
+                        <name>jsFunction Simple</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>poll</id>
+                <name>a4j:poll</name>
+                <samples>
+                    <sample>
+                        <id>poll</id>
+                        <name>Poll Simple</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo enabled="#{pushConfiguration.pushEnabled}">
+                <id>push</id>
+                <name>a4j:push</name>
+                <samples>
+                    <sample enabled="#{pushConfiguration.jmsEnabled}">
+                        <id>pushJms</id>
+                        <name>JMS Push</name>
+                    </sample>
+                    <sample>
+                        <id>pushTopicsContext</id>
+                        <name>Topics Context Usage</name>
+                    </sample>
+                    <sample>
+                        <id>pushCdi</id>
+                        <name>CDI Push</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>param</id>
+                <name>a4j:param</name>
+                <samples>
+                    <sample>
+                        <id>param</id>
+                        <name>Param Simple Usage</name>
+                    </sample>
+                    <sample>
+                        <id>skinChange</id>
+                        <name>Parameters for non-Ajax components</name>
+                    </sample>
+                    <sample>
+                        <id>clientParam</id>
+                        <name>Parameters from client side</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Ajax Queue</name>
+        <demos>
+            <demo>
+                <id>queue</id>
+                <name>a4j:queue</name>
+                <samples>
+                    <sample>
+                        <id>queue</id>
+                        <name>queue</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>attachQueue</id>
+                <name>a4j:attachQueue</name>
+                <samples>
+                    <sample>
+                        <id>attachQueue</id>
+                        <name>attachQueue</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Ajax Output/Containers</name>
+        <demos>
+            <demo>
+                <id>outputPanel</id>
+                <name>a4j:outputPanel</name>
+                <samples>
+                    <sample>
+                        <id>simple</id>
+                        <name>outputPanel Simple</name>
+                    </sample>
+                    <sample>
+                        <id>compositeMessages</id>
+                        <name>Auto update for h:messages component</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>status</id>
+                <name>a4j:status</name>
+                <samples>
+                    <sample>
+                        <id>viewUsage</id>
+                        <name>Common status for view</name>
+                    </sample>
+                    <sample>
+                        <id>simple</id>
+                        <name>Status Simple</name>
+                    </sample>
+                    <sample>
+                        <id>referencedUsage</id>
+                        <name>Referenced status</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>region</id>
+                <name>a4j:region</name>
+                <samples>
+                    <sample>
+                        <id>region</id>
+                        <name>Region</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>mediaOutput</id>
+                <name>a4j:mediaOutput</name>
+                <samples>
+                    <sample>
+                        <id>imgUsage</id>
+                        <name>mediaOutput for image output</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>log</id>
+                <name>a4j:log</name>
+                <samples>
+                    <sample>
+                        <id>log</id>
+                        <name>Log usage</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Validation</name>
+        <demos>
+            <demo>
+                <id>clientValidation</id>
+                <name>Client Side Validation</name>
+                <samples>
+                    <sample>
+                        <id>jsfValidators</id>
+                        <name>Standard JSF Validators</name>
+                    </sample>
+                    <sample>
+                        <id>jsr303</id>
+                        <name>JSR-303 Validators</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>graphValidator</id>
+                <name>rich:graphValidator</name>
+                <samples>
+                    <sample>
+                        <id>passwordValidation</id>
+                        <name>Password Validation</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>message</id>
+                <name>rich:message</name>
+                <samples>
+                    <sample>
+                        <id>message</id>
+                        <name>Simple rich:message sample</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>messages</id>
+                <name>rich:messages</name>
+                <samples>
+                    <sample>
+                        <id>messages</id>
+                        <name>Simple rich:messages sample</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo mobileExclude="true">
+                <id>notify</id>
+                <name>rich:notify</name>
+                <samples>
+                    <sample>
+                        <id>notifyMessages</id>
+                        <name>Notify Messages</name>
+                    </sample>
+                    <sample>
+                        <id>notifyAttributes</id>
+                        <name>Attributes of Notify</name>
+                    </sample>
+                    <sample>
+                        <id>stackingMessages</id>
+                        <name>Message Stacking</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Data Iteration</name>
+        <demos>
+            <demo>
+                <id>repeat</id>
+                <name>a4j:repeat</name>
+                <samples>
+                    <sample>
+                        <id>simpleGrid</id>
+                        <name>Simple Grid Creation</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>dataTable</id>
+                <name>rich:dataTable</name>
+                <samples>
+                    <sample>
+                        <id>simpleTable</id>
+                        <name>Basic Data Table</name>
+                    </sample>
+                    <sample>
+                        <id>tableStyling</id>
+                        <name>Styling</name>
+                        <description>
+                            <!-- TODO: rowClass should appears at this sample after completion -->
+                            <!-- TODO: rowClasses should be used instead of jQuerry selectors
+                                       after will works -->
+                            <!-- TODO: onrowmouseover, onrowmouseout - should be used instead
+                                       of jQuery selector -->
+                        </description>
+                    </sample>
+                    <sample>
+                        <id>tableSorting</id>
+                        <name>Sorting</name>
+                    </sample>
+                    <sample>
+                        <id>tableFiltering</id>
+                        <name>Filtering</name>
+                    </sample>
+                    <sample>
+                        <id>dataTableEdit</id>
+                        <name>Editing</name>
+                    </sample>
+                    <sample>
+                        <id>arrangeableModel</id>
+                        <name>Arrangeable</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo mobileExclude="true">
+                <id>extendedDataTable</id>
+                <name>rich:extendedDataTable</name>
+                <samples>
+                    <sample>
+                        <id>simpleTable</id>
+                        <name>Basic Usage</name>
+                    </sample>
+                    <sample>
+                        <id>exTableSelection</id>
+                        <name>Selection Management</name>
+                    </sample>
+                    <sample new="true">
+                        <id>edt-builtin-sorting-and-filtering</id>
+                        <name>Built-in Sorting and Filtering</name>
+                    </sample>    
+                    <sample>
+                        <id>edt-sorting</id>
+                        <name>Table Sorting</name>
+                    </sample>
+                    <sample>
+                        <id>edt-filtering</id>
+                        <name>Table Filtering</name>
+                    </sample>                                      
+                </samples>
+            </demo>
+            <demo>
+                <id>subTableToggleControl</id>
+                <name>rich:collapsibleSubTable</name>
+                <samples>
+                    <sample>
+                        <id>subTableToggleControl</id>
+                        <name>rich:collapsibleSubTable Basic Usage</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>dataScroller</id>
+                <name>rich:dataScroller</name>
+                <samples>
+                    <sample>
+                        <id>simpleScrolling</id>
+                        <name>DataScroller Basic Usage</name>
+                    </sample>
+                    <sample>
+                        <id>dataScrollerAPI</id>
+                        <name>DataScroller API</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>list</id>
+                <name>rich:list</name>
+                <samples>
+                    <sample>
+                        <id>lists</id>
+                        <name>Data Lists Component</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>dataGrid</id>
+                <name>rich:dataGrid</name>
+                <samples>
+                    <sample>
+                        <id>grid</id>
+                        <name>Data Grid Component</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Trees</name>
+        <demos>
+            <demo>
+                <id>tree</id>
+                <name>rich:tree</name>
+                <samples>
+                    <sample>
+                        <id>tree</id>
+                        <name>Simple tree from XML</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>treeAdaptors</id>
+                <name>Tree Adaptors</name>
+                <samples>
+                    <sample>
+                        <id>treeModelRecursiveAdaptor</id>
+                        <name>Simple treeModelRecursiveAdaptor usage</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Output/Panels</name>
+        <demos>
+            <demo>
+                <id>panel</id>
+                <name>rich:panel</name>
+                <samples>
+                    <sample>
+                        <id>simple</id>
+                        <name>Simple Panels</name>
+                    </sample>
+                    <sample>
+                        <id>lookCustomization</id>
+                        <name>Look and feel customization</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>togglePanel</id>
+                <name>rich:togglePanel</name>
+                <samples>
+                    <sample>
+                        <id>simple</id>
+                        <name>Simple Toggle Panel</name>
+                    </sample>
+                    <sample new="true">
+                        <id>dynamic</id>
+                        <name>Dynamic Panels</name>
+                    </sample>
+                    <sample>
+                        <id>wizard</id>
+                        <name>Wizard creation</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>tabPanel</id>
+                <name>rich:tabPanel</name>
+                <samples>
+                    <sample>
+                        <id>simple</id>
+                        <description>Simple Tab Panels</description>
+                        <name>Simple Tab Panels</name>
+                    </sample>
+                    <!-- sample> <id>headerCustomization</id> <description>Headers Customization</description>
+                             <name>Headers Customization</name> </sample -->
+                     <sample new="true">
+                        <id>dynamic</id>
+                        <description>Dynamic Tabs</description>
+                        <name>Dynamic Tabs</name>
+                    </sample>
+                    <sample>
+                        <id>valueManagement</id>
+                        <description>Selected Tab Management</description>
+                        <name>Selected Tab Management</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>collapsiblePanel</id>
+                <name>rich:collapsiblePanel</name>
+                <samples>
+                    <sample>
+                        <id>simple</id>
+                        <name>Simple Collapsible Panel</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>accordion</id>
+                <name>rich:accordion</name>
+                <samples>
+                    <sample>
+                        <id>simple</id>
+                        <name>Simple Accordion</name>
+                    </sample>
+                    <sample new="true">
+                        <id>dynamic</id>
+                        <name>Dynamic Accordion</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo mobileExclude="true">
+                <id>popup</id>
+                <name>rich:popupPanel</name>
+                <samples>
+                    <sample>
+                        <id>simplePopup</id>
+                        <name>Simple popup example</name>
+                    </sample>
+                    <sample>
+                        <id>modalPopup</id>
+                        <name>Modal panel example</name>
+                    </sample>
+                    <sample>
+                        <id>login</id>
+                        <name>Login panel positioning</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>progressBar</id>
+                <name>rich:progressBar</name>
+                <samples>
+                    <sample>
+                        <id>ajaxProgressBar</id>
+                        <name>ProgressBar in ajax mode</name>
+                    </sample>
+                    <sample>
+                        <id>clientProgressBar</id>
+                        <name>ProgressBar in client mode</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo mobileExclude="true">
+                <id>tooltip</id>
+                <name>rich:tooltip</name>
+                <samples>
+                    <sample>
+                        <id>tooltip</id>
+                        <name>Simple tooltips</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Menus</name>
+        <demos>
+            <demo>
+                <id>panelMenu</id>
+                <name>rich:panelMenu</name>
+                <samples>
+                    <sample>
+                        <id>panelMenu</id>
+                        <name>Simple Panel Menu</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>toolBar</id>
+                <name>rich:toolbar</name>
+                <samples>
+                    <sample>
+                        <id>toolBar</id>
+                        <name>Simple Toolbar</name>
+                    </sample>
+                    <sample>
+                        <id>toolBarIcons</id>
+                        <name>Icons Customization</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>contextMenu</id>
+                <name>rich:contextMenu</name>
+                <samples>
+                    <sample>
+                        <id>simple</id>
+                        <name>Simple ContextMenu</name>
+                    </sample>
+                    <sample>
+                        <id>table</id>
+                        <name>Table ContextMenu</name>
+                    </sample>
+                    <sample>
+                        <id>tree</id>
+                        <name>Tree ContextMenu</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>dropDownMenu</id>
+                <name>rich:dropDownMenu</name>
+                <samples>
+                    <sample>
+                        <id>topMenu</id>
+                        <name>Top Menu</name>
+                    </sample>
+                    <sample>
+                        <id>sideMenu</id>
+                        <name>Side Menu</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Inputs</name>
+        <demos>
+            <demo>
+                <id>autocomplete</id>
+                <name>rich:autocomplete</name>
+                <samples>
+                    <sample>
+                        <id>modes</id>
+                        <name>Autocompletion Modes</name>
+                    </sample>
+                    <sample>
+                        <id>customLayouts</id>
+                        <name>Custom Popup Layouts</name>
+                    </sample>
+                    <sample>
+                        <id>clientFilter</id>
+                        <name>Custom Client Filter</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>calendar</id>
+                <name>rich:calendar</name>
+                <samples>
+                    <sample>
+                        <id>calendar</id>
+                        <name>Simple Calendar</name>
+                    </sample>
+                    <sample>
+                        <id>clientStylingDisablement</id>
+                        <name>Client Side Styling/Disablement</name>
+                    </sample>
+                    <sample>
+                        <id>dataModel</id>
+                        <name>Data Model Support</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo mobileExclude="true">
+                <id>editor</id>
+                <name>rich:editor</name>
+                <samples>
+                    <sample>
+                        <id>autosaving</id>
+                        <name>Auto-saving</name>
+                    </sample>
+                    <sample>
+                        <id>toolbarAndSkinning</id>
+                        <name>Toolbar and Skinning</name>
+                    </sample>
+                    <sample>
+                        <id>advancedConfiguration</id>
+                        <name>Advanced Configuration</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>inputNumberSlider</id>
+                <name>rich:inputNumberSlider</name>
+                <samples>
+                    <sample>
+                        <id>sliders</id>
+                        <name>Different Sliders samples</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>inputNumberSpinner</id>
+                <name>rich:inputNumberSpinner</name>
+                <samples>
+                    <sample>
+                        <id>spinners</id>
+                        <name>Different Spinners samples</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>inplaceInput</id>
+                <name>rich:inplaceInput</name>
+                <samples>
+                    <sample>
+                        <id>inplaceInput</id>
+                        <name>Inplace Inputs samples</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>fileUpload</id>
+                <name>rich:fileUpload</name>
+                <samples>
+                    <sample>
+                        <id>imgUpload</id>
+                        <name>Upload images</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Selects</name>
+        <demos>
+            <demo>
+                <id>inplaceSelect</id>
+                <name>rich:inplaceSelect</name>
+                <samples>
+                    <sample>
+                        <id>inplaceSelect</id>
+                        <name>Inplace Selects samples</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>select</id>
+                <name>rich:select</name>
+                <samples>
+                    <sample>
+                        <id>select</id>
+                        <name>Selects samples</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>orderingList</id>
+                <name>rich:orderingList</name>
+                <samples>
+                    <sample>
+                        <id>orderingList</id>
+                        <name>Ordering List samples</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>pickList</id>
+                <name>rich:pickList</name>
+                <samples>
+                    <sample>
+                        <id>pickList</id>
+                        <name>Pick List samples</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Drag and Drop</name>
+        <demos>
+            <demo mobileExclude="true">
+                <id>dragDrop</id>
+                <name>Drag and Drop</name>
+                <samples>
+                    <sample>
+                        <id>dragDrop</id>
+                        <name>Drag and Drop usage example</name>
+                    </sample>
+                    <sample>
+                        <id>dragIndicator</id>
+                        <name>Drag Indicator usage example</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+    <group>
+        <name>Miscellaneous</name>
+        <demos>
+            <demo>
+                <id>standardSkinning</id>
+                <name>Standard elements skinning</name>
+                <samples>
+                    <sample>
+                        <id>standardSkinning</id>
+                        <name>Standard elements skinning feature</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo new="true">
+                <id>placeholder</id>
+                <name>Placeholder</name>
+                <samples>
+                    <sample>
+                        <id>placeholder</id>
+                        <name>Placeholder</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>functions</id>
+                <name>RichFaces functions</name>
+                <samples>
+                    <sample>
+                        <id>functions</id>
+                        <name>RichFaces Functions</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo new="true" mobileExclude="true">
+                <id>focus</id>
+                <name>Focus</name>
+                <samples>
+                    <sample>
+                        <id>focus</id>
+                        <name>Focus</name>
+                    </sample>
+                    <sample>
+                        <id>focusPreserve</id>
+                        <name>Preserve Focus</name>
+                    </sample>
+                    <sample>
+                        <id>focusDelayed</id>
+                        <name>Delayed Focus</name>
+                    </sample>
+                    <sample>
+                        <id>focusManager</id>
+                        <name>Focus Manager</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo>
+                <id>componentControl</id>
+                <name>rich:componentControl</name>
+                <samples>
+                    <sample>
+                        <id>tableFilteringAPI</id>
+                        <name>Table Filtering using componentControl and API</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo mobileExclude="true">
+                <id>hashParam</id>
+                <name>rich:hashParam</name>
+                <samples>
+                    <sample>
+                        <id>hashOptionsPopup</id>
+                        <name>Passing hash options to rich:popupPanel</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo mobileExclude="true">
+                <id>hotKey</id>
+                <name>rich:hotKey</name>
+                <samples>
+                    <sample>
+                        <id>pickListHotKeys</id>
+                        <name>HotKeys for Pick List</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo mobileExclude="true">
+                <id>jquery</id>
+                <name>rich:jQuery</name>
+                <samples>
+                    <sample>
+                        <id>jquery</id>
+                        <name>jQuery usage</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
+</root>
