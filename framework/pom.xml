@@ -21,14 +21,12 @@
 
     <parent>
         <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-root-parent</artifactId>
-        <version>4.3.0-SNAPSHOT</version>
+        <artifactId>richfaces-build</artifactId>
+        <version>5.0.0-SNAPSHOT</version>
         <relativePath>../build</relativePath>
     </parent>
 
-
     <artifactId>richfaces-framework</artifactId>
-    <version>5.0.0-SNAPSHOT</version>
     <name>RichFaces Framework</name>
 
     <description>
