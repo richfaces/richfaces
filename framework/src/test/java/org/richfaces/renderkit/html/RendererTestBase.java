@@ -20,11 +20,6 @@
  */
 package org.richfaces.renderkit.html;
 
-/*
- *  Remove after test moved to the test-jsf project
- *
- */
-
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
@@ -35,7 +30,6 @@ import java.io.StringReader;
 import java.net.URISyntaxException;
 
 import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.DifferenceListener;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
@@ -65,6 +59,8 @@ public abstract class RendererTestBase {
         environment = new HtmlUnitEnvironment();
         environment.withWebRoot(new File(this.getClass().getResource(".").toURI()));
         environment.start();
+
+        environment.getWebClient().setJavaScriptEnabled(false);
     }
 
     @After
@@ -74,43 +70,26 @@ public abstract class RendererTestBase {
     }
 
     protected void doTest(String pageName, String pageElementToTest) throws IOException, SAXException {
-        doTest(pageName, null, pageElementToTest);
+        doTest(pageName, pageName, pageElementToTest);
     }
 
-    protected void doTest(String pageName, String xmlunitPageName, String pageElementToTest) throws IOException, SAXException {
-        HtmlPage page = environment.getPage('/' + pageName + ".jsf");
-        HtmlElement htmlElement = page.getElementById(pageElementToTest);
-        assertNotNull(htmlElement);
+    protected void doTest(String jsfPage, String xmlPage, String pageElementToTest) throws IOException, SAXException {
+        HtmlPage page = environment.getPage('/' + jsfPage + ".jsf");
+        HtmlElement panel = page.getElementById(pageElementToTest);
+        assertNotNull(panel);
 
-        String pageCode = htmlElement.asXml();
-
-        checkXmlStructure(pageName, xmlunitPageName, pageCode);
+        checkXmlStructure(xmlPage, panel.asXml());
     }
 
-    protected void checkXmlStructure(String pageName, String xmlunitPageName, String pageCode) throws SAXException, IOException {
-        if (xmlunitPageName == null) {
-            xmlunitPageName = pageName + ".xmlunit.xml";
-        }
-        InputStream expectedPageCode = this.getClass().getResourceAsStream(xmlunitPageName + ".xmlunit.xml");
+    protected void checkXmlStructure(String pageName, String pageCode) throws SAXException, IOException {
+        System.out.println(pageCode);
+        InputStream expectedPageCode = this.getClass().getResourceAsStream(pageName + ".xmlunit.xml");
         if (expectedPageCode == null) {
-            return;
+            throw new IllegalArgumentException("Page: " + pageName + ".xmlunit.xml doesn't exist.");
         }
 
         Diff xmlDiff = new Diff(new InputStreamReader(expectedPageCode), new StringReader(pageCode));
-        xmlDiff.overrideDifferenceListener(getDifferenceListener());
-
-        if (!xmlDiff.similar()) {
-            System.out.println("=== ACTUAL PAGE CODE ===");
-            System.out.println(pageCode);
-            System.out.println("======== ERROR =========");
-            System.out.println(xmlDiff.toString());
-            System.out.println("========================");
-            Assert.fail("XML was not similar:" + xmlDiff.toString());
-        }
-
-    }
-
-    protected DifferenceListener getDifferenceListener() {
-        return new IgnoreScriptsContent();
+        xmlDiff.overrideDifferenceListener(new IgnoreScriptsContent());
+        Assert.assertTrue("XML was not similar:" + xmlDiff.toString() + "\n\n" + pageCode, xmlDiff.similar());
     }
 }
