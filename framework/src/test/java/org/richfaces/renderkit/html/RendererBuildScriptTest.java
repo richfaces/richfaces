@@ -17,7 +17,7 @@ import org.richfaces.component.behavior.ClientValidatorBehavior;
 import org.richfaces.javascript.JavaScriptService;
 
 @RunWith(MockTestRunner.class)
-public class RendererBuildScriptTest extends RendererTestBase {
+public class RendererBuildScriptTest extends ValidatorRendererTestBase {
     private static final String FUNCTION_NAME = "inputValidate";
     private static final String SOURCE_ID = "clientValidator";
     @Mock

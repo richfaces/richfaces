@@ -1,32 +1,116 @@
+/**
+ * License Agreement.
+ *
+ * Rich Faces - Natural Ajax for Java Server Faces (JSF)
+ *
+ * Copyright (C) 2007 Exadel, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License version 2.1 as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ */
 package org.richfaces.renderkit.html;
 
-import java.util.Collections;
-import java.util.Map;
+/*
+ *  Remove after test moved to the test-jsf project
+ *
+ */
 
-import javax.faces.application.FacesMessage;
+import static org.junit.Assert.assertNotNull;
 
-import org.jboss.test.faces.mock.Mock;
-import org.richfaces.component.behavior.BehaviorTestBase;
-import org.richfaces.component.behavior.ClientValidatorBehavior;
-import org.richfaces.javascript.Message;
-import org.richfaces.resource.ResourceKey;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.URISyntaxException;
 
-import com.google.common.collect.ImmutableMap;
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.DifferenceListener;
+import org.custommonkey.xmlunit.XMLUnit;
+import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.xml.sax.SAXException;
 
-public class RendererTestBase extends BehaviorTestBase {
-    protected static final String CLIENT_VALIDATORS_JS = "clientValidators.js";
-    protected static final String ORG_RICHFACES = "org.richfaces";
-    protected static final String REGEX_VALIDATOR = "regexValidator";
-    protected static final FacesMessage FACES_VALIDATOR_MESSAGE = new FacesMessage("Validator Message");
-    protected static final Message VALIDATOR_MESSAGE = new Message(FACES_VALIDATOR_MESSAGE);
-    protected static final Map<String, ? extends Object> VALIDATOR_PARAMS = ImmutableMap.of("foo", "value", "bar", 10);
-    protected static final Iterable<ResourceKey> CLIENT_VALIDATOR_LIBRARY = Collections.singleton(ResourceKey.create(
-        CLIENT_VALIDATORS_JS, ORG_RICHFACES));
-    protected ClientValidatorRenderer renderer = new ClientValidatorRenderer();
-    @Mock
-    protected ClientValidatorBehavior mockBehavior;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-    public RendererTestBase() {
-        super();
+/**
+ * @author akolonitsky
+ * @since Oct 22, 2010
+ */
+public abstract class RendererTestBase {
+    static {
+        XMLUnit.setNormalizeWhitespace(true);
+        XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
+        XMLUnit.setIgnoreWhitespace(true);
+        XMLUnit.setIgnoreComments(true);
+    }
+
+    protected HtmlUnitEnvironment environment;
+
+    @Before
+    public void setUp() throws URISyntaxException {
+        environment = new HtmlUnitEnvironment();
+        environment.withWebRoot(new File(this.getClass().getResource(".").toURI()));
+        environment.start();
+    }
+
+    @After
+    public void tearDown() {
+        environment.release();
+        environment = null;
+    }
+
+    protected void doTest(String pageName, String pageElementToTest) throws IOException, SAXException {
+        doTest(pageName, null, pageElementToTest);
+    }
+
+    protected void doTest(String pageName, String xmlunitPageName, String pageElementToTest) throws IOException, SAXException {
+        HtmlPage page = environment.getPage('/' + pageName + ".jsf");
+        HtmlElement htmlElement = page.getElementById(pageElementToTest);
+        assertNotNull(htmlElement);
+
+        String pageCode = htmlElement.asXml();
+
+        checkXmlStructure(pageName, xmlunitPageName, pageCode);
+    }
+
+    protected void checkXmlStructure(String pageName, String xmlunitPageName, String pageCode) throws SAXException, IOException {
+        if (xmlunitPageName == null) {
+            xmlunitPageName = pageName + ".xmlunit.xml";
+        }
+        InputStream expectedPageCode = this.getClass().getResourceAsStream(xmlunitPageName + ".xmlunit.xml");
+        if (expectedPageCode == null) {
+            return;
+        }
+
+        Diff xmlDiff = new Diff(new InputStreamReader(expectedPageCode), new StringReader(pageCode));
+        xmlDiff.overrideDifferenceListener(getDifferenceListener());
+
+        if (!xmlDiff.similar()) {
+            System.out.println("=== ACTUAL PAGE CODE ===");
+            System.out.println(pageCode);
+            System.out.println("======== ERROR =========");
+            System.out.println(xmlDiff.toString());
+            System.out.println("========================");
+            Assert.fail("XML was not similar:" + xmlDiff.toString());
+        }
+
+    }
+
+    protected DifferenceListener getDifferenceListener() {
+        return new IgnoreScriptsContent();
     }
 }

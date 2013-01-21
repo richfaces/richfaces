@@ -17,27 +17,52 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <groupId>org.richfaces.core</groupId>
-        <artifactId>richfaces-core-parent</artifactId>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-root-parent</artifactId>
         <version>4.3.0-SNAPSHOT</version>
-        <relativePath>../parent/pom.xml</relativePath>
+        <relativePath>../build</relativePath>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>richfaces-core-impl</artifactId>
-    <name>RichFaces Core Implementation</name>
+
+    <artifactId>richfaces-framework</artifactId>
+    <version>5.0.0-SNAPSHOT</version>
+    <name>RichFaces Framework</name>
 
     <description>
-        The RichFaces Core Implementation.
+        The RichFaces Framework and Component Suite.
+        
+        Contains all project specific sources.
     </description>
 
+
     <dependencies>
-        <!-- Runtime Dependencies -->
+
+        <!-- Java EE Web Profile -->
         <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-api</artifactId>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <version>${version.jboss-javaee}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+        
+        <!-- CDK -->
+        <dependency>
+            <groupId>org.richfaces.cdk</groupId>
+            <artifactId>annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Runtime Dependencies -->
         <dependency>
             <groupId>net.sourceforge.cssparser</groupId>
             <artifactId>cssparser</artifactId>
@@ -47,34 +72,14 @@
             <artifactId>guava</artifactId>
         </dependency>
 
-        <!-- Provided Dependencies -->
+        <!-- Push dependencies -->
         <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <scope>provided</scope>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-runtime</artifactId>
+            <optional>true</optional>
         </dependency>
 
-        <!-- Cache Impls -->
+        <!-- Optional dependencies -->
         <dependency>
             <groupId>org.jboss.cache</groupId>
             <artifactId>jbosscache-core</artifactId>
@@ -96,17 +101,18 @@
             <artifactId>oscache</artifactId>
             <optional>true</optional>
         </dependency>
-
-        <!-- Push dependencies -->
+        
+        <!-- For MyFaces specific resource loading (RF-11974) -->
         <dependency>
-            <groupId>org.atmosphere</groupId>
-            <artifactId>atmosphere-runtime</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>javax.jms</groupId>
-            <artifactId>jms-api</artifactId>
-            <optional>true</optional>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -127,6 +133,17 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.jboss.test-jsf</groupId>
+            <artifactId>jsf-mockito</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.test-jsf</groupId>
+            <artifactId>jsf-test-scriptunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
             <scope>test</scope>
@@ -137,15 +154,24 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
-            <artifactId>jsf-mockito</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- tests -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -156,6 +182,7 @@
             </testResource>
         </testResources>
         <plugins>
+
             <plugin>
                 <!-- Checkstyle only required here because suppressions needed -->
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -182,35 +209,63 @@
                     <timestampFormat>{0,date,MM/dd/yyyy h:mm:ss a}</timestampFormat>
                 </configuration>
             </plugin>
+
+            <!-- CDK -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <SCM-Revision>${buildNumber}</SCM-Revision>
-                            <SCM-Timestamp>${timestamp}</SCM-Timestamp>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>precompile-sources-for-cdk</id>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>test-jar</goal>
+                            <goal>compile</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
-                <artifactId>maven-source-plugin</artifactId>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>maven-cdk-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>cdk-generate-sources</id>
+                        <phase>process-sources</phase>
                         <goals>
-                            <goal>test-jar</goal>
+                            <goal>generate</goal>
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jboss.spec.javax.faces</groupId>
+                        <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                        <version>2.0.2.Final</version>
+                    </dependency>
+                </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/config</source>
+                                <source>src/main/templates</source>
+                                <source>${project.build.directory}/generated-sources/main/java</source>
+                                <source>${project.build.directory}/generated-sources/main/resources</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Unit Tests -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
@@ -220,25 +275,427 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.richfaces.cdk</groupId>
+                                        <artifactId>maven-cdk-plugin</artifactId>
+                                        <versionRange>[4.3.0-SNAPSHOT,)</versionRange>
+                                        <goals>
+                                            <goal>generate</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute>
+                                            <runOnIncremental>false</runOnIncremental>
+                                        </execute>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.richfaces.cdk</groupId>
+                                        <artifactId>maven-richfaces-resources-plugin</artifactId>
+                                        <versionRange>[4.3.0-SNAPSHOT,)</versionRange>
+                                        <goals>
+                                            <goal>process</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 
     <profiles>
+        <profile>
+            <id>jsf_ri</id>
+            <activation>
+                <property>
+                    <name>!jsf_profile</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-api</artifactId>
+                    <scope>compile</scope>
+                    <optional>true</optional>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>javax.faces</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>jsf_jboss</id>
+            <activation>
+                <property>
+                    <name>jsf_profile</name>
+                    <value>jboss</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                    <scope>compile</scope>
+                    <optional>true</optional>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>myfaces</id>
+            <activation>
+                <property>
+                    <name>jsf_profile</name>
+                    <value>myfaces</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <scope>compile</scope>
+                    <optional>true</optional>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>integration-tests</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                </property>
+            </activation>
+            <properties>
+                <integration.test.source>src/test/integration</integration.test.source>
+
+                <arquillian.drone.browser>htmlUnit</arquillian.drone.browser>
+                <arquillian.drone.reusable>false</arquillian.drone.reusable>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.extension</groupId>
+                    <artifactId>arquillian-warp-impl</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.extension</groupId>
+                    <artifactId>arquillian-warp-phaser</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.junit</groupId>
+                    <artifactId>arquillian-junit-container</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.protocol</groupId>
+                    <artifactId>arquillian-protocol-servlet</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.shrinkwrap.resolver</groupId>
+                    <artifactId>shrinkwrap-resolver-depchain</artifactId>
+                    <version>${version.shrinkwrap.resolver}</version>
+                    <type>pom</type>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.shrinkwrap.descriptors</groupId>
+                    <artifactId>shrinkwrap-descriptors-depchain</artifactId>
+                    <version>${version.shrinkwrap.descriptors}</version>
+                    <type>pom</type>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.extension</groupId>
+                    <artifactId>arquillian-drone-webdriver-depchain</artifactId>
+                    <type>pom</type>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.arquillian.graphene</groupId>
+                    <artifactId>graphene-webdriver</artifactId>
+                    <type>pom</type>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-test-source</id>
+                                <phase>process-test-sources</phase>
+                                <goals>
+                                    <goal>add-test-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>${integration.test.source}</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.12</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>integration-test</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <testSourceDirectory>${integration.test.source}</testSourceDirectory>
+                            <includes>
+                                <include>**/integration/**/*.java</include>
+                            </includes>
+                            <skipTests>${skipITs}</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    
+        <!-- Containers -->
+        <profile>
+            <id>container-jbossas-managed-7</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>jbossas</value>
+                </property>
+            </activation>
+            <properties>
+                <jbossHome>${project.build.directory}/jboss-as-${version.jboss-as7}</jbossHome>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                    <version>${version.jboss-as7}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.jboss.as</groupId>
+                                            <artifactId>jboss-as-dist</artifactId>
+                                            <version>${version.jboss-as7}</version>
+                                            <type>zip</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${project.build.directory}</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-test</id>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <systemPropertyVariables>
+                                        <jbossHome>${jbossHome}</jbossHome>
+                                    </systemPropertyVariables>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>container-jbossas-remote-7</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-remote</artifactId>
+                    <version>${version.jboss-as7}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>container-tomee-remote</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomee</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.openejb</groupId>
+                    <artifactId>arquillian-tomee-remote</artifactId>
+                    <version>${version.tomee}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        
+        <!-- Browsers -->
+        <profile>
+            <id>browser-chrome</id>
+            <properties>
+                <arquillian.drone.browser>chrome</arquillian.drone.browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>browser-firefox</id>
+            <properties>
+                <arquillian.drone.browser>firefox</arquillian.drone.browser>
+            </properties>
+        </profile>
+        <profile>
+            <id>browser-remote-reusable</id>
+            <properties>
+                <arquillian.drone.reusable>true</arquillian.drone.reusable>
+            </properties>
+        </profile>
         
         <!-- Release -->
         <profile>
             <id>release</id>
-            <!-- TODO need to centralize - need to research first -->
             <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/vdldoc</directory>
+                        <targetPath>${project.build.directory}/vdldoc-assembly</targetPath>
+                        <includes>
+                            <include>assembly-vdldoc.xml</include>
+                        </includes>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
                 <plugins>
+                    <!-- JavaDoc -->
                     <plugin>
-                        <!--
-                                  TODO - this can go to central, but should check settings. This is
-                                  also related to docs so perhaps add to a doc profile Configure
-                                  JavaScript Doc Tool
-                              -->
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    
+                    <!-- VDL DOC -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>xml-maven-plugin</artifactId>
+                        <version>1.0</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>transform</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <transformationSets>
+                                <transformationSet>
+                                    <dir>${basedir}/src/main/vdldoc/properties</dir>
+                                    <stylesheet>${basedir}/src/main/vdldoc/xsl/common.xsl</stylesheet>
+                                    <parameters>
+                                        <parameter>
+                                            <name>output-dir</name>
+                                            <value>${project.build.directory}/vdldoc/</value>
+                                        </parameter>
+                                    </parameters>
+                                    <fileMappers>
+                                        <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
+                                            <pattern>^(.*)\.(.*)$</pattern>
+                                            <replacement>all.txt</replacement>
+                                        </fileMapper>
+                                    </fileMappers>
+                                </transformationSet>
+                            </transformationSets>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>net.sf.saxon</groupId>
+                                <artifactId>saxon</artifactId>
+                                <version>8.7</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>${project.build.directory}/vdldoc-assembly/assembly-vdldoc.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- JSDoc -->
+                    <plugin>
                         <groupId>gr.abiss.mvn.plugins</groupId>
                         <artifactId>maven-jstools-plugin</artifactId>
+                        <version>0.7</version>
                         <executions>
                             <execution>
                                 <id>jsdoc</id>
@@ -278,10 +735,4 @@
             </build>
         </profile>
     </profiles>
-
-    <scm>
-        <connection>scm:git:git://github.com/richfaces/core.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/core.git</developerConnection>
-        <url>https://github.com/richfaces/core</url>
-    </scm>
 </project>

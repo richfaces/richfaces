@@ -27,7 +27,7 @@ import org.richfaces.validator.ValidatorDescriptor;
 import com.google.common.collect.Iterables;
 
 @RunWith(MockTestRunner.class)
-public class RendererGetClientSideScriptTest extends RendererTestBase {
+public class RendererGetClientSideScriptTest extends ValidatorRendererTestBase {
     @Mock
     private ValidatorDescriptor descriptor;
     @Mock
