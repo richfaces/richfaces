@@ -154,19 +154,19 @@ public final class RichFunction {
     }
 
     /**
-     * The rich:jQuery('id') function is a shortcut for the equivalent jQuery('#{rich:jquerySelector('id')}') code. It returns
+     * The rich:jQueryObject('id') function is a shortcut for the equivalent jQuery(#{rich:element('id')}) code. It returns
      * the jQuery object from the client, based on the passed server-side component identifier. If the specified component
-     * identifier is not found, null is returned instead. The function takes care of escaping all reserved characters in CSS
-     * selectors.
+     * identifier is not found, empty jQuery object is returned instead.
      */
     @Function
-    public static String jQuery(String id) {
-        String jQuerySelector = jQuerySelector(id);
-        if (jQuerySelector != null) {
-            return "jQuery('" + jQuerySelector + "')";
+    public static String jQueryObject(String id) {
+    	String element = element(id);
+    	
+    	if (element != null) {
+            return "jQuery(" + element + ")";
         }
 
-        return null;
+        return "jQuery()";
     }
 
     /**
