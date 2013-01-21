@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:pn="http://richfaces.org/pn">
+
+<body>
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="title">Accordion Example</ui:define>
+        <ui:define name="body_head">Accordion Example</ui:define>
+
+        <ui:define name="body">
+            <p>Page</p>
+
+            <pre>
+            two critical issues there:
+                1)
+                    a) enter something into input at default item
+                    b) switch to second
+                    c) enter something to input there
+                    d) click submit
+                    RESULT - nothing being encoded for outputText's
+
+                2)
+                    a) enter something into input at default item
+                    b) switch to second
+                    c) enter something to input there
+                    d) return to default tab(in order current item to be in sync with server side current)
+                    e) click submit
+                    RESULT - only one typed message encoded. 
+        </pre>
+
+            <h:form>
+                <pn:accordion switchType="ajax" id="acc">
+                    <pn:accordionItem header="Overview:" id="i1">
+                        <h:inputText value="#{RF9851.name}" />
+                    </pn:accordionItem>
+                    <pn:accordionItem header="JSF 2 and RichFaces 4:" id="i2">
+                        <h:inputText value="#{RF9851.email}" />
+
+                    </pn:accordionItem>
+                </pn:accordion>
+                <h:commandButton />
+                <h:outputText value="#{RF9851.name}" />
+                <h:outputText value="#{RF9851.email}" />
+                <h:messages />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</body>
+</html>
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:fu="http://richfaces.org/input" xmlns:ou="http://richfaces.org/output">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="File Upload - RF-11977" />
+
+
+    <!-- content -->
+    <ui:define name="content">
+        <h:form id="form">
+
+            <ou:panel>
+                <fu:fileUpload id="uploadFile1"
+                               fileUploadListener="#{richFileUploadBean2.listener}"
+                               maxFilesQuantity="1"
+                               immediateUpload="true"
+                               listHeight="65px"/>
+            </ou:panel>
+
+            <ou:panel>
+                <fu:fileUpload id="uploadFile2"
+                               fileUploadListener="#{richFileUploadBean2.listener2}"
+                               maxFilesQuantity="1"
+                               immediateUpload="true"
+                               listHeight="65px"/>
+            </ou:panel>
+
+            <!-- rich:panel>
+                <a4j:commandButton id="addB" value="value" action="#{bean.method3}"
+                    render="stg" />
+            </rich:panel-->
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

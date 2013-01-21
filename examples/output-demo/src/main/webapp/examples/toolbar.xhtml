@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:rich="http://richfaces.org/output">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Toolbar" />
+    <!-- content -->
+    <ui:define name="content">
+        <rich:toolbar id="tb" height="45" itemSeparator="grid" itemStyle="color:red;" itemClass="custom-item">
+            <f:facet name="itemSeparator">
+                ||
+            </f:facet>
+            <rich:toolbarGroup itemStyle="border: 1px solid green" itemClass="custom-item-group" itemSeparator="line"
+                onitemclick="22">
+                <h:graphicImage value="/images/icons/create_doc.gif" />
+                <a href="#">link 1</a> Text
+                <a href="#">link 2</a>
+                <h:graphicImage value="/images/icons/create_folder.gif" onclick="q1" />
+                <h:graphicImage value="/images/icons/copy.gif" />
+                <a href="#">link 3</a> Text
+                <a href="#">link 4</a>
+            </rich:toolbarGroup>
+            <rich:toolbarGroup itemSeparator="none">
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+            </rich:toolbarGroup>
+            <rich:toolbarGroup itemSeparator="line">
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+            </rich:toolbarGroup>
+
+            <rich:toolbarGroup location="right" itemSeparator="square">
+                <h:graphicImage value="/images/icons/find.gif" />
+                <h:graphicImage value="/images/icons/filter.gif" />
+            </rich:toolbarGroup>
+        </rich:toolbar>
+        <br />
+        <rich:toolbar itemSeparator="grid" itemStyle="border: 1px solid green" itemClass="custom-item">
+            <rich:toolbarGroup itemSeparator="line" itemStyle="border: 1px solid green" itemClass="custom-item-group">
+                <h:graphicImage value="/images/icons/create_doc.gif" />
+                <h:graphicImage value="/images/icons/create_folder.gif" />
+                <h:graphicImage value="/images/icons/copy.gif" />
+            </rich:toolbarGroup>
+            <rich:toolbarGroup itemSeparator="disc">
+                <h:graphicImage value="/images/icons/save.gif" />
+                <h:graphicImage value="/images/icons/save_as.gif" />
+                <h:graphicImage value="/images/icons/save_all.gif" />
+            </rich:toolbarGroup>
+            <rich:toolbarGroup location="right" itemSeparator="square">
+                <h:graphicImage value="/images/icons/find.gif" />
+                <h:graphicImage value="/images/icons/filter.gif" />
+            </rich:toolbarGroup>
+        </rich:toolbar>
+
+        <br />
+        <rich:toolbar height="26" itemSeparator="grid">
+            <rich:toolbarGroup itemSeparator="line">
+                <h:graphicImage value="/images/icons/create_doc.gif" />
+                <h:graphicImage value="/images/icons/create_folder.gif" />
+                <h:graphicImage value="/images/icons/copy.gif" />
+            </rich:toolbarGroup>
+            <rich:toolbarGroup itemSeparator="disc">
+                <h:graphicImage value="/images/icons/save.gif" />
+                <h:graphicImage value="/images/icons/save_as.gif" />
+                <h:graphicImage value="/images/icons/save_all.gif" />
+            </rich:toolbarGroup>
+            <rich:toolbarGroup location="right" itemSeparator="square">
+                <h:graphicImage value="/images/icons/find.gif" />
+                <h:graphicImage value="/images/icons/filter.gif" />
+            </rich:toolbarGroup>
+        </rich:toolbar>
+
+        <h:form>
+            <a4j:commandLink value="Ajax Rerender Toolbar" render="tb" />
+            <a4j:log />
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>
+

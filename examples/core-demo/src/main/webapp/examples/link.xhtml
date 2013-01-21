@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:demo="http://java.sun.com/jsf/composite/demo">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Link" />
+    <!-- content -->
+    <ui:define name="content">
+        <a4j:outputPanel ajaxRendered="true">
+            <h:outputText value="#{commandBean.date}" />
+        </a4j:outputPanel>
+        <h:outputText value="Name:" />
+        <h:form>
+            <h:inputText value="#{commandBean.name}" />
+
+            <h:panelGrid>
+                <a4j:commandLink action="#{commandBean.submit}" render="out">
+                    <h:outputText value="Say Hello" />
+                </a4j:commandLink>
+                <a4j:commandLink action="#{commandBean.submit}" render="out" limitRender="true">
+                    <h:outputText value="Say Hello with limitRender" />
+                </a4j:commandLink>
+                <a4j:commandLink action="#{commandBean.submit}" render="out" execute="@this">
+                    <h:outputText value="Say Hello with execute=@this" />
+                </a4j:commandLink>
+                <a4j:commandLink action="#{commandBean.reset}" render="out">
+                    <h:outputText value="Reset" />
+                </a4j:commandLink>
+                <a4j:commandLink>
+                    <f:ajax event="action" execute="@form" render=":out" listener="#{commandBean.listener}" />
+                    <h:outputText value="Test AjaxBehavior" />
+                </a4j:commandLink>
+            </h:panelGrid>
+        </h:form>
+        <br />
+        <h:panelGroup id="out">
+            <h:outputText value="#{commandBean.name}" />
+            <h:outputText value="!" rendered="#{not empty commandBean.name}" />
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>
+</html>

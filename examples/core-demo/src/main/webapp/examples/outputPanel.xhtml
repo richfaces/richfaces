@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:demo="http://java.sun.com/jsf/composite/demo">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Output Panel" />
+    <!-- content -->
+    <ui:define name="content">
+        <a4j:status startText="start..." />
+        <br />
+        <h:form>
+            <a4j:outputPanel layout="block" onclick="alert('clicked')">
+                <f:ajax event="mouseover" listener="#{outputPanelBean.behaviorListener}" />
+                Output panel
+            </a4j:outputPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/output">
+
+<body>
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="title">Accordion Example</ui:define>
+        <ui:define name="body_head">Accordion Example</ui:define>
+
+        <ui:define name="body">
+            <p>Page</p>
+
+            <pre>
+            I try use RichFaces in my own project and panelMenu is looking as most convenient
+way to make admin panel for me. Now I can use panel menu just for switching between pages by links.
+But I've got some styling issues. I am new in RichFaces, so I decided to do my project on the basis
+of RichFaces showcase.
+            Please, see the code
+        </pre>
+
+            <h:form>
+                <rich:panel>
+                    <f:facet name="header">
+                        <h:outputText value="Административная панель" />
+                    </f:facet>
+
+                    <h:panelGrid columns="2">
+                        <rich:panelMenu style="width:200px" mode="ajax" groupMode="ajax" iconExpandedGroup="disc"
+                            iconCollapsedGroup="disc" iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
+                            iconCollapsedTopGroup="chevronDown">
+                            <rich:panelMenuGroup label="Базы данных">
+                                <rich:panelMenuItem name="Item_1_1">
+                                    <h:link outcome="admin" value="Загрузка абзацев с сервера" />
+                                </rich:panelMenuItem>
+                                <rich:panelMenuItem name="Item_1_2">
+                                    <h:link outcome="admin" value="Тесты абзацев" />
+                                </rich:panelMenuItem>
+                                <rich:panelMenuItem name="Item_1_3">
+                                    <h:link outcome="admin" value="Создать главы" />
+                                </rich:panelMenuItem>
+                            </rich:panelMenuGroup>
+                            <rich:panelMenuGroup label="Подсказки">
+                                <rich:panelMenuItem name="Item_2_1">
+                                    <h:link outcome="admin" value="Загрузка подсказок с сервера" />
+                                </rich:panelMenuItem>
+                                <rich:panelMenuItem name="Item_2_2">
+                                    <h:link outcome="admin" value="Тесты подсказок" />
+                                </rich:panelMenuItem>
+                                <rich:panelMenuItem name="Item_2_3">
+                                    <h:link outcome="admin" value="Создать подсказки" />
+                                </rich:panelMenuItem>
+                            </rich:panelMenuGroup>
+                            <rich:panelMenuGroup label="Документы">
+                                <rich:panelMenuItem name="Item_3_1">
+                                    <h:link outcome="admin" value="Загрузка документов с сервера" />
+                                </rich:panelMenuItem>
+                                <rich:panelMenuItem name="Item_3_2">
+                                    <h:link outcome="admin" value="Тесты документов" />
+                                </rich:panelMenuItem>
+                                <rich:panelMenuItem name="Item_3_3">
+                                    <h:link outcome="admin" value="Создать документы" />
+                                </rich:panelMenuItem>
+                            </rich:panelMenuGroup>
+                        </rich:panelMenu>
+                        <rich:panel>
+                            <f:facet name="header">
+                                <h:outputText value="Загрузка глав с сервера" />
+                            </f:facet>
+                        Здесь сегодня будет загрузка глав с локального сервера...
+                    </rich:panel>
+                    </h:panelGrid>
+                </rich:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</body>
+</html>

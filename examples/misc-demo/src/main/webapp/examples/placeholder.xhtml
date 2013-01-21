@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/misc" xmlns:in="http://richfaces.org/input"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Placeholder" />
+    <!-- content -->
+    <ui:define name="content">
+
+        <style type="text/css">
+        input.customPlaceholderClass {
+            color: blue !important
+        }
+        </style>
+        
+        <h:form>
+            <fieldset>
+                <legend>Configuration</legend>
+                
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Placeholder text" for="text" />
+                    <h:inputTextarea id="text" value="#{placeholderBean.placeholderText}" required="true">
+                        <a4j:ajax event="valueChange" execute="@form" render="samples" />
+                    </h:inputTextarea>
+                    
+                    <h:outputLabel value="Rendered" for="text" />
+                    <h:selectBooleanCheckbox value="#{placeholderBean.rendered}">
+                        <a4j:ajax event="click" execute="@form" render="samples" />
+                    </h:selectBooleanCheckbox>
+                    
+                    <h:commandButton value="Submit" action="#{placeholderBean.submit}" />
+                </h:panelGrid>
+            </fieldset>  
+        </h:form>
+
+        <h:form id="samples">
+            <fieldset>
+                <legend>Samples</legend>
+                
+                h:inputText with styleClass:
+                <h:inputText id="with-placeholder" value="#{placeholderBean.inputText}">
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" styleClass="customPlaceholderClass" rendered="#{placeholderBean.rendered}" />
+                </h:inputText>
+                <h:outputText value="Output: #{placeholderBean.inputText}" />
+                <br />
+    
+                rich:calendar:
+                <in:calendar id="calendar" value="#{placeholderBean.date}" enableManualInput="true" ajaxSingle="true">
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
+                </in:calendar>
+                <h:outputText value="Output: #{placeholderBean.date}" />
+                <br />
+    
+                textarea:
+                <h:inputTextarea id="textarea" value="#{placeholderBean.textarea}" rows="10" cols="40">
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
+                </h:inputTextarea>
+                <h:outputText value="Output: #{placeholderBean.textarea}" />
+                <br />
+    
+                non-JSF input:
+                <input id="htmlInput" type="text" />
+                <rich:placeholder value="#{placeholderBean.textObject}" selector="#htmlInput"
+                    converter="#{placeholderBean.converter}" rendered="#{placeholderBean.rendered}" />
+
+                <br />
+                
+                rich:autocomplete
+                <in:autocomplete id="autocomplete" value="#{placeholderBean.inputText}">
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
+                </in:autocomplete>
+                <h:outputText value="Output: #{placeholderBean.inputText}" />
+                <br />
+                
+                rich:inplaceSelect
+                <in:inplaceSelect id="inplaceSelect" value="#{placeholderBean.inputText}">
+                    <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
+                    <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
+                </in:inplaceSelect>
+                <h:outputText value="Output: #{placeholderBean.inputText}" />
+                <br />
+                
+                rich:inplaceInput
+                <in:inplaceInput id="inplaceInput" value="#{placeholderBean.inputText}">
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
+                </in:inplaceInput>
+                <h:outputText value="Output: #{placeholderBean.inputText}" />
+                <br />
+
+                rich:select
+                <in:select id="select" value="#{placeholderBean.inputText}">
+                    <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
+                    <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
+                    <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
+                </in:select>
+                <h:outputText value="Output: #{placeholderBean.inputText}" />
+                <br />
+
+                <h:commandButton value="Submit" />
+                <a4j:commandButton value="AJAX" execute="@form" render="@form" />
+            </fieldset>
+            
+            <a4j:outputPanel ajaxRendered="true">
+                <h:messages />
+            </a4j:outputPanel>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+</html>

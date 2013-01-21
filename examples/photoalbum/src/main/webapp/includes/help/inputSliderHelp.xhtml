@@ -1,0 +1,190 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div class="section" lang="en-US">
+        <div class="titlepage">
+            <div>
+                <div>
+                    <h3 class="title">Image Size Control with &lt;rich:inputNumberSlider&gt;</h3>
+                </div>
+            </div>
+        </div>
+        <p>
+            The <span class="bold"><strong><span class="property">rich:inputNumberSlider</span></strong></span> component in the
+            Photo Album Demo is used as a control that helps a user to change photos size while previewing an album. A handler
+            position on the slider track corresponds to a particular value of an image size. The component is included into the
+            page with the help of <span class="bold"><strong><span class="property">ui:include</span></strong></span>:
+        </p>
+        <pre class="brush: xml, gutter: false">
+            &lt;ui:include src=&quot;/includes/image/inputNumberSlider.xhtml&quot;&gt;
+                &lt;ui:param name=&quot;size&quot; value=&quot;#{'#{'}fn:length(model.images)}&quot; /&gt;
+                &lt;ui:param name=&quot;renderArea&quot; value=&quot;userAlbumImages&quot; /&gt;
+            &lt;/ui:include&gt;
+        </pre>
+        <p>
+            Now let's have a look at
+            <code class="code">src/main/webapp/includes/image/inputNumberSlider.xhtml</code>
+            file:
+        </p>
+        <pre class="brush: xml, gutter: false">
+        &lt;ui:composition … &gt;
+            &lt;div&gt;
+                …
+                &lt;rich:inputNumberSlider enableManualInput=&quot;false&quot;
+                    value=&quot;#{'#{'}imageSizeHelper.value}&quot;
+                    minValue=&quot;80&quot;
+                    maxValue=&quot;200&quot;
+                    showArrows=&quot;false&quot;
+                    showBoundaryValues=&quot;true&quot;
+                    showInput=&quot;false&quot;
+                    step=&quot;40&quot;
+                    width=&quot;100&quot;&gt;
+                    &lt;a4j:ajax event=&quot;change&quot; render=&quot;#{'#{'}renderArea}&quot; /&gt;
+                &lt;/rich:inputNumberSlider&gt;
+                …
+            &lt;/div&gt;
+        &lt;/ui:composition&gt;
+        </pre>
+        <p>
+            There is special Enumeration type that contains four predefined values for image size. Each type has a set of image
+            related attributes such as CSS class for new photo size, postfix for a new file name, image background. The
+            <code class="code">setValue</code>
+            method of the
+            <code class="code">ImageSizeHelper.java</code>
+            class is triggered on each slider's position change. This method sets one of four predefined values for image size
+            and due to slider's position.
+        </p>
+        <pre class="brush: java, gutter: false">
+        public void setValue(int value) {
+            currentDimension = ImageDimension.getInstance(value);
+            this.value = currentDimension.getX();
+        }
+        </pre>
+        <p>
+            And here is the
+            <code class="code">ImageDimension.java</code>
+            class:
+        </p>
+        <pre class="brush: java, gutter: false">
+        public enum ImageDimension {
+
+            SIZE_80(80), SIZE_120(120), SIZE_160(160), SIZE_200(200), SIZE_MEDIUM(600), ORIGINAL(0);
+        
+            final static String CSS_CLASS = &quot;preview_box_photo_&quot;;
+            final static String FILE_POSTFIX = &quot;_small&quot;;
+            final static String IMAGE_BG = &quot;/img/shell/frame_photo_%1$d.png&quot;;
+            final static String IMAGE_BG_STYLE = &quot;width: %1$dpx; height: %1$dpx&quot;;
+        
+            int x;
+            String bgStyle;
+            String cssClass;
+            String imageBgSrc;
+            String filePostfix;
+        
+            private ImageDimension(int x) {
+                this.x = x;
+                this.bgStyle = String.format(IMAGE_BG_STYLE, x + 20);
+                cssClass = CSS_CLASS + x;
+                imageBgSrc = String.format(IMAGE_BG, (x == 160) ? 200 : x);
+                if (x == 600) {
+                    filePostfix = &quot;_medium&quot;;
+                } else if (x == 0) {
+                    filePostfix = &quot;&quot;;
+                } else {
+                    filePostfix = FILE_POSTFIX + x;
+                }
+            }
+            …
+        }
+        </pre>
+        <p>
+            After the <span class="bold"><strong><span class="property">&lt;a4j:ajax&gt;</span></strong></span> is worked out
+            user photos (more exactly, the <span class="bold"><strong><span class="property">h:panelGroup</span></strong></span>
+            with
+            <code class="code">userAlbumImages</code>
+            id that contains user photos) are rendered correspondingly to a new set value. Here is
+            <code class="code">web/src/main/webapp/includes/image/imageList.xhtml</code>
+            :
+        </p>
+        <pre class="brush: xml, gutter: false">
+        …
+        &lt;h:panelGroup id=&quot;userAlbumImages&quot;&gt;
+            &lt;a4j:repeat id=&quot;imageList&quot; value=&quot;#{'#{'}model.images}&quot; var=&quot;image&quot; rows=&quot;20&quot;&gt;
+                &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;#{'#{'}imageSizeHelper.currentDimension.cssClass}&quot;&gt;
+                    &lt;h:graphicImage styleClass=&quot;pr_photo_bg&quot; style=&quot;#{'#{'}imageSizeHelper.currentDimension.imageBgStyle}&quot;
+                        value=&quot;#{'#{'}imageSizeHelper.currentDimension.imageBg}&quot; /&gt;
+                        
+                    &lt;h:panelGrid cellpadding=&quot;0&quot;&gt;
+                        &lt;h:panelGroup&gt;
+                            &lt;a4j:commandLink actionListener=&quot;#{'#{'}controller.showImage(image)}&quot; render=&quot;mainArea, treePanel&quot;&gt;
+                                &lt;a4j:mediaOutput id=&quot;img&quot; element=&quot;img&quot; createContent=&quot;#{'#{'}imageLoader.paintImage}&quot;
+                                    style=&quot;border : 1px solid #FFFFFF;&quot; mimeType=&quot;image/jpeg&quot;
+                                    value=&quot;#{'#{'}fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}&quot;&gt;
+                                    &lt;f:param value=&quot;#{'#{'}imageSizeHelper.currentDimension.x}&quot; name=&quot;x&quot; /&gt;
+                                    &lt;rich:dragSource rendered=&quot;#{'#{'}controller.isUserImage(image)}&quot; render=&quot;mainArea, treePanel&quot;
+                                        id=&quot;dragSource&quot; dragIndicator=&quot;iDragIndicator&quot; type=&quot;image&quot; dragValue=&quot;#{'#{'}image}&quot; /&gt;
+                                &lt;/a4j:mediaOutput&gt;
+                            &lt;/a4j:commandLink&gt;
+                            &lt;br /&gt;
+                        &lt;/h:panelGroup&gt;
+                    &lt;/h:panelGrid&gt;
+                    
+                    &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;photo_name&quot;&gt;#{'#{'}image.name}&lt;/h:panelGroup&gt;
+                    
+                    &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;photo_data&quot;&gt;
+                        &lt;h:outputText value=&quot;#{'#{'}image.created}&quot;&gt;
+                            &lt;f:convertDateTime /&gt;
+                        &lt;/h:outputText&gt;
+                    &lt;/h:panelGroup&gt;
+                &lt;/h:panelGroup&gt;
+                
+                &lt;ui:include src=&quot;/includes/contextMenu/CMForImage.xhtml&quot;&gt;
+                    &lt;ui:param name=&quot;image&quot; value=&quot;#{'#{'}image}&quot; /&gt;
+                    &lt;ui:param name=&quot;target&quot; value=&quot;img&quot; /&gt;
+                &lt;/ui:include&gt;
+            &lt;/a4j:repeat&gt;
+        &lt;/h:panelGroup&gt;
+        …
+        </pre>
+        <p>
+            When the <span class="bold"><strong><span class="property">&lt;rich:inputNumberSlider&lt;</span></strong></span> is
+            rendered, at first its default value for image size is 120 px.
+        </p>
+        <div class="figure">
+            <a id="d0e670" />
+            <div class="figure-contents">
+                <div class="mediaobject">
+                    <img src="img/help/image_size.png" alt="Image size control" />
+                </div>
+            </div>
+            <p class="title">
+                <b>Image size control</b>
+            </p>
+        </div>
+        <br class="figure-break" />
+        <p>Visit following pages at RichFaces Showacase for more information, examples and sources on the components used in
+            the application and described in this chapter:</p>
+        <div class="itemizedlist">
+            <ul>
+                <li>
+                    <p>
+                        <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=inputNumberSlider">InputNumberSlider</a>
+                        page for the <span class="bold"><strong><span class="property">&lt;rich:inputNumberSlider&gt;</span></strong></span>
+                        component;
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=ajax">Ajax</a> for
+                        the <span class="bold"><strong><span class="property">&lt;a4j:ajax&gt;</span></strong></span>
+                        component.
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</ui:composition>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/iteration" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="RF-9392" />
+    
+    <!-- content -->
+    <ui:define name="content">
+    
+        <h:outputScript name="jquery.js" />
+        <h:outputScript library="qunit" name="qunit.js" />
+
+        <h:outputStylesheet library="qunit" name="qunit.css" />
+        <style type="text/css">
+        .additionTestClass,.removalTestClass {
+            position: absolute;
+            line-height: 0px;
+            font-size: 0px;
+        }
+        </style>
+        
+                <style type="text/css" id="removalTest">
+        .removalTestClass {
+            width: 200px;
+            height: 180px;
+            background-color: #EEE;
+        }
+        </style>
+
+        <h1 id="qunit-header">QUnit example</h1>
+
+        <h2 id="qunit-banner"></h2>
+
+        <h2 id="qunit-userAgent"></h2>
+        <ol id="qunit-tests"></ol>
+        <div id="qunit-fixture">test markup, will be hidden</div>
+
+        <h:panelGroup styleClass="additionTestClass" layout="block"></h:panelGroup>
+        <h:panelGroup styleClass="removalTestClass" layout="block"></h:panelGroup>
+
+        <script type="text/javascript">/* <![CDATA[ */
+        function addCss(cssText, elementId) {
+            var style = jQuery("<style></style>").attr({type: 'text/css', id: elementId}).appendTo("head");
+            try {
+                style.html(cssText);
+            } catch (e) {
+                //IE
+                style[0].styleSheet.cssText = cssText;
+            }
+        }
+        ;
+
+        jQuery(document).ready(function() {
+            module("rf-9392");
+
+            var additionTestElt = jQuery(".additionTestClass");
+            var removalTestElt = jQuery(".removalTestClass");
+
+            test("class addition", function() {
+                expect(2);
+                equals(additionTestElt.height(), 0);
+
+                addCss(".additionTestClass { height: 140px; }", "additionTest");
+
+                equals(additionTestElt.height(), 140);
+            });
+
+            test("class removal", function() {
+                expect(2);
+                equals(removalTestElt.height(), 180);
+
+                jQuery("#removalTest").remove();
+
+                equals(removalTestElt.height(), 0);
+            });
+        });
+        /* ]]> */</script>
+    
+    </ui:define>
+</ui:composition>
+</html>

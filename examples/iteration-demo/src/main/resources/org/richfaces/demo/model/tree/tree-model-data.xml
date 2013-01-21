@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+    <project name="ajax4jsf">
+        <sourceDirectory name="src/main/java">
+            <package name="org.ajax4jsf">
+                <class name="FastFilter.java" />
+                <class name="Filter.java" />
+            </package>
+            <package name="org.ajax4jsf.component">
+                <class name="UIDataAdaptor.java" />
+                <class name="AjaxActionComponent.java" />
+            </package>
+            <package name="org.ajax4jsf.renderkit">
+                <class name="AjaxChildrenRenderer.java" />
+                <class name="AjaxComponentRendererBase.java" />
+            </package>
+        </sourceDirectory>
+        <sourceDirectory name="src/main/resources">
+            <package name="org.ajax4jsf">
+            </package>
+            <package name="org.ajax4jsf.javascript">
+            </package>
+        </sourceDirectory>
+    </project>
+
+    <project name="richfaces">
+        <sourceDirectory name="src/main/java">
+            <package name="org.richfaces">
+            </package>
+            <package name="org.richfaces.component">
+            </package>
+            <package name="org.richfaces.model">
+            </package>
+        </sourceDirectory>
+        <sourceDirectory name="src/main/resources">
+            <package name="org.richfaces">
+            </package>
+            <package name="org.richfaces.renderkit">
+            </package>
+        </sourceDirectory>
+        <sourceDirectory name="target/generated/java">
+            <package name="org.richfaces">
+            </package>
+            <package name="org.richfaces.component">
+            </package>
+            <package name="org.richfaces.renderkit">
+            </package>
+        </sourceDirectory>
+        <directory name="design">
+            <directory name="funcspec">
+                <file name="FunctionalSpecification-1.0.doc" />
+                <file name="Requirements-1.0.doc" />
+            </directory>
+        </directory>
+        <directory name="src">
+            <directory name="main">
+                <directory name="config">
+                    <directory name="org">
+                        <directory name="richfaces">
+                            <directory name="component">
+                                <file name="tree.config.xml" />
+                                <file name="treeNode.config.xml" />
+                            </directory>
+                        </directory>
+                    </directory>
+                </directory>
+                <directory name="templates"></directory>
+            </directory>
+            <directory name="test"></directory>
+        </directory>
+        <directory name="target">
+            <directory name="generated-component">
+            </directory>
+            <directory name="surefire-reports">
+                <file name="org.richfaces.JSFComponentTest.txt" />
+                <file name="TEST-ComponentTest.xml" />
+            </directory>
+            <file name="richfaces-3.1.0-snapshot" />
+            <file name="richfaces-3.1.0-javadoc" />
+            <archive name="richfaces-3.1.0-sources">
+                <archiveEntry name="org">
+                    <archiveEntry name="richfaces">
+                        <archiveEntry name="component">
+                            <archiveEntryFile name="UITree" />
+                            <archiveEntryFile name="UITreeNode" />
+                            <archiveEntryFile name="UICalendar" />
+                            <archiveEntryFile name="UIRangedNumberInput" />
+                        </archiveEntry>
+                    </archiveEntry>
+                </archiveEntry>
+            </archive>
+        </directory>
+    </project>
+</root>

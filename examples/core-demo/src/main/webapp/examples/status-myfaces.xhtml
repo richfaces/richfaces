@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:demo="http://java.sun.com/jsf/composite/demo"
+    xmlns:utils="http://java.sun.com/jsf/composite/utils">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Status - MyFaces" />
+    <!-- content -->
+    <ui:define name="content">
+
+        <a4j:status startStyle="color: green" errorStyle="color: red" onstart="RichFaces.log.info('START')"
+            onerror="RichFaces.log.info('ERROR')" onsuccess="RichFaces.log.info('SUCCESS')" onstop="RichFaces.log.info('STOP')">
+            <f:facet name="start">...start...</f:facet>
+            <f:facet name="stop">stop</f:facet>
+            <f:facet name="error">error</f:facet>
+        </a4j:status>
+
+        <h:form>
+            <h:commandLink value="A4J:Ajax error" action="#{statusBean.delayWithError}">
+                <a4j:ajax />
+            </h:commandLink>
+            <h:commandLink value="F:Ajax error" action="#{statusBean.delayWithError}">
+                <f:ajax />
+            </h:commandLink>
+        </h:form>
+
+        <a4j:log />
+
+    </ui:define>
+</ui:composition>
+</html>

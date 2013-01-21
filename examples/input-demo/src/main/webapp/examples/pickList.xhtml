@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:in="http://richfaces.org/input"
+      xmlns:it="http://richfaces.org/iteration">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Pick List" />
+
+
+    <!-- content -->
+    <ui:define name="content">
+        <style type="text/css">
+            .my-select-class {
+                font-weight: bold;
+            }
+
+            .out {
+                display: inline-block;
+            }
+        </style>
+        <fieldset>
+            <legend>PickList w/ selectItem</legend>
+            <h:form>
+                <in:pickList id="pickList1" value="#{inputBean.values}" style="font-size: 2em;" sourceCaption="Source Items"
+                             targetCaption="target Items">
+                    <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
+                    <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
+                    <f:selectItem itemLabel="Label#3" itemValue="Value#3"/>
+                    <f:selectItem itemLabel="Label#4" itemValue="Value#4"/>
+                    <f:selectItem itemLabel="Label#5" itemValue="Value#5"/>
+                    <f:selectItem itemLabel="Label#6" itemValue="Value#6"/>
+                    <f:selectItem itemLabel="Label#7" itemValue="Value#7"/>
+                    <f:selectItem itemLabel="Label#8" itemValue="Value#8"/>
+                    <f:selectItem itemLabel="Label#9" itemValue="Value#9"/>
+                    <f:selectItem itemLabel="Label#10" itemValue="Value#10"/>
+                    <f:selectItem itemLabel="Label#11" itemValue="Value#11"/>
+                    <f:selectItem itemLabel="Label#12" itemValue="Value#12"/>
+                    <f:selectItem itemLabel="Label#13" itemValue="Value#13"/>
+                    <f:selectItem itemLabel="Label#14" itemValue="Value#14"/>
+                    <f:ajax event="change" execute="@form" render="out1"/>
+                </in:pickList>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="pickList1 out1"/>
+                </h:commandButton>
+
+                <h:panelGroup id="out1" class="out">
+                    <ui:repeat value="#{inputBean.values}" var="value">
+                        <h:outputText value="#{value}"/>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+        <fieldset>
+            <legend>PickList - disabled</legend>
+            <h:form>
+                <in:pickList id="pickList2" value="#{inputBean.values}" disabled="true" disabledClass="someDisabledClass"
+                             sourceCaption="Source Items" targetCaption="target Items">
+                    <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
+                    <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
+                    <f:selectItem itemLabel="Label#3" itemValue="Value#3"/>
+                    <f:selectItem itemLabel="Label#4" itemValue="Value#4"/>
+                    <f:selectItem itemLabel="Label#5" itemValue="Value#5"/>
+                    <f:selectItem itemLabel="Label#6" itemValue="Value#6"/>
+                    <f:selectItem itemLabel="Label#7" itemValue="Value#7"/>
+                    <f:selectItem itemLabel="Label#8" itemValue="Value#8"/>
+                    <f:selectItem itemLabel="Label#9" itemValue="Value#9"/>
+                    <f:selectItem itemLabel="Label#10" itemValue="Value#10"/>
+                    <f:selectItem itemLabel="Label#11" itemValue="Value#11"/>
+                    <f:selectItem itemLabel="Label#12" itemValue="Value#12"/>
+                    <f:selectItem itemLabel="Label#13" itemValue="Value#13"/>
+                    <f:selectItem itemLabel="Label#14" itemValue="Value#14"/>
+                    <f:ajax event="change" execute="@form" render="out2"/>
+                </in:pickList>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="pickList2 out2"/>
+                </h:commandButton>
+
+                <h:panelGroup id="out2" class="out">
+                    <ui:repeat value="#{inputBean.values}" var="value">
+                        <h:outputText value="#{value}"/>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+        <fieldset>
+            <legend>PickList - addItems and removeItems listeners</legend>
+            <h:form>
+                <in:pickList id="pickList3" value="#{inputBean.values}" sourceCaption="Source Items"
+                             targetCaption="target Items"
+                             onadditems="alert('Item Added.')"
+                             onremoveitems="alert('Item Removed.')">
+                    <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
+                    <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
+                    <f:selectItem itemLabel="Label#3" itemValue="Value#3"/>
+                    <f:selectItem itemLabel="Label#4" itemValue="Value#4"/>
+                    <f:selectItem itemLabel="Label#5" itemValue="Value#5"/>
+                    <f:selectItem itemLabel="Label#6" itemValue="Value#6"/>
+                    <f:selectItem itemLabel="Label#7" itemValue="Value#7"/>
+                    <f:selectItem itemLabel="Label#8" itemValue="Value#8"/>
+                    <f:selectItem itemLabel="Label#9" itemValue="Value#9"/>
+                    <f:selectItem itemLabel="Label#10" itemValue="Value#10"/>
+                    <f:selectItem itemLabel="Label#11" itemValue="Value#11"/>
+                    <f:selectItem itemLabel="Label#12" itemValue="Value#12"/>
+                    <f:selectItem itemLabel="Label#13" itemValue="Value#13"/>
+                    <f:selectItem itemLabel="Label#14" itemValue="Value#14"/>
+                    <f:ajax event="change" execute="@form" render="out3"/>
+                </in:pickList>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="pickList3 out3"/>
+                </h:commandButton>
+
+                <h:panelGroup id="out3" class="out">
+                    <ui:repeat value="#{inputBean.values}" var="value">
+                        <h:outputText value="#{value}"/>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+        <fieldset>
+            <legend>PickList f:selectItems</legend>
+            <h:form>
+                <in:pickList id="pickList3b" value="#{richBean.values}" sourceCaption="Source Items"
+                             targetCaption="target Items" listHeight="">
+                    <f:selectItems value="#{entityBeanSelector.values}" var="item" itemValue="#{item}"
+                                   itemLabel="#{item.title}"/>
+                    <f:converter converterId="EntityBeanConverter"/>
+                    <f:ajax event="change" execute="@form" render="out3b"/>
+                </in:pickList>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="pickList3b out3b"/>
+                </h:commandButton>
+
+                <h:panelGroup id="out3b" class="out">
+                    <ui:repeat value="#{richBean.values}" var="value">
+                        <h:outputText value="#{value.title}"/>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+        <fieldset>
+            <legend>PickList w/ f:selectItems and columns</legend>
+            <h:form>
+                <in:pickList id="pickList4" value="#{richBean.values}" var="item" sourceCaption="Source Items"
+                             targetCaption="Target Items">
+                    <f:selectItems value="#{entityBeanSelector.values}"/>
+                    <f:converter converterId="EntityBeanConverter"/>
+                    <it:column styleClass="my-select-class">
+                        #{item.value}
+                    </it:column>
+                    <it:column>
+                        #{item.title}
+                    </it:column>
+                </in:pickList>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="pickList4 out4"/>
+                </h:commandButton>
+
+                <h:panelGroup id="out4" class="out">
+                    <ui:repeat value="#{richBean.values}" var="value">
+                        <h:outputText value="#{value}">
+                            <f:converter converterId="EntityBeanConverter"/>
+                        </h:outputText>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+        <fieldset>
+            <legend>PickList w/ ordering (listShuttle)</legend>
+            <h:form>
+                <in:pickList id="pickList5" value="#{richBean.values}" var="item" sourceCaption="Source Items"
+                             targetCaption="Target Items" orderable="true">
+                    <f:selectItems value="#{entityBeanSelector.values}"/>
+                    <f:converter converterId="EntityBeanConverter"/>
+                    <it:column>
+                        #{item.value}
+                    </it:column>
+                    <it:column>
+                        #{item.title}
+                    </it:column>
+                </in:pickList>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="pickList5 out5"/>
+                </h:commandButton>
+
+                <h:panelGroup id="out5" class="out">
+                    <ui:repeat value="#{richBean.values}" var="value">
+                        <h:outputText value="#{value}">
+                            <f:converter converterId="EntityBeanConverter"/>
+                        </h:outputText>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+        <fieldset>
+            <legend>PickList w/ my-select-class</legend>
+            <h:form>
+                <in:pickList id="pickList6" value="#{richBean.values}" var="item" sourceCaption="Source Items"
+                             targetCaption="Target Items" orderable="true" selectItemClass="my-select-class">
+                    <f:selectItems value="#{entityBeanSelector.values}"/>
+                    <f:converter converterId="EntityBeanConverter"/>
+                    <it:column>
+                        #{item.value}
+                    </it:column>
+                    <it:column>
+                        #{item.title}
+                    </it:column>
+                </in:pickList>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="pickList6 out6"/>
+                </h:commandButton>
+
+                <h:panelGroup id="out6" class="out">
+                    <ui:repeat value="#{richBean.values}" var="value">
+                        <h:outputText value="#{value}">
+                            <f:converter converterId="EntityBeanConverter"/>
+                        </h:outputText>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+        <fieldset>
+            <legend>PickList w/ required</legend>
+            <h:form>
+                <in:pickList id="pickList7" value="#{richBean.values}" var="item" sourceCaption="Source Items"
+                             targetCaption="Target Items" required="true" requiredMessage="This is required!">
+                    <f:selectItems value="#{entityBeanSelector.values}"/>
+                    <f:converter converterId="EntityBeanConverter"/>
+                    <f:validator validatorId="EntityBeanValidator"/>
+                    <it:column>
+                        #{item.value}
+                    </it:column>
+                    <it:column>
+                        #{item.title}
+                    </it:column>
+                </in:pickList>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="pickList7 out7"/>
+                </h:commandButton>
+
+                <h:panelGroup id="out7" class="out">
+                    <ui:repeat value="#{richBean.values}" var="value">
+                        <h:outputText value="#{value}">
+                            <f:converter converterId="EntityBeanConverter"/>
+                        </h:outputText>
+                        <br/>
+                    </ui:repeat>
+                    <h:message for="pickList7"/>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+        <h:messages/>
+    </ui:define>
+</ui:composition>
+</html>

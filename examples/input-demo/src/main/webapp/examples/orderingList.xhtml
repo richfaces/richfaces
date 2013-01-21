@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:in="http://richfaces.org/input"
+      xmlns:it="http://richfaces.org/iteration">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Ordering List" />
+
+
+    <!-- content -->
+    <ui:define name="content">
+        <style type="text/css">
+            .my-select-class {
+                font-weight: bold;
+            }
+
+            .out {
+                display: inline-block;
+            }
+        </style>
+        <fieldset>
+            <legend>OrderingList</legend>
+            <h:form>
+                <in:orderingList id="orderingList" value="#{richBean.values}" var="item" itemValue="#{item}"
+                                 itemLabel="#{item.title}">
+                    <f:converter converterId="EntityBeanConverter"/>
+                </in:orderingList>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="orderingList out"/>
+                </h:commandButton>
+
+                <h:panelGroup id="out" class="out">
+                    <ui:repeat value="#{richBean.values}" var="value">
+                        <h:outputText value="#{value}" converter="EntityBeanConverter"/>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+        <fieldset>
+            <legend>OrderingList - Columns</legend>
+            <h:form>
+                <in:orderingList id="orderingList" value="#{richBean.values}" var="item">
+                    <f:converter converterId="EntityBeanConverter"/>
+                    <it:column>
+                        #{item.value}
+                    </it:column>
+                    <it:column>
+                        #{item.title}
+                    </it:column>
+                </in:orderingList>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="orderingList out"/>
+                </h:commandButton>
+
+                <h:panelGroup id="out" class="out">
+                    <ui:repeat value="#{richBean.values}" var="value">
+                        <h:outputText value="#{value}" converter="EntityBeanConverter"/>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+        <fieldset>
+            <legend>OrderingList - disabled</legend>
+            <h:form>
+                <in:orderingList id="orderingList" value="#{richBean.values}" var="item" disabled="true"
+                                 disabledClass="someDisabledClass">
+                    <f:converter converterId="EntityBeanConverter"/>
+                    <it:column>
+                        #{item.value}
+                    </it:column>
+                    <it:column>
+                        #{item.title}
+                    </it:column>
+                </in:orderingList>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="orderingList out"/>
+                </h:commandButton>
+
+                <h:panelGroup id="out" class="out">
+                    <ui:repeat value="#{richBean.values}" var="value">
+                        <h:outputText value="#{value}" converter="EntityBeanConverter"/>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+        <fieldset>
+            <legend>OrderingList - my-select-class</legend>
+            <h:form>
+                <in:orderingList id="orderingList" value="#{richBean.values}" var="item"
+                                 selectItemClass="my-select-class">
+                    <f:converter converterId="EntityBeanConverter"/>
+                    <it:column>
+                        #{item.value}
+                    </it:column>
+                    <it:column>
+                        #{item.title}
+                    </it:column>
+                </in:orderingList>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="orderingList out"/>
+                </h:commandButton>
+
+                <h:panelGroup id="out" class="out">
+                    <ui:repeat value="#{richBean.values}" var="value">
+                        <h:outputText value="#{value}" converter="EntityBeanConverter"/>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </h:form>
+        </fieldset>
+    </ui:define>
+</ui:composition>
+</html>

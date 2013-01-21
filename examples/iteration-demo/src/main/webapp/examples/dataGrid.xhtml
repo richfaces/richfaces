@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/iteration" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Data Grid" />
+    <!-- content -->
+    <ui:define name="content">
+        <h:form id="form1">
+            <rich:dataGrid id="dataGrid" columns="3" var="record" elements="8" value="#{dataBean.employeeList}">
+                <f:facet name="header">
+                    <h:outputText value="header" />
+                </f:facet>
+    
+                <f:facet name="caption">
+                    <h:outputText value="caption" />
+                </f:facet>
+    
+                <h:outputText value="#{record.name}" />
+                <h:outputText value="#{record.title}" />
+                <h:outputText value="#{record.EMail}" />
+    
+                <f:facet name="footer">
+                    <rich:dataScroller id="scroller3" for="dataGrid" page="#{dataBean.page}" maxPages="7"></rich:dataScroller>
+                </f:facet>
+    
+            </rich:dataGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

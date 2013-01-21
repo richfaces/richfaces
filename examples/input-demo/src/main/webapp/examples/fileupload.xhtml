@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:fu="http://richfaces.org/input" xmlns:ou="http://richfaces.org/output"
+      xmlns:it="http://richfaces.org/iteration">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="File Upload" />
+
+
+    <!-- content -->
+    <ui:define name="content">
+        <style>
+            <!--
+            .fu .rf-fu-lst {
+                height: 500px;
+            }
+
+            -->
+        </style>
+        <h:form id="form">
+            <h:outputText value="Skin: "/>
+            <h:selectOneMenu value="#{skinBean.skin}" onchange="submit();">
+                <f:selectItems value="#{skinBean.skinSetItems}"/>
+            </h:selectOneMenu>
+            <br/>
+            <h:outputScript>
+                var onfilesubmit = function (event) {
+                    var data = event.rf.data;
+                    RichFaces.log.info(jQuery('<span><b>onfilesubmit: </b>' + data.name + ' ' + data.state + '</span>'));
+                };
+
+                var onuploadcomplete = function (event) {
+                    var data = event.rf.data;
+                    RichFaces.log.info(jQuery('<b>onuploadcomplete:</b>'));
+                    for (var i in data) {
+                        var item = data[i];
+                        RichFaces.log.info('    ' + item.name + ' ' + item.state);
+                    }
+                    return true;
+                };
+
+                var onclear = function (event) {
+                    var data = event.rf.data;
+                    RichFaces.log.info(jQuery('<b>onclear:</b>'));
+                    for (var i in data) {
+                        var item = data[i];
+                        RichFaces.log.info('    ' + item.name + ' ' + item.state);
+                        removeFile(item.name);
+                    }
+                };
+                
+                var onfileselect = function (event) {
+                    var data = event.rf.data;
+                    RichFaces.log.info(jQuery('<span><b>onfileselect:</b> ' + data + '</span>'));
+                };
+            </h:outputScript>
+            <a4j:jsFunction name="removeFile" render="info" action="#{fileUploadBean.clearFile}">
+                <a4j:param name="clearedFile" assignTo="#{fileUploadBean.clearedFile}"/>
+            </a4j:jsFunction>
+            <h:panelGrid columns="2" columnClasses="top,top">
+                <fu:fileUpload id="fu" acceptedTypes="#{fileUploadBean.acceptedTypes}"
+                               disabled="#{fileUploadBean.disabled}"
+                               fileUploadListener="#{fileUploadBean.listener}"
+                               noDuplicate="#{fileUploadBean.noDuplicate}"
+                               onfilesubmit="onfilesubmit(event)"
+                               onuploadcomplete="onuploadcomplete(event)"
+                               ontyperejected="#{fileUploadBean.ontyperejected}"
+                               onclear="onclear(event)"
+                               onfileselect="onfileselect(event)"
+                               maxFilesQuantity="#{fileUploadBean.maxFilesQuantity}"
+                               immediateUpload="#{fileUploadBean.immediateUpload}"
+                        >
+                    <a4j:ajax event="uploadcomplete" execute="@none" render="info"/>
+                </fu:fileUpload>
+                <h:panelGroup id="info" layout="block">
+                    <ou:panel bodyClass="info">
+                        <f:facet name="header">
+                            <h:outputText value="Uploaded Files Info"/>
+                        </f:facet>
+                        <h:outputText value="No files currently uploaded" rendered="#{empty fileUploadBean.files}"/>
+                        <it:dataGrid columns="1" value="#{fileUploadBean.files}" var="file" rowKeyVar="row">
+                            <ou:panel bodyClass="rich-laguna-panel-no-header">
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="File Name:"/>
+                                    <h:outputText value="#{file.name}"/>
+                                </h:panelGrid>
+                            </ou:panel>
+                        </it:dataGrid>
+                    </ou:panel>
+                    <br/>
+                    <a4j:commandButton action="#{fileUploadBean.clearUploadData}" render="info, upload"
+                                       value="Clear Uploaded Data"
+                                       rendered="#{not empty fileUploadBean.files}"/>
+                </h:panelGroup>
+            </h:panelGrid>
+
+            <h:outputText value="File name:"/>
+            <a4j:outputPanel ajaxRendered="true">#{fileUploadBean.file.name}</a4j:outputPanel>
+            <br/>
+            <h:outputText value="Attribute name: "/>
+            <h:inputText id="name"/>
+            <h:outputText value="Attribute value: "/>
+            <h:inputText id="value"/>
+            <h:commandButton value="Update attribute">
+                <f:ajax render="fu" execute="name value" listener="#{fileUploadBean.updateAttribute}"/>
+            </h:commandButton>
+            <br/>
+            <h:outputText value="AcceptedTypes: "/>
+            <h:inputText value="#{fileUploadBean.acceptedTypes}">
+                <f:ajax render="fu"/>
+            </h:inputText>
+            <br/>
+            <h:outputText value="Disabled: "/>
+            <h:selectBooleanCheckbox value="#{fileUploadBean.disabled}">
+                <f:ajax render="fu"/>
+            </h:selectBooleanCheckbox>
+            <br/>
+            <h:outputText value="NoDuplicate: "/>
+            <h:selectBooleanCheckbox value="#{fileUploadBean.noDuplicate}">
+                <f:ajax render="fu"/>
+            </h:selectBooleanCheckbox>
+            <br/>
+            <h:outputText value="MaxFilesQuantity "/>
+            <h:inputText value="#{fileUploadBean.maxFilesQuantity}">
+                <f:ajax render="fu"/>
+            </h:inputText>
+            <br/>
+            <h:outputText value="ontyperejected: "/>
+            <h:inputText value="#{fileUploadBean.ontyperejected}">
+                <f:ajax render="fu"/>
+            </h:inputText>
+            <br/>
+            <h:outputText value="immediateUpload: "/>
+            <h:selectBooleanCheckbox value="#{fileUploadBean.immediateUpload}">
+                <f:ajax render="fu"/>
+            </h:selectBooleanCheckbox>
+            <br/>
+            <input type="submit"/>
+            <a4j:log/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

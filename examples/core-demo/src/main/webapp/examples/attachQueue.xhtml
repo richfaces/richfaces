@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:demo="http://java.sun.com/jsf/composite/demo">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Attach Queue" />
+    <!-- content -->
+    <ui:define name="content">
+        <a4j:queue requestDelay="750"></a4j:queue>
+        <h:form id="form">
+
+            <h:panelGrid columns="2">
+                <a4j:commandButton value="Set Name to Alex" render="rep ">
+                    <a4j:attachQueue requestGroupingId="group1" requestDelay="5000" />
+                    <a4j:param name="username" value="Alex" assignTo="#{attachQueueBean.name}" />
+                </a4j:commandButton>
+
+                <a4j:commandButton value="Set Name to John" render="rep ">
+                    <a4j:attachQueue requestGroupingId="group1" requestDelay="5000" />
+                    <a4j:param name="username" value="John" assignTo="#{attachQueueBean.name}" />
+                </a4j:commandButton>
+            </h:panelGrid>
+
+            <div>
+                <h:outputText id="rep" value="Selected Name:#{attachQueueBean.name}" />
+
+            </div>
+
+            <a4j:ajax>
+                <h:inputText />
+
+                <a4j:attachQueue id="firstAttach" />
+            </a4j:ajax>
+
+            <a4j:ajax event="valueChange">
+                <h:panelGroup>
+                    <a4j:ajax event="valueChange">
+                        <h:inputText />
+
+                        <a4j:commandLink value="Link">
+                            <a4j:attachQueue id="linkAttach" />
+                        </a4j:commandLink>
+
+                        <a4j:attachQueue id="secondAttach" />
+                    </a4j:ajax>
+                </h:panelGroup>
+            </a4j:ajax>
+        </h:form>
+
+        <ui:debug hotkey="L" />
+    </ui:define>
+</ui:composition>
+</html>

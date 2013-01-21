@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:in="http://richfaces.org/input">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Inplace Input" />
+
+
+    <!-- content -->
+    <ui:define name="content">
+        <h:form id="form">
+            <in:inplaceInput showControls="true" value="New York" defaultLabel="#{null}">
+            </in:inplaceInput>
+            <h:commandButton value="submit"/>
+            <in:inplaceInput showControls="true" defaultLabel="click to enter your name" saveOnBlur="true"
+                             onblur="RichFaces.$('form:ii').cancel()" id="ii" activeClass="activeClass"
+                             disabledClass="disabledClass"
+                             editClass="editClass" changedClass="changedClass" styleClass="styleClass">
+            </in:inplaceInput>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

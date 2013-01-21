@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/iteration" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Tree Model" />
+    
+    <!-- content -->
+    <ui:define name="content">
+    
+        <a4j:outputPanel ajaxRendered="true">
+            <h:messages id="messages" />
+        </a4j:outputPanel>
+
+        <h:form>
+            Project is leaf:
+            <h:selectBooleanCheckbox value="#{treeModelBean.projectIsLeaf}" onclick="submit()" />
+        </h:form>
+
+        <h:form id="form">
+            <rich:tree id="tree" var="node" toggleType="ajax">
+                <rich:treeNode>
+                    <a4j:commandLink value="#{node}" action="#{node.processClick}" />
+                </rich:treeNode>
+    
+                <rich:treeModelAdaptor nodes="#{treeModelDataBean.root.projects}" leaf="#{treeModelBean.projectIsLeaf}">
+                    <rich:treeNode iconExpanded="/images/folder_key.png" iconCollapsed="/images/folder_key.png">
+                        <a4j:commandLink value="#{node}" action="#{node.processClick}" />
+                    </rich:treeNode>
+    
+                    <rich:treeModelAdaptor nodes="#{node.sourceDirectories}">
+                        <rich:treeNode iconExpanded="/images/page_white_cup.png" iconCollapsed="/images/page_white_cup.png">
+                            <a4j:commandLink value="#{node}" action="#{node.processClick}" />
+                        </rich:treeNode>
+    
+                        <rich:treeModelAdaptor nodes="#{node.packages}" rowKeyConverter="org.richfaces.demo.PackageKeyConverter">
+                            <rich:treeModelAdaptor nodes="#{node.classes}" />
+                        </rich:treeModelAdaptor>
+                    </rich:treeModelAdaptor>
+    
+                    <rich:treeModelRecursiveAdaptor roots="#{node.commonDirectories}" nodes="#{node.directories}">
+                        <rich:treeNode iconExpanded="/images/folder_page.png" iconCollapsed="/images/folder.png">
+                            <a4j:commandLink value="#{node}" action="#{node.processClick}" />
+                        </rich:treeNode>
+    
+                        <rich:treeModelRecursiveAdaptor roots="#{node.archiveFiles}" nodes="#{node.archiveEntries}">
+    
+                            <rich:treeNode rendered="#{node.class.simpleName eq 'ArchiveFile'}" iconExpanded="/images/compress.png"
+                                iconCollapsed="/images/compress.png">
+                                <a4j:commandLink value="#{node}" action="#{node.processClick}" />
+                            </rich:treeNode>
+    
+                            <rich:treeModelAdaptor rendered="#{node.class.simpleName eq 'ArchiveEntry'}"
+                                nodes="#{node.archiveEntryFiles}" />
+                        </rich:treeModelRecursiveAdaptor>
+                        <rich:treeModelAdaptor nodes="#{node.files}" />
+                    </rich:treeModelRecursiveAdaptor>
+                </rich:treeModelAdaptor>
+            </rich:tree>
+        </h:form>
+    
+        <h:panelGroup style="margin-top: 20px;">
+            <hr />
+            This demo uses icons taken from <a href="http://www.famfamfam.com/lab/icons/silk/">http://www.famfamfam.com/lab/icons/silk/</a>
+        </h:panelGroup>
+    
+    </ui:define>
+</ui:composition>
+</html>

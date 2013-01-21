@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
+    <ui:include src="/includes/image/imageHeaderInfo.xhtml" />
+
+    <h:panelGroup layout="block" styleClass="image-edit-div">
+        <a4j:region>
+            <rich:graphValidator>
+                <table class="image-edit-div-table" style="border: 0; padding: 5px;">
+                    <tr>
+                        <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label">#{messages['photo_name']}</td>
+                        <td style="vertical-align: top;" colspan="2">
+                            <h:inputText id="image_name" value="#{model.selectedImage.name}" styleClass="image-edit-photo-input">
+                                <rich:validator event="blur" />
+                            </h:inputText>
+                            <rich:message for="image_name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0; margin: 0;" />
+                        <td style="padding: 0; margin: 0;" colspan="2">
+                            <rich:message for="image_name" styleClass="required" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label">Captured at</td>
+                        <td style="vertical-align: top;">
+                            <a4j:outputPanel id="calendar" layout="block">
+                                <rich:calendar id="image_uploaded" styleClass="image-edit-calendar" enableManualInput="true"
+                                    value="#{model.selectedImage.created}">
+                                    <rich:validator event="inputblur" />
+                                </rich:calendar>
+                            </a4j:outputPanel>
+                        </td>
+                        <td style="vertical-align: top; width: 200px">
+                            <h:selectBooleanCheckbox style="margin : 0px" value="#{model.selectedImage.showMetaInfo}" />
+                            #{messages['show_meta_information']}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0; margin: 0;" />
+                        <td style="padding: 0; margin: 0;">
+                            <rich:message for="image_uploaded" styleClass="required" />
+                        </td>
+                        <td style="padding: 0; margin: 0;" />
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label">#{messages['description']}</td>
+                        <td style="vertical-align: top;" colspan="2">
+                            <h:inputTextarea value="#{model.selectedImage.description}"
+                                styleClass="image-edit-description-input" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label">#{messages['popular_tags']}</td>
+                        <td style="vertical-align: top;" colspan="2">
+                            <rich:autocomplete id="suggestionBoxId" autocompleteMethod="#{imageManager.autoComplete}"
+                                value="#{model.selectedImage.meta}" minChars="1" var="result" fetchValue="#{result.tag}"
+                                tokens=", " autofill="false" selectFirst="false" mode="client">
+                                <h:outputText value="#{result.tag}" />
+                            </rich:autocomplete>
+                            <br />
+                            <h:panelGroup style="color : #666666">
+                                <a4j:repeat value="#{imageManager.popularTags()}" var="tag" rowKeyVar="row">
+                                    <h:outputText value=", " rendered="#{!(row == 0)}" />
+                                    <a4j:outputPanel style="cursor:pointer"
+                                        onclick="selectPopularTag('#{tag.tag}', #{rich:component('suggestionBoxId')});">
+									#{tag.tag}
+								</a4j:outputPanel>
+                                </a4j:repeat>
+                            </h:panelGroup>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label">#{messages['direct_link']}</td>
+                        <td style="vertical-align: top;" colspan="2">
+                            <h:outputText styleClass="image-edit-direct-link "
+                                value="#{imageManager.getImageDirectLink(model.selectedImage)}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label" />
+                        <td style="vertical-align: top;" colspan="2">
+                            <h:selectBooleanCheckbox value="#{model.selectedImage.covering}" style="margin : 0px" />
+                            #{messages['use_this_photo_like_current_album_cover']}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label" />
+                        <td style="vertical-align: top;" colspan="2">
+                            <h:selectBooleanCheckbox value="#{model.selectedImage.allowComments}" style="margin : 0px" />
+                            #{messages['allow_commennts']}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;" />
+                        <td colspan="2" style="padding: 10px; vertical-align: top; text-align: right;">
+                            <richx:commandButton value="#{messages['image.save']}" style="float: left"
+                                actionListener="#{imageManager.editImage(model.selectedImage, false)}" render="mainArea"
+                                execute="@region" />
+                            <richx:commandButton value="#{messages['image.cancel']}" immediate="true"
+                                actionListener="#{controller.cancelEditImage(model.selectedImage)}" render="mainArea"
+                                execute="@none" />
+                        </td>
+                    </tr>
+                </table>
+            </rich:graphValidator>
+        </a4j:region>
+    </h:panelGroup>
+    <ui:include src="/includes/image/imageGeneralInfo.xhtml" />
+</ui:composition>

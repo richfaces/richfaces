@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/iteration" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="JPA Data Table" />
+    
+    <!-- content -->
+    <ui:define name="content">
+    
+    <h:form id="form">
+        <rich:dataTable keepSaved="true" id="richTable" var="record" value="#{personBean.dataModel}" rows="20">
+            <ui:include src="jpaColumn.xhtml">
+                <ui:param name="bean" value="#{personBean}" />
+                <ui:param name="property" value="name" />
+            </ui:include>
+            <ui:include src="jpaColumn.xhtml">
+                <ui:param name="bean" value="#{personBean}" />
+                <ui:param name="property" value="surname" />
+            </ui:include>
+            <ui:include src="jpaColumn.xhtml">
+                <ui:param name="bean" value="#{personBean}" />
+                <ui:param name="property" value="email" />
+            </ui:include>
+
+            <f:facet name="footer">
+                <rich:dataScroller id="scroller" />
+            </f:facet>
+        </rich:dataTable>
+    </h:form>
+
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:demo="http://java.sun.com/jsf/composite/demo">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Action Listener" />
+    <!-- content -->
+    <ui:define name="content">
+        <h:form id="form">
+            <h:messages id="messages" />
+
+            <h:panelGrid columns="1">
+                <h:commandButton value="Invoke listener method">
+                    <a4j:actionListener listener="#{actionListenerBean.handleActionMethod}" />
+                    <f:ajax render="messages" />
+                </h:commandButton>
+
+                <h:commandButton value="Invoke listener by type">
+                    <a4j:actionListener type="org.richfaces.demo.ActionListenerBean$ActionListenerImpl" />
+                    <f:ajax render="messages" />
+                </h:commandButton>
+
+                <h:commandButton value="Invoke listener by binding">
+                    <a4j:actionListener binding="#{actionListenerBean.actionListener}" />
+                    <f:ajax render="messages" />
+                </h:commandButton>
+
+                <!-- This is broken, see: https://issues.jboss.org/browse/RF-11922 -->
+                <ui:remove>
+                <demo:actionComposite render=":form:messages" value="Invoke listener method in composite component">
+                    <a4j:actionListener for="button" listener="#{actionListenerBean.handleActionMethodComposite}" />
+                </demo:actionComposite>
+                </ui:remove>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

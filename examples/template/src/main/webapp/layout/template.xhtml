@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+<f:view contentType="text/html">
+    <h:head>
+        <title>#{title}</title>
+        <ui:insert name="head" />
+    </h:head>
+    <h:body>
+        <h:outputStylesheet name="reset-fonts-grids.css" library="org.richfaces.template" />
+        <div id="doc3" class="yui-t2">
+            <div id="hd">
+                <ui:insert name="header">
+                    <h1>#{title}</h1>
+                </ui:insert>
+            </div>
+            <div id="bd">
+                <div id="yui-main">
+                    <div class="yui-b">
+                        <div class="yui-g">
+                            <!-- YOUR DATA GOES HERE -->
+                            <ui:insert name="content" />
+                        </div>
+                    </div>
+                </div>
+                <div class="yui-b">
+                    <!-- YOUR NAVIGATION GOES HERE -->
+                    <ui:include src="/layout/pagesList.xhtml" />
+                </div>
+            </div>
+        </div>
+    </h:body>
+</f:view>
+</html>

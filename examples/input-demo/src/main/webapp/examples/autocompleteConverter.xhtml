@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:input="http://richfaces.org/input">
+
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Autocomplete Converter" />
+
+
+    <ui:define name="content">
+        <h:form>
+            <h:outputLabel for="autocompleteConverter">Autocomplete with converter:</h:outputLabel>
+            <input:autocomplete autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
+                                fetchValue="#{country.name}" mode="ajax" layout="list"
+                                converter="autocompleteBeanConverter"
+                                value="#{autoCompleteBean.value}" id="autocompleteConverter">
+                #{country.name}
+            </input:autocomplete>
+            <h:commandButton value="Submit Country"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+</html>

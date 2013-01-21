@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/misc" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Functions" />
+    <!-- content -->
+    <ui:define name="content">
+    
+        <h:form>
+            <h:outputLabel value="Role name:" for="roleName" />
+            <h:inputText value="#{userBean.rolename}" id="roleName" />
+            <br />
+            <h:commandLink value="Apply role name" />
+        </h:form>
+
+        <f:subview id="view">
+            <h:form id="myForm">
+                <h:inputText id="input" value="abc" />
+            </h:form>
+        </f:subview>
+
+        <h:outputText value="#{rich:clientId('input')}" />
+        <br />
+        <h:outputText value="#{rich:element('input')}" />
+        <br />
+        <h:outputText value="#{rich:component('input')}" />
+        <br />
+        <h:outputText value="#{rich:findComponent('input').value}" />
+        <br />
+        <h:outputText value="#{rich:toScript('input')}" />
+        <br />
+
+        Roles:
+        <h:outputText rendered="#{rich:isUserInRole('admin, user')}" value="admin or user" />
+        <br />
+        <h:outputText rendered="#{rich:isUserInRole('admin')}" value="admin" />
+        <br />
+        <h:outputText rendered="#{rich:isUserInRole('user')}" value="user" />
+        <br />
+        
+    </ui:define>
+</ui:composition>
+</html>

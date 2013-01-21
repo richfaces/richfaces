@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:rich="http://richfaces.org/output">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Toggle Panel - Client" />
+    <!-- content -->
+    <ui:define name="content">
+        <h:form id="f">
+            <rich:togglePanel id="panel" switchType="client" lang="en">
+                <rich:togglePanelItem name="name1">hello name1</rich:togglePanelItem>
+                <rich:togglePanelItem name="name2">hello name2</rich:togglePanelItem>
+                <rich:togglePanelItem name="name3">hello name3</rich:togglePanelItem>
+            </rich:togglePanel>
+
+            <h:outputLink>
+                <rich:toggleControl targetPanel="panel" targetItem="name1" event="click" />
+                name1
+            </h:outputLink>
+            |
+            <h:outputLink>
+                    <rich:toggleControl targetPanel="panel" targetItem="name2" event="click" />
+                name2
+            </h:outputLink>
+            |
+            <h:outputLink>
+                    <rich:toggleControl targetPanel="panel" targetItem="name3" event="click" />
+                name3
+            </h:outputLink>
+    
+                <br />
+                <h:outputLink>
+                    <rich:toggleControl targetPanel="panel" targetItem="@first" event="click" />
+                |&lt; first
+            </h:outputLink>
+            |
+            <h:outputLink>
+                    <rich:toggleControl targetPanel="panel" targetItem="@prev" event="click" />
+                &lt;- prev
+            </h:outputLink>
+            |
+            <h:outputLink>
+                    <rich:toggleControl targetPanel="panel" targetItem="@next" event="click" />
+                next ->
+            </h:outputLink>
+            |
+            <h:outputLink>
+                    <rich:toggleControl targetPanel="panel" targetItem="@last" event="click" />
+                last >|
+            </h:outputLink>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>
+

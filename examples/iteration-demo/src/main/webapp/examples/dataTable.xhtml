@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/iteration" xmlns:misc="http://richfaces.org/misc" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Data Table" />
+    <!-- content -->
+    <ui:define name="content">
+        <h:form id="form1">
+            <rich:dataScroller id="scroller1" for="richTable" page="#{dataBean.page}" maxPages="7"></rich:dataScroller>
+    
+            <rich:dataTable keepSaved="true" id="richTable" var="record" rowKeyVar="rowKey" value="#{dataBean.employeeList}" rows="20"
+                sortMode="single" rowClass='#{record}' cellClass="cellClQwerty" firstRowClass="firstRowClass123">
+                <f:facet name="caption">
+                    <h:outputText id="captioFacet1" value="Caption Facet" />
+                </f:facet>
+    
+                <f:facet name="header">
+                    <h:outputText value="header" />
+                </f:facet>
+    
+                <rich:column id="column_name" sortBy="#{record.name}" sortIconAsc="resources/images/asc.gif"
+                    sortIconDesc="resources/images/desc.gif" sortIconUnsort="resources/images/unsort.gif">
+                    <f:facet name="header">
+                        <h:outputText id="columnHeader1" value="Column Header Facet" />
+                    </f:facet>
+    
+                    <rich:collapsibleSubTableToggler for="collapsibleSubTable">
+                    </rich:collapsibleSubTableToggler>
+    
+                    <h:outputText value="#{record.name}" />
+                    <f:facet name="footer">
+                        <h:outputText id="columnFooter1" value="Column Footer Facet 1" />
+                    </f:facet>
+                </rich:column>
+    
+                <rich:column id="column_title" sortBy="#{record.title}" sortIconAsc="resources/images/asc.gif"
+                    sortIconDesc="resources/images/desc.gif" sortIconUnsort="resources/images/unsort.gif">
+                    <f:facet name="header">
+                        <h:outputText id="columnHeader2" value="Column Header Facet 2" />
+                    </f:facet>
+                    <h:outputText value="#{record.title}" />
+                </rich:column>
+    
+                <rich:column id="column_email">
+                    <h:outputText value="#{record.EMail}" />
+                </rich:column>
+    
+                <rich:collapsibleSubTable id="collapsibleSubTable" var="company" value="#{record.companies}" rows="1"
+                    switchType="ajax" expanded="true" rowClass="#{company}">
+                    <f:facet name="header">
+                        <rich:dataScroller id="subscroller" for="collapsibleSubTable" maxPages="3"></rich:dataScroller>
+                    </f:facet>
+    
+                    <f:facet name="footer">
+                        <h:outputText value="footer" />
+                    </f:facet>
+    
+                    <rich:column id="column_company_name">
+                        <h:outputText value="#{company.name}" />
+                    </rich:column>
+    
+                    <rich:column id="column_company_state">
+                        <h:outputText value="#{company.state}" />
+                    </rich:column>
+    
+                    <rich:column id="column_company_phone">
+                        <h:outputText value="#{company.phone}" />
+                    </rich:column>
+                </rich:collapsibleSubTable>
+    
+                <f:facet name="footer">
+                    <rich:dataScroller id="scroller3" for="richTable" page="#{dataBean.page}" maxPages="7"></rich:dataScroller>
+                </f:facet>
+    
+            </rich:dataTable>
+    
+            <br />
+    
+            <!-- cc:componentControl event="click" target="#{dataBean.target}" operation="#{dataBean.operation}">
+                          <f:param name="event" value="event"/>
+                          <cc:hashParam>
+                              <f:param name="key1" value="value1"/>
+                              <f:param name="key2" value="value2"/>
+                              <f:param name="key3" value="value3"/>
+                              <cc:hashParam name="nested1">
+                                  <f:param name="key11" value="value11"/>
+                              </cc:hashParam>
+                          </cc:hashParam>
+                          <cc:hashParameter name="hashkey1">
+                              <f:param name="keyhash1" value="value1"/>
+                              <f:param name="keyhash2" value="value2"/>
+                          </cc:hashParameter>
+                          <h:commandButton value="richfaces1"/>
+                          <h:commandButton value="richfaces2"/>
+                      </cc:componentControl -->
+    
+            <h:commandButton value="next">
+                <misc:componentControl event="click" target="form1:scroller1" operation="switchToPage">
+                    <f:param value="fastforward" />
+                </misc:componentControl>
+            </h:commandButton>
+    
+            <h:commandButton value="previous">
+                <misc:componentControl event="click" target="form1:scroller1" operation="previous" />
+            </h:commandButton>
+    
+            <h:commandButton value="sort">
+                <misc:componentControl event="click" target="form1:richTable" operation="sort">
+                    <f:param value="column_title" />
+                </misc:componentControl>
+            </h:commandButton>
+    
+            <h:commandButton value="unsort">
+                <misc:componentControl event="click" target="form1:richTable" operation="sort">
+                </misc:componentControl>
+            </h:commandButton>
+    
+        </h:form>
+        <br />
+        <h:form id="renderIfSinglePage_form">
+            <h:outputText value="DataScroller: attribute 'renderIfSinglePage' with empty table" />
+            <br />
+            <rich:dataScroller id="scroller2" for="richTable2" page="#{dataBean.page}"
+                renderIfSinglePage="#{dataBean.renderIfSinglePage}" />
+            <rich:dataTable id="richTable2" />
+            <h:selectOneRadio layout="pagedirection" value="#{dataBean.renderIfSinglePage}">
+                <f:selectItem itemValue="true" itemLabel="Set renderIfSinglePage 'true'" />
+                <f:selectItem itemValue="false" itemLabel="Set renderIfSinglePage 'false'" />
+                <a4j:ajax render="renderIfSinglePage_form" />
+            </h:selectOneRadio>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

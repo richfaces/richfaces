@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:rich="http://richfaces.org/output">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Accordion" />
+    <!-- content -->
+    <ui:define name="content">
+        <p>Page</p>
+
+        <h:form id="f" style="border:blue solid thin;">
+            <h:panelGroup>
+                <rich:accordion width="500px" height="300px" itemChangeListener="#{togglePanelBean.itemChangeActionListener}"
+                    switchType="ajax" itemActiveRightIcon="triangleDown" itemInactiveRightIcon="triangleUp"
+                    itemDisabledRightIcon="disc" itemDisabledLeftIcon="disc" itemActiveHeaderClass="ac-active-header">
+                    <rich:accordionItem header="label 1">Content will be here. Content will be here. Content will be here. Content
+                    will be here. Content will be here. Content will be here. Content will be here. Content will be here.
+                    Content will be here. Content will be here. Content will be here. Content will be here. Content will be
+                    here. Content will be here. Content will be here. Content will be here. Content will be here. Content
+                    will be here. Content will be here. Content will be here. Content will be here. Content will be here.
+                    Content will be here. Content will be here. Content will be here. Content will be here. Content will be
+                    here. Content will be here. Content will be here. Content will be here. Content will be here. Content
+                    will be here. Content will be here. Content will be here.
+                </rich:accordionItem>
+                    <rich:accordionItem header="label 2">content 2</rich:accordionItem>
+                    <rich:accordionItem header="label 3" onenter="alert('hello, world!')">content 3</rich:accordionItem>
+                    <rich:accordionItem header="label 4" disabled="true">content 4</rich:accordionItem>
+                </rich:accordion>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>
+

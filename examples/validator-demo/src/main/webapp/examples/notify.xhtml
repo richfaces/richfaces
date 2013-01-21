@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:csv="http://richfaces.org/csv">
+
+<body>
+    <ui:composition template="/layout/template.xhtml">
+        <ui:param name="title" value="Notify Example" />
+        <ui:define name="header">Notify Example</ui:define>
+        <ui:define name="content">
+            <p>Here we have notify displaying all messages (not only global). Severity is reflected in overriden style
+                classes.</p>
+            <h:form>
+                
+                <csv:notify stayTime="5000" summary="Default stack" detail="Details of the message"
+                    nonblockingOpacity="0" />
+
+                <csv:notify summary="Before stack definition" detail="This message is defined in code before stack" 
+                    stack="bottomLeftStack"/>
+                <csv:notify summary="Left bottom stack 2" detail="This message alos should be displayed in the left bottom corner"
+                    showCloseButton="true" stack="bottomLeftStack" />
+                <csv:notifyStack id="bottomLeftStack" position="bottomLeft">
+                    <csv:notify sticky="true" summary="Left bottom stack"
+                        detail="This message should be displayed in the left bottom corner
+                                       and should stay until you close it"
+                        showCloseButton="true" />
+                    <csv:notify summary="Nonblocking" nonblocking="true" />
+                </csv:notifyStack>
+                <csv:notifyMessages interval="1000" stack="bottomRightStack" ajaxRendered="true" />
+                <csv:notifyStack id="bottomRightStack" position="bottomRight" direction="horizontal" />
+                
+                Leave this blank for error:
+                <br />
+                <h:outputLabel for="greeting" value="Greeting" />
+                <h:inputText id="greeting" value="#{notifyBean.greeting}" required="true" />
+                *
+                <h:message for="greeting" />
+                <br />
+                <h:outputLabel for="number" value="Number" />
+                <h:inputText id="number" required="true">
+                    <f:validateLongRange minimum="5" maximum="10" />
+                </h:inputText>
+                *
+                <h:message for="number" />
+                <br />
+                <a4j:commandButton value="Say Hello" action="#{notifyBean.sayHello}" execute="@form" />
+                <a4j:commandButton value="Warn me" action="#{notifyBean.warnMe}" execute="@form" />
+                <a4j:commandButton value="Say error" action="#{notifyBean.sayError}" execute="@form" />
+                <a4j:commandButton value="Say fatal" action="#{notifyBean.sayFatal}" execute="@form" />
+            </h:form>
+            <!--
+            TODO uncomment this once csv:insert is available
+            <csv:insert src="/notify.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>
+            -->
+        </ui:define>
+    </ui:composition>
+</body>
+</html>

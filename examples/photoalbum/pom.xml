@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-root-parent</artifactId>
+        <version>4.3.0-SNAPSHOT</version>
+        <relativePath>../../build/parent/pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.richfaces.examples</groupId>
+    <artifactId>richfaces-photoalbum</artifactId>
+    <name>RichFaces Photoalbum</name>
+    <packaging>war</packaging>
+
+    <properties>
+        <version.richfaces>${project.version}</version.richfaces>
+        <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${version.richfaces}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <dependencies>
+
+        <!-- Java EE deps -->
+        <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-web-6.0</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.richfaces.core</groupId>
+            <artifactId>richfaces-core-impl</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-ui</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.5.6-Final</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-impl</artifactId>
+            <version>3.1.1.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.drewnoakes</groupId>
+            <artifactId>metadata-extractor</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+
+        <profile>
+            <id>release</id>
+            <properties>
+                <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>arquillian-jbossas-managed</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.spec</groupId>
+                    <artifactId>jboss-javaee-web-6.0</artifactId>
+                    <version>3.0.0.Final</version>
+                    <type>pom</type>
+                    <scope>provided</scope>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>xalan</groupId>
+                            <artifactId>xalan</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+            <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                    </testResource>
+                </testResources>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.12</version>
+                        <configuration>
+                            <skipTests>false</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+
+        <!-- Maven will append the version to the finalName (which is the 
+            name given to the generated war, and hence the context root) -->
+        <finalName>${project.artifactId}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/images/short</directory>
+            </resource>
+            <resource>
+                <directory>environment/dev</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!-- skip tests by default -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <!-- Compiler plugin enforces Java 1.6 compatibility and activates 
+                annotation processors -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <!-- Java EE 6 doesn't require web.xml, Maven needs to 
+                        catch up! -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <archive>
+                        <manifestEntries>
+                            <Dependencies>com.google.guava,org.slf4j</Dependencies>
+                        </manifestEntries>
+                    </archive>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/webapp</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+            
+            <!-- The JBoss AS plugin deploys your war to a local JBoss AS 
+                container -->
+            <!-- To use, run: mvn package jboss-as:deploy -->
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>maven-richfaces-resources-plugin</artifactId>
+                <configuration>
+                    <skins>
+                        <skin>photoalbum</skin>
+                    </skins>
+                    <excludedFiles>
+                        <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+                        <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                    </excludedFiles>
+                    <includedContentTypes>
+                        <include>text/css</include>
+                        <include>image/.+</include>
+                    </includedContentTypes>
+                    <fileNameMappings>
+                        <property>
+                            <name>^.*showcase.*/([^/]+\.css)$</name>
+                            <value>org.richfaces.showcase.css/$1</value>
+                        </property>
+                        <property>
+                            <name>^.+/([^/]+\.(png|gif|jpg))$</name>
+                            <value>org.richfaces.images/$1</value>
+                        </property>
+                        <property>
+                            <name>^.+/([^/]+\.css)$</name>
+                            <value>org.richfaces.css/$1</value>
+                        </property>
+                    </fileNameMappings>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>process-resources</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+
+                            <!-- default RichFaces mapping file, can be anywhere 
+                                on the classpath, but then you will will need to configure Resource Mapping 
+                                configuration file location in web.xml, refer to RichFaces Developer Guide -->
+                            <staticResourceMappingFile>${project.build.outputDirectory}/META-INF/richfaces/photoalbum-packedcompressed-resource-mappings.properties</staticResourceMappingFile>
+
+                            <!-- resources will be placed in JAR/META-INF/resources/com.acme.staticResources/ 
+                                or WAR/WEB-INF/classes/META-INF/resources/com.acme.staticResources/ depending 
+                                on packaging of this project -->
+                            <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/org.richfaces.staticResource/${version.richfaces}/PackedCompressed/</resourcesOutputDir>
+
+                            <!-- resources will be located under JSF_RESOURCE_ROOT/com.acme.staticResources 
+                                (e.g. JAR/META-INF/com.acme.staticResources) -->
+                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/PackedCompressed</staticResourcePrefix>
+
+                            <!-- resources will be packaged, refer to RichFaces 
+                                Developer Guide -->
+                            <pack>true</pack>
+
+                            <!-- resources will be compressed, refer to RichFaces 
+                                Developer Guide -->
+                            <compress>true</compress>
+
+                            <excludedFiles>
+                                <exclude>^javax.faces</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                                <exclude>^jquery\.js$</exclude>
+                            </excludedFiles>
+
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>process-resources-packed</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+
+                            <!-- default RichFaces mapping file, can be anywhere 
+                                on the classpath, but then you will will need to configure Resource Mapping 
+                                configuration file location in web.xml, refer to RichFaces Developer Guide -->
+                            <staticResourceMappingFile>${project.build.outputDirectory}/META-INF/richfaces/photoalbum-packed-resource-mappings.properties</staticResourceMappingFile>
+
+                            <!-- resources will be placed in JAR/META-INF/resources/com.acme.staticResources/ 
+                                or WAR/WEB-INF/classes/META-INF/resources/com.acme.staticResources/ depending 
+                                on packaging of this project -->
+                            <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/org.richfaces.staticResource/${version.richfaces}/Packed/</resourcesOutputDir>
+
+                            <!-- resources will be located under JSF_RESOURCE_ROOT/com.acme.staticResources 
+                                (e.g. JAR/META-INF/com.acme.staticResources) -->
+                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/Packed</staticResourcePrefix>
+
+                            <!-- resources will be packaged, refer to RichFaces 
+                                Developer Guide -->
+                            <pack>true</pack>
+
+                            <!-- resources will be compressed, refer to RichFaces 
+                                Developer Guide -->
+                            <compress>false</compress>
+
+                            <excludedFiles>
+                                <exclude>^javax.faces</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                                <exclude>^jquery\.js$</exclude>
+                            </excludedFiles>
+
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

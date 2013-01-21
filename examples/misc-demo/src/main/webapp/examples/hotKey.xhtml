@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/misc" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Hot Key" />
+    <!-- content -->
+    <ui:define name="content">
+
+        <!-- Switches hotKeys between rendered and not rendered state (testring destructor) -->
+        <h:form>
+            Active:
+            <h:selectBooleanCheckbox id="panelRendered" value="#{requestScope.panelRendered}">
+                <a4j:ajax event="click" render="panel" />
+            </h:selectBooleanCheckbox>
+            <script>
+                $(#{rich:element('panelRendered')}).attr('checked', true);
+            </script>
+        </h:form>
+
+        <a4j:outputPanel id="panel">
+            <a4j:outputPanel>
+                <b>Note</b> key actions can be seen in document title and in JS console log.<br />
+                
+                <p>CTRL A(on document) works in both cases if input focused or not (and it has attached ajax behavior)</p>
+                <rich:hotKey key="CTRL+a" onkeydown="myCallback(event, 'CTRL+a');" enabledInInput="true"
+                    rendered="#{requestScope.panelRendered || !facesContext.postback}">
+                    <!-- <a4j:ajax />  -->
+                </rich:hotKey>
+
+                <p>CTRL B(on document) works only if inputs not focused</p>
+                <rich:hotKey key="CTRL+b" onkeydown="myCallback(event, 'CTRL+b');"
+                    rendered="#{requestScope.panelRendered || !facesContext.postback}" />
+
+                <p>CTRL X works only if second input focused(class selector used)</p>
+                <rich:hotKey key="CTRL+x" selector=".second" onkeydown="myCallback(event, 'CTRL+x in second');" enabledInInput="true"
+                    rendered="#{requestScope.panelRendered || !facesContext.postback}" />
+
+
+                <p>CTRL X works only if third input focused (componentId selector used)</p>
+                <rich:hotKey key="CTRL+x" selector="#thirdInput" onkeydown="myCallback(event, 'CTRL+x in third input');"
+                    enabledInInput="true" rendered="#{requestScope.panelRendered || !facesContext.postback}" />
+                <br />
+                <rich:hotKey key="CTRL+z" selector="#thirdInput" onkeydown="myCallback(event, 'CTRL+z in third input');"
+                    enabledInInput="true" rendered="#{requestScope.panelRendered || !facesContext.postback}" />
+
+            </a4j:outputPanel>
+        </a4j:outputPanel>
+
+        <h:inputText value="just input" />
+
+        <h:inputText value="CTRL X within that input" styleClass="second" />
+
+        <h:form id="anotherForm">
+            <h:inputText id="thirdInput" value="CTRL X or CTRL Z within that input" />
+        </h:form>
+        
+    </ui:define>
+</ui:composition>
+</html>

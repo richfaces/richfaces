@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:rich="http://richfaces.org/output">
+<ui:composition template="/layout/template.xhtml">
+    <ui:param name="title" value="Collapsible Panel" />
+    <!-- content -->
+    <ui:define name="content">
+        <p>Page</p>
+
+        <h:form id="f">
+            <rich:collapsiblePanel id="panel1" expanded="false" switchType="server">
+                <f:facet name="headerExpanded">
+                header exanded
+            </f:facet>
+                <f:facet name="headerCollapsed">
+                header collapsed
+            </f:facet>
+
+            Hello Server!!!
+
+        </rich:collapsiblePanel>
+
+            <rich:collapsiblePanel id="panel2" expanded="false" switchType="ajax" toggleListener="#{collapsiblePanel.action}">
+                <f:facet name="headerExpanded">
+                header expanded
+            </f:facet>
+                <f:facet name="headerCollapsed">
+                header collapsed
+            </f:facet>
+
+            Hello Ajax!!!
+
+        </rich:collapsiblePanel>
+
+            <rich:collapsiblePanel id="panel3" expanded="false" switchType="client">
+                <f:facet name="headerExpanded">
+                header expanded
+            </f:facet>
+                <f:facet name="headerCollapsed">
+                header collapsed
+            </f:facet>
+
+            Hello client!!!
+
+        </rich:collapsiblePanel>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:input="http://richfaces.org/input" xmlns:a4j="http://richfaces.org/a4j">
+
+<f:view contentType="text/html" />
+
+<h:head>
+    <title>Richfaces Autocomplete</title>
+</h:head>
+
+<h:body style="margin: 30px;">
+
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="scripts">
+            <h:outputScript name="qunit/qunit.js" />
+            <h:outputScript name="qunit/richfaces-qunit.js" />
+
+            <h:outputStylesheet name="qunit/qunit.css" />
+        </ui:define>
+
+        <ui:define name="title">Autocomplete qunit tests</ui:define>
+        <ui:define name="body_head">Autocomplete qunit tests</ui:define>
+
+        <ui:define name="body">
+            <p>Page</p>
+
+            <h:form id="form">
+                <input:autocomplete id="autocompleteDefault" value="a" fetchValue="#{country.name}"
+                    autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
+                    onchange="return onEvent.call(this, event);" onselectitem="return onEvent.call(this, event);"
+                    onblur="return onEvent.call(this, event);" onfocus="return onEvent.call(this, event);">
+                    #{country.name} #{country.iso} #{country.domain}
+                </input:autocomplete>
+                <br />
+                <input:autocomplete id="autocompleteDefault2" fetchValue="#{country.name}"
+                    autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
+                    onselectitem="return onEvent.call(this, event);" showButton="true" mode="client">
+                    #{country.name} #{country.iso} #{country.domain}
+                </input:autocomplete>
+                <br />
+                <input:autocomplete id="autocompleteClientMode" mode="client" fetchValue="#{country.name}"
+                    autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
+                    #{country.name} #{country.iso} #{country.domain}
+                </input:autocomplete>
+                <br />
+                <input:autocomplete id="autocompleteLazyClientMode" mode="lazyClient" fetchValue="#{country.name}"
+                    autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
+                    #{country.name} #{country.iso} #{country.domain}
+                </input:autocomplete>
+                <br />
+                <input:autocomplete id="autocompleteAjaxMode" mode="ajax" fetchValue="#{country.name}"
+                    autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
+                    #{country.name} #{country.iso} #{country.domain}
+                </input:autocomplete>
+                <br />
+                <input:autocomplete id="autocompleteCachedAjaxMode" mode="cachedAjax" fetchValue="#{country.name}"
+                    autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
+                    #{country.name} #{country.iso} #{country.domain}
+                </input:autocomplete>
+            </h:form>
+
+            <p>Result</p>
+
+            <div>
+                <ol id="qunit-tests"></ol>
+            </div>
+            <h:outputScript name="tests/autocomplete-qunit.js" />
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
+

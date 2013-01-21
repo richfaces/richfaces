@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:pn="http://richfaces.org/pn">
+
+<body>
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="scripts">
+            <h:outputScript name="qunit/qunit.js" />
+            <h:outputScript name="qunit/richfaces-qunit.js" />
+
+            <h:outputStylesheet name="qunit/qunit.css" />
+        </ui:define>
+
+        <ui:define name="title">Collapsible Panel QUnit</ui:define>
+        <ui:define name="body_head">Collapsible Panel QUnit</ui:define>
+
+        <ui:define name="body">
+            <p>Page</p>
+
+            <h:form id="f">
+                <pn:collapsiblePanel id="panel" switchType="client">
+                    <f:facet name="headerExpanded">
+                    header exanded
+                </f:facet>
+                    <f:facet name="headerCollapsed">
+                    header collapsed
+                </f:facet>
+
+                Hello!!!
+
+            </pn:collapsiblePanel>
+
+            </h:form>
+
+            <p>Result</p>
+
+            <div>
+                <ol id="qunit-tests"></ol>
+
+                <div id="testDiv" style="margin-top: 10px; border: 1px solid #a0a0a0">Main Test Div</div>
+
+            </div>
+            <h:outputScript name="tests/richfaces-collapsible-panel-qunit.js" />
+        </ui:define>
+    </ui:composition>
+</body>
+</html>
+
