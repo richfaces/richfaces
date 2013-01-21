@@ -44,6 +44,7 @@ public class DropDownMenuRendererTest extends RendererTestBase {
         environment.withWebRoot(new File(this.getClass().getResource(".").toURI()));
         environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/component/faces-config.xml");
         environment.start();
+        environment.getWebClient().setJavaScriptEnabled(true);
     }
 
     @Test

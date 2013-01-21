@@ -58,6 +58,8 @@ public class ExtendedDataTableRendererTest {
         environment = new HtmlUnitEnvironment();
         environment.withWebRoot(new File("src/test/resources"));
         environment.start();
+        
+        environment.getWebClient().setJavaScriptEnabled(false);
     }
 
     @After
