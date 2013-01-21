@@ -11,16 +11,16 @@
         <h:form id="form">
             <h:messages />
     
-            <a4j:repeat id="outer" value="#{rf10859.listDataItems}" var="item">
-                <a4j:repeat id="inner" value="#{item.list}" var="inner">
+            <r:repeat id="outer" value="#{rf10859.listDataItems}" var="item">
+                <r:repeat id="inner" value="#{item.list}" var="inner">
                     <h:inputText id="input" value="#{inner.status}" />
-                </a4j:repeat>
+                </r:repeat>
                 <br />
-            </a4j:repeat>
+            </r:repeat>
     
             <h:commandLink id="regular" value="Regular submit" />
             <br />
-            <a4j:commandLink id="ajax" value="Ajax submit" render="form" />
+            <r:commandLink id="ajax" value="Ajax submit" render="form" />
     
         </h:form>
     

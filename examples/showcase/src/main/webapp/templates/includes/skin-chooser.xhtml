@@ -4,13 +4,13 @@
 
 <ui:composition>
     <ul id="skin-menu" class="layout">
-        <a4j:repeat var="skin" value="#{skinBean.skins}" iterationStatusVar="iterStatus">
+        <r:repeat var="skin" value="#{skinBean.skins}" iterationStatusVar="iterStatus">
             <li class="#{(skin==skinBean.skin) ? 'current-skin' : ''}"><h:link includeViewParams="true">
-                    <a4j:outputPanel>#{skin}</a4j:outputPanel>
+                    <r:outputPanel>#{skin}</r:outputPanel>
                     <f:param name="skin" value="#{skin}" />
                 </h:link>
             </li>
-        </a4j:repeat>
+        </r:repeat>
         <li class="label"><span>Select Skin:</span></li>
     </ul>
 </ui:composition>

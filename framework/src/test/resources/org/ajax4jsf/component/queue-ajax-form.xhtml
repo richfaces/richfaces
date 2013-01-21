@@ -9,31 +9,31 @@
         window.testResults = {};
     </script>
 
-        <a4j:status startText="...running..." startStyle="color: green" />
+        <r:status startText="...running..." startStyle="color: green" />
 
-        <a4j:queue oncomplete="window.testResults.viewDefault = true" />
+        <r:queue oncomplete="window.testResults.viewDefault = true" />
 
-        <a4j:form ajaxSubmit="true" id="viewDefault">
+        <r:form ajaxSubmit="true" id="viewDefault">
             <h:commandButton value="view default queue" id="link" />
-        </a4j:form>
+        </r:form>
 
-        <a4j:queue oncomplete="window.testResults.viewNamed = true" name="viewNamed" />
+        <r:queue oncomplete="window.testResults.viewNamed = true" name="viewNamed" />
 
-        <a4j:form ajaxSubmit="true" eventsQueue="viewNamed" id="viewNamed">
+        <r:form ajaxSubmit="true" eventsQueue="viewNamed" id="viewNamed">
             <h:commandButton value="view named queue" id="link" />
-        </a4j:form>
+        </r:form>
 
-        <a4j:form ajaxSubmit="true" id="formDefault">
-            <a4j:queue oncomplete="window.testResults.formDefault = true" />
+        <r:form ajaxSubmit="true" id="formDefault">
+            <r:queue oncomplete="window.testResults.formDefault = true" />
 
             <h:commandButton value="form default queue" id="link" />
-        </a4j:form>
+        </r:form>
 
-        <a4j:form ajaxSubmit="true" eventsQueue="formQueue" id="formNamed">
-            <a4j:queue oncomplete="window.testResults.formNamed = true" name="formQueue" />
+        <r:form ajaxSubmit="true" eventsQueue="formQueue" id="formNamed">
+            <r:queue oncomplete="window.testResults.formNamed = true" name="formQueue" />
 
             <h:commandButton value="form named queue" id="link" />
-        </a4j:form>
+        </r:form>
     </f:view>
 </body>
 </html>

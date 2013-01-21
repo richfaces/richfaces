@@ -12,36 +12,36 @@
 
             <h:form>
                 <h:selectBooleanCheckbox value="#{sessionScope.showCustomer}">
-                    <a4j:ajax render="panel" />
+                    <r:ajax render="panel" />
                 </h:selectBooleanCheckbox>
             </h:form>
 
-            <a4j:outputPanel id="panel">
+            <r:outputPanel id="panel">
                 <h:outputText value="#{sessionScope.showCustomer}" />
 
                 <h:panelGroup rendered="#{sessionScope.showCustomer}" layout="block">
 
                     <h:form>
-                        <pn:tabPanel id="customerTabPanel" switchType="ajax" headerPosition="top" headerLocation="center">
+                        <r:tabPanel id="customerTabPanel" switchType="ajax" headerPosition="top" headerLocation="center">
 
-                            <pn:tab id="customerList" header="&rsaquo; Search">
-                            </pn:tab>
+                            <r:tab id="customerList" header="&rsaquo; Search">
+                            </r:tab>
 
-                            <pn:tab id="customerDetail" header="&rsaquo; Customer">
-                            </pn:tab>
+                            <r:tab id="customerDetail" header="&rsaquo; Customer">
+                            </r:tab>
 
-                            <pn:tab id="vehicleDetail" header="&rsaquo; Vehicle">
-                            </pn:tab>
+                            <r:tab id="vehicleDetail" header="&rsaquo; Vehicle">
+                            </r:tab>
 
-                            <pn:tab id="subscriptionDetail" header="&rsaquo; Subscription">
-                            </pn:tab>
+                            <r:tab id="subscriptionDetail" header="&rsaquo; Subscription">
+                            </r:tab>
 
-                            <pn:tab id="history" header="&rsaquo; History">
-                            </pn:tab>
-                        </pn:tabPanel>
+                            <r:tab id="history" header="&rsaquo; History">
+                            </r:tab>
+                        </r:tabPanel>
                     </h:form>
                 </h:panelGroup>
-            </a4j:outputPanel>
+            </r:outputPanel>
 
 
         </ui:define>

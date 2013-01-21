@@ -8,12 +8,12 @@
 </h:head>
 <h:body>
     <h:form id="form">
-        <input:autocomplete autofill="false" id="myAutocomplete" mode="#{autoCompleteBean.mode}" minChars="2"
+        <r:autocomplete autofill="false" id="myAutocomplete" mode="#{autoCompleteBean.mode}" minChars="2"
             autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
             value="#{autoCompleteBean.value}" layout="div">
             #{country.name} #{country.iso} #{country.domain}
-            <a4j:ajax event="change" render="output" />
-        </input:autocomplete>
+            <r:ajax event="change" render="output" />
+        </r:autocomplete>
         <br />
         <br />
         Your selection:

@@ -13,14 +13,14 @@
         <h:form id="form">
             <h:inputText id="text" value="#{test.value}">
                 <f:validator validatorId="custom" />
-                <csv:validator event="blur" />
+                <r:validator event="blur" />
             </h:inputText>
             <h:outputText id="out" value="#{test.value}"></h:outputText>
-            <csv:message id="uiMessage" for="text" />
+            <r:message id="uiMessage" for="text" />
             <h:commandButton value="Submit form" />
-            <a4j:commandButton value="AJAX Submit" render="out" />
+            <r:commandButton value="AJAX Submit" render="out" />
         </h:form>
-        <csv:messages />
+        <r:messages />
     </ui:define>
 </ui:composition>
 </html>

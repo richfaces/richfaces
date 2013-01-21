@@ -12,21 +12,21 @@
 
     <ui:define name="content">
         <h:form id="form">
-            <rich:tabPanel id="tabPanel" switchType="ajax">
-                <rich:tab id="manual_1" header="Manual Tab 1">
+            <r:tabPanel id="tabPanel" switchType="ajax">
+                <r:tab id="manual_1" header="Manual Tab 1">
                     Manual Tab 1
-                </rich:tab>
-                <rich:tab id="manual_2" header="Manual Tab 2">
+                </r:tab>
+                <r:tab id="manual_2" header="Manual Tab 2">
                     Manual Tab 2
-                </rich:tab>
+                </r:tab>
 
-                <a4j:repeat value="#{dynamicTabBean.names}" var="name" id="repeat" iterationStatusVar="var">
-                    <rich:tab header="#{name}" id="dynamic">
+                <r:repeat value="#{dynamicTabBean.names}" var="name" id="repeat" iterationStatusVar="var">
+                    <r:tab header="#{name}" id="dynamic">
                         #{name} content: tab#{var.index}
-                    </rich:tab>
-                </a4j:repeat>
+                    </r:tab>
+                </r:repeat>
 
-            </rich:tabPanel>
+            </r:tabPanel>
         </h:form>
     </ui:define>
 </ui:composition>

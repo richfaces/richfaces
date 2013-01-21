@@ -24,15 +24,15 @@
     </h:outputStylesheet>
     <br />
     <h:panelGrid width="100%" columns="2" columnClasses="col1,col2">
-        <a4j:keepAlive beanName="profile" />
-        <rich:panel styleClass="wizard">
+        <r:keepAlive beanName="profile" />
+        <r:panel styleClass="wizard">
             <f:facet name="header">
                 <h:outputText value="Using a4j:include for Wizard-like behaviour" />
             </f:facet>
             <h:form>
-                <a4j:include viewId="/richfaces/include/examples/wstep1.xhtml" />
+                <r:include viewId="/richfaces/include/examples/wstep1.xhtml" />
             </h:form>
-        </rich:panel>
+        </r:panel>
 
     </h:panelGrid>
     <br />

@@ -3,7 +3,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
 
-    <rich:popupPanel id="pp" resizeable="true" header="Popup panel shown using rich:componentControl and rich:hashParam">
+    <r:popupPanel id="pp" resizeable="true" header="Popup panel shown using rich:componentControl and rich:hashParam">
         <f:facet name="controls">
             <h:outputLink value="#" onclick="#{rich:component('pp')}.hide(); return false;">
                 X
@@ -32,20 +32,20 @@
             <p>Notice that the show() api method requires an event parameter to be first according to signature. So we
                 passed it before the hashParam.</p>
         </fieldset>
-    </rich:popupPanel>
+    </r:popupPanel>
 
     <h:commandButton value="Show popup">
-        <rich:componentControl target="pp" operation="show">
-            <a4j:param noEscape="true" value="event" />
-            <rich:hashParam>
+        <r:componentControl target="pp" operation="show">
+            <r:param noEscape="true" value="event" />
+            <r:hashParam>
                 <f:param name="width" value="500" />
                 <f:param name="height" value="300" />
                 <f:param name="minWidth" value="300" />
                 <f:param name="minHeight" value="150" />
-                <a4j:param noEscape="true" name="left" value="(jQuery(window).width()/2)-250" />
-                <a4j:param noEscape="true" name="top" value="(jQuery(window).height()/2)-150" />
-            </rich:hashParam>
-        </rich:componentControl>
+                <r:param noEscape="true" name="left" value="(jQuery(window).width()/2)-250" />
+                <r:param noEscape="true" name="top" value="(jQuery(window).height()/2)-150" />
+            </r:hashParam>
+        </r:componentControl>
     </h:commandButton>
 
 </ui:composition>

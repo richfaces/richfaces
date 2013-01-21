@@ -4,9 +4,9 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:form>
         <h:panelGrid columns="1">
-            <a4j:outputPanel id="panel" layout="block">
-                <a4j:repeat value="#{capitalsBean.capitals}" var="cap" rows="20" id="repeat">
-                    <rich:panel style="float:left; width:200px; padding:5px;">
+            <r:outputPanel id="panel" layout="block">
+                <r:repeat value="#{capitalsBean.capitals}" var="cap" rows="20" id="repeat">
+                    <r:panel style="float:left; width:200px; padding:5px;">
                         <f:facet name="header">
                             <h:panelGroup>
                                 <h:graphicImage value="#{cap.stateFlag}" alt="flag" />
@@ -19,12 +19,12 @@
                             <h:outputText value="State TimeZone" style="font-weight:bold" />
                             <h:outputText value="#{cap.timeZone}" />
                         </h:panelGrid>
-                    </rich:panel>
-                </a4j:repeat>
-            </a4j:outputPanel>
-            <a4j:outputPanel layout="block">
-                <rich:dataScroller for="repeat" render="panel" />
-            </a4j:outputPanel>
+                    </r:panel>
+                </r:repeat>
+            </r:outputPanel>
+            <r:outputPanel layout="block">
+                <r:dataScroller for="repeat" render="panel" />
+            </r:outputPanel>
         </h:panelGrid>
     </h:form>
 </ui:composition>

@@ -11,59 +11,59 @@
             <legend><b>Ajax loading</b></legend>
             <h:outputText value="Turn ajax loading on/off:"/>
             <h:selectBooleanCheckbox valueChangeListener="#{carsBean.switchAjaxLoading}">
-                <a4j:ajax event="click" render="table @this"/>
+                <r:ajax event="click" render="table @this"/>
             </h:selectBooleanCheckbox>
         </fieldset>
         <br/>
-        <rich:extendedDataTable value="#{carsBean.allInventoryItems}"
+        <r:extendedDataTable value="#{carsBean.allInventoryItems}"
                                 var="car" id="table" frozenColumns="2"
                                 style="height:300px; width:500px;" selectionMode="none"
                                 clientRows="#{carsBean.clientRows}">
             <f:facet name="header">
                 <h:outputText value="Cars marketplace"/>
             </f:facet>
-            <rich:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="vendor"/>
                 </f:facet>
                 <h:outputText value="#{car.vendor}"/>
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="Model"/>
                 </f:facet>
                 <h:outputText value="#{car.model}"/>
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="Price"/>
                 </f:facet>
                 <h:outputText value="#{car.price}"/>
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="Mileage"/>
                 </f:facet>
                 <h:outputText value="#{car.mileage}"/>
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="VIN Code"/>
                 </f:facet>
                 <h:outputText value="#{car.vin}"/>
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="Items stock"/>
                 </f:facet>
                 <h:outputText value="#{car.stock}"/>
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="Days Live"/>
                 </f:facet>
                 <h:outputText value="#{car.daysLive}"/>
-            </rich:column>
-        </rich:extendedDataTable>
+            </r:column>
+        </r:extendedDataTable>
     </h:form>
 </ui:composition>

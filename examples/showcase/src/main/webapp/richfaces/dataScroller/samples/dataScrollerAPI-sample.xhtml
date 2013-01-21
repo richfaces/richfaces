@@ -12,13 +12,13 @@
             <h:panelGrid columns="3" id="repeat">
                 <h:graphicImage value="/images/icons/scroller/arr_left.png" onclick="#{rich:component('ds')}.previous()"
                     alt="arr_left" />
-                <a4j:repeat rows="3" value="#{slidesBean.pictures}" var="pic" id="pics">
+                <r:repeat rows="3" value="#{slidesBean.pictures}" var="pic" id="pics">
                     <h:graphicImage value="#{pic.uri}" style="" width="175" alt="uri" />
-                </a4j:repeat>
+                </r:repeat>
                 <h:graphicImage value="/images/icons/scroller/arr_right.png" onclick="#{rich:component('ds')}.next()"
                     alt="arr_right" />
             </h:panelGrid>
-            <rich:dataScroller for="pics" id="ds" render="repeat" stepControls="hide" boundaryControls="hide"
+            <r:dataScroller for="pics" id="ds" render="repeat" stepControls="hide" boundaryControls="hide"
                 fastControls="hide" maxPages="10" />
         </h:panelGrid>
     </h:form>

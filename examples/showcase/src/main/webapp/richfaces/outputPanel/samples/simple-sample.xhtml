@@ -23,41 +23,41 @@
             <code>outputPanel</code> while the component is not rendered.
         </f:verbatim>
 
-        <a4j:outputPanel layout="block">
+        <r:outputPanel layout="block">
 
 
-            <a4j:outputPanel layout="block">
+            <r:outputPanel layout="block">
                 <h:form>
                     <h:message for="text1" style="color:red" />
 
                     <h:outputText style="font-weight: bold;" value="Enter Text: " />
                     <h:inputText id="text1" label="text1" value="#{opBean1.text}">
                         <f:validateLength maximum="10" />
-                        <a4j:ajax event="keyup" execute="@this" render="out1" onerror="return false;" />
+                        <r:ajax event="keyup" execute="@this" render="out1" onerror="return false;" />
                     </h:inputText>
 
                     <h:outputText id="out1" rendered="#{not empty opBean1.text}" value="Approved Text: #{opBean1.text}" />
                 </h:form>
-            </a4j:outputPanel>
+            </r:outputPanel>
 
-        </a4j:outputPanel>
+        </r:outputPanel>
 
-        <a4j:outputPanel layout="block">
+        <r:outputPanel layout="block">
             <h:form>
-                <a4j:outputPanel layout="block" ajaxRendered="true">
+                <r:outputPanel layout="block" ajaxRendered="true">
                     <h:message for="text2" style="color:red" />
-                </a4j:outputPanel>
+                </r:outputPanel>
 
                 <h:outputText style="font-weight: bold;" value="Enter Text: " />
                 <h:inputText id="text2" label="text2" value="#{opBean2.text}">
                     <f:validateLength maximum="10" />
-                    <a4j:ajax event="keyup" execute="@this" render="out2" />
+                    <r:ajax event="keyup" execute="@this" render="out2" />
                 </h:inputText>
 
-                <a4j:outputPanel id="out2" layout="block">
+                <r:outputPanel id="out2" layout="block">
                     <h:outputText rendered="#{not empty opBean2.text}" value="Approved Text: #{opBean2.text}" />
-                </a4j:outputPanel>
+                </r:outputPanel>
             </h:form>
-        </a4j:outputPanel>
+        </r:outputPanel>
     </h:panelGrid>
 </ui:composition>

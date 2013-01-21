@@ -8,21 +8,21 @@
     <!-- content -->
     <ui:define name="content">
     
-    <rich:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" filterValue="#{bean.filterValues[property]}"
+    <r:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" filterValue="#{bean.filterValues[property]}"
         filterExpression="#{property}">
         <f:facet name="header">
             <h:commandLink style="color: white;" action="#{bean.switchSortOrder(property)}">
                 #{bean.getSortOrder(property)}
-                <a4j:ajax render="richTable" />
+                <r:ajax render="richTable" />
             </h:commandLink>
             <br />
             <h:inputText value="#{bean.filterValues[property]}">
-                <a4j:ajax render="richTable@body scroller" event="keyup" />
+                <r:ajax render="richTable@body scroller" event="keyup" />
             </h:inputText>
         </f:facet>
 
         <h:outputText value="#{record[property]}" />
-    </rich:column>
+    </r:column>
     
     </ui:define>
 </ui:composition>

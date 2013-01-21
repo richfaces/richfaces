@@ -18,8 +18,8 @@
                             <h:outputText value="JSF Data Table" />
                         </f:facet>
                         <h:panelGroup columns="1" rendered="#{item == 'row 1'}">
-                            <pn:accordion width="500px" height="300px" switchType="server">
-                                <pn:accordionItem header="label 1">Content will be here. Content will be here. Content will be here. Content will
+                            <r:accordion width="500px" height="300px" switchType="server">
+                                <r:accordionItem header="label 1">Content will be here. Content will be here. Content will be here. Content will
                                 be here. Content will be here. Content will be here. Content will be here. Content will be here.
                                 Content will be here. Content will be here. Content will be here. Content will be here. Content
                                 will be here. Content will be here. Content will be here. Content will be here. Content will be
@@ -27,10 +27,10 @@
                                 Content will be here. Content will be here. Content will be here. Content will be here. Content
                                 will be here. Content will be here. Content will be here. Content will be here. Content will be
                                 here. Content will be here. Content will be here. Content will be here. Content will be here.
-                            </pn:accordionItem>
-                                <pn:accordionItem header="label 2">content 2</pn:accordionItem>
-                                <pn:accordionItem header="label 3">content 3</pn:accordionItem>
-                            </pn:accordion>
+                            </r:accordionItem>
+                                <r:accordionItem header="label 2">content 2</r:accordionItem>
+                                <r:accordionItem header="label 3">content 3</r:accordionItem>
+                            </r:accordion>
                         </h:panelGroup>
                         <h:outputText value="#{item}" rendered="#{item != 'row 1'}" />
                     </h:column>

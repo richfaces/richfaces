@@ -17,15 +17,15 @@
         </h:form>
     
         <h:form id="form1">
-            <rich:list id="list" var="item" value="#{dataBean.employeeList}" rows="20" type="#{listBean.listType}">
+            <r:list id="list" var="item" value="#{dataBean.employeeList}" rows="20" type="#{listBean.listType}">
                 <f:facet name="term">
                     E-mail: #{item.EMail}
                 </f:facet>
     
                 Name: #{item.name}
-            </rich:list>
+            </r:list>
     
-            <rich:dataScroller for="list" />
+            <r:dataScroller for="list" />
         </h:form>
     </ui:define>
 </ui:composition>

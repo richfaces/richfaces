@@ -12,17 +12,17 @@
             <legend>Sample for server-side validation of entered value (enter non-existing value)</legend>
 
             <h:form>
-                <in:select id="select1" enableManualInput="true" value="#{selectBean.value}">
+                <r:select id="select1" enableManualInput="true" value="#{selectBean.value}">
                     <f:selectItems value="#{selectBean.values}" />
-                </in:select>
+                </r:select>
                 <br />
-                <a4j:commandButton value="Send" render="output1" />
+                <r:commandButton value="Send" render="output1" />
             </h:form>
-            <a4j:outputPanel id="output1">
+            <r:outputPanel id="output1">
                 Output: <h:outputText value="#{selectBean.value}" />
                 <br />
-                <csv:messages for="select1" />
-            </a4j:outputPanel>
+                <r:messages for="select1" />
+            </r:outputPanel>
         </fieldset>
 
 
@@ -31,17 +31,17 @@
             <legend>Sample for server-side validation of entered value with defaultValue</legend>
 
             <h:form>
-                <in:select id="select2" enableManualInput="true" value="#{selectBean.value}" defaultLabel="Click here to edit">
+                <r:select id="select2" enableManualInput="true" value="#{selectBean.value}" defaultLabel="Click here to edit">
                     <f:selectItems value="#{selectBean.values}" />
-                </in:select>
+                </r:select>
                 <br />
-                <a4j:commandButton value="Send" render="output2" />
+                <r:commandButton value="Send" render="output2" />
             </h:form>
-            <a4j:outputPanel id="output2">
+            <r:outputPanel id="output2">
                 Output: <h:outputText value="#{selectBean.value}" />
                 <br />
-                <csv:messages for="select2" />
-            </a4j:outputPanel>
+                <r:messages for="select2" />
+            </r:outputPanel>
         </fieldset>
 
 
@@ -51,18 +51,18 @@
             <legend>Sample for client-side validation of entered value</legend>
 
             <h:form>
-                <in:select id="select3" enableManualInput="true" value="#{selectBean.value}">
+                <r:select id="select3" enableManualInput="true" value="#{selectBean.value}">
                     <f:selectItems value="#{selectBean.values}" />
-                    <csv:validator event="blur"  />
-                </in:select>
+                    <r:validator event="blur"  />
+                </r:select>
                 <br />
-                <a4j:commandButton value="Send" render="output3" />
+                <r:commandButton value="Send" render="output3" />
             </h:form>
-            <a4j:outputPanel id="output3">
+            <r:outputPanel id="output3">
                 Output: <h:outputText value="#{selectBean.value}" />
                 <br />
-                <csv:messages for="select3" />
-            </a4j:outputPanel>
+                <r:messages for="select3" />
+            </r:outputPanel>
         </fieldset>
         
         
@@ -73,18 +73,18 @@
             <legend>Sample for client-side validation of entered value with defaultValue</legend>
 
             <h:form>
-                <in:select id="select4" enableManualInput="true" value="#{selectBean.value}" defaultLabel="Click here to edit">
+                <r:select id="select4" enableManualInput="true" value="#{selectBean.value}" defaultLabel="Click here to edit">
                     <f:selectItems value="#{selectBean.values}" />
-                    <csv:validator event="blur" />
-                </in:select>
+                    <r:validator event="blur" />
+                </r:select>
                 <br />
-                <a4j:commandButton value="Send" render="output4" />
+                <r:commandButton value="Send" render="output4" />
             </h:form>
-            <a4j:outputPanel id="output4">
+            <r:outputPanel id="output4">
                 Output: <h:outputText value="#{selectBean.value}" />
                 <br />
-                <csv:messages for="select4" />
-            </a4j:outputPanel>
+                <r:messages for="select4" />
+            </r:outputPanel>
         </fieldset>
     </ui:define>
 </ui:composition>

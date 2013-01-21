@@ -4,15 +4,15 @@
 
 <ui:composition>
     <h:form>
-        <rich:panel styleClass="skin-chooser">
-            <a4j:repeat var="skin" value="#{skinBean.skins}" iterationStatusVar="iterStatus">
+        <r:panel styleClass="skin-chooser">
+            <r:repeat var="skin" value="#{skinBean.skins}" iterationStatusVar="iterStatus">
                 <h:link value="#{skin}" includeViewParams="true">
                     <f:param name="skin" value="#{skin}" />
                     <f:attribute name="style" value="#{(skin==skinBean.skin) ? 'color:orange' : ''}" />
                 </h:link>
                 <h:outputText value=" | " rendered="#{not iterStatus.last}" />
-            </a4j:repeat>
-        </rich:panel>
+            </r:repeat>
+        </r:panel>
     </h:form>
 </ui:composition>
 

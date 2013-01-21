@@ -3,59 +3,59 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
     <h:form>
-        <rich:dataTable value="#{carsBean.inventoryVendorLists}" var="list">
+        <r:dataTable value="#{carsBean.inventoryVendorLists}" var="list">
             <f:facet name="header">
-                <rich:columnGroup>
-                    <rich:column colspan="6">
+                <r:columnGroup>
+                    <r:column colspan="6">
                         <h:outputText value="Cars marketplace" />
-                    </rich:column>
-                    <rich:column breakRowBefore="true">
+                    </r:column>
+                    <r:column breakRowBefore="true">
                         <h:outputText value="Model" />
-                    </rich:column>
-                    <rich:column>
+                    </r:column>
+                    <r:column>
                         <h:outputText value="Price" />
-                    </rich:column>
-                    <rich:column>
+                    </r:column>
+                    <r:column>
                         <h:outputText value="Mileage" />
-                    </rich:column>
-                    <rich:column>
+                    </r:column>
+                    <r:column>
                         <h:outputText value="VIN Code" />
-                    </rich:column>
-                    <rich:column>
+                    </r:column>
+                    <r:column>
                         <h:outputText value="Items stock" />
-                    </rich:column>
-                    <rich:column>
+                    </r:column>
+                    <r:column>
                         <h:outputText value="Days Live" />
-                    </rich:column>
-                </rich:columnGroup>
+                    </r:column>
+                </r:columnGroup>
             </f:facet>
-            <rich:column colspan="6">
-                <rich:collapsibleSubTableToggler for="sbtbl" />
+            <r:column colspan="6">
+                <r:collapsibleSubTableToggler for="sbtbl" />
                 <h:outputText value="#{list.vendor}" />
-            </rich:column>
-            <rich:collapsibleSubTable value="#{list.vendorItems}" var="item" id="sbtbl" expandMode="client">
-                <rich:column>
+            </r:column>
+            <r:collapsibleSubTable value="#{list.vendorItems}" var="item" id="sbtbl" expandMode="client">
+                <r:column>
                     <h:outputText value="#{item.model}" />
-                </rich:column>
-                <rich:column>
+                </r:column>
+                <r:column>
                     <h:outputText value="#{item.price}" />
-                </rich:column>
-                <rich:column>
+                </r:column>
+                <r:column>
                     <h:outputText value="#{item.mileage}" />
-                </rich:column>
-                <rich:column>
+                </r:column>
+                <r:column>
                     <h:outputText value="#{item.vin}" />
-                </rich:column>
-                <rich:column>
+                </r:column>
+                <r:column>
                     <h:outputText value="#{item.stock}" />
-                </rich:column>
-                <rich:column>
+                </r:column>
+                <r:column>
                     <h:outputText value="#{item.daysLive}" />
-                </rich:column>
+                </r:column>
                 <f:facet name="footer">
                     <h:outputText value="Total of #{list.vendor} Cars: #{list.count}" />
                 </f:facet>
-            </rich:collapsibleSubTable>
-        </rich:dataTable>
+            </r:collapsibleSubTable>
+        </r:dataTable>
     </h:form>
 </ui:composition>

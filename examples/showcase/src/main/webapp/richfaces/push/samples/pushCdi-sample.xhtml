@@ -10,10 +10,10 @@
                 <f:validator validatorId="safeHtml" />
             </h:inputText>
 
-            <a4j:commandButton value="Send" action="#{pushCdiBean.sendMessage}"
+            <r:commandButton value="Send" action="#{pushCdiBean.sendMessage}"
                 execute="@form" render="messageInput" />
                 
-            <rich:messages for="messageInput" />
+            <r:messages for="messageInput" />
         </h:panelGrid>
 
         

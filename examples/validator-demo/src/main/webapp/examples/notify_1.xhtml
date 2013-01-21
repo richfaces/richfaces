@@ -25,7 +25,7 @@
                 </style>
                 <h:form>
                     
-                    <csv:notify stack="customStack" summary="#{notifyBean.title}"
+                    <r:notify stack="customStack" summary="#{notifyBean.title}"
                             nonblocking="#{notifyBean.nonblocking}" showShadow="#{notifyBean.showShadow}"
                             showHistory="#{notifyBean.showHistory}" showCloseButton="#{notifyBean.showCloseButton}"
                             sticky="#{notifyBean.sticky}" stayTime="#{notifyBean.stayTime}"
@@ -37,25 +37,25 @@
                                     <hr />
                                     <h:outputText value="#{notifyBean.text}" />
                                 </f:facet>
-                            </csv:notify>
+                            </r:notify>
                     
-                    <a4j:outputPanel ajaxRendered="true">
-                        <csv:notifyStack id="customStack" direction="#{notifyBean.direction}" position="#{notifyBean.position}"
+                    <r:outputPanel ajaxRendered="true">
+                        <r:notifyStack id="customStack" direction="#{notifyBean.direction}" position="#{notifyBean.position}"
                             method="#{notifyBean.method}" styleClass="#{notifyBean.stackStyleClass}" />
-                        <csv:notifyMessages  stack="customStack" interval="#{notifyBean.interval}" nonblocking="#{notifyBean.nonblocking}"
+                        <r:notifyMessages  stack="customStack" interval="#{notifyBean.interval}" nonblocking="#{notifyBean.nonblocking}"
                         showShadow="#{notifyBean.showShadow}" showHistory="#{notifyBean.showHistory}"
                         showCloseButton="#{notifyBean.showCloseButton}" sticky="#{notifyBean.sticky}"
                         stayTime="#{notifyBean.stayTime}" appearAnimation="#{notifyBean.appearAnimation}"
                         hideAnimation="#{notifyBean.hideAnimation}" animationSpeed="#{notifyBean.animationSpeed}"
                         nonblockingOpacity="#{notifyBean.nonblockingOpacity}" styleClass="#{notifyBean.styleClass}" />
                         
-                    </a4j:outputPanel>
+                    </r:outputPanel>
                     
                     
-                    <a4j:commandButton value="Say Hello" action="#{notifyBean.sayHello}" execute="@form" />
-                    <a4j:commandButton value="Warn me" action="#{notifyBean.warnMe}" execute="@form" />
-                    <a4j:commandButton value="Say error" action="#{notifyBean.sayError}" execute="@form" />
-                    <a4j:commandButton value="Say fatal" action="#{notifyBean.sayFatal}" execute="@form" />
+                    <r:commandButton value="Say Hello" action="#{notifyBean.sayHello}" execute="@form" />
+                    <r:commandButton value="Warn me" action="#{notifyBean.warnMe}" execute="@form" />
+                    <r:commandButton value="Say error" action="#{notifyBean.sayError}" execute="@form" />
+                    <r:commandButton value="Say fatal" action="#{notifyBean.sayFatal}" execute="@form" />
                     <h:panelGrid columns="2">
                         <h:panelGroup>
                             <f:facet name="header">Common</f:facet>

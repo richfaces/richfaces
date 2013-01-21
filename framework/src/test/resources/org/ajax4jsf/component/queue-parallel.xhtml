@@ -5,15 +5,15 @@
 </head>
 <body>
     <f:view>
-        <a4j:status startText="...running..." stopText="stopped" startStyle="color: green" />
+        <r:status startText="...running..." stopText="stopped" startStyle="color: green" />
 
         <h:form id="form">
-            <a4j:queue name="queue" />
+            <r:queue name="queue" />
 
-            <a4j:commandButton id="asyncButton" />
+            <r:commandButton id="asyncButton" />
 
-            <a4j:commandButton id="syncButton1" eventsQueue="queue" />
-            <a4j:commandButton id="syncButton2" eventsQueue="queue" />
+            <r:commandButton id="syncButton1" eventsQueue="queue" />
+            <r:commandButton id="syncButton2" eventsQueue="queue" />
         </h:form>
     </f:view>
 </body>

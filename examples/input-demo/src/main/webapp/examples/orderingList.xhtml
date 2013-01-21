@@ -20,10 +20,10 @@
         <fieldset>
             <legend>OrderingList</legend>
             <h:form>
-                <in:orderingList id="orderingList" value="#{richBean.values}" var="item" itemValue="#{item}"
+                <r:orderingList id="orderingList" value="#{richBean.values}" var="item" itemValue="#{item}"
                                  itemLabel="#{item.title}">
                     <f:converter converterId="EntityBeanConverter"/>
-                </in:orderingList>
+                </r:orderingList>
                 <h:commandButton value="submit">
                     <f:ajax execute="@form" render="orderingList out"/>
                 </h:commandButton>
@@ -39,15 +39,15 @@
         <fieldset>
             <legend>OrderingList - Columns</legend>
             <h:form>
-                <in:orderingList id="orderingList" value="#{richBean.values}" var="item">
+                <r:orderingList id="orderingList" value="#{richBean.values}" var="item">
                     <f:converter converterId="EntityBeanConverter"/>
-                    <it:column>
+                    <r:column>
                         #{item.value}
-                    </it:column>
-                    <it:column>
+                    </r:column>
+                    <r:column>
                         #{item.title}
-                    </it:column>
-                </in:orderingList>
+                    </r:column>
+                </r:orderingList>
                 <h:commandButton value="submit">
                     <f:ajax execute="@form" render="orderingList out"/>
                 </h:commandButton>
@@ -63,16 +63,16 @@
         <fieldset>
             <legend>OrderingList - disabled</legend>
             <h:form>
-                <in:orderingList id="orderingList" value="#{richBean.values}" var="item" disabled="true"
+                <r:orderingList id="orderingList" value="#{richBean.values}" var="item" disabled="true"
                                  disabledClass="someDisabledClass">
                     <f:converter converterId="EntityBeanConverter"/>
-                    <it:column>
+                    <r:column>
                         #{item.value}
-                    </it:column>
-                    <it:column>
+                    </r:column>
+                    <r:column>
                         #{item.title}
-                    </it:column>
-                </in:orderingList>
+                    </r:column>
+                </r:orderingList>
                 <h:commandButton value="submit">
                     <f:ajax execute="@form" render="orderingList out"/>
                 </h:commandButton>
@@ -88,16 +88,16 @@
         <fieldset>
             <legend>OrderingList - my-select-class</legend>
             <h:form>
-                <in:orderingList id="orderingList" value="#{richBean.values}" var="item"
+                <r:orderingList id="orderingList" value="#{richBean.values}" var="item"
                                  selectItemClass="my-select-class">
                     <f:converter converterId="EntityBeanConverter"/>
-                    <it:column>
+                    <r:column>
                         #{item.value}
-                    </it:column>
-                    <it:column>
+                    </r:column>
+                    <r:column>
                         #{item.title}
-                    </it:column>
-                </in:orderingList>
+                    </r:column>
+                </r:orderingList>
                 <h:commandButton value="submit">
                     <f:ajax execute="@form" render="orderingList out"/>
                 </h:commandButton>

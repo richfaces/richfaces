@@ -2,9 +2,9 @@
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
-    <a4j:repeat rendered="#{fn:length(result) > 0}" id="tagList" value="#{result}" var="tag">
-        <a4j:commandLink render="mainArea" actionListener="#{controller.showTag(tag)}" value="#{tag.tag}" />
+    <r:repeat rendered="#{fn:length(result) > 0}" id="tagList" value="#{result}" var="tag">
+        <r:commandLink render="mainArea" actionListener="#{controller.showTag(tag)}" value="#{tag.tag}" />
         <br />
-    </a4j:repeat>
+    </r:repeat>
     <h:outputText rendered="#{fn:length(result) == 0}" value="#{messages['no_results_found']}" />
 </ui:composition>

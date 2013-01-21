@@ -5,17 +5,17 @@
     <h:form id="form">
         <h:panelGrid columns="3">
             <h:commandButton value="Invoke listener method">
-                <a4j:actionListener listener="#{actionListenerBean.handleActionMethod}"/>
+                <r:actionListener listener="#{actionListenerBean.handleActionMethod}"/>
                 <f:ajax render="messages"/>
             </h:commandButton>
 
             <h:commandButton value="Invoke listener by type">
-                <a4j:actionListener type="org.richfaces.demo.actionListener.ActionListenerBean$ActionListenerImpl"/>
+                <r:actionListener type="org.richfaces.demo.actionListener.ActionListenerBean$ActionListenerImpl"/>
                 <f:ajax render="messages"/>
             </h:commandButton>
 
             <h:commandButton value="Invoke listener by binding">
-                <a4j:actionListener binding="#{actionListenerBean.actionListener}"/>
+                <r:actionListener binding="#{actionListenerBean.actionListener}"/>
                 <f:ajax render="messages"/>
             </h:commandButton>
 

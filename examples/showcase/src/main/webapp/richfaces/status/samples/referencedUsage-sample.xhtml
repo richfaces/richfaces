@@ -4,31 +4,31 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:form>
         <h:panelGrid columns="3" width="300px;">
-            <rich:panel>
+            <r:panel>
                 <f:facet name="header">
                     <h:outputText value="User Details Panel" />
                 </f:facet>
                 <h:panelGrid columns="3">
                     <h:outputText value="User name:" />
                     <h:inputText value="#{userBean.name}">
-                        <a4j:ajax status="nameStatus" event="keyup" />
+                        <r:ajax status="nameStatus" event="keyup" />
                     </h:inputText>
-                    <a4j:status name="nameStatus">
+                    <r:status name="nameStatus">
                         <f:facet name="start">
                             <h:graphicImage value="/images/ai.gif" style="width:16px; height:16px;" alt="ai" />
                         </f:facet>
-                    </a4j:status>
+                    </r:status>
                     <h:outputText value="Address:" />
                     <h:inputText value="#{userBean.address}">
-						<a4j:ajax status="addressStatus" event="keyup" />
+						<r:ajax status="addressStatus" event="keyup" />
 					</h:inputText>
-                    <a4j:status name="addressStatus">
+                    <r:status name="addressStatus">
                         <f:facet name="start">
                             <h:graphicImage value="/images/ai.gif" style="width:16px; height:16px;" alt="ai" />
                         </f:facet>
-                    </a4j:status>
+                    </r:status>
                 </h:panelGrid>
-            </rich:panel>
+            </r:panel>
         </h:panelGrid>
     </h:form>
 </ui:composition>

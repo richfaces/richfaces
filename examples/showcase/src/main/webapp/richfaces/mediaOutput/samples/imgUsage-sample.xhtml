@@ -29,10 +29,10 @@
                 <f:selectItem itemLabel="Blue" itemValue="4" />
             </h:selectOneMenu>
             <f:facet name="footer">
-                <a4j:commandButton value="Process the image" render="img" execute="@form" />
+                <r:commandButton value="Process the image" render="img" execute="@form" />
             </f:facet>
         </h:panelGrid>
-        <a4j:mediaOutput element="img" cacheable="false" session="true" id="img" createContent="#{mediaBean.process}"
+        <r:mediaOutput element="img" cacheable="false" session="true" id="img" createContent="#{mediaBean.process}"
             value="#{mediaData}" mimeType="image/jpeg" alt="img" />
     </h:form>
 </ui:composition>

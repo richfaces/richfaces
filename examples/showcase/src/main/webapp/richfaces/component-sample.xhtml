@@ -10,13 +10,13 @@
             display: none;
             }
         </h:outputStylesheet>
-        <rich:tabPanel switchType="client" styleClass="navigation" activeItem="#{demoNavigator.currentSample.id}"
+        <r:tabPanel switchType="client" styleClass="navigation" activeItem="#{demoNavigator.currentSample.id}"
             onbeforeitemchange="return false;">
             <c:forEach items="#{demoNavigator.currentDemo.samples}" var="s">
-                <rich:tab header="#{s.name}" name="#{s.id}"
+                <r:tab header="#{s.name}" name="#{s.id}"
                     onheaderclick="document.location.href='#{facesContext.externalContext.requestContextPath}/richfaces/component-sample.jsf?demo=#{demoNavigator.currentDemo.id}&amp;sample=#{s.id}&amp;skin=#{skinBean.skin}'" />
             </c:forEach>
-        </rich:tabPanel>
+        </r:tabPanel>
         <fieldset class="example-cnt">
             <ui:include src="#{demoNavigator.sampleURI}" />
         </fieldset>

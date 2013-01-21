@@ -2,7 +2,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
 
-    <rich:popupPanel id="loginPanel" domElementAttachment="parent"
+    <r:popupPanel id="loginPanel" domElementAttachment="parent"
         onshow="applyModalPanelEffect('loginPanel', {delay: 0.5, afterFinish: function(){$('loginPanelForm:username').focus();}})"
         styleClass="login-panel" show="#{authenticator.loginFailed}" width="400" height="150" autosized="true">
         <f:facet name="header">#{messages['login.login']}</f:facet>
@@ -13,11 +13,11 @@
             </h:panelGroup>
         </f:facet>
 
-        <!-- <rich:effect type="Appear" name="appearFunc" /> -->
+        <!-- <r:effect type="Appear" name="appearFunc" /> -->
         <!-- not implemented in RF 4 -->
 
         <h:panelGrid columns="1" columnClasses="login-table-col" style="width: 100%; text-align:center;">
-            <a4j:region id="loginPanelForm">
+            <r:region id="loginPanelForm">
                 <h:panelGrid columns="2" columnClasses="login-table-col2, xxx" style="margin-left:auto; margin-right:auto;">
                     <h:outputText value="#{messages['login.userName']}" />
                     <h:inputText id="username" value="#{userBean.username}"
@@ -29,12 +29,12 @@
                         onkeydown="if (event.keyCode == 13) { jQuery(&quot; .login input[type='image']&quot;).click(); return false; }"
                         style="border: 1px solid rgb(144, 144, 144); height: 19px; width: 155px;" />
                 </h:panelGrid>
-            </a4j:region>
-            <a4j:outputPanel ajaxRendered="true">
+            </r:region>
+            <r:outputPanel ajaxRendered="true">
                 <h:panelGroup>
-                    <rich:messages style="color:red" for="loginPanel" />
+                    <r:messages style="color:red" for="loginPanel" />
                 </h:panelGroup>
-            </a4j:outputPanel>
+            </r:outputPanel>
             <h:panelGrid columns="2" style="text-align:center; margin-top : 10px; margin-left:auto; margin-right:auto;">
                 <h:panelGroup layout="block">
                     <!-- action="gotoindex" -->
@@ -51,5 +51,5 @@
                 </h:panelGroup>
             </h:panelGrid>
         </h:panelGrid>
-    </rich:popupPanel>
+    </r:popupPanel>
 </ui:composition>

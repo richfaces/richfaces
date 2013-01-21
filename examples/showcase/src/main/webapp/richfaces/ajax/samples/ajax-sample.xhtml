@@ -4,7 +4,7 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:form>
         <h:inputText value="#{userBean.name}">
-            <a4j:ajax event="keyup" render="out" />
+            <r:ajax event="keyup" render="out" />
         </h:inputText>
         <h:outputText value="#{userBean.name}" id="out" />
     </h:form>

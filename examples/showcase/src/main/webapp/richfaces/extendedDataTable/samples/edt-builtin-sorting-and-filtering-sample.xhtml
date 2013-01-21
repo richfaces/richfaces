@@ -8,52 +8,52 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <h:form>
-        <rich:extendedDataTable value="#{carsBean.allInventoryItems}"
+        <r:extendedDataTable value="#{carsBean.allInventoryItems}"
                                 var="car" filterVar="filterValue" id="table" frozenColumns="2"
                                 sortPriority="#{carsSortingBean.sortPriorities}"
                                 style="height:300px; width:500px;" selectionMode="none">
             <f:facet name="header">
                 <h:outputText value="Cars marketplace"/>
             </f:facet>
-            <rich:column sortBy="#{car.vendor}"
+            <r:column sortBy="#{car.vendor}"
                          filterExpression="#{empty filterValue or fn:startsWith(car.vendor, filterValue)}"
                          filterValue="#{carsFilteringBean.vendorFilter}">
                 <f:facet name="header">Vendor</f:facet>
                 <h:outputText value="#{car.vendor}"/>
-            </rich:column>
-            <rich:column sortBy="#{car.model}"
+            </r:column>
+            <r:column sortBy="#{car.model}"
                          filterExpression="#{empty filterValue or fn:startsWith(car.model, filterValue)}"
                          filterValue="#{carsFilteringBean.modelFilter}">
                 <f:facet name="header">Model</f:facet>
                 <h:outputText value="#{car.model}"/>
-            </rich:column>
-            <rich:column sortBy="#{car.price}"
+            </r:column>
+            <r:column sortBy="#{car.price}"
                          filterExpression="#{empty filterValue or car.price ge filterValue}"
                          filterValue="#{carsFilteringBean.priceFilter}"
                          filterConverterMessage="Error converting the 'Price' filter value">
                 <f:facet name="header">Price</f:facet>
                 <h:outputText value="#{car.price}"/>
-            </rich:column>
-            <rich:column sortBy="#{car.mileage}"
+            </r:column>
+            <r:column sortBy="#{car.mileage}"
                          filterExpression="#{empty filterValue or car.price ge filterValue}"
                          filterValue="#{carsFilteringBean.mileageFilter}"
                          filterConverterMessage="Error converting the 'Mileage' filter value">
                 <f:facet name="header">Mileage</f:facet>
                 <h:outputText value="#{car.mileage}"/>
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">VIN Code</f:facet>
                 <h:outputText value="#{car.vin}"/>
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">Items stock</f:facet>
                 <h:outputText value="#{car.stock}"/>
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">Days Live</f:facet>
                 <h:outputText value="#{car.daysLive}"/>
-            </rich:column>
-        </rich:extendedDataTable>
-        <rich:messages />
+            </r:column>
+        </r:extendedDataTable>
+        <r:messages />
     </h:form>
 </ui:composition>

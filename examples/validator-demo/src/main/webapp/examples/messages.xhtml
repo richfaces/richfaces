@@ -14,14 +14,14 @@
     <ui:define name="content">
         <h:form id="form">
             <h:inputText id="unescaped" value=""/> <br/>
-            Esacped message: <csv:message for="escaped"/> <br/>
+            Esacped message: <r:message for="escaped"/> <br/>
             <hr />
             <h:inputText id="escaped" value=""/> <br/>
-            Un-escaped message: <csv:message escape="false" for="unescaped"/> <br/>
+            Un-escaped message: <r:message escape="false" for="unescaped"/> <br/>
             <hr />
-            Global esacped: <csv:messages globalOnly="true"/> <br/>
+            Global esacped: <r:messages globalOnly="true"/> <br/>
             <hr />
-            Global un-esacped: <csv:messages globalOnly="true" escape="false"/>
+            Global un-esacped: <r:messages globalOnly="true" escape="false"/>
         </h:form>
     </ui:define>
 </ui:composition>

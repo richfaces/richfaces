@@ -6,14 +6,14 @@
         <h:panelGroup>
             <h1>
                 <h:outputText value="#{model.selectedImage.name}" rendered="#{!controller.isUserImage(model.selectedImage)}" />
-                <rich:inplaceInput selectOnEdit="false" value="#{model.selectedImage.name}"
+                <r:inplaceInput selectOnEdit="false" value="#{model.selectedImage.name}"
                     rendered="#{controller.isUserImage(model.selectedImage)}" inputWidth="570" />
-                    <!-- <a4j:ajax event="viewactivated" render="mainArea" action="#{imageManager.editImage(model.selectedImage,true)}"/> -->
+                    <!-- <r:ajax event="viewactivated" render="mainArea" action="#{imageManager.editImage(model.selectedImage,true)}"/> -->
             </h1>
-            <a4j:commandLink styleClass="additional-info-text" actionListener="#{controller.showShelf(model.selectedShelf)}"
+            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showShelf(model.selectedShelf)}"
                 render="mainArea, treePanel" value="#{messages['shelf']} #{model.selectedShelf.name}" />
             <h:outputText value=" #{messages['delimiter']} " />
-            <a4j:commandLink styleClass="additional-info-text" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
+            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
                 render="mainArea, treePanel" value="#{messages['album']} #{model.selectedAlbum.name}" />
         </h:panelGroup>
     </h:panelGrid>

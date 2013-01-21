@@ -17,44 +17,44 @@
         }
     </h:outputStylesheet>
     <h:form id="form">
-        <rich:dataTable value="#{carsBean.allInventoryItems}" var="car" id="table" rows="20" rowClasses="odd-row, even-row"
+        <r:dataTable value="#{carsBean.allInventoryItems}" var="car" id="table" rows="20" rowClasses="odd-row, even-row"
             styleClass="stable">
-            <rich:column accept="#{carsFiteringBean.acceptVendor}">
+            <r:column accept="#{carsFiteringBean.acceptVendor}">
                 <f:facet name="header">
                     <h:outputText value="Vendor " />
                 </f:facet>
                 <h:outputText value="#{car.vendor}" />
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="Model" />
                 </f:facet>
                 <h:outputText value="#{car.model}" />
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="Price" />
                 </f:facet>
                 <h:outputText value="#{car.price}" />
-            </rich:column>
-            <rich:column filter="#{carsFilteringBean.mileageFilterImpl}">
+            </r:column>
+            <r:column filter="#{carsFilteringBean.mileageFilterImpl}">
                 <f:facet name="header">
                     <h:outputText value="Mileage" />
                 </f:facet>
                 <h:outputText value="#{car.mileage}" />
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="VIN " />
                 </f:facet>
                 <h:outputText value="#{car.vin}" />
-            </rich:column>
-        </rich:dataTable>
+            </r:column>
+        </r:dataTable>
     </h:form>
 
-    <rich:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
-    <rich:jQuery selector=".stable tr:even" query="addClass('even-row')" />
-    <rich:jQuery selector=".stable tr" event="mouseover" query="jQuery(this).addClass('active-row')" />
-    <rich:jQuery selector=".stable tr" event="mouseout" query="jQuery(this).removeClass('active-row')" />
+    <r:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
+    <r:jQuery selector=".stable tr:even" query="addClass('even-row')" />
+    <r:jQuery selector=".stable tr" event="mouseover" query="jQuery(this).addClass('active-row')" />
+    <r:jQuery selector=".stable tr" event="mouseout" query="jQuery(this).removeClass('active-row')" />
 
 </ui:composition>

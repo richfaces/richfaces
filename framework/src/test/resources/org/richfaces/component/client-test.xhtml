@@ -7,10 +7,10 @@
     <h:form id="form">
         <h:inputText id="text" value="#{test.value}">
             <f:validateLength minimum="1" maximum="3" />
-            <csv:validator event="blur" />
+            <r:validator event="blur" />
         </h:inputText>
         <h:outputText id="out" value="#{test.value}"></h:outputText>
     </h:form>
-    <csv:message id="uiMessage" for="text" />
+    <r:message id="uiMessage" for="text" />
 </h:body>
 </html>

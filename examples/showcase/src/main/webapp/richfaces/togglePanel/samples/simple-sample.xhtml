@@ -18,30 +18,30 @@
         }
     </h:outputStylesheet>
     <h:form>
-        <rich:togglePanel id="panel1" activeItem="item1" render="tabs" itemChangeListener="#{panelMenuBean.updateCurrent}">
-            <rich:togglePanelItem name="item1">
+        <r:togglePanel id="panel1" activeItem="item1" render="tabs" itemChangeListener="#{panelMenuBean.updateCurrent}">
+            <r:togglePanelItem name="item1">
                 <p>This toggle panel switches in Ajax mode. So only one active item loaded to the client.</p>
 
                 <p>For now you are at Panel 1</p>
-            </rich:togglePanelItem>
-            <rich:togglePanelItem name="item2">
+            </r:togglePanelItem>
+            <r:togglePanelItem name="item2">
                 <p>After the second link click - panel changed active item to the second one according to name specified in
                     the togglePanelBehavior</p>
 
                 <p>For now you are at Panel 2</p>
-            </rich:togglePanelItem>
-        </rich:togglePanel>
-        <a4j:outputPanel id="tabs" layout="block">
-            <a4j:outputPanel layout="block" styleClass="tabDiv">
-                <rich:toggleControl event="click" targetPanel="panel1" targetItem="item1" />
+            </r:togglePanelItem>
+        </r:togglePanel>
+        <r:outputPanel id="tabs" layout="block">
+            <r:outputPanel layout="block" styleClass="tabDiv">
+                <r:toggleControl event="click" targetPanel="panel1" targetItem="item1" />
                 <h:outputText value="Toggle Panel Item 1"
                     style="#{rich:findComponent('panel1').activeItem == 'item1' ? 'font-weight:bold' : 'font-weight:normal'}" />
-            </a4j:outputPanel>
-            <a4j:outputPanel layout="block" styleClass="tabDiv">
-                <rich:toggleControl event="click" targetPanel="panel1" targetItem="item2" />
+            </r:outputPanel>
+            <r:outputPanel layout="block" styleClass="tabDiv">
+                <r:toggleControl event="click" targetPanel="panel1" targetItem="item2" />
                 <h:outputText value="Toggle Panel Item 2"
                     style="#{rich:findComponent('panel1').activeItem == 'item2' ? 'font-weight:bold' : 'font-weight:normal'}" />
-            </a4j:outputPanel>
-        </a4j:outputPanel>
+            </r:outputPanel>
+        </r:outputPanel>
     </h:form>
 </ui:composition>

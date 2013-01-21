@@ -72,30 +72,30 @@
             <div  id="testDNDDiv">
                 <table id="testDND">
                     <tr>
-                        <td><a4j:outputPanel id="drg1" layout="block" styleClass="draggable">
+                        <td><r:outputPanel id="drg1" layout="block" styleClass="draggable">
                                 <h:outputText value="#{dataBean.dragValue1}" />
                                 <dnd:dragSource type="drg1" dragValue="#{dataBean.dragValue1}" />
-                            </a4j:outputPanel></td>
-                        <td><a4j:outputPanel id="drg2" layout="block" styleClass="draggable">
+                            </r:outputPanel></td>
+                        <td><r:outputPanel id="drg2" layout="block" styleClass="draggable">
                                 <h:outputText value="#{dataBean.dragValue2}" />
                                 <dnd:dragSource type="drg2" dragIndicator="ind" dragValue="#{dataBean.dragValue2}" />
-                            </a4j:outputPanel></td>
-                        <td><a4j:outputPanel id="drg3" layout="block" styleClass="draggable">
+                            </r:outputPanel></td>
+                        <td><r:outputPanel id="drg3" layout="block" styleClass="draggable">
                                 <h:outputText value="#{dataBean.dragValue3}" />
                                 <dnd:dragSource type="drg3" dragIndicator="ind" dragValue="#{dataBean.dragValue3}" />
-                            </a4j:outputPanel></td>
+                            </r:outputPanel></td>
                         <td>
                             <ul>
-                                <li><a4j:commandLink value="Set acceptedTypes to [drg1, drg2]"
+                                <li><r:commandLink value="Set acceptedTypes to [drg1, drg2]"
                                         action="#{dataBean.resetAcceptedTypes}" render="drp" /></li>
-                                <li><a4j:commandLink value="Make every type be accepted."
+                                <li><r:commandLink value="Make every type be accepted."
                                         action="#{dataBean.makeAcceptedTypeIsAny}" render="drp" /></li>
                                 <li><h:outputText value="Immediate:" /> <h:selectBooleanCheckbox value="#{dataBean.immediate}">
-                                        <a4j:ajax render="drp @this" />
+                                        <r:ajax render="drp @this" />
                                     </h:selectBooleanCheckbox></li>
                                 <li><h:outputText value="bypassUpdates:" /> <h:selectBooleanCheckbox
                                         value="#{dataBean.bypassUpdates}">
-                                        <a4j:ajax render="drp @this" />
+                                        <r:ajax render="drp @this" />
                                     </h:selectBooleanCheckbox></li>
                             </ul>
                         </td>
@@ -103,7 +103,7 @@
                 </table>
             </div>
 
-            <a4j:outputPanel id="drp" layout="block" styleClass="droppable">
+            <r:outputPanel id="drp" layout="block" styleClass="droppable">
                 <dnd:dropTarget acceptedTypes="#{dataBean.acceptedTypes}" dropListener="#{dataBean.processDrop}"
                     render="grid executeOut" execute="executeIn" immediate="#{dataBean.immediate}"
                     onbeforedomupdate="alert('onbeforedomupdate')" oncomplete="alert('oncomlete')" status="dndstatus"
@@ -116,17 +116,17 @@
                     ;
                 </h:column>
                 </h:dataTable>
-            </a4j:outputPanel>
+            </r:outputPanel>
 
-            <a4j:outputPanel id="execute" layout="block">
+            <r:outputPanel id="execute" layout="block">
                 <h:inputText id="executeIn" value="#{dataBean.executeTest}" />
                 <br />
                 <h:outputText id="executeOut" value="#{dataBean.executeTest}" />
                 <br />
-                <a4j:status name="dndstatus" startText="...named status request start...">
-                </a4j:status>
+                <r:status name="dndstatus" startText="...named status request start...">
+                </r:status>
 
-            </a4j:outputPanel>
+            </r:outputPanel>
         </h:form>
     </ui:define>
 </ui:composition>

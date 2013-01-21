@@ -9,12 +9,12 @@
     <ui:define name="content">
         <h:form>
             <h:outputLabel for="autocompleteConverter">Autocomplete with converter:</h:outputLabel>
-            <input:autocomplete autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
+            <r:autocomplete autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
                                 fetchValue="#{country.name}" mode="ajax" layout="list"
                                 converter="autocompleteBeanConverter"
                                 value="#{autoCompleteBean.value}" id="autocompleteConverter">
                 #{country.name}
-            </input:autocomplete>
+            </r:autocomplete>
             <h:commandButton value="Submit Country"/>
         </h:form>
     </ui:define>

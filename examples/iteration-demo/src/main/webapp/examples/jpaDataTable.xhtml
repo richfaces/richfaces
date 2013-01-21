@@ -9,7 +9,7 @@
     <ui:define name="content">
     
     <h:form id="form">
-        <rich:dataTable keepSaved="true" id="richTable" var="record" value="#{personBean.dataModel}" rows="20">
+        <r:dataTable keepSaved="true" id="richTable" var="record" value="#{personBean.dataModel}" rows="20">
             <ui:include src="jpaColumn.xhtml">
                 <ui:param name="bean" value="#{personBean}" />
                 <ui:param name="property" value="name" />
@@ -24,9 +24,9 @@
             </ui:include>
 
             <f:facet name="footer">
-                <rich:dataScroller id="scroller" />
+                <r:dataScroller id="scroller" />
             </f:facet>
-        </rich:dataTable>
+        </r:dataTable>
     </h:form>
 
     </ui:define>

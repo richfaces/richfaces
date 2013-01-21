@@ -24,8 +24,8 @@
 </h:head>
 
 <h:body class="main-body" style="position: relative;">
-    <rich:messages globalOnly="true" />
-    <rich:messages />
+    <r:messages globalOnly="true" />
+    <r:messages />
     <div style="position: relative; height: auto; overflow: hidden; min-height: 100%; zoom: 1;" class="main-panel">
         <h:form id="overForm">
             <div style="padding-bottom: 82px; padding-top: 116px; left: 0px; zoom: 1;">
@@ -45,16 +45,16 @@
                             <td class="panel-header-bg" style="vertical-align: top;">
                                 <div style="position: relative; zoom: 1;">
                                     <div>
-                                        <!-- <rich:spacer width="300" height="1" style="display: block"> </rich:spacer> -->
+                                        <!-- <r:spacer width="300" height="1" style="display: block"> </r:spacer> -->
                                         <!-- not available in RF 4; repair when the layout can be seen -->
                                     </div>
-                                    <a4j:region id="treeRegion">
-                                        <rich:panel id="treePanel" styleClass="body-main-panel"
+                                    <r:region id="treeRegion">
+                                        <r:panel id="treePanel" styleClass="body-main-panel"
                                             headerClass="body-main-panel-header" bodyClass="body-main-panel-body"
                                             style="width:240px">
                                             <ui:insert name="tree" />
-                                        </rich:panel>
-                                    </a4j:region>
+                                        </r:panel>
+                                    </r:region>
 
                                     <div class="body-main-bg"
                                         style="position: absolute; height: 30000px; right: 0px; top: 0px; width: 5px;"></div>
@@ -62,13 +62,13 @@
                             </td>
                             <td width="100%" class="panel-header-bg" style="vertical-align: top;">
                                 <div style="position: relative; zoom: 1;">
-                                    <a4j:region>
-                                        <a4j:log level="ALL" mode="popup" />
-                                        <rich:panel id="bodyPanel" styleClass="body-main-panel"
+                                    <r:region>
+                                        <r:log level="ALL" mode="popup" />
+                                        <r:panel id="bodyPanel" styleClass="body-main-panel"
                                             headerClass="body-main-panel-header" bodyClass="body-main-panel-body">
                                             <ui:insert name="body" />
-                                        </rich:panel>
-                                    </a4j:region>
+                                        </r:panel>
+                                    </r:region>
                                 </div>
                                 <div style="position: absolute; height: 30000px; right: 0px; top: 0px; width: 5px;"
                                     class="body-main-bg" />

@@ -5,19 +5,19 @@
     <h:form>
         <p>In the example below click on the label to edit the value and click somewhere outside the component to store this
             value.</p>
-        <rich:panel style="width:220px;">
+        <r:panel style="width:220px;">
             <f:facet name="header">
                 <h:outputText value="Simples select"></h:outputText>
             </f:facet>
-            <rich:inplaceSelect defaultLabel="Click here to edit" openOnEdit="true">
+            <r:inplaceSelect defaultLabel="Click here to edit" openOnEdit="true">
                 <f:selectItem itemValue="0" itemLabel="Option 1" />
                 <f:selectItem itemValue="1" itemLabel="Option 2" />
                 <f:selectItem itemValue="2" itemLabel="Option 3" />
                 <f:selectItem itemValue="3" itemLabel="Option 4" />
                 <f:selectItem itemValue="4" itemLabel="Option 5" />
-            </rich:inplaceSelect>
-        </rich:panel>
-        <a4j:outputPanel rendered="#{not (userAgent.phone || userAgent.tablet)}">
+            </r:inplaceSelect>
+        </r:panel>
+        <r:outputPanel rendered="#{not (userAgent.phone || userAgent.tablet)}">
         <p>In the next example we have customized the component in the following ways:</p>
         <ul>
             <li><b>f:selectItems</b> tag is used to define a list of items to use.</li>
@@ -28,15 +28,15 @@
             <li><b>saveOnBlur</b> is set to 'false' so that the value will not be stored unless until the "save" button is
                 clicked. This could be useful on pages where every change could cause extended processing.</li>
         </ul>
-        <rich:panel style="width:220px;">
+        <r:panel style="width:220px;">
             <f:facet name="header">
                 <h:outputText value="Select customization"></h:outputText>
             </f:facet>
-            <rich:inplaceSelect editEvent="dblclick" id="inplaceSelect" showControls="true" saveOnSelect="false"
+            <r:inplaceSelect editEvent="dblclick" id="inplaceSelect" showControls="true" saveOnSelect="false"
                 saveOnBlur="false" value="#{inplaceSelectBean.value}" defaultLabel="Double click to edit value">
                 <f:selectItems value="#{inplaceSelectBean.capitalsOptions}" />
-            </rich:inplaceSelect>
-        </rich:panel>
-        </a4j:outputPanel>
+            </r:inplaceSelect>
+        </r:panel>
+        </r:outputPanel>
     </h:form>
 </ui:composition>

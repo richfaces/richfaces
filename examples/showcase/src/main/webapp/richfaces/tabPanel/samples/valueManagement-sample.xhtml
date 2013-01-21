@@ -7,25 +7,25 @@
         <strong>External controls for switching the panel:</strong>
         <br />
         <h:commandLink value="Previous tab">
-            <rich:toggleControl targetPanel="tp" targetItem="@prev" />
+            <r:toggleControl targetPanel="tp" targetItem="@prev" />
         </h:commandLink>
         <h:outputText value=" | " />
         <h:commandLink value="Next tab">
-            <rich:toggleControl targetPanel="tp" targetItem="@next" />
+            <r:toggleControl targetPanel="tp" targetItem="@next" />
         </h:commandLink>
         <br />
         <br />
-        <rich:tabPanel switchType="ajax" id="tp" headerPosition="top" headerLocation="center">
-            <rich:tab header="First">
+        <r:tabPanel switchType="ajax" id="tp" headerPosition="top" headerLocation="center">
+            <r:tab header="First">
                 Here is tab #1
-            </rich:tab>
-            <rich:tab header="Second">
+            </r:tab>
+            <r:tab header="Second">
                 Here is tab #2
-            </rich:tab>
-            <rich:tab header="Third">
+            </r:tab>
+            <r:tab header="Third">
                 Here is tab #3
-            </rich:tab>
-        </rich:tabPanel>
+            </r:tab>
+        </r:tabPanel>
 
     </h:form>
 </ui:composition>

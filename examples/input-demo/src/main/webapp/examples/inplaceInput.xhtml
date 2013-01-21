@@ -8,14 +8,14 @@
     <!-- content -->
     <ui:define name="content">
         <h:form id="form">
-            <in:inplaceInput showControls="true" value="New York" defaultLabel="#{null}">
-            </in:inplaceInput>
+            <r:inplaceInput showControls="true" value="New York" defaultLabel="#{null}">
+            </r:inplaceInput>
             <h:commandButton value="submit"/>
-            <in:inplaceInput showControls="true" defaultLabel="click to enter your name" saveOnBlur="true"
+            <r:inplaceInput showControls="true" defaultLabel="click to enter your name" saveOnBlur="true"
                              onblur="RichFaces.$('form:ii').cancel()" id="ii" activeClass="activeClass"
                              disabledClass="disabledClass"
                              editClass="editClass" changedClass="changedClass" styleClass="styleClass">
-            </in:inplaceInput>
+            </r:inplaceInput>
         </h:form>
     </ui:define>
 </ui:composition>

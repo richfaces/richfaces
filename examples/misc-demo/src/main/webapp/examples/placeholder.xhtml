@@ -20,12 +20,12 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Placeholder text" for="text" />
                     <h:inputTextarea id="text" value="#{placeholderBean.placeholderText}" required="true">
-                        <a4j:ajax event="valueChange" execute="@form" render="samples" />
+                        <r:ajax event="valueChange" execute="@form" render="samples" />
                     </h:inputTextarea>
                     
                     <h:outputLabel value="Rendered" for="text" />
                     <h:selectBooleanCheckbox value="#{placeholderBean.rendered}">
-                        <a4j:ajax event="click" execute="@form" render="samples" />
+                        <r:ajax event="click" execute="@form" render="samples" />
                     </h:selectBooleanCheckbox>
                     
                     <h:commandButton value="Submit" action="#{placeholderBean.submit}" />
@@ -45,9 +45,9 @@
                 <br />
     
                 rich:calendar:
-                <in:calendar id="calendar" value="#{placeholderBean.date}" enableManualInput="true" ajaxSingle="true">
+                <r:calendar id="calendar" value="#{placeholderBean.date}" enableManualInput="true" ajaxSingle="true">
                     <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
-                </in:calendar>
+                </r:calendar>
                 <h:outputText value="Output: #{placeholderBean.date}" />
                 <br />
     
@@ -66,44 +66,44 @@
                 <br />
                 
                 rich:autocomplete
-                <in:autocomplete id="autocomplete" value="#{placeholderBean.inputText}">
+                <r:autocomplete id="autocomplete" value="#{placeholderBean.inputText}">
                     <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
-                </in:autocomplete>
+                </r:autocomplete>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
                 
                 rich:inplaceSelect
-                <in:inplaceSelect id="inplaceSelect" value="#{placeholderBean.inputText}">
+                <r:inplaceSelect id="inplaceSelect" value="#{placeholderBean.inputText}">
                     <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
                     <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
                     <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
-                </in:inplaceSelect>
+                </r:inplaceSelect>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
                 
                 rich:inplaceInput
-                <in:inplaceInput id="inplaceInput" value="#{placeholderBean.inputText}">
+                <r:inplaceInput id="inplaceInput" value="#{placeholderBean.inputText}">
                     <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
-                </in:inplaceInput>
+                </r:inplaceInput>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
 
                 rich:select
-                <in:select id="select" value="#{placeholderBean.inputText}">
+                <r:select id="select" value="#{placeholderBean.inputText}">
                     <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
                     <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
                     <rich:placeholder value="#{placeholderBean.placeholderText}" rendered="#{placeholderBean.rendered}" />
-                </in:select>
+                </r:select>
                 <h:outputText value="Output: #{placeholderBean.inputText}" />
                 <br />
 
                 <h:commandButton value="Submit" />
-                <a4j:commandButton value="AJAX" execute="@form" render="@form" />
+                <r:commandButton value="AJAX" execute="@form" render="@form" />
             </fieldset>
             
-            <a4j:outputPanel ajaxRendered="true">
+            <r:outputPanel ajaxRendered="true">
                 <h:messages />
-            </a4j:outputPanel>
+            </r:outputPanel>
         </h:form>
 
     </ui:define>

@@ -4,7 +4,7 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:form>
         
-        <rich:editor id="editor" lang="#{editorBean.language}">
+        <r:editor id="editor" lang="#{editorBean.language}">
             <f:facet name="config">
                     toolbar: 'custom',
                     language: '#{editorBean.language}',
@@ -24,7 +24,7 @@
                         	{ name: 'tools', items : [ 'Maximize' ] }
                         ]
                		</f:facet>
-        </rich:editor>
+        </r:editor>
 
 
     </h:form>

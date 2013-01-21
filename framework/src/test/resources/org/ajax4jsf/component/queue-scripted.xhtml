@@ -5,16 +5,16 @@
 </head>
 <body>
     <f:view>
-        <a4j:status startText="...running..." stopText="stopped" startStyle="color: green" />
+        <r:status startText="...running..." stopText="stopped" startStyle="color: green" />
 
-        <a4j:status id="queueStatus" forceId="true" onstart="window.startStatusTime = Timer.currentTime;"
+        <r:status id="queueStatus" forceId="true" onstart="window.startStatusTime = Timer.currentTime;"
             onstop="statusData.push([window.startStatusTime, Timer.currentTime]); window.startStatusTime = undefined;" />
 
-        <a4j:queue name="queueDefaults" />
+        <r:queue name="queueDefaults" />
 
-        <a4j:queue name="queueRequestDelay" requestDelay="15" />
+        <r:queue name="queueRequestDelay" requestDelay="15" />
 
-        <a4j:queue name="queueTimeout" timeout="5000" />
+        <r:queue name="queueTimeout" timeout="5000" />
 
         <script type="text/javascript">
         //LOG.LEVEL = LOG.ALL;
@@ -22,10 +22,10 @@
         window.statusData = new Array();
     </script>
 
-        <a4j:queue status="queueStatus" name="queueIgnoreDupResponses" ignoreDupResponses="true"
+        <r:queue status="queueStatus" name="queueIgnoreDupResponses" ignoreDupResponses="true"
             oncomplete="queueIgnoreDupResponsesTest.push(data + ':' + Timer.currentTime)" />
 
-        <a4j:queue name="testQueue" />
+        <r:queue name="testQueue" />
 
     </f:view>
 </body>

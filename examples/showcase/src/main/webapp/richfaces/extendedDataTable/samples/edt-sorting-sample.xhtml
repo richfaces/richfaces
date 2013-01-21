@@ -13,27 +13,27 @@
                 <h:outputText value="Multiple Sorting:"/>
                 <h:selectBooleanCheckbox value="#{carsSortingBean.multipleSorting}"
                                          valueChangeListener="#{carsSortingBean.modeChanged}">
-                    <a4j:ajax event="click" render="table @this"/>
+                    <r:ajax event="click" render="table @this"/>
                 </h:selectBooleanCheckbox>
             </h:panelGrid>
-            <a4j:commandButton execute="@this" value="Reset Sorting"
+            <r:commandButton execute="@this" value="Reset Sorting"
                                action="#{carsSortingBean.reset}" render="table"/></fieldset>
-        <rich:extendedDataTable value="#{carsBean.allInventoryItems}"
+        <r:extendedDataTable value="#{carsBean.allInventoryItems}"
                                 var="car" id="table" frozenColumns="2"
                                 sortPriority="#{carsSortingBean.sortPriorities}"
                                 style="height:300px; width:500px;" selectionMode="none">
             <f:facet name="header">
                 <h:outputText value="Cars marketplace"/>
             </f:facet>
-            <rich:column sortBy="#{car.vendor}"
+            <r:column sortBy="#{car.vendor}"
                          sortOrder="#{carsSortingBean.sortsOrders['vendor']}"
                          sortType="custom">
                 <f:facet name="header">
                     <h:panelGrid columns="2">
-                        <a4j:commandLink execute="@this" value="Vendor" render="table"
+                        <r:commandLink execute="@this" value="Vendor" render="table"
                                          action="#{carsSortingBean.sort}">
                             <f:param name="sortProperty" value="vendor"/>
-                        </a4j:commandLink>
+                        </r:commandLink>
                         <h:graphicImage value="/images/icons/tables/down_icon.gif"
                                         rendered="#{carsSortingBean.sortsOrders['vendor']=='descending'}"/>
                         <h:graphicImage value="/images/icons/tables/up_icon.gif.gif"
@@ -41,16 +41,16 @@
                     </h:panelGrid>
                 </f:facet>
                 <h:outputText value="#{car.vendor}"/>
-            </rich:column>
-            <rich:column sortBy="#{car.model}"
+            </r:column>
+            <r:column sortBy="#{car.model}"
                          sortOrder="#{carsSortingBean.sortsOrders['model']}"
                          sortType="custom">
                 <f:facet name="header">
                     <h:panelGrid columns="2">
-                        <a4j:commandLink execute="@this" value="Model" render="table"
+                        <r:commandLink execute="@this" value="Model" render="table"
                                          action="#{carsSortingBean.sort}">
                             <f:param name="sortProperty" value="model"/>
-                        </a4j:commandLink>
+                        </r:commandLink>
                         <h:graphicImage value="/images/icons/tables/down_icon.gif"
                                         rendered="#{carsSortingBean.sortsOrders['model']=='descending'}"/>
                         <h:graphicImage value="/images/icons/tables/up_icon.gif.gif"
@@ -58,16 +58,16 @@
                     </h:panelGrid>
                 </f:facet>
                 <h:outputText value="#{car.model}"/>
-            </rich:column>
-            <rich:column sortBy="#{car.price}"
+            </r:column>
+            <r:column sortBy="#{car.price}"
                          sortOrder="#{carsSortingBean.sortsOrders['price']}"
                          sortType="custom">
                 <f:facet name="header">
                     <h:panelGrid columns="2">
-                        <a4j:commandLink execute="@this" value="Price" render="table"
+                        <r:commandLink execute="@this" value="Price" render="table"
                                          action="#{carsSortingBean.sort}">
                             <f:param name="sortProperty" value="price"/>
-                        </a4j:commandLink>
+                        </r:commandLink>
                         <h:graphicImage value="/images/icons/tables/down_icon.gif"
                                         rendered="#{carsSortingBean.sortsOrders['price']=='descending'}"/>
                         <h:graphicImage value="/images/icons/tables/up_icon.gif.gif"
@@ -75,16 +75,16 @@
                     </h:panelGrid>
                 </f:facet>
                 <h:outputText value="#{car.price}"/>
-            </rich:column>
-            <rich:column sortBy="#{car.mileage}"
+            </r:column>
+            <r:column sortBy="#{car.mileage}"
                          sortOrder="#{carsSortingBean.sortsOrders['mileage']}"
                          sortType="custom">
                 <f:facet name="header">
                     <h:panelGrid columns="2">
-                        <a4j:commandLink execute="@this" value="Mileage" render="table"
+                        <r:commandLink execute="@this" value="Mileage" render="table"
                                          action="#{carsSortingBean.sort}">
                             <f:param name="sortProperty" value="mileage"/>
-                        </a4j:commandLink>
+                        </r:commandLink>
                         <h:graphicImage value="/images/icons/tables/down_icon.gif"
                                         rendered="#{carsSortingBean.sortsOrders['mileage']=='descending'}"/>
                         <h:graphicImage value="/images/icons/tables/up_icon.gif.gif"
@@ -92,25 +92,25 @@
                     </h:panelGrid>
                 </f:facet>
                 <h:outputText value="#{car.mileage}"/>
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="VIN Code"/>
                 </f:facet>
                 <h:outputText value="#{car.vin}"/>
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="Items stock"/>
                 </f:facet>
                 <h:outputText value="#{car.stock}"/>
-            </rich:column>
-            <rich:column>
+            </r:column>
+            <r:column>
                 <f:facet name="header">
                     <h:outputText value="Days Live"/>
                 </f:facet>
                 <h:outputText value="#{car.daysLive}"/>
-            </rich:column>
-        </rich:extendedDataTable>
+            </r:column>
+        </r:extendedDataTable>
     </h:form>
 </ui:composition>

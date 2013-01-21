@@ -4,15 +4,15 @@
     xmlns:rich="http://richfaces.org/rich">
 
     <h:form>
-        <rich:tree toggleType="ajax" var="item">
-            <rich:treeModelRecursiveAdaptor roots="#{fileSystemBean.sourceRoots}" nodes="#{item.directories}">
-                <rich:treeNode>
+        <r:tree toggleType="ajax" var="item">
+            <r:treeModelRecursiveAdaptor roots="#{fileSystemBean.sourceRoots}" nodes="#{item.directories}">
+                <r:treeNode>
                     #{item.shortPath}
-                </rich:treeNode>
-                <rich:treeModelAdaptor nodes="#{item.files}">
-                    <rich:treeNode>#{item}</rich:treeNode>
-                </rich:treeModelAdaptor>
-            </rich:treeModelRecursiveAdaptor>
-        </rich:tree>
+                </r:treeNode>
+                <r:treeModelAdaptor nodes="#{item.files}">
+                    <r:treeNode>#{item}</r:treeNode>
+                </r:treeModelAdaptor>
+            </r:treeModelRecursiveAdaptor>
+        </r:tree>
     </h:form>
 </ui:composition>

@@ -32,7 +32,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 </h:head>
 
 <h:body>
-    <rich:dataGrid id="dataGrid" value="value" var="var">
+    <r:dataGrid id="dataGrid" value="value" var="var">
         <f:facet name="caption">
             <h:outputText id="captionFacet" value="captionFacet" />
         </f:facet>
@@ -46,11 +46,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <h:outputText id="footerFacet" value="footerFacet" />
         </f:facet>
         <h:outputText id="outputText" value="#{var}" />
-    </rich:dataGrid>
-    <rich:dataGrid id="dataGrid2">
+    </r:dataGrid>
+    <r:dataGrid id="dataGrid2">
         <f:facet name="noData">
             <h:outputText id="noDataFacet" value="noDataFacet" />
         </f:facet>
-    </rich:dataGrid>
+    </r:dataGrid>
 </h:body>
 </html>

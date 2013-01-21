@@ -14,53 +14,53 @@
                 <h:outputLabel for="length" value="Text length from 1 to 3:" />
                 <h:inputText id="length" value="#{test.value}">
                     <f:validateLength minimum="1" maximum="3" />
-                    <csv:validator event="blur" />
+                    <r:validator event="blur" />
                 </h:inputText>
                 <h:outputText id="lengthOut" value="#{test.value}"></h:outputText>
-                <csv:message for="length" />
+                <r:message for="length" />
 
                 <h:outputLabel for="dblrange" value="Text dblrange from 1.0 to 3.0:" />
                 <h:inputText id="dblrange" value="#{test.doubleValue}">
                     <f:validateDoubleRange minimum="1" maximum="3" />
-                    <csv:validator event="blur" />
+                    <r:validator event="blur" />
                 </h:inputText>
                 <h:outputText id="dblrangeOut" value="#{test.doubleValue}"></h:outputText>
-                <csv:message for="dblrange" />
+                <r:message for="dblrange" />
 
                 <h:outputLabel for="longrange" value="Text long range from 2 to 5, custom msg:" />
                 <h:inputText id="longrange" value="#{test.longValue}" converterMessage="Not a number"
                     validatorMessage="Wrong number">
                     <f:validateLongRange minimum="2" maximum="5" />
-                    <csv:validator event="blur" />
+                    <r:validator event="blur" />
                 </h:inputText>
                 <h:outputText id="longrangeOut" value="#{test.longValue}"></h:outputText>
-                <csv:message for="longrange" />
+                <r:message for="longrange" />
                 
                 <h:outputLabel for="calendar" value="Date (non-empty):" />
-                <in:calendar id="calendar" required="true" value="#{calendarValue}">
+                <r:calendar id="calendar" required="true" value="#{calendarValue}">
                     <f:validateRequired />
-                    <csv:validator event="change" />
-                </in:calendar>
+                    <r:validator event="change" />
+                </r:calendar>
                 <h:outputText id="calendarOut" value="#{calendarValue}"></h:outputText>
-                <csv:message for="calendar" />
+                <r:message for="calendar" />
                 
                 <h:outputLabel for="inplaceInput" value="Inplace input (required):"  />
-                <in:inplaceInput id="inplaceInput" required="true" value="#{inplaceInputValue}">
+                <r:inplaceInput id="inplaceInput" required="true" value="#{inplaceInputValue}">
                     <f:validateRequired />
-                    <csv:validator event="blur" />
-                </in:inplaceInput>
+                    <r:validator event="blur" />
+                </r:inplaceInput>
                 <h:outputText id="inplaceInputOut" value="#{inplaceInputValue}"></h:outputText>
-                <csv:message for="inplaceInput" />
+                <r:message for="inplaceInput" />
 
             </h:panelGrid>
             <h:commandButton value="Submit form with client-side validation">
-                <csv:validator />
+                <r:validator />
             </h:commandButton>
-            <a4j:commandButton value="AJAX Submit with client-side validation" render="lengthOut,dblrangeOut,longrangeOut">
-                <csv:validator event="click" />
-            </a4j:commandButton>
+            <r:commandButton value="AJAX Submit with client-side validation" render="lengthOut,dblrangeOut,longrangeOut">
+                <r:validator event="click" />
+            </r:commandButton>
         </h:form>
-        <csv:messages />
+        <r:messages />
     </ui:define>
 </ui:composition>
 </html>

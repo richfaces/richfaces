@@ -4,23 +4,23 @@
     xmlns:rich="http://richfaces.org/rich">
 
 
-    <rich:panel header="Placeholder">
+    <r:panel header="Placeholder">
         <h:panelGrid columns="2">
             <h:outputLabel value="Input text:" />
             <h:inputText id="input">
-                <rich:placeholder value="Type text here..." />
+                <r:placeholder value="Type text here..." />
             </h:inputText>
     
             <h:outputLabel value="Textarea:" />
             <h:inputTextarea id="textarea">
-                <rich:placeholder value="A space for long content..." />
+                <r:placeholder value="A space for long content..." />
             </h:inputTextarea>
     
             <h:outputLabel value="Date:" />
-            <rich:calendar datePattern="dd/M/yyyy" enableManualInput="true">
-                <rich:placeholder value="dd/mm/yyyy" />
-            </rich:calendar>
+            <r:calendar datePattern="dd/M/yyyy" enableManualInput="true">
+                <r:placeholder value="dd/mm/yyyy" />
+            </r:calendar>
         </h:panelGrid>
-    </rich:panel>
+    </r:panel>
 
 </ui:composition>

@@ -2,19 +2,19 @@
     xmlns:a4j="http://richfaces.org/a4j">
 <body>
     <f:view>
-        <a4j:queue name="defaultSizeQueue" />
+        <r:queue name="defaultSizeQueue" />
 
-        <a4j:queue name="dropNextQueue" sizeExceededBehavior="dropNext" size="3" />
-        <a4j:queue name="dropNextQueueSingle" sizeExceededBehavior="dropNext" size="1" />
+        <r:queue name="dropNextQueue" sizeExceededBehavior="dropNext" size="3" />
+        <r:queue name="dropNextQueueSingle" sizeExceededBehavior="dropNext" size="1" />
 
-        <a4j:queue name="fireNextQueue" sizeExceededBehavior="fireNext" size="3" />
-        <a4j:queue name="fireNextQueueSingle" sizeExceededBehavior="fireNext" size="1" />
+        <r:queue name="fireNextQueue" sizeExceededBehavior="fireNext" size="3" />
+        <r:queue name="fireNextQueueSingle" sizeExceededBehavior="fireNext" size="1" />
 
-        <a4j:queue name="dropNewQueue" sizeExceededBehavior="dropNew" size="3" />
-        <a4j:queue name="dropNewQueueSingle" sizeExceededBehavior="dropNew" size="1" />
+        <r:queue name="dropNewQueue" sizeExceededBehavior="dropNew" size="3" />
+        <r:queue name="dropNewQueueSingle" sizeExceededBehavior="dropNew" size="1" />
 
-        <a4j:queue name="fireNewQueue" sizeExceededBehavior="fireNew" size="3" />
-        <a4j:queue name="fireNewQueueSingle" sizeExceededBehavior="fireNew" size="1" />
+        <r:queue name="fireNewQueue" sizeExceededBehavior="fireNew" size="3" />
+        <r:queue name="fireNewQueueSingle" sizeExceededBehavior="fireNew" size="1" />
 
         <script type="text/javascript">
         defaultExceededQueueResults = new Array();
@@ -39,15 +39,15 @@
         defaultSingleSizedQueueResults = new Array();
     </script>
 
-        <a4j:queue onsizeexceeded="addEventData(this, query, options, event)" size="2" name="defaultExceededQueue" />
+        <r:queue onsizeexceeded="addEventData(this, query, options, event)" size="2" name="defaultExceededQueue" />
         <h:form id="form">
-            <a4j:commandButton id="button0" eventsQueue="defaultExceededQueue" value="button" />
-            <a4j:commandButton id="button1" eventsQueue="defaultExceededQueue" value="button" />
-            <a4j:commandButton id="button2" eventsQueue="defaultExceededQueue" value="button" />
-            <a4j:commandButton id="button3" eventsQueue="defaultExceededQueue" value="button" />
+            <r:commandButton id="button0" eventsQueue="defaultExceededQueue" value="button" />
+            <r:commandButton id="button1" eventsQueue="defaultExceededQueue" value="button" />
+            <r:commandButton id="button2" eventsQueue="defaultExceededQueue" value="button" />
+            <r:commandButton id="button3" eventsQueue="defaultExceededQueue" value="button" />
         </h:form>
 
-        <a4j:queue name="singleSizedDefaultQueue" size="1" ignoreDupResponses="true"
+        <r:queue name="singleSizedDefaultQueue" size="1" ignoreDupResponses="true"
             oncomplete="defaultSingleSizedQueueResults.push(data)" />
     </f:view>
 </body>

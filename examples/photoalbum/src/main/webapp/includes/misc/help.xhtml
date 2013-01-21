@@ -5,7 +5,7 @@
     <h:outputStylesheet name="html-common.css" library="stylesheet/help" />
     <h:outputStylesheet name="html-release.css" library="stylesheet/help" />
     <h:outputStylesheet name="jbossorg.css" library="stylesheet/help" />
-    <rich:popupPanel id="helpPanel" width="1100" height="620" onshow="SyntaxHighlighter.highlight(this)">
+    <r:popupPanel id="helpPanel" width="1100" height="620" onshow="SyntaxHighlighter.highlight(this)">
         <f:facet name="header">
             <h:graphicImage value="/img/icons/help_sign.png" />
 		#{messages['how_it_works']}</f:facet>
@@ -16,7 +16,7 @@
             </h:panelGroup>
         </f:facet>
 
-        <!-- <rich:effect type="Appear" name="appearFunc" /> -->
+        <!-- <r:effect type="Appear" name="appearFunc" /> -->
         <!-- not implemented in RF 4 -->
 
         <h:panelGroup>
@@ -24,5 +24,5 @@
                 <ui:include src="#{help.getPage()}" />
             </div>
         </h:panelGroup>
-    </rich:popupPanel>
+    </r:popupPanel>
 </ui:composition>

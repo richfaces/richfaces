@@ -7,9 +7,9 @@
     <!-- content -->
     <ui:define name="content">
         <h:form id="form1">
-            <rich:dataScroller id="scroller1" for="richTable" page="#{dataBean.page}" maxPages="7"></rich:dataScroller>
+            <r:dataScroller id="scroller1" for="richTable" page="#{dataBean.page}" maxPages="7"></r:dataScroller>
     
-            <rich:dataTable keepSaved="true" id="richTable" var="record" rowKeyVar="rowKey" value="#{dataBean.employeeList}" rows="20"
+            <r:dataTable keepSaved="true" id="richTable" var="record" rowKeyVar="rowKey" value="#{dataBean.employeeList}" rows="20"
                 sortMode="single" rowClass='#{record}' cellClass="cellClQwerty" firstRowClass="firstRowClass123">
                 <f:facet name="caption">
                     <h:outputText id="captioFacet1" value="Caption Facet" />
@@ -19,61 +19,61 @@
                     <h:outputText value="header" />
                 </f:facet>
     
-                <rich:column id="column_name" sortBy="#{record.name}" sortIconAsc="resources/images/asc.gif"
+                <r:column id="column_name" sortBy="#{record.name}" sortIconAsc="resources/images/asc.gif"
                     sortIconDesc="resources/images/desc.gif" sortIconUnsort="resources/images/unsort.gif">
                     <f:facet name="header">
                         <h:outputText id="columnHeader1" value="Column Header Facet" />
                     </f:facet>
     
-                    <rich:collapsibleSubTableToggler for="collapsibleSubTable">
-                    </rich:collapsibleSubTableToggler>
+                    <r:collapsibleSubTableToggler for="collapsibleSubTable">
+                    </r:collapsibleSubTableToggler>
     
                     <h:outputText value="#{record.name}" />
                     <f:facet name="footer">
                         <h:outputText id="columnFooter1" value="Column Footer Facet 1" />
                     </f:facet>
-                </rich:column>
+                </r:column>
     
-                <rich:column id="column_title" sortBy="#{record.title}" sortIconAsc="resources/images/asc.gif"
+                <r:column id="column_title" sortBy="#{record.title}" sortIconAsc="resources/images/asc.gif"
                     sortIconDesc="resources/images/desc.gif" sortIconUnsort="resources/images/unsort.gif">
                     <f:facet name="header">
                         <h:outputText id="columnHeader2" value="Column Header Facet 2" />
                     </f:facet>
                     <h:outputText value="#{record.title}" />
-                </rich:column>
+                </r:column>
     
-                <rich:column id="column_email">
+                <r:column id="column_email">
                     <h:outputText value="#{record.EMail}" />
-                </rich:column>
+                </r:column>
     
-                <rich:collapsibleSubTable id="collapsibleSubTable" var="company" value="#{record.companies}" rows="1"
+                <r:collapsibleSubTable id="collapsibleSubTable" var="company" value="#{record.companies}" rows="1"
                     switchType="ajax" expanded="true" rowClass="#{company}">
                     <f:facet name="header">
-                        <rich:dataScroller id="subscroller" for="collapsibleSubTable" maxPages="3"></rich:dataScroller>
+                        <r:dataScroller id="subscroller" for="collapsibleSubTable" maxPages="3"></r:dataScroller>
                     </f:facet>
     
                     <f:facet name="footer">
                         <h:outputText value="footer" />
                     </f:facet>
     
-                    <rich:column id="column_company_name">
+                    <r:column id="column_company_name">
                         <h:outputText value="#{company.name}" />
-                    </rich:column>
+                    </r:column>
     
-                    <rich:column id="column_company_state">
+                    <r:column id="column_company_state">
                         <h:outputText value="#{company.state}" />
-                    </rich:column>
+                    </r:column>
     
-                    <rich:column id="column_company_phone">
+                    <r:column id="column_company_phone">
                         <h:outputText value="#{company.phone}" />
-                    </rich:column>
-                </rich:collapsibleSubTable>
+                    </r:column>
+                </r:collapsibleSubTable>
     
                 <f:facet name="footer">
-                    <rich:dataScroller id="scroller3" for="richTable" page="#{dataBean.page}" maxPages="7"></rich:dataScroller>
+                    <r:dataScroller id="scroller3" for="richTable" page="#{dataBean.page}" maxPages="7"></r:dataScroller>
                 </f:facet>
     
-            </rich:dataTable>
+            </r:dataTable>
     
             <br />
     
@@ -96,24 +96,24 @@
                       </cc:componentControl -->
     
             <h:commandButton value="next">
-                <misc:componentControl event="click" target="form1:scroller1" operation="switchToPage">
+                <r:componentControl event="click" target="form1:scroller1" operation="switchToPage">
                     <f:param value="fastforward" />
-                </misc:componentControl>
+                </r:componentControl>
             </h:commandButton>
     
             <h:commandButton value="previous">
-                <misc:componentControl event="click" target="form1:scroller1" operation="previous" />
+                <r:componentControl event="click" target="form1:scroller1" operation="previous" />
             </h:commandButton>
     
             <h:commandButton value="sort">
-                <misc:componentControl event="click" target="form1:richTable" operation="sort">
+                <r:componentControl event="click" target="form1:richTable" operation="sort">
                     <f:param value="column_title" />
-                </misc:componentControl>
+                </r:componentControl>
             </h:commandButton>
     
             <h:commandButton value="unsort">
-                <misc:componentControl event="click" target="form1:richTable" operation="sort">
-                </misc:componentControl>
+                <r:componentControl event="click" target="form1:richTable" operation="sort">
+                </r:componentControl>
             </h:commandButton>
     
         </h:form>
@@ -121,13 +121,13 @@
         <h:form id="renderIfSinglePage_form">
             <h:outputText value="DataScroller: attribute 'renderIfSinglePage' with empty table" />
             <br />
-            <rich:dataScroller id="scroller2" for="richTable2" page="#{dataBean.page}"
+            <r:dataScroller id="scroller2" for="richTable2" page="#{dataBean.page}"
                 renderIfSinglePage="#{dataBean.renderIfSinglePage}" />
-            <rich:dataTable id="richTable2" />
+            <r:dataTable id="richTable2" />
             <h:selectOneRadio layout="pagedirection" value="#{dataBean.renderIfSinglePage}">
                 <f:selectItem itemValue="true" itemLabel="Set renderIfSinglePage 'true'" />
                 <f:selectItem itemValue="false" itemLabel="Set renderIfSinglePage 'false'" />
-                <a4j:ajax render="renderIfSinglePage_form" />
+                <r:ajax render="renderIfSinglePage_form" />
             </h:selectOneRadio>
         </h:form>
     </ui:define>

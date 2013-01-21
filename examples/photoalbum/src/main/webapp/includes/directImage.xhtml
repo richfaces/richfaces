@@ -2,6 +2,6 @@
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
 
-    <a4j:mediaOutput id="img" element="img" styleClass="main-image" createContent="#{directLinkHelper.paintImage}"
+    <r:mediaOutput id="img" element="img" styleClass="main-image" createContent="#{directLinkHelper.paintImage}"
         style="border : 2px solid #FFFFFF;" value="#{param['imageId']}" mimeType="image/jpeg" />
 </ui:composition>

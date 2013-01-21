@@ -4,11 +4,11 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:form>
         <h:inputText value="#{userBean.name}" />
-        <a4j:commandButton value="Submit" render="out" />
+        <r:commandButton value="Submit" render="out" />
         <br />
-        <a4j:outputPanel id="out">
+        <r:outputPanel id="out">
             <h:outputText value="Hello #{userBean.name}!" rendered="#{not empty userBean.name}" />
-        </a4j:outputPanel>
+        </r:outputPanel>
     </h:form>
-    <a4j:log />
+    <r:log />
 </ui:composition>

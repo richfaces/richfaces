@@ -5,12 +5,12 @@
     <h:form>
         <h:selectOneMenu value="#{selectsBean.currentType}" valueChangeListener="#{selectsBean.valueChanged}">
             <f:selectItems value="#{selectsBean.firstList}" />
-            <a4j:ajax event="valueChange" render="second" execute="@this" />
+            <r:ajax event="valueChange" render="second" execute="@this" />
         </h:selectOneMenu>
-        <a4j:outputPanel id="second" layout="block">
+        <r:outputPanel id="second" layout="block">
             <h:selectOneMenu value="#{selectsBean.currentType}" rendered="#{not empty selectsBean.currentType}">
                 <f:selectItems value="#{selectsBean.secondList}" />
             </h:selectOneMenu>
-        </a4j:outputPanel>
+        </r:outputPanel>
     </h:form>
 </ui:composition>

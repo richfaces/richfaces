@@ -4,26 +4,26 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:form>
         <p>This example shows a select component that behaves basically the same as the standard:</p>
-        <rich:panel style="width:220px;">
+        <r:panel style="width:220px;">
             <f:facet name="header">
                 <h:outputText value="Simples select"></h:outputText>
             </f:facet>
-            <rich:select>
+            <r:select>
                 <f:selectItem itemValue="0" itemLabel="Option 1" />
                 <f:selectItem itemValue="1" itemLabel="Option 2" />
                 <f:selectItem itemValue="2" itemLabel="Option 3" />
                 <f:selectItem itemValue="3" itemLabel="Option 4" />
                 <f:selectItem itemValue="4" itemLabel="Option 5" />
-            </rich:select>
-        </rich:panel>
+            </r:select>
+        </r:panel>
         <p>In the next example you can manually enter values, and any invalid entries are not allowed.</p>
-        <rich:panel style="width:220px;">
+        <r:panel style="width:220px;">
             <f:facet name="header">
                 <h:outputText value="Select with manual input"></h:outputText>
             </f:facet>
-            <rich:select enableManualInput="true" defaultLabel="start typing for select">
+            <r:select enableManualInput="true" defaultLabel="start typing for select">
                 <f:selectItems value="#{inplaceSelectBean.capitalsOptions}" />
-            </rich:select>
-        </rich:panel>
+            </r:select>
+        </r:panel>
     </h:form>
 </ui:composition>

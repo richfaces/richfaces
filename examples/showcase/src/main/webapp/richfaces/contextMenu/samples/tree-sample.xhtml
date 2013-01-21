@@ -15,26 +15,26 @@
         }
     </h:outputStylesheet>
     <h:form id="form">
-        <rich:tree id="tree" nodeType="#{node.type}" var="node" value="#{treeBean.rootNodes}" toggleType="client"
+        <r:tree id="tree" nodeType="#{node.type}" var="node" value="#{treeBean.rootNodes}" toggleType="client"
                    selectionType="ajax" selectionChangeListener="#{treeBean.selectionChanged}">
-            <rich:treeNode type="country">
+            <r:treeNode type="country">
                 #{node.name}
-            </rich:treeNode>
-            <rich:treeNode type="company" iconExpanded="/images/tree/disc.gif" iconCollapsed="/images/tree/disc.gif">
+            </r:treeNode>
+            <r:treeNode type="company" iconExpanded="/images/tree/disc.gif" iconCollapsed="/images/tree/disc.gif">
                 #{node.name}
-            </rich:treeNode>
-            <rich:treeNode type="cd" iconLeaf="/images/tree/song.gif">
+            </r:treeNode>
+            <r:treeNode type="cd" iconLeaf="/images/tree/song.gif">
                 #{node.artist} - #{node.name} - #{node.year}
-            </rich:treeNode>
-        </rich:tree>
+            </r:treeNode>
+        </r:tree>
 
-        <rich:contextMenu target="tree" mode="ajax">
-            <rich:menuItem label="View" render="popupContent" oncomplete="#{rich:component('popup')}.show()"
+        <r:contextMenu target="tree" mode="ajax">
+            <r:menuItem label="View" render="popupContent" oncomplete="#{rich:component('popup')}.show()"
                            mode="ajax" icon="/images/icons/open.gif"/>
-        </rich:contextMenu>
+        </r:contextMenu>
     </h:form>
 
-    <rich:popupPanel id="popup" modal="true" autosized="true" resizeable="false" width="200">
+    <r:popupPanel id="popup" modal="true" autosized="true" resizeable="false" width="200">
         <f:facet name="header">
             <h:outputText value="Selection details"/>
         </f:facet>
@@ -66,5 +66,5 @@
             <br/>
             <h:button value="Close" onclick="#{rich:component('popup')}.hide(); return false;"/>
         </h:panelGroup>
-    </rich:popupPanel>
+    </r:popupPanel>
 </ui:composition>

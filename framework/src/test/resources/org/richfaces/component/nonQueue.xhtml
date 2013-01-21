@@ -12,20 +12,20 @@
 </h:head>
 <h:body>
     <h:form id="form">
-        <a4j:ajax>
+        <r:ajax>
             <h:inputText />
 
-        </a4j:ajax>
-        <a4j:ajax event="valueChange">
+        </r:ajax>
+        <r:ajax event="valueChange">
             <h:panelGroup>
-                <a4j:ajax event="valueChange">
+                <r:ajax event="valueChange">
                     <h:inputText />
 
-                    <a4j:commandLink value="Link" />
+                    <r:commandLink value="Link" />
 
-                </a4j:ajax>
+                </r:ajax>
             </h:panelGroup>
-        </a4j:ajax>
+        </r:ajax>
         <h:commandButton value="G" />
     </h:form>
 

@@ -6,20 +6,20 @@
         <h:panelGrid rowClasses="s1row" columns="3" columnClasses="wfcol1,wfcol2,wfcol3">
             <h:outputText value="First Name:" />
             <h:inputText id="fn" value="#{profile.firstName}" label="First Name" required="true" />
-            <rich:message for="fn" />
+            <r:message for="fn" />
 
             <h:outputText value="Last Name:" />
             <h:inputText id="ln" value="#{profile.lastName}" label="Last Name" required="true" />
-            <rich:message for="ln" />
+            <r:message for="ln" />
 
             <h:outputText value="Company:" />
             <h:inputText id="comp" value="#{profile.company}" label="Company" required="true" />
-            <rich:message for="comp" />
+            <r:message for="comp" />
         </h:panelGrid>
         <div class="navPanel" style="width: 100%;">
-            <a4j:commandButton style="float:right" value="Next &gt;&gt;">
-                <rich:toggleControl targetItem="@next" event="click" />
-            </a4j:commandButton>
+            <r:commandButton style="float:right" value="Next &gt;&gt;">
+                <r:toggleControl targetItem="@next" event="click" />
+            </r:commandButton>
         </div>
     </div>
 </ui:composition>

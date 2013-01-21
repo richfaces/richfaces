@@ -7,11 +7,11 @@
 
 
 
-        <rich:togglePanel id="dynamicPanels" switchType="ajax" activeItem="#{dynamicPanelBean.activeTab}">
-            <a4j:repeat value="#{skinBean.skins}" var="skinName">
-                <rich:togglePanelItem name="#{skinName}">
+        <r:togglePanel id="dynamicPanels" switchType="ajax" activeItem="#{dynamicPanelBean.activeTab}">
+            <r:repeat value="#{skinBean.skins}" var="skinName">
+                <r:togglePanelItem name="#{skinName}">
                     
-                    <rich:panel header="Skin: #{skinName}">
+                    <r:panel header="Skin: #{skinName}">
                         <h:form>
                             <h:panelGrid columns="2">
                                 <h:outputText value="Enter Name:" />
@@ -31,22 +31,22 @@
                                 <f:param name="skin" value="#{skinName}" />
                             </h:commandButton>
                         </h:form>
-                    </rich:panel>
+                    </r:panel>
                     
                     
-                </rich:togglePanelItem>
-            </a4j:repeat>
-        </rich:togglePanel>
+                </r:togglePanelItem>
+            </r:repeat>
+        </r:togglePanel>
         
         <br />
 
-        <a4j:commandButton value="&lt;&lt;Previous">
-            <rich:toggleControl targetItem="@prev" targetPanel="dynamicPanels" />
-        </a4j:commandButton>
+        <r:commandButton value="&lt;&lt;Previous">
+            <r:toggleControl targetItem="@prev" targetPanel="dynamicPanels" />
+        </r:commandButton>
 
-        <a4j:commandButton value="Next &gt;&gt;">
-            <rich:toggleControl targetItem="@next" targetPanel="dynamicPanels" />
-        </a4j:commandButton>
+        <r:commandButton value="Next &gt;&gt;">
+            <r:toggleControl targetItem="@next" targetPanel="dynamicPanels" />
+        </r:commandButton>
 
 
 

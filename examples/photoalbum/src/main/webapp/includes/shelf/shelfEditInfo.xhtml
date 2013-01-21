@@ -2,40 +2,40 @@
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:richx="http://richfaces.org/richx" xmlns:rich="http://richfaces.org/rich">
     <div class="shelf-edit">
-        <rich:graphValidator>
+        <r:graphValidator>
             <table style="border-collapse: collapse; padding: 5px; border: 0">
                 <tr>
                     <td style="vertical-align: top; white-space: nowrap; padding-top: 8px">#{messages['shelf_name']}</td>
                     <td style="vertical-align: top;" colspan="2">
                         <h:inputText id="shelf_name" value="#{model.selectedShelf.name}" styleClass="shelf-edit-input"
                             required="true">
-                            <rich:validator event="blur" />
+                            <r:validator event="blur" />
                         </h:inputText>
-                        <rich:message for="shelf_name" />
+                        <r:message for="shelf_name" />
                     </td>
                 </tr>
                 <tr>
                     <td style="padding: 0; margin: 0;" />
                     <td style="padding: 0; margin: 0;" class="errors">
-                        <rich:message for="shelf_name" />
+                        <r:message for="shelf_name" />
                     </td>
                 </tr>
                 <tr>
                     <td style="vertical-align: top; white-space: nowrap; padding-top: 8px">#{messages['creation_date']}</td>
                     <td style="vertical-align: top;">
-                        <a4j:outputPanel id="calendar" layout="block">
-                            <rich:calendar id="shelf_date" styleClass="shelf-edit-calendar" enableManualInput="true"
+                        <r:outputPanel id="calendar" layout="block">
+                            <r:calendar id="shelf_date" styleClass="shelf-edit-calendar" enableManualInput="true"
                                 value="#{model.selectedShelf.created}" disabled="true">
-                                <rich:validator event="inputblur" />
-                            </rich:calendar>
-                        </a4j:outputPanel>
-                        <rich:message for="calendar" />
+                                <r:validator event="inputblur" />
+                            </r:calendar>
+                        </r:outputPanel>
+                        <r:message for="calendar" />
                     </td>
                 </tr>
                 <tr>
                     <td style="padding: 0; margin: 0;" />
                     <td style="padding: 0; margin: 0;" class="errors">
-                        <rich:message for="shelf_date" />
+                        <r:message for="shelf_date" />
                     </td>
                 </tr>
                 <tr>
@@ -48,7 +48,7 @@
                 <tr>
                     <td style="padding: 0; margin: 0;" />
                     <td style="padding: 0; margin: 0;">
-                        <rich:message for="shelf_description" />
+                        <r:message for="shelf_description" />
                     </td>
                 </tr>
                 <tr>
@@ -58,7 +58,7 @@
                     <td style="vertical-align: top;">
                         <h:selectBooleanCheckbox styleClass="selectBooleanCheckbox" id="shared"
                             value="#{model.selectedShelf.shared}" />
-                        <rich:message for="shared" />
+                        <r:message for="shared" />
                     </td>
                 </tr>
                 <tr>
@@ -71,7 +71,7 @@
                     </td>
                 </tr>
             </table>
-        </rich:graphValidator>
+        </r:graphValidator>
     </div>
     <ui:include src="/includes/album/albumsList.xhtml">
         <ui:param name="albums" value="#{model.selectedShelf.albums}" />

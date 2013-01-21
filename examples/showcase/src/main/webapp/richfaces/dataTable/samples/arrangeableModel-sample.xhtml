@@ -3,7 +3,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
     <h:form id="form">
-        <rich:dataTable keepSaved="true" id="richTable" var="record" value="#{personBean.dataModel}" rows="20">
+        <r:dataTable keepSaved="true" id="richTable" var="record" value="#{personBean.dataModel}" rows="20">
             <ui:include src="jpaColumn.xhtml">
                 <ui:param name="bean" value="#{personBean}" />
                 <ui:param name="property" value="name" />
@@ -18,8 +18,8 @@
             </ui:include>
 
             <f:facet name="footer">
-                <rich:dataScroller id="scroller" />
+                <r:dataScroller id="scroller" />
             </f:facet>
-        </rich:dataTable>
+        </r:dataTable>
     </h:form>
 </ui:composition>

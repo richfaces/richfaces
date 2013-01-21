@@ -49,7 +49,7 @@
             <h:outputText value="Selected rowKeys" style="padding-left: 30px;" />
             <h:outputText id="selectionOutput" value="#{dataBean.selectedRowKeys}" />
     
-            <rich:extendedDataTable id="extendedDataTable" clientRows="40" rows="100" frozenColumns="2"
+            <r:extendedDataTable id="extendedDataTable" clientRows="40" rows="100" frozenColumns="2"
                 value="#{dataBean.state ? dataBean.employeeList : null}" var="record" noDataLabel="There isn't data."
                 styleClass="extendedDataTable" rowKeyVar="rkv" filterVar="fv" sortMode="multi"
                 selectionMode="#{dataBean.selectionMode}" selectedRowKeys="#{dataBean.selectedRowKeys}"
@@ -65,7 +65,7 @@
                 <f:facet name="noData">
                     <h:outputText value="There isn't data." style="border: solid black 1px;" />
                 </f:facet>
-                <rich:column id="rkv">
+                <r:column id="rkv">
                     <f:facet name="header">
                         <h:outputText value="Index" />
                     </f:facet>
@@ -75,8 +75,8 @@
                             <h:outputText id="footerFacet" value="index" />
                         </f:facet>
                     </c:if>
-                </rich:column>
-                <rich:column id="column_name" filterExpression="#{fn:containsIgnoreCase(record.name, fv)}" sortBy="#{record.name}">
+                </r:column>
+                <r:column id="column_name" filterExpression="#{fn:containsIgnoreCase(record.name, fv)}" sortBy="#{record.name}">
                     <f:facet name="header">
                         <h:outputText id="columnHeader1" value="Column Header Facet" />
                     </f:facet>
@@ -86,34 +86,34 @@
                             <h:outputText id="columnFooter1" value="Column Footer Facet" />
                         </f:facet>
                     </c:if>
-                </rich:column>
+                </r:column>
     
-                <rich:column id="column_title" width="200px" sortBy="#{record.title}">
+                <r:column id="column_title" width="200px" sortBy="#{record.title}">
                     <h:outputText value="#{record.title}" />
                     <c:if test="#{dataBean.rendered}">
                         <f:facet name="footer">
                             <h:outputText id="columnFooter2" value="Column Footer Facet2" />
                         </f:facet>
                     </c:if>
-                </rich:column>
+                </r:column>
     
-                <rich:column id="column_email" width="300px">
+                <r:column id="column_email" width="300px">
                     <h:outputText value="#{record.EMail}" />
-                </rich:column>
-                <rich:column id="column_company_name" width="300px">
+                </r:column>
+                <r:column id="column_company_name" width="300px">
                     <h:outputText value="#{record.companies[0].name}" />
-                </rich:column>
-                <rich:column id="column_company_state">
+                </r:column>
+                <r:column id="column_company_state">
                     <h:outputText value="#{record.companies[0].state}" />
-                </rich:column>
-                <rich:column id="column_company_phone">
+                </r:column>
+                <r:column id="column_company_phone">
                     <h:outputText value="#{record.companies[0].phone}" />
-                </rich:column>
-            </rich:extendedDataTable>
+                </r:column>
+            </r:extendedDataTable>
             <input id="submit" type="submit" />
             
             Table 2 for checking issues with horizontal scrolling (RF-10754)
-            <rich:extendedDataTable id="extendedDataTable2" clientRows="40" rows="100" frozenColumns="2"
+            <r:extendedDataTable id="extendedDataTable2" clientRows="40" rows="100" frozenColumns="2"
                 value="#{dataBean.state ? dataBean.employeeList : null}" var="record" noDataLabel="There isn't data."
                 styleClass="extendedDataTable" rowKeyVar="rkv" filterVar="fv" sortMode="multi"
                 selectionMode="#{dataBean.selectionMode}" selectedRowKeys="#{dataBean.selectedRowKeys}"
@@ -129,7 +129,7 @@
                 <f:facet name="noData">
                     <h:outputText value="There isn't data." style="border: solid black 1px;" />
                 </f:facet>
-                <rich:column id="rkv">
+                <r:column id="rkv">
                     <f:facet name="header">
                         <h:outputText value="Index" />
                     </f:facet>
@@ -139,8 +139,8 @@
                             <h:outputText id="footerFacet" value="index" />
                         </f:facet>
                     </c:if>
-                </rich:column>
-                <rich:column id="column_name" filterExpression="#{fn:containsIgnoreCase(record.name, fv)}" sortBy="#{record.name}">
+                </r:column>
+                <r:column id="column_name" filterExpression="#{fn:containsIgnoreCase(record.name, fv)}" sortBy="#{record.name}">
                     <f:facet name="header">
                         <h:outputText id="columnHeader1" value="Column Header Facet" />
                     </f:facet>
@@ -150,30 +150,30 @@
                             <h:outputText id="columnFooter1" value="Column Footer Facet" />
                         </f:facet>
                     </c:if>
-                </rich:column>
+                </r:column>
     
-                <rich:column id="column_title" width="200px" sortBy="#{record.title}">
+                <r:column id="column_title" width="200px" sortBy="#{record.title}">
                     <h:outputText value="#{record.title}" />
                     <c:if test="#{dataBean.rendered}">
                         <f:facet name="footer">
                             <h:outputText id="columnFooter2" value="Column Footer Facet2" />
                         </f:facet>
                     </c:if>
-                </rich:column>
+                </r:column>
     
-                <rich:column id="column_email" width="300px">
+                <r:column id="column_email" width="300px">
                     <h:outputText value="#{record.EMail}" />
-                </rich:column>
-                <rich:column id="column_company_name" width="300px">
+                </r:column>
+                <r:column id="column_company_name" width="300px">
                     <h:outputText value="#{record.companies[0].name}" />
-                </rich:column>
-                <rich:column id="column_company_state">
+                </r:column>
+                <r:column id="column_company_state">
                     <h:outputText value="#{record.companies[0].state}" />
-                </rich:column>
-                <rich:column id="column_company_phone">
+                </r:column>
+                <r:column id="column_company_phone">
                     <h:outputText value="#{record.companies[0].phone}" />
-                </rich:column>
-            </rich:extendedDataTable>
+                </r:column>
+            </r:extendedDataTable>
         </h:form>
         
     </ui:define>

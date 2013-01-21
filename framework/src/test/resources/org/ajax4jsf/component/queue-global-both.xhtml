@@ -4,60 +4,60 @@
     <f:view>
         <ui:include src="queue-discovery-base.xhtml" />
 
-        <a4j:queue oncomplete="addResult(request.options.parameters.data)" />
+        <r:queue oncomplete="addResult(request.options.parameters.data)" />
 
         <h:form id="form">
-            <a4j:queue oncomplete="addResult('buttonFormQueue')" />
+            <r:queue oncomplete="addResult('buttonFormQueue')" />
 
-            <a4j:commandButton id="button" oncomplete="stub()">
+            <r:commandButton id="button" oncomplete="stub()">
                 <f:param name="data" value="button" />
-            </a4j:commandButton>
+            </r:commandButton>
 
-            <a4j:commandButton id="viewQueueButton" oncomplete="stub()" eventsQueue="viewQueue">
+            <r:commandButton id="viewQueueButton" oncomplete="stub()" eventsQueue="viewQueue">
                 <f:param name="data" value="viewQueueButton" />
-            </a4j:commandButton>
+            </r:commandButton>
 
-            <a4j:commandButton id="implicitDelayedQueue" requestDelay="500" eventsQueue="implicitDelayedQueue"
+            <r:commandButton id="implicitDelayedQueue" requestDelay="500" eventsQueue="implicitDelayedQueue"
                 oncomplete="addResult('implicitDelayedQueue')">
                 <f:param name="data" value="implicitDelayedQueue" />
-            </a4j:commandButton>
+            </r:commandButton>
         </h:form>
 
         <h:form id="form2">
-            <a4j:commandButton id="formQueueButton" eventsQueue="formQueue" requestDelay="1000" oncomplete="stub()">
+            <r:commandButton id="formQueueButton" eventsQueue="formQueue" requestDelay="1000" oncomplete="stub()">
                 <f:param name="data" value="formQueueButton" />
-            </a4j:commandButton>
+            </r:commandButton>
 
-            <a4j:queue oncomplete="addResult('formQueue:' + request.options.parameters.data)" name="formQueue" />
+            <r:queue oncomplete="addResult('formQueue:' + request.options.parameters.data)" name="formQueue" />
 
-            <a4j:commandButton id="button" requestDelay="1000" oncomplete="stub()">
+            <r:commandButton id="button" requestDelay="1000" oncomplete="stub()">
                 <f:param name="data" value="form2Button" />
-            </a4j:commandButton>
+            </r:commandButton>
 
-            <a4j:commandButton id="implicitQueue" eventsQueue="implicitQueue" oncomplete="addResult('implicitQueue')">
+            <r:commandButton id="implicitQueue" eventsQueue="implicitQueue" oncomplete="addResult('implicitQueue')">
                 <f:param name="data" value="implicitQueue" />
-            </a4j:commandButton>
+            </r:commandButton>
         </h:form>
 
         <h:form id="form3">
 
-            <a4j:commandButton id="button">
+            <r:commandButton id="button">
                 <f:param name="data" value="form3Button" />
-            </a4j:commandButton>
+            </r:commandButton>
 
-            <a4j:commandButton id="anotherImplicitQueue" ignoreDupResponses="true" eventsQueue="anotherImplicitQueue"
+            <r:commandButton id="anotherImplicitQueue" ignoreDupResponses="true" eventsQueue="anotherImplicitQueue"
                 oncomplete="addResult('anotherImplicitQueue')">
                 <f:param name="data" value="anotherImplicitQueue" />
-            </a4j:commandButton>
+            </r:commandButton>
         </h:form>
 
         <h:form>
-            <a4j:queue oncomplete="addResult('functionFormQueue')" />
+            <r:queue oncomplete="addResult('functionFormQueue')" />
 
-            <a4j:jsFunction name="ajaxFunction" />
+            <r:jsFunction name="ajaxFunction" />
         </h:form>
 
-        <a4j:queue oncomplete="addResult('viewQueue:' + request.options.parameters.data)" name="viewQueue" />
+        <r:queue oncomplete="addResult('viewQueue:' + request.options.parameters.data)" name="viewQueue" />
     </f:view>
 </body>
 </html>

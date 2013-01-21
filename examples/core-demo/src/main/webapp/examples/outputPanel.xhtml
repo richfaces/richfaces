@@ -6,13 +6,13 @@
     <ui:param name="title" value="Output Panel" />
     <!-- content -->
     <ui:define name="content">
-        <a4j:status startText="start..." />
+        <r:status startText="start..." />
         <br />
         <h:form>
-            <a4j:outputPanel layout="block" onclick="alert('clicked')">
+            <r:outputPanel layout="block" onclick="alert('clicked')">
                 <f:ajax event="mouseover" listener="#{outputPanelBean.behaviorListener}" />
                 Output panel
-            </a4j:outputPanel>
+            </r:outputPanel>
         </h:form>
     </ui:define>
 </ui:composition>

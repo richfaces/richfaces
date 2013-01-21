@@ -6,11 +6,11 @@
     <ui:param name="title" value="Queue" />
     <!-- content -->
     <ui:define name="content">
-        <a4j:queue ignoreDupResponses="true" />
+        <r:queue ignoreDupResponses="true" />
         <h:form>
-            <a4j:commandLink value="Increment" action="#{queueBean.increment}" render="out" />
+            <r:commandLink value="Increment" action="#{queueBean.increment}" render="out" />
             <br />
-            <a4j:commandLink value="Reset" action="#{queueBean.reset}" render="out" />
+            <r:commandLink value="Reset" action="#{queueBean.reset}" render="out" />
             <br />
             <h:outputText value="Counter:" />
             <h:outputText id="out" value="#{queueBean.counter}" />

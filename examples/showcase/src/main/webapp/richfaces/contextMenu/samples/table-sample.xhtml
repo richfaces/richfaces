@@ -5,42 +5,42 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:rich="http://richfaces.org/rich">
         <h:form id="form">
-            <rich:extendedDataTable value="#{extTableSelectionBean.inventoryItems}" var="car"
+            <r:extendedDataTable value="#{extTableSelectionBean.inventoryItems}" var="car"
                                     selection="#{extTableSelectionBean.selection}" id="table" frozenColumns="2"
                                     style="height:300px; width:310px;">
-                <a4j:ajax execute="@form" event="selectionchange" listener="#{extTableSelectionBean.selectionListener}"
+                <r:ajax execute="@form" event="selectionchange" listener="#{extTableSelectionBean.selectionListener}"
                           render=":res"/>
                 <f:facet name="header">
                     <h:outputText value="Cars marketplace"/>
                 </f:facet>
-                <rich:column>
+                <r:column>
                     <f:facet name="header">
                         <h:outputText value="Vendor"/>
                     </f:facet>
                     <h:outputText value="#{car.vendor}"/>
-                </rich:column>
-                <rich:column>
+                </r:column>
+                <r:column>
                     <f:facet name="header">
                         <h:outputText value="Model"/>
                     </f:facet>
                     <h:outputText value="#{car.model}"/>
-                </rich:column>
-                <rich:column>
+                </r:column>
+                <r:column>
                     <f:facet name="header">
                         <h:outputText value="Price"/>
                     </f:facet>
                     <h:outputText value="#{car.price}"/>
-                </rich:column>
-            </rich:extendedDataTable>
+                </r:column>
+            </r:extendedDataTable>
 
-            <rich:contextMenu target="table" mode="ajax">
-                <rich:menuItem label="View" render="popupContent" oncomplete="#{rich:component('popup')}.show();"
+            <r:contextMenu target="table" mode="ajax">
+                <r:menuItem label="View" render="popupContent" oncomplete="#{rich:component('popup')}.show();"
                                mode="ajax" icon="/images/icons/open.gif"/>
-            </rich:contextMenu>
+            </r:contextMenu>
 
         </h:form>
 
-        <rich:popupPanel id="popup" modal="true" autosized="true" resizeable="false">
+        <r:popupPanel id="popup" modal="true" autosized="true" resizeable="false">
             <f:facet name="header">
                 <h:outputText value="Car details"/>
             </f:facet>
@@ -72,5 +72,5 @@
             </h:panelGrid>
             <br />
             <h:button value="Close" onclick="#{rich:component('popup')}.hide(); return false;"/>
-        </rich:popupPanel>
+        </r:popupPanel>
 </ui:composition>

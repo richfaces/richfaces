@@ -27,18 +27,18 @@
                 <td style="vertical-align: top;" />
                 <td style="padding-bottom: 5px">
                     <div class="avatarUpload">
-                        <rich:fileUpload addControlLabel="Change avatar" stopButtonClass="file-upload-stop-button"
+                        <r:fileUpload addControlLabel="Change avatar" stopButtonClass="file-upload-stop-button"
                             addButtonClass="file-upload-button" execute="@this" maxFilesQuantity="100"
                             fileUploadListener="#{userPrefsHelper.uploadAvatar}" listHeight="0" listWidth="0"
                             immediateUpload="true" autoclear="true" acceptedTypes="jpg,jpeg">
-                            <a4j:ajax execute="@this" event="uploadcomplete" render="avatar" />
-                        </rich:fileUpload>
+                            <r:ajax execute="@this" event="uploadcomplete" render="avatar" />
+                        </r:fileUpload>
                     </div>
                 </td>
                 <td style="vertical-align: top;"></td>
             </tr>
         </table>
-        <rich:graphValidator>
+        <r:graphValidator>
             <table style="padding: 0; border-spacing: 0; border: 0" class="reg-table">
                 <tr>
                     <td style="width: 125px;">
@@ -55,7 +55,7 @@
                         </h:panelGroup>
                     </td>
                     <td>
-                        <rich:messages for="userLoginName" styleClass="required" />
+                        <r:messages for="userLoginName" styleClass="required" />
                     </td>
                 </tr>
                 <tr>
@@ -69,7 +69,7 @@
                             <h:outputText styleClass="required" value="*" />
                         </td>
                         <td>
-                            <rich:messages for="userPassword" styleClass="required" />
+                            <r:messages for="userPassword" styleClass="required" />
                         </td>
                     </h:panelGroup>
                 </tr>
@@ -86,7 +86,7 @@
                             </h:panelGroup>
                         </td>
                         <td>
-                            <rich:messages for="userConfirmPassword" styleClass="required" />
+                            <r:messages for="userConfirmPassword" styleClass="required" />
                         </td>
                     </h:panelGroup>
                 </tr>
@@ -104,7 +104,7 @@
                         <h:outputText styleClass="required" value="*" />
                     </td>
                     <td>
-                        <rich:messages for="userFirstname" styleClass="required" />
+                        <r:messages for="userFirstname" styleClass="required" />
                     </td>
                 </tr>
                 <tr>
@@ -116,7 +116,7 @@
                         <h:outputText styleClass="required" value="*" />
                     </td>
                     <td>
-                        <rich:messages for="userSecondname" styleClass="required" />
+                        <r:messages for="userSecondname" styleClass="required" />
                     </td>
                 </tr>
                 <tr>
@@ -128,12 +128,12 @@
                             <h:selectOneRadio required="true" id="userSex" value="#{authenticator.user.sex}">
                                 <f:selectItems value="#{userPrefsHelper.sexs}" var="sex" itemValue="#{sex}" itemLabel="#{sex}" />
                                 <!-- TODO: format output -->
-                                <a4j:ajax event="click" execute="@this" render="avatar" />
+                                <r:ajax event="click" execute="@this" render="avatar" />
                             </h:selectOneRadio>
                         </h:panelGrid>
                     </td>
                     <td>
-                        <rich:messages for="userSex" styleClass="required" />
+                        <r:messages for="userSex" styleClass="required" />
                     </td>
                 </tr>
                 <tr>
@@ -141,15 +141,15 @@
                         <h:outputLabel for="userCalendar">#{messages['user.birthdate']}</h:outputLabel>
                     </td>
                     <td>
-                        <a4j:outputPanel id="userCalendar" layout="block">
-                            <rich:calendar id="userBirthDate" enableManualInput="true" value="#{authenticator.user.birthDate}"
+                        <r:outputPanel id="userCalendar" layout="block">
+                            <r:calendar id="userBirthDate" enableManualInput="true" value="#{authenticator.user.birthDate}"
                                 cellWidth="24px" cellHeight="22px" inputClass="reg-table-input">
-                                <rich:validator event="inputblur" />
-                            </rich:calendar>
-                        </a4j:outputPanel>
+                                <r:validator event="inputblur" />
+                            </r:calendar>
+                        </r:outputPanel>
                     </td>
                     <td>
-                        <rich:messages for="userBirthDate" styleClass="required" />
+                        <r:messages for="userBirthDate" styleClass="required" />
                     </td>
                 </tr>
                 <tr>
@@ -161,8 +161,8 @@
                         <h:outputText styleClass="required" value="*" />
                     </td>
                     <td>
-                        <rich:messages for="userEmail" styleClass="required" />
-                        <a4j:commandLink rendered="#{help.isShowHelp()}"
+                        <r:messages for="userEmail" styleClass="required" />
+                        <r:commandLink rendered="#{help.isShowHelp()}"
                             actionListener="#{help.navigateTo('/includes/help/validationHelp.xhtml')}"
                             oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel" immediate="true">
                             <h:panelGroup styleClass="image-scroller-right-arrow"
@@ -170,7 +170,7 @@
                                 <h:graphicImage style="border:none;" border="0" height="34" width="34"
                                     styleClass="ie6transparency" value="/img/icons/help_sign.png" />
                             </h:panelGroup>
-                        </a4j:commandLink>
+                        </r:commandLink>
                     </td>
                 </tr>
                 <tr>
@@ -179,6 +179,6 @@
                     </td>
                 </tr>
             </table>
-        </rich:graphValidator>
+        </r:graphValidator>
     </h:panelGroup>
 </ui:composition>

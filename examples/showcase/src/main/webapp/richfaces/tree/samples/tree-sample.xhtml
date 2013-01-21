@@ -13,21 +13,21 @@
     </h:outputStylesheet>
     <h:panelGrid columns="2" columnClasses="top,top" width="60%">
         <h:form>
-            <rich:tree id="tree" nodeType="#{node.type}" var="node" value="#{treeBean.rootNodes}" toggleType="client"
+            <r:tree id="tree" nodeType="#{node.type}" var="node" value="#{treeBean.rootNodes}" toggleType="client"
                 selectionType="ajax" selectionChangeListener="#{treeBean.selectionChanged}">
-                <rich:treeNode type="country">
+                <r:treeNode type="country">
                     #{node.name}
-                </rich:treeNode>
-                <rich:treeNode type="company" iconExpanded="/images/tree/disc.gif" iconCollapsed="/images/tree/disc.gif">
+                </r:treeNode>
+                <r:treeNode type="company" iconExpanded="/images/tree/disc.gif" iconCollapsed="/images/tree/disc.gif">
                     #{node.name}
-                </rich:treeNode>
-                <rich:treeNode type="cd" iconLeaf="/images/tree/song.gif">
+                </r:treeNode>
+                <r:treeNode type="cd" iconLeaf="/images/tree/song.gif">
                     #{node.artist} - #{node.name} - #{node.year}
-                </rich:treeNode>
-            </rich:tree>
+                </r:treeNode>
+            </r:tree>
         </h:form>
-        <a4j:outputPanel ajaxRendered="true" layout="block">
-            <rich:panel header="Current Selection" rendered="#{not empty treeBean.currentSelection}">
+        <r:outputPanel ajaxRendered="true" layout="block">
+            <r:panel header="Current Selection" rendered="#{not empty treeBean.currentSelection}">
                 <h:outputText value="Name:" />
                 <h:outputText value="#{treeBean.currentSelection.name}" />
                 <h:panelGroup rendered="#{treeBean.currentSelection.leaf}">
@@ -49,7 +49,7 @@
                         </h:panelGrid>
                     </fieldset>
                 </h:panelGroup>
-            </rich:panel>
-        </a4j:outputPanel>
+            </r:panel>
+        </r:outputPanel>
     </h:panelGrid>
 </ui:composition>

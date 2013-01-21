@@ -4,35 +4,35 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:form>
         <p>This example shows an orderingList in the simpler, single column display:</p>
-        <rich:panel style="width:300px;">
+        <r:panel style="width:300px;">
             <f:facet name="header">
                 <h:outputText value="Simple ordering list"></h:outputText>
             </f:facet>
-            <rich:orderingList value="#{listSelectBean.capitals}" var="capital" itemValue="#{capital}" itemLabel="#{capital.name}">
+            <r:orderingList value="#{listSelectBean.capitals}" var="capital" itemValue="#{capital}" itemLabel="#{capital.name}">
                 <f:converter converterId="CapitalsConverter" />
-            </rich:orderingList>
-        </rich:panel>
+            </r:orderingList>
+        </r:panel>
         <br />
         <p>In the next example, the list of capitals is displayed in a multi-column format:</p>
-        <rich:panel style="width:400px;">
+        <r:panel style="width:400px;">
             <f:facet name="header">
                 <h:outputText value="Ordering list with columns"></h:outputText>
             </f:facet>
-            <rich:orderingList value="#{listSelectBean.capitals}" var="capital"  listWidth="300px">
+            <r:orderingList value="#{listSelectBean.capitals}" var="capital"  listWidth="300px">
                 <f:converter converterId="CapitalsConverter" />
-                <rich:column>
+                <r:column>
                     <f:facet name="header">Flag</f:facet>
                     <h:graphicImage value="#{capital.stateFlag}" alt="flag"  width="33"/>
-                </rich:column>
-                <rich:column>
+                </r:column>
+                <r:column>
                     <f:facet name="header">Name</f:facet>
                     #{capital.name}
-                </rich:column>
-                <rich:column>
+                </r:column>
+                <r:column>
                     <f:facet name="header">State</f:facet>
                     #{capital.state}
-                </rich:column>
-            </rich:orderingList>
-        </rich:panel>
+                </r:column>
+            </r:orderingList>
+        </r:panel>
     </h:form>
 </ui:composition>

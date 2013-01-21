@@ -9,22 +9,22 @@
     <ui:define name="content">
     
         <h:form>
-            <a4j:commandLink value="Re-render self" render="jLT"/>
+            <r:commandLink value="Re-render self" render="jLT"/>
             |
-            <a4j:commandLink value="Re-render table" render="jLT"/>
+            <r:commandLink value="Re-render table" render="jLT"/>
             |
             <h:commandLink value="Regular submit"/>
 
             <!--jLT=jobLineTable-->
-            <rich:dataTable id="jLT" value="#{rf11423.titles}" var="title" rowClasses="even,odd">
+            <r:dataTable id="jLT" value="#{rf11423.titles}" var="title" rowClasses="even,odd">
 
-                <rich:column>
+                <r:column>
                     <f:facet name="header">Hero</f:facet>
                     <h:outputText value="#{title}" />
                     
-                </rich:column>
+                </r:column>
 
-            </rich:dataTable>
+            </r:dataTable>
         </h:form>
     
     </ui:define>

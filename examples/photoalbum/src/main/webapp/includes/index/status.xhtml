@@ -2,7 +2,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
     <h:panelGroup rendered="#{help.isShowHelp()}">
-        <a4j:commandLink style="position: absolute; top: 26px; left: 320px;"
+        <r:commandLink style="position: absolute; top: 26px; left: 320px;"
             actionListener="#{help.navigateTo('/includes/help/statusHelp.xhtml')}"
             oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel" execute="@this">
             <h:panelGroup
@@ -10,9 +10,9 @@
                 <h:graphicImage height="34" width="34" border="0" style="border: none;" styleClass="ie6transparency"
                     value="img/icons/help_sign.png" />
             </h:panelGroup>
-        </a4j:commandLink>
+        </r:commandLink>
     </h:panelGroup>
-    <a4j:status layout="block" startStyle="height: 52px; width: 79px; position: absolute; top: 0px; left: 278px;">
+    <r:status layout="block" startStyle="height: 52px; width: 79px; position: absolute; top: 0px; left: 278px;">
         <f:facet name="start">
             <h:panelGroup>
                 <h:panelGroup
@@ -26,5 +26,5 @@
                 </h:panelGroup>
             </h:panelGroup>
         </f:facet>
-    </a4j:status>
+    </r:status>
 </ui:composition>

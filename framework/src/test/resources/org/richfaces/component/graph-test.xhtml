@@ -5,15 +5,15 @@
 </h:head>
 <h:body>
     <h:form id="form">
-       <csv:graphValidator id="validator" value="#{test}" >
+       <r:graphValidator id="validator" value="#{test}" >
         <h:inputText id="text" value="#{test.value}">
         </h:inputText>
-        </csv:graphValidator>
+        </r:graphValidator>
         <h:outputText id="out" value="#{test.value}"></h:outputText>
         <h:commandButton id="submit" value="Submit"/>
     </h:form>
-    <csv:message id="textMessage" for="text" />
-    <csv:message id="graphMessage" for="validator" />
-    <csv:messages id="uiMessage" />
+    <r:message id="textMessage" for="text" />
+    <r:message id="graphMessage" for="validator" />
+    <r:messages id="uiMessage" />
 </h:body>
 </html>

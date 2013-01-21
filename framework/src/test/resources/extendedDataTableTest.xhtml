@@ -32,7 +32,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 </h:head>
 
 <h:body>
-    <rich:extendedDataTable id="table" frozenColumns="1" value="value" var="var" sortMode="multi">
+    <r:extendedDataTable id="table" frozenColumns="1" value="value" var="var" sortMode="multi">
         <f:facet name="header">
             <h:outputText id="headerFacet" value="headerFacet" />
         </f:facet>
@@ -42,7 +42,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <f:facet name="footer">
             <h:outputText id="footerFacet" value="footerFacet" />
         </f:facet>
-        <rich:column id="column1">
+        <r:column id="column1">
             <f:facet name="header">
                 <h:outputText id="headerColumnFacet1" value="headerColumnFacet1" />
             </f:facet>
@@ -50,21 +50,21 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <f:facet name="footer">
                 <h:outputText id="footerColumnFacet1" value="footerColumnFacet1" />
             </f:facet>
-        </rich:column>
-        <rich:column id="column2" filterValue="filterValue2" sortOrder="ascending">
+        </r:column>
+        <r:column id="column2" filterValue="filterValue2" sortOrder="ascending">
             <f:facet name="header">
                 <h:outputText id="headerColumnFacet2" value="headerColumnFacet2" />
             </f:facet>
             <f:facet name="footer">
                 <h:outputText id="footerColumnFacet2" value="footerColumnFacet2" />
             </f:facet>
-        </rich:column>
-    </rich:extendedDataTable>
-    <rich:extendedDataTable id="table2">
+        </r:column>
+    </r:extendedDataTable>
+    <r:extendedDataTable id="table2">
         <f:facet name="noData">
             <h:outputText id="noDataFacet" value="noDataFacet" />
         </f:facet>
-        <rich:column></rich:column>
-    </rich:extendedDataTable>
+        <r:column></r:column>
+    </r:extendedDataTable>
 </h:body>
 </html>

@@ -24,24 +24,24 @@
     </h:outputStylesheet>
     <br />
     <h:panelGrid width="100%" columns="2" columnClasses="col1,col2">
-        <rich:panel styleClass="wizard">
+        <r:panel styleClass="wizard">
             <f:facet name="header">
                 <h:outputText value="Using rich:togglePanel for Wizard-like behaviour" />
             </f:facet>
             <h:form>
-                <rich:togglePanel switchType="ajax">
-                    <rich:togglePanelItem>
+                <r:togglePanel switchType="ajax">
+                    <r:togglePanelItem>
                         <ui:include src="/richfaces/togglePanel/samples/wstep1.xhtml" />
-                    </rich:togglePanelItem>
-                    <rich:togglePanelItem>
+                    </r:togglePanelItem>
+                    <r:togglePanelItem>
                         <ui:include src="/richfaces/togglePanel/samples/wstep2.xhtml" />
-                    </rich:togglePanelItem>
-                    <rich:togglePanelItem>
+                    </r:togglePanelItem>
+                    <r:togglePanelItem>
                         <ui:include src="/richfaces/togglePanel/samples/finalStep.xhtml" />
-                    </rich:togglePanelItem>
-                </rich:togglePanel>
+                    </r:togglePanelItem>
+                </r:togglePanel>
             </h:form>
-        </rich:panel>
+        </r:panel>
 
     </h:panelGrid>
     <br />

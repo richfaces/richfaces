@@ -4,7 +4,7 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:form>
         <h:inputText id="input">
-            <a4j:ajax render="out" />
+            <r:ajax render="out" />
         </h:inputText>
         <h:outputText value="#{rich:findComponent('input').value}" id="out" />
     </h:form>

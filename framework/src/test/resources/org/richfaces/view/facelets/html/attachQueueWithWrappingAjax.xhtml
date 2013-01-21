@@ -2,18 +2,18 @@
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j">
 
     <h:form id="form">
-        <a4j:ajax>
+        <r:ajax>
             <h:inputText id="defaultEventInput" />
             <h:commandLink id="defaultEventLink" />
 
-            <a4j:attachQueue id="defaultEventQueue" />
-        </a4j:ajax>
+            <r:attachQueue id="defaultEventQueue" />
+        </r:ajax>
 
-        <a4j:ajax event="valueChange">
+        <r:ajax event="valueChange">
             <h:inputText id="valueChangeInput" />
             <h:commandLink id="valueChangeLink" />
 
-            <a4j:attachQueue id="valueChangeQueue" />
-        </a4j:ajax>
+            <r:attachQueue id="valueChangeQueue" />
+        </r:ajax>
     </h:form>
 </ui:composition>

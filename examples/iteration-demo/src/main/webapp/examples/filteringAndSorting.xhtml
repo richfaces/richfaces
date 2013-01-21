@@ -20,18 +20,18 @@
             <h:selectBooleanCheckbox value="#{dataBean.state}">
                 <f:ajax render="dataTable" />
             </h:selectBooleanCheckbox>
-            <rich:dataTable id="dataTable" value="#{dataBean.state ? dataBean.employeeList : null}" var="record" rowKeyVar="rkv"
+            <r:dataTable id="dataTable" value="#{dataBean.state ? dataBean.employeeList : null}" var="record" rowKeyVar="rkv"
                 filterVar="fv">
                 <f:facet name="noData">
                     <h:outputText value="There isn't data." style="border: solid black 1px;" />
                 </f:facet>
-                <rich:column>
+                <r:column>
                     <f:facet name="header">
                         <h:outputText value="rkv" />
                     </f:facet>
                     <h:outputText value="#{rkv}" />
-                </rich:column>
-                <rich:column id="column_name" filterValue="#{filteringAndSortingBean.nameFilterValue}"
+                </r:column>
+                <r:column id="column_name" filterValue="#{filteringAndSortingBean.nameFilterValue}"
                     filterExpression="#{fv == null || fv == '' ||fv == record.name}"
                     comparator="#{filteringAndSortingBean.comparator}" sortOrder="#{filteringAndSortingBean.nameSortOrder}">
                     <f:facet name="header">
@@ -51,9 +51,9 @@
                     <f:facet name="footer">
                         <h:outputText id="columnFooter1" value="Column Footer Facet" />
                     </f:facet>
-                </rich:column>
+                </r:column>
     
-                <rich:column id="column_title" width="200px" filter="#{filteringAndSortingBean.filter}">
+                <r:column id="column_title" width="200px" filter="#{filteringAndSortingBean.filter}">
                     <f:facet name="header">
                         <h:outputText value="Title" />
                         <h:inputText value="#{filteringAndSortingBean.titleFilterValue}">
@@ -64,9 +64,9 @@
                     <f:facet name="footer">
                         <h:outputText id="columnFooter2" value="Column Footer Facet2" />
                     </f:facet>
-                </rich:column>
+                </r:column>
     
-                <rich:column id="column_email" width="300px" sortBy="#{record.EMail}"
+                <r:column id="column_email" width="300px" sortBy="#{record.EMail}"
                     sortOrder="#{filteringAndSortingBean.emailSortOrder}">
                     <f:facet name="header">
                         <h:outputText value="E-mail" />
@@ -78,8 +78,8 @@
                         </h:selectOneMenu>
                     </f:facet>
                     <h:outputText value="#{record.EMail}" />
-                </rich:column>
-            </rich:dataTable>
+                </r:column>
+            </r:dataTable>
             <input type="submit" />
         </h:form>
         

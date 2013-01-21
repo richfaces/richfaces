@@ -7,7 +7,7 @@
     <!-- content -->
     <ui:define name="content">
         <h:form id="form1">
-            <rich:dataGrid id="dataGrid" columns="3" var="record" elements="8" value="#{dataBean.employeeList}">
+            <r:dataGrid id="dataGrid" columns="3" var="record" elements="8" value="#{dataBean.employeeList}">
                 <f:facet name="header">
                     <h:outputText value="header" />
                 </f:facet>
@@ -21,10 +21,10 @@
                 <h:outputText value="#{record.EMail}" />
     
                 <f:facet name="footer">
-                    <rich:dataScroller id="scroller3" for="dataGrid" page="#{dataBean.page}" maxPages="7"></rich:dataScroller>
+                    <r:dataScroller id="scroller3" for="dataGrid" page="#{dataBean.page}" maxPages="7"></r:dataScroller>
                 </f:facet>
     
-            </rich:dataGrid>
+            </r:dataGrid>
         </h:form>
     </ui:define>
 </ui:composition>

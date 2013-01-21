@@ -5,11 +5,11 @@
     <div>
         <h:panelGrid columns="3" rendered="#{size > 0}">
             <h:outputText value="#{messages['image.image.dimension']}" />
-            <rich:inputNumberSlider enableManualInput="false" value="#{imageSizeHelper.value}" minValue="80" maxValue="200"
+            <r:inputNumberSlider enableManualInput="false" value="#{imageSizeHelper.value}" minValue="80" maxValue="200"
                 showArrows="false" showBoundaryValues="true" showInput="false" step="40" width="100">
-                <a4j:ajax event="change" render="#{renderArea}" />
-            </rich:inputNumberSlider>
-            <a4j:commandLink rendered="#{help.isShowHelp()}"
+                <r:ajax event="change" render="#{renderArea}" />
+            </r:inputNumberSlider>
+            <r:commandLink rendered="#{help.isShowHelp()}"
                 actionListener="#{help.navigateTo('/includes/help/inputSliderHelp.xhtml')}"
                 oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel">
                 <h:panelGroup
@@ -17,7 +17,7 @@
                     <h:graphicImage style="border:none;" border="0" width="34" height="34" styleClass="ie6transparency"
                         value="img/icons/help_sign.png" />
                 </h:panelGroup>
-            </a4j:commandLink>
+            </r:commandLink>
         </h:panelGrid>
     </div>
 </ui:composition>

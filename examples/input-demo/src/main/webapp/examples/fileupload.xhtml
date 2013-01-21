@@ -54,9 +54,9 @@
                     RichFaces.log.info(jQuery('<span><b>onfileselect:</b> ' + data + '</span>'));
                 };
             </h:outputScript>
-            <a4j:jsFunction name="removeFile" render="info" action="#{fileUploadBean.clearFile}">
-                <a4j:param name="clearedFile" assignTo="#{fileUploadBean.clearedFile}"/>
-            </a4j:jsFunction>
+            <r:jsFunction name="removeFile" render="info" action="#{fileUploadBean.clearFile}">
+                <r:param name="clearedFile" assignTo="#{fileUploadBean.clearedFile}"/>
+            </r:jsFunction>
             <h:panelGrid columns="2" columnClasses="top,top">
                 <fu:fileUpload id="fu" acceptedTypes="#{fileUploadBean.acceptedTypes}"
                                disabled="#{fileUploadBean.disabled}"
@@ -70,32 +70,32 @@
                                maxFilesQuantity="#{fileUploadBean.maxFilesQuantity}"
                                immediateUpload="#{fileUploadBean.immediateUpload}"
                         >
-                    <a4j:ajax event="uploadcomplete" execute="@none" render="info"/>
+                    <r:ajax event="uploadcomplete" execute="@none" render="info"/>
                 </fu:fileUpload>
                 <h:panelGroup id="info" layout="block">
-                    <ou:panel bodyClass="info">
+                    <r:panel bodyClass="info">
                         <f:facet name="header">
                             <h:outputText value="Uploaded Files Info"/>
                         </f:facet>
                         <h:outputText value="No files currently uploaded" rendered="#{empty fileUploadBean.files}"/>
-                        <it:dataGrid columns="1" value="#{fileUploadBean.files}" var="file" rowKeyVar="row">
-                            <ou:panel bodyClass="rich-laguna-panel-no-header">
+                        <r:dataGrid columns="1" value="#{fileUploadBean.files}" var="file" rowKeyVar="row">
+                            <r:panel bodyClass="rich-laguna-panel-no-header">
                                 <h:panelGrid columns="2">
                                     <h:outputText value="File Name:"/>
                                     <h:outputText value="#{file.name}"/>
                                 </h:panelGrid>
-                            </ou:panel>
-                        </it:dataGrid>
-                    </ou:panel>
+                            </r:panel>
+                        </r:dataGrid>
+                    </r:panel>
                     <br/>
-                    <a4j:commandButton action="#{fileUploadBean.clearUploadData}" render="info, upload"
+                    <r:commandButton action="#{fileUploadBean.clearUploadData}" render="info, upload"
                                        value="Clear Uploaded Data"
                                        rendered="#{not empty fileUploadBean.files}"/>
                 </h:panelGroup>
             </h:panelGrid>
 
             <h:outputText value="File name:"/>
-            <a4j:outputPanel ajaxRendered="true">#{fileUploadBean.file.name}</a4j:outputPanel>
+            <r:outputPanel ajaxRendered="true">#{fileUploadBean.file.name}</r:outputPanel>
             <br/>
             <h:outputText value="Attribute name: "/>
             <h:inputText id="name"/>
@@ -136,7 +136,7 @@
             </h:selectBooleanCheckbox>
             <br/>
             <input type="submit"/>
-            <a4j:log/>
+            <r:log/>
         </h:form>
     </ui:define>
 </ui:composition>

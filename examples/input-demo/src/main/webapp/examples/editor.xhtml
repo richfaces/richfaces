@@ -11,10 +11,10 @@
 
             
     <h:form id="form">
-    <a4j:status onstop="console.log('onstop')" />
+    <r:status onstop="console.log('onstop')" />
         <h:panelGrid columns="2">
             
-            <in:editor id="editor" value="#{editor.value}" title="#{editor.title}"
+            <r:editor id="editor" value="#{editor.value}" title="#{editor.title}"
                            readonly="#{editor.readonly}" width="#{editor.width}" height="#{editor.height}"
                            rendered="#{editor.rendered}" toolbar="#{editor.toolbar}" skin="#{editor.skin}"
                            lang="#{editor.lang}"
@@ -26,14 +26,14 @@
                            textareaClass="#{editor.textareaClass}" textareaStyle="#{editor.textareaStyle}">
                            
                <f:facet name="config">#{editor.config}</f:facet>
-            </in:editor>
+            </r:editor>
             
             <h:panelGrid columns="3">
                 <h:panelGrid columns="1">
-                    <a4j:commandButton value="Re-render @form" process="@form" render="@form"/>
-                    <a4j:commandButton value="Re-render editor" process="@form" render="editor"/>        
+                    <r:commandButton value="Re-render @form" process="@form" render="@form"/>
+                    <r:commandButton value="Re-render editor" process="@form" render="editor"/>        
                     <h:commandButton value="Submit form"/>
-                    <a4j:commandButton value="AJAX" process="@form" render="output"/>
+                    <r:commandButton value="AJAX" process="@form" render="output"/>
                 </h:panelGrid>
                 
                 <h:panelGrid columns="1">
@@ -127,13 +127,13 @@
             </h:panelGrid>
         </h:panelGrid>
         
-        <a4j:outputPanel id="output">
+        <r:outputPanel id="output">
             Output: <h:outputText value="#{editor.value}" />
-        </a4j:outputPanel>
+        </r:outputPanel>
     </h:form>
 
 
-    <a4j:log mode="console"/>
+    <r:log mode="console"/>
 
 </ui:define>
 </ui:composition>

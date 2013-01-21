@@ -4,20 +4,20 @@
     xmlns:rich="http://richfaces.org/rich">
     <h3>Login panel attachment:</h3>
 
-    <rich:toolbar height="26px">
+    <r:toolbar height="26px">
         <h:outputLink value="#" id="ll">
-            <rich:componentControl event="click" operation="show" target="lp">
-                <a4j:param name="event" value="event" noEscape="true" />
-                <rich:hashParam>
-                    <a4j:param noEscape="true" name="top"
+            <r:componentControl event="click" operation="show" target="lp">
+                <r:param name="event" value="event" noEscape="true" />
+                <r:hashParam>
+                    <r:param noEscape="true" name="top"
                         value="jQuery(#{rich:element('ll')}.parentNode).offset().top + jQuery(#{rich:element('ll')}.parentNode).height()" />
-                    <a4j:param noEscape="true" name="left" value="jQuery(#{rich:element('ll')}.parentNode).offset().left" />
-                </rich:hashParam>
-            </rich:componentControl>
+                    <r:param noEscape="true" name="left" value="jQuery(#{rich:element('ll')}.parentNode).offset().left" />
+                </r:hashParam>
+            </r:componentControl>
             Login
         </h:outputLink>
-    </rich:toolbar>
-    <rich:popupPanel id="lp" autosized="true" modal="false" moveable="false" resizeable="false" followByScroll="false">
+    </r:toolbar>
+    <r:popupPanel id="lp" autosized="true" modal="false" moveable="false" resizeable="false" followByScroll="false">
         <h:panelGrid columns="2">
             <h:outputText value="Login" />
             <h:inputText />
@@ -26,33 +26,33 @@
         </h:panelGrid>
         <h:outputLink onclick="#{rich:component('lp')}.hide(event); return false;" value="#">Login
         </h:outputLink>
-    </rich:popupPanel>
+    </r:popupPanel>
 
     <h3>Search panel right-side attachment:</h3>
-    <rich:toolbar height="26px" id="tb">
-        <rich:toolbarGroup location="right">
+    <r:toolbar height="26px" id="tb">
+        <r:toolbarGroup location="right">
             <h:outputLink value="#">
-                <rich:componentControl event="click" operation="show" target="ls">
-                    <a4j:param name="event" value="event" noEscape="true" />
-                    <rich:hashParam>
-                        <a4j:param noEscape="true" name="top"
+                <r:componentControl event="click" operation="show" target="ls">
+                    <r:param name="event" value="event" noEscape="true" />
+                    <r:hashParam>
+                        <r:param noEscape="true" name="top"
                             value="jQuery(#{rich:element('tb')}).offset().top + jQuery(#{rich:element('tb')}).height()" />
-                        <a4j:param noEscape="true" name="left"
+                        <r:param noEscape="true" name="left"
                             value="jQuery(#{rich:element('tb')}).offset().left + jQuery(#{rich:element('tb')}).width() - p_width" />
-                    </rich:hashParam>
-                </rich:componentControl>
+                    </r:hashParam>
+                </r:componentControl>
                 Search
             </h:outputLink>
-        </rich:toolbarGroup>
-    </rich:toolbar>
-    <rich:popupPanel header="Enter Search Terms" id="ls" autosized="true" modal="false" moveable="false" resizeable="false" followByScroll="false">
+        </r:toolbarGroup>
+    </r:toolbar>
+    <r:popupPanel header="Enter Search Terms" id="ls" autosized="true" modal="false" moveable="false" resizeable="false" followByScroll="false">
         <h:panelGrid columns="3">
             <h:outputText value="Search:" />
             <h:inputText />
             <h:outputLink onclick="#{rich:component('ls')}.hide(event); return false;" value="#">Search
             </h:outputLink>
         </h:panelGrid>
-    </rich:popupPanel>
+    </r:popupPanel>
     <h:outputScript type="text/javascript" target="body">
         p_width = #{rich:component('ls')}.width();
     </h:outputScript>

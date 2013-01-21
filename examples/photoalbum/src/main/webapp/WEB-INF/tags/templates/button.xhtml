@@ -3,13 +3,13 @@
     xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
 
     <richx:actionMapper>
-        <a4j:outputPanel layout="block" style="#{style}" styleClass="photoalbumButton #{styleClass}" lang="#{lang}" dir="#{dir}"
+        <r:outputPanel layout="block" style="#{style}" styleClass="photoalbumButton #{styleClass}" lang="#{lang}" dir="#{dir}"
             title="#{title}" rendered="#{empty rendered or rendered}" onmousedown="$(this).css('background-position', '0 28px');"
             onmouseup="$(this).css('background-position', '0 0');" onmouseout="$(this).css('background-position', '0 0');">
 
             <div>#{value}</div>
 
-            <a4j:commandButton accesskey="#{accesskey}" alt="#{alt}" type="image" image="/img/shell/spacer.gif"
+            <r:commandButton accesskey="#{accesskey}" alt="#{alt}" type="image" image="/img/shell/spacer.gif"
                 actionListener="#{mappedActionListener}" action="#{mappedAction}" bypassUpdates="#{bypassUpdates}"
                 data="#{data}" disabled="#{disabled}" eventsQueue="#{eventsQueue}" focus="#{focus}" immediate="#{immediate}"
                 limitRender="#{limitRender}" onbeforedomupdate="#{onbeforedomupdate}" tabindex="#{tabindex}" render="#{render}"
@@ -18,7 +18,7 @@
                 onkeyup="#{onkeyup}" onmousedown="#{onmousedown}" onmousemove="#{onmousemove}" onmouseout="#{onmouseout}"
                 onmouseover="#{onmouseover}" onmouseup="#{onmouseup}" />
 
-        </a4j:outputPanel>
+        </r:outputPanel>
     </richx:actionMapper>
 
 </ui:composition>

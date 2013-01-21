@@ -17,8 +17,8 @@
             </h:panelGroup>
             <ui:include src="includes/misc/errorPanel.xhtml" />
         </h:panelGroup>
-        <a4j:jsFunction name="sho" render="helpPanel" oncomplete="#{rich:component('helpPanel')}.show();">
-            <a4j:param name="param1" assignTo="#{help.page}" />
-        </a4j:jsFunction>
+        <r:jsFunction name="sho" render="helpPanel" oncomplete="#{rich:component('helpPanel')}.show();">
+            <r:param name="param1" assignTo="#{help.page}" />
+        </r:jsFunction>
     </ui:define>
 </ui:composition>

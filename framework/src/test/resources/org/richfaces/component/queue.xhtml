@@ -5,28 +5,28 @@
     <title>Test queue page</title>
 </h:head>
 <h:body>
-    <a4j:queue name="first" ignoreDupResponses="true" requestDelay="400" />
+    <r:queue name="first" ignoreDupResponses="true" requestDelay="400" />
     <h:form id="form">
-        <a4j:queue ignoreDupResponses="false" requestDelay="400" />
-        <a4j:ajax>
+        <r:queue ignoreDupResponses="false" requestDelay="400" />
+        <r:ajax>
             <h:inputText />
 
-            <a4j:attachQueue requestGroupingId="request" id="firstAttach" />
-        </a4j:ajax>
-        <a4j:queue name="second" ignoreDupResponses="true" requestDelay="400" />
-        <a4j:ajax event="valueChange">
+            <r:attachQueue requestGroupingId="request" id="firstAttach" />
+        </r:ajax>
+        <r:queue name="second" ignoreDupResponses="true" requestDelay="400" />
+        <r:ajax event="valueChange">
             <h:panelGroup>
-                <a4j:ajax event="valueChange">
+                <r:ajax event="valueChange">
                     <h:inputText />
 
-                    <a4j:commandLink value="Link">
-                        <a4j:attachQueue name="second" id="linkAttach" />
-                    </a4j:commandLink>
+                    <r:commandLink value="Link">
+                        <r:attachQueue name="second" id="linkAttach" />
+                    </r:commandLink>
 
-                    <a4j:attachQueue id="secondAttach" />
-                </a4j:ajax>
+                    <r:attachQueue id="secondAttach" />
+                </r:ajax>
             </h:panelGroup>
-        </a4j:ajax>
+        </r:ajax>
         <h:commandButton value="G" />
     </h:form>
 

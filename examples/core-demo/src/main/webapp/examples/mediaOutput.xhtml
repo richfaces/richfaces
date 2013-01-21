@@ -6,13 +6,13 @@
     <ui:param name="title" value="Media Output" />
     <!-- content -->
     <ui:define name="content">
-        <a4j:mediaOutput createContent="#{mediaOutputBean.createContent}" value="richfaces.jpg" element="img" />
+        <r:mediaOutput createContent="#{mediaOutputBean.createContent}" value="richfaces.jpg" element="img" />
         <br />
         <h:form>
-            <a4j:mediaOutput createContent="#{mediaOutputBean.createContent}" value="richfaces-twitter.jpg" element="img"
+            <r:mediaOutput createContent="#{mediaOutputBean.createContent}" value="richfaces-twitter.jpg" element="img"
                 cacheable="true" fileName="richfaces-twitter.jpg">
                 <f:ajax event="dblclick" listener="#{commandBean.listener}" />
-            </a4j:mediaOutput>
+            </r:mediaOutput>
             <br />
         </h:form>
     </ui:define>

@@ -8,16 +8,16 @@
         <ui:param name="renderArea" value="userAlbumImages" />
     </ui:include>
 
-    <rich:dataScroller rendered="#{fn:length(model.images) > 20}" for="imageList" render="userAlbumImages" />
+    <r:dataScroller rendered="#{fn:length(model.images) > 20}" for="imageList" render="userAlbumImages" />
 
     <h:panelGroup layout="block" style="margin : 30px 0px 0px 0px;">
         <h:panelGroup layout="block" style="float : right; cursor : pointer">
-            <a4j:commandLink rendered="#{fn:length(model.images) > 0}" actionListener="#{slideshow.startSlideshow()}"
+            <r:commandLink rendered="#{fn:length(model.images) > 0}" actionListener="#{slideshow.startSlideshow()}"
                 styleClass="slideshow-link" render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
                 <h:graphicImage value="/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
                     style="vertical-align : bottom; margin-right : 5px; border:0;" />
                 <h:outputText value="#{messages['slideshow.start']}" />
-            </a4j:commandLink>
+            </r:commandLink>
 
         </h:panelGroup>
 
@@ -26,23 +26,23 @@
     <br />
 
     <h:panelGroup id="userAlbumImages">
-        <a4j:repeat id="imageList" value="#{model.images}" var="image" rows="20">
+        <r:repeat id="imageList" value="#{model.images}" var="image" rows="20">
             <h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
                 <h:graphicImage styleClass="pr_photo_bg" style="#{imageSizeHelper.currentDimension.imageBgStyle}"
                     value="#{imageSizeHelper.currentDimension.imageBg}" />
                 <h:panelGrid cellpadding="0">
                     <h:panelGroup>
-                        <a4j:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel">
-                            <a4j:mediaOutput id="img" element="img" createContent="#{imageLoader.paintImage}"
+                        <r:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel">
+                            <r:mediaOutput id="img" element="img" createContent="#{imageLoader.paintImage}"
                                 style="border : 1px solid #FFFFFF;" mimeType="image/jpeg"
                                 value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}">
                                 <f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
-                                <rich:dragSource rendered="#{controller.isUserImage(image)}" render="mainArea, treePanel"
+                                <r:dragSource rendered="#{controller.isUserImage(image)}" render="mainArea, treePanel"
                                     id="dragSource" dragIndicator="iDragIndicator" type="image" dragValue="#{image}" />
-                                    <!-- <rich:dndParam id="dragParam" name="label" value="#{image.name}" /> -->
+                                    <!-- <r:dndParam id="dragParam" name="label" value="#{image.name}" /> -->
                                     <!-- not supported in RF 4 -->
-                            </a4j:mediaOutput>
-                        </a4j:commandLink>
+                            </r:mediaOutput>
+                        </r:commandLink>
                         <br />
                     </h:panelGroup>
                 </h:panelGrid>
@@ -57,6 +57,6 @@
                 <ui:param name="image" value="#{image}" />
                 <ui:param name="target" value="img" />
             </ui:include>
-        </a4j:repeat>
+        </r:repeat>
     </h:panelGroup>
 </ui:composition>

@@ -9,36 +9,36 @@
     </h:outputStylesheet>
     <h:form id="form">
         <h:panelGrid columns="2" columnClasses="cols,cols" width="400">
-            <rich:panelMenu style="width:200px" itemMode="ajax" groupMode="ajax" groupExpandedLeftIcon="triangleUp"
+            <r:panelMenu style="width:200px" itemMode="ajax" groupMode="ajax" groupExpandedLeftIcon="triangleUp"
                 groupCollapsedLeftIcon="triangleDown" topGroupExpandedRightIcon="chevronUp"
                 topGroupCollapsedRightIcon="chevronDown" itemLeftIcon="disc" itemChangeListener="#{panelMenuBean.updateCurrent}">
-                <rich:panelMenuGroup label="Group 1">
-                    <rich:panelMenuItem label="Item 1.1" name="Item_1_1" />
-                    <rich:panelMenuItem label="Item 1.2" name="Item_1_2" />
-                    <rich:panelMenuItem label="Item 1.3" name="Item_1_3" />
-                </rich:panelMenuGroup>
-                <rich:panelMenuGroup label="Group 2">
-                    <rich:panelMenuItem label="Item 2.1" name="Item_2_1" />
-                    <rich:panelMenuItem label="Item 2.2" name="Item_2_2" />
-                    <rich:panelMenuItem label="Item 2.3" name="Item_2_3" />
-                    <rich:panelMenuGroup label="Group 2.4">
-                        <rich:panelMenuItem label="Item 2.4.1" name="Item_2_4_1" />
-                        <rich:panelMenuItem label="Item 2.4.2" name="Item_2_4_2" />
-                        <rich:panelMenuItem label="Item 2.4.3" name="Item_2_4_3" />
-                    </rich:panelMenuGroup>
-                    <rich:panelMenuItem label="Item 2.5" name="Item_2_5" />
-                </rich:panelMenuGroup>
-                <rich:panelMenuGroup label="Group 3">
-                    <rich:panelMenuItem label="Item 3.1" name="Item_3_1" />
-                    <rich:panelMenuItem label="Item 3.2" name="Item_3_2" />
-                    <rich:panelMenuItem label="Item 3.3" name="Item_3_3" />
-                </rich:panelMenuGroup>
-            </rich:panelMenu>
-            <a4j:outputPanel ajaxRendered="true">
-                <rich:panel rendered="#{not empty panelMenuBean.current}">
+                <r:panelMenuGroup label="Group 1">
+                    <r:panelMenuItem label="Item 1.1" name="Item_1_1" />
+                    <r:panelMenuItem label="Item 1.2" name="Item_1_2" />
+                    <r:panelMenuItem label="Item 1.3" name="Item_1_3" />
+                </r:panelMenuGroup>
+                <r:panelMenuGroup label="Group 2">
+                    <r:panelMenuItem label="Item 2.1" name="Item_2_1" />
+                    <r:panelMenuItem label="Item 2.2" name="Item_2_2" />
+                    <r:panelMenuItem label="Item 2.3" name="Item_2_3" />
+                    <r:panelMenuGroup label="Group 2.4">
+                        <r:panelMenuItem label="Item 2.4.1" name="Item_2_4_1" />
+                        <r:panelMenuItem label="Item 2.4.2" name="Item_2_4_2" />
+                        <r:panelMenuItem label="Item 2.4.3" name="Item_2_4_3" />
+                    </r:panelMenuGroup>
+                    <r:panelMenuItem label="Item 2.5" name="Item_2_5" />
+                </r:panelMenuGroup>
+                <r:panelMenuGroup label="Group 3">
+                    <r:panelMenuItem label="Item 3.1" name="Item_3_1" />
+                    <r:panelMenuItem label="Item 3.2" name="Item_3_2" />
+                    <r:panelMenuItem label="Item 3.3" name="Item_3_3" />
+                </r:panelMenuGroup>
+            </r:panelMenu>
+            <r:outputPanel ajaxRendered="true">
+                <r:panel rendered="#{not empty panelMenuBean.current}">
                     <h:outputText value="#{panelMenuBean.current} selected" id="current" />
-                </rich:panel>
-            </a4j:outputPanel>
+                </r:panel>
+            </r:outputPanel>
         </h:panelGrid>
     </h:form>
 </ui:composition>

@@ -8,17 +8,17 @@
     <ui:define name="content">
         <h:form>
             <br /><br /><br /><br />
-            <a4j:commandButton value="Push!" action="#{richBean.push}" />
+            <r:commandButton value="Push!" action="#{richBean.push}" />
             
-            <a4j:log mode="console" />
+            <r:log mode="console" />
             
-            <a4j:push address="sampleAddress"  ondataavailable="$('*[id$=outputDate]').text(event.rf.data)" />
+            <r:push address="sampleAddress"  ondataavailable="$('*[id$=outputDate]').text(event.rf.data)" />
 
 
 
-            <a4j:outputPanel id="outputDate">
+            <r:outputPanel id="outputDate">
                 Date: #{richBean.date}
-            </a4j:outputPanel>
+            </r:outputPanel>
         </h:form>
     </ui:define>
 </ui:composition>

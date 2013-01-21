@@ -6,24 +6,24 @@
     <ui:param name="title" value="Button" />
     <!-- content -->
     <ui:define name="content">
-        <a4j:outputPanel ajaxRendered="true">
+        <r:outputPanel ajaxRendered="true">
             <h:outputText value="#{commandBean.date}" />
-        </a4j:outputPanel>
+        </r:outputPanel>
         <h:outputText value="Name:" />
         <h:form>
             <h:inputText value="#{commandBean.name}" />
 
             <h:panelGrid>
-                <a4j:commandButton action="#{commandBean.submit}" render="out" value="Say Hello" />
-                <a4j:commandButton action="#{commandBean.submit}" render="out" value="Say Hello with limitRender"
+                <r:commandButton action="#{commandBean.submit}" render="out" value="Say Hello" />
+                <r:commandButton action="#{commandBean.submit}" render="out" value="Say Hello with limitRender"
                     limitRender="true" />
-                <a4j:commandButton action="#{commandBean.submit}" render="out" execute="@this">
+                <r:commandButton action="#{commandBean.submit}" render="out" execute="@this">
                     <h:outputText value="Say Hello with execute=@this" />
-                </a4j:commandButton>
-                <a4j:commandButton action="#{commandBean.reset}" render="out" value="Reset" />
-                <a4j:commandButton value="Test AjaxBehavior">
+                </r:commandButton>
+                <r:commandButton action="#{commandBean.reset}" render="out" value="Reset" />
+                <r:commandButton value="Test AjaxBehavior">
                     <f:ajax event="action" execute="@form" render=":out" listener="#{commandBean.listener}" />
-                </a4j:commandButton>
+                </r:commandButton>
             </h:panelGrid>
         </h:form>
         <br />
@@ -39,15 +39,15 @@
             <h:outputText value="#{commandBean.name}" />
         </h:panelGroup>
         <h:form>
-            <a4j:queue requestDelay="5000" />
-            <a4j:commandButton value="Update 1" render="out1">
-                <a4j:param name="v1" value="Update 1" assignTo="#{commandBean.name}" />
-            </a4j:commandButton>
-            <a4j:commandButton value="Update 2" render="out1">
-                <a4j:param name="v1" value="Update 2" assignTo="#{commandBean.name}" />
-            </a4j:commandButton>
+            <r:queue requestDelay="5000" />
+            <r:commandButton value="Update 1" render="out1">
+                <r:param name="v1" value="Update 1" assignTo="#{commandBean.name}" />
+            </r:commandButton>
+            <r:commandButton value="Update 2" render="out1">
+                <r:param name="v1" value="Update 2" assignTo="#{commandBean.name}" />
+            </r:commandButton>
             <hr />
-            <a4j:log level="debug" style="border: solid red 1px" styleClass="log" mode="popup" />
+            <r:log level="debug" style="border: solid red 1px" styleClass="log" mode="popup" />
         </h:form>
     </ui:define>
 </ui:composition>

@@ -5,52 +5,52 @@
         <ui:include src="queue-discovery-base.xhtml" />
 
         <h:form id="form">
-            <a4j:commandButton id="button" oncomplete="addResult('button')">
+            <r:commandButton id="button" oncomplete="addResult('button')">
                 <f:param name="data" value="button" />
-            </a4j:commandButton>
-            <a4j:commandButton id="formQueueButton" oncomplete="addResult('formQueueButton')" eventsQueue="form">
+            </r:commandButton>
+            <r:commandButton id="formQueueButton" oncomplete="addResult('formQueueButton')" eventsQueue="form">
                 <f:param name="data" value="formQueueButton" />
-            </a4j:commandButton>
+            </r:commandButton>
 
-            <a4j:queue oncomplete="addResult('disabled')" disabled="true" />
-            <a4j:queue oncomplete="addResult('disabledForm')" name="form" disabled="true" />
+            <r:queue oncomplete="addResult('disabled')" disabled="true" />
+            <r:queue oncomplete="addResult('disabledForm')" name="form" disabled="true" />
         </h:form>
 
         <h:form id="form2">
-            <a4j:commandButton id="button2" oncomplete="addResult('button2')">
+            <r:commandButton id="button2" oncomplete="addResult('button2')">
                 <f:param name="data" value="button2" />
-            </a4j:commandButton>
-            <a4j:commandButton id="formQueueButton2" oncomplete="addResult('formQueueButton2')" eventsQueue="form2">
+            </r:commandButton>
+            <r:commandButton id="formQueueButton2" oncomplete="addResult('formQueueButton2')" eventsQueue="form2">
                 <f:param name="data" value="formQueueButton2" />
-            </a4j:commandButton>
+            </r:commandButton>
 
-            <a4j:queue oncomplete="addResult('disabledA')" disabled="true" />
-            <a4j:queue oncomplete="addResult('form2-global:' + request.options.parameters.data)" />
-            <a4j:queue oncomplete="addResult('disabledB')" disabled="true" />
+            <r:queue oncomplete="addResult('disabledA')" disabled="true" />
+            <r:queue oncomplete="addResult('form2-global:' + request.options.parameters.data)" />
+            <r:queue oncomplete="addResult('disabledB')" disabled="true" />
 
-            <a4j:queue oncomplete="addResult('disabledA1')" disabled="true" name="form2" />
-            <a4j:queue oncomplete="addResult('form2-queue:' + request.options.parameters.data)" name="form2" />
-            <a4j:queue oncomplete="addResult('disabledB1')" disabled="true" name="form2" />
+            <r:queue oncomplete="addResult('disabledA1')" disabled="true" name="form2" />
+            <r:queue oncomplete="addResult('form2-queue:' + request.options.parameters.data)" name="form2" />
+            <r:queue oncomplete="addResult('disabledB1')" disabled="true" name="form2" />
         </h:form>
 
         <h:form id="form3">
-            <a4j:commandButton id="global" oncomplete="addResult('global')">
+            <r:commandButton id="global" oncomplete="addResult('global')">
                 <f:param name="data" value="global" />
-            </a4j:commandButton>
-            <a4j:commandButton id="globalNamed" oncomplete="addResult('globalNamed')" eventsQueue="viewNamed">
+            </r:commandButton>
+            <r:commandButton id="globalNamed" oncomplete="addResult('globalNamed')" eventsQueue="viewNamed">
                 <f:param name="data" value="globalNamed" />
-            </a4j:commandButton>
-            <a4j:commandButton id="globalNamedX" oncomplete="addResult('globalNamedX')" eventsQueue="viewNamedX">
+            </r:commandButton>
+            <r:commandButton id="globalNamedX" oncomplete="addResult('globalNamedX')" eventsQueue="viewNamedX">
                 <f:param name="data" value="globalNamedX" />
-            </a4j:commandButton>
+            </r:commandButton>
         </h:form>
 
-        <a4j:queue oncomplete="addResult('disabled:' + request.options.parameters.data)" disabled="true" />
-        <a4j:queue oncomplete="addResult('viewNamed:' + request.options.parameters.data)" name="viewNamed" disabled="true" />
+        <r:queue oncomplete="addResult('disabled:' + request.options.parameters.data)" disabled="true" />
+        <r:queue oncomplete="addResult('viewNamed:' + request.options.parameters.data)" name="viewNamed" disabled="true" />
 
-        <a4j:queue oncomplete="addResult('viewNamedXA:' + request.options.parameters.data)" name="viewNamedX" disabled="true" />
-        <a4j:queue oncomplete="addResult('viewNamedX:' + request.options.parameters.data)" name="viewNamedX" />
-        <a4j:queue oncomplete="addResult('viewNamedXB:' + request.options.parameters.data)" name="viewNamedX" disabled="true" />
+        <r:queue oncomplete="addResult('viewNamedXA:' + request.options.parameters.data)" name="viewNamedX" disabled="true" />
+        <r:queue oncomplete="addResult('viewNamedX:' + request.options.parameters.data)" name="viewNamedX" />
+        <r:queue oncomplete="addResult('viewNamedXB:' + request.options.parameters.data)" name="viewNamedX" disabled="true" />
     </f:view>
 </body>
 </html>

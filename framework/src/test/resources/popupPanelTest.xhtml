@@ -12,7 +12,7 @@
     <h:commandButton id="button" value="Call the popup">
         <rich2:componentControl target="panel" operation="show" />
     </h:commandButton>
-    <rich:popupPanel moveable="false" resizeable="true" styleClass="panelStyle" headerClass="header" controlsClass="control"
+    <r:popupPanel moveable="false" resizeable="true" styleClass="panelStyle" headerClass="header" controlsClass="control"
         id="panel">
         <f:facet name="header">
             Write your own custom rich components with built-in AJAX
@@ -37,6 +37,6 @@
                 <a href="#" id="moveto" onclick="RichFaces.$('panel').moveTo(20, 50)" tabindex="0"> moveTo </a>
             </h:panelGroup>
         </h:form>
-    </rich:popupPanel>
+    </r:popupPanel>
 </h:body>
 </html>

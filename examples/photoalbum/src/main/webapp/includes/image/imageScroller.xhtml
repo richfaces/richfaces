@@ -4,14 +4,14 @@
     <h:panelGroup layout="block" id="imagesTable"
         style="margin: 30px 0px 40px 30px; float: left; position: relative; left: -2px;">
         <h:panelGrid columns="2">
-            <a4j:repeat value="#{model.selectedAlbum.images}" rows="5" var="img" id="repeat" rowKeyVar="rk">
-                <a4j:outputPanel layout="block"
+            <r:repeat value="#{model.selectedAlbum.images}" rows="5" var="img" id="repeat" rowKeyVar="rk">
+                <r:outputPanel layout="block"
                     styleClass="preview_box_photo_nav #{model.selectedImage == img ? 'preview_box_photo_current' : 'preview_box_photo_default'}">
                     <h:panelGroup layout="block" styleClass="preview_box_photo_80">
                         <h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_80.png" />
                         <h:panelGrid cellpadding="0" cellspacing="2">
                             <h:panelGroup layout="block">
-                                <a4j:mediaOutput element="img" createContent="#{imageLoader.paintImage}"
+                                <r:mediaOutput element="img" createContent="#{imageLoader.paintImage}"
                                     value="#{fileManager.transformPath(img.fullPath, '_small80')}" mimeType="image/jpeg" />
                                 <br />
                             </h:panelGroup>
@@ -23,11 +23,11 @@
                             <h:outputText value="#{rk + 1}" />
                         </h:panelGroup>
                     </h:panelGroup>
-                        <a4j:ajax event="click" render="mainImage" listener="#{controller.showImage(img)}" execute="@this"/>
-                </a4j:outputPanel>
-            </a4j:repeat>
+                        <r:ajax event="click" render="mainImage" listener="#{controller.showImage(img)}" execute="@this"/>
+                </r:outputPanel>
+            </r:repeat>
         </h:panelGrid>
-        <a4j:commandLink rendered="#{help.isShowHelp()}" style="position: absolute; right: -65px; top: 80px;"
+        <r:commandLink rendered="#{help.isShowHelp()}" style="position: absolute; right: -65px; top: 80px;"
             actionListener="#{help.navigateTo('/includes/help/imageScrollerHelp.xhtml')}"
             oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel">
             <h:panelGroup
@@ -35,7 +35,7 @@
                 <h:graphicImage style="border:none;" height="34" width="34" border="0" styleClass="ie6transparency"
                     value="img/icons/help_sign.png"/>
             </h:panelGroup>
-        </a4j:commandLink>
+        </r:commandLink>
 
         <h:panelGrid columns="3">
             <h:panelGroup styleClass="image-scroller-left-arrow"
@@ -43,7 +43,7 @@
                 <h:graphicImage styleClass="ie6transparency" value="img/shell/arr_left.png"
                     onclick="#{rich:component('scroller')}.fastRewind()" />
             </h:panelGroup>
-            <rich:dataScroller page="#{controller.page}" styleClass="image-scroller" lastPageMode="full" for="repeat"
+            <r:dataScroller page="#{controller.page}" styleClass="image-scroller" lastPageMode="full" for="repeat"
                 render="imagesTable" boundaryControls="hide" stepControls="hide" id="scroller" fastControls="hide">
                 <!--   <f:facet name="pages">
                     <h:outputText />
@@ -73,7 +73,7 @@
                         <h:graphicImage styleClass="ie6transparency" value="img/shell/arr_left_dis.png" />
                     </h:panelGroup>
                 </f:facet> -->
-            </rich:dataScroller>
+            </r:dataScroller>
             <h:panelGroup styleClass="image-scroller-right-arrow"
                 style="width: 56px; height:34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/arr_right.png',sizingMethod='scale');">
                 <h:graphicImage value="img/shell/arr_right.png" styleClass="ie6transparency" height="34" width="56" border="0"

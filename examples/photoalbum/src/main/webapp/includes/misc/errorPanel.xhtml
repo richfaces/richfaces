@@ -1,9 +1,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j">
-    <a4j:outputPanel id="errors" ajaxRendered="true" layout="block">
+    <r:outputPanel id="errors" ajaxRendered="true" layout="block">
         <h:panelGroup rendered="#{errorHandlerBean.errorExist}">
-            <rich:popupPanel id="errorPanel" show="true" minWidth="300" minHeight="200" autosized="true">
+            <r:popupPanel id="errorPanel" show="true" minWidth="300" minHeight="200" autosized="true">
 
                 <f:facet name="header">
                     <h:outputText value="#{messages['error_occurred']}" />
@@ -15,7 +15,7 @@
                             onclick="#{rich:component('errorPanel')}.hide()" />
                     </h:panelGroup>
                 </f:facet>
-                <!-- <rich:effect type="Appear" name="appearFunc" /> -->
+                <!-- <r:effect type="Appear" name="appearFunc" /> -->
                 <!-- not implemented in RF 4 -->
                 <h:panelGroup id="panel" width="100%" layout="block">
                     <h:panelGroup id="content" layout="block">
@@ -25,10 +25,10 @@
                             </h:panelGroup>
 
                             <h:panelGroup id="message" layout="block" style="width: 257px; margin-left: 20px">
-                                <a4j:repeat value="#{errorHandlerBean.errors}" var="error">
+                                <r:repeat value="#{errorHandlerBean.errors}" var="error">
                                     <h:outputText styleClass="error" value="#{error}" />
                                     <br />
-                                </a4j:repeat>
+                                </r:repeat>
                             </h:panelGroup>
 
                             <h:panelGroup style="cursor: pointer; width: 34px; height:34px;">
@@ -38,7 +38,7 @@
                         </h:panelGrid>
                     </h:panelGroup>
                 </h:panelGroup>
-            </rich:popupPanel>
+            </r:popupPanel>
         </h:panelGroup>
-    </a4j:outputPanel>
+    </r:outputPanel>
 </ui:composition>

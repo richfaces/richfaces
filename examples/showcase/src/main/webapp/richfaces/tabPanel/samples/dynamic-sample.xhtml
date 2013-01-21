@@ -5,17 +5,17 @@
 
     <h:form>
     
-        <rich:tabPanel activeItem="#{dynamicPanelBean.activeTab}">
+        <r:tabPanel activeItem="#{dynamicPanelBean.activeTab}">
         
-            <rich:tab header="Static">
+            <r:tab header="Static">
                 <p>This tab is static one.</p>
                 
                 <p>All of the following tabs are dynamically generated using <b>a4j:repeat</b>.</p> 
-            </rich:tab>
+            </r:tab>
             
-            <a4j:repeat value="#{skinBean.skins}" var="skinName">
+            <r:repeat value="#{skinBean.skins}" var="skinName">
             
-                <rich:tab header="#{skinName}" name="#{skinName}">
+                <r:tab header="#{skinName}" name="#{skinName}">
                     <f:facet name="header">#{skinName}</f:facet>
 
                     <i> All the controls below are just standard JSF components skinned with RichFaces: </i>
@@ -40,8 +40,8 @@
                         </h:commandButton>
                     </h:form>
                     
-                </rich:tab>
-            </a4j:repeat>
-        </rich:tabPanel>
+                </r:tab>
+            </r:repeat>
+        </r:tabPanel>
     </h:form>
 </ui:composition>

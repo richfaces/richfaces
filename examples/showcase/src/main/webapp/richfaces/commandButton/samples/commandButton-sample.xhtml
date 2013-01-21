@@ -11,11 +11,11 @@
         <h:panelGrid columns="3">
             <h:outputText value="Name:" />
             <h:inputText value="#{userBean.name}" />
-            <a4j:commandButton value="Say Hello" render="out" execute="@form" />
+            <r:commandButton value="Say Hello" render="out" execute="@form" />
         </h:panelGrid>
     </h:form>
     <br />
-    <a4j:outputPanel id="out">
+    <r:outputPanel id="out">
         <h:outputText value="Hello #{userBean.name} !" rendered="#{not empty userBean.name}" styleClass="outhello" />
-    </a4j:outputPanel>
+    </r:outputPanel>
 </ui:composition>

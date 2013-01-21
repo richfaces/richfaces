@@ -4,7 +4,7 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:form>
 
-        <rich:editor id="editor" toolbar="#{editorBean.toolbar}" skin="#{editorBean.skin}">
+        <r:editor id="editor" toolbar="#{editorBean.toolbar}" skin="#{editorBean.skin}">
             <f:facet name="config">
                     toolbar_custom:
                         [
@@ -21,7 +21,7 @@
                         	{ name: 'tools', items : [ 'Maximize','-','About' ] }
                         ]
                		</f:facet>
-        </rich:editor>
+        </r:editor>
 
 
     </h:form>

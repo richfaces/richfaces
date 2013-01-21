@@ -10,17 +10,17 @@
 <h:body>
     <h:form id="form">
 
-        <it:dataScroller fastStep="2" id="scroller1" for="richTable" page="#{dataScrollerBean.pageNumber}" maxPages="5"></it:dataScroller>
-        <it:dataTable id="richTable" rowKeyVar="rowKey" var="content" value="#{dataScrollerBean.content}" rows="1">
-            <it:column>
+        <r:dataScroller fastStep="2" id="scroller1" for="richTable" page="#{dataScrollerBean.pageNumber}" maxPages="5"></r:dataScroller>
+        <r:dataTable id="richTable" rowKeyVar="rowKey" var="content" value="#{dataScrollerBean.content}" rows="1">
+            <r:column>
                 <h:panelGroup id="pageContent">
                     <h:outputText value="#{content}" />
                 </h:panelGroup>
-            </it:column>
+            </r:column>
             <f:facet name="footer">
-                <it:dataScroller fastStep="2" id="scroller2" for="richTable" page="#{dataScrollerBean.pageNumber}" maxPages="5"></it:dataScroller>
+                <r:dataScroller fastStep="2" id="scroller2" for="richTable" page="#{dataScrollerBean.pageNumber}" maxPages="5"></r:dataScroller>
             </f:facet>
-        </it:dataTable>
+        </r:dataTable>
     </h:form>
 </h:body>
 </html>

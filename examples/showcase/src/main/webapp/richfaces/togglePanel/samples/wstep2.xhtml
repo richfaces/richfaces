@@ -6,15 +6,15 @@
         <h:panelGrid columns="3" columnClasses="wfcol1,wfcol2,wfcol3">
             <h:outputText value="Notes:" />
             <h:inputTextarea cols="20" rows="4" id="notes" value="#{profile.notes}" label="Notes" required="true" />
-            <rich:message for="notes" />
+            <r:message for="notes" />
         </h:panelGrid>
         <div class="navPanel" style="width: 100%;">
-            <a4j:commandButton value="&lt;&lt;Previous" style="float:left">
-                <rich:toggleControl targetItem="@prev" event="click" />
-            </a4j:commandButton>
-            <a4j:commandButton value="Next &gt;&gt;" style="float:right">
-                <rich:toggleControl targetItem="@next" event="click" />
-            </a4j:commandButton>
+            <r:commandButton value="&lt;&lt;Previous" style="float:left">
+                <r:toggleControl targetItem="@prev" event="click" />
+            </r:commandButton>
+            <r:commandButton value="Next &gt;&gt;" style="float:right">
+                <r:toggleControl targetItem="@next" event="click" />
+            </r:commandButton>
         </div>
 
 

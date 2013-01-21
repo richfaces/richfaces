@@ -4,37 +4,37 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:panelGrid columns="3">
         <h:form>
-            <rich:panel id="panel">
+            <r:panel id="panel">
                 <f:facet name="header">
                     <h:outputText value="User Details Panel" />
                 </f:facet>
                 <h:panelGrid columns="2">
-                    <a4j:ajax event="keyup">
+                    <r:ajax event="keyup">
                         <h:outputText value="User name:" />
                         <h:inputText value="#{userBean.name}" />
                         <h:outputText value="Address:" />
                         <h:inputText value="#{userBean.address}" />
-                    </a4j:ajax>
+                    </r:ajax>
                 </h:panelGrid>
                 <h:commandButton value="Submit" type="button" action="#{userBean.store}">
-                    <a4j:ajax render="out" />
+                    <r:ajax render="out" />
                 </h:commandButton>
                 <h:outputText value="#{userBean.recordStatus}" id="out" />
-            </rich:panel>
+            </r:panel>
         </h:form>
         <h:form>
-            <rich:panel>
+            <r:panel>
                 <f:facet name="header">
                     <h:outputText value="Simple search panel" />
                 </f:facet>
                 <h:inputText value="Search..." />
-                <a4j:commandButton value="Submit" type="button" />
-            </rich:panel>
+                <r:commandButton value="Submit" type="button" />
+            </r:panel>
         </h:form>
-        <a4j:status>
+        <r:status>
             <f:facet name="start">
                 <h:graphicImage value="/images/ai.gif" alt="ai" />
             </f:facet>
-        </a4j:status>
+        </r:status>
     </h:panelGrid>
 </ui:composition>

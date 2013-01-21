@@ -8,12 +8,12 @@
     <ui:define name="content">
         <h:form id="form">
             <h:panelGroup id="poll">
-                <a4j:poll enabled="#{commandBean.pollEnabled}" interval="5000" ontimer="return confirm('execute action?')">
-                    <a4j:ajax event="timer" render="time" />
-                </a4j:poll>
+                <r:poll enabled="#{commandBean.pollEnabled}" interval="5000" ontimer="return confirm('execute action?')">
+                    <r:ajax event="timer" render="time" />
+                </r:poll>
             </h:panelGroup>
-            <a4j:commandButton actionListener="#{commandBean.enablePoll}" value="Start polling" render="poll" />
-            <a4j:commandButton actionListener="#{commandBean.disablePoll}" value="Stop polling" render="poll" />
+            <r:commandButton actionListener="#{commandBean.enablePoll}" value="Start polling" render="poll" />
+            <r:commandButton actionListener="#{commandBean.disablePoll}" value="Stop polling" render="poll" />
         </h:form>
         <h:panelGroup id="time">
             <h:outputText value="#{commandBean.date}" />
