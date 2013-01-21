@@ -1,0 +1,105 @@
+.rf-dg {
+    background-color: '#{richSkin.tableBackgroundColor}';
+    border-collapse: collapse;
+    border-left-width: '#{richSkin.tableBorderWidth}';
+    border-left-style: solid;
+    border-left-color: '#{richSkin.tableBorderColor}';
+    border-top-width: '#{richSkin.tableBorderWidth}';
+    border-top-style: solid;
+    border-top-color: '#{richSkin.tableBorderColor}';
+    empty-cells: show;
+}
+
+.rf-dg-nd-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    padding: 4px;
+}
+
+.rf-dg-cap {
+    
+}
+
+.rf-dg-r {
+    
+}
+
+.rf-dg-f-r {
+    
+}
+
+.rf-dg-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    padding: 4px;
+}
+
+.rf-dg-h {
+    
+}
+
+.rf-dg-h-f {
+    
+}
+
+.rf-dg-h-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    background-color: '#{richSkin.tableHeaderBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
+    background-position: top left;
+    color: '#{richSkin.tableHeaderTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+}
+
+.rf-dg-th {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+}
+
+.rf-dg-f {
+    
+}
+
+.rf-dg-f-f {
+    
+}
+
+.rf-dg-f-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    color: '#{richSkin.generalTextColor}';
+    background-color: '#{richSkin.tableFooterBackgroundColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+}

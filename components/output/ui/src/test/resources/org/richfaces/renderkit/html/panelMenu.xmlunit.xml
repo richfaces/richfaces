@@ -1,0 +1,59 @@
+<div id="f:panelMenu" class="rf-pm">
+    <input id="f:panelMenu-value" name="f:panelMenu-value" type="hidden" />
+    <div id="f:j_idt7" class="rf-pm-top-gr">
+        <input id="f:j_idt7:expanded" name="f:j_idt7:expanded" type="hidden" value="false" />
+        <div id="f:j_idt7:hdr" class="rf-pm-top-gr-hdr rf-pm-hdr-colps">
+            <table class="rf-pm-top-gr-gr">
+                <tbody>
+                    <tr>
+                        <td class="rf-pm-top-gr-ico">
+                            <div class="rf-pm-ico-colps rf-ico-transparent-hdr">
+                            </div>
+                            <div class="rf-pm-ico-exp rf-ico-transparent-hdr">
+                            </div>
+                        </td>
+                        <td class="rf-pm-top-gr-lbl" />
+                        <td class="rf-pm-top-gr-exp-ico">
+                            <div class="rf-pm-ico-colps rf-ico-transparent-hdr">
+                            </div>
+                            <div class="rf-pm-ico-exp rf-ico-transparent-hdr">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="f:j_idt7:cnt" class="rf-pm-top-gr-cnt rf-pm-colps">
+            <div id="f:item" class="rf-pm-itm my-item-class">
+                <table class="rf-pm-itm-gr">
+                    <tbody>
+                        <tr>
+                            <td class="rf-pm-itm-ico rf-ico-transparent" />
+                            <td class="rf-pm-itm-lbl">
+
+                                My Item
+
+                            </td>
+                            <td class="rf-pm-itm-exp-ico rf-ico-transparent" />
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="f:item_disabled" class="rf-pm-itm my-item-class rf-pm-itm-dis my-item-disabled-class">
+                <table class="rf-pm-itm-gr">
+                    <tbody>
+                        <tr>
+                            <td class="rf-pm-itm-ico rf-ico-transparent-dis" />
+                            <td class="rf-pm-itm-lbl">
+
+                                My Disabled Item
+
+                            </td>
+                            <td class="rf-pm-itm-exp-ico rf-ico-transparent-dis" />
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

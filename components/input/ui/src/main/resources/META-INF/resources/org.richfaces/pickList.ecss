@@ -1,0 +1,96 @@
+.rf-pick-opt {
+    color: '#{richSkin.generalTextColor}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+}
+
+.rf-pick {
+    display: inline-block;
+}
+
+.rf-pick-hdr {
+    vertical-align: middle;
+    text-align: left;
+    height: 22px;
+    white-space: nowrap;
+    background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    font-size: '#{richSkin.headerSizeFont}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    font-weight: '#{richSkin.headerWeightFont}';
+    color: '#{richSkin.headerTextColor}';
+}
+
+.rf-pick-hdr-c {
+    padding : 0 0.5em;
+}
+
+.rf-pick-src-cptn, .rf-pick-tgt-cptn {
+    font-size: '#{richSkin.headerSizeFont}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    font-weight: '#{richSkin.headerWeightFont}';
+    color: '#{richSkin.headerTextColor}';
+}
+
+.rf-pick-btn {
+    width : 100%;
+    white-space:nowrap;
+    background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: '#{richSkin.panelBorderColor}';
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    text-align : left;
+}
+
+.rf-pick-btn-dis {
+    cursor: default;
+    color : #dddddd;
+}
+
+.rf-pick-lst-dcrtn {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    padding: 0px;
+    background-color: '#{richSkin.tableBackgroundColor}';
+}
+
+.rf-pick-lst-scrl {
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.rf-pick-opt {
+    padding: 2px;
+    white-space: nowrap;
+    cursor: pointer;
+    list-style-type: none;
+}
+
+.rf-pick-opt-dis {
+    cursor: default;
+}
+
+.rf-pick-sel {
+    width: 100%;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    border-width: 1px;
+    border-style: dotted;
+    border-color: '#{richSkin.generalTextColor}';
+}
+
+input.rf-pick-dflt-lbl {
+    color: #b3b3b3;
+}
+
+.rf-pick-tbl {
+    width : 100%;
+}

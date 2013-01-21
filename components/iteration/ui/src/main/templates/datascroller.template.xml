@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+JBoss, Home of Professional Open Source
+Copyright ${year}, Red Hat, Inc. and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.DataScrollerRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.DataScrollerBaseRenderer</cdk:superclass>
+        <cdk:component-family>org.richfaces.DataScroller</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.DataScrollerRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+
+        <cdk:object type="org.richfaces.renderkit.ControlsState" name="controlsState" value="#{getControlsState(facesContext,component)}" />
+        <cdk:object name="style" value="#{component.attributes['style']}" />
+        <cdk:object name="styleClass" value="#{component.attributes['styleClass']}" />
+
+            <span id="#{clientId}" class="rf-ds #{styleClass}" cdk:passThrough="title" style="#{shouldRender(component) ? style : 'display:none'}">
+	        <c:if test="#{shouldRender(component)}">
+
+                <c:if test="#{controlsState.firstRendered}">
+                    <cdk:object type="boolean" name="isEnabled" value="#{controlsState.firstEnabled}" />
+                    <cdk:object type="UIComponent" name="facet" value="#{component.getFacet('first')}" />
+                    <cdk:object type="String" name="enabledStyles" value="rf-ds-btn rf-ds-btn-first" />
+                    <cdk:object type="String" name="disabledStyles" value="rf-ds-btn rf-ds-btn-first rf-ds-dis" />
+                    <cdk:object type="String" name="id" value="#{clientId}_ds_f" />
+                    <cdk:object type="String" name="defaultText" value="&#171;&#171;&#171;&#171;" />
+                    <xi:include xpointer="xpointer(/*)" href="buttons.template.include" />
+                </c:if>
+
+                <c:if test="#{controlsState.fastRewindRendered}">
+                    <cdk:object type="boolean" name="isEnabled" value="#{controlsState.fastRewindEnabled}" />
+                    <cdk:object type="UIComponent" name="facet" value="#{component.getFacet('fastRewind')}" />
+                    <cdk:object type="java.lang.String" name="enabledStyles" value="rf-ds-btn rf-ds-btn-fastrwd" />
+                    <cdk:object type="java.lang.String" name="disabledStyles" value="rf-ds-btn rf-ds-btn-fastrwd rf-ds-dis" />
+                    <cdk:object type="java.lang.String" name="id" value="#{clientId}_ds_fr" />
+                    <cdk:object type="java.lang.String" name="defaultText" value="&#171;&#171;" />
+                    <xi:include xpointer="xpointer(/*)" href="buttons.template.include" />
+                </c:if>
+
+                <c:if test="#{controlsState.previousRendered}">
+                    <cdk:object name="isEnabled" value="#{controlsState.previousEnabled}" />
+                    <cdk:object name="facet" value="#{component.getFacet('previous')}" />
+                    <cdk:object type="java.lang.String" name="enabledStyles" value="rf-ds-btn rf-ds-btn-prev" />
+                    <cdk:object type="java.lang.String" name="disabledStyles" value="rf-ds-btn rf-ds-btn-prev rf-ds-dis" />
+                    <cdk:object name="id" value="#{clientId}_ds_prev" />
+                    <cdk:object name="defaultText" value="&#171;" />
+                    <xi:include xpointer="xpointer(/*)" href="buttons.template.include" />
+                </c:if>
+
+                <cdk:object type="java.util.Map" name="digitals" value="#{renderPager(responseWriter, facesContext, component)}" />
+
+                <c:if test="#{controlsState.nextRendered}">
+                    <cdk:object name="isEnabled" value="#{controlsState.nextEnabled}" />
+                    <cdk:object name="facet" value="#{component.getFacet('next')}" />
+                    <cdk:object type="java.lang.String" name="enabledStyles" value="rf-ds-btn rf-ds-btn-next" />
+                    <cdk:object type="java.lang.String" name="disabledStyles" value="rf-ds-btn rf-ds-btn-next rf-ds-dis" />
+                    <cdk:object name="id" value="#{clientId}_ds_next" />
+                    <cdk:object name="defaultText" value="&#187;" />
+                    <xi:include xpointer="xpointer(/*)" href="buttons.template.include" />
+                </c:if>
+
+                <c:if test="#{controlsState.fastForwardRendered}">
+                    <cdk:object name="isEnabled" value="#{controlsState.fastForwardEnabled}" />
+                    <cdk:object name="facet" value="#{component.getFacet('fastForward')}" />
+                    <cdk:object type="java.lang.String" name="enabledStyles" value="rf-ds-btn rf-ds-btn-fastfwd" />
+                    <cdk:object type="java.lang.String" name="disabledStyles" value="rf-ds-btn rf-ds-btn-fastfwd rf-ds-dis" />
+                    <cdk:object name="id" value="#{clientId}_ds_ff" />
+                    <cdk:object name="defaultText" value="&#187;&#187;" />
+                    <xi:include xpointer="xpointer(/*)" href="buttons.template.include" />
+                </c:if>
+
+                <c:if test="#{controlsState.lastRendered}">
+                    <cdk:object name="isEnabled" value="#{controlsState.lastEnabled}" />
+                    <cdk:object name="facet" value="#{component.getFacet('last')}" />
+                    <cdk:object type="java.lang.String" name="enabledStyles" value="rf-ds-btn rf-ds-btn-last" />
+                    <cdk:object type="java.lang.String" name="disabledStyles" value="rf-ds-btn rf-ds-btn-last rf-ds-dis" />
+                    <cdk:object name="id" value="#{clientId}_ds_l" />
+                    <cdk:object name="defaultText" value="&#187;&#187;&#187;&#187;" />
+                    <xi:include xpointer="xpointer(/*)" href="buttons.template.include" />
+                </c:if>
+
+                <cdk:object type="java.util.Map" name="buttons" value="#{getControls(facesContext, component, controlsState)}" />
+
+                <script type="text/javascript">
+                    <cdk:call expression="buildScript(responseWriter, facesContext, component, buttons, digitals);" />
+                </script>
+	        </c:if>
+            </span>
+    </cc:implementation>
+</cdk:root>

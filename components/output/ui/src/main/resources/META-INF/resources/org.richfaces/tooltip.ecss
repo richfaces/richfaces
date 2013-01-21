@@ -1,0 +1,45 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ * 
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ * 
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+.rf-tt {
+    position: absolute;
+    display: none;
+}
+
+.rf-tt-loading {
+    display: none;
+}
+
+.rf-tt-cnt {
+    
+}
+
+.rf-tt-cntr {
+    background-color: white;
+    padding: 7px;
+    border: 1px solid;
+    /*  color: generalFontColor; */
+    border-color: '#{richSkin.tipBorderColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    display: inline-block;
+}

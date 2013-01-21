@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j">
+
+    <h:form id="form">
+        <a4j:ajax event="click">
+            <a4j:attachQueue id="clickQueue" />
+            (1)
+
+            <h:inputText id="input" />
+            <h:commandButton id="button" />
+            "click" support applied there so (1) used
+
+            <a4j:ajax event="valueChange">
+                <a4j:attachQueue id="valueChangeQueue" />
+                (2)
+
+                <h:inputText id="nestedInput" />
+                (2) used when "valueChange" occurs and (1) on click
+                <h:commandButton id="nestedButton" />
+                "click" support applied there so also (1) used
+            </a4j:ajax>
+        </a4j:ajax>
+    </h:form>
+</ui:composition>

@@ -1,0 +1,32 @@
+.rf-p {
+    background-color: '#{richSkin.generalBackgroundColor}';
+    color: '#{richSkin.panelBorderColor}';
+    border-width: 1px;
+    border-style: solid;
+    border-radius: '#{richSkin.panelBorderRadius}';
+    padding: 1px;
+}
+
+.rf-p-hdr {
+    background-color: '#{richSkin.headerBackgroundColor}';
+    border-color: '#{richSkin.headerBackgroundColor}';
+    border-top-left-radius: '#{richSkin.panelBorderRadius}';
+    border-top-right-radius: '#{richSkin.panelBorderRadius}';
+    font-size: '#{richSkin.headerSizeFont}';
+    color: '#{richSkin.headerTextColor}';
+    font-weight: '#{richSkin.headerWeightFont}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    padding: 2px;
+    border-width: 1px;
+    border-style: solid;
+    background-position: top left;
+    background-repeat: repeat-x;
+    background-image: "url(#{resource['org.richfaces.images:gradientA.png']})";
+}
+
+.rf-p-b {
+    font-size: '#{richSkin.generalSizeFont}';
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    padding: 10px;
+}

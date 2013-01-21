@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mock-config>
+    <class-prefix>Mock</class-prefix>
+    <package>org.richfaces.component.mock</package>
+    <mock-controller>org.richfaces.component.mock.FacesTestMockController</mock-controller>
+    <mock>
+        <name>org.richfaces.component.mock.MockUIForm</name>
+        <class-name>javax.faces.component.UIForm</class-name>
+    </mock>
+    <mock>
+        <name>org.richfaces.component.mock.MockUIMessage</name>
+        <class-name>javax.faces.component.UIMessage</class-name>
+    </mock>
+
+</mock-config>

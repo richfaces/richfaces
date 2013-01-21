@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.TreeNodeRenderer
+        </cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.TreeNodeRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.TreeNode
+        </cdk:component-family>
+        <cdk:renderer-type>org.richfaces.TreeNodeRenderer
+        </cdk:renderer-type>
+
+        <cdk:import-attributes src="urn:attributes:events-mouse-props.xml" />
+        <cdk:import-attributes src="urn:attributes:events-key-props.xml" />
+        <cdk:import-attributes src="urn:attributes:core-props.xml" />
+        <cdk:import-attributes src="urn:attributes:i18n-props.xml" />
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object name="nodeState" value="#{getNodeState(facesContext)}" type="org.richfaces.renderkit.TreeNodeState" />
+        <cdk:object name="tree" value="#{getTreeComponent(component)}" type="UIComponent" />
+
+        <cdk:call expression="addClientEventHandlers(facesContext, component)" />
+
+        <div class="#{concatClasses('rf-trn', component.attributes['styleClass'], tree.attributes['nodeClass'])}"
+            cdk:passThroughWithExclusions="id">
+            <cdk:object name="loadingFacet" type="UIComponent" value="#{getHandleLoadingFacetIfApplicable(component)}" />
+
+            <c:if test="#{not empty loadingFacet and loadingFacet.isRendered()}">
+                <span class="rf-trn-hnd-ldn-fct">
+                    <cdk:call>
+                        loadingFacet.encodeAll(facesContext);
+                    </cdk:call>
+                </span>
+            </c:if>
+
+            <span class="#{concatClasses(nodeState.handleClass, component.attributes['handleClass'], tree.attributes['handleClass'])}"></span>
+
+            <span class="rf-trn-cnt">
+                <cdk:call expression="encodeIcon(facesContext, component)" />
+                <span class="#{concatClasses('rf-trn-lbl', component.attributes['labelClass'], tree.attributes['labelClass'])}">
+                    <cdk:body />
+                </span>
+            </span>
+        </div>
+    </cc:implementation>
+
+</cdk:root>

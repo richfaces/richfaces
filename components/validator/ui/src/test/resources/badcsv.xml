@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scripts>
+    <component>
+        <type>non.existed.Class</type>
+        <resource>
+            <name>csv.js</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>stringConverter</function>
+    </component>
+</scripts>

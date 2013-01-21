@@ -1,0 +1,161 @@
+.rf-dt {
+    background-color: '#{richSkin.tableBackgroundColor}';
+    border-collapse: collapse;
+    border-width: '#{richSkin.tableBorderWidth}';
+    border-style: solid;
+    border-color: '#{richSkin.tableBorderColor}';
+    empty-cells: show;
+}
+
+.rf-dt-cap {
+    
+}
+
+.rf-dt-r {
+    
+}
+
+.rf-dt-fst-r {
+    
+}
+
+.rf-dt-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    padding: 4px;
+}
+
+.rf-dt-nd {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    padding: 4px;
+}
+
+.rf-dt-hdr {
+    
+}
+
+.rf-dt-hdr-fst {
+    
+}
+
+.rf-dt-hdr-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    background-color: '#{richSkin.tableHeaderBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
+    background-position: top left;
+    color: '#{richSkin.tableHeaderTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+}
+
+.rf-dt-shdr {
+    
+}
+
+.rf-dt-shdr-fst {
+    
+}
+
+.rf-dt-shdr-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    background-color: '#{richSkin.tableHeaderBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
+    background-position: top left;
+    color: '#{richSkin.tableHeaderTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+}
+
+.rf-dt-sftr {
+    
+}
+
+.rf-dt-sftr-fst {
+    
+}
+
+.rf-dt-sftr-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    background-color: '#{richSkin.tableSubfooterBackgroundColor}';
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+}
+
+.rf-dt-th {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+}
+
+.rf-dt-ftr {
+    
+}
+
+.rf-dt-ftr-fst {
+    
+}
+
+.rf-dt-ftr-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    color: '#{richSkin.generalTextColor}';
+    background-color: '#{richSkin.tableFooterBackgroundColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+}
+
+/*should be generated in M1*/
+.rf-stt-exp {
+    background-image: url("#{resource['org.richfaces:up_icon.gif']}");
+}
+
+.rf-stt-col {
+    background-image: url("#{resource['org.richfaces:down_icon.gif']}");
+}

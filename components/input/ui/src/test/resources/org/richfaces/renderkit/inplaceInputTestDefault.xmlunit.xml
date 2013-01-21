@@ -1,0 +1,12 @@
+<span class="rf-ii" id="form:inplaceInputDefault">
+    <span class="rf-ii-lbl rf-ii-dflt-lbl" id="form:inplaceInputDefaultLabel">Edit Text</span>
+    <input class="rf-ii-none" id="form:inplaceInputDefaultFocus" name="form:inplaceInputDefaultFocus" style="position: absolute; top: 0px; left: 0px; outline-style: none;"
+        type="image" tabindex="-1" />
+    <span class="rf-ii-fld-cntr rf-ii-none" id="form:inplaceInputDefaultEdit">
+        <input autocomplete="off" class="rf-ii-fld" id="form:inplaceInputDefaultInput" name="form:inplaceInputDefault"
+            style="width: 100%;" type="text" />
+    </span>
+    <script type="text/javascript">
+        //ignored
+    </script>
+</span>

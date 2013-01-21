@@ -1,0 +1,125 @@
+.rf-ds {
+    white-space: nowrap;
+    display: inline-block;
+    font-size: '#{richSkin.generalSizeFont}';
+    padding: 1px;
+    font-family: '#{richSkin.generalFamilyFont}';
+    background: '#{richSkin.tableBackgroundColor}';
+}
+
+a.rf-ds-nmb-btn {
+    color: '#{richSkin.generalTextColor}';
+}
+
+a.rf-ds-btn {
+    color: '#{richSkin.generalTextColor}';
+}
+
+.rf-ds-cont {
+    white-space: nowrap;
+    display: inline-block;
+    font-size: '#{richSkin.generalSizeFont}';
+    padding: 1px;
+    font-family: '#{richSkin.generalFamilyFont}';
+    background: '#{richSkin.tableBackgroundColor}';
+}
+
+.rf-ds-cont-dec {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.tableBorderColor}';
+}
+
+.rf-ds-btn {
+    cursor: pointer;
+    padding: 2px 10px 3px 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.tableBorderColor}';
+    display: inline-block;
+    background-position: top left;
+    background-repeat: repeat-x;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:dsBtnGrad.png']})";
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.generalTextColor}';
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.rf-ds-btn:hover {
+    color: #fff;
+}
+
+.rf-ds-dis:hover {
+    color: '#{richSkin.tableBorderColor}';
+    cursor: default;
+}
+
+.rf-ds-btn-first,.rf-ds-btn-fastrwd,.rf-ds-btn-prev {
+    margin-right: 1px;
+}
+
+.rf-ds-btn-next,.rf-ds-btn-fastfwd,.rf-ds-btn-last {
+    margin-left: 1px;
+}
+
+.rf-ds-nmb-btn {
+    cursor: pointer;
+    width: 2em;
+    text-align: center;
+    margin-left: 1px;
+    margin-right: 1px;
+    padding: 2px 2px 3px 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: '#{richSkin.tableBorderColor}';
+    background-color: '#{richSkin.tableBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:dsDigGrad.png']})";
+    background-position: top left;
+    background-repeat: repeat-x;
+    display: inline-block;
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    text-decoration: none;
+    color: '#{richSkin.generalTextColor}';
+    font-weight: normal;
+}
+
+.rf-ds-nmb-btn:hover {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.tableBorderColor}';
+    background-position: top left;
+    background-repeat: repeat-x;
+    background-color: '#{richSkin.tableBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:dsBtnGradOver.png']})";
+}
+
+.rf-ds-press {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.tableBorderColor}';
+    background: '#{richSkin.additionalBackgroundColor}';
+}
+
+.rf-ds-act,.rf-ds-act:hover {
+    cursor: default;
+    font-weight: bold;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    background: none;
+}
+
+.rf-ds-dis {
+    color: '#{richSkin.tableBorderColor}';
+    cursor: default;
+}

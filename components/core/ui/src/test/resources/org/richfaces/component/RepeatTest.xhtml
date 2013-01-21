@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j">
+
+    <h:form id="form">
+        <div id="repeatWrapper">
+            <a4j:repeat iterationStatusVar="iterationStatus" value="#{testBean.data}" id="repeat" first="#{testBean.first}"
+                rows="#{testBean.rows}" var="item">
+                <h:panelGroup layout="block" id="child">
+                    <h:panelGroup id="item">
+                        #{item}
+                    </h:panelGroup>
+                    <h:panelGroup id="iterationStatus">
+                        begin: #{iterationStatus.begin}, end: #{iterationStatus.end}, index: #{iterationStatus.index}, rowCount: #{iterationStatus.rowCount}
+                    </h:panelGroup>
+                </h:panelGroup>
+            </a4j:repeat>
+        </div>
+
+        <h:commandButton id="switchFirstAndRowsLink" value="Switch first and rows" action="#{testBean.switchFirstAndRows}" />
+    </h:form>
+</ui:composition>
+

@@ -1,0 +1,11 @@
+<div id="f:panelMenuItem" class="rf-pm-itm">
+    <table class="rf-pm-itm-gr">
+        <tbody>
+            <tr>
+                <td class="rf-pm-itm-ico rf-ico-transparent"></td>
+                <td class="rf-pm-itm-lbl">My MY Item</td>
+                <td class="rf-pm-itm-exp-ico rf-ico-transparent"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

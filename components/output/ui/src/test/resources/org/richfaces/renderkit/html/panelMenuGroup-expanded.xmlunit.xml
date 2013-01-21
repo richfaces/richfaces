@@ -1,0 +1,22 @@
+<div id="f:panelMenuGroup" class="rf-pm-gr">
+    <input id="f:panelMenuGroup:expanded" name="f:panelMenuGroup:expanded" type="hidden" value="true" />
+    <div id="f:panelMenuGroup:hdr" class="rf-pm-gr-hdr rf-pm-hdr-exp">
+        <table class="rf-pm-gr-gr">
+            <tbody>
+                <tr>
+                    <td class="rf-pm-gr-ico">
+                        <div class="rf-pm-ico-colps rf-ico-transparent"></div>
+                        <div class="rf-pm-ico-exp rf-ico-transparent"></div>
+                    </td>
+                    <td class="rf-pm-gr-lbl">Group Label</td>
+                    <td class="rf-pm-gr-exp-ico">
+                        <div class="rf-pm-ico-colps rf-ico-transparent"></div>
+                        <div class="rf-pm-ico-exp rf-ico-transparent"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="f:panelMenuGroup:cnt" class="rf-pm-gr-cnt rf-pm-exp">
+    </div>
+</div>

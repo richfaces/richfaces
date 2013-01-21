@@ -1,0 +1,167 @@
+.rf-au-fnt {
+    color: '#{richSkin.generalTextColor}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+}
+
+input.rf-au-inp {
+    background-color: '#{richSkin.controlBackgroundColor}';
+    background-image: url("#{resource['org.richfaces.images:inputBackgroundImage.png']}");
+    background-position: 1px 1px;
+    background-repeat: no-repeat;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: top;
+    width: 182px;
+}
+
+.rf-au {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    display: inline-block;
+    background-image: "url(#{resource['org.richfaces.images:autocompleteFieldGradient.png']})";
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.controlBackgroundColor}';
+    font-size: 1px;
+}
+
+.rf-au-fld-btn {
+    display: inline-block;
+    font-size: 1px;
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+.rf-au-btn {
+    background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: '#{richSkin.panelBorderColor}';
+    display: inline-block;
+    vertical-align: top;
+}
+
+.rf-au-btn-arrow,.rf-au-btn-arrow-dis {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: "url(#{resource['org.richfaces.images:comboDownButton.png']})";
+    cursor: pointer;
+    width: 15px;
+    height: 16px;
+    display: inline-block;
+}
+
+.rf-au-btn-arrow-dis {
+    background-image: "url(#{resource['org.richfaces.images:comboDisabledDownButton.png']})";
+    cursor: default;
+}
+
+.rf-au-lst-cord {
+    position: absolute;
+    z-index: 10000;
+    /* TODO nick - review: font-size: 0px; */
+    display: none;
+}
+
+.rf-au-lst-dcrtn {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    padding: 0px;
+    background-color: '#{richSkin.tableBackgroundColor}';
+}
+
+.rf-au-lst-scrl {
+    overflow: auto;
+    overflow-x: hidden;
+    width: 200px;
+    max-height: 100px;
+    min-height: 20px;
+}
+
+.rf-au-itm {
+    cursor: default;
+    padding: 2px;
+}
+
+.rf-au-itm-sel {
+    background-color: '#{richSkin.headerBackgroundColor}';
+    border-width: 1px;
+    border-style: dotted;
+    border-color: '#{richSkin.generalTextColor}';
+    padding: 1px;
+}
+
+.rf-au-opt {
+    white-space: nowrap;
+    list-style-type: none;
+}
+
+.rf-au-opt-sel {
+    width: 100%;
+}
+
+.rf-au-shdw {
+    border: 0px solid red;
+    display: inline-block;
+    position: absolute;
+    float: left;
+    padding: 6px 6px 6px 6px;
+    top: -6px;
+    left: -7px;
+}
+
+.rf-au-shdw-t {
+    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
+    background-position: top left;
+    position: absolute;
+    width: 6px;
+    top: 0px;
+    bottom: 6px;
+    left: 0px
+}
+
+.rf-au-shdw-l {
+    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
+    background-position: bottom left;
+    position: absolute;
+    height: 6px;
+    bottom: 0px;
+    left: 0px;
+    right: 6px;
+}
+
+.rf-au-shdw-r {
+    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
+    background-position: bottom right;
+    position: absolute;
+    width: 6px;
+    top: 6px;
+    bottom: 0px;
+    right: 0px;
+}
+
+.rf-au-shdw-b {
+    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
+    background-position: right top;
+    position: absolute;
+    height: 6px;
+    top: 0px;
+    left: 6px;
+    right: 0px;
+}
+
+.rf-au-lst-ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.rf-au-tbl {
+    border-spacing: 0px;
+}

@@ -1,0 +1,26 @@
+/*
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+
+@import url("reset.ecss");
+@import url("mainui.ecss");
+@import url("panel.ecss");
+@import url("toolbar.ecss");
+@import url("menu.ecss");
+@import url("richcombo.ecss");
+@import url("elementspath.ecss");
+@import url("icons.ecss");
+@import url("presets.ecss");
+@import url("standard_skinning.ecss");
+
+/* Restore the container visibility */
+html .cke_skin_richfaces
+{
+	visibility: inherit;
+}
+
+html.cke_skin_richfaces_container
+{
+	visibility: visible;
+}

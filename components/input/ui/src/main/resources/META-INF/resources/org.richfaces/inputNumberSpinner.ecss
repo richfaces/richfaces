@@ -1,0 +1,79 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+.rf-insp {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    display: inline-block;
+    font-size: 1px;
+    white-space: nowrap;
+}
+
+input.rf-insp-inp[type="text"] {
+    background-color: '#{richSkin.controlBackgroundColor}';
+    background-image: url("#{resource['org.richfaces.images:inputBackgroundImage.png']}");
+    background-position: 1px 1px;
+    background-repeat: no-repeat;
+    border: 0px;
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    margin: 0px;
+    padding: 0px;
+    vertical-align: top;
+}
+
+.rf-insp-btns {
+    background-color: '#{richSkin.headerBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
+    background-position: top left;
+    background-repeat: repeat-x;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: '#{richSkin.panelBorderColor}';
+    display: inline-block;
+    vertical-align: top;
+}
+
+.rf-insp-dec,.rf-insp-inc,.rf-insp-dec-dis,.rf-insp-inc-dis {
+    background-position: 50% 40%;
+    background-repeat: no-repeat;
+    display: block;
+    height: 8px;
+    width: 15px;
+}
+
+.rf-insp-dec {
+    background-image: url("#{resource['org.richfaces.images:spinnerArrowBottom.png']}");
+}
+
+.rf-insp-inc {
+    background-image: url("#{resource['org.richfaces.images:spinnerArrowTop.png']}");
+}
+
+.rf-insp-dec-dis {
+    background-image: url("#{resource['org.richfaces.images:spinnerDisabledArrowBottom.png']}");
+}
+
+.rf-insp-inc-dis {
+    background-image: url("#{resource['org.richfaces.images:spinnerDisabledArrowTop.png']}");
+}

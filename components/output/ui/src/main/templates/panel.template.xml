@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.PanelRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.html.PanelBaseRenderer</cdk:superclass>
+        <cdk:component-family>org.richfaces.Panel</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.PanelRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <div cdk:passThroughWithExclusions="id,value,styleClass,class" id="#{clientId}" class="rf-p #{component.attributes['styleClass']}">
+            <c:choose>
+                <c:when test="#{component.getFacet('header') != null and component.getFacet('header').rendered}">
+                    <div id="#{clientId}_header" class="rf-p-hdr #{component.attributes['headerClass']}">
+                        <!--  <cc:renderFacet name="header" />-->
+                        <cdk:call expression="renderHeaderFacet(facesContext, component)" />
+                    </div>
+                </c:when>
+                <c:when test="#{component.attributes['header']!= null and not component.attributes['header'].equals('')}">
+                    <div id="#{clientId}_header" class="rf-p-hdr #{component.attributes['headerClass']}">
+                        #{component.attributes['header']}
+                    </div>
+                </c:when>
+                <c:otherwise>
+                </c:otherwise>
+            </c:choose>
+            <div id="#{clientId}_body" class="rf-p-b #{component.attributes['bodyClass']}">
+                <cdk:call expression="renderChildren(facesContext, component)" />
+            </div>
+        </div>
+
+    </cc:implementation>
+</cdk:root>

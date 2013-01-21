@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.CommandButtonRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.html.CommandButtonRendererBase</cdk:superclass>
+        <cdk:component-family>javax.faces.Command</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.CommandButtonRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <input id="#{clientId}" name="#{clientId}" cdk:passThroughWithExclusions="type"
+            onclick="#{this.getOnClick(facesContext, component)}" value="#{component.attributes['value']}">
+            <cdk:call expression="encodeTypeAndImage(facesContext, component);" />
+        </input>
+    </cc:implementation>
+</cdk:root>
