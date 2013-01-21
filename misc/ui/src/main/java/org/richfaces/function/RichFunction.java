@@ -154,15 +154,15 @@ public final class RichFunction {
     }
 
     /**
-     * The rich:jQueryObject('id') function is a shortcut for the equivalent jQuery(#{rich:element('id')}) code. It returns
-     * the jQuery object from the client, based on the passed server-side component identifier. If the specified component
+     * The rich:jQueryObject('id') function is a shortcut for the equivalent jQuery(#{rich:element('id')}) code. It returns the
+     * jQuery object from the client, based on the passed server-side component identifier. If the specified component
      * identifier is not found, empty jQuery object is returned instead.
      */
     @Function
     public static String jQueryObject(String id) {
-    	String element = element(id);
-    	
-    	if (element != null) {
+        String element = element(id);
+
+        if (element != null) {
             return "jQuery(" + element + ")";
         }
 
@@ -212,7 +212,9 @@ public final class RichFunction {
      * <li><tt>Arrays: toScript(new int[] { 1, 2, 3 }) -&gt; [1, 2, 3]</tt></li>
      * <li><tt>Collections (sets, lists): toScript(Arrays.asList(new int[] { 1, 2, 3 })) -&gt; [1, 2, 3]</tt></li>
      * <li><tt>Maps: toScript((Map&lt;String, String&gt;)map) -&gt; {\"a\":\"foo\",\"b\":\"bar\",\"c\":\"baz\"}</tt></li>
-     * <li><tt>Beans / Objects: toScript(new Bean[] { new Bean(1, true, "bar") }) -&gt; [{\"bool\":true,\"foo\":\"bar\",\"integer\":1}]</tt></li>
+     * <li>
+     * <tt>Beans / Objects: toScript(new Bean[] { new Bean(1, true, "bar") }) -&gt; [{\"bool\":true,\"foo\":\"bar\",\"integer\":1}]</tt>
+     * </li>
      *
      * <li><tt>Dates and Timezones</tt></li>
      *

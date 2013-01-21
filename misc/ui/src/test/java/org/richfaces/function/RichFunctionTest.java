@@ -137,7 +137,7 @@ public class RichFunctionTest {
     @Test
     public void testFunctionsInCurrentComponentContext() throws Exception {
         expect(mockComponentLocator.findComponent(same(facesContext), eq(currentComponent), EasyMock.<String>notNull()))
-            .andStubDelegateTo(stubComponentLocator);
+                .andStubDelegateTo(stubComponentLocator);
 
         environment.replay();
 
@@ -170,7 +170,7 @@ public class RichFunctionTest {
     @Test
     public void testFunctionsInViewRootContext() throws Exception {
         expect(mockComponentLocator.findComponent(same(facesContext), eq(viewRoot), EasyMock.<String>notNull()))
-            .andStubDelegateTo(stubComponentLocator);
+                .andStubDelegateTo(stubComponentLocator);
 
         environment.replay();
 
