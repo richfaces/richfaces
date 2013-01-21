@@ -1,5 +1,5 @@
 /**
- * Cache implementations
+ * Cache APIs
  */
 package org.richfaces.cache;
 

@@ -1,5 +1,5 @@
 /**
- * Implementation of RichFaces skinning
+ * Skin functionality APIs
  */
 package org.richfaces.skin;
 
