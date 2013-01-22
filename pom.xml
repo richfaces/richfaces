@@ -36,6 +36,7 @@
         <module>build</module>
         <module>build-resources</module>
         <module>framework</module>
+        <module>examples/showcase</module>
     </modules>
 
     <description>
