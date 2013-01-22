@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.function;
+package org.richfaces.component;
 
 import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expect;
@@ -44,7 +44,8 @@ import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.richfaces.function.RichFunction.ComponentLocator;
+import org.richfaces.component.RichFunction;
+import org.richfaces.component.RichFunction.ComponentLocator;
 
 /**
  * @author Nick Belaevski

@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!--
+    JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
+    Inc. and individual contributors by the @authors tag. See the
+    copyright.txt in the distribution for a full listing of
+    individual contributors. This is free software; you can
+    redistribute it and/or modify it under the terms of the GNU
+    Lesser General Public License as published by the Free Software
+    Foundation; either version 2.1 of the License, or (at your
+    option) any later version. This software is distributed in the
+    hope that it will be useful, but WITHOUT ANY WARRANTY; without
+    even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+    PARTICULAR PURPOSE. See the GNU Lesser General Public License
+    for more details. You should have received a copy of the GNU
+    Lesser General Public License along with this software; if not,
+    write to the Free Software Foundation, Inc., 51 Franklin St,
+    Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
+    http://www.fsf.org.
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
@@ -7,9 +24,9 @@
 
     <parent>
         <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-root-parent</artifactId>
-        <version>4.3.0-SNAPSHOT</version>
-        <relativePath>../build/parent/pom.xml</relativePath>
+        <artifactId>richfaces-parent</artifactId>
+        <version>5.0.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.examples</groupId>
@@ -27,53 +44,54 @@
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
         <version.gae>1.5.4</version.gae>
         <version.gae.plugin>0.9.1</version.gae.plugin>
-        <mojarra.excluded.libraries>WEB-INF/lib/myfaces-*</mojarra.excluded.libraries>
-        <myfaces.excluded.libraries>WEB-INF/lib/javax.faces*</myfaces.excluded.libraries>
-        <jee6.excluded.libraries>${mojarra.excluded.libraries},${myfaces.excluded.libraries},WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/classmate*,WEB-INF/lib/jandex*,WEB-INF/lib/jboss-logging*,WEB-INF/lib/jboss-transaction-api*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms-api*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*</jee6.excluded.libraries>
+        <jee6.excluded.libraries>WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/classmate*,WEB-INF/lib/jandex*,WEB-INF/lib/jboss-logging*,WEB-INF/lib/jboss-transaction-api*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms-api*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*</jee6.excluded.libraries>
         <jbas7.excluded.libraries>${jee6.excluded.libraries}</jbas7.excluded.libraries>
         <jbas7.manifest.dependencies>org.slf4j,org.jboss.as.controller-client,org.jboss.as.protocol,org.jboss.dmr,org.jboss.logging,org.jboss.marshalling,org.jboss.marshalling.river,org.jboss.remoting3,org.jboss.threads</jbas7.manifest.dependencies>
         <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/guava*,WEB-INF/lib/jsr305*</jbas71.excluded.libraries>
         <jbas71.manifest.dependencies>com.google.guava,${jbas7.manifest.dependencies}</jbas71.manifest.dependencies>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- RichFaces BOM Import -->
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>5.0.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-build</artifactId>
+                <version>5.0.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-impl</artifactId>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-framework</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-api</artifactId>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-ui</artifactId>
+            <groupId>org.jboss.spec.javax.servlet.jsp</groupId>
+            <artifactId>jboss-jsp-api_2.2_spec</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
+            <groupId>org.jboss.spec.javax.el</groupId>
+            <artifactId>jboss-el-api_2.2_spec</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
+            <groupId>org.jboss.spec.javax.servlet.jstl</groupId>
+            <artifactId>jboss-jstl-api_1.2_spec</artifactId>
             <scope>${dependency.scope}</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>servlet-api</artifactId>
-                    <groupId>javax.servlet</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -112,10 +130,10 @@
             <artifactId>atmosphere-runtime</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.jms</groupId>
-            <artifactId>jms-api</artifactId>
+        <groupId>org.jboss.spec.javax.jms</groupId>
+        <artifactId>jboss-jms-api_1.1_spec</artifactId>
             <scope>${dependency.scope}</scope>
-        </dependency>
+      </dependency>
         <dependency>
             <groupId>org.hornetq</groupId>
             <artifactId>hornetq-core</artifactId>
@@ -172,7 +190,6 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.5.2</version>
         </dependency>
     </dependencies>
 
@@ -489,18 +506,6 @@
                 <container.resources.exclude>**</container.resources.exclude>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
             </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.myfaces.core</groupId>
-                    <artifactId>myfaces-api</artifactId>
-                    <scope>${dependency.scope}</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.myfaces.core</groupId>
-                    <artifactId>myfaces-impl</artifactId>
-                    <scope>${dependency.scope}</scope>
-                </dependency>
-            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -512,45 +517,6 @@
                                     <classifier>tomcat6</classifier>
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-tomcat6
                                     </webappDirectory>
-                                    <packagingExcludes>
-                                        ${mojarra.excluded.libraries}
-                                    </packagingExcludes>
-                                    <warSourceExcludes>
-                                        ${mojarra.excluded.libraries}
-                                    </warSourceExcludes>
-                                    <webResources>
-                                        <resource>
-                                            <directory>src/main/webapp-tomcat</directory>
-                                            <targetPath>/</targetPath>
-                                            <filtering>true</filtering>
-                                        </resource>
-                                        <resource>
-                                            <directory>src/main/resources-tomcat</directory>
-                                            <targetPath>WEB-INF/classes</targetPath>
-                                        </resource>
-                                        <resource>
-                                            <directory>src/main/java</directory>
-                                            <targetPath>WEB-INF/src</targetPath>
-                                        </resource>
-                                    </webResources>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>myfaces</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>war</goal>
-                                </goals>
-                                <configuration>
-                                    <classifier>myfaces</classifier>
-                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-myfaces
-                                    </webappDirectory>
-                                    <packagingExcludes>
-                                        ${myfaces.excluded.libraries}
-                                    </packagingExcludes>
-                                    <warSourceExcludes>
-                                        ${myfaces.excluded.libraries}
-                                    </warSourceExcludes>
                                     <webResources>
                                         <resource>
                                             <directory>src/main/webapp-tomcat</directory>
@@ -831,10 +797,4 @@
             </build>
         </profile>
     </profiles>
-
-    <scm>
-        <connection>scm:git:git://github.com/richfaces/showcase.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/showcase.git</developerConnection>
-        <url>https://github.com/richfaces/showcase</url>
-    </scm>
 </project>
