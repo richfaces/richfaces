@@ -39,9 +39,21 @@ import org.richfaces.cdk.annotations.Tag;
  * and icon of the resulting notification.</p>
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@JsfComponent(generate = "org.richfaces.component.UINotifyMessage", type = "org.richfaces.NotifyMessage", components = @RendererSpecificComponent(tag = @Tag(name = "notifyMessage"), generate = "org.richfaces.component.html.HtmlNotifyMessage", attributes = {
-        "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml" }, renderer = @JsfRenderer(template = "notifyMessage.template.xml")))
+@JsfComponent(
+        generate = "org.richfaces.component.UINotifyMessage",
+        type = "org.richfaces.NotifyMessage",
+        components = @RendererSpecificComponent(
+                tag = @Tag(name = "notifyMessage"),
+                generate = "org.richfaces.component.html.HtmlNotifyMessage",
+                attributes = {
+                        "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml",
+                        "AjaxOutput-props.xml", "output-format-props.xml"
+                },
+                renderer = @JsfRenderer(template = "notifyMessage.template.xml")
+        )
+)
 public abstract class AbstractNotifyMessage extends UIMessage implements AjaxOutput, ClientSideMessage, NotifyAttributes {
 
     @Attribute(defaultValue = "true")
@@ -49,6 +61,9 @@ public abstract class AbstractNotifyMessage extends UIMessage implements AjaxOut
 
     @Attribute(hidden = true)
     public abstract boolean isKeepTransient();
+
+    @Attribute(defaultValue = "true")
+    public abstract boolean isEscape();
 
     public void updateMessages(FacesContext context, String clientId) {
         // TODO: why this need to be implemented
