@@ -11,7 +11,7 @@ import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
 
 public class Bean {
-    
+
     private static final class TestScript extends JSLiteral implements ResourceLibrary {
         public TestScript() {
             super(TEST_SCRIPT);

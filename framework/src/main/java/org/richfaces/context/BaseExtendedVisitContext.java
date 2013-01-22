@@ -51,7 +51,7 @@ import com.google.common.collect.Sets;
  *
  */
 public class BaseExtendedVisitContext extends ExtendedVisitContext {
-    protected static interface ClientIdVisitor {
+    protected interface ClientIdVisitor {
         void visitSubtreeId(String baseId, String clientId);
 
         void visitDirectSubtreeId(String baseId, String shortId);

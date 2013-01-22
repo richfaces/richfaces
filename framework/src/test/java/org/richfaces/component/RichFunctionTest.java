@@ -44,7 +44,6 @@ import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.richfaces.component.RichFunction;
 import org.richfaces.component.RichFunction.ComponentLocator;
 
 /**

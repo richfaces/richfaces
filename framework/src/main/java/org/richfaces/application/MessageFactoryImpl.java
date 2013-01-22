@@ -41,7 +41,7 @@ import com.google.common.base.Strings;
  *
  */
 public class MessageFactoryImpl implements MessageFactory {
-    protected static interface Factory<T> {
+    protected interface Factory<T> {
         T create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException;
     }
 

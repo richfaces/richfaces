@@ -60,7 +60,7 @@ public final class InputUtils {
     private InputUtils() {
     }
 
-    public static interface ConverterLookupStrategy {
+    public interface ConverterLookupStrategy {
         Converter getConverterByProperty(FacesContext context, UIComponent component);
 
         Converter getConverterByValue(FacesContext context, UIComponent component, Object value);

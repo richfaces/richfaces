@@ -1,6 +1,6 @@
 package org.richfaces.el;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertNull;
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;
 

@@ -28,13 +28,13 @@ public class AutocompleteRendererTest extends RendererTestBase {
 
     @Test
     public void testListLayoutRender() throws Exception {
-    	environment.getWebClient().setJavaScriptEnabled(false);
+        environment.getWebClient().setJavaScriptEnabled(false);
         doTest("autocompleteListLayoutTest", "autocompleteListLayoutClientMode", "form:myAutocomplete");
     }
 
     @Test
     public void testDivLayoutRender() throws Exception {
-    	environment.getWebClient().setJavaScriptEnabled(false);
+        environment.getWebClient().setJavaScriptEnabled(false);
         doTest("autocompleteDivLayoutTest", "autocompleteDivLayoutClientMode", "form:myAutocomplete");
     }
 

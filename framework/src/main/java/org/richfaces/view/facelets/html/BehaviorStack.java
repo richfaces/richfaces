@@ -93,7 +93,7 @@ final class BehaviorStack {
         }
     }
 
-    static interface BehaviorInfo {
+    interface BehaviorInfo {
         List<ClientBehavior> getBehaviors();
     }
 
