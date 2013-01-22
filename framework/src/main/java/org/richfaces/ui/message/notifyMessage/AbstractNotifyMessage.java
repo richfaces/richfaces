@@ -40,6 +40,7 @@ import org.richfaces.ui.message.NotifyAttributes;
  * and icon of the resulting notification.</p>
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(type = "org.richfaces.NotifyMessage", tag = @Tag(name = "notifyMessage"),
         attributes = { "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml" },
@@ -51,6 +52,9 @@ public abstract class AbstractNotifyMessage extends UIMessage implements AjaxOut
 
     @Attribute(hidden = true)
     public abstract boolean isKeepTransient();
+
+    @Attribute(defaultValue = "true")
+    public abstract boolean isEscape();
 
     public void updateMessages(FacesContext context, String clientId) {
         // TODO: why this need to be implemented

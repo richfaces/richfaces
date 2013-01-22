@@ -34,6 +34,7 @@ import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com created 09.02.2007
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public final class HtmlUtil {
     public static final Pattern ID_SELECTOR_PATTERN = Pattern
@@ -151,5 +152,13 @@ public final class HtmlUtil {
 
     public static String concatStyles(Object... styles) {
         return concat(';', styles);
+    }
+
+    public static String escapeHtml(String html) {
+        return html.replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll("\"", "&quot;")
+        .replaceAll("'", "&#39;");
     }
 }

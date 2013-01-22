@@ -21,21 +21,25 @@
  */
 package org.richfaces.ui.message;
 
-import org.richfaces.ui.message.notifyStack.AbstractNotifyStack;
-import org.richfaces.util.RendererUtils;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Map;
-
+import org.richfaces.ui.message.notify.AbstractNotify;
+import org.richfaces.ui.message.notifyMessage.AbstractNotifyMessage;
+import org.richfaces.ui.message.notifyMessages.AbstractNotifyMessages;
+import org.richfaces.ui.message.notifyStack.AbstractNotifyStack;
+import org.richfaces.util.HtmlUtil;
+import org.richfaces.util.RendererUtils;
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public class NotifyRendererUtils {
 
@@ -90,7 +94,25 @@ public class NotifyRendererUtils {
 
         Object attribute = component.getAttributes().get(name);
         if (attribute != null) {
-            options.put(name, attribute.toString());
+            String value = attribute.toString();
+            boolean escape = true;
+            if (component instanceof AbstractNotify) {
+                AbstractNotify notify = (AbstractNotify) component;
+                escape = notify.isEscape();
+            }
+            if (component instanceof AbstractNotifyMessage) {
+                AbstractNotifyMessage message = (AbstractNotifyMessage) component;
+                escape = message.isEscape();
+            }
+            if (component instanceof AbstractNotifyMessages) {
+                AbstractNotifyMessages messages = (AbstractNotifyMessages) component;
+                escape = messages.isEscape();
+            }
+
+            if (escape) {
+                value = HtmlUtil.escapeHtml(value);
+            }
+            options.put(name, value);
             return;
         }
     }
