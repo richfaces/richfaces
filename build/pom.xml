@@ -1,0 +1,459 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-parent</artifactId>
+        <version>5.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>richfaces-build</artifactId>
+    <packaging>pom</packaging>
+    <name>RichFaces Build</name>
+
+    <properties>
+
+        <!-- Base Dependencies Versions -->
+        <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
+        <version.cdk>4.3.0.CR1</version.cdk>
+        <version.jboss-javaee>3.0.1.Final</version.jboss-javaee>
+
+        <!-- JSF Implementations Versions-->
+        <version.javax.faces-api>2.1</version.javax.faces-api>
+        <version.com.sun.faces.jsf-api>2.1.0</version.com.sun.faces.jsf-api>
+        <version.org.glassfish.javax.faces>2.1.17</version.org.glassfish.javax.faces>
+        <version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>2.0.7.Final</version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>
+        <version.org.jboss.javax.faces.jsf-impl>2.1.16-jbossorg-1</version.org.jboss.javax.faces.jsf-impl>
+        <version.myfaces>2.1.10</version.myfaces>
+        
+        <!-- Example Dependecy Libraries Versions -->
+        <version.slf4j>1.6.1</version.slf4j>
+        <version.hsqldb>2.0.0</version.hsqldb>
+        <version.hibernate-entitymanager>4.0.0.Final</version.hibernate-entitymanager>
+        <version.hornetq>2.2.7.Final</version.hornetq>
+        <version.netty>3.2.5.Final</version.netty>
+        <version.weld>1.1.4.Final</version.weld>
+        <version.rewrite>1.0.4.Final</version.rewrite>
+        <version.jsoup>1.5.2</version.jsoup>
+        
+        <!-- Test Dependencies Versions -->
+        <version.junit>4.8.2</version.junit>
+        <version.jsf-test>1.1.6</version.jsf-test>
+        <version.easymock>2.5.2</version.easymock>
+        <version.mockito>1.8.5</version.mockito>
+        <version.xmlunit>1.2</version.xmlunit>
+        <version.hibernate-validator>4.2.0.Final</version.hibernate-validator>
+        
+        <!-- Integration Tests Versions -->
+        <version.arquillian.core>1.0.3.Final</version.arquillian.core>
+        <version.arquillian.drone>1.1.0.Final</version.arquillian.drone>
+        <version.arquillian.warp>1.0.0.Alpha2</version.arquillian.warp>
+        <version.arquillian.graphene>2.0.0.Alpha3</version.arquillian.graphene>
+        <version.selenium>2.28.0</version.selenium>
+        <version.shrinkwrap.resolver>2.0.0-alpha-1</version.shrinkwrap.resolver>
+        <version.shrinkwrap.descriptors>2.0.0-alpha-3</version.shrinkwrap.descriptors>
+        
+        <!-- Container Versions -->
+        <version.jboss-as7>7.1.1.Final</version.jboss-as7>
+        <version.tomee>1.0.0</version.tomee>
+
+        <!-- Resource Plugin -->
+        <version.reflections>0.9.5</version.reflections>
+        <version.yuicompressor>2.3.6</version.yuicompressor>
+        <version.jboss-el>1.0_02.CR6</version.jboss-el>
+        <version.maven-core>3.0.4</version.maven-core>
+        <version.maven-archiver>2.4</version.maven-archiver>
+        <version.maven-file-management>1.2.1</version.maven-file-management>
+        <version.plexus-utils>1.5.15</version.plexus-utils>
+        <version.plexus-velocity>1.1.2</version.plexus-velocity>        
+
+        <!-- Plugin Versions -->
+        <version.jacoco.plugin>0.5.5.201112152213</version.jacoco.plugin>
+        <version.jrebel.plugin>1.1.3</version.jrebel.plugin>
+    </properties>
+    
+    <!-- Build -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Build -->
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <configuration>
+                        <archive>
+                            <index>true</index>
+                            <manifest>
+                                <addDefaultSpecificationEntries>
+                                    true
+                                </addDefaultSpecificationEntries>
+                                <addDefaultImplementationEntries>
+                                    true
+                                </addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <mode>development</mode>
+                                <Build-Number>${buildNumber}</Build-Number>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <keywords>true</keywords>
+                        <quiet>true</quiet>
+                        <!-- Solves issues related to link lookups for all
+                             modules, even those that do not need it, that 
+                             was slowing builds down.  If removed review 
+                             full build. -->
+                        <detectOfflineLinks>false</detectOfflineLinks>
+                    </configuration>
+                </plugin>
+                
+                <!-- Checkstyle -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <configuration>
+                        <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml</configLocation>
+                        <logViolationsToConsole>true</logViolationsToConsole>
+                        <violationSeverity>error</violationSeverity>
+                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>richfaces-checkstyle-report</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.richfaces</groupId>
+                            <artifactId>richfaces-build-resources</artifactId>
+                            <version>${version.richfaces}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.zeroturnaround</groupId>
+                    <artifactId>jrebel-maven-plugin</artifactId>
+                    <version>${version.jrebel.plugin}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${version.jacoco.plugin}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.richfaces.cdk</groupId>
+                    <artifactId>maven-cdk-plugin</artifactId>
+                    <version>${version.cdk}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Java EE -->
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-6.0</artifactId>
+                <version>${version.jboss-javaee}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-web-6.0</artifactId>
+                <version>${version.jboss-javaee}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-6.0</artifactId>
+                <version>${version.jboss-javaee}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-web-6.0</artifactId>
+                <version>${version.jboss-javaee}</version>
+                <type>pom</type>
+            </dependency>
+            
+            <!-- RichFaces -->
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${version.richfaces}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>annotations</artifactId>
+                <version>${version.cdk}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.as</groupId>
+                <artifactId>jboss-as-controller-client</artifactId>
+                <version>${version.jboss-as7}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${version.jsoup}</version>
+            </dependency>
+
+            <!-- Integration Tests - Version Management -->
+            <dependency>
+                <groupId>org.jboss.shrinkwrap.resolver</groupId>
+                <artifactId>shrinkwrap-resolver-bom</artifactId>
+                <version>${version.shrinkwrap.resolver}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.shrinkwrap.descriptors</groupId>
+                <artifactId>shrinkwrap-descriptors-bom</artifactId>
+                <version>${version.shrinkwrap.descriptors}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-warp-bom</artifactId>
+                <version>${version.arquillian.warp}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.graphene</groupId>
+                <artifactId>graphene-webdriver</artifactId>
+                <version>${version.arquillian.graphene}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.extension</groupId>
+                <artifactId>arquillian-drone-bom</artifactId>
+                <version>${version.arquillian.drone}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${version.arquillian.core}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            
+            <!-- JSF Implementations Versions -->
+            <dependency>
+                <groupId>javax.faces</groupId>
+                <artifactId>javax.faces-api</artifactId>
+                <version>${version.javax.faces-api}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.faces</groupId>
+                <artifactId>jsf-api</artifactId>
+                <version>${version.com.sun.faces.jsf-api}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>javax.faces</artifactId>
+                <version>${version.org.glassfish.javax.faces}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec.javax.faces</groupId>
+                <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                <version>${version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.faces</groupId>
+                <artifactId>jsf-impl</artifactId>
+                <version>${version.org.jboss.javax.faces.jsf-impl}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-api</artifactId>
+                <version>${version.myfaces}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-impl</artifactId>
+                <version>${version.myfaces}</version>
+            </dependency>
+            
+            <!-- Example Dependecy Libraries Versions -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${version.slf4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hsqldb</groupId>
+                <artifactId>hsqldb-j5</artifactId>
+                <version>${version.hsqldb}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${version.hibernate-entitymanager}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hornetq</groupId>
+                <artifactId>hornetq-core</artifactId>
+                <version>${version.hornetq}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hornetq</groupId>
+                <artifactId>hornetq-jms</artifactId>
+                <version>${version.hornetq}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hornetq</groupId>
+                <artifactId>hornetq-logging</artifactId>
+                <version>${version.hornetq}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.netty</groupId>
+                <artifactId>netty</artifactId>
+                <version>${version.netty}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld.servlet</groupId>
+                <artifactId>weld-servlet</artifactId>
+                <version>${version.weld}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ocpsoft.rewrite</groupId>
+                <artifactId>rewrite-servlet</artifactId>
+                <version>${version.rewrite}</version>
+            </dependency>
+            
+            <!-- Test Dependencie Versions -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.test-jsf</groupId>
+                <artifactId>jsf-test</artifactId>
+                <version>${version.jsf-test}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>${version.easymock}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymockclassextension</artifactId>
+                <version>${version.easymock}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${version.mockito}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>xmlunit</groupId>
+                <artifactId>xmlunit</artifactId>
+                <version>${version.xmlunit}</version>
+            </dependency>
+
+            <!-- tests (TODO - is it necessary?) -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${version.hibernate-validator}</version>
+            </dependency>
+            
+            <!-- Resources Plugin -->
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-artifact</artifactId>
+                <version>${version.maven-core}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-plugin-api</artifactId>
+                <version>${version.maven-core}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-core</artifactId>
+                <version>${version.maven-core}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-archiver</artifactId>
+                <version>${version.maven-archiver}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.shared</groupId>
+                <artifactId>file-management</artifactId>
+                <version>${version.maven-file-management}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-utils</artifactId>
+                <version>${version.plexus-utils}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-velocity</artifactId>
+                <version>${version.plexus-velocity}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${version.reflections}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.collections</groupId>
+                        <artifactId>google-collections</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.el</groupId>
+                <artifactId>jboss-el</artifactId>
+                <version>${version.jboss-el}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yahoo.platform.yui</groupId>
+                <artifactId>yuicompressor</artifactId>
+                <version>${version.yuicompressor}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+</project>
