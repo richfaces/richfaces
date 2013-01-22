@@ -34,6 +34,9 @@ import org.richfaces.cdk.annotations.TagType;
  * regular DOM (Document Object Model) objects. It uses the jQuery JavaScript framework to add functionality to web
  * applications.</p>
  *
+ * <p>This component is for use as a facelet tag.  See the &lt;rich:jQuery&gt; EL function for access to the jQuery library
+ * via EL.</p>
+ *
  * @author nick
  */
 @JsfComponent(type = AbstractJQuery.COMPONENT_TYPE, family = AbstractJQuery.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.JQueryRenderer"), tag = @Tag(type = TagType.Facelets))

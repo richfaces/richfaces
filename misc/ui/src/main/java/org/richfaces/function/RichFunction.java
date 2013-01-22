@@ -109,9 +109,12 @@ public final class RichFunction {
     }
 
     /**
-     * The rich:element('id') function is a shortcut for the equivalent document.getElementById(#{rich:clientId('id')}) code. It
+     * <p>The rich:element('id') function is a shortcut for the equivalent document.getElementById(#{rich:clientId('id')}) code. It
      * returns the element from the client, based on the passed server-side component identifier. If the specified component
-     * identifier is not found, null is returned instead.
+     * identifier is not found, null is returned instead.</p>
+     *
+     * <p>This function is for use in EL.  Refer to the &lt;rich:jQuery&gt; component for access to the jQuery library as a
+     * facelet tag.</p>
      */
     @Function
     public static String element(String id) {
