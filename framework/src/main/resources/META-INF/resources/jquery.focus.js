@@ -1,4 +1,4 @@
-﻿/**
+/**
  * http://plugins.jquery.com/project/focus
  * JQUERY FOCUS 1.0.0
  * Submitted by erikkallen on November 9, 2009 - 5:31pm
