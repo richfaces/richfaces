@@ -33,7 +33,7 @@
 
             <h:panelGrid columns="2">
                 <h:inputText id="query" value="#{query}" />
-                <r:commandButton value="Search" render="output" />
+                <r:commandButton value="Search" render="@form" />
             
                 <h:outputText value="Searched query:" />
                 <h:outputText id="output" value="#{query}" />
