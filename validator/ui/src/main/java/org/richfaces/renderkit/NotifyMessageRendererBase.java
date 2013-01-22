@@ -33,6 +33,9 @@ import javax.faces.context.FacesContext;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.component.AbstractNotifyMessage;
+import org.richfaces.component.AbstractNotifyMessages;
+import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.util.RendererUtils;
 
@@ -107,18 +110,30 @@ public class NotifyMessageRendererBase extends MessageRendererBase {
         Boolean showDetail = (Boolean) component.getAttributes().get("showDetail");
         String stackId = NotifyRendererUtils.getStackId(facesContext, component);
 
+        boolean escape = true;
+        if (component instanceof AbstractNotifyMessage) {
+            escape = ((AbstractNotifyMessage) component).isEscape();
+        }
+        if (component instanceof AbstractNotifyMessages) {
+            escape = ((AbstractNotifyMessages) component).isEscape();
+        }
+
         options.put("severity", message.getSeverity().getOrdinal());
 
         if (showSummary != null && showSummary) {
-            options.put("summary", message.getSummary());
+            options.put("summary", escapeValue(message.getSummary(), escape));
         }
 
         if (showSummary != null && showDetail) {
-            options.put("detail", message.getDetail());
+            options.put("detail", escapeValue(message.getDetail(), escape));
         }
 
         if (stackId != null && !stackId.isEmpty()) {
             options.put("stackId", stackId);
         }
+    }
+
+    private static String escapeValue(String value, boolean escape) {
+        return escape ? HtmlUtil.escapeHtml(value) : value;
     }
 }

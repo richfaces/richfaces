@@ -31,12 +31,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.component.AbstractMessage;
-import org.richfaces.component.AbstractMessages;
 import org.richfaces.component.AbstractNotify;
-import org.richfaces.component.AbstractNotifyMessage;
-import org.richfaces.component.AbstractNotifyMessages;
 import org.richfaces.component.AbstractNotifyStack;
 import org.richfaces.component.NotifyAttributes;
 import org.richfaces.component.util.HtmlUtil;
@@ -102,16 +97,7 @@ public class NotifyRendererUtils {
             String value = attribute.toString();
             boolean escape = true;
             if (component instanceof AbstractNotify) {
-                AbstractNotify notify = (AbstractNotify) component;
-                escape = notify.isEscape();
-            }
-            if (component instanceof AbstractNotifyMessage) {
-                AbstractNotifyMessage message = (AbstractNotifyMessage) component;
-                escape = message.isEscape();
-            }
-            if (component instanceof AbstractNotifyMessages) {
-                AbstractNotifyMessages messages = (AbstractNotifyMessages) component;
-                escape = messages.isEscape();
+                escape = ((AbstractNotify) component).isEscape();
             }
 
             if (escape) {
