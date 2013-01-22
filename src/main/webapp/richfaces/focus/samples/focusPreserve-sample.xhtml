@@ -11,7 +11,7 @@
 
             <h:panelGrid columns="2">
                 <h:inputText id="query" value="#{query}" />
-                <a4j:commandButton value="Search" render="output" />
+                <a4j:commandButton value="Search" render="@form" />
             
                 <h:outputText value="Searched query:" />
                 <h:outputText id="output" value="#{query}" />
