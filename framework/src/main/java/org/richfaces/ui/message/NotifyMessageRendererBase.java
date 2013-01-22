@@ -21,24 +21,27 @@
  */
 package org.richfaces.ui.message;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMap.Builder;
-
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSObject;
-import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.services.ServiceTracker;
-import org.richfaces.util.RendererUtils;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.services.ServiceTracker;
+import org.richfaces.ui.message.notifyMessage.AbstractNotifyMessage;
+import org.richfaces.ui.message.notifyMessages.AbstractNotifyMessages;
+import org.richfaces.util.HtmlUtil;
+import org.richfaces.util.RendererUtils;
+
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
@@ -107,18 +110,30 @@ public class NotifyMessageRendererBase extends MessageRendererBase {
         Boolean showDetail = (Boolean) component.getAttributes().get("showDetail");
         String stackId = NotifyRendererUtils.getStackId(facesContext, component);
 
+        boolean escape = true;
+        if (component instanceof AbstractNotifyMessage) {
+            escape = ((AbstractNotifyMessage) component).isEscape();
+        }
+        if (component instanceof AbstractNotifyMessages) {
+            escape = ((AbstractNotifyMessages) component).isEscape();
+        }
+
         options.put("severity", message.getSeverity().getOrdinal());
 
         if (showSummary != null && showSummary) {
-            options.put("summary", message.getSummary());
+            options.put("summary", escapeValue(message.getSummary(), escape));
         }
 
         if (showSummary != null && showDetail) {
-            options.put("detail", message.getDetail());
+            options.put("detail", escapeValue(message.getDetail(), escape));
         }
 
         if (stackId != null && !stackId.isEmpty()) {
             options.put("stackId", stackId);
         }
+    }
+
+    private static String escapeValue(String value, boolean escape) {
+        return escape ? HtmlUtil.escapeHtml(value) : value;
     }
 }

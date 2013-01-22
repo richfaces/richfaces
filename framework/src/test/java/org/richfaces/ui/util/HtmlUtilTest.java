@@ -92,7 +92,7 @@ public class HtmlUtilTest extends TestCase {
     }
 
     public void testEscapeHtml() {
-        assertEquals("&amp; &gt; &amp;gt; &lt; &dquo; &#39", HtmlUtil.escapeHtml("& > &gt; < \" ' "));
+        assertEquals("&amp; &gt; &amp;gt; &lt; &quot; &#39; ", HtmlUtil.escapeHtml("& > &gt; < \" ' "));
     }
 
     public void testExpandIdSelectorWhenHavingComplexSelectorWithNoExpandablePartThenNothingChanges() {
