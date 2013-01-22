@@ -10,8 +10,8 @@
                 <r:param name="event" value="event" noEscape="true" />
                 <r:hashParam>
                     <r:param noEscape="true" name="top"
-                        value="jQuery(#{rich:element('ll')}.parentNode).offset().top + jQuery(#{rich:element('ll')}.parentNode).height()" />
-                    <r:param noEscape="true" name="left" value="jQuery(#{rich:element('ll')}.parentNode).offset().left" />
+                        value="jQuery(#{r:element('ll')}.parentNode).offset().top + jQuery(#{r:element('ll')}.parentNode).height()" />
+                    <r:param noEscape="true" name="left" value="jQuery(#{r:element('ll')}.parentNode).offset().left" />
                 </r:hashParam>
             </r:componentControl>
             Login
@@ -24,7 +24,7 @@
             <h:outputText value="Password" />
             <h:inputText />
         </h:panelGrid>
-        <h:outputLink onclick="#{rich:component('lp')}.hide(event); return false;" value="#">Login
+        <h:outputLink onclick="#{r:component('lp')}.hide(event); return false;" value="#">Login
         </h:outputLink>
     </r:popupPanel>
 
@@ -36,9 +36,9 @@
                     <r:param name="event" value="event" noEscape="true" />
                     <r:hashParam>
                         <r:param noEscape="true" name="top"
-                            value="jQuery(#{rich:element('tb')}).offset().top + jQuery(#{rich:element('tb')}).height()" />
+                            value="jQuery(#{r:element('tb')}).offset().top + jQuery(#{r:element('tb')}).height()" />
                         <r:param noEscape="true" name="left"
-                            value="jQuery(#{rich:element('tb')}).offset().left + jQuery(#{rich:element('tb')}).width() - p_width" />
+                            value="jQuery(#{r:element('tb')}).offset().left + jQuery(#{r:element('tb')}).width() - p_width" />
                     </r:hashParam>
                 </r:componentControl>
                 Search
@@ -49,11 +49,11 @@
         <h:panelGrid columns="3">
             <h:outputText value="Search:" />
             <h:inputText />
-            <h:outputLink onclick="#{rich:component('ls')}.hide(event); return false;" value="#">Search
+            <h:outputLink onclick="#{r:component('ls')}.hide(event); return false;" value="#">Search
             </h:outputLink>
         </h:panelGrid>
     </r:popupPanel>
     <h:outputScript type="text/javascript" target="body">
-        p_width = #{rich:component('ls')}.width();
+        p_width = #{r:component('ls')}.width();
     </h:outputScript>
 </ui:composition>

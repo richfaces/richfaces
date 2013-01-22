@@ -20,11 +20,11 @@
                 <h:panelGrid columns="3">
                     <richx:commandButton value="#{messages['create']}" data="#{albumManager.errorInCreate}"
                         actionListener="#{albumManager.createAlbum(model.selectedShelf, false)}"
-                        oncomplete="if(!event.data)#{rich:component('albumModalPanel')}.show()" render="albumModalPanel"
+                        oncomplete="if(!event.data)#{r:component('albumModalPanel')}.show()" render="albumModalPanel"
                         execute="@this" />
                     <r:commandLink rendered="#{help.isShowHelp()}"
                         actionListener="#{help.navigateTo('/includes/help/buttonHelp.xhtml')}"
-                        oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel" execute="@this">
+                        oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel" execute="@this">
                         <h:panelGroup
                             style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                             <h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="34" width="34"
@@ -47,7 +47,7 @@
             <h:panelGroup layout="block" style="padding-top:10px;">
                 <r:commandLink rendered="#{help.isShowHelp()}"
                     actionListener="#{help.navigateTo('/includes/help/fileUploadHelp.xhtml')}"
-                    oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel" execute="@this">
+                    oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel" execute="@this">
                     <h:panelGroup
                         style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                         <h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="34" width="34"

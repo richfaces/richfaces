@@ -3,7 +3,7 @@
     xmlns:r="http://richfaces.org/core">
     <r:region>
         <r:popupPanel show="#{slideshow.active}" domElementAttachment="parent" id="slideShowModalPanel" autosized="true"
-            onshow="$(#{rich:element('imgSlideShow')}).fadeIn(600);">
+            onshow="$(#{r:element('imgSlideShow')}).fadeIn(600);">
             <!-- onshow="showPictureEffect();" -->
             <f:facet name="header">Slideshow panel</f:facet>
             <f:facet name="controls">
@@ -32,7 +32,7 @@
             </h:panelGrid>
             <r:poll id="slideShowPoll" data="#{slideshow.errorDetected}" render="slideshowImage"
                 interval="#{slideshow.interval}" enabled="#{slideshow.active}"
-                oncomplete="if(event.data)#{rich:component('slideShowModalPanel')}.hide(); $(#{rich:element('imgSlideShow')}).fadeIn(600);"
+                oncomplete="if(event.data)#{r:component('slideShowModalPanel')}.hide(); $(#{r:element('imgSlideShow')}).fadeIn(600);"
                 actionListener="#{slideshow.showNextImage()}" />
             <!-- was oncomplete="...;onshow="showPictureEffect();" onsubmit="hidePictureEffect()" -->
         </r:popupPanel>

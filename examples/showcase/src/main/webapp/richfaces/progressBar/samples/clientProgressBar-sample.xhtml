@@ -7,25 +7,25 @@
         var counter = 1;
         var intervalID;
             function updateProgress(i) {
-            	#{rich:component('progressBar')}.setValue(counter*5);
+            	#{r:component('progressBar')}.setValue(counter*5);
                 if ((counter++)>20){
                     clearInterval(intervalID);
-                    #{rich:element('start')}.disabled=false;
-                	#{rich:element('pause')}.disabled=true;
+                    #{r:element('start')}.disabled=false;
+                	#{r:element('pause')}.disabled=true;
                     counter=1;
                 }
             }
             function startProgress(){
-            	#{rich:element('start')}.disabled=true;
-            	#{rich:element('pause')}.disabled=false;
-            	#{rich:component('progressBar')}.enable();
-            	#{rich:component('progressBar')}.setValue(counter*5);
+            	#{r:element('start')}.disabled=true;
+            	#{r:element('pause')}.disabled=false;
+            	#{r:component('progressBar')}.enable();
+            	#{r:component('progressBar')}.setValue(counter*5);
                 intervalID = setInterval(updateProgress,2000);
             }
             function pauseProgress(){
-                #{rich:element('start')}.disabled=false;
-            	#{rich:element('pause')}.disabled=true;
-            	#{rich:component('progressBar')}.disable();
+                #{r:element('start')}.disabled=false;
+            	#{r:element('pause')}.disabled=true;
+            	#{r:component('progressBar')}.disable();
                 clearInterval(intervalID);
             }
 //]]>

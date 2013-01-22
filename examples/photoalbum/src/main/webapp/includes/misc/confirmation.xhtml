@@ -7,7 +7,7 @@
         <f:facet name="controls">
             <h:panelGroup id="confirmPanelHideControl">
                 <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hideConfirmation"
-                    onclick="#{rich:component('confirmation')}.hide()" />
+                    onclick="#{r:component('confirmation')}.hide()" />
             </h:panelGroup>
         </f:facet>
         <!-- <r:effect type="Appear" name="appearFunc" /> -->
@@ -33,11 +33,11 @@
                         <h:panelGroup id="confirmFirstButton" layout="block">
                             <richx:commandButton value="#{messages['confirm.ok']}"
                                 actionListener="#{confirmationPopupHelper.doAction()}" id="storebutton"
-                                oncomplete="#{rich:component('confirmation')}.hide()" render="treePanel, mainArea, menu" />
+                                oncomplete="#{r:component('confirmation')}.hide()" render="treePanel, mainArea, menu" />
                         </h:panelGroup>
                         <h:panelGroup id="confirmSecondButton" layout="block">
                             <richx:commandButton value="#{messages['confirm.cancel']}"
-                                onclick="#{rich:component('confirmation')}.hide(); return false" execute="@none" />
+                                onclick="#{r:component('confirmation')}.hide(); return false" execute="@none" />
                         </h:panelGroup>
                     </h:panelGrid>
                 </h:panelGroup>

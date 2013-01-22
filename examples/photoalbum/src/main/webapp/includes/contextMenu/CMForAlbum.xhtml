@@ -4,7 +4,7 @@
     <r:contextMenu style="text-align:left;" rendered="#{controller.isUserAlbum(album)}" mode="ajax" target="#{target}">
         <r:menuItem label="#{messages['album.delete']}" limitRender="true"
             actionListener="#{confirmationPopupHelper.initAlbumData(confirmationPopupHelper.deleteAlbum,messages['album.delete.confirm'],album)}"
-            oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" />
+            oncomplete="#{r:component('confirmation')}.show()" render="confirmation" />
         <r:menuItem label="#{messages['album.edit']}" limitRender="true" actionListener="#{controller.startEditAlbum(album)}"
             render="mainArea" />
         <r:menuItem label="#{messages['album.addImages']}" limitRender="true"

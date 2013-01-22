@@ -20,7 +20,7 @@
                         </r:commandLink>
                         <r:commandLink rendered="#{help.isShowHelp()}"
                             actionListener="#{help.navigateTo('/includes/help/slideshow.xhtml')}"
-                            oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel">
+                            oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel">
                             <h:panelGroup
                                 style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                                 <h:graphicImage style="border:none;" styleClass="ie6transparency" height="34" width="34"
@@ -66,7 +66,7 @@
                     <richx:commandButton value="#{messages['image.delete']}"
                         actionListener="#{confirmationPopupHelper.initImagePopup(confirmationPopupHelper.deleteImage,messages['image.delete.confirm'],model.selectedImage)}"
                         render="confirmation" rendered="#{controller.isUserImage(model.selectedImage)}"
-                        oncomplete="#{rich:component('confirmation')}.show()" execute="@this" />
+                        oncomplete="#{r:component('confirmation')}.show()" execute="@this" />
                 </td>
             </tr>
         </table>

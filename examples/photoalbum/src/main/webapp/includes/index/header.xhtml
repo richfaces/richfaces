@@ -29,7 +29,7 @@
                             <r:commandLink id="loginPanelShowlink" rendered="#{!userBean.loggedIn}"
                                 value="#{messages['menu.login']}" render="loginPanel"
                                 actionListener="#{userBean.reset()}"
-                                oncomplete="#{rich:component('loginPanel')}.show();" />
+                                oncomplete="#{r:component('loginPanel')}.show();" />
                             <!-- this might not work -->
                             <r:commandLink rendered="#{userBean.loggedIn}" action="#{authenticator.logout()}"
                                 value="#{messages['menu.logout']}" execute="@this" render="@all" />

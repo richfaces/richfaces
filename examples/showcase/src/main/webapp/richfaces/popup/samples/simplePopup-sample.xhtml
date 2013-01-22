@@ -10,7 +10,7 @@
             <h:outputText value="Simple popup panel" />
         </f:facet>
         <f:facet name="controls">
-            <h:outputLink value="#" onclick="#{rich:component('popup')}.hide(); return false;">
+            <h:outputLink value="#" onclick="#{r:component('popup')}.hide(); return false;">
                 X
             </h:outputLink>
         </f:facet>
@@ -18,7 +18,7 @@
 
         <p>
             The popup panel is open and closed from the javascript function of component client side object. The following code
-            <a href="#" onclick="#{rich:component('popup')}.hide()">hide this panel</a>:
+            <a href="#" onclick="#{r:component('popup')}.hide()">hide this panel</a>:
             <f:verbatim>&#35;</f:verbatim>{rich:component('popup')}.hide()
         </p>
     </r:popupPanel>

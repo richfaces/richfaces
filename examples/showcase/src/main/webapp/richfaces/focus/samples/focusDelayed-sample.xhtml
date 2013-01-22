@@ -3,9 +3,9 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:r="http://richfaces.org/core">
     
-    <input type="button" value="Show popup" onclick="#{rich:component('popup')}.show(); " />
+    <input type="button" value="Show popup" onclick="#{r:component('popup')}.show(); " />
 
-    <r:popupPanel id="popup" modal="true" header="Modal panel with Focus" width="650" onshow="#{rich:component('focus')}.applyFocus();">
+    <r:popupPanel id="popup" modal="true" header="Modal panel with Focus" width="650" onshow="#{r:component('focus')}.applyFocus();">
 
         <h:form>
 
@@ -16,38 +16,38 @@
                 <h:inputText label="Name" id="name" value="#{userBean.name}">
                     <f:validateRequired />
                     <f:validateLength minimum="3" />
-                    <r:validator event="blur" oninvalid="$(#{rich:element('name')}).addClass('invalid')" onvalid="$(#{rich:element('name')}).removeClass('invalid')" />
+                    <r:validator event="blur" oninvalid="$(#{r:element('name')}).addClass('invalid')" onvalid="$(#{r:element('name')}).removeClass('invalid')" />
                 </h:inputText>
                 <r:message for="name" ajaxRendered="true" />
                 <h:outputText value="Job:" />
                 <h:inputText label="Job" id="job" value="#{userBean.job}">
                     <f:validateRequired />
                     <f:validateLength minimum="3" maximum="50" />
-                    <r:validator event="blur" oninvalid="$(#{rich:element('job')}).addClass('invalid')" onvalid="$(#{rich:element('job')}).removeClass('invalid')" />
+                    <r:validator event="blur" oninvalid="$(#{r:element('job')}).addClass('invalid')" onvalid="$(#{r:element('job')}).removeClass('invalid')" />
                 </h:inputText>
                 <r:message for="job" ajaxRendered="true" />
                 <h:outputText value="Address:" />
                 <h:inputText label="Address" id="address" value="#{userBean.address}">
                     <f:validateRequired />
                     <f:validateLength minimum="10" />
-                    <r:validator event="blur" oninvalid="$(#{rich:element('address')}).addClass('invalid')" onvalid="$(#{rich:element('address')}).removeClass('invalid')" />
+                    <r:validator event="blur" oninvalid="$(#{r:element('address')}).addClass('invalid')" onvalid="$(#{r:element('address')}).removeClass('invalid')" />
                 </h:inputText>
                 <r:message for="address" ajaxRendered="true" />
                 <h:outputText value="Zip:" />
                 <h:inputText label="Zip" id="zip" value="#{userBean.zip}">
                     <f:validateRequired />
                     <f:validateLength minimum="4" maximum="9" />
-                    <r:validator event="blur" oninvalid="$(#{rich:element('zip')}).addClass('invalid')" onvalid="$(#{rich:element('zip')}).removeClass('invalid')" />
+                    <r:validator event="blur" oninvalid="$(#{r:element('zip')}).addClass('invalid')" onvalid="$(#{r:element('zip')}).removeClass('invalid')" />
                 </h:inputText>
                 <r:message for="zip" ajaxRendered="true" />
             </h:panelGrid>
             
-            <r:commandButton value="Save" oncomplete="if (!#{facesContext.validationFailed}) { #{rich:component('popup')}.hide(); } " />
-            <input type="button" value="Cancel" onclick="#{rich:component('popup')}.hide(); return false;" />
+            <r:commandButton value="Save" oncomplete="if (!#{facesContext.validationFailed}) { #{r:component('popup')}.hide(); } " />
+            <input type="button" value="Cancel" onclick="#{r:component('popup')}.hide(); return false;" />
         </h:form>
         
         <f:facet name="controls">
-            <h:outputLink value="#" onclick="#{rich:component('popup')}.hide(); return false;">
+            <h:outputLink value="#" onclick="#{r:component('popup')}.hide(); return false;">
                 X
             </h:outputLink>
         </f:facet>

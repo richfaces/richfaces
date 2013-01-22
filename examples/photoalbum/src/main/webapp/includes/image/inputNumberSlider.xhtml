@@ -11,7 +11,7 @@
             </r:inputNumberSlider>
             <r:commandLink rendered="#{help.isShowHelp()}"
                 actionListener="#{help.navigateTo('/includes/help/inputSliderHelp.xhtml')}"
-                oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel">
+                oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel">
                 <h:panelGroup
                     style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                     <h:graphicImage style="border:none;" border="0" width="34" height="34" styleClass="ie6transparency"

@@ -5,12 +5,12 @@
     <h:commandButton value="Call the popup">
         <r:componentControl target="popup" operation="show" />
     </h:commandButton>
-    <r:popupPanel id="popup" modal="true" resizeable="true" onmaskclick="#{rich:component('popup')}.hide()">
+    <r:popupPanel id="popup" modal="true" resizeable="true" onmaskclick="#{r:component('popup')}.hide()">
         <f:facet name="header">
             <h:outputText value="Simple popup panel" />
         </f:facet>
         <f:facet name="controls">
-            <h:outputLink value="#" onclick="#{rich:component('popup')}.hide(); return false;">
+            <h:outputLink value="#" onclick="#{r:component('popup')}.hide(); return false;">
                 X
             </h:outputLink>
         </f:facet>

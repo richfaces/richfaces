@@ -35,12 +35,12 @@
             <r:outputPanel layout="block" styleClass="tabDiv">
                 <r:toggleControl event="click" targetPanel="panel1" targetItem="item1" />
                 <h:outputText value="Toggle Panel Item 1"
-                    style="#{rich:findComponent('panel1').activeItem == 'item1' ? 'font-weight:bold' : 'font-weight:normal'}" />
+                    style="#{r:findComponent('panel1').activeItem == 'item1' ? 'font-weight:bold' : 'font-weight:normal'}" />
             </r:outputPanel>
             <r:outputPanel layout="block" styleClass="tabDiv">
                 <r:toggleControl event="click" targetPanel="panel1" targetItem="item2" />
                 <h:outputText value="Toggle Panel Item 2"
-                    style="#{rich:findComponent('panel1').activeItem == 'item2' ? 'font-weight:bold' : 'font-weight:normal'}" />
+                    style="#{r:findComponent('panel1').activeItem == 'item2' ? 'font-weight:bold' : 'font-weight:normal'}" />
             </r:outputPanel>
         </r:outputPanel>
     </h:form>

@@ -37,7 +37,7 @@
             <h:outputText value=" " />
             <r:commandLink rendered="#{controller.isUserShelf(shelf)}" value="#{messages['shelf.delete']} "
                 actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}"
-                oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" execute="@this" />
+                oncomplete="#{r:component('confirmation')}.show()" render="confirmation" execute="@this" />
             <h:outputText value=" " />
             <r:commandLink value="#{messages['shelf.view']} " actionListener="#{controller.showShelf(shelf)}"
                 render="mainArea" rendered="#{!mode.equals('show')}" />

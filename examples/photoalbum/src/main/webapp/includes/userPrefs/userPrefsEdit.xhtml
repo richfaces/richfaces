@@ -164,7 +164,7 @@
                         <r:messages for="userEmail" styleClass="required" />
                         <r:commandLink rendered="#{help.isShowHelp()}"
                             actionListener="#{help.navigateTo('/includes/help/validationHelp.xhtml')}"
-                            oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel" immediate="true">
+                            oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel" immediate="true">
                             <h:panelGroup styleClass="image-scroller-right-arrow"
                                 style="cursor: hand; width: 34px; height:34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                                 <h:graphicImage style="border:none;" border="0" height="34" width="34"

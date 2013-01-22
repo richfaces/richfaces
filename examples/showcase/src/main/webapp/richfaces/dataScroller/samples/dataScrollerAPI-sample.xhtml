@@ -10,12 +10,12 @@
     <h:form id="form">
         <h:panelGrid columns="1" rowClasses="calign">
             <h:panelGrid columns="3" id="repeat">
-                <h:graphicImage value="/images/icons/scroller/arr_left.png" onclick="#{rich:component('ds')}.previous()"
+                <h:graphicImage value="/images/icons/scroller/arr_left.png" onclick="#{r:component('ds')}.previous()"
                     alt="arr_left" />
                 <r:repeat rows="3" value="#{slidesBean.pictures}" var="pic" id="pics">
                     <h:graphicImage value="#{pic.uri}" style="" width="175" alt="uri" />
                 </r:repeat>
-                <h:graphicImage value="/images/icons/scroller/arr_right.png" onclick="#{rich:component('ds')}.next()"
+                <h:graphicImage value="/images/icons/scroller/arr_right.png" onclick="#{r:component('ds')}.next()"
                     alt="arr_right" />
             </h:panelGrid>
             <r:dataScroller for="pics" id="ds" render="repeat" stepControls="hide" boundaryControls="hide"

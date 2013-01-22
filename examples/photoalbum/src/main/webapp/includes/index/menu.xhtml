@@ -87,7 +87,7 @@
 
                     <h:panelGroup id="add_icons_div_id" layout="block" rendered="#{userBean.loggedIn}" style="float: left;">
                         <r:commandLink rendered="#{userBean.loggedIn}" actionListener="#{shelfManager.createShelf()}"
-                            render="shelfModalPanel" oncomplete="#{rich:component('shelfModalPanel')}.show()" execute="@this">
+                            render="shelfModalPanel" oncomplete="#{r:component('shelfModalPanel')}.show()" execute="@this">
                             <h:graphicImage value="/img/shell/icon_add_shelf.png" width="37" height="23" alt=""
                                 styleClass="main-menu-add-icons-img" />
                             <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
@@ -99,7 +99,7 @@
                         <r:commandLink disabled="#{!controller.isUserHaveShelves()}" rendered="#{userBean.loggedIn}"
                             data="#{albumManager.errorInCreate}"
                             actionListener="#{albumManager.createAlbum(model.selectedShelf, true)}"
-                            oncomplete="if(!event.data)#{rich:component('albumModalPanel')}.show()" render="albumModalPanel"
+                            oncomplete="if(!event.data)#{r:component('albumModalPanel')}.show()" render="albumModalPanel"
                             execute="@this">
                             <h:graphicImage rendered="#{controller.isUserHaveShelves()}" value="/img/shell/icon_add_album.png"
                                 width="37" height="23" alt="" styleClass="main-menu-add-icons-img" />

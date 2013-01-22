@@ -29,7 +29,7 @@
         </r:tree>
 
         <r:contextMenu target="tree" mode="ajax">
-            <r:menuItem label="View" render="popupContent" oncomplete="#{rich:component('popup')}.show()"
+            <r:menuItem label="View" render="popupContent" oncomplete="#{r:component('popup')}.show()"
                            mode="ajax" icon="/images/icons/open.gif"/>
         </r:contextMenu>
     </h:form>
@@ -39,7 +39,7 @@
             <h:outputText value="Selection details"/>
         </f:facet>
         <f:facet name="controls">
-            <h:outputLink value="#" onclick="#{rich:component('popup')}.hide(); return false;">X</h:outputLink>
+            <h:outputLink value="#" onclick="#{r:component('popup')}.hide(); return false;">X</h:outputLink>
         </f:facet>
         <h:panelGroup id="popupContent">
             <h:outputText value="Name: " style="font-weight: bold"/>
@@ -64,7 +64,7 @@
                 </fieldset>
             </h:panelGroup>
             <br/>
-            <h:button value="Close" onclick="#{rich:component('popup')}.hide(); return false;"/>
+            <h:button value="Close" onclick="#{r:component('popup')}.hide(); return false;"/>
         </h:panelGroup>
     </r:popupPanel>
 </ui:composition>

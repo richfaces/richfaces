@@ -12,9 +12,9 @@
             <r:commandLink styleClass="search-find-button" id="findLink" value="#{messages['find']}"
                 onclick="hide('searchOptions'); show('openSeach');" render="mainArea"
                 actionListener="#{imageSearchHelper.search}" execute="@region"
-                oncomplete="#{rich:element('searchQuery')}.value=''" />
+                oncomplete="#{r:element('searchQuery')}.value=''" />
             <h:inputText id="searchQuery" required="true" value="#{imageSearchHelper.searchQuery}"
-                onkeydown="if (event.keyCode == 13) { #{rich:element('findLink')}.onclick(); return false; }"
+                onkeydown="if (event.keyCode == 13) { #{r:element('findLink')}.onclick(); return false; }"
                 styleClass="search-input" />
             <div id="openSeach" class="search-option-div">
                 <a class="search-option-link" href="#" onclick="show('searchOptions'); hide('openSeach');">#{messages['options']}

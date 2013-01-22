@@ -109,7 +109,7 @@ public final class RichFunction {
     }
 
     /**
-     * The rich:element('id') function is a shortcut for the equivalent document.getElementById(#{rich:clientId('id')}) code. It
+     * The rich:element('id') function is a shortcut for the equivalent document.getElementById(#{r:clientId('id')}) code. It
      * returns the element from the client, based on the passed server-side component identifier. If the specified component
      * identifier is not found, null is returned instead.
      */
@@ -154,7 +154,7 @@ public final class RichFunction {
     }
 
     /**
-     * The rich:jQueryObject('id') function is a shortcut for the equivalent jQuery(#{rich:element('id')}) code. It returns
+     * The rich:jQueryObject('id') function is a shortcut for the equivalent jQuery(#{r:element('id')}) code. It returns
      * the jQuery object from the client, based on the passed server-side component identifier. If the specified component
      * identifier is not found, empty jQuery object is returned instead.
      */

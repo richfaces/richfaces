@@ -8,7 +8,7 @@
         border: none;
         }
     </h:outputStylesheet>
-    <r:status onstart="#{rich:component('statPane')}.show()" onstop="#{rich:component('statPane')}.hide()" />
+    <r:status onstart="#{r:component('statPane')}.show()" onstop="#{r:component('statPane')}.hide()" />
     <h:form id="form">
         <r:dataTable value="#{carsBean.allInventoryItems}" var="car" iterationStatusVar="it" id="table" rows="15">
             <r:column>
@@ -37,12 +37,12 @@
             </r:column>
             <r:column>
                 <r:commandLink styleClass="no-decor" execute="@this" render="@none"
-                    oncomplete="#{rich:component('confirmPane')}.show()">
+                    oncomplete="#{r:component('confirmPane')}.show()">
                     <h:graphicImage value="/images/icons/delete.gif" alt="delete" />
                     <r:param value="#{it.index}" assignTo="#{carsBean.currentCarIndex}" />
                 </r:commandLink>
                 <r:commandLink styleClass="no-decor" render="editGrid" execute="@this"
-                    oncomplete="#{rich:component('editPane')}.show()">
+                    oncomplete="#{r:component('editPane')}.show()">
                     <h:graphicImage value="/images/icons/edit.gif" alt="edit" />
                     <r:param value="#{it.index}" assignTo="#{carsBean.currentCarIndex}" />
                     <f:setPropertyActionListener target="#{carsBean.editedCar}" value="#{car}" />
@@ -54,7 +54,7 @@
         </r:dataTable>
 
         <r:jsFunction name="remove" action="#{carsBean.remove}" render="table" execute="@this"
-            oncomplete="#{rich:component('confirmPane')}.hide();" />
+            oncomplete="#{r:component('confirmPane')}.hide();" />
 
         <r:popupPanel id="statPane" autosized="true">
             <h:graphicImage value="/images/ai.gif" alt="ai" />
@@ -63,7 +63,7 @@
 
         <r:popupPanel id="confirmPane" autosized="true">
             Are you sure you want to delete the row?
-            <r:commandButton value="Cancel" onclick="#{rich:component('confirmPane')}.hide(); return false;" />
+            <r:commandButton value="Cancel" onclick="#{r:component('confirmPane')}.hide(); return false;" />
             <r:commandButton value="Delete" onclick="remove(); return false;" />
         </r:popupPanel>
 
@@ -96,8 +96,8 @@
                 <r:message id="vinMsg" for="vin" />
             </h:panelGrid>
             <r:commandButton value="Store" action="#{carsBean.store}" render="table" execute="editPane"
-                oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('editPane')}.hide();}" />
-            <r:commandButton value="Cancel" onclick="#{rich:component('editPane')}.hide(); return false;" />
+                oncomplete="if (#{facesContext.maximumSeverity==null}) {#{r:component('editPane')}.hide();}" />
+            <r:commandButton value="Cancel" onclick="#{r:component('editPane')}.hide(); return false;" />
         </r:popupPanel>
     </h:form>
 </ui:composition>

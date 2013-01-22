@@ -51,12 +51,12 @@
                         <h:panelGroup id="albumFirstButton" layout="block">
                             <richx:commandButton data="#{albumManager.validationSuccess}" value="#{messages['album.store']}"
                                 actionListener="#{albumManager.addAlbum(albumManager.album)}" id="storebutton"
-                                render="treePanel, mainArea, menu" execute="form2" oncomplete="if(event.data)#{rich:component('albumModalPanel')}.hide()"
+                                render="treePanel, mainArea, menu" execute="form2" oncomplete="if(event.data)#{r:component('albumModalPanel')}.hide()"
                                 styleClass="album" />
                         </h:panelGroup>
                         <h:panelGroup id="albumSecondButton" layout="block">
                             <richx:commandButton type="button" id="cancelbutton"
-                                onclick="#{rich:component('albumModalPanel')}.hide(); return false;"
+                                onclick="#{r:component('albumModalPanel')}.hide(); return false;"
                                 value="#{messages['album.cancel']}" execute="@none"/>
                         </h:panelGroup>
                     </h:panelGrid>

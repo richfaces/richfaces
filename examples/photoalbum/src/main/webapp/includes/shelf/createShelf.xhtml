@@ -8,7 +8,7 @@
         <f:facet name="controls">
             <h:panelGroup id="shelfPanelHideControl">
                 <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hidelink19"
-                    onclick="#{rich:component('shelfModalPanel')}.hide()" />
+                    onclick="#{r:component('shelfModalPanel')}.hide()" />
             </h:panelGroup>
         </f:facet>
 
@@ -39,14 +39,14 @@
                         <h:panelGroup id="shelfButtons" layout="block">
                             <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto">
                                 <h:panelGroup id="shelfFirstButton" layout="block">
-                                    <richx:commandButton oncomplete="if(event.data)#{rich:component('shelfModalPanel')}.hide();"
+                                    <richx:commandButton oncomplete="if(event.data)#{r:component('shelfModalPanel')}.hide();"
                                         value="#{messages['save']}" data="#{shelfManager.validationSuccess}"
                                         actionListener="#{shelfManager.addShelf(shelfManager.shelf)}" id="storebutton"
                                         render="treePanel, mainArea, menu" execute="form5" styleClass="shelf" />
                                 </h:panelGroup>
                                 <h:panelGroup id="shelfSecondButton" layout="block">
                                     <richx:commandButton type="button" id="cancelbutton"
-                                        onclick="#{rich:component('shelfModalPanel')}.hide(); return false;"
+                                        onclick="#{r:component('shelfModalPanel')}.hide(); return false;"
                                         value="#{messages['album.cancel']}" execute="@none" />
                                 </h:panelGroup>
                             </h:panelGrid>

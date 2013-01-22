@@ -34,7 +34,7 @@
             </r:extendedDataTable>
 
             <r:contextMenu target="table" mode="ajax">
-                <r:menuItem label="View" render="popupContent" oncomplete="#{rich:component('popup')}.show();"
+                <r:menuItem label="View" render="popupContent" oncomplete="#{r:component('popup')}.show();"
                                mode="ajax" icon="/images/icons/open.gif"/>
             </r:contextMenu>
 
@@ -45,7 +45,7 @@
                 <h:outputText value="Car details"/>
             </f:facet>
             <f:facet name="controls">
-                <h:outputLink value="#" onclick="#{rich:component('popup')}.hide(); return false;">X</h:outputLink>
+                <h:outputLink value="#" onclick="#{r:component('popup')}.hide(); return false;">X</h:outputLink>
             </f:facet>
             <h:panelGrid columns="2" id="popupContent" columnClasses="col1, col2">
                 <h:outputText value="Vendor"/>
@@ -71,6 +71,6 @@
                              value="#{extTableSelectionBean.selectionItem.daysLive}"/>
             </h:panelGrid>
             <br />
-            <h:button value="Close" onclick="#{rich:component('popup')}.hide(); return false;"/>
+            <h:button value="Close" onclick="#{r:component('popup')}.hide(); return false;"/>
         </r:popupPanel>
 </ui:composition>

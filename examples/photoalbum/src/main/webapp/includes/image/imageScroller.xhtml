@@ -29,7 +29,7 @@
         </h:panelGrid>
         <r:commandLink rendered="#{help.isShowHelp()}" style="position: absolute; right: -65px; top: 80px;"
             actionListener="#{help.navigateTo('/includes/help/imageScrollerHelp.xhtml')}"
-            oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel">
+            oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel">
             <h:panelGroup
                 style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                 <h:graphicImage style="border:none;" height="34" width="34" border="0" styleClass="ie6transparency"
@@ -41,7 +41,7 @@
             <h:panelGroup styleClass="image-scroller-left-arrow"
                 style="width: 56px; height:34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/arr_left.png',sizingMethod='scale');">
                 <h:graphicImage styleClass="ie6transparency" value="img/shell/arr_left.png"
-                    onclick="#{rich:component('scroller')}.fastRewind()" />
+                    onclick="#{r:component('scroller')}.fastRewind()" />
             </h:panelGroup>
             <r:dataScroller page="#{controller.page}" styleClass="image-scroller" lastPageMode="full" for="repeat"
                 render="imagesTable" boundaryControls="hide" stepControls="hide" id="scroller" fastControls="hide">
@@ -77,7 +77,7 @@
             <h:panelGroup styleClass="image-scroller-right-arrow"
                 style="width: 56px; height:34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/arr_right.png',sizingMethod='scale');">
                 <h:graphicImage value="img/shell/arr_right.png" styleClass="ie6transparency" height="34" width="56" border="0"
-                    onclick="#{rich:component('scroller')}.fastForward()" />
+                    onclick="#{r:component('scroller')}.fastForward()" />
             </h:panelGroup>
         </h:panelGrid>
     </h:panelGroup>

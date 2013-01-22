@@ -65,7 +65,7 @@
                                 <r:repeat value="#{imageManager.popularTags()}" var="tag" rowKeyVar="row">
                                     <h:outputText value=", " rendered="#{!(row == 0)}" />
                                     <r:outputPanel style="cursor:pointer"
-                                        onclick="selectPopularTag('#{tag.tag}', #{rich:component('suggestionBoxId')});">
+                                        onclick="selectPopularTag('#{tag.tag}', #{r:component('suggestionBoxId')});">
 									#{tag.tag}
 								</r:outputPanel>
                                 </r:repeat>

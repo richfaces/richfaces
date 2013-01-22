@@ -4,7 +4,7 @@
     xmlns:r="http://richfaces.org/core">
     <h:form>
 
-         <r:push id="pushJms" address="pushJms" ondataavailable="jQuery(#{rich:element('serverDate')}).text(event.rf.data)" rendered="#{not (userAgent.phone || userAgent.tablet)}" />
+         <r:push id="pushJms" address="pushJms" ondataavailable="jQuery(#{r:element('serverDate')}).text(event.rf.data)" rendered="#{not (userAgent.phone || userAgent.tablet)}" />
         <h:panelGrid columns="2">
             <h:outputLabel value="Server Date:" />
             <r:outputPanel id="serverDate" layout="block">
