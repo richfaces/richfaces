@@ -11,7 +11,7 @@
     <rich:notifyStack id="firstStack" position="topLeft" direction="vertical" method="first" />
     <rich:notifyStack id="secondStack" position="bottomRight" direction="horizontal" method="last" />
     
-    <rich:notify id="firstNotify" stack="firstStack" summary="&lt;b&gt;&#35;#{notifyBean.topLeftCounter}&lt;/b&gt;" />
-    <rich:notify id="secondNotify" stack="secondStack" summary="&lt;b&gt;&#35;#{notifyBean.bottomRightCounter}&lt;/b&gt;" />
+    <rich:notify id="firstNotify" stack="firstStack" summary="&lt;b&gt;&#35;#{notifyBean.topLeftCounter}&lt;/b&gt;" escape="false"/>
+    <rich:notify id="secondNotify" stack="secondStack" summary="&lt;b&gt;&#35;#{notifyBean.bottomRightCounter}&lt;/b&gt;" escape="false"/>
     
 </ui:composition>
