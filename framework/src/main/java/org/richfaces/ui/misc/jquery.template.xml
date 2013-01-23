@@ -12,7 +12,7 @@
         <cdk:renderer-type>org.richfaces.JQueryRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
 
-        <cdk:import package="org.richfaces.component" names="JQueryAttachType JQueryTiming" />
+        <cdk:import package="org.richfaces.ui.misc" names="JQueryAttachType JQueryTiming" />
     </cc:interface>
 
     <cc:implementation>

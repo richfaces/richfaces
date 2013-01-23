@@ -1,33 +1,34 @@
 package org.richfaces.ui.validation;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+
+import java.io.IOException;
+
 import org.hamcrest.Matcher;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 
-import java.io.IOException;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 
-
-public abstract class IntegrationTestBase {
+public abstract class ValidationTestBase {
 
     private HtmlUnitEnvironment environment;
 
-    public IntegrationTestBase() {
+    public ValidationTestBase() {
         super();
     }
 
     @Before
     public void setUp() {
         this.environment = new HtmlUnitEnvironment();
-        this.environment.withResource("/" + getPageName() + ".xhtml", "org/richfaces/component/" + getPageName() + ".xhtml")
-            .withResource("/WEB-INF/faces-config.xml", "org/richfaces/component/" + getFacesConfig());
+        this.environment.withResource("/" + getPageName() + ".xhtml", "org/richfaces/ui/validation/" + getPageName() + ".xhtml")
+            .withResource("/WEB-INF/faces-config.xml", "org/richfaces/ui/validation/" + getFacesConfig());
         setupEnvironment(environment);
         this.environment.start();
     }

@@ -20,24 +20,8 @@
  */
 package org.richfaces.ui.ajax;
 
-import com.gargoylesoftware.htmlunit.ScriptPreProcessor;
-import com.gargoylesoftware.htmlunit.ScriptResult;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.javascript.host.WindowProxy;
-import net.sourceforge.htmlunit.corejs.javascript.FunctionObject;
-import net.sourceforge.htmlunit.corejs.javascript.NativeArray;
-import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
-import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
-import net.sourceforge.htmlunit.corejs.javascript.Undefined;
-import org.jboss.test.faces.ApplicationServer;
-import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
-import org.junit.After;
-import org.junit.Before;
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSFunctionDefinition;
+import static org.junit.Assert.assertEquals;
 
-import javax.faces.view.facelets.ResourceResolver;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +30,26 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.junit.Assert.assertEquals;
+import javax.faces.view.facelets.ResourceResolver;
+
+import net.sourceforge.htmlunit.corejs.javascript.FunctionObject;
+import net.sourceforge.htmlunit.corejs.javascript.NativeArray;
+import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
+import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
+import net.sourceforge.htmlunit.corejs.javascript.Undefined;
+
+import org.jboss.test.faces.ApplicationServer;
+import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
+import org.junit.After;
+import org.junit.Before;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSFunctionDefinition;
+
+import com.gargoylesoftware.htmlunit.ScriptPreProcessor;
+import com.gargoylesoftware.htmlunit.ScriptResult;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.javascript.host.WindowProxy;
 
 /**
  * @author Nick Belaevski
@@ -94,9 +97,9 @@ public abstract class AbstractQueueComponentTest {
         facesEnvironment = new HtmlUnitEnvironment();
 
         ApplicationServer facesServer = facesEnvironment.getServer();
-        facesServer.addResource("/resources/" + SIMULATION_SCRIPT_NAME, "org/ajax4jsf/component/" + SIMULATION_SCRIPT_NAME);
-        facesServer.addResource("/resources/" + QUEUEAJAX_SCRIPT_NAME, "org/ajax4jsf/component/" + QUEUEAJAX_SCRIPT_NAME);
-        facesServer.addResource("/test.xhtml", "org/richfaces/resource/ui/core/test.xhtml");
+        facesServer.addResource("/resources/" + SIMULATION_SCRIPT_NAME, "org/richfaces/ui/core/" + SIMULATION_SCRIPT_NAME);
+        facesServer.addResource("/resources/" + QUEUEAJAX_SCRIPT_NAME, "org/richfaces/ui/core/" + QUEUEAJAX_SCRIPT_NAME);
+        facesServer.addResource("/test.xhtml", "org/richfaces/ui/core/test.xhtml");
 
         facesEnvironment.start();
     }

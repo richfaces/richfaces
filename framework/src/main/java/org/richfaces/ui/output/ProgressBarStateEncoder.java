@@ -21,20 +21,21 @@
  */
 package org.richfaces.ui.output;
 
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.util.HtmlUtil;
-import org.richfaces.ui.util.NumberUtils;
+import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
+
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.util.HtmlUtil;
+import org.richfaces.ui.util.NumberUtils;
 
 /**
  * @author Nick Belaevski
  *
  */
-class ProgressBarStateEncoder {
+public class ProgressBarStateEncoder {
     private static final int DEFAULT_MIN_VALUE = 0;
     private static final int DEFAULT_MAX_VALUE = 100;
     private boolean renderContentAsPlaceHolders;

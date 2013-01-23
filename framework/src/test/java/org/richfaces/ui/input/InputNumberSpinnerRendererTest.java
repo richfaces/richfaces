@@ -13,7 +13,7 @@ public class InputNumberSpinnerRendererTest extends RendererTestBase {
     public void setUp() throws URISyntaxException {
         environment = new HtmlUnitEnvironment();
         environment.withWebRoot(new File(this.getClass().getResource(".").toURI()));
-        environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/resource/ui/input/faces-config.xml");
+        environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/ui/input/faces-config.xml");
         environment.start();
     }
 

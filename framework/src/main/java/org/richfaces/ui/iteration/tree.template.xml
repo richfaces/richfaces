@@ -22,7 +22,7 @@
         <cdk:import-attributes src="urn:attributes:core-props.xml" />
         <cdk:import-attributes src="urn:attributes:i18n-props.xml" />
 
-        <cdk:import package="org.richfaces.component" names="SwitchType" />
+        <cdk:import package="org.richfaces.ui.common" names="SwitchType" />
     </cc:interface>
 
     <cc:implementation>

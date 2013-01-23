@@ -21,14 +21,15 @@
  */
 package org.richfaces.ui.output;
 
-import org.richfaces.ui.util.HtmlUtil;
+import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
 
-enum ProgressBarState {
+import org.richfaces.ui.util.HtmlUtil;
+
+public enum ProgressBarState {
     initialState {
         @Override
         public String getStateClientId(FacesContext context, UIComponent component) {

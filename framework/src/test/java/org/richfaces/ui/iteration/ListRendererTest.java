@@ -46,8 +46,8 @@ public class ListRendererTest {
     public void setUp() {
         environment = new HtmlUnitEnvironment();
 
-        environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/resource/ui/iteration/faces-config.xml");
-        environment.withResource("/test.xhtml", "org/richfaces/resource/ui/iteration/rendererTest.xhtml");
+        environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/ui/iteration/faces-config.xml");
+        environment.withResource("/test.xhtml", "org/richfaces/ui/iteration/rendererTest.xhtml");
 
         environment.start();
 

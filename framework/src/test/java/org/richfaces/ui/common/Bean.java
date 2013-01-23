@@ -1,4 +1,4 @@
-package org.richfaces.ui.core;
+package org.richfaces.ui.common;
 
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.JSLiteral;

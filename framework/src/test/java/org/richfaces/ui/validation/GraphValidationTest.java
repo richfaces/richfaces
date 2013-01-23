@@ -17,7 +17,7 @@ import static org.junit.matchers.JUnitMatchers.containsString;
  * @author asmirnov
  *
  */
-public class GraphValidationTest extends IntegrationTestBase {
+public class GraphValidationTest extends ValidationTestBase {
 
     protected String getFacesConfig() {
         return "graph-faces-config.xml";

@@ -13,7 +13,7 @@
         </cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
 
-        <cdk:import package="org.richfaces.component" names="AutocompleteMode.*" static="true" />
+        <cdk:import package="org.richfaces.ui.input" names="AutocompleteMode.*" static="true" />
     </cc:interface>
 
     <cc:implementation>

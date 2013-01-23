@@ -5,6 +5,7 @@ import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.richfaces.ui.common.Bean;
 
 import java.net.MalformedURLException;
 
@@ -32,7 +33,7 @@ public class UIViewResourceTest {
                     + "    <h:inputText id=\"input\" value=\"#{test.value}\" />\n"
                     + "    <h:commandButton id=\"command\" value=\"Ok\" action=\"#{test.action}\"/>\n" + "</h:form>\n"
                     + "</h:body>\n" + "</html>")
-            .withResource(FacesEnvironment.FACES_CONFIG_XML, "org/richfaces/resource/ui/core/faces-config.xml").start();
+            .withResource(FacesEnvironment.FACES_CONFIG_XML, "org/richfaces/ui/core/faces-config.xml").start();
     }
 
     @After

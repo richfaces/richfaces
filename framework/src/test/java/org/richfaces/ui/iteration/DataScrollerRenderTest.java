@@ -25,8 +25,8 @@ public class DataScrollerRenderTest {
     public void setUp() {
         environment = new HtmlUnitEnvironment();
         // environment.withWebRoot(new File("src/test/resources"));
-        environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/resource/ui/iteration/faces-config.xml");
-        environment.withResource("/test.xhtml", "org/richfaces/resource/ui/iteration/dataTableTest.xhtml");
+        environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/ui/iteration/faces-config.xml");
+        environment.withResource("/test.xhtml", "org/richfaces/ui/iteration/dataTableTest.xhtml");
         environment.start();
     }
 

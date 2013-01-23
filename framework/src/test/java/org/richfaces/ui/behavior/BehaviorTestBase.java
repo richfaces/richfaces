@@ -1,15 +1,15 @@
 package org.richfaces.ui.behavior;
 
-import org.jboss.test.faces.mock.Mock;
-import org.junit.Before;
-import org.richfaces.ValidatorTestBase;
+import static org.easymock.EasyMock.expect;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.render.ClientBehaviorRenderer;
 
-import static org.easymock.EasyMock.expect;
+import org.jboss.test.faces.mock.Mock;
+import org.junit.Before;
+import org.richfaces.ValidatorTestBase;
 
 public class BehaviorTestBase extends ValidatorTestBase {
     @Mock

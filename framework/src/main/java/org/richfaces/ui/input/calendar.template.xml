@@ -21,7 +21,7 @@
         <cdk:superclass>org.richfaces.ui.input.CalendarRendererBase
         </cdk:superclass>
         <cdk:renderer-type>org.richfaces.CalendarRenderer</cdk:renderer-type>
-        <cdk:import package="org.richfaces.component" names="Positioning" />
+        <cdk:import package="org.richfaces.ui.common" names="Positioning" />
     </cc:interface>
     <cc:implementation>
         <div id="#{clientId}" class="#{concatClasses('rf-cal', component.attributes['styleClass'])}" style="#{component.attributes['style']}">

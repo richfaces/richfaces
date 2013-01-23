@@ -58,7 +58,7 @@ public class CountriesBean {
             Unmarshaller unmarshaller = countryContext.createUnmarshaller();
 
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            URL dataUrl = classLoader.getResource("org/richfaces/resource/ui/input/countries.xml");
+            URL dataUrl = classLoader.getResource("org/richfaces/ui/input/countries.xml");
             Countries cntr = (Countries) unmarshaller.unmarshal(dataUrl);
             countries = cntr.getCountries();
         } catch (JAXBException e) {

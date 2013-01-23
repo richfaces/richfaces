@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNotNull;
  * @author asmirnov
  *
  */
-public class AjaxValidationTest extends IntegrationTestBase {
+public class AjaxValidationTest extends ValidationTestBase {
 
     protected String getFacesConfig() {
         return "faces-config.xml";

@@ -10,7 +10,7 @@
         <cdk:component-family>org.richfaces.AjaxLog</cdk:component-family>
         <cdk:renderer-type>org.richfaces.AjaxLogRenderer</cdk:renderer-type>
 
-        <cdk:import package="org.richfaces.component" names="LogMode" />
+        <cdk:import package="org.richfaces.ui.core" names="LogMode" />
     </cc:interface>
 
     <cc:implementation>

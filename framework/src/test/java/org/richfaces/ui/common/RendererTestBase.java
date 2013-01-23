@@ -25,8 +25,15 @@ package org.richfaces.ui.common;
  *
  */
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.URISyntaxException;
+
 import org.apache.commons.io.IOUtils;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.DifferenceListener;
@@ -38,14 +45,8 @@ import org.junit.Before;
 import org.richfaces.ui.validation.IgnoreScriptsContent;
 import org.xml.sax.SAXException;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.URISyntaxException;
-
-import static org.junit.Assert.assertNotNull;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author akolonitsky

@@ -233,6 +233,16 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <templates>
+                        <fileSet>
+                            <directory>src/main/java</directory>
+                            <includes>
+                                <include>**/*.template.xml</include>
+                            </includes>
+                        </fileSet>
+                    </templates>
+                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>org.jboss.spec.javax.faces</groupId>
@@ -649,7 +659,8 @@
                                         </parameter>
                                     </parameters>
                                     <fileMappers>
-                                        <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
+                                        <fileMapper
+                                            implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
                                             <pattern>^(.*)\.(.*)$</pattern>
                                             <replacement>all.txt</replacement>
                                         </fileMapper>
