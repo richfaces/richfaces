@@ -1,24 +1,22 @@
 package org.richfaces.javascript.client.converter;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-
+import com.gargoylesoftware.htmlunit.ScriptException;
 import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
 import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
-
-import org.ajax4jsf.javascript.JSFunction;
 import org.junit.Test;
+import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.Message;
 import org.richfaces.javascript.client.MockTestBase;
 import org.richfaces.javascript.client.RunParameters;
 import org.richfaces.validator.ConverterServiceImpl;
 
-import com.gargoylesoftware.htmlunit.ScriptException;
+import javax.faces.application.FacesMessage;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public abstract class ConverterTestBase extends MockTestBase {
     public ConverterTestBase(RunParameters criteria) {

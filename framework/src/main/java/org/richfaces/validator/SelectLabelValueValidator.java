@@ -33,8 +33,8 @@ import javax.faces.validator.ValidatorException;
 import org.richfaces.application.FacesMessages;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.component.AbstractSelectComponent;
-import org.richfaces.component.util.MessageUtil;
+import org.richfaces.ui.select.AbstractSelectComponent;
+import org.richfaces.ui.util.MessageUtil;
 
 /**
  * Validates that Select component has sent valid value

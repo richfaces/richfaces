@@ -3,24 +3,22 @@
  */
 package org.richfaces.javascript;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentMap;
+import com.google.common.base.Function;
+import com.google.common.collect.ComputationException;
+import com.google.common.collect.Lists;
+import com.google.common.collect.MapMaker;
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.ui.util.Strings;
 
 import javax.faces.FacesException;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceDependency;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.component.util.Strings;
-import org.richfaces.resource.ResourceKey;
-
-import com.google.common.base.Function;
-import com.google.common.collect.ComputationException;
-import com.google.common.collect.Lists;
-import com.google.common.collect.MapMaker;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author asmirnov

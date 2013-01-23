@@ -34,7 +34,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import org.richfaces.component.AbstractTree;
+import org.richfaces.ui.iteration.AbstractTree;
 import org.richfaces.model.DeclarativeModelKey;
 import org.richfaces.model.SequenceRowKey;
 

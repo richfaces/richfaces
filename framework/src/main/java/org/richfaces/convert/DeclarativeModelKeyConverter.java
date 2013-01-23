@@ -21,8 +21,8 @@
  */
 package org.richfaces.convert;
 
-import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
-import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_SPLITTER;
+import static org.richfaces.ui.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
+import static org.richfaces.ui.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_SPLITTER;
 import static org.richfaces.convert.TreeConverterUtil.escape;
 import static org.richfaces.convert.TreeConverterUtil.unescape;
 

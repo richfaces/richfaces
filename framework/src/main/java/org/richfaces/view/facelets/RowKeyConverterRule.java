@@ -27,7 +27,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.UIDataAdaptor;
+import org.richfaces.ui.iteration.UIDataAdaptor;
 
 /**
  * Apply rowKeyConverter to component

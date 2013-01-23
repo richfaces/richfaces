@@ -29,7 +29,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.AbstractTreeNode;
+import org.richfaces.ui.iteration.AbstractTreeNode;
 
 /**
  * @author Nick Belaevski

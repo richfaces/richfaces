@@ -23,7 +23,7 @@ package org.richfaces.view.facelets.html;
 
 import javax.faces.component.UIComponent;
 
-import org.richfaces.component.AbstractAttachQueue;
+import org.richfaces.ui.ajax.AbstractAttachQueue;
 
 /**
  * @author Nick Belaevski

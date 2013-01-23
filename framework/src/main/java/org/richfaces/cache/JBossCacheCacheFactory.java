@@ -14,7 +14,7 @@ import java.util.Map;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.resource.util.URLToStreamHelper;
+import org.richfaces.util.core.resource.URLToStreamHelper;
 import org.jboss.cache.Cache;
 import org.jboss.cache.DefaultCacheFactory;
 import org.jboss.cache.Fqn;

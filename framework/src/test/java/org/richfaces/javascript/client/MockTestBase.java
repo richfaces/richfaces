@@ -1,15 +1,7 @@
 package org.richfaces.javascript.client;
 
-import static org.easymock.EasyMock.expect;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
-
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.jboss.test.qunit.Qunit;
 import org.junit.After;
@@ -19,8 +11,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.richfaces.javascript.Message;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableList.Builder;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import static org.easymock.EasyMock.expect;
 
 @RunWith(Parameterized.class)
 public abstract class MockTestBase {

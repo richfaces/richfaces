@@ -9,8 +9,8 @@ import javax.faces.context.FacesContext;
 import org.jboss.arquillian.warp.jsf.AfterPhase;
 import org.jboss.arquillian.warp.jsf.BeforePhase;
 import org.jboss.arquillian.warp.jsf.Phase;
-import org.richfaces.component.AbstractFocus;
-import org.richfaces.renderkit.FocusRendererBase;
+import org.richfaces.ui.misc.AbstractFocus;
+import org.richfaces.ui.misc.FocusRendererBase;
 
 import com.google.common.base.Splitter;
 

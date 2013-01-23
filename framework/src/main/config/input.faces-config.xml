@@ -137,7 +137,7 @@
         <property>
             <description>If "right", the InputText Box would be rendered on the right side of the ruler. If "left", the InputText Box would be rendered on the left side of the ruler. If "top", the InputText Box would be rendered on the top of the ruler. If "bottom", the InputText Box would be rendered on the bottom of the ruler.</description>
             <property-name>inputPosition</property-name>
-            <property-class>org.richfaces.component.InputNumberSliderInputPosition</property-class>
+            <property-class>org.richfaces.ui.input.InputNumberSliderInputPosition</property-class>
             <default-value>InputNumberSliderInputPosition.DEFAULT</default-value>
             <property-extension>
                 <cdk:generate>true</cdk:generate>
@@ -245,8 +245,8 @@
         <property>
             <description>Tells how handle should look like. Possible values: arrow (default), bar</description>
             <property-name>handleType</property-name>
-            <property-class>org.richfaces.component.InputNumberSliderHandleType</property-class>
-            <default-value>org.richfaces.component.InputNumberSliderHandleType.DEFAULT</default-value>
+            <property-class>org.richfaces.ui.input.InputNumberSliderHandleType</property-class>
+            <default-value>org.richfaces.ui.input.InputNumberSliderHandleType.DEFAULT</default-value>
             <property-extension>
                 <cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
@@ -254,7 +254,7 @@
         </property>
         <component-extension>
             <cdk:generate>true</cdk:generate>
-            <cdk:base-class>org.richfaces.component.UIInputNumber</cdk:base-class>
+            <cdk:base-class>org.richfaces.ui.input.UIInputNumber</cdk:base-class>
             <cdk:component-family>javax.faces.Input</cdk:component-family>
             <cdk:renderer-type>org.richfaces.InputNumberSliderRenderer</cdk:renderer-type>
             <cdk:tag>
@@ -482,7 +482,7 @@
         </property>
         <component-extension>
             <cdk:generate>true</cdk:generate>
-            <cdk:base-class>org.richfaces.component.UIInputNumber</cdk:base-class>
+            <cdk:base-class>org.richfaces.ui.input.UIInputNumber</cdk:base-class>
             <cdk:component-family>javax.faces.Input</cdk:component-family>
             <cdk:renderer-type>org.richfaces.InputNumberSpinnerRenderer</cdk:renderer-type>
             <cdk:tag>

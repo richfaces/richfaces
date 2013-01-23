@@ -30,7 +30,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 
-import org.richfaces.component.SortOrder;
+import org.richfaces.ui.iteration.SortOrder;
 
 import com.google.common.collect.Maps;
 

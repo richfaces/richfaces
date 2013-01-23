@@ -34,7 +34,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.AbstractAutocomplete;
+import org.richfaces.ui.input.AbstractAutocomplete;
 
 /**
  * @author Nick Belaevski

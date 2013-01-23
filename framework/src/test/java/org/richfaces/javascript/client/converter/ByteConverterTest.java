@@ -1,15 +1,14 @@
 package org.richfaces.javascript.client.converter;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-
-import java.util.List;
+import org.junit.runners.Parameterized.Parameters;
+import org.richfaces.javascript.client.RunParameters;
 
 import javax.faces.convert.ByteConverter;
 import javax.faces.convert.Converter;
+import java.util.List;
 
-import org.junit.runners.Parameterized.Parameters;
-import org.richfaces.javascript.client.RunParameters;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 public class ByteConverterTest extends ConverterTestBase {
     public ByteConverterTest(RunParameters criteria) {

@@ -34,12 +34,12 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 
-import org.ajax4jsf.Messages;
-import org.richfaces.DataScrollerUtils;
-import org.richfaces.component.AbstractDataScroller;
-import org.richfaces.component.DataComponentsContextUtil;
-import org.richfaces.component.UIDataAdaptor;
-import org.richfaces.component.util.MessageUtil;
+import org.richfaces.Messages;
+import org.richfaces.ui.iteration.DataScrollerUtils;
+import org.richfaces.ui.iteration.AbstractDataScroller;
+import org.richfaces.ui.iteration.DataComponentsContextUtil;
+import org.richfaces.ui.iteration.UIDataAdaptor;
+import org.richfaces.ui.util.MessageUtil;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

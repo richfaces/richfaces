@@ -2,7 +2,7 @@ package org.richfaces.javascript;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.richfaces.component.behavior.AnonymousFunctionCall;
+import org.richfaces.ui.behavior.AnonymousFunctionCall;
 
 public class AnonymousFunctionCallTest {
     // -------------------------- OTHER METHODS --------------------------

@@ -21,11 +21,11 @@
  */
 package org.richfaces.javascript;
 
+import org.richfaces.resource.ResourceKey;
+
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import org.richfaces.resource.ResourceKey;
 
 /**
  * @author abelevich

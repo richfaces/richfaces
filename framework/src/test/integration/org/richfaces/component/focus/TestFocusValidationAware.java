@@ -28,9 +28,9 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.component.AbstractFocus;
+import org.richfaces.ui.misc.AbstractFocus;
 import org.richfaces.integration.MiscDeployment;
-import org.richfaces.renderkit.FocusRendererBase;
+import org.richfaces.ui.misc.FocusRendererBase;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient

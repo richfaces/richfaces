@@ -1,19 +1,17 @@
 package org.richfaces.javascript;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Map;
-
-import javax.faces.FacesException;
-
+import com.google.common.collect.Iterables;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.resource.ResourceKey;
 
-import com.google.common.collect.Iterables;
+import javax.faces.FacesException;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ServiceConfigParserTest {
     @Before

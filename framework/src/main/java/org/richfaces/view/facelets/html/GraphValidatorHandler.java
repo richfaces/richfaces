@@ -41,7 +41,7 @@ import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
 
-import org.richfaces.component.AbstractGraphValidator;
+import org.richfaces.ui.validation.AbstractGraphValidator;
 import org.richfaces.validator.FacesBeanValidator;
 
 import com.google.common.base.Function;

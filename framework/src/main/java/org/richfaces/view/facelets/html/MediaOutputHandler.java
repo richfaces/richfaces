@@ -31,7 +31,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.AbstractMediaOutput;
+import org.richfaces.ui.output.AbstractMediaOutput;
 import org.richfaces.view.facelets.MethodMetadata;
 
 /**

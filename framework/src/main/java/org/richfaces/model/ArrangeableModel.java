@@ -36,13 +36,8 @@ import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModelListener;
 
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.Range;
-import org.ajax4jsf.model.SequenceRange;
 import org.richfaces.application.IterationComponentsConfiguration;
-import org.richfaces.component.SortOrder;
+import org.richfaces.ui.iteration.SortOrder;
 
 /**
  * @author Konstantin Mishin

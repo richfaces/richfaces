@@ -25,7 +25,7 @@ import java.util.Comparator;
 
 import javax.el.ValueExpression;
 
-import org.richfaces.component.SortOrder;
+import org.richfaces.ui.iteration.SortOrder;
 
 /**
  * @author Konstantin Mishin

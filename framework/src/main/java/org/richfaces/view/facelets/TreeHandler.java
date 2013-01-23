@@ -21,8 +21,8 @@
  */
 package org.richfaces.view.facelets;
 
-import static org.richfaces.component.AbstractTree.DEFAULT_TREE_NODE_FACET_NAME;
-import static org.richfaces.component.AbstractTree.DEFAULT_TREE_NODE_ID;
+import static org.richfaces.ui.iteration.AbstractTree.DEFAULT_TREE_NODE_FACET_NAME;
+import static org.richfaces.ui.iteration.AbstractTree.DEFAULT_TREE_NODE_ID;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -37,8 +37,8 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.AbstractTree;
-import org.richfaces.component.AbstractTreeNode;
+import org.richfaces.ui.iteration.AbstractTree;
+import org.richfaces.ui.iteration.AbstractTreeNode;
 
 import com.google.common.base.Strings;
 

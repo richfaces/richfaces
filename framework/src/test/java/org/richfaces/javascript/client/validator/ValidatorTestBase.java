@@ -1,9 +1,14 @@
 package org.richfaces.javascript.client.validator;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import com.gargoylesoftware.htmlunit.ScriptException;
+import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
+import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
+import org.junit.Test;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.Message;
+import org.richfaces.javascript.client.MockTestBase;
+import org.richfaces.javascript.client.RunParameters;
+import org.richfaces.validator.FacesValidatorServiceImpl;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -13,17 +18,10 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.validation.ValidationException;
 
-import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
-import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
-
-import org.ajax4jsf.javascript.JSFunction;
-import org.junit.Test;
-import org.richfaces.javascript.Message;
-import org.richfaces.javascript.client.MockTestBase;
-import org.richfaces.javascript.client.RunParameters;
-import org.richfaces.validator.FacesValidatorServiceImpl;
-
-import com.gargoylesoftware.htmlunit.ScriptException;
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public abstract class ValidatorTestBase extends MockTestBase {
     /**

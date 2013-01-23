@@ -36,7 +36,7 @@ import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.cache.Cache;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.renderkit.AjaxDataSerializer;
+import org.richfaces.ui.ajax.AjaxDataSerializer;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.external.ExternalResourceTracker;

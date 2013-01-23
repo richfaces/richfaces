@@ -1,17 +1,16 @@
 package org.richfaces.javascript.client.message;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import org.ajax4jsf.javascript.JSFunction;
-import org.jboss.test.qunit.Qunit;
-import org.jboss.test.qunit.Qunit.Builder;
-import org.junit.Rule;
-import org.richfaces.javascript.Message;
-
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.jboss.test.qunit.Qunit;
+import org.jboss.test.qunit.Qunit.Builder;
+import org.junit.Rule;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.Message;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class MessageTestBase {
     public static final String COMPONENT = "form:component";

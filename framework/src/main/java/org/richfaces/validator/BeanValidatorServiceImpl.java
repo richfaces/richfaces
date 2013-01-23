@@ -24,7 +24,7 @@ import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.ElementDescriptor.ConstraintFinder;
 import javax.validation.metadata.PropertyDescriptor;
 
-import org.richfaces.component.util.Strings;
+import org.richfaces.ui.util.Strings;
 import org.richfaces.el.ValueDescriptor;
 import org.richfaces.el.ValueExpressionAnalayser;
 

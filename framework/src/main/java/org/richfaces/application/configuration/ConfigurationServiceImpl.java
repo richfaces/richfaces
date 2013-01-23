@@ -21,8 +21,6 @@
  */
 package org.richfaces.application.configuration;
 
-import java.beans.PropertyEditor;
-import java.beans.PropertyEditorManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -34,21 +32,19 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.ajax4jsf.resource.util.URLToStreamHelper;
+import org.richfaces.util.core.resource.URLToStreamHelper;
 import org.richfaces.el.util.ELUtils;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.base.Strings;
 import com.google.common.io.Closeables;
-import com.google.common.primitives.Primitives;
 
 /**
  * @author Nick Belaevski

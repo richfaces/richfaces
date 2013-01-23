@@ -28,9 +28,9 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.ajax4jsf.component.AjaxClientBehavior;
-import org.ajax4jsf.component.behavior.AjaxBehavior;
-import org.ajax4jsf.component.behavior.MethodExpressionAjaxBehaviorListener;
+import org.richfaces.ui.core.AjaxClientBehavior;
+import org.richfaces.ui.core.behavior.AjaxBehavior;
+import org.richfaces.ui.core.behavior.MethodExpressionAjaxBehaviorListener;
 
 /**
  * @author Anton Belevich

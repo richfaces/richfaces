@@ -1,21 +1,18 @@
 package org.richfaces.javascript.client.validator;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.Set;
+import com.gargoylesoftware.htmlunit.ScriptException;
+import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
+import org.junit.Test;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.client.MockTestBase;
+import org.richfaces.javascript.client.RunParameters;
 
 import javax.validation.Validation;
 import javax.validation.ValidationException;
 import javax.validation.Validator;
+import java.util.Set;
 
-import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
-
-import org.ajax4jsf.javascript.JSFunction;
-import org.junit.Test;
-import org.richfaces.javascript.client.MockTestBase;
-import org.richfaces.javascript.client.RunParameters;
-
-import com.gargoylesoftware.htmlunit.ScriptException;
+import static org.junit.Assert.assertTrue;
 
 public abstract class BeanValidatorTestBase extends MockTestBase {
     protected static final String PROP = "property";

@@ -51,7 +51,7 @@ import javax.naming.Name;
 import javax.naming.NameParser;
 import javax.naming.NamingException;
 
-import org.ajax4jsf.javascript.JSLiteral;
+import org.richfaces.javascript.JSLiteral;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.push.TopicKey;

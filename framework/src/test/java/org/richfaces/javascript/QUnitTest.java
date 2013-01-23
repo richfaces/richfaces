@@ -20,21 +20,19 @@
  */
 package org.richfaces.javascript;
 
-import static org.junit.Assert.fail;
-
-import java.net.URL;
-import java.util.Iterator;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlListItem;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.net.URL;
+import java.util.Iterator;
+
+import static org.junit.Assert.fail;
 
 /**
  *

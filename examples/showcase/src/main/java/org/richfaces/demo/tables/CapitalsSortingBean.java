@@ -6,7 +6,7 @@ import java.util.Comparator;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.component.SortOrder;
+import org.richfaces.ui.iteration.SortOrder;
 import org.richfaces.demo.tables.model.capitals.Capital;
 
 @ManagedBean

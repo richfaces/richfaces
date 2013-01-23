@@ -44,8 +44,8 @@ import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.TagException;
 import javax.faces.view.facelets.TagHandler;
 
-import org.ajax4jsf.component.behavior.AjaxBehavior;
-import org.richfaces.component.AbstractAttachQueue;
+import org.richfaces.ui.core.behavior.AjaxBehavior;
+import org.richfaces.ui.ajax.AbstractAttachQueue;
 import org.richfaces.view.facelets.TagHandlerUtils;
 import org.richfaces.view.facelets.html.BehaviorStack.BehaviorInfo;
 import org.richfaces.view.facelets.tag.AjaxBehaviorRule;

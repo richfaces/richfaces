@@ -1,12 +1,11 @@
 package org.richfaces.javascript.client.converter;
 
-import java.util.List;
+import org.junit.runners.Parameterized.Parameters;
+import org.richfaces.javascript.client.RunParameters;
 
 import javax.faces.convert.BooleanConverter;
 import javax.faces.convert.Converter;
-
-import org.junit.runners.Parameterized.Parameters;
-import org.richfaces.javascript.client.RunParameters;
+import java.util.List;
 
 public class BooleanConverterTest extends ConverterTestBase {
     public BooleanConverterTest(RunParameters criteria) {

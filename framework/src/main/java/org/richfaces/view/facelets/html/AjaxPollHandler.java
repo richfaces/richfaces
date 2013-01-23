@@ -31,7 +31,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.AbstractPoll;
+import org.richfaces.ui.ajax.AbstractPoll;
 import org.richfaces.view.facelets.MethodMetadata;
 
 public class AjaxPollHandler extends ComponentHandler {

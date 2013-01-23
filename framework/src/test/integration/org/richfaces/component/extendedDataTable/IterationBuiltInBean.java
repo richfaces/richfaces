@@ -21,7 +21,7 @@
  **/
 package org.richfaces.component.extendedDataTable;
 
-import org.richfaces.component.SortOrder;
+import org.richfaces.ui.iteration.SortOrder;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;

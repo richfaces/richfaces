@@ -26,7 +26,7 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.Messages;
+import org.richfaces.Messages;
 
 /**
  * Singleton ( in respect as collection of different skins ) for produce instances properties for all used skins.

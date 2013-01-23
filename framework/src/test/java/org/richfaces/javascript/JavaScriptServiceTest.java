@@ -22,14 +22,7 @@
  */
 package org.richfaces.javascript;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-
-import java.util.Collection;
-
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-
+import com.google.common.collect.Iterables;
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;
 import org.jboss.test.faces.mock.Mock;
@@ -42,10 +35,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.application.ServicesFactory;
-import org.richfaces.component.UIScripts;
 import org.richfaces.resource.ResourceKey;
+import org.richfaces.ui.core.UIScripts;
 
-import com.google.common.collect.Iterables;
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
+import java.util.Collection;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 /**
  * <p class="changed_added_4_0">

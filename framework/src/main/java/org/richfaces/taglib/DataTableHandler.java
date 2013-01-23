@@ -30,7 +30,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.AbstractDataTable;
+import org.richfaces.ui.iteration.AbstractDataTable;
 import org.richfaces.view.facelets.RowKeyConverterRule;
 
 /**

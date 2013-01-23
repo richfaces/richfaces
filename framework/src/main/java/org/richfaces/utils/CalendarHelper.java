@@ -38,7 +38,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 
-import org.richfaces.component.AbstractCalendar;
+import org.richfaces.ui.input.AbstractCalendar;
 
 /**
  * @author amarkhel

@@ -25,7 +25,7 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.integration.MiscDeployment;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.renderkit.FocusRendererBase;
+import org.richfaces.ui.misc.FocusRendererBase;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient

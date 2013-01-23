@@ -22,11 +22,10 @@
  */
 package org.richfaces.javascript.client.message;
 
-import static org.junit.Assert.assertFalse;
-
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import static org.junit.Assert.assertFalse;
 
 /**
  * <p class="changed_added_4_0">

@@ -24,8 +24,8 @@ package org.richfaces.application.push.impl;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.ajax4jsf.javascript.ScriptStringBase;
-import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.javascript.ScriptStringBase;
+import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.application.push.MessageData;
 
 /**

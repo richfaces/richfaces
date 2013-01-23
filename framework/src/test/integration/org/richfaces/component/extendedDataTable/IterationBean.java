@@ -21,8 +21,6 @@
  **/
 package org.richfaces.component.extendedDataTable;
 
-import org.richfaces.component.SortOrder;
-
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;

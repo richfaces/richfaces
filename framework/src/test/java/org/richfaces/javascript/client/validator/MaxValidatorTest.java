@@ -3,12 +3,11 @@
  */
 package org.richfaces.javascript.client.validator;
 
-import java.util.List;
-
-import javax.validation.constraints.Max;
-
 import org.junit.runners.Parameterized.Parameters;
 import org.richfaces.javascript.client.RunParameters;
+
+import javax.validation.constraints.Max;
+import java.util.List;
 
 /**
  * @author asmirnov

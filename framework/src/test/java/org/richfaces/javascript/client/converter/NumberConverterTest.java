@@ -1,13 +1,12 @@
 package org.richfaces.javascript.client.converter;
 
-import java.util.List;
-import java.util.Map;
+import org.junit.runners.Parameterized.Parameters;
+import org.richfaces.javascript.client.RunParameters;
 
 import javax.faces.convert.Converter;
 import javax.faces.convert.NumberConverter;
-
-import org.junit.runners.Parameterized.Parameters;
-import org.richfaces.javascript.client.RunParameters;
+import java.util.List;
+import java.util.Map;
 
 public class NumberConverterTest extends ConverterTestBase {
     private static final String TYPE = "type";

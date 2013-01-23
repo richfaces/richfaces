@@ -28,7 +28,7 @@ import java.util.Properties;
 
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.Messages;
+import org.richfaces.Messages;
 import org.richfaces.application.CoreConfiguration;
 
 /**

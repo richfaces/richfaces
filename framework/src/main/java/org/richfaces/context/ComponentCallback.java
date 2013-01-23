@@ -32,8 +32,8 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.component.AjaxClientBehavior;
-import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
+import org.richfaces.ui.core.AjaxClientBehavior;
+import org.richfaces.ui.util.renderkit.CoreAjaxRendererUtils;
 
 /**
  * User: akolonitsky Date: Oct 13, 2009

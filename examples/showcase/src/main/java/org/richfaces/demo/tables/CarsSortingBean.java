@@ -11,7 +11,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
-import org.richfaces.component.SortOrder;
+import org.richfaces.ui.iteration.SortOrder;
 
 @ManagedBean
 @ViewScoped

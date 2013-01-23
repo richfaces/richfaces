@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
-import org.richfaces.renderkit.html.BaseGradient;
+import org.richfaces.ui.core.BaseGradient;
 
 public class PageFooterGradient extends BaseGradient {
     @Override

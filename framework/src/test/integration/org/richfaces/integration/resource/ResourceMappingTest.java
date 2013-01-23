@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.net.URL;
 import java.util.List;
 
-import org.ajax4jsf.util.base64.Codec;
+import org.richfaces.util.core.base64.Codec;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;

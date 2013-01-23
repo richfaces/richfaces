@@ -1,8 +1,8 @@
 package org.richfaces.javascript;
 
-import java.util.LinkedHashSet;
-
 import com.google.common.collect.Sets;
+
+import java.util.LinkedHashSet;
 
 /**
  * This class represent information about external JavaScript library as JSF resource

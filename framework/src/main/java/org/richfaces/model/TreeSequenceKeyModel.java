@@ -23,10 +23,6 @@ package org.richfaces.model;
 
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.Range;
-
 /**
  * @author Nick Belaevski
  *

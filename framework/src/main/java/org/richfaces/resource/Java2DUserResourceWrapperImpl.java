@@ -33,13 +33,13 @@ import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 
-import org.ajax4jsf.io.ByteBuffer;
-import org.ajax4jsf.io.FastBufferInputStream;
-import org.ajax4jsf.io.FastBufferOutputStream;
-import org.ajax4jsf.util.HtmlColor;
+import org.richfaces.io.ByteBuffer;
+import org.richfaces.io.FastBufferInputStream;
+import org.richfaces.io.FastBufferOutputStream;
+import org.richfaces.util.core.HtmlColor;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import org.richfaces.ui.util.renderkit.HtmlDimensions;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 

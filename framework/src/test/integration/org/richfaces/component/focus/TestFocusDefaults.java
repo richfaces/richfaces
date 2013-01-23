@@ -20,7 +20,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
-import org.richfaces.component.AbstractFocus;
+import org.richfaces.ui.misc.AbstractFocus;
 import org.richfaces.integration.MiscDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 

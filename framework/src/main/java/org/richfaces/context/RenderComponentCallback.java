@@ -26,8 +26,8 @@ import java.util.Collections;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.component.AjaxClientBehavior;
-import org.richfaces.renderkit.util.CoreRendererUtils;
+import org.richfaces.ui.core.AjaxClientBehavior;
+import org.richfaces.ui.util.renderkit.CoreRendererUtils;
 
 /**
  * @author akolonitsky

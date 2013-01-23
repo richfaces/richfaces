@@ -35,7 +35,7 @@ import javax.el.ExpressionFactory;
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.Messages;
+import org.richfaces.Messages;
 import org.richfaces.el.util.ELUtils;
 import org.richfaces.util.PropertiesUtil;
 

@@ -73,14 +73,14 @@
     
     <property>
         <property-name>selectionType</property-name>
-        <property-class>org.richfaces.component.SwitchType</property-class>
+        <property-class>org.richfaces.ui.common.SwitchType</property-class>
         <description>
             The type of type of the selection - ajax (default), client, server.
         </description>
     </property>
     <property>
         <property-name>toggleType</property-name>
-        <property-class>org.richfaces.component.SwitchType</property-class>
+        <property-class>org.richfaces.ui.common.SwitchType</property-class>
         <description>
             The type of type of the node toggling - ajax (default), client, server.
         </description>

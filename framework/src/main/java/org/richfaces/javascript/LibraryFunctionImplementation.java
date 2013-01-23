@@ -1,10 +1,9 @@
 package org.richfaces.javascript;
 
-import java.util.Collections;
-
+import com.google.common.collect.ImmutableList;
 import org.richfaces.resource.ResourceKey;
 
-import com.google.common.collect.ImmutableList;
+import java.util.Collections;
 
 final class LibraryFunctionImplementation implements LibraryFunction {
     private final Iterable<ResourceKey> library;

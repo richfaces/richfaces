@@ -3,17 +3,8 @@
  */
 package org.richfaces.javascript;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-
-import java.util.Map;
-
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.FacesContext;
-import javax.validation.constraints.Max;
-
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Iterables;
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;
 import org.jboss.test.faces.mock.Mock;
@@ -28,8 +19,15 @@ import org.junit.runner.RunWith;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.validator.ValidatorWithFacesResource;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Iterables;
+import javax.faces.application.Resource;
+import javax.faces.application.ResourceHandler;
+import javax.faces.context.FacesContext;
+import javax.validation.constraints.Max;
+import java.util.Map;
+
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 /**
  * @author asmirnov

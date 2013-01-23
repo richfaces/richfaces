@@ -26,7 +26,7 @@ import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
 
-import org.richfaces.component.AbstractAttachQueue;
+import org.richfaces.ui.ajax.AbstractAttachQueue;
 
 /**
  * @author Nick Belaevski

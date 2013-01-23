@@ -37,9 +37,9 @@ import javax.faces.view.facelets.CompositeFaceletHandler;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.FaceletHandler;
 
-import org.richfaces.component.AbstractParameter;
-import org.richfaces.component.UIHashParameter;
-import org.richfaces.component.behavior.ComponentControlBehavior;
+import org.richfaces.ui.ajax.AbstractParameter;
+import org.richfaces.ui.misc.UIHashParameter;
+import org.richfaces.ui.behavior.ComponentControlBehavior;
 import org.richfaces.view.facelets.html.CustomBehaviorHandler;
 
 /**

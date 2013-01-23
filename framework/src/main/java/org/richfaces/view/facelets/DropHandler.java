@@ -30,7 +30,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.AbstractDropTarget;
+import org.richfaces.ui.drag.AbstractDropTarget;
 import org.richfaces.event.MethodExpressionDropListener;
 
 /**

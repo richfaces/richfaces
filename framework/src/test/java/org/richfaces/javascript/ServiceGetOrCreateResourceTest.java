@@ -1,15 +1,6 @@
 package org.richfaces.javascript;
 
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.expectLastCall;
-import static org.junit.Assert.assertSame;
-
-import java.util.List;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-
+import com.google.common.collect.Lists;
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.After;
@@ -17,9 +8,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.ValidatorTestBase;
-import org.richfaces.component.UIScripts;
+import org.richfaces.ui.core.UIScripts;
 
-import com.google.common.collect.Lists;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
+import java.util.List;
+
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.junit.Assert.assertSame;
 
 @RunWith(MockTestRunner.class)
 public class ServiceGetOrCreateResourceTest extends ValidatorTestBase {

@@ -30,7 +30,7 @@ import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.component.AjaxOutput;
+import org.richfaces.ui.core.AjaxOutput;
 
 /**
  * @author Nick Belaevski

@@ -31,7 +31,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.AbstractDataScroller;
+import org.richfaces.ui.iteration.AbstractDataScroller;
 
 /**
  * Created 11.03.2008

@@ -34,7 +34,7 @@ import java.util.Properties;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.resource.util.URLToStreamHelper;
+import org.richfaces.util.core.resource.URLToStreamHelper;
 import org.richfaces.application.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
