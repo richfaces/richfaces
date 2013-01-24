@@ -21,13 +21,15 @@
  */
 package org.richfaces.ui.core;
 
-import org.jboss.test.faces.FacesEnvironment;
-import org.jboss.test.faces.FacesEnvironment.FacesRequest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.richfaces.ui.ajax.AbstractRegion;
-import org.richfaces.ui.ajax.AjaxContainer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.richfaces.ui.ajax.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
+import static org.richfaces.ui.ajax.AjaxConstants.ALL;
+import static org.richfaces.ui.ajax.AjaxConstants.THIS;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
@@ -37,15 +39,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import java.util.Collection;
-import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.richfaces.ui.ajax.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
-import static org.richfaces.ui.ajax.AjaxConstants.ALL;
-import static org.richfaces.ui.ajax.AjaxConstants.THIS;
+import org.jboss.test.faces.FacesEnvironment;
+import org.jboss.test.faces.FacesEnvironment.FacesRequest;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.richfaces.ui.ajax.AbstractRegion;
+import org.richfaces.ui.ajax.AjaxContainer;
 
 /**
  * Test page pseudo-code:
@@ -70,6 +72,7 @@ import static org.richfaces.ui.ajax.AjaxConstants.THIS;
  * @author Nick Belaevski
  *
  */
+@Ignore("RF-12747")
 public class RegionTest {
     private FacesEnvironment environment;
     private FacesRequest request;

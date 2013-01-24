@@ -21,21 +21,23 @@
  */
 package org.richfaces.ui.menu;
 
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.ui.common.RendererTestBase;
 import org.xml.sax.SAXException;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import com.gargoylesoftware.htmlunit.html.HtmlDivision;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
+@Ignore("RF-12747")
 public class MenuItemRendererTest extends RendererTestBase {
     @Override
     public void setUp() throws URISyntaxException {

@@ -1,20 +1,23 @@
 package org.richfaces.ui.input;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.util.List;
+
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.DifferenceListener;
 import org.custommonkey.xmlunit.IgnoreTextAndAttributeValuesDifferenceListener;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.ui.common.RendererTestBase;
 
-import java.io.File;
-import java.net.URISyntaxException;
-import java.util.List;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+@Ignore("RF-12747")
 public class AutocompleteRendererTest extends RendererTestBase {
     @Override
     public void setUp() throws URISyntaxException {
