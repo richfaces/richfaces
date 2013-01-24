@@ -51,18 +51,18 @@ public class TestColumnWidth {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/iteration");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
+        
+        
 
         p.body("<h:form id='myForm'>");
-        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBean.values}' var='bean'>");
-        p.body("        <rich:column id='column1' width='200px'>");
+        p.body("    <r:extendedDataTable id='edt' value='#{iterationBean.values}' var='bean'>");
+        p.body("        <r:column id='column1' width='200px'>");
         p.body("            <h:outputText value='Bean:' />");
-        p.body("        </rich:column>");
-        p.body("        <rich:column id='column2'>");
+        p.body("        </r:column>");
+        p.body("        <r:column id='column2'>");
         p.body("            <h:outputText value='#{bean}' />");
-        p.body("        </rich:column>");
-        p.body("    </rich:extendedDataTable>");
+        p.body("        </r:column>");
+        p.body("    </r:extendedDataTable>");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");

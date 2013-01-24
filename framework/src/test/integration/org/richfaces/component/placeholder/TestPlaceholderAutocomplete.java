@@ -43,30 +43,30 @@ public class TestPlaceholderAutocomplete extends AbstractPlaceholderTest {
 
         FaceletAsset p;
         p = deployment.baseFacelet("index.xhtml");
-        p.body("<input:autocomplete id='input'>");
-        p.body("    <misc:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
-        p.body("</input:autocomplete>");
+        p.body("<r:autocomplete id='input'>");
+        p.body("    <r:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
+        p.body("</r:autocomplete>");
 
         p = deployment.baseFacelet("selector.xhtml");
-        p.body("<input:autocomplete id='input' />");
-        p.body("<misc:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
+        p.body("<r:autocomplete id='input' />");
+        p.body("<r:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
 
         p = deployment.baseFacelet("rendered.xhtml");
-        p.body("<input:autocomplete id='input'>");
-        p.body("    <misc:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
-        p.body("</input:autocomplete>");
+        p.body("<r:autocomplete id='input'>");
+        p.body("    <r:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
+        p.body("</r:autocomplete>");
 
         p = deployment.baseFacelet("converter.xhtml");
-        p.body("<input:autocomplete id='input' >");
-        p.body("    <misc:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
-        p.body("</input:autocomplete>");
+        p.body("<r:autocomplete id='input' >");
+        p.body("    <r:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
+        p.body("</r:autocomplete>");
 
         p = deployment.baseFacelet("submit.xhtml");
-        p.form("<input:autocomplete id='input' value='#{placeHolderValue.value2}' >");
-        p.form("    <misc:placeholder id='placeholderID' value='Placeholder Text' />");
-        p.form("</input:autocomplete>");
+        p.form("<r:autocomplete id='input' value='#{placeHolderValue.value2}' >");
+        p.form("    <r:placeholder id='placeholderID' value='Placeholder Text' />");
+        p.form("</r:autocomplete>");
         p.form("<br />");
-        p.form("<a4j:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");
+        p.form("<r:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");
         p.form("<h:commandButton id='httpSubmit' value='http submit' />");
         p.form("<br />");
         p.form("<h:outputText id='output' value='#{placeHolderValue.value2}' />");

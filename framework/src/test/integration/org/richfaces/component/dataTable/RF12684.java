@@ -1,5 +1,8 @@
 package org.richfaces.component.dataTable;
 
+import java.net.URL;
+import java.util.List;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -17,9 +20,6 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.component.extendedDataTable.IterationBean;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import java.net.URL;
-import java.util.List;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -55,20 +55,18 @@ public class RF12684 {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/iteration");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.form("<rich:dataTable id='tableId' value='#{iterationBean.values}' var='bean' rows='3'> ");
-        p.form("    <rich:collapsibleSubTable id='collapsibleTableId' rows='3' /> ");
-        p.form("    <rich:column> ");
+        p.form("<r:dataTable id='tableId' value='#{iterationBean.values}' var='bean' rows='3'> ");
+        p.form("    <r:collapsibleSubTable id='collapsibleTableId' rows='3' /> ");
+        p.form("    <r:column> ");
         p.form("        <f:facet name='header'> ");
         p.form("            <h:outputText value='Header' styleClass='tableHeader' /> ");
         p.form("        </f:facet> ");
         p.form("        <h:outputText value='#{bean}' /> ");
-        p.form("    </rich:column> ");
+        p.form("    </r:column> ");
         p.form("    <f:facet name='footer'> ");
-        p.form("        <rich:dataScroller id='datascrollerId' for='tableId' fastControls='hide' /> ");
+        p.form("        <r:dataScroller id='datascrollerId' for='tableId' fastControls='hide' /> ");
         p.form("    </f:facet> ");
-        p.form("</rich:dataTable> ");
+        p.form("</r:dataTable> ");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }

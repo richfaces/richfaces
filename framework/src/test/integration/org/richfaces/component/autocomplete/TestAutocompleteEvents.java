@@ -78,10 +78,9 @@ public class TestAutocompleteEvents {
 
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/input");
 
         p.body("<h:form id='form'>");
-        p.body("    <rich:autocomplete autocompleteList='#{autocompleteBean.suggestions}'");
+        p.body("    <r:autocomplete autocompleteList='#{autocompleteBean.suggestions}'");
         p.body("                       onblur='this.value = this.value.toUpperCase()'  />");
         p.body("</h:form>");
 

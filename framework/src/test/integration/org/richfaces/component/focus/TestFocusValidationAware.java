@@ -28,10 +28,10 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.ui.misc.AbstractFocus;
 import org.richfaces.integration.MiscDeployment;
-import org.richfaces.ui.misc.FocusRendererBase;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.ui.misc.AbstractFocus;
+import org.richfaces.ui.misc.FocusRendererBase;
 
 @RunAsClient
 @WarpTest
@@ -60,7 +60,8 @@ public class TestFocusValidationAware {
     public static WebArchive createDeployment() {
         MiscDeployment deployment = new MiscDeployment(TestFocusValidationAware.class);
 
-        deployment.archive().addClasses(ComponentBean.class);
+        deployment.archive().addClasses(ComponentBean.class)
+                .addClasses(VerifyFocusCandidates.class, AbstractComponentAssertion.class);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         addIndexPage(deployment);
@@ -103,12 +104,12 @@ public class TestFocusValidationAware {
 
         assertEquals(input2, getFocusedElement());
     }
-    
+
     @Test
     public void testGlobalMessageIsIgnored() {
-        
+
         Warp.initiate(new Activity() {
-            
+
             @Override
             public void perform() {
                 guardHttp(submitButton).click();
@@ -121,19 +122,19 @@ public class TestFocusValidationAware {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage(null, new FacesMessage("global message"));
             }
-            
+
             @AfterPhase(Phase.RENDER_RESPONSE)
             public void verifyGlobalMessageIsIgnored() {
                 FacesContext context = FacesContext.getCurrentInstance();
-                
+
                 AbstractFocus component = bean.getComponent();
                 FocusRendererBase renderer = bean.getRenderer();
                 String candidates = renderer.getFocusCandidatesAsString(context, component);
-                
+
                 assertEquals("form", candidates);
             }
         });
-        
+
         assertEquals(input3, getFocusedElement());
     }
 
@@ -143,11 +144,11 @@ public class TestFocusValidationAware {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
+
+
 
         p.body("<h:form id='form'>");
-        p.body("    <rich:focus id='focus' binding='#{componentBean.component}' />");
+        p.body("    <r:focus id='focus' binding='#{componentBean.component}' />");
 
         p.body("    <h:inputText id='input1' />");
         p.body("    <h:inputText id='input2' tabindex='2' />");
@@ -155,7 +156,7 @@ public class TestFocusValidationAware {
 
         p.body("    <h:commandButton id='submit' value='Submit' />");
 
-        p.body("    <a4j:commandButton id='ajax' render='@form' value='Ajax' />");
+        p.body("    <r:commandButton id='ajax' render='@form' value='Ajax' />");
 
         p.body("</h:form>");
 

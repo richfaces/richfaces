@@ -121,10 +121,10 @@ public class TestFocusViewMode {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
+        
+        
 
-        p.body("<rich:focus id='focus' />");
+        p.body("<r:focus id='focus' />");
 
         p.body("<h:form id='form1'>");
 
@@ -134,7 +134,7 @@ public class TestFocusViewMode {
         p.body("    <h:commandButton id='submit' value='Submit' />");
 
         p.body("    <h:commandButton id='ajax' value='Ajax'>");
-        p.body("        <a4j:ajax execute='@form' render='@form' />");
+        p.body("        <r:ajax execute='@form' render='@form' />");
         p.body("    </h:commandButton>");
 
         p.body("</h:form>");
@@ -147,13 +147,13 @@ public class TestFocusViewMode {
         p.body("    <h:commandButton id='submit' value='Submit' />");
 
         p.body("    <h:commandButton id='ajax' value='Ajax'>");
-        p.body("        <a4j:ajax render='@form' />");
+        p.body("        <r:ajax render='@form' />");
         p.body("    </h:commandButton>");
 
         p.body("</h:form>");
 
         p.body("<h:form id='form3'>");
-        p.body("    <rich:focus id='focus' preserve='true' />");
+        p.body("    <r:focus id='focus' preserve='true' />");
 
         p.body("    <h:inputText id='input1' />");
         p.body("    <h:inputText id='input2' tabindex='1' />");
@@ -161,7 +161,7 @@ public class TestFocusViewMode {
         p.body("    <h:commandButton id='submit' value='Submit' />");
 
         p.body("    <h:commandButton id='ajax' value='Ajax'>");
-        p.body("        <a4j:ajax render='@form' />");
+        p.body("        <r:ajax render='@form' />");
         p.body("    </h:commandButton>");
 
         p.body("</h:form>");

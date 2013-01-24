@@ -67,7 +67,8 @@ public class TestFocusManager {
     public static WebArchive createDeployment() {
         MiscDeployment deployment = new MiscDeployment(TestFocusManager.class);
 
-        deployment.archive().addClasses(ComponentBean.class);
+        deployment.archive().addClasses(ComponentBean.class, AbstractComponentAssertion.class)
+                .addClasses(VerifyFocusEnforcing.class, VerifyFocusEnforcingOverridesFocusSettings.class);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         addIndexPage(deployment);
@@ -141,8 +142,8 @@ public class TestFocusManager {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
+
+
 
         p.body("<h:form id='form'>");
 
@@ -151,7 +152,7 @@ public class TestFocusManager {
 
         p.body("    <h:commandButton id='submit' value='Submit' />");
 
-        p.body("    <a4j:commandButton id='ajax' render='@form' value='Ajax' />");
+        p.body("    <r:commandButton id='ajax' render='@form' value='Ajax' />");
 
         p.body("</h:form> <ui:debug />");
 
@@ -160,18 +161,18 @@ public class TestFocusManager {
 
     private static void addFormFocusIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
+
+
 
         p.body("<h:form id='form'>");
-        p.body("    <rich:focus id='focus' binding='#{componentBean.component}' />");
+        p.body("    <r:focus id='focus' binding='#{componentBean.component}' />");
 
         p.body("    <h:inputText id='input1' />");
         p.body("    <h:inputText id='input2' />");
 
         p.body("    <h:commandButton id='submit' value='Submit' />");
 
-        p.body("    <a4j:commandButton id='ajax' render='@form' value='Ajax' />");
+        p.body("    <r:commandButton id='ajax' render='@form' value='Ajax' />");
 
         p.body("</h:form>");
 
@@ -180,10 +181,10 @@ public class TestFocusManager {
 
     private static void addViewFocusPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
-        p.body("<rich:focus id='focus' binding='#{componentBean.component}' />");
+
+
+        p.body("<r:focus id='focus' binding='#{componentBean.component}' />");
 
         p.body("<h:form id='form'>");
 
@@ -192,7 +193,7 @@ public class TestFocusManager {
 
         p.body("    <h:commandButton id='submit' value='Submit' />");
 
-        p.body("    <a4j:commandButton id='ajax' render='@form' value='Ajax' />");
+        p.body("    <r:commandButton id='ajax' render='@form' value='Ajax' />");
 
         p.body("</h:form>");
 

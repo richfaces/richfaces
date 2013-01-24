@@ -119,11 +119,11 @@ public class TestFocusSubmissionMethods {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
+        
+        
 
         p.body("<h:form id='form'>");
-        p.body("    <rich:focus id='focus' preserve='true' />");
+        p.body("    <r:focus id='focus' preserve='true' />");
 
         p.body("    <h:inputText id='input1' />");
         p.body("    <h:inputText id='input2' />");
@@ -135,10 +135,10 @@ public class TestFocusSubmissionMethods {
         p.body("    </h:commandButton>");
 
         p.body("    <h:commandButton id='ajaxRF' value='Ajax RF'>");
-        p.body("        <a4j:ajax render='@form' />");
+        p.body("        <r:ajax render='@form' />");
         p.body("    </h:commandButton>");
 
-        p.body("    <a4j:commandButton id='ajaxCommandButton' render='@form' value='Ajax Command Button' />");
+        p.body("    <r:commandButton id='ajaxCommandButton' render='@form' value='Ajax Command Button' />");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");

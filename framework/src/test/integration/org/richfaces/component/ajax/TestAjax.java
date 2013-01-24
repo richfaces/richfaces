@@ -1,6 +1,9 @@
 package org.richfaces.component.ajax;
 
+import java.net.URL;
+
 import junit.framework.Assert;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -17,8 +20,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.integration.CoreUIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import java.net.URL;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -53,12 +54,10 @@ public class TestAjax {
 
     private static void addIndexPage(CoreUIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/iteration");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='myForm'> ");
         p.body("    <h:inputText id='input' value='#{ajaxBean.value}'> ");
-        p.body("        <a4j:ajax listener='#{ajaxBean.listener(\"4\")}' render='@this' /> ");
+        p.body("        <r:ajax listener='#{ajaxBean.listener(\"4\")}' render='@this' /> ");
         p.body("    </h:inputText> ");
         p.body("</h:form> ");
 

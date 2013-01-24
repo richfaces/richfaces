@@ -7,7 +7,7 @@ import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.integration.CoreDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 
 @RunWith(Arquillian.class)
 @WarpTest
@@ -15,7 +15,7 @@ public class AutoRegisteredPushServletTest extends AbstractPushTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        CoreDeployment deployment = createBasicDeployment();
+        FrameworkDeployment deployment = createBasicDeployment();
         return deployment.getFinalArchive();
     }
 

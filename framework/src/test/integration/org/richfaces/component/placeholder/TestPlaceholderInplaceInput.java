@@ -47,30 +47,30 @@ public class TestPlaceholderInplaceInput extends AbstractPlaceholderTest {
 
         FaceletAsset p;
         p = deployment.baseFacelet("index.xhtml");
-        p.body("<input:inplaceInput id='input' >");
-        p.body("    <misc:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
-        p.body("</input:inplaceInput>");
+        p.body("<r:inplaceInput id='input' >");
+        p.body("    <r:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
+        p.body("</r:inplaceInput>");
 
         p = deployment.baseFacelet("selector.xhtml");
-        p.body("<input:inplaceInput id='input' />");
+        p.body("<r:inplaceInput id='input' />");
         p.body("<h:inputText id='second-input' />");
 
         p = deployment.baseFacelet("rendered.xhtml");
-        p.body("<input:inplaceInput id='input' defaultLabel='#{not empty param.defaultLabel ? param.defaultLabel : null}' >");
-        p.body("    <misc:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
-        p.body("</input:inplaceInput>");
+        p.body("<r:inplaceInput id='input' defaultLabel='#{not empty param.defaultLabel ? param.defaultLabel : null}' >");
+        p.body("    <r:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
+        p.body("</r:inplaceInput>");
 
         p = deployment.baseFacelet("converter.xhtml");
-        p.body("<input:inplaceInput id='input' >");
-        p.body("    <misc:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
-        p.body("</input:inplaceInput>");
+        p.body("<r:inplaceInput id='input' >");
+        p.body("    <r:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
+        p.body("</r:inplaceInput>");
 
         p = deployment.baseFacelet("submit.xhtml");
-        p.form("<input:inplaceInput id='input' value='#{placeHolderValue.value2}' >");
-        p.form("    <misc:placeholder id='placeholderID' value='Placeholder Text' />");
-        p.form("</input:inplaceInput>");
+        p.form("<r:inplaceInput id='input' value='#{placeHolderValue.value2}' >");
+        p.form("    <r:placeholder id='placeholderID' value='Placeholder Text' />");
+        p.form("</r:inplaceInput>");
         p.form("<br />");
-        p.form("<a4j:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");
+        p.form("<r:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");
         p.form("<h:commandButton id='httpSubmit' value='http submit' />");
         p.form("<br />");
         p.form("<h:outputText id='output' value='#{placeHolderValue.value2}' />");

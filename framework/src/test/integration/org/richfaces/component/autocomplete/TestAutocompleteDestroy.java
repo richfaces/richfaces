@@ -69,7 +69,6 @@ public class TestAutocompleteDestroy {
 
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/input");
 
         p.body("<h:form id='form'>");
 
@@ -77,7 +76,7 @@ public class TestAutocompleteDestroy {
         p.body("        <f:ajax execute='@form' render='@form'/>");
         p.body("    </h:commandButton>");
 
-        p.body("    <rich:autocomplete autocompleteList='#{autocompleteBean.suggestions}' />");
+        p.body("    <r:autocomplete autocompleteList='#{autocompleteBean.suggestions}' />");
 
         p.body("</h:form>");
 

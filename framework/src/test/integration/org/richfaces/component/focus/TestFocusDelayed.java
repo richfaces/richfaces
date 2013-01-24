@@ -88,18 +88,18 @@ public class TestFocusDelayed {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
+        
+        
 
         p.body("<h:form id='form'>");
-        p.body("    <rich:focus id='focus' delayed='true' />");
+        p.body("    <r:focus id='focus' delayed='true' />");
 
         p.body("    <h:inputText id='input1' />");
         p.body("    <h:inputText id='input2' />");
 
         p.body("    <h:commandButton id='submit' value='Submit' />");
 
-        p.body("    <a4j:commandButton id='ajax' render='@form' value='Ajax' />");
+        p.body("    <r:commandButton id='ajax' render='@form' value='Ajax' />");
 
         p.body("</h:form>");
 

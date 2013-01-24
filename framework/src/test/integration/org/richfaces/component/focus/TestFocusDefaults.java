@@ -20,9 +20,9 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
-import org.richfaces.ui.misc.AbstractFocus;
 import org.richfaces.integration.MiscDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.ui.misc.AbstractFocus;
 
 @RunAsClient
 @WarpTest
@@ -40,26 +40,26 @@ public class TestFocusDefaults {
         MiscDeployment deployment = new MiscDeployment(TestFocusValidationAware.class);
 
         deployment.archive()
-            .addClasses(ComponentBean.class)
+            .addClasses(ComponentBean.class, VerifyFocusCandidates.class, AbstractComponentAssertion.class)
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         addIndexPage(deployment);
 
         return deployment.getFinalArchive();
     }
-    
+
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
+
+
 
         p.body("<h:form id='form'>");
-        p.body("    <rich:focus id='focus' binding='#{componentBean.component}' />");
+        p.body("    <r:focus id='focus' binding='#{componentBean.component}' />");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
-    
+
     @Test
     public void testDefaultAttributes() {
         Warp.initiate(new Activity() {
@@ -68,7 +68,7 @@ public class TestFocusDefaults {
             }
         }).inspect(new AbstractComponentAssertion() {
             private static final long serialVersionUID = 1L;
-            
+
             @AfterPhase(Phase.RENDER_RESPONSE)
             public void verify_default_attributes() {
                 AbstractFocus component = bean.getComponent();
@@ -79,7 +79,7 @@ public class TestFocusDefaults {
             }
         });
     }
-    
+
     @Test
     public void testDefaultFocusCandidates() {
         Warp.initiate(new Activity() {

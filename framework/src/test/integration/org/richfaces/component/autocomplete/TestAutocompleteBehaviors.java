@@ -101,13 +101,11 @@ public class TestAutocompleteBehaviors {
 
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.xmlns("rich", "http://richfaces.org/input");
 
         p.body("<h:form id='form'>");
-        p.body("    <rich:autocomplete id='autocomplete' autocompleteList='#{autocompleteBean.suggestions}'>");
-        p.body("        <a4j:ajax event='blur' listener='#{autocompleteBean.actionListener}' />");
-        p.body("    </rich:autocomplete>");
+        p.body("    <r:autocomplete id='autocomplete' autocompleteList='#{autocompleteBean.suggestions}'>");
+        p.body("        <r:ajax event='blur' listener='#{autocompleteBean.actionListener}' />");
+        p.body("    </r:autocomplete>");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");

@@ -63,10 +63,10 @@ public class TestFocusTabindex {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
+        
 
         p.body("<h:form id='form'>");
-        p.body("    <rich:focus id='focus' />");
+        p.body("    <r:focus id='focus' />");
 
         p.body("    <h:inputText id='input3' />");
         p.body("    <h:inputText id='input2' tabindex='2' />");
@@ -78,10 +78,10 @@ public class TestFocusTabindex {
     
     private static void addNoTabindexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
+        
 
         p.body("<h:form id='form'>");
-        p.body("    <rich:focus id='focus' />");
+        p.body("    <r:focus id='focus' />");
 
         p.body("    <h:inputText id='input1' />");
         p.body("    <h:inputText id='input2' />");

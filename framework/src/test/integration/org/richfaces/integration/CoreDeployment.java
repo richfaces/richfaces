@@ -38,8 +38,6 @@ import javax.faces.event.PostConstructApplicationEvent;
 import javax.faces.event.PreDestroyApplicationEvent;
 import javax.servlet.ServletContainerInitializer;
 
-import org.richfaces.util.core.resource.URLToStreamHelper;
-import org.richfaces.util.core.base64.Codec;
 import org.jboss.arquillian.container.test.spi.RemoteLoadableExtension;
 import org.jboss.shrinkwrap.api.Filters;
 import org.jboss.shrinkwrap.api.GenericArchive;
@@ -75,6 +73,7 @@ import org.richfaces.application.push.MessageDataSerializer;
 import org.richfaces.application.push.MessageException;
 import org.richfaces.application.push.PushContext;
 import org.richfaces.application.push.PushContextFactory;
+import org.richfaces.application.push.PushContextInitializationException;
 import org.richfaces.application.push.Request;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.SessionFactory;
@@ -100,12 +99,8 @@ import org.richfaces.application.push.impl.TopicImpl;
 import org.richfaces.application.push.impl.TopicsContextImpl;
 import org.richfaces.application.push.impl.jms.JMSTopicsContextImpl;
 import org.richfaces.cache.Cache;
-import org.richfaces.ui.core.UIResource;
-import org.richfaces.ui.core.UITransient;
 import org.richfaces.deployment.Deployment;
 import org.richfaces.el.GenericsIntrospectionService;
-import org.richfaces.el.util.ConstantValueExpression;
-import org.richfaces.el.util.ELUtils;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.l10n.BundleLoader;
 import org.richfaces.l10n.InterpolationException;
@@ -115,48 +110,26 @@ import org.richfaces.log.JavaLogger;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.ui.ajax.AjaxDataSerializer;
-import org.richfaces.ui.core.ResourceLibraryRenderer;
-import org.richfaces.ui.core.ResourceRenderer;
-import org.richfaces.resource.AbstractBaseResource;
-import org.richfaces.resource.AbstractCacheableResource;
-import org.richfaces.resource.BaseResourceWrapper;
-import org.richfaces.resource.CachedResourceImpl;
-import org.richfaces.resource.CompiledCSSResource;
-import org.richfaces.resource.DefaultCodecResourceRequestData;
 import org.richfaces.resource.DefaultResourceCodec;
-import org.richfaces.resource.Java2DAnimatedUserResource;
-import org.richfaces.resource.Java2DAnimatedUserResourceWrapperImpl;
-import org.richfaces.resource.Java2DUserResource;
-import org.richfaces.resource.Java2DUserResourceWrapperImpl;
 import org.richfaces.resource.ResourceCodec;
-import org.richfaces.resource.ResourceFactoryImpl;
 import org.richfaces.resource.ResourceHandlerImpl;
 import org.richfaces.resource.ResourceLibrary;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.ResourceLibraryFactoryImpl;
-import org.richfaces.resource.ResourceLoadingOptimization;
-import org.richfaces.resource.ResourceMappingConfiguration;
-import org.richfaces.resource.ResourceMappingFeature;
-import org.richfaces.resource.ResourceParameterELResolver;
-import org.richfaces.resource.ResourceUtils;
 import org.richfaces.resource.StaticResourceLibrary;
-import org.richfaces.resource.UserResourceWrapperImpl;
-import org.richfaces.resource.external.ExternalMapping;
 import org.richfaces.resource.external.ExternalResourceTracker;
 import org.richfaces.resource.external.ExternalResourceTrackerWrapper;
-import org.richfaces.resource.external.ExternalStaticResource;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
-import org.richfaces.resource.external.MojarraExternalResourceTracker;
-import org.richfaces.resource.external.MyFacesExternalResourceTracker;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 import org.richfaces.skin.SkinFactory;
-import org.richfaces.util.ObjectInputStreamImpl;
+import org.richfaces.ui.ajax.AjaxDataSerializer;
+import org.richfaces.ui.core.ResourceLibraryRenderer;
+import org.richfaces.ui.core.ResourceRenderer;
+import org.richfaces.ui.core.UIResource;
+import org.richfaces.ui.core.UITransient;
 import org.richfaces.util.PropertiesUtil;
-import org.richfaces.util.RequestStateManager;
-import org.richfaces.util.URLUtils;
-import org.richfaces.util.Util;
+import org.richfaces.util.core.base64.Codec;
 import org.richfaces.wait.Condition;
 import org.richfaces.wait.Wait;
 import org.richfaces.wait.WaitTimeoutException;
@@ -227,11 +200,6 @@ public class CoreDeployment extends Deployment {
         return alreadyAdded;
     }
 
-    public CoreDeployment withApi() {
-        addMavenDependency("org.richfaces.core:richfaces-core-api");
-        return this;
-    }
-
     /**
      * Adds base classes which are necessary for each Core test
      */
@@ -244,10 +212,15 @@ public class CoreDeployment extends Deployment {
      * Adds all utility classes
      */
     public CoreDeployment withUtilities() {
-        archive().addClasses(Util.class, PropertiesUtil.class, URLUtils.class);
-        archive().addClasses(RequestStateManager.class);
-        archive().addClasses(URLToStreamHelper.class, ObjectInputStreamImpl.class);
-        archive().addClasses(ELUtils.class, ConstantValueExpression.class);
+        archive().addPackages(true, "org.richfaces.util");
+        return this;
+    }
+
+    /**
+     * Adds expression language classes
+     */
+    public CoreDeployment withEL() {
+        archive().addPackages(true, "org.richfaces.el");
         return this;
     }
 
@@ -340,7 +313,8 @@ public class CoreDeployment extends Deployment {
                 .addClasses(PushContextFactory.class, PushContextFactoryImpl.class)
                 .addClasses(SessionSubscriptionEvent.class, SessionUnsubscriptionEvent.class)
                 .addClasses(MessageException.class)
-                .addClasses(JMSTopicsContextImpl.class);
+                .addClasses(JMSTopicsContextImpl.class)
+                .addClasses(PushContextInitializationException.class);
 
 
         archive()
@@ -417,17 +391,9 @@ public class CoreDeployment extends Deployment {
 
         archive()
             // resource
-            .addClasses(ResourceHandlerImpl.class, ResourceFactoryImpl.class)
-            .addClasses(ResourceLoadingOptimization.class, ResourceMappingConfiguration.class, ResourceMappingFeature.class)
-            .addClasses(Java2DAnimatedUserResource.class, Java2DUserResource.class, Java2DAnimatedUserResourceWrapperImpl.class, Java2DUserResourceWrapperImpl.class)
-            .addClasses(AbstractBaseResource.class, AbstractCacheableResource.class, CachedResourceImpl.class)
-            .addClasses(BaseResourceWrapper.class, UserResourceWrapperImpl.class)
-            .addClasses(CompiledCSSResource.class, DefaultResourceCodec.class, DefaultCodecResourceRequestData.class)
-            .addClasses(ResourceUtils.class, ResourceParameterELResolver.class)
-            // resource.external
-            .addClasses(ExternalMapping.class, ExternalResourceTracker.class, ExternalResourceTrackerWrapper.class)
-            .addClasses(MojarraExternalResourceTracker.class, MyFacesExternalResourceTracker.class)
-            .addClasses(ExternalStaticResource.class, ExternalStaticResourceFactory.class, ExternalStaticResourceFactoryImpl.class)
+            .addPackage("org.richfaces.resource")
+            .addPackage("org.richfaces.resource.css")
+            .addPackage("org.richfaces.resource.external")
             // codec
             .addClasses(Codec.class)
             // cache
@@ -451,9 +417,7 @@ public class CoreDeployment extends Deployment {
     }
 
     public CoreDeployment withWholeCore() {
-        withApi();
-
-        JavaArchive coreArchive = ShrinkWrap.create(JavaArchive.class, "richfaces-core-impl.jar");
+        JavaArchive coreArchive = ShrinkWrap.create(JavaArchive.class, "richfaces-framework.jar");
         coreArchive.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
             .importDirectory("target/classes/").as(GenericArchive.class),
             "/", Filters.includeAll());

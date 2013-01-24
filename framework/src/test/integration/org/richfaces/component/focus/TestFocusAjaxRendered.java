@@ -65,16 +65,16 @@ public class TestFocusAjaxRendered {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
+        
+        
 
         p.body("<h:form id='form'>");
-        p.body("    <rich:focus id='focus' ajaxRendered='false' />");
+        p.body("    <r:focus id='focus' ajaxRendered='false' />");
 
         p.body("    <h:inputText id='input1' />");
         p.body("    <h:inputText id='input2' />");
 
-        p.body("    <a4j:commandButton id='ajax' render='input1 input2' value='Ajax' />");
+        p.body("    <r:commandButton id='ajax' render='input1 input2' value='Ajax' />");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");

@@ -213,8 +213,8 @@ public class TestTableState {
 
     private static FaceletAsset getPage(String edtAttributes) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/iteration");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
+        
+        
 
         p.body("<script type='text/javascript'>");
         p.body("function sortEdt(currentSortOrder) { ");
@@ -228,12 +228,12 @@ public class TestTableState {
         p.body("} ");
         p.body("</script>");
         p.body("<h:form id='myForm'> ");
-        p.body("    <rich:extendedDataTable " + edtAttributes + " filterVar='fv' > ");
-        p.body("        <rich:column id='column1' width='150px' > ");
+        p.body("    <r:extendedDataTable " + edtAttributes + " filterVar='fv' > ");
+        p.body("        <r:column id='column1' width='150px' > ");
         p.body("            <f:facet name='header'>Column 1</f:facet> ");
         p.body("            <h:outputText value='Bean:' /> ");
-        p.body("        </rich:column> ");
-        p.body("        <rich:column id='column2' width='150px' ");
+        p.body("        </r:column> ");
+        p.body("        <r:column id='column2' width='150px' ");
         p.body("                         sortBy='#{bean}' ");
         p.body("                         sortOrder='#{iterationTableStateBean.sortOrder}' ");
         p.body("                         filterValue='#{iterationTableStateBean.filterValue}' ");
@@ -251,13 +251,13 @@ public class TestTableState {
         p.body("                </h:panelGrid> ");
         p.body("            </f:facet> ");
         p.body("            <h:outputText value='#{bean}' /> ");
-        p.body("        </rich:column> ");
-        p.body("        <rich:column id='column3' width='150px' > ");
+        p.body("        </r:column> ");
+        p.body("        <r:column id='column3' width='150px' > ");
         p.body("            <f:facet name='header'>Column 3</f:facet> ");
         p.body("            <h:outputText value='R#{bean}C3' /> ");
-        p.body("        </rich:column> ");
-        p.body("    </rich:extendedDataTable> ");
-        p.body("    <a4j:commandButton id='ajax' execute='edt' render='edt' value='Ajax' /> ");
+        p.body("        </r:column> ");
+        p.body("    </r:extendedDataTable> ");
+        p.body("    <r:commandButton id='ajax' execute='edt' render='edt' value='Ajax' /> ");
         p.body("</h:form> ");
         return p;
     }

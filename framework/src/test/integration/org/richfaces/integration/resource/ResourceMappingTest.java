@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import java.net.URL;
 import java.util.List;
 
-import org.richfaces.util.core.base64.Codec;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -14,18 +13,18 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.integration.CoreDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.resource.ResourceHandlerImpl;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
+import org.richfaces.util.core.base64.Codec;
 
 @RunWith(Arquillian.class)
 @WarpTest
@@ -40,7 +39,7 @@ public class ResourceMappingTest {
     @Deployment
     public static WebArchive createDeployment() {
 
-        CoreDeployment deployment = new CoreDeployment(null);
+        FrameworkDeployment deployment = new FrameworkDeployment(null);
 
         PropertiesAsset staticResourceMapping = new PropertiesAsset()
                 .key(":original.css").value("relocated.css")
@@ -55,11 +54,9 @@ public class ResourceMappingTest {
 
         FaceletAsset aggregationPage = new FaceletAsset().head("<h:outputStylesheet name=\"part1.css\" />"
                 + "<h:outputStylesheet name=\"part2.css\" />");
-        
+
         FaceletAsset javaScriptAggregationPage = new FaceletAsset().head("<h:outputScript name=\"part1.js\" />"
                 + "<h:outputScript name=\"part2.js\" />");
-
-        deployment.withResourceHandler();
 
         deployment.archive()
                 /** classes */
@@ -111,13 +108,13 @@ public class ResourceMappingTest {
 
         assertTrue("href must contain aggregated.css resource path: " + href, href.contains("/javax.faces.resource/aggregated.css"));
     }
-    
+
     @Test
     @RunAsClient
     public void test_javascript_resource_aggregation() {
 
         driver.navigate().to(contextPath + "javaScriptAggregation.jsf");
-        
+
         List<WebElement> elements = driver.findElements(By.cssSelector("head > script"));
 
         assertEquals("There must be exactly one resource link rendered", 1, elements.size());

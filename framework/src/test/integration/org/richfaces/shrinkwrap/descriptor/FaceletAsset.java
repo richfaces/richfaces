@@ -50,6 +50,10 @@ public class FaceletAsset implements Asset {
         }
     }
 
+    public FaceletAsset() {
+        this.xmlns("r", "http://richfaces.org/core");
+    }
+
     @Override
     public InputStream openStream() {
         return getAsStringAsset().openStream();

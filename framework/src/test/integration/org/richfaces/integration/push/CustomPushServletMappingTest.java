@@ -8,7 +8,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.integration.CoreDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.webapp.PushServlet;
 
 import com.google.common.base.Function;
@@ -19,8 +19,8 @@ public class CustomPushServletMappingTest extends AbstractPushTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        CoreDeployment deployment = createBasicDeployment();
-        
+        FrameworkDeployment deployment = createBasicDeployment();
+
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
                 return webXml
@@ -39,7 +39,7 @@ public class CustomPushServletMappingTest extends AbstractPushTest {
                         .up();
             }
         });
-        
+
         return deployment.getFinalArchive();
     }
 

@@ -11,21 +11,12 @@ public class InputDeployment extends Deployment {
 
     public InputDeployment(Class<?> testClass) {
         super(testClass);
-        
-        this.addMavenDependency(
-                "org.richfaces.core:richfaces-core-api",
-                "org.richfaces.core:richfaces-core-impl",
-                "org.richfaces.ui.common:richfaces-ui-common-api",
-                "org.richfaces.ui.common:richfaces-ui-common-ui",
-                "org.richfaces.ui.core:richfaces-ui-core-api",
-                "org.richfaces.ui.core:richfaces-ui-core-ui",
-                "org.richfaces.ui.input:richfaces-ui-input-api");
-        
-        JavaArchive miscArchive = ShrinkWrap.create(JavaArchive.class, "richfaces-ui-input-ui.jar");
+
+        JavaArchive miscArchive = ShrinkWrap.create(JavaArchive.class, "richfaces-framework.jar");
         miscArchive.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
             .importDirectory("target/classes/").as(GenericArchive.class),
             "/", Filters.includeAll());
         archive().addAsLibrary(miscArchive);
-        
+
     }
 }

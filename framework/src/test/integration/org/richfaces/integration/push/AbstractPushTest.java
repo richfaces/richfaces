@@ -27,7 +27,7 @@ import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
-import org.richfaces.integration.CoreDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.webapp.PushHandlerFilter;
 
@@ -40,37 +40,21 @@ public class AbstractPushTest {
     @ArquillianResource
     URL contextPath;
 
-    public static CoreDeployment createBasicDeployment() {
+    public static FrameworkDeployment createBasicDeployment() {
 
-        CoreDeployment deployment = new CoreDeployment(null);
+        FrameworkDeployment deployment = new FrameworkDeployment(null);
 
+        FaceletAsset p = new FaceletAsset();
+        p.body("<script>document.title = 'waiting-for-message'; RichFaces.Push.logLevel = \"debug\";</script>");
+        p.body("<r:push address=\"" + Commons.TOPIC + "\" ondataavailable=\"console.log('a4j:push message: ' + event.rf.data); document.title = 'message-received: ' + event.rf.data\" />");
 
         deployment.addMavenDependency(
-                "org.richfaces.ui.common:richfaces-ui-common-api",
-                "org.richfaces.ui.common:richfaces-ui-common-ui",
-                "org.richfaces.ui.core:richfaces-ui-core-api",
-                "org.richfaces.ui.core:richfaces-ui-core-ui");
+                "org.atmosphere:atmosphere-runtime:1.0.1",
+                "org.atmosphere:atmosphere-compat-jbossweb:1.0.1",
+                "org.atmosphere:atmosphere-compat-tomcat:1.0.1",
+                "org.atmosphere:atmosphere-compat-tomcat7:1.0.1");
 
-        FaceletAsset pushPage = new FaceletAsset();
-        pushPage.xmlns("a4j", "http://richfaces.org/a4j");
-        pushPage.body("<script>document.title = 'waiting-for-message'; RichFaces.Push.logLevel = \"debug\";</script>");
-        pushPage.body("<a4j:push address=\"" + Commons.TOPIC + "\" ondataavailable=\"console.log('a4j:push message: ' + event.rf.data); document.title = 'message-received: ' + event.rf.data\" />");
-
-        deployment.archive()
-                .addClass(AbstractPushTest.class)
-                /** ROOT */
-                .addAsWebResource(pushPage, "index.xhtml")
-                .addAsResource("META-INF/resources/richfaces-event.js")
-                .addAsResource("META-INF/resources/jquery.js")
-                .addAsResource("META-INF/resources/richfaces.js")
-                .addAsResource("META-INF/resources/richfaces-queue.js")
-                .addAsResource("META-INF/resources/richfaces-base-component.js");
-
-        deployment.withResourceHandler();
-        deployment.withDependencyInjector();
-        deployment.withResourceCodec();
-        deployment.withResourceLibraries();
-        deployment.withPush();
+        deployment.archive().addAsWebResource(p, "index.xhtml");
 
         return deployment;
     }
@@ -85,8 +69,10 @@ public class AbstractPushTest {
                         driver.navigate().to(contextPath);
                     }
                 })
-            .observe(new UriRequestFilter("__richfacesPushAsync"))
-            .inspect(new PushServletAssertion());
+            .group()
+                .observe(new UriRequestFilter("__richfacesPushAsync"))
+                .inspect(new PushServletAssertion())
+            .execute();
 
         waitAjax().withTimeout(5,  SECONDS).until(titleIs("message-received: 1"));
     }

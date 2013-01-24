@@ -77,8 +77,8 @@ public class TestDisablingBuiltinSortingAndFiltering {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/iteration");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
+        
+        
 
         p.body("<script type='text/javascript'>");
         p.body("function sortEdt(currentSortOrder) { ");
@@ -92,27 +92,27 @@ public class TestDisablingBuiltinSortingAndFiltering {
         p.body("} ");
         p.body("</script>");
         p.body("<h:form id='myForm'> ");
-        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBuiltInBean.values}' var='bean' filterVar='fv' > ");
-        p.body("        <rich:column id='column1' width='150px' > ");
+        p.body("    <r:extendedDataTable id='edt' value='#{iterationBuiltInBean.values}' var='bean' filterVar='fv' > ");
+        p.body("        <r:column id='column1' width='150px' > ");
         p.body("            <f:facet name='header'>Column 1</f:facet> ");
         p.body("            <h:outputText value='Bean:' /> ");
-        p.body("        </rich:column> ");
-        p.body("        <rich:column id='column2' width='150px' ");
+        p.body("        </r:column> ");
+        p.body("        <r:column id='column2' width='150px' ");
         p.body("                         sortBy='#{bean}' ");
         p.body("                         sortOrder='#{iterationBuiltInBean.sortOrder}' ");
         p.body("                         filterValue='#{iterationBuiltInBean.filterValue}' ");
         p.body("                         filterExpression='#{bean le fv}' > ");
         p.body("            <f:facet name='header'>Column 2</f:facet> ");
         p.body("            <h:outputText value='#{bean}' /> ");
-        p.body("        </rich:column> ");
-        p.body("        <rich:column id='column3' width='150px'" );
+        p.body("        </r:column> ");
+        p.body("        <r:column id='column3' width='150px'" );
         p.body("                     sortBy='#{bean}' ");
         p.body("                     sortOrder='#{iterationBuiltInBean.sortOrder2}' > ");
         p.body("            <f:facet name='header'>Column 3</f:facet> ");
         p.body("            <h:outputText value='Row #{bean}, Column 3' /> ");
-        p.body("        </rich:column> ");
-        p.body("    </rich:extendedDataTable> ");
-        p.body("    <a4j:commandButton id='ajax' execute='edt' render='edt' value='Ajax' /> ");
+        p.body("        </r:column> ");
+        p.body("    </r:extendedDataTable> ");
+        p.body("    <r:commandButton id='ajax' execute='edt' render='edt' value='Ajax' /> ");
         p.body("</h:form> ");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
