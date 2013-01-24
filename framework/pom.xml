@@ -264,7 +264,6 @@
                         <configuration>
                             <sources>
                                 <source>src/main/config</source>
-                                <source>src/main/templates</source>
                                 <source>${project.build.directory}/generated-sources/main/java</source>
                                 <source>${project.build.directory}/generated-sources/main/resources</source>
                             </sources>

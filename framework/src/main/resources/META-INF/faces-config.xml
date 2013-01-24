@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- This file is for the only purpose of defining name that will be used in the assembled file -->
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee" version="2.0">
-
-    <name>richfaces_ui</name>
-
-</faces-config>
