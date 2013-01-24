@@ -50,7 +50,7 @@
         <version.arquillian.drone>1.1.0.Final</version.arquillian.drone>
         <version.arquillian.warp>1.0.0.Alpha2</version.arquillian.warp>
         <version.arquillian.graphene>2.0.0.Alpha3</version.arquillian.graphene>
-        <version.selenium>2.28.0</version.selenium>
+        <version.selenium>2.29.0</version.selenium>
         <version.shrinkwrap.resolver>2.0.0-alpha-1</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-3</version.shrinkwrap.descriptors>
         
