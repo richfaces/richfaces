@@ -21,8 +21,8 @@
 package org.richfaces.ui.ajax;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.RendererBase;
 import org.richfaces.ui.output.AbstractOutputPanel;
 import org.richfaces.ui.output.OutputPanelLayout;
 

@@ -23,9 +23,9 @@ package org.richfaces.ui.output;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.util.HtmlUtil;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
@@ -37,6 +37,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Map;
 
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
 import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
 import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
@@ -48,7 +49,6 @@ import static org.richfaces.ui.common.HtmlConstants.TR_ELEMENT;
 import static org.richfaces.ui.output.AbstractTogglePanelTitledItem.HeaderStates.active;
 import static org.richfaces.ui.output.AbstractTogglePanelTitledItem.HeaderStates.disabled;
 import static org.richfaces.ui.output.AbstractTogglePanelTitledItem.HeaderStates.inactive;
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 /**
  * @author akolonitsky

@@ -27,10 +27,10 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.ScriptString;
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.input.InputRendererBase;
 import org.richfaces.ui.util.renderkit.HtmlDimensions;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 import org.richfaces.validator.SelectLabelValueValidator;
 import org.richfaces.validator.csv.AddCSVMessageScript;
 

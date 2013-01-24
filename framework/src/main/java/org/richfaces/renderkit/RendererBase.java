@@ -18,7 +18,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.ui.common;
+package org.richfaces.renderkit;
 
 import org.richfaces.Messages;
 import org.richfaces.log.Logger;
@@ -26,7 +26,6 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.ui.util.HtmlUtil;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 import org.richfaces.ui.util.renderkit.RendererUtils;
 
 import javax.faces.component.UIComponent;

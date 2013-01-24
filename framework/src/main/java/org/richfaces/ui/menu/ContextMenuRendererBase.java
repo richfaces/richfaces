@@ -1,10 +1,10 @@
 package org.richfaces.ui.menu;
 
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.ui.common.Mode;
 import org.richfaces.ui.common.Positioning;
-import org.richfaces.ui.common.RendererBase;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
-import org.richfaces.ui.util.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.ui.util.renderkit.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;

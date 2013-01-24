@@ -19,12 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.util.renderkit;
+package org.richfaces.renderkit;
 
-import org.junit.Test;
-import org.richfaces.javascript.JSFunctionDefinition;
-import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.ui.util.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import static org.richfaces.renderkit.RenderKitUtils.toScriptArgs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,13 +37,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.addToScriptHash;
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.toScriptArgs;
+import org.junit.Test;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 
 /**
  * @author Nick Belaevski

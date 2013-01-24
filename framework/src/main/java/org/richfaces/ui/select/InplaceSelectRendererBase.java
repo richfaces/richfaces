@@ -21,11 +21,11 @@
  */
 package org.richfaces.ui.select;
 
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.input.InplaceComponent;
 import org.richfaces.ui.input.InplaceInputRendererBase;
 import org.richfaces.ui.util.renderkit.HtmlDimensions;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

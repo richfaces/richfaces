@@ -21,12 +21,12 @@
  */
 package org.richfaces.ui.menu;
 
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.RendererBase;
 import org.richfaces.ui.util.renderkit.HtmlDimensions;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
-import org.richfaces.ui.util.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

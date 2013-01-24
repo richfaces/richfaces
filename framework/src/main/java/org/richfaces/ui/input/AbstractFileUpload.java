@@ -27,7 +27,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.event.FileUploadListener;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RenderKitUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;

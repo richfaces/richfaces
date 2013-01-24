@@ -21,7 +21,7 @@
  */
 package org.richfaces.ui.core;
 
-import org.richfaces.ui.common.RendererBase;
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * @author Nick Belaevski

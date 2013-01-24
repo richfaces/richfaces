@@ -22,11 +22,11 @@ package org.richfaces.ui.ajax;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSFunction;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.RendererBase;
 import org.richfaces.ui.util.HtmlUtil;
 import org.richfaces.ui.util.renderkit.HandlersChain;
-import org.richfaces.ui.util.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -37,8 +37,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.addToScriptHash;
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.renderAttribute;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import static org.richfaces.renderkit.RenderKitUtils.renderAttribute;
 
 /**
  * @author Nick Belaevski

@@ -22,6 +22,7 @@ package org.richfaces.ui.util.renderkit;
 
 import org.richfaces.Messages;
 import org.richfaces.javascript.JSReference;
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.core.JavaScriptParameter;
 

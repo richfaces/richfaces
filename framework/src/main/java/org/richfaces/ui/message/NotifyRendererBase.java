@@ -21,7 +21,7 @@
  */
 package org.richfaces.ui.message;
 
-import org.richfaces.ui.common.RendererBase;
+import org.richfaces.renderkit.RendererBase;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

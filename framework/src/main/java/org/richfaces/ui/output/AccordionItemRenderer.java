@@ -23,8 +23,8 @@ package org.richfaces.ui.output;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.iteration.TableIconsRendererHelper;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -34,11 +34,11 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Map;
 
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
 import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
 import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
 import static org.richfaces.ui.common.HtmlConstants.STYLE_ATTRIBUTE;
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 /**
  *

@@ -23,10 +23,10 @@ package org.richfaces.ui.iteration;
 
 import org.richfaces.model.DataVisitResult;
 import org.richfaces.model.DataVisitor;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.RendererBase;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;

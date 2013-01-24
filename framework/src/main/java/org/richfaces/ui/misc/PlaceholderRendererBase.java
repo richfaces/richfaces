@@ -1,6 +1,6 @@
 package org.richfaces.ui.misc;
 
-import org.richfaces.ui.common.RendererBase;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.util.InputUtils;
 
 import javax.faces.application.ResourceDependencies;

@@ -33,7 +33,7 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.ui.common.RendererBase;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.util.renderkit.RendererUtils;
 
 import javax.faces.application.FacesMessage;

@@ -23,8 +23,8 @@ package org.richfaces.ui.input;
 
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.request.MultipartRequest;
-import org.richfaces.ui.common.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;

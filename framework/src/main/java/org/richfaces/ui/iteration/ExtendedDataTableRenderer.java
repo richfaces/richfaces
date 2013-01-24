@@ -30,13 +30,13 @@ import org.richfaces.model.DataVisitResult;
 import org.richfaces.model.DataVisitor;
 import org.richfaces.model.SelectionMode;
 import org.richfaces.model.SequenceRange;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.ui.ajax.AjaxFunction;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.util.HtmlUtil;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
-import org.richfaces.ui.util.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
@@ -58,9 +58,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import static org.richfaces.renderkit.RenderKitUtils.renderAttribute;
 import static org.richfaces.ui.util.renderkit.AjaxRendererUtils.buildAjaxFunction;
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.addToScriptHash;
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.renderAttribute;
 
 /**
  * @author Konstantin Mishin

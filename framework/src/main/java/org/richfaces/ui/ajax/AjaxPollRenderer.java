@@ -24,10 +24,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.RendererBase;
 import org.richfaces.ui.util.renderkit.HandlersChain;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 import org.richfaces.ui.util.renderkit.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;

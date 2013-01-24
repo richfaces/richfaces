@@ -22,7 +22,7 @@ package org.richfaces.ui.ajax;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.ui.common.RendererBase;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.util.renderkit.HandlersChain;
 
 import javax.faces.application.ResourceDependencies;

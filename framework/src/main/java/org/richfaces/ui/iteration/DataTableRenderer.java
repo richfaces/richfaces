@@ -23,11 +23,11 @@ package org.richfaces.ui.iteration;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSFunction;
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.ajax.AjaxOptions;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.util.HtmlUtil;
 import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

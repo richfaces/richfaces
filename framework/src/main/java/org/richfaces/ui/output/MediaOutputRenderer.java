@@ -22,8 +22,8 @@ package org.richfaces.ui.output;
 
 import org.richfaces.Messages;
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.RendererBase;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;

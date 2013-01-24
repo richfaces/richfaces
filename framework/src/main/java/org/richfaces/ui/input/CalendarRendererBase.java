@@ -25,6 +25,7 @@ import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.event.CurrentDateChangeEvent;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSReference;
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.Positioning;
@@ -34,7 +35,6 @@ import org.richfaces.ui.util.HtmlUtil;
 import org.richfaces.ui.util.InputUtils;
 import org.richfaces.ui.util.InputUtils.ConverterLookupStrategy;
 import org.richfaces.ui.util.MessageUtil;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 import org.richfaces.utils.CalendarHelper;
 
 import javax.faces.application.ResourceDependencies;

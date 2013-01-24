@@ -25,10 +25,10 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 import org.richfaces.ui.util.renderkit.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;
@@ -41,11 +41,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
 import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
 import static org.richfaces.ui.output.TogglePanelRenderer.addEventOption;
 import static org.richfaces.ui.output.TogglePanelRenderer.getAjaxOptions;
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 /**
  * @author amarkhel

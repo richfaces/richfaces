@@ -23,9 +23,9 @@ package org.richfaces.ui.iteration;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.model.DataVisitResult;
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;

@@ -1,7 +1,7 @@
 package org.richfaces.ui.iteration;
 
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.util.renderkit.PanelIcons;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

@@ -28,9 +28,9 @@ package org.richfaces.ui.output;
 
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.javascript.JSReference;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.ajax.AjaxFunction;
 import org.richfaces.ui.ajax.AjaxOptions;
-import org.richfaces.ui.common.RendererBase;
 import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;

@@ -3,7 +3,7 @@ package org.richfaces.ui.misc;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.ui.common.RendererBase;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.misc.focus.FocusRenderStrategy;
 import org.richfaces.ui.misc.focus.FocusRendererInterface;
 import org.richfaces.ui.misc.focus.FormFocusRenderStrategy;

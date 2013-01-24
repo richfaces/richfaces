@@ -23,12 +23,12 @@ package org.richfaces.ui.iteration;
 
 import com.google.common.base.Strings;
 import org.richfaces.event.TreeToggleEvent;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.RendererBase;
 import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -37,7 +37,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Map;
 
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.getFirstNonEmptyAttribute;
+import static org.richfaces.renderkit.RenderKitUtils.getFirstNonEmptyAttribute;
 
 /**
  * @author Nick Belaevski

@@ -2,7 +2,7 @@ package org.richfaces.ui.output;
 
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONMap;
-import org.richfaces.ui.common.RendererBase;
+import org.richfaces.renderkit.RendererBase;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;

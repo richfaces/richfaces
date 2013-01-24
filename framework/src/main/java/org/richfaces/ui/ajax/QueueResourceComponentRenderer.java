@@ -38,7 +38,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.addToScriptHash;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
 
 /**
  * @author Nick Belaevski

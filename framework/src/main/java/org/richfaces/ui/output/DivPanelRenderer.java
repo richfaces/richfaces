@@ -24,9 +24,9 @@ package org.richfaces.ui.output;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.RendererBase;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -34,10 +34,10 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Map;
 
+import static org.richfaces.renderkit.RenderKitUtils.attributes;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
 import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.attributes;
-import static org.richfaces.ui.util.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 /**
  * @author akolonitsky

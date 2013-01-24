@@ -25,9 +25,9 @@ import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.ScriptStringBase;
 import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.SwitchType;
-import org.richfaces.ui.util.renderkit.RenderKitUtils;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
