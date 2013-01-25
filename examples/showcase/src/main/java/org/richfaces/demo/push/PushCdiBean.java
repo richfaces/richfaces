@@ -45,8 +45,6 @@ public class PushCdiBean {
 
     /**
      * Sends message.
-     *
-     * @param message to send
      */
     public void sendMessage() {
         pushEvent.fire(message);
