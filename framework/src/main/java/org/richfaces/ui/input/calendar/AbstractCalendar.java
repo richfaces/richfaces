@@ -415,7 +415,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract String getInputSize();
 
     /**
-     * Used to define the define the month and year which will be displayed
+     * Used to define the month and year which will be displayed
      */
     @Attribute
     public abstract Object getCurrentDate();
