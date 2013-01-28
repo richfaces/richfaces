@@ -45,7 +45,8 @@
                         <span class="rf-fu-btn-cnt-add#{disabled ? '-dis' : ''}">
                             <c:if test="#{!disabled}">
                                 <span class="rf-fu-inp-cntr"> <!-- This span is needed for IE7 only. -->
-                                    <input type="file" name="#{clientId}File" class="rf-fu-inp" />
+                                    <!-- name attribute added dynamically in fileupload.js#startUploading -->
+                                    <input type="file" class="rf-fu-inp" />
                                 </span>
                             </c:if>
                             <cdk:object name="addLabel" value="#{attributes['addLabel']}" />
