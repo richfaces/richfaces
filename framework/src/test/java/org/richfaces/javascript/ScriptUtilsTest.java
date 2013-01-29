@@ -20,14 +20,12 @@
  */
 package org.richfaces.javascript;
 
-import junit.framework.TestCase;
-import org.easymock.Capture;
-import org.easymock.CaptureType;
-import org.jboss.test.faces.mock.MockFacesEnvironment;
-import org.junit.Test;
-import org.junit.internal.matchers.StringContains;
+import static org.easymock.EasyMock.capture;
+import static org.easymock.EasyMock.eq;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.easymock.EasyMock.isNull;
+import static org.junit.Assert.assertThat;
 
-import javax.faces.context.ResponseWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,11 +38,15 @@ import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import static org.easymock.EasyMock.capture;
-import static org.easymock.EasyMock.eq;
-import static org.easymock.EasyMock.expectLastCall;
-import static org.easymock.EasyMock.isNull;
-import static org.junit.Assert.assertThat;
+import javax.faces.context.ResponseWriter;
+
+import junit.framework.TestCase;
+
+import org.easymock.Capture;
+import org.easymock.CaptureType;
+import org.hamcrest.CoreMatchers;
+import org.jboss.test.faces.mock.MockFacesEnvironment;
+import org.junit.Test;
 
 /**
  * @author shura
@@ -473,21 +475,21 @@ public class ScriptUtilsTest extends TestCase {
 
         String serializedUTCPlusTwoTZ = dehydrate(ScriptUtils.toScript(utcPlusTwoTZ));
 
-        assertThat(serializedUTCPlusTwoTZ, StringContains.containsString("\"DSTSavings\":0"));
-        assertThat(serializedUTCPlusTwoTZ, StringContains.containsString("\"ID\":\"GMT+02:00\""));
-        assertThat(serializedUTCPlusTwoTZ, StringContains.containsString("\"rawOffset\":7200000"));
+        assertThat(serializedUTCPlusTwoTZ, CoreMatchers.containsString("\"DSTSavings\":0"));
+        assertThat(serializedUTCPlusTwoTZ, CoreMatchers.containsString("\"ID\":\"GMT+02:00\""));
+        assertThat(serializedUTCPlusTwoTZ, CoreMatchers.containsString("\"rawOffset\":7200000"));
 
         TimeZone pstTimeZone = TimeZone.getTimeZone("PST");
         String serializedPSTTimeZone = dehydrate(ScriptUtils.toScript(pstTimeZone));
 
-        assertThat(serializedPSTTimeZone, StringContains.containsString("\"ID\":\"PST\""));
-        assertThat(serializedPSTTimeZone, StringContains.containsString("\"rawOffset\":-28800000"));
+        assertThat(serializedPSTTimeZone, CoreMatchers.containsString("\"ID\":\"PST\""));
+        assertThat(serializedPSTTimeZone, CoreMatchers.containsString("\"rawOffset\":-28800000"));
 
         TimeZone sfTimeZone = TimeZone.getTimeZone("America/New_York");
         String serializedSFTimeZone = dehydrate(ScriptUtils.toScript(sfTimeZone));
 
-        assertThat(serializedSFTimeZone, StringContains.containsString("\"ID\":\"America\\/New_York\""));
-        assertThat(serializedSFTimeZone, StringContains.containsString("\"rawOffset\":-18000000"));
+        assertThat(serializedSFTimeZone, CoreMatchers.containsString("\"ID\":\"America\\/New_York\""));
+        assertThat(serializedSFTimeZone, CoreMatchers.containsString("\"rawOffset\":-18000000"));
     }
 
     @Test
