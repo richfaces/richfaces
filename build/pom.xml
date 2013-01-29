@@ -38,7 +38,7 @@
         <version.jsoup>1.5.2</version.jsoup>
         
         <!-- Test Dependencies Versions -->
-        <version.junit>4.8.2</version.junit>
+        <version.junit>4.11</version.junit>
         <version.jsf-test>1.1.6</version.jsf-test>
         <version.easymock>2.5.2</version.easymock>
         <version.mockito>1.8.5</version.mockito>
