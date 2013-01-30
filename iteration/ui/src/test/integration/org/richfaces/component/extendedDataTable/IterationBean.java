@@ -39,6 +39,8 @@ public class IterationBean implements Serializable {
 
     private String[] array = {"3","6","4","8","2","1","5","7","9","0" };
     private List<String> values = Arrays.asList(array);
+    private String selectedValue;
+    private List<String> data;
 
 
     public IterationBean() {
@@ -46,5 +48,25 @@ public class IterationBean implements Serializable {
 
     public List<String> getValues() {
         return values;
+    }
+
+    public String getSelectedValue() {
+        return selectedValue;
+    }
+
+    public void setSelectedValue(String selectedValue) {
+        this.selectedValue = selectedValue;
+    }
+
+    public void show() {
+        data = values;
+    }
+
+    public List<String> getData() {
+        return data;
+    }
+
+    public void setData(List<String> data) {
+        this.data = data;
     }
 }
