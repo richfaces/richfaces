@@ -22,9 +22,9 @@
 
     <defaultProtocol type="Servlet 3.0" />
 
-    <!-- <engine>
+    <engine>
         <property name="deploymentExportPath">target/</property>
-    </engine> -->
+    </engine>
     
     <container qualifier="jboss" default="true">
         <configuration>
