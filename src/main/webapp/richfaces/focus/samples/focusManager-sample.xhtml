@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    
+    <f:event type="preRenderView" listener="#{focusManagerBean.preRenderView}" />
+
+    <rich:panel header="Enforcing Focus of Given Input">
+
+        <h:form id="form">
+
+            <h:panelGrid columns="2">
+                input1: <h:inputText id="input1" />
+                input2: <h:inputText id="input2" />
+                input3: <h:inputText id="input3" />
+            </h:panelGrid>
+            
+            <h:commandButton value="Form Submission" />
+            
+            <a4j:commandButton value="Ajax Request" />
+        </h:form>
+
+    </rich:panel>
+
+</ui:composition>

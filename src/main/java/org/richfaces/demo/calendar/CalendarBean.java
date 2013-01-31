@@ -91,4 +91,12 @@ public class CalendarBean implements Serializable {
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
+
+    public boolean isShowApplyAvailable() {
+        return !disabled && popup;
+    }
+
+    public boolean isPatternAvailable() {
+        return !disabled && popup;
+    }
 }

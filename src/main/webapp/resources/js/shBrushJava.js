@@ -16,9 +16,6 @@
  */
 ;(function()
 {
-	// CommonJS
-	typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
-
 	function Brush()
 	{
 		var keywords =	'abstract assert boolean break byte case catch char class const ' +

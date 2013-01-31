@@ -2,7 +2,7 @@
 
                       RichFaces - Ajax enabled JSF 2.0 component library
 
-                                       RichFaces 4.2.2.Final SHOWCASE
+                                       RichFaces 4.3.0.Final SHOWCASE
                                                     http://richfaces.org
                                                               March 2011
                      This software is distributed under the terms of the 
@@ -93,7 +93,11 @@ BUILDING AND RUNNING THE APPLICATION
 	 To build the project for a JEE6 server you need to navigate to the
 	 /examples/richfaces-showcase and run
 
+		for JBoss AS 7.0.x:
 	 	mvn clean package -Pjbas7
+	
+		or for JBoss AS 7.1.x
+		mvn clean package -Pjbas71
 
 	 When you see the BUILD SUCCESSFUL message you can deploy the
 	 application on the server.
@@ -102,7 +106,10 @@ BUILDING AND RUNNING THE APPLICATION
 
 	    launch the standalone.sh or standalone.bat script from JBOSS_HOME/bin/
 
-	 As of JBoass AS 7.1 you must create the JMS user account/password to
+	    together with parameter --server-config=standalone-full.xml for both 
+	    latest JBoss AS 7.1.x and for latest JBoss AS 7.0.x.
+
+	 As of JBoss AS 7.1 you must create the JMS user account/password to
 	 enable the JMS push sample.  Add a new user to the ApplicationRealm with the
 	 $JBOSS_HOME/bin/add-user.bat or add-user.sh script, with the:
 	    username: guest

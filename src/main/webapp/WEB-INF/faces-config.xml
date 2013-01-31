@@ -30,6 +30,12 @@
             <system-event-listener-class>org.richfaces.demo.push.TopicsContextMessageProducerInitializer</system-event-listener-class>
             <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
         </system-event-listener>
+        <locale-config>
+            <default-locale>en_US</default-locale>
+            <supported-locale>en_US</supported-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+        <message-bundle>ShowcaseErrorMessages</message-bundle>
     </application>
 
 

@@ -329,10 +329,14 @@
                         <id>exTableSelection</id>
                         <name>Selection Management</name>
                     </sample>
+                    <sample new="true">
+                        <id>edt-builtin-sorting-and-filtering</id>
+                        <name>Built-in Sorting and Filtering</name>
+                    </sample>    
                     <sample>
                         <id>edt-sorting</id>
                         <name>Table Sorting</name>
-                    </sample>    
+                    </sample>
                     <sample>
                         <id>edt-filtering</id>
                         <name>Table Filtering</name>
@@ -435,6 +439,10 @@
                         <id>simple</id>
                         <name>Simple Toggle Panel</name>
                     </sample>
+                    <sample new="true">
+                        <id>dynamic</id>
+                        <name>Dynamic Panels</name>
+                    </sample>
                     <sample>
                         <id>wizard</id>
                         <name>Wizard creation</name>
@@ -452,6 +460,11 @@
                     </sample>
                     <!-- sample> <id>headerCustomization</id> <description>Headers Customization</description>
                              <name>Headers Customization</name> </sample -->
+                     <sample new="true">
+                        <id>dynamic</id>
+                        <description>Dynamic Tabs</description>
+                        <name>Dynamic Tabs</name>
+                    </sample>
                     <sample>
                         <id>valueManagement</id>
                         <description>Selected Tab Management</description>
@@ -476,6 +489,10 @@
                     <sample>
                         <id>simple</id>
                         <name>Simple Accordion</name>
+                    </sample>
+                    <sample new="true">
+                        <id>dynamic</id>
+                        <name>Dynamic Accordion</name>
                     </sample>
                 </samples>
             </demo>
@@ -550,7 +567,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo>
                 <id>contextMenu</id>
                 <name>rich:contextMenu</name>
                 <samples>
@@ -760,6 +777,16 @@
                     </sample>
                 </samples>
             </demo>
+            <demo new="true">
+                <id>placeholder</id>
+                <name>Placeholder</name>
+                <samples>
+                    <sample>
+                        <id>placeholder</id>
+                        <name>Placeholder</name>
+                    </sample>
+                </samples>
+            </demo>
             <demo>
                 <id>functions</id>
                 <name>RichFaces functions</name>
@@ -767,6 +794,28 @@
                     <sample>
                         <id>functions</id>
                         <name>RichFaces Functions</name>
+                    </sample>
+                </samples>
+            </demo>
+            <demo new="true" mobileExclude="true">
+                <id>focus</id>
+                <name>Focus</name>
+                <samples>
+                    <sample>
+                        <id>focus</id>
+                        <name>Focus</name>
+                    </sample>
+                    <sample>
+                        <id>focusPreserve</id>
+                        <name>Preserve Focus</name>
+                    </sample>
+                    <sample>
+                        <id>focusDelayed</id>
+                        <name>Delayed Focus</name>
+                    </sample>
+                    <sample>
+                        <id>focusManager</id>
+                        <name>Focus Manager</name>
                     </sample>
                 </samples>
             </demo>
@@ -790,7 +839,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true" mobileExclude="true">
+            <demo mobileExclude="true">
                 <id>hotKey</id>
                 <name>rich:hotKey</name>
                 <samples>

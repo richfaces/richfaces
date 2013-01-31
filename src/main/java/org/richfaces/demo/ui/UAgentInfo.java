@@ -71,6 +71,8 @@
  */
 package org.richfaces.demo.ui;
 
+import java.io.Serializable;
+
 /**
  * The DetectSmartPhone class encapsulates information about
  * a browser's connection to your web site.
@@ -81,7 +83,10 @@ package org.richfaces.demo.ui;
  * as general as a smartphone class device.
  * The object's methods return true, or false.
  */
-public class UAgentInfo {
+public class UAgentInfo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     // User-Agent and Accept HTTP request headers
 
     private String userAgent = "";

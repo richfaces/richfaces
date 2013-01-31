@@ -21,12 +21,13 @@
  **/
 package org.richfaces.demo.ui;
 
+import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import java.io.Serializable;
 
 /**
  * @author jbalunas@redhat.com
@@ -42,10 +43,9 @@ public class UserAgentProcessor implements Serializable {
 
     @PostConstruct
     public void init() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        String userAgentStr = request.getHeader("user-agent");
-        String httpAccept = request.getHeader("Accept");
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        String userAgentStr = externalContext.getRequestHeaderMap().get("user-agent");
+        String httpAccept = externalContext.getRequestHeaderMap().get("Accept");
         uAgentInfo = new UAgentInfo(userAgentStr, httpAccept);
     }
 

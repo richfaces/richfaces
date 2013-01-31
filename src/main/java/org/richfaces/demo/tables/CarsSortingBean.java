@@ -1,5 +1,6 @@
 package org.richfaces.demo.tables;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +15,8 @@ import org.richfaces.component.SortOrder;
 
 @ManagedBean
 @ViewScoped
-public class CarsSortingBean {
-
+public class CarsSortingBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Map<String, SortOrder> sortsOrders;
     private List<String> sortPriorities;
 

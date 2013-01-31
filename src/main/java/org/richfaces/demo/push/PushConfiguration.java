@@ -22,13 +22,15 @@
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 
 /**
  * Initializes JMS server and creates requested topics.
  *
- * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>,
+ *         <a href="http://community.jboss.org/people/kenfinni">Ken Finnigan</a>
+ *
  */
 @ApplicationScoped
 @ManagedBean
@@ -39,8 +41,8 @@ public class PushConfiguration {
     }
 
     public boolean isPushEnabled() {
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String pushDisabled = servletContext.getInitParameter("org.richfaces.showcase.pushDisabled");
+        ExternalContext externalContext = (ExternalContext) FacesContext.getCurrentInstance().getExternalContext();
+        String pushDisabled = externalContext.getInitParameter("org.richfaces.showcase.pushDisabled");
         if (pushDisabled == null) {
             return true;
         }
