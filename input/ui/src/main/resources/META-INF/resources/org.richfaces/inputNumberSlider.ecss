@@ -99,6 +99,19 @@ input.rf-insl-inp {
     min-width: 0;
 }
 
+.rf-insl-bar .rf-insl-hnd-cntr {
+    text-align: right;
+    background-image: "url(#{resource['org.richfaces.images:inputNumberSliderBarHandleBg.gif']})";
+}
+
+.rf-insl-bar .rf-insl-trc, .rf-insl-bar .rf-insl-hnd-cntr, .rf-insl-bar .rf-insl-hnd  {
+    height: 13px;
+}
+
+.rf-insl-bar .rf-insl-hnd {
+    width: 0;
+}
+
 .rf-insl-hnd,.rf-insl-hnd-dis,.rf-insl-dec,.rf-insl-inc,.rf-insl-dec-dis,.rf-insl-inc-dis {
     display: inline-block;
     width: 7px;

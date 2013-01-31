@@ -32,10 +32,18 @@
         this.dragElement.draggable();
 
         if (options.indicator) {
-            var element = document.getElementById(options.indicator);
+            var element = $(document.getElementById(options.indicator));
+            var clone = element.clone();
+            $("*[id]", clone).andSelf().each(function() {
+                $(this).removeAttr("id");
+            });
+            if (element.attr("id")) {
+                clone.attr("id", element.attr("id") + "Clone");
+            }
+            
             this.dragElement.data("indicator", true);
             this.dragElement.draggable("option", "helper", function() {
-                return element
+                return clone;
             });
         } else {
             this.dragElement.data("indicator", false);
@@ -43,13 +51,14 @@
         }
 
         this.dragElement.draggable("option", "addClasses", false);
+        this.dragElement.draggable( "option", "appendTo", "body" );
+        
 
         this.dragElement.data('type', this.options.type);
         this.dragElement.data("init", true);
         this.dragElement.data("id", this.id);
         rf.Event.bind(this.dragElement, 'dragstart' + this.namespace, this.dragStart, this);
         rf.Event.bind(this.dragElement, 'drag' + this.namespace, this.drag, this);
-        rf.Event.bind(this.dragElement, 'dragstop' + this.namespace, this.dragStop, this);
     };
 
     rf.BaseNonVisualComponent.extend(rf.ui.Draggable);
@@ -67,14 +76,16 @@
                 var ui = e.rf.data;
                 var element = ui.helper[0];
                 this.parentElement = element.parentNode;
-                ui.helper.detach().appendTo("body").setPosition(e).show();
 
                 if (this.__isCustomDragIndicator()) {
+                    ui.helper.detach().appendTo("body").show();
+                    
                     // move cursor to the center of custom dragIndicator;
                     var left = (ui.helper.width() / 2);
                     var top = (ui.helper.height() / 2);
                     this.dragElement.data('draggable').offset.click.left = left;
                     this.dragElement.data('draggable').offset.click.top = top;
+                    
                 }
             },
 
@@ -89,15 +100,6 @@
                     }
                 }
                 this.__clearDraggableCss(ui.helper);
-            },
-
-            dragStop: function(e) {
-                var ui = e.rf.data;
-                ui.helper.hide().detach().appendTo(this.parentElement);
-                if (ui.helper[0] != this.dragElement[0]) {
-                    //fix to prevent remove custom indicator from DOM tree. see jQuery draggable._clear method for details
-                    ui.helper[0] = this.dragElement[0];
-                }
             },
 
             __isCustomDragIndicator: function() {

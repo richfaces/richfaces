@@ -47,7 +47,7 @@ import com.google.common.base.Strings;
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable-toggler.js"),
         @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable.ecss") })
-public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
+public abstract class CollapsibleSubTableTogglerRendererBase extends RendererBase {
     /**
      *
      */

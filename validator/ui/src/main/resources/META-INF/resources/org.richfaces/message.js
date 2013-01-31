@@ -7,11 +7,11 @@
         if (this.options.isMessages) {
             this.severityClasses = ["rf-msgs-inf", "rf-msgs-wrn", "rf-msgs-err", "rf-msgs-ftl"];
             this.summaryClass = "rf-msgs-sum";
-            this.detailClass = "rf-msgs-dtl";
+            this.detailClass = "rf-msgs-det";
         } else {
             this.severityClasses = ["rf-msg-inf", "rf-msg-wrn", "rf-msg-err", "rf-msg-ftl"];
             this.summaryClass = "rf-msg-sum";
-            this.detailClass = "rf-msg-dtl";
+            this.detailClass = "rf-msg-det";
         }
     };
 

@@ -117,11 +117,10 @@
             var component = $(element);
             // TODO: add getValue to baseComponent and change jsdocs
             if (component) {
-                if (typeof component["getValue"] === "function") {
-                    value = component.getValue();
+                if (typeof rf.$(component)["getValue"] === "function") {
+                    value = rf.$(component).getValue();
                 } else {
-                    var genericInputSelector = ":not(:submit):not(:button):not(:image):input:visible:enabled:first";
-                    var nestedComponents = $(genericInputSelector, component);
+                    var nestedComponents = $(":editable", component);
                     if (nestedComponents) {
                         var nestedComponent = nestedComponents[0];
                         value = valueExtractors[nestedComponent.type](nestedComponent);
@@ -180,6 +179,7 @@
                 }
                 var result = true
                 var validators = params.v;
+                var validationErrorMessage;
                 if (validators) {
                     var validatorFunction,validator;
                     for (var i = 0; i < validators.length; i++) {
@@ -190,14 +190,22 @@
                                 validatorFunction(convertedValue, getLabel(validator, id), validator.p, validator.m);
                             }
                         } catch (e) {
+                            validationErrorMessage = e;
                             e.severity = 2;
                             rf.csv.sendMessage(id, e);
                             result = false;
                         }
                     }
                 }
-                if (result && !params.da && params.a) {
-                    params.a.call(element, event, id);
+                if (!result && params.oninvalid instanceof Function) {
+                    params.oninvalid([validationErrorMessage]);
+                }
+                if (result) {
+                    if (!params.da && params.a) {
+                        params.a.call(element, event, id);
+                    } else if (params.onvalid instanceof Function) {
+                        params.onvalid();
+                    }
                 }
                 return result;
             }
@@ -318,7 +326,7 @@
             pattern = '^' + pattern;
         }
         if (! (pattern.slice(-1) === '$') ) {
-            pattern = pattern; + '$';
+            pattern = pattern + '$';
         }
         return pattern;
     }

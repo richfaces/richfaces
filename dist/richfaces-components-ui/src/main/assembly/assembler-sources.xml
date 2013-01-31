@@ -13,6 +13,7 @@
             <useDefaultExcludes>true</useDefaultExcludes>
             <excludes>
                 <exclude>META-INF/**</exclude>
+                <exclude>rebel.xml</exclude>
             </excludes>
         </fileSet>
     </fileSets>

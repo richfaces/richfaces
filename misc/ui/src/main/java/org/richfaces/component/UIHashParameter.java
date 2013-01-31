@@ -68,10 +68,9 @@ public class UIHashParameter extends UIComponentBase {
     }
 
     /**
-     * <i>Not used, it is computed automatically</i>
+     * Computes value of hash parameters
      */
-    // TODO should be hidden
-    @Attribute
+    @Attribute(hidden = true)
     public Map<String, Object> getValue() {
         List<UIComponent> children = getChildren();
         Map<String, Object> parameters = new HashMap<String, Object>();

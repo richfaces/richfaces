@@ -272,7 +272,7 @@ public final class RenderKitUtils {
     }
 
     private static Object createBehaviorsChain(Object inlineHandlerValue, ClientBehaviorContext behaviorContext,
-        List<ClientBehavior> behaviors) {
+            List<ClientBehavior> behaviors) {
 
         boolean isChained = false;
         StringBuilder result = new StringBuilder();
@@ -353,7 +353,7 @@ public final class RenderKitUtils {
     }
 
     public static void renderAttribute(FacesContext facesContext, String attributeName, Object attributeValue)
-        throws IOException {
+            throws IOException {
 
         if (!shouldRenderAttribute(attributeValue)) {
             return;
@@ -379,7 +379,7 @@ public final class RenderKitUtils {
     // TODO - create special method for event handlers that will return String?
     // TODO - add check for 'disabled'?
     public static Object getAttributeAndBehaviorsValue(FacesContext facesContext, UIComponent component,
-        ComponentAttribute componentAttribute) {
+            ComponentAttribute componentAttribute) {
         if (facesContext == null) {
             throw new NullPointerException("facesContext");
         }
@@ -405,7 +405,7 @@ public final class RenderKitUtils {
                         if (!behaviorsList.isEmpty()) {
                             // TODO - parameters handling
                             ClientBehaviorContext behaviorContext = ClientBehaviorContext.createClientBehaviorContext(
-                                facesContext, component, eventName, null, null);
+                                    facesContext, component, eventName, null, null);
                             attributeValue = createBehaviorsChain(attributeValue, behaviorContext, behaviorsList);
                         }
                         break;
@@ -417,13 +417,13 @@ public final class RenderKitUtils {
     }
 
     public static void renderAttributeAndBehaviors(FacesContext facesContext, UIComponent component,
-        ComponentAttribute componentAttribute) throws IOException {
+            ComponentAttribute componentAttribute) throws IOException {
         Object attributeValue = getAttributeAndBehaviorsValue(facesContext, component, componentAttribute);
         renderAttribute(facesContext, componentAttribute.getHtmlAttributeName(), attributeValue);
     }
 
     public static void renderPassThroughAttributesOptimized(FacesContext context, UIComponent component,
-        Map<String, ComponentAttribute> knownAttributesMap) throws IOException {
+            Map<String, ComponentAttribute> knownAttributesMap) throws IOException {
 
         Object attributesThatAreSetObject = component.getAttributes().get(ATTRIBUTES_THAT_ARE_SET);
         if (attributesThatAreSetObject instanceof Collection<?>) {
@@ -466,14 +466,14 @@ public final class RenderKitUtils {
     }
 
     public static void renderPassThroughAttributes(FacesContext context, UIComponent component,
-        Map<String, ComponentAttribute> knownAttributesMap) throws IOException {
+            Map<String, ComponentAttribute> knownAttributesMap) throws IOException {
         Collection<ComponentAttribute> attributes = knownAttributesMap.values();
 
         renderPassThroughAttributes(context, component, attributes);
     }
 
     public static void renderPassThroughAttributes(FacesContext context, UIComponent component,
-        Collection<ComponentAttribute> attributes) throws IOException {
+            Collection<ComponentAttribute> attributes) throws IOException {
         boolean disabled = isDisabled(component);
         for (ComponentAttribute knownAttribute : attributes) {
             if (!disabled || knownAttribute.getEventNames().length == 0) {
@@ -594,7 +594,7 @@ public final class RenderKitUtils {
      * @since 3.3.2
      */
     public static void addToScriptHash(Map<String, Object> hash, String name, Object value, Object defaultValue,
-        ScriptHashVariableWrapper wrapper) {
+            ScriptHashVariableWrapper wrapper) {
 
         ScriptHashVariableWrapper wrapperOrDefault = wrapper != null ? wrapper : ScriptHashVariableWrapper.noop;
 
@@ -612,14 +612,14 @@ public final class RenderKitUtils {
     }
 
     public static void addToScriptHash(Map<String, Object> hash, FacesContext facesContext, UIComponent component,
-        Attributes attributes, ScriptHashVariableWrapper wrapper) {
+            Attributes attributes, ScriptHashVariableWrapper wrapper) {
 
         boolean disabled = isDisabled(component);
         for (ComponentAttribute knownAttribute : attributes) {
             if (!disabled || knownAttribute.getEventNames().length == 0) {
                 String attributeName = knownAttribute.getComponentAttributeName();
                 addToScriptHash(hash, attributeName, getAttributeAndBehaviorsValue(facesContext, component, knownAttribute),
-                    knownAttribute.getDefaultValue(), wrapper);
+                        knownAttribute.getDefaultValue(), wrapper);
             }
         }
     }
@@ -661,7 +661,7 @@ public final class RenderKitUtils {
         if (resourceName != null) {
             ResourceHandler resourceHandler = context.getApplication().getResourceHandler();
             Resource resource = (library != null) ? resourceHandler.createResource(resourceName, library) : resourceHandler
-                .createResource(resourceName);
+                    .createResource(resourceName);
             if (resource != null) {
                 path = resource.getRequestPath();
             }
@@ -762,5 +762,9 @@ public final class RenderKitUtils {
 
     public static String getBehaviorSourceId(FacesContext facesContext) {
         return facesContext.getExternalContext().getRequestParameterMap().get(BEHAVIOR_SOURCE_ID);
+    }
+
+    public static boolean hasFacet(UIComponent component, String facetName) {
+        return component.getFacet(facetName) != null && component.getFacet(facetName).isRendered();
     }
 }

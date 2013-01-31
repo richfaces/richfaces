@@ -67,9 +67,10 @@
         this.useTokens = (typeof this.options.tokens == "string" && this.options.tokens.length > 0);
         if (this.useTokens) {
             var escapedTokens = this.options.tokens.split('').join("\\");
-            this.REGEXP_TOKEN_LEFT = new RegExp('[^' + escapedTokens + ']+$', 'i');
             this.REGEXP_TOKEN_RIGHT = new RegExp('[' + escapedTokens + ']', 'i');
-            this.hasSpaceToken = this.options.tokens.indexOf(' ') != -1;
+            this.getLastTokenIndex = function(value) {
+                return RichFaces.ui.Autocomplete.__getLastTokenIndex(escapedTokens, value);
+            }
         }
     };
 
@@ -304,14 +305,11 @@
         if (this.useTokens) {
             var field = rf.getDomElement(this.fieldId);
             var value = field.value;
+            
             var cursorPosition = rf.Selection.getStart(field);
             var beforeCursorStr = value.substring(0, cursorPosition);
             var afterCursorStr = value.substring(cursorPosition);
-            var r = this.REGEXP_TOKEN_LEFT.exec(beforeCursorStr);
-            var result = "";
-            if (r) {
-                result = r[0];
-            }
+            var result = beforeCursorStr.substring(this.getLastTokenIndex(beforeCursorStr));
             r = afterCursorStr.search(this.REGEXP_TOKEN_RIGHT);
             if (r == -1) r = afterCursorStr.length;
             result += afterCursorStr.substring(0, r);
@@ -321,16 +319,25 @@
             return this.getValue();
         }
     };
+    
+    var getCursorPosition = function(field) {
+        var pos = rf.Selection.getStart(field);
+        if (pos <= 0) {
+            // when cursorPosition is not determined (input is not focused),
+            // use position of last token occurence) 
+            pos = this.getLastTokenIndex(field.value);
+        }
+        return pos;
+    }
 
     var updateInputValue = function (value) {
         var field = rf.getDomElement(this.fieldId);
         var inputValue = field.value;
 
-        var cursorPosition = rf.Selection.getStart(field);
+        var cursorPosition = this.__getCursorPosition(field);
         var beforeCursorStr = inputValue.substring(0, cursorPosition);
         var afterCursorStr = inputValue.substring(cursorPosition);
-
-        var pos = beforeCursorStr.search(this.REGEXP_TOKEN_LEFT);
+        var pos = this.getLastTokenIndex(beforeCursorStr);
         var startPos = pos != -1 ? pos : beforeCursorStr.length;
         pos = afterCursorStr.search(this.REGEXP_TOKEN_RIGHT);
         var endPos = pos != -1 ? pos : afterCursorStr.length;
@@ -420,6 +427,7 @@
                 return false;
             },
             __getSubValue: getSubValue,
+            __getCursorPosition: getCursorPosition,
             __updateInputValue: function (value) {
                 if (this.useTokens) {
                     return updateInputValue.call(this, value);
@@ -477,6 +485,7 @@
                 var itemsContainer = rf.getDomElement(this.id + ID.ITEMS);
                 $(itemsContainer).removeData();
                 rf.Event.unbind(itemsContainer.parentNode, this.namespace);
+                this.__conceal();
                 $super.destroy.call(this);
             }
         };
@@ -485,6 +494,25 @@
     $.extend(rf.ui.Autocomplete, {
             setData: function (id, data) {
                 $(rf.getDomElement(id)).data({componentData:data});
+            },
+            
+            __getLastTokenIndex:  function (tokens, value) {
+                var LAST_TOKEN_OCCURENCE = new RegExp("[" + tokens + "][^" + tokens + "]*$", "i");
+                var AFTER_LAST_TOKEN_WITH_SPACES = new RegExp("[^" + tokens + " ]", "i");
+                
+                var value = value || "";
+
+                var lastTokenIndex = value.search(LAST_TOKEN_OCCURENCE);
+                if (lastTokenIndex < 0) {
+                    return 0;
+                }
+                var beforeToken = value.substring(lastTokenIndex);
+                var afterLastTokenIndex = beforeToken.search(AFTER_LAST_TOKEN_WITH_SPACES);
+                if (afterLastTokenIndex <= 0) {
+                    afterLastTokenIndex = beforeToken.length;
+                }
+            
+                return lastTokenIndex + afterLastTokenIndex;
             }
         });
 

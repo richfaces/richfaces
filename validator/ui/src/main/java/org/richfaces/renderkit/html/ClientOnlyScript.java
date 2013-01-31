@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
+import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.resource.ResourceKey;
 
@@ -18,9 +19,11 @@ public class ClientOnlyScript extends ValidatorScriptBase {
     protected final LibraryScriptFunction converter;
     protected final ImmutableList<? extends LibraryScriptFunction> validators;
     private final ImmutableSet<ResourceKey> resources;
+    protected final String onvalid;
+    protected final String oninvalid;
 
     public ClientOnlyScript(LibraryScriptFunction clientSideConverterScript,
-        Collection<? extends LibraryScriptFunction> validatorScripts) {
+            Collection<? extends LibraryScriptFunction> validatorScripts, String onvalid, String oninvalid) {
         super();
         this.converter = clientSideConverterScript;
         this.validators = ImmutableList.copyOf(validatorScripts);
@@ -33,6 +36,8 @@ public class ClientOnlyScript extends ValidatorScriptBase {
             Iterables.addAll(resources, scriptString.getResources());
         }
         this.resources = ImmutableSet.copyOf(resources);
+        this.onvalid = onvalid;
+        this.oninvalid = oninvalid;
     }
 
     public Iterable<ResourceKey> getResources() {
@@ -63,6 +68,16 @@ public class ClientOnlyScript extends ValidatorScriptBase {
         }
         target.append(RIGHT_SQUARE_BRACKET);
         appendAjaxParameter(target);
+        if (oninvalid != null && oninvalid.trim().length() > 0) {
+            target.append(COMMA);
+            target.append("oninvalid:");
+            target.append(new JSFunctionDefinition("messages").addToBody(oninvalid).toScript());
+        }
+        if (onvalid != null && onvalid.trim().length() > 0) {
+            target.append(COMMA);
+            target.append("onvalid:");
+            target.append(new JSFunctionDefinition().addToBody(onvalid).toScript());
+        }
     }
 
     protected void appendValidator(Appendable target, LibraryScriptFunction validatorScript) throws IOException {

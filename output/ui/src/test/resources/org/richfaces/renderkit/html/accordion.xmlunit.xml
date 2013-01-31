@@ -1,10 +1,5 @@
 <div id="f:accordion" class="rf-ac">
-    <input type="hidden" value="item" id="f:accordion-value" name="f:accordion-value" />
-    <script type="text/javascript">
-        //<![CDATA[
-new RichFaces.ui.Accordion("f:accordion",{"ajax":{"incId":"1"} ,"activeItem":"item","isKeepHeight":false,"cycledSwitching":false} )
-//]]>
-    </script>
+    <input type="hidden" value="f:item" id="f:accordion-value" name="f:accordion-value" />
     <div id="f:item" class="rf-ac-itm">
         <div class="rf-ac-itm-hdr rf-ac-itm-hdr-act" id="f:item:header">
             <table class="rf-ac-itm-gr">
@@ -24,11 +19,6 @@ new RichFaces.ui.Accordion("f:accordion",{"ajax":{"incId":"1"} ,"activeItem":"it
         </div>
         <div class="rf-ac-itm-cnt" id="f:item:content">
         </div>
-        <script type="text/javascript">
-            //<![CDATA[
-new RichFaces.ui.AccordionItem("f:item",{"index":0,"togglePanelId":"f:accordion","switchMode":"ajax","name":"item","disabled":false} )
-//]]>
-        </script>
     </div>
     <div id="f:item2" class="rf-ac-itm">
         <div class="rf-ac-itm-hdr rf-ac-itm-hdr-dis" id="f:item2:header">
@@ -46,10 +36,5 @@ new RichFaces.ui.AccordionItem("f:item",{"index":0,"togglePanelId":"f:accordion"
         </div>
         <div class="rf-ac-itm-cnt" id="f:item2:content" style="display: none">
         </div>
-        <script type="text/javascript">
-            //<![CDATA[
-new RichFaces.ui.AccordionItem("f:item2",{"index":1,"togglePanelId":"f:accordion","switchMode":"ajax","name":"item2","disabled":true} )
-//]]>
-        </script>
     </div>
 </div>

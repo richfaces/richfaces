@@ -55,7 +55,6 @@ public class QueueResourceComponentRenderer extends Renderer {
         onbeforedomupdate,
         oncomplete,
         onerror,
-        onevent,
         onrequestdequeue,
         onrequestqueue,
         onsubmit,

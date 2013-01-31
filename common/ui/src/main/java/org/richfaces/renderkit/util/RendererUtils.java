@@ -28,7 +28,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -487,20 +489,85 @@ public final class RendererUtils {
     /**
      * Find nested form for given component
      *
+     * <b>Deprecated</b>: use {@link #getNestingForm(UIComponent)} instead
+     *
      * @param component
      * @return nested <code>UIForm</code> component, or <code>null</code>
      */
+    public UIComponent getNestingForm(UIComponent component) {
+        return getNestingForm(null, component);
+    }
+
+    /**
+     * Find nested form for given component
+     *
+     * @param component
+     * @return nested <code>UIForm</code> component, or <code>null</code>
+     */
+    @Deprecated
     public UIComponent getNestingForm(FacesContext context, UIComponent component) {
         UIComponent parent = component;
 
         // Search enclosed UIForm or ADF UIXForm component
         while ((parent != null) && !(parent instanceof UIForm)
-            && !("org.apache.myfaces.trinidad.Form".equals(parent.getFamily()))
-            && !("oracle.adf.Form".equals(parent.getFamily()))) {
+                && !("org.apache.myfaces.trinidad.Form".equals(parent.getFamily()))
+                && !("oracle.adf.Form".equals(parent.getFamily()))) {
             parent = parent.getParent();
         }
 
         return parent;
+    }
+
+    /**
+     * Find submitted form for given context
+     *
+     * @param facesContext
+     * @return submitted <code>UIForm</code> component, or <code>null</code>
+     */
+    public UIComponent getSubmittedForm(FacesContext facesContext) {
+        if (!facesContext.isPostback()) {
+            return null;
+        }
+        for (Entry<String, String> entry : facesContext.getExternalContext().getRequestParameterMap().entrySet()) {
+            final String name = entry.getKey();
+            final String value = entry.getValue();
+
+            // form's name equals to its value
+            if (isFormValueSubmitted(name, value)) {
+                // in that case, name is equal to clientId
+                UIComponent component = findComponentFor(facesContext.getViewRoot(), name);
+
+                UIComponent form = getNestingForm(component);
+                return form;
+            }
+        }
+        facesContext.addMessage(null, new FacesMessage("The form wasn't detected for the request",
+                "The form wasn't detected for the request - rendering does not have to behave well"));
+        return null;
+    }
+
+    /**
+     * Determines whenever given form has been submitted
+     */
+    public boolean isFormSubmitted(FacesContext context, UIForm form) {
+        if (form != null) {
+            String clientId = form.getClientId(context);
+            String formRequestParam = context.getExternalContext().getRequestParameterMap().get(clientId);
+            return isFormValueSubmitted(clientId, formRequestParam);
+        }
+        return false;
+    }
+
+    /**
+     * Determines if a form was submitted based on its clientId (which equals to request parameter name) and submitted value
+     *
+     * @return true if clientId and value equals and they are not null; false otherwise
+     */
+    private boolean isFormValueSubmitted(String clientId, String value) {
+        if (clientId == null) {
+            return false;
+        }
+        return clientId.equals(value);
     }
 
     /**

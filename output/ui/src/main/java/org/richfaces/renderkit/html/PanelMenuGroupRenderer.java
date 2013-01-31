@@ -89,11 +89,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         String clientId = component.getClientId(context);
         if (requestMap.get(clientId) != null) {
             new ActionEvent(component).queue();
-
             context.getPartialViewContext().getRenderIds().add(clientId);
-
-            // TODO nick - this should be done on encode, not on decode
-            PanelMenuItemRenderer.addOnCompleteParam(context, clientId);
         }
     }
 
@@ -208,8 +204,8 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         options.put("expandEvent", getExpandEvent(panelMenuGroup));
         options.put("collapseEvent", getCollapseEvent(panelMenuGroup));
         options.put("expanded", panelMenuGroup.getState());
-        options.put("selectable", panelMenuGroup.isSelectable());
-        options.put("unselectable", panelMenuGroup.isUnselectable());
+        options.put("selectable", panelMenuGroup.getSelectable());
+        options.put("unselectable", panelMenuGroup.getUnselectable());
         options.put("stylePrefix", getCssClass(panelMenuGroup, ""));
 
         addEventOption(context, panelMenuGroup, options, COLLAPSE);
@@ -229,6 +225,12 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         encodeContentEnd(writer, context, component);
 
         writer.endElement(DIV_ELEM);
+
+        Map<String, String> requestMap = context.getExternalContext().getRequestParameterMap();
+        String clientId = component.getClientId(context);
+        if (requestMap.get(clientId) != null) {
+            addOnCompleteParam(context, clientId);
+        }
     }
 
     @Override

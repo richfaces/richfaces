@@ -9,6 +9,7 @@
             <cdk:event-class>org.richfaces.event.ItemChangeEvent</cdk:event-class>
             <cdk:listener-class>org.richfaces.event.ItemChangeListener</cdk:listener-class>
             <cdk:source-class>org.richfaces.event.ItemChangeSource</cdk:source-class>
+            <cdk:description>Associates item change listener with any toggleable panel (accordion, collapsiblePanel, tabPanel, togglePanel, panelMenu) in order to listen for item change events.</cdk:description>
             <cdk:tag>
                 <cdk:tag-name>itemChangeListener</cdk:tag-name>
                 <cdk:tag-type>Facelets</cdk:tag-type>
@@ -21,6 +22,7 @@
             <cdk:event-class>org.richfaces.event.PanelToggleEvent</cdk:event-class>
             <cdk:listener-class>org.richfaces.event.PanelToggleListener</cdk:listener-class>
             <cdk:source-class>org.richfaces.event.PanelToggleSource</cdk:source-class>
+            <cdk:description>Associates panel toggle listener with collapsiblePanel in order to listen for panel toggle events.</cdk:description>
             <cdk:tag>
                 <cdk:tag-name>panelToggleListener</cdk:tag-name>
                 <cdk:tag-type>Facelets</cdk:tag-type>

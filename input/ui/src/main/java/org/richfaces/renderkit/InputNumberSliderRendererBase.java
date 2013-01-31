@@ -21,9 +21,10 @@
  */
 package org.richfaces.renderkit;
 
-import javax.faces.component.UIComponent;
-
+import org.richfaces.component.InputNumberSliderHandleType;
 import org.richfaces.component.InputNumberSliderInputPosition;
+
+import javax.faces.component.UIComponent;
 
 /**
  * @author Nick Belaevski
@@ -36,5 +37,13 @@ public abstract class InputNumberSliderRendererBase extends InputRendererBase {
             type = InputNumberSliderInputPosition.DEFAULT;
         }
         return type == InputNumberSliderInputPosition.valueOf(name);
+    }
+
+    protected boolean isBarStyleHandle(UIComponent component) {
+        InputNumberSliderHandleType type = (InputNumberSliderHandleType) component.getAttributes().get("handleType");
+        if (type == null) {
+            type = InputNumberSliderHandleType.DEFAULT;
+        }
+        return type == InputNumberSliderHandleType.bar;
     }
 }

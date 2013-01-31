@@ -31,12 +31,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.richfaces.component.AbstractNotify;
 import org.richfaces.component.AbstractNotifyStack;
 import org.richfaces.component.NotifyAttributes;
+import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public class NotifyRendererUtils {
 
@@ -91,7 +94,16 @@ public class NotifyRendererUtils {
 
         Object attribute = component.getAttributes().get(name);
         if (attribute != null) {
-            options.put(name, attribute.toString());
+            String value = attribute.toString();
+            boolean escape = true;
+            if (component instanceof AbstractNotify) {
+                escape = ((AbstractNotify) component).isEscape();
+            }
+
+            if (escape) {
+                value = HtmlUtil.escapeHtml(value);
+            }
+            options.put(name, value);
             return;
         }
     }

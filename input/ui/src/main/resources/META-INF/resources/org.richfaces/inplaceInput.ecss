@@ -58,11 +58,6 @@ input.rf-ii-fld {
     
 }
 
-.rf-ii-strut {
-    width: 100px;
-    height: 1px;
-}
-
 .rf-ii-btn {
     background-image: url("#{resource['org.richfaces.images:inplaceBtnGrad.png']}");
     background-attachment: scroll;
@@ -178,10 +173,6 @@ input.rf-ii-fld {
 
 .rf-ii-none {
     clip: "rect(0px 0px 1px 1px)";
-}
-
-.rf-ii-none {
-    clip: rect(0px, 0px, 1px, 1px);
 }
 
 .rf-ii-dflt-lbl {

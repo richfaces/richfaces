@@ -73,12 +73,6 @@ public abstract class AbstractQueue extends UIComponentBase {
     public abstract String getOnerror();
 
     /**
-     *
-     */
-    @Attribute
-    public abstract String getOnevent();
-
-    /**
      * The client-side script method to be called when the request is added to the queue
      */
     @Attribute

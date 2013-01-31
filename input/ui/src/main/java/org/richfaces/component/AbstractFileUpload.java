@@ -83,6 +83,19 @@ public abstract class AbstractFileUpload extends UIComponentBase {
     public abstract boolean isNoDuplicate();
 
     /**
+     * <p>If "true" upload stats immediately after file selection</p>
+     * <p>Default is "false"</p>
+     */
+    @Attribute(defaultValue = "false")
+    public abstract boolean isImmediateUpload();
+
+    /**
+     * Javascript code executed when a file is selected
+     */
+    @Attribute(events = @EventName("fileselect"))
+    public abstract String getOnfileselect();
+
+    /**
      * Javascript code executed when a file is submitted
      */
     @Attribute(events = @EventName("filesubmit"))

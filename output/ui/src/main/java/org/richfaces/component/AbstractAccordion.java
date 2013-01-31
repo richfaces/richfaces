@@ -58,16 +58,7 @@ public abstract class AbstractAccordion extends AbstractTogglePanel {
     @Override
     @Attribute
     public String getActiveItem() {
-        String res = super.getActiveItem();
-        if (res == null) {
-            res = getFirstItem().getName();
-        } else {
-            AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) super.getItemByIndex(super.getChildIndex(res));
-            if (item.isDisabled()) {
-                res = getFirstItem().getName();
-            }
-        }
-        return res;
+        return super.getActiveItem();
     }
 
     // ------------------------------------------------ Html Attributes

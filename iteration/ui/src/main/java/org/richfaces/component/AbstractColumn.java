@@ -24,7 +24,10 @@ package org.richfaces.component;
 import java.util.Comparator;
 
 import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
 
+import org.richfaces.application.CoreConfiguration;
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.Facet;
@@ -46,6 +49,8 @@ import org.richfaces.model.SortField;
 public abstract class AbstractColumn extends javax.faces.component.UIColumn implements Column {
     public static final String COMPONENT_TYPE = "org.richfaces.Column";
     public static final String COMPONENT_FAMILY = "org.richfaces.Column";
+    private static Boolean builtInSortControlsEnabled;
+    private static Boolean builtInFilterControlsEnabled;
 
     /**
      * if "true" next column begins from the first row
@@ -70,6 +75,34 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
      */
     @Attribute
     public abstract Object getFilterValue();
+
+    /**
+     * Defines current filter type. Possible values: string, custom.
+     * If custom is used, no filter box is created, you are responsible for e creating your own filter input
+     * Default: string
+     */
+    @Attribute(defaultValue = "string")
+    public abstract String getFilterType();
+
+    /**
+     * The message to be displayed when the filter expression is not able to be evaluated using the provided filter value.
+     */
+    @Attribute
+    public abstract String getFilterConverterMessage();
+
+    /**
+     * The submitted filter value.  Set when the evaluation of the filter expression fails.
+     */
+    @Attribute(hidden = true)
+    public abstract String getSubmittedFilterValue();
+
+    /**
+     * Defines current filtering value. Possible values: string, custom.
+     * If custom is used, no filter box is created, you are responsible for e creating your own filter input
+     * Default: string
+     */
+    @Attribute(defaultValue = "string")
+    public abstract String getSortType();
 
     /**
      * Corresponds to the HTML rowspan attribute
@@ -154,4 +187,30 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
         }
         return field;
     }
+
+    public boolean useBuiltInFilter() {
+        return isBuiltInFilterControlsEnabled() && getFilterField() != null &&  ! "custom".equals(getFilterType());
+    }
+
+    public boolean useBuiltInSort() {
+        return isBuiltInSortControlsEnabled() && getValueExpression("sortBy") != null && ! "custom".equals(getSortType());
+    }
+
+    public static boolean isBuiltInSortControlsEnabled(){
+        if(builtInSortControlsEnabled== null){
+            FacesContext context = FacesContext.getCurrentInstance();
+            builtInSortControlsEnabled =  ConfigurationServiceHelper.getBooleanConfigurationValue(context, CoreConfiguration.Items.builtInSortControlsEnabled);
+        }
+        return Boolean.TRUE.equals(builtInSortControlsEnabled);
+    }
+
+    public static boolean isBuiltInFilterControlsEnabled(){
+        if(builtInFilterControlsEnabled== null){
+            FacesContext context = FacesContext.getCurrentInstance();
+            builtInFilterControlsEnabled =  ConfigurationServiceHelper.getBooleanConfigurationValue(context, CoreConfiguration.Items.builtInFilterControlsEnabled);
+        }
+        return Boolean.TRUE.equals(builtInFilterControlsEnabled);
+    }
+
+
 }

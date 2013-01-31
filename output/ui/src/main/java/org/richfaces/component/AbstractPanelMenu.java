@@ -224,11 +224,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public abstract boolean isBubbleSelection();
 
     /**
-     * MethodExpression representing an panel menu item selection method that will be notified when the panel menu item is
-     * selected. The expression must evaluate to a public method that takes an ItemChangeEvent parameter, with a return type of
-     * void, or to a public method that takes no arguments with a return type of void. In the latter case, the method has no way
-     * of easily knowing where the event came from, but this can be useful in cases where a notification is needed that
-     * "some action happened".
+     * Method expression referencing a method that will be called when an ItemChangeEvent has been broadcast for the listener.
      */
     @Attribute
     public abstract MethodExpression getItemChangeListener();

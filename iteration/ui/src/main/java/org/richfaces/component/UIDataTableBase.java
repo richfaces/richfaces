@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nullable;
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
@@ -40,6 +41,8 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PreRenderComponentEvent;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterators;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
@@ -73,6 +76,13 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     public static final String BODY = "body";
     private static final Logger RENDERKIT_LOG = RichfacesLogger.RENDERKIT.getLogger();
     private static final Set<String> SUPPORTED_META_COMPONENTS = new HashSet<String>();
+    private static Predicate<UIComponent> isRow = new Predicate<UIComponent>() {
+        @Override
+        public boolean apply(@Nullable UIComponent child) {
+            return child instanceof Row;
+        }
+    };
+
 
     static {
         SUPPORTED_META_COMPONENTS.add(HEADER);
@@ -208,6 +218,10 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         return new DataTableDataChildrenIterator(this);
     }
 
+    protected boolean hasRowChildren() {
+        return Iterators.tryFind(getChildren().iterator(), isRow).isPresent();
+    }
+
     public boolean isColumnFacetPresent(String facetName) {
         Iterator<UIComponent> columns = columns();
         boolean result = false;
@@ -217,7 +231,14 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
                 if (component.isRendered()) {
                     UIComponent facet = component.getFacet(facetName);
                     result = facet != null && facet.isRendered();
+                    // header facet is required if we have built-in filters
+                    if (result == false && "header".equals(facetName) && component instanceof AbstractColumn) {
+                        result = ((AbstractColumn) component).useBuiltInFilter();
+                    }
                 }
+            }
+            if (result) {
+                break;
             }
         }
         return result;

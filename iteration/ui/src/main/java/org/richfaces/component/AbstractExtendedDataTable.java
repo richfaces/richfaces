@@ -96,6 +96,19 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     public abstract String getOnselectionchange();
 
     /**
+     * Determines the order in which the columns should be rendered, left to right.
+     * The Strings are the ids of the columns.
+     */
+    @Attribute
+    public abstract String[] getColumnsOrder();
+
+    /**
+     * ValueBinding pointing at a property of a String to hold table state
+     */
+    @Attribute
+    public abstract String getTableState();
+
+    /**
      * The client-side script method to be called before the selection is changed.
      */
     @Attribute(events = @EventName("beforeselectionchange"))
@@ -189,6 +202,11 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
         setClientFirst(0);
     }
 
+    /**
+     * Use to switch Extended Data Table to AJAX lazy-loading mode. Specify number of rows rows to be loaded with one request.
+     * If this attribute is set to "0", all rows are loaded. (Default value: 0)
+     */
+    @Attribute(generate = false, defaultValue = "0")
     public int getClientRows() {
         return (Integer) getStateHelper().eval(PropertyKeys.clientRows, 0);
     }

@@ -90,6 +90,10 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
         return isExpanded();
     }
 
+    public String updateActiveName(String activeItemName) {
+        return getActiveItem();
+    }
+
     /**
      * When true, the panel is expanded, when false, the panel is collapsed
      */

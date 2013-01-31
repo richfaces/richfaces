@@ -92,7 +92,9 @@
             if (this.isVisible) {
                 var _this = this;
                 this.timeoutId = window.setTimeout(function() {
-                    _this.__hide(event);
+                    if (this.isVisible) {
+                        _this.__hide(event);
+                    }
                 }, 200);
             }
             if (this.focused) {
@@ -100,7 +102,6 @@
                 this.invokeEvent("blur", rf.getDomElement(this.fieldId), event);
                 if (this.__focusValue != this.getValue()) {
                     this.invokeEvent("change", rf.getDomElement(this.fieldId), event);
-                    this.invokeEvent("change", rf.getDomElement(this.id), event);
                 }
             }
         }
@@ -222,15 +223,23 @@
     };
     var hide = function (event) {
         if (this.isVisible) {
-            rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
-            this.scrollElements = null;
-            $(rf.getDomElement(this.selectId)).hide();
+            this.__conceal();
             this.isVisible = false;
+            this.__onHide(event);
+        }
+    };
+    
+    var conceal = function () {
+        if (this.isVisible) {
+            if (this.scrollElements) {
+                rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
+                this.scrollElements = null;
+            }
+            $(rf.getDomElement(this.selectId)).hide();
             if (this.options.attachToBody && this.parentElement) {
                 this.parentElement.appendChild(rf.getDomElement(this.selectId));
                 this.parentElement = null;
             }
-            this.__onHide(event);
         }
     };
 
@@ -278,6 +287,7 @@
             __updateInputValue: updateInputValue,
             __show: show,
             __hide: hide,
+            __conceal: conceal,
             /*
              * abstract protected methods
              */

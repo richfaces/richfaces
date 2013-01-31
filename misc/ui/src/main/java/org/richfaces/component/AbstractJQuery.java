@@ -34,6 +34,9 @@ import org.richfaces.cdk.annotations.TagType;
  * regular DOM (Document Object Model) objects. It uses the jQuery JavaScript framework to add functionality to web
  * applications.</p>
  *
+ * <p>This component is for use as a facelet tag.  See the &lt;rich:jQuery&gt; EL function for access to the jQuery library
+ * via EL.</p>
+ *
  * @author nick
  */
 @JsfComponent(type = AbstractJQuery.COMPONENT_TYPE, family = AbstractJQuery.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.JQueryRenderer"), tag = @Tag(type = TagType.Facelets))
@@ -53,8 +56,9 @@ public abstract class AbstractJQuery extends UIComponentBase {
     public abstract String getName();
 
     /**
-     * Selector for query. The "selector" attribute uses defined by w3c consortium syntax for CSS rule selector with some jQuery
-     * extensions.
+     * The jQuery selector (subset of CSS selectors defined by W3C) of the element to which the jQuery function should be applied.
+     *
+     * ID selectors starting with hash sign (#) will be expanded from componentId to clientId form. (e.g. #component is expanded to #form:component in case that component is nested in form)
      */
     @Attribute
     public abstract String getSelector();

@@ -47,8 +47,11 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
 
     //-------- multiselect-props.xml
 
-    @Attribute()
+    @Attribute
     public abstract String getVar();
+
+    @Attribute
+    public abstract String getCollectionType();
 
     @Attribute
     public abstract boolean isDisabled();

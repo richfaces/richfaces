@@ -117,15 +117,29 @@
 
             __setValue: function (value, event, skipOnchange) {
                 if (!isNaN(value)) {
+                    var changed = false;
+                    if (this.input.val() == "") {
+                        // value already changed from "" to 0, compare to real value to track changes
+                        changed = true;
+                    }
+
                     if (value > this.maxValue) {
                         value = this.maxValue;
+                        this.input.val(value);
+                        changed = true;
                     } else if (value < this.minValue) {
                         value = this.minValue;
+                        this.input.val(value);
+                        changed = true;
                     }
-                    if (value != this.value) {
+                    if (value != this.value || changed) {
                         this.input.val(value);
                         var left = 100 * (value - this.minValue) / this.range;
-                        this.handleContainer.css("padding-left", left + "%");
+                        if(this.handleType=='bar') {
+                            this.handleContainer.css("width", left + "%");
+                        } else {
+                            this.handleContainer.css("padding-left", left + "%");
+                        }
                         this.tooltip.text(value);
                         this.tooltip.setPosition(this.handle, {from: 'LT', offset: [0, 5]}); //TODO Seems offset doesn't work now.
                         this.value = value;
@@ -211,7 +225,7 @@
             },
 
             __mousemoveHandler: function (event) {
-                var value = this.range * (event.pageX - this.track.position().left - this.handle.width() / 2) / (this.track.width()
+                var value = this.range * (event.pageX - this.track.offset().left - this.handle.width() / 2) / (this.track.width()
                     - this.handle.width()) + this.minValue;
                 value = Math.round(value / this.step) * this.step;
                 value = this.roundFloat(value);

@@ -26,6 +26,7 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.same;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -63,6 +64,7 @@ public class RenderKitUtilsMocksTest {
      *
      */
     private static final String CLIENT_ID = "submittedId";
+    private static final String FACET_NAME = "facetName";
     private MockFacesEnvironment facesEnvironment;
     private ResponseWriter responseWriter;
     private FacesContext facesContext;
@@ -109,13 +111,13 @@ public class RenderKitUtilsMocksTest {
     }
 
     private ClientBehaviorHolder createMockClientBehaviorHolder() {
-        UIComponent component = facesEnvironment.createMock(MockClientBehaviorHolder.class);
+        UIComponent component = facesEnvironment.createMock(AbstractClientBehaviorHolderComponent.class);
         expect(component.getClientId(same(facesContext))).andStubReturn(CLIENT_ID);
         expect(component.getAttributes()).andStubReturn(componentAttributes);
         ClientBehaviorHolder behaviorHolder = (ClientBehaviorHolder) component;
         expect(behaviorHolder.getClientBehaviors()).andStubReturn(behaviorsMap);
         expect(behaviorHolder.getEventNames()).andStubReturn(
-            Arrays.asList("click", "action", "mousemove", "keypress", "blur", "contextmenu"));
+                Arrays.asList("click", "action", "mousemove", "keypress", "blur", "contextmenu"));
         return behaviorHolder;
     }
 
@@ -154,7 +156,7 @@ public class RenderKitUtilsMocksTest {
     private ClientBehavior createClientBehavior(String handlerData, Set<ClientBehaviorHint> hints) {
         ClientBehavior behavior = facesEnvironment.createMock(ClientBehavior.class);
         expect(behavior.getScript(EasyMock.<ClientBehaviorContext>notNull())).andStubReturn(
-            MessageFormat.format("prompt({0})", handlerData));
+                MessageFormat.format("prompt({0})", handlerData));
 
         expect(behavior.getHints()).andStubReturn(hints);
         return behavior;
@@ -166,7 +168,7 @@ public class RenderKitUtilsMocksTest {
         knownAttributes.put("onmousemove", new ComponentAttribute("onmousemove").setEventNames(new String[] { "mousemove" }));
         knownAttributes.put("onkeypress", new ComponentAttribute("onkeypress").setEventNames(new String[] { "keypress" }));
         knownAttributes.put("oncontextmenu",
-            new ComponentAttribute("oncontextmenu").setEventNames(new String[] { "contextmenu" }));
+                new ComponentAttribute("oncontextmenu").setEventNames(new String[] { "contextmenu" }));
 
         componentAttributes.put("onkeypress", "alert(keypress)");
         componentAttributes.put("onmousemove", "alert(mousemove)");
@@ -189,10 +191,10 @@ public class RenderKitUtilsMocksTest {
         UIComponent component = (UIComponent) behaviorHolder;
 
         responseWriter.writeAttribute(eq("onkeypress"),
-            eq("return jsf.util.chain(this, event, 'alert(keypress)','prompt(keypress)')"), EasyMock.<String>isNull());
+                eq("return jsf.util.chain(this, event, 'alert(keypress)','prompt(keypress)')"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("onclick"),
-            eq("return jsf.util.chain(this, event, 'alert(click)','prompt(action1)','prompt(action2)')"),
-            EasyMock.<String>isNull());
+                eq("return jsf.util.chain(this, event, 'alert(click)','prompt(action1)','prompt(action2)')"),
+                EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("onmousemove"), eq("alert(mousemove)"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("oncontextmenu"), eq("prompt(contextmenu)"), EasyMock.<String>isNull());
 
@@ -238,7 +240,7 @@ public class RenderKitUtilsMocksTest {
         UIComponent component = setupBehaviorsTestForDisabledComponent();
 
         responseWriter.writeAttribute(eq("onclick"),
-            eq("return jsf.util.chain(this, event, 'alert(click)','prompt(action1)')"), EasyMock.<String>isNull());
+                eq("return jsf.util.chain(this, event, 'alert(click)','prompt(action1)')"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("onmousemove"), eq("alert(mousemove)"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("style"), eq("color:green"), EasyMock.<String>isNull());
 
@@ -360,5 +362,61 @@ public class RenderKitUtilsMocksTest {
         facesEnvironment.replay();
 
         assertNull(RenderKitUtils.decodeBehaviors(facesContext, component));
+    }
+
+    @Test
+    public void when_component_has_defined_facet_and_it_is_rendered_then_hasFacet_should_return_true() {
+        // given
+
+        UIComponent component = createMockComponent();
+        UIComponent facetComponent = createMockComponent();
+
+        expect(component.getFacet(FACET_NAME)).andReturn(facetComponent).times(2);
+        expect(facetComponent.isRendered()).andReturn(true);
+
+        facesEnvironment.replay();
+
+        // when
+        boolean hasFacet = RenderKitUtils.hasFacet(component, FACET_NAME);
+
+        // then
+        assertTrue("hasFacet should return true", hasFacet);
+    }
+
+    @Test
+    public void when_component_has_defined_facet_but_it_is_not_rendered_then_hasFacet_should_return_false() {
+        // given
+        UIComponent component = createMockComponent();
+        UIComponent facetComponent = createMockComponent();
+
+        expect(component.getFacet(FACET_NAME)).andReturn(facetComponent).times(2);
+        expect(facetComponent.isRendered()).andReturn(false);
+
+        facesEnvironment.replay();
+
+        // when
+        boolean hasFacet = RenderKitUtils.hasFacet(component, FACET_NAME);
+
+        // then
+        assertFalse("hasFacet should return false", hasFacet);
+    }
+
+    @Test
+    public void when_component_has_not_defined_facet_then_hasFacet_should_return_false() {
+        // given
+        UIComponent component = createMockComponent();
+
+        expect(component.getFacet(FACET_NAME)).andReturn(null);
+
+        facesEnvironment.replay();
+
+        // when
+        boolean hasFacet = RenderKitUtils.hasFacet(component, FACET_NAME);
+
+        // then
+        assertFalse("hasFacet should return false", hasFacet);
+    }
+
+    public abstract static class AbstractClientBehaviorHolderComponent extends UIComponent implements ClientBehaviorHolder {
     }
 }

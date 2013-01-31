@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.2.2.Final</version>
+        <version>4.3.0.Final</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -207,6 +207,7 @@
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Static.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Static/</staticResourcePrefix>
                             <excludedFiles>
+                                <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
                             </excludedFiles>
@@ -226,6 +227,7 @@
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Compressed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Compressed/</staticResourcePrefix>
                             <excludedFiles>
+                                <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
                             </excludedFiles>
@@ -245,6 +247,7 @@
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Packed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Packed/</staticResourcePrefix>
                             <excludedFiles>
+                                <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
                                 <exclude>^jquery.js$</exclude>
@@ -281,6 +284,7 @@
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/PackedCompressed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/PackedCompressed/</staticResourcePrefix>
                             <excludedFiles>
+                                <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
                                 <exclude>^jquery\.js$</exclude>
@@ -306,6 +310,35 @@
                 </executions>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.richfaces.cdk</groupId>
+                                        <artifactId>maven-richfaces-resources-plugin</artifactId>
+                                        <versionRange>[4.3.0-SNAPSHOT,)</versionRange>
+                                        <goals>
+                                            <goal>process</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <scm>

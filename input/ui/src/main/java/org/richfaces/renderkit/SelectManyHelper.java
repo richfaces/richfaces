@@ -23,14 +23,19 @@ package org.richfaces.renderkit;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import com.google.common.collect.Iterators;
 import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.SelectItemsInterface;
+import org.richfaces.component.util.SelectUtils;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.HtmlDimensions;
 
 import javax.annotation.Nullable;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
+import javax.faces.application.Application;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -41,6 +46,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -63,6 +69,8 @@ import java.util.TreeSet;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public class SelectManyHelper {
+    private static final Logger LOG = RichfacesLogger.APPLICATION.getLogger();
+
     public static final String CELL_CSS = "-c";
     public static final String ITEM_CSS = "-opt";
     public static final String ITEM_CSS_DIS = "-opt-dis";
@@ -265,83 +273,99 @@ public class SelectManyHelper {
         String[] values = (val == null) ? new String[0] : (String[]) val;
         Converter converter = SelectManyHelper.getItemConverter(facesContext, component);
         ValueExpression ve = component.getValueExpression("value");
+        Object targetForConvertedValues = null;
         if (ve != null) {
+            // If the component has a ValueExpression for value, let modelType be the type of the value expression
             Class<?> modelType = ve.getType(facesContext.getELContext());
             if (modelType.isArray()) {
+                // If the component has a ValueExpression for value and the type of the expression is an array, let targetForConvertedValues be a new array of the expected type.
                 Class<?> arrayComponentType = modelType.getComponentType();
-                Object targetForConvertedValues = Array.newInstance(arrayComponentType, values.length);
-                for (int i = 0; i < values.length; i++) {
-                    if (converter != null) {
-                        Array.set(targetForConvertedValues, i, converter.getAsObject(facesContext, component, values[i]));
-                    } else {
-                        Array.set(targetForConvertedValues, i, values[i]);
-                    }
-                }
-                return targetForConvertedValues;
-            } else if (Collection.class.isAssignableFrom(modelType)) {
-                Collection targetForConvertedValues;
+                targetForConvertedValues = Array.newInstance(arrayComponentType, values.length);
+            } else if (Collection.class.isAssignableFrom(modelType) || Object.class.equals(modelType)) {
+                // If modelType is a Collection, do the following to arrive at targetForConvertedValues:
+                // Ask the component for its attribute under the key "collectionType"
                 String collectionType = (String) component.getAttributes().get("collectionType");
                 if (collectionType != null) {
-                    ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                    if (classLoader == null) {
-                        classLoader = SelectManyRendererBase.class.getClassLoader();
-                    }
+                    // Let targetForConvertedValues be a new instance of Collection implemented by the concrete class specified in collectionType
+                    Class<?> collectionClass = getCollectionClass(collectionType);
                     try {
-                        targetForConvertedValues = classLoader.loadClass(collectionType).asSubclass(Collection.class).newInstance();
-                    } catch (InstantiationException e) {
-                        throw new FacesException(e);
-                    } catch (IllegalAccessException e) {
-                        throw new FacesException(e);
-                    } catch (ClassNotFoundException e) {
+                        targetForConvertedValues = collectionClass.newInstance();
+                    } catch (Exception e) {
                         throw new FacesException(e);
                     }
                 } else {
+                    // If there is no "collectionType" attribute, call getValue() on the component
+                    // The result will implement Collection.
                     Collection value = (Collection) ((EditableValueHolder) component).getValue();
                     if (value instanceof Cloneable) {
+                        // If the result also implements Cloneable, let targetForConvertedValues be the result of calling its clone() method,
+                        // then calling clear() on the cloned Collection.
                         try {
                             targetForConvertedValues = (Collection) value.getClass().getMethod("clone").invoke(value);
-                            targetForConvertedValues.clear();
-                        } catch (IllegalAccessException e) {
-                            throw new FacesException(e);
-                        } catch (InvocationTargetException e) {
-                            throw new FacesException(e);
-                        } catch (NoSuchMethodException e) {
-                            throw new FacesException(e);
-                        }
-                    } else {
-                        if (SortedSet.class.isAssignableFrom(modelType)) {
-                            targetForConvertedValues = new TreeSet();
-                        } else if (Queue.class.isAssignableFrom(modelType)) {
-                            targetForConvertedValues = new LinkedList();
-                        } else if (Set.class.isAssignableFrom(modelType)) {
-                            targetForConvertedValues = new HashSet(values.length);
-                        } else {
-                            targetForConvertedValues = new ArrayList(values.length);
+                            ((Collection) targetForConvertedValues).clear();
+                        } catch (Exception e) {
+                            // If unable to clone the value for any reason, log a message
+                            LOG.log(Logger.Level.WARNING, "Unable to clone collection");
                         }
                     }
-                    for (int i = 0; i < values.length; i++) {
-                        if (converter != null) {
-                            targetForConvertedValues.add(converter.getAsObject(facesContext, component, values[i]));
-                        } else {
-                            targetForConvertedValues.add(values[i]);
+                    if (targetForConvertedValues == null) {
+                        // and proceed to the next step
+                        Class<?> collectionClass = value == null ? modelType : value.getClass();
+                        try {
+                            // If modelType is a concrete class, let targetForConvertedValues be a new instance of that class.
+                            targetForConvertedValues = collectionClass.newInstance();
+                            ((Collection) targetForConvertedValues).clear();
+                        } catch (Exception e) {
+                            // Otherwise, the concrete type for targetForConvertedValues is taken from the following table
+                            if (Collection.class.isAssignableFrom(modelType)) {
+                                if (SortedSet.class.isAssignableFrom(modelType)) {
+                                    targetForConvertedValues = new TreeSet();
+                                } else if (Queue.class.isAssignableFrom(modelType)) {
+                                    targetForConvertedValues = new LinkedList();
+                                } else if (Set.class.isAssignableFrom(modelType)) {
+                                    targetForConvertedValues = new HashSet(values.length);
+                                } else {
+                                    targetForConvertedValues = new ArrayList(values.length);
+                                }
+                            }
                         }
                     }
                 }
-                return targetForConvertedValues;
             } else {
-                throw new FacesException(String.format("ModelType (%s) must be either an Array, or a Collection", modelType));
+                throw new FacesException("ValueExpression must be either an Array, or a Collection");
             }
         } else {
-            Object targetForConvertedValues = new Object[values.length];
-            for (int i = 0; i < values.length; i++) {
-                if (converter != null) {
-                    ((Object[]) targetForConvertedValues)[i] = converter.getAsObject(facesContext, component, values[i]);
-                } else {
-                    ((Object[]) targetForConvertedValues)[i] = values[i];
-                }
-            }
-            return targetForConvertedValues;
+            // If the component does not have a ValueExpression for value, let targetForConvertedValues be an array of type Object.
+            targetForConvertedValues = new Object[values.length];
         }
+        for (int i = 0; i < values.length; i++) {
+            Object value;
+            if (converter == null) {
+                value = values[i];
+            } else {
+                value = converter.getAsObject(facesContext, component, values[i]);
+            }
+            if (targetForConvertedValues.getClass().isArray()) {
+                Array.set(targetForConvertedValues, i, value);
+            } else {
+                ((Collection) targetForConvertedValues).add(value);
+            }
+        }
+        return targetForConvertedValues;
+    }
+
+    private static Class getCollectionClass(String collectionType) {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        Class<?> collectionClass = null;
+        if (classLoader == null) {
+            classLoader = SelectManyRendererBase.class.getClassLoader();
+        }
+        try {
+            collectionClass = classLoader.loadClass(collectionType).asSubclass(Collection.class);
+        } catch (ClassNotFoundException e) {
+            throw new FacesException(e);
+        }
+        return collectionClass;
     }
 
     public static Converter getItemConverter(FacesContext facesContext, UIComponent component) {
@@ -364,7 +388,39 @@ public class SelectManyHelper {
             }
             //A java.util.Collection. Do not convert the values.
         }
-        // If for any reason a Converter cannot be found, assume the type to be a String array.
+        if (converter == null) {
+            // Spec says "If for any reason a Converter cannot be found, assume the type to be a String array." However
+            // if we don't have an explicit converter, see if one is registered for the class of the SelectItem values
+            Iterator<SelectItem> selectItems = SelectUtils.getSelectItems(facesContext, component);
+            converter = getSelectItemConverter(facesContext.getApplication(), selectItems);
+        }
+
+        return converter;
+    }
+
+    public static Converter getSelectItemConverter(Application facesApplication, Iterator<SelectItem> selectItems) {
+        Converter converter = null;
+        while (selectItems.hasNext() && converter == null) {
+            SelectItem selectItem = selectItems.next();
+            if (selectItem instanceof SelectItemGroup) {
+                SelectItemGroup selectItemGroup = (SelectItemGroup) selectItem;
+                Iterator<SelectItem> groupSelectItems = Iterators.forArray(selectItemGroup.getSelectItems());
+                // Recursively get the converter from the SelectItems of the SelectItemGroup
+                converter = getSelectItemConverter(facesApplication, groupSelectItems);
+            }
+            else {
+                Class<?> selectItemClass = selectItem.getValue().getClass();
+                if (String.class.equals(selectItemClass)) {
+                    return null; // No converter required for strings
+                }
+                try {
+                    converter = facesApplication.createConverter(selectItemClass); // Lookup the converter registered for the class
+                }
+                catch (FacesException exception) {
+                    // Converter cannot be created
+                }
+            }
+        }
         return converter;
     }
 

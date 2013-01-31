@@ -193,7 +193,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
      * Defines whenever the group is selectable.
      */
     @Attribute(defaultValue = "Boolean.FALSE")
-    public abstract Boolean isSelectable();
+    public abstract Boolean getSelectable();
 
     /**
      * Mode used for expanding/collapsing of this group: default value is inherited from panelMenu

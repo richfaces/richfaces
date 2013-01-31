@@ -31,8 +31,17 @@ public class ShortConverterTest extends ConverterTestBase {
 
     @Parameters
     public static List<RunParameters[]> getRunParameterss() {
-        return options(pass("true"), pass("123"), pass("0"), pass("1"), pass(Long.toString(Long.MAX_VALUE)),
-            pass(Short.toString(Short.MIN_VALUE)), pass(Short.toString(Short.MAX_VALUE)), pass("-129"), pass("256"),
-            pass("-0"), pass("0.05"));
+        return options(
+                pass("true"),
+                pass("123"),
+                pass("0"),
+                pass("1"),
+                pass(Long.toString(Long.MAX_VALUE)),
+                pass(Short.toString(Short.MIN_VALUE)),
+                pass(Short.toString(Short.MAX_VALUE)),
+                pass("-129"),
+                pass("256"),
+                pass("-0"),
+                pass("0.05"));
     }
 }

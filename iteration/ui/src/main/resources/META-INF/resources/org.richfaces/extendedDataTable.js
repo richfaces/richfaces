@@ -36,11 +36,16 @@
         var rule = null;
         var sheets = document.styleSheets;
         for (var j = 0; !rule && j < sheets.length; j++) {
-            var rules = sheets[j].cssRules ? sheets[j].cssRules : sheets[j].rules;
-            for (var i = 0; !rule && i < rules.length; i++) {
-                if (rules[i].selectorText && rules[i].selectorText.toLowerCase() == className.toLowerCase()) {
-                    rule = rules[i];
+            try {
+                var sheet = sheets[j];
+                var rules = sheet.cssRules ? sheet.cssRules : sheet.rules;
+                for (var i = 0; !rule && i < rules.length; i++) {
+                    if (rules[i].selectorText && rules[i].selectorText.toLowerCase() == className.toLowerCase()) {
+                        rule = rules[i];
+                    }
                 }
+            } catch (e) {
+                richfaces.log.debug("Cannot obtain CSS rule for " + (sheet.href || sheet) + ": " + e);
             }
         }
         return rule;
@@ -151,39 +156,40 @@
                 this.ajaxFunction = ajaxFunction;
                 this.options = options || {};
                 this.element = this.attachToDom();
-//			var bodyElement, contentElement, spacerElement, dataTableElement, normalPartStyle, rows, rowHeight, parts, tbodies,
-//				shiftIndex, activeIndex, selectionFlag;
-                this.dragElement = document.getElementById(id + ":d");
-                this.reorderElement = document.getElementById(id + ":r");
-                this.reorderMarkerElement = document.getElementById(id + ":rm");
-                this.widthInput = document.getElementById(id + ":wi");
                 this.newWidths = {};
-                this.selectionInput = document.getElementById(id + ":si");
+                this.storeDomReferences();
+                if (this.options['onready'] && typeof this.options['onready'] == 'function') {
+                    richfaces.Event.bind(this.element, "rich:ready", this.options['onready']);
+                }
+                jQuery(document).ready(jQuery.proxy(this.initialize, this));
+                this.resizeEventName = "resize.rf.edt." + this.id;
+                this.activateResizeListener();
+                jQuery(this.scrollElement).bind("scroll", jQuery.proxy(this.updateScrollPosition, this));
+                this.bindHeaderHandlers();
+                jQuery(this.element).bind("rich:onajaxcomplete", jQuery.proxy(this.ajaxComplete, this));
+            },
+
+            storeDomReferences: function() {
+                this.dragElement = document.getElementById(this.id + ":d");
+                this.reorderElement = document.getElementById(this.id + ":r");
+                this.reorderMarkerElement = document.getElementById(this.id + ":rm");
+                this.widthInput = document.getElementById(this.id + ":wi");
+                this.selectionInput = document.getElementById(this.id + ":si");
+
+
                 this.header = jQuery(this.element).children(".rf-edt-hdr");
                 this.headerCells = this.header.find(".rf-edt-hdr-c");
                 this.footerCells = jQuery(this.element).children(".rf-edt-ftr").find(".rf-edt-ftr-c");
                 this.resizerHolders = this.header.find(".rf-edt-rsz-cntr");
 
-                this.frozenHeaderPartElement = document.getElementById(id + ":frozenHeader");
+                this.frozenHeaderPartElement = document.getElementById(this.id + ":frozenHeader");
                 this.frozenColumnCount = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.firstChild.rows[0].cells.length : 0;//TODO Richfaces.firstDescendant;
 
-                this.headerElement = document.getElementById(id + ":header");
-                this.footerElement = document.getElementById(id + ":footer");
-                this.scrollElement = document.getElementById(id + ":scrl");
-                this.scrollContentElement = document.getElementById(id + ":scrl-cnt");
-                var bodyElem = document.getElementById(id + ":body");
-                
-                //bodyElem.style.width = "500px";
-                //this.headerElement.style.width = "500px";
+                this.headerElement = document.getElementById(this.id + ":header");
+                this.footerElement = document.getElementById(this.id + ":footer");
+                this.scrollElement = document.getElementById(this.id + ":scrl");
+                this.scrollContentElement = document.getElementById(this.id + ":scrl-cnt");
 
-                if (this.options['onready'] && typeof this.options['onready'] == 'function') {
-                    richfaces.Event.bind(this.element, "rich:ready", this.options['onready']);
-                }
-                jQuery(document).ready(jQuery.proxy(this.initialize, this));
-                jQuery(window).bind("resize", jQuery.proxy(this.updateLayout, this));
-                jQuery(this.scrollElement).bind("scroll", jQuery.proxy(this.updateScrollPosition, this));
-                this.bindHeaderHandlers();
-                jQuery(this.element).bind("rich:onajaxcomplete", jQuery.proxy(this.ajaxComplete, this));
             },
 
             getColumnPosition: function(id) {
@@ -245,6 +251,21 @@
                 this.filter("", "", true);
             },
 
+            sortHandler: function(event) {
+                var sortHandle = $(event.data.sortHandle);
+                var columnId = sortHandle.data('columnid');
+                var sortOrder = sortHandle.hasClass('rf-edt-srt-asc') ? 'descending' : 'ascending';
+                this.sort(columnId, sortOrder, false);
+            },
+
+            filterHandler: function(event) {
+                var filterHandle = $(event.data.filterHandle);
+                var columnId = filterHandle.data('columnid');
+                var filterValue = filterHandle.val();
+                this.filter(columnId, filterValue, false);
+            },
+
+
             sort: function(colunmId, sortOrder, isClear) {
                 if (typeof(sortOrder) == "string") {
                     sortOrder = sortOrder.toLowerCase();
@@ -267,9 +288,17 @@
             bindHeaderHandlers: function() {
                 this.header.find(".rf-edt-rsz").bind("mousedown", jQuery.proxy(this.beginResize, this));
                 this.headerCells.bind("mousedown", jQuery.proxy(this.beginReorder, this));
+                var self = this;
+                this.header.find(".rf-edt-srt-btn").each(function() {
+                    $(this).bind("click", {sortHandle: this}, jQuery.proxy(self.sortHandler, self));
+                });
+                this.header.find(".rf-edt-flt-i").each(function() {
+                    $(this).bind("blur", {filterHandle: this}, jQuery.proxy(self.filterHandler, self));
+                });
             },
 
             updateLayout: function() {
+                this.deActivateResizeListener();
                 this.headerCells.height("auto");
                 var headerCellHeight = 0;
                 this.headerCells.each(function() {
@@ -297,13 +326,11 @@
                     this.normalPartStyle.display = "block";
                     // update scroller and scroll-content
                     if (contentWidth > width) {
-                        this.parts.each(function() {
-                            this.style.width = width + "px";
-                        });
                         this.scrollElement.style.display = "block";
                         this.scrollElement.style.overflowX = "scroll";
                         this.scrollElement.style.width = width + "px";
                         this.scrollContentElement.style.width = contentWidth + "px";
+                        this.updateScrollPosition();
                         
                     } else {
                         this.parts.each(function() {
@@ -325,6 +352,7 @@
                 if (this.bodyElement.offsetHeight > height || !this.contentElement) {
                     this.bodyElement.style.height = height + "px";
                 }
+                this.activateResizeListener();
             },
 
             adjustResizers: function() { //For IE7 only.
@@ -375,6 +403,7 @@
             },
 
             initialize: function() {
+                this.deActivateResizeListener();
                 this.bodyElement = document.getElementById(this.id + ":b");
                 this.bodyElement.tabIndex = -1; //TODO don't use tabIndex.
                 this.normalPartStyle = richfaces.utils.getCSSRule("div.rf-edt-cnt").style;
@@ -402,6 +431,7 @@
                 this.parts = jQuery(this.element).find(".rf-edt-cnt, .rf-edt-ftr-cnt");
                 this.updateLayout();
                 this.updateScrollPosition(); //TODO Restore horizontal scroll position
+                this.activateResizeListener();
                 jQuery(this.element).triggerHandler("rich:ready", this);
             },
 
@@ -723,8 +753,10 @@
             },
 
             ajaxComplete: function (event, data) {
+                this.storeDomReferences();
                 if (data.reinitializeHeader) {
                     this.bindHeaderHandlers();
+                    this.updateLayout();
                 } else {
                     this.selectionInput = document.getElementById(this.id + ":si");
                     if (data.reinitializeBody) {
@@ -737,6 +769,14 @@
                         this.spacerElement.style.height = (data.first * this.rowHeight) + "px";
                     }
                 }
+            },
+
+            activateResizeListener: function() {
+                $(window).on(this.resizeEventName, jQuery.proxy(this.updateLayout, this));
+            },
+
+            deActivateResizeListener: function() {
+                $(window).off(this.resizeEventName);
             },
 
             contextMenuAttach: function (menu) {

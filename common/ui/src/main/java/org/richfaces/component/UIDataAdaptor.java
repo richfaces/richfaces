@@ -33,6 +33,7 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.NamingContainer;
@@ -55,7 +56,6 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PostRestoreStateEvent;
 import javax.faces.event.PostValidateEvent;
@@ -464,6 +464,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     protected abstract ExtendedDataModel<?> createExtendedDataModel();
 
+    public void clearExtendedDataModel() {
+        setExtendedDataModel(null);
+    }
+
     /**
      * @param extendedDataModel the extendedDataModel to set
      */
@@ -729,16 +733,25 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * Check for validation errors on children components. If true, saved values must be keep on render phase
+     * <p>Check for validation errors on children components. If true, saved values must be keep on render phase</p>
      *
-     * @param context
+     * <p>(State is reset if there are no faces messages with severity error or higher.)</p>
+     *
+     * @return true if there are faces messages with severity error or higher
      */
     protected boolean keepSaved(FacesContext context) {
 
         // For an any validation errors, children components state should be preserved
         FacesMessage.Severity sev = context.getMaximumSeverity();
 
-        return (sev != null) && (FacesMessage.SEVERITY_ERROR.compareTo(sev) >= 0);
+        return (sev != null) && (isErrorOrHigher(sev));
+    }
+
+    /**
+     * Returns true if given severity is equal to {@link FacesMessage#SEVERITY_ERROR} or higher.
+     */
+    private boolean isErrorOrHigher(Severity severity) {
+        return FacesMessage.SEVERITY_ERROR.compareTo(severity) <= 0;
     }
 
     /**
@@ -1290,7 +1303,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
         // NOTE: that the visitRows local will be obsolete once the
         // appropriate visit hints have been added to the API
-        boolean visitRows = requiresRowIteration(facesContext);
+        boolean visitRows = requiresRowIteration(visitContext);
 
         Object oldRowKey = null;
         if (visitRows) {
@@ -1372,8 +1385,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /**
      * @param context
      */
-    private boolean requiresRowIteration(FacesContext context) {
-        return (!PhaseId.RESTORE_VIEW.equals(context.getCurrentPhaseId()));
+    private boolean requiresRowIteration(VisitContext context) {
+        // The VisitHint.SKIP_ITERATION enum is only available as of JSF 2.1.  Switch to using the enum when we no longer want to support JSF 2.0.
+        // return !context.getHints().contains(VisitHint.SKIP_ITERATION);
+        return ! Boolean.TRUE.equals(context.getFacesContext().getAttributes().get("javax.faces.visit.SKIP_ITERATION"));
     }
 
     /**

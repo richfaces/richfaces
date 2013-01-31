@@ -35,7 +35,7 @@
             style="#{style}" cdk:passThroughWithExclusions="">
             <span class="rf-#{cssRoot}-itm-ic #{iconClass}">
                 <c:choose>
-                    <c:when test="iconFacet != null and iconFacet.isRendered()">
+                    <c:when test="#{iconFacet != null and iconFacet.isRendered()}">
                         <cdk:call expression="iconFacet.encodeAll(facesContext)" />
                     </c:when>
                     <c:when test="#{not isStringEmpty(iconAttribute)}">

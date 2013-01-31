@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.2.2.Final</version>
+        <version>4.3.0.Final</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -33,18 +33,6 @@
     <artifactId>richfaces-ui-misc-ui</artifactId>
     <packaging>jar</packaging>
     <name>RichFaces UI Components: Miscellanous UI</name>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-cdk-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
@@ -55,7 +43,46 @@
             <groupId>org.richfaces.ui.core</groupId>
             <artifactId>richfaces-ui-core-ui</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui.input</groupId>
+            <artifactId>richfaces-ui-input-api</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.richfaces.core</groupId>
+            <artifactId>richfaces-core-impl</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.richfaces.core</groupId>
+            <artifactId>richfaces-core-impl</artifactId>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>maven-cdk-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
     <scm>
         <connection>scm:git:git://github.com/richfaces/components.git</connection>

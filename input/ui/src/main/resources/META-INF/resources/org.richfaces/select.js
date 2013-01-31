@@ -36,6 +36,7 @@
         var listEventHandlers = {};
         listEventHandlers["listshow" + this.namespace] = $.proxy(this.__listshowHandler, this);
         listEventHandlers["listhide" + this.namespace] = $.proxy(this.__listhideHandler, this);
+        listEventHandlers["change" + this.namespace] = $.proxy(this.__onInputChangeHandler, this);
         rf.Event.bind(this.input, listEventHandlers, this);
 
         this.originalItems = this.list.__getItems();
@@ -83,6 +84,13 @@
             },
 
             __listhideHandler: function(e) {
+            },
+            
+            __onInputChangeHandler: function(e) {
+                this.__setValue(this.input.val());
+                this.__hidePopup();
+                this.__setInputFocus();
+                this.__save();
             },
 
             __onBtnMouseDown: function(e) {
@@ -238,22 +246,12 @@
                             }
                         });
                     } else {
-                        this.container.removeClass("rf-sel-fld-err");
-
-                        var prevValue = this.selValueInput.val();
-                        if (prevValue && prevValue != "") {
-                            $.each(this.clientSelectItems, function() {
-                                if (this.value == prevValue) {
-                                    label = this.label;
-                                    value = this.value
-                                    return false;
-                                }
-                            });
-                        }
+                        label = inputLabel;
+                        value = "";
                     }
                 }
 
-                if (label && value) {
+                if (label) {
                     return {'label': label, 'value': value};
                 }
             },
@@ -406,5 +404,18 @@
             }
         }
     })());
+    
+    // client-side validation
+    rf.csv = rf.csv || {};
+    rf.csv.validateSelectLabelValue = function (input, id, params, msg) {
+        var value = $(document.getElementById(id + 'selValue')).val();
+        var label = $(document.getElementById(id + 'Input')).val();
+        
+        var defaultLabel = RichFaces.$(id).defaultLabel;
+        
+        if (!value && label && (label != defaultLabel)) {
+            throw rf.csv.getMessage(null, 'UISELECTONE_INVALID', [id, ""]);
+        }
+    };
 
 })(jQuery, window.RichFaces);

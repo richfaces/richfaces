@@ -70,6 +70,9 @@
         if (this.onclear) {
             richfaces.Event.bind(this.element, "onclear", new Function("event", this.onclear));
         }
+        if (this.onfileselect) {
+            richfaces.Event.bind(this.element, "onfileselect", new Function("event", this.onfileselect));
+        }
     }
 
     var UID = "rf_fu_uid";
@@ -131,6 +134,10 @@
                     this.inputContainer.append(this.input);
                     this.input.change(this.addProxy);
                     this.__updateButtons();
+                    richfaces.Event.fire(this.element, "onfileselect", fileName);
+                    if (this.immediateUpload) {
+                        this.__startUpload();
+                    }
                 }
             },
 
@@ -182,7 +189,8 @@
             },
 
             __submit: function() {
-                var originalAction = this.form.attr("action");
+                var encodedURLInputs = this.form.children("input[name='javax.faces.encodedURL']");
+                var originalAction = encodedURLInputs.length > 0 ? encodedURLInputs.val() : this.form.attr("action");
                 var originalEncoding = this.form.attr("encoding");
                 var originalEnctype = this.form.attr("enctype");
                 try {
@@ -266,7 +274,7 @@
                 }
                 return result;
             },
-            
+
 
             __getTotalItemCount : function() {
                 return this.__getItemCountByState(this.items, ITEM_STATE.NEW)

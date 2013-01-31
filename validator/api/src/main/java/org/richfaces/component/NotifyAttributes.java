@@ -39,35 +39,10 @@ public interface NotifyAttributes {
 
     void setStayTime(Integer time);
 
-    @Attribute(hidden = true, description = @Description("Defines the delay between document being ready and displaying notifications"))
-    Integer getDelay();
-
-    void setDelay(Integer delay);
-
     @Attribute
     String getStyleClass();
 
     void setStyleClass(String styleClass);
-
-    @Attribute(hidden = true, description = @Description("Defines the type of animation used when message appears"))
-    String getAppearAnimation();
-
-    void setAppearAnimation(String appearAnimation);
-
-    @Attribute(hidden = true, description = @Description("Defines the type of animation used when message disappears"))
-    String getHideAnimation();
-
-    void setHideAnimation(String hideAnimation);
-
-    @Attribute(hidden = true, description = @Description("Defines the speed of animations"))
-    Integer getAnimationSpeed();
-
-    void setAnimationSpeed(Integer animationSpeed);
-
-    @Attribute(defaultValue = "false", hidden = true, description = @Description("Defines whetever history of notifications can be displayed"))
-    boolean isShowHistory();
-
-    void setShowHistory(boolean showHistory);
 
     @Attribute(description = @Description("Defines whetever the notification should fade when hovering and allow to click elements behind"))
     boolean isNonblocking();

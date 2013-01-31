@@ -21,13 +21,13 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIOutput;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+
+import javax.faces.component.UIOutput;
 
 /**
  * <p>The &lt;rich:togglePanelItem&gt; component is a switchable panel for use with the &lt;rich:togglePanel&gt;
@@ -35,6 +35,7 @@ import org.richfaces.cdk.annotations.TagType;
  * Switching between &lt;rich:togglePanelItem&gt; components is handled by the &lt;rich:toggleControl&gt; behavior.</p>
  *
  * @author akolonitsky
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
@@ -56,8 +57,14 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
         return COMPONENT_FAMILY;
     }
 
+    @Override
     public AbstractTogglePanel getParentPanel() {
         return ComponentIterators.getParent(this, AbstractTogglePanel.class);
+    }
+
+    @Override
+    public boolean isDynamicPanelItem() {
+        return AbstractTogglePanel.isPanelItemDynamic(this);
     }
 
     public boolean isActive() {
@@ -75,7 +82,7 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
      */
     @Attribute(generate = false)
     public String getName() {
-        return (String) getStateHelper().eval(NAME, getId());
+        return (String) getStateHelper().eval(NAME, getClientId());
     }
 
     public void setName(String name) {

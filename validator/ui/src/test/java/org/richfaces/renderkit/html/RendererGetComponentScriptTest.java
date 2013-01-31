@@ -44,7 +44,7 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
             if (arg0 instanceof ResourceKey) {
                 ResourceKey resource = (ResourceKey) arg0;
                 return ORG_RICHFACES.equals(resource.getLibraryName())
-                    && CLIENT_VALIDATORS_JS.equals(resource.getResourceName());
+                        && CLIENT_VALIDATORS_JS.equals(resource.getResourceName());
             }
             return false;
         }
@@ -73,8 +73,9 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
         String script = validatorScript.toScript();
         // check what generated script contains ajax call only.
         assertThat(
-            script,
-            allOf(containsString(JSF_AJAX_REQUEST), not(containsString(REGEX_VALIDATOR)), not(containsString(NUMBER_CONVERTER))));
+                script,
+                allOf(containsString(JSF_AJAX_REQUEST), not(containsString(REGEX_VALIDATOR)),
+                        not(containsString(NUMBER_CONVERTER))));
     }
 
     private void exceptGetAjaxScript() {
@@ -111,8 +112,9 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
         String script = validatorScript.toScript();
         // check what generated script contains ajax call only.
         assertThat(
-            script,
-            allOf(containsString(JSF_AJAX_REQUEST), not(containsString(REGEX_VALIDATOR)), not(containsString(NUMBER_CONVERTER))));
+                script,
+                allOf(containsString(JSF_AJAX_REQUEST), not(containsString(REGEX_VALIDATOR)),
+                        not(containsString(NUMBER_CONVERTER))));
     }
 
     /**
@@ -125,14 +127,15 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
     @Test
     public void testCreateValidatorScriptPartialValidator() throws Exception {
         ClientValidatorRenderer renderer = createStubRenderer(createConverterFunction(), createValidatorFunction());
-        setupBehavior(NumberConverter.class, Min.class, Max.class);
+        setupBehavior("alert(1)", "alert(messages)", NumberConverter.class, Min.class, Max.class);
         exceptGetAjaxScript();
         ComponentValidatorScript validatorScript = callGetScript(renderer);
         String script = validatorScript.toScript();
         // check what generated script contains ajax and client side scripts.
         assertThat(script,
-            allOf(containsString(JSF_AJAX_REQUEST), containsString(REGEX_VALIDATOR), containsString(NUMBER_CONVERTER)));
+                allOf(containsString(JSF_AJAX_REQUEST), containsString(REGEX_VALIDATOR), containsString(NUMBER_CONVERTER)));
         assertThat(validatorScript.getResources(), hasItem(CORE_LIBRARY_MATCHER));
+        assertThat(script, allOf(containsString("alert(1)"), containsString("alert(messages)")));
     }
 
     /**
@@ -160,13 +163,14 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
     @Test
     public void testCreateValidatorScriptNullConverter() throws Exception {
         ClientValidatorRenderer renderer = createStubRenderer(null, createValidatorFunction());
-        setupBehavior(null, Min.class);
+        setupBehavior("", "", null, Min.class);
         ComponentValidatorScript validatorScript = callGetScript(renderer);
         String script = validatorScript.toScript();
         // check what generated script contains ajax and client side scripts.
         assertThat(
-            script,
-            allOf(not(containsString(JSF_AJAX_REQUEST)), containsString(REGEX_VALIDATOR), not(containsString(NUMBER_CONVERTER))));
+                script,
+                allOf(not(containsString(JSF_AJAX_REQUEST)), containsString(REGEX_VALIDATOR),
+                        not(containsString(NUMBER_CONVERTER))));
         assertThat(validatorScript.getResources(), hasItem(CORE_LIBRARY_MATCHER));
     }
 
@@ -180,12 +184,12 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
     @Test
     public void testCreateValidatorScriptClientOnly() throws Exception {
         ClientValidatorRenderer renderer = createStubRenderer(createConverterFunction(), createValidatorFunction());
-        setupBehavior(NumberConverter.class, Min.class);
+        setupBehavior("", "", NumberConverter.class, Min.class);
         ComponentValidatorScript validatorScript = callGetScript(renderer);
         String script = validatorScript.toScript();
         // check what generated script contains ajax and client side scripts.
         assertThat(script,
-            allOf(not(containsString(JSF_AJAX_REQUEST)), containsString(REGEX_VALIDATOR), containsString(NUMBER_CONVERTER)));
+                allOf(not(containsString(JSF_AJAX_REQUEST)), containsString(REGEX_VALIDATOR), containsString(NUMBER_CONVERTER)));
         assertThat(validatorScript.getResources(), hasItem(CORE_LIBRARY_MATCHER));
     }
 
@@ -211,11 +215,11 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
     }
 
     private ClientValidatorRenderer createStubRenderer(final LibraryScriptFunction converterFunction,
-        final LibraryScriptFunction... validatorFunctions) {
+            final LibraryScriptFunction... validatorFunctions) {
         return new ClientValidatorRenderer() {
             @Override
             LibraryScriptFunction getClientSideConverterScript(FacesContext facesContext, ConverterDescriptor converter)
-                throws ScriptNotFoundException {
+                    throws ScriptNotFoundException {
                 if (null == converterFunction) {
                     throw new ScriptNotFoundException();
                 }
@@ -224,7 +228,7 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
 
             @Override
             Collection<? extends LibraryScriptFunction> getClientSideValidatorScript(FacesContext facesContext,
-                Collection<ValidatorDescriptor> validators) {
+                    Collection<ValidatorDescriptor> validators) {
                 return Lists.newArrayList(validatorFunctions);
             }
         };
@@ -246,6 +250,13 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
         }
         expect(mockBehavior.getValidators(behaviorContext)).andReturn(validatorDescriptors);
         expect(input.getClientId(environment.getFacesContext())).andStubReturn("foo:bar");
+    }
+
+    private void setupBehavior(String onvalid, String oninvalid, Class<? extends Converter> converter, Class<?>... validators)
+            throws Exception {
+        setupBehavior(converter, validators);
+        expect(mockBehavior.getOnvalid()).andReturn(onvalid);
+        expect(mockBehavior.getOninvalid()).andReturn(oninvalid);
     }
 
     private void setupDescription(Class<?> converter, FacesObjectDescriptor descriptor) {

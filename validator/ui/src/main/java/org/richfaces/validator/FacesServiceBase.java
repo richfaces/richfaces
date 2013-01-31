@@ -5,6 +5,7 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.EditableValueHolder;
@@ -27,7 +28,11 @@ public abstract class FacesServiceBase<T> {
                 String name = propertyDescriptor.getName();
                 if (!HIDDEN_PROPERTIES.contains(name)) {
                     try {
-                        Object value = propertyDescriptor.getReadMethod().invoke(component);
+                        final Method readMethod = propertyDescriptor.getReadMethod();
+                        if (readMethod == null) {
+                            continue;
+                        }
+                        Object value = readMethod.invoke(component);
                         if (null != value) {
                             descriptor.addParameter(name, value);
                         }

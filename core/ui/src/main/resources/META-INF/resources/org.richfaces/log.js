@@ -108,7 +108,7 @@
 
             var clearBtn = console.children("button.rf-log-element");
             if (clearBtn.length == 0) {
-                clearBtn = jquery("<button type='button' class='rf-log-element'>Clear</button>", doc).appendTo(console);
+                clearBtn = jquery("<button type='button' name='clear' class='rf-log-element'>Clear</button>", doc).appendTo(console);
             }
 
             clearBtn.click(jquery.proxy(this.clear, this));
@@ -148,7 +148,12 @@
             //TODO scroll to the added message
             //TODO check popup is opened
             if (this.mode == 'console') {
-                console[level]('RichFaces: ' + message);
+                var logMsg = 'RichFaces: ' + message;
+                if (console[level]) {
+                    console[level](logMsg);
+                } else if (console.log) {
+                    console.log(logMsg);
+                }
                 return;
             }
             

@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.2.2.Final</version>
+        <version>4.3.0.Final</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -35,21 +35,6 @@
     <artifactId>richfaces-ui-output-ui</artifactId>
     <name>RichFaces UI Components: Output UI</name>
     <packaging>jar</packaging>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <suppressionsLocation>${project.basedir}/richfaces-suppressions.xml</suppressionsLocation>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-cdk-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
@@ -74,6 +59,22 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>maven-cdk-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
     <scm>
         <connection>scm:git:git://github.com/richfaces/components.git</connection>

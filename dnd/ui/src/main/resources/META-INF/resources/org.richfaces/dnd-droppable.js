@@ -56,8 +56,7 @@
                 if (this.accept(ui.draggable)) {
                     this.__callAjax(e, ui);
                 }
-
-                var dragIndicatorObj = rf.$(ui.helper.attr("id"));
+                var dragIndicatorObj = this.__getIndicatorObject(ui.helper);
                 if (dragIndicatorObj) {
                     ui.helper.removeClass(dragIndicatorObj.getAcceptClass());
                     ui.helper.removeClass(dragIndicatorObj.getRejectClass());
@@ -70,22 +69,27 @@
             dropover : function(e) {
                 var ui = e.rf.data;
                 var draggable = ui.draggable;
-                var dragIndicatorObj = rf.$(ui.helper.attr("id"));
+                var dragIndicatorObj = this.__getIndicatorObject(ui.helper);
+                this.dropElement.addClass("rf-drp-hvr");
                 if (dragIndicatorObj) {
                     if (this.accept(draggable)) {
                         ui.helper.removeClass(dragIndicatorObj.getRejectClass());
                         ui.helper.addClass(dragIndicatorObj.getAcceptClass());
+                        this.dropElement.addClass("rf-drp-hlight");
                     } else {
                         ui.helper.removeClass(dragIndicatorObj.getAcceptClass());
                         ui.helper.addClass(dragIndicatorObj.getRejectClass());
+                        this.dropElement.removeClass("rf-drp-hlight");
                     }
                 } else {
                     if (this.accept(draggable)) {
                         ui.helper.removeClass(defaultIndicatorClasses.rejectClass);
                         ui.helper.addClass(defaultIndicatorClasses.acceptClass);
+                        this.dropElement.addClass("rf-drp-hlight");
                     } else {
                         ui.helper.removeClass(defaultIndicatorClasses.acceptClass);
                         ui.helper.addClass(defaultIndicatorClasses.rejectClass);
+                        this.dropElement.removeClass("rf-drp-hlight");
                     }
                 }
             },
@@ -93,11 +97,11 @@
             dropout : function(e) {
                 var ui = e.rf.data;
                 var draggable = ui.draggable;
-                var dragIndicatorObj = rf.$(ui.helper.attr("id"));
+                var dragIndicatorObj = this.__getIndicatorObject(ui.helper);
+                this.dropElement.removeClass("rf-drp-hvr rf-drp-hlight");
                 if (dragIndicatorObj) {
                     ui.helper.removeClass(dragIndicatorObj.getAcceptClass());
                     ui.helper.removeClass(dragIndicatorObj.getRejectClass());
-
                 } else {
                     ui.helper.removeClass(defaultIndicatorClasses.acceptClass);
                     ui.helper.removeClass(defaultIndicatorClasses.rejectClass);
@@ -120,6 +124,14 @@
                     });
                 }
                 return accept;
+            },
+            
+            __getIndicatorObject: function(helper) {
+                var indicatorCloneId = helper.attr('id');
+                if (indicatorCloneId) {
+                    var indicatorId = indicatorCloneId.match(/(.*)Clone$/)[1];
+                    return rf.$(indicatorId);
+                }
             },
 
             __callAjax : function(e, ui) {

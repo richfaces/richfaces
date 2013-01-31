@@ -1,31 +1,21 @@
 package org.richfaces.component.behavior;
 
-import java.io.IOException;
-import java.util.Iterator;
-
-import javax.faces.application.FacesMessage;
-
+import com.google.common.collect.Lists;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.ScriptString;
 import org.ajax4jsf.javascript.ScriptStringBase;
 import org.richfaces.javascript.Message;
 
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterators;
+import java.io.IOException;
+import java.util.List;
 
 public class MessageUpdateScript extends ScriptStringBase implements ScriptString {
-    private static final Function<? super FacesMessage, Message> MESSAGES_TRANSFORMER = new Function<FacesMessage, Message>() {
-        public Message apply(FacesMessage msg) {
-            return new Message(msg);
-        }
-    };
-    private final ImmutableList<Message> messages;
+    private final List<Message> messages;
     private final String clientId;
 
-    public MessageUpdateScript(String clientId, Iterator<FacesMessage> messages) {
+    public MessageUpdateScript(String clientId, List<Message> messages) {
         this.clientId = clientId;
-        this.messages = ImmutableList.copyOf(Iterators.transform(messages, MESSAGES_TRANSFORMER));
+        this.messages = Lists.newArrayList(messages);
     }
 
     public void appendScript(Appendable target) throws IOException {

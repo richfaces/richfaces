@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.2.2.Final</version>
+        <version>4.3.0.Final</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -33,32 +33,6 @@
     <artifactId>richfaces-ui-validator-ui</artifactId>
     <name>RichFaces UI Components: Validator ui</name>
     <packaging>jar</packaging>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-cdk-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.jboss.test-jsf</groupId>
-                <artifactId>maven-mockgenerator-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>generateTestMocks</id>
-                        <goals>
-                            <goal>generate-test-mock</goal>
-                        </goals>
-                        <configuration>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
@@ -126,6 +100,22 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>maven-cdk-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
     <scm>
         <connection>scm:git:git://github.com/richfaces/components.git</connection>

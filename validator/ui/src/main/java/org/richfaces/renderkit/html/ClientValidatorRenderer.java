@@ -57,14 +57,14 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
         }
         if (behavior instanceof ClientValidatorBehavior) {
             ClientValidatorBehavior clientValidator = (ClientValidatorBehavior) behavior;
-            if (clientValidator.isDisabled()){
+            if (clientValidator.isDisabled()) {
                 return null;
             } else {
                 return buildAndStoreValidatorScript(behaviorContext, clientValidator);
             }
         } else {
             throw new FacesException(
-                "ClientBehavior for ClientValidatorRenderer does not implement ClientValidatorBehavior interface");
+                    "ClientBehavior for ClientValidatorRenderer does not implement ClientValidatorBehavior interface");
         }
     }
 
@@ -76,7 +76,7 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
 
         if (!(behavior instanceof ClientValidatorBehavior)) {
             throw new IllegalArgumentException(
-                "Instance of org.ruchvaces.component.behaviot.ClientValidatorBehavior required: " + behavior);
+                    "Instance of org.ruchvaces.component.behaviot.ClientValidatorBehavior required: " + behavior);
         }
         ClientValidatorBehavior ajaxBehavior = (ClientValidatorBehavior) behavior;
 
@@ -132,7 +132,7 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
             JavaScriptService javaScriptService = ServiceTracker.getService(JavaScriptService.class);
             validatorScript = javaScriptService.addScript(facesContext, validatorScript);
             return validatorScript.createCallScript(behaviorContext.getComponent().getClientId(facesContext),
-                behaviorContext.getSourceId());
+                    behaviorContext.getSourceId());
         } else {
             return null;
         }
@@ -147,9 +147,9 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
                 if (null != converter) {
                     try {
                         LibraryScriptFunction clientSideConverterScript = getClientSideConverterScript(
-                            behaviorContext.getFacesContext(), converter);
+                                behaviorContext.getFacesContext(), converter);
                         validatorScript = createValidatorScript(behaviorContext, behavior, validators,
-                            clientSideConverterScript);
+                                clientSideConverterScript);
                     } catch (ScriptNotFoundException e) {
                         // ajax-only validation
                         validatorScript = new AjaxOnlyScript(createAjaxScript(behaviorContext, behavior));
@@ -176,16 +176,17 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
     }
 
     private ValidatorScriptBase createValidatorScript(ClientBehaviorContext behaviorContext, ClientValidatorBehavior behavior,
-        Collection<ValidatorDescriptor> validators, LibraryScriptFunction clientSideConverterScript) {
+            Collection<ValidatorDescriptor> validators, LibraryScriptFunction clientSideConverterScript) {
         Collection<? extends LibraryScriptFunction> validatorScripts = getClientSideValidatorScript(
-            behaviorContext.getFacesContext(), validators);
+                behaviorContext.getFacesContext(), validators);
         if (validatorScripts.isEmpty()) {
             return new AjaxOnlyScript(createAjaxScript(behaviorContext, behavior));
         } else if (validatorScripts.size() < validators.size()) {
             return new ClientAndAjaxScript(clientSideConverterScript, validatorScripts, createAjaxScript(behaviorContext,
-                behavior));
+                    behavior), behavior.getOnvalid(), behavior.getOninvalid());
         } else {
-            return new ClientOnlyScript(clientSideConverterScript, validatorScripts);
+            return new ClientOnlyScript(clientSideConverterScript, validatorScripts, behavior.getOnvalid(),
+                    behavior.getOninvalid());
         }
     }
 
@@ -227,13 +228,13 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
      * @throws ScriptNotFoundException
      */
     LibraryScriptFunction getClientSideConverterScript(FacesContext facesContext, ConverterDescriptor converter)
-        throws ScriptNotFoundException {
+            throws ScriptNotFoundException {
         ClientScriptService clientScriptService = ServiceTracker.getService(facesContext, ClientScriptService.class);
         return createClientFunction(facesContext, converter, clientScriptService);
     }
 
     private LibraryScriptFunction createClientFunction(FacesContext facesContext, FacesObjectDescriptor descriptor,
-        ClientScriptService clientScriptService) throws ScriptNotFoundException {
+            ClientScriptService clientScriptService) throws ScriptNotFoundException {
         LibraryFunction script = clientScriptService.getScript(facesContext, descriptor.getImplementationClass());
         return new LibraryScriptFunction(script, descriptor.getMessage(), descriptor.getAdditionalParameters());
     }
@@ -249,7 +250,7 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
      * @throws ScriptNotFoundException
      */
     Collection<? extends LibraryScriptFunction> getClientSideValidatorScript(FacesContext facesContext,
-        Collection<ValidatorDescriptor> validators) {
+            Collection<ValidatorDescriptor> validators) {
         ClientScriptService clientScriptService = ServiceTracker.getService(facesContext, ClientScriptService.class);
         List<LibraryScriptFunction> scripts = Lists.newArrayList();
         for (FacesObjectDescriptor validator : validators) {

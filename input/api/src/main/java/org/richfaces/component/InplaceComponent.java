@@ -30,6 +30,8 @@ public interface InplaceComponent {
 
     String getDefaultLabel();
 
+    void setDefaultLabel(String defaultLabel);
+
     String getEditEvent();
 
     boolean isShowControls();
@@ -44,5 +46,5 @@ public interface InplaceComponent {
 
     String getDisabledClass();
 
-    int getTabindex();
+    String getTabindex();
 }

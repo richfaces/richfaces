@@ -62,4 +62,8 @@ public interface ClientValidatorBehavior extends ClientBehavior {
     boolean isImmediateSet();
 
     boolean isImmediate();
+
+    String getOninvalid();
+
+    String getOnvalid();
 }

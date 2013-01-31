@@ -38,7 +38,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <cdk:resource-dependency library="org.richfaces" name="inputNumberSlider.ecss" />
     </cc:interface>
     <cc:implementation>
-        <span id="#{clientId}" class="rf-insl #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
+        <span id="#{clientId}" class="rf-insl#{isBarStyleHandle(component)?' rf-insl-bar':''} #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
             <cdk:object name="maxlength" type="Integer" cast="true" value="#{component.attributes['maxlength']}" />
             <cdk:object name="inputSize" type="Integer" cast="true" value="#{component.attributes['inputSize']}" />
             <c:if test="#{isInputPosition(component, 'left') || isInputPosition(component, 'top')}">
@@ -81,6 +81,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <script type="text/javascript">new RichFaces.ui.InputNumberSlider('#{clientId}', {
                 delay: #{component.attributes['delay']},
                 disabled: #{component.attributes['disabled']},
+                handleType: '#{component.attributes['handleType']}',
                 maxValue: #{component.attributes['maxValue']},
                 minValue:
                 #{component.attributes['minValue']},

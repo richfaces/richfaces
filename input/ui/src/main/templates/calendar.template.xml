@@ -23,7 +23,7 @@
         <cdk:import package="org.richfaces.component" names="Positioning" />
     </cc:interface>
     <cc:implementation>
-        <span id="#{clientId}" class="#{component.attributes['styleClass']}" style="#{component.attributes['style']}">
+        <div id="#{clientId}" class="#{concatClasses('rf-cal', component.attributes['styleClass'])}" style="#{component.attributes['style']}">
             <span id="#{clientId}Popup" style="#{component.attributes['popup'] ? 'white-space: nowrap;' : 'display: none;'}">
                 <c:choose>
                     <c:when test="#{!component.attributes['popup']}">
@@ -66,7 +66,7 @@
                         <cdk:scriptOption
                             attributes="enableManualInput disabled readonly resetTimeOnDateSelect showApplyButton popup showInput showHeader showFooter showWeeksBar datePattern hidePopupOnScrol showWeekDaysBar defaultLabel" />
                         <cdk:scriptOption
-                            attributes="onchange ondateselect onbeforedateselect onbeforecurrentdateselect onhide onshow ondatemouseover ondatemouseout onclean ontimeselect onbeforetimeselect"
+                            attributes="onchange ondateselect oncurrentdateselect onbeforedateselect onbeforecurrentdateselect onhide onshow ondatemouseover ondatemouseout onclean ontimeselect onbeforetimeselect"
                             wrapper="eventHandler" />
                         <cdk:scriptOption name="mode" value="#{getModeOrDefault(component)}"
                             defaultValue="org.richfaces.component.AbstractCalendar.Mode.client" />
@@ -99,6 +99,6 @@
 
                 </script>
             </span>
-        </span>
+        </div>
     </cc:implementation>
 </cdk:root>

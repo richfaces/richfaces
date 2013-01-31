@@ -410,7 +410,7 @@
                     !root.disabled && root.type != "hidden") {
                     callback.call(this, root);
                 } else {
-                    if (root != this.div) {
+                    if (root != this.cdiv.get(0)) {
                         var child = root.firstChild;
                         while (child) {
                             if (!child.style || child.style.display != 'none') {

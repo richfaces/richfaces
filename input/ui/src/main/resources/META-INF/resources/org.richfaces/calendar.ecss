@@ -1,3 +1,7 @@
+.rf-cal {
+    display: inline;
+}
+
 .rf-cal-extr {
     border: 1px solid;
     border-color: '#{richSkin.panelBorderColor}';

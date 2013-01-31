@@ -42,7 +42,6 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenu;
 import org.richfaces.component.AbstractPanelMenuItem;
 import org.richfaces.component.ComponentIterators;
-import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.util.PanelIcons;
@@ -78,20 +77,8 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
             }
             new ActionEvent(menuItem).queue();
 
-            if (context.getPartialViewContext().isPartialRequest()) {
-
-                // TODO nick - why render item by default?
-                context.getPartialViewContext().getRenderIds().add(component.getClientId(context));
-
-                // TODO nick - this should be done on encode, not on decode
-                addOnCompleteParam(context, component.getClientId(context));
-            }
+            context.getPartialViewContext().getRenderIds().add(component.getClientId(context));
         }
-    }
-
-    protected static void addOnCompleteParam(FacesContext context, String itemId) {
-        ExtendedPartialViewContext.getInstance(context).appendOncomplete(
-            new StringBuilder().append("RichFaces.$('").append(itemId).append("').onCompleteHandler();").toString());
     }
 
     @Override
@@ -224,8 +211,8 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         options.put("disabled", PanelMenuItemRenderer.isParentPanelMenuDisabled(panelMenuItem) || panelMenuItem.isDisabled());
         options.put("mode", panelMenuItem.getMode());
         options.put("name", panelMenuItem.getName());
-        options.put("selectable", panelMenuItem.isSelectable());
-        options.put("unselectable", panelMenuItem.isUnselectable());
+        options.put("selectable", panelMenuItem.getSelectable());
+        options.put("unselectable", panelMenuItem.getUnselectable());
         options.put("stylePrefix", getCssClass(panelMenuItem, ""));
 
         addEventOption(context, panelMenuItem, options, UNSELECT);
@@ -241,6 +228,13 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         encodeHeaderGroupEnd(writer, context, menuItem, getCssClass(menuItem, ""));
 
         super.doEncodeEnd(writer, context, component);
+
+        Map<String, String> requestMap = context.getExternalContext().getRequestParameterMap();
+        if (requestMap.get(component.getClientId(context)) != null) {
+            if (context.getPartialViewContext().isPartialRequest()) {
+                addOnCompleteParam(context, component.getClientId(context));
+            }
+        }
     }
 
     @Override

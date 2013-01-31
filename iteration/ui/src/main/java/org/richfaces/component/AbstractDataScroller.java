@@ -186,7 +186,7 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
             }
 
             String dataTableId = null;
-            if (dataTable instanceof MetaComponentResolver) {
+            if (dataTable instanceof MetaComponentResolver && ! (dataTable instanceof UIDataTableBase && ((UIDataTableBase)dataTable).hasRowChildren())) {
                 dataTableId = ((MetaComponentResolver) dataTable).resolveClientId(facesContext, dataTable, "body");
             }
 

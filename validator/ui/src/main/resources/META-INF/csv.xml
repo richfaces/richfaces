@@ -192,4 +192,13 @@
         </resource>
         <function>RichFaces.csv.validateFalse</function>
     </component>
+    
+    <component>
+        <type>org.richfaces.validator.SelectLabelValueValidator</type>
+        <resource>
+            <name>select.js</name>
+            <library>org.richfaces</library>
+        </resource>
+        <function>RichFaces.csv.validateSelectLabelValue</function>
+    </component>
 </scripts>

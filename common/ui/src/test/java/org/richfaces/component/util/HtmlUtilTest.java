@@ -32,7 +32,7 @@ import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com created 11.04.2007
- *
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public class HtmlUtilTest extends TestCase {
     public HtmlUtilTest(String name) {
@@ -86,6 +86,10 @@ public class HtmlUtilTest extends TestCase {
 
         String actual = expandIdSelector(selector, map);
         assertEquals(expected, actual);
+    }
+
+    public void testEscapeHtml() {
+        assertEquals("&amp; &gt; &amp;gt; &lt; &quot; &#39; ", HtmlUtil.escapeHtml("& > &gt; < \" ' "));
     }
 
     public void testExpandIdSelectorWhenHavingComplexSelectorWithNoExpandablePartThenNothingChanges() {

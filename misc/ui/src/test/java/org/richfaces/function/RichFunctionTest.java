@@ -80,6 +80,7 @@ public class RichFunctionTest {
     }
 
     private static final String TEST_CLIENT_ID = "table:0:testId";
+    private static final String TEST_JQUERY_SELECTOR = "#table\\\\:0\\\\:testId";
     private static final String EXISTING_TEST_ID = "testId";
     private static final String NONEXISTING_TEST_ID = "nonExistent";
     private MockFacesEnvironment environment;
@@ -136,7 +137,7 @@ public class RichFunctionTest {
     @Test
     public void testFunctionsInCurrentComponentContext() throws Exception {
         expect(mockComponentLocator.findComponent(same(facesContext), eq(currentComponent), EasyMock.<String>notNull()))
-            .andStubDelegateTo(stubComponentLocator);
+                .andStubDelegateTo(stubComponentLocator);
 
         environment.replay();
 
@@ -145,16 +146,22 @@ public class RichFunctionTest {
         assertEquals(TEST_CLIENT_ID, RichFunction.clientId(EXISTING_TEST_ID));
         assertEquals("RichFaces.$('" + TEST_CLIENT_ID + "')", RichFunction.component(EXISTING_TEST_ID));
         assertEquals("document.getElementById('" + TEST_CLIENT_ID + "')", RichFunction.element(EXISTING_TEST_ID));
+        assertEquals(TEST_JQUERY_SELECTOR, RichFunction.jQuerySelector(EXISTING_TEST_ID));
+        assertEquals("jQuery(document.getElementById('" + TEST_CLIENT_ID + "'))", RichFunction.jQuery(EXISTING_TEST_ID));
         assertEquals(locatedComponent, RichFunction.findComponent(EXISTING_TEST_ID));
 
         assertNull(RichFunction.clientId(NONEXISTING_TEST_ID));
         assertNull(RichFunction.component(NONEXISTING_TEST_ID));
         assertNull(RichFunction.element(NONEXISTING_TEST_ID));
+        assertNull(RichFunction.jQuerySelector(NONEXISTING_TEST_ID));
+        assertEquals("jQuery()", RichFunction.jQuery(NONEXISTING_TEST_ID));
         assertNull(RichFunction.findComponent(NONEXISTING_TEST_ID));
 
         assertNull(RichFunction.clientId(null));
         assertNull(RichFunction.component(null));
         assertNull(RichFunction.element(null));
+        assertNull(RichFunction.jQuerySelector((String) null));
+        assertEquals("jQuery()", RichFunction.jQuery(null));
         assertNull(RichFunction.findComponent(null));
 
         currentComponent.popComponentFromEL(environment.getFacesContext());
@@ -163,23 +170,29 @@ public class RichFunctionTest {
     @Test
     public void testFunctionsInViewRootContext() throws Exception {
         expect(mockComponentLocator.findComponent(same(facesContext), eq(viewRoot), EasyMock.<String>notNull()))
-            .andStubDelegateTo(stubComponentLocator);
+                .andStubDelegateTo(stubComponentLocator);
 
         environment.replay();
 
         assertEquals(TEST_CLIENT_ID, RichFunction.clientId(EXISTING_TEST_ID));
         assertEquals("RichFaces.$('" + TEST_CLIENT_ID + "')", RichFunction.component(EXISTING_TEST_ID));
         assertEquals("document.getElementById('" + TEST_CLIENT_ID + "')", RichFunction.element(EXISTING_TEST_ID));
+        assertEquals(TEST_JQUERY_SELECTOR, RichFunction.jQuerySelector(EXISTING_TEST_ID));
+        assertEquals("jQuery(document.getElementById('" + TEST_CLIENT_ID + "'))", RichFunction.jQuery(EXISTING_TEST_ID));
         assertEquals(locatedComponent, RichFunction.findComponent(EXISTING_TEST_ID));
 
         assertNull(RichFunction.clientId(NONEXISTING_TEST_ID));
         assertNull(RichFunction.component(NONEXISTING_TEST_ID));
         assertNull(RichFunction.element(NONEXISTING_TEST_ID));
+        assertNull(RichFunction.jQuerySelector(NONEXISTING_TEST_ID));
+        assertEquals("jQuery()", RichFunction.jQuery(NONEXISTING_TEST_ID));
         assertNull(RichFunction.findComponent(NONEXISTING_TEST_ID));
 
         assertNull(RichFunction.clientId(null));
         assertNull(RichFunction.component(null));
         assertNull(RichFunction.element(null));
+        assertNull(RichFunction.jQuerySelector((String) null));
+        assertEquals("jQuery()", RichFunction.jQuery(null));
         assertNull(RichFunction.findComponent(null));
     }
 

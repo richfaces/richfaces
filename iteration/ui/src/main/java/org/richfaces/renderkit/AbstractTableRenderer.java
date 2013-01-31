@@ -190,6 +190,23 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         writer.endElement(HtmlConstants.TR_ELEMENT);
     }
 
+    /**
+     * Clear the extendedDataModel before the component encode begins.  This is to force the extendedDataModel to be
+     * re-initialized taking into account any model changes that were applied since the model was created in the
+     * RESTORE_VIEW phase.
+     *
+     * @param context
+     * @param component
+     * @throws IOException
+     */
+    @Override
+    protected void preEncodeBegin(FacesContext context, UIComponent component) throws IOException {
+        super.preEncodeBegin(context, component);
+        if (component instanceof UIDataTableBase) {
+            ((UIDataTableBase) component).clearExtendedDataModel();
+        }
+    }
+
     protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         if (component instanceof UIDataTableBase) {
             encodeTableRows(writer, context, (UIDataTableBase) component, false);

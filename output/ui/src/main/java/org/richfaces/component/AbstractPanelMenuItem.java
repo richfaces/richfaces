@@ -29,6 +29,7 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.AjaxProps;
 
 import com.google.common.base.Predicate;
 
@@ -76,10 +77,10 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
      * Defines whenever the item is selectable.
      */
     @Attribute(defaultValue = "Boolean.TRUE")
-    public abstract Boolean isSelectable();
+    public abstract Boolean getSelectable();
 
     @Attribute(defaultValue = "Boolean.FALSE", hidden = true)
-    public abstract Boolean isUnselectable();
+    public abstract Boolean getUnselectable();
 
     /**
      * Mode used for selecting of this item: default value is inherited from panelMenu

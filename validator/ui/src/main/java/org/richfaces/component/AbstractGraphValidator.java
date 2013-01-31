@@ -37,8 +37,6 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
 import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.FacesBeanValidator;
 import org.richfaces.validator.GraphValidatorState;
@@ -53,66 +51,37 @@ import org.richfaces.validator.GraphValidatorState;
 public abstract class AbstractGraphValidator extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.GraphValidator";
     public static final String COMPONENT_FAMILY = "org.richfaces.GraphValidator";
-    private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
 
     /**
-     * Get object for validation
-     *
-     * @return
+     * Bean EL reference to be validated
      */
     @Attribute
     public abstract Object getValue();
 
-    /**
-     * Set object for validation
-     *
-     * @param newvalue
-     */
     public abstract void setValue(Object newvalue);
 
     /**
-     * Get object for validation
-     *
-     * @return
+     * Message summary will be used in case in case of validation error when no other message is provided.
      */
     @Attribute
     public abstract String getSummary();
 
-    /**
-     * Set object for validation
-     *
-     * @param newvalue
-     */
     public abstract void setSummary(String newvalue);
 
     /**
-     * Get set of profiles for validation
-     *
-     * @return
+     * The list of fully-qualified names (FQNs) of classes determining bean-validation groups to be validated.
      */
     @Attribute
     public abstract Class<?>[] getGroups();
 
-    /**
-     * Set set of profiles for validation
-     *
-     * @param newvalue
-     */
     public abstract void setGroups(Class<?>[] newvalue);
 
     /**
-     * Get graph validator Id.
-     *
-     * @return
+     * The validator-id of validator used to process validation of the provided bean (Default value: org.richfaces.BeanValidator)
      */
     @Attribute(defaultValue = "org.richfaces.BeanValidator")
     public abstract String getType();
 
-    /**
-     * Set graph validator Id.
-     *
-     * @param newvalue
-     */
     public abstract void setType(String newvalue);
 
     @Override

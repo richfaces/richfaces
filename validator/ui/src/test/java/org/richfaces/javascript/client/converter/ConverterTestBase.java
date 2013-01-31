@@ -1,8 +1,8 @@
 package org.richfaces.javascript.client.converter;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.convert.Converter;
@@ -39,16 +39,31 @@ public abstract class ConverterTestBase extends MockTestBase {
             // JSF conversion error - JavaScript should throw exception too.
             try {
                 convertOnClient(converter);
-                assertFalse("Client-side converted didn't throw exception for value:" + criteria.getValue(), true);
+                fail("Client-side converted didn't throw exception for value:" + criteria.getValue());
             } catch (ScriptException jsException) {
                 // Test passed
                 Throwable cause = jsException.getCause();
                 assertTrue(cause instanceof JavaScriptException);
                 NativeObject value = (NativeObject) ((JavaScriptException) cause).getValue();
-                assertEquals(e.getFacesMessage().getDetail(), value.get("detail"));
-                assertEquals(e.getFacesMessage().getSummary(), value.get("summary"));
+
+                String facesMessageDetail = unifyMessage(e.getFacesMessage().getDetail());
+                String facesMessageSummary = unifyMessage(e.getFacesMessage().getSummary());
+
+                String javaScriptMessageDetail = unifyMessage((String) value.get("detail"));
+                String javaScriptMessageSummary = unifyMessage((String) value.get("summary"));
+
+                assertEquals(facesMessageDetail, javaScriptMessageDetail);
+                assertEquals(facesMessageSummary, javaScriptMessageSummary);
             }
         }
+    }
+
+    private String unifyMessage(String message) {
+        return removeExampleValue(message);
+    }
+
+    private String removeExampleValue(String message) {
+        return message.replaceAll("Example: .*$", "");
     }
 
     protected void compareResult(Object convertedValue, Object jsConvertedValue) {

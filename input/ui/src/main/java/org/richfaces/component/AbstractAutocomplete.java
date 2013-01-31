@@ -50,7 +50,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.AutocompleteHandler"),
         renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"),
-        attributes = {"focus-int-props.xml", "events-mouse-props.xml", "events-key-props.xml"})
+        attributes = {"focus-props.xml", "events-mouse-props.xml", "events-key-props.xml"})
 public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
     public static final String ITEMS_META_COMPONENT_ID = "items";
     public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
@@ -153,9 +153,15 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     public abstract String getLayout();
 
     /**
-     * Allow a user to enter multiple values separated by specific characters. As the user types, a suggestion will
+     * <p>Allow a user to enter multiple values separated by specific characters. As the user types, a suggestion will
      * present as normal. When they enter the specified token character, this begins a new suggestion process,
-     * and the component will then only use text entered after the token character for suggestions
+     * and the component will then only use text entered after the token character for suggestions.</p>
+     *
+     * <p>Make sure that no character defined in tokens is part of any suggestion value. E.g. do not use space as a token
+     * if you expect to allow spaces in suggestion values.</p>
+     *
+     * <p>When tokens defined, they can be naturally separated by space character - input separated by tokens ', ' or ' ,'
+     * will be considered as it would be ',' token without any space.</p>
      */
     @Attribute
     public abstract String getTokens();
@@ -217,7 +223,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
 
     // ----------- focus-props.xml
 
-    public abstract int getTabindex();
+    public abstract String getTabindex();
 
     // ----------- Event Attributes
 

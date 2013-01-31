@@ -96,9 +96,6 @@
                     lastMessageNumber = message.number;
                 }
             }
-
-            //TODO - hotfix for jQuery-Atmosphere not resetting requestCount until message is pushed from client to server - review
-            jQuery.atmosphere.request.requestCount = 0;
         };
 
         var connect = function() {
@@ -121,7 +118,8 @@
 
                     _$.atmosphere.subscribe((pushHandlerUrl || pushResourceUrl) + "?__richfacesPushAsync=1&pushSessionId=" + pushSessionId, messageCallback, {
                             transport: richfaces.Push.transport,
-                            fallbackTransport: richfaces.Push.fallbackTransport
+                            fallbackTransport: richfaces.Push.fallbackTransport,
+                            logLevel: richfaces.Push.logLevel
                         });
                     
                     // fire subscribed events
@@ -160,7 +158,7 @@
         };
 
         var disconnect = function() {
-            _$.atmosphere.closeSuspendedConnection();
+            _$.atmosphere.unsubscribe();
         };
 
         return {
@@ -206,6 +204,7 @@
 
     richfaces.Push.transport = "long-polling";// "websocket";
     richfaces.Push.fallbackTransport = undefined;//"long-polling";
+    richfaces.Push.logLevel = "info";
 
     var ajaxEventHandler = function(event) {
         if (event.type == 'event') {

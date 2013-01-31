@@ -26,8 +26,9 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * @author Nick Belaevski
+ * The <rich:treeModelAdaptor> component takes an object which implements the Map or Iterable interfaces. It adds all the object entries to the parent node as child nodes.
  *
+ * @author Nick Belaevski
  */
 @JsfComponent(type = UITreeModelAdaptor.COMPONENT_TYPE, family = UITreeModelAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelAdaptor", handler = "org.richfaces.view.facelets.TreeModelAdaptorHandler"), attributes = "tree-model-props.xml")
 public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements TreeModelAdaptor {

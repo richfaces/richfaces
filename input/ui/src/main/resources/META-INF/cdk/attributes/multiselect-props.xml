@@ -15,6 +15,15 @@
 <cdk:properties xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions" xmlns="http://java.sun.com/xml/ns/javaee">
     <property>
         <description>
+            Optional attribute that is a literal string that is the fully qualified class name of a concrete class that
+            implements java.util.Collection, or an EL expression that evaluates to either 1. such a String, or 2. the Class object itself.
+        </description>
+        <property-name>collectionType</property-name>
+        <property-class>java.lang.String</property-class>
+    </property>
+
+    <property>
+        <description>
             If "true", this component is disabled.
         </description>
         <property-name>disabled</property-name>
@@ -23,7 +32,7 @@
 
     <property>
         <description>
-            The height of the item list.
+            The height of the item list (in pixels).
         </description>
         <property-name>listHeight</property-name>
         <property-class>java.lang.String</property-class>
@@ -31,7 +40,7 @@
 
     <property>
         <description>
-            The width of the item list.
+            The width of the item list (in pixels).
         </description>
         <property-name>listWidth</property-name>
         <property-class>java.lang.String</property-class>
@@ -39,7 +48,7 @@
 
     <property>
         <description>
-            The maximum height of the item list.
+            The maximum height of the item list (in pixels).
         </description>
         <property-name>maxListHeight</property-name>
         <property-class>java.lang.String</property-class>
@@ -47,7 +56,7 @@
 
     <property>
         <description>
-            The minimum height of the item list.
+            The minimum height of the item list (in pixels).
         </description>
         <property-name>minListHeight</property-name>
         <property-class>java.lang.String</property-class>
