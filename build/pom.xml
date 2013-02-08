@@ -56,7 +56,7 @@
         
         <!-- Container Versions -->
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
-        <version.tomee>1.0.0</version.tomee>
+        <version.tomee>1.5.1</version.tomee>
 
         <!-- Resource Plugin -->
         <version.reflections>0.9.5</version.reflections>
