@@ -27,7 +27,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Set;
 
 import javax.faces.webapp.FacesServlet;
@@ -42,8 +41,7 @@ import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.FacesConfigVersionType;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
-import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Sets;
@@ -56,6 +54,8 @@ import com.google.common.collect.Sets;
 public class Deployment {
 
     private WebArchive archive;
+
+    private File cacheDir = new File("target/shrinkwrap-resolver-cache/");
 
     private WebFacesConfigDescriptor facesConfig;
     private WebAppDescriptor webXml;
@@ -163,22 +163,42 @@ public class Deployment {
         Set<File> jarFiles = Sets.newHashSet();
 
         for (String dependency : mavenDependencies) {
-            File cacheDir = new File("target/shrinkwrap-resolver-cache/" + dependency);
-            if (!cacheDir.exists()) {
-                resolveMavenDependency(dependency, cacheDir);
+            File dependencyDir = new File(cacheDir, dependency);
+
+            if (!dependencyDir.exists()) {
+                resolveMavenDependency(dependency, dependencyDir);
+            } else if (dependencyDirIsStale(dependencyDir)) {
+                cleanDependencyDir(dependencyDir);
+                resolveMavenDependency(dependency, dependencyDir);
             }
-            File[] listFiles = cacheDir.listFiles(new FilenameFilter() {
+
+            File[] listFiles = dependencyDir.listFiles(new FilenameFilter() {
 
                 @Override
                 public boolean accept(File dir, String name) {
                     return name.endsWith(".jar");
                 }
             });
+
             jarFiles.addAll(Arrays.asList(listFiles));
         }
 
         File[] files = jarFiles.toArray(new File[jarFiles.size()]);
         finalArchive.addAsLibraries(files);
+    }
+
+    private boolean dependencyDirIsStale(File dir) {
+        long lastModified = dir.lastModified();
+        long expires = lastModified + 720000;
+
+        return System.currentTimeMillis() > expires;
+    }
+
+    private void cleanDependencyDir(File dir) {
+        for (File file : dir.listFiles()) {
+            file.delete();
+        }
+        dir.delete();
     }
 
     /**
@@ -193,8 +213,9 @@ public class Deployment {
      * Resolves Maven dependency and writes it to the cache, so it can be reused next run
      */
     private void resolveMavenDependency(String missingDependency, File dir) {
-        Collection<JavaArchive> dependencies = DependencyResolvers.use(MavenDependencyResolver.class)
-                .loadEffectivePom("pom.xml").artifact(missingDependency).resolveAs(JavaArchive.class);
+
+        JavaArchive[] dependencies = Maven.resolver()
+                .loadPomFromFile("pom.xml").resolve(mavenDependencies).withTransitivity().as(JavaArchive.class);
 
         for (JavaArchive archive : dependencies) {
             dir.mkdirs();
