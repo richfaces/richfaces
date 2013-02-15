@@ -22,7 +22,7 @@
                 </a>
             </c:when>
             <c:otherwise>
-                <span id="#{clientId}" cdk:passThrough="dir lang class style title">
+                <span id="#{clientId}" cdk:passThroughWithExclusions="value target">
                     #{component.attributes['value']}
                     <cdk:call expression="renderChildren(facesContext, component)" />
                 </span>
