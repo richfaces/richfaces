@@ -13,7 +13,7 @@ public class AutocompleteBean {
     private boolean listenerInvoked = false;
 
     public List<String> getSuggestions() {
-        return Arrays.asList("Toronto", "New York", "San Francisco");
+        return Arrays.asList("Toronto", "New York", "San Francisco", "Tampa Bay");
     }
 
     public void actionListener() {

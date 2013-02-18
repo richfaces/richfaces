@@ -88,9 +88,6 @@
             
             __onInputChangeHandler: function(e) {
                 this.__setValue(this.input.val());
-                this.__hidePopup();
-                this.__setInputFocus();
-                this.__save();
             },
 
             __onBtnMouseDown: function(e) {
