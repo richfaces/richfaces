@@ -44,7 +44,7 @@ public class QUnitTest {
 
     @Before
     public void setUp() {
-        webClient_ = new WebClient(BrowserVersion.FIREFOX_3_6);
+        webClient_ = new WebClient(BrowserVersion.INTERNET_EXPLORER_8);
     }
 
     @After
