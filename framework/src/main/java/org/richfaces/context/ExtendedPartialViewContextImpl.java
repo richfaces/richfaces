@@ -179,7 +179,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
 
     @Override
     public PartialResponseWriter getPartialResponseWriter() {
-        return wrappedViewContext.getPartialResponseWriter();
+        return new DeferredEndingPartialResponseWriter(wrappedViewContext.getPartialResponseWriter());
     }
 
     private boolean isProcessedExecutePhase(PhaseId phaseId) {
@@ -197,6 +197,28 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
             }
         } else {
             wrappedViewContext.processPartial(phaseId);
+            if (phaseId == PhaseId.RENDER_RESPONSE) {
+                finallyEndDocumentForWrappedMode();
+            }
+        }
+    }
+
+    private void finallyEndDocumentForWrappedMode() {
+        FacesContext facesContext = getFacesContext();
+        PartialViewContext pvc = facesContext.getPartialViewContext();
+        UIViewRoot viewRoot = facesContext.getViewRoot();
+        PartialResponseWriter writer = pvc.getPartialResponseWriter();
+
+        if (writer instanceof DeferredEndingPartialResponseWriter) {
+            try {
+
+                addJavaScriptServicePageScripts(facesContext);
+                renderExtensions(facesContext, viewRoot);
+
+                ((DeferredEndingPartialResponseWriter) writer).finallyEndDocument();
+            } catch (Exception e) {
+                LOG.warn("Can't finally end the document for wrapped context", e);
+            }
         }
     }
 
@@ -272,11 +294,15 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
                 renderState(facesContext);
             }
 
-            addJavaScriptServicePageScripts(facesContext, viewRoot);
+            addJavaScriptServicePageScripts(facesContext);
             // TODO - render extensions for renderAll?
             renderExtensions(facesContext, viewRoot);
 
             writer.endDocument();
+
+            if (writer instanceof DeferredEndingPartialResponseWriter) {
+                ((DeferredEndingPartialResponseWriter) writer).finallyEndDocument();
+            }
         } catch (IOException ex) {
             this.cleanupAfterView();
             // TODO - review?
@@ -412,7 +438,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     protected void addImplicitRenderIds(Collection<String> ids, boolean limitRender) {
     }
 
-    protected void addJavaScriptServicePageScripts(FacesContext context, UIComponent component) {
+    protected void addJavaScriptServicePageScripts(FacesContext context) {
         ScriptsHolder scriptsHolder = ServiceTracker.getService(JavaScriptService.class).getScriptsHolder(context);
         StringBuilder scripts = new StringBuilder();
         for (Object script : scriptsHolder.getScripts()) {

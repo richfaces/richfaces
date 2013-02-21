@@ -543,7 +543,6 @@ if (!window.RichFaces) {
         
         var sourceId = getSourceId(source, options);
         var sourceElement = getSourceElement(source);
-        var form = getFormElement(sourceElement);
         
         // event source re-targeting finds a RichFaces component root
         // to setup javax.faces.source correctly - RF-12616)
@@ -563,76 +562,93 @@ if (!window.RichFaces) {
             parameters["org.richfaces.ajax.component"] = sourceId;
         }
 
-        var eventHandlers;
-
-        for (var eventName in AJAX_EVENTS) {
-            var handlerCode = options[eventName];
-            var handler = typeof handlerCode == "function" ? handlerCode : createEventHandler(handlerCode);
-
-            var serverHandler = AJAX_EVENTS[eventName];
-            if (serverHandler) {
-                handler = curry(serverHandler, handler);
-            }
-
-            if (handler) {
-                eventHandlers = eventHandlers || {};
-                eventHandlers[eventName] = handler;
-            }
-        }
-
-        if (options.status) {
-            var namedStatusEventHandler = function() {
-                richfaces.setGlobalStatusNameVariable(options.status);
-            };
-
-            //TODO add support for options.submit
-            eventHandlers = eventHandlers || {};
-            if (eventHandlers.begin) {
-                eventHandlers.begin = chain(namedStatusEventHandler, eventHandlers.begin);
-            } else {
-                eventHandlers.begin = namedStatusEventHandler;
-            }
-        }
-        
-        // trigger form events: ajaxbegin and ajaxbeforedomupdate
-        if (form) {
-            eventHandlers.begin = chain(function() { jQuery(form).trigger('ajaxbegin'); }, eventHandlers.begin);
-            eventHandlers.beforedomupdate = chain(function() { jQuery(form).trigger('ajaxbeforedomupdate'); }, eventHandlers.beforedomupdate);
-            eventHandlers.complete = chain(function() { jQuery(form).trigger('ajaxcomplete'); }, eventHandlers.complete);
-        }
-
         if (options.incId) {
             parameters[sourceId] = sourceId;
-        }
-
-        if (eventHandlers) {
-            var eventsAdapter = richfaces.createJSFEventsAdapter(eventHandlers);
-            parameters['onevent'] = eventsAdapter;
-            parameters['onerror'] = eventsAdapter;
         }
 
         if (richfaces.queue) {
             parameters.queueId = options.queueId;
         }
-        
+
+        // propagates some options to process it in jsf.ajax.request
+        parameters.rfExt = {};
+        parameters.rfExt.status = options.status;
+        for (var eventName in AJAX_EVENTS) {
+            parameters.rfExt[eventName] = options[eventName];
+        }
+
         jsf.ajax.request(source, event, parameters);
     };
-    
-    // triggers form ajaxsubmit event
+
     if (window.jsf) {
         jsf.ajax.request = function request(source, event, options) {
+
+            // build parameters, taking options.rfExt into consideration
+            var parameters = $.extend({}, options);
+            parameters.rfExt = null;
+
+            var eventHandlers;
+
+            for (var eventName in AJAX_EVENTS) {
+                var handlerCode, handler;
+                
+                if (options.rfExt) {
+                    handlerCode = options.rfExt[eventName];
+                    handler = typeof handlerCode == "function" ? handlerCode : createEventHandler(handlerCode);
+                }
+
+                var serverHandler = AJAX_EVENTS[eventName];
+                if (serverHandler) {
+                    handler = curry(serverHandler, handler);
+                }
+
+                if (handler) {
+                    eventHandlers = eventHandlers || {};
+                    eventHandlers[eventName] = handler;
+                }
+            }
+
+            if (options.rfExt && options.rfExt.status) {
+                var namedStatusEventHandler = function() {
+                    richfaces.setGlobalStatusNameVariable(options.rfExt.status);
+                };
+
+                //TODO add support for options.submit
+                eventHandlers = eventHandlers || {};
+                if (eventHandlers.begin) {
+                    eventHandlers.begin = chain(namedStatusEventHandler, eventHandlers.begin);
+                } else {
+                    eventHandlers.begin = namedStatusEventHandler;
+                }
+            }
+            
+            // register handlers for form events: ajaxbegin and ajaxbeforedomupdate
+            if (form) {
+                eventHandlers.begin = chain(function() { jQuery(form).trigger('ajaxbegin'); }, eventHandlers.begin);
+                eventHandlers.beforedomupdate = chain(function() { jQuery(form).trigger('ajaxbeforedomupdate'); }, eventHandlers.beforedomupdate);
+                eventHandlers.complete = chain(function() { jQuery(form).trigger('ajaxcomplete'); }, eventHandlers.complete);
+            }
+
+            if (eventHandlers) {
+                var eventsAdapter = richfaces.createJSFEventsAdapter(eventHandlers);
+                parameters['onevent'] = chain(options.onevent, eventsAdapter);
+                parameters['onerror'] = chain(options.onerror, eventsAdapter);
+            }
+
+            // trigger handler for form event: ajaxsubmit
             var sourceElement = getSourceElement(source);
             var form = getFormElement(sourceElement);
             if (form) {
                 jQuery(form).trigger('ajaxsubmit');
             }
-            return jsfAjaxRequest(source, event, options);
+            
+            return jsfAjaxRequest(source, event, parameters);
         }
         
         jsf.ajax.response = function(request, context) {
-            // for RichFaces.ajax requests
+            // for all RichFaces.ajax requests
             if (context.render == '@component') {
-                // get updated IDs
+                // get list of IDs updated on the server - replaces @render option which is normally available on client
                 context.render = $("extension[id='org.richfaces.extension'] render", request.responseXML).text();
             }
 
