@@ -37,12 +37,16 @@ import java.util.List;
 public class TabPanelBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int tabIdLast = 5;
+    private int tabIdLast = 3;
     private List<TabBean> tabBeans = new ArrayList<TabBean>();
 
     @PostConstruct
     public void init() {
         String idBase = "tab" + ++tabIdLast;
+        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "Content of dynamicaly created " + idBase));
+        idBase = "tab" + ++tabIdLast;
+        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "Content of dynamicaly created " + idBase));
+        idBase = "tab" + ++tabIdLast;
         tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "Content of dynamicaly created " + idBase));
     }
 
