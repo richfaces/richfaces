@@ -1,12 +1,17 @@
 package org.richfaces.component;
 
-import com.google.common.base.Function;
+import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+
+import java.net.URL;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Assert;
@@ -19,12 +24,7 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.OutputDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import javax.annotation.Nullable;
-import java.net.URL;
-import java.util.List;
-
-import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import com.google.common.base.Function;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -79,7 +79,7 @@ public class RF12768_Test {
 
         WebElement tab9 = form.findElement(By.id("myForm:tab9:header:inactive"));
         WebElement removeLink = tab9.findElement(By.tagName("a"));
-        guardHttp(removeLink).click();
+        guardXhr(removeLink).click();
 
         tabPanel = form.findElement(By.id("myForm:tabPanel"));
         tabLabels = tabPanel.findElements(By.className("rf-tab-lbl"));
@@ -102,7 +102,7 @@ public class RF12768_Test {
         p.body("            #{newTab.tabContentText}");
         p.body("            <f:facet name='header'>");
         p.body("                <h:outputText value='#{newTab.tabHeader} ' />");
-        p.body("                <h:commandLink value='[x]' rendered='#{newTab.closable}' onclick='removeTab(\"#{newTab.tabId}\");' />");
+        p.body("                <h:commandLink value='[x]' rendered='#{newTab.closable}' onclick='removeTab(\"#{newTab.tabId}\"); return false;' />");
         p.body("            </f:facet>");
         p.body("            content of tab #{newTab.tabName} ");
         p.body("        </rich:tab>");
