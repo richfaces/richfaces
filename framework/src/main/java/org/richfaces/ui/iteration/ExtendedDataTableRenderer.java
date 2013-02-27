@@ -912,12 +912,14 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             UIComponent column = (UIComponent) columns.next();
             if (column.isRendered()) {
                 writer.startElement(HtmlConstants.TD_ELEM, table);
+                String columnClass = "";
                 if (columnNumber != lastColumnNumber) {
-                    writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-td-" + column.getId(), null);
+                    columnClass = "rf-edt-td-" + column.getId();
                 }
-
-                String columnClass = concatClasses(getColumnClass(rowHolder, columnNumber),
-                    column.getAttributes().get(HtmlConstants.STYLE_CLASS_ATTR));
+                columnClass = concatClasses(
+                        columnClass,
+                        getColumnClass(rowHolder, columnNumber),
+                        column.getAttributes().get(HtmlConstants.STYLE_CLASS_ATTR));
                 if (!"".equals(columnClass)) {
                     writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, columnClass, null);
                 }
