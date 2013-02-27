@@ -39,8 +39,10 @@ public abstract class CommandButtonRendererBase extends AjaxCommandRendererBase 
         String image = (String) uiComponent.getAttributes().get("image");
 
         if (image != null) {
-            image = context.getApplication().getViewHandler().getResourceURL(context, image);
-            image = context.getExternalContext().encodeResourceURL(image);
+            if (!image.contains(ResourceHandler.RESOURCE_IDENTIFIER)) {
+                image = context.getApplication().getViewHandler().getResourceURL(context, image);
+                image = context.getExternalContext().encodeResourceURL(image);
+            }
             writer.writeAttribute("type", "image", "image");
             writer.writeURIAttribute("src", image, "image");
 
