@@ -184,8 +184,16 @@ div.rf-edt-ftr-cnt {
     font-weight: bold; /*TODO Probably use other property.*/
 }
 
-.rf-edt-srt {
+.rf-edt-c-srt {
     cursor: pointer;
+    color:'#{richSkin.generalLinkColor}';
+}
+
+.rf-edt-c-srt:hover {
+    color:'#{richSkin.hoverLinkColor}';
+}
+
+.rf-edt-srt-btn {
     height: 1em;
     width: 25px;
     display: inline-block;
