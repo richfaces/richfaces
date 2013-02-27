@@ -846,6 +846,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
     protected String getCSSText(FacesContext context, UIDataTableBase table) throws IOException {
         StringBuilder sb = new StringBuilder();
+        String tableLocator = "div.rf-edt[id=\"" + table.getClientId() + "\"]";
 
         sb.append("div.rf-edt-cnt { width: 100%; }"); // TODO getNormalizedId(context, state.getGrid())
 
@@ -858,11 +859,13 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 id = column.getId();
             }
             String width = getColumnWidth(column);
-            sb.append(".rf-edt-c-" + id + " {"); // TODO getNormalizedId(context,
+            sb.append(tableLocator);
+            sb.append(" .rf-edt-c-" + id + " {"); // TODO getNormalizedId(context,
             sb.append("width: " + width + ";");
             sb.append("}");
 
-            sb.append(".rf-edt-td-" + id + " {"); // TODO getNormalizedId(context,
+            sb.append(tableLocator);
+            sb.append(" .rf-edt-td-" + id + " {"); // TODO getNormalizedId(context,
             sb.append("width: " + width + ";");
             sb.append("}");
         }

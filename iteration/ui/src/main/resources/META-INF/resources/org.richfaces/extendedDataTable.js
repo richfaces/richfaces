@@ -31,8 +31,14 @@
             style[0].styleSheet.cssText = cssText;
         }
     };
-
+    
     richfaces.utils.getCSSRule = function (className) {
+        return richfaces.utils.findCSSRule(function(selectorText) {
+            return selectorText.toLowerCase() == className.toLowerCase();
+        });
+    };
+
+    richfaces.utils.findCSSRule = function (selectFunction) {
         var rule = null;
         var sheets = document.styleSheets;
         for (var j = 0; !rule && j < sheets.length; j++) {
@@ -40,7 +46,7 @@
                 var sheet = sheets[j];
                 var rules = sheet.cssRules ? sheet.cssRules : sheet.rules;
                 for (var i = 0; !rule && i < rules.length; i++) {
-                    if (rules[i].selectorText && rules[i].selectorText.toLowerCase() == className.toLowerCase()) {
+                    if (rules[i].selectorText && selectFunction(rules[i].selectorText)) {
                         rule = rules[i];
                     }
                 }
@@ -145,10 +151,6 @@
 
             name: "ExtendedDataTable",
 
-            resizeData: {},
-            idOfReorderingColumn: "",
-            timeoutId: null,
-
             init: function (id, rowCount, ajaxFunction, options) {
                 $super.constructor.call(this, id);
                 this.ranges = new richfaces.utils.Ranges();
@@ -167,6 +169,10 @@
                 jQuery(this.scrollElement).bind("scroll", jQuery.proxy(this.updateScrollPosition, this));
                 this.bindHeaderHandlers();
                 jQuery(this.element).bind("rich:onajaxcomplete", jQuery.proxy(this.ajaxComplete, this));
+                
+                this.resizeData = {};
+                this.idOfReorderingColumn = "";
+                this.timeoutId = null;
             },
 
             storeDomReferences: function() {
@@ -224,10 +230,10 @@
                 this.ajaxFunction(null, {"rich:columnsOrder" : colunmsOrder}); // TODO Maybe, event model should be used here.
             },
 
-            setColumnWidth: function(id, width) {
+            setColumnWidth: function(columnId, width) {
                 width = width + "px";
-                richfaces.utils.getCSSRule("." + WIDTH_CLASS_NAME_BASE + id).style.width = width;
-                this.newWidths[id] = width;
+                this.getColumnStyle(columnId).width = width;
+                this.newWidths[columnId] = width;
                 var widthsArray = new Array();
                 for (var id in this.newWidths) {
                     widthsArray.push(id + ":" + this.newWidths[id]);
@@ -236,6 +242,18 @@
                 this.updateLayout();
                 this.adjustResizers();
                 this.ajaxFunction(); // TODO Maybe, event model should be used here.
+            },
+            
+            getColumnStyle: function(columnId) {
+                var tableId = this.element.id;
+                var columnClass = WIDTH_CLASS_NAME_BASE + columnId;
+                var stylesheet = richfaces.utils.findCSSRule(function(selector) {
+                    return selector.indexOf(columnClass) !== -1 && selector.indexOf(tableId) !== -1;
+                });
+                if (!stylesheet) {
+                    throw new Error("Cannot find the stylesheet for column '" + columnId + "'");
+                }
+                return stylesheet.style;
             },
 
             filter: function(colunmId, filterValue, isClear) {
@@ -320,6 +338,9 @@
                 var offsetWidth = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.offsetWidth : 0;
                 var width = Math.max(0, this.element.clientWidth - offsetWidth);
                 if (width) {
+                    this.parts.each(function() {
+                        this.style.width = "auto";
+                    });
                     var contentWidth = this.parts.width();
                     if (contentWidth > width) {
                         this.normalPartStyle.width = width + "px";
@@ -327,12 +348,14 @@
                     this.normalPartStyle.display = "block";
                     // update scroller and scroll-content
                     if (contentWidth > width) {
+                        this.parts.each(function() {
+                            this.style.width = width + "px";
+                        });
                         this.scrollElement.style.display = "block";
                         this.scrollElement.style.overflowX = "scroll";
                         this.scrollElement.style.width = width + "px";
                         this.scrollContentElement.style.width = contentWidth + "px";
                         this.updateScrollPosition();
-                        
                     } else {
                         this.parts.each(function() {
                             this.style.width = "";
