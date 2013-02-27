@@ -253,8 +253,9 @@
 
             sortHandler: function(event) {
                 var sortHandle = $(event.data.sortHandle);
-                var columnId = sortHandle.data('columnid');
-                var sortOrder = sortHandle.hasClass('rf-edt-srt-asc') ? 'descending' : 'ascending';
+                var button = sortHandle.find('.rf-edt-srt-btn');
+                var columnId = button.data('columnid');
+                var sortOrder = button.hasClass('rf-edt-srt-asc') ? 'descending' : 'ascending';
                 this.sort(columnId, sortOrder, false);
             },
 
@@ -289,7 +290,7 @@
                 this.header.find(".rf-edt-rsz").bind("mousedown", jQuery.proxy(this.beginResize, this));
                 this.headerCells.bind("mousedown", jQuery.proxy(this.beginReorder, this));
                 var self = this;
-                this.header.find(".rf-edt-srt-btn").each(function() {
+                this.header.find(".rf-edt-c-srt").each(function() {
                     $(this).bind("click", {sortHandle: this}, jQuery.proxy(self.sortHandler, self));
                 });
                 this.header.find(".rf-edt-flt-i").each(function() {

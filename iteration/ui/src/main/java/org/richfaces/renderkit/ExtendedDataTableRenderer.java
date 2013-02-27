@@ -254,6 +254,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         if (column.isRendered()) {
 
             String classAttribute = facetName + "Class";
+            boolean useBuiltInSort = "header".equals(facetName) && column instanceof AbstractColumn && ((AbstractColumn) column).useBuiltInSort();
             writer.startElement(HtmlConstants.TD_ELEM, column);
             if (!isLastColumn) {
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-td-" + column.getId(), null);
@@ -271,8 +272,12 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-"
                 + getFacetClassName(facetName) + "-c", "rf-edt-c-" + column.getId()), null);
             writer.startElement(HtmlConstants.DIV_ELEM, column);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-"
-                + getFacetClassName(facetName) + "-c-cnt", column.getAttributes().get(classAttribute)), null);
+            String columnHeaderClass = "rf-edt-" + getFacetClassName(facetName) + "-c-cnt";
+            if (useBuiltInSort) {
+                columnHeaderClass = HtmlUtil.concatClasses( columnHeaderClass, "rf-edt-c-srt");
+            }
+            columnHeaderClass = HtmlUtil.concatClasses( columnHeaderClass, column.getAttributes().get(classAttribute));
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, columnHeaderClass, null);
             UIComponent facet = column.getFacet(facetName);
             if (facet != null && facet.isRendered()) {
                 facet.encodeAll(context);
