@@ -23,6 +23,7 @@ package org.richfaces.renderkit.html;
 import java.io.IOException;
 import java.util.Locale;
 
+import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -42,8 +43,10 @@ public abstract class CommandButtonRendererBase extends AjaxCommandRendererBase 
         String image = (String) uiComponent.getAttributes().get("image");
 
         if (image != null) {
-            image = context.getApplication().getViewHandler().getResourceURL(context, image);
-            image = context.getExternalContext().encodeResourceURL(image);
+            if (!image.contains(ResourceHandler.RESOURCE_IDENTIFIER)) {
+                image = context.getApplication().getViewHandler().getResourceURL(context, image);
+                image = context.getExternalContext().encodeResourceURL(image);
+            }
             writer.writeAttribute("type", "image", "image");
             writer.writeURIAttribute("src", image, "image");
 
