@@ -589,6 +589,9 @@ if (!window.RichFaces) {
 
             var eventHandlers;
 
+            var sourceElement = getSourceElement(source);
+            var form = getFormElement(sourceElement);
+
             for (var eventName in AJAX_EVENTS) {
                 var handlerCode, handler;
                 
@@ -636,8 +639,6 @@ if (!window.RichFaces) {
             }
 
             // trigger handler for form event: ajaxsubmit
-            var sourceElement = getSourceElement(source);
-            var form = getFormElement(sourceElement);
             if (form) {
                 jQuery(form).trigger('ajaxsubmit');
             }
