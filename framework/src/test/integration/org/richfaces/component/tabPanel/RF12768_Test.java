@@ -1,4 +1,4 @@
-package org.richfaces.component;
+package org.richfaces.component.tabPanel;
 
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 

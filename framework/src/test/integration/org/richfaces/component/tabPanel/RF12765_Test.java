@@ -1,4 +1,4 @@
-package org.richfaces.component;
+package org.richfaces.component.tabPanel;
 
 import com.google.common.base.Function;
 import org.jboss.arquillian.container.test.api.Deployment;

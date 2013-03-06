@@ -22,6 +22,7 @@ package org.richfaces.ui.ajax;
 
 import com.google.common.base.Strings;
 
+import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
