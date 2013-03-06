@@ -1,4 +1,4 @@
-package org.richfaces.component;
+package org.richfaces.integration.tabPanel;
 
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 
@@ -28,7 +28,7 @@ import com.google.common.base.Function;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class RF12768_Test {
+public class RF12765_Test {
 
     @Drone
     private WebDriver browser;
@@ -44,8 +44,7 @@ public class RF12768_Test {
 
     @Deployment
     public static WebArchive createDeployment() {
-//        OutputDeployment deployment = new OutputDeployment(RF12768_Test.class, "4.2.3.Final");
-        OutputDeployment deployment = new OutputDeployment(RF12768_Test.class);
+        OutputDeployment deployment = new OutputDeployment(RF12765_Test.class);
         deployment.archive().addClass(TabBean.class);
         deployment.archive().addClass(TabPanelBean.class);
 
@@ -57,6 +56,7 @@ public class RF12768_Test {
                         .paramName("javax.faces.PARTIAL_STATE_SAVING")
                         .paramValue("false")
                         .up();
+
                 return input;
             }
         });
@@ -66,24 +66,20 @@ public class RF12768_Test {
     }
 
     @Test
-    public void check_row_removal() throws InterruptedException {
-        browser.get(contextPath.toExternalForm());
-        WebElement createButton = form.findElement(By.id("myForm:a4jCreateTabButton"));
-        guardXhr(createButton).click();
-        guardXhr(createButton).click();
-        guardXhr(createButton).click();
+    public void check_row_removal() {
+        browser.get(contextPath.toExternalForm() + "/index.jsf");
 
         WebElement tabPanel = form.findElement(By.id("myForm:tabPanel"));
         List<WebElement> tabLabels = tabPanel.findElements(By.className("rf-tab-lbl"));
-        Assert.assertEquals(27, tabLabels.size()); // 9 tabs, 3 rf-tab-lbl elements per tab
+        Assert.assertEquals(9, tabLabels.size());
 
-        WebElement tab9 = form.findElement(By.id("myForm:tab9:header:inactive"));
-        WebElement removeLink = tab9.findElement(By.tagName("a"));
-        guardXhr(removeLink).click();
+        WebElement tab0 = form.findElement(By.id("myForm:repeat:0:tab:header:inactive"));
+        WebElement tab1 = form.findElement(By.id("myForm:repeat:1:tab:header:inactive"));
+        WebElement tab2 = form.findElement(By.id("myForm:repeat:2:tab:header:inactive"));
 
-        tabPanel = form.findElement(By.id("myForm:tabPanel"));
-        tabLabels = tabPanel.findElements(By.className("rf-tab-lbl"));
-        Assert.assertEquals(24, tabLabels.size()); // 8 tabs, 3 rf-tab-lbl elements per tab
+        guardXhr(tab2).click();
+        tabPanel = form.findElements(By.className("rf-tab-cnt")).get(1);
+        Assert.assertTrue(tabPanel.getText().contains("tab6"));
     }
 
     private static void addIndexPage(OutputDeployment deployment) {
@@ -93,20 +89,16 @@ public class RF12768_Test {
         p.xmlns("c", "http://java.sun.com/jsp/jstl/core");
         p.body("<h:form id='myForm'>");
         p.body("<rich:tabPanel id='tabPanel'>");
-        p.body("    <rich:tab id='tab1' name='tab1' header='tab1 header'>content of tab 1</rich:tab>");
-        p.body("    <rich:tab id='tab2' name='tab2' header='tab2 header' disabled='true'>content of tab 2</rich:tab>");
-        p.body("    <rich:tab id='tab3' name='tab3' header='tab3 header'>content of tab 3</rich:tab>");
-
-        p.body("    <c:forEach items='#{tabPanelBean.tabBeans}' var='newTab'>");
-        p.body("        <rich:tab id='#{newTab.tabId}' name='#{newTab.tabName}'>");
+        p.body("    <a4j:repeat id='repeat' value='#{tabPanelBean.tabBeans}' var='newTab'>");
+        p.body("        <rich:tab id='tab' name='#{newTab.tabName}'>");
         p.body("            #{newTab.tabContentText}");
         p.body("            <f:facet name='header'>");
         p.body("                <h:outputText value='#{newTab.tabHeader} ' />");
-        p.body("                <h:commandLink value='[x]' rendered='#{newTab.closable}' onclick='removeTab(\"#{newTab.tabId}\"); return false;' />");
+        p.body("                <h:commandLink value='[x]' rendered='#{newTab.closable}' onclick='removeTab(\"#{newTab.tabId}\");' />");
         p.body("            </f:facet>");
         p.body("            content of tab #{newTab.tabName} ");
         p.body("        </rich:tab>");
-        p.body("    </c:forEach>");
+        p.body("    </a4j:repeat>");
 
         p.body("</rich:tabPanel> ");
 

@@ -62,7 +62,7 @@ public class TestAutocompleteTokenizing {
 
         autocompleteInput.sendKeys("t,");
         waitGui().until().element(suggestionList).is().visible();
-        assertEquals(3, autocompleteItems.size());
+        assertEquals(4, autocompleteItems.size());
         assertEquals("t,", autocompleteInput.getAttribute("value"));
 
         WebElement secondItem = autocompleteItems.get(1);
@@ -70,7 +70,7 @@ public class TestAutocompleteTokenizing {
         actions.moveToElement(secondItem).perform();
         waitGui().until().element(secondItem).attribute("class").contains("rf-au-itm-sel");
         assertTrue(suggestionList.isDisplayed());
-        assertEquals(3, autocompleteItems.size());
+        assertEquals(4, autocompleteItems.size());
         assertEquals("t,", autocompleteInput.getAttribute("value"));
 
         secondItem.click();
@@ -79,7 +79,7 @@ public class TestAutocompleteTokenizing {
 
         autocompleteInput.sendKeys(", ");
         waitGui().until().element(suggestionList).is().visible();
-        assertEquals(3, autocompleteItems.size());
+        assertEquals(4, autocompleteItems.size());
         assertEquals("t,New York, ", autocompleteInput.getAttribute("value"));
 
         WebElement thirdItem = autocompleteItems.get(2);
@@ -87,7 +87,7 @@ public class TestAutocompleteTokenizing {
         actions.moveToElement(thirdItem).perform();
         waitGui().until().element(thirdItem).attribute("class").contains("rf-au-itm-sel");
         assertTrue(suggestionList.isDisplayed());
-        assertEquals(3, autocompleteItems.size());
+        assertEquals(4, autocompleteItems.size());
         assertEquals("t,New York, ", autocompleteInput.getAttribute("value"));
 
         thirdItem.click();
@@ -101,7 +101,7 @@ public class TestAutocompleteTokenizing {
 
         autocompleteInput.sendKeys("t,");
         waitGui().until().element(suggestionList).is().visible();
-        assertEquals(3, autocompleteItems.size());
+        assertEquals(4, autocompleteItems.size());
         assertEquals("t,Toronto", autocompleteInput.getAttribute("value"));
 
         WebElement secondItem = autocompleteItems.get(1);
@@ -109,7 +109,7 @@ public class TestAutocompleteTokenizing {
         actions.moveToElement(secondItem).perform();
         waitGui().until().element(autocompleteInput).attribute("value").equalTo("t,New York");
         assertTrue(suggestionList.isDisplayed());
-        assertEquals(3, autocompleteItems.size());
+        assertEquals(4, autocompleteItems.size());
 
         secondItem.click();
         waitGui().until().element(suggestionList).is().not().visible();
@@ -117,7 +117,7 @@ public class TestAutocompleteTokenizing {
 
         autocompleteInput.sendKeys(", ");
         waitGui().until().element(suggestionList).is().visible();
-        assertEquals(3, autocompleteItems.size());
+        assertEquals(4, autocompleteItems.size());
         assertEquals("t,New York, Toronto", autocompleteInput.getAttribute("value"));
 
         WebElement thirdItem = autocompleteItems.get(2);
@@ -125,7 +125,7 @@ public class TestAutocompleteTokenizing {
         actions.moveToElement(thirdItem).perform();
         waitGui().until().element(autocompleteInput).attribute("value").equalTo("t,New York, San Francisco");
         assertTrue(suggestionList.isDisplayed());
-        assertEquals(3, autocompleteItems.size());
+        assertEquals(4, autocompleteItems.size());
 
         thirdItem.click();
         waitGui().until().element(suggestionList).is().not().visible();

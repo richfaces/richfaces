@@ -67,7 +67,8 @@ public class TestFocusManager {
     public static WebArchive createDeployment() {
         MiscDeployment deployment = new MiscDeployment(TestFocusManager.class);
 
-        deployment.archive().addClasses(ComponentBean.class);
+        deployment.archive().addClasses(ComponentBean.class, VerifyFocusCandidates.class, VerifyFocusEnforcing.class,
+                VerifyFocusEnforcingOverridesFocusSettings.class, AbstractComponentAssertion.class);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         addIndexPage(deployment);

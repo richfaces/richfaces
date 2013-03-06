@@ -1,6 +1,7 @@
 package org.richfaces.component.ajax;
 
-import junit.framework.Assert;
+import java.net.URL;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -9,16 +10,14 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.integration.CoreUIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import java.net.URL;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -42,6 +41,7 @@ public class TestJsFunction {
     }
 
     @Test
+    @Ignore("RF-12761")
     public void listener_with_parameter() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm());

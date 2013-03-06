@@ -60,7 +60,7 @@ public class TestFocusValidationAware {
     public static WebArchive createDeployment() {
         MiscDeployment deployment = new MiscDeployment(TestFocusValidationAware.class);
 
-        deployment.archive().addClasses(ComponentBean.class);
+        deployment.archive().addClasses(ComponentBean.class, VerifyFocusCandidates.class, AbstractComponentAssertion.class);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         addIndexPage(deployment);
@@ -103,12 +103,12 @@ public class TestFocusValidationAware {
 
         assertEquals(input2, getFocusedElement());
     }
-    
+
     @Test
     public void testGlobalMessageIsIgnored() {
-        
+
         Warp.initiate(new Activity() {
-            
+
             @Override
             public void perform() {
                 guardHttp(submitButton).click();
@@ -121,19 +121,19 @@ public class TestFocusValidationAware {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage(null, new FacesMessage("global message"));
             }
-            
+
             @AfterPhase(Phase.RENDER_RESPONSE)
             public void verifyGlobalMessageIsIgnored() {
                 FacesContext context = FacesContext.getCurrentInstance();
-                
+
                 AbstractFocus component = bean.getComponent();
                 FocusRendererBase renderer = bean.getRenderer();
                 String candidates = renderer.getFocusCandidatesAsString(context, component);
-                
+
                 assertEquals("form", candidates);
             }
         });
-        
+
         assertEquals(input3, getFocusedElement());
     }
 

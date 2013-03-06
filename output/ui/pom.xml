@@ -92,5 +92,5 @@
         <developerConnection>scm:git:git@github.com:richfaces/components.git</developerConnection>
         <url>https://github.com/richfaces/components</url>
     </scm>
-
+    
 </project>
