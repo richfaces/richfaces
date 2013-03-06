@@ -51,7 +51,7 @@
         <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
         <version.google-guava>11.0.2</version.google-guava>
 
-        <version.atmosphere>1.0.1</version.atmosphere>
+        <version.atmosphere>1.0.10</version.atmosphere>
 
         <version.cssparser>0.9.5</version.cssparser>
         <version.oscache>2.3</version.oscache>
