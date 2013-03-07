@@ -1,5 +1,13 @@
 package org.richfaces.component.extendedDataTable;
 
+import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+
+import java.net.URL;
+import java.util.List;
+
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -13,6 +21,7 @@ import org.jboss.arquillian.warp.jsf.AfterPhase;
 import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -22,18 +31,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.ui.iteration.AbstractExtendedDataTable;
-import org.richfaces.ui.iteration.ExtendedDataTableState;
 import org.richfaces.component.UIColumn;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import java.net.URL;
-import java.util.List;
-
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import org.richfaces.ui.iteration.AbstractExtendedDataTable;
+import org.richfaces.ui.iteration.ExtendedDataTableState;
 
 @RunAsClient
 @WarpTest
@@ -89,6 +91,7 @@ public class TestTableState {
     }
 
     @Test
+    @Ignore("RF-12814")
     public void table_order_server_side() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm());
@@ -213,8 +216,8 @@ public class TestTableState {
 
     private static FaceletAsset getPage(String edtAttributes) {
         FaceletAsset p = new FaceletAsset();
-        
-        
+
+
 
         p.body("<script type='text/javascript'>");
         p.body("function sortEdt(currentSortOrder) { ");

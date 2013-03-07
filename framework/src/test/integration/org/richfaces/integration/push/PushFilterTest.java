@@ -21,17 +21,17 @@ public class PushFilterTest extends AbstractPushTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = createBasicDeployment();
+        FrameworkDeployment deployment = createBasicDeployment(PushFilterTest.class);
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor webXml) {
                 return webXml
-                        .getOrCreateFilter()
+                        .createFilter()
                             .filterName(PushFilter.class.getSimpleName())
                             .filterClass(PushFilter.class.getName())
                             .asyncSupported(true)
                         .up()
-                        .getOrCreateFilterMapping()
+                        .createFilterMapping()
                             .filterName(PushFilter.class.getSimpleName())
                             .servletName(FacesServlet.class.getSimpleName())
                         .up();

@@ -50,13 +50,18 @@
         <version.arquillian.drone>1.1.0.Final</version.arquillian.drone>
         <version.arquillian.warp>1.0.0.Alpha2</version.arquillian.warp>
         <version.arquillian.graphene>2.0.0.Alpha3</version.arquillian.graphene>
-        <version.selenium>2.29.0</version.selenium>
+        <version.selenium>2.31.0</version.selenium>
         <version.shrinkwrap.resolver>2.0.0-beta-2</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-3</version.shrinkwrap.descriptors>
+        <version.arquillian.glassfish31>1.0.0.CR3</version.arquillian.glassfish31>
+        <version.arquillian.tomcat>1.0.0.CR4</version.arquillian.tomcat>
         
         <!-- Container Versions -->
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
-        <version.tomee>1.5.1</version.tomee>
+        <version.tomee15>1.5.1</version.tomee15>
+        <version.glassfish31>3.1.2.2</version.glassfish31>
+        <version.tomcat6>6.0.35</version.tomcat6>
+        <version.tomcat7>7.0.26</version.tomcat7>
 
         <!-- Resource Plugin -->
         <version.reflections>0.9.5</version.reflections>

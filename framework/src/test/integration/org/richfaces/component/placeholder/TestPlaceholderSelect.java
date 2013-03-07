@@ -23,6 +23,8 @@ package org.richfaces.component.placeholder;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.MiscDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
@@ -88,5 +90,17 @@ public class TestPlaceholderSelect extends AbstractPlaceholderTest {
     @Override
     protected String getTestedValueResponse() {
         return "item1";
+    }
+
+    @Test
+    @Override
+    @Ignore("The select component does behave differently - delegates to defaultLabel implementation")
+    public void when_text_is_changed_then_text_changes_color_to_default_and_removes_placeholder_style_classes() {
+    }
+
+    @Test
+    @Override
+    @Ignore("The select component can't send invalid value by AJAX")
+    public void testAjaxSendsEmptyValue() {
     }
 }

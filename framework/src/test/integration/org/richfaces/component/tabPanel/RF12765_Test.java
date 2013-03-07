@@ -1,6 +1,12 @@
 package org.richfaces.component.tabPanel;
 
-import com.google.common.base.Function;
+import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+
+import java.net.URL;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -18,12 +24,7 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.OutputDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import javax.annotation.Nullable;
-import java.net.URL;
-import java.util.List;
-
-import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import com.google.common.base.Function;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -43,7 +44,6 @@ public class RF12765_Test {
 
     @Deployment
     public static WebArchive createDeployment() {
-//        OutputDeployment deployment = new OutputDeployment(RF12765_Test.class, "4.2.3.Final");
         OutputDeployment deployment = new OutputDeployment(RF12765_Test.class);
         deployment.archive().addClass(TabBean.class);
         deployment.archive().addClass(TabPanelBean.class);
@@ -83,29 +83,27 @@ public class RF12765_Test {
 
     private static void addIndexPage(OutputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/output");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
         p.xmlns("c", "http://java.sun.com/jsp/jstl/core");
         p.body("<h:form id='myForm'>");
-        p.body("<rich:tabPanel id='tabPanel'>");
-        p.body("    <a4j:repeat id='repeat' value='#{tabPanelBean.tabBeans}' var='newTab'>");
-        p.body("        <rich:tab id='tab' name='#{newTab.tabName}'>");
+        p.body("<r:tabPanel id='tabPanel'>");
+        p.body("    <r:repeat id='repeat' value='#{tabPanelBean.tabBeans}' var='newTab'>");
+        p.body("        <r:tab id='tab' name='#{newTab.tabName}'>");
         p.body("            #{newTab.tabContentText}");
         p.body("            <f:facet name='header'>");
         p.body("                <h:outputText value='#{newTab.tabHeader} ' />");
         p.body("                <h:commandLink value='[x]' rendered='#{newTab.closable}' onclick='removeTab(\"#{newTab.tabId}\");' />");
         p.body("            </f:facet>");
         p.body("            content of tab #{newTab.tabName} ");
-        p.body("        </rich:tab>");
-        p.body("    </a4j:repeat>");
+        p.body("        </r:tab>");
+        p.body("    </r:repeat>");
 
-        p.body("</rich:tabPanel> ");
+        p.body("</r:tabPanel> ");
 
-        p.body("<a4j:jsFunction name='removeTab' action='#{tabPanelBean.removeTab}' render='tabPanel' >");
-        p.body("    <a4j:param name='removeTabId'/>");
-        p.body("</a4j:jsFunction>");
+        p.body("<r:jsFunction name='removeTab' action='#{tabPanelBean.removeTab}' render='tabPanel' >");
+        p.body("    <r:param name='removeTabId'/>");
+        p.body("</r:jsFunction>");
 
-        p.body("<a4j:commandButton id='a4jCreateTabButton' value='[a4j] Create tab' render='tabPanel' actionListener='#{tabPanelBean.generateNewTab}' />");
+        p.body("<r:commandButton id='a4jCreateTabButton' value='[a4j] Create tab' render='tabPanel' actionListener='#{tabPanelBean.generateNewTab}' />");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");

@@ -40,19 +40,16 @@ public class AbstractPushTest {
     @ArquillianResource
     URL contextPath;
 
-    public static FrameworkDeployment createBasicDeployment() {
+    public static FrameworkDeployment createBasicDeployment(Class<?> testClass) {
 
-        FrameworkDeployment deployment = new FrameworkDeployment(null);
+        FrameworkDeployment deployment = new FrameworkDeployment(testClass);
 
         FaceletAsset p = new FaceletAsset();
         p.body("<script>document.title = 'waiting-for-message'; RichFaces.Push.logLevel = \"debug\";</script>");
         p.body("<r:push address=\"" + Commons.TOPIC + "\" ondataavailable=\"console.log('a4j:push message: ' + event.rf.data); document.title = 'message-received: ' + event.rf.data\" />");
 
         deployment.addMavenDependency(
-                "org.atmosphere:atmosphere-runtime:1.0.1",
-                "org.atmosphere:atmosphere-compat-jbossweb:1.0.1",
-                "org.atmosphere:atmosphere-compat-tomcat:1.0.1",
-                "org.atmosphere:atmosphere-compat-tomcat7:1.0.1");
+                "org.atmosphere:atmosphere-runtime");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
 

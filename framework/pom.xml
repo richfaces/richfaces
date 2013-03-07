@@ -275,11 +275,19 @@
             <!-- Unit Tests -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/integration/**/*.java</exclude>
-                    </excludes>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-test</id>
+                        <configuration>
+                            <skip>${skipTests}</skip>
+                            <test>${test}</test>
+                            <excludes>
+                                <exclude>**/integration/**/*.java</exclude>
+                                <exclude>**/component/*/*.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
 
@@ -376,6 +384,9 @@
                     <value>myfaces</value>
                 </property>
             </activation>
+            <properties>
+                <arquillian.richfaces.jsfImplementation>org.apache.myfaces.core:myfaces-impl</arquillian.richfaces.jsfImplementation>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
@@ -401,8 +412,24 @@
             <properties>
                 <integration.test.source>src/test/integration</integration.test.source>
 
+                <!-- Arquillian Configuration -->
+                <arquillian.debug>false</arquillian.debug>
                 <arquillian.drone.browser>htmlUnit</arquillian.drone.browser>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
+                <arquillian.richfaces.version></arquillian.richfaces.version>
+                <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
+                <arquillian.richfaces.jsfImplementation>org.glassfish:javax.faces</arquillian.richfaces.jsfImplementation>
+                <arquillian.container.home></arquillian.container.home>
+                <arquillian.container.distribution></arquillian.container.distribution>
+                <arquillian.container.configuration></arquillian.container.configuration>
+                <arquillian.container.uninstall>true</arquillian.container.uninstall>
+                
+                <!-- Container Selection -->
+                <arquillian.launch.jbossas71>false</arquillian.launch.jbossas71>
+                <arquillian.launch.tomcat6>false</arquillian.launch.tomcat6>
+                <arquillian.launch.tomcat7>false</arquillian.launch.tomcat7>
+                <arquillian.launch.tomee15>false</arquillian.launch.tomee15>
+                <arquillian.launch.glassfish31>false</arquillian.launch.glassfish31>
             </properties>
             <dependencies>
                 <dependency>
@@ -460,23 +487,28 @@
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.12</version>
+                        <artifactId>maven-surefire-plugin</artifactId>
                         <executions>
                             <execution>
+                                <id>integration-tests</id>
+                                <phase>verify</phase>
                                 <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>integration-test</goal>
+                                    <goal>test</goal>
                                 </goals>
+                                <configuration>
+                                    <testSourceDirectory>${integration.test.source}</testSourceDirectory>
+                                    <includes>
+                                        <include>**/integration/**/*.java</include>
+                                        <include>**/component/*/*.java</include>
+                                    </includes>
+                                    <skipTests>${skipITs}</skipTests>
+                                    <test>${test}</test>
+                                    <systemPropertyVariables>
+                                        <arquillian.debug>${arquillian.debug}</arquillian.debug>
+                                    </systemPropertyVariables>
+                                </configuration>
                             </execution>
                         </executions>
-                        <configuration>
-                            <testSourceDirectory>${integration.test.source}</testSourceDirectory>
-                            <includes>
-                                <include>**/integration/**/*.java</include>
-                            </includes>
-                            <skipTests>${skipITs}</skipTests>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -484,15 +516,17 @@
     
         <!-- Containers -->
         <profile>
-            <id>container-jbossas-managed-7</id>
+            <id>jbossas-managed-7-1</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>jbossas</value>
+                    <value>jbossas71</value>
                 </property>
             </activation>
             <properties>
-                <jbossHome>${project.build.directory}/jboss-as-${version.jboss-as7}</jbossHome>
+                <arquillian.launch.jbossas71>true</arquillian.launch.jbossas71>
+                <arquillian.container.home>${project.build.directory}/jboss-as-${version.jboss-as7}</arquillian.container.home>
+                <arquillian.container.distribution>org.jboss.as:jboss-as-dist:zip:${version.jboss-as7}</arquillian.container.distribution>
             </properties>
             <dependencies>
                 <dependency>
@@ -502,76 +536,156 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack</id>
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.jboss.as</groupId>
-                                            <artifactId>jboss-as-dist</artifactId>
-                                            <version>${version.jboss-as7}</version>
-                                            <type>zip</type>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>default-test</id>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <configuration>
-                                    <systemPropertyVariables>
-                                        <jbossHome>${jbossHome}</jbossHome>
-                                    </systemPropertyVariables>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
-            <id>container-jbossas-remote-7</id>
+            <id>jbossas-remote-7-1</id>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-remote</artifactId>
                     <version>${version.jboss-as7}</version>
+                    <scope>test</scope>
                 </dependency>
             </dependencies>
         </profile>
         <profile>
-            <id>container-tomee-remote</id>
+            <id>tomee-managed-1-5</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>tomee</value>
+                    <value>tomee15</value>
                 </property>
             </activation>
+            <properties>
+                <arquillian.launch.tomee15>true</arquillian.launch.tomee15>
+                <arquillian.container.home>${project.build.directory}/apache-tomee-webprofile-${version.tomee15}</arquillian.container.home>
+                <arquillian.container.distribution>org.apache.openejb:apache-tomee:zip:webprofile:${version.tomee15}</arquillian.container.distribution>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
                     <artifactId>arquillian-tomee-remote</artifactId>
-                    <version>${version.tomee}</version>
+                    <version>${version.tomee15}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>tomee-remote-1-5</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomee15</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.tomee15>true</arquillian.launch.tomee15>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.openejb</groupId>
+                    <artifactId>arquillian-tomee-remote</artifactId>
+                    <version>${version.tomee15}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>glassfish-managed-3-1</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>glassfish31</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.glassfish31>true</arquillian.launch.glassfish31>
+                <arquillian.container.home>${project.build.directory}/glassfish3</arquillian.container.home>
+                <arquillian.container.distribution>org.glassfish.main.distributions:glassfish:zip:${version.glassfish31}</arquillian.container.distribution>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-managed-3.1</artifactId>
+                    <version>${version.arquillian.glassfish31}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>glassfish-remote-3-1</id>
+            <properties>
+                <arquillian.launch.glassfish31>true</arquillian.launch.glassfish31>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-glassfish-remote-3.1</artifactId>
+                    <version>${version.arquillian.glassfish31}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>tomcat-remote-6</id>
+            <properties>
+                <arquillian.launch.tomcat6>true</arquillian.launch.tomcat6>
+                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-remote-6</artifactId>
+                    <version>${version.arquillian.tomcat}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>tomcat-managed-6</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomcat6</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.tomcat6>true</arquillian.launch.tomcat6>
+                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+                <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat6}</arquillian.container.home>
+                <arquillian.container.distribution>com.googlecode.t7mp:tomcat:zip:${version.tomcat6}</arquillian.container.distribution>
+                <arquillian.container.configuration>org.richfaces.test:richfaces-arquillian:zip:configuration-tomcat6:${project.version}</arquillian.container.configuration>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-managed-6</artifactId>
+                    <version>${version.arquillian.tomcat}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>tomcat-managed-7</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomcat7</value>
+                </property>
+            </activation>
+            <properties>
+                <catalinaHome>${project.build.directory}/apache-tomcat-${version.tomcat7}</catalinaHome>
+                <arquillian.launch.tomcat7>true</arquillian.launch.tomcat7>
+                <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
+                <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat7}</arquillian.container.home>
+                <arquillian.container.distribution>com.googlecode.t7mp:tomcat:zip:${version.tomcat7}</arquillian.container.distribution>
+                <arquillian.container.configuration>org.richfaces.test:richfaces-arquillian:zip:configuration-tomcat7:${project.version}</arquillian.container.configuration>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-tomcat-managed-7</artifactId>
+                    <version>${version.arquillian.tomcat}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -580,12 +694,24 @@
         <!-- Browsers -->
         <profile>
             <id>browser-chrome</id>
+            <activation>
+                <property>
+                    <name>browser</name>
+                    <value>chrome</value>
+                </property>
+            </activation>
             <properties>
                 <arquillian.drone.browser>chrome</arquillian.drone.browser>
             </properties>
         </profile>
         <profile>
             <id>browser-firefox</id>
+            <activation>
+                <property>
+                    <name>browser</name>
+                    <value>firefox</value>
+                </property>
+            </activation>
             <properties>
                 <arquillian.drone.browser>firefox</arquillian.drone.browser>
             </properties>
@@ -652,8 +778,7 @@
                                         </parameter>
                                     </parameters>
                                     <fileMappers>
-                                        <fileMapper
-                                            implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
+                                        <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
                                             <pattern>^(.*)\.(.*)$</pattern>
                                             <replacement>all.txt</replacement>
                                         </fileMapper>
