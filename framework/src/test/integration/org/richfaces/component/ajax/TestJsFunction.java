@@ -58,17 +58,17 @@ public class TestJsFunction {
         p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='myForm'> ");
-        p.body("    <a4j:jsFunction name='jsFunctionTest' actionListener='#{ajaxBean.methodA}' render=':panel'/> ");
+        p.body("    <r:jsFunction name='jsFunctionTest' actionListener='#{ajaxBean.methodA}' render=':panel'/> ");
         p.body("    <h:commandButton value='Test' id='jsFunction'> ");
         p.body("        <f:ajax onevent='jsFunctionTest()'/> ");
         p.body("    </h:commandButton> ");
         p.body("</h:form> ");
-        p.body("<rich:panel id='panel' > ");
+        p.body("<r:panel id='panel' > ");
         p.body("    <h:form id='myForm2'> ");
-        p.body("        <a4j:commandButton value='OK' actionListener='#{ajaxBean.methodB}' id='ajax2' /> ");
+        p.body("        <r:commandButton value='OK' actionListener='#{ajaxBean.methodB}' id='ajax2' /> ");
         p.body("    </h:form> ");
-        p.body("</rich:panel> ");
-        p.body("<rich:messages /> ");
+        p.body("</r:panel> ");
+        p.body("<r:messages /> ");
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 

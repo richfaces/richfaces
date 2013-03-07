@@ -654,7 +654,7 @@
                 <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
                 <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat6}</arquillian.container.home>
                 <arquillian.container.distribution>com.googlecode.t7mp:tomcat:zip:${version.tomcat6}</arquillian.container.distribution>
-                <arquillian.container.configuration>org.richfaces.test:richfaces-arquillian:zip:configuration-tomcat6:${project.version}</arquillian.container.configuration>
+                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${project.version}</arquillian.container.configuration>
             </properties>
             <dependencies>
                 <dependency>
@@ -679,7 +679,7 @@
                 <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
                 <arquillian.container.home>${project.build.directory}/apache-tomcat-${version.tomcat7}</arquillian.container.home>
                 <arquillian.container.distribution>com.googlecode.t7mp:tomcat:zip:${version.tomcat7}</arquillian.container.distribution>
-                <arquillian.container.configuration>org.richfaces.test:richfaces-arquillian:zip:configuration-tomcat7:${project.version}</arquillian.container.configuration>
+                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-tomcat:${project.version}</arquillian.container.configuration>
             </properties>
             <dependencies>
                 <dependency>

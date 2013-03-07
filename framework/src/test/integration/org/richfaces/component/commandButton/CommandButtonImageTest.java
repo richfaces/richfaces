@@ -120,9 +120,9 @@ public class CommandButtonImageTest {
         p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form prependId='false'>");
-        p.body("  <a4j:commandButton id=\"buttonEL\" image=\"#{resource['square.jpg']}\" value=\"#{resource['square.jpg']}\" /> ");
-        p.body("  <a4j:commandButton id=\"buttonELNoValue\" image=\"#{resource['square.jpg']}\" /> ");
-        p.body("  <a4j:commandButton id=\"buttonNoEL\" image=\"resources/square.jpg\" value=\"resources/square.jpg\"/> ");
+        p.body("  <r:commandButton id=\"buttonEL\" image=\"#{resource['square.jpg']}\" value=\"#{resource['square.jpg']}\" /> ");
+        p.body("  <r:commandButton id=\"buttonELNoValue\" image=\"#{resource['square.jpg']}\" /> ");
+        p.body("  <r:commandButton id=\"buttonNoEL\" image=\"resources/square.jpg\" value=\"resources/square.jpg\"/> ");
         p.body("  <h:commandButton id=\"hCommandButton\" image=\"#{resource['square.jpg']}\" value=\"#{resource['square.jpg']}\" />");
         p.body("  <h:commandButton id=\"hCommandButtonNoValue\" image=\"#{resource['square.jpg']}\" />");
         p.body("</h:form>");

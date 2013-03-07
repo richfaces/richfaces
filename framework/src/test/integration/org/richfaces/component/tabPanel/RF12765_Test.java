@@ -12,6 +12,7 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Assert;
@@ -47,6 +48,7 @@ public class RF12765_Test {
         OutputDeployment deployment = new OutputDeployment(RF12765_Test.class);
         deployment.archive().addClass(TabBean.class);
         deployment.archive().addClass(TabPanelBean.class);
+        deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             @Override
@@ -83,7 +85,7 @@ public class RF12765_Test {
 
     private static void addIndexPage(OutputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("c", "http://java.sun.com/jsp/jstl/core");
+
         p.body("<h:form id='myForm'>");
         p.body("<r:tabPanel id='tabPanel'>");
         p.body("    <r:repeat id='repeat' value='#{tabPanelBean.tabBeans}' var='newTab'>");

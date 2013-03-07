@@ -64,18 +64,16 @@ public class TestSelectValidation {
 
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.xmlns("rich", "http://richfaces.org/input");
 
-        p.form("<rich:select id='select'  enableManualInput='true'>");
+        p.form("<r:select id='select'  enableManualInput='true'>");
         p.form("    <f:selectItems value='#{autocompleteBean.suggestions}' />");
-        p.form("</rich:select>");
+        p.form("</r:select>");
 
-        p.form("<a4j:commandButton id='submit' />");
+        p.form("<r:commandButton id='submit' />");
 
-        p.form("<a4j:outputPanel ajaxRendered='true'>");
+        p.form("<r:outputPanel ajaxRendered='true'>");
         p.form("    <h:message id='message' for='select' />");
-        p.form("</a4j:outputPanel>");
+        p.form("</r:outputPanel>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }

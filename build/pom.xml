@@ -45,6 +45,9 @@
         <version.xmlunit>1.2</version.xmlunit>
         <version.hibernate-validator>4.2.0.Final</version.hibernate-validator>
         
+        <!-- Enforcing Dependency Management -->
+        <version.commons-codec>1.6</version.commons-codec>
+        
         <!-- Integration Tests Versions -->
         <version.arquillian.core>1.0.3.Final</version.arquillian.core>
         <version.arquillian.drone>1.1.0.Final</version.arquillian.drone>
@@ -230,6 +233,13 @@
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
                 <version>${version.jsoup}</version>
+            </dependency>
+            
+            <!-- Enforcing Dependency Management -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${version.commons-codec}</version>
             </dependency>
 
             <!-- Integration Tests - Version Management -->

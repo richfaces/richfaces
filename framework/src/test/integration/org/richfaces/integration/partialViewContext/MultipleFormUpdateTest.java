@@ -23,7 +23,7 @@ import org.richfaces.integration.CoreDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
- * Tests a4j:commandButton processing using {@link PartialViewContext}. (RF-12145)
+ * Tests r:commandButton processing using {@link PartialViewContext}. (RF-12145)
  */
 @RunAsClient
 @RunWith(Arquillian.class)

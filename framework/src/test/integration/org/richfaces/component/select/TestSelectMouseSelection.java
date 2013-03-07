@@ -62,13 +62,11 @@ public class TestSelectMouseSelection {
 
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.xmlns("rich", "http://richfaces.org/input");
 
         p.body("<h:form id='form'>");
-        p.body("    <rich:select id='select'  enableManualInput='true'>");
+        p.body("    <r:select id='select'  enableManualInput='true'>");
         p.body("        <f:selectItems value='#{autocompleteBean.suggestions}' />");
-        p.body("    </rich:select>");
+        p.body("    </r:select>");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
