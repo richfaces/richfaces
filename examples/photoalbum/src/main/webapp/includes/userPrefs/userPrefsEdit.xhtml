@@ -143,7 +143,7 @@
                     <td>
                         <r:outputPanel id="userCalendar" layout="block">
                             <r:calendar id="userBirthDate" enableManualInput="true" value="#{authenticator.user.birthDate}"
-                                cellWidth="24px" cellHeight="22px" inputClass="reg-table-input">
+                                cellWidth="24px" cellHeight="22px" inputClass="reg-table-input" datePattern="d/M/YYYY" defaultLabel="d/M/YYYY">
                                 <r:validator event="inputblur" />
                             </r:calendar>
                         </r:outputPanel>
