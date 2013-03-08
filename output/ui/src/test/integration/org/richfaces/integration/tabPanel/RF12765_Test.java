@@ -2,6 +2,7 @@ package org.richfaces.integration.tabPanel;
 
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 
@@ -36,11 +37,17 @@ public class RF12765_Test {
     @ArquillianResource
     private URL contextPath;
 
-    @FindBy(css = "form")
-    private WebElement form;
+    @FindBy(id = "myForm:tabPanel")
+    private WebElement tabPanel;
 
-    @FindBy(css = "table")
-    private WebElement table;
+    @FindBy(id = "myForm:repeat:0:tab:header:inactive")
+    private WebElement tab0;
+
+    @FindBy(id = "myForm:repeat:1:tab:header:inactive")
+    private WebElement tab1;
+
+    @FindBy(id = "myForm:repeat:2:tab:header:inactive")
+    private WebElement tab2;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -48,38 +55,31 @@ public class RF12765_Test {
         deployment.archive().addClass(TabBean.class);
         deployment.archive().addClass(TabPanelBean.class);
 
-        deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
-            @Override
-            public WebAppDescriptor apply(@Nullable WebAppDescriptor input) {
-                input
-                        .createContextParam()
-                        .paramName("javax.faces.PARTIAL_STATE_SAVING")
-                        .paramValue("false")
-                        .up();
-
-                return input;
-            }
-        });
         addIndexPage(deployment);
 
-        return deployment.getFinalArchive();
+        WebArchive archive = deployment.getFinalArchive();
+        return archive;
     }
 
     @Test
-    public void check_row_removal() {
-        browser.get(contextPath.toExternalForm() + "/index.jsf");
+    public void check_tab_switch() {
+        browser.get(contextPath.toExternalForm() + "index.jsf");
 
-        WebElement tabPanel = form.findElement(By.id("myForm:tabPanel"));
         List<WebElement> tabLabels = tabPanel.findElements(By.className("rf-tab-lbl"));
         Assert.assertEquals(9, tabLabels.size());
 
-        WebElement tab0 = form.findElement(By.id("myForm:repeat:0:tab:header:inactive"));
-        WebElement tab1 = form.findElement(By.id("myForm:repeat:1:tab:header:inactive"));
-        WebElement tab2 = form.findElement(By.id("myForm:repeat:2:tab:header:inactive"));
+        guardXhr(tab2).click();
+        Assert.assertTrue(tabPanel.getText().contains("tab6"));
+
+        guardXhr(tab0).click();
+        Assert.assertTrue(tabPanel.getText().contains("tab4"));
 
         guardXhr(tab2).click();
-        tabPanel = form.findElements(By.className("rf-tab-cnt")).get(1);
         Assert.assertTrue(tabPanel.getText().contains("tab6"));
+
+        guardXhr(tab0).click();
+        Assert.assertTrue(tabPanel.getText().contains("tab4"));
+
     }
 
     private static void addIndexPage(OutputDeployment deployment) {
@@ -97,6 +97,7 @@ public class RF12765_Test {
         p.body("                <h:commandLink value='[x]' rendered='#{newTab.closable}' onclick='removeTab(\"#{newTab.tabId}\");' />");
         p.body("            </f:facet>");
         p.body("            content of tab #{newTab.tabName} ");
+        p.body("            <h:form id='myForm2'></h:form>");
         p.body("        </rich:tab>");
         p.body("    </a4j:repeat>");
 
