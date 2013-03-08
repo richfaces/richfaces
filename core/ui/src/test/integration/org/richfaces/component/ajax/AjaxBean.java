@@ -37,7 +37,7 @@ import java.io.Serializable;
 public class AjaxBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String value = "0";
+    private String value;
 
     public AjaxBean() {
     }
@@ -48,6 +48,10 @@ public class AjaxBean implements Serializable {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public void clearValue(javax.faces.event.AjaxBehaviorEvent event) {
+        this.value = null;
     }
 
     public void listener(String newValue) {
