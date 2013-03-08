@@ -5,9 +5,9 @@
 
     <parent>
         <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-root-parent</artifactId>
+        <artifactId>richfaces-parent</artifactId>
         <version>5.0.0-SNAPSHOT</version>
-        <relativePath>../../build/parent/pom.xml</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.examples</groupId>
@@ -29,9 +29,15 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-build</artifactId>
+                <version>${version.richfaces}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
 
     <dependencies>
 
@@ -44,18 +50,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-impl</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>guava</artifactId>
-                    <groupId>com.google.guava</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-ui</artifactId>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-framework</artifactId>
         </dependency>
 
         <dependency>
@@ -187,7 +183,7 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
-            
+
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
