@@ -36,6 +36,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -77,13 +78,14 @@ public class TestValidatorMessageWithLabel {
     }
 
     /**
-     * Tests that validation message contains a label, i.e. content of "label" attribute of h:inputText component. This
+     * <p>Tests that validation message contains a label, i.e. content of "label" attribute of h:inputText component. This
      * is not default behavior, there is following setting in file MessagesWithLabels.properties:
-     * javax.faces.validator.BeanValidator.MESSAGE={1}: {0}
+     * javax.faces.validator.BeanValidator.MESSAGE={1}: {0}</p>
      *
-     * {@link https://issues.jboss.org/browse/RF-12754}
+     * <p>{@link https://issues.jboss.org/browse/RF-12754}</p>
      */
     @Test
+    @Ignore("RF-12754")
     public void client_side_validation_msg() {
         // given
         browser.get(contextPath.toExternalForm());
