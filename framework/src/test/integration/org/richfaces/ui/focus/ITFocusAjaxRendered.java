@@ -51,6 +51,7 @@ public class ITFocusAjaxRendered {
     }
 
     @Test
+ // TODO PhantomJS
     public void when_there_are_inputs_with_tabindex_then_the_lowest_tabindex_will_obtain_focus() {
         browser.get(contextPath.toExternalForm());
         assertEquals(input1, FocusRetriever.retrieveActiveElement());
@@ -66,15 +67,13 @@ public class ITFocusAjaxRendered {
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-
-
         p.body("<h:form id='form'>");
         p.body("    <r:focus id='focus' ajaxRendered='false' />");
 
         p.body("    <h:inputText id='input1' />");
         p.body("    <h:inputText id='input2' />");
 
-        p.body("    <r:commandButton id='ajax' render='input1 input2' value='Ajax' />");
+        p.body("    <r:commandButton id='ajax' render='@form' value='Ajax' />");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");

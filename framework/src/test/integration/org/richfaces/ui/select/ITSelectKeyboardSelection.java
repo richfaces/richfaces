@@ -1,6 +1,7 @@
 package org.richfaces.ui.select;
 
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
@@ -63,7 +64,9 @@ public class ITSelectKeyboardSelection {
         keyboard.pressKey(Keys.ARROW_DOWN);
         waitAjax().until().element(tampaBayOption).attribute("class").contains("rf-sel-sel");
 
+        // TODO doesn't work on PhantomJS
         keyboard.pressKey(Keys.ENTER);
+        waitGui().until().element(selectInput).attribute("value").equalTo("Tampa Bay");
         assertEquals("Tampa Bay", selectInput.getAttribute("value"));
     }
 

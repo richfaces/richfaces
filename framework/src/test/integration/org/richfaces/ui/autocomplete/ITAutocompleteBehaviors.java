@@ -68,16 +68,17 @@ public class ITAutocompleteBehaviors {
     }
 
     /**
-     * onblur should have input value available via 'this.value' expression
+     * onblur should have input value available via 'this.value' expression (RF-12114)
      */
     @Test
-    // RF-12114
     public void testAjaxOnBlur() {
+
         // given
         browser.get(contextPath.toExternalForm());
+
         autocompleteInput.sendKeys("t");
         waitGui().withMessage("suggestion list is visible").until(element(suggestionList).isVisible());
-        autocompleteItem.click();
+        guardXhr(autocompleteItem).click();
 
         // when / then
         Warp.initiate(new Activity() {

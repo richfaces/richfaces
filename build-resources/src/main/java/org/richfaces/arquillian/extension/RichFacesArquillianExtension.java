@@ -5,6 +5,7 @@ import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
 import org.richfaces.arquillian.configuration.FundamentalTestConfiguratorObserver;
 import org.richfaces.arquillian.container.installation.ContainerInitializationObserver;
 import org.richfaces.arquillian.container.installation.ContainerInstaller;
+import org.richfaces.arquillian.drone.PrepareBrowserSession;
 import org.richfaces.arquillian.page.source.SourceChecker;
 import org.richfaces.arquillian.page.source.SourceCheckerProvider;
 
@@ -17,6 +18,9 @@ public class RichFacesArquillianExtension implements LoadableExtension {
         builder.observer(FundamentalTestConfiguratorObserver.class);
         builder.observer(ContainerInitializationObserver.class);
         builder.observer(ContainerInstaller.class);
+        builder.observer(PrepareBrowserSession.class);
+//        builder.observer(FailureScreenshot.class);
+//        builder.observer(ScreenshotTaker.class);
     }
 
 }

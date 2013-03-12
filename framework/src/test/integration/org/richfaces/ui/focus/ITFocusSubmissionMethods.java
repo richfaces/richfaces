@@ -72,6 +72,7 @@ public class ITFocusSubmissionMethods {
     }
 
     @Test
+ // TODO PhantomJS
     public void testFocusAfterFormSubmission() {
         // when
         input2.click();
@@ -98,6 +99,7 @@ public class ITFocusSubmissionMethods {
     }
 
     @Test
+ // TODO PhantomJS
     public void testFocusAfterAjaxRF() {
         // when
         input2.click();
@@ -108,6 +110,7 @@ public class ITFocusSubmissionMethods {
     }
 
     @Test
+ // TODO PhantomJS
     public void testFocusAfterAjaxCommandButton() {
         // when
         input2.click();

@@ -101,6 +101,7 @@ public class ITFocusViewMode {
     }
 
     @Test
+ // TODO PhantomJS
     public void when_form_focus_is_defined_then_it_overrides_view_focus_settings() {
         // having
         browser.get(contextPath.toExternalForm());

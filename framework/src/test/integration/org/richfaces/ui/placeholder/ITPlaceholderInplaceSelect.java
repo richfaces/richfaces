@@ -151,4 +151,22 @@ public class ITPlaceholderInplaceSelect extends AbstractPlaceholderTest {
     @Override
     public void when_text_is_cleared_then_input_gets_placeholder_text_and_style_again() {
     }
+
+    @Override
+    @Test
+    public void testAjaxSendsTextValue() {
+        super.testAjaxSendsTextValue();
+    }
+
+    @Override
+    @Test
+    public void testSubmitTextValue() {
+        super.testSubmitTextValue();
+    }
+
+    @Override
+    @Test
+    public void when_text_is_changed_and_input_is_blurred_then_typed_text_is_preserved() {
+        super.when_text_is_changed_and_input_is_blurred_then_typed_text_is_preserved();
+    }
 }
