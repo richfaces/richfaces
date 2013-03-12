@@ -37,6 +37,7 @@
         <module>build-resources</module>
         <module>framework</module>
         <module>examples/showcase</module>
+        <module>examples/photoalbum</module>
     </modules>
 
     <description>
