@@ -67,4 +67,29 @@ public class FacebookBean implements Serializable {
     public void connect() {
         serviceHub.getService().initAccessToken();
     }
+
+    private JSONArray json;
+
+    public JSONArray getJson() {
+        return json;
+    }
+
+    public void setJson(JSONArray json) {
+        this.json = json;
+    }
+    
+    public List<JSONObject> getAvailableAlbums() {
+        List<JSONObject> albums = new ArrayList<JSONObject>();
+
+        if (json != null) {
+            for (int i = 0; i < json.length(); i++) {
+                try {
+                    albums.add(new JSONObject(json.get(i).toString()));
+                } catch (JSONException e) {
+                    log.error(e.getMessage());
+                }
+            }
+        }
+        return albums;
+    }
 }

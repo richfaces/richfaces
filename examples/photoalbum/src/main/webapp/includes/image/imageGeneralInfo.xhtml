@@ -61,12 +61,20 @@
             </tr>
             <tr>
                 <td style="vertical-align: bottom;" class="mainImage-table-col3">
-                    <richx:commandButton value="#{messages['image.edit']}" rendered="#{controller.isUserImage(model.selectedImage)}"
+                    <richx:commandButton value="#{messages['image.edit']}"
+                        rendered="#{controller.isUserImage(model.selectedImage)}"
                         actionListener="#{controller.startEditImage(model.selectedImage)}" render="mainArea" execute="@this" />
                     <richx:commandButton value="#{messages['image.delete']}"
                         actionListener="#{confirmationPopupHelper.initImagePopup(confirmationPopupHelper.deleteImage,messages['image.delete.confirm'],model.selectedImage)}"
                         render="confirmation" rendered="#{controller.isUserImage(model.selectedImage)}"
                         oncomplete="#{r:component('confirmation')}.show()" execute="@this" />
+                    <r:jsFunction name="passToBean" oncomplete="#{r:component('albumsPopupPanel')}.show()" render="albumsPopupPanel">
+                        <r:param assignTo="#{facebookBean.json}" converter="#{fbJsonConverter}" name="response" />
+                    </r:jsFunction>
+                    <richx:commandButton value="Share" rendered="#{controller.isUserImage(model.selectedImage)}" execute="@this"
+                        styleClass="fb-comm-button"
+                        oncomplete="getAlbums(passToBean);"
+                        render="albumsPopupPanel"/>
                 </td>
             </tr>
         </table>
@@ -85,4 +93,5 @@
         value="#{model.selectedImage.album.owner.login}" />
     <br />
     <br />
+    <ui:include src="/social/albumPanel.xhtml" />
 </ui:composition>

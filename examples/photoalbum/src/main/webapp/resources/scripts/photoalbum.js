@@ -47,3 +47,42 @@ function show(id) {
 function hide(id) {
 	document.getElementById(id).style.display = 'none';
 }
+
+/** Facebook **/
+
+pushImage = function (album_id, url, message) {
+	FB.api('/' + album_id + '/photos', 'post', { message: (message || 'No description'), url:url }, 
+            function(response){
+              if (!response || response.error) {
+                  console.log('Error occured');
+                  console.log(response);
+              } else {
+                  console.log('Post ID: ' + response.id);
+              }
+    });
+};
+      
+getAlbums = function (callback) {
+	FB.api('/me/albums', 'get', function(response){
+        if (!response || response.error) {
+            console.log('Error occured');
+            console.log(response);
+        } else {
+            callback(JSON.stringify(response.data));
+            console.log(response);
+        }
+	});
+};
+      
+Fblogin = function () {
+	FB.login(function(response) {
+		   if (response.authResponse) {
+		     console.log('Welcome!  Fetching your information.... ');
+		     FB.api('/me', function(response) {
+		       console.log('Good to see you, ' + response.name + '.');
+		     });
+		   } else {
+		     console.log('User cancelled login or did not fully authorize.');
+		   }
+		 }, {scope: 'read_stream, publish_stream, user_photos'});
+};

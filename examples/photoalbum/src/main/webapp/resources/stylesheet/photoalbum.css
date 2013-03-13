@@ -1206,7 +1206,7 @@ h1 {
     text-decoration: none;
 }
 
-.photoalbumButton {
+.photoalbumButton, .fb-comm-button {
     margin: 0px 0px 0px 0px !important;
     position: relative;
     width: 103px !important;
@@ -1421,4 +1421,18 @@ h1 {
 #calendar .rf-cal-c {
     width: 24px;
     height: 22px;
+}
+
+/* FB button */
+
+input[type='submit'].fb-button {
+	border-color: #3b5998 !important;
+	background-color: #8b9dc3 !important;
+	color: #f7f7f7 !important;
+	font-weight: bold;
+}
+
+.fb-comm-button {
+	background-image: url('/richfaces-photoalbum/img/shell/buttonfb.png');
+	font-weight: bold;
 }
