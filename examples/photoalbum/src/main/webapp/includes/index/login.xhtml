@@ -1,10 +1,10 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org/rich"
+    xmlns:richx="http://richfaces.org/richx">
 
     <r:popupPanel id="loginPanel" domElementAttachment="parent"
         onshow="applyModalPanelEffect('loginPanel', {delay: 0.5, afterFinish: function(){$('loginPanelForm:username').focus();}})"
-        styleClass="login-panel" show="#{authenticator.loginFailed}" width="400" height="150" autosized="true">
+        styleClass="login-panel" show="#{authenticator.loginFailed}" autosized="true">
         <f:facet name="header">#{messages['login.login']}</f:facet>
         <f:facet name="controls">
             <h:panelGroup id="loginPanelHideControl">
@@ -13,10 +13,8 @@
             </h:panelGroup>
         </f:facet>
 
-        <!-- <r:effect type="Appear" name="appearFunc" /> -->
-        <!-- not implemented in RF 4 -->
-
         <h:panelGrid columns="1" columnClasses="login-table-col" style="width: 100%; text-align:center;">
+          
             <r:region id="loginPanelForm">
                 <h:panelGrid columns="2" columnClasses="login-table-col2, xxx" style="margin-left:auto; margin-right:auto;">
                     <h:outputText value="#{messages['login.userName']}" />
@@ -30,11 +28,9 @@
                         style="border: 1px solid rgb(144, 144, 144); height: 19px; width: 155px;" />
                 </h:panelGrid>
             </r:region>
-            <r:outputPanel ajaxRendered="true">
-                <h:panelGroup>
-                    <r:messages style="color:red" for="loginPanel" />
-                </h:panelGroup>
-            </r:outputPanel>
+
+            <r:messages id="loginFormMsgs" style="color: red;" for="loginPanel" />
+
             <h:panelGrid columns="2" style="text-align:center; margin-top : 10px; margin-left:auto; margin-right:auto;">
                 <h:panelGroup layout="block">
                     <!-- action="gotoindex" -->
