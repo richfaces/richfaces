@@ -211,4 +211,4 @@ Developing from Maven
 
 If you are running tests from Maven instead of IDE, following combination of properties might be handy:
 
-    mvn verify -Pintegration-tests -Pjbossas-remote-7-1 -Dbrowser=firefox -DskipTests=true -Dbrowser-remote-reusable -Dtest=RF12765_Test
+    mvn verify -Pintegration-tests -Pjbossas-remote-7-1 -Dbrowser=firefox -DskipTests=true -Pbrowser-remote-reusable -Dtest=RF12765_Test
