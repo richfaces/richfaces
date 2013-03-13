@@ -92,16 +92,35 @@
         <ui:include src="/includes/index/status.xhtml" />
         <!-- do not move, will not work inside the form -->
     </div>
-    <!-- 
-    <script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>
-
-    <script type="text/javascript">
-    if (window.location.hostname.indexOf("livedemo.exadel.com") != -1) {
-        _uacct = "UA-7306415-2";
-        urchinTracker();
     
-    } 
-</script> -->
+    <div id="fb-root"></div>
+        <script>
+          window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({
+              appId      : '204631749555557', // App ID from the App Dashboard
+              status     : false, // check the login status upon init?
+              cookie     : true, // set sessions cookies to allow your server to access the session?
+              xfbml      : false,  // parse XFBML tags on this page?
+              channelUrl : '/social/fbchannel.jsf'
+            });
+        
+            // Additional initialization code such as adding Event Listeners goes here
+        
+          };
+        
+          // Load the SDK's source Asynchronously
+          // Note that the debug version is being actively developed and might 
+          // contain some type checks that are overly strict. 
+          // Please report such bugs using the bugs tool.
+          (function(d, debug){
+             var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement('script'); js.id = id; js.async = true;
+             js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+             ref.parentNode.insertBefore(js, ref);
+           }(document, /*debug*/ false));
+        </script>
 
 </h:body>
 </html>
