@@ -18,7 +18,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.ui.renderkit.util;
+package org.richfaces.ui.util.renderkit;
 
 import org.jboss.test.faces.AbstractFacesTest;
 import org.richfaces.ui.common.SwitchType;
