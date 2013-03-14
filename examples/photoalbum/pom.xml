@@ -38,6 +38,7 @@
         <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-web-6.0</artifactId>
+            <version>${version.jboss-javaee}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
