@@ -176,11 +176,15 @@
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
+                <filtering>false</filtering>
+            </testResource>
+            <testResource>
+                <directory>${project.build.directory}/arquillian-settings</directory>
                 <filtering>true</filtering>
             </testResource>
         </testResources>
-        <plugins>
 
+        <plugins>
             <plugin>
                 <!-- Checkstyle only required here because suppressions needed -->
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -289,6 +293,32 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-arquillian-settings</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.richfaces</groupId>
+                                    <artifactId>richfaces-build-resources</artifactId>
+                                    <version>5.0.0-SNAPSHOT</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>arquillian.xml</includes>
+                            <outputDirectory>${project.build.directory}/arquillian-settings</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
 
         <pluginManagement>
@@ -326,6 +356,19 @@
                                     </pluginExecutionFilter>
                                     <action>
                                         <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-dependency-plugin</artifactId>
+                                        <versionRange>[2.6,)</versionRange>
+                                        <goals>
+                                            <goal>unpack</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute></execute>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
