@@ -29,13 +29,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-build</artifactId>
-                <version>${version.richfaces}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -100,51 +93,11 @@
     </dependencies>
 
     <profiles>
-
         <profile>
             <id>release</id>
             <properties>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
             </properties>
-        </profile>
-
-        <profile>
-            <id>jbossas-managed-7-1</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.spec</groupId>
-                    <artifactId>jboss-javaee-web-6.0</artifactId>
-                    <type>pom</type>
-                    <scope>provided</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>xalan</groupId>
-                            <artifactId>xalan</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
-            <build>
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                    </testResource>
-                </testResources>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <skipTests>false</skipTests>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 

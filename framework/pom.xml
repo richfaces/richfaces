@@ -21,9 +21,8 @@
 
     <parent>
         <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-build</artifactId>
+        <artifactId>richfaces-parent</artifactId>
         <version>5.0.0-SNAPSHOT</version>
-        <relativePath>../build</relativePath>
     </parent>
 
     <artifactId>richfaces-framework</artifactId>
@@ -35,6 +34,18 @@
         Contains all project specific sources.
     </description>
 
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>5.0.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
 
@@ -176,11 +187,7 @@
 
         <plugins>
             <plugin>
-                <!-- Checkstyle only required here because suppressions needed -->
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <suppressionsLocation>${project.basedir}/richfaces-suppressions.xml</suppressionsLocation>
-                </configuration>
             </plugin>
 
             <plugin>
@@ -239,9 +246,10 @@
                 </configuration>
                 <dependencies>
                     <dependency>
-                        <groupId>org.jboss.spec.javax.faces</groupId>
-                        <artifactId>jboss-jsf-api_2.1_spec</artifactId>
-                        <version>2.0.2.Final</version>
+                        <groupId>org.jboss.spec</groupId>
+                        <artifactId>jboss-javaee-6.0</artifactId>
+                        <version>${version.jboss-javaee}</version>
+                        <type>pom</type>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -265,82 +273,7 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Unit Tests -->
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-test</id>
-                        <configuration>
-                            <skip>${skipTests}</skip>
-                            <test>${test}</test>
-                            <excludes>
-                                <exclude>**/integration/**/*.java</exclude>
-                                <exclude>**/component/*/*.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.richfaces.cdk</groupId>
-                                        <artifactId>maven-cdk-plugin</artifactId>
-                                        <versionRange>[4.3.0-SNAPSHOT,)</versionRange>
-                                        <goals>
-                                            <goal>generate</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <execute>
-                                            <runOnIncremental>false</runOnIncremental>
-                                        </execute>
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.richfaces.cdk</groupId>
-                                        <artifactId>maven-richfaces-resources-plugin</artifactId>
-                                        <versionRange>[4.3.0-SNAPSHOT,)</versionRange>
-                                        <goals>
-                                            <goal>process</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-dependency-plugin</artifactId>
-                                        <versionRange>[2.6,)</versionRange>
-                                        <goals>
-                                            <goal>unpack</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <execute></execute>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 
 
