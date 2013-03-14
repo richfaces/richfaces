@@ -479,7 +479,7 @@
                         <filtering>false</filtering>
                     </testResource>
                     <testResource>
-                        <directory>${project.build.directory}/arquillian-settings</directory>
+                        <directory>src/test/arquillian-settings/</directory>
                         <filtering>true</filtering>
                     </testResource>
                 </testResources>
@@ -505,7 +505,7 @@
                                         </artifactItem>
                                     </artifactItems>
                                     <includes>arquillian.xml</includes>
-                                    <outputDirectory>${project.build.directory}/arquillian-settings</outputDirectory>
+                                    <outputDirectory>src/test/arquillian-settings</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>
