@@ -173,16 +173,6 @@
     </dependencies>
 
     <build>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <filtering>false</filtering>
-            </testResource>
-            <testResource>
-                <directory>${project.build.directory}/arquillian-settings</directory>
-                <filtering>true</filtering>
-            </testResource>
-        </testResources>
 
         <plugins>
             <plugin>
@@ -289,32 +279,6 @@
                                 <exclude>**/integration/**/*.java</exclude>
                                 <exclude>**/component/*/*.java</exclude>
                             </excludes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack-arquillian-settings</id>
-                        <phase>generate-test-resources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.richfaces</groupId>
-                                    <artifactId>richfaces-build-resources</artifactId>
-                                    <version>5.0.0-SNAPSHOT</version>
-                                    <type>jar</type>
-                                    <overWrite>true</overWrite>
-                                </artifactItem>
-                            </artifactItems>
-                            <includes>arquillian.xml</includes>
-                            <outputDirectory>${project.build.directory}/arquillian-settings</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -509,7 +473,43 @@
                 </dependency>
             </dependencies>
             <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                        <filtering>false</filtering>
+                    </testResource>
+                    <testResource>
+                        <directory>${project.build.directory}/arquillian-settings</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-arquillian-settings</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.richfaces</groupId>
+                                            <artifactId>richfaces-build-resources</artifactId>
+                                            <version>5.0.0-SNAPSHOT</version>
+                                            <type>jar</type>
+                                            <overWrite>true</overWrite>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <includes>arquillian.xml</includes>
+                                    <outputDirectory>${project.build.directory}/arquillian-settings</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
@@ -528,7 +528,7 @@
                             </execution>
                             <execution>
                                 <id>add-integration-test-resources</id>
-                                <phase>process-test-sources</phase>
+                                <phase>process-test-resources</phase>
                                 <goals>
                                     <goal>add-test-resource</goal>
                                 </goals>
