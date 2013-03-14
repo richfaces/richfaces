@@ -4,7 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.focus.FocusManager;
+import org.richfaces.ui.misc.focus.FocusManager;
 
 @RequestScoped
 @ManagedBean

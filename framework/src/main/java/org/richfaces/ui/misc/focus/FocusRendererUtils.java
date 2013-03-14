@@ -1,7 +1,5 @@
 package org.richfaces.ui.misc.focus;
 
-import org.richfaces.focus.FocusManager;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIViewRoot;

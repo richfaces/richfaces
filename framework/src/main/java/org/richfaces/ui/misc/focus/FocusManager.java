@@ -1,4 +1,4 @@
-package org.richfaces.focus;
+package org.richfaces.ui.misc.focus;
 
 import javax.faces.event.PhaseId;
 

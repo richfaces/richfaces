@@ -23,7 +23,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.richfaces.application.ServicesFactory;
-import org.richfaces.focus.FocusManager;
+import org.richfaces.ui.misc.focus.FocusManager;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.ui.misc.focus.FocusRendererUtils;
 import org.richfaces.test.AbstractServicesTest;

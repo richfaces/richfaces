@@ -26,7 +26,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.ui.event.PreRenderParentListener;
+import org.richfaces.event.PreRenderParentListener;
 import org.richfaces.ui.input.InplaceComponent;
 
 import javax.el.ValueExpression;

@@ -6,7 +6,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.focus.FocusManager;
+import org.richfaces.ui.misc.focus.FocusManager;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

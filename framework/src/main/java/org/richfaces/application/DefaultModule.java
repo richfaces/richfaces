@@ -7,7 +7,7 @@ import org.richfaces.application.push.impl.PushContextFactoryImpl;
 import org.richfaces.cache.Cache;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.el.GenericsIntrospectionServiceImpl;
-import org.richfaces.focus.FocusManager;
+import org.richfaces.ui.misc.focus.FocusManager;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.JavaScriptServiceImpl;
 import org.richfaces.l10n.BundleLoader;
