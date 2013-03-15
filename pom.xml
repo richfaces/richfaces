@@ -113,15 +113,14 @@
         <!-- Example Dependecy Libraries Versions -->
         <version.slf4j>1.6.1</version.slf4j>
         <version.hsqldb>2.0.0</version.hsqldb>
-        <version.hibernate-entitymanager>4.0.0.Final</version.hibernate-entitymanager>
         <version.hornetq>2.2.7.Final</version.hornetq>
         <version.netty>3.2.5.Final</version.netty>
         <version.weld>1.1.4.Final</version.weld>
         <version.rewrite>1.0.4.Final</version.rewrite>
         <version.jsoup>1.5.2</version.jsoup>
         <version.solder>3.1.1.Final</version.solder>
+        <version.hibernate-entitymanager>4.0.0.Final</version.hibernate-entitymanager>
         <version.hibernate-annotations>3.5.6-Final</version.hibernate-annotations>
-        <version.metadata-extractor>2.6.2</version.metadata-extractor>
         
         <!-- Test Dependencies Versions -->
         <version.junit>4.11</version.junit>
@@ -665,7 +664,6 @@
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>${version.jboss-as7}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -676,7 +674,6 @@
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>${version.jboss-as7}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -698,7 +695,6 @@
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
                     <artifactId>arquillian-tomee-remote</artifactId>
-                    <version>${version.tomee15}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -718,7 +714,6 @@
                 <dependency>
                     <groupId>org.apache.openejb</groupId>
                     <artifactId>arquillian-tomee-remote</artifactId>
-                    <version>${version.tomee15}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -740,7 +735,6 @@
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-glassfish-managed-3.1</artifactId>
-                    <version>${version.arquillian.glassfish31}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -754,7 +748,6 @@
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-glassfish-remote-3.1</artifactId>
-                    <version>${version.arquillian.glassfish31}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -769,7 +762,6 @@
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-tomcat-remote-6</artifactId>
-                    <version>${version.arquillian.tomcat}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -793,7 +785,6 @@
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-tomcat-managed-6</artifactId>
-                    <version>${version.arquillian.tomcat}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -818,7 +809,6 @@
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-tomcat-managed-7</artifactId>
-                    <version>${version.arquillian.tomcat}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -957,6 +947,48 @@
                 <scope>import</scope>
             </dependency>
             
+            <!-- Container versions -->
+            <dependency>
+                <groupId>org.jboss.as</groupId>
+                <artifactId>jboss-as-arquillian-container-remote</artifactId>
+                <version>${version.jboss-as7}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.as</groupId>
+                <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                <version>${version.jboss-as7}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.openejb</groupId>
+                <artifactId>arquillian-tomee-remote</artifactId>
+                <version>${version.tomee15}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-glassfish-managed-3.1</artifactId>
+                <version>${version.arquillian.glassfish31}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-glassfish-remote-3.1</artifactId>
+                <version>${version.arquillian.glassfish31}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-tomcat-remote-6</artifactId>
+                <version>${version.arquillian.tomcat}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-tomcat-managed-6</artifactId>
+                <version>${version.arquillian.tomcat}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-tomcat-managed-7</artifactId>
+                <version>${version.arquillian.tomcat}</version>
+            </dependency>
+            
             <!-- JSF Implementations Versions -->
             <dependency>
                 <groupId>javax.faces</groupId>
@@ -1049,11 +1081,6 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-annotations</artifactId>
                 <version>${version.hibernate-annotations}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.drewnoakes</groupId>
-                <artifactId>metadata-extractor</artifactId>
-                <version>${version.metadata-extractor}</version>
             </dependency>
             
             <!-- Test Dependencie Versions -->
