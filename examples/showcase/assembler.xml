@@ -32,7 +32,7 @@
             <source>pom.xml</source>
         </file>
         <file>
-            <source>readme.txt</source>
+            <source>README.md</source>
         </file>
     </files>
 
