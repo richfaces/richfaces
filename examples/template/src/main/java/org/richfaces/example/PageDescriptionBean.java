@@ -7,11 +7,16 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author leo
- *
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public class PageDescriptionBean implements Comparable<PageDescriptionBean> {
-    private String _path;
-    private String _title;
+    private final String _path;
+    private final String _title;
+
+    public PageDescriptionBean(String _path, String _title) {
+        this._path = _path;
+        this._title = _title;
+    }
 
     /**
      * @return the path
@@ -21,24 +26,10 @@ public class PageDescriptionBean implements Comparable<PageDescriptionBean> {
     }
 
     /**
-     * @param path the path to set
-     */
-    public void setPath(String path) {
-        _path = path;
-    }
-
-    /**
      * @return the title
      */
     public String getTitle() {
         return _title;
-    }
-
-    /**
-     * @param title the title to set
-     */
-    public void setTitle(String title) {
-        _title = title;
     }
 
     public String navigate() {

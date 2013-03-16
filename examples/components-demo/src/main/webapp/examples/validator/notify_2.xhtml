@@ -1,0 +1,37 @@
+<ui:composition template="/layout/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:r="http://richfaces.org/rich">
+
+<ui:param name="title" value="Notify Example 2" />
+        <ui:define name="content">
+            <style>
+                .mail .rf-ntf-cnt {
+                    padding: 0 10px;
+                }
+        
+                .mail .rf-ntf-clr {
+                    margin-top: 4px;
+                }
+        
+                .mail .rf-ntf-ico {
+                    display: block;
+                    background: url(mail.png) no-repeat 50% 50%;
+                    width: 18px;
+                    height: 20px;
+                }
+            </style>
+
+            <p>Skinning. Icon, skining by message type.</p>
+            <r:notify summary="You've got mail" nonblocking="#{notifyBean.nonblocking}" sticky="true" styleClass="mail" />
+            <r:notify summary="You've got more mail (hides in 3sec)" nonblocking="true" sticky="false" styleClass="mail"
+                delay="1500" stayTime="3000" />
+            <!--
+    TODO uncomment this once r:insert is implemented
+    <r:insert src="/notify_2.xhtml" highlight="xhtml" rendered="#{showSource!=false}"/>
+    -->
+        </ui:define>
+    </ui:composition>

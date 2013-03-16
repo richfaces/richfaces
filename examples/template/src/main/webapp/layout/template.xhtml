@@ -1,6 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:r="http://richfaces.org/core">
+
 <f:view contentType="text/html">
     <h:head>
         <title>#{title}</title>
@@ -10,9 +15,8 @@
         <h:outputStylesheet name="reset-fonts-grids.css" library="org.richfaces.template" />
         <div id="doc3" class="yui-t2">
             <div id="hd">
-                <ui:insert name="header">
-                    <h1>#{title}</h1>
-                </ui:insert>
+                <h1><h:link style="font-size: 150%" outcome="/index" value="Home" /></h1>
+                <h1>#{title}</h1>
             </div>
             <div id="bd">
                 <div id="yui-main">

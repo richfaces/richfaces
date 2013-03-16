@@ -1,0 +1,61 @@
+<ui:composition template="/layout/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:r="http://richfaces.org/rich">
+<ui:param name="title" value="Hot Key" />
+    <!-- content -->
+    <ui:define name="content">
+
+        <!-- Switches hotKeys between rendered and not rendered state (testring destructor) -->
+        <h:form>
+            Active:
+            <h:selectBooleanCheckbox id="panelRendered" value="#{requestScope.panelRendered}">
+                <r:ajax event="click" render="panel" />
+            </h:selectBooleanCheckbox>
+            <script>
+                $(#{r:element('panelRendered')}).attr('checked', true);
+            </script>
+        </h:form>
+
+        <r:outputPanel id="panel">
+            <r:outputPanel>
+                <b>Note</b> key actions can be seen in document title and in JS console log.<br />
+                
+                <p>CTRL A(on document) works in both cases if input focused or not (and it has attached ajax behavior)</p>
+                <r:hotKey key="CTRL+a" onkeydown="myCallback(event, 'CTRL+a');" enabledInInput="true"
+                    rendered="#{requestScope.panelRendered || !facesContext.postback}">
+                    <!-- <r:ajax />  -->
+                </r:hotKey>
+
+                <p>CTRL B(on document) works only if inputs not focused</p>
+                <r:hotKey key="CTRL+b" onkeydown="myCallback(event, 'CTRL+b');"
+                    rendered="#{requestScope.panelRendered || !facesContext.postback}" />
+
+                <p>CTRL X works only if second input focused(class selector used)</p>
+                <r:hotKey key="CTRL+x" selector=".second" onkeydown="myCallback(event, 'CTRL+x in second');" enabledInInput="true"
+                    rendered="#{requestScope.panelRendered || !facesContext.postback}" />
+
+
+                <p>CTRL X works only if third input focused (componentId selector used)</p>
+                <r:hotKey key="CTRL+x" selector="#thirdInput" onkeydown="myCallback(event, 'CTRL+x in third input');"
+                    enabledInInput="true" rendered="#{requestScope.panelRendered || !facesContext.postback}" />
+                <br />
+                <r:hotKey key="CTRL+z" selector="#thirdInput" onkeydown="myCallback(event, 'CTRL+z in third input');"
+                    enabledInInput="true" rendered="#{requestScope.panelRendered || !facesContext.postback}" />
+
+            </r:outputPanel>
+        </r:outputPanel>
+
+        <h:inputText value="just input" />
+
+        <h:inputText value="CTRL X within that input" styleClass="second" />
+
+        <h:form id="anotherForm">
+            <h:inputText id="thirdInput" value="CTRL X or CTRL Z within that input" />
+        </h:form>
+        
+    </ui:define>
+</ui:composition>
