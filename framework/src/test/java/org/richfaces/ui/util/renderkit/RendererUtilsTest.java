@@ -23,7 +23,6 @@ package org.richfaces.ui.util.renderkit;
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.ui.util.renderkit.RendererUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
