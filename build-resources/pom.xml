@@ -39,7 +39,6 @@
         <dependency>
             <groupId>org.richfaces.cdk</groupId>
             <artifactId>generator</artifactId>
-            <version>4.3.2-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 

@@ -126,15 +126,26 @@
                 <version>${version.jboss-javaee}</version>
                 <type>pom</type>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-build-resources</artifactId>
                 <version>${version.richfaces}</version>
             </dependency>
             <dependency>
+                <groupId>org.richfaces.examples</groupId>
+                <artifactId>template</artifactId>
+                <type>war</type>
+                <version>${version.richfaces}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>annotations</artifactId>
+                <version>${version.cdk}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>generator</artifactId>
                 <version>${version.cdk}</version>
             </dependency>
             <dependency>
@@ -396,64 +407,6 @@
                 <artifactId>hibernate-validator</artifactId>
                 <version>${version.hibernate-validator}</version>
             </dependency>
-            
-            <!-- Resources Plugin -->
-<!--             <dependency> -->
-<!--                 <groupId>org.apache.maven</groupId> -->
-<!--                 <artifactId>maven-artifact</artifactId> -->
-<!--                 <version>${version.maven-core}</version> -->
-<!--             </dependency> -->
-<!--             <dependency> -->
-<!--                 <groupId>org.apache.maven</groupId> -->
-<!--                 <artifactId>maven-plugin-api</artifactId> -->
-<!--                 <version>${version.maven-core}</version> -->
-<!--             </dependency> -->
-<!--             <dependency> -->
-<!--                 <groupId>org.apache.maven</groupId> -->
-<!--                 <artifactId>maven-core</artifactId> -->
-<!--                 <version>${version.maven-core}</version> -->
-<!--             </dependency> -->
-<!--             <dependency> -->
-<!--                 <groupId>org.apache.maven</groupId> -->
-<!--                 <artifactId>maven-archiver</artifactId> -->
-<!--                 <version>${version.maven-archiver}</version> -->
-<!--             </dependency> -->
-<!--             <dependency> -->
-<!--                 <groupId>org.apache.maven.shared</groupId> -->
-<!--                 <artifactId>file-management</artifactId> -->
-<!--                 <version>${version.maven-file-management}</version> -->
-<!--             </dependency> -->
-<!--             <dependency> -->
-<!--                 <groupId>org.codehaus.plexus</groupId> -->
-<!--                 <artifactId>plexus-utils</artifactId> -->
-<!--                 <version>${version.plexus-utils}</version> -->
-<!--             </dependency> -->
-<!--             <dependency> -->
-<!--                 <groupId>org.codehaus.plexus</groupId> -->
-<!--                 <artifactId>plexus-velocity</artifactId> -->
-<!--                 <version>${version.plexus-velocity}</version> -->
-<!--             </dependency> -->
-<!--             <dependency> -->
-<!--                 <groupId>org.reflections</groupId> -->
-<!--                 <artifactId>reflections</artifactId> -->
-<!--                 <version>${version.reflections}</version> -->
-<!--                 <exclusions> -->
-<!--                     <exclusion> -->
-<!--                         <groupId>com.google.collections</groupId> -->
-<!--                         <artifactId>google-collections</artifactId> -->
-<!--                     </exclusion> -->
-<!--                 </exclusions> -->
-<!--             </dependency> -->
-<!--             <dependency> -->
-<!--                 <groupId>org.jboss.el</groupId> -->
-<!--                 <artifactId>jboss-el</artifactId> -->
-<!--                 <version>${version.jboss-el}</version> -->
-<!--             </dependency> -->
-<!--             <dependency> -->
-<!--                 <groupId>com.yahoo.platform.yui</groupId> -->
-<!--                 <artifactId>yuicompressor</artifactId> -->
-<!--                 <version>${version.yuicompressor}</version> -->
-<!--             </dependency> -->
         </dependencies>
     </dependencyManagement>
 
@@ -478,9 +431,9 @@
     </build>
 
     <scm>
-        <connection>scm:git:git://github.com/richfaces/richfaces.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/richfaces.git</developerConnection>
-        <url>https://github.com/richfaces/richfaces</url>
+        <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
+        <url>https://github.com/richfaces/richfaces5</url>
     </scm>
 
     <distributionManagement>

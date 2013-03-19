@@ -32,7 +32,6 @@
     <artifactId>template</artifactId>
     <groupId>org.richfaces.examples</groupId>
     <name>RichFaces Examples Template</name>
-    <version>5.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <dependencyManagement>
@@ -41,14 +40,14 @@
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-bom</artifactId>
-                <version>5.0.0-SNAPSHOT</version>
+                <version>${version.richfaces}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-build</artifactId>
-                <version>5.0.0-SNAPSHOT</version>
+                <version>${version.richfaces}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -61,13 +60,11 @@
             <artifactId>jboss-javaee-web-6.0</artifactId>
             <type>pom</type>
             <scope>provided</scope>
-            <version>3.0.1.Final</version>
         </dependency>
 
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces-framework</artifactId>
-            <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

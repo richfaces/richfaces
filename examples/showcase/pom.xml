@@ -35,6 +35,7 @@
     <name>RichFaces Showcase</name>
 
     <properties>
+        <version.richfaces>${project.version}</version.richfaces>
         <dependency.scope>compile</dependency.scope>
         <container.classifier>tomcat6</container.classifier>
         <container.resources>src/main/resources-tomcat</container.resources>
@@ -57,14 +58,14 @@
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-bom</artifactId>
-                <version>5.0.0-SNAPSHOT</version>
+                <version>${version.richfaces}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-build</artifactId>
-                <version>5.0.0-SNAPSHOT</version>
+                <version>${version.richfaces}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

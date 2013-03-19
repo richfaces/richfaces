@@ -48,8 +48,8 @@
         </dependency>
         
         <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-impl</artifactId>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-framework</artifactId>
         </dependency>
     </dependencies>
 

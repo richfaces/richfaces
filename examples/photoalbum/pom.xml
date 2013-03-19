@@ -38,7 +38,7 @@
              -->
             <dependency>
                 <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-parent</artifactId>
+                <artifactId>richfaces-build</artifactId>
                 <version>${version.richfaces}</version>
                 <type>pom</type>
                 <scope>import</scope>
