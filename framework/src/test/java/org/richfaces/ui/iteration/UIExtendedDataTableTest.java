@@ -21,16 +21,15 @@
  */
 package org.richfaces.ui.iteration;
 
+import javax.faces.context.FacesContext;
+
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.richfaces.component.UIExtendedDataTable;
 import org.richfaces.model.DataVisitResult;
 import org.richfaces.model.DataVisitor;
 import org.richfaces.model.SequenceRange;
-
-import javax.faces.context.FacesContext;
 
 /**
  * @author Konstantin Mishin

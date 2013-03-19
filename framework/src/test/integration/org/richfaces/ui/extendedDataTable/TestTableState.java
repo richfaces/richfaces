@@ -31,11 +31,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.component.UIColumn;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.iteration.AbstractExtendedDataTable;
 import org.richfaces.ui.iteration.ExtendedDataTableState;
+import org.richfaces.ui.iteration.UIColumn;
 
 @RunAsClient
 @WarpTest

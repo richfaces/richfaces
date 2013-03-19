@@ -21,20 +21,21 @@
  */
 package org.richfaces.ui.iteration;
 
+import static org.easymock.EasyMock.expect;
+
+import java.util.Comparator;
+
+import javax.el.ValueExpression;
+
 import junit.framework.Assert;
+
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.richfaces.component.UIColumn;
 import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
-
-import javax.el.ValueExpression;
-import java.util.Comparator;
-
-import static org.easymock.EasyMock.expect;
 
 /**
  * @author Konstantin Mishin

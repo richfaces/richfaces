@@ -451,23 +451,32 @@ public class RichFaces5Validator implements ModelValidator {
     protected void verifyComponents(ComponentLibrary library) throws CdkException {
         // Verify types and classes. Do it first to be sure what all all values are set before second stage.
         for (ComponentModel component : library.getComponents()) {
-            verifyComponentType(component);
+            try {
+                verifyComponentType(component);
+            } catch (RuntimeException e) {
+                throw new CdkException("Caught error when verifying component " + component, e);
+            }
         }
         // Verify component attributes
         HashSet<ComponentModel> verified = Sets.newHashSet();
         for (ComponentModel component : library.getComponents()) {
-            verifyComponentAttributes(library, component, verified);
-            // generate component family if missing
-            if (null == component.getFamily()) {
-                component.setFamily(namingConventions.inferUIComponentFamily(component.getId()));
-            }
-            // add facelet tag if missing
-            if (component.getTags().isEmpty()) {
-                TagModel tag = new TagModel();
-                component.getTags().add(tag);
-                tag.setName(namingConventions.inferTagName(component.getId()));
-                tag.setGenerate(false);
-                tag.setType(TagType.Facelets);
+            try {
+                verifyComponentType(component);
+                verifyComponentAttributes(library, component, verified);
+                // generate component family if missing
+                if (null == component.getFamily()) {
+                    component.setFamily(namingConventions.inferUIComponentFamily(component.getId()));
+                }
+                // add facelet tag if missing
+                if (component.getTags().isEmpty()) {
+                    TagModel tag = new TagModel();
+                    component.getTags().add(tag);
+                    tag.setName(namingConventions.inferTagName(component.getId()));
+                    tag.setGenerate(false);
+                    tag.setType(TagType.Facelets);
+                }
+            } catch (RuntimeException e) {
+                throw new CdkException("Caught error when verifying component " + component, e);
             }
         }
     }

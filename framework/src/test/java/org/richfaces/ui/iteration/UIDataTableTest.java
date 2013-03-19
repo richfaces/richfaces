@@ -21,13 +21,21 @@
  */
 package org.richfaces.ui.iteration;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
+import javax.faces.context.FacesContext;
+
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.richfaces.component.UIColumn;
-import org.richfaces.component.UIDataTable;
 import org.richfaces.model.Arrangeable;
 import org.richfaces.model.ArrangeableState;
 import org.richfaces.model.DataVisitor;
@@ -36,15 +44,6 @@ import org.richfaces.model.FilterField;
 import org.richfaces.model.Range;
 import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
-
-import javax.el.ELContext;
-import javax.el.ExpressionFactory;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.context.FacesContext;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author Konstantin Mishin
