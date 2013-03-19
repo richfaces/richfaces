@@ -1,4 +1,4 @@
-package org.richfaces.component.extendedDataTable;
+package org.richfaces.ui.extendedDataTable;
 
 import java.net.URL;
 
@@ -48,8 +48,8 @@ public class TestCellWidthWithMaxTableWidth {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        
-        
+
+
 
         p.body("<h:outputStylesheet>  table { width: 100%; }  </h:outputStylesheet>");
         p.body("<h:form id='myForm'>");

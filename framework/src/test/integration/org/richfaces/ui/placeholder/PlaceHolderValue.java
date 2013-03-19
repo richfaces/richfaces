@@ -19,9 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.component.placeholder;
-
-import com.google.common.collect.Lists;
+package org.richfaces.ui.placeholder;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,6 +27,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>

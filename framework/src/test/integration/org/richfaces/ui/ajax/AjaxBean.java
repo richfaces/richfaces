@@ -19,12 +19,12 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  **/
-package org.richfaces.component.ajax;
+package org.richfaces.ui.ajax;
+
+import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
-import java.io.Serializable;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

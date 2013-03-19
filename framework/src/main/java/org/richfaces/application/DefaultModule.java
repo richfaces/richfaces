@@ -7,14 +7,9 @@ import org.richfaces.application.push.impl.PushContextFactoryImpl;
 import org.richfaces.cache.Cache;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.el.GenericsIntrospectionServiceImpl;
-import org.richfaces.ui.misc.focus.FocusManager;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.JavaScriptServiceImpl;
 import org.richfaces.l10n.BundleLoader;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.ui.ajax.AjaxDataSerializer;
-import org.richfaces.ui.ajax.AjaxDataSerializerImpl;
 import org.richfaces.resource.DefaultResourceCodec;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
@@ -23,12 +18,14 @@ import org.richfaces.resource.external.ExternalResourceTracker;
 import org.richfaces.resource.external.ExternalResourceTrackerWrapper;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
+import org.richfaces.service.FocusManagerImpl;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.skin.SkinFactoryImpl;
+import org.richfaces.ui.ajax.AjaxDataSerializer;
+import org.richfaces.ui.ajax.AjaxDataSerializerImpl;
+import org.richfaces.ui.misc.focus.FocusManager;
 
 public class DefaultModule implements Module {
-
-    private static final Logger LOG = RichfacesLogger.CONFIG.getLogger();
 
     public void configure(ServicesFactory factory) {
         factory.setInstance(ConfigurationService.class, new ConfigurationServiceImpl());
@@ -46,13 +43,6 @@ public class DefaultModule implements Module {
         factory.setInstance(GenericsIntrospectionService.class, new GenericsIntrospectionServiceImpl());
         factory.setInstance(ExternalResourceTracker.class, new ExternalResourceTrackerWrapper());
         factory.setInstance(ExternalStaticResourceFactory.class, new ExternalStaticResourceFactoryImpl());
-
-        // workaround for loading service from richfaces-ui-common-ui module (needs to be bypassed during tests)
-        FocusManager focusManager = ServiceLoader.loadService(FocusManager.class);
-        if (focusManager == null) {
-            LOG.warn("There was no service " + FocusManager.class.getName() + " found");
-        } else {
-            factory.setInstance(FocusManager.class, focusManager);
-        }
+        factory.setInstance(FocusManager.class, ServiceLoader.loadService(FocusManager.class, FocusManagerImpl.class));
     }
 }

@@ -1,4 +1,4 @@
-package org.richfaces.component.extendedDataTable;
+package org.richfaces.ui.extendedDataTable;
 
 import java.net.URL;
 import java.util.List;

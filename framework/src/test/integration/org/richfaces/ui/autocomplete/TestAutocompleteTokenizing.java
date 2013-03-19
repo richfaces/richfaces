@@ -1,4 +1,4 @@
-package org.richfaces.component.autocomplete;
+package org.richfaces.ui.autocomplete;
 
 import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.junit.Assert.assertEquals;

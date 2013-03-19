@@ -1,4 +1,6 @@
-package org.richfaces.component.extendedDataTable;
+package org.richfaces.ui.extendedDataTable;
+
+import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -15,8 +17,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import java.net.URL;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -51,8 +51,8 @@ public class TestColumnWidth {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        
-        
+
+
 
         p.body("<h:form id='myForm'>");
         p.body("    <r:extendedDataTable id='edt' value='#{iterationBean.values}' var='bean'>");

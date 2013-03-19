@@ -1,4 +1,4 @@
-package org.richfaces.component.select;
+package org.richfaces.ui.select;
 
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 import static org.junit.Assert.assertTrue;
@@ -17,9 +17,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.component.autocomplete.AutocompleteBean;
 import org.richfaces.integration.InputDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.ui.autocomplete.AutocompleteBean;
 
 @RunAsClient
 @RunWith(Arquillian.class)

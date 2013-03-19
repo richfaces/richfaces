@@ -1,4 +1,4 @@
-package org.richfaces.component.focus;
+package org.richfaces.ui.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
@@ -88,8 +88,8 @@ public class TestFocusMultipleForms {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        
-        
+
+
 
         p.body("<h:form id='form1'>");
         p.body("    <r:focus id='focus' />");

@@ -1,4 +1,4 @@
-package org.richfaces.component.ajax;
+package org.richfaces.ui.ajax;
 
 import java.net.URL;
 

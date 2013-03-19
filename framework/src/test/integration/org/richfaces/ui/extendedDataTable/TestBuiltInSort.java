@@ -1,4 +1,9 @@
-package org.richfaces.component.extendedDataTable;
+package org.richfaces.ui.extendedDataTable;
+
+import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+
+import java.net.URL;
+import java.util.List;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -16,11 +21,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import java.net.URL;
-import java.util.List;
-
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -101,8 +101,8 @@ public class TestBuiltInSort {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        
-        
+
+
 
         p.body("<script type='text/javascript'>");
         p.body("function sortEdt(currentSortOrder) { ");

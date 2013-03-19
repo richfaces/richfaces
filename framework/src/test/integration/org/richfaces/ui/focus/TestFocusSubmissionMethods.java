@@ -1,4 +1,4 @@
-package org.richfaces.component.focus;
+package org.richfaces.ui.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
@@ -25,8 +25,8 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.integration.MiscDeployment;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.ui.misc.FocusRendererBase;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.ui.misc.FocusRendererBase;
 
 @RunAsClient
 @WarpTest
@@ -119,8 +119,8 @@ public class TestFocusSubmissionMethods {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        
-        
+
+
 
         p.body("<h:form id='form'>");
         p.body("    <r:focus id='focus' preserve='true' />");

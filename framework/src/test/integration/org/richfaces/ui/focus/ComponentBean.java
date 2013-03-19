@@ -1,4 +1,4 @@
-package org.richfaces.component.focus;
+package org.richfaces.ui.focus;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;

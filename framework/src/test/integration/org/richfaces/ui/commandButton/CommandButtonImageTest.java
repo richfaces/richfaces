@@ -1,4 +1,4 @@
-package org.richfaces.component.commandButton;
+package org.richfaces.ui.commandButton;
 
 import static junit.framework.Assert.assertEquals;
 

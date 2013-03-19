@@ -1,4 +1,4 @@
-package org.richfaces.component.dataTable;
+package org.richfaces.ui.dataTable;
 
 import java.net.URL;
 import java.util.List;
@@ -17,9 +17,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.component.extendedDataTable.IterationBean;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.ui.extendedDataTable.IterationBean;
 
 @RunAsClient
 @RunWith(Arquillian.class)

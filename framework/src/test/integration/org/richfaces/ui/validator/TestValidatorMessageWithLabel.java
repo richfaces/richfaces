@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  **/
-package org.richfaces.component.validator;
+package org.richfaces.ui.validator;
 
 import java.net.URL;
 
@@ -62,15 +62,20 @@ public class TestValidatorMessageWithLabel {
     public static WebArchive createDeployment() {
         MiscDeployment deployment = new MiscDeployment(TestValidatorMessageWithLabel.class);
         deployment.archive().addClass(ValidatorBean.class);
+
+        final String messageBundle = TestValidatorMessageWithLabel.class.getPackage().getName() + ".MessagesWithLabels";
+        final String messageBundleResource = messageBundle.replace('.', '/') + ".properties";
+
         addIndexPage(deployment);
+
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-        deployment.archive().addAsResource("org/richfaces/component/validator/MessagesWithLabels.properties");
+        deployment.archive().addAsResource(messageBundleResource);
 
         deployment.facesConfig(new Function<WebFacesConfigDescriptor, WebFacesConfigDescriptor>() {
             @Override
             public WebFacesConfigDescriptor apply(@Nullable WebFacesConfigDescriptor input) {
                 return input.getOrCreateApplication()
-                    .messageBundle("org.richfaces.component.validator.MessagesWithLabels").up();
+                    .messageBundle(messageBundle).up();
             }
         });
 

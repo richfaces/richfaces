@@ -1,4 +1,4 @@
-package org.richfaces.component.focus;
+package org.richfaces.ui.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
@@ -65,8 +65,8 @@ public class TestFocusAjaxRendered {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        
-        
+
+
 
         p.body("<h:form id='form'>");
         p.body("    <r:focus id='focus' ajaxRendered='false' />");

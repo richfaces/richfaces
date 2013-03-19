@@ -1,4 +1,4 @@
-package org.richfaces.component.select;
+package org.richfaces.ui.select;
 
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 import static org.junit.Assert.assertEquals;
@@ -19,9 +19,9 @@ import org.openqa.selenium.Keyboard;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.component.autocomplete.AutocompleteBean;
 import org.richfaces.integration.InputDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.ui.autocomplete.AutocompleteBean;
 
 @RunAsClient
 @RunWith(Arquillian.class)

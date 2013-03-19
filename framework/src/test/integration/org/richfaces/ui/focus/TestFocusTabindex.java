@@ -1,4 +1,4 @@
-package org.richfaces.component.focus;
+package org.richfaces.ui.focus;
 
 import static org.junit.Assert.assertEquals;
 
@@ -49,7 +49,7 @@ public class TestFocusTabindex {
         browser.get(contextPath.toExternalForm());
         assertEquals(input1, getFocusedElement());
     }
-    
+
     @Test
     public void when_there_are_no_tabindex_components_then_first_input_will_obtain_focus() {
         URL noTabindex = URLUtils.buildUrl(contextPath, "no-tabindex.jsf");
@@ -63,7 +63,7 @@ public class TestFocusTabindex {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        
+
 
         p.body("<h:form id='form'>");
         p.body("    <r:focus id='focus' />");
@@ -75,10 +75,10 @@ public class TestFocusTabindex {
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
-    
+
     private static void addNoTabindexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        
+
 
         p.body("<h:form id='form'>");
         p.body("    <r:focus id='focus' />");

@@ -19,13 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  **/
-package org.richfaces.component.extendedDataTable;
+package org.richfaces.ui.extendedDataTable;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

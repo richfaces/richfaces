@@ -24,7 +24,6 @@ package org.richfaces.ui.menu;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.richfaces.component.UIMenuGroup;
 
 public class UIMenuGroupTest {
     private UIMenuGroup menuGroup;

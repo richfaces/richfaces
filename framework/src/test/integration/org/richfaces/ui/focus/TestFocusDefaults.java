@@ -1,4 +1,4 @@
-package org.richfaces.component.focus;
+package org.richfaces.ui.focus;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

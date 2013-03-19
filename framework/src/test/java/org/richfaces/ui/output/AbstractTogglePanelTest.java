@@ -20,14 +20,13 @@
  */
 package org.richfaces.ui.output;
 
+import java.util.List;
+
+import javax.faces.component.UIComponent;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.richfaces.component.UITogglePanel;
-import org.richfaces.component.UITogglePanelItem;
-
-import javax.faces.component.UIComponent;
-import java.util.List;
 
 /**
  * @author akolonitsky
@@ -158,8 +157,8 @@ public class AbstractTogglePanelTest {
     }
 */
 
-    private static org.richfaces.component.UITogglePanelItem createItem(String name) {
-        org.richfaces.component.UITogglePanelItem item = new org.richfaces.component.UITogglePanelItem();
+    private static UITogglePanelItem createItem(String name) {
+        UITogglePanelItem item = new UITogglePanelItem();
         item.setName(name);
 
         return item;

@@ -1,4 +1,4 @@
-package org.richfaces.component.autocomplete;
+package org.richfaces.ui.autocomplete;
 
 import static org.jboss.arquillian.graphene.Graphene.attribute;
 import static org.jboss.arquillian.graphene.Graphene.element;
