@@ -42,7 +42,7 @@ public final class RichFaces5Conventions implements NamingConventions {
 
         Name name = inferNameByClass(componentClass, null, null);
 
-        return new FacesId(name.toString());
+        return FacesId.parseId("org.richfaces." + name.getSimpleName());
     }
 
     private Name inferNameByClass(ClassName componentClass, Classifier classifier, String markup) {

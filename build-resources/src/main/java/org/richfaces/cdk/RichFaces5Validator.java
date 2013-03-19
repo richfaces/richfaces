@@ -386,7 +386,11 @@ public class RichFaces5Validator implements ModelValidator {
         for (RenderKitModel renderKit : library.getRenderKits()) {
             // Check render kit name and class.
             for (RendererModel renderer : renderKit.getRenderers()) {
-                vefifyRenderer(library, renderer);
+                try {
+                    vefifyRenderer(library, renderer);
+                } catch (RuntimeException e) {
+                    throw new IllegalStateException("Caught error when verifying renderer " + renderer, e);
+                }
             }
         }
     }
@@ -418,8 +422,10 @@ public class RichFaces5Validator implements ModelValidator {
             }
         }
         // Check template
-        if (null == renderer.getTemplate().getInterface().getJavaClass()) {
-            renderer.getTemplate().getInterface().setJavaClass(renderer.getTargetClass());
+        if (renderer.getTemplate() != null && renderer.getTemplate().getInterface() != null) {
+            if (null == renderer.getTemplate().getInterface().getJavaClass()) {
+                renderer.getTemplate().getInterface().setJavaClass(renderer.getTargetClass());
+            }
         }
     }
 
@@ -451,14 +457,17 @@ public class RichFaces5Validator implements ModelValidator {
         HashSet<ComponentModel> verified = Sets.newHashSet();
         for (ComponentModel component : library.getComponents()) {
             verifyComponentAttributes(library, component, verified);
+            // generate component family if missing
             if (null == component.getFamily()) {
                 component.setFamily(namingConventions.inferUIComponentFamily(component.getId()));
             }
+            // add facelet tag if missing
             if (component.getTags().isEmpty()) {
                 TagModel tag = new TagModel();
                 component.getTags().add(tag);
-                tag.setName("xyz");
-                tag.setGenerate(true);
+                tag.setName(namingConventions.inferTagName(component.getId()));
+                tag.setGenerate(false);
+                tag.setType(TagType.Facelets);
             }
         }
     }
