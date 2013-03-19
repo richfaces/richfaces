@@ -58,7 +58,7 @@ public abstract class ValidationTestBase {
 
     protected void checkMessage(HtmlPage page, String messageId, Matcher<String> matcher) {
         HtmlElement message = page.getElementById(messageId);
-        assertThat(message.getTextContent(), matcher);
+        assertThat(message.getTextContent().trim(), matcher);
     }
 
     protected HtmlPage submit(HtmlPage page) throws IOException {
