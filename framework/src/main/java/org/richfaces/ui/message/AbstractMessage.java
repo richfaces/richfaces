@@ -22,14 +22,14 @@
  */
 package org.richfaces.ui.message;
 
+import javax.faces.component.UIMessage;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.RendererSpecificComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.core.AjaxOutput;
-
-import javax.faces.component.UIMessage;
 
 /**
  * <p>The &lt;rich:message&gt; component renders a single FacesMessage message instance added for the component. The
@@ -38,8 +38,8 @@ import javax.faces.component.UIMessage;
  *
  * @author asmirnov@exadel.com
  */
-@JsfComponent(generate = "org.richfaces.component.UIRichMessage", type = "org.richfaces.Message", components = @RendererSpecificComponent(tag = @Tag(name = "message"),
-        generate = "org.richfaces.component.html.HtmlMessage", renderer = @JsfRenderer(template = "message.template.xml")),
+@JsfComponent(type = "org.richfaces.Message", components = @RendererSpecificComponent(tag = @Tag(name = "message"),
+        renderer = @JsfRenderer(template = "message.template.xml")),
         attributes = {"core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml", "output-format-props.xml" })
 public abstract class AbstractMessage extends UIMessage implements AjaxOutput {
     @Attribute(defaultValue = "true")

@@ -38,7 +38,7 @@ import org.richfaces.ui.input.InplaceState;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractInplaceSelect.COMPONENT_TYPE, family = AbstractInplaceSelect.COMPONENT_FAMILY, generate = "org.richfaces.component.UIInplaceSelect",
+@JsfComponent(type = AbstractInplaceSelect.COMPONENT_TYPE, family = AbstractInplaceSelect.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"), tag = @Tag(name = "inplaceSelect"),
         attributes = {"core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "focus-props.xml", "select-props.xml"})
 public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent {

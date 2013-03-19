@@ -21,14 +21,14 @@
  */
 package org.richfaces.ui.message;
 
+import javax.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.input.CornerPosition;
-
-import javax.faces.component.UIComponentBase;
 
 /**
  * <p>Notifications emited by &lt;rich:notify&gt;, &lt;rich:notifyMessage&gt; and &lt;rich:notifyMessages&gt; are
@@ -39,7 +39,7 @@ import javax.faces.component.UIComponentBase;
  * @author Bernard Labno
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-@JsfComponent(tag = @Tag(name = "notifyStack"), type = AbstractNotifyStack.COMPONENT_TYPE, family = AbstractNotifyStack.COMPONENT_FAMILY, generate = "org.richfaces.component.UINotifyStack", renderer = @JsfRenderer(type = "org.richfaces.NotifyStackRenderer"))
+@JsfComponent(tag = @Tag(name = "notifyStack"), type = AbstractNotifyStack.COMPONENT_TYPE, family = AbstractNotifyStack.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.NotifyStackRenderer"))
 public abstract class AbstractNotifyStack extends UIComponentBase {
 
     public static final String COMPONENT_FAMILY = "org.richfaces.NotifyStack";

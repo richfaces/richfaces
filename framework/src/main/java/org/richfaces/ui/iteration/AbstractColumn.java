@@ -21,6 +21,11 @@
  */
 package org.richfaces.ui.iteration;
 
+import java.util.Comparator;
+
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
+
 import org.richfaces.application.CoreConfiguration;
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.cdk.annotations.Attribute;
@@ -32,10 +37,6 @@ import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-import java.util.Comparator;
-
 /**
  * <p> The &lt;rich:column&gt; component facilitates columns in a table. It supports merging columns and rows, sorting,
  * filtering, and customized skinning. </p>
@@ -44,7 +45,7 @@ import java.util.Comparator;
  */
 @JsfComponent(type = AbstractColumn.COMPONENT_TYPE, family = AbstractColumn.COMPONENT_FAMILY, facets = {
         @Facet(name = "header", description = @Description("Column header")),
-        @Facet(name = "footer", description = @Description("Column footer")) }, generate = "org.richfaces.component.UIColumn", tag = @Tag(name = "column"))
+        @Facet(name = "footer", description = @Description("Column footer")) }, tag = @Tag(name = "column"))
 public abstract class AbstractColumn extends javax.faces.component.UIColumn implements Column {
     public static final String COMPONENT_TYPE = "org.richfaces.Column";
     public static final String COMPONENT_FAMILY = "org.richfaces.Column";

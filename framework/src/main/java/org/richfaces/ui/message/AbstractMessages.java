@@ -22,6 +22,9 @@
  */
 package org.richfaces.ui.message;
 
+import javax.faces.component.UIMessages;
+import javax.faces.context.FacesContext;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -29,16 +32,13 @@ import org.richfaces.cdk.annotations.RendererSpecificComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.core.AjaxOutput;
 
-import javax.faces.component.UIMessages;
-import javax.faces.context.FacesContext;
-
 /**
  * <p>The &lt;rich:messages&gt; components works similarly to the &lt;rich:message&gt; component, but can display all
  * the validation messages added for the current view instead of just a single message.</p>
  *
  * @author asmirnov@exadel.com
  */
-@JsfComponent(generate = "org.richfaces.component.UIRichMessages", type = "org.richfaces.Messages", components = @RendererSpecificComponent(tag = @Tag(name = "messages"), generate = "org.richfaces.component.html.HtmlMessages", attributes = {
+@JsfComponent(type = "org.richfaces.Messages", components = @RendererSpecificComponent(tag = @Tag(name = "messages"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml",
         "output-format-props.xml" }, renderer = @JsfRenderer(template = "messages.template.xml")))
 public abstract class AbstractMessages extends UIMessages implements AjaxOutput, ClientSideMessage {

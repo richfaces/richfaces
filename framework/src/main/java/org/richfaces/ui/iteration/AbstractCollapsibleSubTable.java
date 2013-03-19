@@ -21,6 +21,12 @@
  */
 package org.richfaces.ui.iteration;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -29,12 +35,6 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.event.CollapsibleSubTableToggleListener;
 
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-
 /**
  * <p> The &lt;rich:collapsibleSubTable&gt; component acts as a child element to a &lt;rich:dataTable&gt; component. The
  * &lt;rich:collapsibleSubTable&gt; component iterates through the child collections in the currently iterated object to
@@ -42,7 +42,7 @@ import javax.faces.event.FacesEvent;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE, family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UICollapsibleSubTable", renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"), tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets), attributes = {
+@JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE, family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"), tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets), attributes = {
         "style-prop.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml", "events-row-props.xml" })
 public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTable";

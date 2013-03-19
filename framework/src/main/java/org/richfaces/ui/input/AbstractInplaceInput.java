@@ -21,13 +21,13 @@
  */
 package org.richfaces.ui.input;
 
+import javax.faces.component.UIInput;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-
-import javax.faces.component.UIInput;
 
 /**
  * <p> The &lt;rich:inplaceInput&gt; component allows information to be entered in-line in blocks of text, improving
@@ -38,7 +38,7 @@ import javax.faces.component.UIInput;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractInplaceInput.COMPONENT_TYPE, family = AbstractInplaceInput.COMPONENT_FAMILY, generate = "org.richfaces.component.UIInplaceInput",
+@JsfComponent(type = AbstractInplaceInput.COMPONENT_TYPE, family = AbstractInplaceInput.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"), tag = @Tag(name = "inplaceInput"),
         attributes = {"core-props.xml", "focus-props.xml", "events-key-props.xml", "events-mouse-props.xml"})
 public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent {

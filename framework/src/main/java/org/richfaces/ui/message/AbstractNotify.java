@@ -21,14 +21,14 @@
  */
 package org.richfaces.ui.message;
 
+import javax.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-
-import javax.faces.component.UIComponentBase;
 
 /**
  * <p>
@@ -39,7 +39,7 @@ import javax.faces.component.UIComponentBase;
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-@JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY, generate = "org.richfaces.component.UINotify", renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"), attributes = {
+@JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"), attributes = {
         "styleClass-prop.xml", "events-mouse-props.xml", "events-key-props.xml" }, facets = {
         @Facet(name = "summary", description = @Description("Summary of the notification message")),
         @Facet(name = "detail", description = @Description("Detail of the notification message")) })

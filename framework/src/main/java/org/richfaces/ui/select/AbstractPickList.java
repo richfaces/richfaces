@@ -13,7 +13,7 @@ import org.richfaces.cdk.annotations.Tag;
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@JsfComponent(type = AbstractPickList.COMPONENT_TYPE, family = AbstractPickList.COMPONENT_FAMILY, generate = "org.richfaces.component.UIPickList",
+@JsfComponent(type = AbstractPickList.COMPONENT_TYPE, family = AbstractPickList.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.PickListRenderer"), tag = @Tag(name = "pickList"),
         attributes = {"events-mouse-props.xml", "events-key-props.xml", "multiselect-props.xml"})
 public abstract class AbstractPickList extends AbstractOrderingComponent {

@@ -21,6 +21,12 @@
  */
 package org.richfaces.ui.drag;
 
+import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -30,12 +36,6 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
 
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-
 /**
  * <p>
  *     The &lt;rich:dropTarget&gt; component can be added to a component so that the component can accept dragged items.
@@ -43,7 +43,7 @@ import javax.faces.event.PhaseId;
  * </p>
  * @author abelevich
  */
-@JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDropTarget", renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"), attributes = {
+@JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"), attributes = {
         "ajax-props.xml", "immediate-prop.xml", "bypass-props.xml", "dropListener-props.xml" }, tag = @Tag(name = "dropTarget", handler = "org.richfaces.view.facelets.DropHandler", type = TagType.Facelets))
 public abstract class AbstractDropTarget extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.DropTarget";
