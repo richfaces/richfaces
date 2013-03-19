@@ -9,16 +9,13 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.richfaces.deployment.FrameworkDeployment;
-import org.richfaces.integration.IntegrationTest;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.common.Bean;
 
 @RunWith(Arquillian.class)
 @RunAsClient
-@Category(IntegrationTest.class)
 public class AjaxValidationTest extends ValidationTestBase {
 
     @Deployment

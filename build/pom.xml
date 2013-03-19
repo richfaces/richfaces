@@ -1,19 +1,54 @@
+<!-- JBoss, Home of Professional Open Source Copyright 2010, Red Hat, Inc.
+    and individual contributors by the @authors tag. See the copyright.txt in
+    the distribution for a full listing of individual contributors. This is free
+    software; you can redistribute it and/or modify it under the terms of the
+    GNU Lesser General Public License as published by the Free Software Foundation;
+    either version 2.1 of the License, or (at your option) any later version.
+    This software is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+    FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+    details. You should have received a copy of the GNU Lesser General Public
+    License along with this software; if not, write to the Free Software Foundation,
+    Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the
+    FSF site: http://www.fsf.org. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>5.0.0-SNAPSHOT</version>
-    </parent>
-
+    <groupId>org.richfaces</groupId>
     <artifactId>richfaces-build</artifactId>
     <packaging>pom</packaging>
-    <name>RichFaces Build</name>
+    <version>5.0.0-SNAPSHOT</version>
+    <name>RichFaces BOM</name>
+
+    <description>
+        The RichFaces Framework Build Dependency Version Management manages
+        versions of framework dependencies and is not specifically targetting
+        RichFaces Framework users.
+    </description>
+
+    <url>http://richfaces.org</url>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 2.1</name>
+            <distribution>repo</distribution>
+            <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>RichFaces committers</name>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>jira</system>
+        <url>https://jira.jboss.org/jira/browse/RF</url>
+    </issueManagement>
 
     <properties>
-
         <!-- Base Dependencies Versions -->
         <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
         <version.cdk>4.3.2-SNAPSHOT</version.cdk>
@@ -30,15 +65,14 @@
         <!-- Example Dependecy Libraries Versions -->
         <version.slf4j>1.6.1</version.slf4j>
         <version.hsqldb>2.0.0</version.hsqldb>
-        <version.hibernate-entitymanager>4.0.0.Final</version.hibernate-entitymanager>
         <version.hornetq>2.2.7.Final</version.hornetq>
         <version.netty>3.2.5.Final</version.netty>
         <version.weld>1.1.4.Final</version.weld>
         <version.rewrite>1.0.4.Final</version.rewrite>
         <version.jsoup>1.5.2</version.jsoup>
         <version.solder>3.1.1.Final</version.solder>
+        <version.hibernate-entitymanager>4.0.0.Final</version.hibernate-entitymanager>
         <version.hibernate-annotations>3.5.6-Final</version.hibernate-annotations>
-        <version.metadata-extractor>2.6.2</version.metadata-extractor>
         
         <!-- Test Dependencies Versions -->
         <version.junit>4.11</version.junit>
@@ -64,142 +98,21 @@
         
         <!-- Container Versions -->
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
-        <version.tomee15>1.5.1</version.tomee15>
-        <version.glassfish31>3.1.2.2</version.glassfish31>
-        <version.tomcat6>6.0.35</version.tomcat6>
-        <version.tomcat7>7.0.26</version.tomcat7>
+        
+        <!-- Release repositories -->
+        <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
+        <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
 
-        <!-- Resource Plugin -->
-        <version.reflections>0.9.5</version.reflections>
-        <version.yuicompressor>2.3.6</version.yuicompressor>
-        <version.jboss-el>1.0_02.CR6</version.jboss-el>
-        <version.maven-core>3.0.4</version.maven-core>
-        <version.maven-archiver>2.4</version.maven-archiver>
-        <version.maven-file-management>1.2.1</version.maven-file-management>
-        <version.plexus-utils>1.5.15</version.plexus-utils>
-        <version.plexus-velocity>1.1.2</version.plexus-velocity>        
-
-        <!-- Plugin Versions -->
-        <version.jacoco.plugin>0.5.5.201112152213</version.jacoco.plugin>
-        <version.jrebel.plugin>1.1.3</version.jrebel.plugin>
-        <version.compiler.plugin>2.3.2</version.compiler.plugin>
+        <maven.min.version>3.0</maven.min.version>
     </properties>
-    
-    <!-- Build -->
-    <build>
-        <pluginManagement>
-            <plugins>
-                <!-- Build -->
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <configuration>
-                        <archive>
-                            <index>true</index>
-                            <manifest>
-                                <addDefaultSpecificationEntries>
-                                    true
-                                </addDefaultSpecificationEntries>
-                                <addDefaultImplementationEntries>
-                                    true
-                                </addDefaultImplementationEntries>
-                            </manifest>
-                            <manifestEntries>
-                                <mode>development</mode>
-                                <Build-Number>${buildNumber}</Build-Number>
-                            </manifestEntries>
-                        </archive>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <configuration>
-                        <keywords>true</keywords>
-                        <quiet>true</quiet>
-                        <!-- Solves issues related to link lookups for all
-                             modules, even those that do not need it, that 
-                             was slowing builds down.  If removed review 
-                             full build. -->
-                        <detectOfflineLinks>false</detectOfflineLinks>
-                    </configuration>
-                </plugin>
-                
-                <!-- Checkstyle -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <configuration>
-                        <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml</configLocation>
-                        <logViolationsToConsole>true</logViolationsToConsole>
-                        <violationSeverity>error</violationSeverity>
-                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>richfaces-checkstyle-report</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.richfaces</groupId>
-                            <artifactId>richfaces-build-resources</artifactId>
-                            <version>${version.richfaces}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
 
-                <plugin>
-                    <groupId>org.zeroturnaround</groupId>
-                    <artifactId>jrebel-maven-plugin</artifactId>
-                    <version>${version.jrebel.plugin}</version>
-                </plugin>
+    <prerequisites>
+        <maven>${maven.min.version}</maven>
+    </prerequisites>
 
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>${version.jacoco.plugin}</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.richfaces.cdk</groupId>
-                    <artifactId>maven-cdk-plugin</artifactId>
-                    <version>${version.cdk}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-
+    <!-- Runtime dependency management -->
     <dependencyManagement>
         <dependencies>
-            <!-- Java EE -->
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
-                <version>${version.jboss-javaee}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-web-6.0</artifactId>
-                <version>${version.jboss-javaee}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <dependency>
                 <groupId>org.jboss.spec</groupId>
                 <artifactId>jboss-javaee-6.0</artifactId>
@@ -214,13 +127,10 @@
                 <type>pom</type>
             </dependency>
             
-            <!-- RichFaces -->
             <dependency>
                 <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-bom</artifactId>
+                <artifactId>richfaces-build-resources</artifactId>
                 <version>${version.richfaces}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
@@ -306,6 +216,48 @@
                 <version>${version.arquillian.core}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            
+            <!-- Container versions -->
+            <dependency>
+                <groupId>org.jboss.as</groupId>
+                <artifactId>jboss-as-arquillian-container-remote</artifactId>
+                <version>${version.jboss-as7}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.as</groupId>
+                <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                <version>${version.jboss-as7}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.openejb</groupId>
+                <artifactId>arquillian-tomee-remote</artifactId>
+                <version>${version.tomee15}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-glassfish-managed-3.1</artifactId>
+                <version>${version.arquillian.glassfish31}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-glassfish-remote-3.1</artifactId>
+                <version>${version.arquillian.glassfish31}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-tomcat-remote-6</artifactId>
+                <version>${version.arquillian.tomcat}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-tomcat-managed-6</artifactId>
+                <version>${version.arquillian.tomcat}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-tomcat-managed-7</artifactId>
+                <version>${version.arquillian.tomcat}</version>
             </dependency>
             
             <!-- JSF Implementations Versions -->
@@ -401,11 +353,6 @@
                 <artifactId>hibernate-annotations</artifactId>
                 <version>${version.hibernate-annotations}</version>
             </dependency>
-            <dependency>
-                <groupId>com.drewnoakes</groupId>
-                <artifactId>metadata-extractor</artifactId>
-                <version>${version.metadata-extractor}</version>
-            </dependency>
             
             <!-- Test Dependencie Versions -->
             <dependency>
@@ -451,63 +398,102 @@
             </dependency>
             
             <!-- Resources Plugin -->
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-artifact</artifactId>
-                <version>${version.maven-core}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-plugin-api</artifactId>
-                <version>${version.maven-core}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-core</artifactId>
-                <version>${version.maven-core}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-archiver</artifactId>
-                <version>${version.maven-archiver}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven.shared</groupId>
-                <artifactId>file-management</artifactId>
-                <version>${version.maven-file-management}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.codehaus.plexus</groupId>
-                <artifactId>plexus-utils</artifactId>
-                <version>${version.plexus-utils}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.codehaus.plexus</groupId>
-                <artifactId>plexus-velocity</artifactId>
-                <version>${version.plexus-velocity}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.reflections</groupId>
-                <artifactId>reflections</artifactId>
-                <version>${version.reflections}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.collections</groupId>
-                        <artifactId>google-collections</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.el</groupId>
-                <artifactId>jboss-el</artifactId>
-                <version>${version.jboss-el}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.yahoo.platform.yui</groupId>
-                <artifactId>yuicompressor</artifactId>
-                <version>${version.yuicompressor}</version>
-            </dependency>
-
+<!--             <dependency> -->
+<!--                 <groupId>org.apache.maven</groupId> -->
+<!--                 <artifactId>maven-artifact</artifactId> -->
+<!--                 <version>${version.maven-core}</version> -->
+<!--             </dependency> -->
+<!--             <dependency> -->
+<!--                 <groupId>org.apache.maven</groupId> -->
+<!--                 <artifactId>maven-plugin-api</artifactId> -->
+<!--                 <version>${version.maven-core}</version> -->
+<!--             </dependency> -->
+<!--             <dependency> -->
+<!--                 <groupId>org.apache.maven</groupId> -->
+<!--                 <artifactId>maven-core</artifactId> -->
+<!--                 <version>${version.maven-core}</version> -->
+<!--             </dependency> -->
+<!--             <dependency> -->
+<!--                 <groupId>org.apache.maven</groupId> -->
+<!--                 <artifactId>maven-archiver</artifactId> -->
+<!--                 <version>${version.maven-archiver}</version> -->
+<!--             </dependency> -->
+<!--             <dependency> -->
+<!--                 <groupId>org.apache.maven.shared</groupId> -->
+<!--                 <artifactId>file-management</artifactId> -->
+<!--                 <version>${version.maven-file-management}</version> -->
+<!--             </dependency> -->
+<!--             <dependency> -->
+<!--                 <groupId>org.codehaus.plexus</groupId> -->
+<!--                 <artifactId>plexus-utils</artifactId> -->
+<!--                 <version>${version.plexus-utils}</version> -->
+<!--             </dependency> -->
+<!--             <dependency> -->
+<!--                 <groupId>org.codehaus.plexus</groupId> -->
+<!--                 <artifactId>plexus-velocity</artifactId> -->
+<!--                 <version>${version.plexus-velocity}</version> -->
+<!--             </dependency> -->
+<!--             <dependency> -->
+<!--                 <groupId>org.reflections</groupId> -->
+<!--                 <artifactId>reflections</artifactId> -->
+<!--                 <version>${version.reflections}</version> -->
+<!--                 <exclusions> -->
+<!--                     <exclusion> -->
+<!--                         <groupId>com.google.collections</groupId> -->
+<!--                         <artifactId>google-collections</artifactId> -->
+<!--                     </exclusion> -->
+<!--                 </exclusions> -->
+<!--             </dependency> -->
+<!--             <dependency> -->
+<!--                 <groupId>org.jboss.el</groupId> -->
+<!--                 <artifactId>jboss-el</artifactId> -->
+<!--                 <version>${version.jboss-el}</version> -->
+<!--             </dependency> -->
+<!--             <dependency> -->
+<!--                 <groupId>com.yahoo.platform.yui</groupId> -->
+<!--                 <artifactId>yuicompressor</artifactId> -->
+<!--                 <version>${version.yuicompressor}</version> -->
+<!--             </dependency> -->
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.3.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <scm>
+        <connection>scm:git:git://github.com/richfaces/richfaces.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/richfaces.git</developerConnection>
+        <url>https://github.com/richfaces/richfaces</url>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>jboss-releases-repository</id>
+            <name>JBoss Releases Repository</name>
+            <url>${jboss.releases.repo.url}</url>
+        </repository>
+        <snapshotRepository>
+            <id>jboss-snapshots-repository</id>
+            <name>JBoss Snapshots Repository</name>
+            <url>${jboss.snapshots.repo.url}</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>
