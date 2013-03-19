@@ -32,7 +32,7 @@
     <groupId>org.richfaces.examples</groupId>
     <artifactId>jpa-demo</artifactId>
     <packaging>war</packaging>
-    <name>RichFaces Examples JPA</name>
+    <name>RichFaces Example: JPA Demo</name>
 
     <properties>
         <version.richfaces>${project.version}</version.richfaces>

@@ -13,7 +13,7 @@
 
     <artifactId>irc-client</artifactId>
     <groupId>org.richfaces.examples</groupId>
-    <name>RichFaces Examples Richfaces IRC Client Application</name>
+    <name>RichFaces Example: IRC Client</name>
     <packaging>war</packaging>
 
     <dependencyManagement>

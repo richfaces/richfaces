@@ -30,7 +30,7 @@
     </parent>
 
     <artifactId>push-demo</artifactId>
-    <name>RichFaces Examples Push</name>
+    <name>RichFaces Example: Push Demo</name>
     <packaging>war</packaging>
 
     <properties>
