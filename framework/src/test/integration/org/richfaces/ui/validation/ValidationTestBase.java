@@ -1,82 +1,45 @@
 package org.richfaces.ui.validation;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-import java.io.IOException;
+import java.net.URL;
 
 import org.hamcrest.Matcher;
-import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
-import org.junit.After;
-import org.junit.Before;
-
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
+import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.enricher.findby.FindBy;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public abstract class ValidationTestBase {
 
-    private HtmlUnitEnvironment environment;
+    @Drone
+    protected WebDriver browser;
 
-    public ValidationTestBase() {
-        super();
+    @ArquillianResource
+    protected URL contextPath;
+
+    @FindBy(name = "form:text")
+    protected WebElement inputText;
+
+    @FindBy(css = "body")
+    protected WebElement body;
+
+    protected void submitValueAndCheckMessage(String value, Matcher<String> matcher) throws Exception {
+        browser.get(contextPath.toString());
+        inputText.clear();
+        inputText.sendKeys(value);
+        submitValue();
+        checkMessage("uiMessage", matcher);
     }
 
-    @Before
-    public void setUp() {
-        this.environment = new HtmlUnitEnvironment();
-        this.environment.withResource("/" + getPageName() + ".xhtml", "org/richfaces/ui/validation/" + getPageName() + ".xhtml")
-            .withResource("/WEB-INF/faces-config.xml", "org/richfaces/ui/validation/" + getFacesConfig());
-        setupEnvironment(environment);
-        this.environment.start();
+    protected void submitValue() {
+        body.click(); // blur
     }
 
-    protected void setupEnvironment(HtmlUnitEnvironment environment2) {
-        // place for additional environment setup
+    protected void checkMessage(String messageId, Matcher<String> matcher) {
+        WebElement message = browser.findElement(By.id(messageId));
+        assertThat(message.getText().trim(), matcher);
     }
-
-    protected abstract String getFacesConfig();
-
-    protected abstract String getPageName();
-
-    @After
-    public void thearDown() throws Exception {
-        environment.release();
-        environment = null;
-    }
-
-    protected HtmlPage submitValueAndCheckMessage(String value, Matcher<String> matcher) throws Exception {
-        HtmlPage page = requestPage();
-        HtmlInput input = getInput(page);
-        page = (HtmlPage) input.setValueAttribute(value);
-        page = submit(page);
-        checkMessage(page, "uiMessage", matcher);
-        return page;
-    }
-
-    protected void checkMessage(HtmlPage page, String messageId, Matcher<String> matcher) {
-        HtmlElement message = page.getElementById(messageId);
-        assertThat(message.getTextContent().trim(), matcher);
-    }
-
-    protected HtmlPage submit(HtmlPage page) throws IOException {
-        HtmlInput input = getInput(page);
-        input.fireEvent("blur");
-        return page;
-    }
-
-    protected HtmlInput getInput(HtmlPage page) {
-        HtmlForm htmlForm = page.getFormByName("form");
-        assertNotNull(htmlForm);
-        HtmlInput input = htmlForm.getInputByName("form:text");
-        return input;
-    }
-
-    protected HtmlPage requestPage() throws IOException {
-        HtmlPage page = environment.getPage("/" + getPageName() + ".jsf");
-        return page;
-    }
-
 }

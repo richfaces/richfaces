@@ -10,8 +10,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 
-import org.richfaces.component.UIExtendedDataTable;
 import org.richfaces.demo.tables.model.cars.InventoryItem;
+import org.richfaces.ui.iteration.AbstractExtendedDataTable;
 
 @ManagedBean
 @ViewScoped
@@ -23,7 +23,7 @@ public class ExtTableSelectionBean implements Serializable {
     private List<InventoryItem> selectionItems = new ArrayList<InventoryItem>();
 
     public void selectionListener(AjaxBehaviorEvent event) {
-        UIExtendedDataTable dataTable = (UIExtendedDataTable) event.getComponent();
+        AbstractExtendedDataTable dataTable = (AbstractExtendedDataTable) event.getComponent();
         Object originalKey = dataTable.getRowKey();
         selectionItems.clear();
         for (Object selectionKey : selection) {

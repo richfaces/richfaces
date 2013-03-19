@@ -1,14 +1,19 @@
 package org.richfaces.ui.common;
 
+import java.util.Collections;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
 
-import javax.faces.context.FacesContext;
-import java.util.Collections;
-
+@RequestScoped
+@ManagedBean(name = "test")
 public class Bean {
 
     private static final class TestScript extends JSLiteral implements ResourceLibrary {

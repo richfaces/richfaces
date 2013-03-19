@@ -29,7 +29,6 @@ import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.component.UITree;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
@@ -44,6 +43,7 @@ import org.richfaces.photoalbum.event.ShelfEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.util.Preferred;
+import org.richfaces.ui.iteration.AbstractTree;
 
 /**
  * This class represent 'C' in MVC pattern. It is logic that determine what actions invoked and what next page need to be
@@ -484,7 +484,7 @@ public class Controller implements Serializable {
     /**
      * This utility method determine if the specified node should be marked as selected. Used in internal rich:tree mechanism
      */
-    public Boolean adviseNodeSelected(UITree tree) {
+    public Boolean adviseNodeSelected(AbstractTree tree) {
         Object currentNode = tree.getRowData();
         if (currentNode.equals(model.getSelectedAlbum()) || currentNode.equals(model.getSelectedShelf())) {
             return true;

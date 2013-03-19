@@ -1,6 +1,6 @@
 package org.richfaces.photoalbum.util;
 
-import org.richfaces.component.UIOutputPanel;
+import org.richfaces.ui.output.UIOutputPanel;
 
 public class UIOutputPanelWorkaround extends UIOutputPanel {
     public boolean isKeepTransient() {

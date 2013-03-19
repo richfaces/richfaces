@@ -1,61 +1,24 @@
 package org.richfaces.ui.validation;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import org.junit.Test;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.runner.RunWith;
+import org.richfaces.deployment.FrameworkDeployment;
 
-import java.io.IOException;
+@RunWith(Arquillian.class)
+@RunAsClient
+public class GraphValidationTest extends GraphValidationTestBase {
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.matchers.JUnitMatchers.containsString;
+    @Deployment
+    public static WebArchive deployment() {
+        FrameworkDeployment deployment = new FrameworkDeployment(GraphValidationTest.class);
 
-/**
- * Test for dynamic add/remove {@link org.richfaces.ui.core.UIScripts} as view resource.
- *
- * @author asmirnov
- *
- */
-public class GraphValidationTest extends ValidationTestBase {
+        deployment.archive().addClasses(GraphBean.class, Group.class);
 
-    protected String getFacesConfig() {
-        return "graph-faces-config.xml";
-    }
+        addIndexPage(deployment);
 
-    protected String getPageName() {
-        return "graph-test";
-    }
-
-    @Test
-    public void testRequest() throws Exception {
-        HtmlPage page = requestPage();
-        HtmlInput input = getInput(page);
-        assertNotNull(input);
-    }
-
-    @Override
-    protected HtmlPage submit(HtmlPage page) throws IOException {
-        HtmlElement submit = page.getElementById("form:submit");
-        return submit.click();
-    }
-
-    @Test
-    public void testSubmitTooShortValue() throws Exception {
-        HtmlPage page = submitValueAndCheckMessage("", containsString(GraphBean.SHORT_MSG));
-        checkMessage(page, "textMessage", containsString(GraphBean.SHORT_MSG));
-        checkMessage(page, "graphMessage", equalTo(""));
-    }
-
-    @Test
-    public void testBeanLevelConstrain() throws Exception {
-        HtmlPage page = submitValueAndCheckMessage("bar", equalTo(GraphBean.FOO_MSG));
-        checkMessage(page, "graphMessage", containsString(GraphBean.FOO_MSG));
-        checkMessage(page, "textMessage", equalTo(""));
-    }
-
-    @Test
-    public void testCorrectValue() throws Exception {
-        submitValueAndCheckMessage("foobar", equalTo(""));
+        return deployment.getFinalArchive();
     }
 }
