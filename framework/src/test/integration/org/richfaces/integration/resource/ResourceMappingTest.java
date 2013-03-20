@@ -19,11 +19,11 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.integration.FrameworkDeployment;
+import org.richfaces.integration.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.integration.shrinkwrap.descriptor.PropertiesAsset;
 import org.richfaces.resource.ResourceHandlerImpl;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
-import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 import org.richfaces.util.core.base64.Codec;
 
 @RunWith(Arquillian.class)

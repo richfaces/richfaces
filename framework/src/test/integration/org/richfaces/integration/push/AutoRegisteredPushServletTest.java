@@ -7,7 +7,7 @@ import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.integration.FrameworkDeployment;
 
 @RunWith(Arquillian.class)
 @WarpTest

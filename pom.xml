@@ -120,10 +120,6 @@
         <version.compiler.plugin>2.3.2</version.compiler.plugin>
         <version.jacoco.plugin>0.5.5.201112152213</version.jacoco.plugin>
         <version.jrebel.plugin>1.1.3</version.jrebel.plugin>
-        
-        <!-- Versions rewritten from jboss-parent -->
-        <!-- * surefire: requested for upgrade in JBBUILD-713 -->
-        <version.surefire.plugin>2.11</version.surefire.plugin>
     </properties>
 
     <prerequisites>
@@ -380,6 +376,13 @@
                 <arquillian.launch.tomcat7>false</arquillian.launch.tomcat7>
                 <arquillian.launch.tomee15>false</arquillian.launch.tomee15>
                 <arquillian.launch.glassfish31>false</arquillian.launch.glassfish31>
+                
+                <!-- JUnit Categories Selection -->
+                <testCategory.included.default>NOT category.None</testCategory.included.default>
+                <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
+                <testCategory.excluded.container></testCategory.excluded.container>
+                <testCategory.excluded.browser></testCategory.excluded.browser>
+                <testCategory.excluded.jsf></testCategory.excluded.jsf>
             </properties>
             <dependencies>
                 <dependency>
@@ -434,6 +437,13 @@
                         <filtering>false</filtering>
                     </testResource>
                     <testResource>
+                        <directory>${integration.test.source}</directory>
+                        <filtering>false</filtering>
+                        <excludes>
+                            <exclude>**/*.java</exclude>
+                        </excludes>
+                    </testResource>
+                    <testResource>
                         <directory>src/test/arquillian-settings/</directory>
                         <filtering>true</filtering>
                     </testResource>
@@ -481,7 +491,7 @@
                                     </sources>
                                 </configuration>
                             </execution>
-                            <execution>
+                            <!-- <execution>
                                 <id>add-integration-test-resources</id>
                                 <phase>process-test-resources</phase>
                                 <goals>
@@ -498,7 +508,7 @@
                                         </resource>
                                     </resources>
                                 </configuration>
-                            </execution>
+                            </execution> -->
                         </executions>
                     </plugin>
                     <plugin>
@@ -508,11 +518,10 @@
                             <execution>
                                 <id>default-test</id>
                                 <configuration>
-                                    <skip>${skipTests}</skip>
+                                    <skipTests>${skipTests}</skipTests>
                                     <test>${test}</test>
                                     <excludes>
                                         <exclude>**/integration/**/*.java</exclude>
-                                        <exclude>**/component/*/*.java</exclude>
                                     </excludes>
                                 </configuration>
                             </execution>
@@ -523,19 +532,26 @@
                                     <goal>test</goal>
                                 </goals>
                                 <configuration>
-                                    <testSourceDirectory>${integration.test.source}</testSourceDirectory>
-                                    <includes>
-                                        <include>**/integration/**/*.java</include>
-                                        <include>**/component/*/*.java</include>
-                                    </includes>
                                     <skipTests>${skipITs}</skipTests>
                                     <test>${test}</test>
+                                    <includes>
+                                        <include>**/integration/**/*.java</include>
+                                    </includes>
+                                    <groups>${testCategory.included.default} ${testCategory.excluded.browser} ${testCategory.excluded.container} ${testCategory.excluded.jsf}</groups>
+                                    <excludedGroups>${testCategory.excluded.default}</excludedGroups>
                                     <systemPropertyVariables>
                                         <arquillian.debug>${arquillian.debug}</arquillian.debug>
                                     </systemPropertyVariables>
                                 </configuration>
                             </execution>
                         </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.richfaces</groupId>
+                                <artifactId>richfaces-build-resources</artifactId>
+                                <version>${version.richfaces}</version>
+                            </dependency>
+                        </dependencies>
                     </plugin>
                 </plugins>
             </build>

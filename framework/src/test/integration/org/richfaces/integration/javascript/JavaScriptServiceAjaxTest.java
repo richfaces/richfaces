@@ -25,9 +25,9 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.integration.CoreDeployment;
+import org.richfaces.integration.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunWith(Arquillian.class)
 @WarpTest

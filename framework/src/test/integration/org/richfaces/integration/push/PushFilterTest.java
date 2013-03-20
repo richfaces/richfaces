@@ -10,7 +10,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.integration.FrameworkDeployment;
 import org.richfaces.webapp.PushFilter;
 
 import com.google.common.base.Function;

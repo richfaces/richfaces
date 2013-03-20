@@ -5,8 +5,7 @@ import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.richfaces.deployment.Deployment;
-import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.integration.shrinkwrap.descriptor.FaceletAsset;
 
 public class MiscDeployment extends Deployment {
 
