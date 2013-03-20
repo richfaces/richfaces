@@ -46,12 +46,12 @@
                     </td>
 
                     <td>
-                        <h:panelGroup rendered="#{authenticator.user.id == null}">
-                            <h:inputText id="userLoginName" value="#{authenticator.user.login}" styleClass="reg-table-input" />
+                        <h:panelGroup rendered="#{userBean.user.id == null}">
+                            <h:inputText id="userLoginName" value="#{userBean.user.login}" styleClass="reg-table-input" />
                             <h:outputText styleClass="required" value="*" />
                         </h:panelGroup>
-                        <h:panelGroup rendered="#{authenticator.user.id != null}">
-                            <h:outputText value="#{authenticator.user.login}" />
+                        <h:panelGroup rendered="#{userBean.user.id != null}">
+                            <h:outputText value="#{userBean.user.login}" />
                         </h:panelGroup>
                     </td>
                     <td>
@@ -59,12 +59,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <h:panelGroup rendered="#{authenticator.user.id == null}">
+                    <h:panelGroup rendered="#{userBean.user.id == null}">
                         <td>
                             <h:outputLabel for="userPassword">#{messages['user.password']}</h:outputLabel>
                         </td>
                         <td>
-                            <h:inputSecret required="true" id="userPassword" value="#{authenticator.user.password}"
+                            <h:inputSecret required="true" id="userPassword" value="#{userBean.user.password}"
                                 styleClass="reg-table-input" />
                             <h:outputText styleClass="required" value="*" />
                         </td>
@@ -74,14 +74,14 @@
                     </h:panelGroup>
                 </tr>
                 <tr>
-                    <h:panelGroup rendered="#{authenticator.user.id == null}">
+                    <h:panelGroup rendered="#{userBean.user.id == null}">
                         <td>
                             <h:outputLabel for="userConfirmPassword">#{messages['user.confirm']}</h:outputLabel>
                         </td>
                         <td>
-                            <h:panelGroup rendered="#{authenticator.user.id == null}">
+                            <h:panelGroup rendered="#{userBean.user.id == null}">
                                 <h:inputSecret required="true" id="userConfirmPassword"
-                                    value="#{authenticator.user.confirmPassword}" styleClass="reg-table-input" />
+                                    value="#{userBean.user.confirmPassword}" styleClass="reg-table-input" />
                                 <h:outputText styleClass="required" value="*" />
                             </h:panelGroup>
                         </td>
@@ -100,7 +100,7 @@
                         <h:outputLabel for="userFirstname">#{messages['user.firstname']}</h:outputLabel>
                     </td>
                     <td>
-                        <h:inputText id="userFirstname" value="#{authenticator.user.firstName}" styleClass="reg-table-input" />
+                        <h:inputText id="userFirstname" value="#{userBean.user.firstName}" styleClass="reg-table-input" />
                         <h:outputText styleClass="required" value="*" />
                     </td>
                     <td>
@@ -112,7 +112,7 @@
                         <h:outputLabel for="userSecondname">#{messages['user.secondname']}</h:outputLabel>
                     </td>
                     <td>
-                        <h:inputText id="userSecondname" value="#{authenticator.user.secondName}" styleClass="reg-table-input" />
+                        <h:inputText id="userSecondname" value="#{userBean.user.secondName}" styleClass="reg-table-input" />
                         <h:outputText styleClass="required" value="*" />
                     </td>
                     <td>
@@ -125,7 +125,7 @@
                     </td>
                     <td>
                         <h:panelGrid columns="2">
-                            <h:selectOneRadio required="true" id="userSex" value="#{authenticator.user.sex}">
+                            <h:selectOneRadio required="true" id="userSex" value="#{userBean.user.sex}">
                                 <f:selectItems value="#{userPrefsHelper.sexs}" var="sex" itemValue="#{sex}" itemLabel="#{sex}" />
                                 <!-- TODO: format output -->
                                 <r:ajax event="click" execute="@this" render="avatar" />
@@ -142,7 +142,7 @@
                     </td>
                     <td>
                         <r:outputPanel id="userCalendar" layout="block">
-                            <r:calendar id="userBirthDate" enableManualInput="true" value="#{authenticator.user.birthDate}"
+                            <r:calendar id="userBirthDate" enableManualInput="true" value="#{userBean.user.birthDate}"
                                 cellWidth="24px" cellHeight="22px" inputClass="reg-table-input" datePattern="d/M/YYYY" defaultLabel="d/M/YYYY">
                                 <r:validator event="inputblur" />
                             </r:calendar>
@@ -157,7 +157,7 @@
                         <h:outputLabel for="userEmail">#{messages['user.email']}</h:outputLabel>
                     </td>
                     <td>
-                        <h:inputText id="userEmail" value="#{authenticator.user.email}" styleClass="reg-table-input" />
+                        <h:inputText id="userEmail" value="#{userBean.user.email}" styleClass="reg-table-input" />
                         <h:outputText styleClass="required" value="*" />
                     </td>
                     <td>
