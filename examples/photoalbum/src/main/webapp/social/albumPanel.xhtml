@@ -20,7 +20,7 @@
         <h:outputText value="No available albums. Log into Facebook and create one." rendered="#{fn:length(facebookBean.availableAlbums) == 0}"/>
         <r:list rendered="#{fn:length(facebookBean.availableAlbums) > 0}" value="#{facebookBean.availableAlbums}" var="album">
             <r:commandLink value="#{album.getString('name')}" disabled="#{!album.getBoolean('can_upload')}" 
-            onclick="pushImage('#{album.getString('id')}', #{rich:element('imgUri')}.href); #{r:component('albumsPopupPanel')}.hide()"/>
+            onclick="pushImage('#{album.getString('id')}', #{r:element('imgUri')}.href); #{r:component('albumsPopupPanel')}.hide()"/>
             <h:outputText value=" (Cannot upload to his album)" rendered="#{!album.getBoolean('can_upload')}" />
             <br />
         </r:list>
