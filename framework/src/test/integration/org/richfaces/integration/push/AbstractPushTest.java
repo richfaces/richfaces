@@ -27,8 +27,8 @@ import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
-import org.richfaces.integration.FrameworkDeployment;
-import org.richfaces.integration.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.webapp.PushHandlerFilter;
 
 @WarpTest

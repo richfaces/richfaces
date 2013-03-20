@@ -357,6 +357,7 @@
             </activation>
             <properties>
                 <integration.test.source>src/test/integration</integration.test.source>
+                <integration.test.pattern>**/**/IT*.java</integration.test.pattern>
 
                 <!-- Arquillian Configuration -->
                 <arquillian.debug>false</arquillian.debug>
@@ -491,24 +492,6 @@
                                     </sources>
                                 </configuration>
                             </execution>
-                            <!-- <execution>
-                                <id>add-integration-test-resources</id>
-                                <phase>process-test-resources</phase>
-                                <goals>
-                                    <goal>add-test-resource</goal>
-                                </goals>
-                                <configuration>
-                                    <resources>
-                                        <resource>
-                                            <directory>${integration.test.source}</directory>
-                                            <targetPath>${project.build.directory}/test-classes</targetPath>
-                                            <excludes>
-                                                <exclude>**/*.java</exclude>
-                                            </excludes>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution> -->
                         </executions>
                     </plugin>
                     <plugin>
@@ -521,7 +504,7 @@
                                     <skipTests>${skipTests}</skipTests>
                                     <test>${test}</test>
                                     <excludes>
-                                        <exclude>**/integration/**/*.java</exclude>
+                                        <exclude>${integration.test.pattern}</exclude>
                                     </excludes>
                                 </configuration>
                             </execution>
@@ -535,7 +518,7 @@
                                     <skipTests>${skipITs}</skipTests>
                                     <test>${test}</test>
                                     <includes>
-                                        <include>**/integration/**/*.java</include>
+                                        <include>${integration.test.pattern}</include>
                                     </includes>
                                     <groups>${testCategory.included.default} ${testCategory.excluded.browser} ${testCategory.excluded.container} ${testCategory.excluded.jsf}</groups>
                                     <excludedGroups>${testCategory.excluded.default}</excludedGroups>
