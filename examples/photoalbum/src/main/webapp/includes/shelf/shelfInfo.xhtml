@@ -32,16 +32,15 @@
             </h:panelGroup>
         </h:panelGroup>
         <h:panelGroup>
-            <r:commandLink rendered="#{controller.isUserShelf(shelf)}" value="#{messages['shelf.edit']} "
+            <r:commandLink rendered="#{controller.isUserShelf(shelf)}" value="#{messages['shelf.edit']}"
                 actionListener="#{controller.startEditShelf(shelf)}" render="mainArea" />
-            <h:outputText value=" " />
-            <r:commandLink rendered="#{controller.isUserShelf(shelf)}" value="#{messages['shelf.delete']} "
+            <h:outputText value=" #{messages['delimiter']} " rendered="#{controller.isUserShelf(shelf)}" />
+            <r:commandLink rendered="#{controller.isUserShelf(shelf)}" value="#{messages['shelf.delete']}"
                 actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}"
                 oncomplete="#{r:component('confirmation')}.show()" render="confirmation" execute="@this" />
-            <h:outputText value=" " />
+            <h:outputText value=" #{messages['delimiter']} " rendered="#{controller.isUserShelf(shelf)}" />
             <r:commandLink value="#{messages['shelf.view']} " actionListener="#{controller.showShelf(shelf)}"
                 render="mainArea" rendered="#{!mode.equals('show')}" />
-            <h:outputText value=" " />
         </h:panelGroup>
     </h:panelGrid>
 
