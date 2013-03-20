@@ -68,13 +68,22 @@ getAlbums = function(callback) {
     FB.getLoginStatus(function(response) {
 
         if (response.status === "connected") {
-            FB.api('/me/albums', 'get', function(response) {
+            FB.api({
+                method : 'fql.multiquery',
+                queries : {
+                    query1 : 'SELECT cover_pid, object_id, name FROM album WHERE owner = me() AND can_upload = "true"',
+                    query2 : 'SELECT src FROM photo WHERE pid IN (SELECT cover_pid FROM #query1)'
+                }
+            }, function(response) {
                 if (!response || response.error) {
                     console.log('Error occured');
                     console.log(response);
                 } else {
-                    callback(JSON.stringify(response.data));
-                    console.log(response);
+                    for (var i = 0; i < response[0].fql_result_set.length; i++) {
+                        response[0].fql_result_set[i].src = response[1].fql_result_set[i].src;
+                    }
+                    callback(JSON.stringify(response[0].fql_result_set));
+                    console.log(response[0].fql_result_set);
                 }
             });
         }
@@ -123,5 +132,5 @@ getUserInfo = function(callback) {
                 }
             });
         }
-    })
-}; 
+    });
+};
