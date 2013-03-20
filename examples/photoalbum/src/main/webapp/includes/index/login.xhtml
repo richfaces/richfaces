@@ -13,8 +13,22 @@
             </h:panelGroup>
         </f:facet>
 
-        <h:panelGrid columns="1" columnClasses="login-table-col" style="width: 100%; text-align:center;">
-          
+        <h:panelGrid columns="2" columnClasses="login-table-col" style="width: 100%; text-align:center;">
+
+            <h:panelGroup layout="block">
+                <richx:commandButton styleClass="fb-comm-button" execute="@this" 
+                    oncomplete="FBlogin(fetchUserInfo)" value="Facebook Login"/>
+                    
+                <r:jsFunction name="fetchUserInfo" oncomplete="authenticate()">
+                    <!-- need to wait for oncomplete for the info to be fetched -->
+                    <r:param assignTo="#{facebookBean.userInfo}" converter="#{fbJsonConverter}" name="response" />
+                </r:jsFunction>
+                
+                <r:jsFunction name="authenticate" actionListener="#{authenticator.authenticateWithFacebook}"
+                    oncomplete="#{r:component('loginPanel')}.hide()" render="mainArea, headerPanel, treePanel"/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block">
             <r:region id="loginPanelForm">
                 <h:panelGrid columns="2" columnClasses="login-table-col2, xxx" style="margin-left:auto; margin-right:auto;">
                     <h:outputText value="#{messages['login.userName']}" />
@@ -46,6 +60,7 @@
                         oncomplete="#{r:component('loginPanel')}.hide();" execute="@this" />
                 </h:panelGroup>
             </h:panelGrid>
+            </h:panelGroup>
         </h:panelGrid>
     </r:popupPanel>
 </ui:composition>

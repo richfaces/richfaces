@@ -1,6 +1,7 @@
 package org.richfaces.photoalbum.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -33,6 +34,7 @@ public class UserBean implements Serializable {
     private User user;
 
     private String username;
+
     public String getUsername() {
         return username;
     }
@@ -53,10 +55,29 @@ public class UserBean implements Serializable {
 
     private boolean logged = false;
 
+    private boolean loggedInFB = false;
+
     public User logIn(String username, String passwordHash) throws Exception {
         user = (User) em.createNamedQuery(Constants.USER_LOGIN_QUERY).setParameter(Constants.USERNAME_PARAMETER, username)
             .setParameter(Constants.PASSWORD_PARAMETER, passwordHash).getSingleResult();
         logged = user != null;
+
+        return user;
+    }
+
+    public User logIn(String facebookId) {
+        List<?> users = em.createNamedQuery(Constants.USER_FB_LOGIN_QUERY).setParameter("fbId", facebookId).getResultList();
+
+        if (users.isEmpty()) {
+            logged = false;
+            loggedInFB = false;
+            return null;
+        }
+
+        user = (User) users.get(0);
+
+        logged = true;
+        loggedInFB = true;
 
         return user;
     }
@@ -83,9 +104,14 @@ public class UserBean implements Serializable {
         return logged;
     }
 
+    public boolean isLoggedInFB() {
+        return loggedInFB;
+    }
+
     public void logout() {
         user = null;
         logged = false;
+        loggedInFB = false;
     }
 
     public void reset() {

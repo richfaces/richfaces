@@ -11,9 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.agorava.Facebook;
-import org.agorava.FacebookServicesHub;
-import org.agorava.core.cdi.AgoravaExtension;
 import org.jboss.logging.Logger;
 import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
@@ -38,37 +35,16 @@ public class FacebookBean implements Serializable {
         this.service = service;
     }
 
-    @Inject
-    @Facebook
-    FacebookServicesHub serviceHub;
-
-    @Inject
     Logger log;
-
-    public FacebookServicesHub getServiceHub() {
-        return serviceHub;
-    }
 
     public void redirectToAuthorizationURL(String url) throws IOException {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.redirect(url);
     }
 
-    public String initSession() {
-        return serviceHub.getService().getAuthorizationUrl();
-    }
-
-    public void init() throws IOException {
-        AgoravaExtension.setMultiSession(false);
-        // although set false by default, we need to set it manually here
-        redirectToAuthorizationURL(initSession());
-    }
-
-    public void connect() {
-        serviceHub.getService().initAccessToken();
-    }
-
     private JSONArray json;
+    
+    private JSONObject userInfo;
 
     public JSONArray getJson() {
         return json;
@@ -84,12 +60,20 @@ public class FacebookBean implements Serializable {
         if (json != null) {
             for (int i = 0; i < json.length(); i++) {
                 try {
-                    albums.add(new JSONObject(json.get(i).toString()));
+                    albums.add(json.getJSONObject(i));
                 } catch (JSONException e) {
                     log.error(e.getMessage());
                 }
             }
         }
         return albums;
+    }
+
+    public JSONObject getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(JSONObject userInfo) {
+        this.userInfo = userInfo;
     }
 }

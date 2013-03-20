@@ -10,28 +10,30 @@ import javax.inject.Named;
 import org.jboss.logging.Logger;
 import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
+import org.richfaces.json.JSONObject;
 
 @Named
 @RequestScoped
 @FacesConverter("fbConverter")
 public class FbJsonConverter implements Converter {
 
-    Logger logger = Logger.getLogger(FbJsonConverter.class);
-
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        JSONArray ja = null;
         try {
-            ja = new JSONArray(value);
+            if (value.charAt(0) == '{') {
+                return new JSONObject(value);
+            }
+            return new JSONArray(value);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return ja;
+        return null;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        return ((JSONArray) value).toString();
+        //return ((JSONArray) value).toString();
+        return "";
     }
 
 }

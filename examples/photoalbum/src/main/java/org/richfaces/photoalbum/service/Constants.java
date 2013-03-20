@@ -119,6 +119,7 @@ public class Constants {
     // Service -constants
     public static final String USER_EXIST_QUERY = "user-exist";
     public static final String USER_LOGIN_QUERY = "user-login";
+    public static final String USER_FB_LOGIN_QUERY = "user-fb-login";
     public static final String LOGIN_PARAMETER = "login";
     public static final String PASSWORD_PARAMETER = "password";
     public static final String USERNAME_PARAMETER = "username";

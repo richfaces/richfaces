@@ -27,6 +27,7 @@ package org.richfaces.photoalbum.manager;
  */
 import java.io.File;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -36,7 +37,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.richfaces.json.JSONObject;
 import org.richfaces.photoalbum.bean.UserBean;
+import org.richfaces.photoalbum.domain.Sex;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.EventTypeQualifier;
@@ -45,6 +48,7 @@ import org.richfaces.photoalbum.event.NavEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IUserAction;
+import org.richfaces.photoalbum.social.FacebookBean;
 import org.richfaces.photoalbum.util.Environment;
 import org.richfaces.photoalbum.util.HashUtils;
 import org.richfaces.photoalbum.util.Utils;
@@ -88,6 +92,9 @@ public class Authenticator implements Serializable {
     @Inject
     UserBean userBean;
 
+    @Inject
+    FacebookBean fBean;
+
     /**
      * Method, that invoked when user try to login to the application.
      *
@@ -107,10 +114,7 @@ public class Authenticator implements Serializable {
                     user = new User();
                     return false;
                 }
-                // Remove previous session id from users store
-                userTracker.removeUserId(user.getId());
-                // Mark current user as actual
-                userTracker.addUserId(user.getId(), Utils.getSession().getId());
+                addToTracker(user.getId());
                 // identity.addRole(Constants.ADMIN_ROLE, "Users", "GROUP");
                 // Raise event to controller to update Model
                 event.select(new EventTypeQualifier(Events.AUTHENTICATED_EVENT)).fire(new SimpleEvent());
@@ -123,6 +127,52 @@ public class Authenticator implements Serializable {
             return false;
         }
         return false;
+    }
+
+    private void addToTracker(Long userId) {
+        // Remove previous session id from users store
+        userTracker.removeUserId(userId);
+        // Mark current user as actual
+        userTracker.addUserId(userId, Utils.getSession().getId());
+    }
+
+    public boolean authenticateWithFacebook() {
+        JSONObject userInfo = fBean.getUserInfo();
+
+        try {
+            String facebookId = userInfo.getString("id");
+            user = userBean.logIn(facebookId);
+
+            if (user == null) { // user does not exist
+                User newUser = new User();
+
+                newUser.setFbId(facebookId);
+                newUser.setFirstName(userInfo.getString("first_name"));
+                newUser.setSecondName(userInfo.getString("last_name"));
+                newUser.setLogin(userInfo.getString("username"));
+                newUser.setEmail(userInfo.getString("email"));
+
+                String sex = userInfo.getString("gender");
+                newUser.setSex(sex.equals("male") ? Sex.MALE : Sex.FEMALE);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                newUser.setBirthDate(sdf.parse(userInfo.getString("birthday")));
+
+                newUser.setPasswordHash(HashUtils.hash("facebook"));
+                // temporary, find a workaround
+
+                userAction.register(newUser);
+
+                userBean.logIn(facebookId);
+            } else {
+                addToTracker(user.getId());
+            }
+
+            return true;
+        } catch (Exception nre) {
+            loginFailed();
+            return false;
+        }
     }
 
     /**
@@ -138,8 +188,8 @@ public class Authenticator implements Serializable {
         // Remove user from users store
         userTracker.removeUserId(id);
         setConversationStarted(false);
-        //return Constants.LOGOUT_OUTCOME;
-        //return "index.seam";
+        // return Constants.LOGOUT_OUTCOME;
+        // return "index.seam";
         startConversation();
     }
 
@@ -182,7 +232,7 @@ public class Authenticator implements Serializable {
             event.select(new EventTypeQualifier(Events.ADD_ERROR_EVENT)).fire(new SimpleEvent(Constants.LOGIN_ERROR));
         }
 
-        //navEvent.fire(new NavEvent(NavigationEnum.ANONYM)); //point to main page?
+        // navEvent.fire(new NavEvent(NavigationEnum.ANONYM)); //point to main page?
 
     }
 
@@ -257,7 +307,8 @@ public class Authenticator implements Serializable {
         setLoginFailed(true);
         // facesMessages.clear();
         // facesMessages.add(Constants.INVALID_LOGIN_OR_PASSWORD);
-        //FacesContext.getCurrentInstance().addMessage("loginPanelForm", new FacesMessage(Constants.INVALID_LOGIN_OR_PASSWORD));
+        // FacesContext.getCurrentInstance().addMessage("loginPanelForm", new
+        // FacesMessage(Constants.INVALID_LOGIN_OR_PASSWORD));
         Utils.addFacesMessage("overForm:loginPanel", Constants.INVALID_LOGIN_OR_PASSWORD);
         FacesContext.getCurrentInstance().renderResponse();
     }
