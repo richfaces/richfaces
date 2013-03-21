@@ -8,7 +8,7 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>${basedir}/target/vdldoc</directory>
+            <directory>target/vdldoc</directory>
             <outputDirectory>richfaces-vdl-documentation</outputDirectory>
         </fileSet>
     </fileSets>

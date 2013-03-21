@@ -257,8 +257,8 @@
                         <configuration>
                             <sources>
                                 <source>src/main/config</source>
-                                <source>${project.build.directory}/generated-sources/main/java</source>
-                                <source>${project.build.directory}/generated-sources/main/resources</source>
+                                <source>target/generated-sources/main/java</source>
+                                <source>target/generated-sources/main/resources</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -337,16 +337,6 @@
         <profile>
             <id>release</id>
             <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/vdldoc</directory>
-                        <targetPath>${project.build.directory}/vdldoc-assembly</targetPath>
-                        <includes>
-                            <include>assembly-vdldoc.xml</include>
-                        </includes>
-                        <filtering>true</filtering>
-                    </resource>
-                </resources>
                 <plugins>
                     <!-- JavaDoc -->
                     <plugin>
@@ -384,7 +374,7 @@
                                     <parameters>
                                         <parameter>
                                             <name>output-dir</name>
-                                            <value>${project.build.directory}/vdldoc/</value>
+                                            <value>target/vdldoc/</value>
                                         </parameter>
                                     </parameters>
                                 </transformationSet>
@@ -426,7 +416,7 @@
                             <execution>
                                 <id>jsdoc</id>
                                 <configuration>
-                                    <jsDir>${basedir}/src/main/resources/META-INF/resources</jsDir>
+                                    <jsDir>src/main/resources/META-INF/resources</jsDir>
                                     <includes>**/*.js</includes>
                                     <caseSensitive>true</caseSensitive>
                                 </configuration>
@@ -448,7 +438,7 @@
                                     <goal>jar</goal>
                                 </goals>
                                 <configuration>
-                                    <classesDirectory>${basedir}/target/site/jsdoc</classesDirectory>
+                                    <classesDirectory>target/site/jsdoc</classesDirectory>
                                     <classifier>jsdoc</classifier>
                                     <excludes>
                                         <exclude>**/symbols/src/*</exclude>
