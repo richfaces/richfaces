@@ -26,17 +26,16 @@
 
     <files>
         <file>
-            <source>lgpl.txt</source>
+            <source>src/main/resources/txt/lgpl.txt</source>
         </file>
         <file>
-            <source>release-notes.txt</source>
+            <source>src/main/resources/txt/release-notes.txt</source>
         </file>
         <file>
-            <source>readme-ui.txt</source>
-            <destName>readme.txt</destName>
+            <source>src/main/resources/txt/readme.txt</source>
         </file>
         <file>
-            <source>readme-examples.txt</source>
+            <source>src/main/resources/txt/readme-examples.txt</source>
             <destName>examples/readme.txt</destName>
         </file>
     </files>
@@ -47,61 +46,52 @@
             <directory>target/dependency</directory>
             <outputDirectory>artifacts/framework</outputDirectory>
             <includes>
-                <include>richfaces-core-*.jar</include>
-                <include>richfaces-commons-*.jar</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>target/dependency</directory>
-            <outputDirectory>artifacts/ui</outputDirectory>
-            <includes>
-                <include>richfaces-components-*.jar</include>
+                <include>richfaces-framework*.jar</include>
             </includes>
         </fileSet>
 
-        <!-- javadocs -->
+        <!-- lib -->
         <fileSet>
-            <directory>target/dependency/richfaces-core-api-javadoc-java-source</directory>
-            <outputDirectory>docs/javadocs/richfaces-core-api/</outputDirectory>
+            <directory>target/dependency</directory>
+            <outputDirectory>artifacts/lib</outputDirectory>
+            <excludes>
+                <exclude>richfaces-*</exclude>
+                <exclude>richfaces-*/</exclude>
+            </excludes>
         </fileSet>
+
+        <!-- archetypes -->
         <fileSet>
-            <directory>target/dependency/richfaces-core-impl-javadoc-java-source</directory>
-            <outputDirectory>docs/javadocs/richfaces-core-impl/</outputDirectory>
+            <directory>target/archetype</directory>
+            <outputDirectory>artifacts/archetypes</outputDirectory>
         </fileSet>
+
+        <!-- javadoc -->
         <fileSet>
-            <directory>target/dependency/richfaces-commons-api-javadoc-java-source</directory>
-            <outputDirectory>docs/javadocs/richfaces-commons-api/</outputDirectory>
+            <directory>target/dependency/richfaces-framework-javadoc-jar</directory>
+            <outputDirectory>docs/javadoc/</outputDirectory>
         </fileSet>
+
+        <!-- vdldoc -->
         <fileSet>
-            <directory>target/dependency/richfaces-components-api-javadoc-java-source</directory>
-            <outputDirectory>docs/javadocs/richfaces-components-api/</outputDirectory>
-        </fileSet>
-        <fileSet>
-            <directory>target/dependency/richfaces-components-impl-javadoc-java-source</directory>
-            <outputDirectory>docs/javadocs/richfaces-components-impl/</outputDirectory>
-        </fileSet>
-        <fileSet>
-            <directory>target/dependency/richfaces-components-ui-javadoc-java-source</directory>
-            <outputDirectory>docs/javadocs/richfaces-components-ui/</outputDirectory>
+            <directory>target/dependency/richfaces-framework-vdldoc-jar</directory>
+            <outputDirectory>docs/vdldoc/</outputDirectory>
         </fileSet>
 
         <!-- jsdoc -->
         <fileSet>
-            <directory>target/dependency/richfaces-core-impl-jsdoc-java-source</directory>
-            <outputDirectory>docs/jsdoc/richfaces-core-impl/</outputDirectory>
+            <directory>target/dependency/richfaces-framework-jsdoc-jar</directory>
+            <outputDirectory>docs/jsdoc/</outputDirectory>
         </fileSet>
-        <!--        <fileSet>
-            <directory>target/dependency/richfaces-components-ui-jsdoc-java-source</directory>
-            <outputDirectory>docs/jsdoc/richfaces-components-ui/</outputDirectory>
-        </fileSet>-->
 
         <!-- Examples -->
         <fileSet>
-            <directory>target/dependency/richfaces-showcase-sources-java-source</directory>
-            <outputDirectory>examples/richfaces-showcase/</outputDirectory>
-            <excludes>
-                <exclude>/META-INF/**</exclude>
-            </excludes>
+            <directory>target/dependency</directory>
+            <outputDirectory>examples/</outputDirectory>
+            <includes>
+                <include>richfaces-showcase*.war</include>
+                <include>richfaces-photoalbum*.war</include>
+            </includes>
         </fileSet>
 
         <!-- Archetypes -->

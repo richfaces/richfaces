@@ -24,9 +24,9 @@
 
     <parent>
         <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-root-parent</artifactId>
+        <artifactId>richfaces-parent</artifactId>
         <version>5.0.0-SNAPSHOT</version>
-        <relativePath>../parent/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>richfaces-distribution</artifactId>
@@ -34,25 +34,30 @@
     <name>RichFaces Distribution Assembler</name>
 
     <properties>
+        <version.archetype>4.3.2-SNAPSHOT</version.archetype>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-ui</artifactId>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-framework</artifactId>
         </dependency>
 
+        <!-- Runtime Dependencies -->
         <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-api</artifactId>
+            <groupId>net.sourceforge.cssparser</groupId>
+            <artifactId>cssparser</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-impl</artifactId>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
+        <!-- Push dependencies -->
+        <dependency>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-runtime</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!-- Examples -->
@@ -61,20 +66,27 @@
             <artifactId>richfaces-showcase</artifactId>
             <version>${project.version}</version>
             <type>war</type>
-            <classifier>tomcat6</classifier>
+            <classifier>jbas71</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>org.richfaces.examples</groupId>
+            <artifactId>richfaces-photoalbum</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
         </dependency>
 
         <!-- Archetypes -->
         <dependency>
             <groupId>org.richfaces.archetypes</groupId>
             <artifactId>richfaces-archetype-simpleapp</artifactId>
-            <version>${project.version}</version>
+            <version>${version.archetype}</version>
         </dependency>
 
         <dependency>
             <groupId>org.richfaces.archetypes</groupId>
             <artifactId>richfaces-archetype-kitchensink</artifactId>
-            <version>${project.version}</version>
+            <version>${version.archetype}</version>
         </dependency>
     </dependencies>
 
@@ -82,9 +94,6 @@
         <plugins>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <configuration>
-                    <includeGroupIds>org.richfaces.core,org.richfaces.ui</includeGroupIds>
-                </configuration>
                 <executions>
                     <execution>
                         <id>copy-bin</id>
@@ -101,6 +110,20 @@
                         <phase>package</phase>
                         <configuration>
                             <classifier>sources</classifier>
+                            <includeArtifactIds>richfaces-framework</includeArtifactIds>
+                            <includeGroupIds>org.richfaces</includeGroupIds>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-archetypes</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <classifier>sources</classifier>
+                            <includeGroupIds>org.richfaces.archetypes</includeGroupIds>
+                            <outputDirectory>target/archetype</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -111,9 +134,22 @@
                         <phase>package</phase>
                         <configuration>
                             <classifier>javadoc</classifier>
-
                             <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                             <stripVersion>true</stripVersion>
+                            <includeArtifactIds>richfaces-framework</includeArtifactIds>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-vdldoc</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <classifier>vdldoc</classifier>
+                            <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
+                            <stripVersion>true</stripVersion>
+                            <includeArtifactIds>richfaces-framework</includeArtifactIds>
                         </configuration>
                     </execution>
                     <execution>
@@ -128,6 +164,7 @@
                             <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
                             <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                             <stripVersion>true</stripVersion>
+                            <includeArtifactIds>richfaces-framework</includeArtifactIds>
                         </configuration>
                     </execution>
 
@@ -139,23 +176,8 @@
                         <phase>package</phase>
                         <configuration>
                             <classifier>sources</classifier>
-
                             <includeGroupIds>org.richfaces.examples</includeGroupIds>
                             <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
-                            <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
-                            <stripVersion>true</stripVersion>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>copy-archetypes</id>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-
-                        <phase>package</phase>
-                        <configuration>
-                            <includeGroupIds>org.richfaces.archetypes</includeGroupIds>
                             <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                             <stripVersion>true</stripVersion>
                         </configuration>
@@ -169,7 +191,7 @@
                     <execution>
                         <configuration>
                             <finalName>richfaces-${project.version}</finalName>
-                            <descriptor>richfaces.xml</descriptor>
+                            <descriptor>src/main/resources/xml/richfaces.xml</descriptor>
                             <appendAssemblyId>false</appendAssemblyId>
                         </configuration>
                         <id>richfaces</id>
@@ -184,8 +206,8 @@
     </build>
 
     <scm>
-        <connection>scm:git:git://github.com/richfaces/build.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/build.git</developerConnection>
+        <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
         <url>https://github.com/richfaces/build</url>
     </scm>
 </project>
