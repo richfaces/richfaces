@@ -33,7 +33,7 @@
         
         Contains all project specific sources.
     </description>
-    
+
     <properties>
         <faces.resources.dir>${project.build.outputDirectory}/META-INF/resources</faces.resources.dir>
         <resource.mappings.dir>${project.build.outputDirectory}/META-INF/richfaces</resource.mappings.dir>
@@ -272,6 +272,7 @@
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>maven-richfaces-resources-plugin</artifactId>
+                <version>4.3.1.Final</version>
                 <configuration>
                     <skins>
                         <skin>blueSky</skin>
@@ -421,8 +422,8 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>
 
+    </build>
 
     <profiles>
         <profile>
@@ -512,37 +513,31 @@
                     <!-- VDL DOC -->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>xml-maven-plugin</artifactId>
-                        <version>1.0</version>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
                         <executions>
                             <execution>
+                                <id>generate-vdldoc</id>
+                                <phase>prepare-package</phase>
                                 <goals>
-                                    <goal>transform</goal>
+                                    <goal>exec</goal>
                                 </goals>
-                                <phase>package</phase>
                             </execution>
                         </executions>
                         <configuration>
-                            <transformationSets>
-                                <transformationSet>
-                                    <dir>src/main/vdldoc/properties</dir>
-                                    <stylesheet>src/main/vdldoc/xsl/common.xsl</stylesheet>
-                                    <parameters>
-                                        <parameter>
-                                            <name>output-dir</name>
-                                            <value>target/vdldoc/</value>
-                                        </parameter>
-                                    </parameters>
-                                </transformationSet>
-                            </transformationSets>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-jar</argument>
+                                <argument>${basedir}/src/main/vdldoc/vdldoc-1.0.jar</argument>
+                                <argument>-d</argument>
+                                <argument>${project.build.directory}/vdldoc</argument>
+                                <argument>-windowtitle</argument>
+                                <argument>RichFaces ${project.version} VDL Documentation</argument>
+                                <argument>-doctitle</argument>
+                                <argument>RichFaces ${project.version} VDL Documentation</argument>
+                                <argument>${project.build.directory}/generated-sources/main/resources/META-INF/r.taglib.xml</argument>
+                            </arguments>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>net.sf.saxon</groupId>
-                                <artifactId>saxon</artifactId>
-                                <version>8.7</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -584,7 +579,6 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <!-- pack jsdoc to jar -->
                         <artifactId>maven-jar-plugin</artifactId>
                         <executions>
                             <execution>
