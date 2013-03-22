@@ -349,6 +349,13 @@
     <profiles>
 
         <profile>
+            <id>release</id>
+            <modules>
+                <module>dist</module>
+            </modules>
+        </profile>
+        
+        <profile>
             <id>integration-tests</id>
             <activation>
                 <property>
