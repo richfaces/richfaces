@@ -33,6 +33,11 @@
         
         Contains all project specific sources.
     </description>
+    
+    <properties>
+        <faces.resources.dir>${project.build.outputDirectory}/META-INF/resources</faces.resources.dir>
+        <resource.mappings.dir>${project.build.outputDirectory}/META-INF/richfaces</resource.mappings.dir>
+    </properties>
 
     <dependencies>
 
@@ -264,6 +269,157 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>maven-richfaces-resources-plugin</artifactId>
+                <configuration>
+                    <skins>
+                        <skin>blueSky</skin>
+                        <skin>classic</skin>
+                        <skin>deepMarine</skin>
+                        <skin>emeraldTown</skin>
+                        <skin>japanCherry</skin>
+                        <skin>ruby</skin>
+                        <skin>wine</skin>
+                        <skin>DEFAULT</skin>
+                        <skin>NULL</skin>
+                    </skins>
+                    <includedContentTypes>
+                        <include>application/javascript</include>
+                        <include>text/css</include>
+                        <include>image/.+</include>
+                    </includedContentTypes>
+                    <fileNameMappings>
+                        <property>
+                            <name>^.*showcase.*/([^/]+\.css)$</name>
+                            <value>org.richfaces.showcase.css/$1</value>
+                        </property>
+                        <property>
+                            <name>^.+/([^/]+\.(png|gif|jpg))$</name>
+                            <value>org.richfaces.images/$1</value>
+                        </property>
+                        <property>
+                            <name>^.+/([^/]+\.css)$</name>
+                            <value>org.richfaces.css/$1</value>
+                        </property>
+                    </fileNameMappings>
+                </configuration>
+                <executions>
+                    <!-- Static -->
+                    <execution>
+                        <id>static-resources</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <pack>false</pack>
+                            <compress>false</compress>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Static/</resourcesOutputDir>
+                            <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Static.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Static/</staticResourcePrefix>
+                            <excludedFiles>
+                                <exclude>^javax.faces</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                            </excludedFiles>
+                        </configuration>
+                    </execution>
+                    
+                    <!-- Compressed -->
+                    <execution>
+                        <id>compressed-resources</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <pack>false</pack>
+                            <compress>true</compress>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Compressed/</resourcesOutputDir>
+                            <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Compressed.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Compressed/</staticResourcePrefix>
+                            <excludedFiles>
+                                <exclude>^javax.faces</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                            </excludedFiles>
+                        </configuration>
+                    </execution>
+                    
+                    <!-- Packed -->
+                    <execution>
+                        <id>packed-resources</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <pack>true</pack>
+                            <compress>false</compress>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Packed/</resourcesOutputDir>
+                            <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Packed.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Packed/</staticResourcePrefix>
+                            <excludedFiles>
+                                <exclude>^javax.faces</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                                <exclude>^jquery.js$</exclude>
+                            </excludedFiles>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>resources-excluded-from-packaging</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <pack>false</pack>
+                            <compress>false</compress>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Packed/</resourcesOutputDir>
+                            <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Packed.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Packed/</staticResourcePrefix>
+                            <includedFiles>
+                                <include>^jquery.js$</include>
+                            </includedFiles>
+                        </configuration>
+                    </execution>
+                    
+                    <!-- PackedCompressed -->
+                    <execution>
+                        <id>packed-compressed-resources</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <pack>true</pack>
+                            <compress>true</compress>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/PackedCompressed/</resourcesOutputDir>
+                            <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/PackedCompressed.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/PackedCompressed/</staticResourcePrefix>
+                            <excludedFiles>
+                                <exclude>^javax.faces</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+                                <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                                <exclude>^jquery\.js$</exclude>
+                            </excludedFiles>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>compressed-resources-excluded-from-packaging</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <pack>false</pack>
+                            <compress>true</compress>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/PackedCompressed/</resourcesOutputDir>
+                            <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/PackedCompressed.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/PackedCompressed/</staticResourcePrefix>
+                            <includedFiles>
+                                <include>^jquery.js$</include>
+                            </includedFiles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -416,7 +572,7 @@
                             <execution>
                                 <id>jsdoc</id>
                                 <configuration>
-                                    <jsDir>src/main/resources/META-INF/resources</jsDir>
+                                    <jsDir>${basedir}/src/main/resources/META-INF/resources</jsDir>
                                     <includes>**/*.js</includes>
                                     <caseSensitive>true</caseSensitive>
                                 </configuration>
