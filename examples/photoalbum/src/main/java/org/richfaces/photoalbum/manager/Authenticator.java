@@ -140,6 +140,9 @@ public class Authenticator implements Serializable {
         JSONObject userInfo = fBean.getUserInfo();
 
         try {
+            String pictureUrl = userInfo.getJSONObject("picture").getJSONObject("data").getString("url");            
+            userBean.setFbPhotoUrl(pictureUrl);
+            
             String facebookId = userInfo.getString("id");
             user = userBean.logIn(facebookId);
 

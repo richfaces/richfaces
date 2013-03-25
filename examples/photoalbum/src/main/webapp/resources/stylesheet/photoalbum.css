@@ -35,7 +35,11 @@ html,body {
     font-weight: bold !important;
     color: #ffffff !important;
     right: 20px !important;
-    top: 45px !important;
+    top: 40px !important;
+}
+
+.user-info-div table tr {
+	vertical-align: middle;
 }
 
 .top-right-menu {
@@ -1189,8 +1193,13 @@ h1 {
 }
 
 .top-right-bottom-menu-item {
-    vertical-align: top;
     padding: 0px !important;
+    height: 30px;
+}
+
+.top-right-bottom-menu-item > *, .top-right-bottom-menu-item-link > * {
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .top-right-bottom-menu-item-link a {

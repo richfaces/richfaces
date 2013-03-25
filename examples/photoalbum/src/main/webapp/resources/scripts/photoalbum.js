@@ -122,7 +122,7 @@ getUserInfo = function(callback) {
 
         if (response.status === "connected") {
 
-            FB.api('/me?fields=first_name,last_name,email,username,birthday,gender,picture', 'get', function(response) {
+            FB.api('/me?fields=first_name,last_name,email,username,birthday,gender,picture.width(24).height(24)', 'get', function(response) {
                 if (!response || response.error) {
                     console.log('Error occured');
                     console.log(response);

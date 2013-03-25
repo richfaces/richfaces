@@ -34,6 +34,8 @@ public class UserBean implements Serializable {
     private User user;
 
     private String username;
+    
+    private String fbPhotoUrl;
 
     public String getUsername() {
         return username;
@@ -112,10 +114,19 @@ public class UserBean implements Serializable {
         user = null;
         logged = false;
         loggedInFB = false;
+        fbPhotoUrl = "";
     }
 
     public void reset() {
         username = "";
         password = "";
+    }
+
+    public String getFbPhotoUrl() {
+        return fbPhotoUrl;
+    }
+
+    public void setFbPhotoUrl(String fbPhotoUrl) {
+        this.fbPhotoUrl = fbPhotoUrl;
     }
 }
