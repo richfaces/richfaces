@@ -95,11 +95,16 @@ FBlogin = function(callback) {
         if (response.authResponse) {
             console.log('Welcome!  Fetching your information.... ');
 
-            FB.api('/me', function(response) {
-                console.log('Good to see you, ' + response.name + '.');
+            FB.api('/me?fields=first_name,last_name,email,username,birthday,gender,picture.width(24).height(24)', 'get', function(response) {
+                if (!response || response.error) {
+                    console.log('Error occured');
+                    console.log(response);
+                } else {
+                    callback(JSON.stringify(response));
+                    console.log('Good to see you, ' + response.first_name + '.');
+                    console.log(response);
+                }
             });
-
-            getUserInfo(callback);
         } else {
             console.log('User cancelled login or did not fully authorize.');
         }
@@ -113,24 +118,6 @@ FBlogout = function() {
         if (!response || response.error) {
             console.log('Error during logout!');
             console.log(response);
-        }
-    });
-};
-
-getUserInfo = function(callback) {
-    FB.getLoginStatus(function(response) {
-
-        if (response.status === "connected") {
-
-            FB.api('/me?fields=first_name,last_name,email,username,birthday,gender,picture.width(24).height(24)', 'get', function(response) {
-                if (!response || response.error) {
-                    console.log('Error occured');
-                    console.log(response);
-                } else {
-                    callback(JSON.stringify(response));
-                    console.log(response);
-                }
-            });
         }
     });
 };
