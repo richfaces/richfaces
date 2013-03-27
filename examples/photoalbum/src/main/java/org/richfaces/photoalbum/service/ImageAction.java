@@ -143,6 +143,7 @@ public class ImageAction implements IImageAction {
                 }
 
             }
+            em.merge(image);
             em.flush();
         } catch (Exception e) {
             throw new PhotoAlbumException(e.getMessage());

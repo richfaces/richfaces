@@ -85,6 +85,7 @@ public class ShelfAction implements IShelfAction {
      */
     public void editShelf(Shelf shelf) throws PhotoAlbumException {
         try {
+            em.merge(shelf);
             em.flush();
         } catch (Exception e) {
             throw new PhotoAlbumException(e.getMessage());

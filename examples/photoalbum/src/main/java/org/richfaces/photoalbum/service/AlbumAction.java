@@ -86,6 +86,7 @@ public class AlbumAction implements IAlbumAction {
      */
     public void editAlbum(Album album) throws PhotoAlbumException {
         try {
+            em.merge(album);
             em.flush();
         } catch (Exception e) {
             throw new PhotoAlbumException(e.getMessage());
