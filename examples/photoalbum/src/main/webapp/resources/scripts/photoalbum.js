@@ -113,11 +113,21 @@ FBlogin = function(callback) {
     });
 };
 
-FBlogout = function() {
-    FB.logout(function(response) {
-        if (!response || response.error) {
-            console.log('Error during logout!');
-            console.log(response);
+FBbind = function(exec, bind) {
+    FB.login(function(response) {
+        if (response.authResponse) {
+            FB.api('/me?fields=id', 'get', function(response) {
+                if (!response || response.error) {
+                    console.log('Error occured');
+                    console.log(response);
+                } else {
+                    console.log(response);
+                    bind.value = response.id;
+                    exec();
+                }
+            });
+        } else {
+            console.log('User cancelled login or did not fully authorize.');
         }
     });
 };

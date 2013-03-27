@@ -1,10 +1,17 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:richx="http://richfaces.org/richx">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org/rich"
+    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:richx="http://richfaces.org/richx">
     <h:panelGrid styleClass="album-header-table" cellpadding="0">
         <ui:insert name="header" />
     </h:panelGrid>
     <h:panelGroup id="userPrefEdit">
+        <r:region rendered="#{userBean.user.fbId == '1'}">
+            <h:inputHidden value="#{userBean.user.fbId}" id="userFbId" />
+            <richx:commandButton styleClass="fb-comm-button" execute="@this"
+                oncomplete="FBbind(bindWithFB,#{r:element('userFbId')})" value="Bind with Facebook" />
+            <r:jsFunction name="bindWithFB" actionListener="#{controller.editUser}" render="mainArea" />
+        </r:region>
+        <h:outputText value="This account is bound to Facebook" rendered="#{userBean.user.fbId != '1'}" />
 
         <table style="padding: 0; border-spacing: 0; border: 0">
             <tr>
@@ -80,8 +87,8 @@
                         </td>
                         <td>
                             <h:panelGroup rendered="#{userBean.user.id == null}">
-                                <h:inputSecret required="true" id="userConfirmPassword"
-                                    value="#{userBean.user.confirmPassword}" styleClass="reg-table-input" />
+                                <h:inputSecret required="true" id="userConfirmPassword" value="#{userBean.user.confirmPassword}"
+                                    styleClass="reg-table-input" />
                                 <h:outputText styleClass="required" value="*" />
                             </h:panelGroup>
                         </td>
@@ -143,7 +150,8 @@
                     <td>
                         <r:outputPanel id="userCalendar" layout="block">
                             <r:calendar id="userBirthDate" enableManualInput="true" value="#{userBean.user.birthDate}"
-                                cellWidth="24px" cellHeight="22px" inputClass="reg-table-input" datePattern="d/M/YYYY" defaultLabel="d/M/YYYY">
+                                cellWidth="24px" cellHeight="22px" inputClass="reg-table-input" datePattern="d/M/yyyy"
+                                defaultLabel="d/M/yyyy">
                                 <r:validator event="inputblur" />
                             </r:calendar>
                         </r:outputPanel>
