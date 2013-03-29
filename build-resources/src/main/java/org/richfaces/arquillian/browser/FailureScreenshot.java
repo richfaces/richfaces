@@ -1,4 +1,4 @@
-package org.richfaces.arquillian.drone;
+package org.richfaces.arquillian.browser;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,11 +12,16 @@ import org.jboss.arquillian.test.spi.event.suite.After;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
+/**
+ * Takes a screenshot on each test failure
+ *
+ * @author Lukas Fryc
+ */
 public class FailureScreenshot {
 
     private final File screenshotDir = new File("target/screenshots/");
 
-    public void observeFailure(@Observes(precedence = 500) After event, TestResult result) throws IOException {
+    public void takeScreenshotOnFailure(@Observes(precedence = 500) After event, TestResult result) throws IOException {
         if (result.getStatus() == Status.FAILED) {
             TakesScreenshot takesScreenshot = GrapheneContext.getProxyForInterfaces(TakesScreenshot.class);
             File tempFile = takesScreenshot.getScreenshotAs(OutputType.FILE);

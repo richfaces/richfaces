@@ -16,6 +16,7 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
     private String containerDistribution;
     private String containerConfiguration;
     private Boolean containerUninstall;
+    private Boolean debug;
 
     private boolean containerInstalledFromDistribution = false;
 
@@ -85,6 +86,10 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
      */
     public boolean containerShouldBeUninstalled() {
         return containerInstalledFromDistribution && (containerUninstall == null || containerUninstall);
+    }
+
+    public boolean isDebug() {
+        return debug != null && debug;
     }
 
     /**

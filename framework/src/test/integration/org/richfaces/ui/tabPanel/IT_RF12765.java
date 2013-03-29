@@ -83,11 +83,6 @@ public class IT_RF12765 {
         Assert.assertTrue(tabPanel.getText().contains("tab6"));
     }
 
-    @Test
-    public void test() {
-
-    }
-
     private static void addIndexPage(OutputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 

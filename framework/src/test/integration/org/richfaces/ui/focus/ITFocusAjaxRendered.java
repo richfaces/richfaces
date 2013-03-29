@@ -51,7 +51,6 @@ public class ITFocusAjaxRendered {
     }
 
     @Test
- // TODO PhantomJS
     public void when_there_are_inputs_with_tabindex_then_the_lowest_tabindex_will_obtain_focus() {
         browser.get(contextPath.toExternalForm());
         assertEquals(input1, FocusRetriever.retrieveActiveElement());

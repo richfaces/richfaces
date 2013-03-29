@@ -368,7 +368,7 @@
 
                 <!-- Arquillian Configuration -->
                 <arquillian.debug>false</arquillian.debug>
-                <arquillian.drone.browser>htmlUnit</arquillian.drone.browser>
+                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
                 <arquillian.richfaces.version></arquillian.richfaces.version>
                 <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>

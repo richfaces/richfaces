@@ -20,8 +20,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -45,12 +43,6 @@ public class IT_RF12768 {
 
     @FindBy(css = "table")
     private WebElement table;
-
-    @ArquillianResource
-    TakesScreenshot takesScreenshot;
-
-    @ArquillianResource
-    JavascriptExecutor executor;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -76,7 +68,6 @@ public class IT_RF12768 {
     }
 
     @Test
- // TODO PhantomJS
     public void check_row_removal() throws InterruptedException, IOException {
         browser.get(contextPath.toExternalForm());
         WebElement createButton = form.findElement(By.id("myForm:a4jCreateTabButton"));
@@ -90,7 +81,6 @@ public class IT_RF12768 {
 
         WebElement tab9 = form.findElement(By.id("myForm:tab9:header:inactive"));
         WebElement removeLink = tab9.findElement(By.tagName("a"));
-        System.out.println(browser.manage().window().getSize());
         guardXhr(removeLink).click();
 
         tabPanel = form.findElement(By.id("myForm:tabPanel"));

@@ -57,7 +57,6 @@ public class ITFocusPreserve {
     }
 
     @Test
-    // TODO PhantomJS
     public void testInputFocusIsPreservedAfterSubmission() {
         // having
         browser.get(contextPath.toExternalForm());
@@ -68,6 +67,36 @@ public class ITFocusPreserve {
 
         // then
         assertFocused(input2);
+    }
+
+    @Test
+    public void testInputFocusIsPreservedAfterAjax() {
+        // having
+        browser.get(contextPath.toExternalForm());
+
+        // when
+        input3.click();
+        guardXhr(ajax).click();
+
+        // then
+        waitAjax().until(new ElementIsFocused(input3));
+    }
+
+    @Test
+    public void when_focus_is_rerendered_from_another_form_then_it_is_rendered_and_working_but_not_applied()
+            throws InterruptedException {
+        // having
+        browser.get(contextPath.toExternalForm());
+
+        // when
+        guardXhr(renderFirstFormFromSecondForm).click();
+        Thread.sleep(500);
+
+        input2.click();
+        guardXhr(ajax).click();
+
+        // then
+        waitAjax().until(new ElementIsFocused(input2));
     }
 
     /**
@@ -96,38 +125,6 @@ public class ITFocusPreserve {
         }
 
         return element.toString();
-    }
-
-    @Test
-    // TODO PhantomJS
-    public void testInputFocusIsPreservedAfterAjax() {
-        // having
-        browser.get(contextPath.toExternalForm());
-
-        // when
-        input3.click();
-        guardXhr(ajax).click();
-
-        // then
-        waitAjax().until(new ElementIsFocused(input3));
-    }
-
-    @Test
-    // TODO PhantomJS
-    public void when_focus_is_rerendered_from_another_form_then_it_is_rendered_and_working_but_not_applied()
-            throws InterruptedException {
-        // having
-        browser.get(contextPath.toExternalForm());
-
-        // when
-        guardXhr(renderFirstFormFromSecondForm).click();
-        Thread.sleep(500);
-
-        input2.click();
-        guardXhr(ajax).click();
-
-        // then
-        waitAjax().until(new ElementIsFocused(input2));
     }
 
     private WebElement getFocusedElement() {

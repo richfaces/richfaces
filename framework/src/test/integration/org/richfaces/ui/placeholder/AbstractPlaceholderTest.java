@@ -187,7 +187,6 @@ public abstract class AbstractPlaceholderTest {
     }
 
     @Test
-    // TODO PhantomJS
     public void when_text_is_changed_and_input_is_blurred_then_typed_text_is_preserved() {
         // having
         browser.navigate().to(contextPath.toExternalForm() + "index.jsf");
@@ -222,7 +221,6 @@ public abstract class AbstractPlaceholderTest {
     }
 
     @Test
-    // TODO PhantomJS
     public void testAjaxSendsTextValue() {
         // given
         browser.get(contextPath.toExternalForm() + "submit.jsf");
@@ -248,7 +246,6 @@ public abstract class AbstractPlaceholderTest {
     }
 
     @Test
- // TODO PhantomJS
     public void testSubmitTextValue() {
         // given
         browser.get(contextPath.toExternalForm() + "submit.jsf");
