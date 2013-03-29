@@ -14,7 +14,6 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.Keyboard;
 import org.openqa.selenium.Keys;
@@ -23,8 +22,6 @@ import org.openqa.selenium.WebElement;
 import org.richfaces.integration.InputDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.autocomplete.AutocompleteBean;
-
-import category.Smoke;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -57,7 +54,6 @@ public class ITSelectKeyboardSelection {
     }
 
     @Test
-    @Category(Smoke.class)
     public void test() {
         browser.get(contextPath.toExternalForm());
 

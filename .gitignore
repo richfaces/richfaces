@@ -14,3 +14,4 @@ rebel.xml
 # Selenium 
 log.txt
 chromedriver.log
+arquillian.xml
