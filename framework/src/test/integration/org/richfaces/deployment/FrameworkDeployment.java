@@ -1,11 +1,8 @@
 package org.richfaces.deployment;
 
+import java.io.File;
+
 import org.jboss.arquillian.container.test.spi.RemoteLoadableExtension;
-import org.jboss.shrinkwrap.api.Filters;
-import org.jboss.shrinkwrap.api.GenericArchive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.richfaces.application.DependencyInjector;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.Uptime;
@@ -37,11 +34,7 @@ public class FrameworkDeployment extends Deployment {
     }
 
     public void withWholeFramework() {
-        JavaArchive coreArchive = ShrinkWrap.create(JavaArchive.class, "richfaces-framework.jar");
-        coreArchive.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
-            .importDirectory("target/classes/").as(GenericArchive.class),
-            "/", Filters.includeAll());
-        archive().addAsLibrary(coreArchive);
+        archive().addAsLibrary(new File("target/richfaces-framework.jar"));
     }
 
     /**
