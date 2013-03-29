@@ -21,6 +21,7 @@ import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.arquillian.warp.jsf.AfterPhase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,9 +30,12 @@ import org.richfaces.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
+import category.Smoke;
+
 @RunWith(Arquillian.class)
 @WarpTest
 @RunAsClient
+@Category(Smoke.class)
 public class ITJavaScriptServiceAjax {
 
     @Drone

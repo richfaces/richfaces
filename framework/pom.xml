@@ -175,6 +175,8 @@
     </dependencies>
 
     <build>
+    
+        <finalName>richfaces-framework</finalName>
 
         <plugins>
             <plugin>

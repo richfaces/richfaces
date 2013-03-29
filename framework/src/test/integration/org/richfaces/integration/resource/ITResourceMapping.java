@@ -15,6 +15,7 @@ import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -26,8 +27,11 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 import org.richfaces.util.core.base64.Codec;
 
+import category.Smoke;
+
 @RunWith(Arquillian.class)
 @WarpTest
+@Category(Smoke.class)
 public class ITResourceMapping {
 
     @Drone

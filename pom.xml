@@ -763,6 +763,18 @@
                 </dependency>
             </dependencies>
         </profile>
+
+        <profile>
+            <id>smoke-tests</id>
+            <activation>
+                <property>
+                    <name>smoke</name>
+                </property>
+            </activation>
+            <properties>
+                <testCategory.included.default>category.Smoke</testCategory.included.default>
+            </properties>
+        </profile>
     </profiles>
 
 </project>

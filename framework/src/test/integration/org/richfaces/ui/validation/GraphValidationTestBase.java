@@ -5,8 +5,11 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.WebElement;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Smoke;
 
 public class GraphValidationTestBase extends ValidationTestBase {
 
@@ -19,6 +22,7 @@ public class GraphValidationTestBase extends ValidationTestBase {
     }
 
     @Test
+    @Category(Smoke.class)
     public void testSubmitTooShortValue() throws Exception {
         submitValueAndCheckMessage("", containsString(GraphBean.SHORT_MSG));
         checkMessage("textMessage", containsString(GraphBean.SHORT_MSG));
