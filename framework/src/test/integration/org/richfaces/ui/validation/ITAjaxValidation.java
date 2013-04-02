@@ -9,10 +9,13 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.common.Bean;
+
+import category.Smoke;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -30,6 +33,7 @@ public class ITAjaxValidation extends ValidationTestBase {
     }
 
     @Test
+    @Category(Smoke.class)
     public void testSubmitTooShortValue() throws Exception {
         submitValueAndCheckMessage("", not(equalTo("")));
     }

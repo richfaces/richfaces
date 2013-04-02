@@ -14,3 +14,5 @@ rebel.xml
 # Selenium 
 log.txt
 chromedriver.log
+phantomjsdriver.log
+arquillian.xml

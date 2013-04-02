@@ -1,7 +1,7 @@
 package org.richfaces.ui.select;
 
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.junit.Assert.assertEquals;
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
 
 import java.net.URL;
 
@@ -64,7 +64,7 @@ public class ITSelectKeyboardSelection {
         waitAjax().until().element(tampaBayOption).attribute("class").contains("rf-sel-sel");
 
         keyboard.pressKey(Keys.ENTER);
-        assertEquals("Tampa Bay", selectInput.getAttribute("value"));
+        waitGui().until().element(selectInput).attribute("value").equalTo("Tampa Bay");
     }
 
     private static void addIndexPage(InputDeployment deployment) {

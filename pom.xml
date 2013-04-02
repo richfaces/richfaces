@@ -368,7 +368,7 @@
 
                 <!-- Arquillian Configuration -->
                 <arquillian.debug>false</arquillian.debug>
-                <arquillian.drone.browser>htmlUnit</arquillian.drone.browser>
+                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
                 <arquillian.richfaces.version></arquillian.richfaces.version>
                 <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
@@ -549,6 +549,18 @@
 
         <!-- Browsers -->
         <profile>
+            <id>browser-phantomjs</id>
+            <activation>
+                <property>
+                    <name>browser</name>
+                    <value>phantomjs</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
+            </properties>
+        </profile>
+        <profile>
             <id>browser-chrome</id>
             <activation>
                 <property>
@@ -574,6 +586,11 @@
         </profile>
         <profile>
             <id>browser-remote-reusable</id>
+            <activation>
+                <property>
+                    <name>reusable</name>
+                </property>
+            </activation>
             <properties>
                 <arquillian.drone.reusable>true</arquillian.drone.reusable>
             </properties>
@@ -745,6 +762,18 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+        </profile>
+
+        <profile>
+            <id>smoke-tests</id>
+            <activation>
+                <property>
+                    <name>smoke</name>
+                </property>
+            </activation>
+            <properties>
+                <testCategory.included.default>category.Smoke</testCategory.included.default>
+            </properties>
         </profile>
     </profiles>
 

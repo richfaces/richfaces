@@ -7,14 +7,18 @@ import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.webapp.PushServlet;
+
+import category.Smoke;
 
 import com.google.common.base.Function;
 
 @RunWith(Arquillian.class)
 @WarpTest
+@Category(Smoke.class)
 public class ITPushServletMapping extends AbstractPushTest {
 
     @Deployment

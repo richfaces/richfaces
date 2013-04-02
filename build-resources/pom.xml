@@ -3,37 +3,36 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>5.0.0-SNAPSHOT</version>
-    </parent>
-
+    <groupId>org.richfaces</groupId>
     <artifactId>richfaces-build-resources</artifactId>
+    <version>5.0.0-SNAPSHOT</version>
     <name>RichFaces Build Resources</name>
 
-    <build>
-        <plugins>
+    <properties>
+        <!-- Release repositories -->
+        <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
+        <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
 
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>package-configuration-tomcat6</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>assembly-configuration-tomcat.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+        <maven.min.version>3.0</maven.min.version>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+    </properties>
+
+    <prerequisites>
+        <maven>${maven.min.version}</maven>
+    </prerequisites>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-build</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -66,5 +65,70 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Build -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <id>package-configuration-tomcat6</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly-configuration-tomcat.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.3.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <scm>
+        <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
+        <url>https://github.com/richfaces/richfaces5</url>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>jboss-releases-repository</id>
+            <name>JBoss Releases Repository</name>
+            <url>${jboss.releases.repo.url}</url>
+        </repository>
+        <snapshotRepository>
+            <id>jboss-snapshots-repository</id>
+            <name>JBoss Snapshots Repository</name>
+            <url>${jboss.snapshots.repo.url}</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>

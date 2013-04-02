@@ -18,12 +18,15 @@ import org.jboss.arquillian.warp.impl.utils.URLUtils;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.MiscDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Smoke;
 
 @RunAsClient
 @WarpTest
@@ -79,6 +82,7 @@ public class ITFocusManager {
     }
 
     @Test
+    @Category(Smoke.class)
     public void test_FocusManager_on_initial_request() {
         Warp.initiate(openPage).inspect(new VerifyFocusEnforcing("input2"));
         assertEquals(input2, getFocusedElement());

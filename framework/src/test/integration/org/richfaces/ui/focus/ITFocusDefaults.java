@@ -18,15 +18,19 @@ import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.richfaces.integration.MiscDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.misc.AbstractFocus;
 
+import category.Smoke;
+
 @RunAsClient
 @WarpTest
 @RunWith(Arquillian.class)
+@Category(Smoke.class)
 public class ITFocusDefaults {
 
     @Drone

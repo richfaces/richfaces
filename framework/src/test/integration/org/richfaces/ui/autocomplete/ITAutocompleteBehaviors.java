@@ -23,6 +23,7 @@ import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -30,6 +31,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.InputDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Smoke;
 
 @RunAsClient
 @WarpTest
@@ -68,16 +71,18 @@ public class ITAutocompleteBehaviors {
     }
 
     /**
-     * onblur should have input value available via 'this.value' expression
+     * onblur should have input value available via 'this.value' expression (RF-12114)
      */
     @Test
-    // RF-12114
+    @Category(Smoke.class)
     public void testAjaxOnBlur() {
+
         // given
         browser.get(contextPath.toExternalForm());
+
         autocompleteInput.sendKeys("t");
         waitGui().withMessage("suggestion list is visible").until(element(suggestionList).isVisible());
-        autocompleteItem.click();
+        guardXhr(autocompleteItem).click();
 
         // when / then
         Warp.initiate(new Activity() {

@@ -56,6 +56,8 @@ public class FaceletAsset implements Asset {
         this.xmlns("f", "http://java.sun.com/jsf/core");
         this.xmlns("c", "http://java.sun.com/jsp/jstl/core");
         this.xmlns("r", "http://richfaces.org/rich");
+
+        this.head("<style>body {background: white;}</style>");
     }
 
     @Override

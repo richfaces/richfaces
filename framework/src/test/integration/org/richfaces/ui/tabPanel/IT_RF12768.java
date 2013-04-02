@@ -2,6 +2,7 @@ package org.richfaces.ui.tabPanel;
 
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class IT_RF12768 {
     }
 
     @Test
-    public void check_row_removal() throws InterruptedException {
+    public void check_row_removal() throws InterruptedException, IOException {
         browser.get(contextPath.toExternalForm());
         WebElement createButton = form.findElement(By.id("myForm:a4jCreateTabButton"));
         guardXhr(createButton).click();
