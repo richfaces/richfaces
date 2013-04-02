@@ -19,7 +19,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.IterationDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -49,7 +49,7 @@ public class ITBuiltInSort {
 
     @Deployment
     public static WebArchive createDeployment() {
-        IterationDeployment deployment = new IterationDeployment(ITBuiltInSort.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITBuiltInSort.class);
         deployment.archive().addClass(IterationBuiltInBean.class);
         addIndexPage(deployment);
 
@@ -99,10 +99,8 @@ public class ITBuiltInSort {
         Assert.assertEquals(4, cells.size());
     }
 
-    private static void addIndexPage(IterationDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-
-
 
         p.body("<script type='text/javascript'>");
         p.body("function sortEdt(currentSortOrder) { ");

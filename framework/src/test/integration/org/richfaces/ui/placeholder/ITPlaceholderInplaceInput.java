@@ -28,7 +28,7 @@ import org.jboss.arquillian.graphene.enricher.findby.FindBy;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
@@ -41,7 +41,7 @@ public class ITPlaceholderInplaceInput extends AbstractPlaceholderTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITPlaceholderInputText.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITPlaceholderInputText.class);
 
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
 

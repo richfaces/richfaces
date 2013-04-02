@@ -18,7 +18,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.integration.CoreUIDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -33,7 +33,7 @@ public class ITTestAjax {
 
     @Deployment
     public static WebArchive createDeployment() {
-        CoreUIDeployment deployment = new CoreUIDeployment(ITTestAjax.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITTestAjax.class);
         deployment.archive().addClass(AjaxBean.class);
         addIndexPage(deployment);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -52,7 +52,7 @@ public class ITTestAjax {
         Assert.assertEquals("4", cell.getAttribute("value"));
     }
 
-    private static void addIndexPage(CoreUIDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='myForm'> ");

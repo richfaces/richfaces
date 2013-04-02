@@ -23,7 +23,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.misc.FocusRendererBase;
@@ -56,7 +56,7 @@ public class ITFocusSubmissionMethods {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITFocusSubmissionMethods.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITFocusSubmissionMethods.class);
 
         deployment.archive().addClasses(ComponentBean.class);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -117,7 +117,7 @@ public class ITFocusSubmissionMethods {
         waitAjax().until(new ElementIsFocused(input2));
     }
 
-    private static void addIndexPage(MiscDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
 

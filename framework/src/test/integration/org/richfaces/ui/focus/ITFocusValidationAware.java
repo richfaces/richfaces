@@ -28,7 +28,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.misc.AbstractFocus;
 import org.richfaces.ui.misc.FocusRendererBase;
@@ -58,7 +58,7 @@ public class ITFocusValidationAware {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITFocusValidationAware.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITFocusValidationAware.class);
 
         deployment.archive().addClasses(ComponentBean.class)
                 .addClasses(VerifyFocusCandidates.class, AbstractComponentAssertion.class);
@@ -142,7 +142,7 @@ public class ITFocusValidationAware {
         return FocusRetriever.retrieveActiveElement();
     }
 
-    private static void addIndexPage(MiscDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
 

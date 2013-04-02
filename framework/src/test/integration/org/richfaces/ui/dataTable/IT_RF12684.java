@@ -17,7 +17,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.IterationDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.extendedDataTable.IterationBean;
 
@@ -36,7 +36,7 @@ public class IT_RF12684 {
 
     @Deployment
     public static WebArchive createDeployment() {
-        IterationDeployment deployment = new IterationDeployment(IT_RF12684.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(IT_RF12684.class);
         deployment.archive().addClass(IterationBean.class);
         addIndexPage(deployment);
 
@@ -53,7 +53,7 @@ public class IT_RF12684 {
         Assert.assertEquals(1, cells.size());
     }
 
-    private static void addIndexPage(IterationDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.form("<r:dataTable id='tableId' value='#{iterationBean.values}' var='bean' rows='3'> ");
         p.form("    <r:collapsibleSubTable id='collapsibleTableId' rows='3' /> ");

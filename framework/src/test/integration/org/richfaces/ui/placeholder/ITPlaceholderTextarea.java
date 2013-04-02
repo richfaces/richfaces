@@ -24,7 +24,7 @@ package org.richfaces.ui.placeholder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
@@ -37,7 +37,7 @@ public class ITPlaceholderTextarea extends AbstractPlaceholderTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITPlaceholderTextarea.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITPlaceholderTextarea.class);
 
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
 

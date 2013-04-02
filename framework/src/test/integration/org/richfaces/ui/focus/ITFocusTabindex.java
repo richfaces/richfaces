@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -36,7 +36,7 @@ public class ITFocusTabindex {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITFocusTabindex.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITFocusTabindex.class);
 
         addIndexPage(deployment);
         addNoTabindexPage(deployment);
@@ -61,7 +61,7 @@ public class ITFocusTabindex {
         return FocusRetriever.retrieveActiveElement();
     }
 
-    private static void addIndexPage(MiscDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
 
@@ -76,7 +76,7 @@ public class ITFocusTabindex {
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
-    private static void addNoTabindexPage(MiscDeployment deployment) {
+    private static void addNoTabindexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
 

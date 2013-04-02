@@ -17,6 +17,7 @@ import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.external.ExternalResourceTracker;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
+import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.ui.ajax.AjaxDataSerializer;
 import org.richfaces.wait.Condition;
@@ -31,6 +32,9 @@ public class FrameworkDeployment extends Deployment {
         withWholeFramework();
         withArquillianExtensions();
         withWaiting();
+
+        // prevents scanning of inner classes
+        archive().addAsWebInfResource(new File("src/test/resources/beans.xml"));
     }
 
     public void withWholeFramework() {
@@ -54,4 +58,11 @@ public class FrameworkDeployment extends Deployment {
         archive().addClasses(Condition.class, Wait.class, WaitTimeoutException.class);
     }
 
+    public FaceletAsset baseFacelet(String name) {
+        FaceletAsset p = new FaceletAsset();
+
+        this.archive().add(p, name);
+
+        return p;
+    }
 }

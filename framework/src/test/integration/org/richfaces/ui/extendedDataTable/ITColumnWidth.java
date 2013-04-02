@@ -15,7 +15,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.IterationDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -36,7 +36,7 @@ public class ITColumnWidth {
 
     @Deployment
     public static WebArchive createDeployment() {
-        IterationDeployment deployment = new IterationDeployment(ITColumnWidth.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITColumnWidth.class);
         deployment.archive().addClass(IterationBean.class);
         addIndexPage(deployment);
 
@@ -49,7 +49,7 @@ public class ITColumnWidth {
         Assert.assertEquals("200px", firstRow.findElement(By.cssSelector("td .rf-edt-c-column1")).getCssValue("width"));
     }
 
-    private static void addIndexPage(IterationDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
 
