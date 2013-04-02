@@ -19,13 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.integration;
+package org.richfaces.deployment;
 
-import static org.richfaces.integration.CoreFeature.CONFIGURATION_SERVICE;
-import static org.richfaces.integration.CoreFeature.DEPENDENCY_INJECTOR;
-import static org.richfaces.integration.CoreFeature.RESOURCE_CODEC;
-import static org.richfaces.integration.CoreFeature.RESOURCE_HANDLER;
-import static org.richfaces.integration.CoreFeature.SERVICE_LOADER;
+import static org.richfaces.deployment.CoreFeature.CONFIGURATION_SERVICE;
+import static org.richfaces.deployment.CoreFeature.DEPENDENCY_INJECTOR;
+import static org.richfaces.deployment.CoreFeature.RESOURCE_CODEC;
+import static org.richfaces.deployment.CoreFeature.RESOURCE_HANDLER;
+import static org.richfaces.deployment.CoreFeature.SERVICE_LOADER;
 
 import java.lang.reflect.Method;
 import java.util.EnumSet;
@@ -99,7 +99,6 @@ import org.richfaces.application.push.impl.TopicImpl;
 import org.richfaces.application.push.impl.TopicsContextImpl;
 import org.richfaces.application.push.impl.jms.JMSTopicsContextImpl;
 import org.richfaces.cache.Cache;
-import org.richfaces.deployment.Deployment;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.l10n.BundleLoader;

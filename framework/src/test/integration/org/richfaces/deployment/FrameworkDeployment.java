@@ -10,8 +10,6 @@ import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.cache.Cache;
 import org.richfaces.el.GenericsIntrospectionService;
-import org.richfaces.integration.CoreServicesEnricher;
-import org.richfaces.integration.CoreTestingRemoteExtension;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
