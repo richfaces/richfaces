@@ -79,6 +79,7 @@
         <property name="remoteAddress">http://localhost:4444/wd/hub/</property>
 
         <property name="chromeDriverBinary">/opt/google/chrome/chromedriver</property>
+        <property name="phantomjs.binary.path">target/phantomjs</property>
 
     </extension>
 
