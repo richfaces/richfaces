@@ -110,8 +110,9 @@
                         <phase>package</phase>
                         <configuration>
                             <classifier>sources</classifier>
-                            <includeArtifactIds>richfaces-framework</includeArtifactIds>
+                            <includeArtifactIds>richfaces</includeArtifactIds>
                             <includeGroupIds>org.richfaces</includeGroupIds>
+                            <actTransitively>false</actTransitively>
                         </configuration>
                     </execution>
                     <execution>

@@ -46,8 +46,13 @@
             <directory>target/dependency</directory>
             <outputDirectory>artifacts/framework</outputDirectory>
             <includes>
-                <include>richfaces-framework*.jar</include>
+                <include>richfaces-*.jar</include>
             </includes>
+            <excludes>
+                <exclude>richfaces-framework*</exclude>
+                <exclude>richfaces-optimized-resources*/</exclude>
+                <exclude>richfaces-archetype*</exclude>
+            </excludes>
         </fileSet>
 
         <!-- lib -->
