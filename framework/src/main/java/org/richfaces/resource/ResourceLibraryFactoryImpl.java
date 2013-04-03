@@ -22,6 +22,9 @@
 package org.richfaces.resource;
 
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
+import javax.faces.FacesException;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -30,8 +33,10 @@ import org.richfaces.util.PropertiesUtil;
 
 import com.google.common.base.Function;
 import com.google.common.base.Splitter;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.MapMaker;
 
 /**
  * @author Nick Belaevski
@@ -41,8 +46,7 @@ public class ResourceLibraryFactoryImpl implements ResourceLibraryFactory {
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
     private static final FastJoiner SLASH_JOINER = FastJoiner.on('/');
     private static final Splitter COMA_SPLITTER = Splitter.on(',').omitEmptyStrings().trimResults();
-    private Map<ResourceKey, ResourceLibrary> instances = new MapMaker()
-        .makeComputingMap(new Function<ResourceKey, ResourceLibrary>() {
+    private LoadingCache<ResourceKey, ResourceLibrary> instances = CacheBuilder.newBuilder().build(CacheLoader.from(new Function<ResourceKey, ResourceLibrary>() {
             public ResourceLibrary apply(ResourceKey from) {
                 String propsResourceName = from.getResourceName() + ".library.properties";
 
@@ -73,9 +77,14 @@ public class ResourceLibraryFactoryImpl implements ResourceLibraryFactory {
 
                 return null;
             }
-        });
+        }));
 
     public ResourceLibrary getResourceLibrary(String name, String library) {
-        return instances.get(new ResourceKey(name, library));
+        ResourceKey resourceKey = new ResourceKey(name, library);
+        try {
+            return instances.get(resourceKey);
+        } catch (ExecutionException e) {
+            throw new FacesException(String.format("Can't resolve resource library %s", resourceKey), e);
+        }
     }
 }

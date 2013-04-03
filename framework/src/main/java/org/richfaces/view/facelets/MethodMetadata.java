@@ -31,6 +31,7 @@ import javax.faces.view.facelets.TagAttribute;
  * @since Feb 24, 2010
  */
 // TODO nick - handle return type
+@SuppressWarnings("deprecation")
 public abstract class MethodMetadata extends Metadata {
     protected final Class<?>[] signature;
     protected final TagAttribute attribute;

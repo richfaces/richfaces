@@ -162,4 +162,9 @@ public class TopicKey implements Serializable {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "TopicKey[" + TO_ADDRESS.apply(this) + "]";
+    }
 }
