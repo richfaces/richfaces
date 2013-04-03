@@ -210,7 +210,7 @@
             </plugin>
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-cdk-plugin</artifactId>
+                <artifactId>richfaces-cdk-maven-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>cdk-generate-sources</id>

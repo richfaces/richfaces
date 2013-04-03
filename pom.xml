@@ -281,7 +281,7 @@
                 </plugin>
                 <plugin>
                     <groupId>org.richfaces.cdk</groupId>
-                    <artifactId>maven-cdk-plugin</artifactId>
+                    <artifactId>richfaces-cdk-maven-plugin</artifactId>
                     <version>${version.cdk}</version>
                 </plugin>
 
@@ -296,7 +296,7 @@
                                 <pluginExecution>
                                     <pluginExecutionFilter>
                                         <groupId>org.richfaces.cdk</groupId>
-                                        <artifactId>maven-cdk-plugin</artifactId>
+                                        <artifactId>richfaces-cdk-maven-plugin</artifactId>
                                         <versionRange>[4.3.0.Final,)</versionRange>
                                         <goals>
                                             <goal>generate</goal>
