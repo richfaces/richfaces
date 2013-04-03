@@ -3,22 +3,25 @@
  */
 package org.richfaces.javascript;
 
-import com.google.common.base.Function;
-import com.google.common.collect.ComputationException;
-import com.google.common.collect.Lists;
-import com.google.common.collect.MapMaker;
-import org.richfaces.resource.ResourceKey;
-import org.richfaces.ui.util.Strings;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import javax.faces.FacesException;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceDependency;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentMap;
+
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.ui.util.Strings;
+
+import com.google.common.base.Function;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+import com.google.common.collect.Lists;
 
 /**
  * @author asmirnov
@@ -36,24 +39,24 @@ public class ClientScriptServiceImpl implements ClientScriptService {
             return null;
         }
     };
-    private static final Function<Class<?>, ? extends LibraryFunction> RESOURCE_SCRIPT_FUNCTION = new Function<Class<?>, LibraryFunction>() {
+    private static final Function<Class<?>, LibraryFunction> RESOURCE_SCRIPT_FUNCTION = new Function<Class<?>, LibraryFunction>() {
         public LibraryFunction apply(Class<?> arg0) {
             return getScriptResource(FacesContext.getCurrentInstance(), arg0);
         }
     };
-    private static final Function<Class<?>, ? extends LibraryFunction> ANNOTATION_SCRIPT_FUNCTION = new Function<Class<?>, LibraryFunction>() {
+    private static final Function<Class<?>, LibraryFunction> ANNOTATION_SCRIPT_FUNCTION = new Function<Class<?>, LibraryFunction>() {
         public LibraryFunction apply(Class<?> arg0) {
             return getScriptFromAnnotation(arg0);
         }
     };
-    private final ConcurrentMap<Class<?>, LibraryFunction> resourcesMapping;
-    private final ConcurrentMap<Class<?>, LibraryFunction> annotationsMapping;
+    private final LoadingCache<Class<?>, LibraryFunction> resourcesMapping;
+    private final LoadingCache<Class<?>, LibraryFunction> annotationsMapping;
     private final Map<Class<?>, LibraryFunction> defaultMapping;
 
     public ClientScriptServiceImpl(Map<Class<?>, LibraryFunction> defaultMapping) {
         this.defaultMapping = defaultMapping;
-        resourcesMapping = new MapMaker().initialCapacity(10).makeComputingMap(RESOURCE_SCRIPT_FUNCTION);
-        annotationsMapping = new MapMaker().initialCapacity(10).makeComputingMap(ANNOTATION_SCRIPT_FUNCTION);
+        resourcesMapping = CacheBuilder.newBuilder().initialCapacity(10).build(CacheLoader.from(RESOURCE_SCRIPT_FUNCTION));
+        annotationsMapping = CacheBuilder.newBuilder().initialCapacity(10).build(CacheLoader.from(ANNOTATION_SCRIPT_FUNCTION));
     }
 
     /*
@@ -70,7 +73,7 @@ public class ClientScriptServiceImpl implements ClientScriptService {
             if (defaultMapping.containsKey(javaClass)) {
                 function = defaultMapping.get(javaClass);
             } else {
-                function = getFromComputationMap(annotationsMapping, javaClass);
+                function = getFromLoadingCache(annotationsMapping, javaClass);
             }
         }
         if (NO_SCRIPT == function) {
@@ -79,10 +82,10 @@ public class ClientScriptServiceImpl implements ClientScriptService {
         return function;
     }
 
-    private LibraryFunction getFromComputationMap(ConcurrentMap<Class<?>, LibraryFunction> map, Class<?> clazz) {
+    private LibraryFunction getFromLoadingCache(LoadingCache<Class<?>, LibraryFunction> cache, Class<?> clazz) {
         try {
-            return map.get(clazz);
-        } catch (ComputationException e) {
+            return cache.get(clazz);
+        } catch (ExecutionException e) {
             Throwable cause = e.getCause();
             throw new FacesException(cause);
         }

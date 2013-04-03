@@ -20,6 +20,18 @@
  */
 package org.richfaces.ui.ajax;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
+
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSFunctionDefinition;
@@ -29,17 +41,6 @@ import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.util.renderkit.HandlersChain;
 import org.richfaces.ui.util.renderkit.RendererUtils;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionEvent;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author shura
@@ -79,7 +80,7 @@ public class AjaxPollRenderer extends RendererBase {
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         RendererUtils utils = getUtils();
-        boolean shouldRenderForm = utils.getNestingForm(context, component) == null;
+        boolean shouldRenderForm = utils.getNestingForm(component) == null;
         String rootElementName = shouldRenderForm ? HtmlConstants.DIV_ELEM : HtmlConstants.SPAN_ELEM;
 
         AbstractPoll poll = (AbstractPoll) component;

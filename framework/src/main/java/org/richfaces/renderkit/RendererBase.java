@@ -20,6 +20,13 @@
  */
 package org.richfaces.renderkit;
 
+import java.io.IOException;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
+
 import org.richfaces.Messages;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -27,12 +34,6 @@ import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.ui.util.HtmlUtil;
 import org.richfaces.ui.util.renderkit.RendererUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.Renderer;
-import java.io.IOException;
 
 /**
  * Base Renderer for all chameleon Skin's and components. At most, make all common procedures and realise concrete work in
@@ -191,7 +192,7 @@ public abstract class RendererBase extends Renderer {
      */
     protected Skin getSkin(FacesContext context) {
         if (skinFactory == null) {
-            skinFactory = SkinFactory.getInstance();
+            skinFactory = SkinFactory.getInstance(context);
         }
 
         return skinFactory.getSkin(context);

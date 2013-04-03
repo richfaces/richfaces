@@ -32,7 +32,7 @@ import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pu
 import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionUsername;
 import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSTopicsNamespace;
 
-import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadFactory;
 
 import javax.faces.FacesException;
@@ -51,17 +51,19 @@ import javax.naming.Name;
 import javax.naming.NameParser;
 import javax.naming.NamingException;
 
-import org.richfaces.javascript.JSLiteral;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.impl.TopicsContextImpl;
+import org.richfaces.javascript.JSLiteral;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
-import com.google.common.collect.MapMaker;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
 /**
  * @author Nick Belaevski
@@ -191,8 +193,9 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
     private final Name topicsNamespace;
     private final String username;
     private final String password;
-    private final ConcurrentMap<String, JMSTopicContext> contextsMap = new MapMaker()
-            .makeComputingMap(new Function<String, JMSTopicContext>() {
+
+    private final LoadingCache<String, JMSTopicContext> contextsCache = CacheBuilder.newBuilder().build(
+            CacheLoader.from(new Function<String, JMSTopicContext>() {
                 public JMSTopicContext apply(String name) {
                     JMSTopicContext topicContext = new JMSTopicContext(name);
                     try {
@@ -208,7 +211,7 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
                     }
                     return topicContext;
                 }
-            });
+            }));
 
     public JMSTopicsContextImpl(ThreadFactory threadFactory, InitialContext initialContext, Name connectionFactoryName,
             Name topicsNamespace, String username, String password) {
@@ -278,13 +281,17 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
     @Override
     protected org.richfaces.application.push.Topic createTopic(TopicKey key) {
         org.richfaces.application.push.Topic topic = super.createTopic(key);
-        contextsMap.get(key.getTopicName());
+        try {
+            contextsCache.get(key.getTopicName());
+        } catch (ExecutionException e) {
+            throw new FacesException(String.format("Can't create a JMS topic %s", key), e);
+        }
         return topic;
     }
 
     @Override
     public void destroy() {
-        for (JMSTopicContext topicContext : contextsMap.values()) {
+        for (JMSTopicContext topicContext : contextsCache.asMap().values()) {
             try {
                 topicContext.stop();
             } catch (Exception e) {
