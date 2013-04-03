@@ -39,6 +39,7 @@
         <module>framework</module>
         <module>resources-plugin</module>
         <module>optimized-resources</module>
+        <module>assembly</module>
 
         <module>examples/photoalbum</module>
         <module>examples/showcase</module>
