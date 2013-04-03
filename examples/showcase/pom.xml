@@ -75,7 +75,8 @@
     <dependencies>
         <dependency>
             <groupId>org.richfaces</groupId>
-            <artifactId>richfaces-framework</artifactId>
+            <artifactId>richfaces</artifactId>
+            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>

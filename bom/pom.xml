@@ -75,6 +75,17 @@
             <!-- RichFaces -->
             <dependency>
                 <groupId>org.richfaces</groupId>
+                <artifactId>richfaces</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces</artifactId>
+                <type>pom</type>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-framework</artifactId>
                 <version>${project.version}</version>
             </dependency>

@@ -9,19 +9,20 @@
     </parent>
 
     <artifactId>richfaces</artifactId>
-    <name>RichFaces</name>
+    <name>RichFaces Assembly</name>
     <description>Assembled RichFaces Framework including Optimized Resources</description>
+    <packaging>pom</packaging>
 
     <dependencies>
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces-framework</artifactId>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces-optimized-resources</artifactId>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

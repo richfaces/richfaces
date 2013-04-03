@@ -40,7 +40,7 @@
     <dependencies>
         <dependency>
             <groupId>org.richfaces</groupId>
-            <artifactId>richfaces-framework</artifactId>
+            <artifactId>richfaces</artifactId>
         </dependency>
 
         <!-- Runtime Dependencies -->
