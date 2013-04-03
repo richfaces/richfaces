@@ -1,0 +1,4 @@
+.style {
+    background: "-moz-linear-gradient(center top, #CCCCCC, #CCCCCC 2%, #8E8E8E)" repeat scroll 0 0 transparent;
+    background: "-webkit-gradient(linear, left top, left bottom,	from(#CCCCCC), to(#8E8E8E))";
+}

@@ -1,0 +1,99 @@
+  ------
+  Usage
+  ------
+  Lukas Fryc
+  ------
+  2011-12-06
+  ------
+
+Usage
+
+* The <<<richfaces-resources:process>>> goal
+
+  The <<<richfaces-resources:process>>>  goal requires three required parameters:
+  
+  * <<<resourceOutputDir>>> points to the directory for processed files
+  
+  * <<<skins>>> is the list of RichFaces skins which you want to be generated
+  
+  * <<<staticResourceMappingFile>>> is the output file for resource mapping configuration file
+  
+  []
+  
+  
++---+
+mvn clean richfaces-resources:process -Dskins=blueSky -DstaticResourceMappingFile=target/configuration.txt -DresourcesOutputDir=target/processed-resources/
++---+
+
+* Usage in web project
+
+   In most cases, you would need to configure build to generate files automatically.
+
+   Following configuration will take all <<<@ResourceDependencies>>> defined across project and its dependencies and pre-generate them
+   to the given directory and generate configuration for RichFaces resource mapping.
+   
+---
+<plugin>
+    <groupId>org.richfaces.cdk</groupId>
+    <artifactId>maven-richfaces-resources-plugin</artifactId>
+    <version>5.0.0-SNAPSHOT</version>
+    <configuration>
+        <skins>
+            <skin>blueSky</skin>
+        </skins>
+        <excludedFiles>
+            <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+            <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+        </excludedFiles>
+        <includedContentTypes>
+            <include>application/javascript</include>
+            <include>text/css</include>
+            <include>image/.+</include>
+        </includedContentTypes>
+        <fileNameMappings>
+            <property>
+                <name>^.*showcase.*/([^/]+\.css)$</name>
+                <value>org.richfaces.showcase.css/$1</value>
+            </property>
+            <property>
+                <name>^.+/([^/]+\.(png|gif|jpg))$</name>
+                <value>org.richfaces.images/$1</value>
+            </property>
+            <property>
+                <name>^.+/([^/]+\.css)$</name>
+                <value>org.richfaces.css/$1</value>
+            </property>
+        </fileNameMappings>
+    </configuration>
+    <executions>
+        <execution>
+            <id>process-resources</id>
+            <goals>
+                <goal>process</goal>
+            </goals>
+            <configuration>
+            
+            	<!-- default RichFaces mapping file, can be anywhere on the classpath, but then you will
+            	     will need to configure Resource Mapping configuration file location in web.xml,
+            	     refer to RichFaces Developer Guide -->
+                <staticResourceMappingFile>${project.build.outputDirectory}/META-INF/richfaces/static-resource-mappings.properties</staticResourceMappingFile>
+                
+                <!-- resources will be placed in JAR/META-INF/resources/com.acme.staticResources/
+                     or WAR/WEB-INF/classes/META-INF/resources/com.acme.staticResources/
+                     depending on packaging of this project -->
+                <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/com.acme.staticResources/</resourcesOutputDir>
+                
+                <!-- resources will be located under JSF_RESOURCE_ROOT/com.acme.staticResources (e.g. JAR/META-INF/com.acme.staticResources) -->
+                <staticResourcePrefix>com.acme.staticResources/</staticResourcePrefix>
+            	
+            	<!-- resources will be packaged, refer to RichFaces Developer Guide -->
+            	<pack>true</pack>
+            	
+            	<!-- resources will be compressed, refer to RichFaces Developer Guide -->
+            	<compress>true</compress>
+            	
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+---
