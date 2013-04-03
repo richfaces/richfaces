@@ -22,7 +22,7 @@
             <plugin>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-resources-maven-plugin</artifactId>
-                <version>5.0.0-SNAPSHOT</version>
+                <version>${version.richfaces}</version>
                 <configuration>
                     <skins>
                         <skin>blueSky</skin>
@@ -173,5 +173,12 @@
             </plugin>
         </plugins>
     </build>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-framework</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

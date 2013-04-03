@@ -176,8 +176,9 @@
             </plugin>
 
             <plugin>
-                <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-richfaces-resources-plugin</artifactId>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-resources-maven-plugin</artifactId>
+                <version>${version.richfaces}</version>
                 <configuration>
                     <skins>
                         <skin>photoalbum</skin>

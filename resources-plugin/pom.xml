@@ -10,7 +10,7 @@
 
     <artifactId>richfaces-resources-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <name>RichFaces CDK: Resources Maven Plugin</name>
+    <name>RichFaces Resources Maven Plugin</name>
     <description>Maven plugin for packaging resources with web application</description>
 
     <properties>

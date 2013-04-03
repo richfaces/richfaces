@@ -54,8 +54,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.richfaces.application.Module;
-import org.richfaces.application.ServiceException;
-import org.richfaces.application.ServiceLoader;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.ServicesFactoryImpl;
 import org.richfaces.cdk.concurrent.CountingExecutorCompletionService;
@@ -98,7 +96,7 @@ import com.google.common.io.Closeables;
 /**
  * Scans for resource dependencies (ResourceDependency annotations) on the class-path and collect them
  * in order to pre-generate resources them and optionally pack or compress them.
- * 
+ *
  * @goal process
  * @requiresDependencyResolution compile
  * @phase process-classes
@@ -136,30 +134,30 @@ public class ProcessMojo extends AbstractMojo {
         }
     };
     /**
-     * Output directory for processed resources 
-     * 
+     * Output directory for processed resources
+     *
      * @parameter expression="${resourcesOutputDir}"
      * @required
      */
     private String resourcesOutputDir;
-    
+
     /**
      * Configures what prefix should be placed to each file before the library and name of the resource
      * @parameter expression="${staticResourcePrefix}" default-value=""
      */
     private String staticResourcePrefix;
-    
+
     /**
      * Output file for resource mapping configuration
-     * 
+     *
      * @parameter expression="${staticResourceMappingFile}"
      * @required
      */
     private String staticResourceMappingFile;
-    
+
     /**
      * The list of RichFaces skins to be processed
-     * 
+     *
      * @parameter expression="${skins}"
      * @required
      */
@@ -172,7 +170,7 @@ public class ProcessMojo extends AbstractMojo {
     private MavenProject project;
     /**
      * The list of mime-types to be included in processing
-     * 
+     *
      * @parameter
      */
     private List<String> includedContentTypes;
@@ -183,7 +181,7 @@ public class ProcessMojo extends AbstractMojo {
     private List<String> excludedContentTypes;
     /**
      * List of included files.
-     * 
+     *
      * @parameter
      */
     private List<String> includedFiles;
@@ -235,7 +233,7 @@ public class ProcessMojo extends AbstractMojo {
     }
 
     private Collection<ResourceProcessor> getDefaultResourceProcessors() {
-        
+
         Charset charset = Charset.defaultCharset();
         if (!Strings.isNullOrEmpty(encoding)) {
             charset = Charset.forName(encoding);
@@ -249,7 +247,7 @@ public class ProcessMojo extends AbstractMojo {
         } else {
             return Arrays.<ResourceProcessor>asList(new JavaScriptPackagingProcessor(charset));
         }
-        
+
     }
 
     private Predicate<Resource> createResourcesFilter() {
@@ -356,12 +354,12 @@ public class ProcessMojo extends AbstractMojo {
 
         ArrayList<Module> modules = new ArrayList<Module>();
         modules.add(new ServiceFactoryModule());
-        try {
-            modules.addAll(ServiceLoader.loadServices(Module.class));
-            servicesFactory.init(modules);
-        } catch (ServiceException e) {
-            throw new IllegalStateException(e);
-        }
+//        try {
+//            modules.addAll(ServiceLoader.loadServices(Module.class));
+//        } catch (ServiceException e) {
+//            throw new IllegalStateException(e);
+//        }
+        servicesFactory.init(modules);
     }
 
     /**
@@ -376,11 +374,11 @@ public class ProcessMojo extends AbstractMojo {
 
         // if there are some resource libraries (.reslib), we need to expand them
         foundResources = new ResourceLibraryExpander().expandResourceLibraries(foundResources);
-        
+
         faces.startRequest();
         scanResourceOrdering(cpResources);
         faces.stopRequest();
-        
+
         faces.stop();
 
         foundResources = resourceOrdering.sortedCopy(foundResources);
@@ -389,7 +387,7 @@ public class ProcessMojo extends AbstractMojo {
         foundResources.remove(ResourceConstants.JSF_UNCOMPRESSED);
         // we need to load java.faces:jsf-uncompressed.js, but we will package
         resourcesWithKnownOrder.add(ResourceConstants.JSF_UNCOMPRESSED);
-        
+
         getLog().debug("resourcesWithKnownOrder: " + resourcesWithKnownOrder);
     }
 
@@ -421,7 +419,7 @@ public class ProcessMojo extends AbstractMojo {
             DynamicResourceHandler dynamicResourceHandler = new DynamicResourceHandler(staticResourceHandler, resourceFactory);
 
             getLog().debug("foundResources: " + foundResources);
-            
+
             if (pack) {
                 reorderFoundResources(cpResources, dynamicResourceHandler, resourceFactory);
             }
@@ -440,7 +438,7 @@ public class ProcessMojo extends AbstractMojo {
             taskFactory.setLog(getLog());
             taskFactory.setFilter(createResourcesFilter());
             taskFactory.submit(foundResources);
-            
+
             getLog().debug(completionService.toString());
 
             Future<Object> future = null;
@@ -456,7 +454,7 @@ public class ProcessMojo extends AbstractMojo {
                     break;
                 }
             }
-            
+
             getLog().debug(completionService.toString());
 
             resourceWriter.writeProcessedResourceMappings(new File(staticResourceMappingFile), staticResourcePrefix);
