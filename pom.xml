@@ -38,6 +38,7 @@
         <module>build-resources</module>
         <module>framework</module>
         <module>resources-plugin</module>
+        <module>optimized-resources</module>
 
         <module>examples/photoalbum</module>
         <module>examples/showcase</module>
