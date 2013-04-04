@@ -19,11 +19,13 @@
                 <richx:commandButton styleClass="fb-comm-button" execute="@none"
                     oncomplete="FBlogin(fetchUserInfo, fetchFBShelves); return false;" value="Facebook Login" />
 
-                <r:jsFunction name="fetchUserInfo">
+                <r:progressBar mode="client" value="0" id="fbProgress" styleClass="fb-pb"/>
+
+                <r:jsFunction name="fetchUserInfo" oncomplete="#{r:component('fbProgress')}.setValue(50)">
                     <r:param assignTo="#{facebookBean.userInfo}" converter="#{fbJsonConverter}" name="response" />
                 </r:jsFunction>
 
-                <r:jsFunction name="fetchFBShelves" oncomplete="authenticate()" actionListener="#{authenticator.authenticateWithFacebook}">
+                <r:jsFunction name="fetchFBShelves" oncomplete="#{r:component('fbProgress')}.setValue(100); authenticate();" actionListener="#{authenticator.authenticateWithFacebook}">
                     <r:param assignTo="#{facebookShelfBean.albums}" name="albums" />
                 </r:jsFunction>
                 

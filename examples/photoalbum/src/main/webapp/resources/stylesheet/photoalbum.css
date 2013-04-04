@@ -1445,3 +1445,7 @@ input[type='submit'].fb-button {
 	background-image: url('/richfaces-photoalbum/img/shell/buttonfb.png');
 	font-weight: bold;
 }
+
+.fb-pb > .rf-pb-rmng {
+	max-width: 100px;
+}
