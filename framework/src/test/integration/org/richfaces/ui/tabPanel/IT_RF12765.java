@@ -22,7 +22,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.OutputDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import com.google.common.base.Function;
@@ -45,7 +45,7 @@ public class IT_RF12765 {
 
     @Deployment
     public static WebArchive createDeployment() {
-        OutputDeployment deployment = new OutputDeployment(IT_RF12765.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(IT_RF12765.class);
         deployment.archive().addClass(TabBean.class);
         deployment.archive().addClass(TabPanelBean.class);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -83,7 +83,7 @@ public class IT_RF12765 {
         Assert.assertTrue(tabPanel.getText().contains("tab6"));
     }
 
-    private static void addIndexPage(OutputDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='myForm'>");

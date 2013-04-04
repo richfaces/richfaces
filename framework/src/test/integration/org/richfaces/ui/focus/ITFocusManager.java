@@ -18,12 +18,15 @@ import org.jboss.arquillian.warp.impl.utils.URLUtils;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Smoke;
 
 @RunAsClient
 @WarpTest
@@ -65,7 +68,7 @@ public class ITFocusManager {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITFocusManager.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITFocusManager.class);
 
         deployment.archive().addClasses(ComponentBean.class, AbstractComponentAssertion.class)
                 .addClasses(VerifyFocusEnforcing.class, VerifyFocusEnforcingOverridesFocusSettings.class);
@@ -79,6 +82,7 @@ public class ITFocusManager {
     }
 
     @Test
+    @Category(Smoke.class)
     public void test_FocusManager_on_initial_request() {
         Warp.initiate(openPage).inspect(new VerifyFocusEnforcing("input2"));
         assertEquals(input2, getFocusedElement());
@@ -140,7 +144,7 @@ public class ITFocusManager {
         return FocusRetriever.retrieveActiveElement();
     }
 
-    private static void addIndexPage(MiscDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
 
@@ -159,7 +163,7 @@ public class ITFocusManager {
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
-    private static void addFormFocusIndexPage(MiscDeployment deployment) {
+    private static void addFormFocusIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
 
@@ -179,7 +183,7 @@ public class ITFocusManager {
         deployment.archive().addAsWebResource(p, "form.xhtml");
     }
 
-    private static void addViewFocusPage(MiscDeployment deployment) {
+    private static void addViewFocusPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
 

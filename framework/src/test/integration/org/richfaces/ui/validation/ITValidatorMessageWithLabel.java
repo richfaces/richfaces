@@ -43,7 +43,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import com.google.common.base.Function;
@@ -60,7 +60,7 @@ public class ITValidatorMessageWithLabel {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITValidatorMessageWithLabel.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITValidatorMessageWithLabel.class);
         deployment.archive().addClass(ValidatorBean.class);
 
         final String messageBundle = ITValidatorMessageWithLabel.class.getPackage().getName() + ".MessagesWithLabels";
@@ -131,7 +131,7 @@ public class ITValidatorMessageWithLabel {
         Assert.assertEquals("Validation message", "Input 2: max 4 characters", message.getText());
     }
 
-    private static void addIndexPage(MiscDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='myForm'>");

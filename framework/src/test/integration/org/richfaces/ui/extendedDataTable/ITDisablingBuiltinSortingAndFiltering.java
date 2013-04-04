@@ -18,7 +18,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.integration.IterationDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import com.google.common.base.Function;
@@ -35,7 +35,7 @@ public class ITDisablingBuiltinSortingAndFiltering {
 
     @Deployment
     public static WebArchive createDeployment() {
-        IterationDeployment deployment = new IterationDeployment(ITDisablingBuiltinSortingAndFiltering.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITDisablingBuiltinSortingAndFiltering.class);
         deployment.archive().addClass(IterationBuiltInBean.class);
         addIndexPage(deployment);
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
@@ -72,7 +72,7 @@ public class ITDisablingBuiltinSortingAndFiltering {
         Assert.assertEquals(0, filterInputs.size());
     }
 
-    private static void addIndexPage(IterationDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
 

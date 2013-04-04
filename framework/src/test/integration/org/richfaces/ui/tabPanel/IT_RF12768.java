@@ -2,6 +2,7 @@ package org.richfaces.ui.tabPanel;
 
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.OutputDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import com.google.common.base.Function;
@@ -45,7 +46,7 @@ public class IT_RF12768 {
 
     @Deployment
     public static WebArchive createDeployment() {
-        OutputDeployment deployment = new OutputDeployment(IT_RF12768.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(IT_RF12768.class);
         deployment.archive().addClass(TabBean.class);
         deployment.archive().addClass(TabPanelBean.class);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -67,7 +68,7 @@ public class IT_RF12768 {
     }
 
     @Test
-    public void check_row_removal() throws InterruptedException {
+    public void check_row_removal() throws InterruptedException, IOException {
         browser.get(contextPath.toExternalForm());
         WebElement createButton = form.findElement(By.id("myForm:a4jCreateTabButton"));
         guardXhr(createButton).click();
@@ -87,7 +88,7 @@ public class IT_RF12768 {
         Assert.assertEquals(24, tabLabels.size()); // 8 tabs, 3 rf-tab-lbl elements per tab
     }
 
-    private static void addIndexPage(OutputDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='myForm'>");

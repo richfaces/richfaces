@@ -3,7 +3,6 @@ package org.richfaces.ui.focus;
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
 
@@ -19,7 +18,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -50,7 +49,7 @@ public class ITFocusPreserve {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITFocusPreserve.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITFocusPreserve.class);
 
         addIndexPage(deployment);
 
@@ -67,7 +66,7 @@ public class ITFocusPreserve {
         guardHttp(submit).click();
 
         // then
-        assertEquals(input2, getFocusedElement());
+        assertFocused(input2);
     }
 
     @Test
@@ -84,7 +83,8 @@ public class ITFocusPreserve {
     }
 
     @Test
-    public void when_focus_is_rerendered_from_another_form_then_it_is_rendered_and_working_but_not_applied() throws InterruptedException {
+    public void when_focus_is_rerendered_from_another_form_then_it_is_rendered_and_working_but_not_applied()
+            throws InterruptedException {
         // having
         browser.get(contextPath.toExternalForm());
 
@@ -99,13 +99,40 @@ public class ITFocusPreserve {
         waitAjax().until(new ElementIsFocused(input2));
     }
 
+    /**
+     * Asserts that given element is focused
+     */
+    private void assertFocused(WebElement element) {
+        WebElement focusedElement = getFocusedElement();
+        if (element == null && focusedElement != null) {
+            throw new AssertionError(String.format("No element supposed to be focused, but element '%s' is focused instead",
+                    getElementDescription(focusedElement)));
+        }
+        if (!element.equals(focusedElement)) {
+            throw new AssertionError(String.format("Element '%s' should be focused, but element '%s' is focused instead",
+                    getElementDescription(element), getElementDescription(focusedElement)));
+        }
+    }
+
+    private String getElementDescription(WebElement element) {
+        if (element == null) {
+            return "null";
+        }
+
+        String idAttribute = element.getAttribute("id");
+        if (idAttribute != null && !"".equals(idAttribute)) {
+            return idAttribute;
+        }
+
+        return element.toString();
+    }
+
     private WebElement getFocusedElement() {
         return FocusRetriever.retrieveActiveElement();
     }
 
-    private static void addIndexPage(MiscDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-
 
 
         p.body("<h:form id='form'>");

@@ -171,6 +171,8 @@
 
     <build>
 
+        <finalName>richfaces-framework</finalName>
+
         <plugins>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -195,55 +197,6 @@
                 </configuration>
             </plugin>
 
-            <!-- CDK -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>precompile-sources-for-cdk</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.richfaces.cdk</groupId>
-                <artifactId>richfaces-cdk-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>cdk-generate-sources</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <templates>
-                        <fileSet>
-                            <directory>src/main/java</directory>
-                            <includes>
-                                <include>**/*.template.xml</include>
-                            </includes>
-                        </fileSet>
-                    </templates>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jboss.spec</groupId>
-                        <artifactId>jboss-javaee-6.0</artifactId>
-                        <version>${version.jboss-javaee}</version>
-                        <type>pom</type>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.richfaces</groupId>
-                        <artifactId>richfaces-build-resources</artifactId>
-                        <version>${version.richfaces}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -265,9 +218,71 @@
                 </executions>
             </plugin>
         </plugins>
+
     </build>
 
     <profiles>
+        <profile>
+            <id>generate-cdk-and-resource</id>
+            <activation>
+                <property>
+                    <name>!generation.skip</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>precompile-sources-for-cdk</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>compile</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.richfaces.cdk</groupId>
+                        <artifactId>richfaces-cdk-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>cdk-generate-sources</id>
+                                <phase>process-sources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <templates>
+                                <fileSet>
+                                    <directory>src/main/java</directory>
+                                    <includes>
+                                        <include>**/*.template.xml</include>
+                                    </includes>
+                                </fileSet>
+                            </templates>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.jboss.spec</groupId>
+                                <artifactId>jboss-javaee-6.0</artifactId>
+                                <version>${version.jboss-javaee}</version>
+                                <type>pom</type>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.richfaces</groupId>
+                                <artifactId>richfaces-build-resources</artifactId>
+                                <version>${version.richfaces}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <profile>
             <id>jsf_ri</id>
             <activation>

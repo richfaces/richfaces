@@ -31,7 +31,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.IterationDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.iteration.AbstractExtendedDataTable;
 import org.richfaces.ui.iteration.ExtendedDataTableState;
@@ -65,7 +65,7 @@ public class ITTableState {
 
     @Deployment
     public static WebArchive createDeployment() {
-        IterationDeployment deployment = new IterationDeployment(ITTableState.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITTableState.class);
         deployment.archive().addClass(IterationTableStateBean.class);
         addIndexPage(deployment);
         addWidthPage(deployment);
@@ -265,7 +265,7 @@ public class ITTableState {
         return p;
     }
 
-    private static void addIndexPage(IterationDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         String edtAttributes =
                "            id='edt' value='#{iterationTableStateBean.values}' var='bean' ";
         FaceletAsset p = getPage(edtAttributes);
@@ -273,7 +273,7 @@ public class ITTableState {
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
-    private static void addWidthPage(IterationDeployment deployment) {
+    private static void addWidthPage(FrameworkDeployment deployment) {
         String edtAttributes =
                "            id='edt' value='#{iterationTableStateBean.values}' var='bean' " +
                "            tableState='#{iterationTableStateBean.widthState}'";
@@ -282,7 +282,7 @@ public class ITTableState {
         deployment.archive().addAsWebResource(p, "width.xhtml");
     }
 
-    private static void addSortPage(IterationDeployment deployment) {
+    private static void addSortPage(FrameworkDeployment deployment) {
         String edtAttributes =
                "            id='edt' value='#{iterationTableStateBean.values}' var='bean' " +
                "            tableState='#{iterationTableStateBean.sortState}'";
@@ -291,7 +291,7 @@ public class ITTableState {
         deployment.archive().addAsWebResource(p, "sort.xhtml");
     }
 
-    private static void addFilterPage(IterationDeployment deployment) {
+    private static void addFilterPage(FrameworkDeployment deployment) {
         String edtAttributes =
                "            id='edt' value='#{iterationTableStateBean.values}' var='bean' " +
                "            tableState='#{iterationTableStateBean.filterState}'";
@@ -300,7 +300,7 @@ public class ITTableState {
         deployment.archive().addAsWebResource(p, "filter.xhtml");
     }
 
-    private static void addOrderPage(IterationDeployment deployment) {
+    private static void addOrderPage(FrameworkDeployment deployment) {
         String edtAttributes =
                "            id='edt' value='#{iterationTableStateBean.values}' var='bean' " +
                "            columnsOrder='#{iterationTableStateBean.columnsOrder}'" +

@@ -2,6 +2,7 @@ package org.richfaces.integration.push;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
+import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
 import static org.junit.Assert.assertEquals;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
@@ -58,8 +59,8 @@ public class AbstractPushTest {
 
 
     public void testSimplePush() {
-        Warp.
-            initiate(new Activity() {
+        Warp
+            .initiate(new Activity() {
 
                     @Override
                     public void perform() {
@@ -67,9 +68,11 @@ public class AbstractPushTest {
                     }
                 })
             .group()
-                .observe(new UriRequestFilter("__richfacesPushAsync"))
+                // TODO ARQ-1368: this is wrong: index(1) should be after uri().contains(...)
+                .observe(request().index(1).uri().contains("__richfacesPushAsync"))
                 .inspect(new PushServletAssertion())
             .execute();
+
 
         waitAjax().withTimeout(5,  SECONDS).until(titleIs("message-received: 1"));
     }

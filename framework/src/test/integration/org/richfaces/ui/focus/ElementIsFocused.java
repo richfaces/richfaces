@@ -28,4 +28,11 @@ public class ElementIsFocused implements Predicate<WebDriver> {
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+        WebElement activeElement = FocusRetriever.retrieveActiveElement();
+        String focused = (activeElement == null) ? null : ((activeElement.getAttribute("id") != null) ? activeElement.getAttribute("id") : activeElement.toString());
+        return String.format("waiting for the focus on '%s' failed - last focused element: %s", element, focused);
+    }
 }

@@ -39,6 +39,7 @@ import org.jboss.arquillian.graphene.spi.annotations.Root;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -46,6 +47,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.arquillian.page.source.SourceChecker;
 import org.richfaces.utils.ColorUtils;
+
+import category.Smoke;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -109,6 +112,7 @@ public abstract class AbstractPlaceholderTest {
     }
 
     @Test
+    @Category(Smoke.class)
     public void testDefaultAttributes() {
         // having
         browser.get(contextPath.toExternalForm() + "index.jsf");

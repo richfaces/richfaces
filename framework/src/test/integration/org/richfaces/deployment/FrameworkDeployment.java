@@ -1,11 +1,8 @@
 package org.richfaces.deployment;
 
+import java.io.File;
+
 import org.jboss.arquillian.container.test.spi.RemoteLoadableExtension;
-import org.jboss.shrinkwrap.api.Filters;
-import org.jboss.shrinkwrap.api.GenericArchive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.richfaces.application.DependencyInjector;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.Uptime;
@@ -13,13 +10,12 @@ import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.cache.Cache;
 import org.richfaces.el.GenericsIntrospectionService;
-import org.richfaces.integration.CoreServicesEnricher;
-import org.richfaces.integration.CoreTestingRemoteExtension;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.external.ExternalResourceTracker;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
+import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.ui.ajax.AjaxDataSerializer;
 import org.richfaces.wait.Condition;
@@ -34,14 +30,13 @@ public class FrameworkDeployment extends Deployment {
         withWholeFramework();
         withArquillianExtensions();
         withWaiting();
+
+        // prevents scanning of inner classes
+        archive().addAsWebInfResource(new File("src/test/resources/beans.xml"));
     }
 
     public void withWholeFramework() {
-        JavaArchive coreArchive = ShrinkWrap.create(JavaArchive.class, "richfaces-framework.jar");
-        coreArchive.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
-            .importDirectory("target/classes/").as(GenericArchive.class),
-            "/", Filters.includeAll());
-        archive().addAsLibrary(coreArchive);
+        archive().addAsLibrary(new File("target/richfaces-framework.jar"));
     }
 
     /**
@@ -61,4 +56,11 @@ public class FrameworkDeployment extends Deployment {
         archive().addClasses(Condition.class, Wait.class, WaitTimeoutException.class);
     }
 
+    public FaceletAsset baseFacelet(String name) {
+        FaceletAsset p = new FaceletAsset();
+
+        this.archive().add(p, name);
+
+        return p;
+    }
 }
