@@ -40,6 +40,7 @@ import org.jboss.shrinkwrap.descriptor.api.facesconfig20.FacesConfigVersionType;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.jboss.shrinkwrap.resolver.api.maven.MavenResolverSystem;
 import org.richfaces.arquillian.configuration.FundamentalTestConfiguration;
 import org.richfaces.arquillian.configuration.FundamentalTestConfigurationContext;
 
@@ -124,6 +125,10 @@ public class Deployment {
 
         if (!configuration.isCurrentRichFacesVersion()) {
             log.info("Running test against RichFaces version: " + configuration.getRichFacesVersion());
+        }
+
+        if (configuration.getMavenSettings() != null && !configuration.getMavenSettings().isEmpty()) {
+            log.info("Use Maven Settings: " + configuration.getMavenSettings());
         }
     }
 
@@ -272,8 +277,9 @@ public class Deployment {
      */
     private void resolveMavenDependency(String missingDependency, File dir) {
 
-        JavaArchive[] dependencies = Maven.resolver()
-                .loadPomFromFile("pom.xml").resolve(missingDependency).withTransitivity().as(JavaArchive.class);
+        MavenResolverSystem resolver = getMavenResolver();
+
+        JavaArchive[] dependencies = resolver.loadPomFromFile("pom.xml").resolve(missingDependency).withTransitivity().as(JavaArchive.class);
 
         for (JavaArchive archive : dependencies) {
             dir.mkdirs();
@@ -282,6 +288,15 @@ public class Deployment {
             }
             final File outputFile = new File(dir, archive.getName());
             archive.as(ZipExporter.class).exportTo(outputFile, true);
+        }
+    }
+
+    private MavenResolverSystem getMavenResolver() {
+        String mavenSettings = configuration.getMavenSettings();
+        if (mavenSettings == null || mavenSettings.isEmpty()) {
+            return Maven.resolver();
+        } else {
+            return Maven.configureResolver().fromFile(mavenSettings);
         }
     }
 

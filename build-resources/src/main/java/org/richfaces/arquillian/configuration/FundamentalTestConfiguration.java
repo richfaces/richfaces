@@ -17,6 +17,7 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
     private String containerConfiguration;
     private Boolean containerUninstall;
     private Boolean debug;
+    private String mavenSettings;
 
     private boolean containerInstalledFromDistribution = false;
 
@@ -90,6 +91,10 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
 
     public boolean isDebug() {
         return debug != null && debug;
+    }
+
+    public String getMavenSettings() {
+        return mavenSettings;
     }
 
     /**

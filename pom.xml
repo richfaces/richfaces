@@ -380,6 +380,7 @@
                 <arquillian.container.distribution></arquillian.container.distribution>
                 <arquillian.container.configuration></arquillian.container.configuration>
                 <arquillian.container.uninstall>true</arquillian.container.uninstall>
+                <arquillian.maven.settings></arquillian.maven.settings>
                 
                 <!-- Container Selection -->
                 <arquillian.launch.jbossas71>false</arquillian.launch.jbossas71>
