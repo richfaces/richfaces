@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich">
+    <r:region id="fbShelf" rendered="#{userBean.loggedInFB}">
+        <h:panelGrid styleClass="shelf-header-table" cellpadding="0" columns="2" columnClasses="xxx, shelf-header-table-col2"
+            rendered="#{userBean.loggedInFB}">
+
+            <h:panelGroup>
+                <h1>
+                    <h:outputText value="Facebook albums" />
+                </h1>
+
+                <h:panelGroup styleClass="additional-info-text">
+                    <h:outputText value="#{messages['contain']}" />
+                    <h:outputText styleClass="bold" value=" #{facebookShelfBean.imageSize} " />
+                    <h:outputText value="#{messages['pics_into']}" />
+                    <h:outputText styleClass="bold" value=" #{fn:length(facebookShelfBean.allAlbums)} " />
+                    <h:outputText value="#{messages['shelf.albums']}" />
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGrid>
+        <!-- 
+        <p>
+            <h:outputText value="#{shelf.description}" />
+        </p>
+        <br />
+        <br />
+
+         -->
+
+        <r:repeat id="fbAlbums" value="#{facebookShelfBean.allAlbums}" var="album"
+            rendered="#{facebookShelfBean.shelfLoaded and userBean.loggedInFB}">
+            <h:panelGroup layout="block" styleClass="preview_box_album_120">
+                <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
+                <h:panelGrid cellpadding="0">
+                    <h:panelGroup style="margin-bottom:7px;" layout="block">
+                        <r:commandLink execute="@none" onclick="FBgetAlbumImages('#{album.getString('aid')}', setFBimages)">
+                            <h:graphicImage id="img" url="#{album.getString('src')}" style="max-width: 120px; max-height: 120px"
+                                styleClass="album-cover-image" />
+                            <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
+                                <span style="white-space: nowrap"> #{album.getString('name')} </span>
+                            </r:tooltip>
+                        </r:commandLink>
+                    </h:panelGroup>
+                </h:panelGrid>
+                <h:panelGroup layout="block" styleClass="album_name">#{album.getString('name')}</h:panelGroup>
+                <h:panelGroup layout="block" styleClass="album_data">
+                    <h:outputText value="#{album.getString('created')}">
+                        <f:convertDateTime />
+                    </h:outputText>
+                </h:panelGroup>
+            </h:panelGroup>
+        </r:repeat>
+        <r:jsFunction name="setFBimages" render="mainArea, treePanel" actionListener="#{controller.showFBAlbum}">
+            <r:param assignTo="#{facebookShelfBean.albumImages}" name="response" />
+        </r:jsFunction>
+    </r:region>
+</ui:composition>

@@ -6,4 +6,6 @@
         <ui:param name="shelves" value="#{shelfManager.predefinedShelves}" />
         <ui:param name="header" value="#{messages['public_shelves']} #{fn:length(shelfManager.predefinedShelves)}" />
     </ui:include>
+    <br style="clear:both"/>
+    <ui:include src="/includes/facebook/shelf.xhtml" />
 </ui:composition>

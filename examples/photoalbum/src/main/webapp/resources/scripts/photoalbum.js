@@ -64,33 +64,35 @@ pushImage = function(album_id, url, message) {
     });
 };
 
+mergeResults = function(first, second) {                        
+    for(var i = 0; i < first.length; i++) {
+        $.extend(first[i], second[i]);    
+    }
+    return first;
+};
+
 getAlbums = function(callback) {
     FB.getLoginStatus(function(response) {
 
         if (response.status === "connected") {
-            FB.api({
-                method : 'fql.multiquery',
-                queries : {
-                    query1 : 'SELECT cover_pid, object_id, name FROM album WHERE owner = me() AND can_upload = "true"',
-                    query2 : 'SELECT src FROM photo WHERE pid IN (SELECT cover_pid FROM #query1)'
-                }
-            }, function(response) {
+            var query1 = "SELECT cover_pid, object_id, name FROM album WHERE owner = me() AND can_upload = 'true'";
+            var query2 = "SELECT src FROM photo WHERE pid IN (SELECT cover_pid FROM #q1)";
+            FB.api('fql', {q: {"q1" : query1, "q2" : query2}},            
+                function(response) {
                 if (!response || response.error) {
                     console.log('Error occured');
                     console.log(response);
                 } else {
-                    for (var i = 0; i < response[0].fql_result_set.length; i++) {
-                        response[0].fql_result_set[i].src = response[1].fql_result_set[i].src;
-                    }
-                    callback(JSON.stringify(response[0].fql_result_set));
-                    console.log(response[0].fql_result_set);
+                    result = mergeResults(response.data[0].fql_result_set, response.data[1].fql_result_set);
+                    console.log(result);
+                    callback(JSON.stringify(result));
                 }
             });
         }
     });
 };
 
-FBlogin = function(callback) {
+FBlogin = function(infoCb, photoCb) {
     FB.login(function(response) {
         if (response.authResponse) {
             console.log('Welcome!  Fetching your information.... ');
@@ -100,9 +102,11 @@ FBlogin = function(callback) {
                     console.log('Error occured');
                     console.log(response);
                 } else {
-                    callback(JSON.stringify(response));
+                    infoCb(JSON.stringify(response));
                     console.log('Good to see you, ' + response.first_name + '.');
                     console.log(response);
+                    
+                    FBgetShelfAlbums(response.id, photoCb);
                 }
             });
         } else {
@@ -128,6 +132,50 @@ FBbind = function(exec, bind) {
             });
         } else {
             console.log('User cancelled login or did not fully authorize.');
+        }
+    });
+};
+
+// get info about all user albums on Facebook (without images)
+FBgetShelfAlbums = function(userId, callback) {
+    FB.getLoginStatus(function(response) {
+
+        if (response.status === "connected") {
+            var query1 = "SELECT aid, cover_pid, name, created, size FROM album WHERE owner = " + userId;
+            var query2 = "SELECT src FROM photo WHERE pid IN (SELECT cover_pid FROM #q1)";
+            
+            FB.api('fql', {q: {"q1": query1, "q2": query2}}, 
+                function(response) {
+                    if (!response || response.error) {
+                        console.log('Error occured');
+                        console.log(response.error);
+                    } else {
+                        result = mergeResults(response.data[0].fql_result_set, response.data[1].fql_result_set);
+                        console.log(result);
+                        callback(JSON.stringify(result));
+                    }
+                }
+            );
+        }
+    });
+};
+ 
+// get images from a given album
+FBgetAlbumImages = function(albumId, callback) {
+    FB.getLoginStatus(function(response) {
+        if (response.status === "connected") {
+            var query1 = "SELECT aid, pid, src, src_big, caption, created FROM photo WHERE aid = " + albumId;
+            FB.api('fql', {q: {"q1" : query1}}, 
+                function(response) {
+                    if (!response || response.error) {
+                        console.log('Error occured');
+                        console.log(response);
+                    } else {
+                        console.log(response.data[0].fql_result_set);
+                        callback(JSON.stringify(response.data[0].fql_result_set));
+                    }
+                }
+            );
         }
     });
 };

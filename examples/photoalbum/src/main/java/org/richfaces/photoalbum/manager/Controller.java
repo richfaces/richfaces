@@ -42,6 +42,7 @@ import org.richfaces.photoalbum.event.ImageEvent;
 import org.richfaces.photoalbum.event.ShelfEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.social.FacebookShelfBean;
 import org.richfaces.photoalbum.util.Preferred;
 import org.richfaces.ui.iteration.AbstractTree;
 
@@ -80,6 +81,9 @@ public class Controller implements Serializable {
     @Inject
     @Any
     Event<SimpleEvent> event;
+    
+    @Inject
+    FacebookShelfBean fsBean;
 
     private int currentPage = 0;
 
@@ -156,6 +160,15 @@ public class Controller implements Serializable {
         }
         setPage(0); // reset page when album changes/resets
         model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), album.getShelf(), album, null, album.getImages());
+    }
+
+    public void showFBAlbum() {
+        model.resetModel(NavigationEnum.FB_ALBUM_PREVIEW, loggedUser, null, null, null, null);
+    }
+
+    public void showFbImage(String imageId) {
+        fsBean.setCurrentImageId(imageId);
+        model.resetModel(NavigationEnum.FB_IMAGE_PREVIEW, loggedUser, null, null, null, null);
     }
 
     /**

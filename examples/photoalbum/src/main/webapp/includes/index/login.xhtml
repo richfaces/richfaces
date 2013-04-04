@@ -2,7 +2,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.org/richx">
 
-    <r:popupPanel id="loginPanel" domElementAttachment="parent"
+    <r:popupPanel id="loginPanel" domElementAttachment="parent" rendered="#{not userBean.loggedIn}"
         onshow="applyModalPanelEffect('loginPanel', {delay: 0.5, afterFinish: function(){$('loginPanelForm:username').focus();}})"
         styleClass="login-panel" show="#{authenticator.loginFailed}" autosized="true">
         <f:facet name="header">#{messages['login.login']}</f:facet>
@@ -15,51 +15,54 @@
 
         <h:panelGrid columns="2" columnClasses="login-table-col" style="width: 100%; text-align:center;">
 
-            <h:panelGroup layout="block">
-                <richx:commandButton styleClass="fb-comm-button" execute="@this" 
-                    oncomplete="FBlogin(fetchUserInfo)" value="Facebook Login"/>
-                    
-                <r:jsFunction name="fetchUserInfo" oncomplete="authenticate()">
-                    <!-- need to wait for oncomplete for the info to be fetched -->
+            <h:panelGroup layout="block" rendered="#{not userBean.loggedInFB}">
+                <richx:commandButton styleClass="fb-comm-button" execute="@none"
+                    oncomplete="FBlogin(fetchUserInfo, fetchFBShelves); return false;" value="Facebook Login" />
+
+                <r:jsFunction name="fetchUserInfo">
                     <r:param assignTo="#{facebookBean.userInfo}" converter="#{fbJsonConverter}" name="response" />
                 </r:jsFunction>
+
+                <r:jsFunction name="fetchFBShelves" oncomplete="authenticate()" actionListener="#{authenticator.authenticateWithFacebook}">
+                    <r:param assignTo="#{facebookShelfBean.albums}" name="albums" />
+                </r:jsFunction>
                 
-                <r:jsFunction name="authenticate" actionListener="#{authenticator.authenticateWithFacebook}"
+                <r:jsFunction name="authenticate"
                     oncomplete="#{r:component('loginPanel')}.hide()" render="mainArea, headerPanel, treePanel"/>
             </h:panelGroup>
 
             <h:panelGroup layout="block">
-            <r:region id="loginPanelForm">
-                <h:panelGrid columns="2" columnClasses="login-table-col2, xxx" style="margin-left:auto; margin-right:auto;">
-                    <h:outputText value="#{messages['login.userName']}" />
-                    <h:inputText id="username" value="#{userBean.username}"
-                        onkeydown="if (event.keyCode == 13) { jQuery(&quot; .login input[type='image']&quot;).click(); return false; }"
-                        style="border: 1px solid rgb(144, 144, 144); height: 19px; width: 155px;" />
+                <r:region id="loginPanelForm">
+                    <h:panelGrid columns="2" columnClasses="login-table-col2, xxx" style="margin-left:auto; margin-right:auto;">
+                        <h:outputText value="#{messages['login.userName']}" />
+                        <h:inputText id="username" value="#{userBean.username}"
+                            onkeydown="if (event.keyCode == 13) { jQuery(&quot; .login input[type='image']&quot;).click(); return false; }"
+                            style="border: 1px solid rgb(144, 144, 144); height: 19px; width: 155px;" />
 
-                    <h:outputText value="#{messages['login.password']}" />
-                    <h:inputSecret id="password" value="#{userBean.password}"
-                        onkeydown="if (event.keyCode == 13) { jQuery(&quot; .login input[type='image']&quot;).click(); return false; }"
-                        style="border: 1px solid rgb(144, 144, 144); height: 19px; width: 155px;" />
+                        <h:outputText value="#{messages['login.password']}" />
+                        <h:inputSecret id="password" value="#{userBean.password}"
+                            onkeydown="if (event.keyCode == 13) { jQuery(&quot; .login input[type='image']&quot;).click(); return false; }"
+                            style="border: 1px solid rgb(144, 144, 144); height: 19px; width: 155px;" />
+                    </h:panelGrid>
+                </r:region>
+
+                <r:messages id="loginFormMsgs" style="color: red;" for="loginPanel" />
+
+                <h:panelGrid columns="2" style="text-align:center; margin-top : 10px; margin-left:auto; margin-right:auto;">
+                    <h:panelGroup layout="block">
+                        <!-- action="gotoindex" -->
+                        <richx:commandButton styleClass="login" data="#{authenticator.loginFailed}"
+                            actionListener="#{authenticator.authenticate()}" value="#{messages['login.login']}"
+                            oncomplete="if(!event.data)#{r:component('loginPanel')}.hide();"
+                            render="mainArea,treePanel,searchForm, headerPanel, loginPanel" execute="loginPanelForm"
+                            limitRender="true" />
+                    </h:panelGroup>
+                    <h:panelGroup layout="block">
+                        <richx:commandButton value="#{messages['login.register']}" immediate="true"
+                            actionListener="#{authenticator.goToRegister()}" render="mainArea"
+                            oncomplete="#{r:component('loginPanel')}.hide();" execute="@this" />
+                    </h:panelGroup>
                 </h:panelGrid>
-            </r:region>
-
-            <r:messages id="loginFormMsgs" style="color: red;" for="loginPanel" />
-
-            <h:panelGrid columns="2" style="text-align:center; margin-top : 10px; margin-left:auto; margin-right:auto;">
-                <h:panelGroup layout="block">
-                    <!-- action="gotoindex" -->
-                    <richx:commandButton styleClass="login" data="#{authenticator.loginFailed}"
-                        actionListener="#{authenticator.authenticate()}" value="#{messages['login.login']}"
-                        oncomplete="if(!event.data)#{r:component('loginPanel')}.hide();"
-                        render="mainArea,treePanel,searchForm, headerPanel, loginPanel" execute="loginPanelForm"
-                        limitRender="true" />
-                </h:panelGroup>
-                <h:panelGroup layout="block">
-                    <richx:commandButton value="#{messages['login.register']}" immediate="true"
-                        actionListener="#{authenticator.goToRegister()}" render="mainArea"
-                        oncomplete="#{r:component('loginPanel')}.hide();" execute="@this" />
-                </h:panelGroup>
-            </h:panelGrid>
             </h:panelGroup>
         </h:panelGrid>
     </r:popupPanel>

@@ -47,7 +47,9 @@ public enum NavigationEnum {
     SHELF_UNVISITED("/includes/shelfUnvisited.xhtml"),
     USER_SHARED_ALBUMS("/includes/userSharedAlbums.xhtml"),
     USER_SHARED_IMAGES("/includes/userSharedImages.xhtml"),
-    ALBUM_UNVISITED("/includes/albumUnvisited.xhtml");
+    ALBUM_UNVISITED("/includes/albumUnvisited.xhtml"),
+    FB_ALBUM_PREVIEW("/includes/facebook/album.xhtml"),
+    FB_IMAGE_PREVIEW("/includes/facebook/image.xhtml");
 
     private NavigationEnum(String t) {
         template = t;
