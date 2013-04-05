@@ -21,11 +21,10 @@
  */
 package org.richfaces.ui.iteration;
 
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.event.CollapsibleSubTableToggleEvent;
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -34,10 +33,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.event.CollapsibleSubTableToggleEvent;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
 
 /**
  * @author Anton Belevich
@@ -267,7 +268,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
 
         String id = subTable.getClientId(facesContext);
 
-        UIComponent nestingForm = getUtils().getNestingForm(facesContext, subTable);
+        UIComponent nestingForm = getUtils().getNestingForm(subTable);
         String formId = nestingForm != null ? nestingForm.getClientId(facesContext) : "";
 
         Map<String, Object> options = new HashMap<String, Object>();
