@@ -38,11 +38,6 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.el.MethodBinding;
-import javax.faces.el.PropertyResolver;
-import javax.faces.el.ReferenceSyntaxException;
-import javax.faces.el.ValueBinding;
-import javax.faces.el.VariableResolver;
 import javax.faces.event.ActionListener;
 import javax.faces.validator.Validator;
 
@@ -176,8 +171,9 @@ public class ApplicationImpl extends Application {
      *
      * @see javax.faces.application.Application#getPropertyResolver()
      */
+    @SuppressWarnings("deprecation")
     @Override
-    public PropertyResolver getPropertyResolver() {
+    public javax.faces.el.PropertyResolver getPropertyResolver() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -187,8 +183,9 @@ public class ApplicationImpl extends Application {
      *
      * @see javax.faces.application.Application#setPropertyResolver(javax.faces.el.PropertyResolver)
      */
+    @SuppressWarnings("deprecation")
     @Override
-    public void setPropertyResolver(PropertyResolver resolver) {
+    public void setPropertyResolver(javax.faces.el.PropertyResolver resolver) {
         // TODO Auto-generated method stub
 
     }
@@ -198,8 +195,9 @@ public class ApplicationImpl extends Application {
      *
      * @see javax.faces.application.Application#getVariableResolver()
      */
+    @SuppressWarnings("deprecation")
     @Override
-    public VariableResolver getVariableResolver() {
+    public javax.faces.el.VariableResolver getVariableResolver() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -209,8 +207,9 @@ public class ApplicationImpl extends Application {
      *
      * @see javax.faces.application.Application#setVariableResolver(javax.faces.el.VariableResolver)
      */
+    @SuppressWarnings("deprecation")
     @Override
-    public void setVariableResolver(VariableResolver resolver) {
+    public void setVariableResolver(javax.faces.el.VariableResolver resolver) {
         // TODO Auto-generated method stub
 
     }
@@ -287,8 +286,9 @@ public class ApplicationImpl extends Application {
      * @see javax.faces.application.Application#createComponent(javax.faces.el.ValueBinding, javax.faces.context.FacesContext,
      * java.lang.String)
      */
+    @SuppressWarnings("deprecation")
     @Override
-    public UIComponent createComponent(ValueBinding componentBinding, FacesContext context, String componentType)
+    public UIComponent createComponent(javax.faces.el.ValueBinding componentBinding, FacesContext context, String componentType)
             throws FacesException {
         // TODO Auto-generated method stub
         return null;
@@ -376,8 +376,9 @@ public class ApplicationImpl extends Application {
      *
      * @see javax.faces.application.Application#createMethodBinding(java.lang.String, java.lang.Class<?>[])
      */
+    @SuppressWarnings("deprecation")
     @Override
-    public MethodBinding createMethodBinding(String ref, Class<?>[] params) throws ReferenceSyntaxException {
+    public javax.faces.el.MethodBinding createMethodBinding(String ref, Class<?>[] params) throws javax.faces.el.ReferenceSyntaxException {
         // TODO Auto-generated method stub
         return null;
     }
@@ -442,8 +443,9 @@ public class ApplicationImpl extends Application {
      *
      * @see javax.faces.application.Application#createValueBinding(java.lang.String)
      */
+    @SuppressWarnings("deprecation")
     @Override
-    public ValueBinding createValueBinding(String ref) throws ReferenceSyntaxException {
+    public javax.faces.el.ValueBinding createValueBinding(String ref) throws javax.faces.el.ReferenceSyntaxException {
         // TODO Auto-generated method stub
         return null;
     }
@@ -473,6 +475,7 @@ public class ApplicationImpl extends Application {
         return ServiceTracker.getService(ResourceHandler.class);
     }
 
+    @SuppressWarnings("unchecked") // Forced cast on T
     @Override
     public <T> T evaluateExpressionGet(FacesContext context, String expression, Class<? extends T> expectedType)
             throws ELException {

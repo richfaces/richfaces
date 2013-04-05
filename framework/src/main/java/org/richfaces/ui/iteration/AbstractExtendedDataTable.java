@@ -219,6 +219,8 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
         updateState();
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
     public void setValueBinding(String name, javax.faces.el.ValueBinding binding) {
         super.setValueBinding(name, binding);
 
