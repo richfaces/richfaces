@@ -22,7 +22,6 @@
 package org.richfaces.application.push.impl;
 
 import java.text.MessageFormat;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -30,7 +29,6 @@ import org.richfaces.application.push.MessageDataSerializer;
 import org.richfaces.application.push.MessageException;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.SessionPreSubscriptionEvent;
-import org.richfaces.application.push.SessionTopicListener;
 import org.richfaces.application.push.SubscriptionFailureException;
 import org.richfaces.application.push.Topic;
 import org.richfaces.application.push.TopicEvent;
@@ -82,30 +80,11 @@ public abstract class AbstractTopic implements Topic {
     public void addTopicListener(TopicListener topicListener) {
         TopicListener listener = topicListener;
 
-        if (listener instanceof SessionTopicListener) {
-            listener = new SessionTopicListenerWrapper((SessionTopicListener) listener);
-        }
-
         listeners.add(listener);
     }
 
     public void removeTopicListener(TopicListener topicListener) {
-        if (topicListener instanceof SessionTopicListener) {
-            Iterator<TopicListener> iterator = listeners.iterator();
-            while (iterator.hasNext()) {
-                TopicListener next = iterator.next();
-
-                if (next instanceof SessionTopicListenerWrapper) {
-                    SessionTopicListenerWrapper listenerWrapper = (SessionTopicListenerWrapper) next;
-                    if (topicListener.equals(listenerWrapper.getWrappedListener())) {
-                        iterator.remove();
-                        break;
-                    }
-                }
-            }
-        } else {
-            listeners.remove(topicListener);
-        }
+        listeners.remove(topicListener);
     }
 
     public void checkSubscription(TopicKey key, Session session) throws SubscriptionFailureException {
