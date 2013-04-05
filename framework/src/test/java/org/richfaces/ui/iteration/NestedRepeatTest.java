@@ -31,7 +31,6 @@ import java.util.List;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -57,7 +56,6 @@ public class NestedRepeatTest {
     }
 
     @Test
-    @Ignore("RF-12747")
     public void testRendering() throws Exception {
         HtmlPage page = environment.getPage("/NestedRepeatTest.jsf");
 

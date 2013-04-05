@@ -9,7 +9,6 @@ import org.custommonkey.xmlunit.DifferenceListener;
 import org.custommonkey.xmlunit.IgnoreTextAndAttributeValuesDifferenceListener;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.ui.common.RendererTestBase;
 
@@ -17,7 +16,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-@Ignore("RF-12747")
 public class AutocompleteRendererTest extends RendererTestBase {
     @Override
     public void setUp() throws URISyntaxException {

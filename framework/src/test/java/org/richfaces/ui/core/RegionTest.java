@@ -44,7 +44,6 @@ import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.ui.ajax.AbstractRegion;
 import org.richfaces.ui.ajax.AjaxContainer;
@@ -72,7 +71,6 @@ import org.richfaces.ui.ajax.AjaxContainer;
  * @author Nick Belaevski
  *
  */
-@Ignore("RF-12747")
 public class RegionTest {
     private FacesEnvironment environment;
     private FacesRequest request;

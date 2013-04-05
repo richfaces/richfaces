@@ -37,7 +37,6 @@ import org.xml.sax.SAXException;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-@Ignore("RF-12747")
 public class MenuItemRendererTest extends RendererTestBase {
     @Override
     public void setUp() throws URISyntaxException {
