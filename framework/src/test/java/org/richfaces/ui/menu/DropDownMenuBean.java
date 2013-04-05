@@ -1,22 +1,19 @@
 package org.richfaces.ui.menu;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 
-@ManagedBean
-@SessionScoped
+@Named("ddmBean")
+@RequestScoped
 public class DropDownMenuBean {
-    private static String _current = "none";
+
+    private String current = "none";
 
     public void doAction() {
-        _current = "action";
+        this.current = "action";
     }
 
-    public static String getCurrent() {
-        return _current;
-    }
-
-    public static void setCurrent(String current) {
-        _current = current;
+    public String getCurrent() {
+        return current;
     }
 }

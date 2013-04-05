@@ -4,11 +4,6 @@
               xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <managed-bean>
-        <managed-bean-name>countriesBean</managed-bean-name>
-        <managed-bean-class>org.richfaces.ui.input.CountriesBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
         <managed-bean-name>inputBean</managed-bean-name>
         <managed-bean-class>org.richfaces.ui.input.InputBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
@@ -17,14 +12,5 @@
         <managed-bean-name>calendarBean</managed-bean-name>
         <managed-bean-class>org.richfaces.ui.input.CalendarBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>autoCompleteBean</managed-bean-name>
-        <managed-bean-class>org.richfaces.ui.input.AutoCompleteBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>countriesBean</property-name>
-            <value>#{countriesBean}</value>
-        </managed-property>
     </managed-bean>
 </faces-config>

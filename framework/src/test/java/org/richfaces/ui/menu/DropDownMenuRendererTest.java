@@ -21,21 +21,14 @@
  */
 package org.richfaces.ui.menu;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.ui.common.RendererTestBase;
 import org.xml.sax.SAXException;
-
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class DropDownMenuRendererTest extends RendererTestBase {
     @Override
@@ -55,32 +48,5 @@ public class DropDownMenuRendererTest extends RendererTestBase {
     @Test
     public void testDoEncodeAjaxMode() throws IOException, SAXException {
         doTest("dropDownMenu_ajaxMode", "form:ddmenu");
-    }
-
-    @Test
-    @Ignore // broke with the jQuery 1.6.2 upgrade
-    public void testServerClick() throws IOException, SAXException {
-        HtmlPage page = environment.getPage("/dropDownMenu_serverMode.jsf");
-        HtmlDivision item = (HtmlDivision) page.getElementById("form:saveAll");
-        assertNotNull(item);
-        DropDownMenuBean.setCurrent("none");
-        item.click();
-
-        item = (HtmlDivision) page.getElementById("form:saveAll");
-        assertNotNull(item);
-        assertEquals("action", DropDownMenuBean.getCurrent());
-    }
-
-    @Test
-    public void testAjaxClick() throws IOException, SAXException {
-        HtmlPage page = environment.getPage("/dropDownMenu_ajaxMode.jsf");
-        HtmlDivision item = (HtmlDivision) page.getElementById("form:saveAll");
-        assertNotNull(item);
-        DropDownMenuBean.setCurrent("none");
-        item.click();
-
-        item = (HtmlDivision) page.getElementById("form:saveAll");
-        assertNotNull(item);
-        assertEquals("action", DropDownMenuBean.getCurrent());
     }
 }
