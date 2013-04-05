@@ -5,12 +5,7 @@
 
     <profiles>
         <profile>
-            <id>staging</id>
-            <activation>
-                <property>
-                    <name>staging</name>
-                </property>
-            </activation>
+            <id>jboss-repositories</id>
             <repositories>
                 <repository>
                     <id>jboss-public-repository-group</id>
@@ -22,19 +17,6 @@
                     </releases>
                     <snapshots>
                         <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-                <repository>
-                    <id>jboss-staging-repository-group</id>
-                    <name>JBoss Public Repository Group</name>
-                    <url>https://repository.jboss.org/nexus/content/groups/staging/</url>
-                    <layout>default</layout>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
                     </snapshots>
                 </repository>
             </repositories>
@@ -50,22 +32,11 @@
                         <enabled>true</enabled>
                     </snapshots>
                 </pluginRepository>
-                <pluginRepository>
-                    <id>jboss-staging-repository-group</id>
-                    <name>JBoss Public Repository Group</name>
-                    <url>https://repository.jboss.org/nexus/content/groups/staging/</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </pluginRepository>
             </pluginRepositories>
         </profile>
     </profiles>
 
     <activeProfiles>
-        <activeProfile>staging</activeProfile>
+        <activeProfile>jboss-repositories</activeProfile>
     </activeProfiles>
 </settings>
