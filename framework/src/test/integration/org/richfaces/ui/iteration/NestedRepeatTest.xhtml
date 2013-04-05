@@ -11,7 +11,7 @@
     <h:form id="form">
         <h:messages />
 
-        <r:repeat id="outer" value="#{dataBean.listDataItems}" var="item">
+        <r:repeat id="outer" value="#{nestedDataBean.listDataItems}" var="item">
             <r:repeat id="inner" value="#{item.list}" var="inner">
                 <h:inputText id="input" value="#{inner.status}" />
             </r:repeat>
