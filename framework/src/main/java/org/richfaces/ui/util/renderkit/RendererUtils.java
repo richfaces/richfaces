@@ -20,11 +20,15 @@
  */
 package org.richfaces.ui.util.renderkit;
 
-import org.richfaces.Messages;
-import org.richfaces.javascript.JSReference;
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.core.JavaScriptParameter;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
@@ -37,15 +41,12 @@ import javax.faces.component.behavior.ClientBehaviorContext.Parameter;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+
+import org.richfaces.Messages;
+import org.richfaces.javascript.JSReference;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.core.JavaScriptParameter;
 
 /**
  * Util class for common render operations - render passthru html attributes, iterate over child components etc.
@@ -488,23 +489,10 @@ public final class RendererUtils {
     /**
      * Find nested form for given component
      *
-     * <b>Deprecated</b>: use {@link #getNestingForm(UIComponent)} instead
-     *
      * @param component
      * @return nested <code>UIForm</code> component, or <code>null</code>
      */
     public UIComponent getNestingForm(UIComponent component) {
-        return getNestingForm(null, component);
-    }
-
-    /**
-     * Find nested form for given component
-     *
-     * @param component
-     * @return nested <code>UIForm</code> component, or <code>null</code>
-     */
-    @Deprecated
-    public UIComponent getNestingForm(FacesContext context, UIComponent component) {
         UIComponent parent = component;
 
         // Search enclosed UIForm or ADF UIXForm component
@@ -576,7 +564,7 @@ public final class RendererUtils {
      * @throws IOException
      */
     public void encodeBeginFormIfNessesary(FacesContext context, UIComponent component) throws IOException {
-        UIComponent form = getNestingForm(context, component);
+        UIComponent form = getNestingForm(component);
 
         if (null == form) {
             ResponseWriter writer = context.getResponseWriter();
@@ -615,7 +603,7 @@ public final class RendererUtils {
      * @throws IOException
      */
     public void encodeEndFormIfNessesary(FacesContext context, UIComponent component) throws IOException {
-        UIComponent form = getNestingForm(context, component);
+        UIComponent form = getNestingForm(component);
 
         if (null == form) {
             ResponseWriter writer = context.getResponseWriter();
