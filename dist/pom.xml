@@ -101,6 +101,11 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <phase>package</phase>
+                        <configuration>
+                            <includeArtifactIds>richfaces</includeArtifactIds>
+                            <includeGroupIds>org.richfaces</includeGroupIds>
+                            <outputDirectory>target/dist/</outputDirectory>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>copy-sources</id>
@@ -112,7 +117,7 @@
                             <classifier>sources</classifier>
                             <includeArtifactIds>richfaces</includeArtifactIds>
                             <includeGroupIds>org.richfaces</includeGroupIds>
-                            <actTransitively>false</actTransitively>
+                            <outputDirectory>target/dist/</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -122,9 +127,20 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
-                            <classifier>sources</classifier>
                             <includeGroupIds>org.richfaces.archetypes</includeGroupIds>
-                            <outputDirectory>target/archetype</outputDirectory>
+                            <outputDirectory>target/dist/archetypes</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-deps</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <excludeArtifactIds>richfaces</excludeArtifactIds>
+                            <excludeGroupIds>org.richfaces</excludeGroupIds>
+                            <outputDirectory>target/dist/lib</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -135,9 +151,9 @@
                         <phase>package</phase>
                         <configuration>
                             <classifier>javadoc</classifier>
-                            <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                             <stripVersion>true</stripVersion>
                             <includeArtifactIds>richfaces-framework</includeArtifactIds>
+                            <outputDirectory>target/dist/doc/javadoc</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -148,9 +164,9 @@
                         <phase>package</phase>
                         <configuration>
                             <classifier>vdldoc</classifier>
-                            <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                             <stripVersion>true</stripVersion>
                             <includeArtifactIds>richfaces-framework</includeArtifactIds>
+                            <outputDirectory>target/dist/doc/vdldoc</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -161,11 +177,10 @@
                         <phase>package</phase>
                         <configuration>
                             <classifier>jsdoc</classifier>
-
                             <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
-                            <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                             <stripVersion>true</stripVersion>
                             <includeArtifactIds>richfaces-framework</includeArtifactIds>
+                            <outputDirectory>target/dist/doc/jsdoc</outputDirectory>
                         </configuration>
                     </execution>
 
@@ -181,6 +196,7 @@
                             <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
                             <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                             <stripVersion>true</stripVersion>
+                            <outputDirectory>target/dist/example</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

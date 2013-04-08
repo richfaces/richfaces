@@ -9,7 +9,7 @@
     <fileSets>
         <fileSet>
             <directory>target/vdldoc</directory>
-            <outputDirectory>richfaces-vdl-documentation</outputDirectory>
+            <outputDirectory></outputDirectory>
         </fileSet>
     </fileSets>
 

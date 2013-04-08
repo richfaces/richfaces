@@ -43,70 +43,8 @@
     <fileSets>
         <!-- bin & sources -->
         <fileSet>
-            <directory>target/dependency</directory>
-            <outputDirectory>artifacts/framework</outputDirectory>
-            <includes>
-                <include>richfaces-*.jar</include>
-            </includes>
-            <excludes>
-                <exclude>richfaces-framework*</exclude>
-                <exclude>richfaces-optimized-resources*/</exclude>
-                <exclude>richfaces-archetype*</exclude>
-            </excludes>
-        </fileSet>
-
-        <!-- lib -->
-        <fileSet>
-            <directory>target/dependency</directory>
-            <outputDirectory>artifacts/lib</outputDirectory>
-            <excludes>
-                <exclude>richfaces-*</exclude>
-                <exclude>richfaces-*/</exclude>
-            </excludes>
-        </fileSet>
-
-        <!-- archetypes -->
-        <fileSet>
-            <directory>target/archetype</directory>
-            <outputDirectory>artifacts/archetypes</outputDirectory>
-        </fileSet>
-
-        <!-- javadoc -->
-        <fileSet>
-            <directory>target/dependency/richfaces-framework-javadoc-jar</directory>
-            <outputDirectory>docs/javadoc/</outputDirectory>
-        </fileSet>
-
-        <!-- vdldoc -->
-        <fileSet>
-            <directory>target/dependency/richfaces-framework-vdldoc-jar</directory>
-            <outputDirectory>docs/vdldoc/</outputDirectory>
-        </fileSet>
-
-        <!-- jsdoc -->
-        <fileSet>
-            <directory>target/dependency/richfaces-framework-jsdoc-jar</directory>
-            <outputDirectory>docs/jsdoc/</outputDirectory>
-        </fileSet>
-
-        <!-- Examples -->
-        <fileSet>
-            <directory>target/dependency</directory>
-            <outputDirectory>examples/</outputDirectory>
-            <includes>
-                <include>richfaces-showcase*.war</include>
-                <include>richfaces-photoalbum*.war</include>
-            </includes>
-        </fileSet>
-
-        <!-- Archetypes -->
-        <fileSet>
-            <directory>target/dependency/richfaces-archetype-simpleapp-jar</directory>
-            <outputDirectory>archetypes/</outputDirectory>
-        </fileSet>
-        <fileSet>
-            <directory>target/dependency/richfaces-archetype-kitchensink-jar</directory>
-            <outputDirectory>archetypes/</outputDirectory>
+            <directory>target/dist</directory>
+            <outputDirectory></outputDirectory>
         </fileSet>
     </fileSets>
 </assembly>
