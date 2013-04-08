@@ -19,7 +19,6 @@
 // 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 
 /**
- * The RichFaces components set
+ * JSON handling classes. Contains <a href="http://www.json.org">implementation</a> of JSON library together with JSON-based basic container classes implementation
  */
-@org.richfaces.cdk.annotations.TagLibrary(uri = "http://richfaces.org/rich", shortName = "r")
-package org.richfaces.ui;
+package org.richfaces.json;

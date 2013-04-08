@@ -19,7 +19,6 @@
 // 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 
 /**
- * The RichFaces components set
+ * RichFaces drag and drop components
  */
-@org.richfaces.cdk.annotations.TagLibrary(uri = "http://richfaces.org/rich", shortName = "r")
-package org.richfaces.ui;
+package org.richfaces.ui.drag;

@@ -19,7 +19,7 @@
 // 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 
 /**
- * The RichFaces components set
+ * Fundamental classes and interfaces defining the rendering model
  */
-@org.richfaces.cdk.annotations.TagLibrary(uri = "http://richfaces.org/rich", shortName = "r")
-package org.richfaces.ui;
+package org.ajax4jsf.renderkit;
+

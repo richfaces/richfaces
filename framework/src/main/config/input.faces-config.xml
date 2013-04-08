@@ -18,7 +18,7 @@
     <component>
         <description>The &amp;lt;rich:inputNumberSlider&amp;gt; component provides a slider for changing numerical values. Optional features include control arrows to step through the values, a tool-tip to display the value while sliding, and a text field for typing the numerical value which can then be validated against the slider's range.</description>
         <component-type>org.richfaces.InputNumberSlider</component-type>
-        <component-class>org.richfaces.component.html.HtmlInputNumberSlider</component-class>
+        <component-class>org.richfaces.ui.input.HtmlInputNumberSlider</component-class>
         <property>
             <property-name>readonly</property-name>
             <property-class>boolean</property-class>
@@ -266,7 +266,7 @@
     <component>
         <description>The &amp;lt;rich:inputNumberSpinner&amp;gt; component is a single-line input field with buttons to increase and decrease a numerical value. The value can be changed using the corresponding directional keys on a keyboard, or by typing into the field.</description>
         <component-type>org.richfaces.InputNumberSpinner</component-type>
-        <component-class>org.richfaces.component.html.HtmlInputNumberSpinner</component-class>
+        <component-class>org.richfaces.ui.input.HtmlInputNumberSpinner</component-class>
         <property>
             <property-name>readonly</property-name>
             <property-class>boolean</property-class>
