@@ -1,5 +1,5 @@
 How To Run Framework Tests
-============================
+==========================
 
 Framework tests allows you to run set of Arquillian-based tests using
 Graphene and Warp extensions on supported browsers and containers.
@@ -57,8 +57,8 @@ Naming conventions
 In order to distinguish integration tests from unit tests, we adopted convention of using `IT` prefix (stands for integration test).
 Thuse each test class' name needs to start with `IT*`, e.g.:
 
-* ITAutocompleteEvents
-* IT_RF12765
+* `ITAutocompleteEvents`
+* `IT_RF12765`
 
 Test run modes
 --------------
@@ -273,18 +273,18 @@ then run the test from IDE (Eclipse: `Run As > JUnit Test`).
 
 ### JBoss AS 7.1 - Remote
 
-Start: [jboss-as-7.1.1.Final]$ ./bin/standalone.sh
-Profile: jbossas-remote-7-1
+Start: `[jboss-as-7.1.1.Final]$ ./bin/standalone.sh`
+Profile: `jbossas-remote-7-1`
 
 ### GlassFish 3.1 - Remote
 
-Start: [glassfish3]$ ./glassfish/bin/startserv
-Profile: glassfish-remote-3-1
+Start: `[glassfish3]$ ./glassfish/bin/startserv`
+Profile: `glassfish-remote-3-1`
 
 ### TomEE 1.5 - Remote
 
-Start: [apache-tomee-webprofile-1.5.1]$ ./bin/tomee.sh start
-Profile: tomee-1-5
+Start: `[apache-tomee-webprofile-1.5.1]$ ./bin/tomee.sh start`
+Profile: `tomee-1-5`
 
 ### Tomcat 6 - Remote
 
@@ -309,8 +309,8 @@ Start the container:
     ./bin/catalina.sh run
 
 
-Start: [apache-tomcat-6.0.33]$ ./bin/catalina.run.sh 
-Profile: tomcat-remote-6
+Start: `[apache-tomcat-6.0.33]$ ./bin/catalina.run.sh`
+Profile: `tomcat-remote-6`
 
 
 Reusing Test Infrastructure Setup
