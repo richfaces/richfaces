@@ -8,13 +8,12 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.logging.Logger;
 import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
+import org.richfaces.log.Logger;
 
 @Named
 @SessionScoped
@@ -43,7 +42,7 @@ public class FacebookBean implements Serializable {
     }
 
     private JSONArray json;
-    
+
     private JSONObject userInfo;
 
     public JSONArray getJson() {
@@ -53,7 +52,7 @@ public class FacebookBean implements Serializable {
     public void setJson(JSONArray json) {
         this.json = json;
     }
-    
+
     public List<JSONObject> getAvailableAlbums() {
         List<JSONObject> albums = new ArrayList<JSONObject>();
 

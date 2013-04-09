@@ -128,15 +128,6 @@
                     </h:panelGroup>
                     <h:graphicImage rendered="#{userBean.loggedIn}" value="/img/shell/general_panelbar_bullet.gif" width="11"
                         height="15" alt="" styleClass="main-menu-separator-img" />
-                        
-                    <h:panelGroup layout="block">
-                        <r:commandButton value="Connect to Facebook"
-                            onclick="window.open('social/startoauth.jsf?service=Facebook','oauth','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0,width=400,height=400,modal=yes')"
-                            execute="@none" rendered="#{!facebookBean.serviceHub.connected}" styleClass="fb-button"/>
-                        <r:commandButton value="Connected" disabled="true" rendered="#{facebookBean.serviceHub.connected}"
-                            styleClass="fb-button" />
-                        <r:commandButton value="Login" onclick="Fblogin()" execute="@none" />
-                    </h:panelGroup>
                 </h:panelGroup>
             </r:toolbarGroup>
         </r:toolbar>
