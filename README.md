@@ -6,8 +6,8 @@ RichFaces 5
 The RichFaces project is an advanced UI component framework for easily integrating Ajax capabilities into business applications using JSF.
 
 
-Mission
--------
+Goal
+----
 
 <h3>Version 5</h3>
 
@@ -34,7 +34,7 @@ Project Info
 </table>
 
 * [Documentation](http://docs.jboss.org/richfaces/)
-* [Newsletter, RSS](http://planet.jboss.org/feed/richfacesall)
+* [News / RSS](http://planet.jboss.org/feed/richfacesall)
   * includes release announcements
 * [Issue Tracker](https://issues.jboss.org/browse/RF)
 * [Roadmap](https://community.jboss.org/thread/213160)
@@ -76,7 +76,7 @@ Building the Project
 
 Prerequsities:
 
-* JDK 1.7 +
+* JDK 1.6 +
 * Maven 3.0.4 +
 
 Building the project:
@@ -91,10 +91,13 @@ Maven will build the project and execute unit tests, but it won't build distribu
 
 the ZIP distribution will be stored in `dist/target/`.
 
-Contributor Getting Started
----------------------------
+[Contributor Getting Started](https://github.com/richfaces/richfaces5/blob/RF-12468-readme/CONTRIBUTING.md)
+-----------------------------
 
-Start with reading the [How to Contribute](https://github.com/richfaces/richfaces5/blob/RF-12468-readme/CONTRIBUTING.md) guide. 
+Read the [How to Contribute](https://github.com/richfaces/richfaces5/blob/RF-12468-readme/CONTRIBUTING.md).
+
+Developing the Project
+----------------------
 
 <h3>How to Test the Project</h3>
 
