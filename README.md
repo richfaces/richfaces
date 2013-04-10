@@ -1,0 +1,109 @@
+RichFaces 5
+===========
+
+<h3>The next-generation JSF component framework by JBoss, Red Hat</h3>
+
+The RichFaces project is an advanced UI component framework for easily integrating Ajax capabilities into business applications using JSF.
+
+
+Mission
+-------
+
+<h3>Version 5</h3>
+
+* New approach to styling based on LESS
+* New components based on third-party widgets
+* Full JSF 2.2 Compatibility
+* Simplified Setup for Users
+* Smooth Migration from RF4 to RF5
+
+<h3>Architecture Goals</h3>
+
+* Simplified Framework Build
+* Extensive Integration Testing
+* Fast Development (CDK) & Test Turnaround
+
+see [Roadmap](https://community.jboss.org/thread/213160) for more information.
+
+Project Info
+------------
+
+<table>
+	<tr><td>License</td><td>LGPL v2.1</td></tr>
+	<tr><td>Build System</td><td>Maven</td></tr>
+</table>
+
+* [Documentation](http://docs.jboss.org/richfaces/)
+* [Newsletter, RSS](http://planet.jboss.org/feed/richfacesall)
+  * includes release announcements
+* [Issue Tracker](https://issues.jboss.org/browse/RF)
+* [Roadmap](https://community.jboss.org/thread/213160)
+* [User Forums](https://community.jboss.org/en/richfaces)
+* IRC
+  * `#richfaces` at `irc.freenode.net`
+* [Developer Forums](https://community.jboss.org/en/richfaces/dev)
+* [Team Meetings](https://community.jboss.org/en/richfaces/dev/teammtgs)
+* [Continuous Integration](https://buildhive.cloudbees.com/job/richfaces/job/richfaces5/)
+  * [![Build Status](https://buildhive.cloudbees.com/job/richfaces/job/richfaces5/badge/icon)](https://buildhive.cloudbees.com/job/richfaces/job/richfaces5/)
+
+Getting Started
+---------------
+
+In order to start with the project, you need just include the RichFaces JARs on the classpath using Maven dependency
+
+    <dependency>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces</artifactId>
+        <type>pom</type>
+    </dependency>
+
+or download the project ZIP distribution from [Downloads Page](http://www.jboss.org/richfaces/download.html).
+
+Once you have the RichFaces JARs on the classpath, you can start developing by adding JSF page which includes RichFaces taglib from `http://richfaces.org/rich` namespace:
+
+    <!DOCTYPE html>
+    <html lang="en"
+		xmlns="http://www.w3.org/1999/xhtml"
+		...
+		xmlns:r="http://richfaces.org/rich">
+
+	</html>
+
+For more information on how to get started with the project, see [Project Documentation](http://docs.jboss.org/richfaces/).
+
+Building the Project
+--------------------
+
+Prerequsities:
+
+* JDK 1.7 +
+* Maven 3.0.4 +
+
+Building the project:
+
+    $ mvn clean install
+
+Maven will build the project and execute unit tests, but it won't build distribution or execute integration tests.
+
+<h3>Building Project Distribution</h3>
+
+    $ mvn clean install -Prelease
+
+the ZIP distribution will be stored in `dist/target/`.
+
+Contributor Getting Started
+---------------------------
+
+Start with reading the [How to Contribute](https://github.com/richfaces/richfaces5/blob/RF-12468-readme/CONTRIBUTING.md) guide. 
+
+<h3>How to Test the Project</h3>
+
+RichFaces has extensive framework test suite which validates compatibility with various browsers and application servers.
+
+For more information on how to run and develop this test suite, see [Framework Tests](https://github.com/richfaces/richfaces5/blob/master/docs/framework-tests.md) document.
+
+<h3>Running Smoke Tests</h3>
+
+In order to effectively test the project, you need to run at least framework's smoke tests:
+
+    $ mvn clean install -Dintegration=jbossas71 -Dsmoke
