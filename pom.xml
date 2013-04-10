@@ -38,8 +38,8 @@
         <module>build-resources</module>
         <module>framework</module>
         <module>resources-plugin</module>
-        <module>optimized-resources</module>
-        <module>assembly</module>
+        <module>dist/optimized-resources</module>
+        <module>dist/assembly</module>
 
         <module>examples/photoalbum</module>
         <module>examples/showcase</module>
