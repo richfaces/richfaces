@@ -106,9 +106,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
-        <!-- Dependecy Versioning -->
-        <version.richfaces-checkstyle>5</version.richfaces-checkstyle>
-        
         <!-- Base Dependencies Versions -->
         <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
         <version.cdk>4.5.0-SNAPSHOT</version.cdk>
@@ -259,8 +256,8 @@
                     <dependencies>
                         <dependency>
                             <groupId>org.richfaces</groupId>
-                            <artifactId>richfaces-build-checkstyle</artifactId>
-                            <version>${version.richfaces-checkstyle}</version>
+                            <artifactId>richfaces-build-resources</artifactId>
+                            <version>${version.richfaces}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
