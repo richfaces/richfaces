@@ -31,7 +31,7 @@ Running a full build including smoke tests:
 Running particular framework test (on Chrome) from console:
 
     // console 1: start JBoss AS 7 
-    ./jboss-as-7.1.1.Final//bin/standalone.sh
+    ./jboss-as-7.1.1.Final/bin/standalone.sh
 
     // console 2: start Selenium Server
     java -jar selenium-server-standalone-${VERSION}.jar -Dwebdriver.chrome.driver=/opt/google/chrome/chromedriver
@@ -221,9 +221,9 @@ Test inclusion / exclusion intends to provide as extensive test coverage for all
 but still avoid the known failures to affect test results.
 The categories should be designed for two purposes, as evident from samples:
 
-* `JavaEEOnly` - these tests will be run *only* on Java EE capable browsers
+* `JavaEEOnly` - these tests will be run *only* on Java EE capable containers
 * `NoPhantomJS` - these tests *won't* be executed on PhantomJS
-* `FailingOnMyFaces`, `FailingOnFirefox`, `FailingOnTomcat` - these tests are *currently failing*, but they should pass once the references issue is fixed
+* `FailingOnMyFaces`, `FailingOnFirefox`, `FailingOnTomcat` - these tests are *currently failing*, but they should pass once the referenced issue is fixed
 
 Note that those categories use keywords `*Only`, `No*` and `FailingOn*` in order to be descriptive.
 
