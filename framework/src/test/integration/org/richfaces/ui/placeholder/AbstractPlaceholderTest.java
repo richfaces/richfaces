@@ -22,8 +22,8 @@
 package org.richfaces.ui.placeholder;
 
 import static org.jboss.arquillian.graphene.Graphene.element;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitModel;
 import static org.junit.Assert.assertEquals;
@@ -211,17 +211,17 @@ public abstract class AbstractPlaceholderTest {
         input().setTestedValue(getTestedValue());
         body.click();
 
-        guardXhr(a4jSubmitBtn).click();
+        guardAjax(a4jSubmitBtn).click();
 
-        waitAjax().until(element(output).isVisible());
+        waitAjax().until().element(output).is().visible();
         waitAjax().until().element(output).text().equalTo(getTestedValueResponse());
 
         // when
         input().clear();
-        guardXhr(a4jSubmitBtn).click();
+        guardAjax(a4jSubmitBtn).click();
 
         // then
-        waitAjax().until(element(output).not().isVisible());
+        waitAjax().until().element(output).is().not().visible();
     }
 
     @Test
@@ -230,10 +230,10 @@ public abstract class AbstractPlaceholderTest {
         browser.get(contextPath.toExternalForm() + "submit.jsf");
         // when
         input().setTestedValue(getTestedValue());
-        guardXhr(a4jSubmitBtn).click();
+        guardAjax(a4jSubmitBtn).click();
 
         // then
-        waitAjax().until(element(output).isVisible());
+        waitAjax().until().element(output).is().visible();
         waitAjax().until().element(output).text().equalTo(getTestedValueResponse());
     }
 
@@ -246,7 +246,7 @@ public abstract class AbstractPlaceholderTest {
         guardHttp(httpSubmitBtn).click();
 
         // then
-        waitModel().until(element(output).not().isVisible());
+        waitModel().until().element(output).is().not().visible();
     }
 
     @Test
@@ -257,7 +257,7 @@ public abstract class AbstractPlaceholderTest {
         input().setTestedValue(getTestedValue());
         guardHttp(httpSubmitBtn).click();
         // then
-        waitModel().until(element(output).isVisible());
+        waitModel().until().element(output).is().visible();
         assertEquals(getTestedValueResponse(), output.getText());
     }
 

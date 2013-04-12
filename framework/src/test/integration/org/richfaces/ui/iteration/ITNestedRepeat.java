@@ -1,6 +1,6 @@
 package org.richfaces.ui.iteration;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
@@ -53,7 +53,7 @@ public class ITNestedRepeat {
         }
 
         WebElement ajax = browser.findElement(By.id("form:ajax"));
-        guardXhr(ajax).click();
+        guardAjax(ajax).click();
 
         for (int i = 0; i < 3; i++) {
             WebElement input = browser.findElement(By.id("form:outer:" + i + ":inner:0:input"));

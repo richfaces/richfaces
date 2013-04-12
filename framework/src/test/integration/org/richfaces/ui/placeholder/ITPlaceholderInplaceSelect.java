@@ -42,7 +42,7 @@ public class ITPlaceholderInplaceSelect extends AbstractPlaceholderTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITPlaceholderInputText.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITPlaceholderInplaceSelect.class);
 
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
 
@@ -103,10 +103,10 @@ public class ITPlaceholderInplaceSelect extends AbstractPlaceholderTest {
         browser.get(contextPath.toExternalForm() + "submit.jsf");
 
         //when
-        Graphene.guardXhr(a4jSubmitBtn).click();
+        Graphene.guardAjax(a4jSubmitBtn).click();
 
         // then
-        Graphene.waitAjax().until(Graphene.element(output).not().isVisible());
+        Graphene.waitAjax().until().element(output).is().not().visible();
     }
 
     @Test
