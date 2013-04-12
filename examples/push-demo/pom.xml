@@ -29,6 +29,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
+    <groupId>org.richfaces.examples</groupId>
     <artifactId>push-demo</artifactId>
     <name>RichFaces Example: Push Demo</name>
     <packaging>war</packaging>
