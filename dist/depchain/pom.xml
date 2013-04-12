@@ -10,8 +10,8 @@
     </parent>
 
     <artifactId>richfaces</artifactId>
-    <name>RichFaces Assembly</name>
-    <description>Assembled RichFaces Framework including Optimized Resources</description>
+    <name>RichFaces Depchain and Assembler</name>
+    <description>Depchain and Assembler for RichFaces including Optimized Resources</description>
     <packaging>pom</packaging>
 
     <dependencies>
