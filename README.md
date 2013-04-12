@@ -94,7 +94,7 @@ the ZIP distribution will be stored in `dist/target/`.
 [Contributor Getting Started](https://github.com/richfaces/richfaces5/blob/RF-12468-readme/CONTRIBUTING.md)
 -----------------------------
 
-Read the [How to Contribute](https://github.com/richfaces/richfaces5/blob/RF-12468-readme/CONTRIBUTING.md).
+Read [How to Contribute](https://github.com/richfaces/richfaces5/blob/RF-12468-readme/CONTRIBUTING.md).
 
 Developing the Project
 ----------------------
@@ -103,10 +103,14 @@ Developing the Project
 
 RichFaces has extensive framework test suite which validates compatibility with various browsers and application servers.
 
-For more information on how to run and develop this test suite, see [Framework Tests](https://github.com/richfaces/richfaces5/blob/master/docs/framework-tests.md) document.
+For more information on how to run and develop this test suite, see [Framework Tests](https://github.com/richfaces/richfaces5/blob/master/TESTS.md) document.
 
 <h3>Running Smoke Tests</h3>
 
-In order to effectively test the project, you need to run at least framework's smoke tests:
+In order to effectively test the project with each code modification, you need to run at least framework's smoke tests:
 
     $ mvn clean install -Dintegration=jbossas71 -Dsmoke
+
+This will run the project tests against managed instance of JBoss AS 7.1 and test it on headless PhantomJS browser.
+
+This step is also executed in [the continuous integration job](https://buildhive.cloudbees.com/job/richfaces/job/richfaces5/).
