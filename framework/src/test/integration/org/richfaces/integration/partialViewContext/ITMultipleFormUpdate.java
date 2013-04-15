@@ -1,6 +1,6 @@
 package org.richfaces.integration.partialViewContext;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
@@ -59,7 +59,7 @@ public class ITMultipleFormUpdate {
 
         String viewState = getViewState(firstForm);
         firstForm.input.sendKeys("1");
-        guardXhr(firstForm.button).click();
+        guardAjax(firstForm.button).click();
 
         assertEquals("ViewState should not change", viewState, getViewState(firstForm));
         assertEquals("both forms should have same ViewState", getViewState(firstForm), getViewState(secondForm));
@@ -68,7 +68,7 @@ public class ITMultipleFormUpdate {
 
         secondForm.input.clear();
         secondForm.input.sendKeys("2");
-        guardXhr(secondForm.button).click();
+        guardAjax(secondForm.button).click();
 
         assertEquals("ViewState should not change", viewState, getViewState(secondForm));
         assertEquals("both forms should have same ViewState", getViewState(secondForm), getViewState(firstForm));

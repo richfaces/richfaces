@@ -1,6 +1,6 @@
 package org.richfaces.integration.partialViewContext;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 import static org.junit.Assert.fail;
 
@@ -61,7 +61,7 @@ public class ITActivatorComponentNotRenderedProcessing {
     public void when_executed_component_is_not_rendered_after_ajax_request_then_its_oncomplete_handler_should_be_executed() {
         browser.get(contextPath.toExternalForm());
 
-        guardXhr(button).click();
+        guardAjax(button).click();
 
         waitAjax().withTimeout(1, TimeUnit.SECONDS).until(new Predicate<WebDriver>() {
 
@@ -76,7 +76,7 @@ public class ITActivatorComponentNotRenderedProcessing {
     public void when_executed_component_is_not_rendered_after_ajax_request_then_its_render_target_should_be_taken_into_consideration() {
         browser.get(contextPath.toExternalForm());
 
-        guardXhr(button).click();
+        guardAjax(button).click();
 
         waitAjax().until().element(output).text().equalTo("postback");
 
