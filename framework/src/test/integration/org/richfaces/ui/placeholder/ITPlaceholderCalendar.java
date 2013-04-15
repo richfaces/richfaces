@@ -64,14 +64,16 @@ public class ITPlaceholderCalendar extends AbstractPlaceholderTest {
         p.body("</r:calendar>");
 
         p = deployment.baseFacelet("submit.xhtml");
-        p.form("<r:calendar id='input' value='#{placeHolderValue.value2}' enableManualInput='true' datePattern='MMM d, yyyy' timezone='UTC' >");
+        p.form("<r:calendar id='input' value='#{placeHolderValue.value3}' enableManualInput='true' datePattern='MMM d, yyyy' timeZone='#{placeHolderValue.timeZone}' >");
         p.form("    <r:placeholder id='placeholderID' value='Placeholder Text' />");
         p.form("</r:calendar>");
         p.form("<br />");
         p.form("<r:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");
         p.form("<h:commandButton id='httpSubmit' value='http submit' />");
         p.form("<br />");
-        p.form("<h:outputText id='output' value='#{placeHolderValue.value2}' />");
+        p.form("<h:outputText id='output' value='#{placeHolderValue.value3}' >");
+        p.form("    <f:convertDateTime timeZone='UTC' pattern='EEE MMM dd HH:mm:ss z yyyy'/>");
+        p.form("</h:outputText>");
 
         return deployment.getFinalArchive();
     }
@@ -88,7 +90,7 @@ public class ITPlaceholderCalendar extends AbstractPlaceholderTest {
 
     @Override
     protected String getTestedValueResponse() {
-        return "Wed Dec 12 00:00:00 CET 2012";
+        return "Wed Dec 12 00:00:00 UTC 2012";
     }
 
     @Ignore("calendar date conversion problem")
