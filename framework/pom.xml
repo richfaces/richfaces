@@ -34,6 +34,10 @@
         Contains all project specific sources.
     </description>
 
+    <properties>
+        <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
+    </properties>
+
     <dependencies>
 
         <!-- Java EE Web Profile -->
@@ -389,9 +393,9 @@
                                 <argument>-d</argument>
                                 <argument>${project.build.directory}/vdldoc</argument>
                                 <argument>-windowtitle</argument>
-                                <argument>RichFaces ${project.version} VDL Documentation</argument>
+                                <argument>RichFaces ${version.richfaces} VDL Documentation</argument>
                                 <argument>-doctitle</argument>
-                                <argument>RichFaces ${project.version} VDL Documentation</argument>
+                                <argument>RichFaces ${version.richfaces} VDL Documentation</argument>
                                 <argument>${project.build.directory}/generated-sources/main/resources/META-INF/r.taglib.xml</argument>
                             </arguments>
                         </configuration>

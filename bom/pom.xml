@@ -48,7 +48,6 @@
     </issueManagement>
 
     <properties>
-        <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
         <version.google-guava>11.0.2</version.google-guava>
 
         <version.atmosphere>1.0.10</version.atmosphere>
@@ -76,23 +75,23 @@
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces</artifactId>
-                <version>${project.version}</version>
+                <version>5.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces</artifactId>
                 <type>pom</type>
-                <version>${project.version}</version>
+                <version>5.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-framework</artifactId>
-                <version>${project.version}</version>
+                <version>5.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-optimized-resources</artifactId>
-                <version>${project.version}</version>
+                <version>5.0.0-SNAPSHOT</version>
             </dependency>
 
             <!-- Project Versions -->
@@ -151,6 +150,15 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>2.4.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <localCheckout>true</localCheckout>
+                    <pushChanges>false</pushChanges>
+                </configuration>
             </plugin>
         </plugins>
     </build>

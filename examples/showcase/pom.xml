@@ -35,7 +35,7 @@
     <name>RichFaces Showcase</name>
 
     <properties>
-        <version.richfaces>${project.version}</version.richfaces>
+        <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
         <dependency.scope>compile</dependency.scope>
         <container.classifier>tomcat6</container.classifier>
         <container.resources>src/main/resources-tomcat</container.resources>

@@ -14,6 +14,7 @@
     <description>Optimized Resources for RichFaces Component Library</description>
 
     <properties>
+        <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
         <faces.resources.dir>${project.build.outputDirectory}/META-INF/resources</faces.resources.dir>
         <resource.mappings.dir>${project.build.outputDirectory}/META-INF/richfaces</resource.mappings.dir>
     </properties>
@@ -66,9 +67,9 @@
                         <configuration>
                             <pack>false</pack>
                             <compress>false</compress>
-                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Static/</resourcesOutputDir>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${version.richfaces}/Static/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Static.properties</staticResourceMappingFile>
-                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Static/</staticResourcePrefix>
+                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/Static/</staticResourcePrefix>
                             <excludedFiles>
                                 <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
@@ -86,9 +87,9 @@
                         <configuration>
                             <pack>false</pack>
                             <compress>true</compress>
-                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Compressed/</resourcesOutputDir>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${version.richfaces}/Compressed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Compressed.properties</staticResourceMappingFile>
-                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Compressed/</staticResourcePrefix>
+                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/Compressed/</staticResourcePrefix>
                             <excludedFiles>
                                 <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
@@ -106,9 +107,9 @@
                         <configuration>
                             <pack>true</pack>
                             <compress>false</compress>
-                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Packed/</resourcesOutputDir>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${version.richfaces}/Packed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Packed.properties</staticResourceMappingFile>
-                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Packed/</staticResourcePrefix>
+                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/Packed/</staticResourcePrefix>
                             <excludedFiles>
                                 <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
@@ -125,9 +126,9 @@
                         <configuration>
                             <pack>false</pack>
                             <compress>false</compress>
-                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Packed/</resourcesOutputDir>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${version.richfaces}/Packed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Packed.properties</staticResourceMappingFile>
-                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Packed/</staticResourcePrefix>
+                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/Packed/</staticResourcePrefix>
                             <includedFiles>
                                 <include>^jquery.js$</include>
                             </includedFiles>
@@ -143,9 +144,9 @@
                         <configuration>
                             <pack>true</pack>
                             <compress>true</compress>
-                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/PackedCompressed/</resourcesOutputDir>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${version.richfaces}/PackedCompressed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/PackedCompressed.properties</staticResourceMappingFile>
-                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/PackedCompressed/</staticResourcePrefix>
+                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/PackedCompressed/</staticResourcePrefix>
                             <excludedFiles>
                                 <exclude>^javax.faces</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
@@ -162,9 +163,9 @@
                         <configuration>
                             <pack>false</pack>
                             <compress>true</compress>
-                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/PackedCompressed/</resourcesOutputDir>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${version.richfaces}/PackedCompressed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/PackedCompressed.properties</staticResourceMappingFile>
-                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/PackedCompressed/</staticResourcePrefix>
+                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/PackedCompressed/</staticResourcePrefix>
                             <includedFiles>
                                 <include>^jquery.js$</include>
                             </includedFiles>

@@ -10,10 +10,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <version.richfaces>${project.version}</version.richfaces>
+        <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
         <version.metadata-extractor>2.6.2</version.metadata-extractor>
 
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
@@ -21,11 +18,21 @@
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
         <version.tomee15>1.5.1</version.tomee15>
         <version.glassfish31>3.1.2.2</version.glassfish31>
+
+        <maven.min.version>3.0</maven.min.version>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
         <!-- Release repositories -->
         <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
         <jboss.snapshots.repo.url>https://repository.jboss.org/nexus/content/repositories/snapshots/</jboss.snapshots.repo.url>
     </properties>
+
+    <prerequisites>
+        <maven>${maven.min.version}</maven>
+    </prerequisites>
 
     <dependencyManagement>
         <dependencies>
@@ -130,6 +137,7 @@
                 <directory>environment/dev</directory>
             </resource>
         </resources>
+
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
@@ -150,8 +158,8 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
 
@@ -318,14 +326,23 @@
                     <version>1.7</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.richfaces.cdk</groupId>
-                    <artifactId>maven-richfaces-resources-plugin</artifactId>
-                    <version>4.3.0.Final</version>
+                    <groupId>org.richfaces</groupId>
+                    <artifactId>ichfaces-resources-maven-plugin</artifactId>
+                    <version>${version.richfaces}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.jboss.as.plugins</groupId>
                     <artifactId>jboss-as-maven-plugin</artifactId>
-                    <version>7.1.1.Final</version>
+                    <version>${version.jboss-as7}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.3.2</version>
+                    <configuration>
+                        <localCheckout>true</localCheckout>
+                        <pushChanges>false</pushChanges>
+                    </configuration>
                 </plugin>
                 <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
                 <plugin>
@@ -747,6 +764,12 @@
         </profile>
     </profiles>
     
+    <scm>
+        <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
+        <url>https://github.com/richfaces/richfaces5</url>
+    </scm>
+
     <distributionManagement>
         <repository>
             <id>jboss-releases-repository</id>
