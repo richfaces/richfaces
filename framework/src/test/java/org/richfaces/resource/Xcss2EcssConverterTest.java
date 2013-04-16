@@ -1,5 +1,7 @@
 package org.richfaces.resource;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -9,8 +11,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Test;
 import org.xml.sax.SAXException;
-
-import static junit.framework.Assert.assertEquals;
 
 public class Xcss2EcssConverterTest {
 

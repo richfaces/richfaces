@@ -33,10 +33,9 @@ import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModelEvent;
 import javax.faces.model.DataModelListener;
 
-import junit.framework.Assert;
-
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.ui.iteration.SortOrder;
