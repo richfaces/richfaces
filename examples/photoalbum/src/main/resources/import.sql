@@ -393,4 +393,10 @@ INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, w
   INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(12306, 123029);
 UPDATE Album set coveringImage_id=123027 where id = 1230;
 
+-------------------
+-- Event Categories
+-------------------
 
+INSERT INTO EventCategory(description) VALUES('Movie');
+INSERT INTO EventCategory(description) VALUES('Concert');
+INSERT INTO EventCategory(description) VALUES('Meeting');
