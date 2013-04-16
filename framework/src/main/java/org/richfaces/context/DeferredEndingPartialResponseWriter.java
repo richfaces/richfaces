@@ -41,6 +41,7 @@ import javax.faces.context.PartialResponseWriter;
 public class DeferredEndingPartialResponseWriter extends PartialResponseWriterWrapper {
 
     private boolean redirected = false;
+    private boolean error = false;
 
     public DeferredEndingPartialResponseWriter(PartialResponseWriter wrapped) {
         super(wrapped);
@@ -71,16 +72,28 @@ public class DeferredEndingPartialResponseWriter extends PartialResponseWriterWr
      * Decides whether the document can be finished before {@link #finallyEndDocument()} is called.
      */
     private boolean shouldEndDocumentPrematurely() {
-        return redirected;
+        return redirected || error;
     }
 
     /*
      * (non-Javadoc)
+     *
      * @see org.richfaces.context.PartialResponseWriterWrapper#redirect(java.lang.String)
      */
     @Override
     public void redirect(String url) throws IOException {
         this.redirected = true;
         super.redirect(url);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.context.PartialResponseWriterWrapper#startError(java.lang.String)
+     */
+    @Override
+    public void startError(String errorName) throws IOException {
+        this.error = true;
+        super.startError(errorName);
     }
 }
