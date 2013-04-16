@@ -70,6 +70,8 @@ public class Constants {
     public static final String FILE_PROCESSING_ERROR = "Error processing occurred during the upload";
     public static final String FILE_SAVE_ERROR = "Error occurred during saving the image to the disk";
     public static final String SEARCH_NO_WHERE_OPTIONS_ERROR = "You must specify where to execute the search ";
+    public static final String EVENT_SAVING_ERROR = " An error occurred while saving the event to the database";
+    public static final String EVENT_DELETING_ERROR = " An error occurred while deleting the event to the database";
     // Outcomes
     public static final String LOGOUT_OUTCOME = "logout";
     public static final String REGISTER_OUTCOME = "register";

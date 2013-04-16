@@ -36,5 +36,9 @@ public enum Events {
     STOP_SLIDESHOW_EVENT, // SimpleEvent
 
     // this is never used (neither fired nor observed)
-    ADD_IMAGE_EVENT
+    ADD_IMAGE_EVENT,
+    
+    EVENT_ADDED_EVENT,
+    EVENT_EDITED_EVENT,
+    EVENT_DELETED_EVENT
 }

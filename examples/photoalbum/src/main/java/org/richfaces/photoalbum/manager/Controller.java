@@ -358,6 +358,18 @@ public class Controller implements Serializable {
         Shelf shelf = se.getShelf();
         model.resetModel(NavigationEnum.SHELF_PREVIEW, shelf.getOwner(), shelf, null, null, null);
     }
+    
+    public void onEventDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
+        model.resetModel(NavigationEnum.ANONYM, loggedUser, null, null, null, null, null);
+    }
+
+    public void onEventAdded(@Observes @EventType(Events.EVENT_ADDED_EVENT) ShelfEvent se) {
+        model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, se.getEvent());
+    }
+
+    public void onEventEdited(@Observes @EventType(Events.SHELF_EDITED_EVENT) ShelfEvent se) {
+        model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, se.getEvent());
+    }
 
     /**
      * This method observes <code>Constants.IMAGE_DELETED_EVENT</code> and invoked after the user delete her image
