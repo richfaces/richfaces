@@ -365,6 +365,7 @@
 
                     this.div.css('visibility', '');
                     $(this.cdiv).find('*').each(function() {
+                        // Force a CSS "touch" of all popupPanel children to ensure visibility in IE 9/10
                         var $this = $(this);
                         var visibility = $this.css('visibility');
                         $this.css('visibility', visibility);
