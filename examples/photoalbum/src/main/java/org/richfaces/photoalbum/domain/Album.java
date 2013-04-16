@@ -57,6 +57,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Andrey Markhel
  */
 @Entity
+@AlbumConstraint
 public class Album implements Serializable {
 
     private static final long serialVersionUID = -7042878411608396483L;
@@ -71,11 +72,15 @@ public class Album implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Image> images = new ArrayList<Image>();
 
-    @NotNull
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Shelf shelf;
+    
+    @ManyToOne
+    @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Event event;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Image coveringImage;
@@ -247,6 +252,14 @@ public class Album implements Serializable {
         }
 
         return coveringImage;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     /**
