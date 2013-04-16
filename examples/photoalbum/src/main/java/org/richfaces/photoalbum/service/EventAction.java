@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import org.richfaces.photoalbum.domain.Event;
 import org.richfaces.photoalbum.domain.EventCategory;
@@ -17,7 +18,7 @@ public class EventAction implements IEventAction {
 
     /**
      * Persist event entity to database
-     *
+     * 
      * @param event - event to add
      * @throws PhotoAlbumException
      */
@@ -32,7 +33,7 @@ public class EventAction implements IEventAction {
 
     /**
      * Remove event entity from database
-     *
+     * 
      * @param event - event to delete
      * @throws PhotoAlbumException
      */
@@ -47,7 +48,7 @@ public class EventAction implements IEventAction {
 
     /**
      * Synchronize state of event entity with database
-     *
+     * 
      * @param event - event to Synchronize
      * @throws PhotoAlbumException
      */
@@ -62,13 +63,13 @@ public class EventAction implements IEventAction {
 
     /**
      * Refresh state of given event
-     *
+     * 
      * @param event - event to Synchronize
      */
     public void resetEvent(Event event) {
         em.refresh(event);
     }
-    
+
     @SuppressWarnings("unchecked")
     public List<Event> getAllEvents() {
         return em.createNamedQuery("all-events").getResultList();
@@ -78,12 +79,35 @@ public class EventAction implements IEventAction {
     public List<EventCategory> getEventCategories() {
         return em.createNamedQuery("event-categories").getResultList();
     }
-    
+
     public Event getEventById(long id) {
-        return (Event) em.createNamedQuery("event-id").setParameter("id", id).getSingleResult();
+        Event event = null;
+        try {
+            event = (Event) em.createNamedQuery("event-by-id").setParameter("id", id).getSingleResult();
+        } catch (NoResultException nre) {
+            // do nothing
+        }
+        return event;
     }
-    
+
     public EventCategory getEventCategoryById(long id) {
-        return (EventCategory) em.createNamedQuery("event-category").setParameter("id", id).getSingleResult();
+        EventCategory ec = null;
+        try {
+            ec = (EventCategory) em.createNamedQuery("event-category").setParameter("id", id).getSingleResult();
+        } catch (NoResultException nre) {
+            // do nothing
+        }
+        return ec;
+    }
+
+    @Override
+    public Event getEventByName(String name) {
+        Event event = null;
+        try {
+            event = (Event) em.createNamedQuery("event-by-name").setParameter("name", name).getSingleResult();
+        } catch (NoResultException nre) {
+            // do nothing
+        }
+        return event;
     }
 }
