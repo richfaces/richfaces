@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import javax.annotation.Nullable;
 import javax.faces.webapp.FacesServlet;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -256,8 +255,7 @@ public class Deployment {
 
 
         webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
-            @Override
-            public WebAppDescriptor apply(@Nullable WebAppDescriptor webXml) {
+            public WebAppDescriptor apply(WebAppDescriptor webXml) {
 
                 // setup Weld Servlet
                 webXml
