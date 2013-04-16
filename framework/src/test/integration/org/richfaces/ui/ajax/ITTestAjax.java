@@ -46,7 +46,7 @@ public class ITTestAjax {
         browser.get(contextPath.toExternalForm());
         WebElement cell = browser.findElement(By.id("myForm:input"));
         cell.sendKeys("123");
-        Graphene.guardXhr(cell).sendKeys(Keys.TAB);
+        Graphene.guardAjax(cell).sendKeys(Keys.TAB);
         cell = browser.findElement(By.id("myForm:input"));
         Assert.assertEquals("4", cell.getAttribute("value"));
     }

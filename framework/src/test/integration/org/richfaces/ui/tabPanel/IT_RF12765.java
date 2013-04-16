@@ -1,6 +1,6 @@
 package org.richfaces.ui.tabPanel;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 import java.net.URL;
 import java.util.List;
@@ -78,7 +78,7 @@ public class IT_RF12765 {
         WebElement tab1 = form.findElement(By.id("myForm:repeat:1:tab:header:inactive"));
         WebElement tab2 = form.findElement(By.id("myForm:repeat:2:tab:header:inactive"));
 
-        guardXhr(tab2).click();
+        guardAjax(tab2).click();
         tabPanel = form.findElements(By.className("rf-tab-cnt")).get(1);
         Assert.assertTrue(tabPanel.getText().contains("tab6"));
     }

@@ -1,6 +1,6 @@
 package org.richfaces.ui.select;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
@@ -57,7 +57,7 @@ public class ITSelectValidation {
 
         selectInput.sendKeys("invalid");
 
-        guardXhr(submit).click();
+        guardAjax(submit).click();
 
         assertTrue("contains invalid message", message.getText().contains("Value is not valid"));
     }

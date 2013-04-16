@@ -1,6 +1,6 @@
 package org.richfaces.integration.javascript;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.warp.jsf.Phase.INVOKE_APPLICATION;
 import static org.junit.Assert.assertEquals;
 
@@ -68,7 +68,7 @@ public class ITJavaScriptServiceAjax {
         Warp
             .initiate(new Activity() {
                 public void perform() {
-                    guardXhr(richfacesAjax).click();
+                    guardAjax(richfacesAjax).click();
                 }
             })
             .inspect(new AddScript());
@@ -83,7 +83,7 @@ public class ITJavaScriptServiceAjax {
         Warp
             .initiate(new Activity() {
                 public void perform() {
-                    guardXhr(jsfAjax).click();
+                    guardAjax(jsfAjax).click();
                 }
             })
             .inspect(new AddScript());

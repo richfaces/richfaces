@@ -2,7 +2,7 @@ package org.richfaces.ui.validation;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -50,7 +50,7 @@ public class ITAjaxValidation extends ValidationTestBase {
 
     @Override
     protected void submitValue() {
-        guardXhr(body).click();
+        guardAjax(body).click();
     }
 
     private static void addIndexPage(org.richfaces.deployment.Deployment deployment) {

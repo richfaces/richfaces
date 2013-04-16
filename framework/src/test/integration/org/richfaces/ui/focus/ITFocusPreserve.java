@@ -1,7 +1,7 @@
 package org.richfaces.ui.focus;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 
 import java.net.URL;
@@ -76,7 +76,7 @@ public class ITFocusPreserve {
 
         // when
         input3.click();
-        guardXhr(ajax).click();
+        guardAjax(ajax).click();
 
         // then
         waitAjax().until(new ElementIsFocused(input3));
@@ -89,11 +89,11 @@ public class ITFocusPreserve {
         browser.get(contextPath.toExternalForm());
 
         // when
-        guardXhr(renderFirstFormFromSecondForm).click();
+        guardAjax(renderFirstFormFromSecondForm).click();
         Thread.sleep(500);
 
         input2.click();
-        guardXhr(ajax).click();
+        guardAjax(ajax).click();
 
         // then
         waitAjax().until(new ElementIsFocused(input2));

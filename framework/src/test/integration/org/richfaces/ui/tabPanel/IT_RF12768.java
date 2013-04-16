@@ -1,6 +1,6 @@
 package org.richfaces.ui.tabPanel;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 import java.io.IOException;
 import java.net.URL;
@@ -71,9 +71,9 @@ public class IT_RF12768 {
     public void check_row_removal() throws InterruptedException, IOException {
         browser.get(contextPath.toExternalForm());
         WebElement createButton = form.findElement(By.id("myForm:a4jCreateTabButton"));
-        guardXhr(createButton).click();
-        guardXhr(createButton).click();
-        guardXhr(createButton).click();
+        guardAjax(createButton).click();
+        guardAjax(createButton).click();
+        guardAjax(createButton).click();
 
         WebElement tabPanel = form.findElement(By.id("myForm:tabPanel"));
         List<WebElement> tabLabels = tabPanel.findElements(By.className("rf-tab-lbl"));
@@ -81,7 +81,7 @@ public class IT_RF12768 {
 
         WebElement tab9 = form.findElement(By.id("myForm:tab9:header:inactive"));
         WebElement removeLink = tab9.findElement(By.tagName("a"));
-        guardXhr(removeLink).click();
+        guardAjax(removeLink).click();
 
         tabPanel = form.findElement(By.id("myForm:tabPanel"));
         tabLabels = tabPanel.findElements(By.className("rf-tab-lbl"));

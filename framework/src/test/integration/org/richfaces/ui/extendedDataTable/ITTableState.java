@@ -1,6 +1,6 @@
 package org.richfaces.ui.extendedDataTable;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 import java.net.URL;
 import java.util.List;
@@ -105,14 +105,14 @@ public class ITTableState {
                 .release(column1)
                 .build();
 
-        guardXhr(dragAndDrop).perform();
+        guardAjax(dragAndDrop).perform();
 
         // when / then
         Warp.initiate(new Activity() {
 
             @Override
             public void perform() {
-                guardXhr(button).click();
+                guardAjax(button).click();
             }
         }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
@@ -138,7 +138,7 @@ public class ITTableState {
         WebElement cell = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt")).get(0);
         Assert.assertEquals("9", cell.getText());
 
-        guardXhr(sortLink).click();
+        guardAjax(sortLink).click();
         Thread.sleep(500);
         cell = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt")).get(0);
         Assert.assertEquals("0", cell.getText());
@@ -148,7 +148,7 @@ public class ITTableState {
 
             @Override
             public void perform() {
-                guardXhr(button).click();
+                guardAjax(button).click();
             }
         }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
@@ -193,7 +193,7 @@ public class ITTableState {
 
             @Override
             public void perform() {
-                guardXhr(button).click();
+                guardAjax(button).click();
             }
         }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
