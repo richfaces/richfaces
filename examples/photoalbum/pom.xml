@@ -10,6 +10,9 @@
     <packaging>war</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
         <version.richfaces>${project.version}</version.richfaces>
         <version.metadata-extractor>2.6.2</version.metadata-extractor>
 
