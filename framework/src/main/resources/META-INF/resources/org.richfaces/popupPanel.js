@@ -364,6 +364,11 @@
 
 
                     this.div.css('visibility', '');
+                    $(this.cdiv).find('*').each(function() {
+                        var $this = $(this);
+                        var visibility = $this.css('visibility');
+                        $this.css('visibility', visibility);
+                    })
                     this.div.css('display', 'block');
                     if (this.options.autosized) {
                         this.shadowDiv.css('width', this.cdiv[0].clientWidth);
