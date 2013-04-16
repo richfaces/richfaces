@@ -97,10 +97,6 @@
             <artifactId>el-ri</artifactId>
             <version>${version.sun-el}</version>
         </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.richfaces</groupId>
