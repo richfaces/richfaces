@@ -52,6 +52,13 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
         setRendererType("org.richfaces.TogglePanelItemRenderer");
     }
 
+    /**
+     * Suppress the inherited value attribute from the taglib.
+     */
+    @Attribute(hidden = true)
+    public abstract Object getValue();
+
+
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;

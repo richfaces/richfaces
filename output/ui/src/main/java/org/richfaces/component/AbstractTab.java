@@ -42,9 +42,8 @@ import javax.faces.render.Renderer;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), facets = { @Facet(name = "header", generate = false) }, renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"), attributes = {
-        "core-props.xml", "ajax-props.xml", "bypass-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
-public abstract class AbstractTab extends AbstractActionComponent implements AbstractTogglePanelTitledItem, AjaxProps,
-        ClientBehaviorHolder {
+        "core-props.xml", "bypass-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
+public abstract class AbstractTab extends AbstractActionComponent implements AbstractTogglePanelTitledItem, ClientBehaviorHolder {
     public static final String COMPONENT_TYPE = "org.richfaces.Tab";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tab";
 
@@ -55,6 +54,12 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
     enum Properties {
         headerDisabledClass, headerInactiveClass, headerClass, contentClass, execute, headerActiveClass, header, switchType
     }
+
+    /**
+     * Suppress the inherited value attribute from the taglib.
+     */
+    @Attribute(hidden = true)
+    public abstract Object getValue();
 
     /**
      * The CSS class applied to the header when this panel is active
