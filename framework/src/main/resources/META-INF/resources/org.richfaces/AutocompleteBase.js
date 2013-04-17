@@ -92,7 +92,7 @@
             if (this.isVisible) {
                 var _this = this;
                 this.timeoutId = window.setTimeout(function() {
-                    if (this.isVisible) {
+                    if (_this.isVisible) {
                         _this.__hide(event);
                     }
                 }, 200);
