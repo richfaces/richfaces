@@ -42,6 +42,10 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
@@ -58,18 +62,21 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @AlbumConstraint
+@JsonAutoDetect(fieldVisibility=Visibility.NONE, getterVisibility=Visibility.NONE, isGetterVisibility=Visibility.NONE)
 public class Album implements Serializable {
 
     private static final long serialVersionUID = -7042878411608396483L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty
     private Long id = null;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "album")
     @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonProperty
     private List<Image> images = new ArrayList<Image>();
 
     @ManyToOne
@@ -82,7 +89,8 @@ public class Album implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Event event;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
+    @JsonProperty
     private Image coveringImage;
 
     @Transient
@@ -95,9 +103,11 @@ public class Album implements Serializable {
     @NotNull
     @NotEmpty
     @Length(min = 3, max = 50)
+    @JsonProperty
     private String name;
 
     @Column(length = 1024)
+    @JsonProperty
     private String description;
 
     // ********************** Accessor Methods ********************** //
@@ -266,6 +276,7 @@ public class Album implements Serializable {
      * This method determine is album empty or not
      *
      */
+    @JsonIgnore
     public boolean isEmpty() {
         return images == null || images.isEmpty();
     }

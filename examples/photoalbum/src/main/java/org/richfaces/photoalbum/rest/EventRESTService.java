@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.ejb.EJBException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
@@ -22,7 +21,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.richfaces.photoalbum.domain.Event;
@@ -51,12 +49,13 @@ public class EventRESTService {
 
     @GET
     @Path("/{id:[0-9][0-9]*}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Event lookupMemberById(@PathParam("id") long id) {
+    @Produces(APPLICATION_JSON)
+    public Event lookupEventById(@PathParam("id") long id) {
         Event event = evm.getEventById(id);
         if (event == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
+
         return event;
     }
 
@@ -71,13 +70,13 @@ public class EventRESTService {
 
             ea.addEvent(event);
 
-            //Create an "ok" response
+            // Create an "ok" response
             builder = Response.ok();
         } catch (ConstraintViolationException ce) {
-            //Handle bean validation issues
+            // Handle bean validation issues
             builder = createViolationResponse(ce.getConstraintViolations());
         } catch (ValidationException e) {
-            //Handle the unique constrain violation
+            // Handle the unique constrain violation
             Map<String, String> responseObj = new HashMap<String, String>();
             responseObj.put("name", "Name taken");
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
@@ -109,8 +108,8 @@ public class EventRESTService {
     }
 
     /**
-     * Creates a JAX-RS "Bad Request" response including a map of all violation fields, and their message.
-     * This can then be used by clients to show violations.
+     * Creates a JAX-RS "Bad Request" response including a map of all violation fields, and their message. This can then be used
+     * by clients to show violations.
      *
      * @param violations A set of violations that needs to be reported
      * @return JAX-RS response containing all violations

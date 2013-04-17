@@ -35,6 +35,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Length;
@@ -63,6 +64,7 @@ public class MetaTag implements Serializable {
     @Length(min = 3, max = 50)
     private String tag;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "imageTags")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Image> images = new ArrayList<Image>();

@@ -12,7 +12,7 @@
     <properties>
         <version.richfaces>${project.version}</version.richfaces>
         <version.metadata-extractor>2.6.2</version.metadata-extractor>
-
+        <version.jackson>1.9.12</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
 
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
@@ -92,6 +92,11 @@
             <groupId>com.drewnoakes</groupId>
             <artifactId>metadata-extractor</artifactId>
             <version>${version.metadata-extractor}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+            <version>${version.jackson}</version>
         </dependency>
 
         <!-- Test dependencies -->
