@@ -23,13 +23,13 @@ package org.richfaces.photoalbum.manager;
 import java.io.Serializable;
 
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.richfaces.photoalbum.domain.Album;
+import org.richfaces.photoalbum.domain.Event;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.Shelf;
@@ -77,11 +77,11 @@ public class Controller implements Serializable {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    Event<SimpleEvent> error;
+    javax.enterprise.event.Event<SimpleEvent> error;
     @Inject
     @Any
-    Event<SimpleEvent> event;
-    
+    javax.enterprise.event.Event<SimpleEvent> event;
+
     @Inject
     FacebookShelfBean fsBean;
 
@@ -270,6 +270,10 @@ public class Controller implements Serializable {
         model.resetModel(NavigationEnum.SHELF_PREVIEW, shelf.getOwner(), shelf, null, null, null);
     }
 
+    public void showEvent(Event event) {
+        model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, event);
+    }
+
     /**
      * This method invoked after the user want to edit specified album.
      *
@@ -358,7 +362,7 @@ public class Controller implements Serializable {
         Shelf shelf = se.getShelf();
         model.resetModel(NavigationEnum.SHELF_PREVIEW, shelf.getOwner(), shelf, null, null, null);
     }
-    
+
     public void onEventDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
         model.resetModel(NavigationEnum.ANONYM, loggedUser, null, null, null, null, null);
     }

@@ -143,6 +143,21 @@
                 </r:treeModelAdaptor>
             </r:treeModelAdaptor>
 
-        </r:tree>
+        </r:tree>    
+    </h:panelGroup>
+    
+    <h:panelGroup>
+    
+        <h:panelGrid columns="2">
+            <r:commandLink actionListener="#{controller.selectPublicShelves()}" render="mainArea, treePanel" disabled="true">
+                <h2>
+                    <h:outputText value="Events" />
+                </h2>
+            </r:commandLink>
+
+        </h:panelGrid>
+        
+        <ui:include src="/includes/event/eventtree.xhtml" />
+    
     </h:panelGroup>
 </ui:composition>

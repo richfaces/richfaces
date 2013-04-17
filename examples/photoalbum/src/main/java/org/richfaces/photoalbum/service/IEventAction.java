@@ -27,4 +27,8 @@ public interface IEventAction {
     Event getEventByName(String name);
     
     EventCategory getEventCategoryById(long id);
+    
+    List<Event> getEventsByCategory(EventCategory ec);
+    
+    
 }

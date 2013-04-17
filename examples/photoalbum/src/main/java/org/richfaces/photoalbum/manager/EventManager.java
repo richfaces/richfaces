@@ -153,6 +153,10 @@ public class EventManager implements Serializable {
     public EventCategory getEventCategoryById(long id) {
         return eventAction.getEventCategoryById(id);
     }
+    
+    public List<Event> getEventsByCategory(EventCategory ec) {
+        return eventAction.getEventsByCategory(ec);
+    }
 
     public long getEcId() {
         return ecId;

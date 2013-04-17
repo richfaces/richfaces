@@ -49,7 +49,8 @@ import org.hibernate.annotations.OrderBy;
         @NamedQuery(name = "event-category", query = "select ec from EventCategory ec where ec.id = :id"),
         @NamedQuery(name = "event-by-id", query = "select e from Event e where e.id = :id"),
         @NamedQuery(name = "all-events", query = "select e from Event e"),
-        @NamedQuery(name = "event-by-name", query = "select e from Event e where e.name = :name")})
+        @NamedQuery(name = "event-by-name", query = "select e from Event e where e.name = :name"),
+        @NamedQuery(name = "events-by-category", query = "select e from Event e where e.category = :cat")})
 @Entity
 // @Portable
 public class Event implements Serializable {

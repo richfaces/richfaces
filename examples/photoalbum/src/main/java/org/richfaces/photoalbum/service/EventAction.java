@@ -110,4 +110,10 @@ public class EventAction implements IEventAction {
         }
         return event;
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Event> getEventsByCategory(EventCategory ec) {
+        return em.createNamedQuery("events-by-category").setParameter("cat", ec).getResultList();
+    }
 }
