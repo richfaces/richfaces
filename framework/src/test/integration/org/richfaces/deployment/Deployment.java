@@ -255,17 +255,33 @@ public class Deployment {
         addMavenDependency("javax.servlet:jstl:1.2");
 
 
-
         webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             @Override
-            public WebAppDescriptor apply(@Nullable WebAppDescriptor input) {
+            public WebAppDescriptor apply(@Nullable WebAppDescriptor webXml) {
 
-                input
+                // setup Weld Servlet
+                webXml
                     .createListener()
-                        .listenerClass("org.jboss.weld.environment.servlet.Listener")
-                        .up();
+                        .listenerClass("org.jboss.weld.environment.servlet.Listener");
 
-                return input;
+                // setup ExpressionFactory of JBoss EL (supports unified EL)
+                switch (configuration.getJsfProvider()) {
+                    case MOJARRA:
+                        webXml
+                            .getOrCreateContextParam()
+                                .paramName("com.sun.faces.expressionFactory")
+                                .paramValue("org.jboss.el.ExpressionFactoryImpl");
+                        break;
+
+                    case MYFACES:
+                        webXml
+                            .getOrCreateContextParam()
+                                .paramName("org.apache.myfaces.EXPRESSION_FACTORY")
+                                .paramValue("org.jboss.el.ExpressionFactoryImpl");
+                        break;
+                }
+
+                return webXml;
             }
         });
 

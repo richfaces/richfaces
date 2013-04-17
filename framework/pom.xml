@@ -334,6 +334,7 @@
                 </property>
             </activation>
             <properties>
+                <arquillian.richfaces.jsfProvider>myfaces</arquillian.richfaces.jsfProvider>
                 <arquillian.richfaces.jsfImplementation>org.apache.myfaces.core:myfaces-impl</arquillian.richfaces.jsfImplementation>
             </properties>
             <dependencies>

@@ -11,6 +11,7 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
     private String richfacesVersion;
     private Boolean servletContainerSetup;
     private String currentBuildRichfacesVersion = "5.0.0-SNAPSHOT";
+    private String jsfProvider;
     private String jsfImplementation;
     private String containerHome;
     private String containerDistribution;
@@ -52,6 +53,15 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
      */
     public String getJsfImplementation() {
         return jsfImplementation;
+    }
+
+    /**
+     * Returns the JSF implementation provider
+     *
+     * @see JsfProvider
+     */
+    public JsfProvider getJsfProvider() {
+        return JsfProvider.valueOf(jsfProvider.toUpperCase());
     }
 
     /**
@@ -126,6 +136,11 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
     @Override
     public FundamentalTestConfiguration configure(ArquillianDescriptor descriptor, Class<? extends Annotation> qualifier) {
         return ConfigurationMapper.fromArquillianDescriptor(descriptor, this, qualifier);
+    }
+
+    public enum JsfProvider {
+        MOJARRA,
+        MYFACES
     }
 
 }

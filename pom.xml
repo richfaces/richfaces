@@ -368,6 +368,7 @@
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
                 <arquillian.richfaces.version></arquillian.richfaces.version>
                 <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
+                <arquillian.richfaces.jsfProvider>mojarra</arquillian.richfaces.jsfProvider>
                 <arquillian.richfaces.jsfImplementation>org.glassfish:javax.faces</arquillian.richfaces.jsfImplementation>
                 <arquillian.container.home></arquillian.container.home>
                 <arquillian.container.distribution></arquillian.container.distribution>
@@ -640,6 +641,7 @@
             </activation>
             <properties>
                 <arquillian.launch.tomee15>true</arquillian.launch.tomee15>
+                <arquillian.richfaces.jsfProvider>myfaces</arquillian.richfaces.jsfProvider>
                 <arquillian.container.home>${project.build.directory}/apache-tomee-webprofile-${version.tomee15}</arquillian.container.home>
                 <arquillian.container.distribution>org.apache.openejb:apache-tomee:zip:webprofile:${version.tomee15}</arquillian.container.distribution>
             </properties>
@@ -661,6 +663,7 @@
             </activation>
             <properties>
                 <arquillian.launch.tomee15>true</arquillian.launch.tomee15>
+                <arquillian.richfaces.jsfProvider>myfaces</arquillian.richfaces.jsfProvider>
             </properties>
             <dependencies>
                 <dependency>
