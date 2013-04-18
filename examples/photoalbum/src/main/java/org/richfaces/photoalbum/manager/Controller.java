@@ -171,6 +171,10 @@ public class Controller implements Serializable {
         model.resetModel(NavigationEnum.FB_IMAGE_PREVIEW, loggedUser, null, null, null, null);
     }
 
+    public void showFbShelf() {
+        model.resetModel(NavigationEnum.FB_SHELF, loggedUser, null, null, null, null);
+    }
+
     /**
      * This method invoked in cases, when it is need to clear fileUpload component
      *

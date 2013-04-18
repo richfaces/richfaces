@@ -139,18 +139,38 @@ public class DnDManager implements DropListener {
     public void addAlbumToEvent(DropEvent dropEvent) {
         if (user == null)
             return;
-
-        Album album = (Album) dropEvent.getDragValue();
+        
+        Object dragValue = dropEvent.getDragValue();
         Event event = (Event) dropEvent.getDropValue();
+        
+        if (dragValue instanceof Album) {
+            Album album = (Album) dragValue;
+            
+            event.getAlbums().add(album);
+            album.setEvent(event);
 
-        event.getAlbums().add(album);
-        album.setEvent(event);
-
-        try {
-            albumAction.editAlbum(album);
-            eventAction.editEvent(event);
-        } catch (PhotoAlbumException e) {
-            error.fire(new SimpleEvent(Constants.ERROR_IN_DB + e.getMessage()));
+            try {
+                albumAction.editAlbum(album);
+                eventAction.editEvent(event);
+            } catch (PhotoAlbumException e) {
+                error.fire(new SimpleEvent(Constants.ERROR_IN_DB + e.getMessage()));
+            }
+            return;
         }
+        
+        if (dragValue instanceof String) {
+            String aid = (String) dragValue;
+            
+            event.getFacebookAlbums().add(aid);
+            
+            try {
+                eventAction.editEvent(event);
+            } catch (PhotoAlbumException e) {
+                error.fire(new SimpleEvent(Constants.ERROR_IN_DB + e.getMessage()));
+            }
+        }
+        
+
+        
     }
 }

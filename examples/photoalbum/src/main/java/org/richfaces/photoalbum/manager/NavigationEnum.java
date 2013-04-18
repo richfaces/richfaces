@@ -50,6 +50,7 @@ public enum NavigationEnum {
     ALBUM_UNVISITED("/includes/albumUnvisited.xhtml"),
     FB_ALBUM_PREVIEW("/includes/facebook/album.xhtml"),
     FB_IMAGE_PREVIEW("/includes/facebook/image.xhtml"),
+    FB_SHELF("/includes/facebook/shelf.xhtml"),
     EVENT_PREVIEW("/includes/event.xhtml"),
     EVENT_EDIT("/includes/event/EventEditInfo.xhtml");
 

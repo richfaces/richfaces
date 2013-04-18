@@ -17,6 +17,7 @@
         <h:panelGroup layout="block" style="width:100%; clear:both;" id="eventInfo">
             <ui:include src="/includes/event/eventInfo.xhtml">
                 <ui:param name="event" value="#{event}" />
+                <ui:param name="showAlbums" value="false" />
             </ui:include>
         </h:panelGroup>
     </r:repeat>

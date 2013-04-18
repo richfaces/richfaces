@@ -19,9 +19,8 @@
                 <r:treeNode style="cursor:pointer" selectedClass="tree-selected-node" iconLeaf="img/shell/tree_icon_album.png">
                     <r:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
                         <h:outputText value="#{treeNode.name}" />
-                        <r:ajax render="treePanel, mainArea" event="click" listener="#{controller.showEvent(treeNode)}" />
-                        
-                        <r:dropTarget acceptedTypes="album" dropValue="#{treeNode}" dropListener="#{dndManager.addAlbumToEvent}"
+                        <r:ajax onbegin="FBgetAlbumsById('#{treeNode.fbAlbumIds}', loadAlbumsForEvent)" event="click" listener="#{controller.showEvent(treeNode)}" render="mainArea"/> 
+                        <r:dropTarget acceptedTypes="album, fbAlbum" dropValue="#{treeNode}" dropListener="#{dndManager.addAlbumToEvent}"
                             render="treePanel, mainArea" />
                             
                         <r:tooltip direction="topRight" showDelay="1000">
@@ -34,5 +33,6 @@
         </r:treeModelAdaptor>
 
     </r:tree>
+    <br/>
 
 </ui:composition>
