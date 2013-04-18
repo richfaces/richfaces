@@ -1459,7 +1459,7 @@
             changeCurrentDate: function(year, month, noUpdate) {
                 if (this.getCurrentMonth() != month || this.getCurrentYear() != year) {
                     var date = new Date(year, month, 1);
-                    if (this.invokeEvent("currentdateselect", rf.getDomElement(this.id), null, date)) {
+                    if (this.invokeEvent("beforecurrentdateselect", rf.getDomElement(this.id), null, date)) {
                         // fix for RF-2450.
                         // Additional event is fired: after the hidden input with current date
                         // value is updated in function onUpdate() and then
