@@ -106,7 +106,7 @@ FBlogin = function(infoCb, photoCb) {
                     console.log('Good to see you, ' + response.first_name + '.');
                     console.log(response);
                     
-                    FBgetShelfAlbums(response.id, photoCb);
+                    //FBgetShelfAlbums(response.id, photoCb);
                 }
             });
         } else {
