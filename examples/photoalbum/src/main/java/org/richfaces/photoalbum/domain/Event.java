@@ -8,7 +8,9 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -18,6 +20,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OrderBy;
@@ -146,6 +150,9 @@ public class Event implements Serializable {
     @OrderBy(clause = "NAME asc")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Album> albums = new ArrayList<Album>();
+    
+    @ElementCollection(fetch=FetchType.EAGER)
+    private List<String> facebookAlbums = new ArrayList<String>();
 
     /* Boilerplate getters and setters */
 
@@ -198,6 +205,29 @@ public class Event implements Serializable {
     }
 
     /* toString(), equals() and hashCode() for Event, using the natural identity of the object */
+
+    public List<String> getFacebookAlbums() {
+        return facebookAlbums;
+    }
+
+    public void setFacebookAlbums(List<String> facebookAlbums) {
+        this.facebookAlbums = facebookAlbums;
+    }
+    
+    public String getFbAlbumIds() {
+        if (facebookAlbums.isEmpty()) return "0";
+        
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(facebookAlbums.get(0));
+        
+        for (int i = 1; i < facebookAlbums.size(); i++) {
+            sb.append(",");
+            sb.append(facebookAlbums.get(i));
+        }
+        
+        return sb.toString();
+    }
 
     @Override
     public boolean equals(Object o) {
