@@ -428,6 +428,9 @@
 
             initialize: function() {
                 this.deActivateResizeListener();
+                if (! $(this.element).is(":visible")) {
+                    this.showOffscreen(this.element);
+                }
                 this.bodyElement = document.getElementById(this.id + ":b");
                 this.bodyElement.tabIndex = -1; //TODO don't use tabIndex.
                 this.normalPartStyle = richfaces.utils.getCSSRule("div.rf-edt-cnt").style;
@@ -455,8 +458,56 @@
                 this.parts = jQuery(this.element).find(".rf-edt-cnt, .rf-edt-ftr-cnt");
                 this.updateLayout();
                 this.updateScrollPosition(); //TODO Restore horizontal scroll position
+                if ($(this.element).data('offscreenElements')) {
+                    this.hideOffscreen(this.element);
+                }
                 this.activateResizeListener();
                 jQuery(this.element).triggerHandler("rich:ready", this);
+            },
+
+            showOffscreen: function(element) {
+                var $element = $(element);
+                var offscreenElements = $element.parents(":not(:visible)").addBack().toArray().reverse();
+                var that = this;
+                $.each(offscreenElements, function() {
+                    $this = $(this);
+                    if ($this.css('display') === 'none') {
+                        that.showOffscreenElement($(this));
+                    }
+                })
+                $element.data('offscreenElements', offscreenElements);
+            },
+
+            hideOffscreen: function(element) {
+                var $element = $(element);
+                var offscreenElements = $element.data('offscreenElements');
+                var that = this;
+                $.each(offscreenElements, function() {
+                    $this = $(this);
+                    if ($this.data('offscreenOldValues')) {
+                        that.hideOffscreenElement($(this));
+                    }
+                })
+                $element.removeData('offscreenElements');
+            },
+
+            showOffscreenElement: function($element) {
+                var offscreenOldValues = {};
+                offscreenOldValues.oldPosition = $element.css('position');
+                offscreenOldValues.oldLeft = $element.css('left');
+                offscreenOldValues.oldDisplay = $element.css('display');
+                $element.css('position', 'absolute');
+                $element.css('left', '-10000');
+                $element.css('display', 'block');
+                $element.data('offscreenOldValues', offscreenOldValues);
+            },
+
+            hideOffscreenElement: function($element) {
+                var offscreenOldValues = $element.data('offscreenOldValues');
+                $element.css('display', offscreenOldValues.oldDisplay);
+                $element.css('left', offscreenOldValues.oldLeft);
+                $element.css('position', offscreenOldValues.oldPosition);
+                $element.removeData('offscreenOldValues');
             },
 
             drag: function(event) {
