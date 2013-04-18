@@ -124,7 +124,7 @@ public class ITValidatorMessageWithLabel {
         WebElement button = browser.findElement(By.id("myForm:rButton"));
 
         input.sendKeys("RichFaces");
-        Graphene.guardXhr(button).click();
+        Graphene.guardAjax(button).click();
 
         WebElement message = browser.findElement(By.id("myForm:msg2"));
         Assert.assertEquals("Validation message", "Input 2: max 4 characters", message.getText());
