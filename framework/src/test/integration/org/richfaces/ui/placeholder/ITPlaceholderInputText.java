@@ -27,10 +27,13 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.warp.impl.utils.URLUtils;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Smoke;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -85,12 +88,14 @@ public class ITPlaceholderInputText extends AbstractPlaceholderTest {
     }
 
     @Test
+    @Category(Smoke.class)
     public void testComponentSourceWithSelector() throws Exception {
         URL selectorUrl = URLUtils.buildUrl(contextPath, "selector.jsf?selector=input");
         sourceChecker.checkComponentSource(selectorUrl, "placeholder-with-selector.xmlunit.xml", By.tagName("body"));
     }
 
     @Test
+    @Category(Smoke.class)
     public void testComponentSourceWithoutSelector() throws Exception {
         URL urL = new URL(contextPath.toExternalForm() + "index.jsf");
         sourceChecker.checkComponentSource(urL, "placeholder-without-selector.xmlunit.xml", By.tagName("body"));

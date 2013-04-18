@@ -1,5 +1,5 @@
-<body id="">
-  <input id="input" type="text" name="input" class="rf-plhdr" value="Placeholder Text"/>
+<body>
+  <input id="input" type="text" name="input" />
   <span id="placeholderID">
     <script id="placeholderIDScript" type="text/javascript">
 //<![CDATA[

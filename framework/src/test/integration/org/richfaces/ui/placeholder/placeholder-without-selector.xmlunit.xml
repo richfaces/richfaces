@@ -6,5 +6,5 @@ new RichFaces.ui.Placeholder("placeholderID", {"targetId":"input","text":"Placeh
 //]]>
     </script>
   </span>
-  <input id="input" type="text" name="input" class="rf-plhdr" value="Placeholder Text"/>
+  <input id="input" type="text" name="input" />
 </body>
