@@ -19,12 +19,8 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.push.impl;
+package org.richfaces.application.push;
 
-import org.richfaces.application.push.Session;
-import org.richfaces.application.push.SessionFactory;
-import org.richfaces.application.push.SessionManager;
-import org.richfaces.application.push.TopicsContext;
 
 /**
  * @author Nick Belaevski

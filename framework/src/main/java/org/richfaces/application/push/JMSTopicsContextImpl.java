@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.push.impl.jms;
+package org.richfaces.application.push;
 
 import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionFactory;
 import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionPassword;
@@ -53,8 +53,6 @@ import javax.naming.NamingException;
 
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.configuration.ConfigurationService;
-import org.richfaces.application.push.TopicKey;
-import org.richfaces.application.push.impl.TopicsContextImpl;
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

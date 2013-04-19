@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.cdi.push.producer;
+package org.richfaces.cdi.push;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;

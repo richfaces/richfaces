@@ -19,14 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.push.impl;
+package org.richfaces.application.push;
 
 import java.io.IOException;
 import java.util.Iterator;
 
 import org.richfaces.javascript.ScriptStringBase;
 import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.application.push.MessageData;
 
 /**
  * @author Nick Belaevski

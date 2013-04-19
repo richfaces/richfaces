@@ -41,8 +41,8 @@ import org.atmosphere.cpr.Broadcaster.SCOPE;
 import org.atmosphere.cpr.Meteor;
 import org.richfaces.application.push.PushContext;
 import org.richfaces.application.push.Request;
+import org.richfaces.application.push.RequestImpl;
 import org.richfaces.application.push.Session;
-import org.richfaces.application.push.impl.RequestImpl;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

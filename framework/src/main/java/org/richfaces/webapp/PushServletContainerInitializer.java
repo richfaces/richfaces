@@ -29,7 +29,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 import javax.servlet.ServletRegistration.Dynamic;
 
-import org.richfaces.application.push.impl.PushContextFactoryImpl;
+import org.richfaces.application.push.PushContextFactoryImpl;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

@@ -19,15 +19,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.push.impl;
+package org.richfaces.application.push;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
-
-import org.richfaces.application.push.Topic;
-import org.richfaces.application.push.TopicKey;
-import org.richfaces.application.push.TopicsContext;
 
 /**
  * @author Nick Belaevski

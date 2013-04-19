@@ -1,4 +1,4 @@
-package org.richfaces.application.push.impl;
+package org.richfaces.application.push;
 
 /*
  * JBoss, Home of Professional Open Source
@@ -23,7 +23,6 @@ package org.richfaces.application.push.impl;
  */
 
 import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.application.push.MessageDataSerializer;
 
 /**
  * @author Nick Belaevski

@@ -94,7 +94,7 @@ public class PushCDIExtension implements Extension {
      * @param event
      * @param beanManager
      */
-    private void afterBeanDiscovery(@Observes AfterBeanDiscovery event, BeanManager beanManager) {
+    public void afterBeanDiscovery(@Observes AfterBeanDiscovery event, BeanManager beanManager) {
         for (Push pushAnnotation : pushAnnotations) {
             event.addObserverMethod(new PushObserverMethod(beanManager, pushAnnotation));
         }
@@ -171,6 +171,7 @@ public class PushCDIExtension implements Extension {
             Set<Bean<?>> beans = beanManager.getBeans(beanType);
             Bean<?> bean = (Bean<?>) beans.iterator().next();
             CreationalContext<?> ctx = beanManager.createCreationalContext(bean);
+            @SuppressWarnings("unchecked")
             T reference = (T) beanManager.getReference(bean, beanType, ctx);
             return reference;
         }

@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.push.impl;
+package org.richfaces.application.push;
 
 import java.util.Iterator;
 import java.util.List;
@@ -28,13 +28,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import org.richfaces.application.push.MessageException;
-import org.richfaces.application.push.Session;
-import org.richfaces.application.push.SessionSubscriptionEvent;
-import org.richfaces.application.push.SessionUnsubscriptionEvent;
-import org.richfaces.application.push.TopicEvent;
-import org.richfaces.application.push.TopicKey;
 
 /**
  * @author Nick Belaevski

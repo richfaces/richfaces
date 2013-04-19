@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.push.impl;
+package org.richfaces.application.push;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -34,17 +34,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.application.CoreConfiguration;
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
-import org.richfaces.application.push.MessageData;
-import org.richfaces.application.push.Request;
-import org.richfaces.application.push.Session;
-import org.richfaces.application.push.SessionManager;
-import org.richfaces.application.push.SessionSubscriptionEvent;
-import org.richfaces.application.push.SessionUnsubscriptionEvent;
-import org.richfaces.application.push.SubscriptionFailureException;
-import org.richfaces.application.push.Topic;
-import org.richfaces.application.push.TopicKey;
-import org.richfaces.application.push.TopicsContext;
-import org.richfaces.application.push.impl.SessionManagerImpl.DestroyableSession;
+import org.richfaces.application.push.SessionManagerImpl.DestroyableSession;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

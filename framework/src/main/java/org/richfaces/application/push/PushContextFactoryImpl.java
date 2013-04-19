@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.push.impl;
+package org.richfaces.application.push;
 
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
@@ -29,9 +29,6 @@ import javax.servlet.ServletContext;
 
 import org.richfaces.application.CoreConfiguration;
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
-import org.richfaces.application.push.PushContext;
-import org.richfaces.application.push.PushContextFactory;
-import org.richfaces.application.push.PushContextInitializationException;
 
 /**
  * @author Nick Belaevski

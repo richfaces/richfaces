@@ -3,7 +3,7 @@ package org.richfaces.application;
 import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.configuration.ConfigurationServiceImpl;
 import org.richfaces.application.push.PushContextFactory;
-import org.richfaces.application.push.impl.PushContextFactoryImpl;
+import org.richfaces.application.push.PushContextFactoryImpl;
 import org.richfaces.cache.Cache;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.el.GenericsIntrospectionServiceImpl;

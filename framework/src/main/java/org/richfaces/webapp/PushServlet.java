@@ -29,7 +29,7 @@ import javax.servlet.ServletException;
 import org.atmosphere.cpr.ApplicationConfig;
 import org.atmosphere.cpr.AtmosphereServlet;
 import org.atmosphere.handler.ReflectorServletProcessor;
-import org.richfaces.application.push.impl.PushContextFactoryImpl;
+import org.richfaces.application.push.PushContextFactoryImpl;
 
 import com.google.common.collect.Maps;
 

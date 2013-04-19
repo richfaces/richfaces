@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.push.impl;
+package org.richfaces.application.push;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -30,8 +30,6 @@ import org.atmosphere.cpr.AtmosphereResourceEventListener;
 import org.atmosphere.cpr.BroadcasterLifeCyclePolicy;
 import org.atmosphere.cpr.Meteor;
 import org.atmosphere.websocket.WebSocket;
-import org.richfaces.application.push.Request;
-import org.richfaces.application.push.Session;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
