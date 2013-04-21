@@ -24,6 +24,116 @@
 
     rf.ui = rf.ui || {};
 
+    var ITEMS_SWITCHER = {
+
+        /**
+         * @param {TogglePanelItem} oldPanel
+         * @param {TogglePanelItem} newPanel
+         *
+         * @return {void}
+         * */
+        exec : function (oldPanel, newPanel) {
+            if (newPanel.switchMode == "server") {
+                return this.execServer(oldPanel, newPanel);
+            } else if (newPanel.switchMode == "ajax") {
+                return this.execAjax(oldPanel, newPanel);
+            } else if (newPanel.switchMode == "client") {
+                return this.execClient(oldPanel, newPanel);
+            } else {
+                rf.log.error("SwitchItems.exec : unknown switchMode (" + newPanel.switchMode + ")");
+            }
+        },
+
+        /**
+         * @protected
+         * @param {TogglePanelItem} oldPanel
+         * @param {TogglePanelItem} newPanel
+         *
+         * @return {Boolean} false
+         * */
+        execServer : function (oldPanel, newPanel) {
+            if (oldPanel) {
+                var continueProcess = oldPanel.__leave();
+                if (!continueProcess) {
+                    return false;
+                }
+            }
+
+            this.__setActiveItem(newPanel);
+
+            var params = {};
+
+            params[newPanel.getTogglePanel().id] = newPanel.name;
+            params[newPanel.id] = newPanel.id;
+
+            $.extend(params, newPanel.getTogglePanel().options["ajax"] || {});
+
+            rf.submitForm(this.__getParentForm(newPanel), params);
+
+            return false;
+        },
+
+        /**
+         * @protected
+         * @param {TogglePanelItem} oldPanel
+         * @param {TogglePanelItem} newPanel
+         *
+         * @return {Boolean} false
+         * */
+        execAjax : function (oldPanel, newPanel) {
+            var options = $.extend({}, newPanel.getTogglePanel().options["ajax"], {});
+
+            this.__setActiveItem(newPanel);
+            rf.ajax(newPanel.id, null, options);
+
+            if (oldPanel) {
+                this.__setActiveItem(oldPanel);
+            }
+
+            return false;
+        },
+
+        /**
+         * @protected
+         * @param {TogglePanelItem} oldPanel
+         * @param {TogglePanelItem} newPanel
+         *
+         * @return {undefined}
+         *             - false - if process has been terminated
+         *             - true  - in other cases
+         * */
+        execClient : function (oldPanel, newPanel) {
+            if (oldPanel) {
+                var continueProcess = oldPanel.__leave();
+                if (!continueProcess) {
+                    return false;
+                }
+            }
+
+            this.__setActiveItem(newPanel);
+
+            newPanel.__enter();
+            newPanel.getTogglePanel().__fireItemChange(oldPanel, newPanel);
+
+            return true;
+        },
+
+        /**
+         * @private
+         * */
+        __getParentForm : function (comp) {
+            return $(rf.getDomElement(comp.id)).parents('form:first');
+        },
+
+        /**
+         * @private
+         * */
+        __setActiveItem : function (item) {
+            rf.getDomElement(item.togglePanelId + "-value").value = item.getName(); // todo it is should be toogle panel method
+            item.getTogglePanel().activeItem = item.getName();
+        }
+    };
+
 
     rf.ui.TabPanel = rf.ui.TogglePanel.extendClass({
             // class name
@@ -42,6 +152,10 @@
                 this.items = [];
 
                 this.isKeepHeight = options["isKeepHeight"] || false
+            },
+
+            __itemsSwitcher : function () {
+                return ITEMS_SWITCHER;
             }
 
         });
