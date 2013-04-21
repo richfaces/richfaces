@@ -66,11 +66,11 @@ public class RF12839_Test {
 
         guardXhr(tab2).click();
         Assert.assertTrue(out.getText().contains("begin"));
-        Assert.assertTrue(out.getText().contains("tabpanel_complete"));
-        Assert.assertTrue(out.getText().contains("beforedomupdate"));
+//        Assert.assertTrue(out.getText().contains("tabpanel_complete"));
+//        Assert.assertTrue(out.getText().contains("beforedomupdate"));
 
-        // Assert the oncomplete on the tab doesn't work
-        Assert.assertFalse(out.getText().contains("tab2_complete"));
+        // Assert the oncomplete on the tab does work
+        Assert.assertTrue(out.getText().contains("tab2_complete"));
 
     }
 
@@ -93,7 +93,6 @@ public class RF12839_Test {
         p.xmlns("c", "http://java.sun.com/jsp/jstl/core");
         p.body("<h:form id='myForm'>");
         p.body("<rich:tabPanel id='tabPanel' ");
-        p.body("               execute='inputText'");
         p.body("               onbegin='$(\"#out\").append(\"begin \\n\")'");
         p.body("               oncomplete='$(\"#out\").append(\"tabpanel_complete \\n\")'");
         p.body("               onbeforedomupdate='$(\"#out\").append(\"beforedomupdate \\n\")'>");
