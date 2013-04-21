@@ -79,6 +79,17 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     private static final String CLASS = CLASS_ATTRIBUTE;
 
     @Override
+    protected boolean isSubmitted(FacesContext context, AbstractTogglePanel panel) {
+        String activePanelName = panel.getSubmittedActiveItem();
+        String clientId = panel.getClientIdByName(activePanelName);
+        if (clientId == null) {
+            return false;
+        }
+        Map<String, String> parameterMap = context.getExternalContext().getRequestParameterMap();
+        return parameterMap.get(clientId) != null;
+    }
+
+    @Override
     protected void doEncodeBegin(ResponseWriter w, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(w, context, component);
 

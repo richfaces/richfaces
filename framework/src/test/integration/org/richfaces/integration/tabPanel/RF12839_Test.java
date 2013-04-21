@@ -9,7 +9,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,7 +16,6 @@ import org.richfaces.integration.OutputDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import java.net.URL;
-import java.util.List;
 
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 

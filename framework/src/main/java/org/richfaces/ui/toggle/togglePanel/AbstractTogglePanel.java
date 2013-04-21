@@ -699,6 +699,19 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         }
     }
 
+    public String getClientIdByName(final String name) {
+        if (! this.isRendered()) {
+            return null;
+        }
+
+        TogglePanelVisitState visitState = getVisitStateByName(name);
+        if (visitState.getName() != null) {
+            return visitState.getClientId();
+        } else {
+            return null;
+        }
+    }
+
     public int getItemCount() {
         if (! this.isRendered()) {
             return 0;

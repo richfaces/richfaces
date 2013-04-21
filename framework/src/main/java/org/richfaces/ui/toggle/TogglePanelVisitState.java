@@ -30,6 +30,7 @@ public class TogglePanelVisitState {
     private int count;
     private AbstractTogglePanelItemInterface item;
     private boolean dynamic;
+    private String clientId;
 
     public TogglePanelVisitState() {
         count = 0;
@@ -38,6 +39,9 @@ public class TogglePanelVisitState {
     public void setState(String name, AbstractTogglePanelItemInterface item) {
         this.name = name;
         this.item = item;
+        if (item != null) {
+            this.clientId = item.getClientId();
+    }
     }
 
     public String getName() {
@@ -50,6 +54,14 @@ public class TogglePanelVisitState {
 
     public int getCount() {
         return count;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     public int increment() {

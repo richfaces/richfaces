@@ -39,4 +39,6 @@ public interface AbstractTogglePanelItemInterface extends AbstractDivPanel {
      */
     @Attribute(events = @EventName("leave"))
     String getOnleave();
+
+    String getClientId();
 }
