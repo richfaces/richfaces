@@ -63,7 +63,7 @@ public class ITSelectKeyboardSelection {
         keyboard.pressKey(Keys.ARROW_DOWN);
         waitAjax().until().element(tampaBayOption).attribute("class").contains("rf-sel-sel");
 
-        keyboard.pressKey(Keys.ENTER);
+        keyboard.pressKey(Keys.RETURN);
         waitGui().until().element(selectInput).attribute("value").equalTo("Tampa Bay");
     }
 
