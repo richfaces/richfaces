@@ -4,7 +4,7 @@
     xmlns:rich="http://richfaces.org/rich">
     <h:form id="form">
         <rich:progressBar mode="ajax" value="#{progressBarBean.currentValue}" interval="2000" id="pb"
-            enabled="#{progressBarBean.enabled}" minValue="0" maxValue="100" reRenderAfterComplete="progressPanel">
+            enabled="#{progressBarBean.enabled}" minValue="0" maxValue="100">
             <f:facet name="initial">
                 <h:panelGroup>
                     <h:outputText value="Process hasn't started yet" />
