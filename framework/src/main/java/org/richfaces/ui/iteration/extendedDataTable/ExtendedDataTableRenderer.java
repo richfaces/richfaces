@@ -157,7 +157,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
             List<UIComponent> columns = new ArrayList<UIComponent>();
 
-            String[] columnsOrder = (String[]) table.getValueExpression("columnsOrder").getValue(context.getELContext());
+            ValueExpression columnsOrderVE = table.getValueExpression("columnsOrder");
+            String[] columnsOrder = columnsOrderVE == null ? null : (String[]) columnsOrderVE.getValue(context.getELContext());
             if (columnsOrder != null && columnsOrder.length > 0) { // add columns in the order specified by columnsOrder
                 for (int i = 0; i < columnsOrder.length && !columnsMap.isEmpty(); i++) {
                     columns.add(columnsMap.remove(columnsOrder[i]));
