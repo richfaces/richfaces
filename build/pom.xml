@@ -105,6 +105,7 @@
         <version.arquillian.graphene>2.0.0.Alpha4</version.arquillian.graphene>
         <version.arquillian.phantom.driver>1.0.3</version.arquillian.phantom.driver>
         <version.selenium>2.31.0</version.selenium>
+        <version.shrinkwrap>1.1.2</version.shrinkwrap>
         <version.shrinkwrap.resolver>2.0.0-beta-3</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-3</version.shrinkwrap.descriptors>
         <version.arquillian.glassfish31>1.0.0.CR3</version.arquillian.glassfish31>
@@ -181,6 +182,13 @@
             </dependency>
 
             <!-- Integration Tests - Version Management -->
+            <dependency>
+              <groupId>org.jboss.shrinkwrap</groupId>
+              <artifactId>shrinkwrap-bom</artifactId>
+              <version>${version.shrinkwrap}</version>
+              <type>pom</type>
+              <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.jboss.shrinkwrap.resolver</groupId>
                 <artifactId>shrinkwrap-resolver-bom</artifactId>
