@@ -1,5 +1,93 @@
+New in Version 4.3.2
+--------------------
+
+    Bug
+    [RF-12193] - rich:extendedDataTable is blank on show
+    [RF-12765] - Rich:tabPanel not possible to switch tabs when only dynamic tabs are present
+    [RF-12812] - Autocomplete does not hide popup on tabbing to the next field
+    [RF-12827] - Showcase - switching among dynamically created panels, tabs cease to function
+    [RF-12839] - Toggle panels: ajax-related attributes do not work
+    [RF-12846] - a4j:commandLink accesskey attribute missing
+    [RF-12847] - Fix quickstart license and white space issues exposed by qstool report
+    [RF-12848] - Error "source is not defined" after richfaces-jsf-event.js merge
+    [RF-12850] - Popup panel: button's label is invisible in IE10
+    [RF-12851] - The RichFaces kitchensink-rf quickstart/archetype incorrectly depend on the AS google guava module
+    [RF-12858] - rich:calendar dateselect event is fired twice
+    [RF-12868] - Update the Summary of the RichFaces kitchensink quickstart
+    [RF-12893] - Partial response not ended correctly on exception
+    [RF-12896] - Richfaces TopicsContext.lookup() returns null after redeployment when Richfaces is deployed as a module in JBoss EAP 6
+    [RF-12897] - ExtendedPartialViewContextImpl swallows exceptions
+    [RF-12928] - ExtendedDataTable: columnsOrder doesnt work after changing order
+
+    Component Upgrade
+    [RF-12688] - Upgrade Guava from 11.02 to 13.0.1
+    [RF-12780] - Upgrade to Mojarra 2.1.19
+    [RF-12898] - Tie RichFaces 4.3 to CDK 4.3.1.Final
+
+    Enhancement
+    [RF-12784] - Showcase readme - update deployment from eclipse part
+    [RF-12786] - Showcase - rewrite readme to markdown
+
+    Feature Request
+    [RF-12810] - Introduce profiles for verification of fundamental tests on Tomcat 6 and 7, TomEE 1.5 and GlassFish 3.1
+    [RF-12849] - Showcase - update readme - remove obsolete, add new
+    [RF-12935] - Fix resolution of framework tests' artifacts with version enforced
+    [RF-12937] - Introduce a profile for running framework tests against JBoss EAP
+    [RF-12938] - Update Shrinkwrap
+
+    Task
+    [RF-12843] - Apply unix style line-endings to the entire codebase
+
+New in Version 4.3.1.Final
+--------------------------
+
+    Bug
+    [RF-12523] - a4j:commandButton generates duplicated context path using a resource value expression within image attribute
+    [RF-12758] - ExtendedDatatable: horizontal scroll bar not work
+    [RF-12769] - Select Component with Manual Input uses first option regardless of what is picked
+    [RF-12781] - The kitchensink-rf quickstart uses obsolete property names and values
+    [RF-12788] - org.richfaces.javascript.QUnitTest fails in WFK 2.2
+    [RF-12791] - Update the quickstart pom files to match changes made in the jboss-jdf repository
+    [RF-12804] - ExtendedDatatable: columnClasses attribute not work
+    [RF-12821] - ajaxbegin, ajaxbeforedomupdate and ajaxcomplete doesn't work
+    [RF-12824] - Partial response is not written correctly for redirected request
+
+    Component Upgrade
+    [RF-12689] - Upgrade Atmosphere from 1.0.1 to 1.0.10
+
+    Enhancement
+    [RF-12750] - extendedDataTable make facet header clickable using default sortHandle
+    [RF-12784] - Showcase readme - update deployment from eclipse part
+    [RF-12803] - ExtendedPartialViewContext: Add JavaScriptScript service extensions to response by jsf.ajax.request triggered requests
+
+    Feature Request
+    [RF-12774] - a4j:commandLink does not set the styleClass when disabled
+
+New in Version 4.3.0.Final
+--------------------------
+
+    Bug
+    [RF-12728] - rich:fileUpload doesn't accept valid file after its unsuccessful multiple upload
+
+    Enhancement
+    [RF-12710] - rich:calendar - currentDate attribute has confusing name and documentation
+    [RF-12751] - Showcase - notify demos - set escape attribute to false
+
+New in Version 4.3.0.CR2
+------------------------
+
+    Bug
+    [RF-12736] - rich:notifyMessages output is not escaped
+    [RF-12737] - Showcase: focus preserve demo does not show benefits of the component
+    [RF-12724] - rich:inplaceInput: correct style class names according to Component Reference
+    [RF-12702] - Kitchensink Archetype: info icon isn't rendered correctly on iPhone
+
+    Enhancement
+    [RF-12739] - rich:jQuery function - rewrite to use document.getElementBy to support colons as JSF separator chars
+    [RF-12741] - Change the Showcase to demonstrate the relationship between the rich:jQuery component the and EL function
+
 New in Version 4.3.0.CR1
------------------------
+------------------------
 
 	Bug
 	[RF-11067] - rich:autocomplete popups with suggestions does not reflect the value in input
@@ -94,13 +182,13 @@ New in Version 4.3.0.M3
 	[RF-12648] - Drag indicator created duplicate with same ID in DOM during dragging
 	[RF-12657] - Notify: remove not supported attributes delay, showHistory, appearAnimation and hideAnimation
 	[RF-12659] - ExtendedDataTable layout breaks when table element width set to 100%
-	
+
 	Component Upgrade
 	[RF-12569] - Upgrade jQuery UI to 1.9.1
 	[RF-12630] - Upgrade jQuery UI to 1.9.2
 	[RF-12631] - Upgrade jQuery to 1.8.3
 	[RF-12633] - Upgrade CKEditor to 3.6.5
-	
+
 	Enhancement
 	[RF-10442] - extendedDataTable: add state saving functionality
 	[RF-12578] - Setup integration tests for UI projects
@@ -109,14 +197,14 @@ New in Version 4.3.0.M3
 	[RF-12640] - Showcase - rename focus samples to comply camel case convention
 	[RF-12644] - Improve CoreUtils/JSEncoder performance by character escape improvements
 	[RF-12652] - Improve ScriptUtils performance by doing early preallocation in String encode path
-	
+
 	Feature Request
 	[RF-8125] - Tables: built-in sorting/filtering
 	[RF-12562] - Migrate the focus component from the sandbox
 	[RF-12563] - Migrate the Placeholder (originally Watermark) component from the sandbox
 	[RF-12629] - Call javascriptServiceComplete once all scripts added by JavaScriptService are executed
 	[RF-12642] - richfaces.js: fire ajaxbegin and ajaxbeforedomupdate events
-	
+
 	Task
 	[RF-12568] - Remove IE8 meta tag from Showcase
 	[RF-12570] - Re-create the kitchensink archetype from the kitchensink quickstart
@@ -174,7 +262,7 @@ New in Version 4.3.0.M2
 	[RF-12541] - AbstractTogglePanel should throw an exception when returning an dynamic toggle panel item
 	[RF-12545] - Tab panel: attribute active item doesn't work correctly for disabled tabs
 	[RF-12550] - Tab panel: dynamically created tabs don't work inside accordion and tab panel
-	
+
 	Component Upgrade
 	[RF-12344] - Upgrade to Mojarra 2.1.13
 	[RF-12348] - Upgrade to final Atmosphere 1.0.1
@@ -182,7 +270,7 @@ New in Version 4.3.0.M2
 	[RF-12419] - Upgrade to Atmosphere 1.0.0.beta5
 	[RF-12431] - Upgrade htmlunit in jsf-test to 2.10
 	[RF-12432] - Upgrade to QUnit 1.9.0
-	
+
 	Enhancement
 	[RF-11072] - File Upload: add immediateUpload attribute
 	[RF-12005] - Issues of VDL docs in 4.2.0.Final
@@ -193,7 +281,7 @@ New in Version 4.3.0.M2
 	[RF-12457] - Add onvalid and oninvalid to rich:validator
 	[RF-12492] - Input slider alternative handle a la progressbar
 	[RF-12517] - Select: Add CSV support for input/label conversion validity
-	
+
 	Feature Request
 	[RF-8287] - CDK Make build incremental
 	[RF-9527] - switchable panels iterators: richfaces-showcase samples
@@ -202,7 +290,7 @@ New in Version 4.3.0.M2
 	[RF-12481] - Autocomplete - does not close the popup in destroy method.
 	[RF-12501] - Upgrade jsf-test to JSF 2.1.11
 	[RF-12542] - Use JavaScriptService for generating scripts in all switchable panels
-	
+
 	Task
 	[RF-10620] - Remove maven-javascript-plugin 3rd party software from RichFaces
 	[RF-12181] - Simplify dev-examples
@@ -280,7 +368,7 @@ New in Version 4.3.0.M1
 	[RF-11836] - Replace ${project.version} definitions in the poms with actual version
 	[RF-11853] - Remove checkstyle-supressions.xml files
 	[RF-12139] - Remove deprecated javax.jms:jms dependency from BOM
-      
+
 New in Version 4.2.2.Final
 --------------------------
 
