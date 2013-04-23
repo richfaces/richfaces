@@ -121,7 +121,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             super(context);
             this.table = table;
 
-            List<UIComponent> columns = getOrderedColumns();
+            List<UIComponent> columns = getOrderedColumns(context);
 
             int frozenColumnsAttribute = (Integer) table.getAttributes().get("frozenColumns");
             if (frozenColumnsAttribute < 0) {
@@ -140,7 +140,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             }
         }
 
-        private List<UIComponent> getOrderedColumns() {
+        private List<UIComponent> getOrderedColumns(FacesContext context) {
             Map<String, UIComponent> columnsMap = new LinkedHashMap<String, UIComponent>();
             Iterator<UIComponent> iterator = table.columns();
             while (iterator.hasNext()) { // initialize a map of all the columns
@@ -152,7 +152,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
             List<UIComponent> columns = new ArrayList<UIComponent>();
 
-            String[] columnsOrder = (String[]) table.getAttributes().get("columnsOrder");
+            String[] columnsOrder = (String[]) table.getValueExpression("columnsOrder").getValue(context.getELContext());
             if (columnsOrder != null && columnsOrder.length > 0) { // add columns in the order specified by columnsOrder
                 for (int i = 0; i < columnsOrder.length && !columnsMap.isEmpty(); i++) {
                     columns.add(columnsMap.remove(columnsOrder[i]));

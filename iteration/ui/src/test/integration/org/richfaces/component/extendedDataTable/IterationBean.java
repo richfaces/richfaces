@@ -21,8 +21,6 @@
  **/
 package org.richfaces.component.extendedDataTable;
 
-import org.richfaces.component.SortOrder;
-
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -38,6 +36,7 @@ public class IterationBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String[] array = {"3","6","4","8","2","1","5","7","9","0" };
+    private String[] columnsOrder = {"column2", "column1", "column3"};
     private List<String> values = Arrays.asList(array);
     private String selectedValue;
     private List<String> data;
@@ -68,5 +67,21 @@ public class IterationBean implements Serializable {
 
     public void setData(List<String> data) {
         this.data = data;
+    }
+
+    public String[] getColumnsOrder() {
+        return columnsOrder;
+    }
+
+    public String getColumnsOrderString() {
+        StringBuilder sb = new StringBuilder();
+        for (String order : columnsOrder) {
+            sb.append(order);
+        }
+        return sb.toString();
+    }
+
+    public void setColumnsOrder(String columnsOrder) {
+        this.columnsOrder = columnsOrder.split(",");
     }
 }

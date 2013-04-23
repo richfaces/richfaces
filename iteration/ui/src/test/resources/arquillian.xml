@@ -22,9 +22,9 @@
 
     <defaultProtocol type="Servlet 3.0" />
 
-    <!--<engine>
+    <engine>
         <property name="deploymentExportPath">target/</property>
-    </engine>-->
+    </engine>
 
     <container qualifier="jbossas71" default="${arquillian.launch.jbossas71}">
         <configuration>
