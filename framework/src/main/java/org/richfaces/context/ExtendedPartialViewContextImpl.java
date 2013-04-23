@@ -57,8 +57,27 @@ import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.util.FastJoiner;
 
 /**
+ * <p>
+ * The RichFaces custom version of PartialViewContext
+ * </p>
+ * <p>
+ * Unfortunately, it is not possible to get the parameters value from inside PartialViewContextFactory (due to encoding issues),
+ * so a RichFaces implementation wrapping the original context is created.
+ * It either delegates calls to the wrapped context (if the request does not include ‘org.richfaces.ajax.component’ parameter),
+ * or it executes the necessary logic (for RichFaces-initiated requests). The detectContextMode() method is responsible for this.
+ * Due to this issue we have to re-implement big portion of PartialViewContext functionality in our class.
+ * </p>
+ * <p>
+ * Important differences of RichFaces implementation:
+ * </p>
+ * <ul>
+ * <li>Values are resolved in runtime by visiting the request activator component and evaluating attributes</li>
+ * <li>Usage of extended visit contexts in order to support meta-components processing</li>
+ * <li>Support for auto-updateable Ajax components</li>
+ * <li>Support for Ajax extensions like passing data to the client</li>
+ * </ul>
+ *
  * @author Nick Belaevski
- * @since 4.0
  */
 public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     private static final Logger LOG = RichfacesLogger.CONTEXT.getLogger();
