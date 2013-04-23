@@ -34,25 +34,23 @@
                 <r:togglePanelItem name="#{skinName}">
                     
                     <r:panel header="Skin: #{skinName}">
-                        <h:form>
-                            <h:panelGrid columns="2">
-                                <h:outputText value="Enter Name:" />
-                                <h:inputText id="input" />
-                                <h:outputText value="Enter you interests:" />
-                                <h:inputTextarea cols="17" rows="3" />
-                                <h:outputText value="Choose your favourite color" />
-                                <h:selectOneMenu>
-                                    <f:selectItem itemLabel="Red" itemValue="0" />
-                                    <f:selectItem itemLabel="Black" itemValue="1" />
-                                    <f:selectItem itemLabel="Green" itemValue="2" />
-                                    <f:selectItem itemLabel="White" itemValue="3" />
-                                </h:selectOneMenu>
-                            </h:panelGrid>
-                            <hr />
-                            <h:commandButton value="Switch to #{skinName} skin">
-                                <f:param name="skin" value="#{skinName}" />
-                            </h:commandButton>
-                        </h:form>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Enter Name:" />
+                            <h:inputText id="input" />
+                            <h:outputText value="Enter you interests:" />
+                            <h:inputTextarea cols="17" rows="3" />
+                            <h:outputText value="Choose your favourite color" />
+                            <h:selectOneMenu>
+                                <f:selectItem itemLabel="Red" itemValue="0" />
+                                <f:selectItem itemLabel="Black" itemValue="1" />
+                                <f:selectItem itemLabel="Green" itemValue="2" />
+                                <f:selectItem itemLabel="White" itemValue="3" />
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                        <hr />
+                        <h:commandButton value="Switch to #{skinName} skin">
+                            <f:param name="skin" value="#{skinName}" />
+                        </h:commandButton>
                     </r:panel>
                     
                     
