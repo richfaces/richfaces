@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource.css;
+package org.richfaces.resource;
 
 import org.w3c.dom.css.CSSCharsetRule;
 import org.w3c.dom.css.CSSFontFaceRule;
