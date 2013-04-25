@@ -34,7 +34,6 @@ import org.richfaces.ui.util.HtmlUtil;
 import org.richfaces.ui.util.InputUtils;
 import org.richfaces.ui.util.InputUtils.ConverterLookupStrategy;
 import org.richfaces.ui.util.MessageUtil;
-import org.richfaces.utils.CalendarHelper;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.utils;
+package org.richfaces.ui.input;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -37,8 +37,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
-
-import org.richfaces.ui.input.AbstractCalendar;
 
 /**
  * @author amarkhel
