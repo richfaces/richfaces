@@ -8,15 +8,17 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
+
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.validator.model.ClientSideScripts;
-import org.richfaces.validator.model.Component;
-import org.richfaces.validator.model.Resource;
+import org.richfaces.validator.ClientSideScripts;
+import org.richfaces.validator.Component;
+import org.richfaces.validator.Resource;
 
 import javax.faces.FacesException;
 import javax.xml.bind.JAXB;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;

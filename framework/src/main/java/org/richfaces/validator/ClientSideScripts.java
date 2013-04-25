@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.richfaces.validator.model;
+package org.richfaces.validator;
 
 import java.util.Collection;
 

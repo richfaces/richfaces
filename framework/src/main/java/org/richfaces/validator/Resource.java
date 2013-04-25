@@ -1,4 +1,4 @@
-package org.richfaces.validator.model;
+package org.richfaces.validator;
 
 import javax.xml.bind.annotation.XmlElement;
 

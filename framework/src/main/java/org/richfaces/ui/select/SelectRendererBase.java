@@ -31,8 +31,8 @@ import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.input.InputRendererBase;
 import org.richfaces.ui.util.renderkit.HtmlDimensions;
+import org.richfaces.validator.AddCSVMessageScript;
 import org.richfaces.validator.SelectLabelValueValidator;
-import org.richfaces.validator.csv.AddCSVMessageScript;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
