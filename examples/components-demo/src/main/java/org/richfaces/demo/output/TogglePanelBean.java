@@ -7,7 +7,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
-import org.richfaces.ui.ItemChangeEvent;
+import org.richfaces.ui.common.ItemChangeEvent;
 
 @ManagedBean
 @ViewScoped

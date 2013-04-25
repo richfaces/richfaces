@@ -24,7 +24,7 @@ package org.richfaces.ui.iteration;
 import javax.el.MethodExpression;
 import javax.faces.event.AbortProcessingException;
 
-import org.richfaces.ui.MethodExpressionEventListener;
+import org.richfaces.ui.common.MethodExpressionEventListener;
 
 /**
  * @author Nick Belaevski
