@@ -6,11 +6,11 @@
 
     <application>
         <system-event-listener>
-            <system-event-listener-class>org.richfaces.application.InitializationListener</system-event-listener-class>
+            <system-event-listener-class>org.richfaces.services.InitializationListener</system-event-listener-class>
             <system-event-class>javax.faces.event.PreDestroyApplicationEvent</system-event-class>
         </system-event-listener>
         <system-event-listener>
-            <system-event-listener-class>org.richfaces.application.InitializationListener</system-event-listener-class>
+            <system-event-listener-class>org.richfaces.services.InitializationListener</system-event-listener-class>
             <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
         </system-event-listener>
         <system-event-listener>
@@ -25,7 +25,7 @@
             <system-event-listener-class>org.richfaces.context.PartialViewContextAjaxOutputTracker</system-event-listener-class>
             <system-event-class>javax.faces.event.PostAddToViewEvent</system-event-class>
         </system-event-listener>
-        <view-handler>org.richfaces.application.GlobalResourcesViewHandler</view-handler>
+        <view-handler>org.richfaces.resource.GlobalResourcesViewHandler</view-handler>
         <resource-handler>org.richfaces.resource.ResourceHandlerImpl</resource-handler>
         <el-resolver>org.richfaces.skin.SkinPropertiesELResolver</el-resolver>
         <el-resolver>org.richfaces.resource.ResourceParameterELResolver</el-resolver>
