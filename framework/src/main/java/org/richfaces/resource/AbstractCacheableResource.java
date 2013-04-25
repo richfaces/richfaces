@@ -20,7 +20,7 @@
  */
 package org.richfaces.resource;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getLongConfigurationValue;
+import static org.richfaces.configuration.ConfigurationServiceHelper.getLongConfigurationValue;
 import static org.richfaces.resource.ResourceUtils.millisToSecond;
 import static org.richfaces.resource.ResourceUtils.secondToMillis;
 

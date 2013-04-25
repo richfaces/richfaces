@@ -23,8 +23,8 @@ package org.richfaces.cdk.faces;
 
 import org.richfaces.application.Module;
 import org.richfaces.application.ServicesFactory;
-import org.richfaces.application.configuration.ConfigurationService;
-import org.richfaces.application.configuration.ConfigurationServiceImpl;
+import org.richfaces.configuration.ConfigurationService;
+import org.richfaces.configuration.ConfigurationServiceImpl;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.ResourceLibraryFactoryImpl;
 

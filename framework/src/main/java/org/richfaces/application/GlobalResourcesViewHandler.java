@@ -34,7 +34,7 @@ import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.configuration.ConfigurationService;
+import org.richfaces.configuration.ConfigurationService;
 import org.richfaces.el.BaseReadOnlyValueExpression;
 
 /**

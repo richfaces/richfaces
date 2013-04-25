@@ -21,7 +21,7 @@
  */
 package org.richfaces.resource;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
 import javax.faces.context.FacesContext;
 

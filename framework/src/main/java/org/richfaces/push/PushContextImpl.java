@@ -31,7 +31,7 @@ import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 
 import org.richfaces.application.CoreConfiguration;
-import org.richfaces.application.configuration.ConfigurationServiceHelper;
+import org.richfaces.configuration.ConfigurationServiceHelper;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

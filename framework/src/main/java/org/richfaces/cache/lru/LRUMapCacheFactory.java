@@ -20,7 +20,7 @@
  */
 package org.richfaces.cache.lru;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
+import static org.richfaces.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
 
 import java.util.Map;
 

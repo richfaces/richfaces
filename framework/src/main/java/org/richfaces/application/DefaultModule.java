@@ -1,8 +1,8 @@
 package org.richfaces.application;
 
-import org.richfaces.application.configuration.ConfigurationService;
-import org.richfaces.application.configuration.ConfigurationServiceImpl;
 import org.richfaces.cache.Cache;
+import org.richfaces.configuration.ConfigurationService;
+import org.richfaces.configuration.ConfigurationServiceImpl;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.el.GenericsIntrospectionServiceImpl;
 import org.richfaces.javascript.JavaScriptService;

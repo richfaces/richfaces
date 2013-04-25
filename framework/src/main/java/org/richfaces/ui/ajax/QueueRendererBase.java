@@ -38,9 +38,10 @@ import javax.faces.event.ListenersFor;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRemoveFromViewEvent;
 import javax.faces.render.Renderer;
+
 import java.util.List;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
 /**
  * @author Nick Belaevski Base class for rendering Queue

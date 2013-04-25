@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.application.CoreConfiguration;
-import org.richfaces.application.configuration.ConfigurationServiceHelper;
+import org.richfaces.configuration.ConfigurationServiceHelper;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.push.SessionManagerImpl.DestroyableSession;

@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
 import org.richfaces.application.CoreConfiguration;
-import org.richfaces.application.configuration.ConfigurationServiceHelper;
+import org.richfaces.configuration.ConfigurationServiceHelper;
 
 /**
  * @author Nick Belaevski

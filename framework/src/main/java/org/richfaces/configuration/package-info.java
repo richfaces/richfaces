@@ -21,4 +21,4 @@
 /**
  * RichFaces configuration
  */
-package org.richfaces.application.configuration;
+package org.richfaces.configuration;

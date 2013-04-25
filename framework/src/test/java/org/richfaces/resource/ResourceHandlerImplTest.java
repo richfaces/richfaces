@@ -47,8 +47,8 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.ServicesFactory;
 import org.richfaces.application.ServicesFactoryImpl;
 import org.richfaces.application.Uptime;
-import org.richfaces.application.configuration.ConfigurationService;
-import org.richfaces.application.configuration.ConfigurationServiceImpl;
+import org.richfaces.configuration.ConfigurationService;
+import org.richfaces.configuration.ConfigurationServiceImpl;
 import org.richfaces.util.Util;
 
 import com.gargoylesoftware.htmlunit.Cache;

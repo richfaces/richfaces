@@ -26,8 +26,8 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.application.CoreConfiguration;
-import org.richfaces.application.configuration.ConfigurationService;
-import org.richfaces.application.configuration.ConfigurationServiceHelper;
+import org.richfaces.configuration.ConfigurationService;
+import org.richfaces.configuration.ConfigurationServiceHelper;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

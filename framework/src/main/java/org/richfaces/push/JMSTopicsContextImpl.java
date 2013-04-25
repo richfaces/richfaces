@@ -52,7 +52,7 @@ import javax.naming.NameParser;
 import javax.naming.NamingException;
 
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.configuration.ConfigurationService;
+import org.richfaces.configuration.ConfigurationService;
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

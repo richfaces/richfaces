@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.configuration;
+package org.richfaces.configuration;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -32,14 +32,8 @@ import java.lang.annotation.Target;
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Documented
-public @interface ConfigurationItem {
-    ConfigurationItemSource source() default ConfigurationItemSource.defaultSource;
-
-    String[] names();
-
-    boolean literal() default false;
-
-    String defaultValue() default "";
+public @interface ConfigurationItemsBundle {
+    String propertiesFile() default "";
 }

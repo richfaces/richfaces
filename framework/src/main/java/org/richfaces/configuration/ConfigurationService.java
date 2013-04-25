@@ -1,4 +1,4 @@
-package org.richfaces.application.configuration;
+package org.richfaces.configuration;
 
 import javax.faces.context.FacesContext;
 

@@ -19,34 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.configuration;
-
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+package org.richfaces.configuration;
 
 /**
  * @author Nick Belaevski
  *
  */
-public final class ValueExpressionHolder {
-    private ValueExpression valueExpression;
-    private Object defaultValue;
+public enum ConfigurationItemSource {
 
-    public ValueExpressionHolder(ValueExpression valueExpression, Object defaultValue) {
-        super();
-        this.valueExpression = valueExpression;
-        this.defaultValue = defaultValue;
-    }
+    defaultSource,
+    contextInitParameter,
+    webEnvironmentEntry
 
-    public Object getValue(FacesContext context) {
-        if (valueExpression != null) {
-            Object result = valueExpression.getValue(context.getELContext());
-
-            if (result != null) {
-                return result;
-            }
-        }
-
-        return defaultValue;
-    }
 }
