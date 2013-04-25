@@ -38,10 +38,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.push.PushContext;
-import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.push.PushContext;
+import org.richfaces.push.PushContextFactory;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Sets;

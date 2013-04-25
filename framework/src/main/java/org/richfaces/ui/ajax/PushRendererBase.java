@@ -22,9 +22,9 @@
 package org.richfaces.ui.ajax;
 
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.push.PushContext;
-import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.push.PushContext;
+import org.richfaces.push.PushContextFactory;
 import org.richfaces.resource.PushResource;
 
 import javax.faces.application.Resource;
@@ -32,6 +32,7 @@ import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
+
 import java.util.HashMap;
 import java.util.Map;
 

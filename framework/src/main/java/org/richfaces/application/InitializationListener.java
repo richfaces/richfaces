@@ -44,9 +44,9 @@ import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 
 import org.richfaces.VersionBean;
-import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.push.PushContextFactory;
 
 /**
  * @author Nick Belaevski

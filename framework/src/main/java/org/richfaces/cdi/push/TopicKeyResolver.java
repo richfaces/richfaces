@@ -23,7 +23,7 @@ package org.richfaces.cdi.push;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import org.richfaces.application.push.TopicKey;
+import org.richfaces.push.TopicKey;
 
 /**
  * Bean for resolving {@link TopicKey} from {@link Push} annotation properties.

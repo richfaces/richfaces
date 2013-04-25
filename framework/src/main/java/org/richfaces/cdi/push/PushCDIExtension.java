@@ -41,9 +41,9 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import javax.enterprise.inject.spi.ObserverMethod;
 import javax.enterprise.inject.spi.ProcessInjectionTarget;
 
-import org.richfaces.application.push.MessageException;
-import org.richfaces.application.push.TopicKey;
-import org.richfaces.application.push.TopicsContext;
+import org.richfaces.push.MessageException;
+import org.richfaces.push.TopicKey;
+import org.richfaces.push.TopicsContext;
 
 /**
  * <p>
