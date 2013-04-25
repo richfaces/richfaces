@@ -28,9 +28,9 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagConfig;
 
-import org.richfaces.event.PanelToggleEvent;
-import org.richfaces.event.PanelToggleListener;
-import org.richfaces.event.PanelToggleSource;
+import org.richfaces.ui.output.PanelToggleEvent;
+import org.richfaces.ui.output.PanelToggleListener;
+import org.richfaces.ui.output.PanelToggleSource;
 import org.richfaces.view.facelets.EventListenerHandler;
 
 /**

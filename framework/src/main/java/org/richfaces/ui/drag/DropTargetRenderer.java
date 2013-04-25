@@ -22,8 +22,8 @@
 package org.richfaces.ui.drag;
 
 import com.google.common.base.Strings;
+
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.event.DropEvent;
 import org.richfaces.javascript.DnDScript;
 import org.richfaces.javascript.DropScript;
 import org.richfaces.javascript.JSFunctionDefinition;
@@ -37,6 +37,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

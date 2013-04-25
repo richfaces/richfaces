@@ -35,7 +35,7 @@ import javax.el.ExpressionFactory;
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.el.util.ELUtils;
+import org.richfaces.el.ELUtils;
 import org.richfaces.l10n.Messages;
 import org.richfaces.util.PropertiesUtil;
 

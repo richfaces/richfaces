@@ -31,7 +31,7 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.ui.drag.AbstractDropTarget;
-import org.richfaces.event.MethodExpressionDropListener;
+import org.richfaces.ui.drag.MethodExpressionDropListener;
 
 /**
  * @author abelevich
@@ -60,7 +60,7 @@ public class DropHandler extends ComponentHandler {
     }
 
     static class DropTargetMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.DropEvent.class };
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.ui.drag.DropEvent.class };
         private final TagAttribute attribute;
 
         public DropTargetMapper(TagAttribute attribute) {

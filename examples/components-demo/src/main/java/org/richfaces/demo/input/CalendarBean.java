@@ -8,8 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
-import org.richfaces.event.CurrentDateChangeEvent;
 import org.richfaces.ui.common.Positioning;
+import org.richfaces.ui.input.CurrentDateChangeEvent;
 
 @ManagedBean
 @SessionScoped

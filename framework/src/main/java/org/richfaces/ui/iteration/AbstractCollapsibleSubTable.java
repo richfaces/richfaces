@@ -32,8 +32,6 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.event.CollapsibleSubTableToggleEvent;
-import org.richfaces.event.CollapsibleSubTableToggleListener;
 
 /**
  * <p> The &lt;rich:collapsibleSubTable&gt; component acts as a child element to a &lt;rich:dataTable&gt; component. The

@@ -62,7 +62,7 @@ public class DataScrollerHandler extends ComponentHandler {
     };
 
     private static final class ScrollListenerMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.DataScrollEvent.class };
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.ui.iteration.DataScrollEvent.class };
         private final TagAttribute attribute;
 
         public ScrollListenerMapper(TagAttribute attribute) {

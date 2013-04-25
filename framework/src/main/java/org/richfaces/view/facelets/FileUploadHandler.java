@@ -32,10 +32,10 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
+import org.richfaces.ui.MethodExpressionEventListener;
 import org.richfaces.ui.input.AbstractFileUpload;
+import org.richfaces.ui.input.FileUploadListener;
 import org.richfaces.event.FileUploadEvent;
-import org.richfaces.event.FileUploadListener;
-import org.richfaces.event.MethodExpressionEventListener;
 
 /**
  * @author Konstantin Mishin

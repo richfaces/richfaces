@@ -26,7 +26,6 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.event.FileUploadListener;
 import org.richfaces.renderkit.RenderKitUtils;
 
 import javax.faces.FacesException;
@@ -37,6 +36,7 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
+
 import java.util.Map;
 
 /**

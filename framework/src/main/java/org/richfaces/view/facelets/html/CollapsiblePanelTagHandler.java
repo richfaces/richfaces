@@ -31,8 +31,8 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.ui.output.AbstractCollapsiblePanel;
-import org.richfaces.event.MethodExpressionPanelToggleListener;
-import org.richfaces.event.PanelToggleEvent;
+import org.richfaces.ui.output.MethodExpressionPanelToggleListener;
+import org.richfaces.ui.output.PanelToggleEvent;
 
 /**
  * @author akolonitsky

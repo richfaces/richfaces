@@ -36,8 +36,8 @@ import javax.swing.tree.TreeNode;
 import org.richfaces.demo.tree.model.CD;
 import org.richfaces.demo.tree.model.Company;
 import org.richfaces.demo.tree.model.Country;
-import org.richfaces.event.TreeSelectionChangeEvent;
 import org.richfaces.ui.iteration.AbstractTree;
+import org.richfaces.ui.iteration.TreeSelectionChangeEvent;
 
 /**
  * @author Ilya Shaikovsky

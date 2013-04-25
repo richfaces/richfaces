@@ -23,15 +23,12 @@ package org.richfaces.ui.iteration;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.event.FilteringEvent;
-import org.richfaces.event.FilteringListener;
-import org.richfaces.event.SortingEvent;
-import org.richfaces.event.SortingListener;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.Arrangeable;
@@ -57,6 +54,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PreRenderComponentEvent;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;

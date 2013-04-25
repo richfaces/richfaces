@@ -22,7 +22,6 @@
 package org.richfaces.ui.input;
 
 import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.event.CurrentDateChangeEvent;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.renderkit.RenderKitUtils;
@@ -45,6 +44,7 @@ import javax.faces.context.PartialViewContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
+
 import java.io.IOException;
 import java.text.DateFormatSymbols;
 import java.text.Format;

@@ -1,6 +1,6 @@
 package org.richfaces.demo.iteration;
 
-import org.richfaces.event.TreeToggleEvent;
+import org.richfaces.ui.iteration.TreeToggleEvent;
 
 /**
  * User: Gleb Galkin Date: 23.02.11

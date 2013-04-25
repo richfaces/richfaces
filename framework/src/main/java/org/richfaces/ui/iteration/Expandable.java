@@ -21,7 +21,6 @@
  */
 package org.richfaces.ui.iteration;
 
-import org.richfaces.event.CollapsibleSubTableToggleListener;
 
 public interface Expandable {
     boolean isExpanded();

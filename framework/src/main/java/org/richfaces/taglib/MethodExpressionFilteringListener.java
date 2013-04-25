@@ -24,8 +24,8 @@ package org.richfaces.taglib;
 import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.event.FilteringEvent;
-import org.richfaces.event.FilteringListener;
+import org.richfaces.ui.iteration.FilteringEvent;
+import org.richfaces.ui.iteration.FilteringListener;
 
 public class MethodExpressionFilteringListener implements FilteringListener {
     private MethodExpression methodExpression;

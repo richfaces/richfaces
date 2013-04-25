@@ -3,8 +3,8 @@ package org.richfaces.taglib;
 import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.event.DataScrollEvent;
-import org.richfaces.event.DataScrollListener;
+import org.richfaces.ui.iteration.DataScrollEvent;
+import org.richfaces.ui.iteration.DataScrollListener;
 
 /**
  * @author Anton Belevich

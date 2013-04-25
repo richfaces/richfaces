@@ -35,7 +35,6 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.util.renderkit.AjaxRendererUtils;

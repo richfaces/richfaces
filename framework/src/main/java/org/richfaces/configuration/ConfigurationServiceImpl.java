@@ -39,7 +39,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.richfaces.util.core.resource.URLToStreamHelper;
-import org.richfaces.el.util.ELUtils;
+import org.richfaces.el.ELUtils;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

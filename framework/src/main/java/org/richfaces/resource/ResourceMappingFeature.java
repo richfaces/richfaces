@@ -27,7 +27,7 @@ import java.util.List;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.el.util.ELUtils;
+import org.richfaces.el.ELUtils;
 
 import com.google.common.collect.Lists;
 

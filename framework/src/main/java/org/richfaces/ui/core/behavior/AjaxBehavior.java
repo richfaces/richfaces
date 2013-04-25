@@ -26,7 +26,6 @@ import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
 import org.richfaces.ui.behavior.ClientBehavior;
 import org.richfaces.ui.core.AjaxClientBehavior;
 import org.richfaces.ui.util.renderkit.CoreAjaxRendererUtils;
@@ -41,6 +40,7 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.AjaxBehaviorListener;
 import javax.faces.event.BehaviorEvent;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;

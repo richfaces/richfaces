@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentMap;
 import javax.el.ELContext;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.el.util.ELUtils;
+import org.richfaces.el.ELUtils;
 import org.richfaces.services.ServiceTracker;
 
 /**

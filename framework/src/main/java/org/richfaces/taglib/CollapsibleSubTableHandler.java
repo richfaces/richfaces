@@ -61,7 +61,7 @@ public class CollapsibleSubTableHandler extends ComponentHandler {
     }
 
     static class CollapsibleSubTableMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.CollapsibleSubTableToggleEvent.class };
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.ui.iteration.CollapsibleSubTableToggleEvent.class };
         private final TagAttribute attribute;
 
         public CollapsibleSubTableMapper(TagAttribute attribute) {

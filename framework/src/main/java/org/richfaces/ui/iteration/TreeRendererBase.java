@@ -23,8 +23,8 @@ package org.richfaces.ui.iteration;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
+
 import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.event.TreeSelectionChangeEvent;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.log.Logger;
@@ -44,6 +44,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;

@@ -8,7 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import org.richfaces.el.util.ELUtils;
+import org.richfaces.el.ELUtils;
 
 public class BaseDescriptor implements Serializable {
     private static final long serialVersionUID = 5614594358147757458L;

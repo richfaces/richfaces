@@ -29,8 +29,6 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.event.DropEvent;
-import org.richfaces.event.DropListener;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.Shelf;
@@ -44,6 +42,8 @@ import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IAlbumAction;
 import org.richfaces.photoalbum.util.Preferred;
 import org.richfaces.photoalbum.util.Utils;
+import org.richfaces.ui.drag.DropEvent;
+import org.richfaces.ui.drag.DropListener;
 
 @Named("dndManager")
 public class DnDManager implements DropListener {

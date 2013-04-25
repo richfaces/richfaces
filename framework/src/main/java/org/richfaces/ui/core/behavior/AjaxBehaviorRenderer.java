@@ -21,7 +21,6 @@
  */
 package org.richfaces.ui.core.behavior;
 
-import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
 import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
 import org.richfaces.ui.util.renderkit.RendererUtils;
 

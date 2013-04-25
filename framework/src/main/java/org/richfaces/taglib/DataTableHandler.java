@@ -69,7 +69,7 @@ public class DataTableHandler extends ComponentHandler {
     }
 
     static final class SortingListenerMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.SortingEvent.class };
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.ui.iteration.SortingEvent.class };
         private final TagAttribute attribute;
 
         public SortingListenerMapper(TagAttribute attribute) {
@@ -83,7 +83,7 @@ public class DataTableHandler extends ComponentHandler {
     }
 
     static final class FilteringListenerMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.FilteringEvent.class };
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.ui.iteration.FilteringEvent.class };
         private final TagAttribute attribute;
 
         public FilteringListenerMapper(TagAttribute attribute) {

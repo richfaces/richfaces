@@ -31,7 +31,7 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.ui.input.AbstractCalendar;
-import org.richfaces.event.MethodExpressionCurrentDateChangeListener;
+import org.richfaces.ui.input.MethodExpressionCurrentDateChangeListener;
 
 /**
  * @author amarkhel
@@ -60,7 +60,7 @@ public class CalendarHandler extends ComponentHandler {
     }
 
     static class CalendarMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.CurrentDateChangeEvent.class };
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.ui.input.CurrentDateChangeEvent.class };
         private final TagAttribute attribute;
 
         public CalendarMapper(TagAttribute attribute) {

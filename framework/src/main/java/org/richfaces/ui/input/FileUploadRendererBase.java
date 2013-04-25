@@ -21,14 +21,13 @@
  */
 package org.richfaces.ui.input;
 
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.request.MultipartRequest;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
+import org.richfaces.model.UploadedFile;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.request.MultipartRequest;
 
 /**
  * @author Konstantin Mishin
