@@ -19,26 +19,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.cdi.push;
+package org.richfaces.push.cdi;
 
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.enterprise.inject.spi.BeforeBeanDiscovery;
-import javax.enterprise.inject.spi.Extension;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
+
+import org.richfaces.push.TopicsContext;
 
 /**
- * Registers all necessary beans required by {@link PushCDIExtension} extension.
+ * Producer for {@link TopicsContext} reference.
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public class PushCDIDependencyRegistrationExtension implements Extension {
+public class TopicsContextProducer {
 
     /**
-     * Registers all necessary beans required by {@link PushCDIExtension} extension.
+     * Produces application scoped {@link TopicsContext} reference.
+     *
+     * @return application scoped {@link TopicsContext} reference.
      */
-    public void beforeBeanDiscovery(@Observes BeforeBeanDiscovery bbd, BeanManager beanManager) {
-        bbd.addAnnotatedType(beanManager.createAnnotatedType(Push.class));
-        bbd.addAnnotatedType(beanManager.createAnnotatedType(TopicKeyResolver.class));
-        bbd.addAnnotatedType(beanManager.createAnnotatedType(TopicsContextProducer.class));
+    @Produces
+    @ApplicationScoped
+    public TopicsContext getTopicsContext() {
+        return TopicsContext.lookup();
     }
 }

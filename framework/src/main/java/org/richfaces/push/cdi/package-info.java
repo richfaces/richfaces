@@ -21,4 +21,4 @@
 /**
  * RichFaces push CDI
  */
-package org.richfaces.cdi.push;
+package org.richfaces.push.cdi;

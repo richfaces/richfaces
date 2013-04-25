@@ -19,33 +19,42 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.cdi.push;
+package org.richfaces.push.cdi;
 
-import org.richfaces.push.MessageException;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import javax.inject.Qualifier;
 
 /**
- * Unchecked exception wrapper for {@link MessageException}.
+ * Defines end-point for messages going through Push message bus.
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public class PushCDIMessageException extends RuntimeException {
+@Retention(RUNTIME)
+@Target({ TYPE, METHOD, FIELD, PARAMETER })
+@Qualifier
+public @interface Push {
 
-    private static final long serialVersionUID = 6999806096942937858L;
+    /**
+     * Topic in form of topic name (e.g. "topic") or topic address ("subtopic@topic")
+     */
+    String topic();
 
-    public PushCDIMessageException() {
-        super();
-    }
-
-    public PushCDIMessageException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public PushCDIMessageException(String message) {
-        super(message);
-    }
-
-    public PushCDIMessageException(Throwable cause) {
-        super(cause);
-    }
-
+    /**
+     * <p>
+     * Subtopic in form of subtopic name (e.g. "subtopic").
+     * </p>
+     *
+     * <p>
+     * Subtopic might not be defined, when {@link #topic()} has form of full topic address, it means when it contains subtopic
+     * already (e.g. "subtopic@topic").
+     */
+    String subtopic() default "";
 }

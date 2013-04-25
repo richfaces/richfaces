@@ -19,28 +19,33 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.cdi.push;
+package org.richfaces.push.cdi;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-
-import org.richfaces.push.TopicsContext;
+import org.richfaces.push.MessageException;
 
 /**
- * Producer for {@link TopicsContext} reference.
+ * Unchecked exception wrapper for {@link MessageException}.
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public class TopicsContextProducer {
+public class PushCDIMessageException extends RuntimeException {
 
-    /**
-     * Produces application scoped {@link TopicsContext} reference.
-     *
-     * @return application scoped {@link TopicsContext} reference.
-     */
-    @Produces
-    @ApplicationScoped
-    public TopicsContext getTopicsContext() {
-        return TopicsContext.lookup();
+    private static final long serialVersionUID = 6999806096942937858L;
+
+    public PushCDIMessageException() {
+        super();
     }
+
+    public PushCDIMessageException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public PushCDIMessageException(String message) {
+        super(message);
+    }
+
+    public PushCDIMessageException(Throwable cause) {
+        super(cause);
+    }
+
 }
