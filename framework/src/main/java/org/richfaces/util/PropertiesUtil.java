@@ -29,7 +29,6 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.Properties;
 
-import org.richfaces.util.core.resource.URLToStreamHelper;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

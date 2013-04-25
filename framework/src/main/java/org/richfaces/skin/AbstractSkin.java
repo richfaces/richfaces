@@ -25,7 +25,7 @@ import java.awt.Color;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.util.core.HtmlColor;
+import org.richfaces.util.HtmlColor;
 import org.richfaces.ui.util.renderkit.HtmlDimensions;
 
 /**

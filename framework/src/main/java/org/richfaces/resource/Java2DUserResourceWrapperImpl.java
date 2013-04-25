@@ -36,7 +36,7 @@ import javax.imageio.stream.ImageOutputStream;
 import org.richfaces.io.ByteBuffer;
 import org.richfaces.io.FastBufferInputStream;
 import org.richfaces.io.FastBufferOutputStream;
-import org.richfaces.util.core.HtmlColor;
+import org.richfaces.util.HtmlColor;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.ui.util.renderkit.HtmlDimensions;
