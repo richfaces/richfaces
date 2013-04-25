@@ -29,8 +29,8 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.ui.common.ItemChangeEvent;
-import org.richfaces.ui.common.ItemChangeSource;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeSource;
 import org.richfaces.ui.output.MethodExpressionItemChangeListener;
 
 /**

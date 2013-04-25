@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,33 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.common;
+package org.richfaces.event;
 
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesListener;
 
 /**
- * <p>
- * A listener interface for receiving {@link ItemChangeEvent}s. A class that is interested in receiving such events implements
- * this interface, and then registers itself with the source {@link javax.faces.component.UIComponent} of interest, by calling
- * <code>addItemChangeListener()</code>.
- * </p>
- *
- * @author akolonitsky
- * @version 1.0
- * @since -4712-01-01
+ * @author Nick Belaevski
  *
  */
-public interface ItemChangeListener extends FacesListener {
-    /**
-     * <p>
-     * Invoked when {@link ItemChangeEvent} occurs.
-     * </p>
-     *
-     * @param event The {@link ItemChangeEvent} that has occurred
-     *
-     * @throws AbortProcessingException Signal the JavaServer Faces implementation that no further processing on the current
-     *         event should be performed
-     */
-    void processItemChange(ItemChangeEvent event) throws AbortProcessingException;
+public interface TreeToggleListener extends FacesListener {
+    void processTreeToggle(TreeToggleEvent event) throws AbortProcessingException;
 }

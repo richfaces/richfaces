@@ -29,11 +29,11 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.photoalbum.domain.Sex;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IUserAction;
+import org.richfaces.ui.input.FileUploadEvent;
 
 /**
  * Convenience UI class for userPrefs page

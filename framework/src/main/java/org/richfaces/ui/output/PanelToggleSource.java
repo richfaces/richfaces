@@ -21,6 +21,8 @@
  */
 package org.richfaces.ui.output;
 
+import org.richfaces.event.PanelToggleListener;
+
 /**
  * @author akolonitsky
  * @since 2010-08-27

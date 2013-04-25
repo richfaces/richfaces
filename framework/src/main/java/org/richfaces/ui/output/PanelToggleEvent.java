@@ -25,6 +25,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 
+import org.richfaces.event.PanelToggleListener;
+
 /**
  * @author akolonitsky
  * @since 2010-08-27

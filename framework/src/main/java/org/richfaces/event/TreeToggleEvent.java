@@ -19,9 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.iteration;
-
-import java.util.Collection;
+package org.richfaces.event;
 
 import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
@@ -31,33 +29,31 @@ import javax.faces.event.FacesListener;
  * @author Nick Belaevski
  *
  */
-public class TreeSelectionChangeEvent extends FacesEvent {
-    private static final long serialVersionUID = 6292604445872458007L;
-    private Collection<Object> oldSelection;
-    private Collection<Object> newSelection;
+public class TreeToggleEvent extends FacesEvent {
+    private static final long serialVersionUID = -7264894390585192069L;
+    private boolean expanded;
 
-    public TreeSelectionChangeEvent(UIComponent component, Collection<Object> oldSelection, Collection<Object> newSelection) {
+    public TreeToggleEvent(UIComponent component, boolean expanded) {
         super(component);
 
-        this.oldSelection = oldSelection;
-        this.newSelection = newSelection;
+        this.expanded = expanded;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public boolean isCollapsed() {
+        return !isExpanded();
     }
 
     @Override
     public boolean isAppropriateListener(FacesListener listener) {
-        return listener instanceof TreeSelectionChangeListener;
+        return listener instanceof TreeToggleListener;
     }
 
     @Override
     public void processListener(FacesListener listener) {
-        ((TreeSelectionChangeListener) listener).processTreeSelectionChange(this);
-    }
-
-    public Collection<Object> getOldSelection() {
-        return oldSelection;
-    }
-
-    public Collection<Object> getNewSelection() {
-        return newSelection;
+        ((TreeToggleListener) listener).processTreeToggle(this);
     }
 }

@@ -34,8 +34,8 @@ import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.ui.common.MethodExpressionEventListener;
 import org.richfaces.ui.input.AbstractFileUpload;
+import org.richfaces.ui.input.FileUploadEvent;
 import org.richfaces.ui.input.FileUploadListener;
-import org.richfaces.event.FileUploadEvent;
 
 /**
  * @author Konstantin Mishin

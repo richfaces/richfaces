@@ -26,7 +26,6 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 
 import org.richfaces.model.UploadedFile;
-import org.richfaces.ui.input.FileUploadListener;
 
 /**
  * @author Konstantin Mishin

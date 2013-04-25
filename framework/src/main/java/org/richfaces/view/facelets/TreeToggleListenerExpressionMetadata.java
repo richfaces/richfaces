@@ -4,8 +4,8 @@ import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.TagAttribute;
 
+import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.ui.iteration.MethodExpressionTreeToggleListener;
-import org.richfaces.ui.iteration.TreeToggleEvent;
 import org.richfaces.ui.iteration.TreeToggleSource;
 
 /**

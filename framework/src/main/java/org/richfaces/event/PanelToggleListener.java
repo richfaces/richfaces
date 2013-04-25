@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright ${year}, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,15 +19,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.iteration;
+package org.richfaces.event;
 
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesListener;
 
+import org.richfaces.ui.output.PanelToggleEvent;
+
 /**
- * @author Nick Belaevski
+ * <p>
+ * A listener interface for receiving {@link PanelToggleEvent}s. A class that is interested in receiving such events implements
+ * this interface, and then registers itself with the source {@link javax.faces.component.UIComponent} of interest, by calling
+ * <code>addPanelToggleListener()</code>.
+ * </p>
+ *
+ * @author akolonitsky
+ * @version 1.0
+ * @since 2010-08-27
  *
  */
-public interface TreeToggleListener extends FacesListener {
-    void processTreeToggle(TreeToggleEvent event) throws AbortProcessingException;
+public interface PanelToggleListener extends FacesListener {
+    /**
+     * <p>
+     * Invoked when {@link PanelToggleEvent} occurs.
+     * </p>
+     *
+     * @param event The {@link PanelToggleEvent} that has occurred
+     *
+     * @throws AbortProcessingException Signal the JavaServer Faces implementation that no further processing on the current
+     *         event should be performed
+     */
+    void processPanelToggle(PanelToggleEvent event) throws AbortProcessingException;
 }

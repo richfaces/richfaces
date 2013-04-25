@@ -24,8 +24,8 @@ package org.richfaces.ui.output;
 import javax.el.MethodExpression;
 import javax.faces.event.AbortProcessingException;
 
-import org.richfaces.ui.common.ItemChangeEvent;
-import org.richfaces.ui.common.ItemChangeListener;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeListener;
 import org.richfaces.ui.common.MethodExpressionEventListener;
 
 /**

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
+import org.richfaces.ui.input.FileUploadEvent;
 
 /**
  * @author Ilya Shaikovsky

@@ -27,7 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <application>
         <system-event-listener>
-            <system-event-listener-class>org.richfaces.event.DataTablePreRenderListener</system-event-listener-class>
+            <system-event-listener-class>org.richfaces.ui.iteration.DataTablePreRenderListener</system-event-listener-class>
             <system-event-class>javax.faces.event.PreRenderComponentEvent</system-event-class>
         </system-event-listener>
     </application>

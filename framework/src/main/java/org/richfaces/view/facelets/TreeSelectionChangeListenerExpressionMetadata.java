@@ -4,8 +4,8 @@ import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.TagAttribute;
 
+import org.richfaces.event.TreeSelectionChangeEvent;
 import org.richfaces.ui.iteration.MethodExpressionTreeSelectionChangeListener;
-import org.richfaces.ui.iteration.TreeSelectionChangeEvent;
 import org.richfaces.ui.iteration.TreeSelectionChangeSource;
 
 /**

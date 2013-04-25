@@ -24,6 +24,8 @@ package org.richfaces.ui.iteration;
 import javax.el.MethodExpression;
 import javax.faces.event.AbortProcessingException;
 
+import org.richfaces.event.TreeToggleEvent;
+import org.richfaces.event.TreeToggleListener;
 import org.richfaces.ui.common.MethodExpressionEventListener;
 
 /**

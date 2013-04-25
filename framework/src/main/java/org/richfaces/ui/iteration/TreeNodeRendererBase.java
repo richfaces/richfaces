@@ -23,6 +23,7 @@ package org.richfaces.ui.iteration;
 
 import com.google.common.base.Strings;
 
+import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.HtmlConstants;

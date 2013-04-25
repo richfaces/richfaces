@@ -27,9 +27,9 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.ui.common.ItemChangeEvent;
-import org.richfaces.ui.common.ItemChangeListener;
-import org.richfaces.ui.common.ItemChangeSource;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeListener;
+import org.richfaces.event.ItemChangeSource;
 import org.richfaces.ui.util.renderkit.PanelIcons;
 
 import javax.el.MethodExpression;

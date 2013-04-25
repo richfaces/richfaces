@@ -28,6 +28,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.event.TreeToggleEvent;
+import org.richfaces.event.TreeToggleListener;
 import org.richfaces.ui.core.IterationStateHolder;
 import org.richfaces.ui.core.MetaComponentEncoder;
 import org.richfaces.ui.core.MetaComponentRenderer;
