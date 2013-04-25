@@ -20,7 +20,7 @@
  */
 package org.richfaces.codec;
 
-import org.richfaces.util.core.base64.Codec;
+import org.richfaces.base64.Codec;
 import org.jboss.test.faces.AbstractThreadedTest;
 
 public class CodecTest extends AbstractThreadedTest {

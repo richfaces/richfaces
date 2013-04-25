@@ -18,7 +18,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.util.core.base64;
+package org.richfaces.base64;
 
 import java.security.spec.KeySpec;
 

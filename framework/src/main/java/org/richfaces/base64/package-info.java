@@ -21,4 +21,4 @@
 /**
  * Base64 encoding/decoding classes
  */
-package org.richfaces.util.core.base64;
+package org.richfaces.base64;

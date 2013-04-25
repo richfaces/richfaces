@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.richfaces.util.core.base64;
+package org.richfaces.base64;
 
 import java.io.ByteArrayOutputStream;
 import java.util.BitSet;
