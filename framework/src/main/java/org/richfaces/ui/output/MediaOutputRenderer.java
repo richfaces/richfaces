@@ -20,8 +20,8 @@
  */
 package org.richfaces.ui.output;
 
-import org.richfaces.Messages;
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.l10n.Messages;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.HtmlConstants;
 
@@ -30,6 +30,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,21 +1,23 @@
 package org.richfaces.ui.validation;
 
 import com.google.common.collect.Iterables;
+
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.ClientScriptService;
 import org.richfaces.javascript.LibraryFunction;
 import org.richfaces.javascript.ScriptNotFoundException;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.ValidatorDescriptor;
 
 import javax.faces.convert.NumberConverter;
 import javax.faces.validator.RegexValidator;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;

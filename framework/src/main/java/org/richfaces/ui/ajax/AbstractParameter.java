@@ -20,11 +20,11 @@
  */
 package org.richfaces.ui.ajax;
 
-import org.richfaces.Messages;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.l10n.Messages;
 import org.richfaces.ui.core.JavaScriptParameter;
 import org.richfaces.ui.util.PartialStateHolderUtil;
 

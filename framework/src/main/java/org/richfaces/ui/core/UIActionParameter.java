@@ -20,7 +20,7 @@
  */
 package org.richfaces.ui.core;
 
-import org.richfaces.Messages;
+import org.richfaces.l10n.Messages;
 
 import javax.el.ELContext;
 import javax.el.MethodExpression;

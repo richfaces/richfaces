@@ -4,10 +4,10 @@ import java.util.Collections;
 
 import org.junit.After;
 import org.junit.Before;
-import org.richfaces.application.Module;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.ServicesFactory;
-import org.richfaces.application.ServicesFactoryImpl;
+import org.richfaces.services.Module;
+import org.richfaces.services.ServiceTracker;
+import org.richfaces.services.ServicesFactory;
+import org.richfaces.services.ServicesFactoryImpl;
 
 public abstract class AbstractServicesTest {
 

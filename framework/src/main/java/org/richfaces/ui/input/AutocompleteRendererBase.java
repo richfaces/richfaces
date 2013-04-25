@@ -21,13 +21,13 @@
  */
 package org.richfaces.ui.input;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
@@ -54,6 +54,7 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.ResultDataModel;
 import javax.faces.model.ResultSetDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
+
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;

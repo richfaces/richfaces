@@ -29,11 +29,12 @@ import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.UnmodifiableIterator;
-import org.richfaces.application.ServiceTracker;
+
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.RendererBase;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.util.renderkit.RendererUtils;
 
 import javax.faces.application.FacesMessage;
@@ -43,6 +44,7 @@ import javax.faces.component.UIMessage;
 import javax.faces.component.UIMessages;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;

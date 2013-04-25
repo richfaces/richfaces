@@ -26,12 +26,6 @@ import java.util.Collections;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.DependencyInjectionServiceImpl;
-import org.richfaces.application.DependencyInjector;
-import org.richfaces.application.Module;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.ServicesFactory;
-import org.richfaces.application.ServicesFactoryImpl;
 import org.richfaces.cdk.Faces;
 import org.richfaces.cdk.FileNameMapper;
 import org.richfaces.cdk.skin.SkinFactoryImpl;
@@ -41,6 +35,12 @@ import org.richfaces.resource.external.ExternalResourceTracker;
 import org.richfaces.resource.external.ExternalResourceTrackerWrapper;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
+import org.richfaces.services.DependencyInjectionServiceImpl;
+import org.richfaces.services.DependencyInjector;
+import org.richfaces.services.Module;
+import org.richfaces.services.ServiceTracker;
+import org.richfaces.services.ServicesFactory;
+import org.richfaces.services.ServicesFactoryImpl;
 import org.richfaces.skin.SkinFactory;
 
 /**

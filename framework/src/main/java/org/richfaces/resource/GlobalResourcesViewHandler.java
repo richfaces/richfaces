@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application;
+package org.richfaces.resource;
 
 import java.io.ObjectStreamException;
 import java.util.List;
@@ -35,7 +35,9 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.configuration.ConfigurationService;
+import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.el.BaseReadOnlyValueExpression;
+import org.richfaces.services.ServiceTracker;
 
 /**
  * @author Nick Belaevski

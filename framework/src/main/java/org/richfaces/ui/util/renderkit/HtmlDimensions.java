@@ -20,7 +20,7 @@
  */
 package org.richfaces.ui.util.renderkit;
 
-import org.richfaces.Messages;
+import org.richfaces.l10n.Messages;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

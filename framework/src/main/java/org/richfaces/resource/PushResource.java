@@ -36,7 +36,7 @@ import org.richfaces.push.PushContext;
 import org.richfaces.push.PushContextFactory;
 import org.richfaces.push.Session;
 import org.richfaces.push.TopicKey;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.services.ServiceTracker;
 
 /**
  * @author Nick Belaevski

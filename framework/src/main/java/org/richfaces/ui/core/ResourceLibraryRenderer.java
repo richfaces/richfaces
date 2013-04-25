@@ -27,12 +27,12 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
 import org.richfaces.resource.ResourceLibraryFactory;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.util.FastJoiner;
 
 /**

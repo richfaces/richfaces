@@ -24,16 +24,18 @@ package org.richfaces.ui.message;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
-import org.richfaces.application.ServiceTracker;
+
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.util.renderkit.RendererUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;

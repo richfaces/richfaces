@@ -1,4 +1,4 @@
-package org.richfaces.application;
+package org.richfaces.services;
 
 import com.google.common.collect.ClassToInstanceMap;
 import com.google.common.collect.ImmutableClassToInstanceMap;

@@ -21,7 +21,7 @@
  */
 package org.richfaces.ui.ajax;
 
-import org.richfaces.application.CommonComponentsConfiguration;
+import org.richfaces.configuration.CommonComponentsConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

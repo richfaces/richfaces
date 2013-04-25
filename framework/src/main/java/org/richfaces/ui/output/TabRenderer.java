@@ -22,10 +22,11 @@
 package org.richfaces.ui.output;
 
 import com.google.common.base.Predicate;
-import org.richfaces.application.ServiceTracker;
+
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.core.ComponentIterators;
 
@@ -35,6 +36,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
+
 import java.io.IOException;
 import java.util.Map;
 

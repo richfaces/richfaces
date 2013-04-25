@@ -19,22 +19,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application;
+package org.richfaces.configuration;
 
-import org.richfaces.configuration.ConfigurationItem;
 
 /**
  * @author Nick Belaevski
  *
  */
-public final class CommonComponentsConfiguration {
-    private CommonComponentsConfiguration() {
+public final class IterationComponentsConfiguration {
+    private IterationComponentsConfiguration() {
     }
 
     public enum Items {
 
-        @ConfigurationItem(defaultValue = "true", names = "org.richfaces.queue.enabled", literal = true)
-        queueEnabled
+        @ConfigurationItem(defaultValue = "false", names = "org.richfaces.datatableUsesViewLocale")
+        datatableUsesViewLocale
 
     }
 }

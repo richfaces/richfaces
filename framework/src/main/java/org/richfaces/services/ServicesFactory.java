@@ -20,55 +20,43 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.application;
-
-import javax.faces.FacesException;
+package org.richfaces.services;
 
 /**
  * <p class="changed_added_4_0">
- * Exception fired by service tracker if it cannot create requested service.
  * </p>
  *
  * @author asmirnov@exadel.com
  *
  */
-@SuppressWarnings("serial")
-public class ServiceException extends FacesException {
+public interface ServicesFactory {
     /**
      * <p class="changed_added_4_0">
+     * Get service instance associated with given type, usually service interface or base abstract class.
      * </p>
+     *
+     * @param <T> service type.
+     * @param type Base class implemented by service.
+     * @return Current service implementation.
+     * @throws ServiceException if factory cannot create requested service.
      */
-    public ServiceException() {
-    }
+    <T> T getInstance(Class<T> type) throws ServiceException;
 
     /**
      * <p class="changed_added_4_0">
+     * Associate concrete instance with service.
      * </p>
      *
-     * @param message
+     * @param <T> service type.
+     * @param type Base class implemented by service.
+     * @param instance service instance.
      */
-    public ServiceException(String message) {
-        super(message);
-    }
+    <T> void setInstance(Class<T> type, T instance);
 
     /**
      * <p class="changed_added_4_0">
+     * Release all services.
      * </p>
-     *
-     * @param cause
      */
-    public ServiceException(Throwable cause) {
-        super(cause);
-    }
-
-    /**
-     * <p class="changed_added_4_0">
-     * </p>
-     *
-     * @param message
-     * @param cause
-     */
-    public ServiceException(String message, Throwable cause) {
-        super(message, cause);
-    }
+    void release();
 }

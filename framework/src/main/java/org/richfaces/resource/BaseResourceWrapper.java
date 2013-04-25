@@ -21,8 +21,8 @@
  */
 package org.richfaces.resource;
 
-import static org.richfaces.application.CoreConfiguration.Items.resourcesDefaultVersion;
 import static org.richfaces.configuration.ConfigurationServiceHelper.getStringConfigurationValue;
+import static org.richfaces.configuration.CoreConfiguration.Items.resourcesDefaultVersion;
 
 import java.util.Date;
 import java.util.Map;

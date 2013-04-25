@@ -9,7 +9,7 @@ import org.jboss.test.faces.mock.MockController;
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.jboss.test.faces.mock.Stub;
 import org.junit.After;
-import org.richfaces.application.ServicesFactory;
+import org.richfaces.services.ServicesFactory;
 
 public class ValidatorTestBase {
     @Mock()

@@ -29,12 +29,12 @@ import java.util.Set;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.Initializable;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceMappingConfiguration;
 import org.richfaces.resource.ResourceMappingFeature;
+import org.richfaces.services.Initializable;
 import org.richfaces.util.PropertiesUtil;
 
 import com.google.common.collect.Maps;

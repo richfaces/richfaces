@@ -19,16 +19,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application;
+package org.richfaces.configuration;
 
-import org.richfaces.l10n.MessageBundle;
 
 /**
  * @author Nick Belaevski
  *
  */
-@MessageBundle(baseName = "org.richfaces.Messages")
-public final class CoreMessages {
-    private CoreMessages() {
+public final class CommonComponentsConfiguration {
+    private CommonComponentsConfiguration() {
+    }
+
+    public enum Items {
+
+        @ConfigurationItem(defaultValue = "true", names = "org.richfaces.queue.enabled", literal = true)
+        queueEnabled
+
     }
 }

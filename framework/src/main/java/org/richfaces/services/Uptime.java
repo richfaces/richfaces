@@ -1,4 +1,6 @@
-/**
+/*
+ * $Id$
+ *
  * License Agreement.
  *
  * Rich Faces - Natural Ajax for Java Server Faces (JSF)
@@ -18,16 +20,31 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces;
+package org.richfaces.services;
+
+import java.util.Date;
 
 /**
- * @author akolonitsky
- * @since Oct 19, 2010
+ * <p class="changed_added_4_0">
+ * </p>
+ *
+ * @author asmirnov@exadel.com
+ *
  */
-public enum ExpandMode {
-    ajax,
-    server,
-    client,
-    none;
-    public static final ExpandMode DEFAULT = client;
+public class Uptime {
+    private Date startTime;
+
+    public Uptime() {
+        startTime = new Date();
+    }
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
+     * @return the startTime
+     */
+    public Date getStartTime() {
+        return this.startTime;
+    }
 }

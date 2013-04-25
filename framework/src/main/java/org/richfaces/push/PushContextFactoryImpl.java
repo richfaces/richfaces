@@ -27,8 +27,8 @@ import java.util.regex.Pattern;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import org.richfaces.application.CoreConfiguration;
 import org.richfaces.configuration.ConfigurationServiceHelper;
+import org.richfaces.configuration.CoreConfiguration;
 
 /**
  * @author Nick Belaevski

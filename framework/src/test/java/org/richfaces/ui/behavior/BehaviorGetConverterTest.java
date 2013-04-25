@@ -9,12 +9,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesConverterService;
 
 import javax.faces.convert.Converter;
 import javax.faces.convert.NumberConverter;
+
 import java.util.Collections;
 
 import static org.easymock.EasyMock.capture;

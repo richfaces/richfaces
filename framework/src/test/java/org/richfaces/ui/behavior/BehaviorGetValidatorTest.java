@@ -2,6 +2,7 @@ package org.richfaces.ui.behavior;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.jboss.test.faces.mock.Stub;
@@ -9,8 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.Message;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.FacesValidatorService;
 import org.richfaces.validator.ValidatorDescriptor;
@@ -19,6 +20,7 @@ import javax.el.ValueExpression;
 import javax.faces.validator.BeanValidator;
 import javax.faces.validator.Validator;
 import javax.validation.groups.Default;
+
 import java.util.Collection;
 import java.util.Collections;
 

@@ -19,14 +19,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application;
+package org.richfaces.l10n;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
  *
  */
-public interface DependencyInjector {
-    void inject(FacesContext context, Object bean);
+public interface MessageFactory {
+    FacesMessage createMessage(FacesContext facesContext, Enum<?> messageKey, Object... args);
+
+    FacesMessage createMessage(FacesContext facesContext, Severity severity, Enum<?> messageKey, Object... args);
+
+    String getMessageText(FacesContext facesContext, Enum<?> messageKey, Object... args);
+
+    String getMessageFormat(FacesContext facesContext, Enum<?> messageKey);
 }

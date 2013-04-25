@@ -15,7 +15,7 @@
  */
 package org.richfaces.util.core.base64;
 
-import org.richfaces.Messages;
+import org.richfaces.l10n.Messages;
 
 /**
  * Provides Base64 encoding and decoding like defined by RFC 2045, but with little difference : chars '=' '+' and '/' ,

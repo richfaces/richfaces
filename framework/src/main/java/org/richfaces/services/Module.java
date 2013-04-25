@@ -1,4 +1,4 @@
-package org.richfaces.application;
+package org.richfaces.services;
 
 /**
  * <p class="changed_added_4_0">

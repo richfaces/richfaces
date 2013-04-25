@@ -21,13 +21,13 @@
  */
 package org.richfaces.ui.select;
 
-import org.richfaces.application.FacesMessages;
-import org.richfaces.application.MessageFactory;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.ScriptString;
+import org.richfaces.l10n.FacesMessages;
+import org.richfaces.l10n.MessageFactory;
 import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.input.InputRendererBase;
 import org.richfaces.ui.util.renderkit.HtmlDimensions;
@@ -39,6 +39,7 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
 import java.io.IOException;
 import java.util.List;
 

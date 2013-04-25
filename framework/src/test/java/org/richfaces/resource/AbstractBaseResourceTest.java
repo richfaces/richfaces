@@ -37,11 +37,11 @@ import javax.faces.context.FacesContext;
 
 import org.easymock.EasyMock;
 import org.jboss.test.faces.AbstractFacesTest;
-import org.richfaces.application.Module;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.ServicesFactory;
-import org.richfaces.application.ServicesFactoryImpl;
-import org.richfaces.application.Uptime;
+import org.richfaces.services.Module;
+import org.richfaces.services.ServiceTracker;
+import org.richfaces.services.ServicesFactory;
+import org.richfaces.services.ServicesFactoryImpl;
+import org.richfaces.services.Uptime;
 import org.richfaces.util.Util;
 
 /**

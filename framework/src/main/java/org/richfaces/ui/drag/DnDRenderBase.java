@@ -21,15 +21,16 @@
  */
 package org.richfaces.ui.drag;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.DnDScript;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.RendererBase;
+import org.richfaces.services.ServiceTracker;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.Map;
 

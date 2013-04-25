@@ -20,16 +20,15 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.application;
+package org.richfaces.cache;
 
 import java.util.Date;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.cache.Cache;
-import org.richfaces.cache.CacheManager;
 import org.richfaces.resource.ResourceHandlerImpl;
+import org.richfaces.services.Initializable;
 
 /**
  * <p class="changed_added_4_0">

@@ -47,7 +47,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseId;
 
 import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.core.MetaComponentEncoder;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.ScriptsHolder;

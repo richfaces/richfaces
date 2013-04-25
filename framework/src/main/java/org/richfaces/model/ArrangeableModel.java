@@ -36,7 +36,7 @@ import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModelListener;
 
-import org.richfaces.application.IterationComponentsConfiguration;
+import org.richfaces.configuration.IterationComponentsConfiguration;
 import org.richfaces.ui.iteration.SortOrder;
 
 /**

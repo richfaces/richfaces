@@ -21,8 +21,8 @@
  */
 package org.richfaces.ui.ajax;
 
-import org.richfaces.application.CommonComponentsConfiguration;
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.configuration.CommonComponentsConfiguration;
 import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.ui.common.HtmlConstants;
 

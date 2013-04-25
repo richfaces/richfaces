@@ -26,7 +26,7 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.Messages;
+import org.richfaces.l10n.Messages;
 
 /**
  * Singleton ( in respect as collection of different skins ) for produce instances properties for all used skins.

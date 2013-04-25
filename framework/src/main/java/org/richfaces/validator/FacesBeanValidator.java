@@ -35,8 +35,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.JsfValidator;
+import org.richfaces.services.ServiceTracker;
 
 import com.google.common.base.Strings;
 

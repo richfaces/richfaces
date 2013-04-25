@@ -21,16 +21,16 @@
  */
 package org.richfaces.push;
 
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionFactory;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionPassword;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionPasswordEnvRef;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionUsername;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionUsernameEnvRef;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSTopicsNamespace;
-import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionFactory;
-import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionPassword;
-import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionUsername;
-import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSTopicsNamespace;
+import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSConnectionFactory;
+import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSConnectionPassword;
+import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSConnectionPasswordEnvRef;
+import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSConnectionUsername;
+import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSConnectionUsernameEnvRef;
+import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSTopicsNamespace;
+import static org.richfaces.configuration.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionFactory;
+import static org.richfaces.configuration.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionPassword;
+import static org.richfaces.configuration.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionUsername;
+import static org.richfaces.configuration.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSTopicsNamespace;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadFactory;
@@ -51,11 +51,11 @@ import javax.naming.Name;
 import javax.naming.NameParser;
 import javax.naming.NamingException;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.configuration.ConfigurationService;
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.services.ServiceTracker;
 
 import com.google.common.base.Function;
 import com.google.common.base.Strings;

@@ -30,8 +30,8 @@ import javax.faces.event.PreDestroyApplicationEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 
-import org.richfaces.application.CoreConfiguration;
 import org.richfaces.configuration.ConfigurationServiceHelper;
+import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

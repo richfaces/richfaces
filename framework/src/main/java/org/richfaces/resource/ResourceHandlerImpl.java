@@ -37,10 +37,10 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.cache.Cache;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.core.ResourceLibraryRenderer;
 import org.richfaces.util.RequestStateManager.BooleanRequestStateVariable;
 import org.richfaces.util.Util;

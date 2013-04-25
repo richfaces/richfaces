@@ -21,11 +21,11 @@
  */
 package org.richfaces.ui.ajax;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.push.PushContext;
 import org.richfaces.push.PushContextFactory;
 import org.richfaces.resource.PushResource;
+import org.richfaces.services.ServiceTracker;
 
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;

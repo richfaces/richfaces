@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application;
+package org.richfaces.l10n;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
@@ -43,8 +43,6 @@ import javax.faces.validator.DoubleRangeValidator;
 import javax.faces.validator.LengthValidator;
 import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.RegexValidator;
-
-import org.richfaces.l10n.MessageBundle;
 
 /**
  * @author Nick Belaevski

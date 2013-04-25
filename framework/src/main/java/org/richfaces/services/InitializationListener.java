@@ -19,12 +19,12 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application;
+package org.richfaces.services;
 
-import static org.richfaces.application.CoreConfiguration.Items.executeAWTInitializer;
-import static org.richfaces.application.CoreConfiguration.Items.pushInitializePushContextOnStartup;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSEnabled;
 import static org.richfaces.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.configuration.CoreConfiguration.Items.executeAWTInitializer;
+import static org.richfaces.configuration.CoreConfiguration.Items.pushInitializePushContextOnStartup;
+import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSEnabled;
 
 import java.awt.Toolkit;
 import java.io.ByteArrayInputStream;

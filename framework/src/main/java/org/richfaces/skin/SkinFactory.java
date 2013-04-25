@@ -22,7 +22,7 @@ package org.richfaces.skin;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.services.ServiceTracker;
 
 /**
  * Base factory class ( implement Singleton design pattern ). Produce self instance to build current skin configuration. At

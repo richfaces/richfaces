@@ -24,7 +24,7 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.richfaces.Messages;
+import org.richfaces.l10n.Messages;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)

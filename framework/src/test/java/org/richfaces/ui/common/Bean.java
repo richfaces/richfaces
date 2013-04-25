@@ -6,11 +6,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
+import org.richfaces.services.ServiceTracker;
 
 @RequestScoped
 @ManagedBean(name = "test")

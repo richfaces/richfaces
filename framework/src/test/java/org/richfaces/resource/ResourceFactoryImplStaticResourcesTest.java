@@ -26,9 +26,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
-import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
-import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
+import static org.richfaces.configuration.CoreConfiguration.Items.resourceMappingFile;
+import static org.richfaces.configuration.CoreConfiguration.Items.resourceMappingLocation;
+import static org.richfaces.configuration.CoreConfiguration.Items.resourceOptimizationEnabled;
 import static org.richfaces.resource.ResourceMappingFeature.DEFAULT_LOCATION;
 
 import javax.el.ELContext;

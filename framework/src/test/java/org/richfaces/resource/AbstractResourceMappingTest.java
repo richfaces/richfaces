@@ -34,11 +34,11 @@ import javax.inject.Inject;
 
 import org.junit.Before;
 import org.mockito.Mock;
-import org.richfaces.application.ServicesFactory;
 import org.richfaces.configuration.ConfigurationService;
 import org.richfaces.resource.external.ExternalResourceTracker;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
+import org.richfaces.services.ServicesFactory;
 import org.richfaces.test.AbstractServicesTest;
 
 /**

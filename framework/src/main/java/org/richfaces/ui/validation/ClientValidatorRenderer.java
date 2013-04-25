@@ -5,13 +5,14 @@ package org.richfaces.ui.validation;
 //
 
 import com.google.common.collect.Lists;
-import org.richfaces.application.ServiceTracker;
+
 import org.richfaces.javascript.ClientScriptService;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.LibraryFunction;
 import org.richfaces.javascript.ScriptNotFoundException;
 import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.ajax.AjaxOnlyScript;
 import org.richfaces.ui.behavior.ClientValidatorBehavior;
 import org.richfaces.ui.behavior.ConverterNotFoundException;
@@ -29,6 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.ClientBehaviorRenderer;
+
 import java.util.Collection;
 import java.util.List;
 

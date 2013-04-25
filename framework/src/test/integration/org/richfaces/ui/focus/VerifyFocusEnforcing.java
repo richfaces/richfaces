@@ -11,7 +11,7 @@ import javax.faces.event.PreRenderViewEvent;
 import org.jboss.arquillian.warp.jsf.AfterPhase;
 import org.jboss.arquillian.warp.jsf.BeforePhase;
 import org.jboss.arquillian.warp.jsf.Phase;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.misc.focus.FocusManager;
 import org.richfaces.ui.misc.focus.FocusRendererUtils;
 

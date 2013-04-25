@@ -26,8 +26,8 @@ import java.util.Set;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.resource.ResourceKey;
+import org.richfaces.services.ServiceTracker;
 
 /**
  * Tracks what external resources are renderered to the page (specific for Mojarra)

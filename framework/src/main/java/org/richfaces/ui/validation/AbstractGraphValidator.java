@@ -20,11 +20,11 @@
  */
 package org.richfaces.ui.validation;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.FacesBeanValidator;
 import org.richfaces.validator.GraphValidatorState;
@@ -35,6 +35,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

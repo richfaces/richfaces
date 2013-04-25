@@ -28,8 +28,8 @@ import java.util.Properties;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.Messages;
-import org.richfaces.application.CoreConfiguration;
+import org.richfaces.configuration.CoreConfiguration;
+import org.richfaces.l10n.Messages;
 
 /**
  * Implementation of {@link SkinFactory} with building skins from properties files.

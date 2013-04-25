@@ -20,12 +20,13 @@
  */
 package org.richfaces.javascript;
 
-import org.richfaces.Messages;
+import org.richfaces.l10n.Messages;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 import javax.faces.FacesException;
 import javax.faces.context.ResponseWriter;
+
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

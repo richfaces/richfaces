@@ -29,9 +29,9 @@ import java.util.Map;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.FileNameMapper;
 import org.richfaces.cdk.vfs.VirtualFile;
+import org.richfaces.services.ServiceTracker;
 
 /**
  * @author Nick Belaevski

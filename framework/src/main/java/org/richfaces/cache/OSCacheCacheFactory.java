@@ -35,7 +35,7 @@ import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.util.core.resource.URLToStreamHelper;
-import org.richfaces.application.CoreConfiguration;
+import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

@@ -79,8 +79,8 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.Messages;
 import org.richfaces.util.core.base64.Codec;
+import org.richfaces.l10n.Messages;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.StateHolderResource;

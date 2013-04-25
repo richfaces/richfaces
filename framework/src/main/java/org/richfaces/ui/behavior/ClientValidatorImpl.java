@@ -26,7 +26,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
-import org.richfaces.application.ServiceTracker;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
@@ -36,6 +36,7 @@ import org.richfaces.javascript.Message;
 import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.core.behavior.AjaxBehavior;
 import org.richfaces.ui.message.ClientSideMessage;
 import org.richfaces.ui.validation.ClientValidatorRenderer;
@@ -67,6 +68,7 @@ import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.RenderKit;
 import javax.faces.validator.BeanValidator;
 import javax.faces.validator.Validator;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;

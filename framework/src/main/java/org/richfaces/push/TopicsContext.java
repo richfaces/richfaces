@@ -28,8 +28,8 @@ import java.util.concurrent.ConcurrentMap;
 import javax.el.ELContext;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.el.util.ELUtils;
+import org.richfaces.services.ServiceTracker;
 
 /**
  * @author Nick Belaevski

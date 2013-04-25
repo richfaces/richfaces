@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application;
+package org.richfaces.l10n;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -30,9 +30,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.l10n.BundleLoader;
-import org.richfaces.l10n.MessageBundle;
 
 import com.google.common.base.Strings;
 

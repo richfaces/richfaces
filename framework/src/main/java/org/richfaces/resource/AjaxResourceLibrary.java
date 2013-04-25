@@ -25,7 +25,7 @@ import static org.richfaces.configuration.ConfigurationServiceHelper.getBooleanC
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.application.CommonComponentsConfiguration;
+import org.richfaces.configuration.CommonComponentsConfiguration;
 
 import com.google.common.collect.ImmutableList;
 

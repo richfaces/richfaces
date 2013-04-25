@@ -21,8 +21,9 @@
 package org.richfaces.ui.util.renderkit;
 
 import com.google.common.base.Strings;
-import org.richfaces.application.ServiceTracker;
+
 import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.ajax.AjaxDataSerializer;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.util.FastJoiner;
@@ -30,6 +31,7 @@ import org.richfaces.util.FastJoiner;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;

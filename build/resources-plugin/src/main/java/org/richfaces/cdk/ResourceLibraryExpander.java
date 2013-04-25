@@ -23,10 +23,10 @@ package org.richfaces.cdk;
 
 import java.util.Collection;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
 import org.richfaces.resource.ResourceLibraryFactory;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.core.ResourceLibraryRenderer;
 
 import com.google.common.collect.Sets;
