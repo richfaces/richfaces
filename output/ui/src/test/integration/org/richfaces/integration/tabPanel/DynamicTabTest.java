@@ -12,6 +12,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -36,14 +37,26 @@ public class DynamicTabTest {
     @FindBy(id = "myForm:tabPanel")
     private WebElement tabPanel;
 
-    @FindBy(id = "myForm:repeat:0:tab:header:inactive")
+    @FindBy(id = "myForm:tab0:header:inactive")
     private WebElement tab0;
 
-    @FindBy(id = "myForm:repeat:1:tab:header:inactive")
+    @FindBy(id = "myForm:tab1:header:inactive")
     private WebElement tab1;
 
-    @FindBy(id = "myForm:repeat:2:tab:header:inactive")
+    @FindBy(id = "myForm:tab2:header:inactive")
     private WebElement tab2;
+
+    @FindBy(id = "myForm:repeat:0:tab:header:inactive")
+    private WebElement tab3;
+
+    @FindBy(id = "myForm:repeat:1:tab:header:inactive")
+    private WebElement tab4;
+
+    @FindBy(id = "myForm:repeat:2:tab:header:inactive")
+    private WebElement tab5;
+
+    @FindBy(id = "myForm:a4jCreateTabButton")
+    private WebElement a4jCreateTabButton;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -57,27 +70,43 @@ public class DynamicTabTest {
         return archive;
     }
 
-    /**
-     * RF-12765
-     */
     @Test
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
         List<WebElement> tabLabels = tabPanel.findElements(By.className("rf-tab-lbl"));
-        Assert.assertEquals(9, tabLabels.size());
+        Assert.assertEquals(18, tabLabels.size());
 
         guardXhr(tab2).click();
+        Assert.assertTrue(tabPanel.getText().contains("tab2"));
+
+        guardXhr(tab4).click();
+        Assert.assertTrue(tabPanel.getText().contains("tab4"));
+
+        guardXhr(tab5).click();
+        Assert.assertTrue(tabPanel.getText().contains("tab5"));
+
+        guardXhr(tab0).click();
+        Assert.assertTrue(tabPanel.getText().contains("tab0"));
+
+        guardXhr(a4jCreateTabButton).click();
+
+        WebElement tab6 = browser.findElement(By.id("myForm:repeat:3:tab:header:inactive"));
+
+        guardXhr(tab6).click();
         Assert.assertTrue(tabPanel.getText().contains("tab6"));
 
         guardXhr(tab0).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab4"));
+        Assert.assertTrue(tabPanel.getText().contains("tab0"));
+    }
+
+    @Test
+    public void check_tab_switch_to_dynamic_tab() {
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+
 
         guardXhr(tab2).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab6"));
-
-        guardXhr(tab0).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab4"));
+        Assert.assertTrue(tabPanel.getText().contains("tab2"));
 
     }
 
@@ -88,6 +117,9 @@ public class DynamicTabTest {
         p.xmlns("c", "http://java.sun.com/jsp/jstl/core");
         p.body("<h:form id='myForm'>");
         p.body("<rich:tabPanel id='tabPanel'>");
+        p.body("    <rich:tab id='tab0' name='tab0' header='tab0 header'>content of tab 0</rich:tab>");
+        p.body("    <rich:tab id='tab1' name='tab1' header='tab1 header' disabled='true'>content of tab 1</rich:tab>");
+        p.body("    <rich:tab id='tab2' name='tab2' header='tab2 header'>content of tab 2</rich:tab>");
         p.body("    <a4j:repeat id='repeat' value='#{tabPanelBean.tabBeans}' var='newTab'>");
         p.body("        <rich:tab id='tab' name='#{newTab.tabName}'>");
         p.body("            #{newTab.tabContentText}");
@@ -96,7 +128,6 @@ public class DynamicTabTest {
         p.body("                <h:commandLink value='[x]' rendered='#{newTab.closable}' onclick='removeTab(\"#{newTab.tabId}\");' />");
         p.body("            </f:facet>");
         p.body("            content of tab #{newTab.tabName} ");
-        p.body("            <h:form id='myForm2'></h:form>");
         p.body("        </rich:tab>");
         p.body("    </a4j:repeat>");
 

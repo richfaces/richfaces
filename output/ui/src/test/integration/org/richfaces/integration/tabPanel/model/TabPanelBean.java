@@ -37,7 +37,7 @@ import java.util.List;
 public class TabPanelBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int tabIdLast = 3;
+    private int tabIdLast = 2;
     private List<TabBean> tabBeans = new ArrayList<TabBean>();
 
     @PostConstruct
