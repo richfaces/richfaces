@@ -20,26 +20,22 @@
  */
 package org.richfaces.ui.util.renderkit;
 
-import com.google.common.base.Strings;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Pattern;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
 
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.ajax.AjaxDataSerializer;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.util.FastJoiner;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
+import org.richfaces.util.Sets;
 
 /**
  * @author shura
@@ -157,7 +153,7 @@ public final class CoreAjaxRendererUtils {
      */
     public static Set<String> getAjaxAreas(UIComponent uiComponent) {
         Object areas = uiComponent.getAttributes().get(AJAX_REGIONS_ATTRIBUTE);
-        return asIdsSet(areas);
+        return Sets.asSet(areas);
     }
 
     /**
@@ -170,56 +166,6 @@ public final class CoreAjaxRendererUtils {
     public static Set<String> getAjaxAreasToProcess(UIComponent component) {
         Object areas = component.getAttributes().get(AJAX_PROCESS_ATTRIBUTE);
 
-        return asIdsSet(areas);
-    }
-
-    public static Set<String> asSimpleSet(Object valueToSet) {
-        return asSet(valueToSet);
-    }
-
-    public static Set<String> asIdsSet(Object valueToSet) {
-        return asSet(valueToSet);
-    }
-
-    @SuppressWarnings("unchecked")
-    private static Set<String> asSet(Object valueToSet) {
-        if (null != valueToSet) {
-
-            // Simplest case - set.
-            if (valueToSet instanceof Set) {
-                return new LinkedHashSet<String>((Set<String>) valueToSet);
-            } else if (valueToSet instanceof Collection) { // Other collections.
-                return new LinkedHashSet<String>((Collection<String>) valueToSet);
-            } else if (Object[].class.isAssignableFrom(valueToSet.getClass())) { // Array
-                return new LinkedHashSet<String>(Arrays.asList((String[]) valueToSet));
-            } else if (valueToSet instanceof String) { // Tokenize string.
-                String areasString = ((String) valueToSet).trim();
-
-                if (areasString.contains(",") || areasString.contains(" ")) {
-                    String[] values = ID_SPLIT_PATTERN.split(areasString);
-
-                    Set<String> result = new LinkedHashSet<String>(values.length);
-                    for (String value : values) {
-                        if (Strings.isNullOrEmpty(value)) {
-                            continue;
-                        }
-
-                        result.add(value);
-                    }
-
-                    return result;
-                } else {
-                    Set<String> areasSet = new LinkedHashSet<String>(5);
-
-                    if (!Strings.isNullOrEmpty(areasString)) {
-                        areasSet.add(areasString);
-                    }
-
-                    return areasSet;
-                }
-            }
-        }
-
-        return null;
+        return Sets.asSet(areas);
     }
 }

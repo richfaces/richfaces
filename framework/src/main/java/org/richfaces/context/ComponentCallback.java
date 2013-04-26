@@ -33,7 +33,7 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.ui.core.AjaxClientBehavior;
-import org.richfaces.ui.util.renderkit.CoreAjaxRendererUtils;
+import org.richfaces.util.Sets;
 
 /**
  * User: akolonitsky Date: Oct 13, 2009
@@ -74,7 +74,7 @@ abstract class ComponentCallback implements VisitCallback {
 
     protected Collection<String> toCollection(Object value) {
         // TODO - unit tests check for "@none" element
-        Collection<String> result = CoreAjaxRendererUtils.asIdsSet(value);
+        Collection<String> result = Sets.asSet(value);
         if (result == null) {
             result = new LinkedHashSet<String>(1);
         }

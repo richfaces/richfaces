@@ -21,14 +21,12 @@
  */
 package org.richfaces.ui.core.behavior;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfBehavior;
-import org.richfaces.cdk.annotations.Signature;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.ui.behavior.ClientBehavior;
-import org.richfaces.ui.core.AjaxClientBehavior;
-import org.richfaces.ui.util.renderkit.CoreAjaxRendererUtils;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
@@ -41,12 +39,14 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.AjaxBehaviorListener;
 import javax.faces.event.BehaviorEvent;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Set;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfBehavior;
+import org.richfaces.cdk.annotations.Signature;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.ui.behavior.ClientBehavior;
+import org.richfaces.ui.core.AjaxClientBehavior;
+import org.richfaces.util.Sets;
 
 /**
  * <p>
@@ -128,7 +128,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
 
         Set<String> result = null;
 
-        result = CoreAjaxRendererUtils.asIdsSet(value);
+        result = Sets.asSet(value);
 
         if (result == null) {
             throw new FacesException(

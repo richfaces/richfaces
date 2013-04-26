@@ -21,7 +21,16 @@
  */
 package org.richfaces.ui.drag;
 
-import com.google.common.base.Strings;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.ContextCallback;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.DnDScript;
@@ -30,18 +39,9 @@ import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.ui.ajax.AjaxFunction;
 import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
-import org.richfaces.ui.util.renderkit.CoreAjaxRendererUtils;
+import org.richfaces.util.Sets;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.ContextCallback;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import com.google.common.base.Strings;
 
 /**
  * @author abelevich
@@ -135,7 +135,7 @@ public class DropTargetRenderer extends DnDRenderBase {
             function.addToBody(ajaxFunction);
 
             AbstractDropTarget dropTarget = (AbstractDropTarget) component;
-            Set<String> acceptedTypes = CoreAjaxRendererUtils.asSimpleSet(dropTarget.getAcceptedTypes());
+            Set<String> acceptedTypes = Sets.asSet(dropTarget.getAcceptedTypes());
 
             if (acceptedTypes != null) {
                 if (acceptedTypes.contains("@none")) {
