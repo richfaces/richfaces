@@ -23,7 +23,6 @@ package org.richfaces.ui.util.renderkit;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.faces.component.UIComponent;
@@ -35,7 +34,6 @@ import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.ajax.AjaxDataSerializer;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.util.FastJoiner;
-import org.richfaces.util.Sets;
 
 /**
  * @author shura
@@ -143,29 +141,5 @@ public final class CoreAjaxRendererUtils {
         }
 
         endExtensionElementIfNecessary(writer, writingState);
-    }
-
-    /**
-     * Get list of clientId's for given component
-     *
-     * @param uiComponent
-     * @return List of areas Id's , updated by this component.
-     */
-    public static Set<String> getAjaxAreas(UIComponent uiComponent) {
-        Object areas = uiComponent.getAttributes().get(AJAX_REGIONS_ATTRIBUTE);
-        return Sets.asSet(areas);
-    }
-
-    /**
-     * Returns set of areas to be processed as a result of this component action invocation
-     *
-     * @param component
-     * @return set of IDs that should be processed as a
-     * @since 3.3.0
-     */
-    public static Set<String> getAjaxAreasToProcess(UIComponent component) {
-        Object areas = component.getAttributes().get(AJAX_PROCESS_ATTRIBUTE);
-
-        return Sets.asSet(areas);
     }
 }
