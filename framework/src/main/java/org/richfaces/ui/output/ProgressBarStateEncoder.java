@@ -27,7 +27,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.richfaces.renderkit.html.ProgressBarRenderer;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.util.HtmlUtil;
 
@@ -79,9 +78,9 @@ public class ProgressBarStateEncoder {
     }
 
     protected String getWidth(UIComponent component) {
-        Number value = ProgressBarRenderer.getNumber(getValueOrDefault(component));
-        Number minValue = ProgressBarRenderer.getNumber(getMinValueOrDefault(component));
-        Number maxValue = ProgressBarRenderer.getNumber(getMaxValueOrDefault(component));
+        Number value = ProgressBarBaseRenderer.getNumber(getValueOrDefault(component));
+        Number minValue = ProgressBarBaseRenderer.getNumber(getMinValueOrDefault(component));
+        Number maxValue = ProgressBarBaseRenderer.getNumber(getMaxValueOrDefault(component));
         Number percent = calculatePercent(value, minValue, maxValue);
 
         return String.valueOf(percent.intValue());
