@@ -18,10 +18,11 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.ui.util;
+package org.richfaces.ui.select;
 
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Iterators;
+
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.ui.util.renderkit.RendererUtils;
@@ -33,6 +34,7 @@ import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;

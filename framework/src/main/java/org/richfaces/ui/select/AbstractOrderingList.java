@@ -5,7 +5,6 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.ui.util.SelectItemsInterface;
 
 /**
  * <p>The &lt;rich:orderingList&gt; is a component for ordering items in a list (client-side).</p>

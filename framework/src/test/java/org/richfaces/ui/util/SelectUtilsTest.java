@@ -2,13 +2,16 @@ package org.richfaces.ui.util;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
+
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.Assert;
+import org.richfaces.ui.select.SelectUtils;
 
 import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectOne;
 import javax.faces.model.SelectItem;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,7 +38,7 @@ public class SelectUtilsTest extends AbstractFacesTest {
     }
 
     /**
-     * The aim of this test is to check first part of {@link org.richfaces.ui.util.SelectUtils#getSelectItems}, for {@link UISelectOne}
+     * The aim of this test is to check first part of {@link org.richfaces.ui.select.SelectUtils#getSelectItems}, for {@link UISelectOne}
      */
     public void testGetSelectItem() {
         UISelectOne selectOne = new UISelectOne();

@@ -25,12 +25,12 @@ import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.util.HtmlUtil;
 import org.richfaces.ui.util.InputUtils;
-import org.richfaces.ui.util.SelectUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;

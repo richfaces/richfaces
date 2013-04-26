@@ -23,7 +23,6 @@ package org.richfaces.ui.select;
 
 import org.richfaces.ui.input.InputRendererBase;
 import org.richfaces.ui.util.HtmlUtil;
-import org.richfaces.ui.util.SelectUtils;
 import org.richfaces.ui.util.renderkit.HtmlDimensions;
 
 import javax.faces.application.ResourceDependencies;
@@ -33,6 +32,7 @@ import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;

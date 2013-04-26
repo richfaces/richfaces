@@ -24,12 +24,11 @@ package org.richfaces.ui.select;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
+
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.util.HtmlUtil;
-import org.richfaces.ui.util.SelectItemsInterface;
-import org.richfaces.ui.util.SelectUtils;
 import org.richfaces.ui.util.renderkit.HtmlDimensions;
 
 import javax.annotation.Nullable;
@@ -47,6 +46,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
