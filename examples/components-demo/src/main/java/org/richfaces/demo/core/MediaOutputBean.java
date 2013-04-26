@@ -27,7 +27,7 @@ import java.io.OutputStream;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import org.richfaces.util.Util;
+import org.richfaces.resource.ResourceUtils;
 
 /**
  * @author Nick Belaevski
@@ -41,7 +41,7 @@ public class MediaOutputBean {
         InputStream stream = classLoader.getResourceAsStream("org/richfaces/demo/" + data);
 
         try {
-            Util.copyStreamContent(stream, os);
+            ResourceUtils.copyStreamContent(stream, os);
         } catch (IOException e) {
 
             // TODO Auto-generated catch block

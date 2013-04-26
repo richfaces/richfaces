@@ -22,9 +22,10 @@
 package org.richfaces.context;
 
 import static org.richfaces.ui.core.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
-import static org.richfaces.util.Util.NamingContainerDataHolder.SEPARATOR_CHAR_SPLITTER;
 
 import java.util.List;
+
+import org.richfaces.util.SeparatorChar;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
@@ -115,7 +116,7 @@ final class IdParser {
 
         List<Node> result = Lists.newArrayList();
 
-        Iterable<String> split = SEPARATOR_CHAR_SPLITTER.split(id);
+        Iterable<String> split = SeparatorChar.SPLITTER.split(id);
         for (String s : split) {
             if (s.charAt(0) == META_COMPONENT_SEPARATOR_CHAR) {
                 int startImageIdx = s.indexOf(FUNCTION_IMAGE_START_TOKEN);

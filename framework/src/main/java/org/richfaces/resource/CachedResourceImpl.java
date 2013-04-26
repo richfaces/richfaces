@@ -42,7 +42,6 @@ import org.richfaces.io.FastBufferInputStream;
 import org.richfaces.io.FastBufferOutputStream;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.util.Util;
 
 /**
  * @author Nick Belaevski
@@ -83,11 +82,11 @@ public class CachedResourceImpl extends AbstractCacheableResource {
             }
 
             if ("last-modified".equals(headerKey)) {
-                this.lastModified = Util.parseHttpDate(headerEntry.getValue());
+                this.lastModified = ResourceUtils.parseHttpDate(headerEntry.getValue());
             }
 
             if ("expires".equals(headerKey)) {
-                expiredFromHeader = Util.parseHttpDate(headerEntry.getValue());
+                expiredFromHeader = ResourceUtils.parseHttpDate(headerEntry.getValue());
             }
 
             if ("cache-control".equals(headerKey)) {
@@ -142,7 +141,7 @@ public class CachedResourceImpl extends AbstractCacheableResource {
         FastBufferOutputStream os = new FastBufferOutputStream();
 
         try {
-            Util.copyStreamContent(is, os);
+            ResourceUtils.copyStreamContent(is, os);
         } finally {
             try {
                 is.close();

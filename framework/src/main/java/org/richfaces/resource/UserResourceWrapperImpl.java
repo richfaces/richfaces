@@ -38,7 +38,6 @@ import javax.faces.context.FacesContextWrapper;
 import org.richfaces.io.ByteBuffer;
 import org.richfaces.io.FastBufferInputStream;
 import org.richfaces.io.FastBufferOutputStream;
-import org.richfaces.util.Util;
 
 /**
  * @author Nick Belaevski
@@ -153,7 +152,7 @@ public class UserResourceWrapperImpl extends BaseResourceWrapper<UserResource> i
 
     @Override
     public InputStream getInputStream() throws IOException {
-        Charset charset = Util.getCharsetFromContentType(getContentType());
+        Charset charset = ResourceUtils.getCharsetFromContentType(getContentType());
         FacesContextWrapperImpl wrappedContext = FacesContextWrapperImpl.wrap(charset);
         try {
             encode(wrappedContext);

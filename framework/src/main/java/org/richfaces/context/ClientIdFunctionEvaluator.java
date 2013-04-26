@@ -21,8 +21,6 @@
  */
 package org.richfaces.context;
 
-import static org.richfaces.util.Util.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
-
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
@@ -31,6 +29,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.context.IdParser.Node;
+import org.richfaces.util.SeparatorChar;
 
 import com.google.common.collect.Lists;
 
@@ -65,7 +64,7 @@ class ClientIdFunctionEvaluator {
         }
 
         for (String directSubtreeId : directSubtreeIds) {
-            String clientId = SEPARATOR_CHAR_JOINER.join(baseId, directSubtreeId);
+            String clientId = SeparatorChar.JOINER.join(baseId, directSubtreeId);
 
             if (isLastNode) {
                 resolvedIds.add(clientId);

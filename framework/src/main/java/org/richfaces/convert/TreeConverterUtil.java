@@ -23,20 +23,13 @@ package org.richfaces.convert;
 
 import java.text.MessageFormat;
 
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
+import org.richfaces.util.SeparatorChar;
 
 /**
  * @author Nick Belaevski
  *
  */
 public final class TreeConverterUtil {
-    private static final class SeparatorCharHolder {
-        static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
-
-        private SeparatorCharHolder() {
-        }
-    }
 
     private static final char ESCAPE_CHAR = '_';
 
@@ -56,7 +49,7 @@ public final class TreeConverterUtil {
             return false;
         }
 
-        if (c == ESCAPE_CHAR || c == SeparatorCharHolder.SEPARATOR_CHAR) {
+        if (c == ESCAPE_CHAR || c == SeparatorChar.SEPARATOR_CHAR) {
             return true;
         }
 

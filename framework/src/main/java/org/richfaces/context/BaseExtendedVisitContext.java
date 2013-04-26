@@ -22,7 +22,6 @@
 package org.richfaces.context;
 
 import static org.richfaces.ui.core.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
-import static org.richfaces.util.Util.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
 
 import java.util.AbstractCollection;
 import java.util.Collection;
@@ -39,6 +38,8 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+
+import org.richfaces.util.SeparatorChar;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
@@ -197,7 +198,7 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
             if (metaSepIdx >= 0) {
                 String componentId = shortId.substring(0, metaSepIdx);
 
-                String extraBaseId = SEPARATOR_CHAR_JOINER.join(subtreeId, componentId);
+                String extraBaseId = SeparatorChar.JOINER.join(subtreeId, componentId);
                 visitor.visitDirectSubtreeId(extraBaseId, shortId);
                 visitor.visitSubtreeId(extraBaseId, clientId);
             }

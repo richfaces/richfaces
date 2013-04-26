@@ -49,7 +49,6 @@ import org.richfaces.services.ServiceTracker;
 import org.richfaces.services.ServicesFactory;
 import org.richfaces.services.ServicesFactoryImpl;
 import org.richfaces.services.Uptime;
-import org.richfaces.util.Util;
 
 import com.gargoylesoftware.htmlunit.Cache;
 import com.gargoylesoftware.htmlunit.WebRequest;
@@ -128,9 +127,9 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
         WebResponse webResponse = webClient.loadWebResponse(webRequest);
 
         assertEquals(HttpServletResponse.SC_OK, webResponse.getStatusCode());
-        assertEquals(Util.formatHttpDate(lastModified.getTime()), webResponse.getResponseHeaderValue("Last-Modified"));
-        assertEquals(Util.formatHttpDate(currentTime.getTime()), webResponse.getResponseHeaderValue("Date"));
-        assertEquals(Util.formatHttpDate(expires.getTime()), webResponse.getResponseHeaderValue("Expires"));
+        assertEquals(ResourceUtils.formatHttpDate(lastModified.getTime()), webResponse.getResponseHeaderValue("Last-Modified"));
+        assertEquals(ResourceUtils.formatHttpDate(currentTime.getTime()), webResponse.getResponseHeaderValue("Date"));
+        assertEquals(ResourceUtils.formatHttpDate(expires.getTime()), webResponse.getResponseHeaderValue("Expires"));
         assertEquals("max-age=1209600", webResponse.getResponseHeaderValue("Cache-Control"));
         assertTrue(webResponse.getResponseHeaderValue("Content-Type").startsWith("text/plain"));
         assertEquals("W/\"" + "ping?".length() + "-" + lastModified.getTime() + "\"",
@@ -143,7 +142,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
         assertEquals(HttpServletResponse.SC_OK, cachedWebResponse.getStatusCode());
         assertEquals("ping?", cachedWebResponse.getContentAsString("US-ASCII"));
-        webRequest.getAdditionalHeaders().put(IF_MODIFIED_SINCE, Util.formatHttpDate(currentTime));
+        webRequest.getAdditionalHeaders().put(IF_MODIFIED_SINCE, ResourceUtils.formatHttpDate(currentTime));
 
         WebResponse cachedWebResponse2 = webClient.loadWebResponse(webRequest);
 
@@ -159,8 +158,8 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
         WebResponse webResponse = webClient.loadWebResponse(webRequest);
 
         assertEquals(HttpServletResponse.SC_OK, webResponse.getStatusCode());
-        assertEquals(Util.formatHttpDate(lastModified.getTime()), webResponse.getResponseHeaderValue("Last-Modified"));
-        assertEquals(Util.formatHttpDate(currentTime.getTime()), webResponse.getResponseHeaderValue("Date"));
+        assertEquals(ResourceUtils.formatHttpDate(lastModified.getTime()), webResponse.getResponseHeaderValue("Last-Modified"));
+        assertEquals(ResourceUtils.formatHttpDate(currentTime.getTime()), webResponse.getResponseHeaderValue("Date"));
         assertEquals("0", webResponse.getResponseHeaderValue("Expires"));
         assertEquals("max-age=0, no-store, no-cache", webResponse.getResponseHeaderValue("Cache-Control"));
         assertTrue(webResponse.getResponseHeaderValue("Content-Type").startsWith("text/plain"));
@@ -173,7 +172,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
         assertEquals(HttpServletResponse.SC_OK, cachedWebResponse.getStatusCode());
         assertEquals("pong", cachedWebResponse.getContentAsString("US-ASCII"));
-        webRequest.getAdditionalHeaders().put(IF_MODIFIED_SINCE, Util.formatHttpDate(currentTime));
+        webRequest.getAdditionalHeaders().put(IF_MODIFIED_SINCE, ResourceUtils.formatHttpDate(currentTime));
 
         WebResponse cachedWebResponse2 = webClient.loadWebResponse(webRequest);
 

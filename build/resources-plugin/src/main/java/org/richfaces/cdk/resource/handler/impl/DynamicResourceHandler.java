@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 import org.richfaces.resource.ResourceFactory;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceRequestData;
-import org.richfaces.util.Util;
+import org.richfaces.resource.ResourceUtils;
 
 /**
  * @author Nick Belaevski
@@ -86,7 +86,7 @@ public class DynamicResourceHandler extends AbstractResourceHandler {
 
         if (result != null) {
             FacesContext context = FacesContext.getCurrentInstance();
-            Object state = Util.saveResourceState(context, result);
+            Object state = ResourceUtils.saveResourceState(context, result);
             Resource newResource = resourceFactory.createResource(context, new ResourceRequestDataImpl(resourceKey, state));
             result = new DynamicResourceWrapper(newResource);
         } else {

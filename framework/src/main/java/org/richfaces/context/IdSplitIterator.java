@@ -21,7 +21,7 @@
  */
 package org.richfaces.context;
 
-import static org.richfaces.util.Util.NamingContainerDataHolder.SEPARATOR_CHAR;
+import org.richfaces.util.SeparatorChar;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.AbstractIterator;
@@ -40,7 +40,7 @@ final class IdSplitIterator extends AbstractIterator<String> {
     @Override
     protected String computeNext() {
         int oldSepIdx = idx;
-        idx = s.lastIndexOf(SEPARATOR_CHAR, idx - 1);
+        idx = s.lastIndexOf(SeparatorChar.SEPARATOR_CHAR, idx - 1);
 
         String result;
 

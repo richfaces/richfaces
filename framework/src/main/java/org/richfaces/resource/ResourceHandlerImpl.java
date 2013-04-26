@@ -43,7 +43,6 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.core.ResourceLibraryRenderer;
 import org.richfaces.util.RequestStateManager.BooleanRequestStateVariable;
-import org.richfaces.util.Util;
 
 /**
  * @author Nick Belaevski
@@ -68,7 +67,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
     }
 
     public static String getResourcePathFromRequest(FacesContext context) {
-        String resourceName = Util.decodeResourceURL(context);
+        String resourceName = ResourceUtils.decodeResourceURL(context);
 
         if (resourceName != null) {
             if (resourceName.startsWith(RICHFACES_RESOURCE_IDENTIFIER)) {
@@ -233,7 +232,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
                     OutputStream os = externalContext.getResponseOutputStream();
 
                     try {
-                        Util.copyStreamContent(is, os);
+                        ResourceUtils.copyStreamContent(is, os);
                     } finally {
                         if (is != null) {
                             try {

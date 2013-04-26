@@ -40,7 +40,6 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.services.Uptime;
-import org.richfaces.util.Util;
 
 /**
  * @author Nick Belaevski
@@ -150,7 +149,7 @@ public abstract class AbstractBaseResource extends Resource {
         ResourceCodec resourceCodec = ServiceTracker.getService(context, ResourceCodec.class);
         String libraryName = getLibraryName();
         String resourceName = getResourceName();
-        Object resourceData = Util.saveResourceState(context, this);
+        Object resourceData = ResourceUtils.saveResourceState(context, this);
         String resourceVersion = getResourceVersion();
         String resourceUri = resourceCodec.encodeResourceRequestPath(context, libraryName, resourceName, resourceData,
             resourceVersion);
@@ -206,10 +205,10 @@ public abstract class AbstractBaseResource extends Resource {
             Date lastModified = getLastModified(facesContext);
 
             if (lastModified != null) {
-                headers.put("Last-Modified", Util.formatHttpDate(lastModified));
+                headers.put("Last-Modified", ResourceUtils.formatHttpDate(lastModified));
             }
 
-            headers.put("Date", Util.formatHttpDate(getCurrentTime()));
+            headers.put("Date", ResourceUtils.formatHttpDate(getCurrentTime()));
 
             addCacheControlResponseHeaders(facesContext, headers);
 

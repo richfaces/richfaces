@@ -31,8 +31,6 @@ import javax.faces.FacesWrapper;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.util.Util;
-
 /**
  * @author Nick Belaevski
  *
@@ -147,11 +145,11 @@ public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource i
     }
 
     public Object saveState(FacesContext context) {
-        return Util.saveResourceState(context, resourceObject);
+        return ResourceUtils.saveResourceState(context, resourceObject);
     }
 
     public void restoreState(FacesContext context, Object state) {
-        Util.restoreResourceState(context, resourceObject, state);
+        ResourceUtils.restoreResourceState(context, resourceObject, state);
     }
 
     public T getWrapped() {

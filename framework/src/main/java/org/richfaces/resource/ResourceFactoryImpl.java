@@ -40,7 +40,6 @@ import org.richfaces.resource.external.ExternalResourceTracker;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.services.DependencyInjector;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.util.Util;
 
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
@@ -74,7 +73,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
     private static final Function<Entry<String, String>, MappedResourceData> DYNAMIC_MAPPINGS_DATA_PRODUCER = new Function<Entry<String, String>, MappedResourceData>() {
         public MappedResourceData apply(Entry<String, String> from) {
             String resourceLocation = from.getValue();
-            Map<String, String> params = Util.parseResourceParameters(resourceLocation);
+            Map<String, String> params = ResourceUtils.parseResourceParameters(resourceLocation);
             String resourceQualifier = extractParametersFromResourceName(resourceLocation);
 
             return new MappedResourceData(ResourceKey.create(resourceQualifier), params);
@@ -344,7 +343,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
             }
         }
 
-        Util.restoreResourceState(context, resource, decodedData);
+        ResourceUtils.restoreResourceState(context, resource, decodedData);
 
         return resource;
     }

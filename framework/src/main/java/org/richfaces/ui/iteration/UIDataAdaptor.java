@@ -21,16 +21,11 @@
  */
 package org.richfaces.ui.iteration;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.model.DataComponentState;
-import org.richfaces.model.DataVisitResult;
-import org.richfaces.model.DataVisitor;
-import org.richfaces.model.ExtendedDataModel;
-import org.richfaces.model.Range;
-import org.richfaces.ui.core.IterationStateHolder;
+import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
@@ -67,13 +62,17 @@ import javax.faces.event.PreValidateEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 
-import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
-
-import static org.richfaces.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.model.DataComponentState;
+import org.richfaces.model.DataVisitResult;
+import org.richfaces.model.DataVisitor;
+import org.richfaces.model.ExtendedDataModel;
+import org.richfaces.model.Range;
+import org.richfaces.ui.core.IterationStateHolder;
+import org.richfaces.util.SeparatorChar;
 
 /**
  * Base class for iterable components, like dataTable, Tomahawk dataList, Facelets repeat, tree etc., with support for partial
@@ -673,7 +672,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
             if (rowKey != null) {
                 String rowKeyString = getRowKeyAsString(facesContext, rowKey);
-                containerClientId = SEPARATOR_CHAR_JOINER.join(containerClientId, rowKeyString);
+                containerClientId = SeparatorChar.JOINER.join(containerClientId, rowKeyString);
             }
         }
 

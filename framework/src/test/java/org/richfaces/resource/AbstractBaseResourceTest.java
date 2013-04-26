@@ -42,7 +42,6 @@ import org.richfaces.services.ServiceTracker;
 import org.richfaces.services.ServicesFactory;
 import org.richfaces.services.ServicesFactoryImpl;
 import org.richfaces.services.Uptime;
-import org.richfaces.util.Util;
 
 /**
  * @author Nick Belaevski
@@ -272,7 +271,7 @@ public class AbstractBaseResourceTest extends AbstractFacesTest {
 
         expiredResource.setLastModified(new Date(currentTime - 10000));
         this.connection.addRequestHeaders(Collections.singletonMap("If-Modified-Since",
-            Util.formatHttpDate(new Date(currentTime - 20000))));
+            ResourceUtils.formatHttpDate(new Date(currentTime - 20000))));
         assertTrue(expiredResource.userAgentNeedsUpdate(facesContext));
         assertFalse(actualResource.userAgentNeedsUpdate(facesContext));
     }

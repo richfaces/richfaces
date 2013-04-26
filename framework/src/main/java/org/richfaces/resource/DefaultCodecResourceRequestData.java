@@ -21,7 +21,6 @@
  */
 package org.richfaces.resource;
 
-import org.richfaces.util.Util;
 
 /**
  * @author Nick Belaevski
@@ -94,9 +93,9 @@ public final class DefaultCodecResourceRequestData implements ResourceRequestDat
     public Object getData() {
         if (data == null && dataString != null) {
             if (isDataSerialized()) {
-                data = Util.decodeObjectData(dataString);
+                data = ResourceUtils.decodeObjectData(dataString);
             } else {
-                data = Util.decodeBytesData(dataString);
+                data = ResourceUtils.decodeBytesData(dataString);
             }
         }
 

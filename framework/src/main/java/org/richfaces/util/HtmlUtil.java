@@ -20,16 +20,16 @@
  */
 package org.richfaces.util;
 
-import com.google.common.base.Strings;
-
-import org.richfaces.javascript.ScriptUtils;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.richfaces.javascript.ScriptUtils;
+
+import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com created 09.02.2007

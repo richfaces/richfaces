@@ -24,10 +24,10 @@ import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.ElementDescriptor.ConstraintFinder;
 import javax.validation.metadata.PropertyDescriptor;
 
-import org.richfaces.util.Strings;
 import org.richfaces.el.ValueDescriptor;
 import org.richfaces.el.ValueExpressionAnalayser;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 
 /**
@@ -86,7 +86,7 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
                 .getConstraintDescriptors();
 
             // ContextHolder is an arbitrary object, it will depend on the implementation
-            FacesMessage message = Strings.isEmpty(msg) ? null : new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            FacesMessage message = Strings.isNullOrEmpty(msg) ? null : new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
             return processConstraints(context, constraints, message);
         } else {
             return Collections.emptySet();

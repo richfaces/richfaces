@@ -24,8 +24,6 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.util.Util;
-
 public final class DefaultResourceCodec implements ResourceCodec {
     private static final String VERSION_PARAM = "v";
     private static final String DATA_BYTES_ARRAY_PARAM = "db";
@@ -53,7 +51,7 @@ public final class DefaultResourceCodec implements ResourceCodec {
 
             sb.append(VERSION_PARAM);
             sb.append('=');
-            sb.append(Util.encodeURIQueryPart(resourceVersion));
+            sb.append(ResourceUtils.encodeURIQueryPart(resourceVersion));
         }
 
         if (encodedResourceData != null && encodedResourceData.length() != 0) {
@@ -66,7 +64,7 @@ public final class DefaultResourceCodec implements ResourceCodec {
 
             sb.append(dataIsSerialized ? DATA_OBJECT_PARAM : DATA_BYTES_ARRAY_PARAM);
             sb.append('=');
-            sb.append(Util.encodeURIQueryPart(encodedResourceData));
+            sb.append(ResourceUtils.encodeURIQueryPart(encodedResourceData));
         }
 
         if (libraryName != null && libraryName.length() != 0) {
@@ -79,7 +77,7 @@ public final class DefaultResourceCodec implements ResourceCodec {
 
             sb.append(LIBRARY_NAME_PARAM);
             sb.append('=');
-            sb.append(Util.encodeURIQueryPart(libraryName));
+            sb.append(ResourceUtils.encodeURIQueryPart(libraryName));
         }
 
         return sb.toString();
@@ -91,9 +89,9 @@ public final class DefaultResourceCodec implements ResourceCodec {
         boolean dataIsSerialized = false;
         if (resourceData != null) {
             if (resourceData instanceof byte[]) {
-                encodedDataString = Util.encodeBytesData((byte[]) resourceData);
+                encodedDataString = ResourceUtils.encodeBytesData((byte[]) resourceData);
             } else {
-                encodedDataString = Util.encodeObjectData(resourceData);
+                encodedDataString = ResourceUtils.encodeObjectData(resourceData);
                 dataIsSerialized = true;
             }
         }
@@ -103,7 +101,7 @@ public final class DefaultResourceCodec implements ResourceCodec {
     }
 
     public String encodeJSFMapping(FacesContext context, String resourcePath) {
-        return Util.encodeJSFURL(context, resourcePath);
+        return ResourceUtils.encodeJSFURL(context, resourcePath);
     }
 
     public ResourceRequestData decodeResource(FacesContext context, String requestPath) {

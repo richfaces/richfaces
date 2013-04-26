@@ -15,9 +15,9 @@ import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.util.Strings;
 
 import com.google.common.base.Function;
+import com.google.common.base.Strings;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -109,10 +109,31 @@ public class ClientScriptServiceImpl implements ClientScriptService {
         String resourceName = javaClass.getSimpleName() + ".js";
         Resource facesResource = resourceHandler.createResource(resourceName, ORG_RICHFACES_CSV, TEXT_JAVASCRIPT);
         if (null != facesResource) {
-            final String functionName = Strings.firstToLowerCase(javaClass.getSimpleName());
+            final String functionName = firstToLowerCase(javaClass.getSimpleName());
             return new LibraryFunctionImplementation(functionName, resourceName, ORG_RICHFACES_CSV);
         } else {
             return NO_SCRIPT;
         }
+    }
+
+    /**
+     * <p>
+     * Change case of the first character to lower, as it required by the Java Beans property and setter/getter method name
+     * conventions:
+     * </p>
+     * <p>
+     * "PropertyFoo" will be changed to "propertyFoo"
+     * </p>
+     *
+     * @param in
+     * @return {@code in} with first character changed to lower case.
+     */
+    private static String firstToLowerCase(String in) {
+
+        if (Strings.isNullOrEmpty(in)) {
+            return in;
+        }
+
+        return in.substring(0, 1).toLowerCase() + in.substring(1);
     }
 }

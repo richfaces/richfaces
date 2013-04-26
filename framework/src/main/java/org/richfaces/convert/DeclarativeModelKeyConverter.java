@@ -21,8 +21,6 @@
  */
 package org.richfaces.convert;
 
-import static org.richfaces.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
-import static org.richfaces.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_SPLITTER;
 import static org.richfaces.convert.TreeConverterUtil.escape;
 import static org.richfaces.convert.TreeConverterUtil.unescape;
 
@@ -34,6 +32,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
 import org.richfaces.model.DeclarativeModelKey;
+import org.richfaces.util.SeparatorChar;
 
 import com.google.common.base.Strings;
 
@@ -56,7 +55,7 @@ public class DeclarativeModelKeyConverter implements Converter {
 
         String s = unescape(value);
 
-        Iterator<String> split = SEPARATOR_CHAR_SPLITTER.split(s).iterator();
+        Iterator<String> split = SeparatorChar.SPLITTER.split(s).iterator();
 
         String modelId = (String) split.next();
         Object modelKey = delegateConverter.getAsObject(context, component, split.next());
@@ -76,7 +75,7 @@ public class DeclarativeModelKeyConverter implements Converter {
         DeclarativeModelKey declarativeModelKey = (DeclarativeModelKey) value;
 
         String convertedModelKey = delegateConverter.getAsString(context, component, declarativeModelKey.getModelKey());
-        String keyString = SEPARATOR_CHAR_JOINER.join(declarativeModelKey.getModelId(), convertedModelKey);
+        String keyString = SeparatorChar.JOINER.join(declarativeModelKey.getModelId(), convertedModelKey);
 
         return escape(keyString);
     }

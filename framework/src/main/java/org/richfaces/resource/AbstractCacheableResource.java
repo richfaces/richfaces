@@ -33,7 +33,6 @@ import javax.faces.context.FacesContext;
 import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.util.Util;
 
 /**
  * @author Nick Belaevski
@@ -74,7 +73,7 @@ public abstract class AbstractCacheableResource extends AbstractBaseResource imp
             return false;
         }
 
-        return isUserCopyActual(lastModified, Util.parseHttpDate(modifiedCondition));
+        return isUserCopyActual(lastModified, ResourceUtils.parseHttpDate(modifiedCondition));
     }
 
     @Deprecated
@@ -178,16 +177,16 @@ public abstract class AbstractCacheableResource extends AbstractBaseResource imp
             long maxAge = getTimeToLive(facesContext);
 
             if (maxAge > 0) {
-                formattedExpireDate = Util.formatHttpDate(currentTime + secondToMillis(maxAge));
+                formattedExpireDate = ResourceUtils.formatHttpDate(currentTime + secondToMillis(maxAge));
             } else {
                 Date expired = getExpires(facesContext);
 
                 if (expired != null) {
-                    formattedExpireDate = Util.formatHttpDate(expired);
+                    formattedExpireDate = ResourceUtils.formatHttpDate(expired);
                     maxAge = millisToSecond(expired.getTime() - currentTime);
                 } else {
                     maxAge = getLongConfigurationValue(facesContext, CoreConfiguration.Items.resourcesTTL);
-                    formattedExpireDate = Util.formatHttpDate(currentTime + secondToMillis(maxAge));
+                    formattedExpireDate = ResourceUtils.formatHttpDate(currentTime + secondToMillis(maxAge));
                 }
             }
 
