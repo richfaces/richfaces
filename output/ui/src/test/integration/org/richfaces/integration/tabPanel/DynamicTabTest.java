@@ -2,11 +2,8 @@ package org.richfaces.integration.tabPanel;
 
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 
-import java.io.File;
 import java.net.URL;
 import java.util.List;
-
-import javax.annotation.Nullable;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -14,7 +11,6 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,13 +19,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.OutputDeployment;
+import org.richfaces.integration.tabPanel.model.TabBean;
+import org.richfaces.integration.tabPanel.model.TabPanelBean;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import com.google.common.base.Function;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class RF12765_Test {
+public class DynamicTabTest {
 
     @Drone
     private WebDriver browser;
@@ -51,7 +47,7 @@ public class RF12765_Test {
 
     @Deployment
     public static WebArchive createDeployment() {
-        OutputDeployment deployment = new OutputDeployment(RF12765_Test.class);
+        OutputDeployment deployment = new OutputDeployment(DynamicTabTest.class);
         deployment.archive().addClass(TabBean.class);
         deployment.archive().addClass(TabPanelBean.class);
 
@@ -61,6 +57,9 @@ public class RF12765_Test {
         return archive;
     }
 
+    /**
+     * RF-12765
+     */
     @Test
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");

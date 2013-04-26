@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.OutputDeployment;
+import org.richfaces.integration.tabPanel.model.SimpleBean;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import java.net.URL;
@@ -21,7 +22,7 @@ import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class RF12839_Test {
+public class StaticTabTest {
 
     @Drone
     private WebDriver browser;
@@ -49,7 +50,7 @@ public class RF12839_Test {
 
     @Deployment
     public static WebArchive createDeployment() {
-        OutputDeployment deployment = new OutputDeployment(RF12839_Test.class);
+        OutputDeployment deployment = new OutputDeployment(StaticTabTest.class);
         deployment.archive().addClass(SimpleBean.class);
 
         addIndexPage(deployment);
@@ -58,6 +59,9 @@ public class RF12839_Test {
         return archive;
     }
 
+    /**
+     * RF-12839
+     */
     @Test
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");

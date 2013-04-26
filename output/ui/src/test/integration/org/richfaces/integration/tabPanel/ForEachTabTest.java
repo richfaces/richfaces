@@ -22,13 +22,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.OutputDeployment;
+import org.richfaces.integration.tabPanel.model.TabBean;
+import org.richfaces.integration.tabPanel.model.TabPanelBean;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import com.google.common.base.Function;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class RF12768_Test {
+public class ForEachTabTest {
 
     @Drone
     private WebDriver browser;
@@ -44,8 +46,7 @@ public class RF12768_Test {
 
     @Deployment
     public static WebArchive createDeployment() {
-//        OutputDeployment deployment = new OutputDeployment(RF12768_Test.class, "4.2.3.Final");
-        OutputDeployment deployment = new OutputDeployment(RF12768_Test.class);
+        OutputDeployment deployment = new OutputDeployment(ForEachTabTest.class);
         deployment.archive().addClass(TabBean.class);
         deployment.archive().addClass(TabPanelBean.class);
 
@@ -65,6 +66,9 @@ public class RF12768_Test {
         return deployment.getFinalArchive();
     }
 
+    /**
+     * RF-12768
+     */
     @Test
     public void check_row_removal() throws InterruptedException {
         browser.get(contextPath.toExternalForm());
