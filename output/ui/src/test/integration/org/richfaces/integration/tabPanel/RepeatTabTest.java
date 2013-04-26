@@ -1,7 +1,5 @@
 package org.richfaces.integration.tabPanel;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
-
 import java.net.URL;
 import java.util.List;
 
@@ -11,11 +9,8 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,7 +21,7 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class DynamicTabTest {
+public class RepeatTabTest {
 
     @Drone
     private WebDriver browser;
@@ -37,77 +32,35 @@ public class DynamicTabTest {
     @FindBy(id = "myForm:tabPanel")
     private WebElement tabPanel;
 
-    @FindBy(id = "myForm:tab0:header:inactive")
-    private WebElement tab0;
-
-    @FindBy(id = "myForm:tab1:header:inactive")
-    private WebElement tab1;
-
-    @FindBy(id = "myForm:tab2:header:inactive")
-    private WebElement tab2;
-
-    @FindBy(id = "myForm:repeat:0:tab:header:inactive")
-    private WebElement tab3;
-
-    @FindBy(id = "myForm:repeat:1:tab:header:inactive")
-    private WebElement tab4;
-
-    @FindBy(id = "myForm:repeat:2:tab:header:inactive")
-    private WebElement tab5;
+    @FindBy(className = "rf-tab-hdr-inact")
+    private List<WebElement> tabs;
 
     @FindBy(id = "myForm:a4jCreateTabButton")
     private WebElement a4jCreateTabButton;
 
+    private DynamicTabTestHelper tabTestHelper = new DynamicTabTestHelper();
+
     @Deployment
     public static WebArchive createDeployment() {
-        OutputDeployment deployment = new OutputDeployment(DynamicTabTest.class);
+        OutputDeployment deployment = new OutputDeployment(RepeatTabTest.class);
         deployment.archive().addClass(TabBean.class);
         deployment.archive().addClass(TabPanelBean.class);
 
         addIndexPage(deployment);
 
-        WebArchive archive = deployment.getFinalArchive();
-        return archive;
+        return deployment.getFinalArchive();
     }
 
     @Test
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
-
-        List<WebElement> tabLabels = tabPanel.findElements(By.className("rf-tab-lbl"));
-        Assert.assertEquals(18, tabLabels.size());
-
-        guardXhr(tab2).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab2"));
-
-        guardXhr(tab4).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab4"));
-
-        guardXhr(tab5).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab5"));
-
-        guardXhr(tab0).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab0"));
-
-        guardXhr(a4jCreateTabButton).click();
-
-        WebElement tab6 = browser.findElement(By.id("myForm:repeat:3:tab:header:inactive"));
-
-        guardXhr(tab6).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab6"));
-
-        guardXhr(tab0).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab0"));
+        tabTestHelper.check_tab_switch(tabPanel, tabs, a4jCreateTabButton);
     }
 
     @Test
-    public void check_tab_switch_to_dynamic_tab() {
-        browser.get(contextPath.toExternalForm() + "index.jsf");
-
-
-        guardXhr(tab2).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab2"));
-
+    public void check_row_removal() throws InterruptedException {
+        browser.get(contextPath.toExternalForm());
+        tabTestHelper.check_row_removal(tabPanel, tabs, a4jCreateTabButton);
     }
 
     private static void addIndexPage(OutputDeployment deployment) {
@@ -125,7 +78,7 @@ public class DynamicTabTest {
         p.body("            #{newTab.tabContentText}");
         p.body("            <f:facet name='header'>");
         p.body("                <h:outputText value='#{newTab.tabHeader} ' />");
-        p.body("                <h:commandLink value='[x]' rendered='#{newTab.closable}' onclick='removeTab(\"#{newTab.tabId}\");' />");
+        p.body("                <h:commandLink value='[x]' rendered='#{newTab.closable}' onclick='var event = arguments[0] || window.event; removeTab(\"#{newTab.tabId}\"); event.stopPropagation(); return false;' />");
         p.body("            </f:facet>");
         p.body("            content of tab #{newTab.tabName} ");
         p.body("        </rich:tab>");

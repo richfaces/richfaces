@@ -22,9 +22,9 @@
 package org.richfaces.integration.tabPanel.model;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@Named
+@ManagedBean
 @SessionScoped
 public class TabPanelBean implements Serializable {
     private static final long serialVersionUID = 1L;
