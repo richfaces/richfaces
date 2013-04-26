@@ -23,6 +23,8 @@ package org.richfaces.util;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import org.richfaces.cache.lru.LRUMap;
+
 import junit.framework.TestCase;
 
 /**
@@ -56,7 +58,7 @@ public class LRUMapTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.richfaces.util.LRUMap#LRUMap(int)}.
+     * Test method for {@link org.richfaces.cache.lru.LRUMap#LRUMap(int)}.
      */
     public void testLRUMap() {
         LRUMap map = new LRUMap(5);
@@ -69,7 +71,7 @@ public class LRUMapTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.richfaces.util.LRUMap#removeEldestEntry(java.util.Map.Entry)}.
+     * Test method for {@link org.richfaces.cache.lru.LRUMap#removeEldestEntry(java.util.Map.Entry)}.
      */
     public void testRemoveEldestEntryEntry() {
         LRUMap map = new LRUMap(5) {

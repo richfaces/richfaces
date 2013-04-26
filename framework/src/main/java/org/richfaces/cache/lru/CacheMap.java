@@ -22,8 +22,6 @@ package org.richfaces.cache.lru;
 
 import java.util.PriorityQueue;
 
-import org.richfaces.util.LRUMap;
-
 /**
  * User: akolonitsky Date: Oct 13, 2009
  */
