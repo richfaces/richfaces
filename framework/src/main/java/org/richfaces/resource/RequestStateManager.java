@@ -18,7 +18,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.util;
+package org.richfaces.resource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
  * @author Nick Belaevski
  * @since 4.0
  */
-public final class RequestStateManager {
+final class RequestStateManager {
     private static final String CONTEXT_ATTRIBUTE_NAME = RequestStateManager.class.getName();
 
     private RequestStateManager() {
