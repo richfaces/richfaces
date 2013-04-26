@@ -29,7 +29,7 @@ import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

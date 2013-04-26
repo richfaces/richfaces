@@ -32,8 +32,8 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
-import org.richfaces.ui.util.renderkit.RendererUtils;
 import org.richfaces.util.HtmlUtil;
+import org.richfaces.util.RendererUtils;
 
 /**
  * Base Renderer for all chameleon Skin's and components. At most, make all common procedures and realise concrete work in

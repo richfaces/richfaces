@@ -25,7 +25,7 @@ import com.google.common.collect.Iterators;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.application.ProjectStage;

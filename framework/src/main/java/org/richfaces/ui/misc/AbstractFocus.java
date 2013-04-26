@@ -7,7 +7,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.core.AjaxOutput;
 import org.richfaces.ui.misc.focus.FocusRendererInterface;
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 import javax.faces.component.UIForm;
 import javax.faces.component.UIOutput;

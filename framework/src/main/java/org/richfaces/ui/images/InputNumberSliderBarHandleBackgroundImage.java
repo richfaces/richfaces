@@ -29,9 +29,10 @@ import org.richfaces.resource.ResourceParameter;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
-import org.richfaces.ui.util.renderkit.ColorUtils;
+import org.richfaces.util.ColorUtils;
 
 import javax.faces.context.FacesContext;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;

@@ -27,8 +27,8 @@ import org.richfaces.model.DataVisitor;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.util.renderkit.RendererUtils;
 import org.richfaces.util.HtmlUtil;
+import org.richfaces.util.RendererUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependency;

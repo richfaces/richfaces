@@ -22,6 +22,8 @@ package org.richfaces.ui.util.renderkit;
 
 import org.jboss.test.faces.AbstractFacesTest;
 import org.richfaces.ui.common.SwitchType;
+import org.richfaces.util.EnclosingFormRequiredException;
+import org.richfaces.util.FormUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;

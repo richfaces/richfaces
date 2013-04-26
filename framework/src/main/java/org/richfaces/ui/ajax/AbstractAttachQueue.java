@@ -27,7 +27,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.core.behavior.AjaxBehavior;
-import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
+import org.richfaces.util.AjaxRendererUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
@@ -36,6 +36,7 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 

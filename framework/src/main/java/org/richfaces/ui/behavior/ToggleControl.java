@@ -28,7 +28,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.core.ComponentIterators;
 import org.richfaces.ui.output.AbstractTogglePanel;
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 import javax.el.ExpressionFactory;
 import javax.faces.FacesException;

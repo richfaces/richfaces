@@ -21,12 +21,13 @@
  */
 package org.richfaces.ui.message;
 
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;

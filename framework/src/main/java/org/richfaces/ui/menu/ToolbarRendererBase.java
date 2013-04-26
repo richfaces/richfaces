@@ -26,13 +26,14 @@ import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.util.renderkit.HtmlDimensions;
+import org.richfaces.util.HtmlDimensions;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;

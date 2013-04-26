@@ -47,7 +47,7 @@ import org.richfaces.ui.ajax.AjaxOptions;
 import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
-import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
+import org.richfaces.util.AjaxRendererUtils;
 
 /**
  * Abstract progress bar renderer

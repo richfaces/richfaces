@@ -44,7 +44,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.ui.ajax.AbstractAttachQueue;
-import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
+import org.richfaces.util.AjaxRendererUtils;
 
 /**
  * @author Nick Belaevski

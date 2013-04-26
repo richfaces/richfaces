@@ -21,12 +21,13 @@
  */
 package org.richfaces.ui.iteration;
 
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

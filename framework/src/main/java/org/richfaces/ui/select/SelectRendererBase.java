@@ -30,7 +30,7 @@ import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.input.InputRendererBase;
-import org.richfaces.ui.util.renderkit.HtmlDimensions;
+import org.richfaces.util.HtmlDimensions;
 import org.richfaces.validator.AddCSVMessageScript;
 import org.richfaces.validator.SelectLabelValueValidator;
 

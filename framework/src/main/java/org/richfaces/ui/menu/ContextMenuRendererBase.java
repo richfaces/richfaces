@@ -5,12 +5,13 @@ import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.ui.common.Mode;
 import org.richfaces.ui.common.Positioning;
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;

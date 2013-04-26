@@ -29,7 +29,7 @@ import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.ajax.AjaxFunction;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.misc.ControlsState;
-import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
+import org.richfaces.util.AjaxRendererUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

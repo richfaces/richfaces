@@ -26,7 +26,7 @@ import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.ui.misc.UIHashParameter;
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -38,6 +38,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

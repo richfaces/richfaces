@@ -23,12 +23,13 @@ package org.richfaces.ui.ajax;
 import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
+import org.richfaces.util.AjaxRendererUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
+
 import java.util.Iterator;
 import java.util.Map;
 

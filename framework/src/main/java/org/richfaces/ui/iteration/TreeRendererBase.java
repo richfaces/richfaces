@@ -37,7 +37,7 @@ import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
-import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
+import org.richfaces.util.AjaxRendererUtils;
 
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;

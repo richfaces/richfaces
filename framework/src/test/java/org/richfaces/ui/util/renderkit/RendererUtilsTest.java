@@ -23,6 +23,7 @@ package org.richfaces.ui.util.renderkit;
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.richfaces.util.RendererUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
@@ -30,6 +31,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

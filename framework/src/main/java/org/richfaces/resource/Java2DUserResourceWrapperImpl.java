@@ -37,9 +37,9 @@ import org.richfaces.io.ByteBuffer;
 import org.richfaces.io.FastBufferInputStream;
 import org.richfaces.io.FastBufferOutputStream;
 import org.richfaces.util.HtmlColor;
+import org.richfaces.util.HtmlDimensions;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.ui.util.renderkit.HtmlDimensions;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 

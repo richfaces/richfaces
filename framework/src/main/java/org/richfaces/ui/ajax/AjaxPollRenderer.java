@@ -40,7 +40,7 @@ import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.behavior.HandlersChain;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 /**
  * @author shura

@@ -30,8 +30,8 @@ import org.richfaces.ui.behavior.HandlersChain;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
-import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
-import org.richfaces.ui.util.renderkit.FormUtil;
+import org.richfaces.util.AjaxRendererUtils;
+import org.richfaces.util.FormUtil;
 import org.richfaces.util.HtmlUtil;
 
 import javax.faces.FacesException;

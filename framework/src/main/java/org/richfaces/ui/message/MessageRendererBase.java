@@ -35,7 +35,7 @@ import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;

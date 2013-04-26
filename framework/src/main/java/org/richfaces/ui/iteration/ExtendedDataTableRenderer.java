@@ -61,7 +61,7 @@ import java.util.Map;
 
 import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
 import static org.richfaces.renderkit.RenderKitUtils.renderAttribute;
-import static org.richfaces.ui.util.renderkit.AjaxRendererUtils.buildAjaxFunction;
+import static org.richfaces.util.AjaxRendererUtils.buildAjaxFunction;
 
 /**
  * @author Konstantin Mishin

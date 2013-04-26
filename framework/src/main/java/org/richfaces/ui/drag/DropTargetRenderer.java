@@ -38,7 +38,7 @@ import org.richfaces.javascript.DropScript;
 import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.ui.ajax.AjaxFunction;
-import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
+import org.richfaces.util.AjaxRendererUtils;
 import org.richfaces.util.Sets;
 
 import com.google.common.base.Strings;

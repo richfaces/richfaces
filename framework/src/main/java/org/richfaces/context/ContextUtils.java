@@ -35,7 +35,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.ui.core.MetaComponentResolver;
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 /**
  * Util class for common render operations - render passthru html attributes, iterate over child components etc.

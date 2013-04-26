@@ -21,7 +21,6 @@
 package org.richfaces.util;
 
 import com.google.common.base.Strings;
-import org.richfaces.ui.util.renderkit.RendererUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;

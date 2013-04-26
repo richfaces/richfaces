@@ -45,8 +45,8 @@ import org.richfaces.ui.core.MetaComponentEncoder;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
 import org.richfaces.ui.iteration.UIRepeat;
-import org.richfaces.ui.util.renderkit.RendererUtils;
 import org.richfaces.util.MessageUtil;
+import org.richfaces.util.RendererUtils;
 
 import javax.el.ELException;
 import javax.el.MethodExpression;

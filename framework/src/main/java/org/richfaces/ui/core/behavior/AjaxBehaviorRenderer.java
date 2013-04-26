@@ -21,8 +21,8 @@
  */
 package org.richfaces.ui.core.behavior;
 
-import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.AjaxRendererUtils;
+import org.richfaces.util.RendererUtils;
 
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.ActionSource;

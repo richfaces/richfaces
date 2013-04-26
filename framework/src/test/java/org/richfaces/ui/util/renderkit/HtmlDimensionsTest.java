@@ -22,6 +22,7 @@
 package org.richfaces.ui.util.renderkit;
 
 import org.junit.Test;
+import org.richfaces.util.HtmlDimensions;
 
 import static org.junit.Assert.assertEquals;
 

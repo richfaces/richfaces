@@ -23,7 +23,7 @@ package org.richfaces.ui.behavior;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.ScriptString;
-import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static org.richfaces.ui.util.renderkit.AjaxRendererUtils.buildAjaxFunction;
+import static org.richfaces.util.AjaxRendererUtils.buildAjaxFunction;
 
 /**
  * @author Nick Belaevski
