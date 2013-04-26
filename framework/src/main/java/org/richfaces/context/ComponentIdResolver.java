@@ -41,7 +41,6 @@ import org.richfaces.ui.ajax.AjaxContainer;
 import org.richfaces.ui.core.ComponentIterators;
 import org.richfaces.ui.core.MetaComponentResolver;
 import org.richfaces.context.IdParser.Node;
-import org.richfaces.ui.util.renderkit.CoreRendererUtils;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
@@ -342,7 +341,7 @@ public final class ComponentIdResolver {
                     }
                 }
 
-                if (CoreRendererUtils.GLOBAL_META_COMPONENTS.contains(resolvedId)) {
+                if (ContextUtils.GLOBAL_META_COMPONENTS.contains(resolvedId)) {
                     resolvedIds.clear();
                     resolvedIds.add(resolvedId);
 
@@ -350,7 +349,7 @@ public final class ComponentIdResolver {
                     break;
                 } else {
                     if (resolvedId != null) {
-                        String predefinedMetaComponentId = CoreRendererUtils.INSTANCE.getPredefinedMetaComponentId(
+                        String predefinedMetaComponentId = ContextUtils.INSTANCE.getPredefinedMetaComponentId(
                             facesContext, bottomMatch, resolvedId);
 
                         if (predefinedMetaComponentId != null) {

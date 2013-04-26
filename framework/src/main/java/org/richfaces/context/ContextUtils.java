@@ -18,24 +18,24 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.ui.util.renderkit;
-
-import org.richfaces.context.ComponentIdResolver;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.ui.core.MetaComponentResolver;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
-import javax.faces.context.FacesContext;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+package org.richfaces.context;
 
 import static org.richfaces.ui.ajax.AjaxConstants.ALL;
 import static org.richfaces.ui.ajax.AjaxConstants.FORM;
 import static org.richfaces.ui.ajax.AjaxConstants.NONE;
 import static org.richfaces.ui.ajax.AjaxConstants.THIS;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
+import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.ui.util.renderkit.RendererUtils;
 
 /**
  * Util class for common render operations - render passthru html attributes, iterate over child components etc.
@@ -44,20 +44,22 @@ import static org.richfaces.ui.ajax.AjaxConstants.THIS;
  * @version $Revision: 1.1.2.6 $ $Date: 2007/02/08 19:07:16 $
  *
  */
-public final class CoreRendererUtils {
+final class ContextUtils {
     public static final Set<String> GLOBAL_META_COMPONENTS;
 
     static {
-        GLOBAL_META_COMPONENTS = new HashSet<String>(2);
-
-        GLOBAL_META_COMPONENTS.add(ALL);
-        GLOBAL_META_COMPONENTS.add(NONE);
+        GLOBAL_META_COMPONENTS = Collections.unmodifiableSet(new HashSet<String>(2) {
+            {
+                add(ALL);
+                add(NONE);
+            }
+        });
     }
 
     // we'd better use this instance multithreadly quickly
-    public static final CoreRendererUtils INSTANCE = new CoreRendererUtils();
+    static final ContextUtils INSTANCE = new ContextUtils();
 
-    private CoreRendererUtils() {
+    private ContextUtils() {
     }
 
     public String getPredefinedMetaComponentId(FacesContext facesContext, UIComponent component, String id) {
@@ -74,7 +76,7 @@ public final class CoreRendererUtils {
             }
             return component.getClientId(facesContext);
         } else if (FORM.equals(id)) {
-            UIForm nestingForm = getNestingForm(facesContext, component);
+            UIComponent nestingForm = RendererUtils.getInstance().getNestingForm(component);
             if (nestingForm != null) {
                 return nestingForm.getClientId(facesContext);
             } else {
@@ -142,30 +144,5 @@ public final class CoreRendererUtils {
         }
 
         return result;
-    }
-
-    /**
-     * Find nested form for given component
-     *
-     * @param component
-     * @return nested <code>UIForm</code> component, or <code>null</code>
-     */
-    // TODO - remove code duplication
-    public UIForm getNestingForm(FacesContext context, UIComponent component) {
-        UIComponent parent = component.getParent();
-
-        while ((parent != null) && !(parent instanceof UIForm)) {
-            parent = parent.getParent();
-        }
-
-        UIForm nestingForm = null;
-
-        if (parent != null) {
-
-            // link is nested inside a form
-            nestingForm = (UIForm) parent;
-        }
-
-        return nestingForm;
     }
 }

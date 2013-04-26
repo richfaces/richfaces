@@ -27,7 +27,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.ui.core.AjaxClientBehavior;
-import org.richfaces.ui.util.renderkit.CoreRendererUtils;
 
 /**
  * @author akolonitsky
@@ -83,7 +82,7 @@ class RenderComponentCallback extends ComponentCallback {
 
         Collection<String> unresolvedRenderIds = toCollection(renderValue);
         // NB: toCollection() returns copy of original set and we're free to modify it - not used here
-        renderIds = CoreRendererUtils.INSTANCE.findComponentsFor(facesContext, target, unresolvedRenderIds);
+        renderIds = ContextUtils.INSTANCE.findComponentsFor(facesContext, target, unresolvedRenderIds);
     }
 
     private boolean isTrue(Object value) {

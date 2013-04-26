@@ -29,7 +29,6 @@ import javax.faces.context.FacesContext;
 import org.richfaces.ui.core.AjaxClientBehavior;
 import org.richfaces.ui.ajax.AjaxContainer;
 import org.richfaces.ui.ajax.AjaxConstants;
-import org.richfaces.ui.util.renderkit.CoreRendererUtils;
 
 /**
  * @author akolonitsky
@@ -61,7 +60,7 @@ class ExecuteComponentCallback extends RenderComponentCallback {
             unresolvedExecuteIds.add(AjaxConstants.THIS);
         }
 
-        executeIds = CoreRendererUtils.INSTANCE.findComponentsFor(facesContext, target, unresolvedExecuteIds);
+        executeIds = ContextUtils.INSTANCE.findComponentsFor(facesContext, target, unresolvedExecuteIds);
     }
 
     public Collection<String> getExecuteIds() {
