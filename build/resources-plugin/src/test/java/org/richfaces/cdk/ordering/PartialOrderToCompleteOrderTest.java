@@ -26,6 +26,8 @@ import static java.util.Arrays.asList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.richfaces.ordering.IllegalPartialOrderingException;
+import org.richfaces.ordering.PartialOrderToCompleteOrder;
 
 import com.google.common.collect.Ordering;
 
