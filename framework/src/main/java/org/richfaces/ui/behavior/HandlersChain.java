@@ -18,11 +18,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.ui.util.renderkit;
+package org.richfaces.ui.behavior;
 
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.ScriptString;
+import org.richfaces.ui.util.renderkit.RendererUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
@@ -31,6 +32,7 @@ import javax.faces.component.behavior.ClientBehaviorContext.Parameter;
 import javax.faces.component.behavior.ClientBehaviorHint;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

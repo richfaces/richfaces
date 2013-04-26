@@ -1,4 +1,4 @@
-package org.richfaces.ui.util.renderkit;
+package org.richfaces.ui.common;
 
 public enum PanelIcons {
 

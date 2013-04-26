@@ -1,8 +1,8 @@
 package org.richfaces.ui.menu;
 
+import org.richfaces.ui.common.PanelIcons;
+import org.richfaces.ui.common.PanelIcons.State;
 import org.richfaces.ui.iteration.TableIconsRendererHelper;
-import org.richfaces.ui.util.renderkit.PanelIcons;
-import org.richfaces.ui.util.renderkit.PanelIcons.State;
 import org.richfaces.util.HtmlUtil;
 
 import javax.faces.context.FacesContext;

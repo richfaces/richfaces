@@ -21,17 +21,20 @@
 package org.richfaces.ui.util.renderkit;
 
 import com.google.common.base.Strings;
+
 import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.ui.ajax.AjaxConstants;
 import org.richfaces.ui.ajax.AjaxFunction;
 import org.richfaces.ui.ajax.AjaxOptions;
+import org.richfaces.ui.behavior.HandlersChain;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.core.AjaxClientBehavior;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
+
 import java.util.Map;
 
 /**

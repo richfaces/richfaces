@@ -22,19 +22,21 @@
 package org.richfaces.ui.menu;
 
 import com.google.common.base.Predicate;
+
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.common.PanelIcons;
+import org.richfaces.ui.common.PanelIcons.State;
 import org.richfaces.ui.core.ComponentIterators;
 import org.richfaces.ui.output.DivPanelRenderer;
-import org.richfaces.ui.util.renderkit.PanelIcons;
-import org.richfaces.ui.util.renderkit.PanelIcons.State;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

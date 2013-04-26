@@ -26,12 +26,12 @@ import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.ui.ajax.AjaxOptions;
+import org.richfaces.ui.behavior.HandlersChain;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
 import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
 import org.richfaces.ui.util.renderkit.FormUtil;
-import org.richfaces.ui.util.renderkit.HandlersChain;
 import org.richfaces.util.HtmlUtil;
 
 import javax.faces.FacesException;

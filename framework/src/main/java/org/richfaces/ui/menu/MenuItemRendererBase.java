@@ -1,8 +1,8 @@
 package org.richfaces.ui.menu;
 
 import org.richfaces.ui.ajax.AjaxCommandRendererBase;
+import org.richfaces.ui.behavior.HandlersChain;
 import org.richfaces.ui.common.Mode;
-import org.richfaces.ui.util.renderkit.HandlersChain;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

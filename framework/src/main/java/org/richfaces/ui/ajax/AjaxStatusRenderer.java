@@ -24,8 +24,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
+import org.richfaces.ui.behavior.HandlersChain;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.util.renderkit.HandlersChain;
 import org.richfaces.util.HtmlUtil;
 
 import javax.faces.application.ResourceDependencies;

@@ -38,8 +38,8 @@ import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.behavior.HandlersChain;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.util.renderkit.HandlersChain;
 import org.richfaces.ui.util.renderkit.RendererUtils;
 
 /**

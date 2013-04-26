@@ -23,13 +23,14 @@ package org.richfaces.ui.ajax;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.RendererBase;
-import org.richfaces.ui.util.renderkit.HandlersChain;
+import org.richfaces.ui.behavior.HandlersChain;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+
 import java.util.Map;
 
 /**
