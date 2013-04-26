@@ -26,16 +26,9 @@
  */
 package org.richfaces.ui.output;
 
-import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.javascript.JSReference;
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.ui.ajax.AjaxFunction;
-import org.richfaces.ui.ajax.AjaxOptions;
-import org.richfaces.ui.common.SwitchType;
-import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.core.MetaComponentResolver;
-import org.richfaces.ui.util.NumberUtils;
-import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -43,8 +36,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
-import java.io.IOException;
-import java.util.Map;
+
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.javascript.JSReference;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.ajax.AjaxFunction;
+import org.richfaces.ui.ajax.AjaxOptions;
+import org.richfaces.ui.common.SwitchType;
+import org.richfaces.ui.core.MetaComponentRenderer;
+import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
 
 /**
  * Abstract progress bar renderer
@@ -65,6 +68,8 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
     private static final ProgressBarStateEncoder PARTIAL_ENCODER = new ProgressBarStateEncoder(true);
     private static final int DEFAULT_MIN_VALUE = 0;
     private static final int DEFAULT_MAX_VALUE = 100;
+
+    private static Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -108,9 +113,9 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
         if (isResourceMode(component)) {
             result = ProgressBarState.initialState;
         } else {
-            Number minValue = NumberUtils.getNumber(getMinValueOrDefault(component));
-            Number maxValue = NumberUtils.getNumber(getMaxValueOrDefault(component));
-            Number value = NumberUtils.getNumber(getValueOrDefault(component));
+            Number minValue = getNumber(getMinValueOrDefault(component));
+            Number maxValue = getNumber(getMaxValueOrDefault(component));
+            Number value = getNumber(getValueOrDefault(component));
 
             if (value.doubleValue() < minValue.doubleValue()) {
                 result = ProgressBarState.initialState;
@@ -161,7 +166,7 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
 
             ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(context);
             partialContext.getResponseComponentDataMap().put(component.getClientId(context),
-                NumberUtils.getNumber(component.getAttributes().get("value")));
+                getNumber(component.getAttributes().get("value")));
 
             PartialResponseWriter partialResponseWriter = context.getPartialViewContext().getPartialResponseWriter();
             partialResponseWriter.startUpdate(state.getStateClientId(context, component));
@@ -212,5 +217,30 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
             mode = SwitchType.DEFAULT;
         }
         return mode;
+    }
+
+    public static Number getNumber(Object v) {
+        Number result = null;
+        if (v != null) {
+            try {
+                if (v instanceof String) { // String
+                    result = Double.parseDouble((String) v);
+                } else {
+                    Number n = (Number) v;
+                    if ((n instanceof BigDecimal) || (n instanceof Double) // Double
+                        // or
+                        // BigDecimal
+                        || (n instanceof Float)) {
+                        result = n.floatValue();
+                    } else if (n instanceof Integer || n instanceof Long) { // Integer
+                        result = n.longValue();
+                    }
+                }
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+            return result;
+        }
+        return new Integer(0);
     }
 }
