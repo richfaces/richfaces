@@ -21,4 +21,4 @@
 /**
  * Facelet webapp
  */
-package org.richfaces.webapp;
+package org.richfaces.servlet;

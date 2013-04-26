@@ -121,6 +121,12 @@ import org.richfaces.services.ServiceTracker;
 import org.richfaces.services.ServicesFactory;
 import org.richfaces.services.ServicesFactoryImpl;
 import org.richfaces.services.Uptime;
+import org.richfaces.servlet.AbstractServletContainerInitializer;
+import org.richfaces.servlet.PushFilter;
+import org.richfaces.servlet.PushHandlerFilter;
+import org.richfaces.servlet.PushServlet;
+import org.richfaces.servlet.PushServletContainerInitializer;
+import org.richfaces.servlet.ServletConfigDefaultsWrapper;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.ui.ajax.AjaxDataSerializer;
@@ -132,12 +138,6 @@ import org.richfaces.util.PropertiesUtil;
 import org.richfaces.wait.Condition;
 import org.richfaces.wait.Wait;
 import org.richfaces.wait.WaitTimeoutException;
-import org.richfaces.webapp.GenericServletContainerInitializer;
-import org.richfaces.webapp.PushFilter;
-import org.richfaces.webapp.PushHandlerFilter;
-import org.richfaces.webapp.PushServlet;
-import org.richfaces.webapp.PushServletContainerInitializer;
-import org.richfaces.webapp.ServletConfigDefaultsWrapper;
 
 import com.google.common.base.Function;
 
@@ -300,7 +300,7 @@ public class CoreDeployment extends Deployment {
         JavaArchive servletInitializer = ShrinkWrap.create(JavaArchive.class, "push-classes.jar")
                 .addAsResource(pushServletInitializer, "META-INF/services/" + ServletContainerInitializer.class.getName())
                 .addClasses(PushServlet.class, PushFilter.class, PushHandlerFilter.class, ServletConfigDefaultsWrapper.class)
-                .addClasses(PushServletContainerInitializer.class, GenericServletContainerInitializer.class)
+                .addClasses(PushServletContainerInitializer.class, AbstractServletContainerInitializer.class)
                 .addClasses(TopicsContext.class, TopicsContextImpl.class)
                 .addClasses(SessionManager.class, SessionManagerImpl.class, SessionQueue.class)
                 .addClasses(SessionFactory.class, SessionFactoryImpl.class)

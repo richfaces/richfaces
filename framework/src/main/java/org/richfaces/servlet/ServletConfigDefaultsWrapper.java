@@ -1,4 +1,4 @@
-package org.richfaces.webapp;
+package org.richfaces.servlet;
 
 import java.util.Enumeration;
 import java.util.Iterator;

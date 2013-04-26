@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.webapp;
+package org.richfaces.servlet;
 
 import java.text.MessageFormat;
 import java.util.Set;
@@ -39,7 +39,7 @@ import com.google.common.collect.Iterables;
  * @author Nick Belaevski
  *
  */
-public class PushServletContainerInitializer extends GenericServletContainerInitializer {
+public class PushServletContainerInitializer extends AbstractServletContainerInitializer {
 
     private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
     private static final String ATMOSPHERE_SERVLET_CLASS = "org.atmosphere.cpr.AtmosphereServlet";

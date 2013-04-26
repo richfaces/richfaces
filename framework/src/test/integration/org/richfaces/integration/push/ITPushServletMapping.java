@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.richfaces.deployment.FrameworkDeployment;
-import org.richfaces.webapp.PushServlet;
+import org.richfaces.servlet.PushServlet;
 
 import category.Smoke;
 

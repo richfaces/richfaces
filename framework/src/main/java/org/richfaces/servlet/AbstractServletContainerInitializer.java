@@ -1,4 +1,4 @@
-package org.richfaces.webapp;
+package org.richfaces.servlet;
 
 import java.util.Collection;
 
@@ -16,7 +16,7 @@ import javax.servlet.ServletRegistration;
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public abstract class GenericServletContainerInitializer implements ServletContainerInitializer {
+public abstract class AbstractServletContainerInitializer implements ServletContainerInitializer {
 
     /**
      * Detects if given {@link Filter} class has been already registered.

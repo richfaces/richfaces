@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.webapp;
+package org.richfaces.servlet;
 
 import java.util.Set;
 
@@ -37,7 +37,7 @@ import org.richfaces.log.RichfacesLogger;
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public class RichFacesServletsInitializer implements ServletContainerInitializer {
+public class ServletsInitializer implements ServletContainerInitializer {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 

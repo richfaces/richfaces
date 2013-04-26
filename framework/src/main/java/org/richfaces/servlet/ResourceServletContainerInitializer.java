@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.webapp;
+package org.richfaces.servlet;
 
 import java.text.MessageFormat;
 import java.util.Set;
@@ -41,7 +41,7 @@ import javax.servlet.ServletRegistration.Dynamic;
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public class ResourceServletContainerInitializer extends GenericServletContainerInitializer {
+public class ResourceServletContainerInitializer extends AbstractServletContainerInitializer {
 
     private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.resources.skipResourceServletRegistration";
     public static final String EDITOR_RESOURCES_DEFAULT_MAPPING = "/org.richfaces.resources/*";
