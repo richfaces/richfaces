@@ -22,12 +22,13 @@
 package org.richfaces.ui.input;
 
 import org.richfaces.renderkit.RendererBase;
-import org.richfaces.ui.util.InputUtils;
+import org.richfaces.util.InputUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
+
 import java.util.Map;
 
 /**

@@ -34,7 +34,7 @@ import org.richfaces.l10n.FacesMessages;
 import org.richfaces.l10n.MessageFactory;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.select.AbstractSelectComponent;
-import org.richfaces.ui.util.MessageUtil;
+import org.richfaces.util.MessageUtil;
 
 /**
  * Validates that Select component has sent valid value

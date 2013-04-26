@@ -21,7 +21,7 @@
  */
 package org.richfaces.ui.iteration;
 
-import org.richfaces.ui.util.HtmlUtil;
+import org.richfaces.util.HtmlUtil;
 
 public enum TreeNodeState {
     expanded("rf-tr-nd-exp", "rf-trn-hnd-exp", "rf-trn-ico-exp") {

@@ -15,7 +15,7 @@ import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.ui.util.Strings;
+import org.richfaces.util.Strings;
 
 import com.google.common.base.Function;
 import com.google.common.cache.CacheBuilder;

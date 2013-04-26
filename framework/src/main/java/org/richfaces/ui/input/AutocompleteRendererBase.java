@@ -31,7 +31,7 @@ import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
-import org.richfaces.ui.util.InputUtils;
+import org.richfaces.util.InputUtils;
 
 import javax.el.ELException;
 import javax.el.ExpressionFactory;

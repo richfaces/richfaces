@@ -1,7 +1,7 @@
 package org.richfaces.ui.misc;
 
 import org.richfaces.renderkit.RendererBase;
-import org.richfaces.ui.util.InputUtils;
+import org.richfaces.util.InputUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -9,6 +9,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
+
 import java.io.IOException;
 
 @ResourceDependencies({ @ResourceDependency(name = "base-component.reslib", library = "org.richfaces", target = "head"),

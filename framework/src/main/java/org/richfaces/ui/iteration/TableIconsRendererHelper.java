@@ -6,6 +6,7 @@ import org.richfaces.ui.util.renderkit.PanelIcons;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 
 import static org.richfaces.ui.common.HtmlConstants.ALT_ATTRIBUTE;
@@ -17,7 +18,7 @@ import static org.richfaces.ui.common.HtmlConstants.TABLE_ELEMENT;
 import static org.richfaces.ui.common.HtmlConstants.TBODY_ELEMENT;
 import static org.richfaces.ui.common.HtmlConstants.TD_ELEM;
 import static org.richfaces.ui.common.HtmlConstants.TR_ELEMENT;
-import static org.richfaces.ui.util.HtmlUtil.concatClasses;
+import static org.richfaces.util.HtmlUtil.concatClasses;
 
 public abstract class TableIconsRendererHelper<T extends UIComponent> {
     protected final String text;

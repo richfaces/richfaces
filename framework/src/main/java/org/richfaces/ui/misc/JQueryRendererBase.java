@@ -21,7 +21,7 @@
  */
 package org.richfaces.ui.misc;
 
-import org.richfaces.ui.util.HtmlUtil;
+import org.richfaces.util.HtmlUtil;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

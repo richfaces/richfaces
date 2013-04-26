@@ -22,8 +22,8 @@
 package org.richfaces.ui.select;
 
 import org.richfaces.ui.input.InputRendererBase;
-import org.richfaces.ui.util.HtmlUtil;
 import org.richfaces.ui.util.renderkit.HtmlDimensions;
+import org.richfaces.util.HtmlUtil;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

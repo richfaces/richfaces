@@ -57,7 +57,7 @@ import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.core.MetaComponentEncoder;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
-import org.richfaces.ui.util.MessageUtil;
+import org.richfaces.util.MessageUtil;
 
 import javax.el.ELContext;
 import javax.el.ELException;

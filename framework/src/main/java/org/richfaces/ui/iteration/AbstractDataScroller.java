@@ -46,7 +46,7 @@ import org.richfaces.l10n.MessageFactory;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.core.IterationStateHolder;
 import org.richfaces.ui.core.MetaComponentResolver;
-import org.richfaces.ui.util.MessageUtil;
+import org.richfaces.util.MessageUtil;
 
 /**
  * <p> The &lt;rich:dataScroller&gt; component is used for navigating through multiple pages of tables or grids. </p>

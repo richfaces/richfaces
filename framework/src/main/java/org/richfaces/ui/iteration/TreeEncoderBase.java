@@ -26,11 +26,12 @@ import org.richfaces.javascript.JSFunction;
 import org.richfaces.model.TreeDataModelTuple;
 import org.richfaces.model.TreeDataVisitor;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.util.HtmlUtil;
+import org.richfaces.util.HtmlUtil;
 
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.LinkedList;
 

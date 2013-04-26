@@ -21,7 +21,7 @@
  */
 package org.richfaces.ui.iteration;
 
-import org.richfaces.ui.util.HtmlUtil;
+import org.richfaces.util.HtmlUtil;
 
 /**
  * @author Nick Belaevski

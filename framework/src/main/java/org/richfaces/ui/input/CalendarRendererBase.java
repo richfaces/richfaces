@@ -30,10 +30,10 @@ import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
-import org.richfaces.ui.util.HtmlUtil;
-import org.richfaces.ui.util.InputUtils;
-import org.richfaces.ui.util.InputUtils.ConverterLookupStrategy;
-import org.richfaces.ui.util.MessageUtil;
+import org.richfaces.util.HtmlUtil;
+import org.richfaces.util.InputUtils;
+import org.richfaces.util.MessageUtil;
+import org.richfaces.util.InputUtils.ConverterLookupStrategy;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

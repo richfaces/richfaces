@@ -66,13 +66,14 @@ import javax.faces.event.PreRenderViewEvent;
 import javax.faces.event.PreValidateEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
+
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
-import static org.richfaces.ui.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
+import static org.richfaces.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
 
 /**
  * Base class for iterable components, like dataTable, Tomahawk dataList, Facelets repeat, tree etc., with support for partial

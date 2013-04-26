@@ -36,7 +36,7 @@ import org.richfaces.ui.ajax.AjaxFunction;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.util.HtmlUtil;
+import org.richfaces.util.HtmlUtil;
 
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
@@ -47,6 +47,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;

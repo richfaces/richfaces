@@ -28,8 +28,8 @@ import com.google.common.collect.Iterators;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.util.HtmlUtil;
 import org.richfaces.ui.util.renderkit.HtmlDimensions;
+import org.richfaces.util.HtmlUtil;
 
 import javax.annotation.Nullable;
 import javax.el.ValueExpression;

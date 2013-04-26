@@ -20,7 +20,7 @@
  */
 package org.richfaces.ui.input;
 
-import org.richfaces.ui.util.MessageUtil;
+import org.richfaces.util.MessageUtil;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;

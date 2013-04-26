@@ -26,7 +26,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.l10n.Messages;
 import org.richfaces.ui.core.JavaScriptParameter;
-import org.richfaces.ui.util.PartialStateHolderUtil;
+import org.richfaces.util.PartialStateHolderUtil;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;

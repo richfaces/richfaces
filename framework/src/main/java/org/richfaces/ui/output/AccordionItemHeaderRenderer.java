@@ -1,12 +1,13 @@
 package org.richfaces.ui.output;
 
 import org.richfaces.ui.iteration.TableIconsRendererHelper;
-import org.richfaces.ui.util.HtmlUtil;
 import org.richfaces.ui.util.renderkit.PanelIcons;
 import org.richfaces.ui.util.renderkit.PanelIcons.State;
+import org.richfaces.util.HtmlUtil;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 
 import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;

@@ -23,8 +23,8 @@ package org.richfaces.ui.select;
 
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.util.HtmlUtil;
-import org.richfaces.ui.util.InputUtils;
+import org.richfaces.util.HtmlUtil;
+import org.richfaces.util.InputUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

@@ -21,11 +21,15 @@
 package org.richfaces.ui.util;
 
 import com.google.common.collect.Maps;
+
 import junit.framework.TestCase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
+
+import org.richfaces.util.HtmlUtil;
+
 import java.util.Map;
 
 /**

@@ -29,10 +29,10 @@ import org.richfaces.ui.ajax.AjaxOptions;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
-import org.richfaces.ui.util.HtmlUtil;
 import org.richfaces.ui.util.renderkit.AjaxRendererUtils;
 import org.richfaces.ui.util.renderkit.FormUtil;
 import org.richfaces.ui.util.renderkit.HandlersChain;
+import org.richfaces.util.HtmlUtil;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
@@ -42,6 +42,7 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

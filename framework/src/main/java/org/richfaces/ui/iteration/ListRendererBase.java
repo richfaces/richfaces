@@ -27,8 +27,8 @@ import org.richfaces.model.DataVisitor;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.util.HtmlUtil;
 import org.richfaces.ui.util.renderkit.RendererUtils;
+import org.richfaces.util.HtmlUtil;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependency;
@@ -36,6 +36,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
+
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Collections;
