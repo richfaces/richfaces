@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.ObjectStreamClass;
 import java.io.OutputStream;
 import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
@@ -86,7 +87,6 @@ import org.richfaces.l10n.Messages;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.FastJoiner;
-import org.richfaces.util.ObjectInputStreamImpl;
 import org.richfaces.util.PropertiesUtil;
 
 import com.google.common.base.Function;
@@ -601,5 +601,38 @@ public final class ResourceUtils {
 
         result = Collections.unmodifiableMap(result);
         return result;
+    }
+
+    private static class ObjectInputStreamImpl extends ObjectInputStream {
+        private static final Map<String, Class<?>> PRIMITIVE_CLASSES = new HashMap<String, Class<?>>(9, 1.0F);
+
+        static {
+            PRIMITIVE_CLASSES.put("boolean", Boolean.TYPE);
+            PRIMITIVE_CLASSES.put("byte", Byte.TYPE);
+            PRIMITIVE_CLASSES.put("char", Character.TYPE);
+            PRIMITIVE_CLASSES.put("short", Short.TYPE);
+            PRIMITIVE_CLASSES.put("int", Integer.TYPE);
+            PRIMITIVE_CLASSES.put("long", Long.TYPE);
+            PRIMITIVE_CLASSES.put("float", Float.TYPE);
+            PRIMITIVE_CLASSES.put("double", Double.TYPE);
+            PRIMITIVE_CLASSES.put("void", Void.TYPE);
+        }
+
+        public ObjectInputStreamImpl(InputStream in) throws IOException {
+            super(in);
+        }
+
+        protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
+            String name = desc.getName();
+            try {
+                return Class.forName(name, true, Thread.currentThread().getContextClassLoader());
+            } catch (ClassNotFoundException cnfe) {
+                Class<?> c = PRIMITIVE_CLASSES.get(name);
+                if (c != null) {
+                    return c;
+                }
+                throw cnfe;
+            }
+        }
     }
 }
