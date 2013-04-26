@@ -46,14 +46,16 @@ import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseId;
 
-import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.core.MetaComponentEncoder;
 import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.javascript.ScriptsHolder;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.ui.util.renderkit.CoreAjaxRendererUtils;
+import org.richfaces.services.ServiceTracker;
+import org.richfaces.ui.ajax.AjaxDataSerializer;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.core.MetaComponentEncoder;
+import org.richfaces.util.FastJoiner;
 
 /**
  * @author Nick Belaevski
@@ -62,6 +64,14 @@ import org.richfaces.ui.util.renderkit.CoreAjaxRendererUtils;
 public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     private static final Logger LOG = RichfacesLogger.CONTEXT.getLogger();
     private static final String ORIGINAL_WRITER = "org.richfaces.PartialViewContextImpl.ORIGINAL_WRITER";
+
+    private static final String EXTENSION_ID = "org.richfaces.extension";
+    private static final String BEFOREDOMUPDATE_ELEMENT_NAME = "beforedomupdate";
+    private static final String COMPLETE_ELEMENT_NAME = "complete";
+    private static final String RENDER_ELEMENT_NAME = "render";
+    private static final String DATA_ELEMENT_NAME = "data";
+    private static final String COMPONENT_DATA_ELEMENT_NAME = "componentData";
+    private static final FastJoiner SPACE_JOINER = FastJoiner.on(' ');
 
     private enum ContextMode {
         WRAPPED,
@@ -456,7 +466,67 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     }
 
     protected void renderExtensions(FacesContext context, UIComponent component) throws IOException {
-        CoreAjaxRendererUtils.renderAjaxExtensions(context, component);
+        ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(context);
+
+        Map<String, String> attributes = Collections.singletonMap(HtmlConstants.ID_ATTRIBUTE, context.getExternalContext()
+                .encodeNamespace(EXTENSION_ID));
+        PartialResponseWriter writer = context.getPartialViewContext().getPartialResponseWriter();
+        boolean[] writingState = new boolean[] { false };
+
+        Object onbeforedomupdate = partialContext.getOnbeforedomupdate();
+        if (onbeforedomupdate != null) {
+            String string = onbeforedomupdate.toString();
+            if (string.length() != 0) {
+                startExtensionElementIfNecessary(writer, attributes, writingState);
+                writer.startElement(BEFOREDOMUPDATE_ELEMENT_NAME, component);
+                writer.writeText(onbeforedomupdate, null);
+                writer.endElement(BEFOREDOMUPDATE_ELEMENT_NAME);
+            }
+        }
+
+        Object oncomplete = partialContext.getOncomplete();
+        if (oncomplete != null) {
+            String string = oncomplete.toString();
+            if (string.length() != 0) {
+                startExtensionElementIfNecessary(writer, attributes, writingState);
+                writer.startElement(COMPLETE_ELEMENT_NAME, component);
+                writer.writeText(oncomplete, null);
+                writer.endElement(COMPLETE_ELEMENT_NAME);
+            }
+        }
+
+        if (!partialContext.getRenderIds().isEmpty()) {
+            String renderIds = SPACE_JOINER.join(partialContext.getRenderIds());
+            startExtensionElementIfNecessary(writer, attributes, writingState);
+            writer.startElement(RENDER_ELEMENT_NAME, component);
+            writer.writeText(renderIds, null);
+            writer.endElement(RENDER_ELEMENT_NAME);
+        }
+
+
+        Object responseData = partialContext.getResponseData();
+        if (responseData != null) {
+            startExtensionElementIfNecessary(writer, attributes, writingState);
+            writer.startElement(DATA_ELEMENT_NAME, component);
+
+            AjaxDataSerializer serializer = ServiceTracker.getService(context, AjaxDataSerializer.class);
+            writer.writeText(serializer.asString(responseData), null);
+
+            writer.endElement(DATA_ELEMENT_NAME);
+        }
+
+        Map<String, Object> responseComponentDataMap = partialContext.getResponseComponentDataMap();
+        if (responseComponentDataMap != null && !responseComponentDataMap.isEmpty()) {
+            startExtensionElementIfNecessary(writer, attributes, writingState);
+            writer.startElement(COMPONENT_DATA_ELEMENT_NAME, component);
+
+            AjaxDataSerializer serializer = ServiceTracker.getService(context, AjaxDataSerializer.class);
+            writer.writeText(serializer.asString(responseComponentDataMap), null);
+
+            writer.endElement(COMPONENT_DATA_ELEMENT_NAME);
+        }
+
+        endExtensionElementIfNecessary(writer, writingState);
     }
 
     private void assertNotReleased() {
@@ -551,6 +621,26 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
             // encodeAll() already traverse the subtree. We return
             // VisitResult.REJECT to supress the subtree visit.
             return VisitResult.REJECT;
+        }
+    }
+
+    private static void startExtensionElementIfNecessary(PartialResponseWriter partialResponseWriter,
+        Map<String, String> attributes, boolean[] writingState) throws IOException {
+
+        if (!writingState[0]) {
+            writingState[0] = true;
+
+            partialResponseWriter.startExtension(attributes);
+        }
+    }
+
+    private static void endExtensionElementIfNecessary(PartialResponseWriter partialResponseWriter, boolean[] writingState)
+        throws IOException {
+
+        if (writingState[0]) {
+            writingState[0] = false;
+
+            partialResponseWriter.endExtension();
         }
     }
 }
