@@ -28,31 +28,41 @@ public class DynamicTabTestHelper {
 
     public void check_tab_switch(WebElement tabPanel, List<WebElement> tabs, WebElement a4jCreateTabButton) {
         Assert.assertEquals(6, tabs.size());
+        Assert.assertEquals("content of tab 0", getTabContent(tabPanel).getText());
 
         guardXhr(tabs.get(2)).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab2"));
+        Assert.assertEquals("content of tab 2", getTabContent(tabPanel).getText());
 
         guardXhr(tabs.get(4)).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab4"));
+        Assert.assertEquals("content of tab 4", getTabContent(tabPanel).getText());
 
         guardXhr(tabs.get(5)).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab5"));
+        Assert.assertEquals("content of tab 5", getTabContent(tabPanel).getText());
 
         guardXhr(tabs.get(0)).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab0"));
+        Assert.assertEquals("content of tab 0", getTabContent(tabPanel).getText());
 
         guardXhr(a4jCreateTabButton).click();
         Assert.assertEquals(7, tabs.size());
 
         guardXhr(tabs.get(6)).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab6"));
+        Assert.assertEquals("content of tab 6", getTabContent(tabPanel).getText());
 
         guardXhr(tabs.get(0)).click();
-        Assert.assertTrue(tabPanel.getText().contains("tab0"));
+        Assert.assertEquals("content of tab 0", getTabContent(tabPanel).getText());
 
         WebElement removeLink =tabs.get(6).findElement(By.tagName("a"));
         guardXhr(removeLink).click();
         Assert.assertEquals(6, tabs.size());
+    }
+
+    public WebElement getTabContent(WebElement tabPanel) {
+        for (WebElement tabContent : tabPanel.findElements(By.className("rf-tab"))) {
+            if (tabContent.isDisplayed()) {
+                return tabContent;
+            }
+        }
+        return null;
     }
 
     public void check_row_removal(WebElement tabPanel, List<WebElement> tabs, WebElement a4jCreateTabButton) {

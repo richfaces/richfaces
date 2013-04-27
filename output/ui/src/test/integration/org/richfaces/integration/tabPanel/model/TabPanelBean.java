@@ -42,21 +42,25 @@ public class TabPanelBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        String idBase = "tab" + ++tabIdLast;
-        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "Content of dynamicaly created " + idBase));
-        idBase = "tab" + ++tabIdLast;
-        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "Content of dynamicaly created " + idBase));
-        idBase = "tab" + ++tabIdLast;
-        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "Content of dynamicaly created " + idBase));
+        int id = tabIdLast;
+        while (id < tabIdLast + 3) {
+            id = ++id;
+            createTab(id);
+        }
+        tabIdLast = id;
     }
 
     public List<TabBean> getTabBeans() {
         return tabBeans;
     }
 
+    public void createTab(int id) {
+        String idBase = "tab" + id;
+        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "content of tab " + id));
+    }
+
     public void generateNewTab() {
-        String idBase = "tab" + ++tabIdLast;
-        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "Content of dynamicaly created " + idBase));
+        createTab(++tabIdLast);
     }
 
     public void removeTab() throws Exception {

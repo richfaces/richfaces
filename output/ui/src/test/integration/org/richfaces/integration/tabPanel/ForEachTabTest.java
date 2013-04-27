@@ -74,13 +74,12 @@ public class ForEachTabTest {
         p.body("    <rich:tab id='tab1' name='tab1' header='tab1 header' disabled='true'>content of tab 1</rich:tab>");
         p.body("    <rich:tab id='tab2' name='tab2' header='tab2 header'>content of tab 2</rich:tab>");
         p.body("    <c:forEach items='#{tabPanelBean.tabBeans}' var='newTab'>");
-        p.body("        <rich:tab id='#{newTab.tabId}' name='#{newTab.tabName}'>");
-        p.body("            #{newTab.tabContentText}");
+        p.body("        <rich:tab id='#{newTab.tabId}' name='#{newTab.tabName}' render='tabPanel'>");
         p.body("            <f:facet name='header'>");
         p.body("                <h:outputText value='#{newTab.tabHeader} ' />");
         p.body("                <h:commandLink value='[x]' rendered='#{newTab.closable}' onclick='var event = arguments[0] || window.event; removeTab(\"#{newTab.tabId}\"); event.stopPropagation(); return false;' />");
         p.body("            </f:facet>");
-        p.body("            content of tab #{newTab.tabName} ");
+        p.body("            #{newTab.tabContentText}");
         p.body("        </rich:tab>");
         p.body("    </c:forEach>");
 

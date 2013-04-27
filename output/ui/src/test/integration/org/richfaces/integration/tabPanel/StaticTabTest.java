@@ -17,6 +17,7 @@ import org.richfaces.integration.tabPanel.model.SimpleBean;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import java.net.URL;
+import java.util.List;
 
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 
@@ -33,11 +34,8 @@ public class StaticTabTest {
     @FindBy(id = "myForm:tabPanel")
     private WebElement tabPanel;
 
-    @FindBy(id = "myForm:tab1:header:inactive")
-    private WebElement tab1;
-
-    @FindBy(id = "myForm:tab2:header:inactive")
-    private WebElement tab2;
+    @FindBy(className = "rf-tab-hdr-inact")
+    private List<WebElement> tabs;
 
     @FindBy(id = "out")
     private WebElement out;
@@ -66,13 +64,13 @@ public class StaticTabTest {
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
-        guardXhr(tab2).click();
+        guardXhr(tabs.get(1)).click();
         Assert.assertTrue(out.getText().contains("begin"));
 //        Assert.assertTrue(out.getText().contains("tabpanel_complete"));
 //        Assert.assertTrue(out.getText().contains("beforedomupdate"));
 
         // Assert the oncomplete on the tab does work
-        Assert.assertTrue(out.getText().contains("tab2_complete"));
+        Assert.assertTrue(out.getText().contains("tab1_complete"));
 
     }
 
@@ -81,9 +79,7 @@ public class StaticTabTest {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
         inputText.sendKeys("abcd");
-
-        guardXhr(tab2).click();
-
+        guardXhr(tabs.get(1)).click();
         Assert.assertEquals("abcd", outputText.getText());
     }
 
@@ -98,13 +94,13 @@ public class StaticTabTest {
         p.body("               onbegin='$(\"#out\").append(\"begin \\n\")'");
         p.body("               oncomplete='$(\"#out\").append(\"tabpanel_complete \\n\")'");
         p.body("               onbeforedomupdate='$(\"#out\").append(\"beforedomupdate \\n\")'>");
-        p.body("    <rich:tab id='tab1' name='tab1' header='tab1 header' ");
-        p.body("               oncomplete='$(\"#out\").append(\"tab1_complete \\n\")'>");
+        p.body("    <rich:tab id='tab0' name='tab0' header='tab0 header' ");
+        p.body("               oncomplete='$(\"#out\").append(\"tab0_complete \\n\")'>");
         p.body("        content of tab 1");
         p.body("    </rich:tab>");
-        p.body("    <rich:tab id='tab2' name='tab2' header='tab2 header' ");
+        p.body("    <rich:tab id='tab1' name='tab1' header='tab1 header' ");
         p.body("               execute='inputText'");
-        p.body("               oncomplete='$(\"#out\").append(\"tab2_complete \\n\")'>");
+        p.body("               oncomplete='$(\"#out\").append(\"tab1_complete \\n\")'>");
         p.body("        content of tab 2");
         p.body("        <h:outputText id = 'outputText' value='#{simpleBean.string}' />");
         p.body("    </rich:tab>");

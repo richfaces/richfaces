@@ -75,12 +75,11 @@ public class RepeatTabTest {
         p.body("    <rich:tab id='tab2' name='tab2' header='tab2 header'>content of tab 2</rich:tab>");
         p.body("    <a4j:repeat id='repeat' value='#{tabPanelBean.tabBeans}' var='newTab'>");
         p.body("        <rich:tab id='tab' name='#{newTab.tabName}'>");
-        p.body("            #{newTab.tabContentText}");
         p.body("            <f:facet name='header'>");
         p.body("                <h:outputText value='#{newTab.tabHeader} ' />");
         p.body("                <h:commandLink value='[x]' rendered='#{newTab.closable}' onclick='var event = arguments[0] || window.event; removeTab(\"#{newTab.tabId}\"); event.stopPropagation(); return false;' />");
         p.body("            </f:facet>");
-        p.body("            content of tab #{newTab.tabName} ");
+        p.body("            #{newTab.tabContentText}");
         p.body("        </rich:tab>");
         p.body("    </a4j:repeat>");
 
