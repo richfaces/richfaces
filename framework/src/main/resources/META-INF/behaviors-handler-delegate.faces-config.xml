@@ -3,7 +3,7 @@
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee" version="2.0">
 
     <factory>
-        <tag-handler-delegate-factory>org.richfaces.ui.ajax.BehaviorsTagHandlerDelegateFactoryImpl</tag-handler-delegate-factory>
+        <tag-handler-delegate-factory>org.richfaces.ui.behavior.BehaviorsTagHandlerDelegateFactoryImpl</tag-handler-delegate-factory>
     </factory>
 
 </faces-config>

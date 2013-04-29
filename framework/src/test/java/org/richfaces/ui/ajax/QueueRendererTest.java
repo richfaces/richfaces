@@ -23,6 +23,7 @@ package org.richfaces.ui.ajax;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
 import org.jboss.test.faces.ApplicationServer;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
@@ -32,6 +33,7 @@ import org.junit.Test;
 import org.junit.rules.MethodRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
+import org.richfaces.ui.core.queue.QueueRegistry;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

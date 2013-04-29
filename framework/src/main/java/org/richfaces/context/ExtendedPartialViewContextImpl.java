@@ -21,9 +21,9 @@
  */
 package org.richfaces.context;
 
-import static org.richfaces.ui.ajax.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
-import static org.richfaces.ui.ajax.AjaxConstants.ALL;
-import static org.richfaces.ui.ajax.AjaxConstants.BEHAVIOR_EVENT_PARAMETER;
+import static org.richfaces.ui.common.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
+import static org.richfaces.ui.common.AjaxConstants.ALL;
+import static org.richfaces.ui.common.AjaxConstants.BEHAVIOR_EVENT_PARAMETER;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -52,7 +52,6 @@ import org.richfaces.javascript.ScriptsHolder;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.ajax.AjaxDataSerializer;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.core.MetaComponentEncoder;
 import org.richfaces.util.FastJoiner;

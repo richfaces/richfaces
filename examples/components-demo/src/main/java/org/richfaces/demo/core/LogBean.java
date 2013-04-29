@@ -21,7 +21,7 @@
  */
 package org.richfaces.demo.core;
 
-import org.richfaces.ui.core.LogMode;
+import org.richfaces.ui.core.log.LogMode;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

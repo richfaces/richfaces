@@ -26,7 +26,7 @@ import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.renderkit.RendererBase;
-import org.richfaces.ui.ajax.AjaxFunction;
+import org.richfaces.ui.common.AjaxFunction;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.misc.ControlsState;
 import org.richfaces.util.AjaxRendererUtils;

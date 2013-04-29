@@ -37,9 +37,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.context.IdParser.Node;
-import org.richfaces.ui.ajax.AjaxContainer;
 import org.richfaces.ui.core.ComponentIterators;
 import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.ui.core.region.AjaxContainer;
 import org.richfaces.util.SeparatorChar;
 
 import com.google.common.base.Joiner;

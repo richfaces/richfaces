@@ -2,8 +2,8 @@ package org.richfaces.ui.validation;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
+
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.ui.ajax.AjaxOnlyScript;
 
 import java.io.IOException;
 import java.util.Collection;

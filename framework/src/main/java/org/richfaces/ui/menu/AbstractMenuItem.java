@@ -5,7 +5,7 @@ import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.ui.ajax.AbstractActionComponent;
+import org.richfaces.ui.common.AbstractActionComponent;
 import org.richfaces.ui.common.Mode;
 import org.richfaces.ui.drag.AbstractDropDownMenu;
 

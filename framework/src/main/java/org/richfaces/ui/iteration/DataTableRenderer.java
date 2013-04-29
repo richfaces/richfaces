@@ -24,7 +24,7 @@ package org.richfaces.ui.iteration;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.ui.ajax.AjaxOptions;
+import org.richfaces.ui.common.AjaxOptions;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.util.AjaxRendererUtils;
 import org.richfaces.util.HtmlUtil;

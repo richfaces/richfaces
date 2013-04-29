@@ -20,10 +20,10 @@
  */
 package org.richfaces.context;
 
-import static org.richfaces.ui.ajax.AjaxConstants.ALL;
-import static org.richfaces.ui.ajax.AjaxConstants.FORM;
-import static org.richfaces.ui.ajax.AjaxConstants.NONE;
-import static org.richfaces.ui.ajax.AjaxConstants.THIS;
+import static org.richfaces.ui.common.AjaxConstants.ALL;
+import static org.richfaces.ui.common.AjaxConstants.FORM;
+import static org.richfaces.ui.common.AjaxConstants.NONE;
+import static org.richfaces.ui.common.AjaxConstants.THIS;
 
 import java.util.Collection;
 import java.util.Collections;

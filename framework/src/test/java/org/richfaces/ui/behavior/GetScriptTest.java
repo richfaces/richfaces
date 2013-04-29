@@ -5,7 +5,7 @@ import org.jboss.test.faces.mock.MockTestRunner;
 import org.jboss.test.faces.mock.Stub;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.ui.core.behavior.AjaxBehavior;
+import org.richfaces.ui.core.ajax.AjaxBehavior;
 import org.richfaces.ui.validation.ClientValidatorRenderer;
 import org.richfaces.ui.validation.FormClientValidatorRenderer;
 

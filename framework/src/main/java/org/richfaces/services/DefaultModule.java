@@ -4,6 +4,8 @@ import org.richfaces.cache.Cache;
 import org.richfaces.cache.CacheProvider;
 import org.richfaces.configuration.ConfigurationService;
 import org.richfaces.configuration.ConfigurationServiceImpl;
+import org.richfaces.context.AjaxDataSerializer;
+import org.richfaces.context.AjaxDataSerializerImpl;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.el.GenericsIntrospectionServiceImpl;
 import org.richfaces.javascript.JavaScriptService;
@@ -23,8 +25,6 @@ import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.skin.SkinFactoryImpl;
-import org.richfaces.ui.ajax.AjaxDataSerializer;
-import org.richfaces.ui.ajax.AjaxDataSerializerImpl;
 import org.richfaces.ui.misc.focus.FocusManager;
 import org.richfaces.ui.misc.focus.FocusManagerImpl;
 

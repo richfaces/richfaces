@@ -25,9 +25,9 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.ui.ajax.AjaxFunction;
-import org.richfaces.ui.ajax.AjaxOptions;
 import org.richfaces.ui.behavior.HandlersChain;
+import org.richfaces.ui.common.AjaxFunction;
+import org.richfaces.ui.common.AjaxOptions;
 
 import com.google.common.base.Strings;
 

@@ -22,13 +22,14 @@
 package org.richfaces.ui.menu;
 
 import com.google.common.base.Predicate;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.ui.ajax.AbstractActionComponent;
 import org.richfaces.ui.attribute.AjaxProps;
+import org.richfaces.ui.common.AbstractActionComponent;
 import org.richfaces.ui.core.ComponentIterators;
 
 import javax.faces.component.UIComponent;
