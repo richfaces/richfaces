@@ -20,14 +20,6 @@
  */
 package org.richfaces.ui.ajax;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.l10n.Messages;
-import org.richfaces.ui.core.JavaScriptParameter;
-import org.richfaces.util.PartialStateHolderUtil;
-
 import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
@@ -39,6 +31,15 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.l10n.Messages;
+import org.richfaces.ui.core.JavaScriptParameter;
+import org.richfaces.util.PartialStateHolderUtil;
+import org.richfaces.view.facelets.html.ParameterHandler;
+
 /**
  * <p>
  * The &lt;a4j:param&gt; behavior combines the functionality of the JavaServer Faces (JSF) components
@@ -46,7 +47,7 @@ import javax.faces.event.ActionListener;
  * </p>
  * @author shura, alexsmirnov
  */
-@JsfComponent(tag = @Tag(name = "param", handler = "org.richfaces.view.facelets.html.ParameterHandler", generate = false, type = TagType.Facelets), attributes = "param-assignTo-prop.xml")
+@JsfComponent(tag = @Tag(name = "param", handlerClass = ParameterHandler.class, generate = false, type = TagType.Facelets), attributes = "param-assignTo-prop.xml")
 public abstract class AbstractParameter extends UIParameter implements ActionListener, JavaScriptParameter {
     public static final String COMPONENT_TYPE = "org.richfaces.Parameter";
     public static final String COMPONENT_FAMILY = UIParameter.COMPONENT_FAMILY;

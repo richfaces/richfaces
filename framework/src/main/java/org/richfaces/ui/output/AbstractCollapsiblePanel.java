@@ -21,6 +21,13 @@
  */
 package org.richfaces.ui.output;
 
+import javax.el.MethodExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -29,13 +36,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.PanelToggleListener;
-
-import javax.el.MethodExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
+import org.richfaces.view.facelets.html.CollapsiblePanelTagHandler;
 
 /**
  * <p>
@@ -44,7 +45,7 @@ import javax.faces.event.PhaseId;
  * </p>
  * @author akolonitsky
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.CollapsiblePanelTagHandler"),
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = CollapsiblePanelTagHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"), attributes = {"core-props.xml", "events-mouse-props.xml", "i18n-props.xml"})
 public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";

@@ -31,6 +31,7 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.ui.input.AbstractCalendar;
+import org.richfaces.ui.input.CurrentDateChangeEvent;
 import org.richfaces.ui.input.MethodExpressionCurrentDateChangeListener;
 
 /**

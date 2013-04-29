@@ -21,6 +21,15 @@
  */
 package org.richfaces.ui.menu;
 
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -31,15 +40,7 @@ import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.ItemChangeListener;
 import org.richfaces.event.ItemChangeSource;
 import org.richfaces.ui.common.PanelIcons;
-
-import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
+import org.richfaces.view.facelets.html.PanelMenuTagHandler;
 
 /**
  * <p>The &lt;rich:panelMenu&gt; component is used in conjunction with &lt;rich:panelMenuItem&gt; and
@@ -48,7 +49,7 @@ import javax.faces.event.PhaseId;
  *
  * @author akolonitsky
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.PanelMenuTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.PanelMenuRenderer"), attributes = {
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = PanelMenuTagHandler.class), renderer = @JsfRenderer(type = "org.richfaces.PanelMenuRenderer"), attributes = {
         "style-prop.xml", "styleClass-prop.xml", "immediate-prop.xml", "events-mouse-props.xml" })
 public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSource {
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenu";

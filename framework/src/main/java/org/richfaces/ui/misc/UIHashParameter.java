@@ -21,17 +21,19 @@
  */
 package org.richfaces.ui.misc;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.Tag;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIParameter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.faces.view.facelets.ComponentHandler;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
 
 /**
  * <p>The &lt;rich:hashParam&gt; component allows client-side parameters to be grouped into a hash map. The hash map can
@@ -39,7 +41,7 @@ import java.util.Map;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = UIHashParameter.COMPONENT_TYPE, family = UIHashParameter.COMPONENT_FAMILY, tag = @Tag(name = "hashParam", handler = "javax.faces.view.facelets.ComponentHandler"))
+@JsfComponent(type = UIHashParameter.COMPONENT_TYPE, family = UIHashParameter.COMPONENT_FAMILY, tag = @Tag(name = "hashParam", handlerClass = ComponentHandler.class))
 public class UIHashParameter extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.HashParameter";
     public static final String COMPONENT_FAMILY = "org.richfaces.HashParameter";

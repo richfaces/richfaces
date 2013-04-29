@@ -21,6 +21,19 @@
  */
 package org.richfaces.ui.iteration;
 
+import java.io.IOException;
+
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -34,19 +47,7 @@ import org.richfaces.ui.core.IterationStateHolder;
 import org.richfaces.ui.core.MetaComponentEncoder;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
-
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-
-import java.io.IOException;
+import org.richfaces.view.facelets.TreeNodeHandler;
 
 /**
  * <p> The <rich:treeNode> component is a child component of the <rich:tree> component. It represents nodes in the
@@ -54,7 +55,7 @@ import java.io.IOException;
  *
  * @author Nick Belaevski
  */
-@JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY, tag = @Tag(name = "treeNode", handler = "org.richfaces.view.facelets.TreeNodeHandler"), renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"), attributes = {
+@JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY, tag = @Tag(name = "treeNode", handlerClass = TreeNodeHandler.class), renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"), attributes = {
         "tree-common-props.xml", "treeNode-props.xml", "events-mouse-props.xml", "events-key-props.xml", "core-props.xml",
         "i18n-props.xml", "immediate-prop.xml" })
 public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder,

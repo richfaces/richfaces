@@ -60,6 +60,7 @@ import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.core.MetaComponentEncoder;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.view.facelets.CalendarHandler;
 
 /**
  * <p> The &lt;rich:calendar&gt; component allows the user to enter a date and time through an in-line or pop-up
@@ -69,7 +70,7 @@ import org.richfaces.ui.core.MetaComponentResolver;
  * @author amarkhel
  */
 @JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), attributes = {
-        "position-props.xml", "popups-props.xml", "events-popups-props.xml" }, tag = @Tag(name = "calendar", handler = "org.richfaces.view.facelets.CalendarHandler"))
+        "position-props.xml", "popups-props.xml", "events-popups-props.xml" }, tag = @Tag(name = "calendar", handlerClass = CalendarHandler.class))
 public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
     public static final String DAYSDATA_META_COMPONENT_ID = "daysData";
     public static final String COMPONENT_TYPE = "org.richfaces.Calendar";

@@ -20,14 +20,10 @@
  */
 package org.richfaces.ui.validation;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.services.ServiceTracker;
-import org.richfaces.validator.BeanValidatorService;
-import org.richfaces.validator.FacesBeanValidator;
-import org.richfaces.validator.GraphValidatorState;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Collection;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
@@ -36,10 +32,15 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.Collection;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.services.ServiceTracker;
+import org.richfaces.validator.BeanValidatorService;
+import org.richfaces.validator.FacesBeanValidator;
+import org.richfaces.validator.GraphValidatorState;
+import org.richfaces.view.facelets.html.GraphValidatorHandler;
 
 /**
  * <p>The &lt;rich:graphValidator&gt; component is used to wrap a set of input components related to one object. The
@@ -47,7 +48,7 @@ import java.util.Collection;
  * all object properties, even those which are not bound to the individual form components. Validation performed in this
  * way allows for cross-field validation in complex forms.</p>
  */
-@JsfComponent(tag = @Tag(name = "graphValidator", type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.GraphValidatorHandler"))
+@JsfComponent(tag = @Tag(name = "graphValidator", type = TagType.Facelets, handlerClass = GraphValidatorHandler.class))
 public abstract class AbstractGraphValidator extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.GraphValidator";
     public static final String COMPONENT_FAMILY = "org.richfaces.GraphValidator";

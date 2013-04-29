@@ -32,6 +32,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.taglib.CollapsibleSubTableHandler;
 
 /**
  * <p> The &lt;rich:collapsibleSubTable&gt; component acts as a child element to a &lt;rich:dataTable&gt; component. The
@@ -40,7 +41,7 @@ import org.richfaces.cdk.annotations.TagType;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE, family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"), tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets), attributes = {
+@JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE, family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"), tag = @Tag(name = "collapsibleSubTable", handlerClass = CollapsibleSubTableHandler.class, type = TagType.Facelets), attributes = {
         "style-prop.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml", "events-row-props.xml" })
 public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTable";

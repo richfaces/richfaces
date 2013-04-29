@@ -20,6 +20,13 @@
  */
 package org.richfaces.ui.output;
 
+import java.util.Date;
+
+import javax.el.MethodExpression;
+import javax.faces.application.Resource;
+import javax.faces.application.ResourceHandler;
+import javax.faces.component.UIOutput;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -27,12 +34,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.resource.MediaOutputResource;
-
-import javax.el.MethodExpression;
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.component.UIOutput;
-import java.util.Date;
+import org.richfaces.view.facelets.html.MediaOutputHandler;
 
 /**
  * <p>
@@ -41,7 +43,7 @@ import java.util.Date;
  *
  * @author shura
  */
-@JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.html.MediaOutputHandler", type = TagType.Facelets),
+@JsfComponent(tag = @Tag(generate = false, handlerClass = MediaOutputHandler.class, type = TagType.Facelets),
         renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer"),
         attributes = {"events-mouse-props.xml", "events-key-props.xml", "focus-props.xml", "accesskey-props.xml", "i18n-props.xml"})
 public abstract class AbstractMediaOutput extends UIOutput {

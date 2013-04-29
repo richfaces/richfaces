@@ -21,6 +21,16 @@
  */
 package org.richfaces.ui.input;
 
+import java.io.IOException;
+
+import javax.el.MethodExpression;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -33,15 +43,7 @@ import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.ui.core.MetaComponentEncoder;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
-
-import javax.el.MethodExpression;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
+import org.richfaces.view.facelets.AutocompleteHandler;
 
 /**
  * <p>The &lt;rich:autocomplete&gt; component is an auto-completing input-box with built-in Ajax capabilities. It
@@ -49,7 +51,7 @@ import java.io.IOException;
  *
  * @author Nick Belaevski
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.AutocompleteHandler"),
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = AutocompleteHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"),
         attributes = {"focus-props.xml", "events-mouse-props.xml", "events-key-props.xml"})
 public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder {

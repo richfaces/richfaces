@@ -38,7 +38,7 @@ import org.richfaces.view.facelets.TagHandlerUtils;
  * @author Nick Belaevski
  *
  */
-@Event(listener = ActionListener.class, source = "org.richfaces.event.DummyActionListenerSource", tag = { @Tag(name = "actionListener", handler = "org.richfaces.view.facelets.html.ActionListenerHandler", generate = false, type = TagType.Facelets) })
+@Event(listener = ActionListener.class, source = "org.richfaces.event.DummyActionListenerSource", tag = { @Tag(name = "actionListener", handlerClass = ActionListenerHandler.class, generate = false, type = TagType.Facelets) })
 class LazyActionListener implements ActionListener, Serializable {
     /**
      *

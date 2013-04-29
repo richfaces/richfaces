@@ -22,31 +22,11 @@
  */
 package org.richfaces.ui.behavior;
 
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
-
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfBehavior;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.javascript.Message;
-import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.core.behavior.AjaxBehavior;
-import org.richfaces.ui.message.ClientSideMessage;
-import org.richfaces.ui.validation.ClientValidatorRenderer;
-import org.richfaces.ui.validation.FormClientValidatorRenderer;
-import org.richfaces.validator.BeanValidatorService;
-import org.richfaces.validator.ConverterDescriptor;
-import org.richfaces.validator.FacesBeanValidator;
-import org.richfaces.validator.FacesConverterService;
-import org.richfaces.validator.FacesValidatorService;
-import org.richfaces.validator.ValidatorDescriptor;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
@@ -69,11 +49,32 @@ import javax.faces.render.RenderKit;
 import javax.faces.validator.BeanValidator;
 import javax.faces.validator.Validator;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfBehavior;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.javascript.Message;
+import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.services.ServiceTracker;
+import org.richfaces.ui.core.behavior.AjaxBehavior;
+import org.richfaces.ui.message.ClientSideMessage;
+import org.richfaces.ui.validation.ClientValidatorRenderer;
+import org.richfaces.ui.validation.FormClientValidatorRenderer;
+import org.richfaces.validator.BeanValidatorService;
+import org.richfaces.validator.ConverterDescriptor;
+import org.richfaces.validator.FacesBeanValidator;
+import org.richfaces.validator.FacesConverterService;
+import org.richfaces.validator.FacesValidatorService;
+import org.richfaces.validator.ValidatorDescriptor;
+import org.richfaces.view.facelets.html.ClientValidatorHandler;
+
+import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Lists;
 
 /**
  * <p>The &lt;rich:validator&gt; behavior adds client-side validation to a form input control based on registered server-side validators. It provides this validation without the need to reproduce the server-side annotations.</p>
@@ -82,7 +83,7 @@ import java.util.Set;
  *
  * @author asmirnov@exadel.com
  */
-@JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handler = "org.richfaces.view.facelets.html.ClientValidatorHandler", type = TagType.Facelets), attributes = {
+@JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handlerClass = ClientValidatorHandler.class, type = TagType.Facelets), attributes = {
         "validator-props.xml", "immediate-prop.xml" })
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior {
     private static final Set<String> NONE = Collections.emptySet();
