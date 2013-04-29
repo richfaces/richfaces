@@ -43,7 +43,9 @@
         <ui:include src="/includes/album/albumsList.xhtml">
             <ui:param name="albums" value="#{event.albums}" />
         </ui:include>
-
-        <ui:include src="/includes/facebook/albumsList.xhtml" />
+        <br style="clear: both;" />
+        <ui:include src="/includes/facebook/albumsList.xhtml">
+            <ui:param name="showDownload" value="true" />
+        </ui:include>
     </r:region>
 </ui:composition>
