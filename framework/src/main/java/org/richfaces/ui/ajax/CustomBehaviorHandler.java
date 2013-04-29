@@ -28,8 +28,6 @@ import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.TagHandler;
 import javax.faces.view.facelets.TagHandlerDelegate;
 
-import org.richfaces.view.facelets.tag.BehaviorRule;
-
 /**
  * @author Anton Belevich
  *

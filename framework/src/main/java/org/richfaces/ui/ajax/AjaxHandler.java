@@ -47,7 +47,6 @@ import javax.faces.view.facelets.TagHandler;
 import org.richfaces.ui.ajax.BehaviorStack.BehaviorInfo;
 import org.richfaces.ui.common.TagHandlerUtils;
 import org.richfaces.ui.core.behavior.AjaxBehavior;
-import org.richfaces.view.facelets.tag.AjaxBehaviorRule;
 
 /**
  * @author Anton Belevich

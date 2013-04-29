@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.view.facelets.tag;
+package org.richfaces.ui.ajax;
 
 import javax.el.MethodExpression;
 import javax.faces.event.AjaxBehaviorEvent;
