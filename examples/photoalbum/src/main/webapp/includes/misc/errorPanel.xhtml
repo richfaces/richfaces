@@ -3,7 +3,7 @@
     xmlns:r="http://richfaces.org/rich">
     <r:outputPanel id="errors" ajaxRendered="true" layout="block">
         <h:panelGroup rendered="#{errorHandlerBean.errorExist}">
-            <r:popupPanel id="errorPanel" show="true" minWidth="300" minHeight="200" autosized="true">
+            <r:popupPanel id="errorPanel" show="true" minWidth="300" minHeight="200" autosized="true" domElementAttachment="form">
 
                 <f:facet name="header">
                     <h:outputText value="#{messages['error_occurred']}" />

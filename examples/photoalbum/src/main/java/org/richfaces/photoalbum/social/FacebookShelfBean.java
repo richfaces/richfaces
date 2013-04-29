@@ -27,7 +27,7 @@ public class FacebookShelfBean implements Serializable {
 
     private String currentAlbumId;
     private String currentImageId;
-    
+
     private int imageSize;
 
     public String getName() {
@@ -39,6 +39,11 @@ public class FacebookShelfBean implements Serializable {
     }
 
     public void setAlbums(Object json) throws JSONException {
+        if (((String) json).equals("{}")) {
+            albums = null;
+            images = null;
+            return;
+        }
         loadAlbums(new JSONArray((String) json));
     }
 
@@ -56,7 +61,7 @@ public class FacebookShelfBean implements Serializable {
                 albumId = jo.getString("aid");
                 images.put(albumId, null);
                 albums.put(albumId, jo);
-                
+
                 imageSize += jo.getInt("size");
             }
         }

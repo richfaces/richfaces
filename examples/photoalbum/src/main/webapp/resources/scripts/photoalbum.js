@@ -106,7 +106,7 @@ FBlogin = function(infoCb, photoCb) {
                     console.log('Good to see you, ' + response.first_name + '.');
                     console.log(response);
                     
-                    FBgetShelfAlbums(response.id, photoCb);
+                    //FBgetShelfAlbums(response.id, photoCb);
                 }
             });
         } else {
@@ -142,6 +142,36 @@ FBgetShelfAlbums = function(userId, callback) {
 
         if (response.status === "connected") {
             var query1 = "SELECT aid, cover_pid, name, created, size FROM album WHERE owner = " + userId;
+            var query2 = "SELECT src FROM photo WHERE pid IN (SELECT cover_pid FROM #q1)";
+            
+            FB.api('fql', {q: {"q1": query1, "q2": query2}}, 
+                function(response) {
+                    if (!response || response.error) {
+                        console.log('Error occured');
+                        console.log(response.error);
+                    } else {
+                        result = mergeResults(response.data[0].fql_result_set, response.data[1].fql_result_set);
+                        console.log(result);
+                        callback(JSON.stringify(result));
+                    }
+                }
+            );
+        }
+    });
+};
+ 
+
+// get info about albums specified by id - (e.g. "12345", "12347")
+FBgetAlbumsById = function(albumIds, callback) {
+    if (albumIds === "0") {
+        callback(JSON.stringify({}));
+        return;
+    }
+    
+    FB.getLoginStatus(function(response) {
+
+        if (response.status === "connected") {
+            var query1 = "SELECT aid, cover_pid, name, created, size FROM album WHERE aid IN (" + albumIds + ")";
             var query2 = "SELECT src FROM photo WHERE pid IN (SELECT cover_pid FROM #q1)";
             
             FB.api('fql', {q: {"q1": query1, "q2": query2}}, 

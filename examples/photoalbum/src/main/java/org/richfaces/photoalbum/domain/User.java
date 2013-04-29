@@ -52,7 +52,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Class for representing User Entity EJB3 Entity Bean
- *
+ * 
  * @author Andrey Markhel
  */
 
@@ -62,7 +62,7 @@ import org.hibernate.validator.constraints.NotEmpty;
         @NamedQuery(name = "user-exist", query = "select u from User u where u.login = :login"),
         @NamedQuery(name = "email-exist", query = "select u from User u where u.email = :email"),
         @NamedQuery(name = "user-user", query = "select u from User u where u.login = :login"),
-        @NamedQuery(name = "user-fb-login", query = "select u from User u where u.fbId = :fbId")})
+        @NamedQuery(name = "user-fb-login", query = "select u from User u where u.fbId = :fbId") })
 @Entity
 @SessionScoped
 @Table(name = "User", uniqueConstraints = { @UniqueConstraint(columnNames = "login"), @UniqueConstraint(columnNames = "email") })
@@ -73,7 +73,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @NotNull
     @NotEmpty
     @Column(length = 20)
@@ -122,7 +122,7 @@ public class User implements Serializable {
 
     @OrderBy(clause = "NAME asc")
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    //@LazyCollection(LazyCollectionOption.EXTRA)
+    // @LazyCollection(LazyCollectionOption.EXTRA)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Shelf> shelves = new ArrayList<Shelf>();
 
@@ -144,7 +144,7 @@ public class User implements Serializable {
     public void setFbId(String fbId) {
         this.fbId = fbId;
     }
-    
+
     public String getFirstName() {
         return firstName;
     }
@@ -237,7 +237,7 @@ public class User implements Serializable {
 
     /**
      * This method add shelf to collection of shelves, belongs to user
-     *
+     * 
      * @param shelf - shelf to add
      */
     public void addShelf(Shelf shelf) {
@@ -252,7 +252,7 @@ public class User implements Serializable {
 
     /**
      * This method remove shelf from collection of shelves, belongs to user
-     *
+     * 
      * @param shelf - shelf to remove
      */
     public void removeShelf(Shelf shelf) {
@@ -279,7 +279,7 @@ public class User implements Serializable {
 
     /**
      * This method return all images, belongs to user
-     *
+     * 
      * @return images, belongs to user
      */
     public List<Image> getImages() {
@@ -292,7 +292,7 @@ public class User implements Serializable {
 
     /**
      * This method return all albums, belongs to user
-     *
+     * 
      * @return albums, belongs to user
      */
     public List<Album> getAlbums() {
@@ -305,7 +305,7 @@ public class User implements Serializable {
 
     /**
      * This method return all images, belongs to user
-     *
+     * 
      * @return images, belongs to user
      */
     public List<Image> getSharedImages() {
@@ -323,7 +323,7 @@ public class User implements Serializable {
 
     /**
      * This method return all albums, belongs to user
-     *
+     * 
      * @return albums, belongs to user
      */
     public List<Album> getSharedAlbums() {
@@ -339,7 +339,7 @@ public class User implements Serializable {
 
     /**
      * This method check, if user already have shelf with given name
-     *
+     * 
      * @param shelf - shelf to check
      * @return boolean value, that indicated if shelf with the same name exist
      */
@@ -354,14 +354,22 @@ public class User implements Serializable {
 
     /**
      * This method check, if parent shelf contain album with the same name as given album
-     *
+     * 
      * @param album - album to check
      * @return boolean value, that indicate if album with the same name exist
      */
     public boolean hasAlbumWithName(Album album) {
-        for (Album a : album.getShelf().getAlbums()) {
-            if (!a.equals(album) && a.getName().equals(album.getName())) {
-                return true;
+        if (album.getShelf() != null) {
+            for (Album a : album.getShelf().getAlbums()) {
+                if (!a.equals(album) && a.getName().equals(album.getName())) {
+                    return true;
+                }
+            }
+        } else {
+            for (Album a : album.getEvent().getAlbums()) {
+                if (!a.equals(album) && a.getName().equals(album.getName())) {
+                    return true;
+                }
             }
         }
         return false;
@@ -369,7 +377,7 @@ public class User implements Serializable {
 
     /**
      * This method check, if containing album already have image with the same name
-     *
+     * 
      * @param image - image to check
      * @return boolean value, that indicate if image with the same name exist
      */

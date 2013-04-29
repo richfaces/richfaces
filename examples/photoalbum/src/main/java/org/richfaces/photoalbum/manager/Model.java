@@ -24,13 +24,13 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.richfaces.photoalbum.domain.Album;
+import org.richfaces.photoalbum.domain.Event;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.Shelf;
@@ -63,6 +63,8 @@ public class Model implements Serializable {
     private Shelf selectedShelf;
 
     private MetaTag selectedTag;
+    
+    private Event selectedEvent;
 
     private NavigationEnum mainArea = NavigationEnum.ANONYM;
 
@@ -70,7 +72,7 @@ public class Model implements Serializable {
 
     @Inject
     @Any
-    Event<SimpleEvent> event;
+    javax.enterprise.event.Event<SimpleEvent> event;
     @Inject
     MetaTag metatag;
 
@@ -93,6 +95,13 @@ public class Model implements Serializable {
         // this.setMainArea(mainArea);
         this.mainArea = mainArea;
         this.images = images;
+    }
+    
+    public void resetModel(NavigationEnum mainArea, User selectedUser, Shelf selectedShelf, Album selectedAlbum,
+        Image selectedImage, List<Image> images, Event selectedEvent) {
+        
+        resetModel(mainArea, selectedUser, selectedShelf, selectedAlbum, selectedImage, images);
+        this.selectedEvent = selectedEvent;
     }
 
     /**
@@ -171,5 +180,13 @@ public class Model implements Serializable {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public Event getSelectedEvent() {
+        return selectedEvent;
+    }
+
+    public void setSelectedEvent(Event selectedEvent) {
+        this.selectedEvent = selectedEvent;
     }
 }

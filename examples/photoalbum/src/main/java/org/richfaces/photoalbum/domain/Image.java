@@ -46,6 +46,9 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
@@ -69,16 +72,19 @@ import org.richfaces.photoalbum.service.ActionTools;
  * @author Andrey Markhel
  */
 @Entity
+@JsonAutoDetect(fieldVisibility=Visibility.NONE, getterVisibility=Visibility.NONE, isGetterVisibility=Visibility.NONE)
 public class Image implements Serializable {
 
     private static final long serialVersionUID = -7042878411608396483L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty
     private Long id;
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonProperty
     private List<MetaTag> imageTags = new ArrayList<MetaTag>();
 
     @OrderBy(clause = "date asc")
@@ -96,6 +102,7 @@ public class Image implements Serializable {
     @NotEmpty
     @Length(min = 3, max = 200)
     @Column(length = 255, nullable = false)
+    @JsonProperty
     private String name;
 
     @Transient
@@ -108,6 +115,7 @@ public class Image implements Serializable {
     private String path;
 
     @Column(length = 255)
+    @JsonProperty
     private String cameraModel;
 
     private int height;
@@ -123,6 +131,7 @@ public class Image implements Serializable {
     @NotEmpty
     @Length(min = 3)
     @Column(length = 1024)
+    @JsonProperty
     private String description;
 
     @Temporal(TemporalType.TIMESTAMP)
