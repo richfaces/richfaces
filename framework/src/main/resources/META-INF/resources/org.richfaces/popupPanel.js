@@ -364,12 +364,14 @@
 
 
                     this.div.css('visibility', '');
-                    $(this.cdiv).find('*').each(function() {
-                        // Force a CSS "touch" of all popupPanel children to ensure visibility in IE 9/10
-                        var $this = $(this);
-                        var visibility = $this.css('visibility');
-                        $this.css('visibility', visibility);
-                    })
+                    if ($.browser.msie && $.browser.version >= 9.0 && document.documentMode >= 9) {
+                        $(this.cdiv).find('input').each(function() {
+                            // Force a CSS "touch" of all popupPanel children to ensure visibility in IE 9/10 for RF-12850
+                            var $this = $(this);
+                            var visibility = $this.css('visibility');
+                            $this.css('visibility', visibility);
+                        })
+                    }
                     this.div.css('display', 'block');
                     if (this.options.autosized) {
                         this.shadowDiv.css('width', this.cdiv[0].clientWidth);
