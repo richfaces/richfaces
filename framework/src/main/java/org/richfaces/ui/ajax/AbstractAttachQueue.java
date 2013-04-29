@@ -39,7 +39,6 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.core.behavior.AjaxBehavior;
 import org.richfaces.util.AjaxRendererUtils;
-import org.richfaces.view.facelets.html.AttachQueueHandler;
 
 /**
  * <p>

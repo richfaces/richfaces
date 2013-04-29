@@ -44,7 +44,6 @@ import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.taglib.DataGridHandler;
 import org.richfaces.ui.core.MetaComponentEncoder;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;

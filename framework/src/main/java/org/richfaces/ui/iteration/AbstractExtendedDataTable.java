@@ -43,7 +43,6 @@ import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.SelectionMode;
-import org.richfaces.taglib.ExtendedDataTableHandler;
 import org.richfaces.ui.core.MetaComponentEncoder;
 import org.richfaces.ui.core.MetaComponentResolver;
 

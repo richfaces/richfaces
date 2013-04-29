@@ -38,7 +38,6 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.view.facelets.FileUploadHandler;
 
 /**
  * <p> The &lt;rich:fileUpload&gt; component allows the user to upload files to a server. It features multiple uploads,

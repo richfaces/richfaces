@@ -71,7 +71,6 @@ import org.richfaces.ui.core.MetaComponentResolver;
 import org.richfaces.ui.iteration.UIRepeat;
 import org.richfaces.util.MessageUtil;
 import org.richfaces.util.RendererUtils;
-import org.richfaces.view.facelets.html.TogglePanelTagHandler;
 
 import com.google.common.base.Strings;
 

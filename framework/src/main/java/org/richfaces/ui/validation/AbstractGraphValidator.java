@@ -40,7 +40,6 @@ import org.richfaces.services.ServiceTracker;
 import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.FacesBeanValidator;
 import org.richfaces.validator.GraphValidatorState;
-import org.richfaces.view.facelets.html.GraphValidatorHandler;
 
 /**
  * <p>The &lt;rich:graphValidator&gt; component is used to wrap a set of input components related to one object. The

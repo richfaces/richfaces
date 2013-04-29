@@ -29,7 +29,6 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.taglib.DataTableHandler;
 
 /**
  * <p> The &lt;rich:dataTable&gt; component is used to render a table, including the table's caption. It works in

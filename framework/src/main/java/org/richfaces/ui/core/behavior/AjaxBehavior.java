@@ -44,10 +44,10 @@ import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.ui.ajax.AjaxHandler;
 import org.richfaces.ui.behavior.ClientBehavior;
 import org.richfaces.ui.core.AjaxClientBehavior;
 import org.richfaces.util.Sets;
-import org.richfaces.view.facelets.html.AjaxHandler;
 
 /**
  * <p>

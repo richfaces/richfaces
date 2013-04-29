@@ -38,7 +38,6 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.l10n.Messages;
 import org.richfaces.ui.core.JavaScriptParameter;
 import org.richfaces.util.PartialStateHolderUtil;
-import org.richfaces.view.facelets.html.ParameterHandler;
 
 /**
  * <p>

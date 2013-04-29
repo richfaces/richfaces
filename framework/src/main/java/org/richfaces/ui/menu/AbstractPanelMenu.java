@@ -40,7 +40,7 @@ import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.ItemChangeListener;
 import org.richfaces.event.ItemChangeSource;
 import org.richfaces.ui.common.PanelIcons;
-import org.richfaces.view.facelets.html.PanelMenuTagHandler;
+import org.richfaces.ui.output.PanelMenuTagHandler;
 
 /**
  * <p>The &lt;rich:panelMenu&gt; component is used in conjunction with &lt;rich:panelMenuItem&gt; and

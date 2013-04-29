@@ -24,7 +24,6 @@ package org.richfaces.ui.iteration;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.view.facelets.TreeModelRecursiveAdaptorHandler;
 
 /**
  * <p>The <rich:treeModelRecursiveAdaptor> component iterates through recursive collections in order to populate a tree

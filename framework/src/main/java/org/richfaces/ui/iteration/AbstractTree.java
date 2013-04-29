@@ -77,7 +77,6 @@ import org.richfaces.ui.core.MetaComponentEncoder;
 import org.richfaces.ui.core.MetaComponentRenderer;
 import org.richfaces.ui.core.MetaComponentResolver;
 import org.richfaces.util.MessageUtil;
-import org.richfaces.view.facelets.TreeHandler;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
