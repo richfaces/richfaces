@@ -23,13 +23,13 @@ package org.richfaces.photoalbum.manager;
 import java.io.Serializable;
 
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.richfaces.photoalbum.domain.Album;
+import org.richfaces.photoalbum.domain.Event;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.Shelf;
@@ -77,11 +77,11 @@ public class Controller implements Serializable {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    Event<SimpleEvent> error;
+    javax.enterprise.event.Event<SimpleEvent> error;
     @Inject
     @Any
-    Event<SimpleEvent> event;
-    
+    javax.enterprise.event.Event<SimpleEvent> event;
+
     @Inject
     FacebookShelfBean fsBean;
 
@@ -159,7 +159,12 @@ public class Controller implements Serializable {
             return;
         }
         setPage(0); // reset page when album changes/resets
-        model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), album.getShelf(), album, null, album.getImages());
+        if (album.getShelf() != null) {
+            model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), album.getShelf(), album, null, album.getImages());
+        }
+        else {
+            model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), null, album, null, album.getImages(), album.getEvent());
+        }
     }
 
     public void showFBAlbum() {
@@ -169,6 +174,10 @@ public class Controller implements Serializable {
     public void showFbImage(String imageId) {
         fsBean.setCurrentImageId(imageId);
         model.resetModel(NavigationEnum.FB_IMAGE_PREVIEW, loggedUser, null, null, null, null);
+    }
+
+    public void showFbShelf() {
+        model.resetModel(NavigationEnum.FB_SHELF, loggedUser, null, null, null, null);
     }
 
     /**
@@ -270,6 +279,10 @@ public class Controller implements Serializable {
         model.resetModel(NavigationEnum.SHELF_PREVIEW, shelf.getOwner(), shelf, null, null, null);
     }
 
+    public void showEvent(Event event) {
+        model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, event);
+    }
+
     /**
      * This method invoked after the user want to edit specified album.
      *
@@ -357,6 +370,18 @@ public class Controller implements Serializable {
     public void onShelfEdited(@Observes @EventType(Events.SHELF_EDITED_EVENT) ShelfEvent se) {
         Shelf shelf = se.getShelf();
         model.resetModel(NavigationEnum.SHELF_PREVIEW, shelf.getOwner(), shelf, null, null, null);
+    }
+
+    public void onEventDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
+        model.resetModel(NavigationEnum.ANONYM, loggedUser, null, null, null, null, null);
+    }
+
+    public void onEventAdded(@Observes @EventType(Events.EVENT_ADDED_EVENT) ShelfEvent se) {
+        model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, se.getEvent());
+    }
+
+    public void onEventEdited(@Observes @EventType(Events.SHELF_EDITED_EVENT) ShelfEvent se) {
+        model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, se.getEvent());
     }
 
     /**
@@ -581,7 +606,7 @@ public class Controller implements Serializable {
     }
 
     private boolean canViewAlbum(Album album) {
-        return album != null && album.getShelf() != null && (album.getShelf().isShared() || album.isOwner(loggedUser));
+        return album != null && (album.getShelf() != null && (album.getShelf().isShared() || album.isOwner(loggedUser)) || album.getEvent() != null);
     }
 
     private boolean canViewImage(Image image) {

@@ -25,11 +25,11 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
-import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.richfaces.photoalbum.domain.Album;
+import org.richfaces.photoalbum.domain.Event;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
@@ -40,6 +40,8 @@ import org.richfaces.photoalbum.event.ImageEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IAlbumAction;
+import org.richfaces.photoalbum.service.IEventAction;
+import org.richfaces.photoalbum.service.PhotoAlbumException;
 import org.richfaces.photoalbum.util.Preferred;
 import org.richfaces.photoalbum.util.Utils;
 import org.richfaces.ui.drag.DropEvent;
@@ -59,24 +61,28 @@ public class DnDManager implements DropListener {
     IAlbumAction albumAction;
 
     @Inject
+    IEventAction eventAction;
+
+    @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    Event<SimpleEvent> error;
+    javax.enterprise.event.Event<SimpleEvent> error;
     @Inject
     @EventType(Events.ALBUM_DRAGGED_EVENT)
-    Event<AlbumEvent> albumEvent;
+    javax.enterprise.event.Event<AlbumEvent> albumEvent;
     @Inject
     @EventType(Events.IMAGE_DRAGGED_EVENT)
-    Event<ImageEvent> imageEvent;
+    javax.enterprise.event.Event<ImageEvent> imageEvent;
 
     /**
      * Listenet, that invoked during drag'n'drop process. Only registered users can drag images.
-     *
+     * 
      * @param event - event, indicated that drag'n'drop started
      */
-    //@AdminRestricted
+    // @AdminRestricted
     public void processDrop(DropEvent dropEvent) {
-        if (user == null) return;
-        //Dropzone dropzone = (Dropzone) dropEvent.getComponent();
+        if (user == null)
+            return;
+        // Dropzone dropzone = (Dropzone) dropEvent.getComponent();
         Object dragValue = dropEvent.getDragValue();
         Object dropValue = dropEvent.getDropValue();
         if (dragValue instanceof Image) {
@@ -130,4 +136,41 @@ public class DnDManager implements DropListener {
         Utils.addToRerender(Constants.TREE_ID);
     }
 
+    public void addAlbumToEvent(DropEvent dropEvent) {
+        if (user == null)
+            return;
+        
+        Object dragValue = dropEvent.getDragValue();
+        Event event = (Event) dropEvent.getDropValue();
+        
+        if (dragValue instanceof Album) {
+            Album album = (Album) dragValue;
+            
+            event.getAlbums().add(album);
+            album.setEvent(event);
+
+            try {
+                albumAction.editAlbum(album);
+                eventAction.editEvent(event);
+            } catch (PhotoAlbumException e) {
+                error.fire(new SimpleEvent(Constants.ERROR_IN_DB + e.getMessage()));
+            }
+            return;
+        }
+        
+        if (dragValue instanceof String) {
+            String aid = (String) dragValue;
+            
+            event.getFacebookAlbums().add(aid);
+            
+            try {
+                eventAction.editEvent(event);
+            } catch (PhotoAlbumException e) {
+                error.fire(new SimpleEvent(Constants.ERROR_IN_DB + e.getMessage()));
+            }
+        }
+        
+
+        
+    }
 }

@@ -1,5 +1,6 @@
 package org.richfaces.photoalbum.event;
 
+import org.richfaces.photoalbum.domain.Event;
 import org.richfaces.photoalbum.domain.Shelf;
 
 /**
@@ -12,8 +13,14 @@ public class ShelfEvent {
     private Shelf shelf;
     private String path;
 
+    private Event event;
+    
     public ShelfEvent(Shelf shelf) {
         this.shelf = shelf;
+    }
+    
+    public ShelfEvent(Event event) {
+        this.event = event;
     }
 
     public ShelfEvent(Shelf shelf, String path) {
@@ -28,4 +35,14 @@ public class ShelfEvent {
     public String getPath() {
         return path;
     }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+    
+    
 }
