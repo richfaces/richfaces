@@ -159,7 +159,12 @@ public class Controller implements Serializable {
             return;
         }
         setPage(0); // reset page when album changes/resets
-        model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), album.getShelf(), album, null, album.getImages());
+        if (album.getShelf() != null) {
+            model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), album.getShelf(), album, null, album.getImages());
+        }
+        else {
+            model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), null, album, null, album.getImages(), album.getEvent());
+        }
     }
 
     public void showFBAlbum() {
@@ -601,7 +606,7 @@ public class Controller implements Serializable {
     }
 
     private boolean canViewAlbum(Album album) {
-        return album != null && album.getShelf() != null && (album.getShelf().isShared() || album.isOwner(loggedUser));
+        return album != null && (album.getShelf() != null && (album.getShelf().isShared() || album.isOwner(loggedUser)) || album.getEvent() != null);
     }
 
     private boolean canViewImage(Image image) {

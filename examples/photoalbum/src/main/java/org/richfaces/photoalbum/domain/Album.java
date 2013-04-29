@@ -276,7 +276,6 @@ public class Album implements Serializable {
      * This method determine is album empty or not
      *
      */
-    @JsonIgnore
     public boolean isEmpty() {
         return images == null || images.isEmpty();
     }
@@ -295,8 +294,13 @@ public class Album implements Serializable {
      *
      */
     public String getPath() {
-        if (getShelf().getPath() == null) {
-            return null;
+        if (getShelf() != null) {
+            if (getShelf().getPath() == null) {
+                return null;
+            }
+        }
+        else {
+            return File.separator + "event" + File.separator + this.getId() + File.separator;
         }
         return getShelf().getPath() + this.getId() + File.separator;
     }
@@ -329,7 +333,7 @@ public class Album implements Serializable {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + name.hashCode();
-        result = 31 * result + shelf.hashCode();
+        result = 31 * result + (shelf != null ? shelf.hashCode(): event.hashCode());
         return result;
     }
 
