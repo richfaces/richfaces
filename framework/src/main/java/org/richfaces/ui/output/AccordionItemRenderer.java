@@ -24,13 +24,14 @@ package org.richfaces.ui.output;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.ui.iteration.TableIconsRendererHelper;
+import org.richfaces.ui.common.TableIconsRendererHelper;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.Map;
 

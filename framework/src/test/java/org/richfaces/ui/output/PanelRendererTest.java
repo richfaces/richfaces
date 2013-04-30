@@ -71,7 +71,7 @@ public class PanelRendererTest {
     }
 
     /**
-     * Test method for {@link org.richfaces.ui.iteration.ExtendedDataTableRenderer#getComponentClass()}.
+     * Test method for {@link org.richfaces.ui.iteration.extendedDataTable.ExtendedDataTableRenderer#getComponentClass()}.
      *
      * @throws IOException
      */
@@ -88,7 +88,7 @@ public class PanelRendererTest {
 
     /**
      * Test method for
-     * {@link org.richfaces.ui.iteration.ExtendedDataTableRenderer#doEncodeBegin(javax.faces.context.ResponseWriter, javax.faces.context.FacesContext, javax.faces.component.UIComponent)}
+     * {@link org.richfaces.ui.iteration.extendedDataTable.ExtendedDataTableRenderer#doEncodeBegin(javax.faces.context.ResponseWriter, javax.faces.context.FacesContext, javax.faces.component.UIComponent)}
      * .
      *
      * @throws IOException

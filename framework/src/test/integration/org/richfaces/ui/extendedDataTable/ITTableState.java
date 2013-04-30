@@ -33,9 +33,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import org.richfaces.ui.iteration.AbstractExtendedDataTable;
-import org.richfaces.ui.iteration.ExtendedDataTableState;
-import org.richfaces.ui.iteration.UIColumn;
+import org.richfaces.ui.iteration.column.UIColumn;
+import org.richfaces.ui.iteration.extendedDataTable.AbstractExtendedDataTable;
+import org.richfaces.ui.iteration.extendedDataTable.ExtendedDataTableState;
 
 @RunAsClient
 @WarpTest

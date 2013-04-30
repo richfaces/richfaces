@@ -7,7 +7,6 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.common.Positioning;
-import org.richfaces.ui.drag.AbstractDropDownMenu;
 
 import javax.faces.component.UIOutput;
 

@@ -1,10 +1,10 @@
 package org.richfaces.ui.menu;
 
 import org.richfaces.renderkit.RendererBase;
-import org.richfaces.ui.drag.AbstractDropDownMenu;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
 import java.io.IOException;
 
 public abstract class MenuGroupRendererBase extends RendererBase {

@@ -63,7 +63,6 @@ import org.richfaces.ui.ajax.ajax.AjaxBehavior;
 import org.richfaces.ui.behavior.AnonymousFunctionCall;
 import org.richfaces.ui.behavior.ClientValidatorBehavior;
 import org.richfaces.ui.behavior.ConverterNotFoundException;
-import org.richfaces.ui.behavior.MessageUpdateScript;
 import org.richfaces.ui.message.ClientSideMessage;
 import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.ConverterDescriptor;

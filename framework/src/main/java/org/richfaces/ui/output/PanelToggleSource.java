@@ -22,6 +22,7 @@
 package org.richfaces.ui.output;
 
 import org.richfaces.event.PanelToggleListener;
+import org.richfaces.ui.common.PanelToggleEvent;
 
 /**
  * @author akolonitsky

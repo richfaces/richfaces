@@ -24,7 +24,7 @@ package org.richfaces.ui.output;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.ui.common.PanelIcons;
-import org.richfaces.ui.iteration.TableIconsRendererHelper;
+import org.richfaces.ui.common.TableIconsRendererHelper;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

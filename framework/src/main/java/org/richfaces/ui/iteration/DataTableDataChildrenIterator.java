@@ -26,6 +26,9 @@ import com.google.common.collect.Iterators;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+
+import org.richfaces.ui.iteration.column.AbstractColumn;
+
 import java.util.Iterator;
 
 /**

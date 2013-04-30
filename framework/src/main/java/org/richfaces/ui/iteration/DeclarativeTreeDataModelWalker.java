@@ -28,6 +28,9 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.DeclarativeModelKey;
 import org.richfaces.model.SequenceRowKey;
 import org.richfaces.ui.common.ComponentPredicates;
+import org.richfaces.ui.iteration.tree.AbstractTree;
+import org.richfaces.ui.iteration.tree.TreeModelAdaptor;
+import org.richfaces.ui.iteration.tree.TreeModelRecursiveAdaptor;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

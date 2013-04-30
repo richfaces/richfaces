@@ -23,8 +23,8 @@ package org.richfaces.ui.menu;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
+import org.richfaces.ui.common.DivPanelRenderer;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.output.DivPanelRenderer;
 import org.richfaces.util.HtmlUtil;
 
 import javax.faces.application.ResourceDependencies;

@@ -30,6 +30,7 @@ import javax.faces.view.facelets.TagConfig;
 
 import org.richfaces.event.PanelToggleListener;
 import org.richfaces.ui.common.EventListenerHandler;
+import org.richfaces.ui.common.PanelToggleEvent;
 
 /**
  *

@@ -68,7 +68,7 @@ import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
-import org.richfaces.ui.iteration.UIRepeat;
+import org.richfaces.ui.iteration.repeat.UIRepeat;
 import org.richfaces.util.MessageUtil;
 import org.richfaces.util.RendererUtils;
 

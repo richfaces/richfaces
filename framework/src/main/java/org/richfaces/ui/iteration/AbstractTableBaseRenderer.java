@@ -22,11 +22,13 @@
 package org.richfaces.ui.iteration;
 
 import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.iteration.column.AbstractColumn;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;

@@ -27,6 +27,7 @@ import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.ui.behavior.HandlersChain;
 import org.richfaces.ui.common.AjaxOptions;
+import org.richfaces.ui.common.DivPanelRenderer;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;

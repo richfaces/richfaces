@@ -24,7 +24,7 @@ package org.richfaces.event;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesListener;
 
-import org.richfaces.ui.output.PanelToggleEvent;
+import org.richfaces.ui.common.PanelToggleEvent;
 
 /**
  * <p>

@@ -21,8 +21,25 @@
  */
 package org.richfaces.ui.iteration;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterators;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.Nullable;
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PreRenderComponentEvent;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -44,26 +61,10 @@ import org.richfaces.model.SortMode;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
+import org.richfaces.ui.iteration.column.AbstractColumn;
 
-import javax.annotation.Nullable;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PreRenderComponentEvent;
-
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterators;
 
 public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
     public static final String COMPONENT_FAMILY = "org.richfaces.Data";
@@ -217,7 +218,7 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         return new DataTableDataChildrenIterator(this);
     }
 
-    protected boolean hasRowChildren() {
+    public boolean hasRowChildren() {
         return Iterators.tryFind(getChildren().iterator(), isRow).isPresent();
     }
 

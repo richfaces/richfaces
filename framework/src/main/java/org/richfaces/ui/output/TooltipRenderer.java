@@ -26,6 +26,7 @@ import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.services.ServiceTracker;
+import org.richfaces.ui.common.DivPanelRenderer;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;

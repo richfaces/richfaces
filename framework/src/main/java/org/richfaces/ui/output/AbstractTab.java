@@ -30,6 +30,7 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.attribute.AjaxProps;
 import org.richfaces.ui.common.AbstractActionComponent;
 import org.richfaces.ui.common.ComponentIterators;
+import org.richfaces.ui.common.DivPanelRenderer;
 import org.richfaces.ui.common.SwitchType;
 
 import javax.faces.component.UIComponent;

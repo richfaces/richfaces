@@ -44,6 +44,8 @@ import org.richfaces.model.FilterField;
 import org.richfaces.model.Range;
 import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
+import org.richfaces.ui.iteration.column.UIColumn;
+import org.richfaces.ui.iteration.dataTable.UIDataTable;
 
 /**
  * @author Konstantin Mishin

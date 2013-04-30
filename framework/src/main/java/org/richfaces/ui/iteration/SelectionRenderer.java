@@ -25,10 +25,12 @@ import org.richfaces.model.DataVisitResult;
 import org.richfaces.model.DataVisitor;
 import org.richfaces.model.SequenceRange;
 import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.iteration.extendedDataTable.AbstractExtendedDataTable;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;

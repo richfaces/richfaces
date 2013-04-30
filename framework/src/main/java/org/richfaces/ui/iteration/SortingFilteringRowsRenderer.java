@@ -22,6 +22,7 @@
 package org.richfaces.ui.iteration;
 
 import org.richfaces.model.SortMode;
+import org.richfaces.ui.iteration.column.AbstractColumn;
 import org.richfaces.validator.MessageFactory;
 
 import javax.el.ELContext;
@@ -31,6 +32,7 @@ import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;

@@ -21,9 +21,8 @@
  */
 package org.richfaces.ui.iteration;
 
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.meta.MetaComponentRenderer;
-import org.richfaces.util.HtmlUtil;
+import java.io.IOException;
+import java.util.Iterator;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -31,8 +30,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import java.io.IOException;
-import java.util.Iterator;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.util.HtmlUtil;
 
 /**
  * @author Anton Belevich
@@ -66,7 +66,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         return rowHolder;
     }
 
-    protected class SimpleHeaderEncodeStrategy implements EncodeStrategy {
+    public class SimpleHeaderEncodeStrategy implements EncodeStrategy {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent column, Object[] params) throws IOException {
         }
 

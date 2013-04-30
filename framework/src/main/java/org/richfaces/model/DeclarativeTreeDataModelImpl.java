@@ -27,10 +27,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import org.richfaces.ui.iteration.AbstractTree;
 import org.richfaces.ui.iteration.DeclarativeTreeDataModelWalker;
-import org.richfaces.ui.iteration.TreeModelAdaptor;
-import org.richfaces.ui.iteration.TreeModelRecursiveAdaptor;
+import org.richfaces.ui.iteration.tree.AbstractTree;
+import org.richfaces.ui.iteration.tree.TreeModelAdaptor;
+import org.richfaces.ui.iteration.tree.TreeModelRecursiveAdaptor;
 import org.richfaces.convert.DeclarativeModelSequenceKeyConverter;
 import org.richfaces.model.iterators.DeclarativeTreeDataModelCompositeTuplesIterator;
 

@@ -36,6 +36,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.PanelToggleListener;
+import org.richfaces.ui.common.PanelToggleEvent;
 
 /**
  * <p>

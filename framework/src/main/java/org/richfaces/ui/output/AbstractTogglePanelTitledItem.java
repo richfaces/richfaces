@@ -23,6 +23,7 @@ package org.richfaces.ui.output;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.ui.common.DivPanelRenderer;
 
 /**
  * @author akolonitsky

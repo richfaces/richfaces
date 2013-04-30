@@ -44,7 +44,7 @@ import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.social.FacebookShelfBean;
 import org.richfaces.photoalbum.util.Preferred;
-import org.richfaces.ui.iteration.AbstractTree;
+import org.richfaces.ui.iteration.tree.AbstractTree;
 
 /**
  * This class represent 'C' in MVC pattern. It is logic that determine what actions invoked and what next page need to be

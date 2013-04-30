@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.richfaces.ui.iteration.CollapsibleSubTableToggleEvent;
+import org.richfaces.ui.iteration.collapsibleSubTable.CollapsibleSubTableToggleEvent;
 
 public class Employee {
     private static String[] phoneNames = { "Cell phone", "Work phone", "Home phone" };

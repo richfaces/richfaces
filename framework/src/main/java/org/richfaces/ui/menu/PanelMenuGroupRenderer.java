@@ -22,15 +22,17 @@
 package org.richfaces.ui.menu;
 
 import com.google.common.base.Strings;
+
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
-import org.richfaces.ui.iteration.TableIconsRendererHelper;
-import org.richfaces.ui.output.DivPanelRenderer;
+import org.richfaces.ui.common.DivPanelRenderer;
+import org.richfaces.ui.common.TableIconsRendererHelper;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

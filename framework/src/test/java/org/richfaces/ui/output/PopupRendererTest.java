@@ -72,7 +72,7 @@ public class PopupRendererTest {
 
     /**
      * Test method for
-     * {@link org.richfaces.ui.iteration.ExtendedDataTableRenderer#doEncodeBegin(javax.faces.context.ResponseWriter, javax.faces.context.FacesContext, javax.faces.component.UIComponent)}
+     * {@link org.richfaces.ui.iteration.extendedDataTable.ExtendedDataTableRenderer#doEncodeBegin(javax.faces.context.ResponseWriter, javax.faces.context.FacesContext, javax.faces.component.UIComponent)}
      * .
      *
      * @throws IOException

@@ -28,8 +28,8 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 
 import org.richfaces.ui.common.ComponentPredicates;
-import org.richfaces.ui.iteration.TreeModelAdaptor;
-import org.richfaces.ui.iteration.TreeModelRecursiveAdaptor;
+import org.richfaces.ui.iteration.tree.TreeModelAdaptor;
+import org.richfaces.ui.iteration.tree.TreeModelRecursiveAdaptor;
 import org.richfaces.model.SequenceRowKey;
 import org.richfaces.model.TreeDataModelTuple;
 

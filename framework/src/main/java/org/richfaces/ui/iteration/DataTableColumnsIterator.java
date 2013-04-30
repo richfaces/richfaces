@@ -21,11 +21,14 @@
  */
 package org.richfaces.ui.iteration;
 
-import com.google.common.collect.AbstractIterator;
+import java.util.Iterator;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
-import java.util.Iterator;
+
+import org.richfaces.ui.iteration.column.Column;
+
+import com.google.common.collect.AbstractIterator;
 
 /**
  * Iterator for all children table columns.
@@ -33,7 +36,7 @@ import java.util.Iterator;
  * @author asmirnov
  *
  */
-class DataTableColumnsIterator extends AbstractIterator<UIComponent> {
+public class DataTableColumnsIterator extends AbstractIterator<UIComponent> {
     private Iterator<UIComponent> childrenIterator;
 
     public DataTableColumnsIterator(UIComponent component) {
