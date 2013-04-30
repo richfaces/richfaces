@@ -29,8 +29,8 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.util.InputUtils;
 
 import javax.el.ELException;

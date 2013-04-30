@@ -24,7 +24,6 @@ package org.richfaces.ui.iteration;
 import org.jboss.test.faces.AbstractFacesTest;
 import org.richfaces.model.ExtendedDataModel;
 import org.richfaces.model.SequenceDataModel;
-import org.richfaces.ui.core.IterationStateHolder;
 
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
@@ -43,6 +42,7 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.event.ValueChangeListener;
 import javax.faces.model.ListDataModel;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;

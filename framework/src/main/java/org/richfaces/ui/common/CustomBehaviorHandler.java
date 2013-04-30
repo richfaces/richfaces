@@ -28,8 +28,8 @@ import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.TagHandler;
 import javax.faces.view.facelets.TagHandlerDelegate;
 
+import org.richfaces.ui.ajax.queue.AttachQueueHandler;
 import org.richfaces.ui.behavior.BehaviorTagHandlerDelegate;
-import org.richfaces.ui.core.queue.AttachQueueHandler;
 
 /**
  * @author Anton Belevich

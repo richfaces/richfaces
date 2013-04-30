@@ -30,9 +30,9 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.ui.common.Positioning;
-import org.richfaces.ui.core.MetaComponentEncoder;
-import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.ui.common.meta.MetaComponentEncoder;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -40,6 +40,7 @@ import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+
 import java.io.IOException;
 
 /**

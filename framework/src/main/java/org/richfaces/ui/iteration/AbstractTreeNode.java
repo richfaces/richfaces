@@ -43,10 +43,9 @@ import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.event.TreeToggleListener;
-import org.richfaces.ui.core.IterationStateHolder;
-import org.richfaces.ui.core.MetaComponentEncoder;
-import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.ui.common.meta.MetaComponentEncoder;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 /**
  * <p> The <rich:treeNode> component is a child component of the <rich:tree> component. It represents nodes in the

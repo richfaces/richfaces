@@ -5,8 +5,8 @@
     <render-kit>
         <render-kit-id>HTML_BASIC</render-kit-id>
         <client-behavior-renderer>
-            <client-behavior-renderer-type>org.ajax4jsf.behavior.Ajax</client-behavior-renderer-type>
-            <client-behavior-renderer-class>org.richfaces.ui.core.ajax.AjaxBehaviorRenderer</client-behavior-renderer-class>
+            <client-behavior-renderer-type>org.richfaces.behavior.Ajax</client-behavior-renderer-type>
+            <client-behavior-renderer-class>org.richfaces.ui.ajax.ajax.AjaxBehaviorRenderer</client-behavior-renderer-class>
         </client-behavior-renderer>
     </render-kit>
 </faces-config>

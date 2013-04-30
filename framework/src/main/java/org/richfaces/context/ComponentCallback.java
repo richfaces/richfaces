@@ -32,7 +32,7 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.ui.core.AjaxClientBehavior;
+import org.richfaces.ui.ajax.ajax.AjaxClientBehavior;
 import org.richfaces.util.Sets;
 
 /**

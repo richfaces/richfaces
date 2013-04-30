@@ -41,9 +41,9 @@ import org.richfaces.model.FilterField;
 import org.richfaces.model.Range;
 import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
-import org.richfaces.ui.core.MetaComponentEncoder;
-import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.ui.common.meta.MetaComponentEncoder;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 import javax.annotation.Nullable;
 import javax.faces.component.UIComponent;

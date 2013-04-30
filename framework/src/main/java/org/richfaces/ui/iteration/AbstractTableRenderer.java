@@ -22,7 +22,7 @@
 package org.richfaces.ui.iteration;
 
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.core.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.util.HtmlUtil;
 
 import javax.faces.application.ResourceDependencies;

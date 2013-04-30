@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.junit.rules.MethodRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
-import org.richfaces.ui.core.queue.QueueRegistry;
+import org.richfaces.ui.ajax.queue.QueueRegistry;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

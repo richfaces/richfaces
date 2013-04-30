@@ -26,10 +26,10 @@ import com.google.common.base.Predicate;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.ui.common.ComponentIterators;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.PanelIcons;
 import org.richfaces.ui.common.PanelIcons.State;
-import org.richfaces.ui.core.ComponentIterators;
 import org.richfaces.ui.output.DivPanelRenderer;
 
 import javax.faces.component.UIComponent;

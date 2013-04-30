@@ -44,8 +44,7 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.l10n.FacesMessages;
 import org.richfaces.l10n.MessageFactory;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.core.IterationStateHolder;
-import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.util.MessageUtil;
 
 /**

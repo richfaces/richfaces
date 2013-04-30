@@ -53,7 +53,7 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.core.MetaComponentEncoder;
+import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.util.FastJoiner;
 
 /**

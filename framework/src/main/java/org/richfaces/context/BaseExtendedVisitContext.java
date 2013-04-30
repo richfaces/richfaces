@@ -21,7 +21,7 @@
  */
 package org.richfaces.context;
 
-import static org.richfaces.ui.core.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
+import static org.richfaces.ui.common.meta.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
 
 import java.util.AbstractCollection;
 import java.util.Collection;

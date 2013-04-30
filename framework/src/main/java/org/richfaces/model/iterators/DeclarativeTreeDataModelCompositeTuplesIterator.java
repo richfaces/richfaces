@@ -27,7 +27,7 @@ import java.util.Map;
 
 import javax.faces.component.UIComponent;
 
-import org.richfaces.ui.core.ComponentPredicates;
+import org.richfaces.ui.common.ComponentPredicates;
 import org.richfaces.ui.iteration.TreeModelAdaptor;
 import org.richfaces.ui.iteration.TreeModelRecursiveAdaptor;
 import org.richfaces.model.SequenceRowKey;

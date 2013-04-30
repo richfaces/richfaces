@@ -28,8 +28,8 @@ import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.SwitchType;
-import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

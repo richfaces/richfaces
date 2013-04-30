@@ -21,7 +21,6 @@
 package org.richfaces.ui.images;
 
 import org.richfaces.skin.Skin;
-import org.richfaces.ui.core.BaseGradient;
 
 import javax.faces.context.FacesContext;
 

@@ -71,7 +71,6 @@ import org.richfaces.model.DataVisitResult;
 import org.richfaces.model.DataVisitor;
 import org.richfaces.model.ExtendedDataModel;
 import org.richfaces.model.Range;
-import org.richfaces.ui.core.IterationStateHolder;
 import org.richfaces.util.SeparatorChar;
 
 /**

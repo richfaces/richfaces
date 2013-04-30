@@ -22,14 +22,16 @@
 package org.richfaces.ui.iteration;
 
 import com.google.common.collect.Iterables;
+
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.DeclarativeModelKey;
 import org.richfaces.model.SequenceRowKey;
-import org.richfaces.ui.core.ComponentPredicates;
+import org.richfaces.ui.common.ComponentPredicates;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
 import java.util.Map;
 
 /**

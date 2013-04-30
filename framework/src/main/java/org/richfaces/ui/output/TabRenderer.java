@@ -27,8 +27,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.services.ServiceTracker;
+import org.richfaces.ui.common.ComponentIterators;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.core.ComponentIterators;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

@@ -73,9 +73,9 @@ import org.richfaces.model.TreeDataVisitor;
 import org.richfaces.model.TreeNode;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.SwitchType;
-import org.richfaces.ui.core.MetaComponentEncoder;
-import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.ui.common.meta.MetaComponentEncoder;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.util.MessageUtil;
 
 import com.google.common.base.Predicate;

@@ -34,7 +34,7 @@ import javax.faces.event.PreRemoveFromViewEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 
-import org.richfaces.ui.core.AjaxOutput;
+import org.richfaces.ui.common.AjaxOutput;
 
 /**
  * @author Nick Belaevski

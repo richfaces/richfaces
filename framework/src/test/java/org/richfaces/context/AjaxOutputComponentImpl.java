@@ -23,7 +23,7 @@ package org.richfaces.context;
 
 import javax.faces.component.UIOutput;
 
-import org.richfaces.ui.core.AjaxOutput;
+import org.richfaces.ui.common.AjaxOutput;
 
 /**
  * @author Nick Belaevski

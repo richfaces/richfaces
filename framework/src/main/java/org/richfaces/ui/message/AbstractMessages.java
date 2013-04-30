@@ -29,7 +29,7 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.ui.core.AjaxOutput;
+import org.richfaces.ui.common.AjaxOutput;
 
 /**
  * <p>The &lt;rich:messages&gt; components works similarly to the &lt;rich:message&gt; component, but can display all

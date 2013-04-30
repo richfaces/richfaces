@@ -24,7 +24,7 @@ package org.richfaces.ui.validation;
 
 import javax.faces.view.facelets.BehaviorConfig;
 
-import org.richfaces.ui.core.ajax.AjaxHandler;
+import org.richfaces.ui.ajax.ajax.AjaxHandler;
 
 /**
  * <p class="changed_added_4_0">

@@ -57,9 +57,9 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.CalendarDataModel;
 import org.richfaces.model.CalendarDataModelItem;
 import org.richfaces.ui.common.Positioning;
-import org.richfaces.ui.core.MetaComponentEncoder;
-import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.ui.common.meta.MetaComponentEncoder;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 /**
  * <p> The &lt;rich:calendar&gt; component allows the user to enter a date and time through an in-line or pop-up

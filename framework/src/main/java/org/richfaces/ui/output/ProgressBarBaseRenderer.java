@@ -45,8 +45,8 @@ import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.AjaxFunction;
 import org.richfaces.ui.common.AjaxOptions;
 import org.richfaces.ui.common.SwitchType;
-import org.richfaces.ui.core.MetaComponentRenderer;
-import org.richfaces.ui.core.MetaComponentResolver;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.util.AjaxRendererUtils;
 
 /**

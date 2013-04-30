@@ -35,7 +35,7 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.ui.common.AjaxFunction;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.core.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.util.HtmlUtil;
 
 import javax.faces.FacesException;

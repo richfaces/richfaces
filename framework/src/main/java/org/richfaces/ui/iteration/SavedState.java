@@ -21,8 +21,6 @@
  */
 package org.richfaces.ui.iteration;
 
-import org.richfaces.ui.core.IterationStateHolder;
-
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponentBase;

@@ -42,8 +42,8 @@ import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.richfaces.ui.core.ajax.AjaxBehavior;
-import org.richfaces.ui.core.queue.AbstractAttachQueue;
+import org.richfaces.ui.ajax.ajax.AjaxBehavior;
+import org.richfaces.ui.ajax.queue.AbstractAttachQueue;
 import org.richfaces.util.AjaxRendererUtils;
 
 /**
