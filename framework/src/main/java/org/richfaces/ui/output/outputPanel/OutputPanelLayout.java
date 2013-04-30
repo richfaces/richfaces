@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,27 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.output;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.richfaces.ui.toggle.togglePanel.UITogglePanel;
+package org.richfaces.ui.output.outputPanel;
 
 /**
- * @author akolonitsky
- * @since 2010-10-19
+ * @author Nick Belaevski
+ *
  */
-public class UITogglePanelTest {
-    private UITogglePanel togglePanel;
+public enum OutputPanelLayout {
 
-    @Before
-    public void setUp() {
-        togglePanel = new UITogglePanel();
-    }
+    inline,
+    block;
+    public static final OutputPanelLayout DEFAULT = inline;
 
-    @Test
-    public void testSomething() {
-        Assert.assertNotNull(togglePanel);
-    }
 }

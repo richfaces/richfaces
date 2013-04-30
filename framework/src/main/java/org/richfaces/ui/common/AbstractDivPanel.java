@@ -19,39 +19,53 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.output;
+package org.richfaces.ui.common;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.richfaces.ui.toggle.togglePanel.UITogglePanelItem;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 
 /**
  * @author akolonitsky
- * @since 2010-08-24
+ * @version 1.0
+ *
  */
-public class UITogglePanelItemTest {
-    private UITogglePanelItem togglePanelItem;
+public interface AbstractDivPanel {
+    // -------- i18n-props.xml
+    @Attribute
+    String getLang();
 
-    @Before
-    public void setUp() {
-        togglePanelItem = new UITogglePanelItem();
-    }
+    @Attribute
+    String getDir();
 
-    @Test
-    public void testGetName() {
-//        Assert.assertNull(togglePanelItem.getName());
+    // -------- core-props.xml
+    @Attribute
+    String getTitle();
 
-        String id = "id";
-        togglePanelItem.setId(id);
-        Assert.assertEquals(togglePanelItem.getId(), id);
-/*  Assertion commented out, as getName now requires an active FacesContext
-        Assert.assertEquals(togglePanelItem.getName(), id);
-*/
-        String name = "name";
-        togglePanelItem.setName(name);
-/*  Assertion commented out, as getName now requires an active FacesContext
-        Assert.assertEquals(togglePanelItem.getName(), name);
- */
-    }
+    @Attribute
+    String getStyle();
+
+    @Attribute
+    String getStyleClass();
+
+    // -------- events-mouse-props.xml
+    @Attribute(events = @EventName("click"))
+    String getOnclick();
+
+    @Attribute(events = @EventName("dblclick"))
+    String getOndblclick();
+
+    @Attribute(events = @EventName("mousedown"))
+    String getOnmousedown();
+
+    @Attribute(events = @EventName("mousemove"))
+    String getOnmousemove();
+
+    @Attribute(events = @EventName("mouseout"))
+    String getOnmouseout();
+
+    @Attribute(events = @EventName("mouseover"))
+    String getOnmouseover();
+
+    @Attribute(events = @EventName("mouseup"))
+    String getOnmouseup();
 }

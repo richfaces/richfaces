@@ -25,9 +25,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.richfaces.ui.toggle.accordion.AbstractAccordion;
+import org.richfaces.ui.toggle.accordion.AbstractAccordionItem;
 
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
+
 import java.util.List;
 
 import static org.easymock.EasyMock.createNiceMock;

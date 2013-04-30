@@ -1,6 +1,6 @@
-/*
+/**
  * JBoss, Home of Professional Open Source
- * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,28 +18,15 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
-package org.richfaces.ui.output;
+ **/
+package org.richfaces.ui.toggle;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.richfaces.ui.toggle.togglePanel.UITogglePanel;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
 
 /**
- * @author akolonitsky
- * @since 2010-10-19
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public class UITogglePanelTest {
-    private UITogglePanel togglePanel;
-
-    @Before
-    public void setUp() {
-        togglePanel = new UITogglePanel();
-    }
-
-    @Test
-    public void testSomething() {
-        Assert.assertNotNull(togglePanel);
-    }
+public interface TogglePanelVisitCallback {
+    VisitResult visit(FacesContext context, TogglePanelVisitState visitState);
 }

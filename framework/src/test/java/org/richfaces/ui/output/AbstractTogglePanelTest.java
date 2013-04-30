@@ -27,6 +27,8 @@ import javax.faces.component.UIComponent;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.richfaces.ui.toggle.togglePanel.UITogglePanel;
+import org.richfaces.ui.toggle.togglePanel.UITogglePanelItem;
 
 /**
  * @author akolonitsky

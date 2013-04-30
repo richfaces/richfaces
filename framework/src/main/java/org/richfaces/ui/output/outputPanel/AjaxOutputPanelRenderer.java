@@ -23,12 +23,11 @@ package org.richfaces.ui.output.outputPanel;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.output.AbstractOutputPanel;
-import org.richfaces.ui.output.OutputPanelLayout;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.Iterator;
 

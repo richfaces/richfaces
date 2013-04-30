@@ -33,7 +33,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.ui.output.AbstractMediaOutput;
+import org.richfaces.ui.output.mediaOutput.AbstractMediaOutput;
 
 import com.google.common.base.Strings;
 

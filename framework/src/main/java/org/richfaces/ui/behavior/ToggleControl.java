@@ -34,7 +34,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.common.ComponentIterators;
 import org.richfaces.ui.common.CustomBehaviorHandler;
-import org.richfaces.ui.output.AbstractTogglePanel;
+import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
 import org.richfaces.util.RendererUtils;
 
 /**

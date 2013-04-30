@@ -37,8 +37,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.richfaces.ui.output.TogglePanelRenderer.getAjaxOptions;
-import static org.richfaces.ui.output.TogglePanelRenderer.getValueRequestParamName;
+import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.getAjaxOptions;
+import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.getValueRequestParamName;
 
 /**
  * @author akolonitsky

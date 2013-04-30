@@ -45,8 +45,8 @@ import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
 import static org.richfaces.ui.common.HtmlConstants.TBODY_ELEMENT;
 import static org.richfaces.ui.common.HtmlConstants.TD_ELEM;
 import static org.richfaces.ui.common.HtmlConstants.TR_ELEMENT;
-import static org.richfaces.ui.output.TogglePanelRenderer.addEventOption;
-import static org.richfaces.ui.output.TogglePanelRenderer.getAjaxOptions;
+import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.addEventOption;
+import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.getAjaxOptions;
 
 /**
  * @author akolonitsky
