@@ -1,4 +1,4 @@
-package org.richfaces.ui.menu;
+package org.richfaces.ui.menu.panelMenu;
 
 /**
  * @author akolonitsky

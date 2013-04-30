@@ -1,4 +1,4 @@
-package org.richfaces.ui.menu;
+package org.richfaces.ui.menu.menu;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
@@ -7,6 +7,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.common.AbstractActionComponent;
 import org.richfaces.ui.common.Mode;
+import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
 
 /**
  * <p>The &lt;rich:menuItem&gt; component represents a single item in a menu control. The &lt;rich:menuItem&gt;

@@ -1,10 +1,13 @@
-package org.richfaces.ui.menu;
+package org.richfaces.ui.menu.contextMenu;
 
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.ui.common.Mode;
 import org.richfaces.ui.common.Positioning;
+import org.richfaces.ui.menu.menu.AbstractMenuGroup;
+import org.richfaces.ui.menu.menu.AbstractMenuItem;
+import org.richfaces.ui.menu.menu.AbstractMenuSeparator;
 import org.richfaces.util.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;

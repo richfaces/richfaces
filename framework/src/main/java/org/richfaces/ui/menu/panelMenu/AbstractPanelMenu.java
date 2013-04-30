@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.menu;
+package org.richfaces.ui.menu.panelMenu;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
@@ -40,7 +40,6 @@ import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.ItemChangeListener;
 import org.richfaces.event.ItemChangeSource;
 import org.richfaces.ui.common.PanelIcons;
-import org.richfaces.ui.menu.panelMenu.PanelMenuTagHandler;
 
 /**
  * <p>The &lt;rich:panelMenu&gt; component is used in conjunction with &lt;rich:panelMenuItem&gt; and

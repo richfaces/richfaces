@@ -1,4 +1,4 @@
-package org.richfaces.ui.menu;
+package org.richfaces.ui.menu.menu;
 
 import org.richfaces.renderkit.RendererBase;
 

@@ -1,6 +1,7 @@
-package org.richfaces.ui.menu;
+package org.richfaces.ui.menu.menu;
 
 import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

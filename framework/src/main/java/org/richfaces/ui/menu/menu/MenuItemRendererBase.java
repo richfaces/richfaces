@@ -1,4 +1,4 @@
-package org.richfaces.ui.menu;
+package org.richfaces.ui.menu.menu;
 
 import org.richfaces.ui.ajax.command.AjaxCommandRendererBase;
 import org.richfaces.ui.behavior.HandlersChain;

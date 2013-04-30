@@ -1,9 +1,10 @@
-package org.richfaces.ui.menu;
+package org.richfaces.ui.menu.menu;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
 
 import javax.faces.component.UIComponentBase;
 
