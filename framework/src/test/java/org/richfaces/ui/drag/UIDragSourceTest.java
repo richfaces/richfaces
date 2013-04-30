@@ -3,6 +3,7 @@ package org.richfaces.ui.drag;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.richfaces.ui.drag.dragSource.UIDragSource;
 
 public class UIDragSourceTest {
     private UIDragSource dragSource;

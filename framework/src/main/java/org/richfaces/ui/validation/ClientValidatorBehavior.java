@@ -1,11 +1,13 @@
-package org.richfaces.ui.behavior;
+package org.richfaces.ui.validation;
 
+import org.richfaces.ui.behavior.ConverterNotFoundException;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.ValidatorDescriptor;
 
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.convert.Converter;
+
 import java.util.Collection;
 
 /**

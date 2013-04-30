@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.drag;
+package org.richfaces.ui.drag.dropTarget;
 
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
@@ -57,7 +57,7 @@ public class DropHandler extends ComponentHandler {
     }
 
     static class DropTargetMapper extends Metadata {
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.ui.drag.DropEvent.class };
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.ui.drag.dropTarget.DropEvent.class };
         private final TagAttribute attribute;
 
         public DropTargetMapper(TagAttribute attribute) {

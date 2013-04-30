@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.behavior.ClientValidatorBehavior;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehaviorContext;

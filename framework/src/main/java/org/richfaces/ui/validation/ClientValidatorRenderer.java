@@ -13,7 +13,6 @@ import org.richfaces.javascript.LibraryFunction;
 import org.richfaces.javascript.ScriptNotFoundException;
 import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.behavior.ClientValidatorBehavior;
 import org.richfaces.ui.behavior.ConverterNotFoundException;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesObjectDescriptor;

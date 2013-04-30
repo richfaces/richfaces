@@ -19,9 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.drag;
+package org.richfaces.ui.drag.dragIndicator;
 
 import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.drag.dragSource.AbstractDragSource;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

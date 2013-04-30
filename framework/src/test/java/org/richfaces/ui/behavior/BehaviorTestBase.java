@@ -10,6 +10,7 @@ import javax.faces.render.ClientBehaviorRenderer;
 import org.jboss.test.faces.mock.Mock;
 import org.junit.Before;
 import org.richfaces.ValidatorTestBase;
+import org.richfaces.ui.validation.ClientValidatorBehavior;
 import org.richfaces.ui.validation.ClientValidatorImpl;
 
 public class BehaviorTestBase extends ValidatorTestBase {

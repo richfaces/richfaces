@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.behavior;
+package org.richfaces.ui.behavior.componentControl;
 
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSFunctionDefinition;

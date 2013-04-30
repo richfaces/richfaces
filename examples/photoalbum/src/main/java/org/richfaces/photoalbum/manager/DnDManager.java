@@ -44,8 +44,8 @@ import org.richfaces.photoalbum.service.IEventAction;
 import org.richfaces.photoalbum.service.PhotoAlbumException;
 import org.richfaces.photoalbum.util.Preferred;
 import org.richfaces.photoalbum.util.Utils;
-import org.richfaces.ui.drag.DropEvent;
-import org.richfaces.ui.drag.DropListener;
+import org.richfaces.ui.drag.dropTarget.DropEvent;
+import org.richfaces.ui.drag.dropTarget.DropListener;
 
 @Named("dndManager")
 public class DnDManager implements DropListener {
