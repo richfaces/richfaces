@@ -19,38 +19,36 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.ui.input.fileUpload;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
+import javax.faces.component.UIComponent;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.FacesListener;
 
-import org.richfaces.ui.input.fileUpload.FileUploadException;
+import org.richfaces.model.UploadedFile;
 
 /**
  * @author Konstantin Mishin
  *
  */
-public interface UploadedFile {
-    String getContentType();
+public class FileUploadEvent extends FacesEvent {
+    private static final long serialVersionUID = -7645197191376210068L;
+    private UploadedFile uploadedFile = null;
 
-    byte[] getData() throws FileUploadException;
+    public FileUploadEvent(UIComponent component, UploadedFile uploadedFile) {
+        super(component);
+        this.uploadedFile = uploadedFile;
+    }
 
-    InputStream getInputStream() throws IOException;
+    public boolean isAppropriateListener(FacesListener listener) {
+        return listener instanceof FileUploadListener;
+    }
 
-    String getName();
+    public void processListener(FacesListener listener) {
+        ((FileUploadListener) listener).processFileUpload(this);
+    }
 
-    long getSize();
-
-    void delete() throws IOException;
-
-    void write(String fileName) throws IOException;
-
-    String getHeader(String headerName);
-
-    Collection<String> getHeaderNames();
-
-    Collection<String> getHeaders(String headerName);
-
-    String getParameterName();
+    public UploadedFile getUploadedFile() {
+        return uploadedFile;
+    }
 }

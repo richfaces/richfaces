@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,38 +19,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
-
-import org.richfaces.ui.input.fileUpload.FileUploadException;
+package org.richfaces.ui.message;
 
 /**
- * @author Konstantin Mishin
- *
+ * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public interface UploadedFile {
-    String getContentType();
+public enum CornerPosition {
 
-    byte[] getData() throws FileUploadException;
+    topLeft("tl"),
+    topRight("tr"),
+    bottomLeft("bl"),
+    bottomRight("br");
 
-    InputStream getInputStream() throws IOException;
+    private String shortcut;
 
-    String getName();
+    private CornerPosition(String shortcut) {
+        this.shortcut = shortcut;
+    }
 
-    long getSize();
+    public String getShortcut() {
+        return shortcut;
+    }
 
-    void delete() throws IOException;
-
-    void write(String fileName) throws IOException;
-
-    String getHeader(String headerName);
-
-    Collection<String> getHeaderNames();
-
-    Collection<String> getHeaders(String headerName);
-
-    String getParameterName();
+    @Override
+    public String toString() {
+        return shortcut;
+    }
 }

@@ -23,8 +23,8 @@ package org.richfaces.ui.select;
 
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.input.InplaceComponent;
-import org.richfaces.ui.input.InplaceInputRendererBase;
+import org.richfaces.ui.common.InplaceComponent;
+import org.richfaces.ui.input.inplaceInput.InplaceInputRendererBase;
 import org.richfaces.util.HtmlDimensions;
 
 import javax.faces.application.ResourceDependencies;

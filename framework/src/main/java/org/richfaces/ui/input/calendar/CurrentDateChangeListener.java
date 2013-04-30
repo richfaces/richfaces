@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,38 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.ui.input.calendar;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
-
-import org.richfaces.ui.input.fileUpload.FileUploadException;
+import javax.faces.event.FacesListener;
 
 /**
- * @author Konstantin Mishin
+ * @author Alexej Kushunin - akushunin@exadel.com
  *
  */
-public interface UploadedFile {
-    String getContentType();
-
-    byte[] getData() throws FileUploadException;
-
-    InputStream getInputStream() throws IOException;
-
-    String getName();
-
-    long getSize();
-
-    void delete() throws IOException;
-
-    void write(String fileName) throws IOException;
-
-    String getHeader(String headerName);
-
-    Collection<String> getHeaderNames();
-
-    Collection<String> getHeaders(String headerName);
-
-    String getParameterName();
+public interface CurrentDateChangeListener extends FacesListener {
+    void processCurrentDateChange(CurrentDateChangeEvent event);
 }

@@ -42,7 +42,7 @@ import org.richfaces.photoalbum.service.IImageAction;
 import org.richfaces.photoalbum.service.PhotoAlbumException;
 import org.richfaces.photoalbum.ui.FileWrapper;
 import org.richfaces.photoalbum.util.Preferred;
-import org.richfaces.ui.input.FileUploadEvent;
+import org.richfaces.ui.input.fileUpload.FileUploadEvent;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.metadata.Directory;

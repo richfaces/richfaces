@@ -9,7 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
 import org.richfaces.ui.common.Positioning;
-import org.richfaces.ui.input.CurrentDateChangeEvent;
+import org.richfaces.ui.input.calendar.CurrentDateChangeEvent;
 
 @ManagedBean
 @SessionScoped

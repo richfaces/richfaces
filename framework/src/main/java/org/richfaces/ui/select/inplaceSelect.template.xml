@@ -29,7 +29,7 @@
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="org.richfaces.ui.input.InplaceState" name="inplaceState" value="#{getInplaceState(component)}" />
+        <cdk:object type="org.richfaces.ui.common.InplaceState" name="inplaceState" value="#{getInplaceState(component)}" />
         <cdk:object type="java.lang.String" name="inplaceValue" value="#{getSelectLabel(facesContext, component)}" />
 
         <cdk:object type="java.util.List" type-arguments="InplaceSelectBaseRenderer.ClientSelectItem" name="clientSelectItems"

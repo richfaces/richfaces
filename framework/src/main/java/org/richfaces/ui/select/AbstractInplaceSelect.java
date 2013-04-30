@@ -26,8 +26,8 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.ui.input.InplaceComponent;
-import org.richfaces.ui.input.InplaceState;
+import org.richfaces.ui.common.InplaceComponent;
+import org.richfaces.ui.common.InplaceState;
 
 /**
  * <p> The &lt;rich:inplaceSelect&gt; component is similar to the &lt;rich:inplaceInput&gt; component, except that the

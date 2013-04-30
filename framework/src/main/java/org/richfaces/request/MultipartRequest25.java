@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.UploadedFile;
-import org.richfaces.ui.input.FileUploadException;
+import org.richfaces.ui.input.fileUpload.FileUploadException;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;

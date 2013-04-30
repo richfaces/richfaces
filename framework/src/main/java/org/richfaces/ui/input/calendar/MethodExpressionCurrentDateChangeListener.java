@@ -19,38 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.ui.input.calendar;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
-
-import org.richfaces.ui.input.fileUpload.FileUploadException;
+import javax.el.MethodExpression;
+import javax.faces.context.FacesContext;
 
 /**
- * @author Konstantin Mishin
+ * @author amarkhel
  *
  */
-public interface UploadedFile {
-    String getContentType();
+public class MethodExpressionCurrentDateChangeListener implements CurrentDateChangeListener {
+    private MethodExpression methodExpression;
 
-    byte[] getData() throws FileUploadException;
+    public MethodExpressionCurrentDateChangeListener() {
+        super();
+    }
 
-    InputStream getInputStream() throws IOException;
+    public MethodExpressionCurrentDateChangeListener(MethodExpression methodExpression) {
+        super();
+        this.methodExpression = methodExpression;
+    }
 
-    String getName();
-
-    long getSize();
-
-    void delete() throws IOException;
-
-    void write(String fileName) throws IOException;
-
-    String getHeader(String headerName);
-
-    Collection<String> getHeaderNames();
-
-    Collection<String> getHeaders(String headerName);
-
-    String getParameterName();
+    public void processCurrentDateChange(CurrentDateChangeEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        methodExpression.invoke(facesContext.getELContext(), new Object[] { event });
+    }
 }
