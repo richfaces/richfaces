@@ -47,8 +47,13 @@ public class AlbumAction implements IAlbumAction {
     public void addAlbum(Album album) throws PhotoAlbumException {
         try {
             em.persist(album);
-            // Add to shelf
-            album.getShelf().addAlbum(album);
+            // Add to shelf or Event
+            if (album.getShelf() != null) {
+                album.getShelf().addAlbum(album);
+            }
+            else {
+                album.getEvent().getAlbums().add(album);
+            }
             em.flush();
         } catch (Exception e) {
             throw new PhotoAlbumException(e.getMessage());
@@ -98,7 +103,9 @@ public class AlbumAction implements IAlbumAction {
      *
      * @param album - album to Synchronize
      */
-    public void resetAlbum(Album album) {
-        em.refresh(album);
+    public Album resetAlbum(Album album) {
+        Album a = em.merge(album);
+        em.refresh(a);
+        return a;
     }
 }

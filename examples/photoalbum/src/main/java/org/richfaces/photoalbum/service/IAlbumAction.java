@@ -39,6 +39,6 @@ public interface IAlbumAction {
 
     void editAlbum(Album album) throws PhotoAlbumException;
 
-    public void resetAlbum(Album album);
+    public Album resetAlbum(Album album);
 
 }

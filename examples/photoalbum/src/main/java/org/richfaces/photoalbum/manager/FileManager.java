@@ -31,6 +31,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -38,7 +40,6 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.model.UploadedFile;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.User;
@@ -49,6 +50,7 @@ import org.richfaces.photoalbum.event.ImageEvent;
 import org.richfaces.photoalbum.event.ShelfEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.util.FileHandler;
 import org.richfaces.photoalbum.util.FileUtils;
 import org.richfaces.photoalbum.util.ImageDimension;
 
@@ -106,9 +108,11 @@ public class FileManager {
      * @param path - relative path of the album directory
      *
      */
-    //@AdminRestricted
+    // @AdminRestricted
     public void onAlbumDeleted(@Observes @EventType(Events.ALBUM_DELETED_EVENT) AlbumEvent ae) {
-        if (user == null) return;
+        if (user == null) {
+            return;
+        }
         deleteDirectory(ae.getPath());
     }
 
@@ -119,9 +123,11 @@ public class FileManager {
      * @param shelf - deleted shelf
      * @param path - relative path of the shelf directory
      */
-    //@AdminRestricted
+    // @AdminRestricted
     public void onShelfDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
-        if (user == null) return;
+        if (user == null) {
+            return;
+        }
         deleteDirectory(se.getPath());
     }
 
@@ -183,9 +189,11 @@ public class FileManager {
      * @param image - deleted image
      * @param path - relative path of the image file
      */
-    //@AdminRestricted
+    // @AdminRestricted
     public void deleteImage(@Observes @EventType(Events.IMAGE_DELETED_EVENT) ImageEvent ie) {
-        if (user == null) return;
+        if (user == null) {
+            return;
+        }
         for (ImageDimension d : ImageDimension.values()) {
             FileUtils.deleteFile(getFileByPath(transformPath(ie.getPath(), d.getFilePostfix())));
         }
@@ -198,15 +206,26 @@ public class FileManager {
      * @param tempFilePath - absolute path to uploaded image
      * @throws IOException
      */
-    //@AdminRestricted
-    public boolean addImage(String fileName, UploadedFile file) throws IOException {
-        if (user == null) return false;
+    // @AdminRestricted
+    public boolean addImage(String fileName, FileHandler fileHandler) throws IOException {
+        Logger log = Logger.getLogger("FileManager");
+        if (user == null) {
+            return false;
+        }
         createDirectoryIfNotExist(fileName);
         for (ImageDimension d : ImageDimension.values()) {
-            if (!writeFile(fileName, file.getInputStream(), d.getFilePostfix(), d.getX(), true)) {
+            try {
+                InputStream in = fileHandler.getInputStream();
+                if (!writeFile(fileName, in, d.getFilePostfix(), d.getX(), true)) {
+                    return false;
+                }
+                in.close();
+            } catch (IOException ioe) {
+                log.log(Level.INFO, "error in saving image", ioe);
                 return false;
             }
         }
+
         return true;
     }
 

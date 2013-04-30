@@ -15,6 +15,9 @@
                         </r:tooltip>
                         <r:dragSource dragIndicator="dragIndicator" type="fbAlbum" dragValue="#{album.getString('aid')}" />
                     </r:commandLink>
+                    <r:commandButton rendered="#{showDownload}"
+                        onclick="FBgetAlbumImages('#{album.getString('aid')}', setImagesForDl)"
+                        actionListener="#{fileDownloadManager.setAlbumName(album.getString('name'))}" value="Download" />
                 </h:panelGroup>
             </h:panelGrid>
             <h:panelGroup layout="block" styleClass="album_name">#{album.getString('name')}</h:panelGroup>
@@ -23,7 +26,16 @@
             </h:panelGroup>
         </h:panelGroup>
     </r:repeat>
+    
+    <r:notifyMessage for="fbAlbums" sticky="true" />
+    
     <r:jsFunction name="setFBimages" render="mainArea, treePanel" actionListener="#{controller.showFBAlbum}">
         <r:param assignTo="#{facebookShelfBean.albumImages}" name="response" />
     </r:jsFunction>
+
+    <r:jsFunction rendered="#{showDownload}" name="setImagesForDl" oncomplete="downloadImages()" render="dnldProgressBar" immediate="true">
+        <r:param assignTo="#{fileDownloadManager.images}" name="response"/>
+    </r:jsFunction>
+
+    <r:jsFunction rendered="#{showDownload}" name="downloadImages" actionListener="#{fileDownloadManager.downloadImages(r:clientId('fbAlbums'))}" oncomplete="reload()" />
 </ui:composition>
