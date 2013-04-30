@@ -26,23 +26,16 @@
             </h:panelGroup>
         </h:panelGroup>
     </r:repeat>
+    
+    <r:notifyMessage for="fbAlbums" sticky="true" />
+    
     <r:jsFunction name="setFBimages" render="mainArea, treePanel" actionListener="#{controller.showFBAlbum}">
         <r:param assignTo="#{facebookShelfBean.albumImages}" name="response" />
     </r:jsFunction>
 
-    <r:jsFunction rendered="#{showDownload}" name="setImagesForDl" oncomplete="downloadImages()">
-        <r:param assignTo="#{fileDownloadManager.images}" name="response" render="donwload"/>
+    <r:jsFunction rendered="#{showDownload}" name="setImagesForDl" oncomplete="downloadImages()" render="dnldProgressBar" immediate="true">
+        <r:param assignTo="#{fileDownloadManager.images}" name="response"/>
     </r:jsFunction>
 
-    <r:jsFunction rendered="#{showDownload}" name="downloadImages" actionListener="#{fileDownloadManager.downloadImages()}" />
-
-<!-- 
-    <r:outputPanel id="download" ajaxRendered="true" rendered="#{fileDownloadManager.pollEnabled and showDownload}">
-        <h:outputText value="Download" />
-        <r:progressBar maxValue="100" value="#{fileDownloadManager.progress}" interval="500"
-            enabled="#{fileDownloadManager.pollEnabled}">
-            <h:outputText value="#{fileDownloadManager.progress} %" />
-        </r:progressBar>
-    </r:outputPanel>
--->
+    <r:jsFunction rendered="#{showDownload}" name="downloadImages" actionListener="#{fileDownloadManager.downloadImages(r:clientId('fbAlbums'))}" oncomplete="reload()" />
 </ui:composition>

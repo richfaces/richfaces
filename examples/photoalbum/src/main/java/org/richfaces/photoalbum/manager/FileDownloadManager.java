@@ -15,16 +15,30 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
 import org.richfaces.photoalbum.domain.Album;
+import org.richfaces.photoalbum.domain.Event;
+import org.richfaces.photoalbum.event.EventType;
+import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.event.ShelfEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IAlbumAction;
+import org.richfaces.photoalbum.service.IEventAction;
 import org.richfaces.photoalbum.service.PhotoAlbumException;
 import org.richfaces.photoalbum.util.FileHandler;
+
+/**
+ * This class takes care of downloading a list of images from given URLs and putting them into a new album
+ * 
+ * @author mpetrov
+ *
+ */
 
 @Named
 @SessionScoped
@@ -44,19 +58,22 @@ public class FileDownloadManager implements Serializable {
     IAlbumAction albumAction;
 
     @Inject
+    IEventAction eventAction;
+
+    @Inject
     Model model;
 
-    private Logger log = Logger.getLogger("FDManager");
+    @Inject
+    @EventType(Events.EVENT_EDITED_EVENT)
+    javax.enterprise.event.Event<ShelfEvent> shelfEvent;
 
     private List<String> imageUrls;
 
-    private boolean pollEnabled = false;
-
     private Album album;
     private String albumName;
+    private String albumId;
 
-    private int size = 0;
-    private int current = 0;
+    private Logger log = Logger.getLogger("FileDownloadManager");
 
     public void setImages(String json) throws JSONException {
         JSONArray ja = new JSONArray(json);
@@ -67,11 +84,11 @@ public class FileDownloadManager implements Serializable {
 
         imageUrls = new ArrayList<String>();
 
+        setAlbumId(ja.getJSONObject(0).getString("aid"));
+
         for (int i = 0; i < ja.length(); i++) {
             imageUrls.add(ja.getJSONObject(i).getString("src_big"));
         }
-
-        setPollEnabled(true);
     }
 
     public void createAlbum(String name) {
@@ -82,32 +99,43 @@ public class FileDownloadManager implements Serializable {
         albumManager.addAlbum(album);
     }
 
-    public void downloadImages() {
-        setPollEnabled(true);
+    public void downloadImages(String clientId) {
         if (imageUrls == null || imageUrls.isEmpty()) {
             return;
         }
 
-        setSize(imageUrls.size());
-        setCurrent(0);
-
+        // make new album to store the photos in
         createAlbum(albumName);
         album = albumAction.resetAlbum(album);
 
+        // process the URLs
         for (String imageUrl : imageUrls) {
             uploadImage(imageUrl, album.getName() + imageUrl.substring(imageUrl.lastIndexOf(Constants.DOT)), album);
-            setCurrent(getCurrent() + 1);
         }
 
+        // save the album
         try {
             albumAction.editAlbum(album);
-
             album = albumAction.resetAlbum(album);
         } catch (PhotoAlbumException pae) {
             log.log(Level.INFO, "error saving album", pae);
         }
 
-        setPollEnabled(false);
+        FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done!", "Album has been successfully downloaded.");
+        FacesContext.getCurrentInstance().addMessage(clientId, fm);
+
+        // remove the FB album from the event
+        Event event = album.getEvent();
+        event.getFacebookAlbums().remove(getAlbumId());
+
+        try {
+            eventAction.editEvent(event);
+        } catch (PhotoAlbumException pae) {
+            log.log(Level.INFO, "error", pae);
+        }
+
+        // reset the view
+        shelfEvent.fire(new ShelfEvent(event));
     }
 
     private void uploadImage(String imageUrl, String imageName, Album album) {
@@ -132,42 +160,19 @@ public class FileDownloadManager implements Serializable {
         fileUploadManager.uploadFile(new FileHandler(file), album);
     }
 
-    public boolean isPollEnabled() {
-        return pollEnabled;
-    }
-
-    public void setPollEnabled(boolean pollEnabled) {
-        this.pollEnabled = pollEnabled;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getCurrent() {
-        return current;
-    }
-
-    public int getProgress() {
-        if (size == 0) {
-            return 0;
-        }
-        return (current / size) * 100;
-    }
-
-    public void setCurrent(int current) {
-        this.current = current;
-    }
-
     public String getAlbumName() {
         return albumName;
     }
 
     public void setAlbumName(String albumName) {
         this.albumName = albumName;
+    }
+
+    public String getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(String albumId) {
+        this.albumId = albumId;
     }
 }
