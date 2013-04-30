@@ -372,7 +372,7 @@ public class Controller implements Serializable {
         model.resetModel(NavigationEnum.SHELF_PREVIEW, shelf.getOwner(), shelf, null, null, null);
     }
 
-    public void onEventDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
+    public void onEventDeleted(@Observes @EventType(Events.EVENT_DELETED_EVENT) ShelfEvent se) {
         model.resetModel(NavigationEnum.ANONYM, loggedUser, null, null, null, null, null);
     }
 
@@ -380,7 +380,7 @@ public class Controller implements Serializable {
         model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, se.getEvent());
     }
 
-    public void onEventEdited(@Observes @EventType(Events.SHELF_EDITED_EVENT) ShelfEvent se) {
+    public void onEventEdited(@Observes @EventType(Events.EVENT_EDITED_EVENT) ShelfEvent se) {
         model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, se.getEvent());
     }
 
