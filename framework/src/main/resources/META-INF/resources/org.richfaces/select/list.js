@@ -227,6 +227,7 @@
             onClick: function(e) {
                 this.setFocus();
                 var item = this.__getItem(e);
+                if (!item) return;
                 this.processItem(item);
                 var clickModified = e.metaKey || e.ctrlKey;
                 if (!this.disabled) {
@@ -237,6 +238,7 @@
             onDblclick: function(e) {
                 this.setFocus();
                 var item = this.__getItem(e);
+                if (!item) return;
                 this.processItem(item);
                 if (!this.disabled) {
                     this.__select(item, false);
