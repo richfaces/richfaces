@@ -50,7 +50,7 @@ public class FileDownloadManager implements Serializable {
 
     private List<String> imageUrls;
 
-    //private boolean pollEnabled = false;
+    private boolean pollEnabled = false;
 
     private Album album;
     private String albumName;
@@ -71,7 +71,7 @@ public class FileDownloadManager implements Serializable {
             imageUrls.add(ja.getJSONObject(i).getString("src_big"));
         }
 
-        //setPollEnabled(true);
+        setPollEnabled(true);
     }
 
     public void createAlbum(String name) {
@@ -83,7 +83,7 @@ public class FileDownloadManager implements Serializable {
     }
 
     public void downloadImages() {
-//        setPollEnabled(true);
+        setPollEnabled(true);
         if (imageUrls == null || imageUrls.isEmpty()) {
             return;
         }
@@ -95,7 +95,7 @@ public class FileDownloadManager implements Serializable {
         album = albumAction.resetAlbum(album);
 
         for (String imageUrl : imageUrls) {
-            uploadImage(imageUrl, album.getName() + imageUrl.lastIndexOf(Constants.DOT), album);
+            uploadImage(imageUrl, album.getName() + imageUrl.substring(imageUrl.lastIndexOf(Constants.DOT)), album);
             setCurrent(getCurrent() + 1);
         }
 
@@ -106,10 +106,10 @@ public class FileDownloadManager implements Serializable {
         } catch (PhotoAlbumException pae) {
             log.log(Level.INFO, "error saving album", pae);
         }
-        
-        //setPollEnabled(false);
+
+        setPollEnabled(false);
     }
-    
+
     private void uploadImage(String imageUrl, String imageName, Album album) {
         File file = new File(imageName);
         int i;
@@ -127,18 +127,18 @@ public class FileDownloadManager implements Serializable {
             log.log(Level.ALL, "error", malformedInputException);
         } catch (IOException ioException) {
             log.log(Level.ALL, "error", ioException);
-        }        
-        
+        }
+
         fileUploadManager.uploadFile(new FileHandler(file), album);
     }
 
-//    public boolean isPollEnabled() {
-//        return pollEnabled;
-//    }
-//
-//    public void setPollEnabled(boolean pollEnabled) {
-//        this.pollEnabled = pollEnabled;
-//    }
+    public boolean isPollEnabled() {
+        return pollEnabled;
+    }
+
+    public void setPollEnabled(boolean pollEnabled) {
+        this.pollEnabled = pollEnabled;
+    }
 
     public int getSize() {
         return size;
