@@ -1,4 +1,4 @@
-package org.richfaces.ui.validation;
+package org.richfaces.ui.validation.validator;
 
 import com.google.common.collect.Iterables;
 
@@ -12,6 +12,8 @@ import org.richfaces.javascript.ClientScriptService;
 import org.richfaces.javascript.LibraryFunction;
 import org.richfaces.javascript.ScriptNotFoundException;
 import org.richfaces.services.ServiceTracker;
+import org.richfaces.ui.validation.ValidatorRendererTestBase;
+import org.richfaces.ui.validation.validator.LibraryScriptFunction;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.ValidatorDescriptor;
 

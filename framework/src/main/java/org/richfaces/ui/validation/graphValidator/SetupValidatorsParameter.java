@@ -1,4 +1,4 @@
-package org.richfaces.ui.validation;
+package org.richfaces.ui.validation.graphValidator;
 
 import java.io.Serializable;
 

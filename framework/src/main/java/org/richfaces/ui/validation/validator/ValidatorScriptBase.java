@@ -1,4 +1,4 @@
-package org.richfaces.ui.validation;
+package org.richfaces.ui.validation.validator;
 
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSFunctionDefinition;

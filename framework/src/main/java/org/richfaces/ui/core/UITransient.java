@@ -3,7 +3,6 @@ package org.richfaces.ui.core;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;
-import org.richfaces.ui.validation.ScriptsRenderer;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -18,6 +17,7 @@ import javax.faces.event.FacesListener;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 import javax.faces.render.Renderer;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;

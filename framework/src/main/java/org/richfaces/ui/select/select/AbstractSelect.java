@@ -13,7 +13,6 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.select.AbstractSelectComponent;
-import org.richfaces.validator.SelectLabelValueValidator;
 
 /**
  * <p>

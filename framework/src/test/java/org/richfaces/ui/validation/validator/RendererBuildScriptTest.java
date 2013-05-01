@@ -1,4 +1,4 @@
-package org.richfaces.ui.validation;
+package org.richfaces.ui.validation.validator;
 
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
@@ -8,6 +8,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.services.ServiceTracker;
+import org.richfaces.ui.validation.ValidatorRendererTestBase;
+import org.richfaces.ui.validation.validator.ClientValidatorBehavior;
+import org.richfaces.ui.validation.validator.ClientValidatorRenderer;
+import org.richfaces.ui.validation.validator.ComponentValidatorScript;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.behavior.ClientBehaviorContext;

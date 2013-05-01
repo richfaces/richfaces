@@ -1,4 +1,4 @@
-package org.richfaces.ui.validation;
+package org.richfaces.ui.validation.validator;
 
 import com.google.common.collect.Lists;
 import org.richfaces.javascript.JSFunction;

@@ -20,9 +20,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.validation;
+package org.richfaces.ui.validation.validator;
 
-import javax.faces.render.ClientBehaviorRenderer;
+import javax.faces.view.facelets.BehaviorConfig;
+
+import org.richfaces.ui.ajax.ajax.AjaxHandler;
 
 /**
  * <p class="changed_added_4_0">
@@ -31,6 +33,14 @@ import javax.faces.render.ClientBehaviorRenderer;
  * @author asmirnov@exadel.com
  *
  */
-public class FormClientValidatorRenderer extends ClientBehaviorRenderer {
-    public static final String RENDERER_TYPE = "org.richfaces.FormValidatorRenderer";
+public class ClientValidatorHandler extends AjaxHandler {
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
+     * @param config
+     */
+    public ClientValidatorHandler(BehaviorConfig config) {
+        super(config);
+    }
 }

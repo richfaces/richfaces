@@ -1,16 +1,15 @@
 /**
  *
  */
-package org.richfaces.ui.validation;
+package org.richfaces.ui.core;
 
 import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.ui.core.ResourceRenderer;
-import org.richfaces.ui.core.UIScripts;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.util.Collection;
 

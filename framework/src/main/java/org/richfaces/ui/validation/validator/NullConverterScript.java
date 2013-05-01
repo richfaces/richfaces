@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.richfaces.ui.validation;
+package org.richfaces.ui.validation.validator;
 
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.javascript.ScriptWithDependencies;

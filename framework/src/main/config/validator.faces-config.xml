@@ -17,11 +17,11 @@
     <render-kit>
         <client-behavior-renderer>
             <client-behavior-renderer-type>org.richfaces.ClientValidatorRenderer</client-behavior-renderer-type>
-            <client-behavior-renderer-class>org.richfaces.ui.validation.ClientValidatorRenderer</client-behavior-renderer-class>
+            <client-behavior-renderer-class>org.richfaces.ui.validation.validator.ClientValidatorRenderer</client-behavior-renderer-class>
         </client-behavior-renderer>
         <client-behavior-renderer>
             <client-behavior-renderer-type>org.richfaces.FormValidatorRenderer</client-behavior-renderer-type>
-            <client-behavior-renderer-class>org.richfaces.ui.validation.FormClientValidatorRenderer</client-behavior-renderer-class>
+            <client-behavior-renderer-class>org.richfaces.ui.validation.validator.FormClientValidatorRenderer</client-behavior-renderer-class>
         </client-behavior-renderer>
     </render-kit>
 

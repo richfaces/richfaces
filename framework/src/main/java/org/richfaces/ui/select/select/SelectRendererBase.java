@@ -33,9 +33,8 @@ import org.richfaces.ui.input.InputRendererBase;
 import org.richfaces.ui.select.AbstractSelectComponent;
 import org.richfaces.ui.select.ClientSelectItem;
 import org.richfaces.ui.select.SelectHelper;
+import org.richfaces.ui.validation.AddCSVMessageScript;
 import org.richfaces.util.HtmlDimensions;
-import org.richfaces.validator.AddCSVMessageScript;
-import org.richfaces.validator.SelectLabelValueValidator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;

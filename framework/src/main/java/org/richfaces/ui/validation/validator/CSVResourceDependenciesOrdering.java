@@ -1,4 +1,4 @@
-package org.richfaces.ui.validation;
+package org.richfaces.ui.validation.validator;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

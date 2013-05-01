@@ -1,10 +1,11 @@
-package org.richfaces.ui.validation;
+package org.richfaces.ui.validation.validator;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.google.common.collect.UnmodifiableIterator;
+
 import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.resource.ResourceKey;

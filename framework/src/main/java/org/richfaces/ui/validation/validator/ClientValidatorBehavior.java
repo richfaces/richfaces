@@ -1,4 +1,4 @@
-package org.richfaces.ui.validation;
+package org.richfaces.ui.validation.validator;
 
 import org.richfaces.ui.behavior.ConverterNotFoundException;
 import org.richfaces.validator.ConverterDescriptor;
