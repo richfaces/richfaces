@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.select;
+package org.richfaces.ui.select.select;
 
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.JavaScriptService;
@@ -30,6 +30,9 @@ import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.input.InputRendererBase;
+import org.richfaces.ui.select.AbstractSelectComponent;
+import org.richfaces.ui.select.ClientSelectItem;
+import org.richfaces.ui.select.SelectHelper;
 import org.richfaces.util.HtmlDimensions;
 import org.richfaces.validator.AddCSVMessageScript;
 import org.richfaces.validator.SelectLabelValueValidator;

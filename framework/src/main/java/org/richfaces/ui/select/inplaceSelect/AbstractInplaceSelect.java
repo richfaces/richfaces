@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.select;
+package org.richfaces.ui.select.inplaceSelect;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -28,6 +28,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.common.InplaceComponent;
 import org.richfaces.ui.common.InplaceState;
+import org.richfaces.ui.select.AbstractSelectComponent;
 
 /**
  * <p> The &lt;rich:inplaceSelect&gt; component is similar to the &lt;rich:inplaceInput&gt; component, except that the

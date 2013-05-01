@@ -1,10 +1,11 @@
-package org.richfaces.ui.select;
+package org.richfaces.ui.select.pickList;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.select.AbstractOrderingComponent;
 
 /**
  * <p> The &lt;rich:pickList&gt; is a component for selecting items from a list. Additionally, it allows for the selected

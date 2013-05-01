@@ -1,4 +1,4 @@
-package org.richfaces.ui.select;
+package org.richfaces.ui.select.select;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.context.FacesContext;
@@ -12,6 +12,7 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.select.AbstractSelectComponent;
 import org.richfaces.validator.SelectLabelValueValidator;
 
 /**

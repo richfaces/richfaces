@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  **/
-package org.richfaces.ui.select;
+package org.richfaces.ui.select.pickList;
 
 import com.google.common.collect.Iterators;
 
@@ -27,6 +27,11 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
+import org.richfaces.ui.select.ClientSelectItem;
+import org.richfaces.ui.select.SelectManyHelper;
+import org.richfaces.ui.select.SelectManyRendererBase;
+
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
