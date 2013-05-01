@@ -54,7 +54,6 @@ import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.javascript.Message;
 import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -68,6 +67,7 @@ import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesBeanValidator;
 import org.richfaces.validator.FacesConverterService;
 import org.richfaces.validator.FacesValidatorService;
+import org.richfaces.validator.Message;
 import org.richfaces.validator.ValidatorDescriptor;
 
 import com.google.common.base.Function;

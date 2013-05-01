@@ -2,8 +2,6 @@ package org.richfaces.validator;
 
 import java.util.Map;
 
-import org.richfaces.javascript.Message;
-
 /**
  * <p class="changed_added_4_0">
  * Inmlementations of this interface describe JSF or JSR-303 validators. Because JSF supports 2 types of validators, this

@@ -2,6 +2,7 @@ package org.richfaces.javascript.client;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
+
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.jboss.test.qunit.Qunit;
 import org.junit.After;
@@ -9,10 +10,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.richfaces.javascript.Message;
+import org.richfaces.validator.Message;
 
 import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;

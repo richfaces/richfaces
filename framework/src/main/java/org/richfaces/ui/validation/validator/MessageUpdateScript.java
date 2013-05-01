@@ -1,10 +1,11 @@
 package org.richfaces.ui.validation.validator;
 
 import com.google.common.collect.Lists;
+
 import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.Message;
 import org.richfaces.javascript.ScriptString;
 import org.richfaces.javascript.ScriptStringBase;
+import org.richfaces.validator.Message;
 
 import java.io.IOException;
 import java.util.List;

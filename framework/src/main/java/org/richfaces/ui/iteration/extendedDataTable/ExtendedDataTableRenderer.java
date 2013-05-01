@@ -22,7 +22,6 @@
 package org.richfaces.ui.iteration.extendedDataTable;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.context.OnOffResponseWriter;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.ScriptUtils;
@@ -32,6 +31,7 @@ import org.richfaces.model.SelectionMode;
 import org.richfaces.model.SequenceRange;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
+import org.richfaces.response.OnOffResponseWriter;
 import org.richfaces.ui.common.AjaxFunction;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;

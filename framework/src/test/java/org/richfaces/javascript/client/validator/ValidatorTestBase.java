@@ -1,14 +1,16 @@
 package org.richfaces.javascript.client.validator;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
+
 import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
 import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
+
 import org.junit.Test;
 import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.Message;
 import org.richfaces.javascript.client.MockTestBase;
 import org.richfaces.javascript.client.RunParameters;
 import org.richfaces.validator.FacesValidatorServiceImpl;
+import org.richfaces.validator.Message;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

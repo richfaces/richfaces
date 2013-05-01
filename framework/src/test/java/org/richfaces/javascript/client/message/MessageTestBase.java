@@ -3,11 +3,12 @@ package org.richfaces.javascript.client.message;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
 import org.jboss.test.qunit.Qunit;
 import org.jboss.test.qunit.Qunit.Builder;
 import org.junit.Rule;
 import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.Message;
+import org.richfaces.validator.Message;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

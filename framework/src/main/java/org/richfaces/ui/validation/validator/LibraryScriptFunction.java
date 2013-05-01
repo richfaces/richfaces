@@ -23,10 +23,11 @@
 package org.richfaces.ui.validation.validator;
 
 import com.google.common.collect.ImmutableSet;
+
 import org.richfaces.javascript.LibraryFunction;
-import org.richfaces.javascript.Message;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
+import org.richfaces.validator.Message;
 
 import java.util.Map;
 

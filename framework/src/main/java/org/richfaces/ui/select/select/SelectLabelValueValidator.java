@@ -44,7 +44,7 @@ import org.richfaces.util.MessageUtil;
  */
 public class SelectLabelValueValidator implements Validator, Serializable {
 
-    public static final String ID = "org.richfaces.validator.SelectLabelValueValidator";
+    public static final String ID = "org.richfaces.ui.select.select.SelectLabelValueValidator";
 
     private static final long serialVersionUID = 2343817853927262660L;
 

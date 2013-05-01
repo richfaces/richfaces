@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.richfaces.javascript;
+package org.richfaces.validator;
 
 import javax.faces.application.FacesMessage;
 

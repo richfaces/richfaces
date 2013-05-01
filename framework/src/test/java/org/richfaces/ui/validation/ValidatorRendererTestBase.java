@@ -3,11 +3,11 @@ package org.richfaces.ui.validation;
 import com.google.common.collect.ImmutableMap;
 
 import org.jboss.test.faces.mock.Mock;
-import org.richfaces.javascript.Message;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.ui.behavior.BehaviorTestBase;
 import org.richfaces.ui.validation.validator.ClientValidatorBehavior;
 import org.richfaces.ui.validation.validator.ClientValidatorRenderer;
+import org.richfaces.validator.Message;
 
 import javax.faces.application.FacesMessage;
 
