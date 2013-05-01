@@ -1,6 +1,15 @@
 package org.richfaces.ui.validation.validator;
 
-import com.google.common.collect.Iterables;
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+
+import javax.faces.convert.NumberConverter;
+import javax.faces.validator.RegexValidator;
 
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
@@ -13,20 +22,10 @@ import org.richfaces.javascript.LibraryFunction;
 import org.richfaces.javascript.ScriptNotFoundException;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.validation.ValidatorRendererTestBase;
-import org.richfaces.ui.validation.validator.LibraryScriptFunction;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.ValidatorDescriptor;
 
-import javax.faces.convert.NumberConverter;
-import javax.faces.validator.RegexValidator;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import com.google.common.collect.Iterables;
 
 @RunWith(MockTestRunner.class)
 public class RendererGetClientSideScriptTest extends ValidatorRendererTestBase {

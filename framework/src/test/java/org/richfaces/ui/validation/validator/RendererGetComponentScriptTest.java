@@ -1,6 +1,22 @@
 package org.richfaces.ui.validation.validator;
 
-import com.google.common.collect.Lists;
+import static org.easymock.EasyMock.expect;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.NumberConverter;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -14,31 +30,11 @@ import org.richfaces.javascript.Message;
 import org.richfaces.javascript.ScriptNotFoundException;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.ui.validation.ValidatorRendererTestBase;
-import org.richfaces.ui.validation.validator.ClientValidatorRenderer;
-import org.richfaces.ui.validation.validator.ComponentValidatorScript;
-import org.richfaces.ui.validation.validator.LibraryScriptFunction;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesObjectDescriptor;
 import org.richfaces.validator.ValidatorDescriptor;
 
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.NumberConverter;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-
-import static org.easymock.EasyMock.expect;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.hasItem;
+import com.google.common.collect.Lists;
 
 @RunWith(MockTestRunner.class)
 public class RendererGetComponentScriptTest extends ValidatorRendererTestBase {

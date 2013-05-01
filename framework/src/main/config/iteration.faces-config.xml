@@ -21,29 +21,29 @@
 
     <faces-config-extension>
         <cdk:faces-event>
-            <cdk:event-class>org.richfaces.event.TreeToggleEvent</cdk:event-class>
-            <cdk:listener-class>org.richfaces.event.TreeToggleListener</cdk:listener-class>
-            <cdk:source-class>org.richfaces.event.TreeToggleSource</cdk:source-class>
+            <cdk:event-class>org.richfaces.ui.iteration.tree.TreeToggleEvent</cdk:event-class>
+            <cdk:listener-class>org.richfaces.ui.iteration.tree.TreeToggleListener</cdk:listener-class>
+            <cdk:source-class>org.richfaces.ui.iteration.tree.TreeToggleSource</cdk:source-class>
             <cdk:listener-method>processTreeToggle</cdk:listener-method>
             <cdk:description>Associates tree toggle listener with &lt;rich:tree&gt; component in order to listen for tree toggling events on server-side.</cdk:description>
             <cdk:tag>
                 <cdk:tag-name>treeToggleListener</cdk:tag-name>
                 <cdk:tag-type>Facelets</cdk:tag-type>
-                <cdk:handler-class>org.richfaces.view.facelets.TreeToggleListenerHandler</cdk:handler-class>
+                <cdk:handler-class>org.richfaces.ui.iteration.tree.TreeToggleListenerHandler</cdk:handler-class>
                 <cdk:generate>true</cdk:generate>
             </cdk:tag>
         </cdk:faces-event>
 
         <cdk:faces-event>
-            <cdk:event-class>org.richfaces.event.TreeSelectionChangeEvent</cdk:event-class>
-            <cdk:listener-class>org.richfaces.event.TreeSelectionChangeListener</cdk:listener-class>
-            <cdk:source-class>org.richfaces.event.TreeSelectionChangeSource</cdk:source-class>
+            <cdk:event-class>org.richfaces.ui.iteration.tree.TreeSelectionChangeEvent</cdk:event-class>
+            <cdk:listener-class>org.richfaces.ui.iteration.tree.TreeSelectionChangeListener</cdk:listener-class>
+            <cdk:source-class>org.richfaces.ui.iteration.tree.TreeSelectionChangeSource</cdk:source-class>
             <cdk:listener-method>processTreeSelectionChange</cdk:listener-method>
             <cdk:description>Associates tree selection change listener with &lt;rich:tree&gt; component in order to listen for tree selection events on server-side.</cdk:description>
             <cdk:tag>
                 <cdk:tag-name>treeSelectionChangeListener</cdk:tag-name>
                 <cdk:tag-type>Facelets</cdk:tag-type>
-                <cdk:handler-class>org.richfaces.view.facelets.TreeSelectionChangeListenerHandler</cdk:handler-class>
+                <cdk:handler-class>org.richfaces.ui.iteration.tree.TreeSelectionChangeListenerHandler</cdk:handler-class>
                 <cdk:generate>true</cdk:generate>
             </cdk:tag>
         </cdk:faces-event>

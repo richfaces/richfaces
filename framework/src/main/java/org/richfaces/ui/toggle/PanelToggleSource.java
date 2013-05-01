@@ -19,35 +19,41 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.event;
+package org.richfaces.ui.toggle;
 
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesListener;
-
-import org.richfaces.ui.common.PanelToggleEvent;
 
 /**
- * <p>
- * A listener interface for receiving {@link PanelToggleEvent}s. A class that is interested in receiving such events implements
- * this interface, and then registers itself with the source {@link javax.faces.component.UIComponent} of interest, by calling
- * <code>addPanelToggleListener()</code>.
- * </p>
- *
  * @author akolonitsky
- * @version 1.0
  * @since 2010-08-27
- *
  */
-public interface PanelToggleListener extends FacesListener {
+public interface PanelToggleSource {
     /**
      * <p>
-     * Invoked when {@link PanelToggleEvent} occurs.
+     * Add a new {@link PanelToggleListener} to the set of listeners interested in being notified when {@link PanelToggleEvent}s
+     * occur.
      * </p>
      *
-     * @param event The {@link PanelToggleEvent} that has occurred
-     *
-     * @throws AbortProcessingException Signal the JavaServer Faces implementation that no further processing on the current
-     *         event should be performed
+     * @param listener The {@link PanelToggleListener} to be added
+     * @throws NullPointerException if <code>listener</code> is <code>null</code>
      */
-    void processPanelToggle(PanelToggleEvent event) throws AbortProcessingException;
+    void addPanelToggleListener(PanelToggleListener listener);
+
+    /**
+     * <p>
+     * Return the set of registered {@link PanelToggleListener}s for this instance. If there are no registered listeners, a
+     * zero-length array is returned.
+     * </p>
+     */
+    PanelToggleListener[] getPanelToggleListeners();
+
+    /**
+     * <p>
+     * Remove an existing {@link PanelToggleListener} (if any) from the set of listeners interested in being notified when
+     * {@link PanelToggleEvent}s occur.
+     * </p>
+     *
+     * @param listener The {@link PanelToggleListener} to be removed
+     * @throws NullPointerException if <code>listener</code> is <code>null</code>
+     */
+    void removePanelToggleListener(PanelToggleListener listener);
 }

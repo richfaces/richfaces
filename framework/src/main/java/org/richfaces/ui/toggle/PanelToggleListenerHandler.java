@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.toggle.collapsiblePanel;
+package org.richfaces.ui.toggle;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -28,9 +28,7 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagConfig;
 
-import org.richfaces.event.PanelToggleListener;
 import org.richfaces.ui.common.EventListenerHandler;
-import org.richfaces.ui.common.PanelToggleEvent;
 
 /**
  *

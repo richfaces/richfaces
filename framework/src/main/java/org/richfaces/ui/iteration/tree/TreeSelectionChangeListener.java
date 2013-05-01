@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.event;
+package org.richfaces.ui.iteration.tree;
 
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesListener;
@@ -28,6 +28,6 @@ import javax.faces.event.FacesListener;
  * @author Nick Belaevski
  *
  */
-public interface TreeToggleListener extends FacesListener {
-    void processTreeToggle(TreeToggleEvent event) throws AbortProcessingException;
+public interface TreeSelectionChangeListener extends FacesListener {
+    void processTreeSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException;
 }

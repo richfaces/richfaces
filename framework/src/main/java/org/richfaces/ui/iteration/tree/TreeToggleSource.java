@@ -21,7 +21,6 @@
  */
 package org.richfaces.ui.iteration.tree;
 
-import org.richfaces.event.TreeToggleListener;
 
 /**
  * @author Nick Belaevski

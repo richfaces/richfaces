@@ -5,9 +5,9 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
+import org.richfaces.ui.toggle.ItemChangeEvent;
 
 @ManagedBean
 @ViewScoped

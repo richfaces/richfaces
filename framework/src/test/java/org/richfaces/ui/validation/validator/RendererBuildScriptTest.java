@@ -1,5 +1,11 @@
 package org.richfaces.ui.validation.validator;
 
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+
+import javax.faces.component.UIViewRoot;
+import javax.faces.component.behavior.ClientBehaviorContext;
+
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.After;
@@ -9,15 +15,6 @@ import org.junit.runner.RunWith;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.validation.ValidatorRendererTestBase;
-import org.richfaces.ui.validation.validator.ClientValidatorBehavior;
-import org.richfaces.ui.validation.validator.ClientValidatorRenderer;
-import org.richfaces.ui.validation.validator.ComponentValidatorScript;
-
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.behavior.ClientBehaviorContext;
-
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(MockTestRunner.class)
 public class RendererBuildScriptTest extends ValidatorRendererTestBase {

@@ -21,13 +21,13 @@
  */
 package org.richfaces.ui.iteration.tree;
 
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesListener;
 
 /**
  * @author Nick Belaevski
  *
  */
-public interface TreeSelectionChangeSource {
-    void addTreeSelectionChangeListener(TreeSelectionChangeListener listener);
-
-    void removeTreeSelectionChangeListener(TreeSelectionChangeListener listener);
+public interface TreeToggleListener extends FacesListener {
+    void processTreeToggle(TreeToggleEvent event) throws AbortProcessingException;
 }
