@@ -103,4 +103,10 @@ public class ITPlaceholderSelect extends AbstractPlaceholderTest {
     @Ignore("The select component can't send invalid value by AJAX")
     public void testAjaxSendsEmptyValue() {
     }
+
+    @Override
+    public void testDefaultAttributes() {
+        // TODO Auto-generated method stub
+        super.testDefaultAttributes();
+    }
 }

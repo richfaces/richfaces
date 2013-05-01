@@ -5,7 +5,7 @@
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.CommandButtonRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.ajax.command.CommandButtonRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.ajax.command.CommandButtonRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Command</cdk:component-family>
         <cdk:renderer-type>org.richfaces.CommandButtonRenderer</cdk:renderer-type>

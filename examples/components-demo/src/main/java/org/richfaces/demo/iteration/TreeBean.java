@@ -41,13 +41,13 @@ import javax.faces.event.FacesEvent;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.demo.iteration.model.tree.DataHolderTreeNodeImpl;
-import org.richfaces.event.TreeSelectionChangeEvent;
-import org.richfaces.event.TreeSelectionChangeListener;
-import org.richfaces.event.TreeToggleEvent;
-import org.richfaces.event.TreeToggleListener;
 import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.iteration.tree.AbstractTree;
 import org.richfaces.ui.iteration.tree.AbstractTreeNode;
+import org.richfaces.ui.iteration.tree.TreeSelectionChangeEvent;
+import org.richfaces.ui.iteration.tree.TreeSelectionChangeListener;
+import org.richfaces.ui.iteration.tree.TreeToggleEvent;
+import org.richfaces.ui.iteration.tree.TreeToggleListener;
 import org.richfaces.convert.SequenceRowKeyConverter;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;

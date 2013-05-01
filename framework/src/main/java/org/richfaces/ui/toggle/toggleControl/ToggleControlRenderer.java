@@ -22,7 +22,6 @@
 package org.richfaces.ui.toggle.toggleControl;
 
 import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
-import org.richfaces.ui.behavior.ToggleControl;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

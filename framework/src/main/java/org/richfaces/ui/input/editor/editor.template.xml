@@ -29,7 +29,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.EditorRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.input.editor.EditorRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.input.editor.EditorRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.Editor</cdk:component-family>
         <cdk:renderer-type>org.richfaces.EditorRenderer</cdk:renderer-type>

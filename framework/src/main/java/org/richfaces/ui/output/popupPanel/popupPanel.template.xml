@@ -6,7 +6,7 @@
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.PopupPanelRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.output.popupPanel.PopupPanelRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.output.popupPanel.PopupPanelBaseRenderer</cdk:superclass>
         <cdk:component-family>org.richfaces.PopupPanel</cdk:component-family>
         <cdk:renderer-type>org.richfaces.PopupPanelRenderer</cdk:renderer-type>

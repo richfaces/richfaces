@@ -27,8 +27,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     xmlns="http://java.sun.com/xml/ns/javaee" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     
     <validator>
-        <validator-id>org.richfaces.validator.SelectLabelValueValidator</validator-id>
-        <validator-class>org.richfaces.validator.SelectLabelValueValidator</validator-class>
+        <validator-id>org.richfaces.ui.select.select.SelectLabelValueValidator</validator-id>
+        <validator-class>org.richfaces.ui.select.select.SelectLabelValueValidator</validator-class>
     </validator>
     
 </faces-config>

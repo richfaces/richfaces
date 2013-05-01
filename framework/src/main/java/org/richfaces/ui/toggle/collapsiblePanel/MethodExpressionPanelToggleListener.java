@@ -24,9 +24,9 @@ package org.richfaces.ui.toggle.collapsiblePanel;
 import javax.el.MethodExpression;
 import javax.faces.event.AbortProcessingException;
 
-import org.richfaces.event.PanelToggleListener;
 import org.richfaces.ui.common.MethodExpressionEventListener;
-import org.richfaces.ui.common.PanelToggleEvent;
+import org.richfaces.ui.toggle.PanelToggleEvent;
+import org.richfaces.ui.toggle.PanelToggleListener;
 
 /**
  * <p>

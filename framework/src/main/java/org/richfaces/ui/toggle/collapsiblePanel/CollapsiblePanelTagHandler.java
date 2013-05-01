@@ -30,7 +30,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.ui.common.PanelToggleEvent;
+import org.richfaces.ui.toggle.PanelToggleEvent;
 
 /**
  * @author akolonitsky

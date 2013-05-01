@@ -6,7 +6,7 @@
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.PanelRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.output.panel.PanelRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.output.panel.PanelBaseRenderer</cdk:superclass>
         <cdk:component-family>org.richfaces.Panel</cdk:component-family>
         <cdk:renderer-type>org.richfaces.PanelRenderer</cdk:renderer-type>

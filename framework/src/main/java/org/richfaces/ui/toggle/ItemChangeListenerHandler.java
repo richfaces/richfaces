@@ -30,9 +30,6 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagConfig;
 
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeListener;
-import org.richfaces.event.ItemChangeSource;
 import org.richfaces.ui.common.EventListenerHandler;
 
 /**

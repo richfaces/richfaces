@@ -4,8 +4,6 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 
-import org.richfaces.javascript.Message;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 

@@ -25,7 +25,6 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 
 import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.event.TreeSelectionChangeEvent;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.log.Logger;

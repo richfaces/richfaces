@@ -21,6 +21,7 @@
  */
 package org.richfaces.ui.message;
 
+import org.richfaces.ui.message.notifyStack.AbstractNotifyStack;
 import org.richfaces.util.RendererUtils;
 
 import javax.faces.FacesException;

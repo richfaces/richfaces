@@ -30,8 +30,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import org.richfaces.ui.misc.AbstractFocus;
-import org.richfaces.ui.misc.FocusRendererBase;
+import org.richfaces.ui.misc.focus.AbstractFocus;
+import org.richfaces.ui.misc.focus.FocusRendererBase;
 
 @RunAsClient
 @WarpTest

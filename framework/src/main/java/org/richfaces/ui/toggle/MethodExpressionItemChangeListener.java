@@ -24,8 +24,6 @@ package org.richfaces.ui.toggle;
 import javax.el.MethodExpression;
 import javax.faces.event.AbortProcessingException;
 
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeListener;
 import org.richfaces.ui.common.MethodExpressionEventListener;
 
 /**

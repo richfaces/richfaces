@@ -21,22 +21,22 @@
  */
 package org.richfaces.ui.select;
 
-import org.richfaces.ui.common.ComponentAttribute;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.util.HtmlUtil;
-import org.richfaces.util.InputUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.model.SelectItem;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.model.SelectItem;
+
+import org.richfaces.ui.common.ComponentAttribute;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.util.HtmlUtil;
+import org.richfaces.util.InputUtils;
 
 /**
  * @author abelevich
@@ -149,5 +149,12 @@ public final class SelectHelper {
         if (listCss != null && listCss.trim().length() > 0) {
             options.put(PopupConstants.OPTIONS_LIST_CLASS, HtmlUtil.concatClasses(defaultCss[2], listCss));
         }
+    }
+
+    public interface PopupConstants {
+        String OPTIONS_ITEM_CLASS = "itemCss";
+        String OPTIONS_SELECT_ITEM_CLASS = "selectItemCss";
+        String OPTIONS_LIST_CLASS = "listCss";
+        String OPTIONS_LIST_CORD = "list";
     }
 }

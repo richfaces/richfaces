@@ -30,9 +30,6 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeSource;
-
 /**
  * @author akolonitsky
  * @since 2010-08-13

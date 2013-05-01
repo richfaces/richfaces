@@ -6,7 +6,7 @@
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.AutocompleteRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.input.autocomplete.AutocompleteRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.input.autocomplete.AutocompleteRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Input</cdk:component-family>
         <cdk:renderer-type>org.richfaces.AutocompleteRenderer
