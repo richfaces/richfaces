@@ -6,7 +6,7 @@
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.SelectRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.select.select.SelectRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.select.select.SelectRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.Select</cdk:component-family>
         <cdk:renderer-type>org.richfaces.SelectRenderer</cdk:renderer-type>

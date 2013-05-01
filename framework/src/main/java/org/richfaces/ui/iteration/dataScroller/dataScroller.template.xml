@@ -30,7 +30,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
           xmlns:xi="http://www.w3.org/2001/XInclude">
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.DataScrollerRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.iteration.dataScroller.DataScrollerRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.iteration.dataScroller.DataScrollerBaseRenderer</cdk:superclass>
         <cdk:component-family>org.richfaces.DataScroller</cdk:component-family>
         <cdk:renderer-type>org.richfaces.DataScrollerRenderer</cdk:renderer-type>

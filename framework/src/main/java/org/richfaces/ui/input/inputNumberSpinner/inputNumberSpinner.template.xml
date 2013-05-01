@@ -27,7 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
           xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
         >
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.InputNumberSpinnerRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.input.inputNumberSpinner.InputNumberSpinnerRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.input.InputRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Input</cdk:component-family>
         <cdk:renderer-type>org.richfaces.InputNumberSpinnerRenderer</cdk:renderer-type>

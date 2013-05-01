@@ -17,7 +17,7 @@
           xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
         >
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.HtmlMessagesRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.message.messages.HtmlMessagesRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.message.MessageRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Messages</cdk:component-family>
         <cdk:renderer-type>org.richfaces.MessagesRenderer</cdk:renderer-type>

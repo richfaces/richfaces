@@ -6,7 +6,7 @@
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.MenuItemRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.menu.menu.MenuItemRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.menu.menu.MenuItemRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.DropDownMenu</cdk:component-family>
         <cdk:renderer-type>org.richfaces.MenuItemRenderer</cdk:renderer-type>

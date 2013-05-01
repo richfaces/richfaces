@@ -4,7 +4,7 @@
           xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.FocusRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.misc.focus.FocusRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.misc.focus.FocusRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.Focus</cdk:component-family>
         <cdk:renderer-type>org.richfaces.FocusRenderer</cdk:renderer-type>

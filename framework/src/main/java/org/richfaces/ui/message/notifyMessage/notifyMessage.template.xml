@@ -16,7 +16,7 @@
           xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
         >
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.HtmlNotifyMessageRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.message.notifyMessage.HtmlNotifyMessageRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.message.NotifyMessageRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.NotifyMessage</cdk:component-family>
         <cdk:renderer-type>org.richfaces.NotifyMessageRenderer</cdk:renderer-type>

@@ -28,7 +28,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
           xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
         >
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.FileUploadRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.input.fileUpload.FileUploadRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.input.fileUpload.FileUploadRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.FileUpload</cdk:component-family>
         <cdk:renderer-type>org.richfaces.FileUploadRenderer</cdk:renderer-type>

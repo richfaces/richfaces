@@ -4,7 +4,7 @@
           xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.PlaceholderRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.misc.placeholder.PlaceholderRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.misc.placeholder.PlaceholderRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.Placeholder</cdk:component-family>
         <cdk:renderer-type>org.richfaces.PlaceholderRenderer</cdk:renderer-type>

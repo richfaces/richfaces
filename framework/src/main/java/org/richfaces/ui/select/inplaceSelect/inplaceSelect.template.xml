@@ -18,7 +18,7 @@
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.InplaceSelectRenderer
+        <cdk:class>org.richfaces.ui.select.inplaceSelect.InplaceSelectRenderer
         </cdk:class>
         <cdk:superclass>org.richfaces.ui.select.inplaceSelect.InplaceSelectRendererBase
         </cdk:superclass>

@@ -5,7 +5,7 @@
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.HotKeyRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.misc.hotKey.HotKeyRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.misc.hotKey.HotKeyRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.HotKey</cdk:component-family>
         <cdk:renderer-type>org.richfaces.HotKeyRenderer</cdk:renderer-type>

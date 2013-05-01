@@ -28,7 +28,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.DragIndicatorRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.drag.dragIndicator.DragIndicatorRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.drag.dragIndicator.DragIndicatorRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.DragIndicator</cdk:component-family>
         <cdk:renderer-type>org.richfaces.DragIndicatorRenderer</cdk:renderer-type>

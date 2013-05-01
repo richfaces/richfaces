@@ -6,7 +6,7 @@
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.PickListRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.select.pickList.PickListRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.select.pickList.PickListRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.SelectMany</cdk:component-family>
         <cdk:renderer-type>org.richfaces.PickListRenderer</cdk:renderer-type>

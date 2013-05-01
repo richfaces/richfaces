@@ -27,7 +27,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite" xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
     xmlns:xi="http://www.w3.org/2001/XInclude">
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.InputNumberSliderRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.input.inputNumberSlider.InputNumberSliderRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.input.inputNumberSlider.InputNumberSliderRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Input</cdk:component-family>
         <cdk:renderer-type>org.richfaces.InputNumberSliderRenderer</cdk:renderer-type>

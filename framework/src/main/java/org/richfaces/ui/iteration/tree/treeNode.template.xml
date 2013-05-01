@@ -6,7 +6,7 @@
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.TreeNodeRenderer
+        <cdk:class>org.richfaces.ui.iteration.tree.TreeNodeRenderer
         </cdk:class>
         <cdk:superclass>org.richfaces.ui.iteration.tree.TreeNodeRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.TreeNode
