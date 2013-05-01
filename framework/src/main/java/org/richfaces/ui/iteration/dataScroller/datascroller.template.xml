@@ -38,7 +38,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <cc:implementation>
 
-        <cdk:object type="org.richfaces.ui.misc.ControlsState" name="controlsState" value="#{getControlsState(facesContext,component)}" />
+        <cdk:object type="org.richfaces.ui.iteration.dataScroller.ControlsState" name="controlsState" value="#{getControlsState(facesContext,component)}" />
         <cdk:object name="style" value="#{component.attributes['style']}" />
         <cdk:object name="styleClass" value="#{component.attributes['styleClass']}" />
 
