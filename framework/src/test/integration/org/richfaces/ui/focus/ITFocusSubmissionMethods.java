@@ -26,7 +26,7 @@ import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import org.richfaces.ui.misc.FocusRendererBase;
+import org.richfaces.ui.misc.focus.FocusRendererBase;
 
 @RunAsClient
 @WarpTest

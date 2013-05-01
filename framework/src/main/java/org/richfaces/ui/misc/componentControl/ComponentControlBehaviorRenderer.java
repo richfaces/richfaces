@@ -25,7 +25,7 @@ import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.ui.misc.UIHashParameter;
+import org.richfaces.ui.misc.hashParameter.UIHashParameter;
 import org.richfaces.util.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;

@@ -1,4 +1,4 @@
-package org.richfaces.ui.misc;
+package org.richfaces.ui.misc.placeholder;
 
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.util.InputUtils;

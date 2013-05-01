@@ -1,13 +1,9 @@
-package org.richfaces.ui.misc;
+package org.richfaces.ui.misc.focus;
 
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.misc.focus.FocusRenderStrategy;
-import org.richfaces.ui.misc.focus.FocusRendererInterface;
-import org.richfaces.ui.misc.focus.FormFocusRenderStrategy;
-import org.richfaces.ui.misc.focus.ViewFocusRenderStrategy;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

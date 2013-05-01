@@ -1,4 +1,4 @@
-package org.richfaces.ui.misc;
+package org.richfaces.ui.misc.focus;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -6,7 +6,6 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.common.AjaxOutput;
-import org.richfaces.ui.misc.focus.FocusRendererInterface;
 import org.richfaces.util.RendererUtils;
 
 import javax.faces.component.UIForm;

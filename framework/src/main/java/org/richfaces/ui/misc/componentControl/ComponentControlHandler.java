@@ -39,7 +39,7 @@ import javax.faces.view.facelets.FaceletHandler;
 
 import org.richfaces.ui.ajax.parameter.AbstractParameter;
 import org.richfaces.ui.common.CustomBehaviorHandler;
-import org.richfaces.ui.misc.UIHashParameter;
+import org.richfaces.ui.misc.hashParameter.UIHashParameter;
 
 /**
  * @author Anton Belevich

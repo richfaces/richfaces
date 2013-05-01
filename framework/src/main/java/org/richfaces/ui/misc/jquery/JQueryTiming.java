@@ -19,17 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.misc;
+package org.richfaces.ui.misc.jquery;
 
 /**
  * @author nick
  *
  */
-public enum JQueryAttachType {
+public enum JQueryTiming {
 
-    bind,
-    live,
-    one;
-    public static final JQueryAttachType DEFAULT = bind;
+    immediate,
+    domready;
+    public static final JQueryTiming DEFAULT = domready;
 
 }

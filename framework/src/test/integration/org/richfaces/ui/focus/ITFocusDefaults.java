@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import org.richfaces.ui.misc.AbstractFocus;
+import org.richfaces.ui.misc.focus.AbstractFocus;
 
 import category.Smoke;
 

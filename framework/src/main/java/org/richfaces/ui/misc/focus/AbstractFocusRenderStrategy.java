@@ -5,7 +5,6 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterators;
 
-import org.richfaces.ui.misc.AbstractFocus;
 import org.richfaces.util.RendererUtils;
 
 import javax.faces.component.EditableValueHolder;

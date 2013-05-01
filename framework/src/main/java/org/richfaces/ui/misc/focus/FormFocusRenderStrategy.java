@@ -1,7 +1,5 @@
 package org.richfaces.ui.misc.focus;
 
-import org.richfaces.ui.misc.AbstractFocus;
-
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 

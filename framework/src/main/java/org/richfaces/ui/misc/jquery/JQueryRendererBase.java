@@ -19,16 +19,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.misc;
+package org.richfaces.ui.misc.jquery;
+
+import org.richfaces.util.HtmlUtil;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.render.Renderer;
 
 /**
  * @author nick
  *
  */
-public enum JQueryTiming {
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.component.js") })
+public abstract class JQueryRendererBase extends Renderer {
+    protected String getEscapedSelector(FacesContext context, UIComponent component) {
+        String selector = (String) component.getAttributes().get("selector");
 
-    immediate,
-    domready;
-    public static final JQueryTiming DEFAULT = domready;
+        if (selector != null) {
+            selector = HtmlUtil.expandIdSelector(selector, component, context);
+        }
 
+        return selector;
+    }
 }

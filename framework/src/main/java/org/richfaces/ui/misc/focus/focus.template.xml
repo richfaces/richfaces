@@ -5,10 +5,10 @@
 
     <cc:interface>
         <cdk:class>org.richfaces.renderkit.html.FocusRenderer</cdk:class>
-        <cdk:superclass>org.richfaces.ui.misc.FocusRendererBase</cdk:superclass>
+        <cdk:superclass>org.richfaces.ui.misc.focus.FocusRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.Focus</cdk:component-family>
         <cdk:renderer-type>org.richfaces.FocusRenderer</cdk:renderer-type>
-        <cdk:component-base-class>org.richfaces.ui.misc.AbstractFocus</cdk:component-base-class>
+        <cdk:component-base-class>org.richfaces.ui.misc.focus.AbstractFocus</cdk:component-base-class>
     </cc:interface>
 
     <cc:implementation>
