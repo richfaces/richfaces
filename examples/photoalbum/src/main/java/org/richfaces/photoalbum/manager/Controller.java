@@ -610,8 +610,8 @@ public class Controller implements Serializable {
     }
 
     private boolean canViewImage(Image image) {
-        return image != null && image.getAlbum() != null && image.getAlbum().getShelf() != null
-            && (image.getAlbum().getShelf().isShared() || image.isOwner(loggedUser));
+        return image != null && image.getAlbum() != null && (image.getAlbum().getShelf() != null
+            && (image.getAlbum().getShelf().isShared() || image.isOwner(loggedUser))) || image.getAlbum().getEvent() != null;
     }
 
     /**
