@@ -1454,6 +1454,12 @@ h1 {
     height: 22px;
 }
 
+/* scroller */
+
+.rf-ds {
+	display: none !important;
+}
+
 /* FB button */
 
 input[type='submit'].fb-button {
