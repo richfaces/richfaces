@@ -159,7 +159,7 @@ public final class RichFunction {
      * identifier is not found, empty jQuery object is returned instead.
      */
     @Function
-    public static String jQueryObject(String id) {
+    public static String jQuery(String id) {
         String element = element(id);
 
         if (element != null) {
