@@ -412,7 +412,7 @@ public class CoreDeployment extends Deployment {
     }
 
     public CoreDeployment withWholeCore() {
-        JavaArchive coreArchive = ShrinkWrap.create(JavaArchive.class, "richfaces-framework.jar");
+        JavaArchive coreArchive = ShrinkWrap.create(JavaArchive.class, "richfaces.jar");
         coreArchive.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
             .importDirectory("target/classes/").as(GenericArchive.class),
             "/", Filters.includeAll());

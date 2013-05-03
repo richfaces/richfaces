@@ -158,7 +158,7 @@
                                 <configuration>
                                     <classifier>javadoc</classifier>
                                     <stripVersion>true</stripVersion>
-                                    <includeArtifactIds>richfaces-framework</includeArtifactIds>
+                                    <includeArtifactIds>richfaces</includeArtifactIds>
                                     <outputDirectory>target/dist/doc/javadoc</outputDirectory>
                                 </configuration>
                             </execution>
@@ -171,7 +171,7 @@
                                 <configuration>
                                     <classifier>vdldoc</classifier>
                                     <stripVersion>true</stripVersion>
-                                    <includeArtifactIds>richfaces-framework</includeArtifactIds>
+                                    <includeArtifactIds>richfaces</includeArtifactIds>
                                     <outputDirectory>target/dist/doc/vdldoc</outputDirectory>
                                 </configuration>
                             </execution>
@@ -185,7 +185,7 @@
                                     <classifier>jsdoc</classifier>
                                     <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
                                     <stripVersion>true</stripVersion>
-                                    <includeArtifactIds>richfaces-framework</includeArtifactIds>
+                                    <includeArtifactIds>richfaces</includeArtifactIds>
                                     <outputDirectory>target/dist/doc/jsdoc</outputDirectory>
                                 </configuration>
                             </execution>
