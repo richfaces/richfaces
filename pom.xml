@@ -41,8 +41,6 @@
         <module>build/resources-plugin</module>
 
         <module>dist</module>
-        <module>dist/optimized-resources</module>
-        <module>dist/depchain</module>
 
         <module>examples/photoalbum</module>
         <module>examples/showcase</module>
