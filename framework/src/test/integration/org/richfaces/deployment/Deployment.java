@@ -201,7 +201,7 @@ public class Deployment {
 
                 jarFiles.addAll(Arrays.asList(listFiles));
             } catch (Exception e) {
-                throw new IllegalStateException("Can't resolve maven dependency: " + dependency);
+                throw new IllegalStateException("Can't resolve maven dependency: " + dependency, e);
             }
         }
 
