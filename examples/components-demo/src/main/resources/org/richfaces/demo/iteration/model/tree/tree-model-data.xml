@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <root>
-    <project name="ajax4jsf">
+    <project name="richfaces">
         <sourceDirectory name="src/main/java">
-            <package name="org.ajax4jsf">
+            <package name="org.richfaces">
                 <class name="FastFilter.java" />
                 <class name="Filter.java" />
             </package>
-            <package name="org.ajax4jsf.component">
+            <package name="org.richfaces.component">
                 <class name="UIDataAdaptor.java" />
                 <class name="AjaxActionComponent.java" />
             </package>
-            <package name="org.ajax4jsf.renderkit">
+            <package name="org.richfaces.renderkit">
                 <class name="AjaxChildrenRenderer.java" />
                 <class name="AjaxComponentRendererBase.java" />
             </package>
         </sourceDirectory>
         <sourceDirectory name="src/main/resources">
-            <package name="org.ajax4jsf">
+            <package name="org.richfaces">
             </package>
-            <package name="org.ajax4jsf.javascript">
+            <package name="org.richfaces.javascript">
             </package>
         </sourceDirectory>
     </project>
