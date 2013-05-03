@@ -19,15 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.cdk.ordering;
+package org.richfaces.resourcePlugin.ordering;
 
 import static java.util.Arrays.asList;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.richfaces.ordering.IllegalPartialOrderingException;
-import org.richfaces.ordering.PartialOrderToCompleteOrder;
 
 import com.google.common.collect.Ordering;
 

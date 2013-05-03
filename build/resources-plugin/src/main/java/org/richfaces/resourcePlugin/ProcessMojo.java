@@ -254,7 +254,7 @@ public class ProcessMojo extends AbstractMojo {
     }
 
     public Logger getLogger() {
-        if (logger != null) {
+        if (logger == null) {
             logger = new LoggerWrapper(getLog());
         }
         return logger;

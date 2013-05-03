@@ -164,7 +164,7 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
                 } else {
                     renderResource(null);
                 }
-                log.info("Resource renderer: " + resourceKey);
+                log.debug("Resource rendered: " + resourceKey);
             }
             return null;
         }

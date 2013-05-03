@@ -135,14 +135,17 @@ public class LoggerWrapper implements Logger {
             switch (level) {
                 case DEBUG:
                     log.debug(content);
+                    break;
                 case INFO:
                     log.info(content);
+                    break;
                 case WARNING:
                     log.warn(content);
+                    break;
                 case ERROR:
                     log.error(content);
+                    break;
             }
-            throw new IllegalStateException("Unknown Logger Level");
         }
     }
 
@@ -155,14 +158,17 @@ public class LoggerWrapper implements Logger {
             switch (level) {
                 case DEBUG:
                     log.debug(content, thrown);
+                    break;
                 case INFO:
                     log.info(content, thrown);
+                    break;
                 case WARNING:
                     log.warn(content, thrown);
+                    break;
                 case ERROR:
                     log.error(content, thrown);
+                    break;
             }
-            throw new IllegalStateException("Unknown Logger Level");
         }
     }
 
@@ -171,17 +177,22 @@ public class LoggerWrapper implements Logger {
     }
 
     public void log(Level level, Throwable thrown) {
-        switch (level) {
-            case DEBUG:
-                log.debug(thrown);
-            case INFO:
-                log.info(thrown);
-            case WARNING:
-                log.warn(thrown);
-            case ERROR:
-                log.error(thrown);
+        if (isLogEnabled(level)) {
+            switch (level) {
+                case DEBUG:
+                    log.debug(thrown);
+                    break;
+                case INFO:
+                    log.info(thrown);
+                    break;
+                case WARNING:
+                    log.warn(thrown);
+                    break;
+                case ERROR:
+                    log.error(thrown);
+                    break;
+            }
         }
-        throw new IllegalStateException("Unknown Logger Level");
     }
 
     private String interpolate(Enum<?> messageKey, Object... args) {
