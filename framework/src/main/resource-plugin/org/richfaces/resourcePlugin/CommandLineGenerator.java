@@ -174,22 +174,26 @@ public class CommandLineGenerator {
      *
      * @parameter
      */
+    @Parameter(names = { "--includeContentType" }, descriptionKey = "includedContentTypes")
     private List<String> includedContentTypes = Arrays.asList("application/javascript", "text/css", "image/.+");
     /**
      * The list of mime-types to be excluded in processing
      * @parameter
      */
+    @Parameter(names = { "--excludeContentType" }, descriptionKey = "excludedContentTypes")
     private List<String> excludedContentTypes = Arrays.asList();
     /**
      * List of included files.
      *
      * @parameter
      */
+    @Parameter(names = { "--includeFile" }, descriptionKey = "includedFiles")
     private List<String> includedFiles = Arrays.asList();
     /**
      * List of excluded files
      * @parameter
      */
+    @Parameter(names = { "--excludeFile" }, descriptionKey = "excludedFiles")
     private List<String> excludedFiles = Arrays.asList("^javax.faces", "^\\Qorg.richfaces.renderkit.html.images.\\E.*", "^\\Qorg.richfaces.renderkit.html.iconimages.\\E.*");
     /**
      * Turns on compression with YUI Compressor (JavaScript/CSS compression)
