@@ -28,7 +28,7 @@ import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.SimpleEvent;
 
 /**
- * Convenience UI class for rich:editor component
+ * Convenience UI class for r:editor component
  *
  * @author Andrey Markhel
  */

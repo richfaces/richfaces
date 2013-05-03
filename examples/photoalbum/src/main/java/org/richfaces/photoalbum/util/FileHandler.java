@@ -12,7 +12,7 @@ import org.richfaces.model.UploadedFile;
 /**
  * A wrapper class for handling two different classes: RichFaces' UploadedFile and java.io.File
  * 
- *      UploadedFile is created from a local file when using rich:fileUploader
+ *      UploadedFile is created from a local file when using r:fileUploader
  *      File is created from a remote file when downloading a file from an URL
  * 
  * @author mpetrov

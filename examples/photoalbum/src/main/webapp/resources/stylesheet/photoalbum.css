@@ -335,7 +335,7 @@ img.errors {
     overflow: auto;
 }
 
-.a4j-status {
+.richfaces-status {
     border: 1px solid white !important;
     padding: 5px !important;
     position: absolute;

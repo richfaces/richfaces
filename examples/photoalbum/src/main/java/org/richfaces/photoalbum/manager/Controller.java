@@ -520,7 +520,7 @@ public class Controller implements Serializable {
     }
 
     /**
-     * This utility method determine if the specified node should be marked as selected. Used in internal rich:tree mechanism
+     * This utility method determine if the specified node should be marked as selected. Used in internal r:tree mechanism
      */
     public Boolean adviseNodeSelected(AbstractTree tree) {
         Object currentNode = tree.getRowData();
@@ -531,7 +531,7 @@ public class Controller implements Serializable {
     }
 
     /**
-     * This utility method used by custom datascroller to determine images to show. Used in internal rich:tree mechanism
+     * This utility method used by custom datascroller to determine images to show. Used in internal r:tree mechanism
      */
     public Integer getPage() {
         if (currentPage == 0) {

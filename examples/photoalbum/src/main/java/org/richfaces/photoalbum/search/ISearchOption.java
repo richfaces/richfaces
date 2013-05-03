@@ -38,7 +38,7 @@ public abstract class ISearchOption {
     private List<?> searchResult;
 
     /**
-     * Abstract method, that return name of particular search option. This name used in UI as header of rich:tab. Must be
+     * Abstract method, that return name of particular search option. This name used in UI as header of r:tab. Must be
      * implemented in sub-classes
      *
      * @return name
