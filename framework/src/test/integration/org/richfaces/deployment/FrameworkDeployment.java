@@ -36,7 +36,7 @@ public class FrameworkDeployment extends Deployment {
     }
 
     public void withWholeFramework() {
-        archive().addAsLibrary(new File("target/richfaces-framework.jar"));
+        archive().addAsLibrary(new File("target/richfaces.jar"));
     }
 
     /**
