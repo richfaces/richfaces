@@ -147,10 +147,10 @@
                         try{
                         //after location changes, call this method supplied in config
                         //if using RichFaces, this would be the method name supplied in the
-                        //a4j:jsFunction component...
+                        //r:jsFunction component...
                         callback(param1, param2);
                         }catch(e){
-                           alert('you must define an a4j:jsFunction component with name=' + callback)
+                           alert('you must define an r:jsFunction component with name=' + callback)
                         }
                     }else{
                         //attempt to slide to a page id if not using a callback

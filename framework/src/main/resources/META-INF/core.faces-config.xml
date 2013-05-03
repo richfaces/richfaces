@@ -37,7 +37,7 @@
     </factory>
 
     <managed-bean>
-        <managed-bean-name>a4j</managed-bean-name>
+        <managed-bean-name>richfacesVersion</managed-bean-name>
         <managed-bean-class>org.richfaces.VersionBean</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>

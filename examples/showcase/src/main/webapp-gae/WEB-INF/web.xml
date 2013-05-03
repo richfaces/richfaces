@@ -49,8 +49,8 @@
     </context-param>
 
     <context-param>
-        <param-name>org.ajax4jsf.cache.CACHE_MANAGER_FACTORY_CLASS</param-name>
-        <param-value>org.ajax4jsf.cache.lru.LRUMapCacheFactory</param-value>
+        <param-name>org.richfaces.cache.CACHE_MANAGER_FACTORY_CLASS</param-name>
+        <param-value>org.richfaces.cache.lru.LRUMapCacheFactory</param-value>
     </context-param>
 
     <!-- ***** Accommodate Single-Threaded Requirement of Google AppEngine -->

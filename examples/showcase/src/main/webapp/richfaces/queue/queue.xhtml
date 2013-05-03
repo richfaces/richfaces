@@ -3,7 +3,7 @@
 
     <p>
         JSF 2 provides a queuing mechanism out-of the box in order to sequence client side events with the built-in Ajax
-        implementation. This queue is lacking in some very essential tuning options. The RichFaces <b>a4j:queue</b> provides
+        implementation. This queue is lacking in some very essential tuning options. The RichFaces <b>r:queue</b> provides
         these basic options in addition to other enhancements. There are two primary options available; 'requestDelay' and
         'ignoreDupResponse'. These are explained more in the example below.
     </p>
@@ -39,12 +39,12 @@
     <p>You can define a queue so that it is the default queue for all requests from a complete view, a specific form, or
         even specific components.</p>
     <ul>
-        <li><b>View scoped:</b> Place an <b>a4j:queue</b> with no name attribute outside of any form, and it will be the
+        <li><b>View scoped:</b> Place an <b>r:queue</b> with no name attribute outside of any form, and it will be the
             default queue for all requests on the page.</li>
-        <li><b>Form scoped</b> Place a nameless <b>a4j:queue</b> within a form to make it the default queue for all
+        <li><b>Form scoped</b> Place a nameless <b>r:queue</b> within a form to make it the default queue for all
             requests within it.</li>
-        <li><b>Named queue</b> Define an <b>a4j:queue</b> with a specific name. Then you can make any component, or
-            behavior use that queue with the <b>a4j:attachQueue</b> component. See the next queue example for details.</li>
+        <li><b>Named queue</b> Define an <b>r:queue</b> with a specific name. Then you can make any component, or
+            behavior use that queue with the <b>r:attachQueue</b> component. See the next queue example for details.</li>
     </ul>
 </ui:composition>
 

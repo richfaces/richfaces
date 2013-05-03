@@ -4,13 +4,13 @@
 
 <ui:composition>
     <p>
-        The <b>a4j:status</b> component is an indicator of an Ajax request. It has two states: <i>start</i> and <i>stop</i>. The
+        The <b>r:status</b> component is an indicator of an Ajax request. It has two states: <i>start</i> and <i>stop</i>. The
         <i>start</i> state indicates that an Ajax request is in progress. When an Ajax Response is returned, the component
         switches to the <i>stop</i> state.
     </p>
 
     <p>
-        The <b>a4j:status</b> component could be defined as follows:
+        The <b>r:status</b> component could be defined as follows:
     </p>
     <ul>
         <li>As the default for a view.</li>
@@ -18,7 +18,7 @@
         <li>Referenced explicity from the component sending the request.</li>
     </ul>
     <p>
-        This example shows a view-scoped <b>a4j:status</b> component. It should be defined outside of any forms, and will handle
+        This example shows a view-scoped <b>r:status</b> component. It should be defined outside of any forms, and will handle
         all the Ajax requests within the view.
     </p>
     <ui:include src="#{demoNavigator.sampleIncludeURI}" />

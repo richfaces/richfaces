@@ -356,7 +356,7 @@ input.rf-insl-inp {
 }
 
 /*************************************************
-rich:dataScroller
+r:dataScroller
 *************************************************/
 
 td.acent {
@@ -372,7 +372,7 @@ td.acent {
 }
 
 /*************************************************
-rich:tree
+r:tree
 *************************************************/
 .rf-trn-hnd-exp, .rf-trn-hnd-colps {
     padding: 3px;
@@ -390,7 +390,7 @@ rich:tree
 }
 
 /*************************************************
-rich:popupPanel
+r:popupPanel
 *************************************************/
 .rf-pp-hdr-cntrls {
     font-size: 16px;
@@ -413,14 +413,14 @@ tr.rf-tb-cntr td a{
     height: 10000px;
 }
 /*************************************************
-rich:toolbar
+r:toolbar
 *************************************************/
 .rf-tb-sep-grid {
    height: 55%;
 }
 
 /*************************************************
-rich:message
+r:message
 *************************************************/
 .rf-msg-det, .rf-msgs-det {
     display: inline;
@@ -467,7 +467,7 @@ add rounded corners
 }
 
 /*************************************************
-rich:inplaceInput
+r:inplaceInput
 *************************************************/
 
 .rf-ii-lbl {
@@ -476,7 +476,7 @@ rich:inplaceInput
 
 
 /*************************************************
-rich:inputNumberSpinner
+r:inputNumberSpinner
 *************************************************/
 
 .rf-insp-dec, .rf-insp-inc, .rf-insp-dec-dis, .rf-insp-inc-dis {
@@ -489,7 +489,7 @@ input.rf-insp-inp[type="text"] {
 }
 
 /*************************************************
-rich:select
+r:select
 *************************************************/
 
 .rf-sel-btn-arrow {
@@ -497,7 +497,7 @@ rich:select
 }
 
 /*************************************************
-rich:calendar
+r:calendar
 *************************************************/
 
 .rf-cal-btn {

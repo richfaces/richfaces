@@ -3,7 +3,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:r="http://richfaces.org/rich">
 
-    <r:popupPanel id="pp" resizeable="true" header="Popup panel shown using rich:componentControl and rich:hashParam">
+    <r:popupPanel id="pp" resizeable="true" header="Popup panel shown using r:componentControl and r:hashParam">
         <f:facet name="controls">
             <h:outputLink value="#" onclick="#{r:component('pp')}.hide(); return false;">
                 X
@@ -22,9 +22,9 @@
         </h:panelGrid>
         <p>The panel is getting centered by using:</p>
 
-        <p>&lt;a4j:param noEscape="true" name="left" value="(window.width/2)-250"/&gt;</p>
+        <p>&lt;r:param noEscape="true" name="left" value="(window.width/2)-250"/&gt;</p>
 
-        <p>&lt;a4j:param noEscape="true" name="top" value="(window.height/2)-150"/&gt;</p>
+        <p>&lt;r:param noEscape="true" name="top" value="(window.height/2)-150"/&gt;</p>
         <fieldset>
             <legend>
                 <b>NOTE:</b>
