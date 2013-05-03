@@ -175,7 +175,7 @@
             <scope>test</scope>
         </dependency>
         
-        <!-- resource-plugin -->
+        <!-- resource-optimizer -->
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
@@ -259,7 +259,7 @@
                         <configuration>
                             <sources>
                                 <source>src/main/config</source>
-                                <source>src/main/resource-plugin</source>
+                                <source>src/main/resource-optimizer</source>
                                 <source>target/generated-sources/main/java</source>
                                 <source>target/generated-sources/main/resources</source>
                             </sources>
@@ -348,7 +348,7 @@
                         <artifactId>exec-maven-plugin</artifactId>
                         <version>1.2.1</version>
                         <configuration>
-                            <mainClass>org.richfaces.resourcePlugin.GenerateMain</mainClass>
+                            <mainClass>org.richfaces.resource.optimizer.GenerateResourcesMain</mainClass>
                         </configuration>
                         <executions>
                             <!-- Static -->
@@ -366,24 +366,8 @@
                                         <argument>${optimized.resources.prefix}/Static/</argument>
                                         <argument>--mapping</argument>
                                         <argument>${optimized.resources.mapping}/Static.properties</argument>
-                                        <argument>--skin</argument>
-                                        <argument>blueSky</argument>
-                                        <argument>--skin</argument>
-                                        <argument>classic</argument>
-                                        <argument>--skin</argument>
-                                        <argument>deepMarine</argument>
-                                        <argument>--skin</argument>
-                                        <argument>emeraldTown</argument>
-                                        <argument>--skin</argument>
-                                        <argument>japanCherry</argument>
-                                        <argument>--skin</argument>
-                                        <argument>ruby</argument>
-                                        <argument>--skin</argument>
-                                        <argument>wine</argument>
-                                        <argument>--skin</argument>
-                                        <argument>DEFAULT</argument>
-                                        <argument>--skin</argument>
-                                        <argument>NULL</argument>
+                                        <argument>--skins</argument>
+                                        <argument>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^javax.faces</argument>
                                         <argument>--excludeFile</argument>
@@ -408,24 +392,8 @@
                                         <argument>${optimized.resources.prefix}/Compressed/</argument>
                                         <argument>--mapping</argument>
                                         <argument>${optimized.resources.mapping}/Compressed.properties</argument>
-                                        <argument>--skin</argument>
-                                        <argument>blueSky</argument>
-                                        <argument>--skin</argument>
-                                        <argument>classic</argument>
-                                        <argument>--skin</argument>
-                                        <argument>deepMarine</argument>
-                                        <argument>--skin</argument>
-                                        <argument>emeraldTown</argument>
-                                        <argument>--skin</argument>
-                                        <argument>japanCherry</argument>
-                                        <argument>--skin</argument>
-                                        <argument>ruby</argument>
-                                        <argument>--skin</argument>
-                                        <argument>wine</argument>
-                                        <argument>--skin</argument>
-                                        <argument>DEFAULT</argument>
-                                        <argument>--skin</argument>
-                                        <argument>NULL</argument>
+                                        <argument>--skins</argument>
+                                        <argument>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^javax.faces</argument>
                                         <argument>--excludeFile</argument>
@@ -451,24 +419,8 @@
                                         <argument>${optimized.resources.prefix}/Packed/</argument>
                                         <argument>--mapping</argument>
                                         <argument>${optimized.resources.mapping}/Packed.properties</argument>
-                                        <argument>--skin</argument>
-                                        <argument>blueSky</argument>
-                                        <argument>--skin</argument>
-                                        <argument>classic</argument>
-                                        <argument>--skin</argument>
-                                        <argument>deepMarine</argument>
-                                        <argument>--skin</argument>
-                                        <argument>emeraldTown</argument>
-                                        <argument>--skin</argument>
-                                        <argument>japanCherry</argument>
-                                        <argument>--skin</argument>
-                                        <argument>ruby</argument>
-                                        <argument>--skin</argument>
-                                        <argument>wine</argument>
-                                        <argument>--skin</argument>
-                                        <argument>DEFAULT</argument>
-                                        <argument>--skin</argument>
-                                        <argument>NULL</argument>
+                                        <argument>--skins</argument>
+                                        <argument>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^javax.faces</argument>
                                         <argument>--excludeFile</argument>
@@ -495,24 +447,8 @@
                                         <argument>${optimized.resources.prefix}/Packed/</argument>
                                         <argument>--mapping</argument>
                                         <argument>${optimized.resources.mapping}/Packed.properties</argument>
-                                        <argument>--skin</argument>
-                                        <argument>blueSky</argument>
-                                        <argument>--skin</argument>
-                                        <argument>classic</argument>
-                                        <argument>--skin</argument>
-                                        <argument>deepMarine</argument>
-                                        <argument>--skin</argument>
-                                        <argument>emeraldTown</argument>
-                                        <argument>--skin</argument>
-                                        <argument>japanCherry</argument>
-                                        <argument>--skin</argument>
-                                        <argument>ruby</argument>
-                                        <argument>--skin</argument>
-                                        <argument>wine</argument>
-                                        <argument>--skin</argument>
-                                        <argument>DEFAULT</argument>
-                                        <argument>--skin</argument>
-                                        <argument>NULL</argument>
+                                        <argument>--skins</argument>
+                                        <argument>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</argument>
                                         <argument>--includeFile</argument>
                                         <argument>^jquery.js$</argument>
                                     </arguments>
@@ -533,24 +469,8 @@
                                         <argument>${optimized.resources.prefix}/PackedCompressed/</argument>
                                         <argument>--mapping</argument>
                                         <argument>${optimized.resources.mapping}/PackedCompressed.properties</argument>
-                                        <argument>--skin</argument>
-                                        <argument>blueSky</argument>
-                                        <argument>--skin</argument>
-                                        <argument>classic</argument>
-                                        <argument>--skin</argument>
-                                        <argument>deepMarine</argument>
-                                        <argument>--skin</argument>
-                                        <argument>emeraldTown</argument>
-                                        <argument>--skin</argument>
-                                        <argument>japanCherry</argument>
-                                        <argument>--skin</argument>
-                                        <argument>ruby</argument>
-                                        <argument>--skin</argument>
-                                        <argument>wine</argument>
-                                        <argument>--skin</argument>
-                                        <argument>DEFAULT</argument>
-                                        <argument>--skin</argument>
-                                        <argument>NULL</argument>
+                                        <argument>--skins</argument>
+                                        <argument>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^javax.faces</argument>
                                         <argument>--excludeFile</argument>
@@ -578,24 +498,8 @@
                                         <argument>${optimized.resources.prefix}/PackedCompressed/</argument>
                                         <argument>--mapping</argument>
                                         <argument>${optimized.resources.mapping}/PackedCompressed.properties</argument>
-                                        <argument>--skin</argument>
-                                        <argument>blueSky</argument>
-                                        <argument>--skin</argument>
-                                        <argument>classic</argument>
-                                        <argument>--skin</argument>
-                                        <argument>deepMarine</argument>
-                                        <argument>--skin</argument>
-                                        <argument>emeraldTown</argument>
-                                        <argument>--skin</argument>
-                                        <argument>japanCherry</argument>
-                                        <argument>--skin</argument>
-                                        <argument>ruby</argument>
-                                        <argument>--skin</argument>
-                                        <argument>wine</argument>
-                                        <argument>--skin</argument>
-                                        <argument>DEFAULT</argument>
-                                        <argument>--skin</argument>
-                                        <argument>NULL</argument>
+                                        <argument>--skins</argument>
+                                        <argument>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</argument>
                                         <argument>--includeFile</argument>
                                         <argument>^jquery.js$</argument>
                                         <argument>--compress</argument>
