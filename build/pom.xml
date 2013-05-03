@@ -74,6 +74,11 @@
         <version.hibernate-entitymanager>4.0.0.Final</version.hibernate-entitymanager>
         <version.hibernate-annotations>3.5.6-Final</version.hibernate-annotations>
         
+        <!-- Resource Optimizer -->
+        <version.reflections>0.9.5</version.reflections>
+        <version.yuicompressor>2.3.6</version.yuicompressor>
+        <version.jcommander>1.20</version.jcommander>
+        
         <!-- Test Dependencies Versions -->
         <version.junit>4.11</version.junit>
         <version.jsf-test>1.1.6</version.jsf-test>
@@ -369,6 +374,23 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-annotations</artifactId>
                 <version>${version.hibernate-annotations}</version>
+            </dependency>
+            
+            <!-- Resource Optimizer -->
+            <dependency>
+                <groupId>com.yahoo.platform.yui</groupId>
+                <artifactId>yuicompressor</artifactId>
+                <version>${version.yuicompressor}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${version.reflections}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.beust</groupId>
+                <artifactId>jcommander</artifactId>
+                <version>${version.jcommander}</version>
             </dependency>
             
             <!-- Test Dependencie Versions -->

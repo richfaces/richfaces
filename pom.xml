@@ -38,7 +38,7 @@
 
         <module>build</module>
         <module>build/build-resources</module>
-        <module>build/resources-plugin</module>
+        <module>build/resource-optimizer-plugin</module>
 
         <module>dist</module>
 

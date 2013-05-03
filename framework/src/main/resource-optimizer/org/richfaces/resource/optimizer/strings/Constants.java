@@ -34,7 +34,7 @@ public final class Constants {
     public static final Joiner DOT_JOINER = Joiner.on('.').skipNulls();
     public static final Joiner DASH_JOINER = Joiner.on('-').skipNulls();
     public static final Joiner COLON_JOINER = Joiner.on(':').skipNulls();
-    public static final Splitter COMMA_SPLITTER = Splitter.on('/').omitEmptyStrings();
+    public static final Splitter COMMA_SPLITTER = Splitter.on(',').omitEmptyStrings();
 
     private Constants() {
     }

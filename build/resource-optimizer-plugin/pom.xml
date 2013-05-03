@@ -9,7 +9,7 @@
         <relativePath>../../</relativePath>
     </parent>
 
-    <artifactId>richfaces-resources-maven-plugin</artifactId>
+    <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>RichFaces Resources Maven Plugin</name>
     <description>Maven plugin for packaging resources with web application</description>
@@ -20,9 +20,6 @@
         <version.maven-file-management>1.2.1</version.maven-file-management>
         <version.plexus-utils>1.5.15</version.plexus-utils>
         <version.plexus-velocity>1.1.2</version.plexus-velocity>
-
-        <version.reflections>0.9.5</version.reflections>
-        <version.yuicompressor>2.3.6</version.yuicompressor>
     </properties>
 
     <dependencies>
@@ -76,7 +73,6 @@
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
-            <version>${version.reflections}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.google.collections</groupId>
@@ -103,7 +99,6 @@
         <dependency>
             <groupId>com.yahoo.platform.yui</groupId>
             <artifactId>yuicompressor</artifactId>
-            <version>${version.yuicompressor}</version>
         </dependency>
         
         <!-- Test dependencies -->

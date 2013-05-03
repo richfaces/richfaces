@@ -197,7 +197,7 @@
 
             <plugin>
                 <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-resources-maven-plugin</artifactId>
+                <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
                 <version>${version.richfaces}</version>
                 <configuration>
                     <skins>

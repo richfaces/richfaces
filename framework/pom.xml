@@ -175,11 +175,10 @@
             <scope>test</scope>
         </dependency>
         
-        <!-- resource-optimizer -->
+        <!-- Resource Optimizer -->
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
-            <version>0.9.5</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.google.collections</groupId>
@@ -192,14 +191,12 @@
         <dependency>
             <groupId>com.yahoo.platform.yui</groupId>
             <artifactId>yuicompressor</artifactId>
-            <version>2.3.6</version>
             <scope>compile</scope>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.beust</groupId>
             <artifactId>jcommander</artifactId>
-            <version>1.20</version>
             <scope>compile</scope>
             <optional>true</optional>
         </dependency>
