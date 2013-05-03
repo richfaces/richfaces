@@ -203,6 +203,17 @@
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.el</groupId>
+            <artifactId>jboss-el</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-build-resources</artifactId>
+            <version>${version.richfaces}</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 

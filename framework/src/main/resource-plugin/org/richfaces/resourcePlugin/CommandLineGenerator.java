@@ -36,11 +36,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
@@ -51,16 +48,12 @@ import java.util.concurrent.Future;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceDependency;
 
-import org.apache.maven.artifact.DependencyResolutionRequiredException;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.project.MavenProject;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceFactory;
 import org.richfaces.resource.ResourceFactoryImpl;
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.resourcePlugin.cl.SeparatedClassLoader;
 import org.richfaces.resourcePlugin.concurrent.CountingExecutorCompletionService;
 import org.richfaces.resourcePlugin.faces.FacesImpl;
 import org.richfaces.resourcePlugin.faces.ServiceFactoryModule;
@@ -88,11 +81,8 @@ import org.richfaces.services.Module;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.services.ServicesFactoryImpl;
 
-import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.google.common.base.Function;
-
-on.collect.Collections2;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.base.Strings;
@@ -139,7 +129,7 @@ public class CommandLineGenerator {
                     return file.toURI().toURL();
                 }
             } catch (MalformedURLException e) {
-                getLog().error("Bad URL in classpath", e);
+                log.error("Bad URL in classpath", e);
             }
 
             return null;
@@ -151,13 +141,13 @@ public class CommandLineGenerator {
      * @parameter expression="${resourcesOutputDir}"
      * @required
      */
-    private String resourcesOutputDir;
+    private String resourcesOutputDir = "target/classes/META-INF/resources/org.richfaces.staticResource/5.0.0-SNAPSHOT/Static/";
 
     /**
      * Configures what prefix should be placed to each file before the library and name of the resource
      * @parameter expression="${staticResourcePrefix}" default-value=""
      */
-    private String staticResourcePrefix;
+    private String staticResourcePrefix = "org.richfaces.staticResource/5.0.0-SNAPSHOT/Static/";
 
     /**
      * Output file for resource mapping configuration
@@ -165,7 +155,7 @@ public class CommandLineGenerator {
      * @parameter expression="${staticResourceMappingFile}"
      * @required
      */
-    private String staticResourceMappingFile;
+    private String staticResourceMappingFile = "target/classes/META-INF/richfaces/static-resource-mappings.properties";
 
     /**
      * The list of RichFaces skins to be processed
@@ -174,34 +164,34 @@ public class CommandLineGenerator {
      * @required
      */
     // TODO handle base skins
-    private String[] skins;
+    private String[] skins = new String[] { "blueSky" };
     /**
      * The list of mime-types to be included in processing
      *
      * @parameter
      */
-    private List<String> includedContentTypes;
+    private List<String> includedContentTypes = Arrays.asList("application/javascript", "text/css", "image/.+");
     /**
      * The list of mime-types to be excluded in processing
      * @parameter
      */
-    private List<String> excludedContentTypes;
+    private List<String> excludedContentTypes = Arrays.asList();
     /**
      * List of included files.
      *
      * @parameter
      */
-    private List<String> includedFiles;
+    private List<String> includedFiles = Arrays.asList();
     /**
      * List of excluded files
      * @parameter
      */
-    private List<String> excludedFiles;
+    private List<String> excludedFiles = Arrays.asList("^javax.faces", "^\\Qorg.richfaces.renderkit.html.images.\\E.*", "^\\Qorg.richfaces.renderkit.html.iconimages.\\E.*");
     /**
      * Turns on compression with YUI Compressor (JavaScript/CSS compression)
      * @parameter expression="${compress}"
      */
-    private boolean compress = true;
+    private boolean compress = false;
     /**
      * Turns on packing of JavaScript/CSS resources
      * @parameter expression="${pack}"
@@ -212,7 +202,11 @@ public class CommandLineGenerator {
      * @parameter
      */
     // TODO review usage of properties?
-    private FileNameMapping[] fileNameMappings = new FileNameMapping[0];
+    private FileNameMapping[] fileNameMappings = new FileNameMapping[] {
+            new FileNameMapping("^.*showcase.*/([^/]+\\.css)$", "org.richfaces.showcase.css/$1"),
+            new FileNameMapping("^.+/([^/]+\\.(png|gif|jpg))$", "org.richfaces.images/$1"),
+            new FileNameMapping("^.+/([^/]+\\.css)$", "org.richfaces.css/$1")
+    };
     /**
      * @parameter
      */
@@ -221,12 +215,12 @@ public class CommandLineGenerator {
      * The expression determines the root of the webapp resources
      * @parameter default-value="${basedir}/src/main/webapp"
      */
-    private String webRoot;
+    private String webRoot = new File("./src/main/webapp").getAbsolutePath();
     /**
      * The encoding used for resource processing
      * @parameter expression="${encoding}" default-value="${project.build.sourceEncoding}"
      */
-    private String encoding;
+    private String encoding = "UTF-8";
     // TODO handle resource locales
     private Locale resourceLocales;
     private Collection<ResourceKey> foundResources = Sets.newHashSet();
@@ -325,25 +319,13 @@ public class CommandLineGenerator {
         return fromUrls(Collections.singletonList(resolveWebRoot()));
     }
 
-//    protected URL[] getProjectClassPath() {
-//        try {
-//            List<String> classpath = Constraints.constrainedList(Lists.<String>newArrayList(),
-//                    MoreConstraints.cast(String.class));
-//            classpath.addAll((List<String>) project.getCompileClasspathElements());
-//            classpath.add(project.getBuild().getOutputDirectory());
-//
-//            URL[] urlClasspath = filter(transform(classpath, filePathToURL), notNull()).toArray(EMPTY_URL_ARRAY);
-//            return urlClasspath;
-//        } catch (DependencyResolutionRequiredException e) {
-//            log.error("Dependencies not resolved ", e);
-//        }
-//
-//        return new URL[0];
-//    }
+    protected URL[] getProjectClassPath() {
+        List<String> classpath = Constraints.constrainedList(Lists.<String>newArrayList(),
+                MoreConstraints.cast(String.class));
+        classpath.add(new File("./target/classes").getAbsolutePath());
 
-    private ClassLoader getSeparatedClassLoader() {
-
-        return SeparatedClassLoader.newInstance();
+        URL[] urlClasspath = filter(transform(classpath, filePathToURL), notNull()).toArray(EMPTY_URL_ARRAY);
+        return urlClasspath;
     }
 
     protected ClassLoader createProjectClassLoader(URL[] cp) {
@@ -413,8 +395,9 @@ public class CommandLineGenerator {
 
         try {
             URL[] projectCP = getProjectClassPath();
-//            ClassLoader projectCL = createProjectClassLoader(projectCP);
-            ClassLoader projectCL = getSeparatedClassLoader();
+            JavaArchive archive = null;
+
+            ClassLoader projectCL = createProjectClassLoader(projectCP);
             Thread.currentThread().setContextClassLoader(projectCL);
 
             webResources = getWebrootVfs();
@@ -502,7 +485,11 @@ public class CommandLineGenerator {
                 executorService.shutdown();
             }
             if (faces != null) {
-                faces.stop();
+                try {
+                    faces.stop();
+                } catch (Exception e) {
+                    log.warn("Failed to tear Faces down", e);
+                }
             }
             Thread.currentThread().setContextClassLoader(contextCL);
         }

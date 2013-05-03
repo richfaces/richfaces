@@ -52,7 +52,7 @@ public class ApplicationImpl extends Application {
 
     private ExpressionFactory createExpressionFactory() {
         try {
-            return (ExpressionFactory) Class.forName("com.sun.el.ExpressionFactoryImpl").newInstance();
+            return (ExpressionFactory) Class.forName("org.jboss.el.ExpressionFactoryImpl").newInstance();
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }

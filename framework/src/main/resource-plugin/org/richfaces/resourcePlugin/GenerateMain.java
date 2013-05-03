@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright ${year}, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -21,48 +21,23 @@
  */
 package org.richfaces.resourcePlugin;
 
-import java.util.regex.Pattern;
+import com.beust.jcommander.JCommander;
 
 /**
- * @author Nick Belaevski
+ * This class provides entry point for command-line generator.
  *
+ * @author Lukas Fryc
  */
-public class FileNameMapping {
-    private String name;
-    private String value;
-    private Pattern namePattern = null;
+public class GenerateMain {
 
-    public FileNameMapping() {
+    public static void main(String[] args) {
+        CommandLineGenerator generator = new CommandLineGenerator();
+        JCommander jCommander = new JCommander(generator, args);
+//        if (generator.isHelp()) {
+//            jCommander.usage();
+//        } else {
+            generator.execute();
+//        }
     }
 
-    public FileNameMapping(String name, String value) {
-        this.name = name;
-        this.value = value;
-    }
-
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Pattern getNamePattern() {
-        if (namePattern == null) {
-            namePattern = Pattern.compile(name);
-        }
-
-        return namePattern;
-    }
 }
