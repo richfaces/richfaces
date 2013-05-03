@@ -91,10 +91,10 @@ Maven will build the project and execute unit tests, but it won't build distribu
 
 the ZIP distribution will be stored in `dist/target/`.
 
-[Contributor Getting Started](https://github.com/richfaces/richfaces5/blob/RF-12468-readme/CONTRIBUTING.md)
+[Contributor Getting Started](https://github.com/richfaces/richfaces5/blob/master/CONTRIBUTING.md)
 -----------------------------
 
-Read [How to Contribute](https://github.com/richfaces/richfaces5/blob/RF-12468-readme/CONTRIBUTING.md).
+Read [How to Contribute](https://github.com/richfaces/richfaces5/blob/master/CONTRIBUTING.md).
 
 Developing the Project
 ----------------------
