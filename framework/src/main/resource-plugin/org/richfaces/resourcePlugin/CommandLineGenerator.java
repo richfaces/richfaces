@@ -48,7 +48,6 @@ import java.util.concurrent.Future;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceDependency;
 
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceFactory;
@@ -81,6 +80,7 @@ import org.richfaces.services.Module;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.services.ServicesFactoryImpl;
 
+import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -141,12 +141,14 @@ public class CommandLineGenerator {
      * @parameter expression="${resourcesOutputDir}"
      * @required
      */
-    private String resourcesOutputDir = "target/classes/META-INF/resources/org.richfaces.staticResource/5.0.0-SNAPSHOT/Static/";
+    @Parameter(names = { "-o", "--output" }, descriptionKey = "resourcesOutputDir")
+    private String resourcesOutputDir = "target/generated-sources/resource-plugin/META-INF/resources/org.richfaces.staticResource/5.0.0-SNAPSHOT/Static/";
 
     /**
      * Configures what prefix should be placed to each file before the library and name of the resource
      * @parameter expression="${staticResourcePrefix}" default-value=""
      */
+    @Parameter(names = { "-p", "--prefix" }, descriptionKey = "staticResourcePrefix")
     private String staticResourcePrefix = "org.richfaces.staticResource/5.0.0-SNAPSHOT/Static/";
 
     /**
@@ -155,7 +157,8 @@ public class CommandLineGenerator {
      * @parameter expression="${staticResourceMappingFile}"
      * @required
      */
-    private String staticResourceMappingFile = "target/classes/META-INF/richfaces/static-resource-mappings.properties";
+    @Parameter(names = { "-m", "--mapping" }, descriptionKey = "staticResourceMappingFile")
+    private String staticResourceMappingFile = "target/generated-sources/resource-plugin/META-INF/richfaces/static-resource-mappings.properties";
 
     /**
      * The list of RichFaces skins to be processed
@@ -164,7 +167,8 @@ public class CommandLineGenerator {
      * @required
      */
     // TODO handle base skins
-    private String[] skins = new String[] { "blueSky" };
+    @Parameter(names = { "-s", "--skin" }, descriptionKey = "skins")
+    private List<String> skins = Arrays.asList("blueSky");
     /**
      * The list of mime-types to be included in processing
      *
@@ -191,11 +195,13 @@ public class CommandLineGenerator {
      * Turns on compression with YUI Compressor (JavaScript/CSS compression)
      * @parameter expression="${compress}"
      */
+    @Parameter(names = { "--compress" }, descriptionKey = "compress")
     private boolean compress = false;
     /**
      * Turns on packing of JavaScript/CSS resources
      * @parameter expression="${pack}"
      */
+    @Parameter(names = { "--pack" }, descriptionKey = "pack")
     private boolean pack = false;
     /**
      * Mapping of file names to output file names
@@ -395,8 +401,6 @@ public class CommandLineGenerator {
 
         try {
             URL[] projectCP = getProjectClassPath();
-            JavaArchive archive = null;
-
             ClassLoader projectCL = createProjectClassLoader(projectCP);
             Thread.currentThread().setContextClassLoader(projectCL);
 

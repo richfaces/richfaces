@@ -24,6 +24,8 @@ package org.richfaces.resourcePlugin.task;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
 
@@ -172,7 +174,7 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
     private Faces faces;
     private ResourceWriter resourceWriter;
     private CompletionService<Object> completionService;
-    private String[] skins = new String[0];
+    private List<String> skins = Arrays.asList();
     private Predicate<Resource> filter = Predicates.alwaysTrue();
     private boolean pack;
 
@@ -218,7 +220,7 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
         this.resourceWriter = resourceWriter;
     }
 
-    public void setSkins(String[] skins) {
+    public void setSkins(List<String> skins) {
         this.skins = skins;
     }
 

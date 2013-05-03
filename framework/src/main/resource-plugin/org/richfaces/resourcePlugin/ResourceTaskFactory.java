@@ -21,6 +21,7 @@
  */
 package org.richfaces.resourcePlugin;
 
+import java.util.List;
 import java.util.concurrent.CompletionService;
 
 import javax.faces.application.Resource;
@@ -34,7 +35,7 @@ import com.google.common.base.Predicate;
  *
  */
 public interface ResourceTaskFactory {
-    void setSkins(String[] skins);
+    void setSkins(List<String> skins);
 
     void setCompletionService(CompletionService<Object> completionService);
 

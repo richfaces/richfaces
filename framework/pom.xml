@@ -182,37 +182,34 @@
                     <artifactId>google-collections</artifactId>
                 </exclusion>
             </exclusions>
-            <scope>provided</scope>
+            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.yahoo.platform.yui</groupId>
             <artifactId>yuicompressor</artifactId>
             <version>2.3.6</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.beust</groupId>
             <artifactId>jcommander</artifactId>
             <version>1.20</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.jboss.shrinkwrap.resolver</groupId>
-            <artifactId>shrinkwrap-resolver-depchain</artifactId>
-            <type>pom</type>
-            <scope>provided</scope>
+            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.jboss.el</groupId>
             <artifactId>jboss-el</artifactId>
-            <scope>provided</scope>
+            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces-build-resources</artifactId>
-            <version>${version.richfaces}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
 
     </dependencies>
@@ -258,12 +255,34 @@
                         <configuration>
                             <sources>
                                 <source>src/main/config</source>
+                                <source>src/main/resource-plugin</source>
                                 <source>target/generated-sources/main/java</source>
                                 <source>target/generated-sources/main/resources</source>
                             </sources>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <mainClass>org.richfaces.resourcePlugin.GenerateMain</mainClass>
+                    <arguments>
+                        <argument>--output</argument>
+                        <argument>target/generated-sources/resource-plugin/META-INF/resources/org.richfaces.staticResource/5.0.0-SNAPSHOT/Compressed/</argument>
+                        <argument>--prefix</argument>
+                        <argument>org.richfaces.staticResource/5.0.0-SNAPSHOT/Compressed/</argument>
+                        <argument>--mapping</argument>
+                        <argument>target/generated-sources/resource-plugin/META-INF/richfaces/static-resource-mappings.properties</argument>
+                        <argument>--skin</argument>
+                        <argument>blueSky</argument>
+                        <argument>--compress</argument>
+                        <argument>--pack</argument>
+                    </arguments>                
+                </configuration>
             </plugin>
         </plugins>
 
