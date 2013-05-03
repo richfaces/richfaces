@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces;
+package org.richfaces.resourcePlugin;
 
 import static com.google.common.base.Predicates.notNull;
 import static com.google.common.collect.Collections2.filter;
@@ -53,35 +53,36 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.richfaces.concurrent.CountingExecutorCompletionService;
-import org.richfaces.faces.FacesImpl;
-import org.richfaces.faces.ServiceFactoryModule;
-import org.richfaces.naming.FileNameMapperImpl;
+import org.richfaces.log.Logger;
 import org.richfaces.resource.ResourceFactory;
 import org.richfaces.resource.ResourceFactoryImpl;
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.resource.handler.impl.DynamicResourceHandler;
-import org.richfaces.resource.handler.impl.StaticResourceHandler;
-import org.richfaces.resource.scan.ResourcesScanner;
-import org.richfaces.resource.scan.impl.DynamicResourcesScanner;
-import org.richfaces.resource.scan.impl.ResourceOrderingScanner;
-import org.richfaces.resource.scan.impl.StaticResourcesScanner;
-import org.richfaces.resource.util.ResourceConstants;
-import org.richfaces.resource.util.ResourceUtil;
-import org.richfaces.resource.writer.ResourceProcessor;
-import org.richfaces.resource.writer.impl.CSSCompressingProcessor;
-import org.richfaces.resource.writer.impl.JavaScriptCompressingProcessor;
-import org.richfaces.resource.writer.impl.JavaScriptPackagingProcessor;
-import org.richfaces.resource.writer.impl.ResourceWriterImpl;
+import org.richfaces.resourcePlugin.concurrent.CountingExecutorCompletionService;
+import org.richfaces.resourcePlugin.faces.FacesImpl;
+import org.richfaces.resourcePlugin.faces.ServiceFactoryModule;
+import org.richfaces.resourcePlugin.naming.FileNameMapperImpl;
+import org.richfaces.resourcePlugin.resource.handler.impl.DynamicResourceHandler;
+import org.richfaces.resourcePlugin.resource.handler.impl.StaticResourceHandler;
+import org.richfaces.resourcePlugin.resource.scan.ResourcesScanner;
+import org.richfaces.resourcePlugin.resource.scan.impl.DynamicResourcesScanner;
+import org.richfaces.resourcePlugin.resource.scan.impl.ResourceOrderingScanner;
+import org.richfaces.resourcePlugin.resource.scan.impl.StaticResourcesScanner;
+import org.richfaces.resourcePlugin.resource.util.ResourceConstants;
+import org.richfaces.resourcePlugin.resource.util.ResourceUtil;
+import org.richfaces.resourcePlugin.resource.writer.ResourceProcessor;
+import org.richfaces.resourcePlugin.resource.writer.impl.CSSCompressingProcessor;
+import org.richfaces.resourcePlugin.resource.writer.impl.JavaScriptCompressingProcessor;
+import org.richfaces.resourcePlugin.resource.writer.impl.JavaScriptPackagingProcessor;
+import org.richfaces.resourcePlugin.resource.writer.impl.ResourceWriterImpl;
+import org.richfaces.resourcePlugin.task.ResourceTaskFactoryImpl;
+import org.richfaces.resourcePlugin.util.MoreConstraints;
+import org.richfaces.resourcePlugin.util.MorePredicates;
+import org.richfaces.resourcePlugin.vfs.VFS;
+import org.richfaces.resourcePlugin.vfs.VFSRoot;
+import org.richfaces.resourcePlugin.vfs.VirtualFile;
 import org.richfaces.services.Module;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.services.ServicesFactoryImpl;
-import org.richfaces.task.ResourceTaskFactoryImpl;
-import org.richfaces.util.MoreConstraints;
-import org.richfaces.util.MorePredicates;
-import org.richfaces.vfs.VFS;
-import org.richfaces.vfs.VFSRoot;
-import org.richfaces.vfs.VirtualFile;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -226,6 +227,8 @@ public class ProcessMojo extends AbstractMojo {
     private Ordering<ResourceKey> resourceOrdering;
     private Set<ResourceKey> resourcesWithKnownOrder;
 
+    private Logger logger;
+
     // TODO executor parameters
     private ExecutorService createExecutorService() {
         int poolSize = pack ? 1 : Runtime.getRuntime().availableProcessors();
@@ -242,12 +245,19 @@ public class ProcessMojo extends AbstractMojo {
                     "Encoding is not set explicitly, CDK resources plugin will use default platform encoding for processing char-based resources");
         }
         if (compress) {
-            return Arrays.<ResourceProcessor>asList(new JavaScriptCompressingProcessor(charset, getLog()), new CSSCompressingProcessor(
+            return Arrays.<ResourceProcessor>asList(new JavaScriptCompressingProcessor(charset, getLogger()), new CSSCompressingProcessor(
                     charset));
         } else {
             return Arrays.<ResourceProcessor>asList(new JavaScriptPackagingProcessor(charset));
         }
 
+    }
+
+    public Logger getLogger() {
+        if (logger != null) {
+            logger = new LoggerWrapper(getLog());
+        }
+        return logger;
     }
 
     private Predicate<Resource> createResourcesFilter() {
@@ -288,7 +298,7 @@ public class ProcessMojo extends AbstractMojo {
     }
 
     private void scanResourceOrdering(Collection<VFSRoot> cpFiles) throws Exception {
-        ResourceOrderingScanner scanner = new ResourceOrderingScanner(cpFiles, getLog());
+        ResourceOrderingScanner scanner = new ResourceOrderingScanner(cpFiles, getLogger());
         scanner.scan();
         resourceOrdering = scanner.getCompleteOrdering();
         resourcesWithKnownOrder = Sets.newLinkedHashSet(scanner.getResources());
@@ -427,15 +437,15 @@ public class ProcessMojo extends AbstractMojo {
             faces = new FacesImpl(null, new FileNameMapperImpl(fileNameMappings), dynamicResourceHandler);
             faces.start();
 
-            ResourceWriterImpl resourceWriter = new ResourceWriterImpl(new File(resourcesOutputDir), getDefaultResourceProcessors(), getLog(), resourcesWithKnownOrder);
+            ResourceWriterImpl resourceWriter = new ResourceWriterImpl(new File(resourcesOutputDir), getDefaultResourceProcessors(), getLogger(), resourcesWithKnownOrder);
             ResourceTaskFactoryImpl taskFactory = new ResourceTaskFactoryImpl(faces, pack);
             taskFactory.setResourceWriter(resourceWriter);
 
             executorService = createExecutorService();
             CompletionService<Object> completionService = new CountingExecutorCompletionService<Object>(executorService);
             taskFactory.setCompletionService(completionService);
-            taskFactory.setSkins(skins);
-            taskFactory.setLog(getLog());
+            taskFactory.setSkins(Arrays.asList(skins));
+            taskFactory.setLog(getLogger());
             taskFactory.setFilter(createResourcesFilter());
             taskFactory.submit(foundResources);
 

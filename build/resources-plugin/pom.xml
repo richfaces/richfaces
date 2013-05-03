@@ -21,8 +21,6 @@
         <version.plexus-utils>1.5.15</version.plexus-utils>
         <version.plexus-velocity>1.1.2</version.plexus-velocity>
 
-        <version.sun-el>1.0</version.sun-el>
-
         <version.reflections>0.9.5</version.reflections>
         <version.yuicompressor>2.3.6</version.yuicompressor>
     </properties>
@@ -93,9 +91,8 @@
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>com.sun.el</groupId>
-            <artifactId>el-ri</artifactId>
-            <version>${version.sun-el}</version>
+            <groupId>org.jboss.el</groupId>
+            <artifactId>jboss-el</artifactId>
         </dependency>
 
         <dependency>
