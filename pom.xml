@@ -324,7 +324,7 @@
                                 <pluginExecution>
                                     <pluginExecutionFilter>
                                         <groupId>org.richfaces.cdk</groupId>
-                                        <artifactId>maven-richfaces-resources-plugin</artifactId>
+                                        <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
                                         <versionRange>[4.3.0-SNAPSHOT,)</versionRange>
                                         <goals>
                                             <goal>process</goal>
@@ -345,6 +345,19 @@
                                     </pluginExecutionFilter>
                                     <action>
                                         <execute></execute>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>exec-maven-plugin</artifactId>
+                                        <versionRange>[1.2.1,)</versionRange>
+                                        <goals>
+                                            <goal>java</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
