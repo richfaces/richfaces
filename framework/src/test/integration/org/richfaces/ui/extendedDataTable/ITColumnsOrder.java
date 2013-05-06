@@ -1,4 +1,7 @@
-package org.richfaces.component.extendedDataTable;
+package org.richfaces.ui.extendedDataTable;
+
+import java.net.URL;
+import java.util.List;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -14,15 +17,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.IterationDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import java.net.URL;
-import java.util.List;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class TestColumnsOrder {
+public class ITColumnsOrder {
 
     @Drone
     private WebDriver browser;
@@ -35,7 +35,7 @@ public class TestColumnsOrder {
 
     @Deployment
     public static WebArchive createDeployment() {
-        IterationDeployment deployment = new IterationDeployment(TestColumnsOrder.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITColumnsOrder.class);
         deployment.archive().addClass(IterationBean.class);
         addIndexPage(deployment);
 
@@ -61,7 +61,7 @@ public class TestColumnsOrder {
         Assert.assertTrue(cells.get(2).getAttribute("class").contains("d1"));
     }
 
-    private static void addIndexPage(IterationDeployment deployment) {
+    private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.xmlns("rich", "http://richfaces.org/iteration");
         p.xmlns("a4j", "http://richfaces.org/a4j");

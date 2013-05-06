@@ -19,45 +19,48 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  **/
-package org.richfaces.ui.tabPanel;
+package org.richfaces.ui.tabPanel.model;
 
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
-
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@Named
+@ManagedBean
 @SessionScoped
 public class TabPanelBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int tabIdLast = 3;
+    private int tabIdLast = 2;
     private List<TabBean> tabBeans = new ArrayList<TabBean>();
 
     @PostConstruct
     public void init() {
-        String idBase = "tab" + ++tabIdLast;
-        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "Content of dynamicaly created " + idBase));
-        idBase = "tab" + ++tabIdLast;
-        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "Content of dynamicaly created " + idBase));
-        idBase = "tab" + ++tabIdLast;
-        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "Content of dynamicaly created " + idBase));
+        int id = tabIdLast;
+        while (id < tabIdLast + 3) {
+            id = ++id;
+            createTab(id);
+        }
+        tabIdLast = id;
     }
 
     public List<TabBean> getTabBeans() {
         return tabBeans;
     }
 
+    public void createTab(int id) {
+        String idBase = "tab" + id;
+        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "content of tab " + id));
+    }
+
     public void generateNewTab() {
-        String idBase = "tab" + ++tabIdLast;
-        tabBeans.add(new TabBean(idBase, idBase, idBase + " header", "Content of dynamicaly created " + idBase));
+        createTab(++tabIdLast);
     }
 
     public void removeTab() throws Exception {

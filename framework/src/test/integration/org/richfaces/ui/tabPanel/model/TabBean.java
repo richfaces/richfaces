@@ -19,8 +19,9 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  **/
-package org.richfaces.ui.tabPanel;
+package org.richfaces.ui.tabPanel.model;
 
+import javax.inject.Named;
 import java.io.Serializable;
 
 /**
