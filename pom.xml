@@ -34,11 +34,12 @@
 
     <modules>
         <module>bom</module>
-        <module>framework</module>
 
         <module>build</module>
         <module>build/build-resources</module>
         <module>build/resource-optimizer-plugin</module>
+
+        <module>framework</module>
 
         <module>dist</module>
 
