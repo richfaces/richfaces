@@ -147,8 +147,8 @@ public class DnDManager implements DropListener {
         if (dragValue instanceof Album) {
             Album album = (Album) dragValue;
             
-            event.getAlbums().add(album);
-            album.setEvent(event);
+            event.getShelf().getAlbums().add(album);
+            album.setShelf(event.getShelf());
 
             try {
                 albumAction.editAlbum(album);

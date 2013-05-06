@@ -44,7 +44,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.annotations.Fetch;
@@ -62,7 +61,6 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Andrey Markhel
  */
 @Entity
-@AlbumConstraint
 @JsonAutoDetect(fieldVisibility=Visibility.NONE, getterVisibility=Visibility.NONE, isGetterVisibility=Visibility.NONE)
 public class Album implements Serializable {
 
@@ -80,15 +78,11 @@ public class Album implements Serializable {
     @JsonProperty
     private List<Image> images = new ArrayList<Image>();
 
+    @NotNull
     @ManyToOne
     @JoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Shelf shelf;
-    
-    @ManyToOne
-    @JoinColumn
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Event event;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JsonProperty
@@ -265,14 +259,6 @@ public class Album implements Serializable {
         return coveringImage;
     }
 
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
     /**
      * This method determine is album empty or not
      *
@@ -334,7 +320,7 @@ public class Album implements Serializable {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + name.hashCode();
-        result = 31 * result + (shelf != null ? shelf.hashCode(): event.hashCode());
+        result = 31 * result + shelf.hashCode();
         return result;
     }
 

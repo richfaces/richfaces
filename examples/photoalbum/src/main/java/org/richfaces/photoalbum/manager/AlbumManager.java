@@ -103,12 +103,10 @@ public class AlbumManager implements Serializable {
         // Shelf must be not-null
         if (album.getShelf() == null) {
             // facesMessages.addToControl(Constants.SHELF_ID, Constants.SHELF_MUST_BE_NOT_NULL_ERROR, new Object[0]);
-            if (album.getEvent() == null) {
                 FacesContext.getCurrentInstance().addMessage(Constants.SHELF_ID,
                     new FacesMessage(Constants.SHELF_MUST_BE_NOT_NULL_ERROR));
                 // Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
                 return;
-            }
         }
         // Album name must be unique in shelf
         if (user.hasAlbumWithName(album)) {
@@ -128,10 +126,7 @@ public class AlbumManager implements Serializable {
         // Reset 'album' component in conversation scope
         // Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, null);
 
-        // Raise 'albumAdded' event
-        if (album.getEvent() == null) {
             albumEvent.select(new EventTypeQualifier(Events.ALBUM_ADDED_EVENT)).fire(new AlbumEvent(album));
-        }
         // album = null;
     }
 

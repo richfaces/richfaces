@@ -37,7 +37,7 @@
                 <h:outputText value="#{messages['contain']}" />
                 <!-- <h:outputText styleClass="bold" value=" #{fn:length(shelf.images)} " />
                 <h:outputText value="#{messages['pics_into']}" /> -->
-                <h:outputText styleClass="bold" value=" #{fn:length(event.albums)} " />
+                <h:outputText styleClass="bold" value=" #{fn:length(event.shelf.albums)} " />
                 <h:outputText value="#{messages['shelf.albums']}" />
 
             </h:panelGroup>
@@ -63,7 +63,7 @@
 
     <r:region rendered="#{showAlbums}" id="eventAlbums">
         <ui:include src="/includes/album/albumsList.xhtml">
-            <ui:param name="albums" value="#{event.albums}" />
+            <ui:param name="albums" value="#{event.shelf.albums}" />
         </ui:include>
         <br style="clear: both;" />
         <ui:include src="/includes/facebook/albumsList.xhtml">

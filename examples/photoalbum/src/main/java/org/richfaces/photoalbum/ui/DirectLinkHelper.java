@@ -75,12 +75,12 @@ public class DirectLinkHelper {
     }
 
     private boolean isImageSharedOrBelongsToUser(Image im) {
-        return  (im.getAlbum() != null && im.getAlbum().getEvent() != null) || (im.getAlbum().getShelf().isShared()
+        return  im.getAlbum() != null &&  (im.getAlbum().getShelf().isShared()
             || (user != null) && im.getAlbum().getOwner().getLogin()
                 .equals(user.getLogin()));
     }
 
     private boolean isImageRecentlyRemoved(Image im) {
-        return im == null || im.getAlbum() == null || (im.getAlbum().getShelf() == null && im.getAlbum().getEvent() == null);
+        return im == null || im.getAlbum() == null || (im.getAlbum().getShelf() == null);
     }
 }

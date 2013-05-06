@@ -116,7 +116,7 @@ public class FileDownloadManager implements Serializable {
     public void createAlbum(String name) {
         album = new Album();
         album.setName(name);
-        album.setEvent(model.getSelectedEvent());
+        album.setShelf(model.getSelectedEvent().getShelf());
 
         albumManager.addAlbum(album);
     }
@@ -147,7 +147,7 @@ public class FileDownloadManager implements Serializable {
         FacesContext.getCurrentInstance().addMessage(clientId, fm);
 
         // remove the FB album from the event
-        Event event = album.getEvent();
+        Event event = album.getShelf().getEvent();
         event.getFacebookAlbums().remove(getAlbumId());
 
         try {

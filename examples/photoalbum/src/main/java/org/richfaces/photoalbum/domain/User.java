@@ -360,19 +360,11 @@ public class User implements Serializable {
      * @return boolean value, that indicate if album with the same name exist
      */
     public boolean hasAlbumWithName(Album album) {
-        if (album.getShelf() != null) {
             for (Album a : album.getShelf().getAlbums()) {
                 if (!a.equals(album) && a.getName().equals(album.getName())) {
                     return true;
                 }
             }
-        } else {
-            for (Album a : album.getEvent().getAlbums()) {
-                if (!a.equals(album) && a.getName().equals(album.getName())) {
-                    return true;
-                }
-            }
-        }
         return false;
     }
 

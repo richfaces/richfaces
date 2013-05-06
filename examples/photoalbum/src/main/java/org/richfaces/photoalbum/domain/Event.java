@@ -35,10 +35,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -46,6 +48,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.OrderBy;
 
 //import org.jboss.errai.common.client.api.annotations.Portable;
@@ -168,10 +172,10 @@ public class Event implements Serializable {
     private EventCategory category;
 
     /* Photoalbum additions */
-    @OneToMany(mappedBy = "event", cascade = CascadeType.REMOVE)
-    @OrderBy(clause = "NAME asc")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Album> albums = new ArrayList<Album>();
+    @OneToOne
+    @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Shelf shelf;
     
     @ElementCollection(fetch=FetchType.EAGER)
     private List<String> facebookAlbums = new ArrayList<String>();
@@ -218,15 +222,6 @@ public class Event implements Serializable {
         this.description = description;
     }
 
-    public List<Album> getAlbums() {
-        return albums;
-    }
-
-    public void setAlbums(List<Album> albums) {
-        this.albums = albums;
-    }
-
-    /* toString(), equals() and hashCode() for Event, using the natural identity of the object */
 
     public List<String> getFacebookAlbums() {
         return facebookAlbums;
@@ -250,7 +245,9 @@ public class Event implements Serializable {
         
         return sb.toString();
     }
-
+    
+    /* toString(), equals() and hashCode() for Event, using the natural identity of the object */
+    
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -274,5 +271,13 @@ public class Event implements Serializable {
     @Override
     public String toString() {
         return name;
+    }
+
+    public Shelf getShelf() {
+        return shelf;
+    }
+
+    public void setShelf(Shelf shelf) {
+        this.shelf = shelf;
     }
 }

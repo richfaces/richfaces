@@ -48,13 +48,7 @@ public class AlbumAction implements IAlbumAction {
     public void addAlbum(Album album) throws PhotoAlbumException {
         try {
             em.persist(album);
-            // Add to shelf or Event
-            if (album.getShelf() != null) {
-                album.getShelf().addAlbum(album);
-            }
-            else {
-                album.getEvent().getAlbums().add(album);
-            }
+            album.getShelf().addAlbum(album);
             em.flush();
         } catch (Exception e) {
             throw new PhotoAlbumException(e.getMessage());

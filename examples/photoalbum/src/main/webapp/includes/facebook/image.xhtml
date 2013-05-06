@@ -34,10 +34,10 @@
             </h1>
             <!-- <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showShelf(model.selectedShelf)}"
                 render="mainArea, treePanel" value="#{messages['shelf']} #{model.selectedShelf.name}" />
-            <h:outputText value=" #{messages['delimiter']} " />
-            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
-                render="mainArea, treePanel" value="#{messages['album']} #{model.selectedAlbum.name}" />
-                -->
+            <h:outputText value=" #{messages['delimiter']} " /> -->
+            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showFBAlbum()}"
+                render="mainArea, treePanel" value="#{messages['album']} #{album.getString('name')}" />
+                
         </h:panelGroup>
     </h:panelGrid>
 
@@ -94,13 +94,14 @@
                 <td class="mainImage-table-col1" rowspan="2">
                     <h:panelGroup layout="block" styleClass="slideshow-outerdiv">
                         <h:outputText value="Slideshow" />
-                        <!-- <r:commandLink rendered="#{album.getInt('size') > 0}"
+                        <!-- rendered="#{album.getInt('size') > 0}" -->
+                        <r:commandLink disabled="true"
                             actionListener="#{slideshow.startSlideshow(model.selectedImage)}" styleClass="slideshow-link"
                             render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
                             <h:graphicImage value="img/shell/tree_icon_slid.png" width="27" height="16" alt="" border="0"
                                 style="vertical-align : bottom; margin-right : 5px; border:0;" />
                             <h:outputText value="#{messages['slideshow.start']}" />
-                        </r:commandLink> -->
+                        </r:commandLink>
                     </h:panelGroup>
                     <h:graphicImage styleClass="main-image"
                         style="border : 3px solid #808080; max-width: 600px; max-height: 600px"
@@ -121,9 +122,6 @@
                         <a href="#{image.getString('src_big')}" target="_blank" class="buttons-body-text-div">#{messages['original_size']}</a>
                     </h:panelGroup>
                 </td>
-            </tr>
-            <tr>
-                <td>Buttons</td>
             </tr>
         </table>
     </h:panelGroup>

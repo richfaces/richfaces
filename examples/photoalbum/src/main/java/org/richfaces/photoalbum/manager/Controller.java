@@ -160,12 +160,7 @@ public class Controller implements Serializable {
             return;
         }
         setPage(0); // reset page when album changes/resets
-        if (album.getShelf() != null) {
-            model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), album.getShelf(), album, null, album.getImages());
-        }
-        else {
-            model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), null, album, null, album.getImages(), album.getEvent());
-        }
+        model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), album.getShelf(), album, null, album.getImages());
     }
 
     public void showFBAlbum() {
@@ -603,16 +598,16 @@ public class Controller implements Serializable {
     }
 
     private boolean canViewShelf(Shelf shelf) {
-        return shelf != null && shelf.isOwner(loggedUser);
+        return shelf != null && shelf.isOwner(loggedUser) || shelf.isShared();
     }
 
     private boolean canViewAlbum(Album album) {
-        return album != null && (album.getShelf() != null && (album.getShelf().isShared() || album.isOwner(loggedUser)) || album.getEvent() != null);
+        return album != null && (album.getShelf() != null && (album.getShelf().isShared() || album.isOwner(loggedUser)));
     }
 
     private boolean canViewImage(Image image) {
         return image != null && image.getAlbum() != null && (image.getAlbum().getShelf() != null
-            && (image.getAlbum().getShelf().isShared() || image.isOwner(loggedUser))) || image.getAlbum().getEvent() != null;
+            && (image.getAlbum().getShelf().isShared() || image.isOwner(loggedUser)));
     }
 
     /**

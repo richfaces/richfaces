@@ -36,6 +36,7 @@ import javax.inject.Named;
 import org.jboss.solder.logging.Logger;
 import org.richfaces.photoalbum.domain.Event;
 import org.richfaces.photoalbum.domain.EventCategory;
+import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.EventTypeQualifier;
@@ -44,6 +45,7 @@ import org.richfaces.photoalbum.event.ShelfEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IEventAction;
+import org.richfaces.photoalbum.service.IShelfAction;
 import org.richfaces.photoalbum.util.Preferred;
 
 @Named
@@ -59,6 +61,9 @@ public class EventManager implements Serializable {
 
     @Inject
     IEventAction eventAction;
+    
+    @Inject
+    IShelfAction shelfAction;
 
     @Inject
     @Preferred
@@ -73,6 +78,7 @@ public class EventManager implements Serializable {
     javax.enterprise.event.Event<ShelfEvent> shelfEvent;
 
     private Event newEvent = new Event();
+    private Shelf newShelf = new Shelf();
     
     private long ecId;
 
@@ -90,6 +96,8 @@ public class EventManager implements Serializable {
         }
         newEvent = new Event();
         ecId = 1;
+        
+        newShelf = new Shelf();
     }
 
     public void addEvent() {
@@ -102,7 +110,15 @@ public class EventManager implements Serializable {
         try {
             EventCategory ec = eventAction.getEventCategoryById(ecId);
             newEvent.setCategory(ec);
+            
+            newShelf.setName(newEvent.getName());
+            newShelf.setShared(true);
+            
+            newShelf.setEvent(newEvent);
+            newEvent.setShelf(newShelf);
+            
             eventAction.addEvent(newEvent);
+            shelfAction.addShelf(newShelf);
         } catch (Exception e) {
             error.fire(new SimpleEvent(Constants.EVENT_SAVING_ERROR + " <br /> " + e.getMessage()));
             logger.error("exception occured", e);
