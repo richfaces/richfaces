@@ -46,6 +46,7 @@ import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Event;
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ShelfEvent;
@@ -88,6 +89,10 @@ public class FileDownloadManager implements Serializable {
     @Inject
     @EventType(Events.EVENT_EDITED_EVENT)
     javax.enterprise.event.Event<ShelfEvent> shelfEvent;
+    
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    javax.enterprise.event.Event<ErrorEvent> error;
 
     private List<String> imageUrls;
 
@@ -140,6 +145,7 @@ public class FileDownloadManager implements Serializable {
             albumAction.editAlbum(album);
             album = albumAction.resetAlbum(album);
         } catch (PhotoAlbumException pae) {
+            error.fire(new ErrorEvent("Error", "error saving album<br/>" + pae.getMessage()));
             log.log(Level.INFO, "error saving album", pae);
         }
 
@@ -153,6 +159,7 @@ public class FileDownloadManager implements Serializable {
         try {
             eventAction.editEvent(event);
         } catch (PhotoAlbumException pae) {
+            error.fire(new ErrorEvent("Error", "error removing album<br/>" + pae.getMessage()));
             log.log(Level.INFO, "error", pae);
         }
 
@@ -174,8 +181,10 @@ public class FileDownloadManager implements Serializable {
             bos.flush();
             bis.close();
         } catch (MalformedInputException malformedInputException) {
+            error.fire(new ErrorEvent("Error", "error uploading image<br/>" + malformedInputException.getMessage()));
             log.log(Level.ALL, "error", malformedInputException);
         } catch (IOException ioException) {
+            error.fire(new ErrorEvent("Error", "IO error<br/>" + ioException.getMessage()));
             log.log(Level.ALL, "error", ioException);
         }
 

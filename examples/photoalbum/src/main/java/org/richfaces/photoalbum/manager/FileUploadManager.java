@@ -38,6 +38,7 @@ import org.richfaces.model.UploadedFile;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ImageEvent;
@@ -90,6 +91,10 @@ public class FileUploadManager implements Serializable {
     @Inject
     @EventType(Events.IMAGE_ADDED_EVENT)
     Event<ImageEvent> imageEvent;
+    
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    Event<ErrorEvent> error;
 
     Logger log = Logger.getLogger("FUManager");
 
@@ -178,7 +183,9 @@ public class FileUploadManager implements Serializable {
     }
 
     private void addError(Image image, String error) {
-        fileWrapper.onFileUploadError(image, error);
+        //fileWrapper.onFileUploadError(image, error);
+        String imageName = (image != null) ? image.getName() : "";
+        this.error.fire(new ErrorEvent("(" + imageName + ") " + error));
     }
 
     private Image constructImage(FileHandler fileHandler) {

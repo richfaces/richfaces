@@ -35,6 +35,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.richfaces.photoalbum.domain.Image;
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.SimpleEvent;
@@ -65,7 +66,7 @@ public class SlideshowManager implements Serializable {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    Event<SimpleEvent> error;
+    Event<ErrorEvent> error;
 
     private int interval = Constants.INITIAL_DELAY;
 
@@ -118,7 +119,7 @@ public class SlideshowManager implements Serializable {
         this.slideshowIndex = model.getImages().indexOf(selectedImage);
         this.startSlideshowIndex = this.slideshowIndex;
         this.selectedImage = selectedImage;
-        
+
         startSlideshow();
     }
 
@@ -210,7 +211,7 @@ public class SlideshowManager implements Serializable {
         errorDetected = true;
         Utils.addToRerender(Constants.MAINAREA_ID);
         if (isShowOnUI) {
-            error.fire(new SimpleEvent(Constants.NO_IMAGES_FOR_SLIDESHOW_ERROR));
+            error.fire(new ErrorEvent(Constants.NO_IMAGES_FOR_SLIDESHOW_ERROR));
         }
         return;
     }
@@ -218,7 +219,7 @@ public class SlideshowManager implements Serializable {
     private void checkIsFileRecentlyDeleted() {
         // FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         if (!fileManager.isFilePresent(this.selectedImage.getFullPath())) {
-            error.fire(new SimpleEvent(Constants.IMAGE_RECENTLY_DELETED_ERROR));
+            error.fire(new ErrorEvent(Constants.IMAGE_RECENTLY_DELETED_ERROR));
             active = false;
             errorDetected = true;
             Utils.addToRerender(Constants.MAINAREA_ID);

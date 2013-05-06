@@ -37,7 +37,7 @@
             <h:panelGroup styleClass="content_box" layout="block">
                 <ui:include src="#{model.mainArea.template}" />
             </h:panelGroup>
-            <ui:include src="includes/misc/errorPanel.xhtml" />
+            <!-- <ui:include src="includes/misc/errorPanel.xhtml" /> -->
         </h:panelGroup>
         <r:jsFunction name="sho" render="helpPanel" oncomplete="#{r:component('helpPanel')}.show();">
             <r:param name="param1" assignTo="#{help.page}" />

@@ -21,16 +21,14 @@
  */
 package org.richfaces.photoalbum.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Named;
 
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.SimpleEvent;
+import org.richfaces.photoalbum.util.Utils;
 
 /**
  * Convenience UI class for global eeror-checking mechanism
@@ -40,15 +38,16 @@ import org.richfaces.photoalbum.event.SimpleEvent;
 @Named
 @RequestScoped
 public class ErrorHandlerBean {
-    private List<String> errors = new ArrayList<String>();
 
-    public List<String> getErrors() {
-        return errors;
-    }
-
-    public boolean isErrorExist() {
-        return errors.size() > 0;
-    }
+//    private List<String> errors = new ArrayList<String>();
+//
+//    public List<String> getErrors() {
+//        return errors;
+//    }
+//
+//    public boolean isErrorExist() {
+//        return errors.size() > 0;
+//    }
 
     /**
      * Convenience method that observes <code>Constants.ADD_ERROR_EVENT</code>. After error occured add error to the list of
@@ -56,7 +55,9 @@ public class ErrorHandlerBean {
      *
      * @param e - string representation of error.
      */
-    public void addToErrors(@Observes @EventType(Events.ADD_ERROR_EVENT) SimpleEvent se) {
-        errors.add(se.getMessage());
+    public void addToErrors(@Observes @EventType(Events.ADD_ERROR_EVENT) ErrorEvent ee) {
+        //errors.add(se.getMessage());
+
+        Utils.addFacesMessage("overForm", ee.getSummary(), ee.getDetail());
     }
 }

@@ -1460,6 +1460,28 @@ h1 {
 	display: none !important;
 }
 
+/* error messages */
+
+	/* container  */
+.error-message {
+	padding: 10px;
+}
+
+.error-message .rf-ntf-ico {
+	background-image: url(/richfaces-photoalbum/img/modal/ico_warning.png) !important;
+	background-size: 18px 29px;
+}
+
+	/* summary heading */
+.error-message .rf-ntf-sum {
+	font-size: 14px !important;
+}
+	
+	/* detail */
+.error-message .rf-ntf-det {
+	font-size: 12px !important;
+}
+
 /* FB button */
 
 input[type='submit'].fb-button {

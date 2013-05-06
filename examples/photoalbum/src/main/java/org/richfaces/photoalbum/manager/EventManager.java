@@ -38,6 +38,7 @@ import org.richfaces.photoalbum.domain.Event;
 import org.richfaces.photoalbum.domain.EventCategory;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.EventTypeQualifier;
 import org.richfaces.photoalbum.event.Events;
@@ -71,7 +72,7 @@ public class EventManager implements Serializable {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    javax.enterprise.event.Event<SimpleEvent> error;
+    javax.enterprise.event.Event<ErrorEvent> error;
 
     @Inject
     @Any
@@ -120,7 +121,7 @@ public class EventManager implements Serializable {
             eventAction.addEvent(newEvent);
             shelfAction.addShelf(newShelf);
         } catch (Exception e) {
-            error.fire(new SimpleEvent(Constants.EVENT_SAVING_ERROR + " <br /> " + e.getMessage()));
+            error.fire(new ErrorEvent("Error", Constants.EVENT_SAVING_ERROR + " <br /> " + e.getMessage()));
             logger.error("exception occured", e);
             return;
         }
@@ -142,7 +143,7 @@ public class EventManager implements Serializable {
         try {
             eventAction.editEvent(event);
         } catch (Exception e) {
-            error.fire(new SimpleEvent(Constants.EVENT_SAVING_ERROR));
+            error.fire(new ErrorEvent("Error", Constants.EVENT_SAVING_ERROR + " <br /> " + e.getMessage()));
             eventAction.resetEvent(event);
             return;
         }
@@ -162,7 +163,7 @@ public class EventManager implements Serializable {
         try {
             eventAction.deleteEvent(event);
         } catch (Exception e) {
-            error.fire(new SimpleEvent(Constants.EVENT_DELETING_ERROR));
+            error.fire(new ErrorEvent("Error", Constants.EVENT_DELETING_ERROR + " <br /> " + e.getMessage()));
             return;
         }
         shelfEvent.select(new EventTypeQualifier(Events.EVENT_DELETED_EVENT)).fire(new ShelfEvent(event));

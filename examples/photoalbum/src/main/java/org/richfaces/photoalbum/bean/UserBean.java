@@ -22,16 +22,21 @@
 
 package org.richfaces.photoalbum.bean;
 
+import static org.richfaces.photoalbum.event.Events.ADD_ERROR_EVENT;
+
 import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.ErrorEvent;
+import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.util.Preferred;
 
@@ -56,8 +61,12 @@ public class UserBean implements Serializable {
     private User user;
 
     private String username;
-    
+
     private String fbPhotoUrl;
+
+    @Inject
+    @EventType(ADD_ERROR_EVENT)
+    Event<ErrorEvent> event;
 
     public String getUsername() {
         return username;
@@ -98,10 +107,16 @@ public class UserBean implements Serializable {
             return null;
         }
 
+        event.fire(new ErrorEvent("test", "testing notify"));
+
         user = (User) users.get(0);
 
         logged = true;
         loggedInFB = true;
+
+        event
+            .fire(new ErrorEvent("login ok",
+                "this is a rather long message I am using to test if the notify pupol will be expanded or what will happen with it"));
 
         return user;
     }

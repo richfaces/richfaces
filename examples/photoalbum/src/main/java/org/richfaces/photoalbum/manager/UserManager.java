@@ -36,6 +36,7 @@ import javax.inject.Inject;
 
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.event.AlbumEvent;
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.SimpleEvent;
@@ -63,7 +64,7 @@ public class UserManager implements Serializable {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    Event<SimpleEvent> error;
+    Event<ErrorEvent> error;
 
     /**
      * Method, that invoked when user want to edit her profile.
@@ -73,7 +74,7 @@ public class UserManager implements Serializable {
         // If new avatar was uploaded
         if (avatarData != null) {
             if (!fileManager.saveAvatar(avatarData, user)) {
-                error.fire(new SimpleEvent(Constants.FILE_IO_ERROR));
+                error.fire(new ErrorEvent(Constants.FILE_IO_ERROR));
                 return;
             }
             avatarData.delete();
@@ -87,7 +88,7 @@ public class UserManager implements Serializable {
             // user.setPasswordHash(HashUtils.hash(user.getPassword()));
             user = userAction.updateUser();
         } catch (Exception e) {
-            error.fire(new SimpleEvent(Constants.UPDATE_USER_ERROR));
+            error.fire(new ErrorEvent("Error", Constants.UPDATE_USER_ERROR + " <br/>" + e.getMessage()));
             return;
         }
     }

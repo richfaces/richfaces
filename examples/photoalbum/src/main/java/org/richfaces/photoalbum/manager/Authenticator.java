@@ -285,7 +285,7 @@ public class Authenticator implements Serializable {
 
     private boolean checkUserExist(User user) {
         if (userAction.isUserExist(user.getLogin())) {
-            Utils.addFacesMessage(Constants.REGISTER_LOGIN_NAME_ID, Constants.USER_WITH_THIS_LOGIN_ALREADY_EXIST);
+            Utils.addFacesMessage(Constants.REGISTER_LOGIN_NAME_ID, "", Constants.USER_WITH_THIS_LOGIN_ALREADY_EXIST);
             return true;
         }
         return false;
@@ -293,7 +293,7 @@ public class Authenticator implements Serializable {
 
     private boolean checkEmailExist(String email) {
         if (userAction.isEmailExist(email)) {
-            Utils.addFacesMessage(Constants.REGISTER_EMAIL_ID, Constants.USER_WITH_THIS_EMAIL_ALREADY_EXIST);
+            Utils.addFacesMessage(Constants.REGISTER_EMAIL_ID, "", Constants.USER_WITH_THIS_EMAIL_ALREADY_EXIST);
             return true;
         }
         return false;
@@ -301,7 +301,7 @@ public class Authenticator implements Serializable {
 
     private boolean checkPassword(User user) {
         if (!user.getPassword().equals(user.getConfirmPassword())) {
-            Utils.addFacesMessage(Constants.REGISTER_CONFIRM_PASSWORD_ID, Constants.CONFIRM_PASSWORD_NOT_EQUALS_PASSWORD);
+            Utils.addFacesMessage(Constants.REGISTER_CONFIRM_PASSWORD_ID, "", Constants.CONFIRM_PASSWORD_NOT_EQUALS_PASSWORD);
             return true;
         }
         return false;
@@ -313,7 +313,7 @@ public class Authenticator implements Serializable {
         // facesMessages.add(Constants.INVALID_LOGIN_OR_PASSWORD);
         // FacesContext.getCurrentInstance().addMessage("loginPanelForm", new
         // FacesMessage(Constants.INVALID_LOGIN_OR_PASSWORD));
-        Utils.addFacesMessage("overForm:loginPanel", Constants.INVALID_LOGIN_OR_PASSWORD);
+        Utils.addFacesMessage("overForm:loginPanel", "", Constants.INVALID_LOGIN_OR_PASSWORD);
         FacesContext.getCurrentInstance().renderResponse();
     }
 

@@ -37,6 +37,7 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -45,6 +46,7 @@ import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.event.AlbumEvent;
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ImageEvent;
@@ -67,6 +69,10 @@ public class FileManager {
 
     @Inject
     User user;
+    
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    Event<ErrorEvent> error;
 
     /**
      * Method, that invoked at startup application. Used to determine where application will be write new images. This method
@@ -94,6 +100,7 @@ public class FileManager {
                 }
                 return result;
             } catch (IOException e) {
+                error.fire(new ErrorEvent("no file found"));
                 result = null;
             }
             return result;
@@ -179,6 +186,7 @@ public class FileManager {
             InputStream is = new FileInputStream(avatarData);
             return writeFile(avatarPath, is, "", Constants.AVATAR_SIZE, true);
         } catch (IOException ioe) {
+            error.fire(new ErrorEvent("error saving avatar"));
             return false;
         }
     }
@@ -222,6 +230,7 @@ public class FileManager {
                 }
                 in.close();
             } catch (IOException ioe) {
+                error.fire(new ErrorEvent("Error", "error saving image<br/>" + ioe.getMessage()));
                 log.log(Level.INFO, "error in saving image", ioe);
                 return false;
             }
@@ -333,6 +342,7 @@ public class FileManager {
             // Read file form disk
             bsrc = FileUtils.bitmapToImage(inputStream, Constants.JPG);
         } catch (IOException e1) {
+            error.fire(new ErrorEvent("Error", "error reading file<br/>" + e1.getMessage()));
             return false;
         }
         int resizedParam = bsrc.getWidth() > bsrc.getHeight() ? bsrc.getWidth() : bsrc.getHeight();
@@ -356,6 +366,7 @@ public class FileManager {
             // save to disk
             FileUtils.imageToBitmap(bdest, dest, Constants.JPG);
         } catch (IOException ex) {
+            error.fire(new ErrorEvent("Error", "error saving image to disc<br/>" + ex.getMessage()));
             return false;
         }
         return true;

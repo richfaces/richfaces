@@ -62,11 +62,11 @@ public class Utils {
      * @param componentId - component identifier
      * @param message - message to add
      */
-    public static void addFacesMessage(String componentId, String message) {
+    public static void addFacesMessage(String componentId, String summary, String detail) {
         UIComponent root = FacesContext.getCurrentInstance().getViewRoot();
         UIComponent component = root.findComponent(componentId);
         FacesContext.getCurrentInstance().addMessage(component.getClientId(FacesContext.getCurrentInstance()),
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail));
     }
 
     /**
