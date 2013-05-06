@@ -21,29 +21,6 @@
  */
 package org.richfaces.ui.toggle.tabPanel;
 
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.javascript.JSObject;
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.toggle.AbstractTogglePanelItemInterface;
-import org.richfaces.ui.toggle.AbstractTogglePanelTitledItem;
-import org.richfaces.ui.toggle.TogglePanelVisitCallback;
-import org.richfaces.ui.toggle.TogglePanelVisitState;
-import org.richfaces.ui.toggle.AbstractTogglePanelTitledItem.HeaderStates;
-import org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer;
-import org.richfaces.util.HtmlUtil;
-
-import javax.faces.FacesException;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
-import java.io.IOException;
-import java.util.Map;
-
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
 import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
@@ -56,6 +33,29 @@ import static org.richfaces.ui.common.HtmlConstants.TR_ELEMENT;
 import static org.richfaces.ui.toggle.AbstractTogglePanelTitledItem.HeaderStates.active;
 import static org.richfaces.ui.toggle.AbstractTogglePanelTitledItem.HeaderStates.disabled;
 import static org.richfaces.ui.toggle.AbstractTogglePanelTitledItem.HeaderStates.inactive;
+
+import java.io.IOException;
+import java.util.Map;
+
+import javax.faces.FacesException;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.toggle.AbstractTogglePanelItemInterface;
+import org.richfaces.ui.toggle.AbstractTogglePanelTitledItem;
+import org.richfaces.ui.toggle.TogglePanelVisitCallback;
+import org.richfaces.ui.toggle.TogglePanelVisitState;
+import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
+import org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer;
+import org.richfaces.util.HtmlUtil;
 
 /**
  * @author akolonitsky
