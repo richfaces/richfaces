@@ -108,6 +108,15 @@
         <param-name>org.richfaces.push.jms.connectionPassword</param-name>
         <param-value>password</param-value>
     </context-param>
+    <context-param>
+        <param-name>org.richfaces.push.session.maxInactiveInterval</param-name>
+        <!-- interval in miliseconds; default value: 5 minutes -->
+        <param-value>300000</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.atmosphere.cpr.CometSupport.maxInactiveActivity</param-name>
+        <param-value>35000</param-value>
+    </context-param>
     
     <!-- Configures PushFilter -->
     <filter>
