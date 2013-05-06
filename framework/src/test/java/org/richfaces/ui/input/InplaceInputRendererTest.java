@@ -1,16 +1,20 @@
 package org.richfaces.ui.input;
 
-import com.gargoylesoftware.htmlunit.html.DomText;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.richfaces.ui.common.HtmlConstants;
 import org.xml.sax.SAXException;
 
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import com.gargoylesoftware.htmlunit.html.DomText;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class InplaceInputRendererTest extends InplaceRendererTestBase {
     public static final String PAGE_NAME = "inplaceInputTest";
@@ -67,7 +71,8 @@ public class InplaceInputRendererTest extends InplaceRendererTestBase {
 
         span = page.getFirstByXPath("//*[@id = '" + withControlsComponentId + "']");
         assertNotNull(span);
-        assertEquals("rf-ii rf-ii-chng", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        String[] classAttribute = span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).split(" ");
+        assertThat(Arrays.asList(classAttribute), CoreMatchers.hasItems("rf-ii", "rf-ii-chng"));
 
         edit(page, withControlsComponentId, "Test String");
 
