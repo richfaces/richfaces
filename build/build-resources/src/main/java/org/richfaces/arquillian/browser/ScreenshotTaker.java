@@ -8,16 +8,15 @@ import org.apache.commons.io.FileUtils;
 import org.jboss.arquillian.core.api.annotation.Observes;
 import org.jboss.arquillian.drone.impl.DroneContext;
 import org.jboss.arquillian.drone.spi.DroneReady;
-import org.jboss.arquillian.drone.webdriver.configuration.WebDriverConfiguration;
 import org.jboss.arquillian.graphene.context.GrapheneContext;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance;
 import org.jboss.arquillian.graphene.proxy.Interceptor;
 import org.jboss.arquillian.graphene.proxy.InvocationContext;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.richfaces.arquillian.configuration.FundamentalTestConfiguration;
+import org.richfaces.arquillian.configuration.FundamentalTestConfigurationContext;
 
 /**
  * Takes screenshot for each interaction with WebDriver API which allows debugging of headless browsers capable of screenshot
@@ -33,31 +32,34 @@ public class ScreenshotTaker {
 
     public void registerInterceptor(@Observes DroneReady event, DroneContext ctx) {
 
-        WebDriverConfiguration configuration = ctx.get(WebDriverConfiguration.class, event.getQualifier());
-        Capabilities capabilities = configuration.getCapabilities();
+        FundamentalTestConfiguration configuration = FundamentalTestConfigurationContext.getProxy();
 
-        if (DesiredCapabilities.phantomjs().getBrowserName().equals(capabilities.getBrowserName())) {
+        if (configuration.isDebug()) {
 
-            WebDriver proxy = GrapheneContext.getProxy();
+            WebDriver browser = (WebDriver) event.getInstance();
+            if (BrowserUtils.isPhantomjs(browser)) {
 
-            Interceptor interceptor = new Interceptor() {
-                @Override
-                public Object intercept(InvocationContext ctx) throws Throwable {
-                    Object result = ctx.invoke();
-                    if (TakesScreenshot.class != ctx.getMethod().getDeclaringClass()) {
-                        try {
-                            File tempFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
-                            FileUtils.copyFile(tempFile, new File("target/screenshot.png"));
-                        } catch (Exception e) {
-                            log.log(Level.WARNING,
-                                    String.format("Wasn't able to take screenshot before action '%s'", ctx.getMethod(), e));
+                WebDriver proxy = GrapheneContext.getProxy();
+
+                Interceptor interceptor = new Interceptor() {
+                    @Override
+                    public Object intercept(InvocationContext ctx) throws Throwable {
+                        Object result = ctx.invoke();
+                        if (TakesScreenshot.class != ctx.getMethod().getDeclaringClass()) {
+                            try {
+                                File tempFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
+                                FileUtils.copyFile(tempFile, new File("target/screenshot.png"));
+                            } catch (Exception e) {
+                                log.log(Level.WARNING,
+                                        String.format("Wasn't able to take screenshot before action '%s'", ctx.getMethod(), e));
+                            }
                         }
+                        return result;
                     }
-                    return result;
-                }
-            };
+                };
 
-            ((GrapheneProxyInstance) proxy).registerInterceptor(interceptor);
+                ((GrapheneProxyInstance) proxy).registerInterceptor(interceptor);
+            }
         }
     }
 }
