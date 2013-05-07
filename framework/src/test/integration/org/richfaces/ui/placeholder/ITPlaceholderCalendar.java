@@ -23,11 +23,13 @@ package org.richfaces.ui.placeholder;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Failing;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -93,7 +95,10 @@ public class ITPlaceholderCalendar extends AbstractPlaceholderTest {
         return "Wed Dec 12 00:00:00 UTC 2012";
     }
 
-    @Ignore("calendar date conversion problem")
+    /**
+     *  calendar date conversion problem
+     */
+    @Category(Failing.class)
     @Test
     public void testSubmitTextValue() {
         super.testSubmitTextValue();

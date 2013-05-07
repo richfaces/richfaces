@@ -35,8 +35,8 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.facesconfig20.WebFacesConfigDescriptor;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -44,6 +44,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Failing;
 
 import com.google.common.base.Function;
 
@@ -89,7 +91,7 @@ public class ITValidatorMessageWithLabel {
      * <p>{@link https://issues.jboss.org/browse/RF-12754}</p>
      */
     @Test
-    @Ignore("RF-12754")
+    @Category(Failing.class)
     public void client_side_validation_msg() {
         // given
         browser.get(contextPath.toExternalForm());

@@ -16,8 +16,8 @@ import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,6 +27,8 @@ import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.misc.focus.FocusRendererBase;
+
+import category.Failing;
 
 @RunAsClient
 @WarpTest
@@ -87,7 +89,7 @@ public class ITFocusSubmissionMethods {
      * {@link FocusRendererBase#renderOncompleteScript(javax.faces.context.FacesContext, String)}.
      */
     @Test
-    @Ignore
+    @Category(Failing.class)
     public void testFocusAfterAjaxJSF() {
         // when
         input2.click();

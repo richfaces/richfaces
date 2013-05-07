@@ -10,14 +10,16 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Failing;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -39,8 +41,11 @@ public class ITTestJsFunction {
         return deployment.getFinalArchive();
     }
 
+    /**
+     * {@link https://issues.jboss.org/browse/RF-12761}
+     */
     @Test
-    @Ignore("RF-12761")
+    @Category(Failing.class)
     public void listener_with_parameter() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm());

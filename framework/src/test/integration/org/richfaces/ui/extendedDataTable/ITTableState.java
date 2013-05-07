@@ -21,8 +21,8 @@ import org.jboss.arquillian.warp.jsf.AfterPhase;
 import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -36,6 +36,8 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.iteration.column.UIColumn;
 import org.richfaces.ui.iteration.extendedDataTable.AbstractExtendedDataTable;
 import org.richfaces.ui.iteration.extendedDataTable.ExtendedDataTableState;
+
+import category.Failing;
 
 @RunAsClient
 @WarpTest
@@ -90,8 +92,11 @@ public class ITTableState {
         Assert.assertEquals("Column 2", header.findElement(By.cssSelector("td")).getText());
     }
 
+    /**
+     * {@link https://issues.jboss.org/browse/RF-12814}
+     */
     @Test
-    @Ignore("RF-12814")
+    @Category(Failing.class)
     public void table_order_server_side() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm());
