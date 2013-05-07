@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * Copyright 2013, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -146,6 +146,6 @@ public class PanelRendererTest {
         assertNotNull(nestedPanel2.getElementById("nestedPanel2_header"));
         assertEquals("For Component Developers", nestedPanel2.getElementById("nestedPanel2_header").getTextContent().trim());
         assertEquals("Ajax4jsf is Open",
-            nestedPanel2.getElementById("nestedPanel2_body").getTextContent().trim().substring(0, 16));
+            nestedPanel2.getElementById("nestedPanel2_body").getTextContent().trim().substring(0, 17));
     }
 }
