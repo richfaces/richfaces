@@ -8,17 +8,16 @@ package org.richfaces.photoalbum.event;
  *
  */
 
-public class ErrorEvent {
+public class ErrorEvent extends SimpleEvent {
     private String summary;
-    private String detail;
 
-    public ErrorEvent(String heading, String message) {
-        this.summary = heading;
-        this.detail = message;
+    public ErrorEvent(String summary, String message) {
+        super(message);
+        this.summary = summary;
     }
     
     public ErrorEvent(String message) {
-        new ErrorEvent("", message);
+        this("", message);
     }
 
     public String getSummary() {
@@ -26,7 +25,7 @@ public class ErrorEvent {
     }
 
     public String getDetail() {
-        return detail;
+        return super.getMessage();
     }
     
 }

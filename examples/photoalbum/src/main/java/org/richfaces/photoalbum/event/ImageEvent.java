@@ -30,17 +30,16 @@ import org.richfaces.photoalbum.domain.Image;
  * @author mpetrov
  *
  */
-public class ImageEvent {
+public class ImageEvent extends SimpleEvent {
     private Image image;
-    private String path;
     
     public ImageEvent(Image image) {
-        this.image = image;
+        this(image, "");
     }
     
     public ImageEvent(Image image, String path) {
+        super(path);
         this.image = image;
-        this.path = path;
     }
     
     public Image getImage() {
@@ -48,6 +47,6 @@ public class ImageEvent {
     }
     
     public String getPath() {
-        return path;
+        return super.getMessage();
     }
 }

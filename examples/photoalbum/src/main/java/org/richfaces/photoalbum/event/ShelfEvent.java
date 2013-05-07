@@ -27,27 +27,26 @@ import org.richfaces.photoalbum.domain.Shelf;
 
 /**
  * Shelf event, carries a shelf and its (relative) path. Temporary solution.
- * 
+ *
  * @author mpetrov
- * 
+ *
  */
-public class ShelfEvent {
+public class ShelfEvent extends SimpleEvent {
     private Shelf shelf;
-    private String path;
 
     private Event event;
-    
+
     public ShelfEvent(Shelf shelf) {
-        this.shelf = shelf;
+        this(shelf, shelf.getPath());
     }
-    
+
     public ShelfEvent(Event event) {
         this.event = event;
     }
 
     public ShelfEvent(Shelf shelf, String path) {
+        super(path);
         this.shelf = shelf;
-        this.path = path;
     }
 
     public Shelf getShelf() {
@@ -55,7 +54,7 @@ public class ShelfEvent {
     }
 
     public String getPath() {
-        return path;
+        return super.getMessage();
     }
 
     public Event getEvent() {
@@ -65,6 +64,4 @@ public class ShelfEvent {
     public void setEvent(Event event) {
         this.event = event;
     }
-    
-    
 }
