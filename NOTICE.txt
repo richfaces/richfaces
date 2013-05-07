@@ -1,5 +1,4 @@
-This product includes software developed at
-The Apache Software Foundation (http://www.apache.org/).
+This product includes Apache licensed software
 
 framework/src/main/java/org/richfaces/base64/DecoderException.java
 framework/src/main/java/org/richfaces/base64/URLCodec.java
@@ -15,3 +14,6 @@ Copyright (C) 2002-2004 The Apache Software Foundation
 examples/showcase/src/main/java-gae/com/sun/faces/facelets/impl/IdMapper.java
 incorporates work covered by the following copyright and
 Copyright (C) 2005-2007 The Apache Software Foundation
+
+examples/showcase/src/main/java/org/richfaces/demo/ui/UAgentInfo.java
+Copyright (C) 2010-2012, Anthony Hand
