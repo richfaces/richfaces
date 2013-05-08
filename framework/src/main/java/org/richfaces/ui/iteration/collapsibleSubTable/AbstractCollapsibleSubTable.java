@@ -36,8 +36,8 @@ import org.richfaces.ui.iteration.UIDataTableBase;
 import org.richfaces.ui.iteration.column.Column;
 
 /**
- * <p> The &lt;rich:collapsibleSubTable&gt; component acts as a child element to a &lt;rich:dataTable&gt; component. The
- * &lt;rich:collapsibleSubTable&gt; component iterates through the child collections in the currently iterated object to
+ * <p> The &lt;r:collapsibleSubTable&gt; component acts as a child element to a &lt;r:dataTable&gt; component. The
+ * &lt;r:collapsibleSubTable&gt; component iterates through the child collections in the currently iterated object to
  * create master-detail tables. </p>
  *
  * @author Anton Belevich

@@ -36,8 +36,8 @@ import org.richfaces.ui.iteration.Row;
 import org.richfaces.ui.iteration.RowHolderBase;
 
 /**
- * <p>The &lt;rich:columnGroup&gt; component combines multiple columns in a single row to organize complex parts of a
- * table. The resulting effect is similar to using the breakRowBefore attribute of the &lt;rich:column&gt; component,
+ * <p>The &lt;r:columnGroup&gt; component combines multiple columns in a single row to organize complex parts of a
+ * table. The resulting effect is similar to using the breakRowBefore attribute of the &lt;r:column&gt; component,
  * but is clearer and easier to follow in the source code.</p>
  */
 @JsfComponent(type = AbstractColumnGroup.COMPONENT_TYPE, family = AbstractColumnGroup.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ColumnGroupRenderer"), tag = @Tag(name = "columnGroup"))

@@ -32,7 +32,7 @@ import org.richfaces.ui.common.Mode;
 import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
 
 /**
- * <p>The &lt;rich:menuItem&gt; component represents a single item in a menu control. The &lt;rich:menuItem&gt;
+ * <p>The &lt;r:menuItem&gt; component represents a single item in a menu control. The &lt;r:menuItem&gt;
  * component can be also be used as a seperate component without a parent menu component, such as on a toolbar.</p>
  */
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuItem.COMPONENT_TYPE, facets = {

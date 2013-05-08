@@ -105,7 +105,7 @@ public class ITPlaceholderInplaceSelect extends AbstractPlaceholderTest {
         browser.get(contextPath.toExternalForm() + "submit.jsf");
 
         //when
-        Graphene.guardAjax(a4jSubmitBtn).click();
+        Graphene.guardAjax(ajaxSubmitBtn).click();
 
         // then
         Graphene.waitAjax().until().element(output).is().not().visible();

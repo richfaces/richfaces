@@ -36,8 +36,8 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
 /**
- * <p>The &lt;rich:panelMenuGroup&gt; component defines a group of &lt;rich:panelMenuItem&gt; components inside a
- * &lt;rich:panelMenu&gt;.</p>
+ * <p>The &lt;r:panelMenuGroup&gt; component defines a group of &lt;r:panelMenuItem&gt; components inside a
+ * &lt;r:panelMenu&gt;.</p>
  *
  * @author akolonitsky
  */

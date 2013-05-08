@@ -32,7 +32,7 @@ import org.richfaces.ui.common.InplaceComponent;
 import org.richfaces.ui.common.InplaceState;
 
 /**
- * <p> The &lt;rich:inplaceInput&gt; component allows information to be entered in-line in blocks of text, improving
+ * <p> The &lt;r:inplaceInput&gt; component allows information to be entered in-line in blocks of text, improving
  * readability of the text. Multiple input regions can be navigated with keyboard navigation. The component has three
  * functional states: the view state, where the component displays its initial setting, such as &quot;click to
  * edit&quot;; the edit state, where the user can input text; and the &quot;changed&quot; state, where the new value for

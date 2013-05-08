@@ -32,7 +32,7 @@ import org.richfaces.ui.common.AjaxOutput;
 import org.richfaces.ui.message.ClientSideMessage;
 
 /**
- * <p>The &lt;rich:messages&gt; components works similarly to the &lt;rich:message&gt; component, but can display all
+ * <p>The &lt;r:messages&gt; components works similarly to the &lt;r:message&gt; component, but can display all
  * the validation messages added for the current view instead of just a single message.</p>
  *
  * @author asmirnov@exadel.com

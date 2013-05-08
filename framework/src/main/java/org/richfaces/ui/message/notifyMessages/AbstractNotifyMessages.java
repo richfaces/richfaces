@@ -33,7 +33,7 @@ import org.richfaces.ui.message.ClientSideMessage;
 import org.richfaces.ui.message.NotifyAttributes;
 
 /**
- * <p> The &lt;rich:notifyMessages&gt; component is the same as the &lt;rich:notifyMessage&gt; component, but each of
+ * <p> The &lt;r:notifyMessages&gt; component is the same as the &lt;r:notifyMessage&gt; component, but each of
  * the available messages generates one notification. </p>
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>

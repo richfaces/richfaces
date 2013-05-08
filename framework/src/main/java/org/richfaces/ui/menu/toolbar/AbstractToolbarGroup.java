@@ -35,8 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>The &lt;rich:toolbarGroup&gt; component is a child component of the &lt;rich:toolbar&gt; component. The
- * &lt;rich:toolbarGroup&gt; component is used to group a number of items together on a toolbar.</p>
+ * <p>The &lt;r:toolbarGroup&gt; component is a child component of the &lt;r:toolbar&gt; component. The
+ * &lt;r:toolbarGroup&gt; component is used to group a number of items together on a toolbar.</p>
  */
 @JsfComponent(family = AbstractToolbar.COMPONENT_FAMILY, type = AbstractToolbarGroup.COMPONENT_TYPE, renderer = @JsfRenderer(type = ToolbarGroupRenderer.RENDERER_TYPE), tag = @Tag(name = "toolbarGroup"))
 public abstract class AbstractToolbarGroup extends UIComponentBase {

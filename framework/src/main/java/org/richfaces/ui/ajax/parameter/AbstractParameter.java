@@ -41,7 +41,7 @@ import org.richfaces.util.PartialStateHolderUtil;
 
 /**
  * <p>
- * The &lt;a4j:param&gt; behavior combines the functionality of the JavaServer Faces (JSF) components
+ * The &lt;r:param&gt; behavior combines the functionality of the JavaServer Faces (JSF) components
  * &lt;f:param&gt; and &lt;f:actionListener&gt;.
  * </p>
  * @author shura, alexsmirnov

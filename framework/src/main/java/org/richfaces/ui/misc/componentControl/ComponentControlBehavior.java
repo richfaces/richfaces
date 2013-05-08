@@ -34,9 +34,9 @@ import org.richfaces.ui.behavior.ClientBehavior;
 
 /**
  * <p>
- *     The &lt;rich:componentControl&gt; behavior allows JavaScript API functions to be called on target components.
+ *     The &lt;r:componentControl&gt; behavior allows JavaScript API functions to be called on target components.
  *     The functions are called after defined events are triggered on the component to with the
- *     &lt;rich:componentControl&gt; behavior is attached. Initialization variants and activation events can be
+ *     &lt;r:componentControl&gt; behavior is attached. Initialization variants and activation events can be
  *     customized, and parameters can be passed to the target component.
  * </p>
  * @author Anton Belevich

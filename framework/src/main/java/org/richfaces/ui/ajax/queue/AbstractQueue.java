@@ -31,7 +31,7 @@ import javax.faces.component.UIComponentBase;
 
 /**
  * <p>
- * The &lt;a4j:queue&gt; component manages the JSF queue of Ajax requests. It provides additional options for a finer
+ * The &lt;r:queue&gt; component manages the JSF queue of Ajax requests. It provides additional options for a finer
  * control of request processing.
  * </p>
  * @author Nick Belaevski

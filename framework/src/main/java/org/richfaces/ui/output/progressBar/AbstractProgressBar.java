@@ -51,7 +51,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * <p> The &lt;rich:progressBar&gt; component displays a progress bar to indicate the status of a process to the user.
+ * <p> The &lt;r:progressBar&gt; component displays a progress bar to indicate the status of a process to the user.
  * It can update either through Ajax or on the client side, and the look and feel can be fully customized. </p>
  *
  * @author "Andrey Markavtsov"
@@ -173,7 +173,7 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
      * <p>The mode for updating the progress bar, can be one of:</p>
      * <dl>
      *     <dt>ajax</dt>
-     *     <dd>The progress bar updates in the same way as the &lt;a4j:poll&gt; component. The &lt;rich:progressBar&gt; component repeatedly polls the server for the current progress value.</dd>
+     *     <dd>The progress bar updates in the same way as the &lt;r:poll&gt; component. The &lt;r:progressBar&gt; component repeatedly polls the server for the current progress value.</dd>
      *     <dt>client</dt>
      *     <dd>The progress bar must be explicitly updated on the client side through the JavaScript API.</dd>
      * </dl>

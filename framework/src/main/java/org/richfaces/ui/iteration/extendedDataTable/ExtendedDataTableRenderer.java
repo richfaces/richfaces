@@ -671,7 +671,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 writer.endUpdate();
                 writer.startEval();
                 writer.write("jQuery(" + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(clientId))
-                    + ").triggerHandler('rich:onajaxcomplete', {first: " + table.getClientFirst() + "});");
+                    + ").triggerHandler('r:onajaxcomplete', {first: " + table.getClientFirst() + "});");
                 writer.endEval();
                 table.setRowKey(context, key);
                 table.restoreOrigValue(context);
@@ -694,7 +694,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     writer.startEval();
                     writer.write("jQuery("
                         + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(table.getClientId(context)))
-                        + ").triggerHandler('rich:onajaxcomplete', {reinitializeHeader: true});");
+                        + ").triggerHandler('r:onajaxcomplete', {reinitializeHeader: true});");
                     writer.endEval();
                 } else if (UIDataTableBase.FOOTER.equals(metaComponentId)) {
                     encodeFooter(state);
@@ -706,7 +706,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     writer.endUpdate();
                     writer.startEval();
                     writer.write("jQuery(" + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(clientId))
-                        + ").triggerHandler('rich:onajaxcomplete', {first: " + table.getClientFirst() + ", rowCount: "
+                        + ").triggerHandler('r:onajaxcomplete', {first: " + table.getClientFirst() + ", rowCount: "
                         + getRowCount(component) + ", reinitializeBody: true});");
                     writer.endEval();
                 } else {
@@ -962,10 +962,10 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         String clientId = component.getClientId(context);
         updateWidthOfColumns(context, component, map.get(clientId + ":wi"));
         if (map.get(clientId) != null) {
-            updateColumnsOrder(context, component, map.get("rich:columnsOrder"));
+            updateColumnsOrder(context, component, map.get("r:columnsOrder"));
         }
         if (map.get(clientId) != null) {
-            updateClientFirst(context, component, map.get("rich:clientFirst"));
+            updateClientFirst(context, component, map.get("r:clientFirst"));
         }
         decodeSortingFiltering(context, component);
 

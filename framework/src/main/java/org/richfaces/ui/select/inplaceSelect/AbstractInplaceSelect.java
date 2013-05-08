@@ -31,8 +31,8 @@ import org.richfaces.ui.common.InplaceState;
 import org.richfaces.ui.select.AbstractSelectComponent;
 
 /**
- * <p> The &lt;rich:inplaceSelect&gt; component is similar to the &lt;rich:inplaceInput&gt; component, except that the
- * &lt;rich:inplaceSelect&gt; component uses a drop-down selection box to enter text instead of a regular text field.
+ * <p> The &lt;r:inplaceSelect&gt; component is similar to the &lt;r:inplaceInput&gt; component, except that the
+ * &lt;r:inplaceSelect&gt; component uses a drop-down selection box to enter text instead of a regular text field.
  * Changes can be rendered either in-line or for the whole block, and inputs can be focused with keyboard navigation.
  * The component is based on the JSF UISelectOne component, so all the standard rules for value definition, processing,
  * conversion, and validation apply. </p>

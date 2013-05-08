@@ -30,7 +30,7 @@ import org.richfaces.cdk.annotations.Tag;
 
 /**
  * <p>
- *     The &lt;rich:dragIndicator&gt; component defines a graphical element to display under the mouse cursor during a
+ *     The &lt;r:dragIndicator&gt; component defines a graphical element to display under the mouse cursor during a
  *     drag-and-drop operation.
  * </p>
  * @author abelevich

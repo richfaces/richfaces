@@ -36,8 +36,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 
 /**
- * <p>The &lt;rich:accordionItem&gt; component is a panel for use with the &lt;rich:accordion&gt; component.
- * &lt;rich:accordionItem&gt; components can be added dynamically using iteration models with the &lt;c:forEach&gt;
+ * <p>The &lt;r:accordionItem&gt; component is a panel for use with the &lt;r:accordion&gt; component.
+ * &lt;r:accordionItem&gt; components can be added dynamically using iteration models with the &lt;c:forEach&gt;
  * tag.</p>
  *
  * @author akolonitsky

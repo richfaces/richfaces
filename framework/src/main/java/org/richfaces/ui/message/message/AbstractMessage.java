@@ -30,7 +30,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.common.AjaxOutput;
 
 /**
- * <p>The &lt;rich:message&gt; component renders a single FacesMessage message instance added for the component. The
+ * <p>The &lt;r:message&gt; component renders a single FacesMessage message instance added for the component. The
  * appearance of the message can be customized, and tool-tips can be used for further information about the
  * message.</p>
  *

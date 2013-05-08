@@ -215,7 +215,7 @@ public class ExtendedDataTableRendererTest {
         assertNull(column1Attributes.get("filterValue"));
         assertEquals("filterValue2", column2Attributes.get("filterValue"));
         facesRequest.withParameter(clientId, clientId);
-        facesRequest.withParameter(clientId + "rich:filtering", "column1:filterValue1:null");
+        facesRequest.withParameter(clientId + "r:filtering", "column1:filterValue1:null");
         renderer.doDecode(facesContext, component);
         assertEquals("filterValue1", column1Attributes.get("filterValue"));
         assertEquals("filterValue2", column2Attributes.get("filterValue"));
@@ -236,7 +236,7 @@ public class ExtendedDataTableRendererTest {
         assertNull(column1Attributes.get("filterValue"));
         assertEquals("filterValue2", column2Attributes.get("filterValue"));
         facesRequest.withParameter(clientId, clientId);
-        facesRequest.withParameter(clientId + "rich:filtering", "column1:filterValue1:true");
+        facesRequest.withParameter(clientId + "r:filtering", "column1:filterValue1:true");
         renderer.doDecode(facesContext, component);
         assertEquals("filterValue1", column1Attributes.get("filterValue"));
         assertNull(column2Attributes.get("filterValue"));
@@ -270,7 +270,7 @@ public class ExtendedDataTableRendererTest {
         String clientId = component.getClientId(facesContext);
         assertNull(componentAttributes.get("columnsOrder"));
         facesRequest.withParameter(clientId, clientId);
-        facesRequest.withParameter("rich:columnsOrder", "column2,column1");
+        facesRequest.withParameter("r:columnsOrder", "column2,column1");
         renderer.doDecode(facesContext, component);
         assertTrue(facesContext.getPartialViewContext().getRenderIds().contains(clientId));
         assertTrue(Arrays.equals(new String[] { "column2", "column1" }, (String[]) componentAttributes.get("columnsOrder")));
@@ -290,7 +290,7 @@ public class ExtendedDataTableRendererTest {
         assertNull(column1Attributes.get("sortOrder"));
         assertEquals(SortOrder.ascending, column2Attributes.get("sortOrder"));
         facesRequest.withParameter(clientId, clientId);
-        facesRequest.withParameter(clientId + "rich:sorting", "column1:null:null");
+        facesRequest.withParameter(clientId + "r:sorting", "column1:null:null");
         renderer.doDecode(facesContext, component);
         assertEquals(SortOrder.ascending, column1Attributes.get("sortOrder"));
         assertEquals(SortOrder.ascending, column2Attributes.get("sortOrder"));
@@ -311,7 +311,7 @@ public class ExtendedDataTableRendererTest {
         assertNull(column1Attributes.get("sortOrder"));
         assertEquals(SortOrder.ascending, column2Attributes.get("sortOrder"));
         facesRequest.withParameter(clientId, clientId);
-        facesRequest.withParameter(clientId + "rich:sorting", "column1:descending:true");
+        facesRequest.withParameter(clientId + "r:sorting", "column1:descending:true");
         renderer.doDecode(facesContext, component);
         assertEquals(SortOrder.descending, column1Attributes.get("sortOrder"));
         assertEquals(SortOrder.unsorted, column2Attributes.get("sortOrder"));
@@ -330,7 +330,7 @@ public class ExtendedDataTableRendererTest {
         String clientId = component.getClientId(facesContext);
         assertNull(componentAttributes.get(AbstractExtendedDataTable.SUBMITTED_CLIENT_FIRST));
         facesRequest.withParameter(clientId, clientId);
-        facesRequest.withParameter("rich:clientFirst", "28");
+        facesRequest.withParameter("r:clientFirst", "28");
         renderer.doDecode(facesContext, component);
         assertEquals(28, componentAttributes.get(AbstractExtendedDataTable.SUBMITTED_CLIENT_FIRST));
         assertTrue(facesContext.getPartialViewContext().getRenderIds()

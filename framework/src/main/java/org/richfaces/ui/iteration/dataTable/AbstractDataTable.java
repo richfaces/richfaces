@@ -32,8 +32,8 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.iteration.UIDataTableBase;
 
 /**
- * <p> The &lt;rich:dataTable&gt; component is used to render a table, including the table's caption. It works in
- * conjunction with the &lt;rich:column&gt; and &lt;rich:columnGroup&gt; components to list the contents of a data
+ * <p> The &lt;r:dataTable&gt; component is used to render a table, including the table's caption. It works in
+ * conjunction with the &lt;r:column&gt; and &lt;r:columnGroup&gt; components to list the contents of a data
  * model. </p>
  *
  * @author Anton Belevich

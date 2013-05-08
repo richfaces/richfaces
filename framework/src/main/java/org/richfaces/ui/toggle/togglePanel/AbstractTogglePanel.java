@@ -82,9 +82,9 @@ import org.richfaces.util.RendererUtils;
 import com.google.common.base.Strings;
 
 /**
- * <p>The &lt;rich:togglePanel&gt; component is used as a base for the other switchable components, the
- * &lt;rich:accordion&gt; component and the &lt;rich:tabPanel&gt; component. It provides an abstract switchable
- * component without any associated markup. As such, the &lt;rich:togglePanel&gt; component could be customized to
+ * <p>The &lt;r:togglePanel&gt; component is used as a base for the other switchable components, the
+ * &lt;r:accordion&gt; component and the &lt;r:tabPanel&gt; component. It provides an abstract switchable
+ * component without any associated markup. As such, the &lt;r:togglePanel&gt; component could be customized to
  * provide a switchable component when neither an accordion component or a tab panel component is appropriate.</p>
  *
  * @author akolonitsky
@@ -794,7 +794,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
     /**
      * Holds the active panel name. This name is a reference to the name identifier of the active child
-     * &lt;rich:togglePanelItem&gt; component.
+     * &lt;r:togglePanelItem&gt; component.
      */
     @Attribute
     public String getActiveItem() {

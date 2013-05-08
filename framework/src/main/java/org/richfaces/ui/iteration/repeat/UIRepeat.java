@@ -29,7 +29,7 @@ import org.richfaces.ui.iteration.UISequence;
 
 /**
  * <p>
- * The non-visual &lt;a4j:repeat&gt; component is used to iterate through a data model. The component renders child content for
+ * The non-visual &lt;r:repeat&gt; component is used to iterate through a data model. The component renders child content for
  * every iteration according to the current object data.
  * </p>
  *

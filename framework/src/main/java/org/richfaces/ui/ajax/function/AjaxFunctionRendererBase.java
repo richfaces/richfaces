@@ -46,7 +46,7 @@ public abstract class AjaxFunctionRendererBase extends AjaxCommandRendererBase {
         String functionName = (String) component.getAttributes().get("name");
 
         if (functionName == null) {
-            throw new FacesException("Value of 'name' attribute of a4j:jsFunction component is null!");
+            throw new FacesException("Value of 'name' attribute of r:jsFunction component is null!");
         }
 
         StringBuilder script = new StringBuilder(functionName).append("=");

@@ -219,7 +219,7 @@ public abstract class ListRendererBase extends Renderer {
     protected ListType getType(UIComponent component) {
         ListType type = ((AbstractList) component).getType();
         if (type == null) {
-            String exceptionMessage = MessageFormat.format("Type for rich:list {0} is required!",
+            String exceptionMessage = MessageFormat.format("Type for r:list {0} is required!",
                 RichfacesLogger.getComponentPath(component));
             throw new IllegalArgumentException(exceptionMessage);
         }

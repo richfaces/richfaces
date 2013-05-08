@@ -30,8 +30,8 @@ import org.richfaces.ui.toggle.TogglePanelTagHandler;
 import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
 
 /**
- * <p>The &lt;rich:tabPanel&gt; component provides a set of tabbed panels for displaying one panel of content at a time.
- * The tabs can be highly customized and themed. Each tab within a &lt;rich:tabPanel&gt; container is a &lt;rich:tab&gt;
+ * <p>The &lt;r:tabPanel&gt; component provides a set of tabbed panels for displaying one panel of content at a time.
+ * The tabs can be highly customized and themed. Each tab within a &lt;r:tabPanel&gt; container is a &lt;r:tab&gt;
  * component.</p>
  *
  * @author akolonitsky
@@ -52,7 +52,7 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
     }
 
     /**
-     * Holds the active tab name. This name is a reference to the name identifier of the active child &lt;rich:tab&gt;
+     * Holds the active tab name. This name is a reference to the name identifier of the active child &lt;r:tab&gt;
      * component.
      */
     @Override

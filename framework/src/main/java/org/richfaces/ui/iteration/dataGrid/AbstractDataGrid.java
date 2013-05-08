@@ -52,7 +52,7 @@ import org.richfaces.ui.iteration.UIDataTableBase;
 import org.richfaces.ui.iteration.UISequence;
 
 /**
- * <p> The &lt;rich:dataGrid&gt; component is used to arrange data objects in a grid. Values in the grid can be updated
+ * <p> The &lt;r:dataGrid&gt; component is used to arrange data objects in a grid. Values in the grid can be updated
  * dynamically from the data model, and Ajax updates can be limited to specific rows. The component supports header,
  * footer, and caption facets. </p>
  *

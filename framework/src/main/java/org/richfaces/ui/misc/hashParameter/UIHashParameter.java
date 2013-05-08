@@ -36,7 +36,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * <p>The &lt;rich:hashParam&gt; component allows client-side parameters to be grouped into a hash map. The hash map can
+ * <p>The &lt;r:hashParam&gt; component allows client-side parameters to be grouped into a hash map. The hash map can
  * then be passed to the client JavaScript API functions of any RichFaces component.</p>
  *
  * @author Anton Belevich

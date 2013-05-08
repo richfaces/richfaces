@@ -31,10 +31,10 @@ import org.richfaces.ui.toggle.TogglePanelTagHandler;
 import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
 
 /**
- * <p>The &lt;rich:accordion&gt; is a series of panels stacked on top of each other, each collapsed such that only the
+ * <p>The &lt;r:accordion&gt; is a series of panels stacked on top of each other, each collapsed such that only the
  * header of the panel is showing. When the header of a panel is clicked, it is expanded to show the content of the
  * panel. Clicking on a different header will collapse the previous panel and epand the selected one. Each panel
- * contained in a &lt;rich:accordion&gt; component is a &lt;rich:accordionItem&gt; component.</p>
+ * contained in a &lt;r:accordion&gt; component is a &lt;r:accordionItem&gt; component.</p>
  *
  * @author akolonitsky
  */
@@ -54,7 +54,7 @@ public abstract class AbstractAccordion extends AbstractTogglePanel {
     }
 
     /**
-     * Holds the active tab name. This name is a reference to the name identifier of the active child &lt;rich:tab&gt;
+     * Holds the active tab name. This name is a reference to the name identifier of the active child &lt;r:tab&gt;
      * component.
      */
     @Override

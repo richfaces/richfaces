@@ -30,7 +30,7 @@ import org.richfaces.ui.common.AbstractActionComponent;
 
 /**
  * <p>
- * The &lt;a4j:jsFunction&gt; component performs Ajax requests directly from JavaScript code and retrieves server-side data.
+ * The &lt;r:jsFunction&gt; component performs Ajax requests directly from JavaScript code and retrieves server-side data.
  * The server-side data is returned in JavaScript Object Notation (JSON) format prior to the execution of any JavaScript
  * code defined using the "oncomplete" attribute.
  * </p>

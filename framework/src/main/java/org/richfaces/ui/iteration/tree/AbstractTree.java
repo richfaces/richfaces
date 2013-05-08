@@ -83,8 +83,8 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
 
 /**
- * <p>The &lt;rich:tree&gt; component provides a hierarchical tree control. Each &lt;rich:tree&gt; component typically
- * consists of &lt;rich:treeNode&gt; child components. The appearance and behavior of the tree and its nodes can be
+ * <p>The &lt;r:tree&gt; component provides a hierarchical tree control. Each &lt;r:tree&gt; component typically
+ * consists of &lt;r:treeNode&gt; child components. The appearance and behavior of the tree and its nodes can be
  * fully customized.</p>
  *
  * @author Nick Belaevski

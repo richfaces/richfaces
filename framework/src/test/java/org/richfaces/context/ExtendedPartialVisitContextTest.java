@@ -65,24 +65,24 @@ import org.junit.Test;
 /**
  * Tested view structure:
  * <ul>
- * <li>a4j:table is AjaxTableComponentImpl</li>
+ * <li>r:table is AjaxTableComponentImpl</li>
  * </ul>
  *
  * <pre>
  * &lt;h:form id=&quot;myForm&quot;&gt;
- *   &lt;a4j:outputText id=&quot;outerOutput&quot; /&gt;
+ *   &lt;r:outputText id=&quot;outerOutput&quot; /&gt;
  *
- *   &lt;a4j:table id=&quot;table&quot; var=&quot;item&quot; value=&quot;['Item 0',... ,'Item 1']&quot;&gt;
+ *   &lt;r:table id=&quot;table&quot; var=&quot;item&quot; value=&quot;['Item 0',... ,'Item 1']&quot;&gt;
  *       &lt;f:facet name=&quot;header&quot;&gt;
  *           &lt;h:outputText id=&quot;theHeader&quot; /&gt;
  *       &lt;/f:facet&gt;
  *
  *       &lt;h:column&gt;
- *          &lt;a4j:outputText id=&quot;nestedOutput&quot; value=&quot;#{item}&quot; /&gt;
+ *          &lt;r:outputText id=&quot;nestedOutput&quot; value=&quot;#{item}&quot; /&gt;
  *
  *          &lt;h:outputText id=&quot;nestedText&quot; value=&quot;#{item}&quot; /&gt;
  *
- *          &lt;a4j:table id=&quot;nestedTable&quot; value=&quot;['Nested item 0',... ,'Nested item 2']&quot; var=&quot;nestedItem&quot;&gt;
+ *          &lt;r:table id=&quot;nestedTable&quot; value=&quot;['Nested item 0',... ,'Nested item 2']&quot; var=&quot;nestedItem&quot;&gt;
  *              &lt;f:facet name=&quot;footer&quot;&gt;
  *                  &lt;h:outputText id=&quot;nestedTableFooter&quot; value=&quot;#{item}&quot; /&gt;
  *              &lt;/f:facet&gt;
@@ -90,9 +90,9 @@ import org.junit.Test;
  *              &lt;h:column&gt;
  *                  &lt;h:outputText id=&quot;nestedTableText&quot; value=&quot;#{nestedItem}&quot; /&gt;
  *              &lt;/h:column&gt;
- *          &lt;/a4j:table&gt;
+ *          &lt;/r:table&gt;
  *       &lt;/h:column&gt;
- *   &lt;/a4j:table&gt;
+ *   &lt;/r:table&gt;
  * &lt;/h:form&gt;
  * </pre>
  *

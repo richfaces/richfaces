@@ -40,7 +40,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.RenderKitUtils;
 
 /**
- * <p> The &lt;rich:fileUpload&gt; component allows the user to upload files to a server. It features multiple uploads,
+ * <p> The &lt;r:fileUpload&gt; component allows the user to upload files to a server. It features multiple uploads,
  * progress bars, restrictions on file types, and restrictions on sizes of the files to be uploaded. </p>
  *
  * @author Konstantin Mishin

@@ -31,8 +31,8 @@ import org.richfaces.cdk.annotations.TagType;
 import javax.faces.component.UIComponentBase;
 
 /**
- * <p>The &lt;rich:popupPanel&gt; component provides a pop-up panel or window that appears in front of the rest of the
- * application. The &lt;rich:popupPanel&gt; component functions either as a modal window which blocks interaction with
+ * <p>The &lt;r:popupPanel&gt; component provides a pop-up panel or window that appears in front of the rest of the
+ * application. The &lt;r:popupPanel&gt; component functions either as a modal window which blocks interaction with
  * the rest of the application while active, or as a non-modal window. It can be positioned on the screen, dragged to a
  * new position by the user, and re-sized.</p>
  */

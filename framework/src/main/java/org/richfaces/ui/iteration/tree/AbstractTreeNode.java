@@ -47,7 +47,7 @@ import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.ui.iteration.IterationStateHolder;
 
 /**
- * <p> The <rich:treeNode> component is a child component of the <rich:tree> component. It represents nodes in the
+ * <p> The <r:treeNode> component is a child component of the <r:tree> component. It represents nodes in the
  * parent tree. The appearance and functionality of each tree node can be customized. </p>
  *
  * @author Nick Belaevski

@@ -75,9 +75,9 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 
 /**
- * <p>The &lt;rich:validator&gt; behavior adds client-side validation to a form input control based on registered server-side validators. It provides this validation without the need to reproduce the server-side annotations.</p>
+ * <p>The &lt;r:validator&gt; behavior adds client-side validation to a form input control based on registered server-side validators. It provides this validation without the need to reproduce the server-side annotations.</p>
  *
- * <p>The &lt;rich:validator&gt; behavior triggers all client validator annotations listed in the relevant managed bean.</p>
+ * <p>The &lt;r:validator&gt; behavior triggers all client validator annotations listed in the relevant managed bean.</p>
  *
  * @author asmirnov@exadel.com
  */

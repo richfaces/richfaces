@@ -42,8 +42,8 @@ import org.richfaces.util.AjaxRendererUtils;
 
 /**
  * <p>
- * The &lt;a4j:attachQueue&gt; behavior is used together with a &lt;a4j:queue&gt; component to further customize queuing for
- * particular components and behaviors. The &lt;a4j:attachQueue&gt; behavior can override the scope-wide queue settings for
+ * The &lt;r:attachQueue&gt; behavior is used together with a &lt;r:queue&gt; component to further customize queuing for
+ * particular components and behaviors. The &lt;r:attachQueue&gt; behavior can override the scope-wide queue settings for
  * an individual component, or attach specific requests to a queue.
  * </p>
  * @author Nick Belaevski
@@ -59,7 +59,7 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
     private transient List<AjaxBehavior> behaviorsToAssociate;
 
     /**
-     * Specify the groupingId to process multiple requests together. Requests from multiple <a4j:attachQueue> behaviors
+     * Specify the groupingId to process multiple requests together. Requests from multiple <r:attachQueue> behaviors
      * can use the same identifier to group requests together
      */
     @Attribute

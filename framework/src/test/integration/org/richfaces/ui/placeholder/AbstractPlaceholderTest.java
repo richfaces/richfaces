@@ -78,7 +78,7 @@ public abstract class AbstractPlaceholderTest {
     SourceChecker sourceChecker;
 
     @FindBy(css = "[id$=ajaxSubmit]")
-    WebElement a4jSubmitBtn;
+    WebElement ajaxSubmitBtn;
     @FindBy(css = "[id$=httpSubmit]")
     WebElement httpSubmitBtn;
     @FindBy(css = "[id$=output]")
@@ -211,14 +211,14 @@ public abstract class AbstractPlaceholderTest {
         input().setTestedValue(getTestedValue());
         body.click();
 
-        guardAjax(a4jSubmitBtn).click();
+        guardAjax(ajaxSubmitBtn).click();
 
         waitAjax().until().element(output).is().visible();
         waitAjax().until().element(output).text().equalTo(getTestedValueResponse());
 
         // when
         input().clear();
-        guardAjax(a4jSubmitBtn).click();
+        guardAjax(ajaxSubmitBtn).click();
 
         // then
         waitAjax().until().element(output).is().not().visible();
@@ -230,7 +230,7 @@ public abstract class AbstractPlaceholderTest {
         browser.get(contextPath.toExternalForm() + "submit.jsf");
         // when
         input().setTestedValue(getTestedValue());
-        guardAjax(a4jSubmitBtn).click();
+        guardAjax(ajaxSubmitBtn).click();
 
         // then
         waitAjax().until().element(output).is().visible();

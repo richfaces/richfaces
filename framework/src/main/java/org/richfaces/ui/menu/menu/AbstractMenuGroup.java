@@ -34,9 +34,9 @@ import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
 import javax.faces.component.UIOutput;
 
 /**
- * <p>The &lt;rich:menuGroup&gt; component represents an expandable sub-menu in a menu control. The
- * &lt;rich:menuGroup&gt; component can contain a number of &lt;rich:menuItem&gt; components, or further nested
- * &lt;rich:menuGroup&gt; components.</p>
+ * <p>The &lt;r:menuGroup&gt; component represents an expandable sub-menu in a menu control. The
+ * &lt;r:menuGroup&gt; component can contain a number of &lt;r:menuItem&gt; components, or further nested
+ * &lt;r:menuGroup&gt; components.</p>
  */
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuGroup.COMPONENT_TYPE, facets = {
         @Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) }, renderer = @JsfRenderer(type = MenuGroupRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuGroup"), attributes = {

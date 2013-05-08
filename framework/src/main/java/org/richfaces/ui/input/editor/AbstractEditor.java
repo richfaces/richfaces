@@ -33,7 +33,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * <p> The &lt;rich:editor&gt; component is used for creating a WYSIWYG editor on a page. </p>
+ * <p> The &lt;r:editor&gt; component is used for creating a WYSIWYG editor on a page. </p>
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */

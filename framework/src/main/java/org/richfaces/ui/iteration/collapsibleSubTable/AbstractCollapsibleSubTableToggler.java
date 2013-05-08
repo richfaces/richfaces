@@ -29,7 +29,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * <p> The &lt;rich:collapsibleSubTableToggler&gt; component provides a toggle control for the user to expand and
+ * <p> The &lt;r:collapsibleSubTableToggler&gt; component provides a toggle control for the user to expand and
  * collapse sub-tables. </p>
  *
  * @author Anton Belevich

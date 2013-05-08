@@ -33,7 +33,7 @@ import javax.faces.component.UIComponentBase;
 
 /**
  * <p>
- * The &lt;a4j:log&gt; component generates JavaScript that opens a debug window, logging application information such as
+ * The &lt;r:log&gt; component generates JavaScript that opens a debug window, logging application information such as
  * requests, responses, and DOM changes.
  * </p>
  * @author Nick Belaevski

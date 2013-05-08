@@ -30,7 +30,7 @@ import org.richfaces.cdk.annotations.TagType;
 import javax.faces.component.UIComponentBase;
 
 /**
- * <p>The &lt;rich:panel&gt; component is a bordered panel with an optional header.</p>
+ * <p>The &lt;r:panel&gt; component is a bordered panel with an optional header.</p>
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PanelRenderer"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "events-key-props.xml" })

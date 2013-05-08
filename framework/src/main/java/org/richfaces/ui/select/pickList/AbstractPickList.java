@@ -30,7 +30,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.select.AbstractOrderingComponent;
 
 /**
- * <p> The &lt;rich:pickList&gt; is a component for selecting items from a list. Additionally, it allows for the selected
+ * <p> The &lt;r:pickList&gt; is a component for selecting items from a list. Additionally, it allows for the selected
  * items to be ordered (client-side). From the client side perspective, items are added/removed from the source list,
  * and removed/added to the target list. </p>
  *

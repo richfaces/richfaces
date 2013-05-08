@@ -32,9 +32,9 @@ import javax.faces.component.UIComponentBase;
 
 /**
  * <p>
- * The &lt;a4j:push&gt; component performs real-time updates on the client side from events triggered at the server side. The
+ * The &lt;r:push&gt; component performs real-time updates on the client side from events triggered at the server side. The
  * events are pushed out to the client through the RichFaces messaging queue (which is bound to Java Messaging Service - JMS).
- * When the &lt;a4j:push&gt; component is triggered by a server event, it can in turn cause Ajax updates and changes.
+ * When the &lt;r:push&gt; component is triggered by a server event, it can in turn cause Ajax updates and changes.
  * </p>
  *
  * @author Nick Belaevski

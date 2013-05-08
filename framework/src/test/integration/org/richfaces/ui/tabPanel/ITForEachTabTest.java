@@ -60,8 +60,8 @@ public class ITForEachTabTest {
     @FindBy(className = "rf-tab-hdr-inact")
     private List<WebElement> tabs;
 
-    @FindBy(id = "myForm:a4jCreateTabButton")
-    private WebElement a4jCreateTabButton;
+    @FindBy(id = "myForm:ajaxCreateTabButton")
+    private WebElement ajaxCreateTabButton;
 
     private DynamicTabTestHelper tabTestHelper = new DynamicTabTestHelper();
 
@@ -80,13 +80,13 @@ public class ITForEachTabTest {
     @Category(Smoke.class)
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
-        tabTestHelper.check_tab_switch(tabPanel, tabs, a4jCreateTabButton);
+        tabTestHelper.check_tab_switch(tabPanel, tabs, ajaxCreateTabButton);
     }
 
     @Test
     public void check_row_removal() throws InterruptedException {
         browser.get(contextPath.toExternalForm());
-        tabTestHelper.check_row_removal(tabPanel, tabs, a4jCreateTabButton);
+        tabTestHelper.check_row_removal(tabPanel, tabs, ajaxCreateTabButton);
     }
 
     private static void addIndexPage(FrameworkDeployment deployment) {
@@ -112,7 +112,7 @@ public class ITForEachTabTest {
         p.body("    <r:param name='removeTabId'/>");
         p.body("</r:jsFunction>");
 
-        p.body("<r:commandButton id='a4jCreateTabButton' value='[a4j] Create tab' render='tabPanel' actionListener='#{tabPanelBean.generateNewTab}' />");
+        p.body("<r:commandButton id='ajaxCreateTabButton' value='[ajax] Create tab' render='tabPanel' actionListener='#{tabPanelBean.generateNewTab}' />");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");

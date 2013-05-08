@@ -39,9 +39,9 @@ import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
 import org.richfaces.util.RendererUtils;
 
 /**
- * <p> The &lt;rich:toggleControl&gt; behavior can be attached to any interface component, whether inside or outside the
- * controlled panel itself. It works with a &lt;rich:togglePanel&gt; component to switch between different
- * &lt;rich:togglePanelItem&gt; components. </p>
+ * <p> The &lt;r:toggleControl&gt; behavior can be attached to any interface component, whether inside or outside the
+ * controlled panel itself. It works with a &lt;r:togglePanel&gt; component to switch between different
+ * &lt;r:togglePanelItem&gt; components. </p>
  *
  * @author akolonitsky
  */
@@ -70,7 +70,7 @@ public class ToggleControl extends ClientBehavior {
     }
 
     /**
-     * The next &lt;rich:togglePanelItem&gt; to switch to
+     * The next &lt;r:togglePanelItem&gt; to switch to
      */
     @Attribute
     public String getTargetItem() {
@@ -82,7 +82,7 @@ public class ToggleControl extends ClientBehavior {
     }
 
     /**
-     * The &lt;rich:togglePanel&gt; to switch when this &lt;rich:toggleControl&gt; is not a child of a &lt;rich:togglePanel&gt;
+     * The &lt;r:togglePanel&gt; to switch when this &lt;r:toggleControl&gt; is not a child of a &lt;r:togglePanel&gt;
      */
     @Attribute
     public String getTargetPanel() {

@@ -43,8 +43,8 @@ import org.richfaces.validator.FacesBeanValidator;
 import org.richfaces.validator.GraphValidatorState;
 
 /**
- * <p>The &lt;rich:graphValidator&gt; component is used to wrap a set of input components related to one object. The
- * object defined by the &lt;rich:graphValidator&gt; component can then be completely validated. The validation includes
+ * <p>The &lt;r:graphValidator&gt; component is used to wrap a set of input components related to one object. The
+ * object defined by the &lt;r:graphValidator&gt; component can then be completely validated. The validation includes
  * all object properties, even those which are not bound to the individual form components. Validation performed in this
  * way allows for cross-field validation in complex forms.</p>
  */

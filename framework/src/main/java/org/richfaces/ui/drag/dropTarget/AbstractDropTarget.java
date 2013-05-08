@@ -36,8 +36,8 @@ import org.richfaces.cdk.annotations.TagType;
 
 /**
  * <p>
- *     The &lt;rich:dropTarget&gt; component can be added to a component so that the component can accept dragged items.
- *     The dragged items must be defined with a compatible drop type for the &lt;rich:dragSource&gt; component.
+ *     The &lt;r:dropTarget&gt; component can be added to a component so that the component can accept dragged items.
+ *     The dragged items must be defined with a compatible drop type for the &lt;r:dragSource&gt; component.
  * </p>
  * @author abelevich
  */

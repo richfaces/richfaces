@@ -49,7 +49,7 @@ import org.richfaces.util.Sets;
 
 /**
  * <p>
- * The &lt;a4j:ajax&gt; behavior allows Ajax capability to be added to a non-Ajax component. The non-Ajax component must
+ * The &lt;r:ajax&gt; behavior allows Ajax capability to be added to a non-Ajax component. The non-Ajax component must
  * implement the ClientBehaviorHolder interface for all the event attributes that support behavior rendering.
  * </p>
  * @author Anton Belevich

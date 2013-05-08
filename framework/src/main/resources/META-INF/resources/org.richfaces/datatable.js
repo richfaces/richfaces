@@ -35,8 +35,8 @@
     var $super = richfaces.ui.DataTable.$super;
 
     $.extend(richfaces.ui.DataTable, {
-            SORTING: "rich:sorting",
-            FILTERING: "rich:filtering",
+            SORTING: "r:sorting",
+            FILTERING: "r:filtering",
             SUBTABLE_SELECTOR:".rf-cst"
         });
 

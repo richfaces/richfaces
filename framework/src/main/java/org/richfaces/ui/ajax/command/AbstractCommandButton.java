@@ -37,7 +37,7 @@ import javax.faces.context.FacesContext;
 
 /**
  * <p>
- * The &lt;a4j:commandButton&gt; component is similar to the JavaServer Faces (JSF) &lt;h:commandButton&gt; component,
+ * The &lt;r:commandButton&gt; component is similar to the JavaServer Faces (JSF) &lt;h:commandButton&gt; component,
  * but additionally includes Ajax support.
  * </p>
  * @author Nick Belaevski

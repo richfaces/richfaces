@@ -190,7 +190,7 @@ public class AjaxHandler extends CustomBehaviorHandler {
             eventName = resolveEventName(bHolder);
             bHolder.addClientBehavior(eventName, behavior);
         } else {
-            throw new TagException(this.tag, "Unable to attach <a4j:ajax> to non-ClientBehaviorHolder parent");
+            throw new TagException(this.tag, "Unable to attach <r:ajax> to non-ClientBehaviorHolder parent");
         }
     }
 

@@ -38,9 +38,9 @@ import org.richfaces.ui.select.AbstractSelectComponent;
 
 /**
  * <p>
- * The &lt;rich:select&gt; component provides a drop-down list box for selecting a single value from multiple options. The
- * &lt;rich:select&gt; component can be configured as a combo-box, where it will accept typed input. The component also supports
- * keyboard navigation. The &lt;rich:select&gt; component functions similarly to the JSF UISelectOne component.
+ * The &lt;r:select&gt; component provides a drop-down list box for selecting a single value from multiple options. The
+ * &lt;r:select&gt; component can be configured as a combo-box, where it will accept typed input. The component also supports
+ * keyboard navigation. The &lt;r:select&gt; component functions similarly to the JSF UISelectOne component.
  * </p>
  *
  * @author abelevich

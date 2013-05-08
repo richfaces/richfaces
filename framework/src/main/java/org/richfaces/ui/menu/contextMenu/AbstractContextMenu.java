@@ -30,7 +30,7 @@ import org.richfaces.ui.menu.menu.AbstractMenuContainer;
 
 /**
  * <p>
- *     The &lt;rich:contextMenu&gt; component is used for creating a hierarchical context menu that are activated on
+ *     The &lt;r:contextMenu&gt; component is used for creating a hierarchical context menu that are activated on
  *     events like onmouseover, onclick etc. The component can be applied to any element on the page.
  * </p>
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

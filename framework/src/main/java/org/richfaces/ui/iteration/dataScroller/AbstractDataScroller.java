@@ -50,7 +50,7 @@ import org.richfaces.ui.iteration.UIDataTableBase;
 import org.richfaces.util.MessageUtil;
 
 /**
- * <p> The &lt;rich:dataScroller&gt; component is used for navigating through multiple pages of tables or grids. </p>
+ * <p> The &lt;r:dataScroller&gt; component is used for navigating through multiple pages of tables or grids. </p>
  */
 @JsfComponent(type = AbstractDataScroller.COMPONENT_TYPE, family = AbstractDataScroller.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"),

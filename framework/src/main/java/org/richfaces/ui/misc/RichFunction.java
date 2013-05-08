@@ -82,7 +82,7 @@ public final class RichFunction {
     }
 
     /**
-     * The rich:clientId('id') function returns the client identifier related to the passed component identifier ('id'). If the
+     * The r:clientId('id') function returns the client identifier related to the passed component identifier ('id'). If the
      * specified component identifier is not found, null is returned instead.
      */
     @Function
@@ -93,10 +93,10 @@ public final class RichFunction {
     }
 
     /**
-     * The rich:component('id') function is equivalent to the RichFaces.$('clientId') code. It returns the client object
+     * The r:component('id') function is equivalent to the RichFaces.$('clientId') code. It returns the client object
      * instance based on the passed server-side component identifier ('id'). If the specified component identifier is not found,
      * null is returned instead. The function can be used to get an object from a component to call a JavaScript API function
-     * without using the <rich:componentControl> component.
+     * without using the <r:componentControl> component.
      */
     @Function
     public static String component(String id) {
@@ -110,7 +110,7 @@ public final class RichFunction {
     }
 
     /**
-     * The rich:element('id') function is a shortcut for the equivalent document.getElementById(#{r:clientId('id')}) code. It
+     * The r:element('id') function is a shortcut for the equivalent document.getElementById(#{r:clientId('id')}) code. It
      * returns the element from the client, based on the passed server-side component identifier. If the specified component
      * identifier is not found, null is returned instead.
      */
@@ -125,7 +125,7 @@ public final class RichFunction {
     }
 
     /**
-     * The rich:jQuerySelector('id') function will perform nearly the same function as rich:clientId('id') but will transform
+     * The r:jQuerySelector('id') function will perform nearly the same function as r:clientId('id') but will transform
      * the resulting id into a jQuery id selector which means that it will add a "#" character at the beginning and escape all
      * reserved characters in CSS selectors.
      */
@@ -155,7 +155,7 @@ public final class RichFunction {
     }
 
     /**
-     * The rich:jQueryObject('id') function is a shortcut for the equivalent jQuery(#{r:element('id')}) code. It returns the
+     * The r:jQueryObject('id') function is a shortcut for the equivalent jQuery(#{r:element('id')}) code. It returns the
      * jQuery object from the client, based on the passed server-side component identifier. If the specified component
      * identifier is not found, empty jQuery object is returned instead.
      */
@@ -171,7 +171,7 @@ public final class RichFunction {
     }
 
     /**
-     * The rich:findComponent('id') function returns the a UIComponent instance of the passed component identifier. If the
+     * The r:findComponent('id') function returns the a UIComponent instance of the passed component identifier. If the
      * specified component identifier is not found, null is returned instead.
      */
     @Function
@@ -181,7 +181,7 @@ public final class RichFunction {
 
     /**
      * <p>
-     * The rich:isUserInRole(Object) function checks whether the logged-in user belongs to a certain user role, such as being an
+     * The r:isUserInRole(Object) function checks whether the logged-in user belongs to a certain user role, such as being an
      * administrator. User roles are defined in the web.xml settings file.
      * </p>
      *

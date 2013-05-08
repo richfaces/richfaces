@@ -42,8 +42,8 @@ import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
 
 /**
  * <p>
- *     The &lt;rich:collapsiblePanel&gt; component is a collapsible panel that shows or hides content when the header bar is activated.
- *     It is a simplified version of &lt;rich:togglePanel&gt; component.
+ *     The &lt;r:collapsiblePanel&gt; component is a collapsible panel that shows or hides content when the header bar is activated.
+ *     It is a simplified version of &lt;r:togglePanel&gt; component.
  * </p>
  * @author akolonitsky
  */

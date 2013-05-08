@@ -24,7 +24,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
     xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions">
     <component>
-        <description>The &amp;lt;rich:inputNumberSlider&amp;gt; component provides a slider for changing numerical values. Optional features include control arrows to step through the values, a tool-tip to display the value while sliding, and a text field for typing the numerical value which can then be validated against the slider's range.</description>
+        <description>The &amp;lt;r:inputNumberSlider&amp;gt; component provides a slider for changing numerical values. Optional features include control arrows to step through the values, a tool-tip to display the value while sliding, and a text field for typing the numerical value which can then be validated against the slider's range.</description>
         <component-type>org.richfaces.InputNumberSlider</component-type>
         <component-class>org.richfaces.ui.input.HtmlInputNumberSlider</component-class>
         <property>
@@ -272,7 +272,7 @@
         </component-extension>
     </component>
     <component>
-        <description>The &amp;lt;rich:inputNumberSpinner&amp;gt; component is a single-line input field with buttons to increase and decrease a numerical value. The value can be changed using the corresponding directional keys on a keyboard, or by typing into the field.</description>
+        <description>The &amp;lt;r:inputNumberSpinner&amp;gt; component is a single-line input field with buttons to increase and decrease a numerical value. The value can be changed using the corresponding directional keys on a keyboard, or by typing into the field.</description>
         <component-type>org.richfaces.InputNumberSpinner</component-type>
         <component-class>org.richfaces.ui.input.HtmlInputNumberSpinner</component-class>
         <property>

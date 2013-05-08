@@ -32,7 +32,7 @@ import javax.faces.component.UIComponentBase;
 
 /**
  * <p>
- * The &lt;a4j:status&gt; component displays the status of current Ajax requests. The status can be either in progress,
+ * The &lt;r:status&gt; component displays the status of current Ajax requests. The status can be either in progress,
  * complete, or an error is shown after a failed request.
  * </p>
  * @author Nick Belaevski

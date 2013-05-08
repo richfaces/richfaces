@@ -33,9 +33,9 @@ import org.richfaces.ui.message.ClientSideMessage;
 import org.richfaces.ui.message.NotifyAttributes;
 
 /**
- * <p>The &lt;rich:notifyMessage&gt; component is built on top of &lt;rich:notify&gt;, the difference is in usage. The
- * &lt;rich:notifyMessage&gt; component displays FacesMessages associated with a given component, similar to
- * &lt;rich:message&gt;: one notification is displayed for first FacesMessage in the stack that is risen either
+ * <p>The &lt;r:notifyMessage&gt; component is built on top of &lt;r:notify&gt;, the difference is in usage. The
+ * &lt;r:notifyMessage&gt; component displays FacesMessages associated with a given component, similar to
+ * &lt;r:message&gt;: one notification is displayed for first FacesMessage in the stack that is risen either
  * programatically or during conversion/validation of the component. The severity of the message determines the color
  * and icon of the resulting notification.</p>
  *

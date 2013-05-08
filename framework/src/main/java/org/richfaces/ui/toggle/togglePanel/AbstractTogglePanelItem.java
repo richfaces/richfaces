@@ -33,9 +33,9 @@ import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.toggle.AbstractTogglePanelItemInterface;
 
 /**
- * <p>The &lt;rich:togglePanelItem&gt; component is a switchable panel for use with the &lt;rich:togglePanel&gt;
- * component. Use the &lt;rich:togglePanelItem&gt; component to define the content for a panel using nested components.
- * Switching between &lt;rich:togglePanelItem&gt; components is handled by the &lt;rich:toggleControl&gt; behavior.</p>
+ * <p>The &lt;r:togglePanelItem&gt; component is a switchable panel for use with the &lt;r:togglePanel&gt;
+ * component. Use the &lt;r:togglePanelItem&gt; component to define the content for a panel using nested components.
+ * Switching between &lt;r:togglePanelItem&gt; components is handled by the &lt;r:toggleControl&gt; behavior.</p>
  *
  * @author akolonitsky
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

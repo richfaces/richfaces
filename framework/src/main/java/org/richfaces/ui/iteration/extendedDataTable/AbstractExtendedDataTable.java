@@ -48,10 +48,10 @@ import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.ui.iteration.UIDataTableBase;
 
 /**
- * <p> The &lt;rich:extendedDataTable&gt; component builds on the functionality of the &lt;rich:dataTable&gt; component,
+ * <p> The &lt;r:extendedDataTable&gt; component builds on the functionality of the &lt;r:dataTable&gt; component,
  * adding features such as scrolling for the table body (both horizontal and vertical), Ajax loading for vertical
  * scrolling, frozen columns, row selection, and rearranging of columns. It also supports all the basic table features
- * such as sorting, filtering, and paging using the &lt;rich:dataScroller&gt; component. </p>
+ * such as sorting, filtering, and paging using the &lt;r:dataScroller&gt; component. </p>
  *
  * @author Konstantin Mishin
  */

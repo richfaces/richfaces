@@ -39,7 +39,7 @@ import org.richfaces.model.SortField;
 import org.richfaces.ui.iteration.SortOrder;
 
 /**
- * <p> The &lt;rich:column&gt; component facilitates columns in a table. It supports merging columns and rows, sorting,
+ * <p> The &lt;r:column&gt; component facilitates columns in a table. It supports merging columns and rows, sorting,
  * filtering, and customized skinning. </p>
  *
  * @author Anton Belevich

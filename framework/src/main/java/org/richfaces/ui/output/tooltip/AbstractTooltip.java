@@ -45,7 +45,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 /**
- * <p>The &lt;rich:tooltip&gt; component provides an informational tool-tip. The tool-tip can be attached to any control
+ * <p>The &lt;r:tooltip&gt; component provides an informational tool-tip. The tool-tip can be attached to any control
  * and is displayed when hovering the mouse cursor over the control.</p>
  *
  * @author amarkhel

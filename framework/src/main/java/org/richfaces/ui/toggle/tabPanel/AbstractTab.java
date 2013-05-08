@@ -42,7 +42,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
 /**
- * <p>The &lt;rich:tab&gt; component represents an individual tab inside a &lt;rich:tabPanel&gt; component, including
+ * <p>The &lt;r:tab&gt; component represents an individual tab inside a &lt;r:tabPanel&gt; component, including
  * the tab's content. Clicking on the tab header will bring its corresponding content to the front of other tabs.</p>
  *
  * @author akolonitsky

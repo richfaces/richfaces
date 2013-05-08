@@ -161,14 +161,14 @@
                 this.newWidths = {};
                 this.storeDomReferences();
                 if (this.options['onready'] && typeof this.options['onready'] == 'function') {
-                    richfaces.Event.bind(this.element, "rich:ready", this.options['onready']);
+                    richfaces.Event.bind(this.element, "r:ready", this.options['onready']);
                 }
                 jQuery(document).ready(jQuery.proxy(this.initialize, this));
                 this.resizeEventName = "resize.rf.edt." + this.id;
                 this.activateResizeListener();
                 jQuery(this.scrollElement).bind("scroll", jQuery.proxy(this.updateScrollPosition, this));
                 this.bindHeaderHandlers();
-                jQuery(this.element).bind("rich:onajaxcomplete", jQuery.proxy(this.ajaxComplete, this));
+                jQuery(this.element).bind("r:onajaxcomplete", jQuery.proxy(this.ajaxComplete, this));
                 
                 this.resizeData = {};
                 this.idOfReorderingColumn = "";
@@ -227,7 +227,7 @@
                         }
                     }
                 }
-                this.ajaxFunction(null, {"rich:columnsOrder" : colunmsOrder}); // TODO Maybe, event model should be used here.
+                this.ajaxFunction(null, {"r:columnsOrder" : colunmsOrder}); // TODO Maybe, event model should be used here.
             },
 
             setColumnWidth: function(columnId, width) {
@@ -261,7 +261,7 @@
                     filterValue = "";
                 }
                 var map = {};
-                map[this.id + "rich:filtering"] = colunmId + ":" + filterValue + ":" + isClear;
+                map[this.id + "r:filtering"] = colunmId + ":" + filterValue + ":" + isClear;
                 this.ajaxFunction(null, map); // TODO Maybe, event model should be used here.
             },
 
@@ -290,7 +290,7 @@
                     sortOrder = sortOrder.toLowerCase();
                 }
                 var map = {}
-                map[this.id + "rich:sorting"] = colunmId + ":" + sortOrder + ":" + isClear;
+                map[this.id + "r:sorting"] = colunmId + ":" + sortOrder + ":" + isClear;
                 this.ajaxFunction(null, map); // TODO Maybe, event model should be used here.
             },
 
@@ -462,7 +462,7 @@
                     this.hideOffscreen(this.element);
                 }
                 this.activateResizeListener();
-                jQuery(this.element).triggerHandler("rich:ready", this);
+                jQuery(this.element).triggerHandler("r:ready", this);
             },
 
             showOffscreen: function(element) {
@@ -582,7 +582,7 @@
                         colunmsOrder += i + ",";
                     }
                 });
-                this.ajaxFunction(event, {"rich:columnsOrder" : colunmsOrder}); // TODO Maybe, event model should be used here.
+                this.ajaxFunction(event, {"r:columnsOrder" : colunmsOrder}); // TODO Maybe, event model should be used here.
             },
 
             cancelReorder: function(event) {
@@ -598,7 +598,7 @@
                 } else {
                     clientFirst = Math.min(this.rowCount - this.rows, clientFirst);
                 }
-                this.ajaxFunction(event, {"rich:clientFirst" : clientFirst});// TODO Maybe, event model should be used here.
+                this.ajaxFunction(event, {"r:clientFirst" : clientFirst});// TODO Maybe, event model should be used here.
             },
 
             bodyScrollListener: function(event) {

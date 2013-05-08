@@ -37,7 +37,7 @@ import javax.faces.context.FacesContext;
 
 /**
  * <p>
- * The &lt;a4j:commandLink&gt; component is similar to the JavaServer Faces (JSF) &lt;h:commandLink&gt; component, except that it
+ * The &lt;r:commandLink&gt; component is similar to the JavaServer Faces (JSF) &lt;h:commandLink&gt; component, except that it
  * includes plugged-in Ajax behavior.
  * </p>
  * @author Nick Belaevski

@@ -62,7 +62,7 @@ import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 /**
- * <p> The &lt;rich:calendar&gt; component allows the user to enter a date and time through an in-line or pop-up
+ * <p> The &lt;r:calendar&gt; component allows the user to enter a date and time through an in-line or pop-up
  * calendar. The pop-up calendar can navigate through months and years, and its look and feel can be highly customized.
  * </p>
  *

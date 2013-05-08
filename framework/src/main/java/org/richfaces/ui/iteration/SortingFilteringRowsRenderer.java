@@ -44,8 +44,8 @@ import java.util.Set;
  *
  */
 public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer {
-    private static final String FILTERING_STRING = "rich:filtering";
-    private static final String SORTING_STRING = "rich:sorting";
+    private static final String FILTERING_STRING = "r:filtering";
+    private static final String SORTING_STRING = "r:sorting";
     private static final String FILTER_VALUE_STRING = "filterValue";
     private static final String SORT_ORDER_STRING = "sortOrder";
     private static final String SORT_PRIORITY_STRING = "sortPriority";

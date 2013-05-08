@@ -109,7 +109,7 @@
 
     $.extend(richfaces.ui.DataScroller.prototype, (function () {
 
-        var scrollEventName = "rich:datascroller:onscroll";
+        var scrollEventName = "r:datascroller:onscroll";
 
         return {
 

@@ -42,8 +42,8 @@ import org.richfaces.ui.toggle.ItemChangeListener;
 import org.richfaces.ui.toggle.ItemChangeSource;
 
 /**
- * <p>The &lt;rich:panelMenu&gt; component is used in conjunction with &lt;rich:panelMenuItem&gt; and
- * &lt;rich:panelMenuGroup&gt; to create an expanding, hierarchical menu. The &lt;rich:panelMenu&gt; component's
+ * <p>The &lt;r:panelMenu&gt; component is used in conjunction with &lt;r:panelMenuItem&gt; and
+ * &lt;r:panelMenuGroup&gt; to create an expanding, hierarchical menu. The &lt;r:panelMenu&gt; component's
  * appearance can be highly customized, and the hierarchy can stretch to any number of sub-levels.</p>
  *
  * @author akolonitsky
@@ -142,7 +142,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     /**
      * Holds the active panel name. This name is a reference to the name identifier of the active child
-     * &lt;rich:panelMenuItem&gt; or &lt;rich:panelMenuGroup&gt; component.
+     * &lt;r:panelMenuItem&gt; or &lt;r:panelMenuGroup&gt; component.
      */
     @Attribute(generate = false)
     public String getActiveItem() {

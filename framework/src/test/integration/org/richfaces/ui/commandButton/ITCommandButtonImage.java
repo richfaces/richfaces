@@ -139,8 +139,6 @@ public class ITCommandButtonImage {
 
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-
         p.body("<h:form prependId='false'>");
         p.body("  <r:commandButton id=\"buttonEL\" image=\"#{resource['square.jpg']}\" value=\"#{resource['square.jpg']}\" /> ");
         p.body("  <r:commandButton id=\"buttonELNoValue\" image=\"#{resource['square.jpg']}\" /> ");

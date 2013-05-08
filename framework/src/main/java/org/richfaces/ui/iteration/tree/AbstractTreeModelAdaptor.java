@@ -34,7 +34,7 @@ import javax.faces.convert.Converter;
 import java.util.Map;
 
 /**
- * <p>The &lt;rich:treeModelAdaptor&gt; component takes an object which implements the Map or Iterable interfaces. It
+ * <p>The &lt;r:treeModelAdaptor&gt; component takes an object which implements the Map or Iterable interfaces. It
  * adds all the object entries to the parent node as child nodes.</p>
  *
  * @author Nick Belaevski

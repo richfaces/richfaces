@@ -38,7 +38,7 @@ import org.richfaces.resource.MediaOutputResource;
 
 /**
  * <p>
- * The &lt;a4j:mediaOutput&gt; component is used for generating images, video, sounds, and other resources defined on the fly.
+ * The &lt;r:mediaOutput&gt; component is used for generating images, video, sounds, and other resources defined on the fly.
  * </p>
  *
  * @author shura

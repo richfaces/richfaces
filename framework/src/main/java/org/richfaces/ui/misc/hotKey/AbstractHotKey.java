@@ -32,7 +32,7 @@ import org.richfaces.cdk.annotations.TagType;
 import javax.faces.component.UIComponentBase;
 
 /**
- * <p>The &lt;rich:hotKey&gt; component allows registering hot keys on the page or particular elements and defining
+ * <p>The &lt;r:hotKey&gt; component allows registering hot keys on the page or particular elements and defining
  * client side processing functions for these keys.</p>
  *
  * @author ilya_shaikovsky

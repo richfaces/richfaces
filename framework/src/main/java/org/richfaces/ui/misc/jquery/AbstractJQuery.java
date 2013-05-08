@@ -30,7 +30,7 @@ import org.richfaces.cdk.annotations.TagType;
 import javax.faces.component.UIComponentBase;
 
 /**
- * <p>The &lt;rich:jQuery&gt; component applies styles and custom behavior to both JSF (JavaServer Faces) objects and
+ * <p>The &lt;r:jQuery&gt; component applies styles and custom behavior to both JSF (JavaServer Faces) objects and
  * regular DOM (Document Object Model) objects. It uses the jQuery JavaScript framework to add functionality to web
  * applications.</p>
  *

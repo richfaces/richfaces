@@ -33,7 +33,7 @@ import javax.faces.component.UIPanel;
 
 /**
  * <p>
- * The &lt;a4j:outputPanel&gt; component is used to group together components in to update them as a whole, rather than having
+ * The &lt;r:outputPanel&gt; component is used to group together components in to update them as a whole, rather than having
  * to specify the components individually.
  * <p>
  *

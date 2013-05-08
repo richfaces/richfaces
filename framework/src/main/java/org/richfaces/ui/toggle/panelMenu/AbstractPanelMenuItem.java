@@ -35,8 +35,8 @@ import org.richfaces.ui.common.ComponentIterators;
 import javax.faces.component.UIComponent;
 
 /**
- * <p>The &lt;rich:panelMenuItem&gt; component represents a single item inside a &lt;rich:panelMenuGroup&gt; component,
- * which is in turn part of a &lt;rich:panelMenu&gt; component.</p>
+ * <p>The &lt;r:panelMenuItem&gt; component represents a single item inside a &lt;r:panelMenuGroup&gt; component,
+ * which is in turn part of a &lt;r:panelMenu&gt; component.</p>
  *
  * @author akolonitsky
  */

@@ -32,8 +32,8 @@ import javax.faces.context.FacesContext;
 
 /**
  * <p>
- * The &lt;a4j:region&gt; component specifies a part of the JSF component tree to be processed on the server.
- * The region causes all the a4j and rich Ajax controls to execute: decoding, validating, and updating the model.
+ * The &lt;r:region&gt; component specifies a part of the JSF component tree to be processed on the server.
+ * The region causes all the richfaces Ajax controls to execute: decoding, validating, and updating the model.
  * The region causes these components to execute even if not explicitly declared. As such, processing areas can more
  * easily be marked using a declarative approach.
  * </p>

@@ -30,8 +30,8 @@ import org.richfaces.cdk.annotations.Tag;
 
 /**
  * <p>
- *     The &lt;rich:dragSource&gt; component can be added to a component to indicate it is capable of being dragged by the user.
- *     The dragged item can then be dropped into a compatible drop area, designated using the &lt;rich:dropTarget&gt; component.
+ *     The &lt;r:dragSource&gt; component can be added to a component to indicate it is capable of being dragged by the user.
+ *     The dragged item can then be dropped into a compatible drop area, designated using the &lt;r:dropTarget&gt; component.
  * </p>
  * @author abelevich
  */

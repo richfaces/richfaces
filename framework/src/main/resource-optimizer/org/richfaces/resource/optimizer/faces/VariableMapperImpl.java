@@ -59,7 +59,7 @@ public class VariableMapperImpl extends VariableMapper {
      */
     @Override
     public ValueExpression resolveVariable(String variable) {
-        if ("richSkin".equals(variable) || "a4jSkin".equals(variable)) {
+        if ("richSkin".equals(variable)) {
             return SKIN_VALUE_EXPRESSION;
         } else if ("resource".equals(variable)) {
             return RESOURCE_VALUE_EXPRESSION;

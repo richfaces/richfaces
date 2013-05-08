@@ -45,7 +45,7 @@ import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 /**
- * <p>The &lt;rich:autocomplete&gt; component is an auto-completing input-box with built-in Ajax capabilities. It
+ * <p>The &lt;r:autocomplete&gt; component is an auto-completing input-box with built-in Ajax capabilities. It
  * supports client-side suggestions, browser-like selection, and customization of the look and feel.</p>
  *
  * @author Nick Belaevski

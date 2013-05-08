@@ -38,7 +38,7 @@ import org.richfaces.resource.ResourceHandlerImpl;
 
 /**
  * <p>
- * Servlet which serves resources for rich:editor component.
+ * Servlet which serves resources for r:editor component.
  * </p>
  *
  * <p>

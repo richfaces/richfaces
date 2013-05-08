@@ -32,7 +32,7 @@ import org.openqa.selenium.WebElement;
 
 public class DynamicTabTestHelper {
 
-    public void check_tab_switch(WebElement tabPanel, List<WebElement> tabs, WebElement a4jCreateTabButton) {
+    public void check_tab_switch(WebElement tabPanel, List<WebElement> tabs, WebElement ajaxCreateTabButton) {
         Assert.assertEquals(6, tabs.size());
         Assert.assertEquals("content of tab 0", getTabContent(tabPanel).getText());
 
@@ -48,7 +48,7 @@ public class DynamicTabTestHelper {
         guardXhr(tabs.get(0)).click();
         Assert.assertEquals("content of tab 0", getTabContent(tabPanel).getText());
 
-        guardXhr(a4jCreateTabButton).click();
+        guardXhr(ajaxCreateTabButton).click();
         Assert.assertEquals(7, tabs.size());
 
         guardXhr(tabs.get(6)).click();
@@ -71,12 +71,12 @@ public class DynamicTabTestHelper {
         return null;
     }
 
-    public void check_row_removal(WebElement tabPanel, List<WebElement> tabs, WebElement a4jCreateTabButton) {
+    public void check_row_removal(WebElement tabPanel, List<WebElement> tabs, WebElement ajaxCreateTabButton) {
         Assert.assertEquals(6, tabs.size());
 
-        guardXhr(a4jCreateTabButton).click();
-        guardXhr(a4jCreateTabButton).click();
-        guardXhr(a4jCreateTabButton).click();
+        guardXhr(ajaxCreateTabButton).click();
+        guardXhr(ajaxCreateTabButton).click();
+        guardXhr(ajaxCreateTabButton).click();
 
         Assert.assertEquals(9, tabs.size());
 

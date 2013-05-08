@@ -31,7 +31,7 @@ import org.richfaces.ui.common.AbstractActionComponent;
 
 /**
  * <p>
- * The &lt;a4j:poll&gt; component allows periodical sending of Ajax requests to the server. It is used for repeatedly
+ * The &lt;r:poll&gt; component allows periodical sending of Ajax requests to the server. It is used for repeatedly
  * updating a page at specific time intervals.
  * </p>
  * @author shura

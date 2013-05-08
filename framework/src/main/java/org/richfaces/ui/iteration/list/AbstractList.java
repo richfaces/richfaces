@@ -40,7 +40,7 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
 
 /**
- * <p>The &lt;rich:list&gt; component renders a list of items. The list can be an numerically ordered list, an
+ * <p>The &lt;r:list&gt; component renders a list of items. The list can be an numerically ordered list, an
  * un-ordered bullet-point list, or a data definition list. The component uses a data model for managing the list items,
  * which can be updated dynamically.</p>
  */
