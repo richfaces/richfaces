@@ -68,7 +68,7 @@ public class ContainerInstaller {
         Validate.notNull(configuration.getContainerHome(), "container home must be set");
         File containerHome = new File(configuration.getContainerHome());
 
-        InputStream artifactStream = Maven.resolver().resolve(configurationFiles).withoutTransitivity().asSingleInputStream();
+        InputStream artifactStream = Maven.resolver().resolve(configurationFiles).withClassPathResolution(false).withoutTransitivity().asSingleInputStream();
         unzip(artifactStream, containerHome, true);
 
         log.info(String.format("The container configuration '%s' was unpacked into '%s'", configurationFiles,

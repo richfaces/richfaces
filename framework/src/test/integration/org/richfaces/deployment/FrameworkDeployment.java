@@ -58,7 +58,12 @@ public class FrameworkDeployment extends Deployment {
     }
 
     public void withWholeFramework() {
-        archive().addAsLibrary(new File("target/richfaces.jar"));
+        File richfacesJar = new File("target/richfaces.jar");
+        if (!richfacesJar.exists()) {
+            throw new IllegalStateException("The built library '" + richfacesJar.getPath()
+                    + "' doesn't exist; be sure to run 'mvn package' before running framework tests");
+        }
+        archive().addAsLibrary(richfacesJar);
     }
 
     /**
