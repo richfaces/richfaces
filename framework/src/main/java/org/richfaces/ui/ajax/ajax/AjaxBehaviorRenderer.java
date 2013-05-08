@@ -49,7 +49,7 @@ import com.google.common.base.Strings;
  * @author Anton Belevich
  *
  */
-@FacesBehaviorRenderer(rendererType = "org.ajax4jsf.behavior.Ajax", renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
+@FacesBehaviorRenderer(rendererType = "org.richfaces.behavior.Ajax", renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
 @ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
 public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
     private final RendererUtils utils = RendererUtils.getInstance();
@@ -61,7 +61,7 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
         }
 
         if (!(behavior instanceof AjaxBehavior)) {
-            throw new IllegalArgumentException("org.ajax4jsf.component.behavior.AjaxBehavior required: " + behavior);
+            throw new IllegalArgumentException(AjaxBehavior.class.getName() + " required: " + behavior);
         }
 
         AjaxBehavior ajaxBehavior = (AjaxBehavior) behavior;

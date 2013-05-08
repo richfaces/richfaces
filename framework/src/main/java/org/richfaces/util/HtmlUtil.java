@@ -38,7 +38,6 @@ import com.google.common.base.Strings;
 public final class HtmlUtil {
     public static final Pattern ID_SELECTOR_PATTERN = Pattern
             .compile("#((?:-[A-Za-z_-]|[A-Za-z_]|\\\\[^A-F0-9U]|\\\\[A-F0-9]{1,6}\\s?|\\\\U[0-9A-F]{2}(?:A[1-9A-F]|[B-F][0-9A-F]))(?:\\\\[A-F0-9]{1,6}\\s?|[A-Za-z0-9_-]|\\\\:)*)");
-    private static final String ORG_AJAX4JSF = "org.ajax4jsf.";
     private static final String ORG_RICHFACES = "org.richfaces.";
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
@@ -122,7 +121,7 @@ public final class HtmlUtil {
             return true;
         }
 
-        if ((rendererType != null) && (rendererType.startsWith(ORG_AJAX4JSF) || rendererType.startsWith(ORG_RICHFACES))) {
+        if ((rendererType != null) && rendererType.startsWith(ORG_RICHFACES)) {
             return true;
         }
 

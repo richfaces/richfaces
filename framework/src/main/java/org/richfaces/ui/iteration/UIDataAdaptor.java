@@ -874,7 +874,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.component.IterationStateHolder#getIterationState()
+     * @see org.richfaces.ui.iteration.IterationStateHolder#getIterationState()
      */
     public Object getIterationState() {
         assert rowKey == null;
@@ -885,7 +885,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.component.IterationStateHolder#setIterationState(java.lang.Object)
+     * @see org.richfaces.ui.iteration.IterationStateHolder#setIterationState(java.lang.Object)
      */
     public void setIterationState(Object stateObject) {
         assert rowKey == null;

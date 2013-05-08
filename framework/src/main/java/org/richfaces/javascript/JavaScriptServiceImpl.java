@@ -58,7 +58,7 @@ public class JavaScriptServiceImpl implements JavaScriptService {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.javascript.JavaScriptService#addScript(org.ajax4jsf.javascript.ScriptString)
+     * @see org.richfaces.javascript.JavaScriptService#addScript(org.richfaces.javascript.ScriptString)
      */
     public <S> S addScript(FacesContext facesContext, S script) {
         UIScripts scriptResource = getOrCreateScriptResource(facesContext);
@@ -69,7 +69,7 @@ public class JavaScriptServiceImpl implements JavaScriptService {
     /*
      * (non-Javadoc)
      *
-     * @see org.richfaces.javascript.JavaScriptService#addPageReadyScript(org.ajax4jsf.javascript.ScriptString)
+     * @see org.richfaces.javascript.JavaScriptService#addPageReadyScript(org.richfaces.javascript.ScriptString)
      */
     public <S> S addPageReadyScript(FacesContext facesContext, S script) {
         UIScripts scriptResource = getOrCreateScriptResource(facesContext);

@@ -59,7 +59,7 @@ public class MediaOutputRenderer extends RendererBase {
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeEnd(javax.faces.context.ResponseWriter,
+     * @see org.richfaces.renderkit.RendererBase#doEncodeEnd(javax.faces.context.ResponseWriter,
      * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
@@ -78,7 +78,7 @@ public class MediaOutputRenderer extends RendererBase {
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.renderkit.RendererBase#getComponentClass()
+     * @see org.richfaces.renderkit.RendererBase#getComponentClass()
      */
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
@@ -90,7 +90,7 @@ public class MediaOutputRenderer extends RendererBase {
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeBegin(javax.faces.context.ResponseWriter,
+     * @see org.richfaces.renderkit.RendererBase#doEncodeBegin(javax.faces.context.ResponseWriter,
      * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override

@@ -55,7 +55,7 @@ public final class CoreConfiguration {
         resourcesCacheSize,
         @ConfigurationItem(names = "org.richfaces.resourceDefaultVersion")
         resourcesDefaultVersion,
-        @ConfigurationItem(names = "org.ajax4jsf.cache.LRU_MAP_CACHE_SIZE", literal = true)
+        @ConfigurationItem(names = "org.richfaces.cache.LRU_MAP_CACHE_SIZE", literal = true)
         lruMapCacheSize,
         @Deprecated
         @ConfigurationItem(names = "org.richfaces.staticResourceLocation")

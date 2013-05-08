@@ -72,7 +72,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.model.ExtendedDataModel#getRowKey()
+     * @see org.richfaces.model.ExtendedDataModel#getRowKey()
      */
     public Object getRowKey() {
         return originalModel.getRowKey();
@@ -81,7 +81,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.model.ExtendedDataModel#setRowKey(java.lang.Object)
+     * @see org.richfaces.model.ExtendedDataModel#setRowKey(java.lang.Object)
      */
     public void setRowKey(Object key) {
         originalModel.setRowKey(key);
@@ -90,8 +90,8 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.model.ExtendedDataModel#walk(javax.faces.context.FacesContext, org.ajax4jsf.model.DataVisitor,
-     * org.ajax4jsf.model.Range, java.lang.Object)
+     * @see org.richfaces.model.ExtendedDataModel#walk(javax.faces.context.FacesContext, org.richfaces.model.DataVisitor,
+     * org.richfaces.model.Range, java.lang.Object)
      */
     public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
         final SequenceRange seqRange = (SequenceRange) range;

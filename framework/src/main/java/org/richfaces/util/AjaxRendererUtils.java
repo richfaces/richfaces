@@ -40,7 +40,7 @@ import com.google.common.base.Strings;
 public final class AjaxRendererUtils {
     public static final String BEGIN_EVENT_NAME = "begin";
     public static final String AJAX_ABORT_ATTR = "ignoreDupResponses";
-    public static final String AJAX_AREAS_RENDERED = "org.ajax4jsf.areas.rendered";
+    public static final String AJAX_AREAS_RENDERED = "org.richfaces.areas.rendered";
     public static final String AJAX_DELAY_ATTR = "requestDelay";
     public static final String AJAX_QUEUE_ATTR = "eventsQueue";
     public static final String AJAX_SINGLE_ATTR = "ajaxSingle";
@@ -49,7 +49,7 @@ public final class AjaxRendererUtils {
     /**
      * Attribute for keep JavaScript function name for call after complete request.
      */
-    public static final String ONCOMPLETE_CONTENT_ID = "org.ajax4jsf.oncomplete";
+    public static final String ONCOMPLETE_CONTENT_ID = "org.richfaces.oncomplete";
     public static final String SIMILARITY_GROUPING_ID_ATTR = "similarityGroupingId";
     /**
      * Attribute for keep clientId of status component

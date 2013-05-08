@@ -204,7 +204,7 @@ public class AjaxStatusRenderer extends RendererBase {
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.renderkit.RendererBase#getComponentClass()
+     * @see org.richfaces.renderkit.RendererBase#getComponentClass()
      */
     @Override
     protected Class<? extends UIComponent> getComponentClass() {

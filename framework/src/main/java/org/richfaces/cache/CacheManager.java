@@ -43,10 +43,10 @@ import org.richfaces.log.RichfacesLogger;
  * TODO stop caches on application stop CacheManager is used in J2SE environments for looking up named caches.
  */
 public class CacheManager {
-    public static final String CACHE_MANAGER_FACTORY_CLASS = "org.ajax4jsf.cache.CACHE_MANAGER_FACTORY_CLASS";
-    private static final String[] DEFAULT_FACTORIES_CHAIN = { "org.ajax4jsf.cache.JBossCacheCacheFactory",
-            "org.ajax4jsf.cache.EhCacheCacheFactory" };
-    private static final String FACTORY_PROPERTY_NAME = "org.ajax4jsf.cache.CacheFactory";
+    public static final String CACHE_MANAGER_FACTORY_CLASS = "org.richfaces.cache.CACHE_MANAGER_FACTORY_CLASS";
+    private static final String[] DEFAULT_FACTORIES_CHAIN = { "org.richfaces.cache.JBossCacheCacheFactory",
+            "org.richfaces.cache.EhCacheCacheFactory" };
+    private static final String FACTORY_PROPERTY_NAME = "org.richfaces.cache.CacheFactory";
     private static final Logger LOG = RichfacesLogger.CACHE.getLogger();
     private CacheFactory cacheFactory;
     private final Map<String, Cache> caches = new ConcurrentHashMap<String, Cache>(1, 0.75f, 1);

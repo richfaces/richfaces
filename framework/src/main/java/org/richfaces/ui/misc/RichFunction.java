@@ -222,7 +222,7 @@ public final class RichFunction {
      * <li><tt>Combinations of above</tt></li>
      * </ul>
      *
-     * This function delegates to org.ajax4jsf.javascript.ScriptUtils#toScript(Object)
+     * This function delegates to org.richfaces.javascript.ScriptUtils#toScript(Object)
      */
     @Function
     public static String toScript(Object o) {

@@ -49,13 +49,6 @@ public class ParameterHandler extends ComponentHandler {
      */
     public static class ActionParamMetaRule extends MetaRule {
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.ajax4jsf.tag.SuggestionHandler.SuggestionMetaRule#applyRule(java.lang.String,
-         * com.sun.facelets.tag.TagAttribute, com.sun.facelets.tag.MetadataTarget)
-         */
-
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(AbstractParameter.class)) {
                 if ("assignTo".equals(name)) {
@@ -140,12 +133,6 @@ public class ParameterHandler extends ComponentHandler {
             }
         }
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.ajax4jsf.tag.AjaxComponentHandler#createMetaRuleset(java.lang.Class)
-     */
 
     protected MetaRuleset createMetaRuleset(Class type) {
         MetaRuleset metaRules = super.createMetaRuleset(type);

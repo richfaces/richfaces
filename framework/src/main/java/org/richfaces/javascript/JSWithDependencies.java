@@ -60,7 +60,7 @@ public class JSWithDependencies extends ScriptStringBase implements ScriptWithDe
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.javascript.ScriptString#appendScript(java.lang.Appendable)
+     * @see org.richfaces.javascript.ScriptString#appendScript(java.lang.Appendable)
      */
     public void appendScript(Appendable target) throws IOException {
         ScriptUtils.appendScript(target, wrapped);

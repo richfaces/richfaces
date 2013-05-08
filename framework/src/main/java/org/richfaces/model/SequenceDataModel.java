@@ -79,7 +79,7 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.ajax.repeat.ExtendedDataModel#getRowKey()
+     * @see org.richfaces.model.ExtendedDataModel#getRowKey()
      */
     public Object getRowKey() {
         int index = wrappedModel.getRowIndex();
@@ -94,7 +94,7 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.ajax.repeat.ExtendedDataModel#setRowKey(java.lang.Object)
+     * @see org.richfaces.model.ExtendedDataModel#setRowKey(java.lang.Object)
      */
     public void setRowKey(Object key) {
         if (null == key) {

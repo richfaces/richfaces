@@ -245,7 +245,7 @@ if (!window.RichFaces) {
     };
 
     //there is the same pattern in server-side code:
-    //org.ajax4jsf.javascript.ScriptUtils.escapeCSSMetachars(String)
+    //org.richfaces.javascript.ScriptUtils.escapeCSSMetachars(String)
     var CSS_METACHARS_PATTERN = /([#;&,.+*~':"!^$\[\]()=>|\/])/g;
 
     /**
