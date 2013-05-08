@@ -120,7 +120,9 @@ public class Deployment {
             withServletContainerSetup();
         }
 
-        if (!configuration.isCurrentRichFacesVersion()) {
+        if (configuration.isCurrentRichFacesVersion()) {
+            addRequiredMavenDependencies();
+        } else {
             log.info("Running test against RichFaces version: " + configuration.getRichFacesVersion());
         }
 
@@ -282,6 +284,16 @@ public class Deployment {
         });
 
         return this;
+    }
+
+    /**
+     * <p>Add basic dependencies which RichFaces depends on.</p>
+     *
+     * <p>This dependencies would be brought transitively by org.richfaces:richfaces:jar artifact, however
+     * in snapshot builds we don't rely on this dependency and we use target/richfaces.jar instead.</p>
+     */
+    private void addRequiredMavenDependencies() {
+        addMavenDependency("com.google.guava:guava", "net.sourceforge.cssparser:cssparser");
     }
 
     /**
