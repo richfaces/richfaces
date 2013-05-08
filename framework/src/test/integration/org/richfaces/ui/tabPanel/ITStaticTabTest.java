@@ -56,6 +56,9 @@ public class ITStaticTabTest {
     @ArquillianResource
     private URL contextPath;
 
+    @FindBy(tagName = "body")
+    private WebElement body;
+
     @FindBy(id = "myForm:tabPanel")
     private WebElement tabPanel;
 
@@ -70,6 +73,8 @@ public class ITStaticTabTest {
 
     @FindBy(id = "myForm:outputText")
     private WebElement outputText;
+
+    private DynamicTabTestHelper tabTestHelper = new DynamicTabTestHelper();
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -100,6 +105,17 @@ public class ITStaticTabTest {
 
     }
 
+    /**
+     * RF-12969
+     */
+    @Test
+    public void check_click_active_tab() {
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+        WebElement activeTab = tabTestHelper.getActiveTab(tabPanel);
+        guardAjax(activeTab).click();
+        Assert.assertEquals(null, body.getAttribute("JSError"));
+    }
+
     @Test
     public void check_tab_execute() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
@@ -112,6 +128,13 @@ public class ITStaticTabTest {
 
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
+
+        p.head("<script type='text/javascript'>");
+        p.head("    window.onerror=function(msg) { ");
+        p.head("        $('body').attr('JSError',msg);");
+        p.head("    }");
+        p.head("</script>");
+
         p.body("<h:form id='myForm'>");
         p.body("<r:tabPanel id='tabPanel' ");
         p.body("               onbegin='$(\"#out\").append(\"begin \\n\")'");

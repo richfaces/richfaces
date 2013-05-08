@@ -71,6 +71,15 @@ public class DynamicTabTestHelper {
         return null;
     }
 
+    public WebElement getActiveTab(WebElement tabPanel) {
+        for (WebElement tab : tabPanel.findElements(By.className("rf-tab-hdr-act"))) {
+            if (tab.isDisplayed()) {
+                return tab;
+            }
+        }
+        return null;
+    }
+
     public void check_row_removal(WebElement tabPanel, List<WebElement> tabs, WebElement ajaxCreateTabButton) {
         Assert.assertEquals(6, tabs.size());
 
