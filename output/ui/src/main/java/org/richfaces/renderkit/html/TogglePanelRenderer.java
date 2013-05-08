@@ -177,7 +177,7 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
             AbstractTogglePanel panel = (AbstractTogglePanel) component;
             int itemIndex = panel.getIndexByName(panel.getActiveItem());
 
-            if (itemIndex > 0) {
+            if (itemIndex >= 0) {
                 encodeActiveItem(panel, itemIndex);
             } else {
                 partialStart(context, component.getClientId(context));

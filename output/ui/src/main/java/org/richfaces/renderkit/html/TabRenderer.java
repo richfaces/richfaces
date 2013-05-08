@@ -72,11 +72,6 @@ public class TabRenderer extends TogglePanelItemRenderer {
                 tab.setImmediate(true);
             }
             new ActionEvent(tab).queue();
-
-            if (context.getPartialViewContext().isPartialRequest()) {
-                context.getPartialViewContext().getRenderIds().add(component.getClientId(context));
-                addOnCompleteParam(context, tab.getName(), tab.getTabPanel().getClientId(context));
-            }
         }
     }
 
