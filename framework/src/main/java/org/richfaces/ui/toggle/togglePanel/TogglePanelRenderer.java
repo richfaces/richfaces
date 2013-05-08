@@ -21,6 +21,19 @@
  */
 package org.richfaces.ui.toggle.togglePanel;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.faces.FacesException;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSObject;
@@ -37,19 +50,6 @@ import org.richfaces.ui.toggle.TogglePanelVisitState;
 import org.richfaces.util.AjaxRendererUtils;
 import org.richfaces.util.FormUtil;
 import org.richfaces.util.HtmlUtil;
-
-import javax.faces.FacesException;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author akolonitsky
@@ -177,7 +177,7 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
             AbstractTogglePanel panel = (AbstractTogglePanel) component;
             int itemIndex = panel.getIndexByName(panel.getActiveItem());
 
-            if (itemIndex > 0) {
+            if (itemIndex >= 0) {
                 encodeActiveItem(panel, itemIndex);
             } else {
                 partialStart(context, component.getClientId(context));

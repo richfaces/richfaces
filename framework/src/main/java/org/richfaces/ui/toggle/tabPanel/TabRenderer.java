@@ -21,7 +21,19 @@
  */
 package org.richfaces.ui.toggle.tabPanel;
 
-import com.google.common.base.Predicate;
+import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
+import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
+
+import java.io.IOException;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
@@ -32,19 +44,7 @@ import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.toggle.AbstractTogglePanelItemInterface;
 import org.richfaces.ui.toggle.togglePanel.TogglePanelItemRenderer;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionEvent;
-
-import java.io.IOException;
-import java.util.Map;
-
-import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
-import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
+import com.google.common.base.Predicate;
 
 /**
  * @author akolonitsky
@@ -71,11 +71,6 @@ public class TabRenderer extends TogglePanelItemRenderer {
                 tab.setImmediate(true);
             }
             new ActionEvent(tab).queue();
-
-            if (context.getPartialViewContext().isPartialRequest()) {
-                context.getPartialViewContext().getRenderIds().add(component.getClientId(context));
-                addOnCompleteParam(context, tab.getName(), tab.getTabPanel().getClientId(context));
-            }
         }
     }
 
