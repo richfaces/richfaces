@@ -31,6 +31,9 @@ public class StaticTabTest {
     @ArquillianResource
     private URL contextPath;
 
+    @FindBy(tagName = "body")
+    private WebElement body;
+
     @FindBy(id = "myForm:tabPanel")
     private WebElement tabPanel;
 
@@ -45,6 +48,8 @@ public class StaticTabTest {
 
     @FindBy(id = "myForm:outputText")
     private WebElement outputText;
+
+    private DynamicTabTestHelper tabTestHelper = new DynamicTabTestHelper();
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -74,6 +79,17 @@ public class StaticTabTest {
 
     }
 
+    /**
+     * RF-12969
+     */
+    @Test
+    public void check_click_active_tab() {
+        browser.get(contextPath.toExternalForm() + "index.jsf");
+        WebElement activeTab = tabTestHelper.getActiveTab(tabPanel);
+        guardXhr(activeTab).click();
+        Assert.assertEquals(null, body.getAttribute("JSError"));
+    }
+
     @Test
     public void check_tab_execute() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
@@ -89,6 +105,11 @@ public class StaticTabTest {
         p.xmlns("rich", "http://richfaces.org/output");
         p.xmlns("a4j", "http://richfaces.org/a4j");
         p.xmlns("c", "http://java.sun.com/jsp/jstl/core");
+        p.head("<script type='text/javascript'>");
+        p.head("    window.onerror=function(msg) { ");
+        p.head("        $('body').attr('JSError',msg);");
+        p.head("    }");
+        p.head("</script>");
         p.body("<h:form id='myForm'>");
         p.body("<rich:tabPanel id='tabPanel' ");
         p.body("               onbegin='$(\"#out\").append(\"begin \\n\")'");
