@@ -74,15 +74,7 @@
                     <groupId>org.richfaces.examples</groupId>
                     <artifactId>richfaces-showcase</artifactId>
                     <version>${version.richfaces}</version>
-                    <type>war</type>
-                    <classifier>jbas71</classifier>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.richfaces.examples</groupId>
-                    <artifactId>richfaces-photoalbum</artifactId>
-                    <version>${version.richfaces}</version>
-                    <type>war</type>
+                    <classifier>sources</classifier>
                 </dependency>
 
                 <!-- Archetypes -->
@@ -200,7 +192,6 @@
                                 </goals>
                                 <phase>package</phase>
                                 <configuration>
-                                    <classifier>sources</classifier>
                                     <includeGroupIds>org.richfaces.examples</includeGroupIds>
                                     <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
                                     <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
