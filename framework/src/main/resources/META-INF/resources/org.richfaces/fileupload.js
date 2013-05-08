@@ -223,6 +223,7 @@
                     if (responseStatus) {
                         var responseContext = {
                             source: this.element[0],
+                            element: this.element[0],
                             /* hack for MyFaces */
                             _mfInternal: {
                                 _mfSourceControlId: this.element.attr('id')
