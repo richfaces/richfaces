@@ -89,6 +89,17 @@
                     <artifactId>richfaces-archetype-kitchensink</artifactId>
                     <version>${version.archetype}</version>
                 </dependency>
+
+                <!-- JSF impl -->
+                <dependency>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                </dependency>
             </dependencies>
 
             <build>
@@ -139,9 +150,38 @@
                                 </goals>
                                 <phase>package</phase>
                                 <configuration>
-                                    <excludeArtifactIds>richfaces</excludeArtifactIds>
-                                    <excludeGroupIds>org.richfaces</excludeGroupIds>
+                                    <includeGroupIds>
+                                        net.sourceforge.cssparser,
+                                        org.w3c.css,
+                                        com.google.guava
+                                    </includeGroupIds>
                                     <outputDirectory>target/dist/lib</outputDirectory>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-deps-push</id>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <includeGroupIds>
+                                        org.atmosphere
+                                    </includeGroupIds>
+                                    <outputDirectory>target/dist/lib/push</outputDirectory>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-deps-cache</id>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <includeGroupIds>
+                                        net.sf.ehcache
+                                    </includeGroupIds>
+                                    <outputDirectory>target/dist/lib/cache</outputDirectory>
                                 </configuration>
                             </execution>
                             <execution>
