@@ -1,6 +1,7 @@
 package org.richfaces.component.extendedDataTable;
 
 import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
 import java.util.List;
@@ -100,19 +101,17 @@ public class TestTableState {
 
         Actions builder = new Actions(browser);
 
-        Action dragAndDrop = builder.clickAndHold(column3)
+        final Action dragAndDrop = builder.clickAndHold(column3)
                 .moveToElement(column1)
                 .release(column1)
                 .build();
-
-        guardXhr(dragAndDrop).perform();
 
         // when / then
         Warp.initiate(new Activity() {
 
             @Override
             public void perform() {
-                guardXhr(button).click();
+                guardXhr(dragAndDrop).perform();
             }
         }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
@@ -129,6 +128,11 @@ public class TestTableState {
                 Assert.assertArrayEquals(expectedOrder, tableState.getColumnsOrder());
             }
         });
+
+        List<WebElement> columns = browser.findElements(By.cssSelector(".rf-edt-hdr-c"));
+        assertTrue(columns.get(0).getAttribute("class").contains("rf-edt-c-column3"));
+        assertTrue(columns.get(1).getAttribute("class").contains("rf-edt-c-column1"));
+        assertTrue(columns.get(2).getAttribute("class").contains("rf-edt-c-column2"));
     }
 
     @Test
