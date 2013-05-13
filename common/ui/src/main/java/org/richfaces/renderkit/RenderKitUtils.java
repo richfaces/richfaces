@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
@@ -766,5 +767,29 @@ public final class RenderKitUtils {
 
     public static boolean hasFacet(UIComponent component, String facetName) {
         return component.getFacet(facetName) != null && component.getFacet(facetName).isRendered();
+    }
+
+    /**
+     * Tries to evaluate an attribute as {@link ValueExpression}. If the attribute doesn't hold {@link ValueExpression} or the
+     * expression evaluates to <tt>null</tt>, the value of the attribute is returned.
+     *
+     * @param attribute the name of a component's attribute
+     * @param component the component
+     * @param context the context
+     * @return the evaluated {@link ValueExpression} for a given attribute or the value of the attribute (in case the attribute
+     *         isn't {@link ValueExpression} or it evaluates to null)
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T evaluateAttribute(String attribute, UIComponent component, FacesContext context) {
+        ValueExpression valueExpression = component.getValueExpression(attribute);
+
+        if (valueExpression != null) {
+            T evaluatedValue = (T) valueExpression.getValue(context.getELContext());
+            if (evaluatedValue != null) {
+                return evaluatedValue;
+            }
+        }
+
+        return (T) component.getAttributes().get(attribute);
     }
 }
