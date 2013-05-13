@@ -40,6 +40,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
@@ -55,6 +57,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.ui.common.ComponentAttribute;
+
+import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
@@ -416,6 +420,78 @@ public class RenderKitUtilsMocksTest {
 
         // then
         assertFalse("hasFacet should return false", hasFacet);
+    }
+
+    @Test
+    public void when_attribute_value_expression_is_null_then_evaluateAttribute_should_return_attribute_value() {
+        // given
+        Map<String, Object> attributes = Maps.newTreeMap();
+        Object value = new Object();
+        attributes.put("value", value);
+
+        UIComponent component = createMockComponent();
+
+        expect(component.getAttributes()).andReturn(attributes);
+        expect(component.getValueExpression("value")).andReturn(null);
+
+        facesEnvironment.replay();
+
+        // when
+        Object evaluated = RenderKitUtils.evaluateAttribute("value", component, facesContext);
+
+        // then
+        assertEquals(value, evaluated);
+    }
+
+    @Test
+    public void when_attribute_value_expression_evaluates_to_null_then_evaluateAttribute_should_return_attribute_value() {
+        // given
+        Map<String, Object> attributes = Maps.newTreeMap();
+        Object value = new Object();
+        attributes.put("value", value);
+        ELContext elContext = facesEnvironment.getElContext();
+
+        ValueExpression valueExpression = facesEnvironment.createMock(ValueExpression.class);
+
+
+        UIComponent component = createMockComponent();
+
+        expect(component.getValueExpression("value")).andReturn(valueExpression);
+        expect(valueExpression.getValue(elContext)).andReturn(null);
+        expect(component.getAttributes()).andReturn(attributes);
+
+        facesEnvironment.replay();
+
+        // when
+        Object evaluated = RenderKitUtils.evaluateAttribute("value", component, facesContext);
+
+        // then
+        assertEquals(value, evaluated);
+    }
+
+    @Test
+    public void when_attribute_value_expression_evaluates_to_some_value_then_evaluateAttribute_the_value_is_returned() {
+        // given
+        Map<String, Object> attributes = Maps.newTreeMap();
+        Object attributeValue = new Object();
+        Object valueExpressionValue = new Object();
+        attributes.put("value", attributeValue);
+        ELContext elContext = facesEnvironment.getElContext();
+
+        ValueExpression valueExpression = facesEnvironment.createMock(ValueExpression.class);
+
+        UIComponent component = createMockComponent();
+
+        expect(component.getValueExpression("value")).andReturn(valueExpression);
+        expect(valueExpression.getValue(elContext)).andReturn(valueExpressionValue);
+
+        facesEnvironment.replay();
+
+        // when
+        Object evaluated = RenderKitUtils.evaluateAttribute("value", component, facesContext);
+
+        // then
+        assertEquals(valueExpressionValue, evaluated);
     }
 
     public abstract static class AbstractClientBehaviorHolderComponent extends UIComponent implements ClientBehaviorHolder {

@@ -36,7 +36,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ResourceDependencies;
@@ -158,8 +157,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
             List<UIComponent> columns = new ArrayList<UIComponent>();
 
-            ValueExpression columnsOrderVE = table.getValueExpression("columnsOrder");
-            String[] columnsOrder = columnsOrderVE == null ? null : (String[]) columnsOrderVE.getValue(context.getELContext());
+            String[] columnsOrder = RenderKitUtils.evaluateAttribute("columnsOrder", table, context);
             if (columnsOrder != null && columnsOrder.length > 0) { // add columns in the order specified by columnsOrder
                 for (int i = 0; i < columnsOrder.length && !columnsMap.isEmpty(); i++) {
                     columns.add(columnsMap.remove(columnsOrder[i]));

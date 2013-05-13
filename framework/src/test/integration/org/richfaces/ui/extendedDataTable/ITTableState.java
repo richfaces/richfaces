@@ -22,7 +22,10 @@
 
 package org.richfaces.ui.extendedDataTable;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
+import static org.junit.Assert.assertThat;
 
 import java.net.URL;
 import java.util.List;
@@ -44,7 +47,6 @@ import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -58,8 +60,6 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.iteration.column.UIColumn;
 import org.richfaces.ui.iteration.extendedDataTable.AbstractExtendedDataTable;
 import org.richfaces.ui.iteration.extendedDataTable.ExtendedDataTableState;
-
-import category.Failing;
 
 @RunAsClient
 @WarpTest
@@ -114,11 +114,7 @@ public class ITTableState {
         Assert.assertEquals("Column 2", header.findElement(By.cssSelector("td")).getText());
     }
 
-    /**
-     * {@link https://issues.jboss.org/browse/RF-12814}
-     */
     @Test
-    @Category(Failing.class)
     public void table_order_server_side() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm());
@@ -127,35 +123,43 @@ public class ITTableState {
 
         Actions builder = new Actions(browser);
 
-        Action dragAndDrop = builder.clickAndHold(column3)
+        final Action dragAndDrop = builder.clickAndHold(column3)
                 .moveToElement(column1)
                 .release(column1)
                 .build();
 
-        guardAjax(dragAndDrop).perform();
+
 
         // when / then
-        Warp.initiate(new Activity() {
+        Warp
+            .initiate(new Activity() {
+                public void perform() {
+                    guardAjax(dragAndDrop).perform();
+                }
+            })
+            .group()
+                .observe(request().uri().contains("index"))
+                .inspect(new Inspection() {
+                    private static final long serialVersionUID = 1L;
 
-            @Override
-            public void perform() {
-                guardAjax(button).click();
-            }
-        }).inspect(new Inspection() {
-            private static final long serialVersionUID = 1L;
+                    @Inject
+                    IterationTableStateBean bean;
 
-            @Inject
-            IterationTableStateBean bean;
+                    @AfterPhase(Phase.INVOKE_APPLICATION)
+                    public void verify_bean_executed() {
+                        FacesContext facesContext = FacesContext.getCurrentInstance();
+                        AbstractExtendedDataTable edtComponent = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("myForm").findComponent("edt");
+                        ExtendedDataTableState tableState = new ExtendedDataTableState(edtComponent);
+                        String[] expectedOrder = {"column3", "column1", "column2"};
+                        Assert.assertArrayEquals(expectedOrder, tableState.getColumnsOrder());
+                    }
+                })
+            .execute();
 
-            @AfterPhase(Phase.INVOKE_APPLICATION)
-            public void verify_bean_executed() {
-                FacesContext facesContext = FacesContext.getCurrentInstance();
-                AbstractExtendedDataTable edtComponent = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("myForm").findComponent("edt");
-                ExtendedDataTableState tableState = new ExtendedDataTableState(edtComponent);
-                String[] expectedOrder = {"column3", "column1", "column2"};
-                Assert.assertArrayEquals(expectedOrder, tableState.getColumnsOrder());
-            }
-        });
+        List<WebElement> columns = browser.findElements(By.cssSelector(".rf-edt-hdr-c"));
+        assertThat(columns.get(0).getAttribute("class"), containsString("rf-edt-c-column3"));
+        assertThat(columns.get(1).getAttribute("class"), containsString("rf-edt-c-column1"));
+        assertThat(columns.get(2).getAttribute("class"), containsString("rf-edt-c-column2"));
     }
 
     @Test
@@ -177,7 +181,8 @@ public class ITTableState {
             public void perform() {
                 guardAjax(button).click();
             }
-        }).inspect(new Inspection() {
+        })
+        .inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
 
             @Inject
