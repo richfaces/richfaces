@@ -456,6 +456,7 @@ public class RenderKitUtilsMocksTest {
 
         UIComponent component = createMockComponent();
 
+        expect(facesContext.getELContext()).andReturn(elContext);
         expect(component.getValueExpression("value")).andReturn(valueExpression);
         expect(valueExpression.getValue(elContext)).andReturn(null);
         expect(component.getAttributes()).andReturn(attributes);
@@ -482,6 +483,7 @@ public class RenderKitUtilsMocksTest {
 
         UIComponent component = createMockComponent();
 
+        expect(facesContext.getELContext()).andReturn(elContext);
         expect(component.getValueExpression("value")).andReturn(valueExpression);
         expect(valueExpression.getValue(elContext)).andReturn(valueExpressionValue);
 
