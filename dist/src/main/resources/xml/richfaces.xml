@@ -39,7 +39,7 @@
         </file>
         <file>
             <source>src/main/resources/txt/readme-examples.txt</source>
-            <destName>examples/readme.txt</destName>
+            <destName>example/readme.txt</destName>
         </file>
     </files>
 

@@ -232,11 +232,11 @@
                                 </goals>
                                 <phase>package</phase>
                                 <configuration>
-                                    <includeGroupIds>org.richfaces.examples</includeGroupIds>
+                                    <includeArtifactIds>richfaces-showcase</includeArtifactIds>
                                     <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
-                                    <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
+                                    <useSubDirectoryPerArtifact>false</useSubDirectoryPerArtifact>
                                     <stripVersion>true</stripVersion>
-                                    <outputDirectory>target/dist/example</outputDirectory>
+                                    <outputDirectory>target/dist/example/richfaces-showcase</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>
