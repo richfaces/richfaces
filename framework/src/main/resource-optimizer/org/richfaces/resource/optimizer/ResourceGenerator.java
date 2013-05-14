@@ -146,26 +146,32 @@ public class ResourceGenerator {
     /**
      * Output directory for processed resources
      */
-    @Parameter(names = { "-o", "--output" }, descriptionKey = "resourcesOutputDir")
+    @Parameter(names = { "-o", "--output" }, descriptionKey = "resourcesOutputDir", required = true)
     private String resourcesOutputDir;
 
     /**
      * Configures what prefix should be placed to each file before the library and name of the resource
      */
-    @Parameter(names = { "-p", "--prefix" }, descriptionKey = "staticResourcePrefix")
+    @Parameter(names = { "-p", "--prefix" }, descriptionKey = "staticResourcePrefix", required = true)
     private String staticResourcePrefix;
 
     /**
      * Output file for resource mapping configuration
      */
-    @Parameter(names = { "-m", "--mapping" }, descriptionKey = "staticResourceMappingFile")
+    @Parameter(names = { "-m", "--mapping" }, descriptionKey = "staticResourceMappingFile", required = true)
     private String staticResourceMappingFile;
 
     /**
      * The list of RichFaces skins to be processed
      */
-    @Parameter(names = { "-s", "--skins" }, descriptionKey = "skins")
+    @Parameter(names = { "-s", "--skins" }, descriptionKey = "skins", required = true)
     private String skins;
+
+    /**
+     * Output directory for processed resources
+     */
+    @Parameter(names = { "-c", "--classpathDir" }, descriptionKey = "classpathDir", required = true)
+    private File classpathDir;
     /**
      * The list of mime-types to be included in processing
      */
@@ -310,7 +316,7 @@ public class ResourceGenerator {
     protected URL[] getProjectClassPath() {
         List<String> classpath = Constraints.constrainedList(Lists.<String>newArrayList(),
                 MoreConstraints.cast(String.class));
-        classpath.add(new File("./target/classes").getAbsolutePath());
+        classpath.add(classpathDir.getAbsolutePath());
 
         URL[] urlClasspath = filter(transform(classpath, filePathToURL), notNull()).toArray(EMPTY_URL_ARRAY);
         return urlClasspath;

@@ -362,6 +362,8 @@
                                 </goals>
                                 <configuration>
                                     <arguments>
+                                        <argument>--classpathDir</argument>
+                                        <argument>${project.build.outputDirectory}</argument>
                                         <argument>--output</argument>
                                         <argument>${optimized.resources.directory}/Static/</argument>
                                         <argument>--prefix</argument>
@@ -388,6 +390,8 @@
                                 </goals>
                                 <configuration>
                                     <arguments>
+                                        <argument>--classpathDir</argument>
+                                        <argument>${project.build.outputDirectory}</argument>
                                         <argument>--output</argument>
                                         <argument>${optimized.resources.directory}/Compressed/</argument>
                                         <argument>--prefix</argument>
@@ -415,6 +419,8 @@
                                 </goals>
                                 <configuration>
                                     <arguments>
+                                        <argument>--classpathDir</argument>
+                                        <argument>${project.build.outputDirectory}</argument>
                                         <argument>--output</argument>
                                         <argument>${optimized.resources.directory}/Packed/</argument>
                                         <argument>--prefix</argument>
@@ -443,6 +449,8 @@
                                 </goals>
                                 <configuration>
                                     <arguments>
+                                        <argument>--classpathDir</argument>
+                                        <argument>${project.build.outputDirectory}</argument>
                                         <argument>--output</argument>
                                         <argument>${optimized.resources.directory}/Packed/</argument>
                                         <argument>--prefix</argument>
@@ -465,6 +473,8 @@
                                 </goals>
                                 <configuration>
                                     <arguments>
+                                        <argument>--classpathDir</argument>
+                                        <argument>${project.build.outputDirectory}</argument>
                                         <argument>--output</argument>
                                         <argument>${optimized.resources.directory}/PackedCompressed/</argument>
                                         <argument>--prefix</argument>
@@ -494,6 +504,8 @@
                                 </goals>
                                 <configuration>
                                     <arguments>
+                                        <argument>--classpathDir</argument>
+                                        <argument>${project.build.outputDirectory}</argument>
                                         <argument>--output</argument>
                                         <argument>${optimized.resources.directory}/PackedCompressed/</argument>
                                         <argument>--prefix</argument>
