@@ -1,0 +1,4 @@
+language: java
+jdk: oraclejdk7
+install: mvn clean install -B --quiet -DskipTests=true -s /home/travis/build/lfryc/richfaces5/buildhive-settings.xml
+script: mvn clean verify -Dintegration=jbossas71 -Dsmoke -s /home/travis/build/lfryc/richfaces5/buildhive-settings.xml -Darquillian.maven.settings=/home/travis/build/lfryc/richfaces5/buildhive-settings.xml
