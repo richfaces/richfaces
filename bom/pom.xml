@@ -30,8 +30,7 @@
     <name>RichFaces BOM</name>
 
     <description>
-        The RichFaces "Bill of Materials". This defines all runtime dependency
-        versions for RichFaces.
+        The RichFaces "Bill of Materials". This defines the optional cache dependency versions for RichFaces.
     </description>
 
     <url>http://richfaces.org</url>
@@ -56,11 +55,6 @@
     </issueManagement>
 
     <properties>
-        <version.google-guava>13.0.1</version.google-guava>
-
-        <version.atmosphere>1.0.10</version.atmosphere>
-
-        <version.cssparser>0.9.5</version.cssparser>
         <version.oscache>2.3</version.oscache>
         <version.jbosscache>3.2.5.GA</version.jbosscache>
         <version.ehcache>1.6.0</version.ehcache>
@@ -86,20 +80,6 @@
                 <version>5.0.0-SNAPSHOT</version>
             </dependency>
 
-            <!-- Project Versions -->
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${version.google-guava}</version>
-            </dependency>
-
-            <!-- Required for EL-CSS func -->
-            <dependency>
-                <groupId>net.sourceforge.cssparser</groupId>
-                <artifactId>cssparser</artifactId>
-                <version>${version.cssparser}</version>
-            </dependency>
-
             <!-- Optional cache dependencies -->
             <dependency>
                 <groupId>opensymphony</groupId>
@@ -116,44 +96,8 @@
                 <artifactId>ehcache</artifactId>
                 <version>${version.ehcache}</version>
             </dependency>
-
-            <!-- Push dependencies -->
-            <dependency>
-                <groupId>org.atmosphere</groupId>
-                <artifactId>atmosphere-runtime</artifactId>
-                <version>${version.atmosphere}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.3.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.5</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.4.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <localCheckout>true</localCheckout>
-                    <pushChanges>false</pushChanges>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <scm>
         <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>

@@ -62,6 +62,10 @@
         <version.cdk>4.5.0-SNAPSHOT</version.cdk>
         <version.jboss-javaee>3.0.1.Final</version.jboss-javaee>
 
+        <!-- Project Versions -->
+        <version.google-guava>13.0.1</version.google-guava>
+        <version.cssparser>0.9.5</version.cssparser>
+
         <!-- JSF Implementations Versions-->
         <version.javax.faces-api>2.1</version.javax.faces-api>
         <version.com.sun.faces.jsf-api>2.1.0</version.com.sun.faces.jsf-api>
@@ -69,7 +73,10 @@
         <version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>2.0.7.Final</version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>
         <version.org.jboss.javax.faces.jsf-impl>2.1.19-jbossorg-1</version.org.jboss.javax.faces.jsf-impl>
         <version.myfaces>2.1.10</version.myfaces>
-        
+
+        <!-- Push Dependencies -->
+        <version.atmosphere>1.0.10</version.atmosphere>
+
         <!-- Example Dependecy Libraries Versions -->
         <version.slf4j>1.6.1</version.slf4j>
         <version.hsqldb>2.0.0</version.hsqldb>
@@ -140,6 +147,18 @@
                 <artifactId>jboss-javaee-web-6.0</artifactId>
                 <version>${version.jboss-javaee}</version>
                 <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${version.google-guava}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.cssparser</groupId>
+                <artifactId>cssparser</artifactId>
+                <version>${version.cssparser}</version>
             </dependency>
 
             <dependency>
@@ -334,7 +353,14 @@
                 <artifactId>myfaces-impl</artifactId>
                 <version>${version.myfaces}</version>
             </dependency>
-            
+
+            <!-- Push dependencies -->
+            <dependency>
+                <groupId>org.atmosphere</groupId>
+                <artifactId>atmosphere-runtime</artifactId>
+                <version>${version.atmosphere}</version>
+            </dependency>
+
             <!-- Example Dependecy Libraries Versions -->
             <dependency>
                 <groupId>org.slf4j</groupId>

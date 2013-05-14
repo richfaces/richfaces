@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
   JBoss, Home of Professional Open Source
   Copyright 2013, Red Hat, Inc. and individual contributors
@@ -21,74 +20,54 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
         <version>5.0.0-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.richfaces.examples</groupId>
-    <artifactId>push-demo</artifactId>
-    <name>RichFaces Example: Push Demo</name>
-    <packaging>war</packaging>
+    <groupId>org.richfaces</groupId>
+    <artifactId>push-depchain</artifactId>
+    <packaging>pom</packaging>
+    <version>5.0.0-SNAPSHOT</version>
+    <name>RichFaces Push Depchain</name>
+
+    <description>
+        Single-POM Definition to export the RichFaces push required dependencies in with the proper version
+    </description>
 
     <properties>
-        <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
+        <maven.min.version>3.0</maven.min.version>
     </properties>
 
+    <!-- Runtime dependency management -->
     <dependencyManagement>
         <dependencies>
-            <!-- RichFaces BOM Import -->
             <dependency>
                 <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-build</artifactId>
+                <artifactId>richfaces-build-resources</artifactId>
                 <version>${version.richfaces}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-runtime</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-web-6.0</artifactId>
+            <artifactId>jboss-javaee-6.0</artifactId>
             <type>pom</type>
-            <scope>provided</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.richfaces.examples</groupId>
-            <artifactId>template</artifactId>
-            <type>war</type>
-        </dependency>
-
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
-            <version>${version.richfaces}</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.richfaces</groupId>
-            <artifactId>richfaces-push</artifactId>
-            <version>${version.richfaces}</version>
-            <type>pom</type>
-        </dependency>
-
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>
