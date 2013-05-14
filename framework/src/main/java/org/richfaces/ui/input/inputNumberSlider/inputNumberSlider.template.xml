@@ -31,8 +31,8 @@
         <cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
         <cdk:resource-dependency name="jquery.position.js" />
         <cdk:resource-dependency library="org.richfaces" name="jquery.mousewheel.js" />
-        <cdk:resource-dependency library="org.richfaces" name="inputNumberSlider.js" />
-        <cdk:resource-dependency library="org.richfaces" name="inputNumberSlider.ecss" />
+        <cdk:resource-dependency library="org.richfaces/input/inputNumberSlider" name="inputNumberSlider.js" />
+        <cdk:resource-dependency library="org.richfaces/input/inputNumberSlider" name="inputNumberSlider.ecss" />
     </cc:interface>
     <cc:implementation>
         <span id="#{clientId}" class="rf-insl#{isBarStyleHandle(component)?' rf-insl-bar':''} #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">

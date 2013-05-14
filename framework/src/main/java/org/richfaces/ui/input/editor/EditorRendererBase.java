@@ -34,7 +34,7 @@ import org.richfaces.ui.input.InputRendererBase;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"), @ResourceDependency(name = "richfaces-utils.js"),
-        @ResourceDependency(library = "org.richfaces", name = "editor.js"),
+        @ResourceDependency(library = "org.richfaces/editor", name = "editor.js"),
         @ResourceDependency(library = "org.richfaces.ckeditor", name = "ckeditor.js", target = "body") })
 public class EditorRendererBase extends InputRendererBase {
 

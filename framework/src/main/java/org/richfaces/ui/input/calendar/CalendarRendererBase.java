@@ -69,9 +69,9 @@ import java.util.TimeZone;
         @ResourceDependency(library = "org.richfaces", name = "jquery.effects.core.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.effects.highlight.js"),
         @ResourceDependency(library = "org.richfaces", name = "JQuerySpinBtn.js"),
-        @ResourceDependency(library = "org.richfaces", name = "calendar-utils.js"),
-        @ResourceDependency(library = "org.richfaces", name = "calendar.js"),
-        @ResourceDependency(library = "org.richfaces", name = "calendar.ecss") })
+        @ResourceDependency(library = "org.richfaces/input/calendar", name = "calendar-utils.js"),
+        @ResourceDependency(library = "org.richfaces/input/calendar", name = "calendar.js"),
+        @ResourceDependency(library = "org.richfaces/input/calendar", name = "calendar.ecss") })
 public class CalendarRendererBase extends InputRendererBase implements MetaComponentRenderer {
     public static final String CALENDAR_BUNDLE = "org.richfaces.renderkit.calendar";
     public static final String OPTION_DISABLED = "disabled";
