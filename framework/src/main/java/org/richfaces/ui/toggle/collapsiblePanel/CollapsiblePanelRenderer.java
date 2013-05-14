@@ -50,12 +50,12 @@ import static org.richfaces.ui.common.HtmlConstants.STYLE_ATTRIBUTE;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
-        @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
-        @ResourceDependency(library = "org.richfaces", name = "collapsiblePanel.js"),
-        @ResourceDependency(library = "org.richfaces", name = "collapsiblePanelItem.js"),
-        @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
-        @ResourceDependency(library = "org.richfaces", name = "collapsiblePanel.ecss") })
+        @ResourceDependency(library = "org.richfaces/toggle/togglePanel", name = "togglePanel.js"),
+        @ResourceDependency(library = "org.richfaces/toggle/togglePanel", name = "togglePanelItem.js"),
+        @ResourceDependency(library = "org.richfaces/toggle/collapsible", name = "collapsiblePanel.js"),
+        @ResourceDependency(library = "org.richfaces/toggle/collapsible", name = "collapsiblePanelItem.js"),
+        @ResourceDependency(library = "org.richfaces/toggle", name = "icons.ecss"),
+        @ResourceDependency(library = "org.richfaces/toggle/collapsible", name = "collapsiblePanel.ecss") })
 @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer", family = AbstractCollapsiblePanel.COMPONENT_FAMILY)
 public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     public static final String SWITCH = "switch";

@@ -38,10 +38,10 @@ import java.util.Map;
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
-        @ResourceDependency(library = "org.richfaces", name = "accordion.js"),
-        @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
-        @ResourceDependency(library = "org.richfaces", name = "accordion.ecss") })
+        @ResourceDependency(library = "org.richfaces/toggle/togglePanel", name = "togglePanel.js"),
+        @ResourceDependency(library = "org.richfaces/toggle/accordion", name = "accordion.js"),
+        @ResourceDependency(library = "org.richfaces/toggle", name = "icons.ecss"),
+        @ResourceDependency(library = "org.richfaces/toggle/accordion", name = "accordion.ecss") })
 @JsfRenderer(type = "org.richfaces.AccordionRenderer", family = AbstractAccordion.COMPONENT_FAMILY)
 public class AccordionRenderer extends TogglePanelRenderer {
     @Override
