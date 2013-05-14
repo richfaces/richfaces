@@ -25,6 +25,11 @@ package org.richfaces.deployment;
 import java.io.File;
 
 import org.jboss.arquillian.container.test.spi.RemoteLoadableExtension;
+import org.jboss.shrinkwrap.api.Filters;
+import org.jboss.shrinkwrap.api.GenericArchive;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.richfaces.cache.Cache;
 import org.richfaces.configuration.ConfigurationService;
 import org.richfaces.context.AjaxDataSerializer;
@@ -44,7 +49,21 @@ import org.richfaces.wait.Condition;
 import org.richfaces.wait.Wait;
 import org.richfaces.wait.WaitTimeoutException;
 
+import com.google.common.base.Supplier;
+import com.google.common.base.Suppliers;
+
 public class FrameworkDeployment extends Deployment {
+
+    private static Supplier<JavaArchive> RICHFACES_JAR = Suppliers.memoize(new Supplier<JavaArchive>() {
+        @Override
+        public JavaArchive get() {
+            JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces.jar");
+            jar.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
+                    .importDirectory("target/classes/").as(GenericArchive.class),
+                    "/", Filters.includeAll());
+            return jar;
+        }
+    });
 
     public FrameworkDeployment(Class<?> testClass) {
         super(testClass);
@@ -58,12 +77,7 @@ public class FrameworkDeployment extends Deployment {
     }
 
     public void withWholeFramework() {
-        File richfacesJar = new File("target/richfaces.jar");
-        if (!richfacesJar.exists()) {
-            throw new IllegalStateException("The built library '" + richfacesJar.getPath()
-                    + "' doesn't exist; be sure to run 'mvn package' before running framework tests");
-        }
-        archive().addAsLibrary(richfacesJar);
+        archive().addAsLibrary(RICHFACES_JAR.get());
     }
 
     /**
