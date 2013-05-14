@@ -1,4 +1,20 @@
-# Extracted from Ubuntu distribution: http://packages.ubuntu.com/lucid/mime-support (mime-support (3.48-1ubuntu1))
+###############################################################################
+#
+# This file was extracted from Ubuntu distribution:
+# http://packages.ubuntu.com/lucid/mime-support (mime-support (3.48-1ubuntu1))
+#
+# Follows an original copyright for a mime-support package:
+# 
+# `This is the Debian Linux "Mime-Support" package.
+#
+# This package was written by Brian White <bcwhite@pobox.com> and contains
+# public information compiled from around the 'net and many people.
+#
+# The "update-mime" program was written by Brian White and has been
+# placed in the public domain.`
+#
+# You can find the original copyright online at:
+# http://changelogs.ubuntu.com/changelogs/pool/main/m/mime-support/mime-support_3.48-1ubuntu1/mime-support.copyright
 #
 ###############################################################################
 #
