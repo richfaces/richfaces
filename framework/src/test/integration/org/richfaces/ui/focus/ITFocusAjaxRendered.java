@@ -73,7 +73,7 @@ public class ITFocusAjaxRendered {
     }
 
     @Test
-    public void when_there_are_inputs_with_tabindex_then_the_lowest_tabindex_will_obtain_focus() {
+    public void when_the_focus_is_not_ajaxRendered_then_no_element_should_have_focus_after_ajax() {
         browser.get(contextPath.toExternalForm());
         assertEquals(input1, FocusRetriever.retrieveActiveElement());
 

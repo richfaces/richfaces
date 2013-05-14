@@ -22,26 +22,31 @@
 
 package org.richfaces.ui.misc.focus;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Predicate;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterators;
-
-import org.richfaces.util.RendererUtils;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
-import java.util.Iterator;
-import java.util.Map;
+import org.richfaces.util.RendererUtils;
+
+import com.google.common.base.Joiner;
+import com.google.common.base.Predicate;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Iterators;
 
 public abstract class AbstractFocusRenderStrategy implements FocusRenderStrategy {
 
     protected final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     protected String getFocusCandidatesAsString(FacesContext context, AbstractFocus component, UIForm form) {
+
+        if (!component.isAjaxRendered() && context.getPartialViewContext().isAjaxRequest()) {
+            return "";
+        }
+
         String[] focusCandidates = getFocusCandidates(context, component, form);
 
         if (focusCandidates.length == 0) {
