@@ -47,7 +47,7 @@ public enum ResourceLoadingOptimization {
 
     private static final String STATIC_RESOURCES_FEATURE_NAME = "Static";
     private static final String FEATURES_PLACEHOLDER = "%Features%";
-    private static final String DEFAULT_FEATURE_MAPPING_FILE = "META-INF/richfaces/staticResourceMapping/%Features%.properties";
+    private static final String DEFAULT_FEATURE_MAPPING_FILE = "META-INF/richfaces/optimizedResourcesMapping/%Features%.properties";
 
     private CoreConfiguration.Items associatedConfiguration;
 

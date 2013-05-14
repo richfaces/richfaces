@@ -44,10 +44,10 @@ import org.junit.runner.RunWith;
 public class ResourceMappingFeatureMappingTest extends AbstractResourceMappingTest {
 
     private static final String DEFAULT = ResourceMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION;
-    private static final String STATIC = "META-INF/richfaces/staticResourceMapping/Static.properties";
-    private static final String PACKED = "META-INF/richfaces/staticResourceMapping/Packed.properties";
-    private static final String COMPRESSED = "META-INF/richfaces/staticResourceMapping/Compressed.properties";
-    private static final String PACKED_COMPRESSED = "META-INF/richfaces/staticResourceMapping/PackedCompressed.properties";
+    private static final String STATIC = "META-INF/richfaces/optimizedResourcesMapping/Static.properties";
+    private static final String PACKED = "META-INF/richfaces/optimizedResourcesMapping/Packed.properties";
+    private static final String COMPRESSED = "META-INF/richfaces/optimizedResourcesMapping/Compressed.properties";
+    private static final String PACKED_COMPRESSED = "META-INF/richfaces/optimizedResourcesMapping/PackedCompressed.properties";
 
     @Test
     public void testDefaultMappingFilesWhenResourceLoadingOptimizationDisabled() {

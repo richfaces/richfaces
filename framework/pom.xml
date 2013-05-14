@@ -42,9 +42,10 @@
     <properties>
         <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
         
-        <optimized.resources.directory>${project.build.outputDirectory}/META-INF/resources/org.richfaces.staticResource/${version.richfaces}</optimized.resources.directory>
-        <optimized.resources.prefix>org.richfaces.staticResource/${version.richfaces}</optimized.resources.prefix>
-        <optimized.resources.mapping>${project.build.outputDirectory}/META-INF/richfaces/staticResourceMapping</optimized.resources.mapping>
+        <optimized.resources.directory>${project.build.outputDirectory}/META-INF/resources/org.richfaces.optimized/${version.richfaces}</optimized.resources.directory>
+        <optimized.resources.prefix>org.richfaces.optimized/${version.richfaces}</optimized.resources.prefix>
+        <optimized.resources.mapping>${project.build.outputDirectory}/META-INF/richfaces/optimizedResourcesMapping</optimized.resources.mapping>
+        <optimized.resources.skins>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</optimized.resources.skins>
     </properties>
 
     <dependencies>
@@ -371,7 +372,7 @@
                                         <argument>--mapping</argument>
                                         <argument>${optimized.resources.mapping}/Static.properties</argument>
                                         <argument>--skins</argument>
-                                        <argument>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</argument>
+                                        <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^javax.faces</argument>
                                         <argument>--excludeFile</argument>
@@ -399,7 +400,7 @@
                                         <argument>--mapping</argument>
                                         <argument>${optimized.resources.mapping}/Compressed.properties</argument>
                                         <argument>--skins</argument>
-                                        <argument>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</argument>
+                                        <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^javax.faces</argument>
                                         <argument>--excludeFile</argument>
@@ -428,7 +429,7 @@
                                         <argument>--mapping</argument>
                                         <argument>${optimized.resources.mapping}/Packed.properties</argument>
                                         <argument>--skins</argument>
-                                        <argument>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</argument>
+                                        <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^javax.faces</argument>
                                         <argument>--excludeFile</argument>
@@ -458,7 +459,7 @@
                                         <argument>--mapping</argument>
                                         <argument>${optimized.resources.mapping}/Packed.properties</argument>
                                         <argument>--skins</argument>
-                                        <argument>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</argument>
+                                        <argument>${optimized.resources.skins}</argument>
                                         <argument>--includeFile</argument>
                                         <argument>^jquery.js$</argument>
                                     </arguments>
@@ -482,7 +483,7 @@
                                         <argument>--mapping</argument>
                                         <argument>${optimized.resources.mapping}/PackedCompressed.properties</argument>
                                         <argument>--skins</argument>
-                                        <argument>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</argument>
+                                        <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^javax.faces</argument>
                                         <argument>--excludeFile</argument>

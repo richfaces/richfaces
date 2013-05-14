@@ -140,7 +140,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
                     expectedResource.getLibraryName(), null);
 
             assertNotNull(
-                    "resource is present: " + expectedResource.getLibraryName() + ":" + expectedResource.getResourceName(),
+                    "resource is not present: " + expectedResource.getLibraryName() + ":" + expectedResource.getResourceName(),
                     resource);
             assertEquals(expectedResource.getLibraryName(), resource.getLibraryName());
             assertEquals(expectedResource.getResourceName(), resource.getResourceName());
