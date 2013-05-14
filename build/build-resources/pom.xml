@@ -122,6 +122,18 @@
                             </descriptors>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>package-configuration-jbass71</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly-configuration-jbossas71.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>

@@ -54,6 +54,8 @@
         <jbas7.manifest.dependencies>org.slf4j,org.jboss.as.controller-client,org.jboss.as.protocol,org.jboss.dmr,org.jboss.logging,org.jboss.marshalling,org.jboss.marshalling.river,org.jboss.remoting3,org.jboss.threads</jbas7.manifest.dependencies>
         <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/guava*,WEB-INF/lib/jsr305*</jbas71.excluded.libraries>
         <jbas71.manifest.dependencies>com.google.guava,${jbas7.manifest.dependencies}</jbas71.manifest.dependencies>
+<!--         <version.graphene>2.0.0.Alpha4</version.graphene> -->
+        <arquillian.container.jbossas71.server.config>standalone-full.xml</arquillian.container.jbossas71.server.config>
     </properties>
 
     <dependencyManagement>
@@ -105,18 +107,24 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <scope>${dependency.scope}</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <scope>${dependency.scope}</scope>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <!-- API and Impl bundled in weld-servlet -->
-            <scope>provided</scope>
-        </dependency>
+<!--         <dependency> -->
+<!--             <groupId>org.slf4j</groupId> -->
+<!--             <artifactId>slf4j-api</artifactId> -->
+<!--             API and Impl bundled in weld-servlet -->
+<!--             <scope>provided</scope> -->
+<!--         </dependency> -->
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
@@ -137,12 +145,18 @@
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces-push-depchain</artifactId>
             <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-        <groupId>org.jboss.spec.javax.jms</groupId>
-        <artifactId>jboss-jms-api_1.1_spec</artifactId>
+            <groupId>org.jboss.spec.javax.jms</groupId>
+            <artifactId>jboss-jms-api_1.1_spec</artifactId>
             <scope>${dependency.scope}</scope>
-      </dependency>
+        </dependency>
         <dependency>
             <groupId>org.hornetq</groupId>
             <artifactId>hornetq-core</artifactId>
@@ -200,6 +214,32 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
         </dependency>
+        
+        <!-- Test dependencies -->
+        <!-- Page Fragments Implementations -->
+        <dependency>
+            <groupId>org.richfaces.tests</groupId>
+            <artifactId>richfaces-page-fragments</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.arquillian.graphene</groupId>
+                    <artifactId>graphene-webdriver-spi</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.arquillian.graphene</groupId>
+                    <artifactId>graphene-webdriver-impl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- XHRHalter support -->
+        <dependency>
+            <groupId>org.richfaces.tests</groupId>
+            <artifactId>xhrhalter</artifactId>
+            <scope>test</scope>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -241,6 +281,14 @@
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                     </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemProperties>
+                        <showcase.war.path>${project.build.directory}/${project.build.finalName}-${container.classifier}.war</showcase.war.path>
+                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>

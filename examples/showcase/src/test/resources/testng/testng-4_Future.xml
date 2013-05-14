@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="seleniumTest">
+
+    <test name="All Components">
+        <groups>
+            <run>
+                <include name="arquillian" />
+                <include name="4.Future" />
+            </run>
+        </groups>
+
+        <packages>
+            <package name="org.richfaces.tests.showcase.*" />
+        </packages>
+    </test>
+</suite>
