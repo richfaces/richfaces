@@ -677,6 +677,12 @@
         </profile>
         <profile>
             <id>jbossas-remote-7-1</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>jbossas71-remote</value>
+                </property>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
@@ -716,6 +722,12 @@
         </profile>
         <profile>
             <id>jbosseap-remote-6-1</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>jbosseap61-remote</value>
+                </property>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
@@ -758,7 +770,7 @@
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>tomee15</value>
+                    <value>tomee15-remote</value>
                 </property>
             </activation>
             <properties>
@@ -796,6 +808,12 @@
         </profile>
         <profile>
             <id>glassfish-remote-3-1</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>glassfish31-remote</value>
+                </property>
+            </activation>
             <properties>
                 <arquillian.launch.glassfish31>true</arquillian.launch.glassfish31>
             </properties>
@@ -809,6 +827,12 @@
         </profile>
         <profile>
             <id>tomcat-remote-6</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomcat6-remote</value>
+                </property>
+            </activation>
             <properties>
                 <arquillian.launch.tomcat6>true</arquillian.launch.tomcat6>
                 <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
@@ -880,8 +904,6 @@
                 <testCategory.included.default>category.Smoke</testCategory.included.default>
             </properties>
         </profile>
-        
-        
 
         <profile>
             <id>release-preparation</id>

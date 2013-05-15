@@ -38,8 +38,11 @@ Running particular framework test (on Chrome) from console:
     
     // console 3: run a test
     cd richfaces5/framework/
-    mvn verify -Pintegration-tests -Pjbossas-remote-7-1 -Dbrowser=chrome -Dreusable -DskipTests=true -Dtest=IT_RF12765
+    mvn verify -Dintegration=jbossas71-remote -Dbrowser=chrome -Dreusable -DskipTests=true -Dtest=IT_RF12765
 
+You can also add following parameters to skip CDK build and/or Resource Optimization:
+
+    -Dgeneration.skip -Doptimization.skip
 
 Framework Tests Overview
 ========================
@@ -129,7 +132,7 @@ To switch the browser used in test execution, you can use the following Maven pr
 
     -Dbrowser=chrome
 
-By default, tests will use `phantomjs`.
+By default, tests will use headless browser `phantomjs`.
 
 
 Using reusable Selenium session
@@ -259,6 +262,8 @@ You can specify an URL that a container distribution should be downloaded from u
 
     -Darquillian.container.distribution=file:///tmp/jboss-as-dist-7.1.1.Final.zip
 
+or
+
     -Darquillian.container.distribution=http://some.repository/jboss-as-dist-7.1.1.Final.zip
 
 
@@ -284,22 +289,34 @@ then run the test from the IDE (eg. in Eclipse: `Run As > JUnit Test`).
 ### JBoss AS 7.1 - Remote
 
 Start: `[jboss-as-7.1.1.Final]$ ./bin/standalone.sh`
+
 Profile: `jbossas-remote-7-1`
+
+    mvn verify -Dintegration=jbossas71-remote
 
 ### JBoss EAP 6.1 - Remote
 
 Start: `[jboss-eap-6.1]$ ./bin/standalone.sh`
+
 Profile: `jbosseap-remote-6-1`
+
+    mvn verify -Dintegration=jbosseap61-remote
 
 ### GlassFish 3.1 - Remote
 
 Start: `[glassfish3]$ ./glassfish/bin/startserv`
+
 Profile: `glassfish-remote-3-1`
+
+    mvn verify -Dintegration=glassfish31-remote
 
 ### TomEE 1.5 - Remote
 
 Start: `[apache-tomee-webprofile-1.5.1]$ ./bin/tomee.sh start`
-Profile: `tomee-1-5`
+
+Profile: `tomee-remote-1-5`
+
+    mvn verify -Dintegration=tomee15-remote
 
 ### Tomcat 6 - Remote
 
@@ -325,7 +342,10 @@ Start the container:
 
 
 Start: `[apache-tomcat-6.0.33]$ ./bin/catalina.run.sh`
+
 Profile: `tomcat-remote-6`
+
+    mvn verify -Dintegration=tomcat6-remote
 
 
 Reusing Test Infrastructure Setup
