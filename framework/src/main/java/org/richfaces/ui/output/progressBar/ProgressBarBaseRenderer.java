@@ -59,8 +59,8 @@ import org.richfaces.util.AjaxRendererUtils;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "progressBar.js"),
-        @ResourceDependency(library = "org.richfaces", name = "progressBar.ecss") })
+        @ResourceDependency(library = "org.richfaces/output/popupPanel", name = "progressBar.js"),
+        @ResourceDependency(library = "org.richfaces/output/popupPanel", name = "progressBar.ecss") })
 public class ProgressBarBaseRenderer extends RendererBase implements MetaComponentRenderer {
     private static final JSReference BEFORE_UPDATE_HANDLER = new JSReference("beforeUpdateHandler");
     private static final JSReference AFTER_UPDATE_HANDLER = new JSReference("afterUpdateHandler");
