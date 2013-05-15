@@ -55,10 +55,10 @@ import java.util.List;
         @ResourceDependency(name = "richfaces-utils.js"), @ResourceDependency(name = "richfaces-selection.js"),
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
-        @ResourceDependency(library = "org.richfaces", name = "list.js"),
-        @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
-        @ResourceDependency(library = "org.richfaces", name = "select.js"),
-        @ResourceDependency(library = "org.richfaces", name = "select.ecss") })
+        @ResourceDependency(library = "org.richfaces/select", name = "list.js"),
+        @ResourceDependency(library = "org.richfaces/select", name = "popupList.js"),
+        @ResourceDependency(library = "org.richfaces/select/select", name = "select.js"),
+        @ResourceDependency(library = "org.richfaces/select/select", name = "select.ecss") })
 public class SelectRendererBase extends InputRendererBase {
     public static final String ITEM_CSS = "rf-sel-opt";
 

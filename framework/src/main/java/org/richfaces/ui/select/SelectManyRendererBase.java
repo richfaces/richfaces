@@ -47,9 +47,9 @@ import java.util.Map;
         @ResourceDependency(name = "richfaces-utils.js"), @ResourceDependency(name = "richfaces-selection.js"),
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
-        @ResourceDependency(library = "org.richfaces", name = "list.js"),
-        @ResourceDependency(library = "org.richfaces", name = "listMulti.js"),
-        @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
+        @ResourceDependency(library = "org.richfaces/select", name = "list.js"),
+        @ResourceDependency(library = "org.richfaces/select", name = "listMulti.js"),
+        @ResourceDependency(library = "org.richfaces/select", name = "popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "pickList.js"),
         @ResourceDependency(library = "org.richfaces", name = "pickList.ecss")})
 public class SelectManyRendererBase extends InputRendererBase {
