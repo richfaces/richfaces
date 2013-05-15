@@ -46,26 +46,26 @@ public class ITPlaceholderCalendar extends AbstractPlaceholderTest {
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
 
         FaceletAsset p;
-        p = deployment.baseFacelet("index.xhtml");
+        p = placeholderFacelet("index.xhtml", deployment);
         p.body("<r:calendar id='input' enableManualInput='true' datePattern='MMM d, yyyy' timezone='UTC' >");
         p.body("    <r:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
         p.body("</r:calendar>");
 
-        p = deployment.baseFacelet("selector.xhtml");
+        p = placeholderFacelet("selector.xhtml", deployment);
         p.body("<r:calendar id='input' />");
         p.body("<r:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
 
-        p = deployment.baseFacelet("rendered.xhtml");
+        p = placeholderFacelet("rendered.xhtml", deployment);
         p.body("<r:calendar id='input' >");
         p.body("    <r:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
         p.body("</r:calendar>");
 
-        p = deployment.baseFacelet("converter.xhtml");
+        p = placeholderFacelet("converter.xhtml", deployment);
         p.body("<r:calendar id='input' >");
         p.body("    <r:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
         p.body("</r:calendar>");
 
-        p = deployment.baseFacelet("submit.xhtml");
+        p = placeholderFacelet("submit.xhtml", deployment);
         p.form("<r:calendar id='input' value='#{placeHolderValue.value3}' enableManualInput='true' datePattern='MMM d, yyyy' timeZone='#{placeHolderValue.timeZone}' >");
         p.form("    <r:placeholder id='placeholderID' value='Placeholder Text' />");
         p.form("</r:calendar>");

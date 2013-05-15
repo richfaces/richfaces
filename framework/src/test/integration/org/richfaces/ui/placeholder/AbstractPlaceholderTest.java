@@ -25,6 +25,7 @@ import static org.jboss.arquillian.graphene.Graphene.element;
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.jboss.arquillian.graphene.Graphene.waitModel;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -46,6 +47,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.arquillian.page.source.SourceChecker;
+import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.utils.ColorUtils;
 
 import category.Smoke;
@@ -100,6 +103,13 @@ public abstract class AbstractPlaceholderTest {
 
     protected String getTestedValueResponse() {
         return TESTED_VALUE;
+    }
+
+    protected static FaceletAsset placeholderFacelet(String name, FrameworkDeployment deployment) {
+        FaceletAsset p;
+        p = deployment.baseFacelet(name);
+        p.head("<style> input, textarea { color: #000; } </style>");
+        return p;
     }
 
     @Test
@@ -284,6 +294,7 @@ public abstract class AbstractPlaceholderTest {
 
         public void setTestedValue(String value) {
             input.click();
+            waitGui().until().element(input).text().equalTo("");
             input.sendKeys(value);
         }
 
