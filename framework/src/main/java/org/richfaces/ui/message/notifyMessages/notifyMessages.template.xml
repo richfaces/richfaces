@@ -30,7 +30,7 @@
         <cdk:renderer-type>org.richfaces.NotifyMessagesRenderer</cdk:renderer-type>
         <cdk:import package="org.richfaces.ui.message" names="NotifyRendererUtils.addStackIdOption" static="true" />
         <cdk:resource-dependency library="org.richfaces" name="notifyMessage.reslib" />
-        <cdk:resource-dependency library="org.richfaces" name="notify.ecss" />
+        <cdk:resource-dependency library="org.richfaces/message/notify" name="notify.ecss" />
     </cc:interface>
     <cc:implementation>
         <span id="#{clientId}" class="rf-ntf-msgs #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
