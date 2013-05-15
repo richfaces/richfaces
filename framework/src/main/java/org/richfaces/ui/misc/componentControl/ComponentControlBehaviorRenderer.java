@@ -53,7 +53,7 @@ import java.util.regex.Pattern;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "component-control.js") })
+        @ResourceDependency(library = "org.richfaces/misc/componentControl", name = "component-control.js") })
 public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
     /**
      *

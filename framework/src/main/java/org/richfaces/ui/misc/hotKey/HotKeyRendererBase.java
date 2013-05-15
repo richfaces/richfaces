@@ -36,7 +36,7 @@ import javax.faces.render.Renderer;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.hotkeys.js"),
-        @ResourceDependency(library = "org.richfaces", name = "hotkey.js") })
+        @ResourceDependency(library = "org.richfaces/misc/hotKey", name = "hotkey.js") })
 public abstract class HotKeyRendererBase extends Renderer {
 
     protected String getEscapedSelector(FacesContext context, UIComponent component) {
