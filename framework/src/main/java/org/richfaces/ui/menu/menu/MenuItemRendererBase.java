@@ -32,7 +32,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
-@ResourceDependencies(@ResourceDependency(library = "org.richfaces", name = "dropdownmenu.ecss", target = "head"))
+@ResourceDependencies(@ResourceDependency(library = "org.richfaces/menu/dropDownMenu", name = "dropdownmenu.ecss", target = "head"))
 public class MenuItemRendererBase extends AjaxCommandRendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.MenuItemRenderer";
 
