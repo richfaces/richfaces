@@ -111,10 +111,4 @@ public class ITPlaceholderSelect extends AbstractPlaceholderTest {
     @Category(Failing.class)
     public void testAjaxSendsEmptyValue() {
     }
-
-    @Override
-    public void testDefaultAttributes() {
-        // TODO Auto-generated method stub
-        super.testDefaultAttributes();
-    }
 }

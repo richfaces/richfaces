@@ -53,6 +53,7 @@ import category.Smoke;
 
 @RunWith(Arquillian.class)
 @WarpTest
+@RunAsClient
 @Category(Smoke.class)
 public class ITResourceMapping {
 
@@ -108,7 +109,6 @@ public class ITResourceMapping {
     }
 
     @Test
-    @RunAsClient
     public void test_stylesheet_resource_relocation() {
 
         driver.navigate().to(contextPath + "relocation.jsf");
@@ -120,7 +120,6 @@ public class ITResourceMapping {
     }
 
     @Test
-    @RunAsClient
     public void test_stylesheet_resource_aggregation() {
 
         driver.navigate().to(contextPath + "aggregation.jsf");
@@ -136,7 +135,6 @@ public class ITResourceMapping {
     }
 
     @Test
-    @RunAsClient
     public void test_javascript_resource_aggregation() {
 
         driver.navigate().to(contextPath + "javaScriptAggregation.jsf");

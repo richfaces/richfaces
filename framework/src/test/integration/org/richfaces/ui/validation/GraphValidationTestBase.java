@@ -33,7 +33,7 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
 
-public class GraphValidationTestBase extends ValidationTestBase {
+public abstract class GraphValidationTestBase extends ValidationTestBase {
 
     @FindBy(id = "form:submit")
     private WebElement element;

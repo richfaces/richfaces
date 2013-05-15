@@ -24,6 +24,7 @@ package org.richfaces.ui.select;
 
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitGui;
+import static org.richfaces.arquillian.browser.Browser.FIREFOX;
 
 import java.net.URL;
 
@@ -76,7 +77,7 @@ public class ITSelectKeyboardSelection {
     }
 
     @Test
-    public void test() {
+    public void test_selection_by_keyboard() {
         browser.get(contextPath.toExternalForm());
 
         selectInput.sendKeys("t");
@@ -85,7 +86,11 @@ public class ITSelectKeyboardSelection {
         keyboard.pressKey(Keys.ARROW_DOWN);
         waitAjax().until().element(tampaBayOption).attribute("class").contains("rf-sel-sel");
 
-        keyboard.pressKey(Keys.RETURN);
+        if (FIREFOX.is(browser)) {
+            keyboard.pressKey(Keys.RETURN);
+        } else {
+            keyboard.pressKey(Keys.ENTER);
+        }
         waitGui().until().element(selectInput).attribute("value").equalTo("Tampa Bay");
     }
 

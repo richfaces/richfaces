@@ -22,6 +22,10 @@
 
 package org.richfaces.integration.partialViewContext;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
+import static org.junit.Assert.assertEquals;
+
 import java.net.URL;
 
 import javax.faces.context.PartialViewContext;
@@ -29,21 +33,17 @@ import javax.faces.context.PartialViewContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.Activity;
 import org.jboss.arquillian.warp.Inspection;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.client.filter.RequestFilter;
-import org.jboss.arquillian.warp.client.filter.http.HttpRequest;
 import org.jboss.arquillian.warp.jsf.BeforePhase;
 import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -86,15 +86,11 @@ public class ITRenderAll {
         Warp
             .initiate(new Activity() {
                 public void perform() {
-                    button.click();
+                    guardAjax(button).click();
                 }
             })
             .group()
-                .observe(new RequestFilter<HttpRequest>() {
-                    public boolean matches(HttpRequest request) {
-                        return request.getUri().contains(ITRenderAll.class.getSimpleName());
-                    };
-                })
+                .observe(request().uri().contains("index"))
                 .inspect(new Inspection() {
                     private static final long serialVersionUID = 1L;
 
@@ -108,8 +104,7 @@ public class ITRenderAll {
             })
             .execute();
 
-        Graphene.waitGui().until("script should be executed").element(By.tagName("title")).text()
-            .equalTo("script executed");
+        assertEquals("title updated", "script executed", browser.getTitle());
     }
 
     private static void addIndexPage(CoreDeployment deployment) {

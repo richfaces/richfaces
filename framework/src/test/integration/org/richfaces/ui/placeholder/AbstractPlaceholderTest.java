@@ -354,6 +354,7 @@ public abstract class AbstractPlaceholderTest {
 
         @Override
         public void setTestedValue(String value) {
+            input.click();
             input.sendKeys(value);
             input.sendKeys("\n");//Enter does not work
         }
