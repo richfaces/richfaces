@@ -39,8 +39,8 @@ import javax.faces.component.UIComponentBase;
  * @author Nick Belaevski
  */
 @ResourceDependencies(value = { @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "log.js"),
-        @ResourceDependency(library = "org.richfaces", name = "log.ecss") })
+        @ResourceDependency(library = "org.richfaces/ajax", name = "log.js"),
+        @ResourceDependency(library = "org.richfaces/ajax", name = "log.ecss") })
 @JsfComponent(tag = @Tag(name = "log", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.AjaxLogRenderer"))
 public abstract class AbstractAjaxLog extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.AjaxLog";

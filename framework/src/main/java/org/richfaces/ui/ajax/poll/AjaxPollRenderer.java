@@ -48,7 +48,7 @@ import org.richfaces.util.RendererUtils;
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "poll.js") })
+        @ResourceDependency(library = "org.richfaces/ajax", name = "poll.js") })
 @JsfRenderer
 public class AjaxPollRenderer extends RendererBase {
     public static final String COMPONENT_FAMILY = "org.richfaces.Poll";
