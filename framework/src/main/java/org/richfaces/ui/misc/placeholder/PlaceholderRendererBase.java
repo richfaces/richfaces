@@ -35,7 +35,7 @@ import javax.faces.convert.Converter;
 import java.io.IOException;
 
 @ResourceDependencies({ @ResourceDependency(name = "base-component.reslib", library = "org.richfaces", target = "head"),
-        @ResourceDependency(name = "jquery.watermark.js", library = "org.richfaces", target = "head"),
+        @ResourceDependency(name = "jquery.watermark.js", library = "jquery.plugins", target = "head"),
         @ResourceDependency(name = "placeholder.js", library = "org.richfaces/misc/placeholder", target = "head"),
         @ResourceDependency(name = "placeholder.css", library = "org.richfaces/misc/placeholder") })
 public abstract class PlaceholderRendererBase extends RendererBase {

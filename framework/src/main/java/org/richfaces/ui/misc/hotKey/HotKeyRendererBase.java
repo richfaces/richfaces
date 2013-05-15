@@ -35,7 +35,7 @@ import javax.faces.render.Renderer;
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "jquery.hotkeys.js"),
+        @ResourceDependency(library = "jquery.plugins", name = "jquery.hotkeys.js"),
         @ResourceDependency(library = "org.richfaces/misc/hotKey", name = "hotkey.js") })
 public abstract class HotKeyRendererBase extends Renderer {
 

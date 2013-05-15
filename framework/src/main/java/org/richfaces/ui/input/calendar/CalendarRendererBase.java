@@ -68,7 +68,7 @@ import java.util.TimeZone;
         @ResourceDependency(name = "richfaces-event.js"), @ResourceDependency(library = "org.richfaces", name = "json-dom.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.effects.core.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.effects.highlight.js"),
-        @ResourceDependency(library = "org.richfaces", name = "JQuerySpinBtn.js"),
+        @ResourceDependency(library = "jquery.plugins", name = "JQuerySpinBtn.js"),
         @ResourceDependency(library = "org.richfaces/input/calendar", name = "calendar-utils.js"),
         @ResourceDependency(library = "org.richfaces/input/calendar", name = "calendar.js"),
         @ResourceDependency(library = "org.richfaces/input/calendar", name = "calendar.ecss") })
