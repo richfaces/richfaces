@@ -229,6 +229,10 @@ Managed Containers
 
     mvn verify -Dintegration=jbossas71
 
+### JBoss EAP 6.1 - Managed
+
+    mvn verify -Dintegration=jbosseap61
+
 ### TomEE 1.5 - Managed
 
     mvn verify -Dintegration=tomee15
@@ -244,6 +248,18 @@ Managed Containers
 ### Tomcat 7 - Managed
 
     mvn verify -Dintegration=tomcat7
+
+
+Providing container distribution
+--------------------------------
+
+By default, all managed container are configured to obtain a distribution from specified Maven artifact using `arquillian.container.distribution` property.
+
+You can specify an URL that a container distribution should be downloaded from using the same property:
+
+    -Darquillian.container.distribution=file:///tmp/jboss-as-dist-7.1.1.Final.zip
+
+    -Darquillian.container.distribution=http://some.repository/jboss-as-dist-7.1.1.Final.zip
 
 
 Remote Containers
@@ -269,6 +285,11 @@ then run the test from the IDE (eg. in Eclipse: `Run As > JUnit Test`).
 
 Start: `[jboss-as-7.1.1.Final]$ ./bin/standalone.sh`
 Profile: `jbossas-remote-7-1`
+
+### JBoss EAP 6.1 - Remote
+
+Start: `[jboss-eap-6.1]$ ./bin/standalone.sh`
+Profile: `jbosseap-remote-6-1`
 
 ### GlassFish 3.1 - Remote
 
