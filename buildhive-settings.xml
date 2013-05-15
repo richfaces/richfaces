@@ -41,6 +41,18 @@
                         <enabled>true</enabled>
                     </snapshots>
                 </repository>
+                <repository>
+                    <id>jboss-eap-earlyaccess</id>
+                    <name>JBoss EAP Early Access</name>
+                    <url>http://maven.repository.redhat.com/earlyaccess/all/</url>
+                    <layout>default</layout>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
             </repositories>
             <pluginRepositories>
                 <pluginRepository>

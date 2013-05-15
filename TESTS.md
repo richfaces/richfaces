@@ -6,6 +6,7 @@ Framework tests allow you to run a set of Arquillian-based tests using the Graph
 The supported container matrix is:
 
 * JBoss AS 7.1
+* JBoss EAP 6.1
 * TomEE 1.5
 * GlassFish 3.1
 * Tomcat 6
