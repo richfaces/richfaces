@@ -378,7 +378,7 @@
                 <inherited>false</inherited>
                 <configuration>
                     <preparationGoals>clean verify -Prelease-preparation</preparationGoals>
-                    <completionGoals>clean verify -Prelease-completion -N</completionGoals>
+                    <completionGoals>clean verify -Prelease-completion -DskipTests=true</completionGoals>
                     <arguments>-DoldVersion=${project.version} -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${developmentVersion}</arguments>
                 </configuration>
             </plugin>
