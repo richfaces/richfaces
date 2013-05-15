@@ -30,7 +30,7 @@
         <cdk:renderer-type>org.richfaces.InputNumberSpinnerRenderer</cdk:renderer-type>
         <cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
         <cdk:resource-dependency name="jquery.position.js" />
-        <cdk:resource-dependency library="org.richfaces" name="jquery.mousewheel.js" />
+        <cdk:resource-dependency library="jquery.plugins" name="jquery.mousewheel.js" />
         <cdk:resource-dependency library="org.richfaces/input/inputNumberSpinner" name="inputNumberSpinner.js" />
         <cdk:resource-dependency library="org.richfaces/input/inputNumberSpinner" name="inputNumberSpinner.ecss" />
     </cc:interface>
