@@ -20,7 +20,7 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<body>
+<span id="panel">
   <span id="placeholderID">
     <script id="placeholderIDScript" type="text/javascript">
 //<![CDATA[
@@ -28,5 +28,5 @@ new RichFaces.ui.Placeholder("placeholderID", {"targetId":"input","text":"Placeh
 //]]>
     </script>
   </span>
-  <input id="input" type="text" name="input" />
-</body>
+  <input id="input" type="text" name="input"/>
+</span>

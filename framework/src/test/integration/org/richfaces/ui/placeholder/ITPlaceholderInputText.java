@@ -51,13 +51,17 @@ public class ITPlaceholderInputText extends AbstractPlaceholderTest {
 
         FaceletAsset p;
         p = placeholderFacelet("index.xhtml", deployment);
+        p.body("<h:panelGroup id='panel'>");
         p.body("<h:inputText id='input' >");
         p.body("    <r:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
         p.body("</h:inputText>");
+        p.body("</h:panelGroup>");
 
         p = placeholderFacelet("selector.xhtml", deployment);
+        p.body("<h:panelGroup id='panel'>");
         p.body("<h:inputText id='input' />");
         p.body("<r:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
+        p.body("</h:panelGroup>");
 
         p = placeholderFacelet("rendered.xhtml", deployment);
         p.body("<h:inputText id='input' >");
@@ -89,15 +93,15 @@ public class ITPlaceholderInputText extends AbstractPlaceholderTest {
 
     @Test
     @Category(Smoke.class)
-    public void testComponentSourceWithSelector() throws Exception {
-        URL selectorUrl = URLUtils.buildUrl(contextPath, "selector.jsf?selector=input");
-        sourceChecker.checkComponentSource(selectorUrl, "placeholder-with-selector.xmlunit.xml", By.tagName("body"));
+    public void testComponentSourceWithoutSelector() throws Exception {
+        URL urL = new URL(contextPath.toExternalForm() + "index.jsf");
+        sourceChecker.checkComponentSource(urL, "placeholder-without-selector.xmlunit.xml", By.id("panel"));
     }
 
     @Test
     @Category(Smoke.class)
-    public void testComponentSourceWithoutSelector() throws Exception {
-        URL urL = new URL(contextPath.toExternalForm() + "index.jsf");
-        sourceChecker.checkComponentSource(urL, "placeholder-without-selector.xmlunit.xml", By.tagName("body"));
+    public void testComponentSourceWithSelector() throws Exception {
+        URL selectorUrl = URLUtils.buildUrl(contextPath, "selector.jsf?selector=input");
+        sourceChecker.checkComponentSource(selectorUrl, "placeholder-with-selector.xmlunit.xml", By.id("panel"));
     }
 }
