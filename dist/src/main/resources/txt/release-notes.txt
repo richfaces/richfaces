@@ -1,3 +1,95 @@
+5.0.0.Alpha1
+------------
+
+    Bug
+    [RF-12375] - iteration-demo doesn't work on TomEE - wrong persistence setup
+    [RF-12757] - build/pom.xml contains non-unique dependencies
+    [RF-12814] - Fix TestTableState.table_order_server_side test in Firefox
+    [RF-12874] - Cyclic dependencies in RF5 build
+    [RF-12908] - Distribution ZIP doesn't contain any examples
+    [RF-12911] - The release plugin doesn't change version in Java sources
+    [RF-12914] - r:jquery - can not found this function
+    [RF-12933] - rich:tooltip replace 'defaultContent' facet in docs and examples with 'loading'
+    [RF-12939] - Focus: attribute ajaxRendered does not work
+    [RF-12960] - Port the archetypes to work with RichFaces 5
+    [RF-12962] - No tag defined for name actionListener
+    [RF-12973] - Make distribution zip smaller
+
+    Component Upgrade
+    [RF-12780] - Upgrade to Mojarra 2.1.19
+    [RF-12782] - Upgrade to JBoss Parent 10
+    [RF-12787] - Upgrade ShrinkWrap to 2.0.0-beta-2
+
+    Enhancement
+    [RF-12394] - Improve Arquillian integration test build to be reusable across subprojects
+    [RF-12784] - Showcase readme - update deployment from eclipse part
+    [RF-12786] - Showcase - rewrite readme to markdown
+    [RF-12840] - Allow fundamental tests run with PhantomJS in continous integration
+    [RF-12889] - Allow to run framework tests on Buildhive
+
+    Epic
+    [RF-12439] - Re-structure the build
+    [RF-12867] - Convert the docs from docbook xml to asciidoc
+
+    Feature Request
+    [RF-12698] - Rename CDK and Resources plugins to comply conventions: maven-cdk-plugin -> richfaces-cdk-maven-plugin
+    [RF-12810] - Introduce profiles for verification of fundamental tests on Tomcat 6 and 7, TomEE 1.5 and GlassFish 3.1
+    [RF-12832] - Tomcat 6 test Deployments should define the expressionFactory
+    [RF-12880] - Move richfaces-resources-plugin to the Framework
+    [RF-12881] - CDK: prepare 4.5 version
+    [RF-12882] - Create richfaces.jar assembly of framework and optimized-resources
+    [RF-12883] - Make the distribution layout more clear
+    [RF-12890] - Remove deprecated SessionTopicListener
+    [RF-12895] - Setup the maven build to generate docbook xml
+    [RF-12900] - Re-factor non-component framework packages
+    [RF-12902] - RF5 modules simplification
+    [RF-12904] - Review the documentation generated from the asciidoc correcting errors
+    [RF-12912] - Clean up the doc build, removing obselete xml files
+    [RF-12917] - Repreat the docbook xml -> asciidoc migration preserving the literal tag names for a lossless conversion
+    [RF-12918] - Switch to using the asciidoctor plugin for asciidoc processing
+    [RF-12957] - CDK: Tag annotation attribute handler is not type safe - deprecate it and introduce handlerClass instead
+    [RF-12961] - Update the docs reflecting changes in RichFaces 5.0.0.Alpha1
+    [RF-12963] - Set the correct copyright/license headers for all files in the project
+    [RF-12968] - Update copyright/license headers for source files
+    [RF-12972] - Clean up the javascript resource folder
+    [RF-12974] - Create a richfaces-push depchain
+    [RF-12980] - Resource Optimizer: doesn't compile JS/CSS files when build executed from top-level directory
+    [RF-12982] - Move optimized resources to resource/org.richfaces.optimized and mapping to optimizedResourcesMapping
+
+    Task
+    [RF-12451] - Merge core/components/build/dev-examples repositories
+    [RF-12452] - Refactor merged repository sources structure
+    [RF-12454] - New build verification
+    [RF-12461] - Refactor examples (showcase, dev-examples)
+    [RF-12462] - Refactor POMs
+    [RF-12464] - Refactor build dependencies and distribution
+    [RF-12465] - Resolve build time issues
+    [RF-12466] - Review and restructure Java packages in Framework/Impl
+    [RF-12467] - Decouple CDK from RichFaces build
+    [RF-12468] - Write README and description for new repository
+    [RF-12469] - Setup continuous integration
+    [RF-12473] - Add depchain to jsf-test
+    [RF-12480] - Fix dependency errors with the showcase
+    [RF-12487] - Change namespace http://richfaces.org/core to http://richfaces.org/rich once refactoring ends
+    [RF-12497] - Run dos2unix over all files in all repositories
+    [RF-12742] - Migrate patches between 4.3.0.Final and 4.3.1.Final from richfaces4 repos to richfaces5 repo
+    [RF-12745] - Assess and fix deprecations in Maven compile step
+    [RF-12746] - Allow building with fundamental tests
+    [RF-12747] - Fix ignored tests during Framework build
+    [RF-12748] - Generate optimized resources for framework
+    [RF-12749] - Git: Enforce Unix line endings pre-commit
+    [RF-12753] - Configure renderer templates to generate Java files in same directories as renderer basis are
+    [RF-12755] - AbstractPushTest has hard-coded atmosphere version
+    [RF-12756] - Refactor deployments in fundamental tests
+    [RF-12864] - Create the package-info.java files for the framework packages
+    [RF-12869] - Run the docbook -> xml asciidoc conversion
+    [RF-12870] - Tune the generated asciidoc to enable the pressgang docbook toolchain
+    [RF-12871] - Add support for the <procedure> docbook tag to asciidoc, or find an alternate tag
+    [RF-12872] - Integrate the jboss doc style into the asciidoc generated docs
+    [RF-12903] - Optimize resources during Framework build (avoid unnecessary step and assembly); rename richfaces-framework.jar to richfaces.jar
+    [RF-12927] - Review all occurences of org.ajax4jsf string in RichFaces 5 repository
+    [RF-12946] - Cherry-pick resolved issues from 4.3.X to 5.X
+
 New in Version 4.3.2
 --------------------
 
