@@ -27,9 +27,30 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-photoalbum</artifactId>
-    <name>RichFaces Photoalbum</name>
     <version>5.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
+
+    <name>RichFaces Photoalbum</name>
+    
+    <description>
+        RichFaces Photoalbum is a sample of complex Java EE application using RichFaces Framework. 
+    </description>
+    
+    <url>http://richfaces.org</url>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 2.1</name>
+            <distribution>repo</distribution>
+            <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>RichFaces committers</name>
+        </developer>
+    </developers>
 
     <properties>
         <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>

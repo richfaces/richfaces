@@ -7,6 +7,26 @@
     <artifactId>richfaces-build-resources</artifactId>
     <version>5.0.0-SNAPSHOT</version>
     <name>RichFaces Build Resources</name>
+    
+    <description>
+        Resources that are necessary for building RichFaces (used by plugins, tests, etc.)
+    </description>
+    
+    <url>http://richfaces.org</url>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 2.1</name>
+            <distribution>repo</distribution>
+            <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>RichFaces committers</name>
+        </developer>
+    </developers>
 
     <properties>
         <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
