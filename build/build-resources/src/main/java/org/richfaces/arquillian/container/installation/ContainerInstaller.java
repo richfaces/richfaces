@@ -2,7 +2,10 @@ package org.richfaces.arquillian.container.installation;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -41,9 +44,20 @@ public class ContainerInstaller {
         }
 
         File unpackDestination = containerHome.getParentFile();
+        InputStream inputStream;
 
-        InputStream artifactStream = Maven.resolver().resolve(distribution).withoutTransitivity().asSingleInputStream();
-        unzip(artifactStream, unpackDestination, false);
+        try {
+            URL distributionUrl = new URL(distribution);
+            log.info(String.format("The container distribution will be resolved from URL '%s'", distribution));
+            inputStream = distributionUrl.openStream();
+        } catch (MalformedURLException e) {
+            log.info(String.format("The container distribution will be resolved from Maven artifact '%s'", distribution));
+            inputStream = Maven.resolver().resolve(distribution).withoutTransitivity().asSingleInputStream();
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to resolve the container distribution", e);
+        }
+
+        unzip(inputStream, unpackDestination, false);
 
         log.info(String.format("The container distribution '%s' was installed into '%s'", distribution,
                 unpackDestination.getAbsolutePath()));

@@ -677,6 +677,12 @@
         </profile>
         <profile>
             <id>jbossas-remote-7-1</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>jbossas71-remote</value>
+                </property>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
@@ -686,7 +692,42 @@
             </dependencies>
         </profile>
         <profile>
+            <id>jbosseap-managed-6-1</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>jbosseap61</value>
+                </property>
+            </activation>
+            <properties>
+                <version.jbosseap61>7.2.0.Alpha1-redhat-4</version.jbosseap61>
+                <arquillian.launch.jbossas71>true</arquillian.launch.jbossas71>
+                <arquillian.container.home>${project.build.directory}/jboss-eap-6.1</arquillian.container.home>
+                <arquillian.container.distribution>org.jboss.as:jboss-as-dist:zip:${version.jbosseap61}</arquillian.container.distribution>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
+                    <version>7.2.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-controller-client</artifactId>
+                    <version>7.2.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>jbosseap-remote-6-1</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>jbosseap61-remote</value>
+                </property>
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
@@ -729,7 +770,7 @@
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>tomee15</value>
+                    <value>tomee15-remote</value>
                 </property>
             </activation>
             <properties>
@@ -767,6 +808,12 @@
         </profile>
         <profile>
             <id>glassfish-remote-3-1</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>glassfish31-remote</value>
+                </property>
+            </activation>
             <properties>
                 <arquillian.launch.glassfish31>true</arquillian.launch.glassfish31>
             </properties>
@@ -780,6 +827,12 @@
         </profile>
         <profile>
             <id>tomcat-remote-6</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>tomcat6-remote</value>
+                </property>
+            </activation>
             <properties>
                 <arquillian.launch.tomcat6>true</arquillian.launch.tomcat6>
                 <arquillian.richfaces.servletContainerSetup>true</arquillian.richfaces.servletContainerSetup>
@@ -851,8 +904,6 @@
                 <testCategory.included.default>category.Smoke</testCategory.included.default>
             </properties>
         </profile>
-        
-        
 
         <profile>
             <id>release-preparation</id>
