@@ -99,7 +99,6 @@
                 if (! this.focused) {
                     this.focused = true;
                     rf.Event.fire(this, "listfocus" + this.namespace, e);
-                    this.originalValue = this.list.csvEncodeValues();
                 }
             },
 
@@ -109,10 +108,6 @@
                     if (!that.keepingFocus) { // If no other orderingList "sub" component has grabbed the focus during the timeout
                         that.focused = false;
                         rf.Event.fire(that, "listblur" + that.namespace, e);
-                        var newValue = that.list.csvEncodeValues();
-                        if (newValue != that.originalValue) {
-                            rf.Event.fire(that, "change" + that.namespace, e);
-                        }
                     }
                     that.keepingFocus = false;
                 }, 200);
@@ -195,7 +190,12 @@
             },
 
             encodeHiddenValues: function() {
-                this.hiddenValues.val(this.list.csvEncodeValues());
+    			var oldValues = this.hiddenValues.val();
+				var newValues = this.list.csvEncodeValues();
+				if (oldValues !== newValues) {
+					this.hiddenValues.val(newValues);
+					rf.Event.fire(this, "change" + this.namespace, {oldValues : oldValues, newValues : newValues});
+				}
             },
 
             toggleButtons: function() {
