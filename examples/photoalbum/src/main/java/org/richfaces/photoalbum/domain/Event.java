@@ -44,6 +44,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.richfaces.photoalbum.util.ListUtils;
 
 //import org.jboss.errai.common.client.api.annotations.Portable;
 
@@ -225,20 +226,7 @@ public class Event implements Serializable {
     }
 
     public String getFbAlbumIds() {
-        if (facebookAlbums.isEmpty()) {
-            return "0";
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(facebookAlbums.get(0));
-
-        for (int i = 1; i < facebookAlbums.size(); i++) {
-            sb.append(",");
-            sb.append(facebookAlbums.get(i));
-        }
-
-        return sb.toString();
+        return ListUtils.sListToString(facebookAlbums);
     }
 
     /* toString(), equals() and hashCode() for Event, using the natural identity of the object */

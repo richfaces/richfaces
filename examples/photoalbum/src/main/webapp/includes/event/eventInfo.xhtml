@@ -61,13 +61,17 @@
     <br />
     <br />
 
-    <r:region rendered="#{showAlbums}" id="eventAlbums">
+    <r:outputPanel rendered="#{showAlbums}" id="eventAlbums">
+        <h2>Albums</h2>
         <ui:include src="/includes/album/albumsList.xhtml">
             <ui:param name="albums" value="#{event.shelf.albums}" />
         </ui:include>
         <br style="clear: both;" />
+        <h2>Facebook Albums</h2>
         <ui:include src="/includes/facebook/albumsList.xhtml">
             <ui:param name="showDownload" value="true" />
+            <ui:param name="albumIds" value="#{event.facebookAlbums}" />
+            <ui:param name="albumString" value="#{event.fbAlbumIds}" />
         </ui:include>
-    </r:region>
+    </r:outputPanel>
 </ui:composition>

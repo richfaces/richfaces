@@ -32,24 +32,19 @@
                     <h:outputText value="Facebook albums" />
                 </h1>
 
-                <h:panelGroup styleClass="additional-info-text">
+                <!-- <h:panelGroup styleClass="additional-info-text">
                     <h:outputText value="#{messages['contain']}" />
-                    <h:outputText styleClass="bold" value=" #{facebookShelfBean.imageSize} " />
+                    <h:outputText styleClass="bold" value=" #{facebookAlbumCache.imagesSize(facebookBean.userAlbumIds)} " />
                     <h:outputText value="#{messages['pics_into']}" />
-                    <h:outputText styleClass="bold" value=" #{fn:length(facebookShelfBean.allAlbums)} " />
+                    <h:outputText styleClass="bold" value=" #{fn:length(facebookBean.userAlbumIds)} " />
                     <h:outputText value="#{messages['shelf.albums']}" />
-                </h:panelGroup>
+                </h:panelGroup> -->
             </h:panelGroup>
         </h:panelGrid>
-        <!-- 
-        <p>
-            <h:outputText value="#{shelf.description}" />
-        </p>
-        <br />
-        <br />
 
-         -->
-
-        <ui:include src="/includes/facebook/albumsList.xhtml" />
+        <ui:include src="/includes/facebook/albumsList.xhtml">
+            <ui:param name="albumIds" value="#{facebookBean.userAlbumIds}" />
+            <ui:param name="albumString" value="#{facebookBean.userAlbumString}" />
+        </ui:include>
     </r:region>
 </ui:composition>

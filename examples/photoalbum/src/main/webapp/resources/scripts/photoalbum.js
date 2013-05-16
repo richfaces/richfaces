@@ -114,7 +114,7 @@ getAlbums = function(callback) {
     });
 };
 
-FBlogin = function(infoCb, photoCb) {
+FBlogin = function(infoCb, albumIdsCb) {
     FB.login(function(response) {
         if (response.authResponse) {
             console.log('Welcome!  Fetching your information.... ');
@@ -127,10 +127,25 @@ FBlogin = function(infoCb, photoCb) {
                     infoCb(JSON.stringify(response));
                     console.log('Good to see you, ' + response.first_name + '.');
                     console.log(response);
-                    
-                    //FBgetShelfAlbums(response.id, photoCb);
                 }
             });
+            
+            FB.api('fql', {q: {"q1" : "SELECT aid from album WHERE owner = me()"}}, 
+                function(response) {
+                    if (!response || response.error) {
+                        console.log('Error occured');
+                        console.log(response);
+                    } else {
+                        var result_set = response.data[0].fql_result_set,
+                            result = result_set[0]["aid"], i;
+
+                        for (i = 1; i < result_set.length; i++) {
+                            result += "," + result_set[i]["aid"];
+                        }
+                        console.log(result);
+                        albumIdsCb(result);
+                    }
+                });
         } else {
             console.log('User cancelled login or did not fully authorize.');
         }
@@ -189,20 +204,36 @@ FBgetAlbumsById = function(albumIds, callback) {
         callback(JSON.stringify({}));
         return;
     }
-    
+    console.log(albumIds);
     FB.getLoginStatus(function(response) {
 
         if (response.status === "connected") {
             var query1 = "SELECT aid, cover_pid, name, created, size FROM album WHERE aid IN (" + albumIds + ")";
             var query2 = "SELECT src FROM photo WHERE pid IN (SELECT cover_pid FROM #q1)";
+            var query3 = "SELECT aid, pid, src, src_big, caption, created FROM photo WHERE aid IN (" + albumIds + ")";
             
-            FB.api('fql', {q: {"q1": query1, "q2": query2}}, 
+            FB.api('fql', {q: {"q1": query1, "q2": query2, "q3": query3}}, 
                 function(response) {
                     if (!response || response.error) {
                         console.log('Error occured');
                         console.log(response.error);
+                        console.log(response);
                     } else {
-                        result = mergeResults(response.data[0].fql_result_set, response.data[1].fql_result_set);
+                        var r = {
+                            q1: null,
+                            q2: null,
+                            q3: null
+                        }, i;
+                        
+                        // the result may not ordered differently than the queries 
+                        for (i = 0; i < response.data.length; i++) {
+                            r[ response.data[i].name ] = response.data[i].fql_result_set;
+                        }
+                        
+                        var result = {
+                            albums: mergeResults(r.q1, r.q2),
+                            images: r.q3
+                        };
                         console.log(result);
                         callback(JSON.stringify(result));
                     }

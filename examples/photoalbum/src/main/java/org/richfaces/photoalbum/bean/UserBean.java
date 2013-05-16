@@ -107,16 +107,10 @@ public class UserBean implements Serializable {
             return null;
         }
 
-        event.fire(new ErrorEvent("test", "testing notify"));
-
         user = (User) users.get(0);
 
         logged = true;
         loggedInFB = true;
-
-        event
-            .fire(new ErrorEvent("login ok",
-                "this is a rather long message I am using to test if the notify pupol will be expanded or what will happen with it"));
 
         return user;
     }
