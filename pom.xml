@@ -377,9 +377,10 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <inherited>false</inherited>
                 <configuration>
-                    <preparationGoals>clean verify -Prelease-preparation</preparationGoals>
+                    <preparationGoals>clean verify -Prelease -Prelease-preparation</preparationGoals>
                     <completionGoals>clean verify -Prelease-completion -DskipTests=true</completionGoals>
                     <arguments>-DoldVersion=${project.version} -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${developmentVersion}</arguments>
+                    <releaseProfiles>release</releaseProfiles>
                 </configuration>
             </plugin>
             <plugin>
@@ -903,6 +904,27 @@
             <properties>
                 <testCategory.included.default>category.Smoke</testCategory.included.default>
             </properties>
+        </profile>
+
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <profile>
