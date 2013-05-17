@@ -31,11 +31,11 @@
     <packaging>war</packaging>
 
     <name>RichFaces Photoalbum</name>
-    
+
     <description>
         RichFaces Photoalbum is a sample of complex Java EE application using RichFaces Framework. 
     </description>
-    
+
     <url>http://richfaces.org</url>
 
     <licenses>
@@ -200,6 +200,7 @@
         </testResources>
 
         <plugins>
+
             <!-- skip tests by default -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -384,6 +385,11 @@
                     <version>1.7</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.9</version>
+                </plugin>
+                <plugin>
                     <groupId>org.richfaces</groupId>
                     <artifactId>ichfaces-resources-maven-plugin</artifactId>
                     <version>${version.richfaces}</version>
@@ -453,6 +459,39 @@
             <properties>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
             </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>group-sources</id>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <appendAssemblyId>true</appendAssemblyId>
+                                    <descriptor>assembler.xml</descriptor>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <profile>
