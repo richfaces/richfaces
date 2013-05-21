@@ -77,8 +77,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.atmosphere</groupId>
-            <artifactId>atmosphere-runtime</artifactId>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-push-depchain</artifactId>
+            <type>pom</type>
+            <version>${version.richfaces}</version>
         </dependency>
 
         <dependency>
