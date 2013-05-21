@@ -21,9 +21,9 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="richfaces-showcase"
-    version="3.0">
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <display-name>richfaces-showcase</display-name>
     <context-param>
         <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
@@ -68,7 +68,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Resource Servlet</servlet-name>
-        <servlet-class>org.richfaces.webapp.ResourceServlet</servlet-class>
+        <servlet-class>org.richfaces.servlet.ResourceServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
