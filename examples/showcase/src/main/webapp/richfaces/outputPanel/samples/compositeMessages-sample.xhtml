@@ -23,7 +23,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
-    xmlns:r="http://richfaces.org/rich">
+    xmlns:r="http://richfaces.org/rich"
+    xmlns:showcase="http://java.sun.com/jsf/composite/org.richfaces.showcase">
     <h:form>
         <r:panel id="panel">
             <f:facet name="header">
@@ -40,7 +41,7 @@
                         <f:validateLength maximum="100" />
                     </h:inputTextarea>
                 </h:panelGrid>
-                <r:messages />
+                <showcase:messages />
             </h:panelGrid>
             <r:commandButton value="Submit" type="button" action="#{userBean.store}" execute="@form" />
             <r:outputPanel ajaxRendered="true">
