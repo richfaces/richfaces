@@ -271,11 +271,11 @@
                             <!-- resources will be placed in JAR/META-INF/resources/com.acme.staticResources/ 
                                 or WAR/WEB-INF/classes/META-INF/resources/com.acme.staticResources/ depending 
                                 on packaging of this project -->
-                            <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/org.richfaces.staticResource/${version.richfaces}/PackedCompressed/</resourcesOutputDir>
+                            <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/org.richfaces.optimized/${version.richfaces}/PackedCompressed/</resourcesOutputDir>
 
                             <!-- resources will be located under JSF_RESOURCE_ROOT/com.acme.staticResources 
                                 (e.g. JAR/META-INF/com.acme.staticResources) -->
-                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/PackedCompressed/</staticResourcePrefix>
+                            <staticResourcePrefix>org.richfaces.optimized/${version.richfaces}/PackedCompressed/</staticResourcePrefix>
 
                             <!-- resources will be packaged, refer to RichFaces 
                                 Developer Guide -->
@@ -309,11 +309,11 @@
                             <!-- resources will be placed in JAR/META-INF/resources/com.acme.staticResources/ 
                                 or WAR/WEB-INF/classes/META-INF/resources/com.acme.staticResources/ depending 
                                 on packaging of this project -->
-                            <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/org.richfaces.staticResource/${version.richfaces}/Packed/</resourcesOutputDir>
+                            <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/org.richfaces.optimized/${version.richfaces}/Packed/</resourcesOutputDir>
 
                             <!-- resources will be located under JSF_RESOURCE_ROOT/com.acme.staticResources 
                                 (e.g. JAR/META-INF/com.acme.staticResources) -->
-                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/Packed/</staticResourcePrefix>
+                            <staticResourcePrefix>org.richfaces.optimized/${version.richfaces}/Packed/</staticResourcePrefix>
 
                             <!-- resources will be packaged, refer to RichFaces 
                                 Developer Guide -->
