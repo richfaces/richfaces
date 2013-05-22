@@ -57,7 +57,8 @@
                             </r:commandLink>
                             <r:commandButton rendered="#{showDownload}"
                                 actionListener="#{fileDownloadManager.setUpDownload(facebookAlbumCache.getAlbum(albumId).getString('name'), albumId, facebookAlbumCache.getImagesOfAlbum(albumId), model.selectedEvent)}"
-                                value="Import" oncomplete="importNext()" render="pBar" />
+                                value="Import" render="pBar" />
+                                <!-- oncomplete="importNext()" -->
                         </h:panelGroup>
                     </h:panelGrid>
                     <h:panelGroup layout="block" styleClass="album_name">#{facebookAlbumCache.getAlbum(albumId).getString('name')}</h:panelGroup>
@@ -78,11 +79,13 @@
         </r:repeat>
 
         <br style="clear: both" />
-        <r:progressBar id="pBar" mode="ajax" value="#{fileDownloadManager.value}" minValue="0" maxValue="100" enabled="false">
+        <r:progressBar id="pBar" value="#{fileDownloadManager.value}" minValue="0" maxValue="100" enabled="#{fileDownloadManager.hasNext()}" interval="1000">
             <f:facet name="initial">
                 <h:outputText value="" />
             </f:facet>
             <h:outputText value="Importing #{fileDownloadManager.text}" />
+            <r:ajax event="begin" listener="#{fileDownloadManager.downloadNext()}"/>
+            <r:ajax event="finish" oncomplete="finishImport()"/>
         </r:progressBar>
 
         <!-- **Album fetching** -->
@@ -104,16 +107,6 @@
         <ui:include src="/includes/facebook/albumImport.xhtml" />
 
         <!-- **Image import** -->
-        <r:jsFunction data="#{fileDownloadManager.hasNext()}" actionListener="#{fileDownloadManager.downloadNext()}"
-            name="importNext" render="pBar, @this" execute="@this" oncomplete="decideNext(event.data)" />
-
-        <!-- if there is another photo in the queue import it, if not end -->
-        <h:outputScript>
-            decideNext = function(hasNext) {
-                hasNext ? importNext() : finishImport();
-            }
-        </h:outputScript>
-
         <r:jsFunction name="finishImport" render="pBar" execute="@this" actionListener="#{fileDownloadManager.finishDownload()}"
             oncomplete="reload();" />
 
