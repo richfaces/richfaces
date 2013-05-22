@@ -38,7 +38,6 @@
 
     <properties>
         <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
-        <version.archetype>4.3.1.Final</version.archetype>
     </properties>
 
     <profiles>
@@ -75,19 +74,6 @@
                     <artifactId>richfaces-showcase</artifactId>
                     <version>${version.richfaces}</version>
                     <classifier>sources</classifier>
-                </dependency>
-
-                <!-- Archetypes -->
-                <dependency>
-                    <groupId>org.richfaces.archetypes</groupId>
-                    <artifactId>richfaces-archetype-simpleapp</artifactId>
-                    <version>${version.archetype}</version>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.richfaces.archetypes</groupId>
-                    <artifactId>richfaces-archetype-kitchensink</artifactId>
-                    <version>${version.archetype}</version>
                 </dependency>
 
                 <!-- JSF impl -->
@@ -130,17 +116,6 @@
                                     <includeArtifactIds>richfaces</includeArtifactIds>
                                     <includeGroupIds>org.richfaces</includeGroupIds>
                                     <outputDirectory>target/dist/</outputDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-archetypes</id>
-                                <goals>
-                                    <goal>copy-dependencies</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <includeGroupIds>org.richfaces.archetypes</includeGroupIds>
-                                    <outputDirectory>target/dist/archetypes</outputDirectory>
                                 </configuration>
                             </execution>
                             <execution>
