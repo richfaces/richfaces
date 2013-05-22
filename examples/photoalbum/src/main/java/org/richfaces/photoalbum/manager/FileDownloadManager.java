@@ -186,6 +186,9 @@ public class FileDownloadManager implements Serializable {
             error.fire(new ErrorEvent("Error", "error removing album<br/>" + pae.getMessage()));
         }
 
+        pBarText = "";
+        pBarValue = -1;
+        
         UIComponent root = FacesContext.getCurrentInstance().getViewRoot();
         UIComponent component = root.findComponent("overForm");
         FacesContext.getCurrentInstance().addMessage(component.getClientId(FacesContext.getCurrentInstance()),
