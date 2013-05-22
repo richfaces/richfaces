@@ -33,9 +33,9 @@
                 <h:outputText value="#{image.getString('caption')}" />
             </h1>
             <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
-                render="mainArea, treePanel" value="#{messages['shelf']} #{model.selectedEvent.name}" />
+                render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}" />
             <h:outputText value=" #{messages['delimiter']} " />
-            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showFBAlbum()}"
+            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showFBAlbum(album.getString('aid'))}"
                 render="mainArea, treePanel" value="#{messages['album']} #{album.getString('name')}" />
 
         </h:panelGroup>
@@ -124,18 +124,6 @@
             </tr>
         </table>
     </h:panelGroup>
-    <!-- <h:outputText styleClass="additional-info-text" value="#{messages['image.camera']} " />
-    <h:outputText value="#{model.selectedImage.cameraModel}" />
-    <br />
-    <h:outputText styleClass="additional-info-text" value="#{messages['image.captured']} " />
-    <h:outputText value="#{model.selectedImage.created}" />
-    <br />
-    <h:outputText styleClass="additional-info-text" value="#{messages['uploaded']}: " />
-    <h:outputText value="#{model.selectedImage.uploaded}" />
-    <br />
-    <h:outputText styleClass="additional-info-text" value="#{messages['image.author']} " />
-    <r:commandLink actionListener="#{controller.showUser(model.selectedImage.album.owner)}" render="mainArea"
-        value="#{model.selectedImage.album.owner.login}" /> -->
 
     <!-- imageAdditionalInfo (i.e. comments)
     <ui:include src="/includes/image/imageAdditionalInfo.xhtml" /> -->

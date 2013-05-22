@@ -31,15 +31,17 @@
             </h1>
             <h:panelGroup layout="block" style="margin-bottom:15px;" styleClass="additional-info-text">
                 <h:outputText value="#{messages['created.album']} " />
-                <h:outputText styleClass="bold" value="#{album.getString('created')}" converter="#{timestampConverter}"/>
+                <h:outputText styleClass="bold" value="#{album.getString('created')}" converter="#{timestampConverter}" />
                 <h:outputText value=", #{messages['contain']}" />
                 <h:outputText styleClass="bold" value=" #{album.getString('size')}" />
                 <h:outputText value=" #{messages['images_']}" />
             </h:panelGroup>
         </h:panelGroup>
-        <!-- <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showShelf(album.shelf)}"
-                render="mainArea, treePanel" value="#{messages['shelf']} #{album.shelf.name}" /> -->
-        <h:outputText value="Facebook" styleClass="additional-info-text" />
+        <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
+            render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}"
+            rendered="#{model.selectedEvent.facebookAlbums.contains(album.getString('aid'))}" />
+        <h:outputText value="Facebook" styleClass="additional-info-text"
+            rendered="#{not model.selectedEvent.facebookAlbums.contains(album.getString('aid'))}" />
     </h:panelGrid>
 
     <!-- imageList -->
@@ -71,7 +73,8 @@
                     value="#{imageSizeHelper.currentDimension.imageBg}" />
                 <h:panelGrid cellpadding="0">
                     <h:panelGroup>
-                        <r:commandLink execute="@this" actionListener="#{controller.showFbImage(image.getString('pid'))}" render="mainArea" >
+                        <r:commandLink execute="@this" actionListener="#{controller.showFbImage(image.getString('pid'))}"
+                            render="mainArea">
                             <h:graphicImage url="#{image.getString('src')}"
                                 style="border: 1px solid #FFFFFF; max-width: #{imageSizeHelper.value}px; max-height: #{imageSizeHelper.value}px" />
                         </r:commandLink>
