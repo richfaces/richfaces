@@ -32,7 +32,7 @@ import java.util.Set;
  *
  */
 public final class DropScript extends DnDScript {
-    private static final Set<ResourceKey> DRAG_SCRIPT = Collections.singleton(new ResourceKey("dnd-droppable.js", "org.richfaces/drag"));
+    private static final Set<ResourceKey> DRAG_SCRIPT = Collections.singleton(new ResourceKey("drag/dnd-droppable.js", "org.richfaces"));
 
     public DropScript(String name) {
         super(name);

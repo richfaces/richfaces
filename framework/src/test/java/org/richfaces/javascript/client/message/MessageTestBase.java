@@ -62,7 +62,7 @@ public class MessageTestBase {
             .loadJsfResource("richfaces-event.js")
             .loadJsfResource("richfaces-base-component.js")
             .loadJsfResource("richfaces-csv.js", "org.richfaces")
-            .loadJsfResource("message.js", "org.richfaces/message/message")
+            .loadJsfResource("message/message/message.js", "org.richfaces")
             .content(
                 "<form id=\"form\" name=\"form\" method=\"post\" action=\"/client-test.jsf\" enctype=\"application/x-www-form-urlencoded\">\n"
                     + "      <input type=\"hidden\" name=\"form\" value=\"form\"/>\n"

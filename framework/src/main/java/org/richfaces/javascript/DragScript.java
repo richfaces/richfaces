@@ -32,7 +32,7 @@ import java.util.Set;
  *
  */
 public final class DragScript extends DnDScript {
-    private static final Set<ResourceKey> DRAG_SCRIPT = Collections.singleton(new ResourceKey("dnd-draggable.js", "org.richfaces/drag"));
+    private static final Set<ResourceKey> DRAG_SCRIPT = Collections.singleton(new ResourceKey("drag/dnd-draggable.js", "org.richfaces"));
 
     public DragScript(String name) {
         super(name);
