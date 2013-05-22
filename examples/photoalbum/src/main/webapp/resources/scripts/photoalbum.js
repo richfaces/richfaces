@@ -21,8 +21,6 @@
  */
 
 function selectPopularTag(tag, target) {
-    // console.log(target);
-    // console.log(target.value);
     if (target) {
         var value = target.getValue().trim();
         if (value.indexOf(tag) == -1) {
@@ -188,7 +186,6 @@ FBgetShelfAlbums = function(userId, callback) {
                         console.log(response.error);
                     } else {
                         result = mergeResults(response.data[0].fql_result_set, response.data[1].fql_result_set);
-                        console.log(result);
                         callback(JSON.stringify(result));
                     }
                 }
@@ -217,7 +214,6 @@ FBgetAlbumsById = function(albumIds, callback) {
                     if (!response || response.error) {
                         console.log('Error occured');
                         console.log(response.error);
-                        console.log(response);
                     } else {
                         var r = {
                             q1: null,
