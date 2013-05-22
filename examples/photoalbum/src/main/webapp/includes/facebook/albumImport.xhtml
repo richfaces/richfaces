@@ -2,8 +2,15 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.org/richx">
-    <r:popupPanel header="Download" id="fbAlbumModalPanel" autosized="true" rendered="#{not empty fbDndManager.album}">
-        <h:outputText value="Do you want to import the album?" style="display: inline-block; margin-bottom: 20px"/>
+    <r:popupPanel header="Import" id="fbAlbumModalPanel" autosized="true">
+        <f:facet name="controls">
+            <h:panelGroup id="albumImportPanelHideControl">
+                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer"
+                    onclick="#{r:component('fbAlbumModalPanel')}.hide()" />
+            </h:panelGroup>
+        </f:facet>
+
+        <h:outputText value="Do you want to import the album?" style="display: inline-block; margin-bottom: 20px" />
         <br />
         <h:panelGroup layout="block" styleClass="preview_box_album_120" style="height: 160px">
             <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
@@ -13,21 +20,43 @@
                         style="max-width: 120px; max-height: 120px" styleClass="album-cover-image" />
                 </h:panelGroup>
             </h:panelGrid>
-            
+
         </h:panelGroup>
 
         <h:panelGroup>
+            <r:progressBar id="pBar" mode="ajax" value="#{fileDownloadManager.value}" minValue="0" maxValue="100"
+                enabled="false">
+                <f:facet name="initial">
+                    <h:outputText value="" />
+                </f:facet>
+                <h:outputText value="#{fileDownloadManager.text}" />
+                <!-- <r:ajax event="begin" oncomplete="console.log('interval}')" /> -->
+            </r:progressBar>
+
             <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto; height: 60px">
                 <h:panelGroup layout="block">
-                    <richx:commandButton oncomplete="#{r:component('fbAlbumModalPanel')}.hide();" value="Import" execute="@this"
-                        styleClass="shelf" actionListener="#{fbDndManager.importAlbum()}" />
+                    <richx:commandButton value="Import" execute="@this" styleClass="shelf"
+                        actionListener="#{fbDndManager.importAlbum()}" oncomplete="importNext()" render="pBar" />
                 </h:panelGroup>
                 <h:panelGroup layout="block">
                     <richx:commandButton oncomplete="#{r:component('fbAlbumModalPanel')}.hide();" value="Just Share"
-                        actionListener="#{fbDndManager.shareAlbum()}" execute="@none" styleClass="shelf" />
+                        actionListener="#{fbDndManager.shareAlbum()}" execute="@this" styleClass="shelf" />
                 </h:panelGroup>
             </h:panelGrid>
         </h:panelGroup>
-
     </r:popupPanel>
+
+    <r:jsFunction data="#{fileDownloadManager.hasNext()}" actionListener="#{fileDownloadManager.downloadNext()}"
+        name="importNext" render="pBar, @this" execute="@this" oncomplete="decideNext(event.data)" />
+
+    <!-- if there is another photo in the queue import it, if not end -->
+    <h:outputScript>
+        decideNext = function(hasNext) {
+            hasNext ? importNext() : finishImport();
+        }
+    </h:outputScript>
+
+    <r:jsFunction name="finishImport" render="pBar" execute="@this" actionListener="#{fileDownloadManager.finishDownload()}"
+        oncomplete="#{r:component('fbAlbumModalPanel')}.hide(); reload();" />
+
 </ui:composition>

@@ -23,7 +23,6 @@
 package org.richfaces.photoalbum.social;
 
 import java.io.Serializable;
-import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -40,7 +39,6 @@ import org.richfaces.photoalbum.service.IEventAction;
 import org.richfaces.photoalbum.service.PhotoAlbumException;
 import org.richfaces.ui.drag.dropTarget.DropEvent;
 import org.richfaces.ui.drag.dropTarget.DropListener;
-
 
 @Named("fbDndManager")
 @SessionScoped
@@ -72,9 +70,7 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
         /*
          * album is dropped onto an event
          *
-         * when this happens we give user a choice to either share or import the album
-         * in the meantime we only save the elements
-         *
+         * when this happens we give user a choice to either share or import the album; in the meantime we only save the elements
          */
 
         this.albumId = (String) event.getDragValue();
@@ -85,27 +81,15 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
         event.getFacebookAlbums().add(albumId);
 
         try {
-        ea.editEvent(event);
+            ea.editEvent(event);
         } catch (PhotoAlbumException pae) {
             error.fire(new ErrorEvent("Error saving event", pae.getMessage()));
         }
     }
 
     public void importAlbum() {
-        Logger logger = Logger.getLogger("FbDnD");
-
-        logger.info("importing album");
         try {
-            logger.info("trying");
-            logger.info("aid: " + albumId);
-            logger.info("" + (fac.getImagesOfAlbum(albumId) == null));
-            fdm.setImages(fac.getImagesOfAlbum(albumId));
-
-            logger.info("set Images");
-
-            fdm.downloadImages();
-
-            logger.info("donwloaded images");
+            fdm.setUpDownload(fac.getAlbum(albumId).getString("name"), albumId, fac.getImagesOfAlbum(albumId), event);
         } catch (JSONException je) {
             error.fire(new ErrorEvent("Error importing album", je.getMessage()));
         }

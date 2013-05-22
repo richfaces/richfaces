@@ -141,6 +141,20 @@ public class FacebookAlbumCache {
         return images.get(albumId);
     }
 
+    public List<JSONObject> getAlbums(List<String> albumIds) {
+        if (albumIds == null) {
+            return null;
+        }
+
+        List<JSONObject> list = new ArrayList<JSONObject>();
+
+        for (String id : albumIds) {
+            list.add(albums.get(id));
+        }
+        
+        return list;
+    }
+
     // takes a list of id's from an event
     public boolean areAlbumsLoaded(List<String> albumIds) {
         if (albumIds != null) {
