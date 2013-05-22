@@ -169,13 +169,10 @@
         </r:tree>
     </h:panelGroup>
 
-    <r:commandLink onclick="FBgetShelfAlbums(#{userBean.user.fbId}, loadUserAlbums)" execute="@none" rendered="#{userBean.loggedInFB}">
+    <r:commandLink execute="@this" rendered="#{userBean.loggedInFB}" actionListener="#{controller.showFbShelf()}" render="mainArea">
         <h2>
             <h:outputText value="Facebook Albums" />
         </h2>
-        <r:jsFunction name="loadUserAlbums" actionListener="#{controller.showFbShelf()}" render="mainArea, treePanel">
-            <r:param assignTo="#{facebookShelfBean.albums}" name="response" />
-        </r:jsFunction>
     </r:commandLink>
 
     <h:panelGroup>

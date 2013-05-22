@@ -23,6 +23,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich">
+    <ui:param name="event" value="#{model.selectedEvent}" />
     <h:panelGrid styleClass="shelf-header-table" cellpadding="0" columns="2" columnClasses="xxx, shelf-header-table-col2">
         <h:panelGroup>
             <h1>
@@ -62,16 +63,20 @@
     <br />
 
     <r:outputPanel rendered="#{showAlbums}" id="eventAlbums">
-        <h2>Albums</h2>
-        <ui:include src="/includes/album/albumsList.xhtml">
-            <ui:param name="albums" value="#{event.shelf.albums}" />
-        </ui:include>
-        <br style="clear: both;" />
-        <h2>Facebook Albums</h2>
-        <ui:include src="/includes/facebook/albumsList.xhtml">
-            <ui:param name="showDownload" value="true" />
-            <ui:param name="albumIds" value="#{event.facebookAlbums}" />
-            <ui:param name="albumString" value="#{event.fbAlbumIds}" />
-        </ui:include>
+        <r:outputPanel rendered="#{fn:length(event.shelf.albums) > 0}">
+            <h2>Albums</h2>
+            <ui:include src="/includes/album/albumsList.xhtml">
+                <ui:param name="albums" value="#{event.shelf.albums}" />
+            </ui:include>
+        </r:outputPanel>
+        <r:outputPanel rendered="#{fn:length(event.facebookAlbums) > 0}">
+            <br style="clear: both;" />
+            <h2>Facebook Albums</h2>
+            <ui:include src="/includes/facebook/albumsList.xhtml">
+                <ui:param name="showDownload" value="true" />
+                <ui:param name="albumIds" value="#{event.facebookAlbums}" />
+                <ui:param name="albumString" value="#{event.fbAlbumIds}" />
+            </ui:include>
+        </r:outputPanel>
     </r:outputPanel>
 </ui:composition>

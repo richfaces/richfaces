@@ -90,13 +90,8 @@
                         actionListener="#{confirmationPopupHelper.initImagePopup(confirmationPopupHelper.deleteImage,messages['image.delete.confirm'],model.selectedImage)}"
                         render="confirmation" rendered="#{controller.isUserImage(model.selectedImage)}"
                         oncomplete="#{r:component('confirmation')}.show()" execute="@this" />
-                    <r:jsFunction name="passToBean" oncomplete="#{r:component('albumsPopupPanel')}.show()" render="albumsPopupPanel">
-                        <r:param assignTo="#{facebookBean.json}" converter="#{fbJsonConverter}" name="response" />
-                    </r:jsFunction>
                     <richx:commandButton value="Share" rendered="#{controller.isUserImage(model.selectedImage)}" execute="@this"
-                        styleClass="fb-comm-button"
-                        oncomplete="getAlbums(passToBean);"
-                        render="albumsPopupPanel"/>
+                        styleClass="fb-comm-button" render="albumsPopupPanel"/>
                 </td>
             </tr>
         </table>
