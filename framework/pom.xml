@@ -310,6 +310,8 @@
                             </execution>
                         </executions>
                         <configuration>
+                            <charset>UTF-8</charset>
+                            <locale>en</locale>
                             <templates>
                                 <fileSet>
                                     <directory>src/main/java</directory>
