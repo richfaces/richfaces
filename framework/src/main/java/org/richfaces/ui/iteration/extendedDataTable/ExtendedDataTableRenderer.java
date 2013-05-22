@@ -77,8 +77,8 @@ import org.richfaces.util.HtmlUtil;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces/iteration/extendedDataTable", name = "extendedDataTable.js"),
-        @ResourceDependency(library = "org.richfaces/iteration/extendedDataTable", name = "extendedDataTable.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "iteration/extendedDataTable/extendedDataTable.js"),
+        @ResourceDependency(library = "org.richfaces", name = "iteration/extendedDataTable/extendedDataTable.ecss") })
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
     private static final JSReference CLIENT_PARAMS = new JSReference("clientParams");
 

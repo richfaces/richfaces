@@ -35,8 +35,8 @@ import javax.faces.context.FacesContext;
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "org.richfaces/drag", name = "dnd-indicator.js"),
-        @ResourceDependency(library = "org.richfaces/drag", name = "indicator.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "drag/dnd-indicator.js"),
+        @ResourceDependency(library = "org.richfaces", name = "drag/indicator.ecss") })
 public class DragIndicatorRendererBase extends RendererBase {
     public String getDragIndicatorClientId(FacesContext facesContext, AbstractDragSource dragSource) {
         String indicatorId = dragSource.getDragIndicator();

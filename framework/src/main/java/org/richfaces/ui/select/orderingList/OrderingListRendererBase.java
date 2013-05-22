@@ -42,10 +42,10 @@ import java.util.List;
         @ResourceDependency(name = "richfaces-utils.js"), @ResourceDependency(name = "richfaces-selection.js"),
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
-        @ResourceDependency(library = "org.richfaces/select", name = "list.js"),
-        @ResourceDependency(library = "org.richfaces/select", name = "listMulti.js"),
-        @ResourceDependency(library = "org.richfaces/select/orderingList", name = "orderingList.js"),
-        @ResourceDependency(library = "org.richfaces/select/orderingList", name = "orderingList.ecss")})
+        @ResourceDependency(library = "org.richfaces", name = "select/list.js"),
+        @ResourceDependency(library = "org.richfaces", name = "select/listMulti.js"),
+        @ResourceDependency(library = "org.richfaces", name = "select/orderingList/orderingList.js"),
+        @ResourceDependency(library = "org.richfaces", name = "select/orderingList/orderingList.ecss")})
 public class OrderingListRendererBase extends SelectManyRendererBase {
     public static String CSS_PREFIX = "rf-ord";
 

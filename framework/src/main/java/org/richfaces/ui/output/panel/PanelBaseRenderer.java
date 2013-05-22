@@ -34,7 +34,7 @@ import java.io.IOException;
  * @since Jun 14, 2010
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "org.richfaces/output/panel", name = "panel.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "output/panel/panel.ecss") })
 public class PanelBaseRenderer extends RendererBase {
     public PanelBaseRenderer() {
     }

@@ -36,8 +36,8 @@ import java.io.IOException;
 
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib", target = "head"),
         @ResourceDependency(name = "jquery.watermark.js", library = "jquery.plugins", target = "head"),
-        @ResourceDependency(library = "org.richfaces/misc/placeholder", name = "placeholder.js", target = "head"),
-        @ResourceDependency(library = "org.richfaces/misc/placeholder", name = "placeholder.css") })
+        @ResourceDependency(library = "org.richfaces", name = "misc/placeholder/placeholder.js", target = "head"),
+        @ResourceDependency(library = "org.richfaces", name = "misc/placeholder/placeholder.css") })
 public abstract class PlaceholderRendererBase extends RendererBase {
 
     public static final String RENDERER_TYPE = "org.richfaces.PlaceholderRenderer";

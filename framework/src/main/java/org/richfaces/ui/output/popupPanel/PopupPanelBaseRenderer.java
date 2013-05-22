@@ -43,10 +43,10 @@ import java.util.Set;
 //TODO nick - JSF have concept of library, it should be used instead of '/' in resource names
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces/output/popupPanel", name = "popupPanel.js"),
-        @ResourceDependency(library = "org.richfaces/output/popupPanel", name = "popupPanelBorders.js"),
-        @ResourceDependency(library = "org.richfaces/output/popupPanel", name = "popupPanelSizer.js"),
-        @ResourceDependency(library = "org.richfaces/output/popupPanel", name = "popupPanel.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "output/popupPanel/popupPanel.js"),
+        @ResourceDependency(library = "org.richfaces", name = "output/popupPanel/popupPanelBorders.js"),
+        @ResourceDependency(library = "org.richfaces", name = "output/popupPanel/popupPanelSizer.js"),
+        @ResourceDependency(library = "org.richfaces", name = "output/popupPanel/popupPanel.ecss") })
 public class PopupPanelBaseRenderer extends RendererBase {
     private static final String CONTROLS_FACET = "controls";
     private static final String HEADER_FACET = "header";

@@ -48,11 +48,11 @@ import java.util.Map;
         @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
-        @ResourceDependency(library = "org.richfaces/menu", name = "menuKeyNavigation.js"),
-        @ResourceDependency(library = "org.richfaces/menu", name = "menu-base.js"),
-        @ResourceDependency(library = "org.richfaces/menu", name = "menu.js"),
-        @ResourceDependency(library = "org.richfaces/menu/contextMenu", name = "contextmenu.js"),
-        @ResourceDependency(library = "org.richfaces/menu/contextMenu", name = "contextmenu.ecss", target = "head") })
+        @ResourceDependency(library = "org.richfaces", name = "menu/menuKeyNavigation.js"),
+        @ResourceDependency(library = "org.richfaces", name = "menu/menu-base.js"),
+        @ResourceDependency(library = "org.richfaces", name = "menu/menu.js"),
+        @ResourceDependency(library = "org.richfaces", name = "menu/contextMenu/contextmenu.js"),
+        @ResourceDependency(library = "org.richfaces", name = "menu/contextMenu/contextmenu.ecss", target = "head") })
 public abstract class ContextMenuRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.ContextMenuRenderer";
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;

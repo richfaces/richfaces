@@ -36,8 +36,8 @@
         <cdk:resource-dependency library = "org.richfaces" name = "ajax.reslib" />
         <cdk:resource-dependency library = "org.richfaces" name = "base-component.reslib" />
         <cdk:resource-dependency name="richfaces-event.js" />
-        <cdk:resource-dependency library = "org.richfaces/iteration/tree" name = "tree.js" />
-        <cdk:resource-dependency library = "org.richfaces/iteration/tree" name = "tree.ecss" />
+        <cdk:resource-dependency library = "org.richfaces" name = "iteration/tree/tree.js" />
+        <cdk:resource-dependency library = "org.richfaces" name = "iteration/tree/tree.ecss" />
 
         <cdk:import-attributes src="urn:attributes:events-mouse-props.xml" />
         <cdk:import-attributes src="urn:attributes:events-key-props.xml" />

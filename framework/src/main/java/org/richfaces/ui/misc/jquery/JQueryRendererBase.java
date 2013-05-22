@@ -34,7 +34,7 @@ import javax.faces.render.Renderer;
  *
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "org.richfaces/misc/jquery", name = "jquery.component.js") })
+        @ResourceDependency(library = "org.richfaces", name = "misc/jquery/jquery.component.js") })
 public abstract class JQueryRendererBase extends Renderer {
     protected String getEscapedSelector(FacesContext context, UIComponent component) {
         String selector = (String) component.getAttributes().get("selector");

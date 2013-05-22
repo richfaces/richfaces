@@ -67,13 +67,13 @@ import java.util.TimeZone;
         @ResourceDependency(name = "richfaces-base-component.js"),
         @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces/input/calendar", name = "json-dom.js"),
+        @ResourceDependency(library = "org.richfaces", name = "input/calendar/json-dom.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.effects.core.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.effects.highlight.js"),
         @ResourceDependency(library = "jquery.plugins", name = "JQuerySpinBtn.js"),
-        @ResourceDependency(library = "org.richfaces/input/calendar", name = "calendar-utils.js"),
-        @ResourceDependency(library = "org.richfaces/input/calendar", name = "calendar.js"),
-        @ResourceDependency(library = "org.richfaces/input/calendar", name = "calendar.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "input/calendar/calendar-utils.js"),
+        @ResourceDependency(library = "org.richfaces", name = "input/calendar/calendar.js"),
+        @ResourceDependency(library = "org.richfaces", name = "input/calendar/calendar.ecss") })
 public class CalendarRendererBase extends InputRendererBase implements MetaComponentRenderer {
     public static final String CALENDAR_BUNDLE = "org.richfaces.renderkit.calendar";
     public static final String OPTION_DISABLED = "disabled";

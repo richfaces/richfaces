@@ -70,9 +70,9 @@ import java.util.Map;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(name = "richfaces-utils.js"), @ResourceDependency(name = "richfaces-selection.js"),
-        @ResourceDependency(library = "org.richfaces/input/autocomplete", name = "AutocompleteBase.js"),
-        @ResourceDependency(library = "org.richfaces/input/autocomplete", name = "Autocomplete.js"),
-        @ResourceDependency(library = "org.richfaces/input/autocomplete", name = "Autocomplete.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "input/autocomplete/AutocompleteBase.js"),
+        @ResourceDependency(library = "org.richfaces", name = "input/autocomplete/Autocomplete.js"),
+        @ResourceDependency(library = "org.richfaces", name = "input/autocomplete/Autocomplete.ecss") })
 public abstract class AutocompleteRendererBase extends InputRendererBase implements MetaComponentRenderer {
     private static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
 

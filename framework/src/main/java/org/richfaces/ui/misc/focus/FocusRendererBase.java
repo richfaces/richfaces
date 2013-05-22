@@ -33,7 +33,7 @@ import javax.faces.context.FacesContext;
 
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js"),
-        @ResourceDependency(library = "org.richfaces/misc/focus", name = "focus.js") })
+        @ResourceDependency(library = "org.richfaces", name = "misc/focus/focus.js") })
 public class FocusRendererBase extends RendererBase implements FocusRendererInterface {
 
     public static final String RENDERER_TYPE = "org.richfaces.FocusRenderer";

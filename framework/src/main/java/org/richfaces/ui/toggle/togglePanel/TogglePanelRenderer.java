@@ -58,7 +58,7 @@ import java.util.Map;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces/toggle/togglePanel", name = "togglePanel.js") })
+        @ResourceDependency(library = "org.richfaces", name = "toggle/togglePanel/togglePanel.js") })
 @JsfRenderer(type = "org.richfaces.TogglePanelRenderer", family = AbstractTogglePanel.COMPONENT_FAMILY)
 public class TogglePanelRenderer extends DivPanelRenderer implements MetaComponentRenderer {
     public static final String VALUE_POSTFIX = "-value";

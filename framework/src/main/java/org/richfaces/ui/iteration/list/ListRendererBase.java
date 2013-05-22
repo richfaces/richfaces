@@ -48,7 +48,7 @@ import java.util.Map;
  * @author Nick Belaevski
  *
  */
-@ResourceDependency(library = "org.richfaces/iteration/list", name = "list.ecss")
+@ResourceDependency(library = "org.richfaces", name = "iteration/list/list.ecss")
 public abstract class ListRendererBase extends Renderer {
     private static final Map<String, ComponentAttribute> ROW_HANDLER_ATTRIBUTES = Collections
         .unmodifiableMap(ComponentAttribute.createMap(

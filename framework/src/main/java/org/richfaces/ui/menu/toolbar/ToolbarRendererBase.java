@@ -43,8 +43,8 @@ import java.util.List;
 import java.util.Map;
 
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "org.richfaces/menu/toolbar", name = "toolbar.js"),
-        @ResourceDependency(library = "org.richfaces/menu/toolbar", name = "toolbar.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "menu/toolbar/toolbar.js"),
+        @ResourceDependency(library = "org.richfaces", name = "menu/toolbar/toolbar.ecss") })
 public abstract class ToolbarRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.ToolbarRenderer";
     public static final Map<String, ComponentAttribute> ITEMS_HANDLER_ATTRIBUTES = Collections

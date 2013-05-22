@@ -35,8 +35,8 @@
         <cdk:renders-children>true</cdk:renders-children>
 	
         <cdk:resource-dependency library = "org.richfaces" name = "base-component.reslib" />
-        <cdk:resource-dependency library = "org.richfaces/menu" name = "menu-base.js" />
-        <cdk:resource-dependency library = "org.richfaces/menu/menu" name = "menugroup.js" />
+        <cdk:resource-dependency library = "org.richfaces" name = "menu/menu-base.js" />
+        <cdk:resource-dependency library = "org.richfaces" name = "menu/menu/menugroup.js" />
     </cc:interface>
 
     <cc:implementation>

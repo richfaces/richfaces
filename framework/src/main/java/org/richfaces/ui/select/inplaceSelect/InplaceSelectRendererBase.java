@@ -48,11 +48,11 @@ import java.util.List;
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
-        @ResourceDependency(library = "org.richfaces/select", name = "list.js"),
-        @ResourceDependency(library = "org.richfaces/select", name = "popupList.js"),
-        @ResourceDependency(library = "org.richfaces/input/inplaceInput", name = "inplaceInput.js"),
-        @ResourceDependency(library = "org.richfaces/select/inplaceSelect", name = "inplaceSelect.js"),
-        @ResourceDependency(library = "org.richfaces/select/inplaceSelect", name = "inplaceSelect.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "select/list.js"),
+        @ResourceDependency(library = "org.richfaces", name = "select/popupList.js"),
+        @ResourceDependency(library = "org.richfaces", name = "input/inplaceInput/inplaceInput.js"),
+        @ResourceDependency(library = "org.richfaces", name = "select/inplaceSelect/inplaceSelect.js"),
+        @ResourceDependency(library = "org.richfaces", name = "select/inplaceSelect/inplaceSelect.ecss") })
 public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     public static final String ITEM_CSS = "rf-is-opt";
 

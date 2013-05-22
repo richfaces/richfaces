@@ -32,8 +32,8 @@ import javax.faces.application.ResourceDependency;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "jquery.plugins", name = "jquery.pnotify.js", target = "head"),
-        @ResourceDependency(library = "org.richfaces/message/notify", name = "notify.js", target = "head"),
-        @ResourceDependency(library = "org.richfaces/message/notify", name = "notifyStack.js", target = "head"),
-        @ResourceDependency(library = "org.richfaces/message/notify", name = "notify.ecss", target = "head") })
+        @ResourceDependency(library = "org.richfaces", name = "message/notify/notify.js", target = "head"),
+        @ResourceDependency(library = "org.richfaces", name = "message/notify/notifyStack.js", target = "head"),
+        @ResourceDependency(library = "org.richfaces", name = "message/notify/notify.ecss", target = "head") })
 public class NotifyRendererBase extends RendererBase {
 }

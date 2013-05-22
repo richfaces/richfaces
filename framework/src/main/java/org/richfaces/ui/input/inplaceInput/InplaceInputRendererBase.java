@@ -47,8 +47,8 @@ import java.util.Map;
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
-        @ResourceDependency(library = "org.richfaces/input/inplaceInput", name = "inplaceInput.js"),
-        @ResourceDependency(library = "org.richfaces/input/inplaceInput", name = "inplaceInput.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "input/inplaceInput/inplaceInput.js"),
+        @ResourceDependency(library = "org.richfaces", name = "input/inplaceInput/inplaceInput.ecss") })
 public class InplaceInputRendererBase extends InputRendererBase {
     // TODO: anton - move to RenderUtils (we use the same in the calendar base renderer) ?
     protected static final Map<String, ComponentAttribute> INPLACE_INPUT_HANDLER_ATTRIBUTES = Collections

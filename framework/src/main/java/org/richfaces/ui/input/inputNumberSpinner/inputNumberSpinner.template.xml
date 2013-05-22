@@ -31,8 +31,8 @@
         <cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
         <cdk:resource-dependency name="jquery.position.js" />
         <cdk:resource-dependency library="jquery.plugins" name="jquery.mousewheel.js" />
-        <cdk:resource-dependency library="org.richfaces/input/inputNumberSpinner" name="inputNumberSpinner.js" />
-        <cdk:resource-dependency library="org.richfaces/input/inputNumberSpinner" name="inputNumberSpinner.ecss" />
+        <cdk:resource-dependency library = "org.richfaces" name = "input/inputNumberSpinner/inputNumberSpinner.js" />
+        <cdk:resource-dependency library = "org.richfaces" name = "input/inputNumberSpinner/inputNumberSpinner.ecss" />
     </cc:interface>
     <cc:implementation>
         <span id="#{clientId}" class="rf-insp #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">

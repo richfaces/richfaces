@@ -51,7 +51,7 @@ import java.util.Map;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces/iteration/dataGrid", name = "datagrid.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "iteration/dataGrid/datagrid.ecss") })
 public class DataGridRenderer extends AbstractRowsRenderer implements MetaComponentRenderer {
     private static final EncodeStrategy THEAD = new EncodeStrategy() {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)

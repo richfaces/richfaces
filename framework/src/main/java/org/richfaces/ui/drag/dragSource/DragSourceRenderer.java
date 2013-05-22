@@ -46,7 +46,7 @@ import java.util.Map;
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.mouse.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.draggable.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.droppable.js"),
-        @ResourceDependency(library = "org.richfaces/drag", name = "dnd-draggable.js") })
+        @ResourceDependency(library = "org.richfaces", name = "drag/dnd-draggable.js") })
 @JsfRenderer(type = "org.richfaces.DragSourceRenderer", family = AbstractDragSource.COMPONENT_FAMILY)
 public class DragSourceRenderer extends DnDRenderBase {
     @Override

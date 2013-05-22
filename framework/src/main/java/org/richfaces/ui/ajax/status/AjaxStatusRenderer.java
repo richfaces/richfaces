@@ -47,7 +47,7 @@ import static org.richfaces.renderkit.RenderKitUtils.renderAttribute;
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "org.richfaces/ajax", name = "status.js") })
+        @ResourceDependency(library = "org.richfaces", name = "ajax/status.js") })
 @JsfRenderer(type = "org.richfaces.StatusRenderer", family = AbstractAjaxStatus.COMPONENT_FAMILY)
 public class AjaxStatusRenderer extends RendererBase {
     private static final String START = "start";

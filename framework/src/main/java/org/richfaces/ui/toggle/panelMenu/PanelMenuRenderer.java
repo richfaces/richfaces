@@ -48,11 +48,11 @@ import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.getValueRe
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces/toggle/panelMenu", name = "panelMenu.js"),
-        @ResourceDependency(library = "org.richfaces/toggle/panelMenu", name = "panelMenuItem.js"),
-        @ResourceDependency(library = "org.richfaces/toggle/panelMenu", name = "panelMenuGroup.js"),
-        @ResourceDependency(library = "org.richfaces/toggle", name = "icons.ecss"),
-        @ResourceDependency(library = "org.richfaces/toggle/panelMenu", name = "panelMenu.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "toggle/panelMenu/panelMenu.js"),
+        @ResourceDependency(library = "org.richfaces", name = "toggle/panelMenu/panelMenuItem.js"),
+        @ResourceDependency(library = "org.richfaces", name = "toggle/panelMenu/panelMenuGroup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "toggle/icons.ecss"),
+        @ResourceDependency(library = "org.richfaces", name = "toggle/panelMenu/panelMenu.ecss") })
 public class PanelMenuRenderer extends DivPanelRenderer {
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {

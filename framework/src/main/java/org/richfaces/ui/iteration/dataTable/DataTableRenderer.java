@@ -60,8 +60,8 @@ import java.util.Map;
  */
 @JsfRenderer(type = "org.richfaces.DataTableRenderer", family = AbstractDataTable.COMPONENT_FAMILY)
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "org.richfaces/iteration/dataTable", name = "datatable.js"),
-        @ResourceDependency(library = "org.richfaces/iteration/dataTable", name = "datatable.ecss") })
+        @ResourceDependency(library = "org.richfaces", name = "iteration/dataTable/datatable.js"),
+        @ResourceDependency(library = "org.richfaces", name = "iteration/dataTable/datatable.ecss") })
 public class DataTableRenderer extends AbstractTableRenderer {
     private static final String BEHAVIOR_EVENT_NAME = "javax.faces.behavior.event";
     private static final String ROW = "row";
