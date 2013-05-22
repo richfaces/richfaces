@@ -1457,28 +1457,29 @@ h1 {
 /* scroller */
 
 .rf-ds {
+	/* hide page counter */
 	display: none !important;
 }
 
-/* error messages */
+/*  messages */
 
 	/* container  */
-.error-message {
+.photoalbum-message {
 	padding: 10px;
 }
 
-.error-message .rf-ntf-ico {
+.photoalbum-message.rf-ntf-err .rf-ntf-ico {
 	background-image: url(/richfaces-photoalbum/img/modal/ico_warning.png) !important;
 	background-size: 18px 29px;
 }
 
 	/* summary heading */
-.error-message .rf-ntf-sum {
+.photoalbum-message .rf-ntf-sum {
 	font-size: 14px !important;
 }
 	
 	/* detail */
-.error-message .rf-ntf-det {
+.photoalbum-message .rf-ntf-det {
 	font-size: 12px !important;
 }
 
