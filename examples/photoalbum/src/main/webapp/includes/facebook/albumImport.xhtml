@@ -24,19 +24,11 @@
         </h:panelGroup>
 
         <h:panelGroup>
-            <r:progressBar id="pBar" mode="ajax" value="#{fileDownloadManager.value}" minValue="0" maxValue="100"
-                enabled="false">
-                <f:facet name="initial">
-                    <h:outputText value="" />
-                </f:facet>
-                <h:outputText value="#{fileDownloadManager.text}" />
-                <!-- <r:ajax event="begin" oncomplete="console.log('interval}')" /> -->
-            </r:progressBar>
-
             <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto; height: 60px">
                 <h:panelGroup layout="block">
                     <richx:commandButton value="Import" execute="@this" styleClass="shelf"
-                        actionListener="#{fbDndManager.importAlbum()}" oncomplete="importNext()" render="pBar" />
+                        actionListener="#{fbDndManager.importAlbum()}"
+                        oncomplete="#{r:component('fbAlbumModalPanel')}.hide(); importNext()" render="pBar" />
                 </h:panelGroup>
                 <h:panelGroup layout="block">
                     <richx:commandButton oncomplete="#{r:component('fbAlbumModalPanel')}.hide();" value="Just Share"
@@ -45,18 +37,5 @@
             </h:panelGrid>
         </h:panelGroup>
     </r:popupPanel>
-
-    <r:jsFunction data="#{fileDownloadManager.hasNext()}" actionListener="#{fileDownloadManager.downloadNext()}"
-        name="importNext" render="pBar, @this" execute="@this" oncomplete="decideNext(event.data)" />
-
-    <!-- if there is another photo in the queue import it, if not end -->
-    <h:outputScript>
-        decideNext = function(hasNext) {
-            hasNext ? importNext() : finishImport();
-        }
-    </h:outputScript>
-
-    <r:jsFunction name="finishImport" render="pBar" execute="@this" actionListener="#{fileDownloadManager.finishDownload()}"
-        oncomplete="#{r:component('fbAlbumModalPanel')}.hide(); reload();" />
 
 </ui:composition>
