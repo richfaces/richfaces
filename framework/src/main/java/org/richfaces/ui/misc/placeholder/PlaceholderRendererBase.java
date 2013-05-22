@@ -34,10 +34,10 @@ import javax.faces.convert.Converter;
 
 import java.io.IOException;
 
-@ResourceDependencies({ @ResourceDependency(name = "base-component.reslib", library = "org.richfaces", target = "head"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib", target = "head"),
         @ResourceDependency(name = "jquery.watermark.js", library = "jquery.plugins", target = "head"),
-        @ResourceDependency(name = "placeholder.js", library = "org.richfaces/misc/placeholder", target = "head"),
-        @ResourceDependency(name = "placeholder.css", library = "org.richfaces/misc/placeholder") })
+        @ResourceDependency(library = "org.richfaces/misc/placeholder", name = "placeholder.js", target = "head"),
+        @ResourceDependency(library = "org.richfaces/misc/placeholder", name = "placeholder.css") })
 public abstract class PlaceholderRendererBase extends RendererBase {
 
     public static final String RENDERER_TYPE = "org.richfaces.PlaceholderRenderer";

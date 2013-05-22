@@ -34,9 +34,9 @@
         <cdk:renderer-type>org.richfaces.MenuGroupRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
 	
-        <cdk:resource-dependency name="base-component.reslib" library="org.richfaces" />
-        <cdk:resource-dependency name="menu-base.js" library="org.richfaces/menu" />
-        <cdk:resource-dependency name="menugroup.js" library="org.richfaces/menu/menu" />
+        <cdk:resource-dependency library = "org.richfaces" name = "base-component.reslib" />
+        <cdk:resource-dependency library = "org.richfaces/menu" name = "menu-base.js" />
+        <cdk:resource-dependency library = "org.richfaces/menu/menu" name = "menugroup.js" />
     </cc:interface>
 
     <cc:implementation>
