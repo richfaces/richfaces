@@ -52,7 +52,7 @@ import org.richfaces.ui.iteration.tree.AbstractTree;
  * This class represent 'C' in MVC pattern. It is logic that determine what actions invoked and what next page need to be
  * showed. Typically on almost all user actions, this class populates the model and determine new view to show. Also contain
  * utility logic, such as checking is the given shelf belongs to the specified user etc..
- *
+ * 
  * @author Andrey Markhel
  */
 
@@ -67,7 +67,7 @@ public class Controller implements Serializable {
     Model model;
 
     // @In(scope = ScopeType.SESSION)
-    //@Inject
+    // @Inject
     User user;
 
     @Inject
@@ -120,7 +120,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to edit specified shelf.
-     *
+     * 
      * @param shelf - shelf to edit
      */
     // @AdminRestricted
@@ -137,7 +137,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to interrupt edit shelf process
-     *
+     * 
      */
     public void cancelEditShelf() {
         model.resetModel(NavigationEnum.SHELF_PREVIEW, model.getSelectedShelf().getOwner(), model.getSelectedShelf(), null,
@@ -146,7 +146,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see specified album independently is it her album or not.
-     *
+     * 
      * @param album - album to show
      */
     public void showAlbum(Album album) {
@@ -181,7 +181,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked in cases, when it is need to clear fileUpload component
-     *
+     * 
      */
     public void resetFileUpload() {
         pushEvent(Events.CLEAR_FILE_UPLOAD_EVENT);
@@ -189,7 +189,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see specified image independently is it her image or not.
-     *
+     * 
      * @param album - album to show
      */
     public void showImage(Image image) {
@@ -214,7 +214,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to edit specified image.
-     *
+     * 
      * @param image - image to edit
      */
     // @AdminRestricted
@@ -232,7 +232,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to save just edited user to database.
-     *
+     * 
      */
     // @AdminRestricted
     public void editUser() {
@@ -246,7 +246,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to interrupt edit user process
-     *
+     * 
      */
     public void cancelEditUser() {
         pushEvent(Events.CANCEL_EDIT_USER_EVENT);
@@ -255,7 +255,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to interrupt edit image process
-     *
+     * 
      */
     public void cancelEditImage() {
         model.resetModel(NavigationEnum.ALBUM_IMAGE_PREVIEW, model.getSelectedImage().getAlbum().getShelf().getOwner(), model
@@ -265,7 +265,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see specified shelf independently is it her shelf or not.
-     *
+     * 
      * @param album - album to show
      */
     public void showShelf(Shelf shelf) {
@@ -284,7 +284,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to edit specified album.
-     *
+     * 
      * @param album - album to edit
      */
     // @AdminRestricted
@@ -301,7 +301,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to interrupt edit album process
-     *
+     * 
      */
     public void cancelEditAlbum() {
         model.resetModel(NavigationEnum.ALBUM_PREVIEW, model.getSelectedAlbum().getOwner(),
@@ -310,7 +310,7 @@ public class Controller implements Serializable {
 
     /**
      * This method observes <code>Constants.ALBUM_ADDED_EVENT</code> and invoked after the user add new album
-     *
+     * 
      * @param album - added album
      */
     public void onAlbumAdded(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
@@ -322,7 +322,7 @@ public class Controller implements Serializable {
 
     /**
      * This method observes <code>Constants.ALBUM_EDITED_EVENT</code> and invoked after the user edit her album
-     *
+     * 
      * @param album - edited album
      */
     public void onAlbumEdited(@Observes @EventType(Events.ALBUM_EDITED_EVENT) AlbumEvent ae) {
@@ -333,7 +333,7 @@ public class Controller implements Serializable {
 
     /**
      * This method observes <code>Constants.ALBUM_DELETED_EVENT</code> and invoked after the user delete her album
-     *
+     * 
      * @param album - deleted album
      * @param path - relative path of the album directory
      */
@@ -343,7 +343,7 @@ public class Controller implements Serializable {
 
     /**
      * This method observes <code>Constants.SHELF_DELETED_EVENT</code> and invoked after the user delete her shelf
-     *
+     * 
      * @param shelf - deleted shelf
      * @param path - relative path of the shelf directory
      */
@@ -353,7 +353,7 @@ public class Controller implements Serializable {
 
     /**
      * This method observes <code>Constants.SHELF_ADDED_EVENT</code> and invoked after the user add new shelf
-     *
+     * 
      * @param shelf - added shelf
      */
     public void onShelfAdded(@Observes @EventType(Events.SHELF_ADDED_EVENT) ShelfEvent se) {
@@ -363,7 +363,7 @@ public class Controller implements Serializable {
 
     /**
      * This method observes <code>Constants.SHELF_EDITED_EVENT</code> and invoked after the user edit her shelf
-     *
+     * 
      * @param shelf - edited shelf
      */
     public void onShelfEdited(@Observes @EventType(Events.SHELF_EDITED_EVENT) ShelfEvent se) {
@@ -385,7 +385,7 @@ public class Controller implements Serializable {
 
     /**
      * This method observes <code>Constants.IMAGE_DELETED_EVENT</code> and invoked after the user delete her image
-     *
+     * 
      * @param image - deleted image
      * @param path - relative path of the image file
      */
@@ -397,7 +397,7 @@ public class Controller implements Serializable {
     /**
      * This method observes <code>Constants.AUTHENTICATED_EVENT</code> and invoked after the user successfully authenticate to
      * the system
-     *
+     * 
      * @param u - authenticated user
      */
     // might not work properly due to injection
@@ -407,7 +407,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to go to the file-upload page
-     *
+     * 
      */
     public void showFileUpload() {
         if (!(loggedUser.getShelves().size() > 0)) {
@@ -424,9 +424,9 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to go to the file-upload page and download images to the specified album
-     *
+     * 
      * @param album - selected album
-     *
+     * 
      */
     public void showFileUpload(Album album) {
         if (!isUserAlbum(album)) {
@@ -439,9 +439,9 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see all shared albums of the specified user
-     *
+     * 
      * @param user - user to see
-     *
+     * 
      */
     public void showSharedAlbums(User user) {
         model.resetModel(NavigationEnum.USER_SHARED_ALBUMS, user, null, null, null, user.getSharedImages());
@@ -449,9 +449,9 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see all shared images of the specified user
-     *
+     * 
      * @param user - user to see
-     *
+     * 
      */
     public void showSharedImages(User user) {
         model.resetModel(NavigationEnum.USER_SHARED_IMAGES, user, null, null, null, user.getSharedImages());
@@ -459,9 +459,9 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see profile of the specified user
-     *
+     * 
      * @param user - user to see
-     *
+     * 
      */
     public void showUser(User user) {
         model.resetModel(NavigationEnum.USER_PREFS, user, null, null, null, null);
@@ -470,9 +470,9 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see all unvisited images, belongs to the of specified shelf
-     *
+     * 
      * @param shelf - shelf to see
-     *
+     * 
      */
     public void showUnvisitedImages(Shelf shelf) {
         model.resetModel(NavigationEnum.SHELF_UNVISITED, shelf.getOwner(), shelf, null, null, shelf.getUnvisitedImages());
@@ -480,9 +480,9 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see all unvisited images, belongs to the of specified album
-     *
+     * 
      * @param album - album to see
-     *
+     * 
      */
     public void showUnvisitedImages(Album album) {
         model.resetModel(NavigationEnum.ALBUM_UNVISITED, album.getOwner(), album.getShelf(), album, null,
@@ -491,9 +491,9 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to see all images, related to the of specified album
-     *
+     * 
      * @param metatag - tag to see
-     *
+     * 
      */
     public void showTag(MetaTag metatag) {
         model.resetModel(NavigationEnum.TAGS, model.getSelectedUser(), model.getSelectedShelf(), model.getSelectedAlbum(),
@@ -504,7 +504,7 @@ public class Controller implements Serializable {
     /**
      * This method observes <code>Constants.START_REGISTER_EVENT</code> and invoked after the user want to start registration
      * process.
-     *
+     * 
      */
     public void startRegistration(@Observes @EventType(Events.START_REGISTER_EVENT) SimpleEvent se) {
         model.resetModel(NavigationEnum.REGISTER, user, null, null, null, null);
@@ -512,7 +512,7 @@ public class Controller implements Serializable {
 
     /**
      * This method invoked after the user want to interrupt registration process
-     *
+     * 
      */
     public void cancelRegistration() {
         model.resetModel(NavigationEnum.ANONYM, user, null, null, null, null);
@@ -546,28 +546,28 @@ public class Controller implements Serializable {
 
     /**
      * This utility method used to determine if the specified image belongs to the logged user
-     *
+     * 
      * @param image - image to check
      */
     public boolean isUserImage(Image image) {
         if (image == null || image.getOwner() == null || loggedUser == null) {
             return false;
         }
-        //return image.isOwner(loggedUser);
+        // return image.isOwner(loggedUser);
         return loggedUser.equals(image.getOwner());
     }
 
     /**
      * This utility method used to determine if the logged user have any shelves.
-     *
+     * 
      */
     public boolean isUserHaveShelves() {
-        return loggedUser.getShelves().size() > 0; //loggedUser might be null right after successful login
+        return loggedUser.getShelves().size() > 0; // loggedUser might be null right after successful login
     }
 
     /**
      * This utility method used to determine if the logged user have any albums.
-     *
+     * 
      */
     public boolean isUserHaveAlbums() {
         return loggedUser.getAlbums().size() > 0;
@@ -575,7 +575,7 @@ public class Controller implements Serializable {
 
     /**
      * This utility method used to determine if the specified shelf belongs to the logged user
-     *
+     * 
      * @param shelf - shelf to check
      */
     public boolean isUserShelf(Shelf shelf) {
@@ -584,7 +584,7 @@ public class Controller implements Serializable {
 
     /**
      * This utility method used to determine if the specified album belongs to the logged user
-     *
+     * 
      * @param album - album to check
      */
     public boolean isUserAlbum(Album album) {
@@ -593,7 +593,7 @@ public class Controller implements Serializable {
 
     /**
      * This utility method used to determine if the specified user can be edited
-     *
+     * 
      * @param user - user to check
      */
     public boolean isProfileEditable(User selectedUser) {
@@ -609,15 +609,15 @@ public class Controller implements Serializable {
     }
 
     private boolean canViewImage(Image image) {
-        return image != null && image.getAlbum() != null && (image.getAlbum().getShelf() != null
-            && (image.getAlbum().getShelf().isShared() || image.isOwner(loggedUser)));
+        return image != null && image.getAlbum() != null
+            && (image.getAlbum().getShelf() != null && (image.getAlbum().getShelf().isShared() || image.isOwner(loggedUser)));
     }
 
     /**
      * This utility method invoked in case if you want to show to the user specified error in popup
-     *
+     * 
      * @param error - error to show
-     *
+     * 
      */
     public void showError(String summary, String errorMessage) {
         error.fire(new ErrorEvent(summary, errorMessage));
