@@ -38,22 +38,24 @@
                 <h:outputText value="#{messages['contain']}" />
                 <!-- <h:outputText styleClass="bold" value=" #{fn:length(shelf.images)} " />
                 <h:outputText value="#{messages['pics_into']}" /> -->
-                <h:outputText styleClass="bold" value=" #{fn:length(event.shelf.albums)} " />
+                <h:outputText styleClass="bold" value=" #{fn:length(event.shelf.albums) + fn:length(event.facebookAlbums)} " />
                 <h:outputText value="#{messages['shelf.albums']}" />
 
             </h:panelGroup>
         </h:panelGroup>
+        <!-- 
         <h:panelGroup>
             <r:commandLink value="#{messages['shelf.edit']}" render="mainArea" disabled="true" />
             <h:outputText value=" #{messages['delimiter']} " />
             <r:commandLink value="#{messages['shelf.delete']}" oncomplete="#{r:component('confirmation')}.show()"
                 render="confirmation" execute="@this" disabled="true" />
-            <!-- actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}" -->
+             actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}"
             <h:outputText value=" #{messages['delimiter']} " />
             <r:commandLink value="#{messages['shelf.view']}" render="mainArea" rendered="#{!mode.equals('show')}"
                 disabled="true" />
-            <!-- actionListener="#{controller.showShelf(shelf)}" -->
+             actionListener="#{controller.showShelf(shelf)}" 
         </h:panelGroup>
+        -->
     </h:panelGrid>
 
     <p>
