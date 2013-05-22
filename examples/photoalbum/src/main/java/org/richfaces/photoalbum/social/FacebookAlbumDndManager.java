@@ -30,6 +30,7 @@ import javax.inject.Named;
 
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
+import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Event;
 import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
@@ -65,16 +66,43 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
     private String albumId;
     private Event event;
 
+    private boolean albumAlreadyShared;
+
     @Override
     public void processDrop(DropEvent event) {
         /*
          * album is dropped onto an event
-         *
-         * when this happens we give user a choice to either share or import the album; in the meantime we only save the elements
+         * 
+         * when this happens we give user a choice to either share or import the album; in the meantime we only save the
+         * elements
          */
 
         this.albumId = (String) event.getDragValue();
         this.event = (Event) event.getDropValue();
+
+        // check if the album is already shared
+        if (this.event.getFacebookAlbums().contains(albumId)) {
+            setAlbumAlreadyShared(true);
+            error.fire(new ErrorEvent("This album is already shared in this event"));
+            return;
+        }
+
+        String albumName = "";
+        try {
+            albumName = fac.getAlbum(albumId).getString("name");
+        } catch (JSONException e) {
+            // nothing, the exception will not be thrown
+        }
+
+        for (Album album : this.event.getShelf().getAlbums()) {
+            if (album.getName() == albumName) {
+                setAlbumAlreadyShared(true);
+                error.fire(new ErrorEvent("Album with this name has already been imported to this event"));
+                return;
+            }
+        }
+
+        setAlbumAlreadyShared(false);
     }
 
     public void shareAlbum() {
@@ -106,5 +134,13 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
 
     public JSONObject getAlbum() {
         return fac.getAlbum(getAlbumId());
+    }
+
+    public boolean isAlbumAlreadyShared() {
+        return albumAlreadyShared;
+    }
+
+    public void setAlbumAlreadyShared(boolean albumAlreadyShared) {
+        this.albumAlreadyShared = albumAlreadyShared;
     }
 }

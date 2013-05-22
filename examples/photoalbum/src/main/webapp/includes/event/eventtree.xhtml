@@ -43,8 +43,8 @@
                         <r:ajax event="click" listener="#{controller.showEvent(treeNode)}" render="mainArea" />
                         <r:dropTarget acceptedTypes="album" dropValue="#{treeNode}" dropListener="#{dndManager.addAlbumToEvent}"
                             render="treePanel, mainArea" />
-                        <r:dropTarget acceptedTypes="fbAlbum" dropValue="#{treeNode}" dropListener="#{fbDndManager.processDrop}"
-                            oncomplete="#{r:component('fbAlbumModalPanel')}.show();" render="fbAlbumModalPanel" />
+                        <r:dropTarget acceptedTypes="fbAlbum" data="#{fbDndManager.albumAlreadyShared}" dropValue="#{treeNode}" dropListener="#{fbDndManager.processDrop}"
+                            oncomplete="if(!event.data)#{r:component('fbAlbumModalPanel')}.show();" render="fbAlbumModalPanel" />
                         <r:tooltip direction="topRight" showDelay="1000">
                             <span style="white-space: nowrap">#{treeNode.name}</span>
                         </r:tooltip>
