@@ -21,12 +21,11 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org/rich">
-    <h:outputStylesheet library = "stylesheet" name = "help/html.css" />
-    <h:outputStylesheet library = "stylesheet" name = "help/html-common.css" />
-    <h:outputStylesheet library = "stylesheet" name = "help/html-release.css" />
-    <h:outputStylesheet library = "stylesheet" name = "help/jbossorg.css" />
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org/rich">
+    <h:outputStylesheet name="html.css" library="stylesheet/help" />
+    <h:outputStylesheet name="html-common.css" library="stylesheet/help" />
+    <h:outputStylesheet name="html-release.css" library="stylesheet/help" />
+    <h:outputStylesheet name="jbossorg.css" library="stylesheet/help" />
     <r:popupPanel id="helpPanel" width="1100" height="620" onshow="SyntaxHighlighter.highlight(this)">
         <f:facet name="header">
             <h:graphicImage value="/img/icons/help_sign.png" />

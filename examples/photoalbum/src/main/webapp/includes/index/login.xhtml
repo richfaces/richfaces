@@ -39,22 +39,23 @@
 
             <h:panelGroup layout="block" rendered="#{not userBean.loggedInFB}">
                 <richx:commandButton styleClass="fb-comm-button" execute="@none"
-                    oncomplete="#{r:component('fbProgress')}.setValue(50); FBlogin(fetchUserInfo); return false;"
+                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 ); FBlogin(fetchUserInfo, fetchFBAlbumIds, showError); return false;"
                     value="Facebook Login" />
 
                 <r:progressBar mode="client" value="0" id="fbProgress" styleClass="fb-pb" />
 
-                <r:jsFunction name="fetchUserInfo" oncomplete="#{r:component('fbProgress')}.setValue(100); authenticate();">
+                <r:jsFunction name="fetchUserInfo"
+                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 34 ); authenticate();">
                     <r:param assignTo="#{facebookBean.userInfo}" converter="#{fbJsonConverter}" name="response" />
                 </r:jsFunction>
 
-                <!-- <r:jsFunction name="fetchFBShelves" oncomplete="#{r:component('fbProgress')}.setValue(100); authenticate();"
-                    actionListener="#{authenticator.authenticateWithFacebook}">
-                    <r:param assignTo="#{facebookShelfBean.albums}" name="albums" />
-                </r:jsFunction> -->
+                <r:jsFunction name="fetchFBAlbumIds"
+                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 );">
+                    <r:param assignTo="#{facebookBean.albumIds}" name="albumIds" />
+                </r:jsFunction>
 
-                <r:jsFunction name="authenticate" actionListener="#{authenticator.authenticateWithFacebook}" oncomplete="#{r:component('loginPanel')}.hide()"
-                    render="mainArea, headerPanel, treePanel" />
+                <r:jsFunction name="authenticate" actionListener="#{authenticator.authenticateWithFacebook}" data="#{authenticator.loginFailed}"
+                    oncomplete="if(!event.data)#{r:component('loginPanel')}.hide()" render="mainArea, headerPanel, treePanel" />
             </h:panelGroup>
 
             <h:panelGroup layout="block">
@@ -76,7 +77,6 @@
 
                 <h:panelGrid columns="2" style="text-align:center; margin-top : 10px; margin-left:auto; margin-right:auto;">
                     <h:panelGroup layout="block">
-                        <!-- action="gotoindex" -->
                         <richx:commandButton styleClass="login" data="#{authenticator.loginFailed}"
                             actionListener="#{authenticator.authenticate()}" value="#{messages['login.login']}"
                             oncomplete="if(!event.data)#{r:component('loginPanel')}.hide();"

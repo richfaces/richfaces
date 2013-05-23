@@ -21,10 +21,9 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org/rich"
+    xmlns:richx="http://richfaces.org/richx">
     <r:popupPanel id="shelfModalPanel" width="400" height="150" autosized="true" modal="true" domElementAttachment="form">
-        <!--  onshow="applyModalPanelEffect('shelfModalPanel', {delay: 0.5, afterFinish: function(){$('form5:name').focus();}})"> -->
         <f:facet name="header">#{messages['add_shelf']}</f:facet>
 
         <f:facet name="controls">
@@ -33,9 +32,6 @@
                     onclick="#{r:component('shelfModalPanel')}.hide()" />
             </h:panelGroup>
         </f:facet>
-
-        <!-- <r:effect type="Appear" name="appearFunc" /> -->
-        <!-- not implemented in RF 4 -->
 
         <r:region id="form5">
             <h:panelGroup id="shelfPanel" width="100%" layout="block">

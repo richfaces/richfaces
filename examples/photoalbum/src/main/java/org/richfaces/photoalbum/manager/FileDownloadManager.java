@@ -32,20 +32,22 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
+import org.richfaces.json.JSONObject;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Event;
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ShelfEvent;
@@ -59,7 +61,7 @@ import org.richfaces.photoalbum.util.FileHandler;
  * This class takes care of downloading a list of images from given URLs and putting them into a new album
  * 
  * @author mpetrov
- *
+ * 
  */
 
 @Named
@@ -83,78 +85,114 @@ public class FileDownloadManager implements Serializable {
     IEventAction eventAction;
 
     @Inject
+    EventManager eventManager;
+
+    @Inject
     Model model;
 
     @Inject
     @EventType(Events.EVENT_EDITED_EVENT)
     javax.enterprise.event.Event<ShelfEvent> shelfEvent;
 
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    javax.enterprise.event.Event<ErrorEvent> error;
+
     private List<String> imageUrls;
+    private Iterator<String> iterator;
+
+    private String pBarText;
+    private int pBarValue = -1;
+
+    private int size;
+    private int count;
 
     private Album album;
-    private String albumName;
     private String albumId;
 
-    private Logger log = Logger.getLogger("FileDownloadManager");
-
-    public void setImages(String json) throws JSONException {
-        JSONArray ja = new JSONArray(json);
-
-        if (ja.length() == 0) {
-            return;
-        }
-
+    private void setImages(Map<String, JSONObject> images) throws JSONException {
         imageUrls = new ArrayList<String>();
 
-        setAlbumId(ja.getJSONObject(0).getString("aid"));
-
-        for (int i = 0; i < ja.length(); i++) {
-            imageUrls.add(ja.getJSONObject(i).getString("src_big"));
+        for (JSONObject jo : images.values()) {
+            if (jo.has("src_big")) {
+                imageUrls.add(jo.getString("src_big"));
+            } else {
+                imageUrls.add(jo.getString("src"));
+            }
         }
     }
 
-    public void createAlbum(String name) {
+    private void createAlbum(String name, Event event) {
         album = new Album();
         album.setName(name);
-        album.setEvent(model.getSelectedEvent());
+        album.setShelf(event.getShelf());
 
         albumManager.addAlbum(album);
     }
 
-    public void downloadImages(String clientId) {
-        if (imageUrls == null || imageUrls.isEmpty()) {
+    public void setUpDownload(String albumName, String albumId, Map<String, JSONObject> images, Event event) {
+        try {
+            setImages(images);
+        } catch (JSONException je) {
+            error.fire(new ErrorEvent("Error", "error saving album<br/>" + je.getMessage()));
+        }
+        
+        size = imageUrls.size();
+        count = 0;
+
+        iterator = imageUrls.iterator();
+
+        pBarText = "0 / " + size;
+        pBarValue = 0;
+
+        this.albumId = albumId;
+
+        createAlbum(albumName, event);
+
+        album = albumAction.resetAlbum(album);
+    }
+
+    public void downloadNext() {
+        if (!hasNext()) {
             return;
         }
+        String imageUrl = iterator.next();
 
-        // make new album to store the photos in
-        createAlbum(albumName);
-        album = albumAction.resetAlbum(album);
+        uploadImage(imageUrl, album.getName() + imageUrl.substring(imageUrl.lastIndexOf(Constants.DOT)), album);
+        count++;
+        pBarValue = (count * 100) / size;
+        pBarText = count + " / " + size;
+    }
 
-        // process the URLs
-        for (String imageUrl : imageUrls) {
-            uploadImage(imageUrl, album.getName() + imageUrl.substring(imageUrl.lastIndexOf(Constants.DOT)), album);
-        }
+    public void finishDownload() {
+        Event event = album.getShelf().getEvent();
 
         // save the album
         try {
             albumAction.editAlbum(album);
             album = albumAction.resetAlbum(album);
         } catch (PhotoAlbumException pae) {
-            log.log(Level.INFO, "error saving album", pae);
+            error.fire(new ErrorEvent("Error", "error saving album<br/>" + pae.getMessage()));
         }
 
-        FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Done!", "Album has been successfully downloaded.");
-        FacesContext.getCurrentInstance().addMessage(clientId, fm);
-
         // remove the FB album from the event
-        Event event = album.getEvent();
-        event.getFacebookAlbums().remove(getAlbumId());
+        if (event.getFacebookAlbums().contains(albumId)) {
+            event.getFacebookAlbums().remove(albumId);
+        }
 
         try {
             eventAction.editEvent(event);
         } catch (PhotoAlbumException pae) {
-            log.log(Level.INFO, "error", pae);
+            error.fire(new ErrorEvent("Error", "error removing album<br/>" + pae.getMessage()));
         }
+
+        pBarText = "";
+        pBarValue = -1;
+        
+        UIComponent root = FacesContext.getCurrentInstance().getViewRoot();
+        UIComponent component = root.findComponent("overForm");
+        FacesContext.getCurrentInstance().addMessage(component.getClientId(FacesContext.getCurrentInstance()),
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Success!", "Album has been successfully imported"));
 
         // reset the view
         shelfEvent.fire(new ShelfEvent(event));
@@ -174,27 +212,27 @@ public class FileDownloadManager implements Serializable {
             bos.flush();
             bis.close();
         } catch (MalformedInputException malformedInputException) {
-            log.log(Level.ALL, "error", malformedInputException);
+            error.fire(new ErrorEvent("Error", "error uploading image<br/>" + malformedInputException.getMessage()));
         } catch (IOException ioException) {
-            log.log(Level.ALL, "error", ioException);
+            error.fire(new ErrorEvent("Error", "IO error<br/>" + ioException.getMessage()));
         }
 
         fileUploadManager.uploadFile(new FileHandler(file), album);
     }
 
-    public String getAlbumName() {
-        return albumName;
+    public int getValue() {
+        return pBarValue;
     }
 
-    public void setAlbumName(String albumName) {
-        this.albumName = albumName;
+    public String getText() {
+        return pBarText;
     }
 
-    public String getAlbumId() {
-        return albumId;
+    public Iterator<String> getIterator() {
+        return iterator;
     }
 
-    public void setAlbumId(String albumId) {
-        this.albumId = albumId;
+    public boolean hasNext() {
+        return iterator != null && iterator.hasNext();
     }
 }

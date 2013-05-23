@@ -21,8 +21,8 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org/rich"
+    xmlns:richx="http://richfaces.org/richx">
     <r:panel id="footerPanel" styleClass="footer-panel">
         <h:graphicImage value="/img/shell/logo_bottom.gif" width="160" height="55" alt="" border="0"
             style="position : absolute; right : 0px; top : 27px" />
@@ -43,10 +43,14 @@
                 </r:toolbarGroup>
             </r:toolbar>
         </h:panelGroup>
-        
+
         <r:jsFunction name="loadAlbumsForEvent" oncomplete="reload()">
             <r:param assignTo="#{facebookShelfBean.albums}" name="response" />
         </r:jsFunction>
         <r:jsFunction name="reload" render="mainArea" />
+
+        <r:jsFunction name="showError">
+            <r:param assignTo="#{errorHandlerBean.JSError}" name="message" />
+        </r:jsFunction>
     </r:panel>
 </ui:composition>

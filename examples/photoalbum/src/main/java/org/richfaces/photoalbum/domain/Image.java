@@ -62,7 +62,7 @@ import org.richfaces.photoalbum.service.ActionTools;
 @NamedQueries({
         @NamedQuery(name = "tag-byName", query = "select m from MetaTag m where m.tag =:tag"),
         @NamedQuery(name = "tag-popular", query = "select new org.richfaces.photoalbum.domain.MetaTag(m.id, m.tag) from MetaTag m join m.images img group by m.id, m.tag order by count(img) desc"),
-        @NamedQuery(name = "user-shelves", query = "select distinct s from Shelf s where (s.shared = true and s.owner.preDefined = true) order by s.name"),
+        @NamedQuery(name = "user-shelves", query = "select distinct s from Shelf s where (s.shared = true and s.owner.preDefined = true and s.event = null) order by s.name"),
         @NamedQuery(name = "image-exist", query = "select i from Image i where i.path = :path and i.album = :album"),
         @NamedQuery(name = "image-countIdenticalImages", query = "select count(i) from Image i where i.path like :path and i.album = :album"),
         @NamedQuery(name = "tag-suggest", query = "select m from MetaTag m where lower(m.tag) like :tag") }) // cannot use "... like lower(:tag)"

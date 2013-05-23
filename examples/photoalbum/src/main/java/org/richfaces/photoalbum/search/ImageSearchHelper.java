@@ -33,10 +33,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.richfaces.photoalbum.ejbsearch.ISearchAction;
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.NavEvent;
-import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.manager.NavigationEnum;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.PhotoAlbumException;
@@ -76,7 +76,7 @@ public class ImageSearchHelper implements Serializable {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    Event<SimpleEvent> error;
+    Event<ErrorEvent> error;
     @Inject
     @EventType(Events.UPDATE_MAIN_AREA_EVENT)
     Event<NavEvent> navEvent;
@@ -117,12 +117,12 @@ public class ImageSearchHelper implements Serializable {
         searchOptionsHolder = null;
         if (!isSearchOptionSelected()) {
             // If no options selected
-            error.fire(new SimpleEvent(Constants.SEARCH_NO_OPTIONS_ERROR));
+            error.fire(new ErrorEvent(Constants.SEARCH_NO_OPTIONS_ERROR));
             return;
         }
         if (!isWhereSearchOptionSelected()) {
             // If both search in My and search is shared unselected
-            error.fire(new SimpleEvent(Constants.SEARCH_NO_WHERE_OPTIONS_ERROR));
+            error.fire(new ErrorEvent(Constants.SEARCH_NO_WHERE_OPTIONS_ERROR));
             return;
         }
         keywords = new ArrayList<String>();
@@ -140,7 +140,7 @@ public class ImageSearchHelper implements Serializable {
                     option.search(searchAction, selectedKeyword, seachInMyAlbums, searchInShared);
                 }
             } catch (PhotoAlbumException e) {
-                error.fire(new SimpleEvent(option.getName() + ":" + e.getMessage()));
+                error.fire(new ErrorEvent("Error", option.getName() + ":" + e.getMessage()));
             }
         }
         searchOptionsHolder = new SearchInformationHolder(new ArrayList<ISearchOption>(options), seachInMyAlbums,
@@ -155,7 +155,7 @@ public class ImageSearchHelper implements Serializable {
      */
     public void searchKeyword(String keyword) {
         if (!isSearchOptionSelected()) {
-            error.fire(new SimpleEvent(Constants.SEARCH_NO_OPTIONS_ERROR));
+            error.fire(new ErrorEvent(Constants.SEARCH_NO_OPTIONS_ERROR));
             return;
         }
         Iterator<ISearchOption> it = searchOptionsHolder.getOptions().iterator();
@@ -168,7 +168,7 @@ public class ImageSearchHelper implements Serializable {
                         searchOptionsHolder.isSearchInShared());
                 }
             } catch (PhotoAlbumException e) {
-                error.fire(new SimpleEvent(option.getName() + ":" + e.getMessage()));
+                error.fire(new ErrorEvent(option.getName() + ":" + e.getMessage()));
             }
         }
     }

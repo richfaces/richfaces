@@ -21,12 +21,10 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:r="http://richfaces.org/rich">
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org/rich">
     <r:region>
         <r:popupPanel show="#{slideshow.active}" domElementAttachment="parent" id="slideShowModalPanel" autosized="true"
             onshow="$(#{r:element('imgSlideShow')}).fadeIn(600);">
-            <!-- onshow="showPictureEffect();" -->
             <f:facet name="header">Slideshow panel</f:facet>
             <f:facet name="controls">
                 <h:panelGroup>
@@ -36,16 +34,12 @@
                     </h:graphicImage>
                 </h:panelGroup>
             </f:facet>
-            <!-- <r:effect name="hidePictureEffect" type="Opacity" params="duration:0.4, from:1.0, to:0.0" for="imgSlideShow" /> -->
-            <!-- <r:effect name="showPictureEffect" type="Opacity" params="duration:0.4, from:0.1, to:1.0" for="imgSlideShow" /> -->
-            <!-- not implemented in RF 4 -->
             <h:panelGrid styleClass="slideshow-table" columnClasses="slideshow-table-col" rowClasses="slideshow-table-row">
                 <h:panelGroup id="slideshowImage">
                     <r:mediaOutput id="imgSlideShow" element="img" styleClass="main-image"
                         createContent="#{imageLoader.paintImage}"
                         value="#{slideshow.selectedImage != null ? fileManager.transformPath(slideshow.selectedImage.fullPath, '_medium') : null}"
                         mimeType="image/png" style="display:none">
-                        <!-- was style="opacity: 0.1" -->
                         <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
                             <span style="white-space: nowrap"> #{slideshow.selectedImage.description} </span>
                         </r:tooltip>
@@ -56,7 +50,6 @@
                 interval="#{slideshow.interval}" enabled="#{slideshow.active}"
                 oncomplete="if(event.data)#{r:component('slideShowModalPanel')}.hide(); $(#{r:element('imgSlideShow')}).fadeIn(600);"
                 actionListener="#{slideshow.showNextImage()}" />
-            <!-- was oncomplete="...;onshow="showPictureEffect();" onsubmit="hidePictureEffect()" -->
         </r:popupPanel>
     </r:region>
 </ui:composition>

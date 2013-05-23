@@ -98,9 +98,9 @@ public class Authenticator implements Serializable {
 
     /**
      * Method, that invoked when user try to login to the application.
-     *
+     * 
      * @return boolean indicator, that denotative is user succesfully loginned to the system.
-     *
+     * 
      */
     public boolean authenticate() {
         try {
@@ -116,10 +116,9 @@ public class Authenticator implements Serializable {
                     return false;
                 }
                 addToTracker(user.getId());
-                // identity.addRole(Constants.ADMIN_ROLE, "Users", "GROUP");
                 // Raise event to controller to update Model
                 event.select(new EventTypeQualifier(Events.AUTHENTICATED_EVENT)).fire(new SimpleEvent());
-                // Login was succesfull
+                // Login was successful
                 setLoginFailed(false);
                 return true;
             }
@@ -141,9 +140,9 @@ public class Authenticator implements Serializable {
         JSONObject userInfo = fBean.getUserInfo();
 
         try {
-            String pictureUrl = userInfo.getJSONObject("picture").getJSONObject("data").getString("url");            
+            String pictureUrl = userInfo.getJSONObject("picture").getJSONObject("data").getString("url");
             userBean.setFbPhotoUrl(pictureUrl);
-            
+
             String facebookId = userInfo.getString("id");
             user = userBean.logIn(facebookId);
 
@@ -153,8 +152,10 @@ public class Authenticator implements Serializable {
                 newUser.setFbId(facebookId);
                 newUser.setFirstName(userInfo.getString("first_name"));
                 newUser.setSecondName(userInfo.getString("last_name"));
-                newUser.setLogin(userInfo.getString("username"));
                 newUser.setEmail(userInfo.getString("email"));
+
+                String username = userInfo.has("username") ? userInfo.getString("username") : userInfo.getString("first_name");
+                newUser.setLogin(username);
 
                 String sex = userInfo.getString("gender");
                 newUser.setSex(sex.equals("male") ? Sex.MALE : Sex.FEMALE);
@@ -181,9 +182,9 @@ public class Authenticator implements Serializable {
 
     /**
      * Method, that invoked when user logout from application.
-     *
+     * 
      * @return outcome string to redirect.
-     *
+     * 
      */
     public void logout() {
         long id = userBean.getUser().getId();
@@ -200,9 +201,9 @@ public class Authenticator implements Serializable {
     /**
      * Method, that invoked when user try to register in the application. If registration was successfull, user immediately will
      * be loginned to the system.
-     *
+     * 
      * @param user - user object, that will be passed to registration procedure.
-     *
+     * 
      */
     public void register(User user) {
         // Checks
@@ -224,7 +225,7 @@ public class Authenticator implements Serializable {
             event.select(new EventTypeQualifier(Events.ADD_ERROR_EVENT)).fire(new SimpleEvent(Constants.REGISTRATION_ERROR));
             return;
         }
-        // Registration was successfull, so we can login this user.
+        // Registration was successful, so we can login this user.
         try {
             this.user = userBean.logIn(user.getLogin(), HashUtils.hash(user.getPassword()));
         } catch (Exception e) {
@@ -235,20 +236,15 @@ public class Authenticator implements Serializable {
         if (this.user == null) {
             event.select(new EventTypeQualifier(Events.ADD_ERROR_EVENT)).fire(new SimpleEvent(Constants.LOGIN_ERROR));
         }
-
-        // navEvent.fire(new NavEvent(NavigationEnum.ANONYM)); //point to main page?
-
     }
 
     /**
      * Method, that invoked when user want to go to the registration screen
-     *
+     * 
      */
     public void goToRegister() {
         // create new User object
         user = new User();
-        // Clear avatarData component in conversation scope
-        // Contexts.getConversationContext().set(Constants.AVATAR_DATA_COMPONENT, null);
         setLoginFailed(false);
         // raise event to controller to prepare Model.
         event.select(new EventTypeQualifier(Events.START_REGISTER_EVENT)).fire(new SimpleEvent());
@@ -257,7 +253,7 @@ public class Authenticator implements Serializable {
     /**
      * Method, that invoked when new conversation is started. This method prevent instantiation of couples of conversations when
      * user refresh the whole page.
-     *
+     * 
      * @return string outcome to properly redirect on the current page(to assign to page parameters conversationId.
      */
     @PostConstruct
@@ -269,11 +265,9 @@ public class Authenticator implements Serializable {
 
     @SuppressWarnings("unused")
     private boolean handleAvatar(User user) {
-        // File avatarData = (File) Contexts.getConversationContext().get(Constants.AVATAR_DATA_COMPONENT);
         File avatarData = null; // temporary hack
         if (avatarData != null) {
             user.setHasAvatar(true);
-            // FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
             if (fileManager == null || !fileManager.saveAvatar(avatarData, user)) {
                 event.select(new EventTypeQualifier(Events.ADD_ERROR_EVENT)).fire(
                     new SimpleEvent(Constants.AVATAR_SAVING_ERROR));
@@ -285,7 +279,7 @@ public class Authenticator implements Serializable {
 
     private boolean checkUserExist(User user) {
         if (userAction.isUserExist(user.getLogin())) {
-            Utils.addFacesMessage(Constants.REGISTER_LOGIN_NAME_ID, Constants.USER_WITH_THIS_LOGIN_ALREADY_EXIST);
+            Utils.addFacesMessage(Constants.REGISTER_LOGIN_NAME_ID, "", Constants.USER_WITH_THIS_LOGIN_ALREADY_EXIST);
             return true;
         }
         return false;
@@ -293,7 +287,7 @@ public class Authenticator implements Serializable {
 
     private boolean checkEmailExist(String email) {
         if (userAction.isEmailExist(email)) {
-            Utils.addFacesMessage(Constants.REGISTER_EMAIL_ID, Constants.USER_WITH_THIS_EMAIL_ALREADY_EXIST);
+            Utils.addFacesMessage(Constants.REGISTER_EMAIL_ID, "", Constants.USER_WITH_THIS_EMAIL_ALREADY_EXIST);
             return true;
         }
         return false;
@@ -301,7 +295,7 @@ public class Authenticator implements Serializable {
 
     private boolean checkPassword(User user) {
         if (!user.getPassword().equals(user.getConfirmPassword())) {
-            Utils.addFacesMessage(Constants.REGISTER_CONFIRM_PASSWORD_ID, Constants.CONFIRM_PASSWORD_NOT_EQUALS_PASSWORD);
+            Utils.addFacesMessage(Constants.REGISTER_CONFIRM_PASSWORD_ID, "", Constants.CONFIRM_PASSWORD_NOT_EQUALS_PASSWORD);
             return true;
         }
         return false;
@@ -309,11 +303,7 @@ public class Authenticator implements Serializable {
 
     private void loginFailed() {
         setLoginFailed(true);
-        // facesMessages.clear();
-        // facesMessages.add(Constants.INVALID_LOGIN_OR_PASSWORD);
-        // FacesContext.getCurrentInstance().addMessage("loginPanelForm", new
-        // FacesMessage(Constants.INVALID_LOGIN_OR_PASSWORD));
-        Utils.addFacesMessage("overForm:loginPanel", Constants.INVALID_LOGIN_OR_PASSWORD);
+        Utils.addFacesMessage("overForm:loginPanel", "", Constants.INVALID_LOGIN_OR_PASSWORD);
         FacesContext.getCurrentInstance().renderResponse();
     }
 

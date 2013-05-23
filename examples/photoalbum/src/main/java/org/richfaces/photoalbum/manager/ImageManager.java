@@ -46,6 +46,7 @@ import org.richfaces.photoalbum.domain.Comment;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ImageEvent;
@@ -70,7 +71,8 @@ public class ImageManager {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    Event<SimpleEvent> error;
+    Event<ErrorEvent> error;
+
     @Inject
     @Any
     Event<SimpleEvent> event;
@@ -93,18 +95,19 @@ public class ImageManager {
 
     /**
      * Method, that invoked when user click 'Delete image' button. Only registered users can delete images.
-     *
+     * 
      * @param image - image to delete
-     *
+     * 
      */
-    //@AdminRestricted
     public void deleteImage(Image image) {
-        if (user == null) return;
+        if (user == null) {
+            return;
+        }
         String pathToDelete = image.getFullPath();
         try {
             imageAction.deleteImage(image);
         } catch (Exception e) {
-            error.fire(new SimpleEvent(Constants.IMAGE_DELETING_ERROR));
+            error.fire(new ErrorEvent("Error", Constants.IMAGE_DELETING_ERROR + " <br/>" + e.getMessage()));
             return;
         }
         // Raise 'imageDeleted' event, parameter path - path of file to delete
@@ -113,16 +116,17 @@ public class ImageManager {
 
     /**
      * Method, that invoked when user click 'Edit image' button. Only registered users can edit images.
-     *
+     * 
      * @param image - image to edit
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
      */
-    //@AdminRestricted
     public void editImage(Image image, boolean editFromInplace) {
-        if (user == null) return;
+        if (user == null) {
+            return;
+        }
         try {
             if (user.hasImageWithName(image)) {
-                error.fire(new SimpleEvent(Constants.SAME_IMAGE_EXIST_ERROR));
+                error.fire(new ErrorEvent("Error", Constants.SAME_IMAGE_EXIST_ERROR));
                 imageAction.resetImage(image);
                 return;
             }
@@ -132,16 +136,16 @@ public class ImageManager {
                 Set<ConstraintViolation<Image>> constraintViolations = validator.validate(image);
                 if (constraintViolations.size() > 0) {
                     for (ConstraintViolation<Image> cv : constraintViolations) {
-                        error.fire(new SimpleEvent(cv.getMessage()));
+                        error.fire(new ErrorEvent("Constraint violation", cv.getMessage()));
                     }
-                    // If error occured we need refresh album to display correct value in inplaceInput
+                    // If error occurred we need refresh album to display correct value in inplaceInput
                     imageAction.resetImage(image);
                     return;
                 }
             }
             imageAction.editImage(image, !editFromInplace);
         } catch (Exception e) {
-            error.fire(new SimpleEvent(Constants.IMAGE_SAVING_ERROR));
+            error.fire(new ErrorEvent("Error", Constants.IMAGE_SAVING_ERROR + " <br/>" + e.getMessage()));
             imageAction.resetImage(image);
             return;
         }
@@ -150,20 +154,21 @@ public class ImageManager {
 
     /**
      * Method, that invoked when user add comment to image. Only registered users can add comments to image.
-     *
+     * 
      * @param image - image
      * @param message - comment text
-     *
+     * 
      */
-    //@AdminRestricted
     public void addComment(Image image) {
-        if (user == null) return;
+        if (user == null) {
+            return;
+        }
         if (null == user.getLogin()) {
-            error.fire(new SimpleEvent(Constants.ADDING_COMMENT_ERROR));
+            error.fire(new ErrorEvent(Constants.ADDING_COMMENT_ERROR));
             return;
         }
         if (message.trim().equals("")) {
-            error.fire(new SimpleEvent(Constants.NULL_COMMENT_ERROR));
+            error.fire(new ErrorEvent(Constants.NULL_COMMENT_ERROR));
             return;
         }
         Comment comment = new Comment();
@@ -174,7 +179,7 @@ public class ImageManager {
         try {
             imageAction.addComment(comment);
         } catch (Exception e) {
-            error.fire(new SimpleEvent(Constants.SAVE_COMMENT_ERROR));
+            error.fire(new ErrorEvent("Error", Constants.SAVE_COMMENT_ERROR + " <br/>" + e.getMessage()));
             return;
         }
         message = "";
@@ -182,26 +187,27 @@ public class ImageManager {
 
     /**
      * Method, that invoked when user delete comment. Only registered users can delete comments.
-     *
+     * 
      * @param comment - comment to delete
-     *
+     * 
      */
-    //@AdminRestricted
     public void deleteComment(Comment comment) {
-        if (user == null) return;
+        if (user == null) {
+            return;
+        }
         try {
             imageAction.deleteComment(comment);
         } catch (Exception e) {
-            error.fire(new SimpleEvent(Constants.DELETE_COMMENT_ERROR));
+            error.fire(new ErrorEvent("Error", Constants.DELETE_COMMENT_ERROR + " <br/>" + e.getMessage()));
             return;
         }
     }
 
     /**
      * Method, that invoked to retrieve most popular metatags.
-     *
+     * 
      * @return List of most popular metatags
-     *
+     * 
      */
     public List<MetaTag> popularTags() {
         return imageAction.getPopularTags();
@@ -209,10 +215,10 @@ public class ImageManager {
 
     /**
      * Method, that used to autocomplete 'metatags' field while typing.
-     *
+     * 
      * @param suggest - text to autocomplete
      * @return List of similar metatags
-     *
+     * 
      */
     public List<MetaTag> autoComplete(Object suggest) {
         String temp = (String) suggest;
@@ -224,10 +230,10 @@ public class ImageManager {
 
     /**
      * Method, that invoked to retrieve direct link to image, to represent in UI.
-     *
+     * 
      * @param image - image to get direct link
      * @return List of similar metatags
-     *
+     * 
      */
     public String getImageDirectLink(Image image) {
         String directLink = null;

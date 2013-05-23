@@ -62,11 +62,11 @@ public class Utils {
      * @param componentId - component identifier
      * @param message - message to add
      */
-    public static void addFacesMessage(String componentId, String message) {
+    public static void addFacesMessage(String componentId, String summary, String detail) {
         UIComponent root = FacesContext.getCurrentInstance().getViewRoot();
         UIComponent component = root.findComponent(componentId);
         FacesContext.getCurrentInstance().addMessage(component.getClientId(FacesContext.getCurrentInstance()),
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
+            new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail));
     }
 
     /**
@@ -85,14 +85,13 @@ public class Utils {
      *
      * @param componentId - id of component should be added to rerender
      */
-    // will not work, looking for a way around this
+    // may not work
     @SuppressWarnings("unused")
     public static void addToRerender(String componentId) {
         try {
             FacesContext fc = FacesContext.getCurrentInstance();
             ExtendedPartialViewContext epvc = ExtendedPartialViewContext.getInstance(fc);
             UIComponent destComponent = fc.getViewRoot().findComponent(componentId);
-            // ac.addComponentToAjaxRender(destComponent);
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }

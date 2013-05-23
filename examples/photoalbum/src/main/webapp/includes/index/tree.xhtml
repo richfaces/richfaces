@@ -142,8 +142,6 @@
                             <ui:param name="album" value="#{treeNode}" />
                             <ui:param name="target" value="album" />
                         </ui:include>
-                        <!-- <r:dndParam name="label" type="drag" value="#{album.name}" /> -->
-                        <!-- not supported in RF 4 -->
                         <r:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
                             <h:outputText value="#{treeNode.name}" />
                             <h:outputText rendered="#{fn:length(treeNode.unvisitedImages) > 0}"
@@ -169,13 +167,11 @@
         </r:tree>
     </h:panelGroup>
 
-    <r:commandLink onclick="FBgetShelfAlbums(#{userBean.user.fbId}, loadUserAlbums)" execute="@none" rendered="#{userBean.loggedInFB}">
+    <r:commandLink execute="@this" rendered="#{userBean.loggedInFB}" actionListener="#{controller.showFbShelf()}"
+        render="mainArea">
         <h2>
             <h:outputText value="Facebook Albums" />
         </h2>
-        <r:jsFunction name="loadUserAlbums" actionListener="#{controller.showFbShelf()}" render="mainArea, treePanel">
-            <r:param assignTo="#{facebookShelfBean.albums}" name="response" />
-        </r:jsFunction>
     </r:commandLink>
 
     <h:panelGroup>

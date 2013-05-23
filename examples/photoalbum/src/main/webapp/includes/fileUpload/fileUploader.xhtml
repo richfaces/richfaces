@@ -62,8 +62,6 @@
                     disabled="#{model.selectedAlbum == null}" acceptedTypes="jpg,jpeg" execute="uploadAlbum">
                     <r:ajax event="uploadcomplete" render="treePanel, filesPanel" listener="#{fileWrapper.setComplete(true)}"
                         limitRender="true" />
-                    <!-- <r:ajax event="fileuploadcomplete" /> -->
-                    <!-- this doesn't do anything? -->
                 </r:fileUpload>
             </h:panelGroup>
             <h:panelGroup layout="block" style="padding-top:10px;">

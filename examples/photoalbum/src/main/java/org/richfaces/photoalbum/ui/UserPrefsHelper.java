@@ -38,7 +38,7 @@ import org.richfaces.ui.input.fileUpload.FileUploadEvent;
 
 /**
  * Convenience UI class for userPrefs page
- *
+ * 
  * @author Andrey Markhel
  */
 
@@ -49,7 +49,6 @@ public class UserPrefsHelper implements Serializable {
     @Inject
     IUserAction userAction;
 
-    // @In(required=false, scope=ScopeType.CONVERSATION) @Out(required=false, scope=ScopeType.CONVERSATION)
     @Inject
     private File avatarData;
 
@@ -62,12 +61,12 @@ public class UserPrefsHelper implements Serializable {
 
     /**
      * Convenience method invoked after user add avatar and outject avatar to conversation
-     *
+     * 
      * param event - upload event
      */
     public void uploadAvatar(FileUploadEvent event) {
         UploadedFile file = event.getUploadedFile();
-        //avatarData = new File(file.getInputStream());
+        // avatarData = new File(file.getInputStream());
         try {
             File f = new File((file.getName() + "avatar"));
 

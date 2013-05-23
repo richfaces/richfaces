@@ -38,6 +38,7 @@ import org.richfaces.model.UploadedFile;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ImageEvent;
@@ -72,8 +73,6 @@ public class FileUploadManager implements Serializable {
     @Inject
     IImageAction imageAction;
 
-    // @In(required = true, scope = ScopeType.CONVERSATION)
-    // @Out(scope = ScopeType.CONVERSATION)
     @Inject
     FileWrapper fileWrapper;
 
@@ -91,6 +90,10 @@ public class FileUploadManager implements Serializable {
     @EventType(Events.IMAGE_ADDED_EVENT)
     Event<ImageEvent> imageEvent;
 
+    @Inject
+    @EventType(Events.ADD_ERROR_EVENT)
+    Event<ErrorEvent> error;
+
     Logger log = Logger.getLogger("FUManager");
 
     /**
@@ -98,7 +101,6 @@ public class FileUploadManager implements Serializable {
      *
      * @param event - event, indicated that file upload started
      */
-    // @AdminRestricted
     public void listener(FileUploadEvent event) {
         if (user == null) {
             return;
@@ -178,7 +180,8 @@ public class FileUploadManager implements Serializable {
     }
 
     private void addError(Image image, String error) {
-        fileWrapper.onFileUploadError(image, error);
+        String imageName = (image != null) ? image.getName() : "";
+        this.error.fire(new ErrorEvent("(" + imageName + ") " + error));
     }
 
     private Image constructImage(FileHandler fileHandler) {
@@ -195,10 +198,6 @@ public class FileUploadManager implements Serializable {
         return image;
     }
 
-    /*
-     * NOTE: all the following classes may not work like they used to in the previous version; this is due to certain classes no
-     * longer being part of the com.drew.* libraries
-     */
     private void extractMetadata(FileHandler fileHandler, Image image) {
         InputStream in = null;
         try {

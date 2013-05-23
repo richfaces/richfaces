@@ -18,7 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-
 package org.richfaces.photoalbum.util;
 
 import java.io.IOException;
@@ -63,7 +62,6 @@ public class ActionMapperTagHandler extends TagHandler {
             return null;
         }
 
-        // IDE does not like the following EL syntax (string not closed)
         @SuppressWarnings("all")
         @Override
         public String getExpressionString() {
@@ -107,7 +105,6 @@ public class ActionMapperTagHandler extends TagHandler {
             return null;
         }
 
-        // IDE does not like the following EL syntax (string not closed)
         @SuppressWarnings("all")
         @Override
         public String getExpressionString() {
@@ -167,8 +164,6 @@ public class ActionMapperTagHandler extends TagHandler {
 
         VariableMapper initialVarMapper = ctx.getVariableMapper();
         try {
-            //VariableMapperWrapper varMapper = new VariableMapperWrapper(initialVarMapper);
-
             if (actionExpression == null) {
                 actionExpression = NOOP_ACTION_EXPRESSION;
             }

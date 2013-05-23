@@ -23,7 +23,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich">
-    <ui:param name="album" value="#{facebookShelfBean.getCurrentAlbum()}" />
+    <ui:param name="album" value="#{facebookAlbumCache.currentAlbum}" />
     <h:panelGrid styleClass="album-header-table" cellpadding="0" columns="2" columnClasses="xxx, album-header-table-col2">
         <h:panelGroup>
             <h1>
@@ -31,15 +31,17 @@
             </h1>
             <h:panelGroup layout="block" style="margin-bottom:15px;" styleClass="additional-info-text">
                 <h:outputText value="#{messages['created.album']} " />
-                <h:outputText styleClass="bold" value="#{album.getString('created')}" converter="#{timestampConverter}"/>
+                <h:outputText styleClass="bold" value="#{album.getString('created')}" converter="#{timestampConverter}" />
                 <h:outputText value=", #{messages['contain']}" />
                 <h:outputText styleClass="bold" value=" #{album.getString('size')}" />
                 <h:outputText value=" #{messages['images_']}" />
             </h:panelGroup>
         </h:panelGroup>
-        <!-- <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showShelf(album.shelf)}"
-                render="mainArea, treePanel" value="#{messages['shelf']} #{album.shelf.name}" /> -->
-        <h:outputText value="Facebook" styleClass="additional-info-text" />
+        <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
+            render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}"
+            rendered="#{model.selectedEvent.facebookAlbums.contains(album.getString('aid'))}" />
+        <h:outputText value="Facebook" styleClass="additional-info-text"
+            rendered="#{not model.selectedEvent.facebookAlbums.contains(album.getString('aid'))}" />
     </h:panelGrid>
 
     <!-- imageList -->
@@ -49,29 +51,30 @@
         <ui:param name="renderArea" value="userAlbumImages" />
     </ui:include>
 
+    <!-- 
     <h:panelGroup layout="block" style="margin : 30px 0px 0px 0px;">
         <h:panelGroup layout="block" style="float : right; cursor : pointer">
-            <!--<r:commandLink rendered="#{fn:length(model.images) > 0}" actionListener="#{slideshow.startSlideshow()}"
+            <r:commandLink rendered="#{fn:length(model.images) > 0}" actionListener="#{slideshow.startSlideshow()}"
                 styleClass="slideshow-link" render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
                 <h:graphicImage value="/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
                     style="vertical-align : bottom; margin-right : 5px; border:0;" />
                 <h:outputText value="#{messages['slideshow.start']}" />
-            </r:commandLink>-->
-            <h:outputText value="Slideshow" />
+            </r:commandLink>
         </h:panelGroup>
 
-    </h:panelGroup>
+    </h:panelGroup> -->
     <br />
     <br />
 
     <h:panelGroup id="userAlbumImages">
-        <r:repeat id="imageList" value="#{facebookShelfBean.currentAlbumImages}" var="image" rows="20">
+        <r:repeat id="imageList" value="#{facebookAlbumCache.currentPhotos}" var="image" rows="20">
             <h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
                 <h:graphicImage styleClass="pr_photo_bg" style="#{imageSizeHelper.currentDimension.imageBgStyle}"
                     value="#{imageSizeHelper.currentDimension.imageBg}" />
                 <h:panelGrid cellpadding="0">
                     <h:panelGroup>
-                        <r:commandLink render="mainArea" actionListener="#{controller.showFbImage(image.getString('pid'))}">
+                        <r:commandLink execute="@this" actionListener="#{controller.showFbImage(image.getString('pid'))}"
+                            render="mainArea">
                             <h:graphicImage url="#{image.getString('src')}"
                                 style="border: 1px solid #FFFFFF; max-width: #{imageSizeHelper.value}px; max-height: #{imageSizeHelper.value}px" />
                         </r:commandLink>

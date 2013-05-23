@@ -22,42 +22,93 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich">
-    <r:repeat id="fbAlbums" value="#{facebookShelfBean.allAlbums}" var="album"
-        rendered="#{facebookShelfBean.shelfLoaded and userBean.loggedInFB}">
-        <h:panelGroup layout="block" styleClass="preview_box_album_120">
-            <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
-            <h:panelGrid cellpadding="0">
-                <h:panelGroup style="margin-bottom:7px;" layout="block">
-                    <r:commandLink execute="@none" onclick="FBgetAlbumImages('#{album.getString('aid')}', setFBimages)">
-                        <h:graphicImage id="img" url="#{album.getString('src')}" style="max-width: 120px; max-height: 120px"
-                            styleClass="album-cover-image" />
-                        <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
-                            <span style="white-space: nowrap"> #{album.getString('name')} </span>
-                        </r:tooltip>
-                        <r:dragSource dragIndicator="dragIndicator" type="fbAlbum" dragValue="#{album.getString('aid')}" />
-                    </r:commandLink>
-                    <r:commandButton rendered="#{showDownload}"
-                        onclick="FBgetAlbumImages('#{album.getString('aid')}', setImagesForDl)"
-                        actionListener="#{fileDownloadManager.setAlbumName(album.getString('name'))}" value="Download" />
-                </h:panelGroup>
-            </h:panelGrid>
-            <h:panelGroup layout="block" styleClass="album_name">#{album.getString('name')}</h:panelGroup>
-            <h:panelGroup layout="block" styleClass="album_data">
-                <h:outputText value="#{album.getString('created')}" converter="#{timestampConverter}" />
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich"
+    xmlns:richx="http://richfaces.org/richx">
+
+    <r:outputPanel rendered="#{not userBean.loggedInFB}">
+        <h:outputText value="This event has #{fn:length(albumIds)} albums on Facebook, " />
+        <r:commandLink value="#{messages['menu.login']}" render="loginPanel" actionListener="#{userBean.reset()}"
+            oncomplete="#{r:component('loginPanel')}.show();" />
+        <h:outputText value=" to see them." />
+    </r:outputPanel>
+
+    <r:outputPanel id="fbAlbums" rendered="#{userBean.loggedInFB}">
+        <h:outputText value="Albums are loading" rendered="#{not facebookAlbumCache.areAlbumsLoaded(albumIds)}" />
+        <br style="clear: both" />
+        <r:repeat value="#{albumIds}" var="albumId" rendered="#{userBean.loggedInFB}">
+            <h:panelGroup layout="block" styleClass="preview_box_album_120">
+
+                <r:outputPanel rendered="#{facebookAlbumCache.getImagesOfAlbum(albumId) != null}">
+                    <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
+
+                    <h:panelGrid cellpadding="0">
+                        <h:panelGroup style="margin-bottom:7px;" layout="block">
+                            <r:commandLink execute="@this" actionListener="#{controller.showFBAlbum(albumId)}" render="mainArea">
+                                <r:param assignTo="#{facebookAlbumCache.currentAlbumId}" value="#{albumId}" />
+                                <h:graphicImage id="img" url="#{facebookAlbumCache.getAlbum(albumId).getString('src')}"
+                                    style="max-width: 120px; max-height: 120px" styleClass="album-cover-image" />
+                                <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
+                                    <span style="white-space: nowrap">
+                                        #{facebookAlbumCache.getAlbum(albumId).getString('name')} </span>
+                                </r:tooltip>
+                                <r:dragSource dragIndicator="dragIndicator" type="fbAlbum"
+                                    dragValue="#{facebookAlbumCache.getAlbum(albumId).getString('aid')}"
+                                    rendered="#{not showDownload}" />
+                            </r:commandLink>
+                            <r:commandButton rendered="#{showDownload}"
+                                actionListener="#{fileDownloadManager.setUpDownload(facebookAlbumCache.getAlbum(albumId).getString('name'), albumId, facebookAlbumCache.getImagesOfAlbum(albumId), model.selectedEvent)}"
+                                value="Import" render="pBar" />
+                                <!-- oncomplete="importNext()" -->
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <h:panelGroup layout="block" styleClass="album_name">#{facebookAlbumCache.getAlbum(albumId).getString('name')}</h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="album_data">
+                        <h:outputText value="#{facebookAlbumCache.getAlbum(albumId).getString('created')}"
+                            converter="#{timestampConverter}" />
+                    </h:panelGroup>
+                </r:outputPanel>
+
+                <r:outputPanel rendered="#{facebookAlbumCache.getImagesOfAlbum(albumId) == null}">
+                    <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
+                    <h:panelGrid cellpadding="0" style="opacity: 0.6">
+                        <h:outputText value="#{albumId}" style="display: inline-block; margin: 10px 0 0 10px" />
+                        <h:graphicImage value="/img/shell/ai.gif" styleClass="album-cover-image" />
+                    </h:panelGrid>
+                </r:outputPanel>
             </h:panelGroup>
-        </h:panelGroup>
-    </r:repeat>
-    
-    <r:notifyMessage for="fbAlbums" sticky="true" />
-    
-    <r:jsFunction name="setFBimages" render="mainArea, treePanel" actionListener="#{controller.showFBAlbum}">
-        <r:param assignTo="#{facebookShelfBean.albumImages}" name="response" />
-    </r:jsFunction>
+        </r:repeat>
 
-    <r:jsFunction rendered="#{showDownload}" name="setImagesForDl" oncomplete="downloadImages()" render="dnldProgressBar" immediate="true">
-        <r:param assignTo="#{fileDownloadManager.images}" name="response"/>
-    </r:jsFunction>
+        <br style="clear: both" />
+        <r:progressBar id="pBar" value="#{fileDownloadManager.value}" minValue="0" maxValue="100" enabled="#{fileDownloadManager.hasNext()}" interval="1000">
+            <f:facet name="initial">
+                <h:outputText value="" />
+            </f:facet>
+            <h:outputText value="Importing #{fileDownloadManager.text}" />
+            <r:ajax event="begin" listener="#{fileDownloadManager.downloadNext()}"/>
+            <r:ajax event="finish" oncomplete="finishImport()"/>
+        </r:progressBar>
 
-    <r:jsFunction rendered="#{showDownload}" name="downloadImages" actionListener="#{fileDownloadManager.downloadImages(r:clientId('fbAlbums'))}" oncomplete="reload()" />
+        <!-- **Album fetching** -->
+        <!-- save the albums and images into the cache bean, then reload the image list -->
+        <r:jsFunction name="setFBimages" oncomplete="reloadAlbums()" execute="@this">
+            <r:param assignTo="#{facebookAlbumCache.all}" name="response" />
+        </r:jsFunction>
+
+        <!-- reload the r:repeat to show loaded albums -->
+        <r:jsFunction name="reloadAlbums" render="fbAlbums" execute="@this" />
+
+        <!-- if albums aren't loaded, get the albums from Facebook -->
+        <h:outputScript rendered="#{facebookAlbumCache.needsUpdate}">    
+                $(document).ready(function() {
+                    FBgetAlbumsById( '#{albumString}', setFBimages, showError);
+                });
+        </h:outputScript>
+
+        <ui:include src="/includes/facebook/albumImport.xhtml" />
+
+        <!-- **Image import** -->
+        <r:jsFunction name="finishImport" render="pBar" execute="@this" actionListener="#{fileDownloadManager.finishDownload()}"
+            oncomplete="reload();" />
+
+    </r:outputPanel>
 </ui:composition>

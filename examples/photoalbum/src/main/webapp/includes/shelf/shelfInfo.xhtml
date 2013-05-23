@@ -22,17 +22,13 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-    xmlns:r="http://richfaces.org/rich">
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich">
     <h:panelGrid styleClass="shelf-header-table" cellpadding="0" columns="2" columnClasses="xxx, shelf-header-table-col2">
         <h:panelGroup>
             <h1>
                 <h:outputText value="#{shelf.name}" rendered="#{!controller.isUserShelf(shelf)}" />
                 <r:inplaceInput selectOnEdit="false" id="shelfDNDId" value="#{shelf.name}" inputWidth="570"
                     rendered="#{controller.isUserShelf(shelf)}" />
-                    <!-- <r:ajax event="viewactivated" limitRender="true"
-					render="mainArea, treePanel"
-					listener="#{shelfManager.editShelf(shelf, true)}" /> -->
             </h1>
 
             <h:panelGroup styleClass="additional-info-text">
@@ -61,8 +57,8 @@
                 actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}"
                 oncomplete="#{r:component('confirmation')}.show()" render="confirmation" execute="@this" />
             <h:outputText value=" #{messages['delimiter']} " rendered="#{controller.isUserShelf(shelf)}" />
-            <r:commandLink value="#{messages['shelf.view']} " actionListener="#{controller.showShelf(shelf)}"
-                render="mainArea" rendered="#{!mode.equals('show')}" />
+            <r:commandLink value="#{messages['shelf.view']} " actionListener="#{controller.showShelf(shelf)}" render="mainArea"
+                rendered="#{!mode.equals('show')}" />
         </h:panelGroup>
     </h:panelGrid>
 

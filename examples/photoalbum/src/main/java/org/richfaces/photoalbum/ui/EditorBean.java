@@ -30,7 +30,7 @@ import org.richfaces.photoalbum.event.SimpleEvent;
 
 /**
  * Convenience UI class for r:editor component
- *
+ * 
  * @author Andrey Markhel
  */
 
@@ -48,10 +48,6 @@ public class EditorBean {
     public void setMessage(String message) {
         this.message = message;
     }
-
-//    public void setMessage(@Observes @EventType(Events.CLEAR_EDITOR_EVENT) SimpleEvent se) {
-//        this.message = se.getMessage();
-//    }
 
     public void clearMessage(@Observes @EventType(Events.CLEAR_EDITOR_EVENT) SimpleEvent se) {
         this.message = "";

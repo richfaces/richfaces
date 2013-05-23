@@ -24,20 +24,20 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.org/richx">
-    <ui:param name="image" value="#{facebookShelfBean.currentImage}" />
-    <ui:param name="album" value="#{facebookShelfBean.currentAlbum}" />
+    <ui:param name="image" value="#{facebookAlbumCache.currentPhoto}" />
+    <ui:param name="album" value="#{facebookAlbumCache.currentAlbum}" />
     <!-- imageHeaderInfo -->
     <h:panelGrid styleClass="image-header-table" style="padding: 0" id="imageinfo">
         <h:panelGroup>
             <h1>
                 <h:outputText value="#{image.getString('caption')}" />
             </h1>
-            <!-- <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showShelf(model.selectedShelf)}"
-                render="mainArea, treePanel" value="#{messages['shelf']} #{model.selectedShelf.name}" />
+            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
+                render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}" />
             <h:outputText value=" #{messages['delimiter']} " />
-            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
-                render="mainArea, treePanel" value="#{messages['album']} #{model.selectedAlbum.name}" />
-                -->
+            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showFBAlbum(album.getString('aid'))}"
+                render="mainArea, treePanel" value="#{messages['album']} #{album.getString('name')}" />
+
         </h:panelGroup>
     </h:panelGrid>
 
@@ -46,7 +46,7 @@
     <h:panelGroup layout="block" id="imagesTable"
         style="margin: 30px 0px 40px 30px; float: left; position: relative; left: -2px;">
         <h:panelGrid columns="2">
-            <r:repeat value="#{facebookShelfBean.currentAlbumImages}" rows="5" var="img" id="repeat" rowKeyVar="rk">
+            <r:repeat value="#{facebookAlbumCache.currentPhotos}" rows="5" var="img" id="repeat" rowKeyVar="rk">
                 <r:outputPanel layout="block"
                     styleClass="preview_box_photo_nav #{image.getString('pid') == img.getString('pid') ? 'preview_box_photo_current' : 'preview_box_photo_default'}">
                     <h:panelGroup layout="block" styleClass="preview_box_photo_80">
@@ -94,51 +94,36 @@
                 <td class="mainImage-table-col1" rowspan="2">
                     <h:panelGroup layout="block" styleClass="slideshow-outerdiv">
                         <h:outputText value="Slideshow" />
-                        <!-- <r:commandLink rendered="#{album.getInt('size') > 0}"
-                            actionListener="#{slideshow.startSlideshow(model.selectedImage)}" styleClass="slideshow-link"
-                            render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
+                        <!-- rendered="#{album.getInt('size') > 0}" -->
+                        <r:commandLink disabled="true" actionListener="#{slideshow.startSlideshow(model.selectedImage)}"
+                            styleClass="slideshow-link" render="mainArea, slideShowModalPanel"
+                            execute="@this, slideShowModalPanel">
                             <h:graphicImage value="img/shell/tree_icon_slid.png" width="27" height="16" alt="" border="0"
                                 style="vertical-align : bottom; margin-right : 5px; border:0;" />
                             <h:outputText value="#{messages['slideshow.start']}" />
-                        </r:commandLink> -->
+                        </r:commandLink>
                     </h:panelGroup>
-                    <h:graphicImage styleClass="main-image"
+                    <h:graphicImage styleClass="main-image" rendered="#{image.getString('src_big') != null}"
                         style="border : 3px solid #808080; max-width: 600px; max-height: 600px"
                         url="#{image.getString('src_big')}">
-                        <!-- <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip"
-                            rendered="#{model.selectedImage.showMetaInfo}">
-                            <span style="white-space: nowrap; display: block; text-align: left;"> <h:outputText
-                                    value="#{messages['image.size']} #{model.selectedImage.size}" /> <br /> <h:outputText
-                                    value="#{messages['original_size']}: #{model.selectedImage.height}x#{model.selectedImage.width}" /><br />
-                                <h:outputText value="#{messages['image.captured']}: #{model.selectedImage.created}" /><br /> <h:outputText
-                                    value="#{messages['camera']}: #{model.selectedImage.cameraModel}" />
-                            </span>
-                        </r:tooltip> -->
+                    </h:graphicImage>
+                    <h:graphicImage styleClass="main-image" rendered="#{image.getString('src_big') == null}"
+                        style="border : 3px solid #808080; max-width: 600px; max-height: 600px" url="#{image.getString('src')}">
                     </h:graphicImage>
                 </td>
                 <td style="vertical-align: top;">
-                    <h:panelGroup layout="block" styleClass="buttons-body" style="margin : 26px 0px 0px 0px;">
+                    <h:panelGroup layout="block" styleClass="buttons-body" style="margin : 26px 0px 0px 0px;"
+                        rendered="#{image.getString('src_big') != null}">
                         <a href="#{image.getString('src_big')}" target="_blank" class="buttons-body-text-div">#{messages['original_size']}</a>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="buttons-body" style="margin : 26px 0px 0px 0px;"
+                        rendered="#{image.getString('src_big') == null}">
+                        <a href="#{image.getString('src')}" target="_blank" class="buttons-body-text-div">#{messages['original_size']}</a>
                     </h:panelGroup>
                 </td>
             </tr>
-            <tr>
-                <td>Buttons</td>
-            </tr>
         </table>
     </h:panelGroup>
-    <!-- <h:outputText styleClass="additional-info-text" value="#{messages['image.camera']} " />
-    <h:outputText value="#{model.selectedImage.cameraModel}" />
-    <br />
-    <h:outputText styleClass="additional-info-text" value="#{messages['image.captured']} " />
-    <h:outputText value="#{model.selectedImage.created}" />
-    <br />
-    <h:outputText styleClass="additional-info-text" value="#{messages['uploaded']}: " />
-    <h:outputText value="#{model.selectedImage.uploaded}" />
-    <br />
-    <h:outputText styleClass="additional-info-text" value="#{messages['image.author']} " />
-    <r:commandLink actionListener="#{controller.showUser(model.selectedImage.album.owner)}" render="mainArea"
-        value="#{model.selectedImage.album.owner.login}" /> -->
 
     <!-- imageAdditionalInfo (i.e. comments)
     <ui:include src="/includes/image/imageAdditionalInfo.xhtml" /> -->

@@ -40,12 +40,12 @@
             value="#{model.selectedImage.id}" mimeType="image/jpeg" />
 
         <h:outputText value="No available albums. Log into Facebook and create one."
-            rendered="#{fn:length(facebookBean.availableAlbums) == 0}" />
-        <r:dataGrid rendered="#{fn:length(facebookBean.availableAlbums) > 0}" value="#{facebookBean.availableAlbums}"
-            var="album" columns="3">
+            rendered="#{fn:length(facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)) == 0}" />
+        <r:dataGrid rendered="#{fn:length(facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)) > 0}"
+            value="#{facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)}" var="album" columns="3">
             <r:panel header="#{album.getString('name')}">
-                <r:commandLink
-                    onclick="pushImage('#{album.getString('object_id')}', #{r:element('imgUri')}.href); #{r:component('albumsPopupPanel')}.hide()">
+                <r:commandLink execute="@none"
+                    onclick="FBpushImage('#{album.getString('object_id')}', #{r:element('imgUri')}.href, showError); #{r:component('albumsPopupPanel')}.hide()">
                     <img src="#{album.getString('src')}" />
                 </r:commandLink>
             </r:panel>
