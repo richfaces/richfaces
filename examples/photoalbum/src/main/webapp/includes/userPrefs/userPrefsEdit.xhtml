@@ -30,7 +30,7 @@
         <r:region rendered="#{userBean.user.fbId == '1'}">
             <h:inputHidden value="#{userBean.user.fbId}" id="userFbId" />
             <richx:commandButton styleClass="fb-comm-button" execute="@this"
-                oncomplete="FBbind(bindWithFB,#{r:element('userFbId')})" value="Bind with Facebook" />
+                oncomplete="FBbind(bindWithFB, #{r:element('userFbId')}, showError)" value="Bind with Facebook" />
             <r:jsFunction name="bindWithFB" actionListener="#{controller.editUser}" render="mainArea" />
         </r:region>
         <h:outputText value="This account is bound to Facebook" rendered="#{userBean.user.fbId != '1'}" />

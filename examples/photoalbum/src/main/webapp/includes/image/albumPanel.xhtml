@@ -45,7 +45,7 @@
             value="#{facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)}" var="album" columns="3">
             <r:panel header="#{album.getString('name')}">
                 <r:commandLink execute="@none"
-                    onclick="pushImage('#{album.getString('object_id')}', #{r:element('imgUri')}.href); #{r:component('albumsPopupPanel')}.hide()">
+                    onclick="FBpushImage('#{album.getString('object_id')}', #{r:element('imgUri')}.href, showError); #{r:component('albumsPopupPanel')}.hide()">
                     <img src="#{album.getString('src')}" />
                 </r:commandLink>
             </r:panel>

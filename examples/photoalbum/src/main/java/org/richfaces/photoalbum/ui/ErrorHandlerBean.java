@@ -32,32 +32,39 @@ import org.richfaces.photoalbum.util.Utils;
 
 /**
  * Convenience UI class for global eeror-checking mechanism
- *
+ * 
  * @author Andrey Markhel
  */
 @Named
 @RequestScoped
 public class ErrorHandlerBean {
 
-//    private List<String> errors = new ArrayList<String>();
-//
-//    public List<String> getErrors() {
-//        return errors;
-//    }
-//
-//    public boolean isErrorExist() {
-//        return errors.size() > 0;
-//    }
+    /**
+     * Creates a <code><r:notifyMessage></code> on the site.
+     * 
+     * @param summary - summary of the error
+     * @param detail - detailed description of the error
+     */
+    public void showError(String summary, String detail) {
+        Utils.addFacesMessage("overForm", summary, detail);
+    }
 
     /**
-     * Convenience method that observes <code>Constants.ADD_ERROR_EVENT</code>. After error occured add error to the list of
-     * erors andon rerendering modal panel with all errors will be showed.
-     *
-     * @param e - string representation of error.
+     * Convenience method that observes Event of type <code>Events.ADD_ERROR_EVENT</code>.
+     * 
+     * @param ee - event fired upon error.
      */
     public void addToErrors(@Observes @EventType(Events.ADD_ERROR_EVENT) ErrorEvent ee) {
-        //errors.add(se.getMessage());
+        showError(ee.getSummary(), ee.getDetail());
+    }
 
-        Utils.addFacesMessage("overForm", ee.getSummary(), ee.getDetail());
+    /**
+     * Pseudo-setter that shows error that originated in JS code, using <code><r:jsFunction></code> as a middle-man.
+     * 
+     * @param message - summary and detail separated by '$#$'
+     */
+    public void setJSError(String message) {
+        String[] s = message.split("\\$#\\$");
+        showError(s[0], s[1]);
     }
 }
