@@ -22,7 +22,7 @@
 
 package org.richfaces.ui.tabPanel;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 import java.net.URL;
 import java.util.List;
@@ -90,7 +90,7 @@ public class ITStaticTabTest {
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
-        guardXhr(tabs.get(1)).click();
+        guardAjax(tabs.get(1)).click();
         Assert.assertTrue(out.getText().contains("begin"));
 //        Assert.assertTrue(out.getText().contains("tabpanel_complete"));
 //        Assert.assertTrue(out.getText().contains("beforedomupdate"));
@@ -105,7 +105,7 @@ public class ITStaticTabTest {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
         inputText.sendKeys("abcd");
-        guardXhr(tabs.get(1)).click();
+        guardAjax(tabs.get(1)).click();
         Assert.assertEquals("abcd", outputText.getText());
     }
 
