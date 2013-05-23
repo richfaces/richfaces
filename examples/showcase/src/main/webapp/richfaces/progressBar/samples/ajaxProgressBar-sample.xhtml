@@ -42,6 +42,9 @@
                 </h:panelGroup>
             </f:facet>
             <h:outputText value="#{progressBarBean.currentValue} %" />
+            
+            <!-- Update the progress for each AJAX update -->
+            <r:ajax event="begin" listener="#{progressBarBean.increment}" />
         </r:progressBar>
     </h:form>
 </ui:composition>
