@@ -88,8 +88,12 @@ public class DynamicResourceHandler extends AbstractResourceHandler {
             FacesContext context = FacesContext.getCurrentInstance();
             Object state = ResourceUtils.saveResourceState(context, result);
             Resource newResource = resourceFactory.createResource(context, new ResourceRequestDataImpl(resourceKey, state));
-            result = new DynamicResourceWrapper(newResource);
-        } else {
+            if (newResource != null) {
+                result = new DynamicResourceWrapper(newResource);
+            }
+        }
+
+        if (result == null) {
             result = staticResourceHandler.createResource(resourceName, libraryName, contentType);
         }
 
