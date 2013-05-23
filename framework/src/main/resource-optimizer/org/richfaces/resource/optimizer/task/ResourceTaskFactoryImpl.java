@@ -153,7 +153,7 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
         public Object call() throws Exception {
             checkResource();
             if (skipped) {
-                log.info("Skipped resource rendering: " + resourceKey);
+                log.debug("Skipped resource rendering: " + resourceKey);
             } else {
                 if (skinDependent) {
                     for (String skin : skins) {

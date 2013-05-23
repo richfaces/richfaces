@@ -103,7 +103,7 @@ public class ResourceWriterImpl implements ResourceWriter {
 
         if (outFile.exists()) {
             if (outFile.lastModified() > currentTime) {
-                log.warn(MessageFormat.format("File {0} already exists and will be overwritten", outFile.getPath()));
+                log.debug(MessageFormat.format("File {0} already exists and will be overwritten", outFile.getPath()));
             }
             outFile.delete();
         }

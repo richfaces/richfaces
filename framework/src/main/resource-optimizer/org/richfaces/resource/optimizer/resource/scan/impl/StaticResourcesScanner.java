@@ -55,21 +55,24 @@ public class StaticResourcesScanner implements ResourcesScanner {
                 String libraryName = child.getName();
                 VirtualFile libraryDir = ResourceUtil.getLatestVersion(child, true);
                 if (libraryDir != null) {
-                    scanLibrary(libraryName, libraryDir);
+                    scanLibrary(libraryName, "", libraryDir);
                 }
             }
         }
     }
 
-    private void scanLibrary(String libraryName, VirtualFile dir) {
+    private void scanLibrary(String libraryName, String resourceNamePrefix, VirtualFile dir) {
         Collection<VirtualFile> children = dir.getChildren();
         for (VirtualFile child : children) {
+        	String resourceName = resourceNamePrefix + child.getName();
             if (child.isFile()) {
-                resources.add(new ResourceKey(child.getName(), libraryName));
-            } else {
+                resources.add(new ResourceKey(resourceName, libraryName));
+            } else if (child.isDirectory()) {
                 VirtualFile resource = ResourceUtil.getLatestVersion(child, false);
                 if (resource != null) {
-                    resources.add(new ResourceKey(child.getName(), libraryName));
+                    resources.add(new ResourceKey(resourceName, libraryName));
+                } else {
+                	scanLibrary(libraryName, resourceName + "/", child);
                 }
             }
         }

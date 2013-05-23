@@ -378,9 +378,13 @@
                                         <argument>--excludeFile</argument>
                                         <argument>^javax.faces</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.renderkit.html.images.\E.*</argument>
+                                        <argument>^org.richfaces.ui.images.*</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</argument>
+                                        <argument>^org.richfaces.ui.iconimages.*</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>^org.richfaces.optimized.*</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>^org.richfaces.ckeditor.*</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -406,9 +410,13 @@
                                         <argument>--excludeFile</argument>
                                         <argument>^javax.faces</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.renderkit.html.images.\E.*</argument>
+                                        <argument>^org.richfaces.ui.images.*</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</argument>
+                                        <argument>^org.richfaces.ui.iconimages.*</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>^org.richfaces.optimized.*</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>^org.richfaces.ckeditor.*</argument>
                                         <argument>--compress</argument>
                                     </arguments>
                                 </configuration>
@@ -435,9 +443,13 @@
                                         <argument>--excludeFile</argument>
                                         <argument>^javax.faces</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.renderkit.html.images.\E.*</argument>
+                                        <argument>^org.richfaces.ui.images.*</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</argument>
+                                        <argument>^org.richfaces.ui.iconimages.*</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>^org.richfaces.optimized.*</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>^org.richfaces.ckeditor.*</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^jquery.js$</argument>
                                         <argument>--pack</argument>
@@ -489,9 +501,13 @@
                                         <argument>--excludeFile</argument>
                                         <argument>^javax.faces</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.renderkit.html.images.\E.*</argument>
+                                        <argument>^org.richfaces.ui.images.*</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</argument>
+                                        <argument>^org.richfaces.ui.iconimages.*</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>^org.richfaces.optimized.*</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>^org.richfaces.ckeditor.*</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^jquery.js$</argument>
                                         <argument>--pack</argument>
