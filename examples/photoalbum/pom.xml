@@ -287,8 +287,10 @@
 
                             <excludedFiles>
                                 <exclude>^javax.faces</exclude>
-                                <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
-                                <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                                <exclude>^org.richfaces.ui.images.*</exclude>
+                                <exclude>^org.richfaces.ui.iconimages.*</exclude>
+                                <exclude>^org.richfaces.optimized.*</exclude>
+                                <exclude>^org.richfaces.ckeditor.*</exclude>
                                 <exclude>^jquery\.js$</exclude>
                             </excludedFiles>
 
@@ -325,8 +327,10 @@
 
                             <excludedFiles>
                                 <exclude>^javax.faces</exclude>
-                                <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
-                                <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                                <exclude>^org.richfaces.ui.images.*</exclude>
+                                <exclude>^org.richfaces.ui.iconimages.*</exclude>
+                                <exclude>^org.richfaces.optimized.*</exclude>
+                                <exclude>^org.richfaces.ckeditor.*</exclude>
                                 <exclude>^jquery\.js$</exclude>
                             </excludedFiles>
 
