@@ -76,7 +76,7 @@ FBpushImage = function(album_id, url, message, errorCb) {
                 url : url
             }, function(response) {
                 if (!response || response.error) {
-                    errorCb('Error occured' + errorDelimiter + (response.error || 'Response not received'));
+                    errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
                 } else {
                     console.log('Post ID: ' + response.id);
                 }
@@ -101,7 +101,7 @@ getAlbums = function(callback, errorCb) {
             FB.api('fql', {q: {"q1" : query1, "q2" : query2}},            
                 function(response) {
                 if (!response || response.error) {
-                    errorCb('Error occured' + errorDelimiter + (response.error || 'Response not received'));
+                    errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
                 } else {
                     result = mergeResults(response.data[0].fql_result_set, response.data[1].fql_result_set);
                     console.log(result);
@@ -119,7 +119,7 @@ FBlogin = function(infoCb, albumIdsCb, errorCb) {
 
             FB.api('/me?fields=first_name,last_name,email,username,birthday,gender,picture.width(24).height(24)', 'get', function(response) {
                 if (!response || response.error) {
-                    errorCb('Error occured' + errorDelimiter + (response.error || 'Response not received'));
+                    errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
                 } else {
                     infoCb(JSON.stringify(response));
                     console.log('Good to see you, ' + response.first_name + '.');
@@ -130,7 +130,7 @@ FBlogin = function(infoCb, albumIdsCb, errorCb) {
             FB.api('fql', {q: {"q1" : "SELECT aid from album WHERE owner = me()"}}, 
                 function(response) {
                     if (!response || response.error) {
-                        errorCb('Error occured' + errorDelimiter + (response.error || 'Response not received'));
+                        errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
                     } else {
                         var result_set = response.data[0].fql_result_set,
                             result = result_set[0]["aid"], i;
@@ -155,7 +155,7 @@ FBbind = function(exec, bind, errorCb) {
         if (response.authResponse) {
             FB.api('/me?fields=id', 'get', function(response) {
                 if (!response || response.error) {
-                    errorCb('Error occured' + errorDelimiter + (response.error || 'Response not received'));
+                    errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
                 } else {
                     console.log(response);
                     bind.value = response.id;
@@ -179,7 +179,7 @@ FBgetShelfAlbums = function(userId, callback, errorCb) {
             FB.api('fql', {q: {"q1": query1, "q2": query2}}, 
                 function(response) {
                     if (!response || response.error) {
-                        errorCb('Error occured' + errorDelimiter + (response.error || 'Response not received'));
+                        errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
                     } else {
                         result = mergeResults(response.data[0].fql_result_set, response.data[1].fql_result_set);
                         callback(JSON.stringify(result));
@@ -208,7 +208,8 @@ FBgetAlbumsById = function(albumIds, callback, errorCb) {
             FB.api('fql', {q: {"q1": query1, "q2": query2, "q3": query3}}, 
                 function(response) {
                     if (!response || response.error) {
-                        errorCb('Error occured' + errorDelimiter + (response.error || 'Response not received'));
+                        errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
+                        console.log(response);
                     } else {
                         var r = {
                             q1: null,
@@ -242,7 +243,7 @@ FBgetAlbumImages = function(albumId, callback, errorCb) {
             FB.api('fql', {q: {"q1" : query1}}, 
                 function(response) {
                     if (!response || response.error) {
-                        errorCb('Error occured' + errorDelimiter + (response.error || 'Response not received'));
+                        errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
                     } else {
                         console.log(response.data[0].fql_result_set);
                         callback(JSON.stringify(response.data[0].fql_result_set));

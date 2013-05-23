@@ -54,8 +54,8 @@
                     <r:param assignTo="#{facebookBean.albumIds}" name="albumIds" />
                 </r:jsFunction>
 
-                <r:jsFunction name="authenticate" actionListener="#{authenticator.authenticateWithFacebook}"
-                    oncomplete="#{r:component('loginPanel')}.hide()" render="mainArea, headerPanel, treePanel" />
+                <r:jsFunction name="authenticate" actionListener="#{authenticator.authenticateWithFacebook}" data="#{authenticator.loginFailed}"
+                    oncomplete="if(!event.data)#{r:component('loginPanel')}.hide()" render="mainArea, headerPanel, treePanel" />
             </h:panelGroup>
 
             <h:panelGroup layout="block">

@@ -32,13 +32,15 @@ public class ListUtils {
         }
         
         StringBuilder sb = new StringBuilder();
+        sb.append('"');
 
         for(String s : sList) {
            sb.append(s).append(',');
         }
 
         sb.deleteCharAt(sb.length()-1);
-
+        sb.append('"');
+        
         return sb.toString();
     }
     

@@ -152,8 +152,10 @@ public class Authenticator implements Serializable {
                 newUser.setFbId(facebookId);
                 newUser.setFirstName(userInfo.getString("first_name"));
                 newUser.setSecondName(userInfo.getString("last_name"));
-                newUser.setLogin(userInfo.getString("username"));
                 newUser.setEmail(userInfo.getString("email"));
+
+                String username = userInfo.has("username") ? userInfo.getString("username") : userInfo.getString("first_name");
+                newUser.setLogin(username);
 
                 String sex = userInfo.getString("gender");
                 newUser.setSex(sex.equals("male") ? Sex.MALE : Sex.FEMALE);
