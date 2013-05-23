@@ -85,14 +85,13 @@ public class Utils {
      *
      * @param componentId - id of component should be added to rerender
      */
-    // will not work, looking for a way around this
+    // may not work
     @SuppressWarnings("unused")
     public static void addToRerender(String componentId) {
         try {
             FacesContext fc = FacesContext.getCurrentInstance();
             ExtendedPartialViewContext epvc = ExtendedPartialViewContext.getInstance(fc);
             UIComponent destComponent = fc.getViewRoot().findComponent(componentId);
-            // ac.addComponentToAjaxRender(destComponent);
         } catch (Exception e) {
             System.err.print(e.getMessage());
         }

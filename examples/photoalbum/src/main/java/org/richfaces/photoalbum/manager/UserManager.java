@@ -48,14 +48,12 @@ public class UserManager implements Serializable {
 
     private static final long serialVersionUID = 6027103521084558931L;
 
-    // @In(scope=ScopeType.SESSION) @Out(scope=ScopeType.SESSION)
     @Inject
     User user;
 
     @Inject
     FileManager fileManager;
 
-    // @In(required=false, scope=ScopeType.CONVERSATION) @Out(required=false, scope=ScopeType.CONVERSATION)
     @Inject
     File avatarData;
 
@@ -68,7 +66,7 @@ public class UserManager implements Serializable {
 
     /**
      * Method, that invoked when user want to edit her profile.
-     *
+     * 
      */
     public void editUser(@Observes @EventType(Events.EDIT_USER_EVENT) SimpleEvent se) {
         // If new avatar was uploaded
@@ -85,7 +83,6 @@ public class UserManager implements Serializable {
             // This check is actual only on livedemo server to prevent hacks.
             // Prevent hackers to mark user as pre-defined
             user.setPreDefined(false);
-            // user.setPasswordHash(HashUtils.hash(user.getPassword()));
             user = userAction.updateUser();
         } catch (Exception e) {
             error.fire(new ErrorEvent("Error", Constants.UPDATE_USER_ERROR + " <br/>" + e.getMessage()));
@@ -95,7 +92,7 @@ public class UserManager implements Serializable {
 
     /**
      * This method observes <code>Constants.ALBUM_ADDED_EVENT</code> and invoked after the user add new album
-     *
+     * 
      * @param album - added album
      */
     public void onAlbumAdded(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
@@ -104,7 +101,7 @@ public class UserManager implements Serializable {
 
     /**
      * Method, that invoked when user click 'Cancel' button during edit her profile.
-     *
+     * 
      */
     public void cancelEditUser(@Observes @EventType(Events.CANCEL_EDIT_USER_EVENT) SimpleEvent se) {
         avatarData = null;

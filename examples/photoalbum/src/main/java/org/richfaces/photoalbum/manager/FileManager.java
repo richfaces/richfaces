@@ -35,7 +35,6 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
@@ -69,7 +68,7 @@ public class FileManager {
 
     @Inject
     User user;
-    
+
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
     Event<ErrorEvent> error;
@@ -78,15 +77,13 @@ public class FileManager {
      * Method, that invoked at startup application. Used to determine where application will be write new images. This method
      * set uploadRoot field - it is reference to the file where images will be copied.
      */
-    @PostConstruct
-    public void create() {
-        // uploadRoot = (File) Component.getInstance(Constants.UPLOAD_ROOT_COMPONENT_NAME, Scope.APPLICATION);
-        // uploadRootPath = (String) Component.getInstance(Constants.UPLOAD_ROOT_PATH_COMPONENT_NAME, ScopeType.APPLICATION);
-    }
+    // @PostConstruct
+    // public void create() {
+    // }
 
     /**
      * This method used to get reference to the file with the specified relative path to the uploadRoot field
-     *
+     * 
      * @param path - relative path of file
      * @return File reference
      */
@@ -111,12 +108,11 @@ public class FileManager {
     /**
      * This method observes <code>Constants.ALBUM_DELETED_EVENT</code> and invoked after the user delete album. This method
      * delete album directory from the disk
-     *
+     * 
      * @param album - deleted album
      * @param path - relative path of the album directory
-     *
+     * 
      */
-    // @AdminRestricted
     public void onAlbumDeleted(@Observes @EventType(Events.ALBUM_DELETED_EVENT) AlbumEvent ae) {
         if (user == null) {
             return;
@@ -127,11 +123,10 @@ public class FileManager {
     /**
      * This method observes <code>Constants.SHELF_DELETED_EVENT</code> and invoked after the user delete her shelf This method
      * delete shelf directory from the disk
-     *
+     * 
      * @param shelf - deleted shelf
      * @param path - relative path of the shelf directory
      */
-    // @AdminRestricted
     public void onShelfDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
         if (user == null) {
             return;
@@ -142,11 +137,10 @@ public class FileManager {
     /**
      * This method observes <code>Constants.USER_DELETED_EVENT</code> and invoked after the user was deleted(used in livedemo to
      * prevent flooding) This method delete user directory from the disk
-     *
+     * 
      * @param user - deleted user
      * @param path - relative path of the user directory
      */
-    // Might not work properly due to injection
     public void onUserDeleted(@Observes @EventType(Events.USER_DELETED_EVENT) SimpleEvent se) {
         deleteDirectory(user.getPath());
     }
@@ -154,7 +148,7 @@ public class FileManager {
     /**
      * This method observes <code>SHELF_ADDED_EVENT</code> and invoked after the user add new shelf This method add shelf
      * directory to the disk
-     *
+     * 
      * @param shelf - added shelf
      */
     public void onShelfAdded(@Observes @EventType(Events.SHELF_ADDED_EVENT) ShelfEvent se) {
@@ -165,7 +159,7 @@ public class FileManager {
     /**
      * This method observes <code>ALBUM_ADDED_EVENT</code> and invoked after the user add new album This method add album
      * directory to the disk
-     *
+     * 
      * @param album - added album
      */
     public void onAlbumAdded(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
@@ -175,7 +169,7 @@ public class FileManager {
 
     /**
      * This method invoked after user set new avatar icon
-     *
+     * 
      * @param avatarData - avatar file
      * @param user - user, that add avatar
      */
@@ -194,11 +188,10 @@ public class FileManager {
     /**
      * This method observes <code>Constants.IMAGE_DELETED_EVENT</code> and invoked after the user delete her image This method
      * delete image and all thumbnails of this image from the disk
-     *
+     * 
      * @param image - deleted image
      * @param path - relative path of the image file
      */
-    // @AdminRestricted
     public void deleteImage(@Observes @EventType(Events.IMAGE_DELETED_EVENT) ImageEvent ie) {
         if (user == null) {
             return;
@@ -210,12 +203,11 @@ public class FileManager {
 
     /**
      * This method invoked after user upload new image
-     *
+     * 
      * @param fileName - new relative path to the image file
      * @param tempFilePath - absolute path to uploaded image
      * @throws IOException
      */
-    // @AdminRestricted
     public boolean addImage(String fileName, FileHandler fileHandler) throws IOException {
         Logger log = Logger.getLogger("FileManager");
         if (user == null) {
@@ -242,7 +234,7 @@ public class FileManager {
     /**
      * This method used to transform one path to another. For example you want get path of the file with dimensioms 80 of image
      * with path /user/1/2/image.jpg, this method return /user/1/2/image_substitute.jpg
-     *
+     * 
      * @param target - path to transform
      * @param substitute - new 'addon' to the path
      */
@@ -257,7 +249,7 @@ public class FileManager {
 
     /**
      * This method used to get reference to the file with the absolute path
-     *
+     * 
      * @param path - absolute path of file
      * @return File reference
      */
@@ -267,7 +259,7 @@ public class FileManager {
 
     /**
      * This utility method used to determine if the directory with specified relative path exist
-     *
+     * 
      * @param path - absolute path of directory
      * @return File reference
      */
@@ -278,7 +270,7 @@ public class FileManager {
 
     /**
      * This utility method used to determine if the file with specified relative path exist
-     *
+     * 
      * @param path - absolute path of file
      * @return File reference
      */
@@ -290,7 +282,7 @@ public class FileManager {
     /**
      * This method observes <code>Constants.ALBUM_DRAGGED_EVENT</code> and invoked after the user dragged album form one shelf
      * to the another. This method rename album directory to the new directory
-     *
+     * 
      * @param album - dragged album
      * @param pathOld - old path of album directory
      */
@@ -312,7 +304,7 @@ public class FileManager {
     /**
      * This method observes <code>Constants.IMAGE_DRAGGED_EVENT</code> and invoked after the user dragged image form one album
      * to the another. This method rename image file and all thumbnails to the new name
-     *
+     * 
      * @param image - dragged image
      * @param pathOld - old path of image file
      */

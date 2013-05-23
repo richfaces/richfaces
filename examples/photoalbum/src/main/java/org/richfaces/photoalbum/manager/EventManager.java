@@ -27,9 +27,6 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Any;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -43,7 +40,6 @@ import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.EventTypeQualifier;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ShelfEvent;
-import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IEventAction;
 import org.richfaces.photoalbum.service.IShelfAction;
@@ -62,7 +58,7 @@ public class EventManager implements Serializable {
 
     @Inject
     IEventAction eventAction;
-    
+
     @Inject
     IShelfAction shelfAction;
 
@@ -80,7 +76,7 @@ public class EventManager implements Serializable {
 
     private Event newEvent = new Event();
     private Shelf newShelf = new Shelf();
-    
+
     private long ecId;
 
     public Event getEvent() {
@@ -97,7 +93,7 @@ public class EventManager implements Serializable {
         }
         newEvent = new Event();
         ecId = 1;
-        
+
         newShelf = new Shelf();
     }
 
@@ -107,17 +103,17 @@ public class EventManager implements Serializable {
         }
         validationSuccess = true;
         Logger logger = Logger.getLogger(EventManager.class);
-        
+
         try {
             EventCategory ec = eventAction.getEventCategoryById(ecId);
             newEvent.setCategory(ec);
-            
+
             newShelf.setName(newEvent.getName());
             newShelf.setShared(true);
-            
+
             newShelf.setEvent(newEvent);
             newEvent.setShelf(newShelf);
-            
+
             eventAction.addEvent(newEvent);
             shelfAction.addShelf(newShelf);
         } catch (Exception e) {
@@ -131,10 +127,10 @@ public class EventManager implements Serializable {
     /**
      * Method, that invoked when user click 'Edit event' button or by inplaceInput component. Only registered users can edit
      * shelves.
-     *
+     * 
      * @param event - event to edit
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
-     *
+     * 
      */
     public void editEvent(Event event, boolean editFromInplace) {
         if (user == null) {
@@ -152,9 +148,9 @@ public class EventManager implements Serializable {
 
     /**
      * Method, that invoked when user click 'Delete event' button. Only registered users can delete shelves.
-     *
+     * 
      * @param image - event to delete
-     *
+     * 
      */
     public void deleteEvent(Event event) {
         if (user == null) {
@@ -176,23 +172,23 @@ public class EventManager implements Serializable {
     public void setValidationSuccess(boolean validationSuccess) {
         this.validationSuccess = validationSuccess;
     }
-    
+
     public List<Event> getAllEvents() {
         return eventAction.getAllEvents();
     }
-    
+
     public List<EventCategory> getEventCategories() {
         return eventAction.getEventCategories();
     }
-    
+
     public Event getEventById(long id) {
         return eventAction.getEventById(id);
     }
-    
+
     public EventCategory getEventCategoryById(long id) {
         return eventAction.getEventCategoryById(id);
     }
-    
+
     public List<Event> getEventsByCategory(EventCategory ec) {
         return eventAction.getEventsByCategory(ec);
     }

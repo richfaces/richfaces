@@ -43,20 +43,18 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Utility class, that perform copying images from ear file to temp folder at startup application
- *
+ * 
  * @author Andrey Markavtsov
- *
+ * 
  */
 
 @Startup
 @ApplicationScoped
 public class CopyImageStuff {
 
-    // @Out(scope = ScopeType.APPLICATION)
     @Produces
     private File uploadRoot;
 
-    // @Out(scope = ScopeType.APPLICATION)
     @SuppressWarnings("unused")
     @Produces
     private String uploadRootPath;
@@ -65,7 +63,7 @@ public class CopyImageStuff {
 
     /**
      * Method, that perform copying images from ear file to temp folder at startup application
-     *
+     * 
      */
     @PostConstruct
     public void create() throws IOException {
@@ -76,7 +74,7 @@ public class CopyImageStuff {
 
     /**
      * Method, that perform deleting images from temp folder during destroy application
-     *
+     * 
      */
     @PreDestroy
     public void destroy() throws IOException {

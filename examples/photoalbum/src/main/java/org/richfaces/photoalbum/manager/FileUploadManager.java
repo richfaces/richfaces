@@ -73,8 +73,6 @@ public class FileUploadManager implements Serializable {
     @Inject
     IImageAction imageAction;
 
-    // @In(required = true, scope = ScopeType.CONVERSATION)
-    // @Out(scope = ScopeType.CONVERSATION)
     @Inject
     FileWrapper fileWrapper;
 
@@ -91,7 +89,7 @@ public class FileUploadManager implements Serializable {
     @Inject
     @EventType(Events.IMAGE_ADDED_EVENT)
     Event<ImageEvent> imageEvent;
-    
+
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
     Event<ErrorEvent> error;
@@ -103,7 +101,6 @@ public class FileUploadManager implements Serializable {
      *
      * @param event - event, indicated that file upload started
      */
-    // @AdminRestricted
     public void listener(FileUploadEvent event) {
         if (user == null) {
             return;
@@ -183,7 +180,6 @@ public class FileUploadManager implements Serializable {
     }
 
     private void addError(Image image, String error) {
-        //fileWrapper.onFileUploadError(image, error);
         String imageName = (image != null) ? image.getName() : "";
         this.error.fire(new ErrorEvent("(" + imageName + ") " + error));
     }
@@ -202,10 +198,6 @@ public class FileUploadManager implements Serializable {
         return image;
     }
 
-    /*
-     * NOTE: all the following classes may not work like they used to in the previous version; this is due to certain classes no
-     * longer being part of the com.drew.* libraries
-     */
     private void extractMetadata(FileHandler fileHandler, Image image) {
         InputStream in = null;
         try {

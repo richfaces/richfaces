@@ -62,16 +62,10 @@ public class ConfirmationPopupHelper implements Serializable {
 
     private Actions action;
 
-    // @In @Out
-    //@Inject
     private Image image;
 
-    // @In @Out
-    //@Inject
     private Shelf shelf;
 
-    // @In @Out
-    //@Inject
     private Album album;
 
     @Inject
@@ -108,7 +102,7 @@ public class ConfirmationPopupHelper implements Serializable {
     private void deleteImage() {
         imageManager.deleteImage(this.image);
     }
-    
+
     private void deleteShelf() {
         shelfManager.deleteShelf(this.shelf);
     }
@@ -130,7 +124,7 @@ public class ConfirmationPopupHelper implements Serializable {
     }
 
     public void doAction() {
-        switch(action) {
+        switch (action) {
             case DELETE_SHELF:
                 deleteShelf();
                 break;

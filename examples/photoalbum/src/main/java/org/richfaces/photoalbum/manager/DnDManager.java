@@ -76,15 +76,13 @@ public class DnDManager implements DropListener {
 
     /**
      * Listenet, that invoked during drag'n'drop process. Only registered users can drag images.
-     *
+     * 
      * @param event - event, indicated that drag'n'drop started
      */
-    // @AdminRestricted
     public void processDrop(DropEvent dropEvent) {
         if (user == null) {
             return;
         }
-        // Dropzone dropzone = (Dropzone) dropEvent.getComponent();
         Object dragValue = dropEvent.getDragValue();
         Object dropValue = dropEvent.getDropValue();
         if (dragValue instanceof Image) {

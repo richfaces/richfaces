@@ -45,7 +45,7 @@ import org.richfaces.photoalbum.event.SimpleEvent;
 /**
  * This class represent 'M' in MVC pattern. It is storage to application flow related data such as selectedAlbum, image,
  * mainArea to preview etc..
- *
+ * 
  * @author Andrey Markhel
  */
 
@@ -64,7 +64,7 @@ public class Model implements Serializable {
     private Shelf selectedShelf;
 
     private MetaTag selectedTag;
-    
+
     private Event selectedEvent;
 
     private NavigationEnum mainArea = NavigationEnum.ANONYM;
@@ -79,7 +79,7 @@ public class Model implements Serializable {
 
     /**
      * This method invoked after the almost user actions, to prepare properly data to show in the UI.
-     *
+     * 
      * @param mainArea - next Area to show(determined in controller)
      * @param selectedUser - user, that was selected(determined in controller)
      * @param selectedShelf - shelf, that was selected(determined in controller)
@@ -97,10 +97,10 @@ public class Model implements Serializable {
         this.mainArea = mainArea;
         this.images = images;
     }
-    
+
     public void resetModel(NavigationEnum mainArea, User selectedUser, Shelf selectedShelf, Album selectedAlbum,
         Image selectedImage, List<Image> images, Event selectedEvent) {
-        
+
         resetModel(mainArea, selectedUser, selectedShelf, selectedAlbum, selectedImage, images);
         this.selectedEvent = selectedEvent;
     }
@@ -108,9 +108,9 @@ public class Model implements Serializable {
     /**
      * This method observes <code> Constants.UPDATE_MAIN_AREA_EVENT </code>event and invoked after the user actions, that not
      * change model, but change area to preview
-     *
+     * 
      * @param mainArea - next Area to show
-     *
+     * 
      */
     public void setMainArea(@Observes @EventType(Events.UPDATE_MAIN_AREA_EVENT) NavEvent ne) {
         if (this.mainArea != null && this.mainArea.equals(NavigationEnum.FILE_UPLOAD)) {
@@ -122,15 +122,14 @@ public class Model implements Serializable {
     /**
      * This method observes <code> Constants.UPDATE_SELECTED_TAG_EVENT </code>event and invoked after the user click on any
      * metatag.
-     *
+     * 
      * @param selectedTag - clicked tag
-     *
+     * 
      */
     public void setSelectedTag(MetaTag tag) {
         this.selectedTag = tag;
     }
 
-    // Might not work properly due to injection
     public void observeSelectedTag(@Observes @EventType(Events.UPDATE_SELECTED_TAG_EVENT) SimpleEvent se) {
         this.selectedTag = metatag;
     }

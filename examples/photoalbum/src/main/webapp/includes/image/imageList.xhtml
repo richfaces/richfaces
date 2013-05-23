@@ -22,8 +22,8 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-    xmlns:r="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich"
+    xmlns:richx="http://richfaces.org/richx">
 
     <ui:include src="/includes/image/inputNumberSlider.xhtml">
         <ui:param name="size" value="#{fn:length(model.images)}" />
@@ -61,8 +61,6 @@
                                 <f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
                                 <r:dragSource rendered="#{controller.isUserImage(image)}" render="mainArea, treePanel"
                                     id="dragSource" dragIndicator="iDragIndicator" type="image" dragValue="#{image}" />
-                                    <!-- <r:dndParam id="dragParam" name="label" value="#{image.name}" /> -->
-                                    <!-- not supported in RF 4 -->
                             </r:mediaOutput>
                         </r:commandLink>
                         <br />

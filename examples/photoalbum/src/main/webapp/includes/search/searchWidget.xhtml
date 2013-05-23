@@ -21,8 +21,8 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org/rich"
+    xmlns:richx="http://richfaces.org/richx">
     <r:region>
         <div class="search-div">
             <span
@@ -33,8 +33,7 @@
             <div class="search-label">#{messages['search']}</div>
             <r:commandLink styleClass="search-find-button" id="findLink" value="#{messages['find']}"
                 onclick="hide('searchOptions'); show('openSeach');" render="mainArea"
-                actionListener="#{imageSearchHelper.search}" execute="@region"
-                oncomplete="#{r:element('searchQuery')}.value=''" />
+                actionListener="#{imageSearchHelper.search}" execute="@region" oncomplete="#{r:element('searchQuery')}.value=''" />
             <h:inputText id="searchQuery" required="true" value="#{imageSearchHelper.searchQuery}"
                 onkeydown="if (event.keyCode == 13) { #{r:element('findLink')}.onclick(); return false; }"
                 styleClass="search-input" />
@@ -69,8 +68,5 @@
                 </a>
             </div>
         </div>
-        <!-- <r:effect name="showSearch" for="searchOptions" type="Appear" params="duration: 0.5"></r:effect> -->
-        <!-- <r:effect name="hideSearch" for="searchOptions" type="Fade" params="duration: 0.5"></r:effect> -->
-        <!-- not implemented in RF 4 -->
     </r:region>
 </ui:composition>

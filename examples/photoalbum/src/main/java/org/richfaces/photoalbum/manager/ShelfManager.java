@@ -88,24 +88,21 @@ public class ShelfManager implements Serializable {
 
     /**
      * Method, that invoked when user want to create new shelf. Only registered users can create new shelves.
-     *
+     * 
      */
-    // @AdminRestricted
     public void createShelf() {
         if (user == null) {
             return;
         }
         newShelf = new Shelf();
-        // Contexts.getConversationContext().set(Constants.SHELF_VARIABLE, shelf);
     }
 
     /**
      * Method, that invoked on creation of the new shelf. Only registered users can create new shelves.
-     *
+     * 
      * @param album - new album
-     *
+     * 
      */
-    // @AdminRestricted
     public void addShelf(Shelf shelf) {
         if (user == null) {
             return;
@@ -130,12 +127,11 @@ public class ShelfManager implements Serializable {
     /**
      * Method, that invoked when user click 'Edit shelf' button or by inplaceInput component. Only registered users can edit
      * shelves.
-     *
+     * 
      * @param shelf - shelf to edit
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
-     *
+     * 
      */
-    // @AdminRestricted
     public void editShelf(Shelf shelf, boolean editFromInplace) {
         if (user == null) {
             return;
@@ -170,11 +166,10 @@ public class ShelfManager implements Serializable {
 
     /**
      * Method, that invoked when user click 'Delete shelf' button. Only registered users can delete shelves.
-     *
+     * 
      * @param image - shelf to delete
-     *
+     * 
      */
-    // @AdminRestricted
     public void deleteShelf(Shelf shelf) {
         if (user == null) {
             return;
@@ -191,9 +186,9 @@ public class ShelfManager implements Serializable {
 
     /**
      * This method used to populate 'pre-defined shelves' tree
-     *
+     * 
      * @return List of predefined shelves
-     *
+     * 
      */
     public List<Shelf> getPredefinedShelves() {
         if (shelves == null) {

@@ -53,7 +53,6 @@ public class FbJsonConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        //return ((JSONArray) value).toString();
         return "";
     }
 

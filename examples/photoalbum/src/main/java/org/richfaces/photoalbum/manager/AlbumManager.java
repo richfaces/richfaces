@@ -96,17 +96,14 @@ public class AlbumManager implements Serializable {
      * @param album - new album
      *
      */
-    // @AdminRestricted
     public void addAlbum(Album album) {
         if (user == null) {
             return;
         }
         // Shelf must be not-null
         if (album.getShelf() == null) {
-            // facesMessages.addToControl(Constants.SHELF_ID, Constants.SHELF_MUST_BE_NOT_NULL_ERROR, new Object[0]);
             FacesContext.getCurrentInstance().addMessage(Constants.SHELF_ID,
                 new FacesMessage("", Constants.SHELF_MUST_BE_NOT_NULL_ERROR));
-            // Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
             return;
         }
         // Album name must be unique in shelf
@@ -125,10 +122,8 @@ public class AlbumManager implements Serializable {
             return;
         }
         // Reset 'album' component in conversation scope
-        // Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, null);
 
         albumEvent.select(new EventTypeQualifier(Events.ALBUM_ADDED_EVENT)).fire(new AlbumEvent(album));
-        // album = null;
     }
 
     /**
@@ -138,7 +133,6 @@ public class AlbumManager implements Serializable {
      * @param isShowAlbumAfterCreate - indicate is we need to show created album after create.
      *
      */
-    // @AdminRestricted
     public void createAlbum(Shelf shelf, boolean isShowAlbumAfterCreate) {
         if (user == null) {
             return;
@@ -158,8 +152,6 @@ public class AlbumManager implements Serializable {
         }
         album.setShelf(shelf);
         album.setShowAfterCreate(isShowAlbumAfterCreate);
-        // Reset 'album' component in conversation scope
-        // Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
     }
 
     /**
@@ -168,7 +160,6 @@ public class AlbumManager implements Serializable {
      * @param album - edited album
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
      */
-    // @AdminRestricted
     public void editAlbum(Album album, boolean editFromInplace) {
         if (user == null) {
             return;
@@ -208,7 +199,6 @@ public class AlbumManager implements Serializable {
      * @param album - album to delete
      *
      */
-    // @AdminRestricted
     public void deleteAlbum(Album album) {
         if (user == null) {
             return;

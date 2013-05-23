@@ -21,11 +21,10 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org/rich"
+    xmlns:richx="http://richfaces.org/richx">
 
     <r:popupPanel id="albumModalPanel" width="450" height="140" domElementAttachment="parent">
-        <!-- onshow="applyModalPanelEffect('albumModalPanel', {delay: 0.5, afterFinish: function(){$('form2:albumname').focus();}});"> -->
         <f:facet name="header">
             <h:outputText value="#{messages['album.add']}" />
         </f:facet>
@@ -37,9 +36,6 @@
             </h:panelGroup>
         </f:facet>
 
-        <!-- <r:effect type="Appear" name="appearFunc" /> -->
-        <!-- not implemented in RF 4 -->
-
         <r:region id="form2">
             <h:panelGroup id="albumPanel" width="100%">
                 <r:region>
@@ -50,8 +46,8 @@
                             </h:panelGroup>
 
                             <r:inplaceSelect minSelectWidth="370" listWidth="400" required="true" id="shelf"
-                                value="#{albumManager.album.shelf}" openOnEdit="true" viewClass="inplace"
-                                changedClass="inplace" changedHoverClass="hover" viewHoverClass="hover" converter="shelfConverter">
+                                value="#{albumManager.album.shelf}" openOnEdit="true" viewClass="inplace" changedClass="inplace"
+                                changedHoverClass="hover" viewHoverClass="hover" converter="shelfConverter">
                                 <f:selectItems value="#{userBean.user.shelves}" var="shelf" itemLabel="#{shelf.name}"
                                     itemValue="#{shelf}" itemDescription="#{shelf.description}" />
                             </r:inplaceSelect>
@@ -73,13 +69,13 @@
                         <h:panelGroup id="albumFirstButton" layout="block">
                             <richx:commandButton data="#{albumManager.validationSuccess}" value="#{messages['album.store']}"
                                 actionListener="#{albumManager.addAlbum(albumManager.album)}" id="storebutton"
-                                render="treePanel, mainArea, menu" execute="form2" oncomplete="if(event.data)#{r:component('albumModalPanel')}.hide()"
-                                styleClass="album" />
+                                render="treePanel, mainArea, menu" execute="form2"
+                                oncomplete="if(event.data)#{r:component('albumModalPanel')}.hide()" styleClass="album" />
                         </h:panelGroup>
                         <h:panelGroup id="albumSecondButton" layout="block">
                             <richx:commandButton type="button" id="cancelbutton"
                                 onclick="#{r:component('albumModalPanel')}.hide(); return false;"
-                                value="#{messages['album.cancel']}" execute="@none"/>
+                                value="#{messages['album.cancel']}" execute="@none" />
                         </h:panelGroup>
                     </h:panelGrid>
                 </h:panelGroup>

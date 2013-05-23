@@ -62,12 +62,9 @@ public class Controller implements Serializable {
 
     private static final long serialVersionUID = 5656562187249324512L;
 
-    // @In @Out
     @Inject
     Model model;
 
-    // @In(scope = ScopeType.SESSION)
-    // @Inject
     User user;
 
     @Inject
@@ -123,7 +120,6 @@ public class Controller implements Serializable {
      * 
      * @param shelf - shelf to edit
      */
-    // @AdminRestricted
     public void startEditShelf(Shelf shelf) {
         if (loggedUser == null) {
             return;
@@ -154,7 +150,6 @@ public class Controller implements Serializable {
             showError("", Constants.HAVENT_ACCESS);
             return;
         }
-        // FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         // Check, that album was not deleted recently.
         if (!fileManager.isDirectoryPresent(album.getPath())) {
             showError("", Constants.ALBUM_RECENTLY_DELETED_ERROR);
@@ -200,7 +195,6 @@ public class Controller implements Serializable {
             return;
         }
         // Check, that image was not deleted recently
-        // final FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         if (!fileManager.isFilePresent(image.getFullPath())) {
             showError("", Constants.IMAGE_RECENTLY_DELETED_ERROR);
             model.resetModel(NavigationEnum.ALBUM_PREVIEW, image.getAlbum().getOwner(), image.getAlbum().getShelf(),
@@ -217,7 +211,6 @@ public class Controller implements Serializable {
      * 
      * @param image - image to edit
      */
-    // @AdminRestricted
     public void startEditImage(Image image) {
         if (loggedUser == null) {
             return;
@@ -234,7 +227,6 @@ public class Controller implements Serializable {
      * This method invoked after the user want to save just edited user to database.
      * 
      */
-    // @AdminRestricted
     public void editUser() {
         if (loggedUser == null) {
             return;
@@ -269,7 +261,6 @@ public class Controller implements Serializable {
      * @param album - album to show
      */
     public void showShelf(Shelf shelf) {
-        // final FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         if (!fileManager.isDirectoryPresent(shelf.getPath())) {
             showError("", Constants.SHELF_RECENTLY_DELETED_ERROR);
             model.resetModel(NavigationEnum.ANONYM, shelf.getOwner(), null, null, null, null);
@@ -287,7 +278,6 @@ public class Controller implements Serializable {
      * 
      * @param album - album to edit
      */
-    // @AdminRestricted
     public void startEditAlbum(Album album) {
         if (loggedUser == null) {
             return;
@@ -400,7 +390,6 @@ public class Controller implements Serializable {
      * 
      * @param u - authenticated user
      */
-    // might not work properly due to injection
     public void onAuthenticate(@Observes @EventType(Events.AUTHENTICATED_EVENT) SimpleEvent se) {
         model.resetModel(NavigationEnum.ALL_SHELFS, loggedUser, null, null, null, null);
     }
@@ -553,7 +542,6 @@ public class Controller implements Serializable {
         if (image == null || image.getOwner() == null || loggedUser == null) {
             return false;
         }
-        // return image.isOwner(loggedUser);
         return loggedUser.equals(image.getOwner());
     }
 

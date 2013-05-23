@@ -72,7 +72,7 @@ public class ImageManager {
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
     Event<ErrorEvent> error;
-    
+
     @Inject
     @Any
     Event<SimpleEvent> event;
@@ -95,13 +95,14 @@ public class ImageManager {
 
     /**
      * Method, that invoked when user click 'Delete image' button. Only registered users can delete images.
-     *
+     * 
      * @param image - image to delete
-     *
+     * 
      */
-    //@AdminRestricted
     public void deleteImage(Image image) {
-        if (user == null) return;
+        if (user == null) {
+            return;
+        }
         String pathToDelete = image.getFullPath();
         try {
             imageAction.deleteImage(image);
@@ -115,13 +116,14 @@ public class ImageManager {
 
     /**
      * Method, that invoked when user click 'Edit image' button. Only registered users can edit images.
-     *
+     * 
      * @param image - image to edit
      * @param editFromInplace - indicate whether edit process was initiated by inplaceInput component
      */
-    //@AdminRestricted
     public void editImage(Image image, boolean editFromInplace) {
-        if (user == null) return;
+        if (user == null) {
+            return;
+        }
         try {
             if (user.hasImageWithName(image)) {
                 error.fire(new ErrorEvent("Error", Constants.SAME_IMAGE_EXIST_ERROR));
@@ -136,7 +138,7 @@ public class ImageManager {
                     for (ConstraintViolation<Image> cv : constraintViolations) {
                         error.fire(new ErrorEvent("Constraint violation", cv.getMessage()));
                     }
-                    // If error occured we need refresh album to display correct value in inplaceInput
+                    // If error occurred we need refresh album to display correct value in inplaceInput
                     imageAction.resetImage(image);
                     return;
                 }
@@ -152,14 +154,15 @@ public class ImageManager {
 
     /**
      * Method, that invoked when user add comment to image. Only registered users can add comments to image.
-     *
+     * 
      * @param image - image
      * @param message - comment text
-     *
+     * 
      */
-    //@AdminRestricted
     public void addComment(Image image) {
-        if (user == null) return;
+        if (user == null) {
+            return;
+        }
         if (null == user.getLogin()) {
             error.fire(new ErrorEvent(Constants.ADDING_COMMENT_ERROR));
             return;
@@ -184,13 +187,14 @@ public class ImageManager {
 
     /**
      * Method, that invoked when user delete comment. Only registered users can delete comments.
-     *
+     * 
      * @param comment - comment to delete
-     *
+     * 
      */
-    //@AdminRestricted
     public void deleteComment(Comment comment) {
-        if (user == null) return;
+        if (user == null) {
+            return;
+        }
         try {
             imageAction.deleteComment(comment);
         } catch (Exception e) {
@@ -201,9 +205,9 @@ public class ImageManager {
 
     /**
      * Method, that invoked to retrieve most popular metatags.
-     *
+     * 
      * @return List of most popular metatags
-     *
+     * 
      */
     public List<MetaTag> popularTags() {
         return imageAction.getPopularTags();
@@ -211,10 +215,10 @@ public class ImageManager {
 
     /**
      * Method, that used to autocomplete 'metatags' field while typing.
-     *
+     * 
      * @param suggest - text to autocomplete
      * @return List of similar metatags
-     *
+     * 
      */
     public List<MetaTag> autoComplete(Object suggest) {
         String temp = (String) suggest;
@@ -226,10 +230,10 @@ public class ImageManager {
 
     /**
      * Method, that invoked to retrieve direct link to image, to represent in UI.
-     *
+     * 
      * @param image - image to get direct link
      * @return List of similar metatags
-     *
+     * 
      */
     public String getImageDirectLink(Image image) {
         String directLink = null;
