@@ -68,6 +68,8 @@ public class ITResourceOptimization {
         FrameworkDeployment deployment = new FrameworkDeployment(ITResourceOptimization.class);
 
         FaceletAsset p = deployment.baseFacelet("script.xhtml");
+        p.head("<h:outputScript library='javax.faces' name='jsf.js' />");
+        p.head("<h:outputScript name='jquery.js' />");
         p.head("<h:outputScript name='richfaces.js' />");
 
         p = deployment.baseFacelet("stylesheet.xhtml");
@@ -97,7 +99,7 @@ public class ITResourceOptimization {
     @Test
     public void test_script_packaging() {
 
-        driver.navigate().to(contextPath.toExternalForm() + "/script.jsf");
+        driver.navigate().to(contextPath.toExternalForm() + "script.jsf");
 
         assertEquals(1, driver.findElements(By.cssSelector("script[src*='packed.js']")).size());
         assertEquals(0, driver.findElements(By.cssSelector("script[src*='richfaces.js']")).size());
@@ -106,7 +108,7 @@ public class ITResourceOptimization {
     @Test
     public void test_stylesheet_packaging() {
 
-        driver.navigate().to(contextPath.toExternalForm() + "/stylesheet.jsf");
+        driver.navigate().to(contextPath.toExternalForm() + "stylesheet.jsf");
 
         assertEquals(1, driver.findElements(By.cssSelector("link[href*='packed.css']")).size());
         assertEquals(0, driver.findElements(By.cssSelector("link[href*='log.ecss']")).size());
