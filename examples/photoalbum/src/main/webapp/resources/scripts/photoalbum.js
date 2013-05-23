@@ -121,7 +121,6 @@ FBlogin = function(infoCb, albumIdsCb, errorCb) {
                 if (!response || response.error) {
                     errorCb('Error occured' + errorDelimiter + (response.error || 'Response not received'));
                 } else {
-                    errorCb('Error occured' + errorDelimiter + (response.error || 'Response not received'));
                     infoCb(JSON.stringify(response));
                     console.log('Good to see you, ' + response.first_name + '.');
                     console.log(response);
