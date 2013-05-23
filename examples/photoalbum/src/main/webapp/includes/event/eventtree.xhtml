@@ -23,14 +23,13 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich"
-    xmlns:richx="http://richfaces.org/richx">    
+    xmlns:richx="http://richfaces.org/richx">
     <r:tree id="eventTree" var="treeNode" toggleType="client">
         <r:treeModelAdaptor nodes="#{eventManager.eventCategories}">
             <r:treeNode style="cursor:pointer" selectedClass="tree-selected-node" iconCollapsed="img/shell/tree_icon_shelf.png"
                 iconExpanded="img/shell/tree_icon_shelf.png">
                 <r:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
                     <h:outputText value="#{treeNode.description}" />
-                    <!-- <r:ajax render="treePanel, mainArea" event="click" listener="#{controller.showShelf(treeNode)}" /> -->
                     <r:tooltip direction="topRight" showDelay="1000">
                         <span style="white-space: nowrap">#{treeNode.description}</span>
                     </r:tooltip>
@@ -41,10 +40,11 @@
                 <r:treeNode style="cursor:pointer" selectedClass="tree-selected-node" iconLeaf="img/shell/tree_icon_album.png">
                     <r:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
                         <h:outputText value="#{treeNode.name}" />
-                        <r:ajax onbegin="FBgetAlbumsById('#{treeNode.fbAlbumIds}', loadAlbumsForEvent)" event="click" listener="#{controller.showEvent(treeNode)}" render="mainArea"/> 
-                        <r:dropTarget acceptedTypes="album, fbAlbum" dropValue="#{treeNode}" dropListener="#{dndManager.addAlbumToEvent}"
+                        <r:ajax event="click" listener="#{controller.showEvent(treeNode)}" render="mainArea" />
+                        <r:dropTarget acceptedTypes="album" dropValue="#{treeNode}" dropListener="#{dndManager.addAlbumToEvent}"
                             render="treePanel, mainArea" />
-                            
+                        <r:dropTarget acceptedTypes="fbAlbum" data="#{fbDndManager.albumAlreadyShared}" dropValue="#{treeNode}" dropListener="#{fbDndManager.processDrop}"
+                            oncomplete="if(!event.data)#{r:component('fbAlbumModalPanel')}.show();" render="fbAlbumModalPanel" />
                         <r:tooltip direction="topRight" showDelay="1000">
                             <span style="white-space: nowrap">#{treeNode.name}</span>
                         </r:tooltip>
@@ -53,8 +53,7 @@
 
             </r:treeModelAdaptor>
         </r:treeModelAdaptor>
-
     </r:tree>
-    <br/>
+    <br />
 
 </ui:composition>

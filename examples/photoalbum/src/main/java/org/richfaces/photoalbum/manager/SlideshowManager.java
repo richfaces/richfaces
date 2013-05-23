@@ -35,6 +35,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.richfaces.photoalbum.domain.Image;
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.SimpleEvent;
@@ -65,7 +66,7 @@ public class SlideshowManager implements Serializable {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    Event<SimpleEvent> error;
+    Event<ErrorEvent> error;
 
     private int interval = Constants.INITIAL_DELAY;
 
@@ -88,7 +89,7 @@ public class SlideshowManager implements Serializable {
     /**
      * This method invoked after user click on 'Start slideshow' button and no image is selected. After execution of this method
      * slideshow will be activated.
-     *
+     * 
      */
     public void startSlideshow() {
         if (!this.active) {
@@ -110,7 +111,7 @@ public class SlideshowManager implements Serializable {
     /**
      * This method invoked after user click on 'Start slideshow' button. After execution of this method slideshow will be
      * activated starting from selected image.
-     *
+     * 
      * @param selectedImage - first image to show during slideshow
      */
     public void startSlideshow(Image selectedImage) {
@@ -118,14 +119,14 @@ public class SlideshowManager implements Serializable {
         this.slideshowIndex = model.getImages().indexOf(selectedImage);
         this.startSlideshowIndex = this.slideshowIndex;
         this.selectedImage = selectedImage;
-        
+
         startSlideshow();
     }
 
     /**
      * This method invoked after user click on 'Stop slideshow' button. After execution of this method slideshow will be
      * de-activated.
-     *
+     * 
      */
     public void stopSlideshow(@Observes @EventType(Events.STOP_SLIDESHOW_EVENT) SimpleEvent se) {
         active = false;
@@ -157,7 +158,7 @@ public class SlideshowManager implements Serializable {
 
     /**
      * This method used to prepare next image to show during slideshow
-     *
+     * 
      */
     public void showNextImage() {
         if (!active) {
@@ -206,19 +207,17 @@ public class SlideshowManager implements Serializable {
 
     private void onError(boolean isShowOnUI) {
         stopSlideshow();
-        // stopSlideshow(new SimpleEvent());
         errorDetected = true;
         Utils.addToRerender(Constants.MAINAREA_ID);
         if (isShowOnUI) {
-            error.fire(new SimpleEvent(Constants.NO_IMAGES_FOR_SLIDESHOW_ERROR));
+            error.fire(new ErrorEvent(Constants.NO_IMAGES_FOR_SLIDESHOW_ERROR));
         }
         return;
     }
 
     private void checkIsFileRecentlyDeleted() {
-        // FileManager fileManager = (FileManager) Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
         if (!fileManager.isFilePresent(this.selectedImage.getFullPath())) {
-            error.fire(new SimpleEvent(Constants.IMAGE_RECENTLY_DELETED_ERROR));
+            error.fire(new ErrorEvent(Constants.IMAGE_RECENTLY_DELETED_ERROR));
             active = false;
             errorDetected = true;
             Utils.addToRerender(Constants.MAINAREA_ID);

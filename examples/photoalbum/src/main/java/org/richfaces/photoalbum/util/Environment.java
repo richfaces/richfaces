@@ -51,9 +51,7 @@ public class Environment {
         try {
             final Properties props = new Properties();
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-            final ServletContext servletContext = //(FacesContext.getCurrentInstance().getExternalContext()
-                //.getSession(false)).getServletContext();
-                session.getServletContext();
+            final ServletContext servletContext = session.getServletContext();
             props.load(new FileInputStream(servletContext.getRealPath("WEB-INF/classes/" + ENVIRONMENT_PROPERTIES)));
             return props.getProperty(ENVIRONMENT);
         } catch (FileNotFoundException e) {

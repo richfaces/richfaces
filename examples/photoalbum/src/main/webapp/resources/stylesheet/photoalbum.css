@@ -1454,6 +1454,35 @@ h1 {
     height: 22px;
 }
 
+/* scroller */
+
+.rf-ds {
+	/* hide page counter */
+	display: none !important;
+}
+
+/*  messages */
+
+	/* container  */
+.photoalbum-message {
+	padding: 10px;
+}
+
+.photoalbum-message.rf-ntf-err .rf-ntf-ico {
+	background-image: url(/richfaces-photoalbum/img/modal/ico_warning.png) !important;
+	background-size: 18px 29px;
+}
+
+	/* summary heading */
+.photoalbum-message .rf-ntf-sum {
+	font-size: 14px !important;
+}
+	
+	/* detail */
+.photoalbum-message .rf-ntf-det {
+	font-size: 12px !important;
+}
+
 /* FB button */
 
 input[type='submit'].fb-button {

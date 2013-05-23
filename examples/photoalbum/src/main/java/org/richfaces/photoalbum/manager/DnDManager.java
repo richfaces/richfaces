@@ -35,10 +35,10 @@ import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.event.AlbumEvent;
+import org.richfaces.photoalbum.event.ErrorEvent;
 import org.richfaces.photoalbum.event.EventType;
 import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.ImageEvent;
-import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IAlbumAction;
 import org.richfaces.photoalbum.service.IEventAction;
@@ -66,7 +66,7 @@ public class DnDManager implements DropListener {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
-    javax.enterprise.event.Event<SimpleEvent> error;
+    javax.enterprise.event.Event<ErrorEvent> error;
     @Inject
     @EventType(Events.ALBUM_DRAGGED_EVENT)
     javax.enterprise.event.Event<AlbumEvent> albumEvent;
@@ -79,18 +79,17 @@ public class DnDManager implements DropListener {
      * 
      * @param event - event, indicated that drag'n'drop started
      */
-    // @AdminRestricted
     public void processDrop(DropEvent dropEvent) {
-        if (user == null)
+        if (user == null) {
             return;
-        // Dropzone dropzone = (Dropzone) dropEvent.getComponent();
+        }
         Object dragValue = dropEvent.getDragValue();
         Object dropValue = dropEvent.getDropValue();
         if (dragValue instanceof Image) {
             // If user drag image
             if (!((Album) dropValue).getOwner().getLogin().equals(user.getLogin())) {
                 // Drag in the album, that not belongs to user
-                error.fire(new SimpleEvent(Constants.DND_PHOTO_ERROR));
+                error.fire(new ErrorEvent("", Constants.DND_PHOTO_ERROR));
                 return;
             }
             handleImage((Image) dragValue, (Album) dropValue);
@@ -98,7 +97,7 @@ public class DnDManager implements DropListener {
             // If user drag album
             if (!((Shelf) dropValue).getOwner().getLogin().equals(user.getLogin())) {
                 // Drag in the shelf, that not belongs to user
-                error.fire(new SimpleEvent(Constants.DND_ALBUM_ERROR));
+                error.fire(new ErrorEvent("", Constants.DND_ALBUM_ERROR));
                 return;
             }
             handleAlbum((Album) dragValue, (Shelf) dropValue);
@@ -114,7 +113,7 @@ public class DnDManager implements DropListener {
         try {
             albumAction.editAlbum(dragValue);
         } catch (Exception e) {
-            error.fire(new SimpleEvent(Constants.ERROR_IN_DB));
+            error.fire(new ErrorEvent("Error:", Constants.ERROR_IN_DB + "<br/>" + e.getMessage()));
             return;
         }
         albumEvent.fire(new AlbumEvent(dragValue, pathOld));
@@ -130,7 +129,7 @@ public class DnDManager implements DropListener {
         try {
             albumAction.editAlbum(dropValue);
         } catch (Exception e) {
-            error.fire(new SimpleEvent(Constants.ERROR_IN_DB));
+            error.fire(new ErrorEvent("Error:", Constants.ERROR_IN_DB + "<br/>" + e.getMessage()));
             return;
         }
         imageEvent.fire(new ImageEvent(dragValue, pathOld));
@@ -138,40 +137,38 @@ public class DnDManager implements DropListener {
     }
 
     public void addAlbumToEvent(DropEvent dropEvent) {
-        if (user == null)
+        if (user == null) {
             return;
-        
+        }
+
         Object dragValue = dropEvent.getDragValue();
         Event event = (Event) dropEvent.getDropValue();
-        
+
         if (dragValue instanceof Album) {
             Album album = (Album) dragValue;
-            
-            event.getAlbums().add(album);
-            album.setEvent(event);
+
+            event.getShelf().getAlbums().add(album);
+            album.setShelf(event.getShelf());
 
             try {
                 albumAction.editAlbum(album);
                 eventAction.editEvent(event);
             } catch (PhotoAlbumException e) {
-                error.fire(new SimpleEvent(Constants.ERROR_IN_DB + e.getMessage()));
+                error.fire(new ErrorEvent("Error:", Constants.ERROR_IN_DB + "<br/>" + e.getMessage()));
             }
             return;
         }
-        
+
         if (dragValue instanceof String) {
             String aid = (String) dragValue;
-            
+
             event.getFacebookAlbums().add(aid);
-            
+
             try {
                 eventAction.editEvent(event);
             } catch (PhotoAlbumException e) {
-                error.fire(new SimpleEvent(Constants.ERROR_IN_DB + e.getMessage()));
+                error.fire(new ErrorEvent("Error:", Constants.ERROR_IN_DB + "<br/>" + e.getMessage()));
             }
         }
-        
-
-        
     }
 }

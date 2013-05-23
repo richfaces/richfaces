@@ -20,27 +20,34 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.photoalbum.domain;
+package org.richfaces.photoalbum.util;
 
-import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.RetentionPolicy.*;
+import java.util.Arrays;
+import java.util.List;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+public class ListUtils {
+    public static String sListToString(List<String> sList) {
+        if (sList == null) {
+            return "";
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append('"');
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
+        for(String s : sList) {
+           sb.append(s).append(',');
+        }
 
-@Target(TYPE)
-@Retention(RUNTIME)
-@Constraint(validatedBy = AlbumValidator.class)
-@Documented
-public @interface AlbumConstraint {
-
-    String message() default "{org.richfaces.photoalbum.domain}";
-
-    Class<?>[] groups() default {};
-
-    Class<? extends Payload>[] payload() default {};
+        sb.deleteCharAt(sb.length()-1);
+        sb.append('"');
+        
+        return sb.toString();
+    }
+    
+    public static List<String> StringToSList(String s) {
+        if (s == null) {
+            return null;
+        }
+        return Arrays.asList(s.split(","));
+    }
 }

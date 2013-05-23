@@ -21,11 +21,11 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org/rich">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org/rich">
     <r:outputPanel id="errors" ajaxRendered="true" layout="block">
         <h:panelGroup rendered="#{errorHandlerBean.errorExist}">
-            <r:popupPanel id="errorPanel" show="true" minWidth="300" minHeight="200" autosized="true" domElementAttachment="form">
+            <r:popupPanel id="errorPanel" show="true" minWidth="300" minHeight="200" autosized="true"
+                domElementAttachment="form">
 
                 <f:facet name="header">
                     <h:outputText value="#{messages['error_occurred']}" />
@@ -37,8 +37,6 @@
                             onclick="#{r:component('errorPanel')}.hide()" />
                     </h:panelGroup>
                 </f:facet>
-                <!-- <r:effect type="Appear" name="appearFunc" /> -->
-                <!-- not implemented in RF 4 -->
                 <h:panelGroup id="panel" width="100%" layout="block">
                     <h:panelGroup id="content" layout="block">
                         <h:panelGrid columns="2" width="300" style="margin-left: auto; margin-right: auto;">

@@ -23,6 +23,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich">
+    <ui:param name="event" value="#{model.selectedEvent}" />
     <h:panelGrid styleClass="shelf-header-table" cellpadding="0" columns="2" columnClasses="xxx, shelf-header-table-col2">
         <h:panelGroup>
             <h1>
@@ -37,22 +38,24 @@
                 <h:outputText value="#{messages['contain']}" />
                 <!-- <h:outputText styleClass="bold" value=" #{fn:length(shelf.images)} " />
                 <h:outputText value="#{messages['pics_into']}" /> -->
-                <h:outputText styleClass="bold" value=" #{fn:length(event.albums)} " />
+                <h:outputText styleClass="bold" value=" #{fn:length(event.shelf.albums) + fn:length(event.facebookAlbums)} " />
                 <h:outputText value="#{messages['shelf.albums']}" />
 
             </h:panelGroup>
         </h:panelGroup>
+        <!-- 
         <h:panelGroup>
             <r:commandLink value="#{messages['shelf.edit']}" render="mainArea" disabled="true" />
             <h:outputText value=" #{messages['delimiter']} " />
             <r:commandLink value="#{messages['shelf.delete']}" oncomplete="#{r:component('confirmation')}.show()"
                 render="confirmation" execute="@this" disabled="true" />
-            <!-- actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}" -->
+             actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}"
             <h:outputText value=" #{messages['delimiter']} " />
             <r:commandLink value="#{messages['shelf.view']}" render="mainArea" rendered="#{!mode.equals('show')}"
                 disabled="true" />
-            <!-- actionListener="#{controller.showShelf(shelf)}" -->
+             actionListener="#{controller.showShelf(shelf)}" 
         </h:panelGroup>
+        -->
     </h:panelGrid>
 
     <p>
@@ -61,13 +64,21 @@
     <br />
     <br />
 
-    <r:region rendered="#{showAlbums}" id="eventAlbums">
-        <ui:include src="/includes/album/albumsList.xhtml">
-            <ui:param name="albums" value="#{event.albums}" />
-        </ui:include>
-        <br style="clear: both;" />
-        <ui:include src="/includes/facebook/albumsList.xhtml">
-            <ui:param name="showDownload" value="true" />
-        </ui:include>
-    </r:region>
+    <r:outputPanel rendered="#{showAlbums}" id="eventAlbums">
+        <r:outputPanel rendered="#{fn:length(event.shelf.albums) > 0}">
+            <h2>Albums</h2>
+            <ui:include src="/includes/album/albumsList.xhtml">
+                <ui:param name="albums" value="#{event.shelf.albums}" />
+            </ui:include>
+        </r:outputPanel>
+        <r:outputPanel rendered="#{fn:length(event.facebookAlbums) > 0}">
+            <br style="clear: both;" />
+            <h2>Facebook Albums</h2>
+            <ui:include src="/includes/facebook/albumsList.xhtml">
+                <ui:param name="showDownload" value="true" />
+                <ui:param name="albumIds" value="#{event.facebookAlbums}" />
+                <ui:param name="albumString" value="#{event.fbAlbumIds}" />
+            </ui:include>
+        </r:outputPanel>
+    </r:outputPanel>
 </ui:composition>

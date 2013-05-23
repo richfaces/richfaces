@@ -22,8 +22,8 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-    xmlns:r="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich"
+    xmlns:richx="http://richfaces.org/richx">
     <r:outputPanel id="filesPanel" ajaxRendered="true">
         <h:panelGroup layout="block" id="uploadProgress"
             rendered="#{(fn:length(fileWrapper.files) > 0 or fn:length(fileWrapper.errorFiles) > 0) and !fileWrapper.complete}"
@@ -55,8 +55,6 @@
                 </h:panelGroup>
             </r:repeat>
         </h:panelGroup>
-        <!-- <r:effect name="uploadCompleteEffect" type="Highlight" params="duration:2.0" for="completeLabel" /> -->
-        <!-- not implemented in RF 4 -->
         <h:panelGroup style="padding-left:0px;" layout="block">
             <h:panelGroup style="padding-bottom:7px;" rendered="#{fn:length(fileWrapper.files) > 0}" layout="block">
                 <h:outputText style="padding-left:-4px;" styleClass="bold" value="#{messages['downloaded_images']}" />
@@ -72,8 +70,6 @@
                                     value="#{fileManager.transformPath(image.fullPath, '_small120')}" mimeType="image/jpeg">
                                     <r:dragSource id="dragSource" dragIndicator="iDragIndicator" type="image"
                                         dragValue="#{image}" />
-                                    <!-- <r:dndParam id="dragParam" name="label" value="#{image.name}" /> -->
-                                    <!-- not supported in RF 4 -->
                                 </r:mediaOutput>
                             </r:commandLink>
                         </h:panelGroup>

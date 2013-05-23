@@ -30,17 +30,16 @@ import org.richfaces.photoalbum.domain.Album;
  * @author mpetrov
  *
  */
-public class AlbumEvent {
+public class AlbumEvent extends SimpleEvent {
     private Album album;
-    private String path;
     
     public AlbumEvent(Album album) {
-        this.album = album;
+        this(album, "");
     }
     
     public AlbumEvent(Album album, String path) {
+        super(path);
         this.album = album;
-        this.path = path;
     }
     
     public Album getAlbum() {
@@ -48,6 +47,6 @@ public class AlbumEvent {
     }
     
     public String getPath() {
-        return path;
+        return super.getMessage();
     }
 }

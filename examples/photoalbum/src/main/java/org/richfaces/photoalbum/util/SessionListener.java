@@ -52,7 +52,6 @@ public class SessionListener implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    // @In(required=false)
     @Inject
     private User user;
 
@@ -68,8 +67,6 @@ public class SessionListener implements Serializable {
     Event<SimpleEvent> event;
 
     @PreDestroy
-    // @Transactional
-    // @Observer("org.jboss.seam.sessionExpired")
     public void onDestroy() {
         if (!Environment.isInProduction()) {
             return;
@@ -84,7 +81,6 @@ public class SessionListener implements Serializable {
             em.remove(user);
             em.flush();
 
-            // may not work
             event.fire(new SimpleEvent());
         }
     }
