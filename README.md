@@ -45,8 +45,8 @@ Project Info
   * `#richfaces` at `irc.freenode.net`
 * [Developer Forums](https://community.jboss.org/en/richfaces/dev)
 * [Team Meetings](https://community.jboss.org/en/richfaces/dev/teammtgs)
-* [Continuous Integration](https://buildhive.cloudbees.com/job/richfaces/job/richfaces5/)
-  * [![Build Status](https://buildhive.cloudbees.com/job/richfaces/job/richfaces5/badge/icon)](https://buildhive.cloudbees.com/job/richfaces/job/richfaces5/)
+* [Continuous Integration](https://travis-ci.org/richfaces/richfaces/builds)
+  * [![Build Status](https://travis-ci.org/richfaces/richfaces.png?branch=master)](https://travis-ci.org/richfaces/richfaces/builds)
 
 Getting Started
 ---------------
@@ -115,6 +115,6 @@ In order to effectively test the project with each code modification, you need t
 
 This will run the project tests against managed instance of JBoss AS 7.1 and test it on headless PhantomJS browser.
 
-This step is also executed in [the continuous integration job](https://buildhive.cloudbees.com/job/richfaces/job/richfaces5/).
+This step is also executed in [the continuous integration job](https://travis-ci.org/richfaces/richfaces/builds).
 
 [logo]: https://raw.github.com/richfaces/docs/4.3.1.20130305-Final/Component_Reference/src/main/docbook/en-US/images/rf_logo.png "RichFaces Project Logo"
