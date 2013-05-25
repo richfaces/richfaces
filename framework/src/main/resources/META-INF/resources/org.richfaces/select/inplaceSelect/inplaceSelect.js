@@ -117,14 +117,10 @@
                 }
             },
             oncancel: function() {
-                var value = this.list.getClientSelectItemByIndex(this.savedIndex).value;
-                if (value) {
-                    this.saveItemValue(value);
-                    this.list.__selectByIndex(this.savedIndex);
-                } else {
-                    this.saveItemValue(this.initialValue);
-                    this.list.__selectItemByValue(this.initialValue);
-                }
+                var item = this.list.getClientSelectItemByIndex(this.savedIndex);
+                var value = item && item.value ? item.value : this.initialValue;
+                this.saveItemValue(value);
+                this.list.__selectItemByValue(value);
             },
             onblur: function(e) {
                 this.__hidePopup();
