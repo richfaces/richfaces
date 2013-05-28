@@ -78,7 +78,6 @@
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces-push-depchain</artifactId>
-            <version>${version.richfaces}</version>
             <type>pom</type>
         </dependency>
 
