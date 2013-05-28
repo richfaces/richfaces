@@ -57,6 +57,8 @@
     $(function() {
         $(document).on('ajaxsubmit', 'form', $.watermark.hideAll);
         $(document).on('ajaxbegin', 'form', $.watermark.showAll);
+            // need to use setTimeout to allow client's native reset to happen
+        $(document).on('reset', 'form', function() {setTimeout( $.watermark.showAll, 0); });
     });
     
     // define super class reference - reference to the parent prototype
