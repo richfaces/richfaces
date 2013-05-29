@@ -48,7 +48,9 @@
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
         <version.gae>1.5.4</version.gae>
         <version.gae.plugin>0.9.1</version.gae.plugin>
-        <jee6.excluded.libraries>WEB-INF/lib/javax.faces*,WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/classmate*,WEB-INF/lib/jandex*,WEB-INF/lib/jboss-logging*,WEB-INF/lib/jboss-transaction-api*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms-api*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*</jee6.excluded.libraries>
+        <mojarra.excluded.libraries>WEB-INF/lib/myfaces-*</mojarra.excluded.libraries>
+        <myfaces.excluded.libraries>WEB-INF/lib/javax.faces*</myfaces.excluded.libraries>
+        <jee6.excluded.libraries>${mojarra.excluded.libraries},${myfaces.excluded.libraries},WEB-INF/lib/jboss-jsf-api_2.1_spec*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta*,WEB-INF/lib/jstl*,WEB-INF/lib/validation-api*,WEB-INF/lib/hibernate*,WEB-INF/lib/classmate*,WEB-INF/lib/jandex*,WEB-INF/lib/jboss-logging*,WEB-INF/lib/jboss-transaction-api*,WEB-INF/lib/antlr*,WEB-INF/lib/asm*,WEB-INF/lib/cglib*,WEB-INF/lib/commons-collections*,WEB-INF/lib/dom4j*,WEB-INF/lib/hsqldb*,WEB-INF/lib/javassist*,WEB-INF/lib/cdi-api*,WEB-INF/lib/hornetq*,WEB-INF/lib/javax.inject*,WEB-INF/lib/jboss-interceptors*,WEB-INF/lib/jms-api*,WEB-INF/lib/jsr250-api*,WEB-INF/lib/netty*,WEB-INF/lib/weld-servlet*</jee6.excluded.libraries>
         <jbas7.excluded.libraries>${jee6.excluded.libraries}</jbas7.excluded.libraries>
         <jbas7.manifest.dependencies>org.slf4j,org.jboss.as.controller-client,org.jboss.as.protocol,org.jboss.dmr,org.jboss.logging,org.jboss.marshalling,org.jboss.marshalling.river,org.jboss.remoting3,org.jboss.threads</jbas7.manifest.dependencies>
         <jbas71.excluded.libraries>${jbas7.excluded.libraries},WEB-INF/lib/guava*,WEB-INF/lib/jsr305*</jbas71.excluded.libraries>
@@ -514,6 +516,18 @@
                 <container.resources.exclude>**</container.resources.exclude>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <scope>${dependency.scope}</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl</artifactId>
+                    <scope>${dependency.scope}</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -525,6 +539,45 @@
                                     <classifier>tomcat6</classifier>
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-tomcat6
                                     </webappDirectory>
+                                    <packagingExcludes>
+                                        ${mojarra.excluded.libraries}
+                                    </packagingExcludes>
+                                    <warSourceExcludes>
+                                        ${mojarra.excluded.libraries}
+                                    </warSourceExcludes>
+                                    <webResources>
+                                        <resource>
+                                            <directory>src/main/webapp-tomcat</directory>
+                                            <targetPath>/</targetPath>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/resources-tomcat</directory>
+                                            <targetPath>WEB-INF/classes</targetPath>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/java</directory>
+                                            <targetPath>WEB-INF/src</targetPath>
+                                        </resource>
+                                    </webResources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>myfaces</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>war</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>myfaces</classifier>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-myfaces
+                                    </webappDirectory>
+                                    <packagingExcludes>
+                                        ${myfaces.excluded.libraries}
+                                    </packagingExcludes>
+                                    <warSourceExcludes>
+                                        ${myfaces.excluded.libraries}
+                                    </warSourceExcludes>
                                     <webResources>
                                         <resource>
                                             <directory>src/main/webapp-tomcat</directory>
