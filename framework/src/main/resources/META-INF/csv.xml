@@ -216,7 +216,7 @@
     </component>
     
     <component>
-        <type>org.richfaces.validator.SelectLabelValueValidator</type>
+        <type>org.richfaces.ui.select.select.SelectLabelValueValidator</type>
         <resource>
             <name>select.js</name>
             <library>org.richfaces</library>

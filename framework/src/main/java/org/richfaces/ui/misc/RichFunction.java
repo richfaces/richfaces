@@ -155,9 +155,12 @@ public final class RichFunction {
     }
 
     /**
-     * The r:jQueryObject('id') function is a shortcut for the equivalent jQuery(#{r:element('id')}) code. It returns the
+     * <p>The r:jQuery('id') function is a shortcut for the equivalent jQuery(#{r:element('id')}) code. It returns the
      * jQuery object from the client, based on the passed server-side component identifier. If the specified component
-     * identifier is not found, empty jQuery object is returned instead.
+     * identifier is not found, empty jQuery object is returned instead.</p>
+     *
+     * <p>This function is for use in EL.  Refer to the &lt;rich:jQuery&gt; component for access to the jQuery library as a
+     * facelet tag.</p>
      */
     @Function
     public static String jQuery(String id) {

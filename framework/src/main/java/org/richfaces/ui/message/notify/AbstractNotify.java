@@ -39,6 +39,7 @@ import org.richfaces.ui.message.NotifyAttributes;
  * </p>
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"), attributes = {
         "styleClass-prop.xml", "events-mouse-props.xml", "events-key-props.xml" }, facets = {
@@ -60,4 +61,7 @@ public abstract class AbstractNotify extends UIComponentBase implements NotifyAt
     public abstract String getDetail();
 
     public abstract void setDetail(String text);
+
+    @Attribute(defaultValue = "true")
+    public abstract boolean isEscape();
 }

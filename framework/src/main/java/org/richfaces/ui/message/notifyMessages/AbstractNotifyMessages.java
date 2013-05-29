@@ -37,6 +37,7 @@ import org.richfaces.ui.message.NotifyAttributes;
  * the available messages generates one notification. </p>
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(type = "org.richfaces.NotifyMessages", tag = @Tag(name = "notifyMessages"),
         renderer = @JsfRenderer(template = "notifyMessages.template.xml", type = "org.richfaces.NotifyMessagesRenderer"),
@@ -48,6 +49,9 @@ public abstract class AbstractNotifyMessages extends UIMessages implements AjaxO
 
     @Attribute(hidden = true)
     public abstract boolean isKeepTransient();
+
+    @Attribute(defaultValue = "true")
+    public abstract boolean isEscape();
 
     public void updateMessages(FacesContext context, String clientId) {
         // TODO why this need to be implemented?
