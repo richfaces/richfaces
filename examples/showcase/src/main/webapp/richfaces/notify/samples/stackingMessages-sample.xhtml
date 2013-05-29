@@ -33,7 +33,7 @@
     <r:notifyStack id="firstStack" position="topLeft" direction="vertical" method="first" />
     <r:notifyStack id="secondStack" position="bottomRight" direction="horizontal" method="last" />
     
-    <r:notify id="firstNotify" stack="firstStack" summary="&lt;b&gt;&#35;#{notifyBean.topLeftCounter}&lt;/b&gt;" />
-    <r:notify id="secondNotify" stack="secondStack" summary="&lt;b&gt;&#35;#{notifyBean.bottomRightCounter}&lt;/b&gt;" />
+    <r:notify id="firstNotify" stack="firstStack" summary="&lt;b&gt;&#35;#{notifyBean.topLeftCounter}&lt;/b&gt;" escape="false"/>
+    <r:notify id="secondNotify" stack="secondStack" summary="&lt;b&gt;&#35;#{notifyBean.bottomRightCounter}&lt;/b&gt;" escape="false"/>
     
 </ui:composition>
