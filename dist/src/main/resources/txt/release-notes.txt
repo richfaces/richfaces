@@ -2,30 +2,65 @@
 ------------
 
     Bug
+    [RF-12193] - rich:extendedDataTable is blank on show
     [RF-12375] - iteration-demo doesn't work on TomEE - wrong persistence setup
     [RF-12757] - build/pom.xml contains non-unique dependencies
+    [RF-12765] - Rich:tabPanel not possible to switch tabs when only dynamic tabs are present
+    [RF-12812] - Autocomplete does not hide popup on tabbing to the next field
     [RF-12814] - Fix TestTableState.table_order_server_side test in Firefox
+    [RF-12827] - Showcase - switching among dynamically created panels, tabs cease to function
+    [RF-12839] - Toggle panels: ajax-related attributes do not work
+    [RF-12846] - a4j:commandLink accesskey attribute missing
+    [RF-12847] - Fix quickstart license and white space issues exposed by qstool report
+    [RF-12848] - Error "source is not defined" after richfaces-jsf-event.js merge
+    [RF-12850] - Popup panel: button's label is invisible in IE10
+    [RF-12851] - The RichFaces kitchensink-rf quickstart/archetype incorrectly depend on the AS google guava module
+    [RF-12858] - rich:calendar dateselect event is fired twice
+    [RF-12868] - Update the Summary of the RichFaces kitchensink quickstart
     [RF-12874] - Cyclic dependencies in RF5 build
+    [RF-12893] - Partial response not ended correctly on exception
     [RF-12908] - Distribution ZIP doesn't contain any examples
     [RF-12911] - The release plugin doesn't change version in Java sources
     [RF-12914] - r:jquery - can not found this function
+    [RF-12928] - ExtendedDataTable: columnsOrder doesnt work after changing order
+    [RF-12931] - rich:fileupload broken with jsf.js changes in Mojarra 2.1.21
     [RF-12933] - rich:tooltip replace 'defaultContent' facet in docs and examples with 'loading'
     [RF-12939] - Focus: attribute ajaxRendered does not work
+    [RF-12958] - Popup panel opened from inside popup panel doesn't work
     [RF-12960] - Port the archetypes to work with RichFaces 5
     [RF-12962] - No tag defined for name actionListener
+    [RF-12969] - rich:tabPanel: Click on already selected rich:tab causes JavaScript error
     [RF-12973] - Make distribution zip smaller
+    [RF-12975] - rich:extendedDataTable - can not change order of columns
+    [RF-12990] - Showcase: progressBar doesn't work
+    [RF-12991] - Editor doesn't work because of missing resources
+    [RF-12992] - progressBar: missing javascript resources
+    [RF-12993] - CollapsiblePanel does not work because of missing resources
+    [RF-12994] - Notify does not work because of missing resources
+    [RF-12995] - Showcase - r:outputPanel - demo auto update of h:messages component can not be parsed
+    [RF-12996] - Showcase - deployment on Tomcat 7 with errors
+    [RF-12998] - Showcase - resource handling errors for all demos on Tomcat 7
+    [RF-13000] - RichFaces 5 cannot be built on Windows
+    [RF-13001] - Stage Archetypes for 5.0.0.Alpha1
+    [RF-13004] - RichFaces resource plugin does not recursively scan for resources
+    [RF-13012] - Push-depchain: parent.relativePath points at richfaces-build instead of richfaces-parent
+    [RF-13014] - Photoalbum: resource-optimizer plugin warns about NullPointerException
+    [RF-13024] - Kitchenksink archetype - can not built generated project - missing atmosphere version
 
     Component Upgrade
+    [RF-12688] - Upgrade Guava from 11.02 to 13.0.1
     [RF-12780] - Upgrade to Mojarra 2.1.19
     [RF-12782] - Upgrade to JBoss Parent 10
     [RF-12787] - Upgrade ShrinkWrap to 2.0.0-beta-2
 
     Enhancement
     [RF-12394] - Improve Arquillian integration test build to be reusable across subprojects
-    [RF-12784] - Showcase readme - update deployment from eclipse part
     [RF-12786] - Showcase - rewrite readme to markdown
     [RF-12840] - Allow fundamental tests run with PhantomJS in continous integration
     [RF-12889] - Allow to run framework tests on Buildhive
+    [RF-12964] - Create appropriate push timeouts for the showcase
+    [RF-13028] - Warning when deploying showcase - SelectLabelValueValidator class not present
+    [RF-13030] - Don't specify richfaces.jar version in richfaces-bom
 
     Epic
     [RF-12439] - Re-structure the build
@@ -35,6 +70,7 @@
     [RF-12698] - Rename CDK and Resources plugins to comply conventions: maven-cdk-plugin -> richfaces-cdk-maven-plugin
     [RF-12810] - Introduce profiles for verification of fundamental tests on Tomcat 6 and 7, TomEE 1.5 and GlassFish 3.1
     [RF-12832] - Tomcat 6 test Deployments should define the expressionFactory
+    [RF-12849] - Showcase - update readme - remove obsolete, add new
     [RF-12880] - Move richfaces-resources-plugin to the Framework
     [RF-12881] - CDK: prepare 4.5 version
     [RF-12882] - Create richfaces.jar assembly of framework and optimized-resources
@@ -47,6 +83,11 @@
     [RF-12912] - Clean up the doc build, removing obselete xml files
     [RF-12917] - Repreat the docbook xml -> asciidoc migration preserving the literal tag names for a lossless conversion
     [RF-12918] - Switch to using the asciidoctor plugin for asciidoc processing
+    [RF-12935] - Fix resolution of framework tests' artifacts with version enforced
+    [RF-12937] - Introduce a profile for running framework tests against JBoss EAP
+    [RF-12938] - Update Shrinkwrap
+    [RF-12940] - Showcase: fix path to outputPanel - compositeMessages sample source
+    [RF-12941] - Showcase: ProgressBar demo - remove obsolete attribute and make the progress smoother
     [RF-12957] - CDK: Tag annotation attribute handler is not type safe - deprecate it and introduce handlerClass instead
     [RF-12961] - Update the docs reflecting changes in RichFaces 5.0.0.Alpha1
     [RF-12963] - Set the correct copyright/license headers for all files in the project
@@ -55,7 +96,8 @@
     [RF-12974] - Create a richfaces-push depchain
     [RF-12980] - Resource Optimizer: doesn't compile JS/CSS files when build executed from top-level directory
     [RF-12982] - Move optimized resources to resource/org.richfaces.optimized and mapping to optimizedResourcesMapping
-
+    [RF-12988] - RichFaces 5 doc update
+    [RF-13008] - Move the library path for the richfaces resources
     Task
     [RF-12451] - Merge core/components/build/dev-examples repositories
     [RF-12452] - Refactor merged repository sources structure
@@ -81,6 +123,7 @@
     [RF-12753] - Configure renderer templates to generate Java files in same directories as renderer basis are
     [RF-12755] - AbstractPushTest has hard-coded atmosphere version
     [RF-12756] - Refactor deployments in fundamental tests
+    [RF-12843] - Apply unix style line-endings to the entire codebase
     [RF-12864] - Create the package-info.java files for the framework packages
     [RF-12869] - Run the docbook -> xml asciidoc conversion
     [RF-12870] - Tune the generated asciidoc to enable the pressgang docbook toolchain
@@ -89,6 +132,9 @@
     [RF-12903] - Optimize resources during Framework build (avoid unnecessary step and assembly); rename richfaces-framework.jar to richfaces.jar
     [RF-12927] - Review all occurences of org.ajax4jsf string in RichFaces 5 repository
     [RF-12946] - Cherry-pick resolved issues from 4.3.X to 5.X
+    [RF-13002] - Drop the archetypes from the RF5 dist
+    [RF-13013] - port @escape attribute for notify and notifyMessages from 4.3.0
+    [RF-13034] - Showcase: add myfaces to release profile
 
 New in Version 4.3.2
 --------------------
