@@ -19,8 +19,7 @@
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -32,7 +31,7 @@
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-parent</artifactId>
     <packaging>pom</packaging>
-    <version>5.0.0-SNAPSHOT</version>
+    <version>5.0.0.Alpha1</version>
     <name>RichFaces Parent</name>
 
     <modules>
@@ -104,14 +103,15 @@
         <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
         <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
         <url>https://github.com/richfaces/richfaces5</url>
-    </scm>
+      <tag>5.0.0.Alpha1</tag>
+  </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
         <!-- Base Dependencies Versions -->
-        <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
+        <version.richfaces>5.0.0.Alpha1</version.richfaces>
         <version.cdk>4.5.0.Alpha1</version.cdk>
         <version.jboss-javaee>3.0.1.Final</version.jboss-javaee>
         
@@ -336,7 +336,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -349,7 +349,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <execute></execute>
+                                        <execute />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -362,7 +362,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
@@ -419,15 +419,15 @@
                 <arquillian.debug>false</arquillian.debug>
                 <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
                 <arquillian.drone.reusable>false</arquillian.drone.reusable>
-                <arquillian.richfaces.version></arquillian.richfaces.version>
+                <arquillian.richfaces.version />
                 <arquillian.richfaces.servletContainerSetup>false</arquillian.richfaces.servletContainerSetup>
                 <arquillian.richfaces.jsfProvider>mojarra</arquillian.richfaces.jsfProvider>
                 <arquillian.richfaces.jsfImplementation>org.glassfish:javax.faces</arquillian.richfaces.jsfImplementation>
-                <arquillian.container.home></arquillian.container.home>
-                <arquillian.container.distribution></arquillian.container.distribution>
-                <arquillian.container.configuration></arquillian.container.configuration>
+                <arquillian.container.home />
+                <arquillian.container.distribution />
+                <arquillian.container.configuration />
                 <arquillian.container.uninstall>true</arquillian.container.uninstall>
-                <arquillian.maven.settings></arquillian.maven.settings>
+                <arquillian.maven.settings />
                 
                 <!-- Container Selection -->
                 <arquillian.launch.jbossas71>false</arquillian.launch.jbossas71>
@@ -439,9 +439,9 @@
                 <!-- JUnit Categories Selection -->
                 <testCategory.included.default>NOT category.None</testCategory.included.default>
                 <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
-                <testCategory.excluded.container></testCategory.excluded.container>
-                <testCategory.excluded.browser></testCategory.excluded.browser>
-                <testCategory.excluded.jsf></testCategory.excluded.jsf>
+                <testCategory.excluded.container />
+                <testCategory.excluded.browser />
+                <testCategory.excluded.jsf />
             </properties>
             <dependencies>
                 <dependency>

@@ -19,14 +19,13 @@
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-build</artifactId>
     <packaging>pom</packaging>
-    <version>5.0.0-SNAPSHOT</version>
+    <version>5.0.0.Alpha1</version>
     <name>RichFaces Build Version Management</name>
 
     <description>
@@ -58,7 +57,7 @@
 
     <properties>
         <!-- Base Dependencies Versions -->
-        <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
+        <version.richfaces>5.0.0.Alpha1</version.richfaces>
         <version.cdk>4.5.0.Alpha1</version.cdk>
         <version.jboss-javaee>3.0.1.Final</version.jboss-javaee>
 
@@ -165,12 +164,12 @@
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces</artifactId>
-                <version>5.0.0-SNAPSHOT</version>
+                <version>5.0.0.Alpha1</version>
             </dependency>
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-push-depchain</artifactId>
-                <version>5.0.0-SNAPSHOT</version>
+                <version>5.0.0.Alpha1</version>
                 <type>pom</type>
             </dependency>
             <dependency>
@@ -525,7 +524,8 @@
         <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
         <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
         <url>https://github.com/richfaces/richfaces5</url>
-    </scm>
+      <tag>5.0.0.Alpha1</tag>
+  </scm>
 
     <distributionManagement>
         <repository>
