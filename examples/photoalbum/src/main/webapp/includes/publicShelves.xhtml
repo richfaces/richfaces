@@ -28,9 +28,4 @@
         <ui:param name="shelves" value="#{shelfManager.predefinedShelves}" />
         <ui:param name="header" value="#{messages['public_shelves']} #{fn:length(shelfManager.predefinedShelves)}" />
     </ui:include>
-    <br style="clear:both"/>
-    <ui:include src="/includes/event/eventsList.xhtml">
-        <ui:param name="events" value="#{eventManager.allEvents}" />
-        <ui:param name="header" value="Events" />
-    </ui:include>
 </ui:composition>
