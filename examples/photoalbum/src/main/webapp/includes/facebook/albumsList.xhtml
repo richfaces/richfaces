@@ -100,7 +100,7 @@
         <!-- if albums aren't loaded, get the albums from Facebook -->
         <h:outputScript rendered="#{facebookAlbumCache.needsUpdate}">    
                 $(document).ready(function() {
-                    FBgetAlbumsById( '#{albumString}', setFBimages, showError);
+                    FBgetAlbumsById( "#{albumString}", setFBimages, showError);
                 });
         </h:outputScript>
 
