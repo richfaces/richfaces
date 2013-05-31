@@ -1,4 +1,4 @@
-![RichFaces Project Logo][logo]
+![RichFaces Project Logo][logo] 
 
 RichFaces 5
 ===========
