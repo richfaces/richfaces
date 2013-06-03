@@ -138,7 +138,7 @@ browse to the default context path (for example, <http://localhost:8080/showcase
     
 You will see the showcase has been modified to fit and **dynamically** adjust to mobile screen widths and orientations. 
     
-We removed some components from the RichFaces Mobile Showcase which were not mobile ready. For example, ``rich:tooltip``, ``rich:extendedDataTable``, ``rich:jquery``, and ``rich:popupPanel`` either did not make sense in a mobile environment or needed a heavy rewrite for touch interfaces.
+We removed some components from the RichFaces Mobile Showcase which were not mobile ready. For example, ``r:tooltip``, ``r:extendedDataTable``, ``r:jquery``, and ``r:popupPanel`` either did not make sense in a mobile environment or needed a heavy rewrite for touch interfaces.
     
-``rich:dragDrop`` however, does work on iOS Mobile Safari, but not on Android. To use ``rich:dragDrop`` in Mobile Safari browsers, you can include this snippet of [JavaScript](https://github.com/richfaces/components/blob/develop/mobile-compatibility/rf-dnd.js) at the bottom of your JSF template.
+``r:dragDrop`` however, does work on iOS Mobile Safari, but not on Android. To use ``r:dragDrop`` in Mobile Safari browsers, you can include this snippet of [JavaScript](https://github.com/richfaces/components/blob/develop/mobile-compatibility/rf-dnd.js) at the bottom of your JSF template.
 
