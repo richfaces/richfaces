@@ -42,6 +42,8 @@ import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IUserAction;
+import org.richfaces.photoalbum.ui.UserPrefsHelper;
+import org.richfaces.photoalbum.util.Preferred;
 
 @RequestScoped
 public class UserManager implements Serializable {
@@ -49,13 +51,14 @@ public class UserManager implements Serializable {
     private static final long serialVersionUID = 6027103521084558931L;
 
     @Inject
+    @Preferred
     User user;
 
     @Inject
     FileManager fileManager;
 
     @Inject
-    File avatarData;
+    UserPrefsHelper uph;
 
     @Inject
     IUserAction userAction;
@@ -69,6 +72,7 @@ public class UserManager implements Serializable {
      * 
      */
     public void editUser(@Observes @EventType(Events.EDIT_USER_EVENT) SimpleEvent se) {
+        File avatarData = uph.getAvatarData();
         // If new avatar was uploaded
         if (avatarData != null) {
             if (!fileManager.saveAvatar(avatarData, user)) {
@@ -104,6 +108,6 @@ public class UserManager implements Serializable {
      * 
      */
     public void cancelEditUser(@Observes @EventType(Events.CANCEL_EDIT_USER_EVENT) SimpleEvent se) {
-        avatarData = null;
+        uph.setAvatarData(null);
     }
 }

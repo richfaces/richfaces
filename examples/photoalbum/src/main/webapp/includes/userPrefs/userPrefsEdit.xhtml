@@ -27,13 +27,13 @@
         <ui:insert name="header" />
     </h:panelGrid>
     <h:panelGroup id="userPrefEdit">
-        <r:region rendered="#{userBean.user.fbId == '1'}">
-            <h:inputHidden value="#{userBean.user.fbId}" id="userFbId" />
+        <r:region rendered="#{user.fbId == '1'}">
+            <h:inputHidden value="#{user.fbId}" id="userFbId" />
             <richx:commandButton styleClass="fb-comm-button" execute="@this"
                 oncomplete="FBbind(bindWithFB, #{r:element('userFbId')}, showError)" value="Bind with Facebook" />
             <r:jsFunction name="bindWithFB" actionListener="#{controller.editUser}" render="mainArea" />
         </r:region>
-        <h:outputText value="This account is bound to Facebook" rendered="#{userBean.user.fbId != '1'}" />
+        <h:outputText value="This account is bound to Facebook" rendered="#{not empty user.fbId and user.fbId != '1'}" />
 
         <table style="padding: 0; border-spacing: 0; border: 0">
             <tr>
@@ -45,7 +45,9 @@
                         <h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_200.png" style="border:0" />
                         <h:panelGrid cellpadding="0">
                             <h:panelGroup style="margin-bottom:7px;">
-                                <ui:include src="/includes/userPrefs/avatar.xhtml" />
+                                <ui:include src="/includes/userPrefs/avatar.xhtml">
+                                    <ui:param name="user" value="#{user}" />
+                                </ui:include>
                             </h:panelGroup>
                         </h:panelGrid>
                     </h:panelGroup>
@@ -75,12 +77,12 @@
                     </td>
 
                     <td>
-                        <h:panelGroup rendered="#{userBean.user.id == null}">
-                            <h:inputText id="userLoginName" value="#{userBean.user.login}" styleClass="reg-table-input" />
+                        <h:panelGroup rendered="#{user.id == null}">
+                            <h:inputText id="userLoginName" value="#{user.login}" styleClass="reg-table-input" />
                             <h:outputText styleClass="required" value="*" />
                         </h:panelGroup>
-                        <h:panelGroup rendered="#{userBean.user.id != null}">
-                            <h:outputText value="#{userBean.user.login}" />
+                        <h:panelGroup rendered="#{user.id != null}">
+                            <h:outputText value="#{user.login}" />
                         </h:panelGroup>
                     </td>
                     <td>
@@ -88,12 +90,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <h:panelGroup rendered="#{userBean.user.id == null}">
+                    <h:panelGroup rendered="#{user.id == null}">
                         <td>
                             <h:outputLabel for="userPassword">#{messages['user.password']}</h:outputLabel>
                         </td>
                         <td>
-                            <h:inputSecret required="true" id="userPassword" value="#{userBean.user.password}"
+                            <h:inputSecret required="true" id="userPassword" value="#{user.password}"
                                 styleClass="reg-table-input" />
                             <h:outputText styleClass="required" value="*" />
                         </td>
@@ -103,13 +105,13 @@
                     </h:panelGroup>
                 </tr>
                 <tr>
-                    <h:panelGroup rendered="#{userBean.user.id == null}">
+                    <h:panelGroup rendered="#{user.id == null}">
                         <td>
                             <h:outputLabel for="userConfirmPassword">#{messages['user.confirm']}</h:outputLabel>
                         </td>
                         <td>
-                            <h:panelGroup rendered="#{userBean.user.id == null}">
-                                <h:inputSecret required="true" id="userConfirmPassword" value="#{userBean.user.confirmPassword}"
+                            <h:panelGroup rendered="#{user.id == null}">
+                                <h:inputSecret required="true" id="userConfirmPassword" value="#{user.confirmPassword}"
                                     styleClass="reg-table-input" />
                                 <h:outputText styleClass="required" value="*" />
                             </h:panelGroup>
@@ -129,7 +131,7 @@
                         <h:outputLabel for="userFirstname">#{messages['user.firstname']}</h:outputLabel>
                     </td>
                     <td>
-                        <h:inputText id="userFirstname" value="#{userBean.user.firstName}" styleClass="reg-table-input" />
+                        <h:inputText id="userFirstname" value="#{user.firstName}" styleClass="reg-table-input" />
                         <h:outputText styleClass="required" value="*" />
                     </td>
                     <td>
@@ -141,7 +143,7 @@
                         <h:outputLabel for="userSecondname">#{messages['user.secondname']}</h:outputLabel>
                     </td>
                     <td>
-                        <h:inputText id="userSecondname" value="#{userBean.user.secondName}" styleClass="reg-table-input" />
+                        <h:inputText id="userSecondname" value="#{user.secondName}" styleClass="reg-table-input" />
                         <h:outputText styleClass="required" value="*" />
                     </td>
                     <td>
@@ -154,7 +156,7 @@
                     </td>
                     <td>
                         <h:panelGrid columns="2">
-                            <h:selectOneRadio required="true" id="userSex" value="#{userBean.user.sex}">
+                            <h:selectOneRadio required="true" id="userSex" value="#{user.sex}">
                                 <f:selectItems value="#{userPrefsHelper.sexs}" var="sex" itemValue="#{sex}" itemLabel="#{sex}" />
                                 <!-- TODO: format output -->
                                 <r:ajax event="click" execute="@this" render="avatar" />
@@ -171,7 +173,7 @@
                     </td>
                     <td>
                         <r:outputPanel id="userCalendar" layout="block">
-                            <r:calendar id="userBirthDate" enableManualInput="true" value="#{userBean.user.birthDate}"
+                            <r:calendar id="userBirthDate" enableManualInput="true" value="#{user.birthDate}"
                                 cellWidth="24px" cellHeight="22px" inputClass="reg-table-input" datePattern="d/M/yyyy"
                                 defaultLabel="d/M/yyyy">
                                 <r:validator event="inputblur" />
@@ -187,7 +189,7 @@
                         <h:outputLabel for="userEmail">#{messages['user.email']}</h:outputLabel>
                     </td>
                     <td>
-                        <h:inputText id="userEmail" value="#{userBean.user.email}" styleClass="reg-table-input" />
+                        <h:inputText id="userEmail" value="#{user.email}" styleClass="reg-table-input" />
                         <h:outputText styleClass="required" value="*" />
                     </td>
                     <td>

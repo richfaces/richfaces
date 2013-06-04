@@ -49,7 +49,6 @@ public class UserPrefsHelper implements Serializable {
     @Inject
     IUserAction userAction;
 
-    @Inject
     private File avatarData;
 
     static final SelectItem[] sexs = new SelectItem[] { new SelectItem(Sex.MALE, Constants.MALE),
@@ -66,7 +65,6 @@ public class UserPrefsHelper implements Serializable {
      */
     public void uploadAvatar(FileUploadEvent event) {
         UploadedFile file = event.getUploadedFile();
-        // avatarData = new File(file.getInputStream());
         try {
             File f = new File((file.getName() + "avatar"));
 

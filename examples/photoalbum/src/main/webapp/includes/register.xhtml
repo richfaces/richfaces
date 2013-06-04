@@ -24,6 +24,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
     xmlns:r="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
     <ui:decorate template="userPrefs/userPrefsEdit.xhtml">
+        <ui:param name="user" value="#{authenticator.user}" />
         <ui:define name="header">
             <h:panelGroup layout="block">
                 <h:outputText value="#{messages['user.reginfo']}" styleClass="h1-style" />
