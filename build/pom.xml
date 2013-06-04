@@ -120,6 +120,7 @@
         
         <!-- Container Versions -->
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
+        <version.tomee15>1.5.1</version.tomee15>
         
         <!-- Release repositories -->
         <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
