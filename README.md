@@ -71,7 +71,7 @@ launch the `standalone.sh` or `standalone.bat` script from ``JBOSS_HOME/bin/`` t
 As of `JBoss AS 7.1 / EAP 6` you must create the **JMS user account/password** to enable the JMS push sample.  Add a new user to the ApplicationRealm with the ``$JBOSS_HOME/bin/add-user.bat`` or ``add-user.sh`` script, with the:
             
             username: guest
-            password: password
+            password: p@ssw0rd
                 role: guest
     
 To **deploy** it on the application server, use either:
