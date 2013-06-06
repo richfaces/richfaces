@@ -97,7 +97,7 @@
     </context-param>
     <context-param>
         <param-name>org.richfaces.push.jms.connectionPassword</param-name>
-        <param-value>password</param-value>
+        <param-value>p@ssw0rd</param-value>
     </context-param>
     <context-param>
         <param-name>org.richfaces.push.session.maxInactiveInterval</param-name>
