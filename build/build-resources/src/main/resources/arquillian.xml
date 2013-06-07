@@ -29,6 +29,7 @@
 
     <container qualifier="jbossas71" default="${arquillian.launch.jbossas71}">
         <configuration>
+            <property name="javaVmArguments">${arquillian.container.vmargs}</property>
             <property name="jbossHome">${arquillian.container.home}</property>
         </configuration>
     </container>
@@ -62,12 +63,14 @@
             <property name="version">${version.tomee15}</property>
             <property name="dir">${arquillian.container.home}</property>
             <property name="appWorkingDir">target/arquillian-test-working-dir</property>
+            <property name="javaVmArguments">${arquillian.container.vmargs}</property>
         </configuration>
     </container>
 
     <container qualifier="glassfish31" default="${arquillian.launch.glassfish31}">
         <configuration>
             <property name="glassFishHome">${arquillian.container.home}</property>
+            <property name="javaVmArguments">${arquillian.container.vmargs}</property>
         </configuration>
     </container>
 
