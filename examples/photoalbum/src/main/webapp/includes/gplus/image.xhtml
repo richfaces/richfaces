@@ -35,7 +35,7 @@
             <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
                 render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}" />
             <h:outputText value=" #{messages['delimiter']} " />
-            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showGPlusAlbum(album.getString('aid'))}"
+            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showGPlusAlbum()}"
                 render="mainArea, treePanel" value="#{messages['album']} #{album.getString('name')}" />
 
         </h:panelGroup>
@@ -65,7 +65,7 @@
                         </h:panelGroup>
                     </h:panelGroup>
                     <r:ajax event="click" render="mainImage, imageinfo, imagesTable"
-                        listener="#{controller.showFbImage(img.getString('id'))}" execute="@this" />
+                        listener="#{controller.showGPlusImage(img.getString('id'))}" execute="@this" />
                 </r:outputPanel>
             </r:repeat>
         </h:panelGrid>
