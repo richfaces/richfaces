@@ -22,6 +22,8 @@
 
 package org.richfaces.ui.focus;
 
+import javax.enterprise.inject.Default;
+import org.jboss.arquillian.graphene.GrapheneContext;
 import org.jboss.arquillian.graphene.javascript.JSInterfaceFactory;
 import org.jboss.arquillian.graphene.javascript.JavaScript;
 import org.openqa.selenium.WebElement;
@@ -37,7 +39,7 @@ public abstract class FocusRetriever {
      * Returns active (focused) element - if no element is focused (it means body element is active), null is returned
      */
     public static WebElement retrieveActiveElement() {
-        WebElement element = JSInterfaceFactory.create(FocusRetriever.class).getActiveElement();
+        WebElement element = JSInterfaceFactory.create(GrapheneContext.getContextFor(Default.class), FocusRetriever.class).getActiveElement();
         if ("body".equals(element.getTagName())) {
             return null;
         }
