@@ -44,7 +44,8 @@ import org.richfaces.photoalbum.event.ImageEvent;
 import org.richfaces.photoalbum.event.ShelfEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.social.FacebookAlbumCache;
+import org.richfaces.photoalbum.social.facebook.FacebookAlbumCache;
+import org.richfaces.photoalbum.social.gplus.GooglePlusAlbumCache;
 import org.richfaces.photoalbum.util.Preferred;
 import org.richfaces.ui.iteration.tree.AbstractTree;
 
@@ -84,6 +85,9 @@ public class Controller implements Serializable {
 
     @Inject
     FacebookAlbumCache fac;
+    
+    @Inject
+    GooglePlusAlbumCache gpac;
 
     private int currentPage = 0;
 
@@ -174,6 +178,19 @@ public class Controller implements Serializable {
         model.resetModel(NavigationEnum.FB_SHELF, loggedUser, null, null, null, null);
     }
 
+    public void showGPlusShelf() {
+        model.resetModel(NavigationEnum.GPLUS_SHELF, loggedUser, null, null, null, null);
+    }
+    
+    public void showGPlusAlbum() {
+        model.resetModel(NavigationEnum.GPLUS_ALBUM_PREVIEW, loggedUser, null, null, null, null);
+    }
+    
+    public void showGPlusImage(String imageId) {
+        gpac.setCurrentPhotoId(imageId);
+        model.resetModel(NavigationEnum.GPLUS_IMAGE_PREVIEW, loggedUser, null, null, null, null);
+    }
+    
     /**
      * This method invoked in cases, when it is need to clear fileUpload component
      * 

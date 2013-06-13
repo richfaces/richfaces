@@ -36,28 +36,43 @@
         </f:facet>
 
         <h:panelGrid columns="2" columnClasses="login-table-col" style="width: 100%; text-align:center;">
-
-            <h:panelGroup layout="block" rendered="#{not userBean.loggedInFB}">
+            <!-- social login button -->
+            <h:panelGroup layout="block" rendered="#{not userBean.loggedInFB or not userBean.loggedInGPlus}">
                 <richx:commandButton styleClass="fb-comm-button" execute="@none"
                     oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 ); FBlogin(fetchUserInfo, fetchFBAlbumIds, showError); return false;"
                     value="Facebook Login" />
-
-                <r:progressBar mode="client" value="0" id="fbProgress" styleClass="fb-pb" />
 
                 <r:jsFunction name="fetchUserInfo"
                     oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 34 ); authenticate();">
                     <r:param assignTo="#{facebookBean.userInfo}" converter="#{fbJsonConverter}" name="response" />
                 </r:jsFunction>
 
-                <r:jsFunction name="fetchFBAlbumIds"
-                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 );">
-                    <r:param assignTo="#{facebookBean.albumIds}" name="albumIds" />
+                <r:jsFunction name="authenticate" actionListener="#{authenticator.authenticateWithFacebook}"
+                    data="#{authenticator.loginFailed}" oncomplete="if(!event.data)#{r:component('loginPanel')}.hide()"
+                    render="mainArea, headerPanel, treePanel" />
+
+                <richx:commandButton styleClass="fb-comm-button" execute="@none"
+                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 ); G.login({infoCallback: gGetUserInfo, albumCallback: gGetUserAlbums, errorCallback: showError});"
+                    value="G+ Login" />
+
+                <r:jsFunction name="gGetUserInfo"
+                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 34 ); ">
+                    <r:param assignTo="#{googlePlusBean.userInfoJSON}" name="response" />
                 </r:jsFunction>
 
-                <r:jsFunction name="authenticate" actionListener="#{authenticator.authenticateWithFacebook}" data="#{authenticator.loginFailed}"
-                    oncomplete="if(!event.data)#{r:component('loginPanel')}.hide()" render="mainArea, headerPanel, treePanel" />
+                <r:jsFunction name="gGetUserAlbums"
+                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 ); gAuthenticate();">
+                    <r:param assignTo="#{googlePlusBean.userAlbumsJSON}" name="albums" />
+                </r:jsFunction>
+
+                <r:jsFunction name="gAuthenticate" actionListener="#{authenticator.authenticateWithGPlus}"
+                    data="#{authenticator.loginFailed}" oncomplete="if(!event.data)#{r:component('loginPanel')}.hide()"
+                    render="mainArea, headerPanel, treePanel" execute="@this" />
+
+                <r:progressBar mode="client" value="0" id="fbProgress" styleClass="fb-pb" />
             </h:panelGroup>
 
+            <!-- photoalbum login -->
             <h:panelGroup layout="block">
                 <r:region id="loginPanelForm">
                     <h:panelGrid columns="2" columnClasses="login-table-col2, xxx" style="margin-left:auto; margin-right:auto;">

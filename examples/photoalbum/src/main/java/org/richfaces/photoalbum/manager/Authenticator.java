@@ -50,7 +50,8 @@ import org.richfaces.photoalbum.event.NavEvent;
 import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IUserAction;
-import org.richfaces.photoalbum.social.FacebookBean;
+import org.richfaces.photoalbum.social.facebook.FacebookBean;
+import org.richfaces.photoalbum.social.gplus.GooglePlusBean;
 import org.richfaces.photoalbum.ui.UserPrefsHelper;
 import org.richfaces.photoalbum.util.Environment;
 import org.richfaces.photoalbum.util.HashUtils;
@@ -104,13 +105,16 @@ public class Authenticator implements Serializable {
     FacebookBean fBean;
 
     @Inject
+    GooglePlusBean gBean;
+
+    @Inject
     UserPrefsHelper uph;
 
     /**
      * Method, that invoked when user try to login to the application.
-     * 
+     *
      * @return boolean indicator, that denotative is user succesfully loginned to the system.
-     * 
+     *
      */
     public boolean authenticate() {
         try {
@@ -190,11 +194,61 @@ public class Authenticator implements Serializable {
         }
     }
 
+    public boolean authenticateWithGPlus() {
+        JSONObject userInfo = gBean.getUserInfo();
+
+        try {
+            //String pictureUrl = userInfo.getJSONObject("picture").getJSONObject("data").getString("url");
+            //userBean.setFbPhotoUrl(pictureUrl);
+
+            String gPlusId = userInfo.getString("id");
+            user = userBean.gPlusLogIn(gPlusId);
+
+            if (user == null) { // user does not exist
+                User newUser = new User();
+
+                newUser.setFbId(gPlusId);
+                newUser.setFirstName(userInfo.getJSONObject("name").getString("givenName"));
+                newUser.setSecondName(userInfo.getJSONObject("name").getString("familyName"));
+                newUser.setEmail(userInfo.optString("email", "mail@mail.com"));
+
+                String username = userInfo.optString("nickname", newUser.getFirstName());
+                newUser.setLogin(username);
+
+                String sex = userInfo.getString("gender");
+                newUser.setSex(sex.equals("male") ? Sex.MALE : Sex.FEMALE);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String birthday = userInfo.optString("birthday", "1900-01-01");
+//                if (birthday.substring(0, 3).equals("0000")) {
+//                    // G+ allows hiding of the year of birth, change to 1900
+//                    birthday = "19" + birthday.substring(2);
+//                }
+                newUser.setBirthDate(sdf.parse(birthday));
+
+                // random password, the user will not be using this to log in
+                newUser.setPasswordHash(HashUtils.hash("gPlus" + System.currentTimeMillis()));
+
+                userAction.register(newUser);
+
+                userBean.gPlusLogIn(gPlusId);
+            } else {
+                addToTracker(user.getId());
+            }
+
+            return true;
+        } catch (Exception nre) {
+            error.fire(new ErrorEvent("Error", nre.getMessage()));
+            loginFailed();
+            return false;
+        }
+    }
+
     /**
      * Method, that invoked when user logout from application.
-     * 
+     *
      * @return outcome string to redirect.
-     * 
+     *
      */
     public void logout() {
         long id = userBean.getUser().getId();
@@ -209,9 +263,9 @@ public class Authenticator implements Serializable {
     /**
      * Method, that invoked when user try to register in the application. If registration was successfull, user immediately will
      * be loginned to the system.
-     * 
+     *
      * @param user - user object, that will be passed to registration procedure.
-     * 
+     *
      */
     public void register(User user) {
         // Checks
@@ -247,7 +301,7 @@ public class Authenticator implements Serializable {
 
     /**
      * Method, that invoked when user want to go to the registration screen
-     * 
+     *
      */
     public void goToRegister() {
         // create new User object
@@ -260,7 +314,7 @@ public class Authenticator implements Serializable {
     /**
      * Method, that invoked when new conversation is started. This method prevent instantiation of couples of conversations when
      * user refresh the whole page.
-     * 
+     *
      * @return string outcome to properly redirect on the current page(to assign to page parameters conversationId.
      */
     @PostConstruct

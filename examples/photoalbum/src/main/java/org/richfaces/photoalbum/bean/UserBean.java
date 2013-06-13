@@ -89,6 +89,7 @@ public class UserBean implements Serializable {
     private boolean logged = false;
 
     private boolean loggedInFB = false;
+    private boolean loggedInGPlus = false;
 
     public User logIn(String username, String passwordHash) throws Exception {
         user = (User) em.createNamedQuery(Constants.USER_LOGIN_QUERY).setParameter(Constants.USERNAME_PARAMETER, username)
@@ -111,6 +112,23 @@ public class UserBean implements Serializable {
 
         logged = true;
         loggedInFB = true;
+
+        return user;
+    }
+    
+    public User gPlusLogIn(String gPlusId) {
+        List<?> users = em.createNamedQuery(Constants.USER_FB_LOGIN_QUERY).setParameter("fbId", gPlusId).getResultList();
+
+        if (users.isEmpty()) {
+            logged = false;
+            loggedInGPlus = false;
+            return null;
+        }
+
+        user = (User) users.get(0);
+
+        logged = true;
+        loggedInGPlus = true;
 
         return user;
     }
@@ -141,11 +159,16 @@ public class UserBean implements Serializable {
         return loggedInFB;
     }
 
+    public boolean isLoggedInGPlus() {
+        return loggedInGPlus;
+    }
+
     public void logout() {
         user = null;
         logged = false;
         loggedInFB = false;
         fbPhotoUrl = "";
+        loggedInGPlus = false;
     }
 
     public void reset() {
