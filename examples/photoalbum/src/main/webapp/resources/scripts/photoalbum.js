@@ -435,10 +435,9 @@ var G = {};
 
             photo.created = published.substring(0, published.indexOf("T"));
 
-            photo.url = mg.url;
-
-            // create url for thumbnail, max 288px in width
-            photo.thumbUrl = photo.url.substring(0, splitAt) + "/s288" + photo.url.substring(splitAt);
+            // create urls, up to 1600px for the image, up to 288px for thumbnail
+            photo.url = mg.url.substring(0, splitAt) + "/s1600" + mg.url.substring(splitAt);
+            photo.thumbUrl = mg.url.substring(0, splitAt) + "/s288" + mg.url.substring(splitAt);
 
             extractedPhotos.push(photo);
         }
@@ -451,6 +450,7 @@ var G = {};
             
             var callback = function(data, status, jq) {
                 photoCallback(extractPhotos(albumId, data.feed.entry));
+                console.log(data.feed.entry);
             },
             url = "https://picasaweb.google.com/data/feed/base/user/" + userId + "/albumid/" + albumId + "?access_token=" + authResult.access_token + "&kind=photo&alt=json&callback=?";
             $.getJSON(url, null, callback);
