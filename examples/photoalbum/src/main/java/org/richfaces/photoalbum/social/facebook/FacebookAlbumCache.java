@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.photoalbum.social;
+package org.richfaces.photoalbum.social.facebook;
 
 import java.util.ArrayList;
 import java.util.HashMap;
