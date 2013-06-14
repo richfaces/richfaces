@@ -102,6 +102,7 @@ public final class SelectHelper {
 
                 String label = clientSelectItem.getLabel();
                 if (label != null && label.trim().length() > 0) {
+                    writer.writeAttribute(HtmlConstants.TITLE_ATTRIBUTE, label, null);
                     writer.writeText(label, null);
                 } else {
                     writer.write("\u00a0");
