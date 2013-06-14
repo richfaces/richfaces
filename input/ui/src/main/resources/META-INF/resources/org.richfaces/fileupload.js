@@ -114,20 +114,16 @@
             deleteLabel: "Delete",
 
            __addItem: function() {    
-               //Multiple upload support - by Simone Cinti
                 var fileName;
                 var length=0;
                 var multipleInputFiles = null;
+                var itemsCount = this.__getTotalItemCount();
                 var rejectedFileNames = "";
                 if (this.input.prop("files")) {
                     multipleInputFiles = this.input.prop("files"); 					  
                     length = multipleInputFiles.length;
-                    if (this.maxFilesQuantity) {
-                        if (length > this.maxFilesQuantity) { 
-                           length = this.maxFilesQuantity;
-                      	}
-		    } 
-                } else {
+                } 
+                else {
                     length = 1;
                     multipleInputFiles = null; 
                     fileName = this.input.val();
@@ -165,6 +161,11 @@
                         this.input.change(this.addProxy);
                         this.__updateButtons();
                         richfaces.Event.fire(this.element, "onfileselect", fileName);
+                       	itemsCount++; 
+			if (this.maxFilesQuantity && (itemsCount >= this.maxFilesQuantity)) {
+				this.addButton.hide();
+				break;
+			}
                     }
                 }
                 if (multipleInputFiles != null) {
