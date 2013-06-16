@@ -1,5 +1,7 @@
 package org.richfaces.arquillian.configuration;
 
+import org.jboss.arquillian.drone.api.annotation.Default;
+import org.jboss.arquillian.graphene.GrapheneContext;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy.FutureTarget;
 
@@ -43,7 +45,7 @@ public class FundamentalTestConfigurationContext {
      * @return the instance of proxy to thread local context of configuration
      */
     public static FundamentalTestConfiguration getProxy() {
-        return GrapheneProxy.getProxyForFutureTarget(TARGET, FundamentalTestConfiguration.class);
+        return GrapheneProxy.getProxyForFutureTarget(GrapheneContext.getContextFor(Default.class), TARGET, FundamentalTestConfiguration.class);
     }
 
     /**

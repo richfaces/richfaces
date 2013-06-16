@@ -6,9 +6,10 @@ import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
 import org.jboss.arquillian.core.api.annotation.Observes;
+import org.jboss.arquillian.drone.api.annotation.Default;
 import org.jboss.arquillian.drone.impl.DroneContext;
 import org.jboss.arquillian.drone.spi.DroneReady;
-import org.jboss.arquillian.graphene.context.GrapheneContext;
+import org.jboss.arquillian.graphene.GrapheneContext;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance;
 import org.jboss.arquillian.graphene.proxy.Interceptor;
 import org.jboss.arquillian.graphene.proxy.InvocationContext;
@@ -28,7 +29,7 @@ public class ScreenshotTaker {
 
     private final Logger log = Logger.getLogger(ScreenshotTaker.class.getName());
 
-    private final TakesScreenshot takesScreenshot = GrapheneContext.getProxyForInterfaces(TakesScreenshot.class);
+    private final TakesScreenshot takesScreenshot = (TakesScreenshot) GrapheneContext.getContextFor(Default.class).getWebDriver(TakesScreenshot.class);
 
     public void registerInterceptor(@Observes DroneReady event, DroneContext ctx) {
 
@@ -39,7 +40,7 @@ public class ScreenshotTaker {
             WebDriver browser = (WebDriver) event.getInstance();
             if (BrowserUtils.isPhantomjs(browser)) {
 
-                WebDriver proxy = GrapheneContext.getProxy();
+                WebDriver proxy = GrapheneContext.getContextFor(Default.class).getWebDriver();
 
                 Interceptor interceptor = new Interceptor() {
                     @Override
