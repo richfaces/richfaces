@@ -173,6 +173,13 @@
             <h:outputText value="Facebook Albums" />
         </h2>
     </r:commandLink>
+    
+    <r:commandLink execute="@this" rendered="#{userBean.loggedInGPlus}" actionListener="#{controller.showGPlusShelf()}"
+        render="mainArea">
+        <h2>
+            <h:outputText value="G+ Albums" />
+        </h2>
+    </r:commandLink>
 
     <h:panelGroup>
 

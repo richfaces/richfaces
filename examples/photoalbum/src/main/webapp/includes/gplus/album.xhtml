@@ -1,0 +1,91 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich">
+    <ui:param name="album" value="#{googlePlusAlbumCache.currentAlbum}" />
+    <h:panelGrid styleClass="album-header-table" cellpadding="0" columns="2" columnClasses="xxx, album-header-table-col2">
+        <h:panelGroup>
+            <h1>
+                <h:outputText value="#{album.getString('name')}" />
+            </h1>
+            <h:panelGroup layout="block" style="margin-bottom:15px;" styleClass="additional-info-text">
+                <h:outputText value="#{messages['created.album']} " />
+                <h:outputText styleClass="bold" value="#{album.getString('created')}" />
+                <h:outputText value=", #{messages['contain']}" />
+                <h:outputText styleClass="bold" value=" #{album.getString('size')}" />
+                <h:outputText value=" #{messages['images_']}" />
+            </h:panelGroup>
+        </h:panelGroup>
+        <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
+            render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}"
+            rendered="#{model.selectedEvent.googlePlusAlbums.contains(album.getString('id'))}" />
+        <h:outputText value="Google+" styleClass="additional-info-text"
+            rendered="#{not model.selectedEvent.googlePlusAlbums.contains(album.getString('id'))}" />
+    </h:panelGrid>
+
+    <!-- imageList -->
+
+    <ui:include src="/includes/image/inputNumberSlider.xhtml">
+        <ui:param name="size" value="#{album.getInt('size')}" />
+        <ui:param name="renderArea" value="userAlbumImages" />
+    </ui:include>
+
+    <!-- 
+    <h:panelGroup layout="block" style="margin : 30px 0px 0px 0px;">
+        <h:panelGroup layout="block" style="float : right; cursor : pointer">
+            <r:commandLink rendered="#{fn:length(model.images) > 0}" actionListener="#{slideshow.startSlideshow()}"
+                styleClass="slideshow-link" render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
+                <h:graphicImage value="/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
+                    style="vertical-align : bottom; margin-right : 5px; border:0;" />
+                <h:outputText value="#{messages['slideshow.start']}" />
+            </r:commandLink>
+        </h:panelGroup>
+
+    </h:panelGroup> -->
+    <br />
+    <br />
+
+    <h:panelGroup id="userAlbumImages">
+        <r:repeat id="imageList" value="#{googlePlusAlbumCache.currentPhotos}" var="image" rows="20">
+            <h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
+                <h:graphicImage styleClass="pr_photo_bg" style="#{imageSizeHelper.currentDimension.imageBgStyle}"
+                    value="#{imageSizeHelper.currentDimension.imageBg}" />
+                <h:panelGrid cellpadding="0">
+                    <h:panelGroup>
+                        <r:commandLink execute="@this" actionListener="#{controller.showGPlusImage(image.getString('id'))}"
+                            render="mainArea">
+                            <h:graphicImage url="#{image.getString('thumbUrl')}"
+                                style="border: 1px solid #FFFFFF; max-width: #{imageSizeHelper.value}px; max-height: #{imageSizeHelper.value}px" />
+                        </r:commandLink>
+                        <br />
+                    </h:panelGroup>
+                </h:panelGrid>
+                <!-- <h:panelGroup layout="block" styleClass="photo_name">#{image.getString('name')}</h:panelGroup> -->
+                <h:panelGroup layout="block" styleClass="photo_data">
+                    <h:outputText value="#{image.getString('created')}" />
+                </h:panelGroup>
+            </h:panelGroup>
+        </r:repeat>
+    </h:panelGroup>
+</ui:composition>

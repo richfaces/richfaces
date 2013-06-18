@@ -77,7 +77,7 @@ public class User implements Serializable {
 
     @NotNull
     @NotEmpty
-    @Column(length = 20)
+    @Column(length = 30)
     private String fbId;
 
     @NotNull

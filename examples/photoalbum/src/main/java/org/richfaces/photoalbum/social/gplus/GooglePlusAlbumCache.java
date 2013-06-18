@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.photoalbum.social;
+package org.richfaces.photoalbum.social.gplus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +41,7 @@ import org.richfaces.photoalbum.event.Events;
 
 @Named
 @ApplicationScoped
-public class FacebookAlbumCache {
+public class GooglePlusAlbumCache {
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
@@ -57,38 +57,17 @@ public class FacebookAlbumCache {
     private String currentAlbumId;
     private String currentPhotoId;
 
-    public void setAll(String json) {
-        try {
-            JSONObject jo = new JSONObject(json);
-            if (!jo.has("albums")) {
-                return;
-            }
-
-            storeAlbums(jo.getJSONArray("albums"));
-            storeImagesToAlbum(jo.getJSONArray("images"));
-            setNeedsUpdate(true);
-        } catch (JSONException e) {
-            error.fire(new ErrorEvent("Error: ", e.getMessage()));
-        }
+    public void storeAlbums(List<JSONObject> albumsList) {
+        storeAlbums(albumsList, false);
     }
 
-    public void storeAlbums(JSONArray ja) {
-        storeAlbums(ja, false);
-    }
-
-    public void storeAlbums(JSONArray ja, boolean rewrite) {
+    public void storeAlbums(List<JSONObject> albumsList, boolean rewrite) {
         String albumId;
-        JSONObject jo;
 
         try {
-            for (int i = 0; i < ja.length(); i++) {
-                jo = ja.getJSONObject(i);
+            for (JSONObject jo : albumsList) {
 
-                if (!jo.has("aid")) {
-                    error.fire(new ErrorEvent("Error, object does not contain albums"));
-                }
-
-                albumId = jo.getString("aid");
+                albumId = jo.getString("id");
 
                 if (albums.containsKey(albumId) && !rewrite) {
                     // the album has already been loaded
@@ -104,30 +83,38 @@ public class FacebookAlbumCache {
         }
     }
 
-    public void storeImagesToAlbum(JSONArray ja) {
-
+    public void setAlbumImages(String imagesArray) {
         String imageId = "";
         String albumId = "";
         JSONObject jo;
 
         try {
+            JSONArray ja = new JSONArray(imagesArray);
+            albumId = ja.getJSONObject(0).getString("albumId");
+
+            currentAlbumId = albumId;
+
+            if (images.get(albumId) != null) {
+                // these images are already cached
+                return;
+            }
+
+            images.put(albumId, new HashMap<String, JSONObject>());
+            
             for (int i = 0; i < ja.length(); i++) {
                 jo = ja.getJSONObject(i);
 
-                if (!jo.has("aid") || !jo.has("pid")) {
+                if (!jo.has("albumId") || !jo.has("id")) {
                     error.fire(new ErrorEvent("Error, object does not contain images"));
 
                 }
 
-                albumId = jo.getString("aid");
-                imageId = jo.getString("pid");
-
-                if (images.get(albumId) == null) {
-                    images.put(albumId, new HashMap<String, JSONObject>());
-                }
+                imageId = jo.getString("id");
 
                 images.get(albumId).put(imageId, jo);
             }
+
+            albums.get(albumId).put("size", images.get(albumId).size());
         } catch (JSONException je) {
             error.fire(new ErrorEvent("Error", je.getMessage()));
         }
@@ -151,7 +138,7 @@ public class FacebookAlbumCache {
         for (String id : albumIds) {
             list.add(albums.get(id));
         }
-        
+
         return list;
     }
 
