@@ -119,7 +119,7 @@ public class LookAheadObjectInputStream extends ObjectInputStream {
     /**
      * Load the whitelist from the properties file
      */
-    static Properties loadWhitelist() {
+    static void loadWhitelist() {
         Properties whitelistProperties = new Properties();
         InputStream stream = null;
         try {
@@ -144,6 +144,5 @@ public class LookAheadObjectInputStream extends ObjectInputStream {
                 throw new RuntimeException("Unable to load whiteList class " + baseClassName, e);
             }
         }
-        return whitelistProperties;
     }
 }
