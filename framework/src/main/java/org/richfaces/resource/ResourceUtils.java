@@ -242,8 +242,7 @@ public final class ResourceUtils {
         byte[] objectArray = decodeBytesData(encodedData);
 
         try {
-            ObjectInputStream in = new ObjectInputStreamImpl(new ByteArrayInputStream(objectArray));
-
+            ObjectInputStream in = new LookAheadObjectInputStream(new ByteArrayInputStream(objectArray));
             return in.readObject();
         } catch (StreamCorruptedException e) {
             RESOURCE_LOGGER.error(Messages.getMessage(Messages.STREAM_CORRUPTED_ERROR), e);
@@ -603,36 +602,4 @@ public final class ResourceUtils {
         return result;
     }
 
-    private static class ObjectInputStreamImpl extends ObjectInputStream {
-        private static final Map<String, Class<?>> PRIMITIVE_CLASSES = new HashMap<String, Class<?>>(9, 1.0F);
-
-        static {
-            PRIMITIVE_CLASSES.put("boolean", Boolean.TYPE);
-            PRIMITIVE_CLASSES.put("byte", Byte.TYPE);
-            PRIMITIVE_CLASSES.put("char", Character.TYPE);
-            PRIMITIVE_CLASSES.put("short", Short.TYPE);
-            PRIMITIVE_CLASSES.put("int", Integer.TYPE);
-            PRIMITIVE_CLASSES.put("long", Long.TYPE);
-            PRIMITIVE_CLASSES.put("float", Float.TYPE);
-            PRIMITIVE_CLASSES.put("double", Double.TYPE);
-            PRIMITIVE_CLASSES.put("void", Void.TYPE);
-        }
-
-        public ObjectInputStreamImpl(InputStream in) throws IOException {
-            super(in);
-        }
-
-        protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
-            String name = desc.getName();
-            try {
-                return Class.forName(name, true, Thread.currentThread().getContextClassLoader());
-            } catch (ClassNotFoundException cnfe) {
-                Class<?> c = PRIMITIVE_CLASSES.get(name);
-                if (c != null) {
-                    return c;
-                }
-                throw cnfe;
-            }
-        }
-    }
 }
