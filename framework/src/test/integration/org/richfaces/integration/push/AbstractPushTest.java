@@ -91,7 +91,7 @@ public class AbstractPushTest {
                 })
             .group()
                 // TODO ARQ-1368: this is wrong: index(1) should be after uri().contains(...)
-                .observe(request().index(1).uri().contains("__richfacesPushAsync"))
+                .observe(request().uri().contains("__richfacesPushAsync").index(1))
                 .inspect(new PushServletAssertion())
             .execute();
 

@@ -107,7 +107,7 @@
         <!-- Integration Tests Versions -->
         <version.arquillian.core>1.0.3.Final</version.arquillian.core>
         <version.arquillian.drone>1.2.0.Alpha2</version.arquillian.drone>
-        <version.arquillian.warp>1.0.0.Alpha2</version.arquillian.warp>
+        <version.arquillian.warp>1.0.0.Alpha3</version.arquillian.warp>
         <version.arquillian.graphene>2.0.0.Alpha4</version.arquillian.graphene>
         <version.arquillian.phantom.driver>1.0.3</version.arquillian.phantom.driver>
         <version.selenium>2.31.0</version.selenium>
