@@ -75,10 +75,22 @@ public class Pages {
             File folder = new File(folderPath);
             if (FOLDER_PATTERN.matcher(folderPath).matches()) {
                 pageFolderMap.put(folderPath, getPagesByPattern(XHTML_PATTERN, folderPath));
-                indexPages.add(new PageDescriptionBean(folderPath + "index.jsf", folderPath));
+                String title = folderPath;
+                try {
+                    title = folderPath.split("/")[2];
+                    title = firstChartToUppercase(title);
+                } finally {
+                    indexPages.add(new PageDescriptionBean(folderPath + "index.jsf", title));
+                }
             }
         }
         indexPages.addAll(getPagesByPattern(XHTML_PATTERN, EXAMPLE_PATH));
+    }
+
+    private String firstChartToUppercase(String string) {
+        char[] chars = string.toCharArray();
+        chars[0] = Character.toUpperCase(chars[0]);
+        return new String(chars);
     }
 
     private ExternalContext getExternalContext() {
@@ -111,14 +123,17 @@ public class Pages {
         Set<String> resourcePaths = getExternalContext().getResourcePaths(path);
         for (Iterator<String> iterator = resourcePaths.iterator(); iterator.hasNext();) {
             String page = iterator.next();
-            if (pattern.matcher(page).matches() && ! page.endsWith("/index.xhtml")) {
+            if (pattern.matcher(page).matches() && !page.endsWith("/index.xhtml")) {
                 InputStream pageInputStream = getExternalContext().getResourceAsStream(page);
                 String title = page;
                 if (null != pageInputStream) {
-                    byte[] head = new byte[1024];
+                    byte[] head = new byte[2048];
                     try {
                         int readed = pageInputStream.read(head);
                         String headString = new String(head, 0, readed);
+                        if (title.endsWith("input/")) {
+                            System.out.println(headString);
+                        }
                         Matcher titleMatcher = titlePattern.matcher(headString);
                         if (titleMatcher.find() && titleMatcher.group(1).length() > 0) {
                             title = titleMatcher.group(1);
