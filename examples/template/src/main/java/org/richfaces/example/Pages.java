@@ -72,19 +72,31 @@ public class Pages {
         indexPages = new ArrayList<PageDescriptionBean>(resourcePaths.size());
         for (Iterator<String> iterator = resourcePaths.iterator(); iterator.hasNext();) {
             String folderPath = iterator.next();
-            File folder = new File(folderPath);
-            if (FOLDER_PATTERN.matcher(folderPath).matches()) {
-                pageFolderMap.put(folderPath, getPagesByPattern(XHTML_PATTERN, folderPath));
-                String title = folderPath;
+            if (FOLDER_PATTERN.matcher(folderPath).matches() || new File(folderPath).isDirectory()) {
+                String resourcePath = resourcePath(folderPath);
+                pageFolderMap.put(resourcePath, getPagesByPattern(XHTML_PATTERN, resourcePath));
+                String title = resourcePath;
                 try {
-                    title = folderPath.split("/")[2];
+                    title = resourcePath.split("/")[2];
                     title = firstChartToUppercase(title);
                 } finally {
-                    indexPages.add(new PageDescriptionBean(folderPath + "index.jsf", title));
+                    indexPages.add(new PageDescriptionBean(resourcePath + "index.jsf", title));
                 }
             }
         }
         indexPages.addAll(getPagesByPattern(XHTML_PATTERN, EXAMPLE_PATH));
+        Collections.sort(indexPages);
+    }
+
+    private String resourcePath(String fullPath) {
+        boolean isDirectory = new File(fullPath).isDirectory();
+
+        int i = fullPath.indexOf("/examples");
+        String path = fullPath.substring(i);
+        if (isDirectory && !path.endsWith("/")) {
+            path = path + "/";
+        }
+        return path;
     }
 
     private String firstChartToUppercase(String string) {
@@ -122,7 +134,7 @@ public class Pages {
         List<PageDescriptionBean> pageList = new ArrayList<PageDescriptionBean>();
         Set<String> resourcePaths = getExternalContext().getResourcePaths(path);
         for (Iterator<String> iterator = resourcePaths.iterator(); iterator.hasNext();) {
-            String page = iterator.next();
+            String page = resourcePath(iterator.next());
             if (pattern.matcher(page).matches() && !page.endsWith("/index.xhtml")) {
                 InputStream pageInputStream = getExternalContext().getResourceAsStream(page);
                 String title = page;
