@@ -67,7 +67,7 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
 
         if (owner instanceof BehaviorsAddingComponentHandlerWrapper) {
             // this is to avoid StackOverflowError because of ComponentHandler constructor call
-            return null;
+            return factory.createComponentHandlerDelegate(owner);
         }
 
         ComponentHandler wrappedHandler = new BehaviorsAddingComponentHandlerWrapper(owner);
