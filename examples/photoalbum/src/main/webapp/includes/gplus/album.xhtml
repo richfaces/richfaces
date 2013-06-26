@@ -33,21 +33,21 @@
                 <h:outputText value="#{messages['created.album']} " />
                 <h:outputText styleClass="bold" value="#{album.getString('created')}" />
                 <h:outputText value=", #{messages['contain']}" />
-                <h:outputText styleClass="bold" value=" #{album.getString('size')}" />
+                <h:outputText styleClass="bold" value=" #{album.optString('size', '?')}" />
                 <h:outputText value=" #{messages['images_']}" />
             </h:panelGroup>
         </h:panelGroup>
         <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
             render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}"
-            rendered="#{model.selectedEvent.googlePlusAlbums.contains(album.getString('id'))}" />
+            rendered="#{model.selectedEvent.googlePlusAlbumIds.contains(album.getString('fullId'))}" />
         <h:outputText value="Google+" styleClass="additional-info-text"
-            rendered="#{not model.selectedEvent.googlePlusAlbums.contains(album.getString('id'))}" />
+            rendered="#{not model.selectedEvent.googlePlusAlbumIds.contains(album.getString('fullId'))}" />
     </h:panelGrid>
 
     <!-- imageList -->
 
     <ui:include src="/includes/image/inputNumberSlider.xhtml">
-        <ui:param name="size" value="#{album.getInt('size')}" />
+        <ui:param name="size" value="#{album.optInt('size')}" />
         <ui:param name="renderArea" value="userAlbumImages" />
     </ui:include>
 

@@ -38,7 +38,7 @@
                 <h:outputText value="#{messages['contain']}" />
                 <!-- <h:outputText styleClass="bold" value=" #{fn:length(shelf.images)} " />
                 <h:outputText value="#{messages['pics_into']}" /> -->
-                <h:outputText styleClass="bold" value=" #{fn:length(event.shelf.albums) + fn:length(event.facebookAlbums)} " />
+                <h:outputText styleClass="bold" value=" #{fn:length(event.shelf.albums) + fn:length(event.remoteAlbumIds)} " />
                 <h:outputText value="#{messages['shelf.albums']}" />
 
             </h:panelGroup>
@@ -64,6 +64,22 @@
     <br />
     <br />
 
+    <ui:include src="/includes/event/imageList.xhtml">
+        <ui:param name="event" value="#{event}" />
+    </ui:include>
+    
+    <br/>
+    
+    <r:outputPanel rendered="#{fn:length(event.facebookAlbumIds) > 0}">
+            <br style="clear: both;" />
+            <h2>Facebook Albums</h2>
+            <ui:include src="/includes/facebook/albumsList.xhtml">
+                <ui:param name="showDownload" value="true" />
+                <ui:param name="albumIds" value="#{event.facebookAlbumIds}" />
+                <ui:param name="albumString" value="#{event.fbAlbumIds}" />
+            </ui:include>
+        </r:outputPanel>
+    <!-- 
     <r:outputPanel rendered="#{showAlbums}" id="eventAlbums">
         <r:outputPanel rendered="#{fn:length(event.shelf.albums) > 0}">
             <h2>Albums</h2>
@@ -71,14 +87,15 @@
                 <ui:param name="albums" value="#{event.shelf.albums}" />
             </ui:include>
         </r:outputPanel>
-        <r:outputPanel rendered="#{fn:length(event.facebookAlbums) > 0}">
+        <r:outputPanel rendered="#{fn:length(event.remoteAlbums) > 0}">
             <br style="clear: both;" />
             <h2>Facebook Albums</h2>
             <ui:include src="/includes/facebook/albumsList.xhtml">
                 <ui:param name="showDownload" value="true" />
-                <ui:param name="albumIds" value="#{event.facebookAlbums}" />
+                <ui:param name="albumIds" value="#{event.remoteAlbums}" />
                 <ui:param name="albumString" value="#{event.fbAlbumIds}" />
             </ui:include>
         </r:outputPanel>
     </r:outputPanel>
+    -->
 </ui:composition>

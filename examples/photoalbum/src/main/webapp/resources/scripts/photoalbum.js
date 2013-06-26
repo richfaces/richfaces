@@ -326,6 +326,7 @@ var G = {};
          *   {
          *     id: ID,
          *     userId: UID,
+         *     fullId: "id:albumId",
          *     name: NAME,
          *     created: DATE,
          *     coverImageUrl: URL
@@ -347,6 +348,7 @@ var G = {};
 
             album.id = albumId;
             album.userId = userId;
+            album.fullId = userId + ":" + albumId;
             album.name = albumName;
             album.created = published.substring(0, published.indexOf("T"));
 
@@ -361,13 +363,13 @@ var G = {};
     // Get albums
     G.getUserAlbums = function(userId, albumCallback, authResult) {
 
-        var getAlbums = function(suthResult) {
+        var getAlbums = function(authResult) {
             var callback = function(data, status, jq) {
                 albumCallback(extractAlbums(userId, data.feed.entry));
             };
 
             var url = "https://picasaweb.google.com/data/feed/base/user/" + userId + "?access_token=" 
-                    + authResult.access_token + "&kind=album&alt=json&callback=?";
+                    + authResult.access_token + "&kind=album&alt=json&fields=entry(id,published,title,media:group(media:content))&callback=?";
                     
             $.getJSON(url, null, callback);
         };
@@ -385,7 +387,7 @@ var G = {};
         }, getAlbums);
     };
 
-    extractPhotos = function(albumId, photoEntries) {
+    extractPhotos = function(fullAlbumId, photoEntries) {
         /*
          * Take a JSON returned from Picasa and extract the important properties
          *
@@ -394,6 +396,7 @@ var G = {};
          *   {
          *     id: ID,
          *     albumId: ID,
+         *     fullAlbumId: fID,
          *     created: DATE,
          *     url: URL,
          *     thumbUrl: tURL // created from url
@@ -411,9 +414,11 @@ var G = {};
                 photoId = idString.substr(begin + 1, end - begin - 1), 
                 splitAt = mg.url.lastIndexOf("/"),
                 published = photoEntries[i].published.$t;
+                
 
             photo.id = photoId;
-            photo.albumId = albumId;
+            photo.albumId = (fullAlbumId.split(":"))[1];
+            photo.fullAlbumId = fullAlbumId;
 
             photo.created = published.substring(0, published.indexOf("T"));
 
@@ -427,14 +432,15 @@ var G = {};
         return JSON.stringify(extractedPhotos);
     };
 
-    G.getPhotos = function(userId, albumId, photoCallback) {
+    G.getPhotos = function(fullId, photoCallback) {
         var getPhotos = function(authResult) {
-            
-            var callback = function(data, status, jq) {
-                photoCallback(extractPhotos(albumId, data.feed.entry));
-            },
-            url = "https://picasaweb.google.com/data/feed/base/user/" + userId + "/albumid/" 
-                + albumId + "?access_token=" + authResult.access_token + "&kind=photo&alt=json&callback=?";
+            var ids = fullId.split(":"), 
+                callback = function(data, status, jq) {
+                    photoCallback(extractPhotos(fullId, data.feed.entry));
+                },           
+                url = "https://picasaweb.google.com/data/feed/base/user/" + ids[0] + "/albumid/" 
+                    + ids[1] + "?access_token=" + authResult.access_token + "&kind=photo&alt=json&fields=entry(id,published,media:group(media:content))&callback=?";
+                         
             $.getJSON(url, null, callback);
         };
         
@@ -449,6 +455,56 @@ var G = {};
             scope : scopes,
             immediate : true
         }, getPhotos);
+    };
+    
+    G.getAlbumAndPhotos = function(albumFullId, callback) {
+        var getAlbumAndPhotos = function(authResult) {
+            var ids = albumFullId.split(":"),
+            
+                albumUrl = "https://picasaweb.google.com/data/feed/base/user/" + ids[0] 
+                + "?access_token=" + authResult.access_token 
+                + "&kind=album&alt=json&fields=entry(id,published,title,media:group(media:content))&callback=?",
+            
+                compress = function (album, callback) {
+                    return function(images) {
+                        album.images = JSON.parse(images);
+                        callback(JSON.stringify(album));   
+                    };
+                },
+            
+                processAlbum = function(albumId, albumString, callback) {
+                    var albums = JSON.parse(albumString),
+                        album = {};
+                
+                    for(var i = 0; i < albums.length; i++) {
+                        if (albums[i].fullId == albumId) {
+                            album = albums[i]; break;
+                        }
+                    }
+                
+                    G.getPhotos(album.fullId, compress(album, callback));
+                },
+            
+                userId = albumFullId.split(":")[0],
+            
+                albumCb = function(data, status, jq) {
+                    processAlbum(albumFullId, extractAlbums(userId, data.feed.entry), callback);
+                };
+
+                $.getJSON(albumUrl, null, albumCb);
+            };
+            
+        if (gapi.auth.getToken()) {
+            getAlbumAndPhotos(gapi.auth.getToken());
+            return;
+        }
+        
+        // if token wasn't provided
+        gapi.auth.authorize({
+            client_id : clientId,
+            scope : scopes,
+            immediate : true
+        }, getAlbumAndPhotos);
     };
 
 })(G);

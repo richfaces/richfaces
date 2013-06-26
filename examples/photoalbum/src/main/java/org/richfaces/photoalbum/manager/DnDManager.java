@@ -162,7 +162,7 @@ public class DnDManager implements DropListener {
         if (dragValue instanceof String) {
             String aid = (String) dragValue;
 
-            event.getFacebookAlbums().add(aid);
+            event.getRemoteAlbums().add(aid);
 
             try {
                 eventAction.editEvent(event);

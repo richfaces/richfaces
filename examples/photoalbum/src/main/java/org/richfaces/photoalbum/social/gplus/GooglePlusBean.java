@@ -105,7 +105,7 @@ public class GooglePlusBean implements Serializable {
         List<String> ids = new ArrayList<String>();
 
         for (JSONObject jo : userAlbums) {
-            ids.add(jo.optString("id"));
+            ids.add(getUserId() + ":" + jo.optString("id"));
         }
 
         return ids;

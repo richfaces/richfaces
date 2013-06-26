@@ -44,7 +44,7 @@
                     <h:panelGrid cellpadding="0">
                         <h:panelGroup style="margin-bottom:7px;" layout="block">
                             <r:commandLink execute="@this"
-                                onclick="G.getPhotos('#{googlePlusAlbumCache.getAlbum(albumId).getString('userId')}', '#{albumId}', loadPhotos)">
+                                onclick="G.getPhotos('#{albumId}', loadPhotos)">
                                 <h:graphicImage id="img"
                                     url="#{googlePlusAlbumCache.getAlbum(albumId).getString('coverImageUrl')}"
                                     style="max-width: 120px; max-height: 120px" styleClass="album-cover-image" />
@@ -52,8 +52,8 @@
                                     <span style="white-space: nowrap">
                                         #{googlePlusAlbumCache.getAlbum(albumId).getString("name")} </span>
                                 </r:tooltip>
-                                <r:dragSource dragIndicator="dragIndicator" type="googlePlusAlbum"
-                                    dragValue="#{googlePlusAlbumCache.getAlbum(albumId).getString('id')}" />
+                                <r:dragSource dragIndicator="dragIndicator" type="gAlbum"
+                                    dragValue="#{googlePlusAlbumCache.getAlbum(albumId).getString('fullId')}" />
                             </r:commandLink>
                             <!-- 
                             <r:commandButton rendered="#{showDownload}"
@@ -71,6 +71,14 @@
         </r:repeat>
 
         <br style="clear: both" />
+        <r:progressBar id="gBar" value="#{fileDownloadManager.value}" minValue="0" maxValue="100" enabled="#{fileDownloadManager.hasNext()}" interval="1000">
+            <f:facet name="initial">
+                <h:outputText value="" />
+            </f:facet>
+            <h:outputText value="Importing #{fileDownloadManager.text}" />
+            <r:ajax event="begin" listener="#{fileDownloadManager.downloadNext()}"/>
+            <r:ajax event="finish" oncomplete="finishImport()"/>
+        </r:progressBar>
 
         <!-- **Photo fetching** -->
         <!-- save the albums and images into the cache bean, then reload the image list --> 
@@ -85,11 +93,11 @@
                 });
         </h:outputScript> -->
 
-        <!-- <ui:include src="/includes/facebook/albumImport.xhtml" /> -->
+        <ui:include src="/includes/gplus/albumImport.xhtml" />
 
-        <!-- **Image import** 
+        <!-- **Image import** -->
         <r:jsFunction name="finishImport" render="gBar" execute="@this" actionListener="#{fileDownloadManager.finishDownload()}"
-            oncomplete="reload();" /> -->
+            oncomplete="reload();" />
 
     </r:outputPanel>
 </ui:composition>

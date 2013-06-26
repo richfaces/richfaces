@@ -39,9 +39,9 @@
         </h:panelGroup>
         <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
             render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}"
-            rendered="#{model.selectedEvent.facebookAlbums.contains(album.getString('aid'))}" />
+            rendered="#{model.selectedEvent.facebookAlbumIds.contains(album.getString('aid'))}" />
         <h:outputText value="Facebook" styleClass="additional-info-text"
-            rendered="#{not model.selectedEvent.facebookAlbums.contains(album.getString('aid'))}" />
+            rendered="#{not model.selectedEvent.facebookAlbumIds.contains(album.getString('aid'))}" />
     </h:panelGrid>
 
     <!-- imageList -->

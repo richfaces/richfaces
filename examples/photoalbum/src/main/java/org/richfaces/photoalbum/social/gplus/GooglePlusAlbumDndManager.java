@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.photoalbum.social.facebook;
+package org.richfaces.photoalbum.social.gplus;
 
 import java.io.Serializable;
 
@@ -41,9 +41,9 @@ import org.richfaces.photoalbum.service.PhotoAlbumException;
 import org.richfaces.ui.drag.dropTarget.DropEvent;
 import org.richfaces.ui.drag.dropTarget.DropListener;
 
-@Named("fbDndManager")
+@Named("gDndManager")
 @SessionScoped
-public class FacebookAlbumDndManager implements Serializable, DropListener {
+public class GooglePlusAlbumDndManager implements Serializable, DropListener {
 
     /**
      *
@@ -51,7 +51,7 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
     private static final long serialVersionUID = 1L;
 
     @Inject
-    FacebookAlbumCache fac;
+    GooglePlusAlbumCache gpac;
 
     @Inject
     IEventAction ea;
@@ -72,7 +72,7 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
     public void processDrop(DropEvent event) {
         /*
          * album is dropped onto an event
-         * 
+         *
          * when this happens we give user a choice to either share or import the album; in the meantime we only save the
          * elements
          */
@@ -81,7 +81,7 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
         this.event = (Event) event.getDropValue();
 
         // check if the album is already shared
-        if (this.event.getFacebookAlbumIds().contains("F" + albumId)) {
+        if (this.event.getGooglePlusAlbumIds().contains(albumId)) {
             setAlbumAlreadyShared(true);
             error.fire(new ErrorEvent("This album is already shared in this event"));
             return;
@@ -89,7 +89,7 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
 
         String albumName = "";
         try {
-            albumName = fac.getAlbum(albumId).getString("name");
+            albumName = gpac.getAlbum(albumId).getString("name");
         } catch (JSONException e) {
             // nothing, the exception will not be thrown
         }
@@ -106,7 +106,7 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
     }
 
     public void shareAlbum() {
-        event.getRemoteAlbumIds().add("F" + albumId);
+        event.getRemoteAlbumIds().add("G" + albumId);
 
         try {
             ea.editEvent(event);
@@ -117,7 +117,7 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
 
     public void importAlbum() {
         try {
-            fdm.setUpDownload(fac.getAlbum(albumId).getString("name"), albumId, fac.getImagesOfAlbum(albumId), event);
+            fdm.setUpDownload(gpac.getAlbum(albumId).getString("name"), albumId, gpac.getImagesOfAlbum(albumId), event);
         } catch (JSONException je) {
             error.fire(new ErrorEvent("Error importing album", je.getMessage()));
         }
@@ -133,7 +133,7 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
     }
 
     public JSONObject getAlbum() {
-        return fac.getAlbum(getAlbumId());
+        return gpac.getAlbum(getAlbumId());
     }
 
     public boolean isAlbumAlreadyShared() {
