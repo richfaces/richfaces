@@ -58,7 +58,6 @@
                             <r:commandButton rendered="#{showDownload}"
                                 actionListener="#{fileDownloadManager.setUpDownload(facebookAlbumCache.getAlbum(albumId).getString('name'), albumId, facebookAlbumCache.getImagesOfAlbum(albumId), model.selectedEvent)}"
                                 value="Import" render="pBar" />
-                                <!-- oncomplete="importNext()" -->
                         </h:panelGroup>
                     </h:panelGrid>
                     <h:panelGroup layout="block" styleClass="album_name">#{facebookAlbumCache.getAlbum(albumId).getString('name')}</h:panelGroup>

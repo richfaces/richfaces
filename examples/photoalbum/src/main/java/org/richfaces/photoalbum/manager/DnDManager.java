@@ -156,19 +156,6 @@ public class DnDManager implements DropListener {
             } catch (PhotoAlbumException e) {
                 error.fire(new ErrorEvent("Error:", Constants.ERROR_IN_DB + "<br/>" + e.getMessage()));
             }
-            return;
-        }
-
-        if (dragValue instanceof String) {
-            String aid = (String) dragValue;
-
-            event.getRemoteAlbums().add(aid);
-
-            try {
-                eventAction.editEvent(event);
-            } catch (PhotoAlbumException e) {
-                error.fire(new ErrorEvent("Error:", Constants.ERROR_IN_DB + "<br/>" + e.getMessage()));
-            }
         }
     }
 }
