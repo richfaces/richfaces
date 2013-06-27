@@ -46,6 +46,11 @@
                     oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 34 ); authenticate();">
                     <r:param assignTo="#{facebookBean.userInfo}" converter="#{fbJsonConverter}" name="response" />
                 </r:jsFunction>
+                
+                <r:jsFunction name="fetchFBAlbumIds"
+                     oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 );">
+                     <r:param assignTo="#{facebookBean.albumIds}" name="albumIds" />
+                </r:jsFunction>
 
                 <r:jsFunction name="authenticate" actionListener="#{authenticator.authenticateWithFacebook}"
                     data="#{authenticator.loginFailed}" oncomplete="if(!event.data)#{r:component('loginPanel')}.hide()"
