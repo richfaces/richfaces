@@ -19,7 +19,8 @@
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -40,7 +41,7 @@
 
     <properties>
         <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
-        
+
         <optimized.resources.directory>${project.build.outputDirectory}/META-INF/resources/org.richfaces.optimized/${version.richfaces}</optimized.resources.directory>
         <optimized.resources.prefix>org.richfaces.optimized/${version.richfaces}</optimized.resources.prefix>
         <optimized.resources.mapping>${project.build.outputDirectory}/META-INF/richfaces/optimizedResourcesMapping</optimized.resources.mapping>
@@ -267,6 +268,21 @@
                             </sources>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>add-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/main/widgets/dist/assets</directory>
+                                    <targetPath>${project.build.directory}/classes/META-INF/resources/org.richfaces.widgets/</targetPath>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 
@@ -337,7 +353,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>generate-optimized-resources</id>
             <activation>
