@@ -38,7 +38,7 @@
         <r:repeat value="#{albumIds}" var="albumId" rendered="#{userBean.loggedInFB}">
             <h:panelGroup layout="block" styleClass="preview_box_album_120">
 
-                <r:outputPanel rendered="#{facebookAlbumCache.getImagesOfAlbum(albumId) != null}">
+                <r:outputPanel rendered="#{facebookAlbumCache.getImageMap(albumId) != null}">
                     <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
 
                     <h:panelGrid cellpadding="0">
@@ -56,7 +56,7 @@
                                     rendered="#{not showDownload}" />
                             </r:commandLink>
                             <r:commandButton rendered="#{showDownload}"
-                                actionListener="#{fileDownloadManager.setUpDownload(facebookAlbumCache.getAlbum(albumId).getString('name'), albumId, facebookAlbumCache.getImagesOfAlbum(albumId), model.selectedEvent)}"
+                                actionListener="#{fileDownloadManager.setUpDownload(facebookAlbumCache.getAlbum(albumId).getString('name'), albumId, facebookAlbumCache.getImageMap(albumId), model.selectedEvent)}"
                                 value="Import" render="pBar" />
                         </h:panelGroup>
                     </h:panelGrid>
@@ -67,7 +67,7 @@
                     </h:panelGroup>
                 </r:outputPanel>
 
-                <r:outputPanel rendered="#{facebookAlbumCache.getImagesOfAlbum(albumId) == null}">
+                <r:outputPanel rendered="#{facebookAlbumCache.getImageMap(albumId) == null}">
                     <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
                     <h:panelGrid cellpadding="0" style="opacity: 0.6">
                         <h:outputText value="#{albumId}" style="display: inline-block; margin: 10px 0 0 10px" />

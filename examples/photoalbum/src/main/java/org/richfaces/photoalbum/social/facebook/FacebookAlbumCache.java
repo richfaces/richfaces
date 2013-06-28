@@ -137,8 +137,12 @@ public class FacebookAlbumCache {
         return albums.get(albumId);
     }
 
-    public Map<String, JSONObject> getImagesOfAlbum(String albumId) {
+    public Map<String, JSONObject> getImageMap(String albumId) {
         return images.get(albumId);
+    }
+    
+    public List<JSONObject> getPhotosFromAlbum(String albumId) {
+        return new ArrayList<JSONObject>(images.get(albumId).values());
     }
 
     public List<JSONObject> getAlbums(List<String> albumIds) {

@@ -117,7 +117,7 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
 
     public void importAlbum() {
         try {
-            fdm.setUpDownload(fac.getAlbum(albumId).getString("name"), albumId, fac.getImagesOfAlbum(albumId), event);
+            fdm.setUpDownload(fac.getAlbum(albumId).getString("name"), albumId, fac.getImageMap(albumId), event);
         } catch (JSONException je) {
             error.fire(new ErrorEvent("Error importing album", je.getMessage()));
         }
