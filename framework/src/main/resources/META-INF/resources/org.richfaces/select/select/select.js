@@ -68,6 +68,21 @@
             this.cache = new rf.utils.Cache("", this.originalItems, getData, true);
         }
         this.changeDelay = mergedOptions.changeDelay;
+        
+        if (this.defaultLabel == "") {
+            var firstItem = this.clientSelectItems[0];
+            var key = $(firstItem).attr("id");
+            var label;
+            $.each(this.clientSelectItems, function() {
+                if (this.id == key) {
+                    label = this.label;
+                    return false;
+                }
+            });
+            this.__setValue(label);
+            this.__save();
+            this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
+        }
     };
 
     rf.ui.InputBase.extend(rf.ui.Select);
