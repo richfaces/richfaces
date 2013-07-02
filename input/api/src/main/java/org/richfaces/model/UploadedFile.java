@@ -53,4 +53,11 @@ public interface UploadedFile {
     Collection<String> getHeaders(String headerName);
 
     String getParameterName();
+
+    /**
+     * Returns the files extension - the substring after last period of this file's name.
+     *
+     * If there is no period in file name, empty string is returned instead.
+     */
+    String getFileExtension();
 }

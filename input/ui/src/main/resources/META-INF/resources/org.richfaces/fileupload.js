@@ -50,7 +50,7 @@
         this.progressBarElement = this.iframe.next();
         this.progressBar = richfaces.$(this.progressBarElement);
         this.cleanInput = this.input.clone();
-        this.addProxy = jQuery.proxy(this.__addItem, this);
+        this.addProxy = jQuery.proxy(this.__addItems, this);
         this.input.change(this.addProxy);
         this.addButton.mousedown(pressButton).mouseup(unpressButton).mouseout(unpressButton);
         this.uploadButton.click(jQuery.proxy(this.__startUpload, this)).mousedown(pressButton)
@@ -100,6 +100,13 @@
     };
 
     richfaces.BaseComponent.extend(richfaces.ui.FileUpload);
+    
+
+    function TypeRejectedException(fileName) {
+        this.name = "TypeRejectedException";
+        this.message = "The type of file " + fileName + " is not accepted";
+        this.fileName = fileName;
+    }
 
     $.extend(richfaces.ui.FileUpload.prototype, (function () {
 
@@ -113,72 +120,76 @@
             clearLabel: "Clear",
             deleteLabel: "Delete",
 
-           __addItem: function() {    
-                var fileName;
-                var length=0;
-                var multipleInputFiles = null;
-                var itemsCount = this.__getTotalItemCount();
-                var rejectedFileNames = "";
-                if (this.input.prop("files")) {
-                    multipleInputFiles = this.input.prop("files"); 					  
-                    length = multipleInputFiles.length;
-                } 
-                else {
-                    length = 1;
-                    multipleInputFiles = null; 
-                    fileName = this.input.val();
-                }
-                for (var i = 0 ; i < length; i++) {
-                    if (multipleInputFiles != null) {
-                        fileName = multipleInputFiles[i].name;
-                    }
-                    if (!navigator.platform.indexOf("Win")) {
-                        fileName = fileName.match(/[^\\]*$/)[0];
-                    } else {
-                        if (!fileName.indexOf(FAKE_PATH)) {
-                            fileName = fileName.substr(FAKE_PATH.length);
-                        } else {
-                            fileName = fileName.match(/[^\/]*$/)[0];
+            __addItems : function() {
+                var context = {
+                    acceptedFileNames: [],
+                    rejectedFileNames: []
+                };
+
+                var multipleInputFiles = this.input.prop("files");
+                if (multipleInputFiles) {
+                    for (var i = 0 ; i < multipleInputFiles.length; i++) {
+                        this.__tryAddItem(context, multipleInputFiles[i].name);
+
+                        if (this.maxFilesQuantity && (context.acceptedFileNames.length >= this.maxFilesQuantity)) {
+                            this.addButton.hide();
+                            break;
                         }
                     }
-                    var fileAccept = this.__accept(fileName);
-		    if (!fileAccept) {
-			if (multipleInputFiles == null) {
-                          richfaces.Event.fire(this.element, "ontyperejected", fileName);
-		        } 
-                        else {
-			  rejectedFileNames += fileName + ", ";
-			}
-		    }
-                    if (fileAccept && (!this.noDuplicate || !this.__isFileAlreadyAdded(fileName))) {
-                        this.input.hide();
-                        this.input.unbind("change", this.addProxy);
-                        var item = new Item(this, fileName);
-                        this.list.append(item.getJQuery());
-                        this.items.push(item);
-                        this.input = this.cleanInput.clone();
-                        this.inputContainer.append(this.input);
-                        this.input.change(this.addProxy);
-                        this.__updateButtons();
-                        richfaces.Event.fire(this.element, "onfileselect", fileName);
-                       	itemsCount++; 
-			if (this.maxFilesQuantity && (itemsCount >= this.maxFilesQuantity)) {
-				this.addButton.hide();
-				break;
-			}
-                    }
+                } else {
+                    var fileName = this.input.val();
+                    this.__tryAddItem(context, fileName);
                 }
-                if (multipleInputFiles != null) {
-		var rejlen = rejectedFileNames.length;
-		    if (rejlen > 0) {
-		        rejectedFileNames = rejectedFileNames.substring(0,rejlen-2);
-                        richfaces.Event.fire(this.element, "ontyperejected", rejectedFileNames);
-		     }
-		}
+
+                if (context.rejectedFileNames) {
+                    richfaces.Event.fire(this.element, "ontyperejected", context.rejectedFileNames.join(','));
+                }
+
                 if (this.immediateUpload) {
                     this.__startUpload();
                 }
+            },
 
+            __tryAddItem: function(context, fileName) {
+                try {
+                    if (this.__addItem(fileName)) {
+                        context.acceptedFileNames.push(fileName);
+                    }
+                } catch (e) {
+                    if (e instanceof TypeRejectedException) {
+                        context.rejectedFileNames.push(fileName);
+                    } else {
+                        throw e;
+                    }
+                }
+            },
+
+            __addItem: function(fileName) {
+                var fileName = fileName;
+                if (!navigator.platform.indexOf("Win")) {
+                    fileName = fileName.match(/[^\\]*$/)[0];
+                } else {
+                    if (!fileName.indexOf(FAKE_PATH)) {
+                        fileName = fileName.substr(FAKE_PATH.length);
+                    } else {
+                        fileName = fileName.match(/[^\/]*$/)[0];
+                    }
+                }
+                if (this.__accept(fileName) && (!this.noDuplicate || !this.__isFileAlreadyAdded(fileName))) {
+                    this.input.hide();
+                    this.input.unbind("change", this.addProxy);
+                    var item = new Item(this, fileName);
+                    this.list.append(item.getJQuery());
+                    this.items.push(item);
+                    this.input = this.cleanInput.clone();
+                    this.inputContainer.append(this.input);
+                    this.input.change(this.addProxy);
+                    this.__updateButtons();
+                    richfaces.Event.fire(this.element, "onfileselect", fileName);
+                    return true;
+                }
+
+                return false;
             },
 
             __removeItem: function(item) {
@@ -298,9 +309,9 @@
                     var extension = this.acceptedTypes[i];
                     result = fileName.indexOf(extension, fileName.length - extension.length) !== -1;
                 }
-                //if (!result) {
-                //    richfaces.Event.fire(this.element, "ontyperejected", fileName);
-                //}
+                if (!result) {
+                    throw new TypeRejectedException(fileName);
+                }
                 return result;
             },
 

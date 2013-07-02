@@ -21,9 +21,6 @@
  */
 package org.richfaces.renderkit;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -43,67 +40,19 @@ import org.richfaces.request.MultipartRequest;
 
 public class FileUploadRendererBase extends RendererBase {
 
-    private static int parseMaxFilesQuantity(String maxFilesQuantity) {
-        int result = 0;
-        if (maxFilesQuantity == null)
-            return result;
-        try {
-            result = Integer.parseInt(maxFilesQuantity);
-        } catch (NumberFormatException e) {
-        }
-
-        return result;
-    }
-
-    private static List<String> toAcceptedTypesList(String acceptedTypes) {
-        List<String> result = new ArrayList<String>();
-        if (acceptedTypes == null)
-            return result;
-        acceptedTypes.trim();
-        if (acceptedTypes.length() == 0)
-            return result;
-        String[] types = acceptedTypes.split(",");
-
-        for (int i = 0; i < types.length; i++) {
-            result.add((types[i].trim()).toLowerCase());
-        }
-        return result;
-    }
-
-    private static String getFileNameSuffix(String fileName) {
-        String result = "";
-        if (fileName != null) {
-            int i = fileName.lastIndexOf('.');
-            if (fileName.lastIndexOf('.') > 0)
-                result = fileName.substring(i + 1);
-        }
-        return result;
-    }
-
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
-        ExternalContext externalContext = context.getExternalContext();
+        final AbstractFileUpload fileUpload = (AbstractFileUpload) component;
+        final ExternalContext externalContext = context.getExternalContext();
+
         MultipartRequest multipartRequest = (MultipartRequest) externalContext.getRequestMap().get(
                 MultipartRequest.REQUEST_ATTRIBUTE_NAME);
+
         if (multipartRequest != null) {
-            String clientId = component.getClientId(context);
-            AbstractFileUpload abstractFileUpload = (AbstractFileUpload) component;
-            int maxFilesQuantity = parseMaxFilesQuantity(abstractFileUpload.getMaxFilesQuantity());
-            List<String> acceptedTypes = toAcceptedTypesList(abstractFileUpload.getAcceptedTypes());
-            int enqueuedEvents = 0;
-
             for (UploadedFile file : multipartRequest.getUploadedFiles()) {
-                if ((maxFilesQuantity > 0) && (enqueuedEvents == maxFilesQuantity))
-                    break;
-                if (clientId.equals(file.getParameterName())) {
-                    if (acceptedTypes.isEmpty()
-                            || (!acceptedTypes.isEmpty() && acceptedTypes.contains(getFileNameSuffix(file.getName())
-                                    .toLowerCase()))) {
-                        component.queueEvent(new FileUploadEvent(component, file));
-                        enqueuedEvents++;
-                    }
+                if (fileUpload.acceptsFile(file)) {
+                    fileUpload.queueEvent(new FileUploadEvent(fileUpload, file));
                 }
-
             }
         }
     }
