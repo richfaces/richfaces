@@ -276,9 +276,25 @@
                         </goals>
                         <configuration>
                             <resources>
+                                <!-- RichFaces -->
                                 <resource>
-                                    <directory>${basedir}/src/main/widgets/dist/assets</directory>
-                                    <targetPath>${project.build.directory}/classes/META-INF/resources/org.richfaces.widgets/</targetPath>
+                                    <directory>${basedir}/src/main/widgets/dist/assets/richfaces</directory>
+                                    <targetPath>${project.build.directory}/classes/META-INF/resources/org.richfaces/widgets/</targetPath>
+                                </resource>
+                                <!-- jQuery UI -->
+                                <resource>
+                                    <directory>${basedir}/src/main/widgets/dist/assets/jquery-ui</directory>
+                                    <targetPath>${project.build.directory}/classes/META-INF/resources/com.jqueryui/</targetPath>
+                                </resource>
+                                <!-- Bootstrap -->
+                                <resource>
+                                    <directory>${basedir}/src/main/widgets/dist/assets/bootstrap</directory>
+                                    <targetPath>${project.build.directory}/classes/META-INF/resources/bootstrap/</targetPath>
+                                </resource>
+                                <!-- Font-Awesome -->
+                                <resource>
+                                    <directory>${basedir}/src/main/widgets/dist/assets/font-awesome</directory>
+                                    <targetPath>${project.build.directory}/classes/META-INF/resources/font-awesome/</targetPath>
                                 </resource>
                             </resources>
                         </configuration>
