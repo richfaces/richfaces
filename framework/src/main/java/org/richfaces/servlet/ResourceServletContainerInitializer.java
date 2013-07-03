@@ -29,6 +29,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
 /**
  * <p>
  * Initializes {@link ResourceServlet}.
@@ -43,8 +46,10 @@ import javax.servlet.ServletRegistration.Dynamic;
  */
 public class ResourceServletContainerInitializer extends AbstractServletContainerInitializer {
 
+    private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
+
     private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.resources.skipResourceServletRegistration";
-    public static final String EDITOR_RESOURCES_DEFAULT_MAPPING = "/org.richfaces.resources/*";
+    public static final String RICHFACES_RESOURCES_DEFAULT_MAPPING = "/org.richfaces.resources/*";
 
     public void onStartup(Set<Class<?>> c, ServletContext servletContext) throws ServletException {
         if (Boolean.valueOf(servletContext.getInitParameter(SKIP_SERVLET_REGISTRATION_PARAM))) {
@@ -63,7 +68,11 @@ public class ResourceServletContainerInitializer extends AbstractServletContaine
     }
 
     private static void registerServlet(ServletContext context) {
-        Dynamic dynamicRegistration = context.addServlet("AutoRegisteredEditorResourceServlet", ResourceServlet.class);
-        dynamicRegistration.addMapping(EDITOR_RESOURCES_DEFAULT_MAPPING);
+        Dynamic dynamicRegistration = context.addServlet("AutoRegisteredResourceServlet", ResourceServlet.class);
+        dynamicRegistration.addMapping(RICHFACES_RESOURCES_DEFAULT_MAPPING);
+
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Auto-registered servlet " + ResourceServlet.class.getSimpleName() + " with mapping '" + RICHFACES_RESOURCES_DEFAULT_MAPPING + "'");
+        }
     }
 }

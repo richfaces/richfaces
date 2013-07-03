@@ -50,6 +50,10 @@ public class PushServletContainerInitializer extends AbstractServletContainerIni
         Dynamic dynamicRegistration = context.addServlet("AutoRegisteredPushServlet", PushServlet.class);
         dynamicRegistration.addMapping(PUSH_CONTEXT_DEFAULT_MAPPING);
         dynamicRegistration.setAsyncSupported(true);
+
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Auto-registered servlet " + PushServlet.class.getSimpleName() + " with mapping '" + PUSH_CONTEXT_DEFAULT_MAPPING + "'");
+        }
     }
 
     public void onStartup(Set<Class<?>> clasess, ServletContext servletContext) throws ServletException {
