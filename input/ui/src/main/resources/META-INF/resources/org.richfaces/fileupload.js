@@ -141,7 +141,7 @@
                     this.__tryAddItem(context, fileName);
                 }
 
-                if (context.rejectedFileNames) {
+                if (context.rejectedFileNames.length > 0) {
                     richfaces.Event.fire(this.element, "ontyperejected", context.rejectedFileNames.join(','));
                 }
 
