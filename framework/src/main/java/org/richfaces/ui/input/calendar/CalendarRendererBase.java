@@ -21,30 +21,6 @@
  */
 package org.richfaces.ui.input.calendar;
 
-import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSReference;
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.ui.common.ComponentAttribute;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.Positioning;
-import org.richfaces.ui.common.meta.MetaComponentRenderer;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
-import org.richfaces.ui.input.InputRendererBase;
-import org.richfaces.util.HtmlUtil;
-import org.richfaces.util.InputUtils;
-import org.richfaces.util.MessageUtil;
-import org.richfaces.util.InputUtils.ConverterLookupStrategy;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.DateTimeConverter;
-
 import java.io.IOException;
 import java.text.DateFormatSymbols;
 import java.text.Format;
@@ -59,6 +35,30 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+import javax.faces.convert.DateTimeConverter;
+
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSReference;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.ui.common.ComponentAttribute;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.common.Positioning;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
+import org.richfaces.ui.input.InputRendererBase;
+import org.richfaces.util.HtmlUtil;
+import org.richfaces.util.InputUtils;
+import org.richfaces.util.InputUtils.ConverterLookupStrategy;
+import org.richfaces.util.MessageUtil;
+
 /**
  * @author amarkhel
  *
@@ -68,8 +68,8 @@ import java.util.TimeZone;
         @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "input/calendar/json-dom.js"),
-        @ResourceDependency(library = "com.jqueryui", name = "jquery.effects.core.js"),
-        @ResourceDependency(library = "com.jqueryui", name = "jquery.effects.highlight.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.effect.js"),
+        @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.effect-highlight.js"),
         @ResourceDependency(library = "jquery.plugins", name = "JQuerySpinBtn.js"),
         @ResourceDependency(library = "org.richfaces", name = "input/calendar/calendar-utils.js"),
         @ResourceDependency(library = "org.richfaces", name = "input/calendar/calendar.js"),
