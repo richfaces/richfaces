@@ -81,7 +81,6 @@
             });
             this.__setValue(label);
             this.__save();
-            this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
         }
     };
 
