@@ -55,7 +55,7 @@
                                 value="#{messages['menu.login']}" render="loginPanel" actionListener="#{userBean.reset()}"
                                 oncomplete="#{r:component('loginPanel')}.show();" />
                             <r:commandLink rendered="#{userBean.loggedIn}" action="#{authenticator.logout()}"
-                                value="#{messages['menu.logout']}" execute="@this" render="@all" />
+                                value="#{messages['menu.logout']}" execute="@this" render="@form" />
                         </r:region>
                     </h:panelGroup>
 
