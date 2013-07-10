@@ -115,9 +115,9 @@ public class UserBean implements Serializable {
 
         return user;
     }
-    
+
     public User gPlusLogIn(String gPlusId) {
-        List<?> users = em.createNamedQuery(Constants.USER_FB_LOGIN_QUERY).setParameter("fbId", gPlusId).getResultList();
+        List<?> users = em.createNamedQuery(Constants.USER_GPLUS_LOGIN_QUERY).setParameter("gPlusId", gPlusId).getResultList();
 
         if (users.isEmpty()) {
             logged = false;
