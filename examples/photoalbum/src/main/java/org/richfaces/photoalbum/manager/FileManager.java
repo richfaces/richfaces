@@ -32,9 +32,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
@@ -83,7 +82,7 @@ public class FileManager {
 
     /**
      * This method used to get reference to the file with the specified relative path to the uploadRoot field
-     * 
+     *
      * @param path - relative path of file
      * @return File reference
      */
@@ -108,10 +107,10 @@ public class FileManager {
     /**
      * This method observes <code>Constants.ALBUM_DELETED_EVENT</code> and invoked after the user delete album. This method
      * delete album directory from the disk
-     * 
+     *
      * @param album - deleted album
      * @param path - relative path of the album directory
-     * 
+     *
      */
     public void onAlbumDeleted(@Observes @EventType(Events.ALBUM_DELETED_EVENT) AlbumEvent ae) {
         if (user == null) {
@@ -123,7 +122,7 @@ public class FileManager {
     /**
      * This method observes <code>Constants.SHELF_DELETED_EVENT</code> and invoked after the user delete her shelf This method
      * delete shelf directory from the disk
-     * 
+     *
      * @param shelf - deleted shelf
      * @param path - relative path of the shelf directory
      */
@@ -137,7 +136,7 @@ public class FileManager {
     /**
      * This method observes <code>Constants.USER_DELETED_EVENT</code> and invoked after the user was deleted(used in livedemo to
      * prevent flooding) This method delete user directory from the disk
-     * 
+     *
      * @param user - deleted user
      * @param path - relative path of the user directory
      */
@@ -148,7 +147,7 @@ public class FileManager {
     /**
      * This method observes <code>SHELF_ADDED_EVENT</code> and invoked after the user add new shelf This method add shelf
      * directory to the disk
-     * 
+     *
      * @param shelf - added shelf
      */
     public void onShelfAdded(@Observes @EventType(Events.SHELF_ADDED_EVENT) ShelfEvent se) {
@@ -159,7 +158,7 @@ public class FileManager {
     /**
      * This method observes <code>ALBUM_ADDED_EVENT</code> and invoked after the user add new album This method add album
      * directory to the disk
-     * 
+     *
      * @param album - added album
      */
     public void onAlbumAdded(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
@@ -169,7 +168,7 @@ public class FileManager {
 
     /**
      * This method invoked after user set new avatar icon
-     * 
+     *
      * @param avatarData - avatar file
      * @param user - user, that add avatar
      */
@@ -188,7 +187,7 @@ public class FileManager {
     /**
      * This method observes <code>Constants.IMAGE_DELETED_EVENT</code> and invoked after the user delete her image This method
      * delete image and all thumbnails of this image from the disk
-     * 
+     *
      * @param image - deleted image
      * @param path - relative path of the image file
      */
@@ -203,13 +202,12 @@ public class FileManager {
 
     /**
      * This method invoked after user upload new image
-     * 
+     *
      * @param fileName - new relative path to the image file
      * @param tempFilePath - absolute path to uploaded image
      * @throws IOException
      */
     public boolean addImage(String fileName, FileHandler fileHandler) throws IOException {
-        Logger log = Logger.getLogger("FileManager");
         if (user == null) {
             return false;
         }
@@ -222,8 +220,7 @@ public class FileManager {
                 }
                 in.close();
             } catch (IOException ioe) {
-                error.fire(new ErrorEvent("Error", "error saving image<br/>" + ioe.getMessage()));
-                log.log(Level.INFO, "error in saving image", ioe);
+                error.fire(new ErrorEvent("Error", "error saving image: " + ioe.getMessage()));
                 return false;
             }
         }
@@ -234,7 +231,7 @@ public class FileManager {
     /**
      * This method used to transform one path to another. For example you want get path of the file with dimensioms 80 of image
      * with path /user/1/2/image.jpg, this method return /user/1/2/image_substitute.jpg
-     * 
+     *
      * @param target - path to transform
      * @param substitute - new 'addon' to the path
      */
@@ -249,7 +246,7 @@ public class FileManager {
 
     /**
      * This method used to get reference to the file with the absolute path
-     * 
+     *
      * @param path - absolute path of file
      * @return File reference
      */
@@ -259,7 +256,7 @@ public class FileManager {
 
     /**
      * This utility method used to determine if the directory with specified relative path exist
-     * 
+     *
      * @param path - absolute path of directory
      * @return File reference
      */
@@ -270,7 +267,7 @@ public class FileManager {
 
     /**
      * This utility method used to determine if the file with specified relative path exist
-     * 
+     *
      * @param path - absolute path of file
      * @return File reference
      */
@@ -282,7 +279,7 @@ public class FileManager {
     /**
      * This method observes <code>Constants.ALBUM_DRAGGED_EVENT</code> and invoked after the user dragged album form one shelf
      * to the another. This method rename album directory to the new directory
-     * 
+     *
      * @param album - dragged album
      * @param pathOld - old path of album directory
      */
@@ -304,7 +301,7 @@ public class FileManager {
     /**
      * This method observes <code>Constants.IMAGE_DRAGGED_EVENT</code> and invoked after the user dragged image form one album
      * to the another. This method rename image file and all thumbnails to the new name
-     * 
+     *
      * @param image - dragged image
      * @param pathOld - old path of image file
      */
@@ -330,9 +327,10 @@ public class FileManager {
 
     private boolean writeFile(String newFileName, InputStream inputStream, String pattern, int size, boolean includeUploadRoot) {
         BufferedImage bsrc = null;
+        String format = MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(newFileName).split("/")[1];
         try {
             // Read file form disk
-            bsrc = FileUtils.bitmapToImage(inputStream, Constants.JPG);
+            bsrc = FileUtils.bitmapToImage(inputStream, format);
         } catch (IOException e1) {
             error.fire(new ErrorEvent("Error", "error reading file<br/>" + e1.getMessage()));
             return false;
@@ -356,9 +354,9 @@ public class FileManager {
             newFileName, pattern);
         try {
             // save to disk
-            FileUtils.imageToBitmap(bdest, dest, Constants.JPG);
+            FileUtils.imageToBitmap(bdest, dest, format);
         } catch (IOException ex) {
-            error.fire(new ErrorEvent("Error", "error saving image to disc<br/>" + ex.getMessage()));
+            error.fire(new ErrorEvent("Error", "error saving image to disc: " + ex.getMessage()));
             return false;
         }
         return true;

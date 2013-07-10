@@ -102,8 +102,6 @@ public class Constants {
     public static final int DEFAULT_IMAGE_SIZEVALUE = 120;
     public static final String SLASH = "/";
     public static final String DOT = ".";
-    public static final String JPEG = "jpeg";
-    public static final String JPG = "JPG";
     public static final String UPLOAD_ROOT_COMPONENT_NAME = "uploadRoot";
     public static final String UPLOAD_ROOT_PATH_COMPONENT_NAME = "uploadRootPath";
     public static final int INITIAL_DELAY = 4000;

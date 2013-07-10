@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -199,6 +200,9 @@ public class FileUploadManager implements Serializable {
     }
 
     private void extractMetadata(FileHandler fileHandler, Image image) {
+        if (!MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(fileHandler.getName()).equals("image/jpeg")) {
+            return;
+        }
         InputStream in = null;
         try {
             in = fileHandler.getInputStream();
