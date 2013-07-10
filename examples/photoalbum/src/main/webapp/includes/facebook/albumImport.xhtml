@@ -27,12 +27,13 @@
             <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto; height: 60px">
                 <h:panelGroup layout="block">
                     <richx:commandButton value="Import" execute="@this" styleClass="shelf"
-                        actionListener="#{fbDndManager.importAlbum()}"
+                        actionListener="#{fbDndManager.importAlbum()}" disabled="#{fDndManager.albumAlreadyShared}"
                         oncomplete="#{r:component('fbAlbumModalPanel')}.hide(); importNext()" render="pBar" />
                 </h:panelGroup>
                 <h:panelGroup layout="block">
                     <richx:commandButton oncomplete="#{r:component('fbAlbumModalPanel')}.hide();" value="Just Share"
-                        actionListener="#{fbDndManager.shareAlbum()}" execute="@this" styleClass="shelf" />
+                        disabled="#{fDndManager.albumAlreadyShared}" actionListener="#{fbDndManager.shareAlbum()}"
+                        execute="@this" styleClass="shelf" />
                 </h:panelGroup>
             </h:panelGrid>
         </h:panelGroup>

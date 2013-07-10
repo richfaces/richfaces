@@ -72,7 +72,7 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
     public void processDrop(DropEvent event) {
         /*
          * album is dropped onto an event
-         * 
+         *
          * when this happens we give user a choice to either share or import the album; in the meantime we only save the
          * elements
          */
@@ -81,7 +81,7 @@ public class FacebookAlbumDndManager implements Serializable, DropListener {
         this.event = (Event) event.getDropValue();
 
         // check if the album is already shared
-        if (this.event.getFacebookAlbumIds().contains("F" + albumId)) {
+        if (this.event.getFacebookAlbumIds().contains(albumId)) {
             setAlbumAlreadyShared(true);
             error.fire(new ErrorEvent("This album is already shared in this event"));
             return;

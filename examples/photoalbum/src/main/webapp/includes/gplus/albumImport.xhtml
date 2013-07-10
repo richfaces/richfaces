@@ -27,18 +27,20 @@
             <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto; height: 60px">
                 <h:panelGroup layout="block">
                     <richx:commandButton value="Import" execute="@this" styleClass="shelf"
+                        disabled="#{gDndManager.albumAlreadyShared}"
                         onclick="G.getPhotos('#{gDndManager.album.getString('fullId')}', fetchPhotosForImport)" render="gBar" />
                 </h:panelGroup>
                 <h:panelGroup layout="block">
                     <richx:commandButton oncomplete="#{r:component('gAlbumModalPanel')}.hide();" value="Just Share"
-                        actionListener="#{gDndManager.shareAlbum()}" execute="@this" styleClass="shelf" />
+                        disabled="#{gDndManager.albumAlreadyShared}" actionListener="#{gDndManager.shareAlbum()}"
+                        execute="@this" styleClass="shelf" />
                 </h:panelGroup>
             </h:panelGrid>
         </h:panelGroup>
-        
+
         <r:jsFunction name="startImport" actionListener="#{gDndManager.importAlbum()}"
-                        oncomplete="#{r:component('gAlbumModalPanel')}.hide();" render="gBar" />
-                        
+            oncomplete="#{r:component('gAlbumModalPanel')}.hide();" render="gBar" />
+
         <r:jsFunction name="fetchPhotosForImport" oncomplete="startImport()">
             <r:param assignTo="#{googlePlusAlbumCache.albumImages}" name="images" />
         </r:jsFunction>

@@ -32,7 +32,14 @@
         </r:commandLink>
     </r:dataGrid>
 
-    <r:outputPanel id="photoPanel">
+    <r:outputPanel rendered="#{not userBean.loggedInGPlus}">
+        <h:outputText value="This event has #{fn:length(model.selectedEvent.googlePlusAlbumIds)} albums on Google+, " />
+        <r:commandLink value="#{messages['menu.login']}" render="loginPanel" actionListener="#{userBean.reset()}"
+            oncomplete="#{r:component('loginPanel')}.show();" />
+        <h:outputText value=" to see them." />
+    </r:outputPanel>
+
+    <r:outputPanel id="photoPanel" rendered="#{userBean.loggedInGPlus}">
         <r:dataGrid rendered="#{fn:length(eventAlbumsHelper.eventPhotos) > 0}" value="#{eventAlbumsHelper.eventPhotos}"
             var="photo" columns="5" id="photos">
             <r:outputPanel>
