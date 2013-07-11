@@ -55,6 +55,8 @@ import org.richfaces.photoalbum.util.FileHandler;
 import org.richfaces.photoalbum.util.FileUtils;
 import org.richfaces.photoalbum.util.ImageDimension;
 
+import com.google.common.io.Files;
+
 @Named
 @ApplicationScoped
 public class FileManager {
@@ -295,6 +297,13 @@ public class FileManager {
                 FileUtils.deleteFile(file2);
             }
         }
+
+        try {
+            Files.createParentDirs(file2);
+        } catch (IOException ioe) {
+            error.fire(new ErrorEvent("Error moving file", ioe.getMessage()));
+        }
+
         file.renameTo(file2);
     }
 
