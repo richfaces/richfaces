@@ -61,8 +61,13 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             var options;
 
             if (arguments.length == 1) {
-                //function(options) { ...query()... }
-                options = arguments[0];
+                if (!opts.selector) {
+                    //if selector is not present take selector as default
+                    element = arguments[0];
+                } else {
+                    //if selector is allready presen from rich jQuery component take options as default.
+                    options = arguments[0];
+                }
             } else {
                 //function(element, options) { ...query()... }
                 element = arguments[0];
