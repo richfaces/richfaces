@@ -97,17 +97,8 @@ public final class RichFaces5Conventions implements NamingConventions {
         }
 
         // Infer UI class name from component type.
-        ComponentModel component = library.getComponentByType(componentType);
-        String baseClassName = component.getBaseClass().getName();
-        Name name = Name.create(baseClassName);
-
-        name.setClassifier(null);
-        name.setMarkup(null);
-
-        String simpleName = name.getSimpleName();
-        simpleName = simpleName.replaceFirst("^Abstract", "");
-
-        name.setSimpleName(UI + simpleName);
+        Name name = inferBasicName(componentType);
+        name.setSimpleName(UI + name.getSimpleName());
 
         return new ClassName(name.toString());
     }
@@ -125,11 +116,25 @@ public final class RichFaces5Conventions implements NamingConventions {
         if (null == componentType) {
             throw new IllegalArgumentException();
         }
-        Name name = Name.create(componentType.toString());
-        name.setClassifier(Classifier.taglib);
-        name.setMarkup(markup);
+
+        Name name = inferBasicName(componentType);
         name.setSimpleName(name.getSimpleName() + "Handler");
+
         return new ClassName(name.toString());
+    }
+
+    private Name inferBasicName(FacesId componentType) {
+        ComponentModel component = library.getComponentByType(componentType);
+        String baseClassName = component.getBaseClass().getName();
+        Name name = Name.create(baseClassName);
+
+        name.setClassifier(null);
+        name.setMarkup(null);
+
+        String simpleName = name.getSimpleName();
+        simpleName = simpleName.replaceFirst("^Abstract", "");
+
+        return name;
     }
 
     @Override

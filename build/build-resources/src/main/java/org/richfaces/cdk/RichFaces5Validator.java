@@ -552,14 +552,13 @@ public class RichFaces5Validator implements ModelValidator {
         }
         if (tag.isGenerate()) {
             if (null == tag.getBaseClass()) {
-                // TODO - choose default handler class by tag type.
                 tag.setBaseClass(handler);
             }
             if (null == tag.getTargetClass()) {
-                namingConventions.inferTagHandlerClass(id, tag.getType().toString());// TODO - get markup somethere.
+                ClassName inferredTagHandler = namingConventions.inferTagHandlerClass(id, tag.getType().toString());
+                tag.setTargetClass(inferredTagHandler);
             }
         }
-        // TODO - copy component description to tag, if it has no description.
     }
 
     /**
