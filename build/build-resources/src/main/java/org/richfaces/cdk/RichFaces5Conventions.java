@@ -134,6 +134,8 @@ public final class RichFaces5Conventions implements NamingConventions {
         String simpleName = name.getSimpleName();
         simpleName = simpleName.replaceFirst("^Abstract", "");
 
+        name.setSimpleName(simpleName);
+
         return name;
     }
 
