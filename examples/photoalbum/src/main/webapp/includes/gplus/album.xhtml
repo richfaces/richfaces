@@ -67,7 +67,7 @@
     <br />
 
     <h:panelGroup id="userAlbumImages">
-        <r:repeat id="imageList" value="#{googlePlusAlbumCache.currentPhotos}" var="image" rows="20">
+        <r:repeat id="imageList" value="#{googlePlusAlbumCache.currentImages}" var="image" rows="20">
             <h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
                 <h:graphicImage styleClass="pr_photo_bg" style="#{imageSizeHelper.currentDimension.imageBgStyle}"
                     value="#{imageSizeHelper.currentDimension.imageBg}" />

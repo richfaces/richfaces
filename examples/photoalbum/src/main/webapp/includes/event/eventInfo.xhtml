@@ -67,35 +67,6 @@
     <ui:include src="/includes/event/imageList.xhtml">
         <ui:param name="event" value="#{event}" />
     </ui:include>
-    
-    <br/>
-    
-    <r:outputPanel rendered="#{fn:length(event.facebookAlbumIds) > 0}">
-            <br style="clear: both;" />
-            <h2>Facebook Albums</h2>
-            <ui:include src="/includes/facebook/albumsList.xhtml">
-                <ui:param name="showDownload" value="true" />
-                <ui:param name="albumIds" value="#{event.facebookAlbumIds}" />
-                <ui:param name="albumString" value="#{event.fbAlbumIds}" />
-            </ui:include>
-        </r:outputPanel>
-    <!-- 
-    <r:outputPanel rendered="#{showAlbums}" id="eventAlbums">
-        <r:outputPanel rendered="#{fn:length(event.shelf.albums) > 0}">
-            <h2>Albums</h2>
-            <ui:include src="/includes/album/albumsList.xhtml">
-                <ui:param name="albums" value="#{event.shelf.albums}" />
-            </ui:include>
-        </r:outputPanel>
-        <r:outputPanel rendered="#{fn:length(event.remoteAlbums) > 0}">
-            <br style="clear: both;" />
-            <h2>Facebook Albums</h2>
-            <ui:include src="/includes/facebook/albumsList.xhtml">
-                <ui:param name="showDownload" value="true" />
-                <ui:param name="albumIds" value="#{event.remoteAlbums}" />
-                <ui:param name="albumString" value="#{event.fbAlbumIds}" />
-            </ui:include>
-        </r:outputPanel>
-    </r:outputPanel>
-    -->
+
+    <br />
 </ui:composition>

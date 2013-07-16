@@ -44,9 +44,9 @@
                     <h:panelGrid cellpadding="0">
                         <h:panelGroup style="margin-bottom:7px;" layout="block">
                             <r:commandLink execute="@this"
-                                onclick="G.getPhotos('#{albumId}', loadPhotos)">
+                                onclick="G.getImages('#{albumId}', loadPhotos)">
                                 <h:graphicImage id="img"
-                                    url="#{googlePlusAlbumCache.getAlbum(albumId).getString('coverImageUrl')}"
+                                    url="#{googlePlusAlbumCache.getAlbum(albumId).getString('coverUrl')}"
                                     style="max-width: 120px; max-height: 120px" styleClass="album-cover-image" />
                                 <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
                                     <span style="white-space: nowrap">

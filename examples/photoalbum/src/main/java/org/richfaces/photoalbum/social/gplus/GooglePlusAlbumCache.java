@@ -53,7 +53,7 @@ public class GooglePlusAlbumCache {
     // < albumId, < imageId, {image} > >
 
     private String currentAlbumId;
-    private String currentPhotoId;
+    private String currentImageId;
 
     public void storeAlbums(List<JSONObject> albumsList) {
         storeAlbums(albumsList, false);
@@ -152,27 +152,27 @@ public class GooglePlusAlbumCache {
         this.currentAlbumId = currentAlbumId;
     }
 
-    public String getCurrentPhotoId() {
-        return currentPhotoId;
+    public String getCurrentImageId() {
+        return currentImageId;
     }
 
-    public void setCurrentPhotoId(String currentPhotoId) {
-        this.currentPhotoId = currentPhotoId;
+    public void setCurrentImageId(String currentImageId) {
+        this.currentImageId = currentImageId;
     }
 
     public JSONObject getCurrentAlbum() {
         return albums.get(currentAlbumId);
     }
 
-    public List<JSONObject> getCurrentPhotos() {
+    public List<JSONObject> getCurrentImages() {
         return new ArrayList<JSONObject>(images.get(currentAlbumId).values());
     }
 
-    public JSONObject getCurrentPhoto() {
-        return images.get(currentAlbumId).get(currentPhotoId);
+    public JSONObject getCurrentImage() {
+        return images.get(currentAlbumId).get(currentImageId);
     }
 
-    public List<JSONObject> getAllPhotos() {
+    public List<JSONObject> getAllImages() {
         List<JSONObject> list = new ArrayList<JSONObject>();
 
         for (Map<String, JSONObject> album : images.values()) {

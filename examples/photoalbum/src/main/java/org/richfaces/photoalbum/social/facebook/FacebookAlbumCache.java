@@ -55,7 +55,7 @@ public class FacebookAlbumCache {
     private boolean needsUpdate = true;
 
     private String currentAlbumId;
-    private String currentPhotoId;
+    private String currentImageId;
 
     public void setAll(String json) {
         try {
@@ -84,11 +84,11 @@ public class FacebookAlbumCache {
             for (int i = 0; i < ja.length(); i++) {
                 jo = ja.getJSONObject(i);
 
-                if (!jo.has("aid")) {
+                if (!jo.has("id")) {
                     error.fire(new ErrorEvent("Error, object does not contain albums"));
                 }
 
-                albumId = jo.getString("aid");
+                albumId = jo.getString("id");
 
                 if (albums.containsKey(albumId) && !rewrite) {
                     // the album has already been loaded
@@ -114,13 +114,13 @@ public class FacebookAlbumCache {
             for (int i = 0; i < ja.length(); i++) {
                 jo = ja.getJSONObject(i);
 
-                if (!jo.has("aid") || !jo.has("pid")) {
+                if (!jo.has("albumId") || !jo.has("id")) {
                     error.fire(new ErrorEvent("Error, object does not contain images"));
 
                 }
 
-                albumId = jo.getString("aid");
-                imageId = jo.getString("pid");
+                albumId = jo.getString("albumId");
+                imageId = jo.getString("id");
 
                 if (images.get(albumId) == null) {
                     images.put(albumId, new HashMap<String, JSONObject>());
@@ -141,7 +141,7 @@ public class FacebookAlbumCache {
         return images.get(albumId);
     }
     
-    public List<JSONObject> getPhotosFromAlbum(String albumId) {
+    public List<JSONObject> getImagesFromAlbum(String albumId) {
         return new ArrayList<JSONObject>(images.get(albumId).values());
     }
 
@@ -159,11 +159,15 @@ public class FacebookAlbumCache {
         return list;
     }
 
+    public boolean isAlbumLoaded(String albumId) {
+        return images.get(albumId) != null;
+    }
+    
     // takes a list of id's from an event
     public boolean areAlbumsLoaded(List<String> albumIds) {
         if (albumIds != null) {
             for (String id : albumIds) {
-                if (images.get(id) == null) {
+                if (!isAlbumLoaded(id)) {
                     setNeedsUpdate(true);
                     return false;
                 }
@@ -190,23 +194,23 @@ public class FacebookAlbumCache {
         this.currentAlbumId = currentAlbumId;
     }
 
-    public String getCurrentPhotoId() {
-        return currentPhotoId;
+    public String getCurrentImageId() {
+        return currentImageId;
     }
 
-    public void setCurrentPhotoId(String currentPhotoId) {
-        this.currentPhotoId = currentPhotoId;
+    public void setCurrentImageId(String currentImageId) {
+        this.currentImageId = currentImageId;
     }
 
     public JSONObject getCurrentAlbum() {
         return albums.get(currentAlbumId);
     }
 
-    public List<JSONObject> getCurrentPhotos() {
+    public List<JSONObject> getCurrentImages() {
         return new ArrayList<JSONObject>(images.get(currentAlbumId).values());
     }
 
-    public JSONObject getCurrentPhoto() {
-        return images.get(currentAlbumId).get(currentPhotoId);
+    public JSONObject getCurrentImage() {
+        return images.get(currentAlbumId).get(currentImageId);
     }
 }

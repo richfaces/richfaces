@@ -45,14 +45,14 @@
                         <h:panelGroup style="margin-bottom:7px;" layout="block">
                             <r:commandLink execute="@this" actionListener="#{controller.showFBAlbum(albumId)}" render="mainArea">
                                 <r:param assignTo="#{facebookAlbumCache.currentAlbumId}" value="#{albumId}" />
-                                <h:graphicImage id="img" url="#{facebookAlbumCache.getAlbum(albumId).getString('src')}"
+                                <h:graphicImage id="img" url="#{facebookAlbumCache.getAlbum(albumId).getString('coverUrl')}"
                                     style="max-width: 120px; max-height: 120px" styleClass="album-cover-image" />
                                 <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
                                     <span style="white-space: nowrap">
                                         #{facebookAlbumCache.getAlbum(albumId).getString('name')} </span>
                                 </r:tooltip>
                                 <r:dragSource dragIndicator="dragIndicator" type="fbAlbum"
-                                    dragValue="#{facebookAlbumCache.getAlbum(albumId).getString('aid')}"
+                                    dragValue="#{facebookAlbumCache.getAlbum(albumId).getString('id')}"
                                     rendered="#{not showDownload}" />
                             </r:commandLink>
                             <r:commandButton rendered="#{showDownload}"

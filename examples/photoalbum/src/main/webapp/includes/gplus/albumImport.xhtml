@@ -16,7 +16,7 @@
             <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
             <h:panelGrid cellpadding="0">
                 <h:panelGroup style="margin-bottom:7px;" layout="block">
-                    <h:graphicImage id="img" url="#{gDndManager.album.getString('coverImageUrl')}"
+                    <h:graphicImage id="img" url="#{gDndManager.album.getString('coverUrl')}"
                         style="max-width: 120px; max-height: 120px" styleClass="album-cover-image" />
                 </h:panelGroup>
             </h:panelGrid>
@@ -28,7 +28,7 @@
                 <h:panelGroup layout="block">
                     <richx:commandButton value="Import" execute="@this" styleClass="shelf"
                         disabled="#{gDndManager.albumAlreadyShared}"
-                        onclick="G.getPhotos('#{gDndManager.album.getString('fullId')}', fetchPhotosForImport)" render="gBar" />
+                        onclick="G.getImages('#{gDndManager.album.getString('fullId')}', fetchPhotosForImport)" render="gBar" />
                 </h:panelGroup>
                 <h:panelGroup layout="block">
                     <richx:commandButton oncomplete="#{r:component('gAlbumModalPanel')}.hide();" value="Just Share"
