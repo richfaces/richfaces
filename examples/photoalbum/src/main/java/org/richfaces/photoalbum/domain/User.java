@@ -63,7 +63,8 @@ import org.hibernate.validator.constraints.NotEmpty;
         @NamedQuery(name = "user-exist", query = "select u from User u where u.login = :login"),
         @NamedQuery(name = "email-exist", query = "select u from User u where u.email = :email"),
         @NamedQuery(name = "user-user", query = "select u from User u where u.login = :login"),
-        @NamedQuery(name = "user-fb-login", query = "select u from User u where u.fbId = :fbId") })
+        @NamedQuery(name = "user-fb-login", query = "select u from User u where u.fbId = :fbId"),
+        @NamedQuery(name = "user-gplus-login", query = "select u from User u where u.gPlusId = :gPlusId") })
 @Entity
 @SessionScoped
 @Table(name = "User", uniqueConstraints = { @UniqueConstraint(columnNames = "login"), @UniqueConstraint(columnNames = "email") })
@@ -79,6 +80,11 @@ public class User implements Serializable {
     @NotEmpty
     @Column(length = 30)
     private String fbId;
+    
+    @NotNull
+    @NotEmpty
+    @Column(length = 30)
+    private String gPlusId;
 
     @NotNull
     private String passwordHash;
@@ -144,6 +150,14 @@ public class User implements Serializable {
 
     public void setFbId(String fbId) {
         this.fbId = fbId;
+    }
+
+    public String getgPlusId() {
+        return gPlusId;
+    }
+
+    public void setgPlusId(String gPlusId) {
+        this.gPlusId = gPlusId;
     }
 
     public String getFirstName() {

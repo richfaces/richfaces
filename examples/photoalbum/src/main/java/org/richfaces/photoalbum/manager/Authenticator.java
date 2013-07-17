@@ -158,12 +158,21 @@ public class Authenticator implements Serializable {
             userBean.setFbPhotoUrl(pictureUrl);
 
             String facebookId = userInfo.getString("id");
-            user = userBean.logIn(facebookId);
+
+            if (!userBean.isLoggedIn()) {
+                user = userBean.logIn(facebookId);
+            } else {
+                user = userBean.getUser();
+                user.setFbId(facebookId);
+                userAction.updateUser();
+                userBean.logIn(facebookId);
+            }
 
             if (user == null) { // user does not exist
                 User newUser = new User();
 
                 newUser.setFbId(facebookId);
+                newUser.setgPlusId("1");
                 newUser.setFirstName(userInfo.getString("first_name"));
                 newUser.setSecondName(userInfo.getString("last_name"));
                 newUser.setEmail(userInfo.getString("email"));
@@ -190,6 +199,7 @@ public class Authenticator implements Serializable {
             return true;
         } catch (Exception nre) {
             loginFailed();
+            error.fire(new ErrorEvent(nre.getMessage()));
             return false;
         }
     }
@@ -198,16 +208,25 @@ public class Authenticator implements Serializable {
         JSONObject userInfo = gBean.getUserInfo();
 
         try {
-            //String pictureUrl = userInfo.getJSONObject("picture").getJSONObject("data").getString("url");
-            //userBean.setFbPhotoUrl(pictureUrl);
+            // String pictureUrl = userInfo.getJSONObject("picture").getJSONObject("data").getString("url");
+            // userBean.setFbPhotoUrl(pictureUrl);
 
             String gPlusId = userInfo.getString("id");
-            user = userBean.gPlusLogIn(gPlusId);
+
+            if (!userBean.isLoggedIn()) {
+                user = userBean.gPlusLogIn(gPlusId);
+            } else {
+                user = userBean.getUser();
+                user.setgPlusId(gPlusId);
+                userAction.updateUser();
+                userBean.gPlusLogIn(gPlusId);
+            }
 
             if (user == null) { // user does not exist
                 User newUser = new User();
 
-                newUser.setFbId(gPlusId);
+                newUser.setFbId("1");
+                newUser.setgPlusId(gPlusId);
                 newUser.setFirstName(userInfo.getJSONObject("name").getString("givenName"));
                 newUser.setSecondName(userInfo.getJSONObject("name").getString("familyName"));
                 newUser.setEmail(userInfo.optString("email", "mail@mail.com"));
@@ -220,10 +239,10 @@ public class Authenticator implements Serializable {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String birthday = userInfo.optString("birthday", "1900-01-01");
-//                if (birthday.substring(0, 3).equals("0000")) {
-//                    // G+ allows hiding of the year of birth, change to 1900
-//                    birthday = "19" + birthday.substring(2);
-//                }
+                // if (birthday.substring(0, 3).equals("0000")) {
+                // // G+ allows hiding of the year of birth, change to 1900
+                // birthday = "19" + birthday.substring(2);
+                // }
                 newUser.setBirthDate(sdf.parse(birthday));
 
                 // random password, the user will not be using this to log in

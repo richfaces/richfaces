@@ -111,7 +111,7 @@ getAlbums = function(callback, errorCb) {
                 } else {
                     result = mergeResults(response.data[0].fql_result_set, response.data[1].fql_result_set);
                     console.log(result);
-                    callback(JSON.stringify(result));
+                    callback(JSON.stringify(translateFBAlbums(result)));
                 }
             });
         }
@@ -193,12 +193,54 @@ FBgetShelfAlbums = function(userId, callback, errorCb) {
                 if (!response || response.error) {
                     errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
                 } else {
-                    result = mergeResults(response.data[0].fql_result_set, response.data[1].fql_result_set);
+                    result = translateFBAlbums(mergeResults(response.data[0].fql_result_set, response.data[1].fql_result_set));
                     callback(JSON.stringify(result));
                 }
             });
         }
     });
+};
+
+translateFBJson = function(dictionary) {
+    return function(json) {
+        var translatedJson = { type: "facebook" };
+    
+        for(word in dictionary) {
+            if (dictionary.hasOwnProperty(word)) {
+                translatedJson[word] = json[ dictionary[word] ];
+            }
+        }
+    
+        return translatedJson;
+    };
+};
+
+translateFBImages = function(images) {
+    var dict = {
+        "albumId": "aid",
+        "created": "created",
+        "fullAlbumId": "aid",
+        "id": "pid",
+        "name": "caption",
+        "thumbUrl": "src",
+        "url": "src_big"
+    };
+     
+    return images.map(translateFBJson(dict));
+};
+
+translateFBAlbums = function(albums) {
+    var dict = {
+        "coverUrl": "src",
+        "created": "created",
+        "fullId": "aid",
+        "id": "aid",
+        "name": "name",
+        "size": "size",
+        "url": "src_big"
+    };
+     
+    return albums.map(translateFBJson(dict));
 };
 
 // get info about albums specified by id - (e.g. "12345", "12347")
@@ -238,8 +280,8 @@ FBgetAlbumsById = function(albumIds, callback, errorCb) {
                     }
 
                     var result = {
-                        albums : mergeResults(r.q1, r.q2),
-                        images : r.q3
+                        albums : translateFBAlbums(mergeResults(r.q1, r.q2)),
+                        images : translateFBImages(r.q3)
                     };
                     console.log(result);
                     callback(JSON.stringify(result));
@@ -262,8 +304,7 @@ FBgetAlbumImages = function(albumId, callback, errorCb) {
                 if (!response || response.error) {
                     errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
                 } else {
-                    console.log(response.data[0].fql_result_set);
-                    callback(JSON.stringify(response.data[0].fql_result_set));
+                    callback(JSON.stringify(translateFBImages(response.data[0].fql_result_set)));
                 }
             });
         }
@@ -326,9 +367,10 @@ var G = {};
          *   {
          *     id: ID,
          *     userId: UID,
+         *     fullId: "id:albumId",
          *     name: NAME,
          *     created: DATE,
-         *     coverImageUrl: URL
+         *     coverUrl: URL
          *   }
          * ]
          */
@@ -336,7 +378,7 @@ var G = {};
         var extractedAlbums = [];
 
         for (var i = 0; i < albumEntries.length; i++) {
-            var album = {},
+            var album = { type: "google" },
                 idString = albumEntries[i].id.$t, begin = idString.lastIndexOf("/"), 
                 end = idString.indexOf("?", begin), 
                 albumId = idString.substr(begin + 1, end - begin - 1),
@@ -347,10 +389,11 @@ var G = {};
 
             album.id = albumId;
             album.userId = userId;
+            album.fullId = userId + ":" + albumId;
             album.name = albumName;
             album.created = published.substring(0, published.indexOf("T"));
 
-            album.coverImageUrl = mg.url.substring(0, splitAt) + "/s288" + mg.url.substring(splitAt);
+            album.coverUrl = mg.url.substring(0, splitAt) + "/s288" + mg.url.substring(splitAt);
 
             extractedAlbums.push(album);
         }
@@ -361,13 +404,13 @@ var G = {};
     // Get albums
     G.getUserAlbums = function(userId, albumCallback, authResult) {
 
-        var getAlbums = function(suthResult) {
+        var getAlbums = function(authResult) {
             var callback = function(data, status, jq) {
                 albumCallback(extractAlbums(userId, data.feed.entry));
             };
 
             var url = "https://picasaweb.google.com/data/feed/base/user/" + userId + "?access_token=" 
-                    + authResult.access_token + "&kind=album&alt=json&callback=?";
+                    + authResult.access_token + "&kind=album&alt=json&fields=entry(id,published,title,media:group(media:content))&callback=?";
                     
             $.getJSON(url, null, callback);
         };
@@ -385,7 +428,7 @@ var G = {};
         }, getAlbums);
     };
 
-    extractPhotos = function(albumId, photoEntries) {
+    extractPhotos = function(fullAlbumId, photoEntries) {
         /*
          * Take a JSON returned from Picasa and extract the important properties
          *
@@ -394,7 +437,9 @@ var G = {};
          *   {
          *     id: ID,
          *     albumId: ID,
+         *     fullAlbumId: fID,
          *     created: DATE,
+         *     name: STRING,
          *     url: URL,
          *     thumbUrl: tURL // created from url
          *   }
@@ -403,7 +448,7 @@ var G = {};
 
         var extractedPhotos = [];
         for (var i = 0; i < photoEntries.length; i++) {
-            var photo = {}, 
+            var photo = { type: "google" }, 
                 mg = photoEntries[i].media$group.media$content[0], 
                 idString = photoEntries[i].id.$t, 
                 begin = idString.lastIndexOf("/"), 
@@ -411,9 +456,12 @@ var G = {};
                 photoId = idString.substr(begin + 1, end - begin - 1), 
                 splitAt = mg.url.lastIndexOf("/"),
                 published = photoEntries[i].published.$t;
+                
 
             photo.id = photoId;
-            photo.albumId = albumId;
+            photo.albumId = (fullAlbumId.split(":"))[1];
+            photo.fullAlbumId = fullAlbumId;
+            photo.name = photoEntries[i].media$group.media$title.$t;
 
             photo.created = published.substring(0, published.indexOf("T"));
 
@@ -423,23 +471,24 @@ var G = {};
 
             extractedPhotos.push(photo);
         }
-
+        
         return JSON.stringify(extractedPhotos);
     };
 
-    G.getPhotos = function(userId, albumId, photoCallback) {
-        var getPhotos = function(authResult) {
-            
-            var callback = function(data, status, jq) {
-                photoCallback(extractPhotos(albumId, data.feed.entry));
-            },
-            url = "https://picasaweb.google.com/data/feed/base/user/" + userId + "/albumid/" 
-                + albumId + "?access_token=" + authResult.access_token + "&kind=photo&alt=json&callback=?";
+    G.getImages = function(fullId, photoCallback) {
+        var getImages = function(authResult) {
+            var ids = fullId.split(":"), 
+                callback = function(data, status, jq) {
+                    photoCallback(extractPhotos(fullId, data.feed.entry));
+                },           
+                url = "https://picasaweb.google.com/data/feed/base/user/" + ids[0] + "/albumid/" 
+                    + ids[1] + "?access_token=" + authResult.access_token + "&kind=photo&alt=json&fields=entry(id,published,media:group(media:content, media:title))&callback=?";
+                         
             $.getJSON(url, null, callback);
         };
         
         if (gapi.auth.getToken()) {
-            getPhotos(gapi.auth.getToken());
+            getImages(gapi.auth.getToken());
             return;
         }
         
@@ -448,7 +497,57 @@ var G = {};
             client_id : clientId,
             scope : scopes,
             immediate : true
-        }, getPhotos);
+        }, getImages);
+    };
+    
+    G.getAlbumAndImages = function(albumFullId, callback) {
+        var getAlbumAndImages = function(authResult) {
+            var ids = albumFullId.split(":"),
+            
+                albumUrl = "https://picasaweb.google.com/data/feed/base/user/" + ids[0] 
+                + "?access_token=" + authResult.access_token 
+                + "&kind=album&alt=json&fields=entry(id,published,title,media:group(media:content))&callback=?",
+            
+                compress = function (album, callback) {
+                    return function(images) {
+                        album.images = JSON.parse(images);
+                        callback(JSON.stringify(album));   
+                    };
+                },
+            
+                processAlbum = function(albumId, albumString, callback) {
+                    var albums = JSON.parse(albumString),
+                        album = {};
+                
+                    for(var i = 0; i < albums.length; i++) {
+                        if (albums[i].fullId == albumId) {
+                            album = albums[i]; break;
+                        }
+                    }
+                
+                    G.getImages(album.fullId, compress(album, callback));
+                },
+            
+                userId = albumFullId.split(":")[0],
+            
+                albumCb = function(data, status, jq) {
+                    processAlbum(albumFullId, extractAlbums(userId, data.feed.entry), callback);
+                };
+
+                $.getJSON(albumUrl, null, albumCb);
+            };
+            
+        if (gapi.auth.getToken()) {
+            getAlbumAndImages(gapi.auth.getToken());
+            return;
+        }
+        
+        // if token wasn't provided
+        gapi.auth.authorize({
+            client_id : clientId,
+            scope : scopes,
+            immediate : true
+        }, getAlbumAndImages);
     };
 
 })(G);

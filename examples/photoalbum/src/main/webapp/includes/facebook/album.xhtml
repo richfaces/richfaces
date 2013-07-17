@@ -39,9 +39,9 @@
         </h:panelGroup>
         <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
             render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}"
-            rendered="#{model.selectedEvent.facebookAlbums.contains(album.getString('aid'))}" />
+            rendered="#{model.selectedEvent.facebookAlbumIds.contains(album.getString('id'))}" />
         <h:outputText value="Facebook" styleClass="additional-info-text"
-            rendered="#{not model.selectedEvent.facebookAlbums.contains(album.getString('aid'))}" />
+            rendered="#{not model.selectedEvent.facebookAlbumIds.contains(album.getString('id'))}" />
     </h:panelGrid>
 
     <!-- imageList -->
@@ -67,21 +67,21 @@
     <br />
 
     <h:panelGroup id="userAlbumImages">
-        <r:repeat id="imageList" value="#{facebookAlbumCache.currentPhotos}" var="image" rows="20">
+        <r:repeat id="imageList" value="#{facebookAlbumCache.currentImages}" var="image" rows="20">
             <h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
                 <h:graphicImage styleClass="pr_photo_bg" style="#{imageSizeHelper.currentDimension.imageBgStyle}"
                     value="#{imageSizeHelper.currentDimension.imageBg}" />
                 <h:panelGrid cellpadding="0">
                     <h:panelGroup>
-                        <r:commandLink execute="@this" actionListener="#{controller.showFbImage(image.getString('pid'))}"
+                        <r:commandLink execute="@this" actionListener="#{controller.showFbImage(image.getString('id'))}"
                             render="mainArea">
-                            <h:graphicImage url="#{image.getString('src')}"
+                            <h:graphicImage url="#{image.getString('url')}"
                                 style="border: 1px solid #FFFFFF; max-width: #{imageSizeHelper.value}px; max-height: #{imageSizeHelper.value}px" />
                         </r:commandLink>
                         <br />
                     </h:panelGroup>
                 </h:panelGrid>
-                <h:panelGroup layout="block" styleClass="photo_name">#{image.getString('caption')}</h:panelGroup>
+                <h:panelGroup layout="block" styleClass="photo_name">#{image.getString('name')}</h:panelGroup>
                 <h:panelGroup layout="block" styleClass="photo_data">
                     <h:outputText value="#{image.getString('created')}" converter="#{timestampConverter}" />
                 </h:panelGroup>

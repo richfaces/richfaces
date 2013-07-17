@@ -76,7 +76,7 @@ public class DnDManager implements DropListener {
 
     /**
      * Listenet, that invoked during drag'n'drop process. Only registered users can drag images.
-     * 
+     *
      * @param event - event, indicated that drag'n'drop started
      */
     public void processDrop(DropEvent dropEvent) {
@@ -147,28 +147,17 @@ public class DnDManager implements DropListener {
         if (dragValue instanceof Album) {
             Album album = (Album) dragValue;
 
-            event.getShelf().getAlbums().add(album);
-            album.setShelf(event.getShelf());
+            String pathOld = album.getPath();
+
+            event.getShelf().addAlbum(album);
 
             try {
                 albumAction.editAlbum(album);
                 eventAction.editEvent(event);
             } catch (PhotoAlbumException e) {
-                error.fire(new ErrorEvent("Error:", Constants.ERROR_IN_DB + "<br/>" + e.getMessage()));
+                error.fire(new ErrorEvent("Error:", Constants.ERROR_IN_DB + ": " + e.getMessage()));
             }
-            return;
-        }
-
-        if (dragValue instanceof String) {
-            String aid = (String) dragValue;
-
-            event.getFacebookAlbums().add(aid);
-
-            try {
-                eventAction.editEvent(event);
-            } catch (PhotoAlbumException e) {
-                error.fire(new ErrorEvent("Error:", Constants.ERROR_IN_DB + "<br/>" + e.getMessage()));
-            }
+            albumEvent.fire(new AlbumEvent(album, pathOld));
         }
     }
 }

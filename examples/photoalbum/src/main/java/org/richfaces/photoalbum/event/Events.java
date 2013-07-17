@@ -58,5 +58,6 @@ public enum Events {
     
     EVENT_ADDED_EVENT,
     EVENT_EDITED_EVENT,
-    EVENT_DELETED_EVENT // ShelfEvent
+    EVENT_DELETED_EVENT, 
+    EVENT_DISPLAYED_EVENT // ShelfEvent
 }

@@ -116,8 +116,10 @@ public class FileDownloadManager implements Serializable {
         for (JSONObject jo : images.values()) {
             if (jo.has("src_big")) {
                 imageUrls.add(jo.getString("src_big"));
-            } else {
+            } else if (jo.has("src")) {
                 imageUrls.add(jo.getString("src"));
+            } else if (jo.has("url")) {
+                imageUrls.add(jo.getString("url"));
             }
         }
     }
@@ -175,10 +177,12 @@ public class FileDownloadManager implements Serializable {
             error.fire(new ErrorEvent("Error", "error saving album<br/>" + pae.getMessage()));
         }
 
-        // remove the FB album from the event
-        if (event.getFacebookAlbums().contains(albumId)) {
-            event.getFacebookAlbums().remove(albumId);
-        }
+        // remove the remote album from the event
+        if (event.getRemoteAlbumIds().contains("F" + albumId)) {
+            event.getRemoteAlbumIds().remove("F" + albumId);
+        } else if (event.getRemoteAlbumIds().contains("G" + albumId)) {
+            event.getRemoteAlbumIds().remove("G" + albumId);
+        } 
 
         try {
             eventAction.editEvent(event);

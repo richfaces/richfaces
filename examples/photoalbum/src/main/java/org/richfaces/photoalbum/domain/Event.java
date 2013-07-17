@@ -172,7 +172,7 @@ public class Event implements Serializable {
     private Shelf shelf;
 
     @ElementCollection(fetch=FetchType.EAGER)
-    private List<String> facebookAlbums = new ArrayList<String>();
+    private List<String> remoteAlbumIds = new ArrayList<String>();
 
     /* Boilerplate getters and setters */
 
@@ -217,16 +217,38 @@ public class Event implements Serializable {
     }
 
 
-    public List<String> getFacebookAlbums() {
-        return facebookAlbums;
+    public List<String> getRemoteAlbumIds() {
+        return remoteAlbumIds;
     }
 
-    public void setFacebookAlbums(List<String> facebookAlbums) {
-        this.facebookAlbums = facebookAlbums;
+    public void setRemoteAlbumIds(List<String> remoteAlbumIds) {
+        this.remoteAlbumIds = remoteAlbumIds;
     }
 
-    public String getFbAlbumIds() {
-        return ListUtils.sListToString(facebookAlbums);
+    private List<String> getFilteredAlbumIds(String prefix) {
+        List<String> filteredIds = new ArrayList<String>();
+        int prefLength = prefix.length();
+        
+        for (String id : remoteAlbumIds) {
+            if (id.startsWith(prefix)) {
+                filteredIds.add(id.substring(prefLength));
+            }
+        }
+        
+        return filteredIds;
+    }
+    
+    public List<String> getFacebookAlbumIds() {
+        return getFilteredAlbumIds("F");
+    }
+    
+    public List<String> getGooglePlusAlbumIds() {
+        return getFilteredAlbumIds("G");
+    }
+    
+    
+    public String getFbAlbumIdString() {
+        return ListUtils.sListToString(getFacebookAlbumIds());
     }
 
     /* toString(), equals() and hashCode() for Event, using the natural identity of the object */
