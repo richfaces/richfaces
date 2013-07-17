@@ -385,10 +385,12 @@ public class Controller implements Serializable {
 
     public void onEventAdded(@Observes @EventType(Events.EVENT_ADDED_EVENT) ShelfEvent se) {
         model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, se.getEvent());
+        pushEvent(Events.EVENT_DISPLAYED_EVENT);
     }
 
     public void onEventEdited(@Observes @EventType(Events.EVENT_EDITED_EVENT) ShelfEvent se) {
         model.resetModel(NavigationEnum.EVENT_PREVIEW, loggedUser, null, null, null, null, se.getEvent());
+        pushEvent(Events.EVENT_DISPLAYED_EVENT);
     }
 
     /**
