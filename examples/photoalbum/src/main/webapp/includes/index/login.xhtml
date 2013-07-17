@@ -39,7 +39,7 @@
             <!-- social login button -->
             <h:panelGroup layout="block" rendered="#{not userBean.loggedInFB or not userBean.loggedInGPlus}">
                 <richx:commandButton styleClass="fb-comm-button" execute="@none"
-                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 ); FBlogin(fetchUserInfo, fetchFBAlbumIds, showError); return false;"
+                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 ); F.login(fetchUserInfo, fetchFBAlbumIds, showError); return false;"
                     value="Facebook Login" />
 
                 <r:jsFunction name="fetchUserInfo"

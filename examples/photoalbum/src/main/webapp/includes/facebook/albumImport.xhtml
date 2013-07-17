@@ -28,7 +28,7 @@
                 <h:panelGroup layout="block">
                     <richx:commandButton value="Import" execute="@this" styleClass="shelf"
                         actionListener="#{fbDndManager.importAlbum()}" disabled="#{fDndManager.albumAlreadyShared}"
-                        oncomplete="#{r:component('fbAlbumModalPanel')}.hide(); importNext()" render="pBar" />
+                        oncomplete="#{r:component('fbAlbumModalPanel')}.hide();" render="pBar" />
                 </h:panelGroup>
                 <h:panelGroup layout="block">
                     <richx:commandButton oncomplete="#{r:component('fbAlbumModalPanel')}.hide();" value="Just Share"

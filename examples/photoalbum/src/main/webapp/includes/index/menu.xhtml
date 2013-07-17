@@ -153,7 +153,7 @@
 
                     <h:panelGroup layout="block" rendered="#{userBean.loggedIn}" style="float: left;">
                         <r:commandLink disabled="#{userBean.loggedInFB}" styleClass="FB-btn-small"
-                            onclick="FBlogin(fetchUserInfo, fetchFBAlbumIds, showError);" execute="@this">
+                            onclick="F.login(fetchUserInfo, fetchFBAlbumIds, showError);" execute="@this">
                             <r:tooltip rendered="#{not userBean.loggedInFB}">Sign in Facebook</r:tooltip>
                             <r:tooltip rendered="#{userBean.loggedInFB}">Already signed in Facebook</r:tooltip>
                         </r:commandLink>

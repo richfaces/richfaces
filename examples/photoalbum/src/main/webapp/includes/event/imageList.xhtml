@@ -84,7 +84,7 @@
     <h:outputScript id="facebookCheck">    
         $(document).ready(function() {
             if (#{eventAlbumsHelper.facebookNeedsUpdate}) {
-                FBgetAlbumsById( "#{eventAlbumsHelper.fbAlbumIds}", setFBimages, showError);
+                F.getAlbumsById( "#{eventAlbumsHelper.fbAlbumIds}", setFBimages, showError);
             }
             triggerPoll();
         });
