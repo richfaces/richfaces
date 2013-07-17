@@ -24,18 +24,18 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.org/richx">
-    <ui:param name="image" value="#{facebookAlbumCache.currentPhoto}" />
+    <ui:param name="image" value="#{facebookAlbumCache.currentImage}" />
     <ui:param name="album" value="#{facebookAlbumCache.currentAlbum}" />
     <!-- imageHeaderInfo -->
     <h:panelGrid styleClass="image-header-table" style="padding: 0" id="imageinfo">
         <h:panelGroup>
             <h1>
-                <h:outputText value="#{image.getString('caption')}" />
+                <h:outputText value="#{image.getString('name')}" />
             </h1>
             <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
                 render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}" />
             <h:outputText value=" #{messages['delimiter']} " />
-            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showFBAlbum(album.getString('aid'))}"
+            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showFBAlbum(album.getString('id'))}"
                 render="mainArea, treePanel" value="#{messages['album']} #{album.getString('name')}" />
 
         </h:panelGroup>
@@ -46,26 +46,26 @@
     <h:panelGroup layout="block" id="imagesTable"
         style="margin: 30px 0px 40px 30px; float: left; position: relative; left: -2px;">
         <h:panelGrid columns="2">
-            <r:repeat value="#{facebookAlbumCache.currentPhotos}" rows="5" var="img" id="repeat" rowKeyVar="rk">
+            <r:repeat value="#{facebookAlbumCache.currentImages}" rows="5" var="img" id="repeat" rowKeyVar="rk">
                 <r:outputPanel layout="block"
-                    styleClass="preview_box_photo_nav #{image.getString('pid') == img.getString('pid') ? 'preview_box_photo_current' : 'preview_box_photo_default'}">
+                    styleClass="preview_box_photo_nav #{image.getString('id') == img.getString('id') ? 'preview_box_photo_current' : 'preview_box_photo_default'}">
                     <h:panelGroup layout="block" styleClass="preview_box_photo_80">
                         <h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_80.png" />
                         <h:panelGrid cellpadding="0" cellspacing="2">
                             <h:panelGroup layout="block">
-                                <h:graphicImage url="#{img.getString('src')}" style="max-width: 80px; max-height: 80px" />
+                                <h:graphicImage url="#{img.getString('thumbUrl')}" style="max-width: 80px; max-height: 80px" />
                                 <br />
                             </h:panelGroup>
                         </h:panelGrid>
                         <h:panelGroup layout="block" styleClass="photo_name">
-                            <h:outputText value="#{img.getString('caption')}" />
+                            <h:outputText value="#{img.getString('name')}" />
                         </h:panelGroup>
                         <h:panelGroup layout="block" styleClass="photo_data">
                             <h:outputText value="#{rk + 1}" />
                         </h:panelGroup>
                     </h:panelGroup>
                     <r:ajax event="click" render="mainImage, imageinfo, imagesTable"
-                        listener="#{controller.showFbImage(img.getString('pid'))}" execute="@this" />
+                        listener="#{controller.showFbImage(img.getString('id'))}" execute="@this" />
                 </r:outputPanel>
             </r:repeat>
         </h:panelGrid>
@@ -103,22 +103,22 @@
                             <h:outputText value="#{messages['slideshow.start']}" />
                         </r:commandLink>
                     </h:panelGroup>
-                    <h:graphicImage styleClass="main-image" rendered="#{image.getString('src_big') != null}"
+                    <h:graphicImage styleClass="main-image" rendered="#{image.getString('url') != null}"
                         style="border : 3px solid #808080; max-width: 600px; max-height: 600px"
-                        url="#{image.getString('src_big')}">
+                        url="#{image.getString('url')}">
                     </h:graphicImage>
-                    <h:graphicImage styleClass="main-image" rendered="#{image.getString('src_big') == null}"
-                        style="border : 3px solid #808080; max-width: 600px; max-height: 600px" url="#{image.getString('src')}">
+                    <h:graphicImage styleClass="main-image" rendered="#{image.getString('url') == null}"
+                        style="border : 3px solid #808080; max-width: 600px; max-height: 600px" url="#{image.getString('thumbUrl')}">
                     </h:graphicImage>
                 </td>
                 <td style="vertical-align: top;">
                     <h:panelGroup layout="block" styleClass="buttons-body" style="margin : 26px 0px 0px 0px;"
-                        rendered="#{image.getString('src_big') != null}">
-                        <a href="#{image.getString('src_big')}" target="_blank" class="buttons-body-text-div">#{messages['original_size']}</a>
+                        rendered="#{image.getString('url') != null}">
+                        <a href="#{image.getString('url')}" target="_blank" class="buttons-body-text-div">#{messages['original_size']}</a>
                     </h:panelGroup>
                     <h:panelGroup layout="block" styleClass="buttons-body" style="margin : 26px 0px 0px 0px;"
-                        rendered="#{image.getString('src_big') == null}">
-                        <a href="#{image.getString('src')}" target="_blank" class="buttons-body-text-div">#{messages['original_size']}</a>
+                        rendered="#{image.getString('url') == null}">
+                        <a href="#{image.getString('thumbUrl')}" target="_blank" class="buttons-body-text-div">#{messages['original_size']}</a>
                     </h:panelGroup>
                 </td>
             </tr>

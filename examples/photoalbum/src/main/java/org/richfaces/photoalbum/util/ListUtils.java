@@ -27,7 +27,7 @@ import java.util.List;
 
 public class ListUtils {
     public static String sListToString(List<String> sList) {
-        if (sList == null) {
+        if (sList == null || sList.size() == 0) {
             return "";
         }
         

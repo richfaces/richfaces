@@ -45,6 +45,8 @@
                             render="treePanel, mainArea" />
                         <r:dropTarget acceptedTypes="fbAlbum" data="#{fbDndManager.albumAlreadyShared}" dropValue="#{treeNode}" dropListener="#{fbDndManager.processDrop}"
                             oncomplete="if(!event.data)#{r:component('fbAlbumModalPanel')}.show();" render="fbAlbumModalPanel" />
+                        <r:dropTarget acceptedTypes="gAlbum" data="#{gplusDndManager.albumAlreadyShared}" dropValue="#{treeNode}" dropListener="#{gDndManager.processDrop}"
+                            oncomplete="if(!event.data)#{r:component('gAlbumModalPanel')}.show();" render="gAlbumModalPanel" />
                         <r:tooltip direction="topRight" showDelay="1000">
                             <span style="white-space: nowrap">#{treeNode.name}</span>
                         </r:tooltip>

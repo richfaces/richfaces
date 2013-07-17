@@ -2,11 +2,11 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.org/richx">
-    <r:popupPanel header="Import" id="fbAlbumModalPanel" autosized="true">
+    <r:popupPanel header="Import" id="gAlbumModalPanel" autosized="true">
         <f:facet name="controls">
             <h:panelGroup id="albumImportPanelHideControl">
                 <h:graphicImage value="/img/modal/close.png" style="cursor:pointer"
-                    onclick="#{r:component('fbAlbumModalPanel')}.hide()" />
+                    onclick="#{r:component('gAlbumModalPanel')}.hide()" />
             </h:panelGroup>
         </f:facet>
 
@@ -16,7 +16,7 @@
             <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
             <h:panelGrid cellpadding="0">
                 <h:panelGroup style="margin-bottom:7px;" layout="block">
-                    <h:graphicImage id="img" url="#{fbDndManager.album.getString('coverUrl')}"
+                    <h:graphicImage id="img" url="#{gDndManager.album.getString('coverUrl')}"
                         style="max-width: 120px; max-height: 120px" styleClass="album-cover-image" />
                 </h:panelGroup>
             </h:panelGrid>
@@ -27,16 +27,23 @@
             <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto; height: 60px">
                 <h:panelGroup layout="block">
                     <richx:commandButton value="Import" execute="@this" styleClass="shelf"
-                        actionListener="#{fbDndManager.importAlbum()}" disabled="#{fDndManager.albumAlreadyShared}"
-                        oncomplete="#{r:component('fbAlbumModalPanel')}.hide(); importNext()" render="pBar" />
+                        disabled="#{gDndManager.albumAlreadyShared}"
+                        onclick="G.getImages('#{gDndManager.album.getString('fullId')}', fetchPhotosForImport)" render="gBar" />
                 </h:panelGroup>
                 <h:panelGroup layout="block">
-                    <richx:commandButton oncomplete="#{r:component('fbAlbumModalPanel')}.hide();" value="Just Share"
-                        disabled="#{fDndManager.albumAlreadyShared}" actionListener="#{fbDndManager.shareAlbum()}"
+                    <richx:commandButton oncomplete="#{r:component('gAlbumModalPanel')}.hide();" value="Just Share"
+                        disabled="#{gDndManager.albumAlreadyShared}" actionListener="#{gDndManager.shareAlbum()}"
                         execute="@this" styleClass="shelf" />
                 </h:panelGroup>
             </h:panelGrid>
         </h:panelGroup>
+
+        <r:jsFunction name="startImport" actionListener="#{gDndManager.importAlbum()}"
+            oncomplete="#{r:component('gAlbumModalPanel')}.hide();" render="gBar" />
+
+        <r:jsFunction name="fetchPhotosForImport" oncomplete="startImport()">
+            <r:param assignTo="#{googlePlusAlbumCache.albumImages}" name="images" />
+        </r:jsFunction>
     </r:popupPanel>
 
 </ui:composition>

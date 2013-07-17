@@ -52,10 +52,8 @@ public class GooglePlusAlbumCache {
     private Map<String, Map<String, JSONObject>> images = new HashMap<String, Map<String, JSONObject>>();
     // < albumId, < imageId, {image} > >
 
-    private boolean needsUpdate = true;
-
     private String currentAlbumId;
-    private String currentPhotoId;
+    private String currentImageId;
 
     public void storeAlbums(List<JSONObject> albumsList) {
         storeAlbums(albumsList, false);
@@ -67,8 +65,7 @@ public class GooglePlusAlbumCache {
         try {
             for (JSONObject jo : albumsList) {
 
-                albumId = jo.getString("id");
-
+                albumId = jo.getString("fullId");
                 if (albums.containsKey(albumId) && !rewrite) {
                     // the album has already been loaded
                     return;
@@ -90,7 +87,7 @@ public class GooglePlusAlbumCache {
 
         try {
             JSONArray ja = new JSONArray(imagesArray);
-            albumId = ja.getJSONObject(0).getString("albumId");
+            albumId = ja.getJSONObject(0).getString("fullAlbumId");
 
             currentAlbumId = albumId;
 
@@ -98,10 +95,15 @@ public class GooglePlusAlbumCache {
                 // these images are already cached
                 return;
             }
+            
+            int size = ja.length();
+            
+            // put size in the album
+            albums.get(albumId).put("size", size);
 
             images.put(albumId, new HashMap<String, JSONObject>());
-            
-            for (int i = 0; i < ja.length(); i++) {
+
+            for (int i = 0; i < size; i++) {
                 jo = ja.getJSONObject(i);
 
                 if (!jo.has("albumId") || !jo.has("id")) {
@@ -142,29 +144,6 @@ public class GooglePlusAlbumCache {
         return list;
     }
 
-    // takes a list of id's from an event
-    public boolean areAlbumsLoaded(List<String> albumIds) {
-        if (albumIds != null) {
-            for (String id : albumIds) {
-                if (images.get(id) == null) {
-                    setNeedsUpdate(true);
-                    return false;
-                }
-            }
-        }
-
-        setNeedsUpdate(false);
-        return true;
-    }
-
-    public boolean isNeedsUpdate() {
-        return needsUpdate;
-    }
-
-    public void setNeedsUpdate(boolean needsUpdate) {
-        this.needsUpdate = needsUpdate;
-    }
-
     public String getCurrentAlbumId() {
         return currentAlbumId;
     }
@@ -173,23 +152,73 @@ public class GooglePlusAlbumCache {
         this.currentAlbumId = currentAlbumId;
     }
 
-    public String getCurrentPhotoId() {
-        return currentPhotoId;
+    public String getCurrentImageId() {
+        return currentImageId;
     }
 
-    public void setCurrentPhotoId(String currentPhotoId) {
-        this.currentPhotoId = currentPhotoId;
+    public void setCurrentImageId(String currentImageId) {
+        this.currentImageId = currentImageId;
     }
 
     public JSONObject getCurrentAlbum() {
         return albums.get(currentAlbumId);
     }
 
-    public List<JSONObject> getCurrentPhotos() {
+    public List<JSONObject> getCurrentImages() {
         return new ArrayList<JSONObject>(images.get(currentAlbumId).values());
     }
 
-    public JSONObject getCurrentPhoto() {
-        return images.get(currentAlbumId).get(currentPhotoId);
+    public JSONObject getCurrentImage() {
+        return images.get(currentAlbumId).get(currentImageId);
+    }
+
+    public List<JSONObject> getAllImages() {
+        List<JSONObject> list = new ArrayList<JSONObject>();
+
+        for (Map<String, JSONObject> album : images.values()) {
+            if (album != null && album.values() != null && !album.values().isEmpty()) {
+                list.addAll(album.values());
+            }
+        }
+
+        return list;
+    }
+
+    public boolean isAlbumLoaded(String albumId) {
+        return images.containsKey(albumId) && (images.get(albumId) != null);
+    }
+
+    public void setAlbumAndImages(String aiJson) {
+        try {
+            JSONObject jAlbum = new JSONObject(aiJson);
+
+            JSONArray albumImages = jAlbum.getJSONArray("images");
+            jAlbum.remove("images");
+
+            String albumId = jAlbum.getString("fullId");
+            int size = albumImages.length();
+            
+            jAlbum.put("size", size);
+            albums.put(albumId, jAlbum);
+            images.put(albumId, new HashMap<String, JSONObject>());
+
+            JSONObject jo;
+            String imageId;
+            Map<String, JSONObject> album = images.get(albumId);
+            for (int i = 0; i < albumImages.length(); i++) {
+                jo = albumImages.getJSONObject(i);
+
+                if (!jo.has("id")) {
+                    error.fire(new ErrorEvent("Error, object does not contain images"));
+                }
+
+                imageId = jo.getString("id");
+
+                album.put(imageId, jo);
+            }
+
+        } catch (JSONException je) {
+            error.fire(new ErrorEvent("Error", je.getMessage()));
+        }
     }
 }

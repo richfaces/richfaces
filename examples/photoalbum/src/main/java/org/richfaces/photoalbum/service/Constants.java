@@ -102,8 +102,6 @@ public class Constants {
     public static final int DEFAULT_IMAGE_SIZEVALUE = 120;
     public static final String SLASH = "/";
     public static final String DOT = ".";
-    public static final String JPEG = "jpeg";
-    public static final String JPG = "JPG";
     public static final String UPLOAD_ROOT_COMPONENT_NAME = "uploadRoot";
     public static final String UPLOAD_ROOT_PATH_COMPONENT_NAME = "uploadRootPath";
     public static final int INITIAL_DELAY = 4000;
@@ -123,6 +121,7 @@ public class Constants {
     public static final String USER_EXIST_QUERY = "user-exist";
     public static final String USER_LOGIN_QUERY = "user-login";
     public static final String USER_FB_LOGIN_QUERY = "user-fb-login";
+    public static final String USER_GPLUS_LOGIN_QUERY = "user-gplus-login";
     public static final String LOGIN_PARAMETER = "login";
     public static final String PASSWORD_PARAMETER = "password";
     public static final String USERNAME_PARAMETER = "username";
