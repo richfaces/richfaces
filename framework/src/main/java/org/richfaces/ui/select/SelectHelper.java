@@ -115,7 +115,7 @@ public final class SelectHelper {
         String label = null;
         String selectedValue = InputUtils.getInputValue(facesContext, component);
         if (selectedValue != null) {
-            List<ClientSelectItem> convertedSelectItems = RichFacesSelectHelper.getConvertedSelectItems(facesContext, component);
+            List<ClientSelectItem> convertedSelectItems = getConvertedSelectItems(facesContext, component);
             for (ClientSelectItem clientSelectItem : convertedSelectItems) {
                 if (selectedValue.equals(clientSelectItem.getConvertedValue())) {
                     label = clientSelectItem.getLabel();
