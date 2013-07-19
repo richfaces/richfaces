@@ -166,6 +166,7 @@
                             this.__showPopup();
                         } else {
                             this.list.__selectNext();
+                            this.__setCurrentSelectToInput();
                         }
                         break;
 
@@ -173,6 +174,7 @@
                         e.preventDefault();
                         if (visible) {
                             this.list.__selectPrev();
+                            this.__setCurrentSelectToInput();
                         }
                         break;
 
@@ -268,6 +270,25 @@
 					this.__save();
                 }
             },
+            
+            __setCurrentSelectToInput: function() {
+		var item;
+		item = this.list.items.eq(this.list.index);
+		
+		var key = $(item).attr("id");
+                var label;
+                $.each(this.clientSelectItems, function() {
+                    if (this.id == key) {
+                        label = this.label;
+                        return false;
+                    }
+                });
+                this.__setValue(label);
+                this.__save();
+
+                this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
+			
+	    },
 
             __updateItemsFromCache: function(value) {
                 if (this.originalItems.length > 0 && this.enableManualInput) {
