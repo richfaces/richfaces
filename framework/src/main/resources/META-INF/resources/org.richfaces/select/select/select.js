@@ -68,6 +68,20 @@
             this.cache = new rf.utils.Cache("", this.originalItems, getData, true);
         }
         this.changeDelay = mergedOptions.changeDelay;
+        
+        if (this.defaultLabel == "") {
+            var firstItem = this.clientSelectItems[0];
+            var key = $(firstItem).attr("id");
+            var label;
+            $.each(this.clientSelectItems, function() {
+                if (this.id == key) {
+                    label = this.label;
+                    return false;
+                }
+            });
+            this.__setValue(label);
+            this.__save();
+        }
     };
 
     rf.ui.InputBase.extend(rf.ui.Select);
@@ -114,7 +128,7 @@
 
             __onBtnMouseDown: function(e) {
                 if (!this.popupList.isVisible()) {
-                    this.__updateItems();
+                    this.__showOrigItems();
                     this.__showPopup();
                 } else {
                     this.__hidePopup();
@@ -148,10 +162,11 @@
                     case rf.KEYS.DOWN:
                         e.preventDefault();
                         if (!visible) {
-                            this.__updateItems();
+                            this.__showOrigItems();
                             this.__showPopup();
                         } else {
                             this.list.__selectNext();
+                            this.__setCurrentSelectToInput();
                         }
                         break;
 
@@ -159,6 +174,7 @@
                         e.preventDefault();
                         if (visible) {
                             this.list.__selectPrev();
+                            this.__setCurrentSelectToInput();
                         }
                         break;
 
@@ -240,6 +256,39 @@
                     this.list.__selectByIndex(0);
                 }
             },
+            
+            __showOrigItems: function() {
+                var newValue = this.__getValue();
+                newValue = (newValue != this.defaultLabel) ? newValue : "";
+                this.__updateItemsFromCache(newValue);
+    			
+				 if (this.originalItems.length > 0 && this.enableManualInput) {
+                    var newItems = this.originalItems;
+                    var items = $(newItems);
+                    this.list.__setItems(items);
+                    $(document.getElementById(this.id + "Items")).empty().append(items);
+					this.__save();
+                }
+            },
+            
+            __setCurrentSelectToInput: function() {
+		var item;
+		item = this.list.items.eq(this.list.index);
+		
+		var key = $(item).attr("id");
+                var label;
+                $.each(this.clientSelectItems, function() {
+                    if (this.id == key) {
+                        label = this.label;
+                        return false;
+                    }
+                });
+                this.__setValue(label);
+                this.__save();
+
+                this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
+			
+	    },
 
             __updateItemsFromCache: function(value) {
                 if (this.originalItems.length > 0 && this.enableManualInput) {
