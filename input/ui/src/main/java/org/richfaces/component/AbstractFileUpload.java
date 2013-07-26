@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -60,7 +61,7 @@ public abstract class AbstractFileUpload extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.FileUpload";
     public static final String COMPONENT_FAMILY = "org.richfaces.FileUpload";
 
-    private int queuedFileUploadEvents = 0;
+    private static final String QUEUED_FILE_UPLOAD_EVENTS_ATTR = "queuedFileUploadEvents";
 
     /**
      * Defines comma separated list of file extensions accepted by component.
@@ -205,6 +206,12 @@ public abstract class AbstractFileUpload extends UIComponentBase {
             String resourcePath = RenderKitUtils.getResourcePath(context, "org.richfaces", "fileUploadProgress");
             component.getAttributes().put("resource", resourcePath);
         }
+
+        if (event.getSource() == this) {
+            if (event instanceof PostAddToViewEvent) {
+                this.getAttributes().put("queuedFileUploadEvents", new AtomicInteger(0));
+            }
+        }
     }
 
     /**
@@ -267,7 +274,7 @@ public abstract class AbstractFileUpload extends UIComponentBase {
         final int maxFilesQuantity = this.getMaxFilesQuantity();
         final List<String> acceptedTypes = this.getAcceptedTypesList();
 
-        if ((maxFilesQuantity > 0) && (queuedFileUploadEvents >= maxFilesQuantity))
+        if ((maxFilesQuantity > 0) && (queuedFileUploadEvents().get() >= maxFilesQuantity))
             return false;
 
         if (clientId.equals(file.getParameterName())) {
@@ -283,11 +290,22 @@ public abstract class AbstractFileUpload extends UIComponentBase {
         return false;
     }
 
+    /**
+     * Increments number of {@link FileUploadEvent} which were queued
+     */
     @Override
     public void queueEvent(FacesEvent event) {
         if (event instanceof FileUploadEvent) {
-            queuedFileUploadEvents += 1;
+            queuedFileUploadEvents().addAndGet(1);
         }
         super.queueEvent(event);
+    }
+
+    /**
+     * Returns a number of {@link FileUploadEvent} which were already queued for this component
+     */
+    private AtomicInteger queuedFileUploadEvents() {
+        AtomicInteger i = (AtomicInteger) this.getAttributes().get(QUEUED_FILE_UPLOAD_EVENTS_ATTR);
+        return i;
     }
 }
