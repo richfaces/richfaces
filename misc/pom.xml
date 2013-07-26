@@ -26,12 +26,13 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.5.0-SNAPSHOT</version>
+        <version>4.3.3-SNAPSHOT</version>
         <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui.misc</groupId>
     <artifactId>richfaces-ui-misc-aggregator</artifactId>
+    <version>4.5.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>RichFaces UI Components: Miscellanous Aggregator</name>
 
