@@ -73,4 +73,16 @@ public abstract class BaseUploadedFile implements UploadedFile {
             Closeables.closeQuietly(is);
         }
     }
+
+    @Override
+    public String getFileExtension() {
+        String name = this.getName();
+        if (name != null) {
+            int i = name.lastIndexOf('.');
+            if (i > 0) {
+                return name.substring(i + 1);
+            }
+        }
+        return "";
+    }
 }

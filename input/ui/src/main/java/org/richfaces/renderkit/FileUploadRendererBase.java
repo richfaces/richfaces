@@ -25,6 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.component.AbstractFileUpload;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.request.MultipartRequest;
@@ -32,20 +33,25 @@ import org.richfaces.request.MultipartRequest;
 /**
  * @author Konstantin Mishin
  * @author Nick Belaevski
+ * @author Lukas Fryc
+ * @author Simone Cinti
+ *
  */
+
 public class FileUploadRendererBase extends RendererBase {
+
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
-        ExternalContext externalContext = context.getExternalContext();
-        MultipartRequest multipartRequest = (MultipartRequest) externalContext.getRequestMap().get(
-            MultipartRequest.REQUEST_ATTRIBUTE_NAME);
-        if (multipartRequest != null) {
-            String clientId = component.getClientId(context);
+        final AbstractFileUpload fileUpload = (AbstractFileUpload) component;
+        final ExternalContext externalContext = context.getExternalContext();
 
+        MultipartRequest multipartRequest = (MultipartRequest) externalContext.getRequestMap().get(
+                MultipartRequest.REQUEST_ATTRIBUTE_NAME);
+
+        if (multipartRequest != null) {
             for (UploadedFile file : multipartRequest.getUploadedFiles()) {
-                if (clientId.equals(file.getParameterName())) {
-                    component.queueEvent(new FileUploadEvent(component, file));
-                    break;
+                if (fileUpload.acceptsFile(file)) {
+                    fileUpload.queueEvent(new FileUploadEvent(fileUpload, file));
                 }
             }
         }

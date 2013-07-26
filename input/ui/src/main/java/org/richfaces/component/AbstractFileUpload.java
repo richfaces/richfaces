@@ -21,7 +21,11 @@
  */
 package org.richfaces.component;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -29,6 +33,7 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.FacesEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
@@ -37,7 +42,9 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.event.FileUploadEvent;
 import org.richfaces.event.FileUploadListener;
+import org.richfaces.model.UploadedFile;
 import org.richfaces.renderkit.RenderKitUtils;
 
 /**
@@ -50,8 +57,11 @@ import org.richfaces.renderkit.RenderKitUtils;
         "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "ajax-props.xml", "i18n-props.xml", "fileUploadListener-props.xml" })
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractFileUpload extends UIComponentBase {
+
     public static final String COMPONENT_TYPE = "org.richfaces.FileUpload";
     public static final String COMPONENT_FAMILY = "org.richfaces.FileUpload";
+
+    private static final String QUEUED_FILE_UPLOAD_EVENTS_ATTR = "queuedFileUploadEvents";
 
     /**
      * Defines comma separated list of file extensions accepted by component.
@@ -64,10 +74,10 @@ public abstract class AbstractFileUpload extends UIComponentBase {
     /**
      * Defines maximum number of files allowed to be uploaded. After a number of files in the list equals to the value
      * of this attribute, "Add" button disappears and nothing could be uploaded even if you clear the whole list.
-     * In order to upload files again you should rerender the component
+     * In order to upload files again you should rerender the component. (Negative numbers means no limits; default value -1).
      */
-    @Attribute
-    public abstract String getMaxFilesQuantity();
+    @Attribute(defaultValue = "-1")
+    public abstract Integer getMaxFilesQuantity();
 
     /**
      * If "true", this component is disabled
@@ -196,6 +206,12 @@ public abstract class AbstractFileUpload extends UIComponentBase {
             String resourcePath = RenderKitUtils.getResourcePath(context, "org.richfaces", "fileUploadProgress");
             component.getAttributes().put("resource", resourcePath);
         }
+
+        if (event.getSource() == this) {
+            if (event instanceof PostAddToViewEvent) {
+                this.getAttributes().put("queuedFileUploadEvents", new AtomicInteger(0));
+            }
+        }
     }
 
     /**
@@ -232,5 +248,64 @@ public abstract class AbstractFileUpload extends UIComponentBase {
      */
     public void removeFileUploadListener(FileUploadListener listener) {
         removeFacesListener(listener);
+    }
+
+    /**
+     * Get a list of accepted types from {@link #getAcceptedTypes()} attribute.
+     */
+    public List<String> getAcceptedTypesList() {
+        String acceptedTypes = this.getAcceptedTypes();
+        if (acceptedTypes != null) {
+            return Arrays.asList(acceptedTypes.toLowerCase().replaceAll("\\s+", "").split(","));
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    /**
+     * Checks whether this component can accept given {@link UploadedFile}..
+     *
+     * First, the number of enqueued {@link FileUploadEvent} events can't exceed {@link #getMaxFilesQuantity()}.
+     *
+     * Then, the file extension of uploaded file needs to be acceptable by this component (see {@link #getAcceptedTypes()}).
+     */
+    public boolean acceptsFile(UploadedFile file) {
+        final String clientId = this.getClientId();
+        final int maxFilesQuantity = this.getMaxFilesQuantity();
+        final List<String> acceptedTypes = this.getAcceptedTypesList();
+
+        if ((maxFilesQuantity > 0) && (queuedFileUploadEvents().get() >= maxFilesQuantity))
+            return false;
+
+        if (clientId.equals(file.getParameterName())) {
+            if (acceptedTypes.isEmpty()) {
+                return true;
+            }
+
+            if (acceptedTypes.contains(file.getFileExtension().toLowerCase())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Increments number of {@link FileUploadEvent} which were queued
+     */
+    @Override
+    public void queueEvent(FacesEvent event) {
+        if (event instanceof FileUploadEvent) {
+            queuedFileUploadEvents().addAndGet(1);
+        }
+        super.queueEvent(event);
+    }
+
+    /**
+     * Returns a number of {@link FileUploadEvent} which were already queued for this component
+     */
+    private AtomicInteger queuedFileUploadEvents() {
+        AtomicInteger i = (AtomicInteger) this.getAttributes().get(QUEUED_FILE_UPLOAD_EVENTS_ATTR);
+        return i;
     }
 }
