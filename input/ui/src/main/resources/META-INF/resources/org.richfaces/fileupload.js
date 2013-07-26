@@ -306,8 +306,14 @@
                 fileName = fileName.toUpperCase();
                 var result = !this.acceptedTypes;
                 for (var i = 0; !result && i < this.acceptedTypes.length; i++) {
-                    var extension = this.acceptedTypes[i];
-                    result = fileName.indexOf(extension, fileName.length - extension.length) !== -1;
+                    var extension = "." + this.acceptedTypes[i];
+
+                    if (extension === "." && fileName.indexOf(".") < 0) {
+                        // no extension
+                        result = true;
+                    } else {
+                        result = fileName.indexOf(extension, fileName.length - extension.length) !== -1;
+                    }
                 }
                 if (!result) {
                     throw new TypeRejectedException(fileName);
