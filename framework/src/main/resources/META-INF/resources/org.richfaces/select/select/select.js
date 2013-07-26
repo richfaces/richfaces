@@ -68,6 +68,20 @@
             this.cache = new rf.utils.Cache("", this.originalItems, getData, true);
         }
         this.changeDelay = mergedOptions.changeDelay;
+        
+        if (this.defaultLabel == "") {
+            var firstItem = this.clientSelectItems[0];
+            var key = $(firstItem).attr("id");
+            var label;
+            $.each(this.clientSelectItems, function() {
+                if (this.id == key) {
+                    label = this.label;
+                    return false;
+                }
+            });
+            this.__setValue(label);
+            this.__save();
+        }
     };
 
     rf.ui.InputBase.extend(rf.ui.Select);
@@ -251,27 +265,38 @@
             },
 
             __getClientItemFromCache: function(inputLabel) {
-                var value;
-                var label;
-                if (this.enableManualInput) {
-                    var items = this.cache.getItems(inputLabel, this.filterFunction);
-                    if (items && items.length > 0) {
-                        var first = $(items[0]);
+    			var value;
+				var label;
+				if (this.enableManualInput) {
+					var items = this.cache.getItems(inputLabel, this.filterFunction);
+					if (items && items.length > 0) {
+					    var first = $(items[0]);
                         $.each(this.clientSelectItems, function() {
-                            if (this.id == first.attr("id")) {
+                            if (this.label == inputLabel) {
                                 label = this.label;
                                 value = this.value;
                                 return false;
                             }
                         });
+                    
                     } else {
-                        label = inputLabel;
-                        value = "";
+                        this.container.removeClass("rf-sel-fld-err");
+                    
+                        var prevValue = this.selValueInput.val();
+                        if (prevValue && prevValue != "") {
+                            $.each(this.clientSelectItems, function() {
+                                if (this.value == prevValue) {
+                                    label = this.label;
+                                    value = this.value;
+                                    return false;
+                                }
+                            });
+                        }
                     }
                 }
-
-                if (label) {
-                    return {'label': label, 'value': value};
+            
+                if (label && value) {
+                    return {'label': label,'value': value};
                 }
             },
 
