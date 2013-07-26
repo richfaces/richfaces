@@ -10,11 +10,11 @@ import org.openqa.selenium.WebDriver;
  * <p>
  * Prepares PhantomJS browser to run effectively with fundamental tests
  * </p>
- *
+ * 
  * <ul>
  * <li>resizes the browser window to 1280x1024</li>
  * </ul>
- *
+ * 
  * @author Lukas Fryc
  */
 public class PrepareBrowserSession {

@@ -1,0 +1,34 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="seleniumTest">
+
+    <test name="All Selenium 2 Tests for Mobile Showcase" preserve-order="false">
+        <groups>
+            <run>
+                <exclude name="4.Future" />
+                <exclude name="old-selenium" />
+            </run>
+        </groups>
+
+        <packages>
+            <package name="org.richfaces.tests.showcase.commandButton" />
+            <package name="org.richfaces.tests.showcase.commandLink" />
+            <package name="org.richfaces.tests.showcase.componentControl" />
+            <package name="org.richfaces.tests.showcase.inplaceInput" />
+            <package name="org.richfaces.tests.showcase.list" />
+            <package name="org.richfaces.tests.showcase.log" />
+            <package name="org.richfaces.tests.showcase.mediaOutput" />
+            <package name="org.richfaces.tests.showcase.placeholder" />
+            <package name="org.richfaces.tests.showcase.region" />
+            <package name="org.richfaces.tests.showcase.repeat" />
+            <package name="org.richfaces.tests.showcase.select" />
+        </packages>
+
+        <classes>
+            <class name="org.richfaces.tests.showcase.ajax.TestAjax" />
+            <class name="org.richfaces.tests.showcase.dataScroller.TestSimpleScrolling" />
+            <class name="org.richfaces.tests.showcase.dataTable.TestSimpleTable" />
+            <class name="org.richfaces.tests.showcase.extendedDataTable.TestSimpleTable" />
+            <class name="org.richfaces.tests.showcase.param.TestParam" />
+        </classes>
+    </test>
+</suite>

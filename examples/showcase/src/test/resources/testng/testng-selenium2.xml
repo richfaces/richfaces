@@ -1,0 +1,42 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="seleniumTest">
+
+    <test name="All Selenium 2 Tests" preserve-order="false">
+        <groups>
+            <run>
+                <exclude name="4.Future" />
+                <exclude name="old-selenium" />
+            </run>
+        </groups>
+
+        <packages>
+            <package name="org.richfaces.tests.showcase.ajax" />
+            <package name="org.richfaces.tests.showcase.commandButton" />
+            <package name="org.richfaces.tests.showcase.commandLink" />
+            <package name="org.richfaces.tests.showcase.componentControl" />
+            <package name="org.richfaces.tests.showcase.dataGrid" />
+            <package name="org.richfaces.tests.showcase.dataScroller" />
+            <package name="org.richfaces.tests.showcase.dataTable" />
+            <package name="org.richfaces.tests.showcase.extendedDataTable" />
+            <package name="org.richfaces.tests.showcase.inplaceInput" />
+            <package name="org.richfaces.tests.showcase.inputNumberSpinner" />
+            <package name="org.richfaces.tests.showcase.jsFunction" />
+            <package name="org.richfaces.tests.showcase.list" />
+            <package name="org.richfaces.tests.showcase.log" />
+            <package name="org.richfaces.tests.showcase.mediaOutput" />
+            <package name="org.richfaces.tests.showcase.message" />
+            <package name="org.richfaces.tests.showcase.messages" />
+            <package name="org.richfaces.tests.showcase.notify" />
+            <package name="org.richfaces.tests.showcase.param" />
+            <package name="org.richfaces.tests.showcase.placeholder" />
+            <package name="org.richfaces.tests.showcase.region" />
+            <package name="org.richfaces.tests.showcase.repeat" />
+            <package name="org.richfaces.tests.showcase.select" />
+            <package name="org.richfaces.tests.showcase.subTableToggleControl" />
+        </packages>
+
+        <classes>
+            <class name="org.richfaces.tests.showcase.outputPanel.TestSimple"/>
+        </classes>
+    </test>
+</suite>

@@ -19,7 +19,8 @@
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -103,8 +104,8 @@
         <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
         <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
         <url>https://github.com/richfaces/richfaces5</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -379,7 +380,8 @@
                 <configuration>
                     <preparationGoals>clean verify -Prelease -Prelease-preparation</preparationGoals>
                     <completionGoals>clean verify -Prelease-completion -DskipTests=true</completionGoals>
-                    <arguments>-Prelease -Pjboss-release -DoldVersion=${project.version} -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${developmentVersion}</arguments>
+                    <arguments>-Prelease -Pjboss-release -DoldVersion=${project.version} -DreleaseVersion=${releaseVersion}
+                        -DdevelopmentVersion=${developmentVersion}</arguments>
                 </configuration>
             </plugin>
             <plugin>
@@ -616,6 +618,7 @@
             </activation>
             <properties>
                 <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
+                <testCategory.excluded.default>category.Failing,category.NoPhantomJS</testCategory.excluded.default>
             </properties>
         </profile>
         <profile>
@@ -667,6 +670,8 @@
                 <arquillian.launch.jbossas71>true</arquillian.launch.jbossas71>
                 <arquillian.container.home>${project.build.directory}/jboss-as-${version.jboss-as7}</arquillian.container.home>
                 <arquillian.container.distribution>org.jboss.as:jboss-as-dist:zip:${version.jboss-as7}</arquillian.container.distribution>
+                <arquillian.container.configuration>org.richfaces:richfaces-build-resources:zip:configuration-jbossas71:${version.richfaces}</arquillian.container.configuration>
+                <arquillian.container.jbossas71.server.config>standalone.xml</arquillian.container.jbossas71.server.config>
             </properties>
             <dependencies>
                 <dependency>
@@ -1015,7 +1020,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
     </profiles>
 
 </project>
