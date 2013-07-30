@@ -1,13 +1,13 @@
 package org.richfaces.demo.mediaOutput;
 
-import java.io.Serializable;
+import org.richfaces.resource.SerializableResource;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class MediaData implements Serializable {
+public class MediaData implements SerializableResource {
     private static final Color[] COLORS = { new Color(255, 0, 0), new Color(0, 0, 255), new Color(0, 255, 0),
             new Color(255, 255, 0), new Color(0, 255, 255) };
     private static final long serialVersionUID = 1L;
