@@ -224,7 +224,7 @@
 
                 var re = new RegExp(pattern, 'i');
                 var match = dateString.match(re);
-                if (match != null && y != undefined && m != undefined && d != undefined) {
+                if (match != null && y != undefined && m != undefined) {
                     // set default century start
                     var correctYear = false;
                     var defaultCenturyStart = new Date();
@@ -243,7 +243,12 @@
                     var mm = parseInt(match[m], 10);
                     if (isNaN(mm)) mm = this.getMonthByLabel(match[m], shortLabel ? monthNamesShort : monthNames); else if (--mm < 0 || mm > 11) return null;
                     var addDay = correctYear ? 1 : 0;
-                    var dd = parseInt(match[d], 10);
+                    var dd;
+                    if (d != undefined) {
+                        dd = parseInt(match[d], 10);
+                    } else {
+                        dd = 1; // default to the first of the month when the date is not selected
+                    }
                     if (isNaN(dd) || dd < 1 || dd > this.daysInMonth(yy, mm) + addDay) return null;
 
                     var date;
