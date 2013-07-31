@@ -365,12 +365,17 @@
 
 
                     this.div.css('visibility', '');
-                    if ($.browser.msie && $.browser.version >= 9.0 && document.documentMode >= 9) {
+                    if ($.browser.msie) {
                         $(this.cdiv).find('input').each(function() {
                             // Force a CSS "touch" of all popupPanel children to ensure visibility in IE 9/10 for RF-12850
                             var $this = $(this);
-                            var visibility = $this.css('visibility');
-                            $this.css('visibility', visibility);
+                            if ($this.attr('class')) {
+                                $this.attr('class', $this.attr('class'));
+                            } else if ($this.attr('style')) {
+                                $this.attr('style', $this.attr('style'));
+                            } else {
+                                $this.attr('style', '');
+                            }
                         })
                     }
                     this.div.css('display', 'block');
