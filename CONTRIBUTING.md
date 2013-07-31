@@ -26,8 +26,9 @@ Make sure the code is [properly formatted](https://community.jboss.org/wiki/Impo
 
 ## Submitting Changes
 
-* Sign the [Contributor License Agreement](http://cla.jboss.org/).
-* Follow the [Guide to use pull requests with GitHub and JIRA](https://community.jboss.org/wiki/GuideToUsePullRequestsWithGitHubAndJIRA)
+* Sign the [Contributor License Agreement](http://cla.jboss.org/) for **RichFaces** project.
+* Submit a [pull request](https://help.github.com/articles/creating-a-pull-request)
+    * Follow the project's [Guide to use pull requests with GitHub and JIRA](https://community.jboss.org/wiki/GuideToUsePullRequestsWithGitHubAndJIRA)
 
 # Additional Resources
 
