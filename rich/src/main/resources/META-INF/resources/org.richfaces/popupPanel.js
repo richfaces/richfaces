@@ -367,14 +367,10 @@
                     this.div.css('visibility', '');
                     if ($.browser.msie) {
                         $(this.cdiv).find('input').each(function() {
-                            // Force a CSS "touch" of all popupPanel children to ensure visibility in IE 9/10 for RF-12850
+                            // Force a CSS "touch" of all popupPanel children to ensure visibility in IE for RF-12850
                             var $this = $(this);
-                            if ($this.attr('class')) {
-                                $this.attr('class', $this.attr('class'));
-                            } else if ($this.attr('style')) {
-                                $this.attr('style', $this.attr('style'));
-                            } else {
-                                $this.attr('style', '');
+                            if ($this.parents(".rf-pp-cntr").first().attr('id') === element.attr('id')) {
+                                $this.css('visibility', $this.css('visibility'));
                             }
                         })
                     }
