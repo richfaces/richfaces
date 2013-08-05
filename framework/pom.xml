@@ -279,7 +279,7 @@
                                 <!-- RichFaces -->
                                 <resource>
                                     <directory>${basedir}/src/main/widgets/dist/assets/richfaces</directory>
-                                    <targetPath>${project.build.directory}/classes/META-INF/resources/org.richfaces/widgets/</targetPath>
+                                    <targetPath>${project.build.directory}/classes/META-INF/resources/org.richfaces/widget/</targetPath>
                                 </resource>
                                 <!-- jQuery UI -->
                                 <resource>
