@@ -29,269 +29,35 @@
                 xmlns:r="http://richfaces.org/rich">
 <ui:param name="title" value="Autocomplete" />
 
-<!-- content -->
 <ui:define name="content">
-<style type="text/css">
-    .myPopupClass .rf-au-lst-scrl {
-        border: 1px solid red;
-        width: 400px;
-    }
-
-    .red {
-        color: red;
-    }
-</style>
-
-<h:form id="form">
-    <h:selectOneMenu value="#{autoCompleteBean.mode}" onchange="submit()">
-        <f:selectItems value="#{autoCompleteBean.modes}"/>
-    </h:selectOneMenu>
-    <br/>
-    <h:commandButton accesskey="b" value="RF-12481" title="Click when Autocomplete is expanded" >
-        <f:ajax execute="@form" render="@form"/>
-    </h:commandButton>
-    <br/>
-    <div style="height: 300px; width: 300px; overflow: auto; float: left;">
-        Text block text block text block text block text block text block text block text block
-        <script type="text/javascript">
-            function customFilterFunction(subString, value) {
-                if (subString.length > 1)
-                    if (value.indexOf(subString) != -1) return true;
-            }
-        </script>
-
-        <r:autocomplete popupClass="myPopupClass" autofill="false" id="myAutocomplete"
-                            clientFilterFunction="customFilterFunction" mode="#{autoCompleteBean.mode}" minChars="2"
-                            autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
-                            fetchValue="#{country.name}"
-                            showButton="true" value="#{autoCompleteBean.value}" layout="list"
-                            onchange="return onEvent.call(this, event);"
-                            onselectitem="return onEvent.call(this, event);"
-                            onblur="return onEvent.call(this, event);" onfocus="return onEvent.call(this, event);">
-            #{country.name} #{country.iso} #{country.domain}
-            <r:ajax event="change" render="output"/>
+    
+    <h3>Autocomplete with custom suggestion formatting in list layout</h3>
+    
+    Following sample shows usage of autocomplete in AJAX mode with custom suggestion formatting and fetched value:
+    
+    <h:form id="custom-formatting">
+    	<r:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="ajax" layout="list" var="p" fetchValue="#{p.name}"
+            onblur="console.log('blur')">
+            #{p.name} - #{p.age}
         </r:autocomplete>
-        <br/>
-        <h:outputText value="RF-9835:"/>
-        <br/>
-        <r:autocomplete id="myAutocomplete1" mode="client" autocompleteMethod="#{autoCompleteBean.autocomplete}"
-                            var="country" fetchValue="#{country.name}" showButton="true"
-                            value="#{autoCompleteBean.value}"
-                            layout="table">
-            <r:column styleClass="red">
-                <h:outputText value="#{country.name}"/>
-            </r:column>
-            <r:column>
-                <h:outputText value="#{country.iso}"/>
-            </r:column>
-            <r:column>
-                <h:outputText value="#{country.domain}"/>
-            </r:column>
-            <r:ajax event="change" render="output"/>
-        </r:autocomplete>
-        <br/>
-        <br/> Your selection:
-        <h:outputText id="output" value="#{autoCompleteBean.value}"/>
-        <script type="text/javascript">
-            onEvent = function (event, element, data) {
-                RichFaces.log.info("jQuery Event: " + (event instanceof jQuery.Event) + "; event: " + event.type + "; data:" + (data || (event['rich'] || {})['data']) + "; this.id:" + this.id + "; component:" + (event['rich'] || {})['component'] || RichFaces.$(this.id));
-            };
-            RichFaces.Event.bindById("form:myAutocomplete", "selectitem change blur focus", onEvent);
-        </script>
-        <br/> <select style="width: 200px" name="select">
-        <option>option 0</option>
-        <option>option 1</option>
-        <option>option 2</option>
-        <option>option 3</option>
-        <option>option 4</option>
-        <option>option 5</option>
-        <option>option 6</option>
-        <option>option 7</option>
-        <option>option 8</option>
-        <option>option 9</option>
-        <option>option 10</option>
-        <option>option 11</option>
-        <option>option 12</option>
-        <option>option 13</option>
-        <option>option 14</option>
-        <option>option 15</option>
-        <option>option 16</option>
-        <option>option 17</option>
-        <option>option 18</option>
-        <option>option 19</option>
-        <option>option 20</option>
-        <option>option 21</option>
-        <option>option 22</option>
-        <option>option 23</option>
-        <option>option 24</option>
-        <option>option 25</option>
-        <option>option 26</option>
-        <option>option 27</option>
-        <option>option 28</option>
-        <option>option 29</option>
-        <option>option 30</option>
-        <option>option 31</option>
-        <option>option 32</option>
-        <option>option 33</option>
-        <option>option 34</option>
-        <option>option 35</option>
-        <option>option 36</option>
-        <option>option 37</option>
-        <option>option 38</option>
-        <option>option 39</option>
-        <option>option 40</option>
-        <option>option 41</option>
-        <option>option 42</option>
-        <option>option 43</option>
-        <option>option 44</option>
-        <option>option 45</option>
-        <option>option 46</option>
-        <option>option 47</option>
-        <option>option 48</option>
-        <option>option 49</option>
-        <option>option 50</option>
-        <option>option 51</option>
-        <option>option 52</option>
-        <option>option 53</option>
-        <option>option 54</option>
-        <option>option 55</option>
-        <option>option 56</option>
-        <option>option 57</option>
-        <option>option 58</option>
-        <option>option 59</option>
-        <option>option 60</option>
-        <option>option 61</option>
-        <option>option 62</option>
-        <option>option 63</option>
-        <option>option 64</option>
-        <option>option 65</option>
-        <option>option 66</option>
-        <option>option 67</option>
-        <option>option 68</option>
-        <option>option 69</option>
-        <option>option 70</option>
-        <option>option 71</option>
-        <option>option 72</option>
-        <option>option 73</option>
-        <option>option 74</option>
-        <option>option 75</option>
-        <option>option 76</option>
-        <option>option 77</option>
-        <option>option 78</option>
-        <option>option 79</option>
-        <option>option 80</option>
-        <option>option 81</option>
-        <option>option 82</option>
-        <option>option 83</option>
-        <option>option 84</option>
-        <option>option 85</option>
-        <option>option 86</option>
-        <option>option 87</option>
-        <option>option 88</option>
-        <option>option 89</option>
-        <option>option 90</option>
-        <option>option 91</option>
-        <option>option 92</option>
-        <option>option 93</option>
-        <option>option 94</option>
-        <option>option 95</option>
-        <option>option 96</option>
-        <option>option 97</option>
-        <option>option 98</option>
-        <option>option 99</option>
-    </select> text block text block text block text block text block text block text block text block text block
-        text block text block text block text block text block text block text block text block text block text
-        block text block text block text block text block text block text block text block text block text block
-        text block text block text block text block text block text block text block text block text block text
-        block text block text block text block text block text block text block text block text block text block
-        text block text block text block text block text block text block text block text block text block text
-        block text block text block text block text block text block text block text block text block text block
-        text block text block text block text block text block text block text block text block text block text
-        block text block text block text block text block text block text block text block text block text block
-        text block text block text block text block text block text block text block text block text block text
-        block text block text block text block text block text block text block text block text block text block
-        text block text block text block text block text block text block text block text block text block text
-        block text block text block text block text block text block text block text block text block text block
-        text block text block text block text block text block text block text block text block text block text
-        block text block text block text block text block text block text block text block text block text block
-        text block text block text block text block text block text block text block text block text block text
-        block text block text block text block text block text block text block text block text block text block
-        text block text block text block text block text block text block text block text block text block
-    </div>
-    <div>
-        <r:log mode="inline"></r:log>
-    </div>
-</h:form>
-<h:form>
-    RF-9567:<br/>
-    <br/>
-    <r:outputPanel ajaxRendered="true">
-        <h:messages/>
-    </r:outputPanel>
-
-    <r:autocomplete mode="ajax" id="autocomplete" autocompleteMethod="#{autoCompleteBean.autocomplete}"
-                        value="#{autoCompleteBean.value}">
-        <f:validateRegex pattern="Alabama"/>
-    </r:autocomplete>
-
-    <r:commandButton render="@form" execute="autocomplete"/>
-</h:form>
-<h:form>
-    <r:autocomplete mode="cachedAjax" tokens="," minChars="0" autofill="true" selectFirst="false" layout="table"
-                        autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
-                        fetchValue="#{country.name}">
-        <h:column>
-            #{country.name}
-        </h:column>
-        <h:column>
-            #{country.iso}
-        </h:column>
-    </r:autocomplete>
-</h:form>
-<h:form>
-    <h:commandButton id="leggTilKontroll" value="Button">
-        <r:componentControl target="popup" operation="show"/>
-    </h:commandButton>
-</h:form>
-<r:popupPanel id="popup" autosized="true">
-    <h:form>
-        <r:autocomplete mode="cachedAjax" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
-                            fetchValue="#{country.name}">
-            #{country.name} #{country.iso} #{country.domain}
-        </r:autocomplete>
-        <r:select id="select" enableManualInput="true" defaultLabel="Select Value ...">
-            <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
-            <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
-            <f:selectItem itemLabel="Label#3" itemValue="Value#3"/>
-            <f:selectItem itemLabel="Label#4" itemValue="Value#4"/>
-            <f:selectItem itemLabel="Label#5" itemValue="Value#5"/>
-            <f:selectItem itemLabel="Label#6" itemValue="Value#6"/>
-            <f:selectItem itemLabel="Label#7" itemValue="Value#7"/>
-            <f:selectItem itemLabel="Label#8" itemValue="Value#8"/>
-            <f:selectItem itemLabel="Label#9" itemValue="Value#9"/>
-            <f:selectItem itemLabel="Label#10" itemValue="Value#10"/>
-            <f:selectItem itemLabel="Label#11" itemValue="Value#11"/>
-            <f:selectItem itemLabel="Label#12" itemValue="Value#12"/>
-            <f:selectItem itemLabel="Label#13" itemValue="Value#13"/>
-            <f:selectItem itemLabel="Label#14" itemValue="Value#14"/>
-        </r:select>
-        <r:inplaceSelect defaultLabel="Edit Text" openOnEdit="true" saveOnSelect="false">
-            <f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
-            <f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
-            <f:selectItem itemLabel="Label#3" itemValue="Value#3"/>
-            <f:selectItem itemLabel="Label#4" itemValue="Value#4"/>
-            <f:selectItem itemLabel="Label#5" itemValue="Value#5"/>
-            <f:selectItem itemLabel="Label#6" itemValue="Value#6"/>
-            <f:selectItem itemLabel="Label#7" itemValue="Value#7"/>
-            <f:selectItem itemLabel="Label#8" itemValue="Value#8"/>
-            <f:selectItem itemLabel="Label#9" itemValue="Value#9"/>
-            <f:selectItem itemLabel="Label#10" itemValue="Value#10"/>
-            <f:selectItem itemLabel="Label#11" itemValue="Value#11"/>
-            <f:selectItem itemLabel="Label#12" itemValue="Value#12"/>
-            <f:selectItem itemLabel="Label#13" itemValue="Value#13"/>
-            <f:selectItem itemLabel="Label#14" itemValue="Value#14"/>
-        </r:inplaceSelect>
+        
+        <r:commandButton render="autocomplete" value="Re-render" />
     </h:form>
-</r:popupPanel>
+    
+    <h3>Autocomplete with suggestion in table layout</h3>
+    
+    <h:form id="table-layout">
+        <r:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="ajax" layout="table" var="p" fetchValue="#{p.name}">
+            <r:column>
+                #{p.name}
+            </r:column>
+            <r:column>
+                #{p.age}
+            </r:column>
+        </r:autocomplete>
+        
+        <r:commandButton render="autocomplete" value="Re-render" />
+    </h:form>
+
 </ui:define>
 </ui:composition>

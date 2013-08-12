@@ -28,7 +28,6 @@ package org.richfaces.ui.input.autocomplete;
 public enum AutocompleteMode {
 
     client,
-    lazyClient,
     ajax,
     cachedAjax;
     public static final AutocompleteMode DEFAULT = cachedAjax;

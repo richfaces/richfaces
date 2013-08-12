@@ -1,108 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  JBoss, Home of Professional Open Source
-  Copyright 2013, Red Hat, Inc. and individual contributors
-  by the @authors tag. See the copyright.txt in the distribution for a
-  full listing of individual contributors.
-
-  This is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as
-  published by the Free Software Foundation; either version 2.1 of
-  the License, or (at your option) any later version.
-
-  This software is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public
-  License along with this software; if not, write to the Free
-  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-  02110-1301 USA, or see the FSF site: http://www.fsf.org.
-  -->
-
-<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+          xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
           xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
-          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
-        >
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
 
     <cc:interface>
-        <cdk:class>org.richfaces.ui.input.autocomplete.AutocompleteRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.input.autocomplete.AutocompleteRendererBase</cdk:superclass>
-        <cdk:component-family>javax.faces.Input</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.AutocompleteRenderer
-        </cdk:renderer-type>
-        <cdk:renders-children>true</cdk:renders-children>
+        <cdk:component-family>org.richfaces.AutocompleteFamily</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.AutocompleteRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.ui.input.autocomplete.AbstractAutocomplete</cdk:component-base-class>
 
-        <cdk:import package="org.richfaces.ui.input.autocomplete" names="AutocompleteMode.*" static="true" />
+        <cdk:resource-dependency library="bootstrap" name="bootstrap.css" />
+        <cdk:resource-dependency library="font-awesome" name="font-awesome.css" />
+        <cdk:resource-dependency library="org.richfaces" name="widget/input/autocomplete.css" />
+        
+        <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.widget.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.position.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.menu.js" />
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.autocomplete.js" />
+        <cdk:resource-dependency library="org.richfaces" name="widget/input/autocomplete.js" />
+        <cdk:resource-dependency library="org.richfaces" name="bridge/bridgeBase.js" />
+        <cdk:resource-dependency library="org.richfaces" name="bridge/input/autocompleteBridge.js" />
     </cc:interface>
 
     <cc:implementation>
-        <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
-        <span id="#{clientId}" class="#{concatClasses('rf-au', component.attributes['styleClass'])}" cdk:passThrough="style">
-            <input id="#{clientId}Value" name="#{clientId}Value" type="hidden" />
-            <span class="#{component.attributes['showButton'] ? 'rf-au-fld-btn' : ''}">
-                <input onclick="#{component.attributes['onclick']}" ondblclick="#{component.attributes['ondblclick']}"
-                    onmouseup="#{component.attributes['onmouseup']}" onmousedown="#{component.attributes['onmousedown']}"
-                    onmousemove="#{component.attributes['onmousemove']}" onmouseover="#{component.attributes['onmouseover']}"
-                    onmouseout="#{component.attributes['onmouseout']}" onkeyup="#{component.attributes['onkeyup']}" onkeydown="#{component.attributes['onkeydown']}"
-                    onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input" value="#{getInputValue(facesContext, component)}"
-                    disabled="#{disabled}" name="#{clientId}Input" type="text"
-                    class="rf-au-fnt rf-au-inp #{component.attributes['inputClass']}" autocomplete="off"
-                    cdk:passThrough="tabindex"/>
-                <c:if test="#{component.attributes['showButton']}">
-                    <span id="#{clientId}Button" class="rf-au-btn">
-                        <span class="rf-au-btn-arrow#{component.attributes['disabled'] ? '-dis' : ''}"></span>
-                    </span>
-                </c:if>
-            </span>
-
-            <div onclick="#{component.attributes['onlistclick']}" ondblclick="#{component.attributes['onlistdblclick']}"
-                onmouseup="#{component.attributes['onlistmouseup']}" onmousedown="#{component.attributes['onlistmousedown']}"
-                onmousemove="#{component.attributes['onlistmousemove']}" onmouseover="#{component.attributes['onlistmouseover']}"
-                onmouseout="#{component.attributes['onlistmouseout']}" onkeyup="#{component.attributes['onlistkeyup']}"
-                onkeydown="#{component.attributes['onlistkeydown']}" onkeypress="#{component.attributes['onlistkeypress']}" id="#{clientId}List"
-                class="rf-au-lst-cord">
-
-                <div class="rf-au-shdw">
-                    <div class="rf-au-shdw-t"></div>
-                    <div class="rf-au-shdw-l"></div>
-                    <div class="rf-au-shdw-r"></div>
-                    <div class="rf-au-shdw-b"></div>
-
-                    <div class="rf-au-lst-dcrtn #{component.attributes['popupClass']}">
-                        <div class="rf-au-lst-scrl">
-                            <cdk:body>
-                                <cdk:call expression="encodeItemsContainer(facesContext, component)" />
-                            </cdk:body>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <c:if test="#{!component.attributes['disabled']}">
-                <script type="text/javascript">
-                    <cdk:object name="mode" type="Object" value="#{component.attributes['mode']}" />
-                    <cdk:scriptObject name="options">
-                        <cdk:scriptOption name="buttonId" value="#{clientId}Button" />
-                        <cdk:scriptOption attributes="selectedItemClass autofill disabled selectFirst tokens" />
-                        <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onselectitem onfocus onblur"
-                            wrapper="eventHandler" />
-                        <cdk:scriptOption name="minChars" value="#{getMinCharsOrDefault(component)}" />
-                        <cdk:scriptOption name="filterFunction" value="#{getClientFilterFunction(component)}" />
-                        <cdk:scriptOption name="isCachedAjax" value="#{ajax == mode ? false : true}"
-                            defaultValue="true" />
-                        <cdk:scriptOption name="ajaxMode" value="#{client == mode || lazyClient == mode ? false : true}"
-                            defaultValue="true" />
-                        <cdk:scriptOption name="lazyClientMode" value="#{lazyClient == mode ? true : false}"
-                            defaultValue="false" />
-                    </cdk:scriptObject>
-                    new RichFaces.ui.Autocomplete("#{clientId}",
-                    "#{clientId}Input", #{toScriptArgs(options)}
-                    );
-                </script>
-            </c:if>
-        </span>
+        <div id="#{clientId}">
+            <input id="#{clientId}Input" type="text"
+                   value="#{getInputValue(facesContext, component)}"
+                   cdk:passThroughWithExclusions=""
+                   disabled="#{component.disabled}" />
+            <cdk:renderFragment name="renderSuggestions" />
+            <script>
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption attributes="mode showButton layout minChars selectFirst" />
+                    <cdk:scriptOption wrapper="eventHandler" attributes="" />
+                    <cdk:scriptOption name="filter" value="#{this.getClientFilterFunction(component)}" />
+                </cdk:scriptObject>
+                $(document.getElementById('#{clientId}')).richAutocompleteBridge(#{toScriptArgs(options)});
+            </script>
+        </div>
     </cc:implementation>
+    
+    <cdk:fragment name="renderSuggestionsAsList">
+        <cc:interface>
+            <cc:attribute name="items" type="java.lang.Iterable" />
+        </cc:interface>
+        <cc:implementation>
+            <ul id="#{clientId}Suggestions" style="display: none">
+                <cdk:call expression="Object savedVar = saveVar(facesContext, component.getVar())" />
+                <c:forEach var="item" items="#{items}">
+                    <cdk:call expression="setVar(facesContext, component.getVar(), item)" />
+                    <li data-label="#{component.fetchValue}">
+                        <c:choose>
+                            <c:when test="#{empty component.children}">
+                                #{item}
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach var="c" items="#{component.children}">
+                                    <cdk:call expression="c.encodeAll(facesContext)" />
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                </c:forEach>
+                <cdk:call expression="setVar(facesContext, component.getVar(), savedVar)" />
+            </ul>
+        </cc:implementation>
+    </cdk:fragment>
+    
+    <cdk:fragment name="renderSuggestionsAsTable">
+        <cc:interface>
+            <cc:attribute name="items" type="java.lang.Iterable" />
+        </cc:interface>
+        <cc:implementation>
+            <table id="#{clientId}Suggestions" style="display: none">
+                <tbody>
+                    <cdk:call expression="Object savedVar = saveVar(facesContext, component.getVar())" />
+                    <c:forEach var="item" items="#{items}">
+                        <cdk:call expression="setVar(facesContext, component.getVar(), item)" />
+                        <tr data-label="#{component.fetchValue}">
+                            <c:forEach var="column" items="#{component.children}">
+                                <td><cdk:call expression="column.encodeAll(facesContext)" /></td>
+                            </c:forEach>
+                        </tr>
+                    </c:forEach>
+                    <cdk:call expression="setVar(facesContext, component.getVar(), savedVar)" />
+                </tbody>
+            </table>
+        </cc:implementation>
+    </cdk:fragment>
+    
+    <cdk:fragment name="renderSuggestions">
+        <cc:implementation>
+            <c:choose>
+                <c:when test="#{component.layout == 'list'}">
+                    <cdk:renderFragment name="renderSuggestionsAsList" items="#{getSuggestionsAsDataModel(facesContext, component)}" />
+                </c:when>
+                <c:when test="#{component.layout == 'table'}">
+                    <cdk:renderFragment name="renderSuggestionsAsTable" items="#{getSuggestionsAsDataModel(facesContext, component)}" />
+                </c:when>
+            </c:choose>
+        </cc:implementation>
+    </cdk:fragment>
 
 </cdk:root>

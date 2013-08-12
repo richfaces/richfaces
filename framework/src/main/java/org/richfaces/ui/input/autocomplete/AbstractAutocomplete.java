@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2013, Red Hat, Inc. and individual contributors
+ * Copyright , Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -40,23 +40,31 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.ui.attribute.EventsKeyProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.FocusProps;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
-import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
+import org.richfaces.ui.input.autocomplete.AutocompleteMode;
 
 /**
- * <p>The &lt;r:autocomplete&gt; component is an auto-completing input-box with built-in Ajax capabilities. It
- * supports client-side suggestions, browser-like selection, and customization of the look and feel.</p>
+ * <p>
+ * The &lt;r:autocomplete&gt; component is an auto-completing input-box with built-in Ajax capabilities. It supports client-side
+ * suggestions, browser-like selection, and customization of the look and feel.
+ * </p>
  *
- * @author Nick Belaevski
+ * @author Lukas Fryc
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = AutocompleteHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"),
-        attributes = {"focus-props.xml", "events-mouse-props.xml", "events-key-props.xml"})
-public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
-    public static final String ITEMS_META_COMPONENT_ID = "items";
-    public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
+@JsfComponent(
+        tag = @Tag(type = TagType.Facelets, generate = true),
+        renderer = @JsfRenderer(type = AutocompleteRendererBase.RENDERER_TYPE))
+public abstract class AbstractAutocomplete extends UIInput implements FocusProps, EventsKeyProps, EventsMouseProps,
+        MetaComponentResolver, MetaComponentEncoder {
+
+    public static final String COMPONENT_TYPE = "org.richfaces.sandbox.Autocomplete";
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
+
+    static final String SUGGESTIONS_META_COMPONENT_ID = "suggestions";
 
     /**
      * A collection of suggestions that will be resented to the user
@@ -82,8 +90,8 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     // TODO nick - el-only?
 
     /**
-     * A value to set in the target input element on a choice suggestion that isn't shown in the suggestion table.
-     * It can be used for descriptive output comments or suggestions. If not set, all text in the suggestion row is set as a value
+     * A value to set in the target input element on a choice suggestion that isn't shown in the suggestion table. It can be
+     * used for descriptive output comments or suggestions. If not set, all text in the suggestion row is set as a value
      */
     @Attribute(literal = false)
     public abstract Object getFetchValue();
@@ -113,57 +121,62 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     public abstract String getInputClass();
 
     /**
-     *  <p>Determine how the suggestion list is requested:</p>
-     *  <dl>
-     *      <dt>client</dt>
-     *      <dd>pre-loads data to the client and uses the input to filter the possible suggestions</dd>
-     *      <dt>ajax</dt>
-     *      <dd>fetches suggestions with every input change using Ajax requests</dd>
-     *      <dt>lazyClient</dt>
-     *      <dd>
-     * pre-loads data to the client and uses the input to filter the possible suggestions. The filtering does not start
-     * until the input length matches a minimum value. Set the minimum value with the minChars attribute.
-     *      </dd>
-     *      <dt>cachedAjax</dt>
-     *      <dd>
-     * pre-loads data via Ajax requests when the input length matches a minimum value. Set the minimum value with the
-     * minChars attribute. All suggestions are handled on the client until the input prefix is changed, at which point
-     * a new request is made based on the new input prefix
-     *      </dd>
-     *  </dl>
-     *  <p>Default: cachedAjax</p>
+     * <p>
+     * Determine how the suggestion list is requested:
+     * </p>
+     * <dl>
+     * <dt>client</dt>
+     * <dd>pre-loads data to the client and uses the input to filter the possible suggestions</dd>
+     * <dt>ajax</dt>
+     * <dd>fetches suggestions with every input change using Ajax requests</dd>
+     * <dt>cachedAjax</dt>
+     * <dd>
+     * pre-loads data via Ajax requests when the input length matches a minimum value. Set the minimum value with the minChars
+     * attribute. All suggestions are handled on the client until the input prefix is changed, at which point a new request is
+     * made based on the new input prefix</dd>
+     * </dl>
+     * <p>
+     * Default: cachedAjax
+     * </p>
      */
-    @Attribute
+    @Attribute(defaultValue = "AutocompleteMode.cachedAjax")
     public abstract AutocompleteMode getMode();
 
     /**
      * <p>
-     * Type of the layout encoded using nested components should be defined using layout attribute.
-     * Possible values are:
+     * Type of the layout encoded using nested components should be defined using layout attribute. Possible values are:
      * </p>
      * <dl>
-     *      <dt>list</dt>
-     *      <dd>suggestions wrapped to HTML unordered list</dd>
-     *      <dt>div</dt>
-     *      <dd>suggestions wrapped with just div element</dd>
-     *      <dt>table</dt>
-     *      <dd>suggestions are encoded as table rows, column definitions are required in this case</dd>
+     * <dt>list</dt>
+     * <dd>suggestions wrapped to HTML unordered list</dd>
+     * <dt>div</dt>
+     * <dd>suggestions wrapped with just div element</dd>
+     * <dt>table</dt>
+     * <dd>suggestions are encoded as table rows, column definitions are required in this case</dd>
      * </dl>
-     * <p>Default: div</p>
+     * <p>
+     * Default: div
+     * </p>
      */
-    @Attribute
+    @Attribute(defaultValue = "list")
     public abstract String getLayout();
 
     /**
-     * <p>Allow a user to enter multiple values separated by specific characters. As the user types, a suggestion will
-     * present as normal. When they enter the specified token character, this begins a new suggestion process,
-     * and the component will then only use text entered after the token character for suggestions.</p>
+     * <p>
+     * Allow a user to enter multiple values separated by specific characters. As the user types, a suggestion will present as
+     * normal. When they enter the specified token character, this begins a new suggestion process, and the component will then
+     * only use text entered after the token character for suggestions.
+     * </p>
      *
-     * <p>Make sure that no character defined in tokens is part of any suggestion value. E.g. do not use space as a token
-     * if you expect to allow spaces in suggestion values.</p>
+     * <p>
+     * Make sure that no character defined in tokens is part of any suggestion value. E.g. do not use space as a token if you
+     * expect to allow spaces in suggestion values.
+     * </p>
      *
-     * <p>When tokens defined, they can be naturally separated by space character - input separated by tokens ', ' or ' ,'
-     * will be considered as it would be ',' token without any space.</p>
+     * <p>
+     * When tokens defined, they can be naturally separated by space character - input separated by tokens ', ' or ' ,' will be
+     * considered as it would be ',' token without any space.
+     * </p>
      */
     @Attribute
     public abstract String getTokens();
@@ -176,56 +189,46 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
 
     /**
      * Boolean value indicating whether this component is disabled
-     * <p>Default: false</p>
+     * <p>
+     * Default: false
+     * </p>
      */
     @Attribute
     public abstract boolean isDisabled();
 
     /**
-     * <p>Boolean value indicating whether to display a button to expand the popup suggestion element</p>
-     * <p>Default: false</p>
+     * <p>
+     * Boolean value indicating whether to display a button to expand the popup suggestion element
+     * </p>
+     * <p>
+     * Default: false
+     * </p>
      */
     @Attribute
     public abstract boolean isShowButton();
 
     /**
      * Boolean value indicating whether the first suggestion item is selected as the user types
-     * <p>Default: true</p>
+     * <p>
+     * Default: true
+     * </p>
      */
     @Attribute(defaultValue = "true")
     public abstract boolean isSelectFirst();
 
     /**
      * <p>
-     * A javascript function used to filter the result list returned from the ajax call to the server.
-     * This function should have two parameters; subString(current input value considering tokens)
-     * and value (currently iterated item value) and return boolean flag which means if the value satisfies the substring passed.
-     * The function will be called for every available suggestion in order to construct a new list of suggestions.
+     * A javascript function used to filter the result list returned from the ajax call to the server. This function should have
+     * two parameters; subString(current input value considering tokens) and value (currently iterated item value) and return
+     * boolean flag which means if the value satisfies the substring passed. The function will be called for every available
+     * suggestion in order to construct a new list of suggestions.
      * </p>
-     * <p>Default: A javascript method called <i>startsWith</i></p>
+     * <p>
+     * Default: A javascript method called <i>startsWith</i>
+     * </p>
      */
     @Attribute
     public abstract String getClientFilterFunction();
-
-    // ----------- selected core-props.xml
-
-    /**
-     * CSS style(s) to be applied when this component is rendered.
-     */
-    @Attribute
-    public abstract String getStyle();
-
-    /**
-     * Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
-     */
-    @Attribute
-    public abstract String getStyleClass();
-
-
-    // ----------- focus-props.xml
-
-    public abstract String getTabindex();
 
     // ----------- Event Attributes
 
@@ -303,48 +306,6 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(events = @EventName("listkeyup"))
     public abstract String getOnlistkeyup();
 
-    // ----------- events-mouse-props.xml
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    // ----------- events-key-props.xml
-
-    @Attribute(events = @EventName("keypress"))
-    public abstract String getOnkeypress();
-
-    @Attribute(events = @EventName("keydown"))
-    public abstract String getOnkeydown();
-
-    @Attribute(events = @EventName("keyup"))
-    public abstract String getOnkeyup();
-
-    // ----------- focus-props.xml
-
-    @Attribute(events = @EventName("blur"))
-    public abstract String getOnblur();
-
-    @Attribute(events = @EventName("focus"))
-    public abstract String getOnfocus();
-
     // ----------- selected ajax props
 
     /**
@@ -371,19 +332,43 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(events = @EventName("beforedomupdate"))
     public abstract String getOnbeforedomupdate();
 
+    /**
+     * Returns the meta component ID for the suggestions ('id&#64;suggestions')
+     */
+    String getSuggestionsMetaComponentId(FacesContext facesContext) {
+        return resolveClientId(facesContext, this, AbstractAutocomplete.SUGGESTIONS_META_COMPONENT_ID);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.ui.common.meta.MetaComponentResolver#resolveClientId(javax.faces.context.FacesContext,
+     * javax.faces.component.UIComponent, java.lang.String)
+     */
+    @Override
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
-        if (ITEMS_META_COMPONENT_ID.equals(metaComponentId)) {
+        if (SUGGESTIONS_META_COMPONENT_ID.equals(metaComponentId)) {
             return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
         }
 
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.ui.common.meta.MetaComponentResolver#substituteUnresolvedClientId(javax.faces.context.FacesContext,
+     * javax.faces.component.UIComponent, java.lang.String)
+     */
+    @Override
     public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
 
         return null;
     }
 
+    /**
+     * Makes sure that the rendering of meta component is requested.
+     */
     @Override
     public boolean visitTree(VisitContext context, VisitCallback callback) {
         if (context instanceof ExtendedVisitContext) {
@@ -391,7 +376,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
             if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
 
                 VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
-                    ITEMS_META_COMPONENT_ID);
+                        SUGGESTIONS_META_COMPONENT_ID);
                 if (result == VisitResult.COMPLETE) {
                     return true;
                 } else if (result == VisitResult.REJECT) {
@@ -403,7 +388,11 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
         return super.visitTree(context, callback);
     }
 
+    /**
+     * Delegates rendering of meta components to Autocomplete renderer
+     */
+    @Override
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
-        ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
+        ((AutocompleteRendererBase) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
     }
 }

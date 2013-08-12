@@ -23,7 +23,6 @@
 package org.richfaces.ui.autocomplete;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
@@ -46,7 +45,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -69,16 +67,11 @@ public class ITAutocompleteBehaviors {
     @FindBy(id = "form:render")
     WebElement renderButton;
 
-    @FindBy(css = "input.rf-au-inp")
-    WebElement autocompleteInput;
-
-    @FindBy(css = ".rf-au-itm")
-    WebElement autocompleteItem;
-
     @FindBy(css = "body")
     WebElement body;
 
-    By suggestionList = By.cssSelector(".rf-au-lst-cord");
+    @FindBy(id = "autocomplete")
+    RichAutocomplete autocomplete;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -101,9 +94,9 @@ public class ITAutocompleteBehaviors {
         // given
         browser.get(contextPath.toExternalForm());
 
-        autocompleteInput.sendKeys("t");
-        waitGui().until("suggestion list is visible").element(suggestionList).is().visible();
-        guardAjax(autocompleteItem).click();
+        autocomplete.type("t");
+        autocomplete.waitForSuggestionsToShow();
+        autocomplete.selectFirst();
 
         // when / then
         Warp.initiate(new Activity() {
@@ -120,7 +113,7 @@ public class ITAutocompleteBehaviors {
 
             @AfterPhase(Phase.INVOKE_APPLICATION)
             public void verify_bean_executed() {
-                assertTrue(bean.isListenerInvoked());
+                assertTrue("action listener is invoked", bean.isListenerInvoked());
             }
         });
     }
@@ -128,11 +121,9 @@ public class ITAutocompleteBehaviors {
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-        p.body("<h:form id='form'>");
-        p.body("    <r:autocomplete id='autocomplete' autocompleteList='#{autocompleteBean.suggestions}'>");
-        p.body("        <r:ajax event='blur' listener='#{autocompleteBean.actionListener}' />");
-        p.body("    </r:autocomplete>");
-        p.body("</h:form>");
+        p.form("<r:autocomplete id='autocomplete' mode='client' autocompleteList='#{autocompleteBean.suggestions}'>");
+        p.form("    <r:ajax event='blur' listener='#{autocompleteBean.actionListener}' />");
+        p.form("</r:autocomplete>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }

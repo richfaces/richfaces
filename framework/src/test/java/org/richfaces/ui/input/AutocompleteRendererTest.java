@@ -41,12 +41,7 @@ public class AutocompleteRendererTest extends RendererTestBase {
     }
 
     @Test
-    public void testListLayoutRender() throws Exception {
+    public void testRendering() throws Exception {
         doTest("autocompleteListLayoutTest", "autocompleteListLayoutClientMode", "form:myAutocomplete");
-    }
-
-    @Test
-    public void testDivLayoutRender() throws Exception {
-        doTest("autocompleteDivLayoutTest", "autocompleteDivLayoutClientMode", "form:myAutocomplete");
     }
 }

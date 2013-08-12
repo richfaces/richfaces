@@ -20,38 +20,13 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<span class="rf-au" id="form:myAutocomplete">
-  <input id="form:myAutocompleteValue" name="form:myAutocompleteValue" type="hidden"/>
-  <span class="rf-au-fld-btn">
-    <input autocomplete="off" class="rf-au-fnt rf-au-inp " id="form:myAutocompleteInput" name="form:myAutocompleteInput" type="text"/>
-    <span class="rf-au-btn" id="form:myAutocompleteButton">
-      <span class="rf-au-btn-arrow">
-      </span>
-    </span>
-  </span>
-  <div class="rf-au-lst-cord" id="form:myAutocompleteList">
-    <div class="rf-au-shdw">
-      <div class="rf-au-shdw-t">
-      </div>
-      <div class="rf-au-shdw-l">
-      </div>
-      <div class="rf-au-shdw-r">
-      </div>
-      <div class="rf-au-shdw-b">
-      </div>
-      <div class="rf-au-lst-dcrtn ">
-        <div class="rf-au-lst-scrl">
-          <ul id="form:myAutocompleteItems" class="rf-au-lst-ul">
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script type="text/javascript">
+<div id="form:myAutocomplete">
+  <input id="form:myAutocompleteInput" type="text" onchange="RichFaces.ajax(this,event,{&quot;parameters&quot;:{&quot;javax.faces.behavior.event&quot;:&quot;change&quot;,&quot;org.richfaces.ajax.component&quot;:&quot;form:myAutocomplete&quot;} ,&quot;sourceId&quot;:this} )"/>
+  <ul id="form:myAutocompleteSuggestions" style="display: none">
+  </ul>
+  <script>
 //<![CDATA[
-new RichFaces.ui.Autocomplete("form:myAutocomplete",
-                    "form:myAutocompleteInput", {"buttonId":"form:myAutocompleteButton","autofill":false,"onchange":function(event){RichFaces.ajax(this,event,{"parameters":{"javax.faces.behavior.event":"change","org.richfaces.ajax.component":"form:myAutocomplete"} ,"sourceId":this} )},"minChars":2} 
-                    );
+$(document.getElementById('form:myAutocomplete')).richAutocompleteBridge({"minChars":2,"showButton":true} );
 //]]>
   </script>
-</span>
+</div>
