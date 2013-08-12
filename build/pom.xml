@@ -67,9 +67,9 @@
 
         <!-- JSF Implementations Versions-->
         <version.javax.faces-api>2.1</version.javax.faces-api>
-        <version.com.sun.faces.jsf-api>2.1.0</version.com.sun.faces.jsf-api>
+        <version.com.sun.faces.jsf-api>2.1.19</version.com.sun.faces.jsf-api>
         <version.org.glassfish.javax.faces>2.1.19</version.org.glassfish.javax.faces>
-        <version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>2.0.7.Final</version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>
+        <version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>2.1.19.1.Final</version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>
         <version.org.jboss.javax.faces.jsf-impl>2.1.19-jbossorg-1</version.org.jboss.javax.faces.jsf-impl>
         <version.myfaces>2.1.10</version.myfaces>
 
