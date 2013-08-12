@@ -112,18 +112,35 @@ public final class SelectHelper {
     }
 
     public static String getSelectInputLabel(FacesContext facesContext, UIComponent component) {
+       AbstractSelectComponent select = (AbstractSelectComponent) component;
+        Object value = select.getSubmittedValue();
         String label = null;
-        String selectedValue = InputUtils.getInputValue(facesContext, component);
-        if (selectedValue != null) {
-            List<ClientSelectItem> convertedSelectItems = getConvertedSelectItems(facesContext, component);
-            for (ClientSelectItem clientSelectItem : convertedSelectItems) {
-                if (selectedValue.equals(clientSelectItem.getConvertedValue())) {
-                    label = clientSelectItem.getLabel();
+        if (value == null) {
+            value = select.getValue();
+            if (value == null) {
+                value = ""; // Find Default-Values too.
+            }
+        }
+        value = value.toString(); // needed to compare string-sepresentations
+
+        Iterator<SelectItem> items = SelectUtils.getSelectItems(facesContext, component);
+
+        while (items.hasNext()) {
+            SelectItem item = items.next();
+            Object itemValue = item.getValue();
+            //prevent NPE
+            if (itemValue != null) {
+                if (value.equals(itemValue.toString())) {
+                    label = item.getLabel();
                     break;
                 }
             }
         }
 
+        if (label == null) {
+            label = value.toString();
+        }
+        
         return label;
     }
 
