@@ -100,14 +100,13 @@ public class SelectManyHelper {
         } else {
             throw new IllegalArgumentException("Value expression must evaluate to either a List or Object[]");
         }
-        Set<Object> valuesSet = new HashSet<Object>(values);
-        int count = valuesSet.size();
+        int count = values.size();
         // TODO: Deal with SelectItemGroups
         while (selectItems.hasNext()) {
             SelectItem selectItem = selectItems.next();
             boolean selected;
             int sortOrder;
-            if (valuesSet.contains(selectItem.getValue())) { // TODO: this requires value#equals() to be overridden. Redo with comparators?
+            if (values.contains(selectItem.getValue())) { // TODO: this requires value#equals() to be overridden. Redo with comparators?
                 selected = true;
                 sortOrder = values.indexOf(selectItem.getValue());
             } else {
