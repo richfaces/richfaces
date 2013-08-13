@@ -55,6 +55,13 @@ public abstract class AbstractCommandButton extends AbstractActionComponent impl
     @Attribute
     public abstract String getImage();
 
+    /**
+     * This attribute specifies the position of the current element in the tabbing order for the current document.
+     * This value must be a number between 0 and 32767. User agents should ignore leading zeros
+     */
+    @Attribute
+    public abstract String getTabindex();
+
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         return null;
     }
