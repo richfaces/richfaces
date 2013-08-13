@@ -94,11 +94,13 @@ public class RichAutocomplete {
 
     public RichAutocomplete type(String str) {
         input.sendKeys(str);
+        waitForSuggestionsToShow();
         return this;
     }
 
     public RichAutocomplete selectFirst() {
         menu.getSuggestions().get(0).click();
+        waitForSuggestionsToHide();
         return this;
     }
 

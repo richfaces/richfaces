@@ -22,9 +22,10 @@
 
 package org.richfaces.ui.autocomplete;
 
+import static org.hamcrest.Matchers.empty;
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.net.URL;
 
@@ -37,7 +38,6 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -49,18 +49,16 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 public class ITAutocompleteDestroy {
 
     @Drone
-    WebDriver browser;
+    private WebDriver browser;
 
     @ArquillianResource
-    URL contextPath;
+    private URL contextPath;
 
-    @FindBy(id = "form:render")
-    WebElement renderButton;
+    @FindBy(id = "render")
+    private WebElement renderButton;
 
-    @FindBy(css = "input.rf-au-inp")
-    WebElement autocompleteInput;
-
-    By suggestionList = By.cssSelector(".rf-au-lst-cord");
+    @FindBy(css = ".r-autocomplete")
+    private RichAutocomplete autocomplete;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -78,28 +76,24 @@ public class ITAutocompleteDestroy {
     public void when_suggestion_list_opened_and_autocomplete_is_rerendered_then_it_should_not_be_visible() {
         // given
         browser.get(contextPath.toExternalForm());
-        autocompleteInput.sendKeys("t");
-        waitGui().until("suggestion list is visible").element(suggestionList).is().visible();
+        autocomplete.type("t");
 
         // when
         guardAjax(renderButton).click();
 
         // then
-        assertFalse("suggestion list is not displayed", browser.findElement(suggestionList).isDisplayed());
+        assertEquals("suggestion list is not displayed", 0, autocomplete.getSuggestions().size());
+        assertThat(autocomplete.getSuggestions(), empty());
     }
 
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-        p.body("<h:form id='form'>");
+        p.form("<h:commandButton id='render' value='Render'>");
+        p.form("    <f:ajax execute='@form' render='@form'/>");
+        p.form("</h:commandButton>");
 
-        p.body("    <h:commandButton id='render' value='Render'>");
-        p.body("        <f:ajax execute='@form' render='@form'/>");
-        p.body("    </h:commandButton>");
-
-        p.body("    <r:autocomplete autocompleteList='#{autocompleteBean.suggestions}' />");
-
-        p.body("</h:form>");
+        p.form("<r:autocomplete autocompleteList='#{autocompleteBean.suggestions}' />");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }

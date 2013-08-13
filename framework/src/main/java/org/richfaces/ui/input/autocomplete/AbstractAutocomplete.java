@@ -45,7 +45,6 @@ import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.FocusProps;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
-import org.richfaces.ui.input.autocomplete.AutocompleteMode;
 
 /**
  * <p>

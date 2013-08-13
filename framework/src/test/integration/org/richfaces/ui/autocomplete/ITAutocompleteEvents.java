@@ -35,7 +35,6 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -47,24 +46,19 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 public class ITAutocompleteEvents {
 
     @Drone
-    WebDriver browser;
+    private WebDriver browser;
 
     @ArquillianResource
-    URL contextPath;
+    private URL contextPath;
 
-    @FindBy(id = "form:render")
-    WebElement renderButton;
+    @FindBy(id = "render")
+    private WebElement renderButton;
 
-    @FindBy(css = "input.rf-au-inp")
-    WebElement autocompleteInput;
+    @FindBy(css = ".r-autocomplete")
+    private RichAutocomplete autocomplete;
 
-    @FindBy(css = ".rf-au-itm")
-    WebElement autocompleteItem;
-
-    @FindBy(css = "body")
-    WebElement body;
-
-    By suggestionList = By.cssSelector(".rf-au-lst-cord");
+    @FindBy(id = "input")
+    private WebElement input;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -85,24 +79,23 @@ public class ITAutocompleteEvents {
     public void testOnblurEventPayload() {
         // given
         browser.get(contextPath.toExternalForm());
-        autocompleteInput.sendKeys("t");
-        waitGui().until("suggestion list is visible").element(suggestionList).is().visible();
-        autocompleteItem.click();
+
+        autocomplete.type("t").selectFirst();
 
         // when
-        body.click();
+        input.click();
 
         // then
-        waitGui().until().element(autocompleteInput).attribute("value").equalTo("TORONTO");
+        waitGui().until().element(autocomplete.getInput()).attribute("value").equalTo("TORONTO");
     }
 
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-        p.body("<h:form id='form'>");
-        p.body("    <r:autocomplete autocompleteList='#{autocompleteBean.suggestions}'");
-        p.body("                       onblur='this.value = this.value.toUpperCase()'  />");
-        p.body("</h:form>");
+        p.form("<input id='input' placeholder='an element to switch focus' />");
+
+        p.form("<r:autocomplete autocompleteList='#{autocompleteBean.suggestions}'");
+        p.form("    onblur='this.value = this.value.toUpperCase()'  />");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }

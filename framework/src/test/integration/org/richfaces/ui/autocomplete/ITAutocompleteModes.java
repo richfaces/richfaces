@@ -94,7 +94,7 @@ public class ITAutocompleteModes {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");
-        p.body("    <r:autocomplete id='autocomplete' mode='client' autocompleteList='#{autocompleteBean.suggestions}'>");
+        p.body("    <r:autocomplete mode='client' autocompleteList='#{autocompleteBean.suggestions}'>");
         p.body("    </r:autocomplete>");
         p.body("</h:form>");
 
@@ -105,7 +105,7 @@ public class ITAutocompleteModes {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");
-        p.body("    <r:autocomplete id='autocomplete' mode='ajax' autocompleteList='#{autocompleteBean.suggestions}'>");
+        p.body("    <r:autocomplete mode='ajax' autocompleteList='#{autocompleteBean.suggestions}'>");
         p.body("    </r:autocomplete>");
         p.body("</h:form>");
 

@@ -22,7 +22,6 @@
 
 package org.richfaces.ui.autocomplete;
 
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
@@ -59,19 +58,19 @@ import category.Smoke;
 public class ITAutocompleteBehaviors {
 
     @Drone
-    WebDriver browser;
+    private WebDriver browser;
 
     @ArquillianResource
-    URL contextPath;
-
-    @FindBy(id = "form:render")
-    WebElement renderButton;
+    private URL contextPath;
 
     @FindBy(css = "body")
-    WebElement body;
+    private WebElement body;
 
-    @FindBy(id = "autocomplete")
-    RichAutocomplete autocomplete;
+    @FindBy(css = ".r-autocomplete")
+    private RichAutocomplete autocomplete;
+
+    @FindBy(name = "input")
+    private WebElement input;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -95,7 +94,6 @@ public class ITAutocompleteBehaviors {
         browser.get(contextPath.toExternalForm());
 
         autocomplete.type("t");
-        autocomplete.waitForSuggestionsToShow();
         autocomplete.selectFirst();
 
         // when / then
@@ -103,7 +101,7 @@ public class ITAutocompleteBehaviors {
 
             @Override
             public void perform() {
-                guardAjax(body).click();
+                input.click();
             }
         }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
@@ -121,7 +119,9 @@ public class ITAutocompleteBehaviors {
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-        p.form("<r:autocomplete id='autocomplete' mode='client' autocompleteList='#{autocompleteBean.suggestions}'>");
+        p.form("<input name='input' placeholder='an element to switch focus' />");
+
+        p.form("<r:autocomplete mode='client' autocompleteList='#{autocompleteBean.suggestions}'>");
         p.form("    <r:ajax event='blur' listener='#{autocompleteBean.actionListener}' />");
         p.form("</r:autocomplete>");
 

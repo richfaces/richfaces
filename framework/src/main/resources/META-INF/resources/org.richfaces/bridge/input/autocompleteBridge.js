@@ -11,12 +11,15 @@
     },
 
     _create : function() {
+      this._super();
+
       var clientId = this.element.attr('id');
       var bridge = this;
 
       var autocompleteOptions = $.extend({}, this.options, {
         minLength: this.options.minLength,
         autoFocus: this.options.selectFirst,
+        token: this.options.tokens,
         
         source : '[id="' + clientId + 'Suggestions"]',
         update : function(request, done) {

@@ -42,6 +42,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -86,8 +87,6 @@ public abstract class AbstractPlaceholderTest {
     WebElement httpSubmitBtn;
     @FindBy(css = "[id$=output]")
     WebElement output;
-    @FindBy(tagName = "body")
-    WebElement body;
     @FindBy(id = PLACEHOLDER_ID)
     WebElement placeholderElement;
 
@@ -192,7 +191,7 @@ public abstract class AbstractPlaceholderTest {
         // when
         input().setTestedValue(getTestedValue());
         input().clear();
-        body.click();
+        input().blur();
 
         // then
         assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
@@ -207,7 +206,7 @@ public abstract class AbstractPlaceholderTest {
 
         // when
         input().setTestedValue(getTestedValue());
-        body.click();
+        input().blur();
 
         // then
         assertEquals(getTestedValue(), input().getEditedText());
@@ -219,7 +218,7 @@ public abstract class AbstractPlaceholderTest {
         // given
         browser.get(contextPath.toExternalForm() + "submit.jsf");
         input().setTestedValue(getTestedValue());
-        body.click();
+        input().blur();
 
         guardAjax(ajaxSubmitBtn).click();
 
@@ -276,6 +275,16 @@ public abstract class AbstractPlaceholderTest {
         @Root
         protected WebElement input;
 
+        @Drone
+        private WebDriver browser;
+
+        public Input() {
+        }
+
+        public Input(WebElement input) {
+            this.input = input;
+        }
+
         public String getEditedText() {
             return input.getAttribute("value");
         }
@@ -304,6 +313,10 @@ public abstract class AbstractPlaceholderTest {
 
         public String getStyleClass() {
             return input.getAttribute("class");
+        }
+
+        public void blur() {
+            browser.findElement(By.tagName("body")).click();
         }
     }
 

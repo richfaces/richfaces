@@ -21,19 +21,25 @@
  */
 package org.richfaces.ui.placeholder;
 
+import java.awt.Color;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.ui.autocomplete.RichAutocomplete;
+import org.richfaces.utils.ColorUtils;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class ITPlaceholderAutocomplete extends AbstractPlaceholderTest {
 
-    @FindBy(css = INPUT_SELECTOR + " > span > input")
-    private Input firstInput;
+    @FindBy(css = ".r-autocomplete")
+    private RichAutocomplete autocomplete;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -76,6 +82,23 @@ public class ITPlaceholderAutocomplete extends AbstractPlaceholderTest {
 
     @Override
     Input input() {
-        return firstInput;
+        return new AutocompleteInput(autocomplete.getInput());
+    }
+
+    @Override
+    protected Color getDefaultInputColor() {
+        return ColorUtils.convertToAWTColor("rgb(85, 85, 85)");
+    }
+
+    public class AutocompleteInput extends Input {
+
+        public AutocompleteInput(WebElement input) {
+            super(input);
+        }
+
+        @Override
+        public void blur() {
+            input.sendKeys(Keys.TAB);
+        }
     }
 }
