@@ -7,6 +7,7 @@
     },
 
     _create : function() {
+      this.element.data('jsf.bridge', this);
       this._registerCleanDomListener(this.element, this.options.pluginNames);
     },
 

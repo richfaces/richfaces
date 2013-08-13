@@ -679,17 +679,17 @@ if (!window.RichFaces) {
         }
     }
     
-    /*
+    /**
      * Returns RichFaces component root for given element in the list of ancestors of sourceElement.
      * Otherwise returns sourceElement if RichFaces component root can't be located.
      */
     var searchForComponentRootOrReturn = function(sourceElement) {
-        if (sourceElement.id && !richfaces.$(sourceElement)) {
+        if (sourceElement.id && !isRichFacesComponent(sourceElement)) {
             var parentElement = false;
             jQuery(sourceElement).parents().each(function() {
                 if (this.id && sourceElement.id.indexOf(this.id) == 0) { // otherwise parent element is definitely not JSF component
                     var suffix = sourceElement.id.substring(this.id.length); // extract suffix
-                    if (suffix.match(/^[a-zA-Z]*$/) && richfaces.$(this)) {
+                    if (suffix.match(/^[a-zA-Z]*$/) && isRichFacesComponent(this)) {
                         parentElement = this;
                         return false;
                     }
@@ -702,6 +702,16 @@ if (!window.RichFaces) {
         return sourceElement;
     };
     
+
+    /**
+     * Detects whether the element has bound RichFaces component.
+     *
+     * Supports detection of RichFaces 5 (bridgeBase.js) and RichFaces 4 (richfaces-base-component.js) components.
+     */
+    var isRichFacesComponent = function(element) {
+      return $(element).data('jsf.bridge') || richfaces.$(element);
+    };
+
     var getSourceElement = function(source) {
         if (typeof source === 'string') {
             return document.getElementById(source);
