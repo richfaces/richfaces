@@ -127,7 +127,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             List<UIComponent> columns = getOrderedColumns(context);
 
             int frozenColumnsAttribute = (Integer) table.getAttributes().get("frozenColumns");
-            if (frozenColumnsAttribute < 0) {
+            if (frozenColumnsAttribute < 0 || frozenColumnsAttribute >= columns.size()) {
                 frozenColumnsAttribute = 0;
             }
 
