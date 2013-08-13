@@ -95,6 +95,7 @@
         
         <!-- Test Dependencies Versions -->
         <version.junit>4.11</version.junit>
+        <version.hamcrest>1.3</version.hamcrest>
         <version.jsf-test>1.1.6</version.jsf-test>
         <version.easymock>2.5.2</version.easymock>
         <version.mockito>1.8.5</version.mockito>
@@ -452,6 +453,11 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${version.junit}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>${version.hamcrest}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
