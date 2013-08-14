@@ -967,8 +967,11 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
         decodeSortingFiltering(context, component);
 
-        ExtendedDataTableState tableState = new ExtendedDataTableState((UIDataTableBase) component);
-        updateAttribute(context, component, "tableState", tableState.toString());
+        if (component.getAttributes().get("tableState") != null) {
+            ExtendedDataTableState tableState = new ExtendedDataTableState((UIDataTableBase) component);
+            updateAttribute(context, component, "tableState", tableState.toString());
+        }
+
     }
 
     private void updateWidthOfColumns(FacesContext context, UIComponent component, String widthString) {
