@@ -25,7 +25,6 @@ package org.richfaces.ui.extendedDataTable;
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 import java.net.URL;
-import java.util.List;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -37,7 +36,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -102,25 +100,6 @@ public class ITBuiltInSort {
 
     }
 
-    @Test
-    public void table_filter() throws InterruptedException {
-        // given
-        browser.get(contextPath.toExternalForm());
-
-        List<WebElement> cells = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt"));
-        Assert.assertEquals("3", cells.get(0).getText());
-        Assert.assertEquals(10, cells.size());
-
-        WebElement filterInput = browser.findElement(By.id("myForm:edt:column2:flt"));
-        filterInput.clear();
-        filterInput.sendKeys("3");
-        filterInput.sendKeys(Keys.TAB);
-        Thread.sleep(500);
-        cells = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt"));
-        Assert.assertEquals("3", cells.get(0).getText());
-        Assert.assertEquals(4, cells.size());
-    }
-
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -130,22 +109,16 @@ public class ITBuiltInSort {
         p.body("  var sortOrder = currentSortOrder == 'ascending' ? 'descending' : 'ascending'; ");
         p.body("  edt.sort('column2', sortOrder, true); ");
         p.body("} ");
-        p.body("function filterEdt(filterValue) { ");
-        p.body("  var edt = RichFaces.component('myForm:edt'); ");
-        p.body("  edt.filter('column2', filterValue, true); ");
-        p.body("} ");
         p.body("</script>");
         p.body("<h:form id='myForm'> ");
-        p.body("    <r:extendedDataTable id='edt' value='#{iterationBuiltInBean.values}' var='bean' filterVar='fv' > ");
+        p.body("    <r:extendedDataTable id='edt' value='#{iterationBuiltInBean.values}' var='bean' > ");
         p.body("        <r:column id='column1' width='150px' > ");
         p.body("            <f:facet name='header'>Column 1</f:facet> ");
         p.body("            <h:outputText value='Bean:' /> ");
         p.body("        </r:column> ");
         p.body("        <r:column id='column2' width='150px' ");
         p.body("                         sortBy='#{bean}' ");
-        p.body("                         sortOrder='#{iterationBuiltInBean.sortOrder}' ");
-        p.body("                         filterValue='#{iterationBuiltInBean.filterValue}' ");
-        p.body("                         filterExpression='#{bean le fv}' > ");
+        p.body("                         sortOrder='#{iterationBuiltInBean.sortOrder}' > ");
         p.body("            <f:facet name='header'>Column 2</f:facet> ");
         p.body("            <h:outputText value='#{bean}' /> ");
         p.body("        </r:column> ");
