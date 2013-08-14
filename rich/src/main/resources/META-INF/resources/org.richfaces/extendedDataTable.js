@@ -165,8 +165,8 @@
                 if (this.options['onready'] && typeof this.options['onready'] == 'function') {
                     rf.Event.bind(this.element, "rich:ready", this.options['onready']);
                 }
-                $(document).ready($.proxy(this.initialize, this));
                 this.resizeEventName = "resize.rf.edt." + this.id;
+                $(document).ready($.proxy(this.initialize, this));
                 this.activateResizeListener();
                 $(this.scrollElement).bind("scroll", $.proxy(this.updateScrollPosition, this));
                 this.bindHeaderHandlers();
@@ -849,11 +849,15 @@
             },
 
             activateResizeListener: function() {
-                $(window).on(this.resizeEventName, $.proxy(this.updateLayout, this));
+                if (typeof this.resizeEventName !== "undefined") {
+                    $(window).on(this.resizeEventName, $.proxy(this.updateLayout, this));
+                }
             },
 
             deActivateResizeListener: function() {
-                $(window).off(this.resizeEventName);
+                if (typeof this.resizeEventName !== "undefined") {
+                    $(window).off(this.resizeEventName);
+                }
             },
 
             contextMenuAttach: function (menu) {
