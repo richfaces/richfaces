@@ -52,13 +52,29 @@ public class TestBuiltInFilter {
     }
 
     @Test
-    public void table_filter() throws InterruptedException {
+    public void check_builtin_filters_present() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm());
 
+        browser.findElements(By.className("rf-edt-flt-i"));
+
+        WebElement tableHeader = browser.findElement(By.className("rf-edt-hdr"));
+        List<WebElement> column2BuiltinFilter = tableHeader.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-flt-i"));
+        Assert.assertEquals("Built-in filter for column2 should be present", 1, column2BuiltinFilter.size());
+        List<WebElement> column3BuiltinFilter = tableHeader.findElements(By.cssSelector(".rf-edt-c-column3 .rf-edt-flt-i"));
+        Assert.assertEquals("Built-in filter for column3 is should not be present", 0, column3BuiltinFilter.size());
+    }
+
+    @Test
+    public void check_filter_is_applied() throws InterruptedException {
+        // given
+        browser.get(contextPath.toExternalForm());
+
+        browser.findElements(By.className("rf-edt-flt-i"));
+
         List<WebElement> cells = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt"));
-        Assert.assertEquals("3", cells.get(0).getText());
-        Assert.assertEquals(10, cells.size());
+        Assert.assertEquals("Value of the first cell of the second column", "3", cells.get(0).getText()); 
+        Assert.assertEquals("Number of rows present", 10, cells.size());
 
         WebElement filterInput = browser.findElement(By.id("myForm:edt:column2:flt"));
         filterInput.clear();
@@ -66,8 +82,8 @@ public class TestBuiltInFilter {
         filterInput.sendKeys(Keys.TAB);
         Thread.sleep(500);
         cells = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt"));
-        Assert.assertEquals("3", cells.get(0).getText());
-        Assert.assertEquals(4, cells.size());
+        Assert.assertEquals("Value of the first cell of the second column", "3", cells.get(0).getText());
+        Assert.assertEquals("Number of rows present", 4, cells.size());
     }
 
     private static void addIndexPage(IterationDeployment deployment) {
@@ -93,7 +109,10 @@ public class TestBuiltInFilter {
         p.body("            <f:facet name='header'>Column 2</f:facet> ");
         p.body("            <h:outputText value='#{bean}' /> ");
         p.body("        </rich:column> ");
-        p.body("        <rich:column id='column3' width='150px'> ");
+        p.body("        <rich:column id='column3' width='150px' ");
+        p.body("                         filterValue='#{iterationBuiltInBean.filterValue}' ");
+        p.body("                         filterExpression='#{bean le fv}' ");
+        p.body("                         filterType='custom' > ");
         p.body("            <f:facet name='header'>Column 3</f:facet> ");
         p.body("            <h:outputText value='Row #{bean}, Column 3' /> ");
         p.body("        </rich:column> ");
