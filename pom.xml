@@ -113,7 +113,7 @@
         <!-- Base Dependencies Versions -->
         <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
         <version.cdk>4.5.0-SNAPSHOT</version.cdk>
-        <version.jboss-javaee>3.0.1.Final</version.jboss-javaee>
+        <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
         
         <!-- Container Versions -->
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
