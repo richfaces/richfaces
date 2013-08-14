@@ -102,10 +102,13 @@ the examples as maven-based projects.
     
 **You are now able to work with the Showcase within Eclipse.** Note that by using JBoss Developer Studio you can skip installing all of the required plugins and you can import the project right away.
     
-* In order to deploy the Showcase on the JBoss AS 7.1.x from the Eclipse one needs to:
+* In order to deploy the Showcase on JBoss AS 7.1.x from Eclipse one needs to:
     * Select the right maven profile: ``jbas71``
-    * Either by pressing hot key `CTRL + ALT + P`, while the showcase project is selected
-    * Or right click on the showcase project in the `project explorer --> Properties --> Maven` and fill in the input: `jbas71`
+        * Either by pressing hot key `CTRL + ALT + P`, while the showcase project is selected
+        * Or right click on the showcase project in the `project explorer --> Properties --> Maven` and fill in the input: `jbas71`
+    * Alter the deployment assembly
+        * Right click on the showcase project --> Properties --> Deployment assembly. By default there should be: src/main/java, src/main/resources, src/main/resources-jbas71/, src/main/webapp
+        * One needs to add src/main/webapp-jbas71: hit the add button and select the folder option, find the webapp-jbas71 and add it
     * Now the showcase can be **deployed**, be sure that you are loading the showcase application on the correct context root and also that there was not added a default `persistence.xml` in ``src/main/resources/META-INF`` (delete it). The URL one should access looks like: <http://localhost:8080/showcase>
     
     
