@@ -389,7 +389,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-flt-c rf-edt-c-" + column.getId(), null);
                                 writer.startElement(HtmlConstants.DIV_ELEM, column);
                                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-flt-cnt", null);
-                                if (column.getAttributes().get("filterField") != null &&  ! "custom".equals(column.getAttributes().get("filterValueType"))) {
+                                if (column.getAttributes().get("filterField") != null &&  ! "custom".equals(column.getAttributes().get("filterType"))) {
                                     writer.startElement(HtmlConstants.INPUT_ELEM, column);
                                     writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
                                     writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, clientId + ":" + column.getId() + ":flt", null);
