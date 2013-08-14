@@ -43,7 +43,8 @@ public class IterationBuiltInBean implements Serializable {
 
     private SortOrder sortOrder;// = SortOrder.ascending;
     private SortOrder sortOrder2;// = SortOrder.ascending;
-    private Long filterValue = 10L;
+    private Long filterValue;
+    private String filterValue2;
 
 
     public IterationBuiltInBean() {
@@ -73,4 +74,11 @@ public class IterationBuiltInBean implements Serializable {
         this.filterValue = filterValue;
     }
 
+    public String getFilterValue2() {
+        return filterValue2;
+    }
+
+    public void setFilterValue2(String filterValue2) {
+        this.filterValue2 = filterValue2;
+    }
 }
