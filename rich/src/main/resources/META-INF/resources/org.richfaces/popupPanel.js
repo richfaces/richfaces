@@ -310,6 +310,7 @@
                         }
                         $(rf.getDomElement(eContentElt)).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
                         var headerHeight = $(rf.getDomElement(this.markerId + "_header")) ? $(rf.getDomElement(this.markerId + "_header")).innerHeight() : 0;
+                        this.shadowDiv.css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
                         this.scrollerDiv.css('height', options.height - headerHeight + (/px/.test(options.height) ? '' : 'px'));
                     }
 
