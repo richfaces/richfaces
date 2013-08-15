@@ -39,7 +39,7 @@
     <properties>
     </properties>
 
-    <dependencies>
+    <dependencies>     
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -69,7 +69,7 @@
         <plugins>
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-cdk-plugin</artifactId>
+                <artifactId>richfaces-cdk-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

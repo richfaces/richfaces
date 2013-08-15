@@ -144,7 +144,7 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <classifier>sources</classifier>
+                            <!-- <classifier>sources</classifier> -->
                             <includeGroupIds>
                                 ${assembly.projects.group}.core,${assembly.projects.group}.common,${assembly.projects.group}.misc,${assembly.projects.group}.iteration,${assembly.projects.group}.output,${assembly.projects.group}.input,${assembly.projects.group}.dnd,${assembly.projects.group}.validator
                             </includeGroupIds>
@@ -188,7 +188,7 @@
                     <dependency>
                         <groupId>org.richfaces.build.resources</groupId>
                         <artifactId>faces-shade-transformers</artifactId>
-                        <version>${version.shade-transformers}</version>
+                        <version>9-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
             </plugin>

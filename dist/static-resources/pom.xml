@@ -58,12 +58,8 @@
     <dependencies>
         <!-- Core API and Impl -->
         <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-impl</artifactId>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
         </dependency>
         
         <!-- UI APIs -->
@@ -138,6 +134,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
+            <version>3.1.0</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -153,14 +150,15 @@
             <groupId>javax.servlet.jsp.jstl</groupId>
             <artifactId>jstl-api</artifactId>
             <scope>provided</scope>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-richfaces-resources-plugin</artifactId>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
                 <configuration>
                     <skins>
                         <skin>blueSky</skin>

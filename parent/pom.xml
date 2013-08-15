@@ -25,9 +25,9 @@
 
     <parent>
         <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-root-parent</artifactId>
-        <version>4.3.3-SNAPSHOT</version>
-        <relativePath>../../build/parent/pom.xml</relativePath>
+        <artifactId>richfaces-build</artifactId>
+        <version>5.0.0-SNAPSHOT</version>
+        <relativePath>../../richfaces/build/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui</groupId>
@@ -57,7 +57,7 @@
                 </plugin>
                 <plugin>
                     <groupId>org.richfaces.cdk</groupId>
-                    <artifactId>maven-cdk-plugin</artifactId>
+                    <artifactId>richfaces-cdk-maven-plugin</artifactId>
                     <executions>
                         <execution>
                             <id>cdk-generate-sources</id>
@@ -100,7 +100,7 @@
                         <requirePluginVersions>
                             <!-- During development SNAPSHOT versions of the CDK plugin are used.
                                  This setting ignores the no SNAPSHOT rule for the CDK  -->
-                            <unCheckedPluginList>org.richfaces.cdk:maven-cdk-plugin</unCheckedPluginList>
+                            <unCheckedPluginList>org.richfaces.cdk:richfaces-cdk-maven-plugin</unCheckedPluginList>
                         </requirePluginVersions>
                     </rules>
                 </configuration>
@@ -112,8 +112,8 @@
     <dependencies>
         <!-- runtime -->
         <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-api</artifactId>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
         </dependency>
 
         <dependency>
@@ -127,6 +127,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
+            <version>3.1.0</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -142,14 +143,28 @@
             <groupId>javax.servlet.jsp.jstl</groupId>
             <artifactId>jstl-api</artifactId>
             <scope>provided</scope>
+            <version>1.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
         </dependency>
 
         <!-- tests -->
         <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-impl</artifactId>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
             <scope>test</scope>
+            <type>test-jar</type>
+            <version>5.0.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>org.jboss.test-jsf</groupId>
             <artifactId>jsf-test-stage</artifactId>
@@ -180,8 +195,36 @@
             <artifactId>mockito-all</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-warp-bom</artifactId>
+            <version>${version.arquillian.warp}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.graphene</groupId>
+            <artifactId>graphene-webdriver</artifactId>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-phantom-driver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-drone-bom</artifactId>
+            <version>${version.arquillian.drone}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian</groupId>
+            <artifactId>arquillian-bom</artifactId>
+            <version>${version.arquillian.core}</version>
+            <type>pom</type>
+        </dependency>
     </dependencies>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
