@@ -330,7 +330,16 @@
                         } else {
                             var status = data.status;
                             log.error("Received '" + type + '@' + status + "' event from " + identifyElement(source));
-                            log.error("[" + data.responseCode + "] " + data.errorName + ": " + data.errorMessage);
+
+                            var message = "[status=" + data.responseCode + "] ";
+                            if (data.errorName && data.errorMessage) {
+                                message += " " + data.errorName + ": " + data.errorMessage;
+                            } else if (data.description) {
+                                message += " " + data.description;
+                            } else {
+                                message += " no error details";
+                            }
+                            log.error(message);
                         }
                     } catch (e) {
                         //ignore logging errors
