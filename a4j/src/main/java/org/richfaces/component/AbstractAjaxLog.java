@@ -52,7 +52,7 @@ public abstract class AbstractAjaxLog extends UIComponentBase {
     public abstract String getStyle();
 
     /**
-     * Sets the logging level, can be one of "ERROR", "FATAL", "INFO", "WARN", "ALL"
+     * Sets the logging level, can be one of 'debug', 'info', 'warn', 'error'.
      */
     @Attribute
     public abstract String getLevel();
