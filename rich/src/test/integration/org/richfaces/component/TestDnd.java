@@ -1,5 +1,7 @@
 package org.richfaces.component;
 
+import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -65,9 +67,9 @@ public class TestDnd {
 
         Actions builder = new Actions(browser);
         final Action dragAndDrop = builder.dragAndDrop(framework, phpTarget).build();
-        dragAndDrop.perform();
+        guardXhr(dragAndDrop).perform();
 
-        Assert.assertEquals("1", phpTarget.findElements(By.cssSelector(".ui-draggable")).size());
+        Assert.assertEquals(1, phpTarget.findElements(By.cssSelector("td")).size());
     }
 
 }
