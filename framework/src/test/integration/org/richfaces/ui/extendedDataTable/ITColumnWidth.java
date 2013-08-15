@@ -36,6 +36,8 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
@@ -52,6 +54,9 @@ public class ITColumnWidth {
 
     @FindBy(id = "myForm:edt")
     private WebElement edt;
+
+    @FindBy(id = "myForm:edt:header")
+    private WebElement header;
 
     @FindBy(id = "myForm:edt:0:n")
     private WebElement firstRow;
@@ -71,6 +76,32 @@ public class ITColumnWidth {
         Assert.assertEquals("200px", firstRow.findElement(By.cssSelector("td .rf-edt-c-column1")).getCssValue("width"));
     }
 
+    @Test
+    public void column_resize_smaller() {
+        browser.get(contextPath.toExternalForm());
+        WebElement column1ResizeHandle = header.findElement(By.cssSelector(".rf-edt-hdr .rf-edt-td-column1 .rf-edt-rsz"));
+
+        Actions builder = new Actions(browser);
+        final Action dragAndDrop = builder.dragAndDropBy(column1ResizeHandle, -20, 0).build();
+        dragAndDrop.perform();
+
+        Assert.assertEquals("181px", firstRow.findElement(By.cssSelector("td")).getCssValue("width"));
+        Assert.assertEquals("180px", firstRow.findElement(By.cssSelector("td .rf-edt-c-column1")).getCssValue("width"));
+    }
+
+    @Test
+    public void column_resize_bigger() {
+        browser.get(contextPath.toExternalForm());
+        WebElement column1ResizeHandle = header.findElement(By.cssSelector(".rf-edt-hdr .rf-edt-td-column1 .rf-edt-rsz"));
+
+        Actions builder = new Actions(browser);
+        final Action dragAndDrop = builder.dragAndDropBy(column1ResizeHandle, 20, 0).build();
+        dragAndDrop.perform();
+
+        Assert.assertEquals("221px", firstRow.findElement(By.cssSelector("td")).getCssValue("width"));
+        Assert.assertEquals("220px", firstRow.findElement(By.cssSelector("td .rf-edt-c-column1")).getCssValue("width"));
+    }
+
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
@@ -79,9 +110,21 @@ public class ITColumnWidth {
         p.body("<h:form id='myForm'>");
         p.body("    <r:extendedDataTable id='edt' value='#{iterationBean.values}' var='bean'>");
         p.body("        <r:column id='column1' width='200px'>");
+        p.body("            <f:facet name='header'> ");
+        p.body("                <h:outputText value='Long header 1'/> ");
+        p.body("             </f:facet> ");
         p.body("            <h:outputText value='Bean:' />");
         p.body("        </r:column>");
         p.body("        <r:column id='column2'>");
+        p.body("            <f:facet name='header'> ");
+        p.body("                <h:outputText value='Long header 2'/> ");
+        p.body("             </f:facet> ");
+        p.body("            <h:outputText value='#{bean}' />");
+        p.body("        </r:column>");
+        p.body("        <r:column id='column3'>");
+        p.body("            <f:facet name='header'> ");
+        p.body("                <h:outputText value='Long header 3'/> ");
+        p.body("             </f:facet> ");
         p.body("            <h:outputText value='#{bean}' />");
         p.body("        </r:column>");
         p.body("    </r:extendedDataTable>");
