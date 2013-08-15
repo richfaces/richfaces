@@ -21,9 +21,9 @@
  */
 package org.richfaces.component;
 
-import org.ajax4jsf.model.DataComponentState;
-import org.ajax4jsf.model.Range;
-import org.ajax4jsf.model.SequenceRange;
+import org.richfaces.model.DataComponentState;
+import org.richfaces.model.Range;
+import org.richfaces.model.SequenceRange;
 
 /**
  * @author Nick Belaevski

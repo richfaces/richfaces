@@ -25,8 +25,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.ajax4jsf.javascript.ScriptStringBase;
-import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.javascript.ScriptStringBase;
+import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.ui.common.AjaxConstants;
 
 /**
  * @author Nick Belaevski

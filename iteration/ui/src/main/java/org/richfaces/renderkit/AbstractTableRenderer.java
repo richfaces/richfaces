@@ -33,6 +33,8 @@ import javax.faces.context.ResponseWriter;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
 
 /**
  * @author Anton Belevich

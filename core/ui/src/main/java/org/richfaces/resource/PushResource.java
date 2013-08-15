@@ -31,12 +31,12 @@ import java.util.UUID;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.push.PushContext;
-import org.richfaces.application.push.PushContextFactory;
-import org.richfaces.application.push.Session;
-import org.richfaces.application.push.TopicKey;
+import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.services.ServiceTracker;
+import org.richfaces.push.PushContext;
+import org.richfaces.push.PushContextFactory;
+import org.richfaces.push.Session;
+import org.richfaces.push.TopicKey;
 
 /**
  * @author Nick Belaevski

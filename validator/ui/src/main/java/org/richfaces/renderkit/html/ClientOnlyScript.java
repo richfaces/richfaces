@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.resource.ResourceKey;
 
 import com.google.common.collect.ImmutableList;

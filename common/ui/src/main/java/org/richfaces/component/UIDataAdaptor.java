@@ -21,7 +21,7 @@
  */
 package org.richfaces.component;
 
-import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
+import static org.richfaces.resource.ResourceUtils.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
 
 import java.text.MessageFormat;
 import java.util.Collection;
@@ -64,16 +64,16 @@ import javax.faces.event.PreValidateEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 
-import org.ajax4jsf.component.IterationStateHolder;
-import org.ajax4jsf.model.DataComponentState;
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.Range;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.model.DataComponentState;
+import org.richfaces.model.DataVisitResult;
+import org.richfaces.model.DataVisitor;
+import org.richfaces.model.ExtendedDataModel;
+import org.richfaces.model.Range;
+import org.richfaces.ui.iteration.IterationStateHolder;
 
 /**
  * Base class for iterable components, like dataTable, Tomahawk dataList, Facelets repeat, tree etc., with support for partial
@@ -876,7 +876,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.component.IterationStateHolder#getIterationState()
+     * @see org.richfaces.component.IterationStateHolder#getIterationState()
      */
     public Object getIterationState() {
         assert rowKey == null;
@@ -887,7 +887,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.component.IterationStateHolder#setIterationState(java.lang.Object)
+     * @see org.richfaces.component.IterationStateHolder#setIterationState(java.lang.Object)
      */
     public void setIterationState(Object stateObject) {
         assert rowKey == null;

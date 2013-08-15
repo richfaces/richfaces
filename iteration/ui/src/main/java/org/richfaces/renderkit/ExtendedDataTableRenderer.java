@@ -46,12 +46,12 @@ import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSReference;
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.SequenceRange;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSReference;
+import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.model.DataVisitResult;
+import org.richfaces.model.DataVisitor;
+import org.richfaces.model.SequenceRange;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractColumn;
 import org.richfaces.component.AbstractExtendedDataTable;
@@ -62,6 +62,8 @@ import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.OnOffResponseWriter;
 import org.richfaces.model.SelectionMode;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
 
 /**
  * @author Konstantin Mishin

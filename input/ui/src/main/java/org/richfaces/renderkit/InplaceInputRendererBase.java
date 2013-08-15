@@ -33,7 +33,8 @@ import javax.faces.context.FacesContext;
 import org.richfaces.component.AbstractInplaceInput;
 import org.richfaces.component.InplaceComponent;
 import org.richfaces.component.InplaceState;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import org.richfaces.util.HtmlDimensions;
+import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author Anton Belevich

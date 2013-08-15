@@ -33,14 +33,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
+import org.richfaces.model.DataVisitResult;
+import org.richfaces.model.DataVisitor;
 import org.richfaces.component.AbstractList;
 import org.richfaces.component.ListType;
 import org.richfaces.component.UISequence;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author Nick Belaevski

@@ -23,8 +23,8 @@ package org.richfaces.renderkit;
 
 import java.io.IOException;
 
-import org.ajax4jsf.javascript.ScriptString;
-import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.javascript.ScriptString;
+import org.richfaces.javascript.ScriptUtils;
 
 import javax.faces.model.SelectItem;
 

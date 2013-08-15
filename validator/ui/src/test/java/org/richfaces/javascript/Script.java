@@ -3,7 +3,7 @@ package org.richfaces.javascript;
 import java.io.IOException;
 import java.util.Collections;
 
-import org.ajax4jsf.javascript.ScriptWithDependencies;
+import org.richfaces.javascript.ScriptWithDependencies;
 import org.richfaces.resource.ResourceKey;
 
 final class Script implements ScriptWithDependencies {

@@ -33,8 +33,8 @@ import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.AbstractTogglePanel;
-import org.richfaces.component.ComponentIterators;
 import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.ui.common.ComponentIterators;
 
 /**
  * <p> The &lt;rich:toggleControl&gt; behavior can be attached to any interface component, whether inside or outside the

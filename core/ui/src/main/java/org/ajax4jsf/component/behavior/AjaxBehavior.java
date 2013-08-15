@@ -39,7 +39,8 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.AjaxBehaviorListener;
 import javax.faces.event.BehaviorEvent;
 
-import org.ajax4jsf.component.AjaxClientBehavior;
+import org.richfaces.ui.ajax.ajax.AjaxClientBehavior;
+import org.richfaces.util.Sets;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Signature;
@@ -47,7 +48,6 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.behavior.ClientBehavior;
 import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
-import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
 /**
  * <p>
@@ -129,7 +129,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
 
         Set<String> result = null;
 
-        result = CoreAjaxRendererUtils.asIdsSet(value);
+        result = Sets.asSet(value);
 
         if (result == null) {
             throw new FacesException(

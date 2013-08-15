@@ -22,7 +22,7 @@ package org.richfaces.component;
 
 import javax.faces.component.UIPanel;
 
-import org.ajax4jsf.component.AjaxOutput;
+import org.richfaces.ui.common.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;

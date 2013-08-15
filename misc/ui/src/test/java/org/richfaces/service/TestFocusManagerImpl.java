@@ -14,7 +14,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import org.ajax4jsf.javascript.JSLiteral;
+import org.richfaces.javascript.JSLiteral;
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,10 +22,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
-import org.richfaces.application.ServicesFactory;
-import org.richfaces.focus.FocusManager;
+import org.richfaces.ui.misc.focus.FocusManager;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.focus.FocusRendererUtils;
+import org.richfaces.services.ServicesFactory;
 import org.richfaces.test.AbstractServicesTest;
 
 @RunWith(FacesMockitoRunner.class)

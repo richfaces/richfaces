@@ -27,7 +27,8 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.component.IterationStateHolder;
+import org.richfaces.ui.iteration.IterationStateHolder;
+
 
 //from RI
 

@@ -27,8 +27,8 @@ import java.text.MessageFormat;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 
-import org.ajax4jsf.javascript.ScriptString;
-import org.ajax4jsf.javascript.ScriptStringBase;
+import org.richfaces.javascript.ScriptString;
+import org.richfaces.javascript.ScriptStringBase;
 import org.richfaces.javascript.JavaScriptService;
 
 /**

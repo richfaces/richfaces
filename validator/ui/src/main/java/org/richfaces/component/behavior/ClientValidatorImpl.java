@@ -50,8 +50,8 @@ import javax.faces.validator.BeanValidator;
 import javax.faces.validator.Validator;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;

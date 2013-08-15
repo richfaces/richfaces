@@ -29,6 +29,8 @@ import org.richfaces.javascript.ClientScriptService;
 import org.richfaces.javascript.ClientScriptServiceImpl;
 import org.richfaces.javascript.ClientServiceConfigParser;
 import org.richfaces.javascript.LibraryFunction;
+import org.richfaces.services.Module;
+import org.richfaces.services.ServicesFactory;
 import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.BeanValidatorServiceImpl;
 import org.richfaces.validator.ConverterServiceImpl;

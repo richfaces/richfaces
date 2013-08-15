@@ -21,7 +21,7 @@
  **/
 package org.richfaces.component;
 
-import org.ajax4jsf.model.DataVisitResult;
+import org.richfaces.model.DataVisitResult;
 
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;

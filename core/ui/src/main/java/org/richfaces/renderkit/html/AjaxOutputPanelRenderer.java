@@ -30,7 +30,7 @@ import javax.faces.context.ResponseWriter;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractOutputPanel;
 import org.richfaces.component.OutputPanelLayout;
-import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.renderkit.RendererBase;
 
 /**

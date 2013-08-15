@@ -24,8 +24,8 @@ import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
 
-import org.ajax4jsf.model.DataComponentState;
-import org.ajax4jsf.model.ExtendedDataModel;
+import org.richfaces.model.DataComponentState;
+import org.richfaces.model.ExtendedDataModel;
 import org.ajax4jsf.tests.MockComponentState;
 import org.ajax4jsf.tests.MockDataModel;
 

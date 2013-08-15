@@ -46,12 +46,12 @@ import javax.faces.event.ExceptionQueuedEventContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
-import org.ajax4jsf.model.DataComponentState;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
+import org.richfaces.model.DataComponentState;
+import org.richfaces.model.DataVisitor;
+import org.richfaces.model.ExtendedDataModel;
 import org.richfaces.application.FacesMessages;
-import org.richfaces.application.MessageFactory;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.l10n.MessageFactory;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -75,7 +75,9 @@ import org.richfaces.model.TreeDataModel;
 import org.richfaces.model.TreeDataModelTuple;
 import org.richfaces.model.TreeDataVisitor;
 import org.richfaces.model.TreeNode;
-import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentEncoder;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;

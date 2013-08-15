@@ -31,11 +31,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractCollapsibleSubTable;
 import org.richfaces.component.AbstractCollapsibleSubTableToggler;
 import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.ui.common.HtmlConstants;
 
 import com.google.common.base.Strings;
 

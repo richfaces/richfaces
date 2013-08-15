@@ -26,8 +26,8 @@ import java.io.Serializable;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.model.DataComponentState;
-import org.ajax4jsf.model.ExtendedDataModel;
+import org.richfaces.model.DataComponentState;
+import org.richfaces.model.ExtendedDataModel;
 
 public final class DataAdaptorIterationState implements StateHolder {
     private DataComponentState componentState;

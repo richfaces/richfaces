@@ -1,6 +1,6 @@
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.FunctionDefWithDependencies;
+import org.richfaces.javascript.FunctionDefWithDependencies;
 
 public interface ComponentValidatorScript extends FunctionDefWithDependencies {
     /**

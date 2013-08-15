@@ -24,8 +24,8 @@ package org.richfaces.request;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.ajax4jsf.io.ByteBuffer;
-import org.ajax4jsf.io.FastBufferInputStream;
+import org.richfaces.io.FastBufferInputStream;
+import org.richfaces.io.ByteBuffer;
 
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;

@@ -37,7 +37,7 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractCollapsibleSubTable;
 import org.richfaces.component.AbstractDataTable;
@@ -46,6 +46,7 @@ import org.richfaces.component.UIDataAdaptor;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
+import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author Anton Belevich

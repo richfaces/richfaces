@@ -42,11 +42,12 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.Messages;
-import org.ajax4jsf.component.JavaScriptParameter;
-import org.ajax4jsf.javascript.JSReference;
-import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.javascript.JSReference;
+import org.richfaces.l10n.Messages;
 import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.ui.ajax.parameter.JavaScriptParameter;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.util.HtmlDimensions;
 
 /**
  * Util class for common render operations - render passthru html attributes, iterate over child components etc.

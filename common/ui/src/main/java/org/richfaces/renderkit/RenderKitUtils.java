@@ -47,8 +47,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.renderkit.ComponentAttribute.Kind;
 
 /**

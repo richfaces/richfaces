@@ -30,6 +30,7 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.DeclarativeModelKey;
 import org.richfaces.model.SequenceRowKey;
+import org.richfaces.ui.common.ComponentPredicates;
 
 import com.google.common.collect.Iterables;
 

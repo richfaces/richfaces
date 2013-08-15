@@ -1,6 +1,7 @@
 package org.richfaces.renderkit;
 
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.ui.common.HtmlConstants;
 
 import java.io.IOException;
 

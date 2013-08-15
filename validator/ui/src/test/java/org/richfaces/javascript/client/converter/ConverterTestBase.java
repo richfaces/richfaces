@@ -11,7 +11,7 @@ import javax.faces.convert.ConverterException;
 import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
 import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
 
-import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.javascript.JSFunction;
 import org.junit.Test;
 import org.richfaces.javascript.Message;
 import org.richfaces.javascript.client.MockTestBase;

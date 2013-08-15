@@ -34,7 +34,9 @@ import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
-import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.component.SwitchType;
 import org.richfaces.event.TreeToggleEvent;
 

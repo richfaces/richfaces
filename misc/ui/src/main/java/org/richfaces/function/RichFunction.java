@@ -26,10 +26,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.cdk.annotations.Function;
-import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.util.Sets;
 
 /**
  * Created 20.03.2008
@@ -192,7 +192,7 @@ public final class RichFunction {
     @Function
     public static boolean isUserInRole(Object rolesObject) {
         // TODO nick - AjaxRendererUtils split text by commas and whitespace, what is the right variant?
-        Set<String> rolesSet = CoreAjaxRendererUtils.asIdsSet(rolesObject);
+        Set<String> rolesSet = Sets.asSet(rolesObject);
         if (rolesSet != null) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             ExternalContext externalContext = facesContext.getExternalContext();
@@ -224,7 +224,7 @@ public final class RichFunction {
      * <li><tt>Combinations of above</tt></li>
      * </ul>
      *
-     * This function delegates to org.ajax4jsf.javascript.ScriptUtils#toScript(Object)
+     * This function delegates to org.richfaces.javascript.ScriptUtils#toScript(Object)
      */
     @Function
     public static String toScript(Object o) {
