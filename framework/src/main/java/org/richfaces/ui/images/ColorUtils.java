@@ -28,7 +28,7 @@ import java.awt.Color;
  *
  * @author carcasser
  */
-final class ColorUtils {
+public final class ColorUtils {
     private ColorUtils() {
     }
 
