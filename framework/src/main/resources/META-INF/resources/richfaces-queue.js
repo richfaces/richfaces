@@ -257,8 +257,11 @@
         //TODO: instance of this function will be created for each queue
         var onError = function (data) {
             var message = "richfaces.queue: ajax submit error";
-            if (data && data.message) {
-                message += ": " + data.message;
+            if (data) {
+                var description = data.message || data.description;
+                if (description) {
+                    message += ": " + description;
+                }
             }
             rf.log.warn(message);
 
