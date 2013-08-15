@@ -234,7 +234,9 @@
 
             setColumnWidth: function(columnId, width) {
                 width = width + "px";
-                this.getColumnStyle(columnId).width = width;
+                var $table = $(document.getElementById(this.element.id));
+                $table.find("." + WIDTH_CLASS_NAME_BASE + columnId).parent().css('width', width);
+                $table.find("." + WIDTH_CLASS_NAME_BASE + columnId).css('width', width);
                 this.newWidths[columnId] = width;
                 var widthsArray = new Array();
                 for (var id in this.newWidths) {
@@ -244,18 +246,6 @@
                 this.updateLayout();
                 this.adjustResizers();
                 this.ajaxFunction(); // TODO Maybe, event model should be used here.
-            },
-            
-            getColumnStyle: function(columnId) {
-                var tableId = this.element.id;
-                var columnClass = WIDTH_CLASS_NAME_BASE + columnId;
-                var stylesheet = rf.rf4.utils.findCSSRule(function(selector) {
-                    return selector.indexOf(columnClass) !== -1 && selector.indexOf(tableId) !== -1;
-                });
-                if (!stylesheet) {
-                    throw new Error("Cannot find the stylesheet for column '" + columnId + "'");
-                }
-                return stylesheet.style;
             },
 
             filter: function(colunmId, filterValue, isClear) {
