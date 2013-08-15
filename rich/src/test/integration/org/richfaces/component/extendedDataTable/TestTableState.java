@@ -36,6 +36,7 @@ import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.ExtendedDataTableState;
 import org.richfaces.component.UIColumn;
 import org.richfaces.integration.IterationDeployment;
+import org.richfaces.json.JSONException;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -83,6 +84,42 @@ public class TestTableState {
         // assert the columns widths (selectors are independent of the column order)
         Assert.assertEquals("210px", firstRow.findElement(By.cssSelector("td .rf-edt-c-column1")).getCssValue("width"));
         Assert.assertEquals("75px", firstRow.findElement(By.cssSelector("td .rf-edt-c-column2")).getCssValue("width"));
+    }
+
+    @Test
+    public void table_width_resize() throws InterruptedException {
+        // given
+        browser.get(contextPath.toExternalForm() + "width.jsf");
+        WebElement column1ResizeHandle = header.findElement(By.cssSelector(".rf-edt-hdr .rf-edt-td-column1 .rf-edt-rsz"));
+
+        Actions builder = new Actions(browser);
+        final Action dragAndDrop = builder.dragAndDropBy(column1ResizeHandle, 60, 0).build();
+
+        // when / then
+        Warp.initiate(new Activity() {
+            @Override
+            public void perform() {
+                dragAndDrop.perform();
+            }
+        }).inspect(new Inspection() {
+            private static final long serialVersionUID = 1L;
+
+            @Inject
+            IterationTableStateBean bean;
+
+            @AfterPhase(Phase.INVOKE_APPLICATION)
+            public void verify_table_state_updated() throws JSONException {
+                ExtendedDataTableState beanState = new ExtendedDataTableState(bean.getWidthState());
+                Assert.assertEquals("Backing bean table state should be updated", "270px", beanState.toJSON().getJSONObject("columnsWidthState").getString("column1"));
+
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                AbstractExtendedDataTable edtComponent = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("myForm").findComponent("edt");
+                ExtendedDataTableState tableState = new ExtendedDataTableState(edtComponent);
+                Assert.assertEquals("EDT tableState should be updated", "270px", tableState.toJSON().getJSONObject("columnsWidthState").getString("column1"));
+            }
+        });
+
+        Assert.assertEquals("270px", firstRow.findElement(By.cssSelector("td .rf-edt-c-column1")).getCssValue("width"));
     }
 
     @Test

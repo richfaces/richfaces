@@ -62,6 +62,10 @@ public class IterationTableStateBean implements Serializable {
         return widthState;
     }
 
+    public void setWidthState(String widthState) {
+        this.widthState = widthState;
+    }
+
     public String getOrderState() {
         return orderState;
     }
