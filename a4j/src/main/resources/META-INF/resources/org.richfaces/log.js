@@ -145,8 +145,15 @@
         },
 
         __log: function(level, message) {
-            //TODO scroll to the added message
-            //TODO check popup is opened
+            if (!logLevelValues[this.getLevel()]) {
+                // unknown log level
+                return;
+            }
+            if (logLevelValues[level] < logLevelValues[this.getLevel()]) {
+                // message is not loggable due to its level
+                return;
+            }
+
             if (this.mode == 'console') {
                 var logMsg = 'RichFaces: ' + message;
                 if (console[level]) {
@@ -161,21 +168,19 @@
                 return;
             }
 
-            if (logLevelValues[level] >= logLevelValues[this.getLevel()]) {
-                var newEntry = $();
-                newEntry = newEntry.add($("<span class='rf-log-entry-lbl rf-log-entry-lbl-" + level + "'></span>").text(this.__getMessagePrefix(level)));
+            var newEntry = $();
+            newEntry = newEntry.add($("<span class='rf-log-entry-lbl rf-log-entry-lbl-" + level + "'></span>").text(this.__getMessagePrefix(level)));
 
-                var entrySpan = $("<span class='rf-log-entry-msg rf-log-entry-msg-" + level + "'></span>");
-                if (typeof message != 'object' || !message.appendTo) {
-                    entrySpan.text(message);
-                } else {
-                    message.appendTo(entrySpan);
-                }
-
-                newEntry = newEntry.add(entrySpan);
-
-                this.__append(newEntry);
+            var entrySpan = $("<span class='rf-log-entry-msg rf-log-entry-msg-" + level + "'></span>");
+            if (typeof message != 'object' || !message.appendTo) {
+                entrySpan.text(message);
+            } else {
+                message.appendTo(entrySpan);
             }
+
+            newEntry = newEntry.add(entrySpan);
+
+            this.__append(newEntry);
         },
 
         init: function(options) {
