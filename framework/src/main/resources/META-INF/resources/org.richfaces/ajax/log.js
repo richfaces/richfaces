@@ -211,7 +211,7 @@
 
             options = options || {};
 
-            this.level = options.level;
+            this.level = (options.level || 'info').toLowerCase();
             this.hotkey = options.hotkey;
             this.mode = (options.mode || 'inline');
 
