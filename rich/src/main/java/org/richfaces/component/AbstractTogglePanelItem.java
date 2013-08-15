@@ -86,7 +86,8 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
     // ------------------------------------------------ Component Attributes
 
     /**
-     * The name of the panel, used for identifying and manipulating the active panel
+     * The name of the panel, used for identifying and manipulating the active panel.
+     * If you do not specify a name, the clientId will be used as the name.
      */
     @Attribute(generate = false)
     public String getName() {
