@@ -56,7 +56,7 @@ public abstract class AbstractPopupPanel extends UIComponentBase implements Even
     /**
      * Defines options that were specified on the client side
      */
-    @Attribute
+    @Attribute(hidden = true)
     public abstract String getVisualOptions();
 
     @Attribute(defaultValue = "100")
@@ -141,7 +141,7 @@ public abstract class AbstractPopupPanel extends UIComponentBase implements Even
     /**
      * If "true" popupPanel should save state after submission. Default value is "false".
      */
-    @Attribute
+    @Attribute(hidden = true)
     public abstract boolean isKeepVisualState();
 
     /**
