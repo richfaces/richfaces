@@ -40,6 +40,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
 import org.richfaces.component.AbstractTogglePanelItemInterface;
+import org.richfaces.component.VisitChildrenRejectable;
 
 /**
  * @author akolonitsky
@@ -124,7 +125,7 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
 
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        if (((AbstractTogglePanelItemInterface) component).shouldProcess()) {
+        if (((VisitChildrenRejectable) component).shouldVisitChildren()) {
             doEncodeItemBegin(writer, context, component);
         }
     }
@@ -132,14 +133,14 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
     @Override
     protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
-        if (((AbstractTogglePanelItemInterface) component).shouldProcess()) {
+        if (((VisitChildrenRejectable) component).shouldVisitChildren()) {
             renderChildren(context, component);
         }
     }
 
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        if (((AbstractTogglePanelItemInterface) component).shouldProcess()) {
+        if (((VisitChildrenRejectable) component).shouldVisitChildren()) {
             doEncodeItemEnd(writer, context, component);
         } else {
             encodePlaceHolderWithJs(context, component);

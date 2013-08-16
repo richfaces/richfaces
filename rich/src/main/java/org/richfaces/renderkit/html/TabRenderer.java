@@ -92,7 +92,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
         AbstractTab tab = (AbstractTab) component;
 
-        if (tab.shouldProcess() && !tab.isDisabled()) {
+        if (tab.shouldVisitChildren() && !tab.isDisabled()) {
             super.doEncodeChildren(writer, context, tab);
         }
     }
@@ -108,7 +108,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        if (((AbstractTogglePanelItemInterface) component).shouldProcess()) {
+        if (((VisitChildrenRejectable) component).shouldVisitChildren()) {
             doEncodeItemEnd(writer, context, component);
         } else {
             encodePlaceHolder(context, component);

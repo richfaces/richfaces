@@ -216,7 +216,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
     }
 
     @Override
-    public boolean shouldProcess() {
+    public boolean shouldVisitChildren() {
         return isActive() || getSwitchType() == SwitchType.client;
     }
 
