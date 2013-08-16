@@ -26,19 +26,18 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.ui.common.AbstractDivPanel;
 import org.richfaces.ui.common.SwitchType;
+import org.richfaces.ui.common.VisitChildrenRejectable;
 import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public interface AbstractTogglePanelItemInterface extends AbstractDivPanel {
+public interface AbstractTogglePanelItemInterface extends AbstractDivPanel, VisitChildrenRejectable {
     AbstractTogglePanel getParentPanel();
 
     boolean isDynamicPanelItem();
 
     boolean isActive();
-
-    boolean shouldProcess();
 
     // ------------------------------------------------ Component Attributes
 

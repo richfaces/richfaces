@@ -21,10 +21,13 @@
  */
 package org.richfaces.ui.toggle.togglePanel;
 
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.javascript.JSObject;
-import org.richfaces.ui.common.DivPanelRenderer;
-import org.richfaces.ui.toggle.AbstractTogglePanelItemInterface;
+import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
+import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.STYLE_ATTRIBUTE;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -32,13 +35,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
-import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.STYLE_ATTRIBUTE;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.ui.common.DivPanelRenderer;
+import org.richfaces.ui.common.VisitChildrenRejectable;
+import org.richfaces.ui.toggle.AbstractTogglePanelItemInterface;
 
 /**
  * @author akolonitsky
@@ -123,7 +124,7 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
 
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        if (((AbstractTogglePanelItemInterface) component).shouldProcess()) {
+        if (((VisitChildrenRejectable) component).shouldVisitChildren()) {
             doEncodeItemBegin(writer, context, component);
         }
     }
@@ -131,14 +132,14 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
     @Override
     protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
-        if (((AbstractTogglePanelItemInterface) component).shouldProcess()) {
+        if (((VisitChildrenRejectable) component).shouldVisitChildren()) {
             renderChildren(context, component);
         }
     }
 
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        if (((AbstractTogglePanelItemInterface) component).shouldProcess()) {
+        if (((VisitChildrenRejectable) component).shouldVisitChildren()) {
             doEncodeItemEnd(writer, context, component);
         } else {
             encodePlaceHolderWithJs(context, component);

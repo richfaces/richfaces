@@ -84,7 +84,7 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
         return getParentPanel().isActiveItem(this);
     }
 
-    public boolean shouldProcess() {
+    public boolean shouldVisitChildren() {
         return isActive() || getSwitchType() == SwitchType.client;
     }
 
