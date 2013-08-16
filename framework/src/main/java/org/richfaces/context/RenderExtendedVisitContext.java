@@ -31,6 +31,7 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.ui.common.AjaxOutput;
+import org.richfaces.ui.common.VisitChildrenRejectable;
 
 /**
  * @author Nick Belaevski
@@ -71,7 +72,12 @@ public class RenderExtendedVisitContext extends BaseExtendedVisitContext {
                 }
             }
         }
-        return VisitResult.ACCEPT;
+
+        if (component instanceof VisitChildrenRejectable && !((VisitChildrenRejectable) component).shouldVisitChildren()) {
+            return VisitResult.REJECT;
+        } else {
+            return VisitResult.ACCEPT;
+        }
     }
 
     protected boolean shouldCompleteOnEmptyIds() {
