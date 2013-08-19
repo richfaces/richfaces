@@ -167,11 +167,16 @@
         },
 
         __log: function(level, message) {
-            if (!logLevelValues[this.getLevel()]) {
+            var configuredLevel = this.getLevel();
+
+            if (!logLevelValues[configuredLevel]) {
                 // unknown log level
-                return;
+                if (console.log) {
+                  console.log('Warning: unknown log level "' + this.getLevel() + '" - using log level "debug"');
+                }
+                configuredLevel = 'debug';
             }
-            if (logLevelValues[level] < logLevelValues[this.getLevel()]) {
+            if (logLevelValues[level] < logLevelValues[configuredLevel]) {
                 // message is not loggable due to its level
                 return;
             }
