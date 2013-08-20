@@ -31,6 +31,7 @@ import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.javascript.JavaScript;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
@@ -63,6 +64,9 @@ public class ITFocusAjaxRendered {
     @FindBy(id = "form:input2")
     private WebElement input2;
 
+    @JavaScript
+    private FocusRetriever focusRetriever;
+
     @Deployment
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITFocusAjaxRendered.class);
@@ -75,7 +79,7 @@ public class ITFocusAjaxRendered {
     @Test
     public void when_the_focus_is_not_ajaxRendered_then_no_element_should_have_focus_after_ajax() {
         browser.get(contextPath.toExternalForm());
-        assertEquals(input1, FocusRetriever.retrieveActiveElement());
+        assertEquals(input1, focusRetriever.retrieveActiveElement());
 
         // when
         input2.click();
