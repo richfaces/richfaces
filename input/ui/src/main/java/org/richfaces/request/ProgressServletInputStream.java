@@ -110,6 +110,5 @@ class ProgressServletInputStream extends ServletInputStream {
     @Override
     public void setReadListener(ReadListener arg0) {
         // TODO Auto-generated method stub
-        
     }
 }
