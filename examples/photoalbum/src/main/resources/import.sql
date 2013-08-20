@@ -397,12 +397,11 @@ UPDATE Album set coveringImage_id=123027 where id = 1230;
 -- Event Categories and Events
 -------------------------------
 
-INSERT INTO EventCategory(description) VALUES('Movie');
-INSERT INTO EventCategory(description) VALUES('Concert');
-INSERT INTO EventCategory(description) VALUES('Meeting');
+INSERT INTO EventCategory(description) VALUES('Concerts');
+INSERT INTO EventCategory(description) VALUES('Meetings');
 
 INSERT INTO Event(id, name, description, CATEGORY_ID) VALUES (1, 'Rock concert of the decade', 'Get ready to rock your night away with this megaconcert extravaganza from 10 of the biggest rock stars of the 80''s', 1);
-INSERT INTO Event(id, name, description, CATEGORY_ID) VALUES (2, 'Shane''s Sock Puppets', 'This critically acclaimed masterpiece will take you on an emotional rollercoaster the likes of which you''ve never experienced.', 2);
+INSERT INTO Event(id, name, description, CATEGORY_ID) VALUES (2, 'Shane''s Sock Puppets', 'This critically acclaimed masterpiece will take you on an emotional rollercoaster the likes of which you''ve never experienced.', 1);
 
 INSERT INTO Shelf(id, name, description, owner_id, event_id, created, shared) VALUES (10, 'Rock concert of the decade', 'event shelf', 1, 1, '2009-12-18', true);
 INSERT INTO Shelf(id, name, description, owner_id, event_id, created, shared) VALUES (11, 'Shane''s Sock Puppets', 'event shelf', 1, 2, '2009-12-18', true);
