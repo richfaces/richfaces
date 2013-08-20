@@ -1,7 +1,10 @@
 package org.richfaces.arquillian.configuration;
 
+import java.lang.reflect.Method;
+
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy.FutureTarget;
+import org.jboss.arquillian.graphene.proxy.GrapheneProxyHandler;
 
 /**
  * <p>
@@ -43,7 +46,12 @@ public class FundamentalTestConfigurationContext {
      * @return the instance of proxy to thread local context of configuration
      */
     public static FundamentalTestConfiguration getProxy() {
-        return GrapheneProxy.getProxyForFutureTarget(TARGET, FundamentalTestConfiguration.class);
+        return GrapheneProxy.getProxyForHandler(new GrapheneProxyHandler(TARGET) {
+            @Override
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                return method.invoke(TARGET.getTarget(), args);
+            }
+        }, FundamentalTestConfiguration.class);
     }
 
     /**

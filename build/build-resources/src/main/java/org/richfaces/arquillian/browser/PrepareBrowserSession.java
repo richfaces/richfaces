@@ -1,8 +1,7 @@
 package org.richfaces.arquillian.browser;
 
 import org.jboss.arquillian.core.api.annotation.Observes;
-import org.jboss.arquillian.drone.impl.DroneContext;
-import org.jboss.arquillian.drone.spi.DroneReady;
+import org.jboss.arquillian.drone.spi.event.AfterDroneEnhanced;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 
@@ -19,9 +18,9 @@ import org.openqa.selenium.WebDriver;
  */
 public class PrepareBrowserSession {
 
-    public void prepare(@Observes DroneReady event, DroneContext ctx) {
+    public void prepare(@Observes AfterDroneEnhanced event) {
 
-        WebDriver browser = (WebDriver) event.getInstance();
+        WebDriver browser = event.getInstance().asInstance(WebDriver.class);
         if (BrowserUtils.isPhantomjs(browser)) {
             browser.manage().window().setSize(new Dimension(1280, 1024));
         }
