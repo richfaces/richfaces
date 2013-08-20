@@ -46,8 +46,10 @@ import javax.faces.view.facelets.TagHandler;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.richfaces.component.AbstractAttachQueue;
+import org.richfaces.ui.behavior.BehaviorStack;
+import org.richfaces.ui.behavior.BehaviorStack.BehaviorInfo;
+import org.richfaces.ui.common.CustomBehaviorHandler;
 import org.richfaces.view.facelets.TagHandlerUtils;
-import org.richfaces.view.facelets.html.BehaviorStack.BehaviorInfo;
 import org.richfaces.view.facelets.tag.AjaxBehaviorRule;
 
 /**

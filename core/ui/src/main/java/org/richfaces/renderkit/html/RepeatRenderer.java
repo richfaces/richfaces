@@ -27,14 +27,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
-import org.richfaces.model.DataVisitResult;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.UIRepeat;
+import org.richfaces.model.DataVisitResult;
 import org.richfaces.model.DataVisitor;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @JsfRenderer(type = "org.richfaces.RepeatRenderer", family = UIRepeat.COMPONENT_FAMILY)
 public class RepeatRenderer extends Renderer {
