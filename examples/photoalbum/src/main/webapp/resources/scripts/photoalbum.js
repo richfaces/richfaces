@@ -96,29 +96,6 @@ var F = {};
         return first;
     };
 
-    // F.getAlbums = function(callback, errorCb) {
-        // FB.getLoginStatus(function(response) {
-// 
-            // if (response.status === "connected") {
-                // var query1 = "SELECT cover_pid, object_id, name FROM album WHERE owner = me() AND can_upload = 'true'",
-                    // query2 = "SELECT src FROM photo WHERE pid IN (SELECT cover_pid FROM #q1)";
-                // FB.api('fql', {
-                    // q : {
-                        // "q1" : query1,
-                        // "q2" : query2
-                    // }
-                // }, function(response) {
-                    // if (!response || response.error) {
-                        // errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
-                    // } else {
-                        // result = mergeResults(response.data[0].fql_result_set, response.data[1].fql_result_set);
-                        // callback(JSON.stringify(translateFBAlbums(result)));
-                    // }
-                // });
-            // }
-        // });
-    // };
-
     F.login = function(infoCb, albumIdsCb, errorCb) {
         FB.login(function(response) {
             if (response.authResponse) {

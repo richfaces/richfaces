@@ -86,13 +86,6 @@
             <r:param assignTo="#{googlePlusAlbumCache.albumImages}" name="response" />
         </r:jsFunction>
 
-        <!-- if albums aren't loaded, get the albums from Facebook 
-        <h:outputScript rendered="#{googlePlusAlbumCache.needsUpdate}">    
-                $(document).ready(function() {
-                    FBgetAlbumsById( "#{albumString}", setFBimages, showError);
-                });
-        </h:outputScript> -->
-
         <ui:include src="/includes/gplus/albumImport.xhtml" />
 
         <!-- **Image import** -->
