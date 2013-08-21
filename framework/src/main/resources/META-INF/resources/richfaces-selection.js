@@ -20,11 +20,14 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-(function (richfaces) {
+window.RichFaces = window.RichFaces || {};
+RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
-    richfaces.Selection = richfaces.Selection || {};
+(function (rf) {
 
-    richfaces.Selection.set = function (field, start, end) {
+    rf.Selection = rf.Selection || {};
+
+    rf.Selection.set = function (field, start, end) {
         if (field.setSelectionRange) {
             field.focus();
             field.setSelectionRange(start, end);
@@ -37,7 +40,7 @@
         }
     }
 
-    richfaces.Selection.getStart = function(field) {
+    rf.Selection.getStart = function(field) {
         if (field.setSelectionRange) {
             return field.selectionStart;
         } else if (document.selection && document.selection.createRange) {
@@ -48,7 +51,7 @@
         }
     }
 
-    richfaces.Selection.getEnd = function(field) {
+    rf.Selection.getEnd = function(field) {
         if (field.setSelectionRange) {
             return field.selectionEnd;
         } else if (document.selection && document.selection.createRange) {
@@ -58,8 +61,8 @@
         }
     }
 
-    richfaces.Selection.setCaretTo = function (field, pos) {
+    rf.Selection.setCaretTo = function (field, pos) {
         if (!pos) pos = field.value.length;
-        richfaces.Selection.set(field, pos, pos);
+        rf.Selection.set(field, pos, pos);
     }
-})(window.RichFaces || (window.RichFaces = {}));
+})(RichFaces);

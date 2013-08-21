@@ -63,4 +63,4 @@
     
     // define super class reference - reference to the parent prototype
     var $super = rf.ui.Placeholder.$super;
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

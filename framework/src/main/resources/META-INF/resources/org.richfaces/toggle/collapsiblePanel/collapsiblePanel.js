@@ -49,10 +49,10 @@
                 $(document.getElementById(this.id)).ready(function () { // TODO
                     rf.Event.bindById(panel.id + ":header", "click", panel.__onHeaderClick, panel);
 
-                    new RichFaces.ui.CollapsiblePanelItem(
+                    new rf.ui.CollapsiblePanelItem(
                         panel.id + ":content", {"index":0, "togglePanelId":panel.id, "switchMode":panel.switchMode, "name":"true"}),
 
-                        new RichFaces.ui.CollapsiblePanelItem(
+                        new rf.ui.CollapsiblePanelItem(
                             panel.id + ":empty", {"index":1, "togglePanelId":panel.id, "switchMode":panel.switchMode, "name":"false"})
                 })
             },
@@ -81,4 +81,4 @@
                     });
             }
         });
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

@@ -153,4 +153,4 @@
 
     // define super class link
     var $super = rf.ui.Tab.$super;
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

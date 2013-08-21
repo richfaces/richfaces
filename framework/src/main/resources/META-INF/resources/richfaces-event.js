@@ -27,7 +27,10 @@
 // TODO: add support to bind multiple events using type param as an object with eventType,function pairs // see bindById method
 // TODO: update js docs 
 
-(function($, richfaces) {
+window.RichFaces = window.RichFaces || {};
+RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
+
+(function($, rf) {
 
     /**
      * RichFaces Event API container
@@ -36,15 +39,15 @@
      * @static
      * @name Event
      * */
-    richfaces.Event = richfaces.Event || {};
+    rf.Event = rf.Event || {};
 
     var getEventElement = function (selector) {
         if (!selector) {
             throw "RichFaces.Event: empty selector";
         }
         var element;
-        if (RichFaces.BaseComponent && selector instanceof RichFaces.BaseComponent) {
-            element = $(richfaces.getDomElement(selector.getEventElement()));
+        if (rf.BaseComponent && selector instanceof rf.BaseComponent) {
+            element = $(rf.getDomElement(selector.getEventElement()));
         } else {
             element = $(selector);
         }
@@ -54,8 +57,8 @@
 
     var getHandlerWrapper = function (component, fn) {
         return function (e, d) {
-            if (!e[richfaces.RICH_CONTAINER]) {
-                e[richfaces.RICH_CONTAINER] = {data: d};
+            if (!e[rf.RICH_CONTAINER]) {
+                e[rf.RICH_CONTAINER] = {data: d};
             }
             return fn.call(component || this, e, this, d);
         };
@@ -69,7 +72,7 @@
         return result;
     }
 
-    $.extend(richfaces.Event, {
+    $.extend(rf.Event, {
             /**
              * @constant
              * @name RichFaces.Event.RICH_NAMESPACE
@@ -226,18 +229,18 @@
             // TODO add jsdocs and qunits
             bindScrollEventHandlers: function(element, handler, component) {
                 var elements = [];
-                element = richfaces.getDomElement(element).parentNode;
+                element = rf.getDomElement(element).parentNode;
                 while (element && element != window.document.body) {
                     if (element.offsetWidth != element.scrollWidth || element.offsetHeight != element.scrollHeight) {
                         elements.push(element);
-                        richfaces.Event.bind(element, "scroll" + component.getNamespace(), handler, component);
+                        rf.Event.bind(element, "scroll" + component.getNamespace(), handler, component);
                     }
                     element = element.parentNode;
                 }
                 return elements;
             },
             unbindScrollEventHandlers: function(elements, component) {
-                richfaces.Event.unbind(elements, "scroll" + component.getNamespace());
+                rf.Event.unbind(elements, "scroll" + component.getNamespace());
             },
 
             /**
@@ -317,18 +320,18 @@
                 // TODO: rename argument names
             createNamespace : function(componentName, id, prefix) {
                 var a = [];
-                a.push(prefix || richfaces.Event.RICH_NAMESPACE);
+                a.push(prefix || rf.Event.RICH_NAMESPACE);
                 if (componentName) {
                     a.push(componentName);
                 }
                 if (id) {
                     a.push(id);
                 }
-                return a.join(richfaces.Event.EVENT_NAMESPACE_SEPARATOR);
+                return a.join(rf.Event.EVENT_NAMESPACE_SEPARATOR);
             }
         });
 
-})(jQuery, window.RichFaces || (window.RichFaces = {}));
+})(RichFaces.jQuery, RichFaces);
 
 /*
  fn : function (eventObject, element) {

@@ -33,4 +33,4 @@
 
   });
 
-}(jQuery));
+}(RichFaces.jQuery));

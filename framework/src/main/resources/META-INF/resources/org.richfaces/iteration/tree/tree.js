@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-(function($, richfaces) {
+(function($, rf) {
 
     var NEW_NODE_TOGGLE_STATE = "__NEW_NODE_TOGGLE_STATE";
 
@@ -33,9 +33,9 @@
 
     var TREE_ICON_CLASSES = ["rf-trn-ico-colps", "rf-trn-ico-exp"];
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
 
-    richfaces.ui.TreeNode = richfaces.BaseComponent.extendClass({
+    rf.ui.TreeNode = rf.BaseComponent.extendClass({
 
             name: "TreeNode",
 
@@ -50,11 +50,11 @@
                 var handlers = (commonOptions.clientEventHandlers || {})[this.getId().substring(commonOptions.treeId.length)] || {};
 
                 if (handlers.bth) {
-                    richfaces.Event.bind(this.__rootElt, "beforetoggle", new Function("event", handlers.bth));
+                    rf.Event.bind(this.__rootElt, "beforetoggle", new Function("event", handlers.bth));
                 }
 
                 if (handlers.th) {
-                    richfaces.Event.bind(this.__rootElt, "toggle", new Function("event", handlers.th));
+                    rf.Event.bind(this.__rootElt, "toggle", new Function("event", handlers.th));
                 }
 
                 this.__addLastNodeClass();
@@ -79,7 +79,7 @@
             __initializeChildren: function(commonOptions) {
                 var _this = this;
                 this.__rootElt.children(".rf-tr-nd").each(function() {
-                    _this.addChild(new richfaces.ui.TreeNode(this, commonOptions));
+                    _this.addChild(new rf.ui.TreeNode(this, commonOptions));
                 });
             },
 
@@ -186,11 +186,11 @@
             },
 
             __fireBeforeToggleEvent: function() {
-                return richfaces.Event.callHandler(this.__rootElt, "beforetoggle");
+                return rf.Event.callHandler(this.__rootElt, "beforetoggle");
             },
 
             __fireToggleEvent: function() {
-                richfaces.Event.callHandler(this.__rootElt, "toggle");
+                rf.Event.callHandler(this.__rootElt, "toggle");
             },
 
             __makeLoading: function() {
@@ -271,9 +271,9 @@
         });
 
     // define super class link for TreeNode
-    var $superTreeNode = richfaces.ui.TreeNode.$super;
+    var $superTreeNode = rf.ui.TreeNode.$super;
 
-    richfaces.ui.TreeNode.initNodeByAjax = function(nodeId, commonOptions) {
+    rf.ui.TreeNode.initNodeByAjax = function(nodeId, commonOptions) {
         var node = $(document.getElementById(nodeId));
 
         var opts = commonOptions || {};
@@ -282,10 +282,10 @@
 
         var idx = node.prevAll(".rf-tr-nd").length;
 
-        var parentNode = richfaces.component(parent[0]);
+        var parentNode = rf.component(parent[0]);
         opts.treeId = parentNode.getTree().getId();
 
-        var newChild = new richfaces.ui.TreeNode(node[0], opts);
+        var newChild = new rf.ui.TreeNode(node[0], opts);
         parentNode.addChild(newChild, idx);
 
         var tree = parentNode.getTree();
@@ -295,33 +295,33 @@
         }
     };
 
-    richfaces.ui.TreeNode.emitToggleEvent = function(nodeId) {
+    rf.ui.TreeNode.emitToggleEvent = function(nodeId) {
         var node = document.getElementById(nodeId);
         if (!node) {
             return;
         }
 
-        richfaces.component(node).__fireToggleEvent();
+        rf.component(node).__fireToggleEvent();
     };
 
     var findTree = function(elt) {
-        return richfaces.component($(elt).closest(".rf-tr"));
+        return rf.component($(elt).closest(".rf-tr"));
     };
 
     var findTreeNode = function(elt) {
-        return richfaces.component($(elt).closest(".rf-tr-nd"));
+        return rf.component($(elt).closest(".rf-tr-nd"));
     };
 
     var isEventForAnotherTree = function(tree, elt) {
         return tree != findTree(elt);
     };
 
-    richfaces.ui.Tree = richfaces.ui.TreeNode.extendClass({
+    rf.ui.Tree = rf.ui.TreeNode.extendClass({
 
             name: "Tree",
 
             init: function (id, options) {
-                this.__treeRootElt = $(richfaces.getDomElement(id));
+                this.__treeRootElt = $(rf.getDomElement(id));
 
                 var commonOptions = {};
                 commonOptions.clientEventHandlers = options.clientEventHandlers || {};
@@ -337,11 +337,11 @@
                 }
 
                 if (options.onbeforeselectionchange) {
-                    richfaces.Event.bind(this.__treeRootElt, "beforeselectionchange", new Function("event", options.onbeforeselectionchange));
+                    rf.Event.bind(this.__treeRootElt, "beforeselectionchange", new Function("event", options.onbeforeselectionchange));
                 }
 
                 if (options.onselectionchange) {
-                    richfaces.Event.bind(this.__treeRootElt, "selectionchange", new Function("event", options.onselectionchange));
+                    rf.Event.bind(this.__treeRootElt, "selectionchange", new Function("event", options.onselectionchange));
                 }
 
                 this.__toggleNodeEvent = options.toggleNodeEvent;
@@ -355,7 +355,7 @@
                 this.__treeRootElt.delegate(".rf-trn-cnt", "mousedown", this, this.__nodeSelectionActivated);
 
                 this.__findSelectionInput();
-                this.__selection = new richfaces.ui.TreeNodeSet(this.__selectionInput.val());
+                this.__selection = new rf.ui.TreeNodeSet(this.__selectionInput.val());
 
                 $(document).ready($.proxy(this.__updateSelectionFromInput, this));
             },
@@ -417,12 +417,12 @@
 
                 if (this.getToggleType() == 'server') {
                     var form = this.__treeRootElt.closest('form');
-                    richfaces.submitForm(form, clientParams);
+                    rf.submitForm(form, clientParams);
                 } else {
                     toggleSource.__makeLoading();
                     clientParams[toggleSourceId + TRIGGER_NODE_AJAX_UPDATE] = newNodeState;
                     this.__ajaxSubmitFunction(event, toggleSourceId, clientParams, function() {
-                        var treeNode = richfaces.component(toggleSourceId);
+                        var treeNode = rf.component(toggleSourceId);
                         if (treeNode) {
                             treeNode.__resetLoading();
                         }
@@ -448,7 +448,7 @@
                     newSelection: newSelection.getNodes()
                 };
 
-                if (richfaces.Event.callHandler(this.__treeRootElt, "beforeselectionchange", eventData) === false) {
+                if (rf.Event.callHandler(this.__treeRootElt, "beforeselectionchange", eventData) === false) {
                     return;
                 }
 
@@ -473,7 +473,7 @@
 
             __updateSelectionFromInput: function() {
                 this.__findSelectionInput();
-                this.__updateSelection(new richfaces.ui.TreeNodeSet(this.__selectionInput.val()));
+                this.__updateSelection(new rf.ui.TreeNodeSet(this.__selectionInput.val()));
             },
 
             __updateSelection: function(newSelection) {
@@ -488,7 +488,7 @@
                 });
 
                 if (oldSelection.getNodeString() != newSelection.getNodeString()) {
-                    richfaces.Event.callHandler(this.__treeRootElt, "selectionchange", {
+                    rf.Event.callHandler(this.__treeRootElt, "selectionchange", {
                             oldSelection: oldSelection.getNodes(),
                             newSelection: newSelection.getNodes()
                         });
@@ -506,20 +506,20 @@
                 selector += (typeof menu.options.targetSelector === 'undefined')
                     ?  ".rf-trn-cnt" : menu.options.targetSelector;
                 selector = jQuery.trim(selector);
-                richfaces.Event.bind(selector, menu.options.showEvent, $.proxy(menu.__showHandler, menu), menu);
+                rf.Event.bind(selector, menu.options.showEvent, $.proxy(menu.__showHandler, menu), menu);
             }
 
         });
 
     // define super class link for Tree
-    var $superTree = richfaces.ui.Tree.$super;
+    var $superTree = rf.ui.Tree.$super;
 
-    richfaces.ui.TreeNodeSet = function() {
+    rf.ui.TreeNodeSet = function() {
         this.init.apply(this, arguments);
     };
 
     //TODO - that's a single-node set, implement multi-node support!
-    $.extend(richfaces.ui.TreeNodeSet.prototype, {
+    $.extend(rf.ui.TreeNodeSet.prototype, {
 
             init: function(nodeId) {
                 this.__nodeId = nodeId;
@@ -543,7 +543,7 @@
 
             getNodes: function() {
                 if (this.__nodeId) {
-                    var node = richfaces.component(this.__nodeId);
+                    var node = rf.component(this.__nodeId);
                     if (node) {
                         return [node];
                     } else {
@@ -555,7 +555,7 @@
             },
 
             cloneAndAdd: function(node) {
-                return new richfaces.ui.TreeNodeSet(node.getId());
+                return new rf.ui.TreeNodeSet(node.getId());
             },
 
             cloneAndToggle: function(node) {
@@ -566,7 +566,7 @@
                     nodeId = node.getId();
                 }
 
-                return new richfaces.ui.TreeNodeSet(nodeId);
+                return new rf.ui.TreeNodeSet(nodeId);
             },
 
             each: function(callback) {
@@ -574,4 +574,4 @@
             }
         });
 
-}(jQuery, RichFaces));
+}(RichFaces.jQuery, RichFaces));

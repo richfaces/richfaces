@@ -131,4 +131,4 @@
 
     // define super class link
     var $super = rf.ui.AccordionItem.$super;
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

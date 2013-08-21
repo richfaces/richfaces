@@ -24,7 +24,7 @@
  * @author Pavel Yaschenko
  */
 
-(function($, richfaces, jsf) {
+(function($, rf, jsf) {
 
     /**
      * RichFaces Ajax container
@@ -33,9 +33,9 @@
      * @static
      * @name ajaxContainer
      * */
-    richfaces.ajaxContainer = richfaces.ajaxContainer || {};
+    rf.ajaxContainer = rf.ajaxContainer || {};
 
-    if (richfaces.ajaxContainer.jsfRequest) {
+    if (rf.ajaxContainer.jsfRequest) {
         return;
     }
 
@@ -46,7 +46,7 @@
      * @name RichFaces.ajaxContainer.jsfRequest
      *
      * */
-    richfaces.ajaxContainer.jsfRequest = jsf.ajax.request;
+    rf.ajaxContainer.jsfRequest = jsf.ajax.request;
 
     /**
      * RichFaces wrapper function of JSF 2.0 original method jsf.ajax.request
@@ -58,18 +58,18 @@
      * @param {object} [options] - The set name/value pairs that can be sent as request parameters to control client and/or server side request processing
      * */
     jsf.ajax.request = function(source, event, options) {
-        richfaces.queue.push(source, event, options);
+        rf.queue.push(source, event, options);
     };
 
-    richfaces.ajaxContainer.jsfResponse = jsf.ajax.response;
+    rf.ajaxContainer.jsfResponse = jsf.ajax.response;
 
-    richfaces.ajaxContainer.isIgnoreResponse = function() {
-        return richfaces.queue.isIgnoreResponse();
+    rf.ajaxContainer.isIgnoreResponse = function() {
+        return rf.queue.isIgnoreResponse();
     };
 
 
     jsf.ajax.response = function(request, context) {
-        richfaces.queue.response(request, context);
+        rf.queue.response(request, context);
     };
 
     var QUEUE_MODE_PULL = 'pull';
@@ -84,7 +84,7 @@
      * @static
      * @name queue
      * */
-    richfaces.queue = (function() {
+    rf.queue = (function() {
 
         var defaultQueueOptions = {};
         //defaultQueueOptions[DEFAULT_QUEUE_ID] = {requestDelay:0, ignoreDupResponse:false, timeout:0};
@@ -104,7 +104,7 @@
                 }
                 delete this.options.queueId;
             } else {
-                var element = richfaces.getDomElement(source);
+                var element = rf.getDomElement(source);
                 var form;
                 if (element) {
                     element = $(element).closest("form");
@@ -124,7 +124,7 @@
                     this.queueOptions = $.extend({}, (defaultQueueOptions[this.queueOptions.queueId] || {}), this.queueOptions);
                 } else {
                     // TODO: clean duplicated code
-                    var element = richfaces.getDomElement(source);
+                    var element = rf.getDomElement(source);
                     var form;
                     if (element) {
                         element = $(element).closest("form");
@@ -205,7 +205,7 @@
                         delay = this.queueOptions.requestDelay || 0;
                     }
 
-                    richfaces.log.debug("Queue will wait " + (delay || 0) + "ms before submit");
+                    rf.log.debug("Queue will wait " + (delay || 0) + "ms before submit");
 
                     if (delay) {
                         var _this = this;
@@ -260,7 +260,7 @@
             if (data && data.message) {
                 message += ": " + data.message;
             }
-            richfaces.log.warn(message);
+            rf.log.warn(message);
 
             lastRequestedEntry = null;
             //TODO: what if somebody is going to clear queue on error?
@@ -269,7 +269,7 @@
 
         var onComplete = function (data) {
             if (data.type == JSF_EVENT_TYPE && data.status == JSF_EVENT_SUCCESS) { // or JSF_EVENT_COMPLETE will be rather
-                richfaces.log.debug("richfaces.queue: ajax submit successfull");
+                rf.log.debug("richfaces.queue: ajax submit successfull");
                 lastRequestedEntry = null;
                 submitFirstEntry();
             }
@@ -280,21 +280,21 @@
 
         var submitFirstEntry = function() {
             if (QUEUE_MODE == QUEUE_MODE_PULL && lastRequestedEntry) {
-                richfaces.log.debug("richfaces.queue: Waiting for previous submit results");
+                rf.log.debug("richfaces.queue: Waiting for previous submit results");
                 return;
             }
             if (isEmpty()) {
-                richfaces.log.debug("richfaces.queue: Nothing to submit");
+                rf.log.debug("richfaces.queue: Nothing to submit");
                 return;
             }
             var entry;
             if (items[0].getReadyToSubmit()) {
             	try {
                     entry = lastRequestedEntry = items.shift();
-                    richfaces.log.debug("richfaces.queue: will submit request NOW");
+                    rf.log.debug("richfaces.queue: will submit request NOW");
                     var o = lastRequestedEntry.options;
                     o["AJAX:EVENTS_COUNT"] = lastRequestedEntry.eventsCount;
-                    richfaces.ajaxContainer.jsfRequest(lastRequestedEntry.source, lastRequestedEntry.event, o);
+                    rf.ajaxContainer.jsfRequest(lastRequestedEntry.source, lastRequestedEntry.event, o);
 
                     // call event handlers
                     if (o.queueonsubmit) {
@@ -345,7 +345,7 @@
 
         var pushEntry = function (entry) {
             items.push(entry);
-            richfaces.log.debug("New request added to queue. Queue requestGroupingId changed to " + entry.getRequestGroupId());
+            rf.log.debug("New request added to queue. Queue requestGroupingId changed to " + entry.getRequestGroupId());
             // call event handlers
             callEventHandler("onrequestqueue", entry);
         }
@@ -407,9 +407,9 @@
 
                 if (lastEntry) {
                     if (lastEntry.getRequestGroupId() == requestGroupingId) {
-                        richfaces.log.debug("Similar request currently in queue");
+                        rf.log.debug("Similar request currently in queue");
 
-                        richfaces.log.debug("Combine similar requests and reset timer");
+                        rf.log.debug("Combine similar requests and reset timer");
 
                         lastEntry.stopTimer();
                         entry.setEventsCount(lastEntry.getEventsCount() + 1);
@@ -417,7 +417,7 @@
                         updateLastEntry(entry);
                         callEventHandler("onrequestqueue", entry);
                     } else {
-                        richfaces.log.debug("Last queue entry is not the last anymore. Stopping requestDelay timer and marking entry as ready for submission")
+                        rf.log.debug("Last queue entry is not the last anymore. Stopping requestDelay timer and marking entry as ready for submission")
 
                         lastEntry.stopTimer();
                         lastEntry.resetRequestGroupId();
@@ -440,7 +440,7 @@
                     lastRequestedEntry = null;
                     submitFirstEntry();
                 } else {
-                    richfaces.ajaxContainer.jsfResponse(request, context);
+                    rf.ajaxContainer.jsfResponse(request, context);
                 }
             },
 
@@ -484,7 +484,7 @@
                     // first parameter is hash with queue names and options
                     $.extend(defaultQueueOptions, id);
                 }
-                return richfaces.queue;
+                return rf.queue;
             },
 
             getQueueOptions: function (id) {
@@ -492,4 +492,4 @@
             }
         }
     }());
-}(jQuery, RichFaces, jsf));
+}(RichFaces.jQuery, RichFaces, jsf));

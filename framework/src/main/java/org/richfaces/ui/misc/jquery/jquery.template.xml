@@ -52,10 +52,10 @@
 
                 <c:choose>
                     <c:when test="#{not empty functionName}">
-                        #{functionName} = RichFaces.jQuery.createFunction(#{toScriptArgs(options)});
+                        #{functionName} = RichFaces.ui.jQueryComponent.createFunction(#{toScriptArgs(options)});
                     </c:when>
                     <c:otherwise>
-                        RichFaces.jQuery.query(#{toScriptArgs(options)});
+                        RichFaces.ui.jQueryComponent.query(#{toScriptArgs(options)});
                     </c:otherwise>
                 </c:choose>
             </script>

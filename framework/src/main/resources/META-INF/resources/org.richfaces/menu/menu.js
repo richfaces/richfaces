@@ -45,7 +45,7 @@
         if (this.target) {
             var menu = this;
             $(document).ready(function() {
-                var targetComponent = RichFaces.component(menu.target);
+                var targetComponent = rf.component(menu.target);
                 if (targetComponent && targetComponent.contextMenuAttach) {
                     targetComponent.contextMenuAttach(menu);
                 } else {
@@ -83,7 +83,7 @@
                 for (var i in groupOptions) {
                     var groupId = groupOptions[i].id;
                     if (null != groupId) {
-                        this.groupList[groupId] = new RichFaces.ui.MenuGroup(
+                        this.groupList[groupId] = new rf.ui.MenuGroup(
                             groupId, {
                                 rootMenuId : this.id,
                                 onshow : groupOptions[i].onshow,
@@ -177,4 +177,4 @@
             return this.activeSubMenu;
         }
     }
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

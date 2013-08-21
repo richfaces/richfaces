@@ -63,4 +63,4 @@
                 return $(rf.getDomElement(this.togglePanelId + ":header"));
             }
         });
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

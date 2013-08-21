@@ -20,9 +20,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-(function ($, richfaces) {
+(function ($, rf) {
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
     var selectionEventHandler = function(event) {
         event.stopPropagation();
         event.preventDefault();
@@ -31,22 +31,22 @@
     var disableSelection = function (element) {
         if (typeof element.onselectstart != "undefined") //IE
         {
-            $(richfaces.getDomElement(element)).bind('selectstart', selectionEventHandler);
+            $(rf.getDomElement(element)).bind('selectstart', selectionEventHandler);
         }
         else //All other (ie: Opera)
         {
-            $(richfaces.getDomElement(element)).bind('mousedown', selectionEventHandler);
+            $(rf.getDomElement(element)).bind('mousedown', selectionEventHandler);
         }
     };
 
     var enableSelection = function (element) {
         if (typeof element.onselectstart != "undefined") //IE
         {
-            $(richfaces.getDomElement(element)).unbind('selectstart', selectionEventHandler);
+            $(rf.getDomElement(element)).unbind('selectstart', selectionEventHandler);
         }
         else //All other (ie: Opera)
         {
-            $(richfaces.getDomElement(element)).unbind('mousedown', selectionEventHandler);
+            $(rf.getDomElement(element)).unbind('mousedown', selectionEventHandler);
         }
     };
 
@@ -68,7 +68,7 @@
     };
 
 
-    richfaces.ui.PopupPanel = function(id, options) {
+    rf.ui.PopupPanel = function(id, options) {
 
         $super.constructor.call(this, id);
         this.markerId = id;
@@ -82,41 +82,41 @@
 
         this.baseZIndex = this.options.zindex;
 
-        this.div = $(richfaces.getDomElement(id));
-        this.cdiv = $(richfaces.getDomElement(id + "_container"));
-        this.contentDiv = $(richfaces.getDomElement(id + "_content"));
-        this.shadowDiv = $(richfaces.getDomElement(id + "_shadow"));
-        this.shadeDiv = $(richfaces.getDomElement(id + "_shade"));
-        this.scrollerDiv = $(richfaces.getDomElement(id + "_content_scroller"));
+        this.div = $(rf.getDomElement(id));
+        this.cdiv = $(rf.getDomElement(id + "_container"));
+        this.contentDiv = $(rf.getDomElement(id + "_content"));
+        this.shadowDiv = $(rf.getDomElement(id + "_shadow"));
+        this.shadeDiv = $(rf.getDomElement(id + "_shade"));
+        this.scrollerDiv = $(rf.getDomElement(id + "_content_scroller"));
 
         $(this.shadowDiv).css("opacity", this.options.shadowOpacity);
         this.shadowDepth = parseInt(this.options.shadowDepth);
 
         this.borders = new Array();
-        this.firstHref = $(richfaces.getDomElement(id + "FirstHref"));
+        this.firstHref = $(rf.getDomElement(id + "FirstHref"));
         if (this.options.resizeable) {
-            this.borders.push(new richfaces.ui.PopupPanel.Border(id + "ResizerN", this, "N-resize", richfaces.ui.PopupPanel.Sizer.N));
-            this.borders.push(new richfaces.ui.PopupPanel.Border(id + "ResizerE", this, "E-resize", richfaces.ui.PopupPanel.Sizer.E));
-            this.borders.push(new richfaces.ui.PopupPanel.Border(id + "ResizerS", this, "S-resize", richfaces.ui.PopupPanel.Sizer.S));
-            this.borders.push(new richfaces.ui.PopupPanel.Border(id + "ResizerW", this, "W-resize", richfaces.ui.PopupPanel.Sizer.W));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerN", this, "N-resize", rf.ui.PopupPanel.Sizer.N));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerE", this, "E-resize", rf.ui.PopupPanel.Sizer.E));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerS", this, "S-resize", rf.ui.PopupPanel.Sizer.S));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerW", this, "W-resize", rf.ui.PopupPanel.Sizer.W));
 
-            this.borders.push(new richfaces.ui.PopupPanel.Border(id + "ResizerNW", this, "NW-resize", richfaces.ui.PopupPanel.Sizer.NW));
-            this.borders.push(new richfaces.ui.PopupPanel.Border(id + "ResizerNE", this, "NE-resize", richfaces.ui.PopupPanel.Sizer.NE));
-            this.borders.push(new richfaces.ui.PopupPanel.Border(id + "ResizerSE", this, "SE-resize", richfaces.ui.PopupPanel.Sizer.SE));
-            this.borders.push(new richfaces.ui.PopupPanel.Border(id + "ResizerSW", this, "SW-resize", richfaces.ui.PopupPanel.Sizer.SW));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerNW", this, "NW-resize", rf.ui.PopupPanel.Sizer.NW));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerNE", this, "NE-resize", rf.ui.PopupPanel.Sizer.NE));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerSE", this, "SE-resize", rf.ui.PopupPanel.Sizer.SE));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerSW", this, "SW-resize", rf.ui.PopupPanel.Sizer.SW));
         }
 
-        if (this.options.moveable && richfaces.getDomElement(id + "_header")) {
-            this.header = new richfaces.ui.PopupPanel.Border(id + "_header", this, "move", richfaces.ui.PopupPanel.Sizer.Header);
+        if (this.options.moveable && rf.getDomElement(id + "_header")) {
+            this.header = new rf.ui.PopupPanel.Border(id + "_header", this, "move", rf.ui.PopupPanel.Sizer.Header);
         } else {
-            $(richfaces.getDomElement(id + "_header")).css('cursor', 'default');
+            $(rf.getDomElement(id + "_header")).css('cursor', 'default');
         }
 
     };
 
-    richfaces.BaseComponent.extend(richfaces.ui.PopupPanel);
-    var $super = richfaces.ui.PopupPanel.$super;
-    $.extend(richfaces.ui.PopupPanel.prototype, (function (options) {
+    rf.BaseComponent.extend(rf.ui.PopupPanel);
+    var $super = rf.ui.PopupPanel.$super;
+    $.extend(rf.ui.PopupPanel.prototype, (function (options) {
 
         return {
 
@@ -150,7 +150,7 @@
                 if (this.options.autosized) {
                     return 15;
                 } else {
-                    return $(richfaces.getDomElement(this.markerId + "_header_content")).height();
+                    return $(rf.getDomElement(this.markerId + "_header_content")).height();
                 }
             },
 
@@ -317,7 +317,7 @@
                         if (options.width > this.maxWidth) {
                             options.width = this.maxWidth;
                         }
-                        $(richfaces.getDomElement(eContentElt)).css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
+                        $(rf.getDomElement(eContentElt)).css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
                         this.shadowDiv.css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
                         this.scrollerDiv.css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
                     }
@@ -329,8 +329,8 @@
                         if (options.height > this.maxHeight) {
                             options.height = this.maxHeight;
                         }
-                        $(richfaces.getDomElement(eContentElt)).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
-                        var headerHeight = $(richfaces.getDomElement(this.markerId + "_header")) ? $(richfaces.getDomElement(this.markerId + "_header")).innerHeight() : 0;
+                        $(rf.getDomElement(eContentElt)).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
+                        var headerHeight = $(rf.getDomElement(this.markerId + "_header")) ? $(rf.getDomElement(this.markerId + "_header")).innerHeight() : 0;
                         this.scrollerDiv.css('height', options.height - headerHeight + (/px/.test(options.height) ? '' : 'px'));
                     }
 
@@ -341,7 +341,7 @@
                             "class=\"rf-pp-ifr\" style=\"width:" + this.options.width + "px; height:" + this.options.height + "px;\">" +
                             "</iframe>").insertBefore($(':first-child', this.cdiv)[0]);
 
-                        eIframe = $(richfaces.getDomElement(this.iframe));
+                        eIframe = $(rf.getDomElement(this.iframe));
 
                         eIframe.bind('load', this.initIframe);
                         this.eIframe = eIframe;
@@ -492,7 +492,7 @@
                     var popup = this;
                     if (this.firstOutside) {
 
-                        $(richfaces.getDomElement(this.firstOutside)).bind("focus", {popup: popup}, this.firstOnfocus);
+                        $(rf.getDomElement(this.firstOutside)).bind("focus", {popup: popup}, this.firstOnfocus);
                     }
                 }
             },
@@ -502,7 +502,7 @@
                     this.processAllFocusElements(document, this.restoreTabindexes);
 
                     if (this.firstOutside) {
-                        $(richfaces.getDomElement(this.firstOutside)).unbind("focus", this.firstOnfocus);
+                        $(rf.getDomElement(this.firstOutside)).unbind("focus", this.firstOnfocus);
                         this.firstOutside = null;
                     }
                 }
@@ -553,7 +553,7 @@
             },
 
             getStyle: function(elt, name) {
-                return parseInt($(richfaces.getDomElement(elt)).css(name).replace("px", ""), 10);
+                return parseInt($(rf.getDomElement(elt)).css(name).replace("px", ""), 10);
             },
 
             doResizeOrMove: function(diff) {
@@ -711,7 +711,7 @@
             setSize : function (width, height) {
                 var w = width - this.width();
                 var h = height - this.height();
-                var diff = new richfaces.ui.PopupPanel.Sizer.Diff(0, 0, w, h);
+                var diff = new rf.ui.PopupPanel.Sizer.Diff(0, 0, w, h);
                 this.doResizeOrMove(diff);
             },
 
@@ -721,12 +721,12 @@
             },
 
             move : function (dx, dy) {
-                var diff = new richfaces.ui.PopupPanel.Sizer.Diff(dx, dy, 0, 0);
+                var diff = new rf.ui.PopupPanel.Sizer.Diff(dx, dy, 0, 0);
                 this.doResizeOrMove(diff);
             },
 
             resize : function (dx, dy) {
-                var diff = new richfaces.ui.PopupPanel.Sizer.Diff(0, 0, dx, dy);
+                var diff = new rf.ui.PopupPanel.Sizer.Diff(0, 0, dx, dy);
                 this.doResizeOrMove(diff);
             },
 
@@ -773,19 +773,19 @@
         }
 
     })());
-    $.extend(richfaces.ui.PopupPanel, {
+    $.extend(rf.ui.PopupPanel, {
 
             showPopupPanel : function (id, opts, event) {
-                richfaces.Event.ready(function() {
-                    richfaces.component(id).show()
+                rf.Event.ready(function() {
+                    rf.component(id).show()
                 });
             },
 
             hidePopupPanel : function (id, opts, event) {
-                richfaces.Event.ready(function() {
-                    richfaces.component(id).hide()
+                rf.Event.ready(function() {
+                    rf.component(id).hide()
                 });
             }
         });
 
-})(jQuery, window.RichFaces);
+})(RichFaces.jQuery, RichFaces);

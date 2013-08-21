@@ -20,6 +20,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+window.RichFaces = window.RichFaces || {};
+RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
+
 (function($, rf) {
 
     // Constructor definition
@@ -62,7 +65,7 @@
     }
     
     var showNotification = function(message) {
-        RichFaces.ui.Notify($.extend({}, this.notifyOptions, {
+        rf.ui.Notify($.extend({}, this.notifyOptions, {
             'summary': this.options.showSummary ? message.summary : undefined,
             'detail': this.options.showDetail ? message.detail : undefined,
             'severity': message.severity
@@ -83,4 +86,4 @@
             }
         });
 
-})(jQuery, window.RichFaces || (window.RichFaces = {}));
+})(RichFaces.jQuery, RichFaces);

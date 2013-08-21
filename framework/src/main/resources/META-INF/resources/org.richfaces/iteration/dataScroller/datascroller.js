@@ -20,9 +20,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-(function ($, richfaces) {
+(function ($, rf) {
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
 
     var initButtons = function(buttons, css, component) {
         var id;
@@ -65,7 +65,7 @@
         }
     };
 
-    richfaces.ui.DataScroller = function(id, submit, options) {
+    rf.ui.DataScroller = function(id, submit, options) {
 
         $super.constructor.call(this, id);
 
@@ -75,7 +75,7 @@
         this.currentPage = options.currentPage;
 
         if (submit && typeof submit == 'function') {
-            RichFaces.Event.bindById(id, this.getScrollEventName(), submit);
+            rf.Event.bindById(id, this.getScrollEventName(), submit);
         }
 
         var css = {};
@@ -104,10 +104,10 @@
         }
     };
 
-    richfaces.BaseComponent.extend(richfaces.ui.DataScroller);
-    var $super = richfaces.ui.DataScroller.$super;
+    rf.BaseComponent.extend(rf.ui.DataScroller);
+    var $super = rf.ui.DataScroller.$super;
 
-    $.extend(richfaces.ui.DataScroller.prototype, (function () {
+    $.extend(rf.ui.DataScroller.prototype, (function () {
 
         var scrollEventName = "r:datascroller:onscroll";
 
@@ -127,7 +127,7 @@
 
             switchToPage: function(page) {
                 if (typeof page != 'undefined' && page != null) {
-                    RichFaces.Event.fireById(this.id, this.getScrollEventName(), {'page' : page});
+                    rf.Event.fireById(this.id, this.getScrollEventName(), {'page' : page});
                 }
             },
 
@@ -165,4 +165,4 @@
 
     })());
 
-})(jQuery, window.RichFaces);
+})(RichFaces.jQuery, RichFaces);

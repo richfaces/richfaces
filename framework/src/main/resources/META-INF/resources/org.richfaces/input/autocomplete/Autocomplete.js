@@ -91,7 +91,7 @@
             var escapedTokens = this.options.tokens.split('').join("\\");
             this.REGEXP_TOKEN_RIGHT = new RegExp('[' + escapedTokens + ']', 'i');
             this.getLastTokenIndex = function(value) {
-                return RichFaces.ui.Autocomplete.__getLastTokenIndex(escapedTokens, value);
+                return rf.ui.Autocomplete.__getLastTokenIndex(escapedTokens, value);
             }
         }
     };
@@ -538,4 +538,4 @@
             }
         });
 
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

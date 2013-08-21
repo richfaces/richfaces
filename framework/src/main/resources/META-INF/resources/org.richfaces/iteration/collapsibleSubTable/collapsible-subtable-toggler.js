@@ -20,11 +20,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-(function ($, richfaces) {
+(function ($, rf) {
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
 
-    richfaces.ui.CollapsibleSubTableToggler = function(id, options) {
+    rf.ui.CollapsibleSubTableToggler = function(id, options) {
         this.id = id;
         this.eventName = options.eventName;
         this.expandedControl = options.expandedControl;
@@ -37,7 +37,7 @@
         }
     };
 
-    $.extend(richfaces.ui.CollapsibleSubTableToggler.prototype, (function () {
+    $.extend(rf.ui.CollapsibleSubTableToggler.prototype, (function () {
 
         var getElementById = function(id) {
             return $(document.getElementById(id))
@@ -46,11 +46,11 @@
         return {
 
             switchState: function(e) {
-                var subtable = richfaces.component(this.forId);
+                var subtable = rf.component(this.forId);
                 if (subtable) {
                     var mode = subtable.getMode();
 
-                    if (richfaces.ui.CollapsibleSubTable.MODE_CLNT == mode) {
+                    if (rf.ui.CollapsibleSubTable.MODE_CLNT == mode) {
                         this.toggleControl(subtable.isExpanded());
                     }
 
@@ -74,4 +74,4 @@
         };
     })());
 
-})(jQuery, window.RichFaces);
+})(RichFaces.jQuery, RichFaces);

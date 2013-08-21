@@ -211,4 +211,4 @@
 
     // define super class reference - reference to the parent prototype
     var $super = rf.ui.Focus.$super;
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

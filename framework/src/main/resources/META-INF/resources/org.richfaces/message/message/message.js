@@ -20,6 +20,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+window.RichFaces = window.RichFaces || {};
+RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
+
 (function($, rf) {
 
     // Constructor definition
@@ -104,4 +107,4 @@
             }
         });
 
-})(jQuery, window.RichFaces || (window.RichFaces = {}));
+})(RichFaces.jQuery, RichFaces);

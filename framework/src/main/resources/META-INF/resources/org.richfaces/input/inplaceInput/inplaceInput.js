@@ -204,4 +204,4 @@
         }
     })());
 
-})(jQuery, window.RichFaces);
+})(RichFaces.jQuery, RichFaces);

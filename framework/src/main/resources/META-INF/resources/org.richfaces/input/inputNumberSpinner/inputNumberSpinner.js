@@ -19,10 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-(function(richfaces, jQuery) {
-    richfaces.ui = richfaces.ui || {};
+(function($, rf) {
+    rf.ui = rf.ui || {};
 
-    richfaces.ui.InputNumberSpinner = richfaces.BaseComponent.extendClass({
+    rf.ui.InputNumberSpinner = rf.BaseComponent.extendClass({
 
             name: "InputNumberSpinner",
 
@@ -34,8 +34,8 @@
 
             init: function (id, options) {
                 $super.constructor.call(this, id);
-                jQuery.extend(this, options);
-                this.element = jQuery(this.attachToDom());
+                $.extend(this, options);
+                this.element = $(this.attachToDom());
                 this.input = this.element.children(".rf-insp-inp");
 
                 var value = Number(this.input.val());
@@ -49,14 +49,14 @@
                     this.decreaseButton = buttonsArea.children(".rf-insp-dec");
                     this.increaseButton = buttonsArea.children(".rf-insp-inc");
 
-                    var proxy = jQuery.proxy(this.__inputHandler, this)
+                    var proxy = $.proxy(this.__inputHandler, this)
                     this.input.change(proxy);
                     this.input.submit(proxy);
                     this.input.submit(proxy);
-                    this.input.mousewheel(jQuery.proxy(this.__mousewheelHandler, this));
-                    this.input.keydown(jQuery.proxy(this.__keydownHandler, this));
-                    this.decreaseButton.mousedown(jQuery.proxy(this.__decreaseHandler, this));
-                    this.increaseButton.mousedown(jQuery.proxy(this.__increaseHandler, this));
+                    this.input.mousewheel($.proxy(this.__mousewheelHandler, this));
+                    this.input.keydown($.proxy(this.__keydownHandler, this));
+                    this.decreaseButton.mousedown($.proxy(this.__decreaseHandler, this));
+                    this.increaseButton.mousedown($.proxy(this.__increaseHandler, this));
                 }
             },
 
@@ -172,7 +172,7 @@
                 this.intervalId = window.setInterval(function() {
                     component.decrease(event);
                 }, this.delay);
-                var proxy = jQuery.proxy(this.destroy, this);
+                var proxy = $.proxy(this.destroy, this);
                 this.decreaseButton.bind("mouseup", proxy).bind("mouseout", proxy)
                     .css("backgroundPosition", "60% 60%");
                 event.preventDefault();
@@ -184,7 +184,7 @@
                 this.intervalId = window.setInterval(function() {
                     component.increase(event);
                 }, this.delay);
-                var proxy = jQuery.proxy(this.destroy, this);
+                var proxy = $.proxy(this.destroy, this);
                 this.increaseButton.bind("mouseup", proxy).bind("mouseout", proxy)
                     .css("backgroundPosition", "60% 60%");
                 event.preventDefault();
@@ -192,5 +192,5 @@
         });
 
     // define super class link
-    var $super = richfaces.ui.InputNumberSpinner.$super;
-}(window.RichFaces, jQuery));
+    var $super = rf.ui.InputNumberSpinner.$super;
+}(RichFaces.jQuery, RichFaces));

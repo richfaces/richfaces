@@ -299,4 +299,4 @@
             $super.destroy.call(this);
         }
     });
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

@@ -79,7 +79,7 @@
         if (!document.getElementById(defaultStackId)) {
             var stackElement = $('<span id="' + defaultStackId + '" class="rf-ntf-stck" />');
             $('body').append(stackElement);
-            new RichFaces.ui.NotifyStack(defaultStackId);
+            new rf.ui.NotifyStack(defaultStackId);
         }
         return getStack(defaultStackId);
     };
@@ -142,4 +142,4 @@
         });
     };
 
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

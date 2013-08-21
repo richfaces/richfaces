@@ -19,23 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-(function(richfaces, jQuery) {
+(function($, rf) {
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
 
-    richfaces.ui.FileUpload = function(id, options) {
+    rf.ui.FileUpload = function(id, options) {
         this.id = id;
         this.items = [];
         this.submitedItems = [];
 
-        jQuery.extend(this, options);
+        $.extend(this, options);
         if (this.acceptedTypes) {
-            this.acceptedTypes = jQuery.trim(this.acceptedTypes).toUpperCase().split(/\s*,\s*/);
+            this.acceptedTypes = $.trim(this.acceptedTypes).toUpperCase().split(/\s*,\s*/);
         }
         if (this.maxFilesQuantity) {
-            this.maxFilesQuantity = parseInt(jQuery.trim(this.maxFilesQuantity));
+            this.maxFilesQuantity = parseInt($.trim(this.maxFilesQuantity));
         }
-        this.element = jQuery(this.attachToDom());
+        this.element = $(this.attachToDom());
         this.form = this.element.parents("form:first");
         var header = this.element.children(".rf-fu-hdr:first");
         var leftButtons = header.children(".rf-fu-btns-lft:first");
@@ -48,30 +48,30 @@
         this.hiddenContainer = this.list.next();
         this.iframe = this.hiddenContainer.children("iframe:first");
         this.progressBarElement = this.iframe.next();
-        this.progressBar = richfaces.component(this.progressBarElement);
+        this.progressBar = rf.component(this.progressBarElement);
         this.cleanInput = this.input.clone();
-        this.addProxy = jQuery.proxy(this.__addItem, this);
+        this.addProxy = $.proxy(this.__addItem, this);
         this.input.change(this.addProxy);
         this.addButton.mousedown(pressButton).mouseup(unpressButton).mouseout(unpressButton);
-        this.uploadButton.click(jQuery.proxy(this.__startUpload, this)).mousedown(pressButton)
+        this.uploadButton.click($.proxy(this.__startUpload, this)).mousedown(pressButton)
             .mouseup(unpressButton).mouseout(unpressButton);
-        this.clearButton.click(jQuery.proxy(this.__removeAllItems, this)).mousedown(pressButton)
+        this.clearButton.click($.proxy(this.__removeAllItems, this)).mousedown(pressButton)
             .mouseup(unpressButton).mouseout(unpressButton);
-        this.iframe.load(jQuery.proxy(this.__load, this));
+        this.iframe.load($.proxy(this.__load, this));
         if (this.onfilesubmit) {
-            richfaces.Event.bind(this.element, "onfilesubmit", new Function("event", this.onfilesubmit));
+            rf.Event.bind(this.element, "onfilesubmit", new Function("event", this.onfilesubmit));
         }
         if (this.ontyperejected) {
-            richfaces.Event.bind(this.element, "ontyperejected", new Function("event", this.ontyperejected));
+            rf.Event.bind(this.element, "ontyperejected", new Function("event", this.ontyperejected));
         }
         if (this.onuploadcomplete) {
-            richfaces.Event.bind(this.element, "onuploadcomplete", new Function("event", this.onuploadcomplete));
+            rf.Event.bind(this.element, "onuploadcomplete", new Function("event", this.onuploadcomplete));
         }
         if (this.onclear) {
-            richfaces.Event.bind(this.element, "onclear", new Function("event", this.onclear));
+            rf.Event.bind(this.element, "onclear", new Function("event", this.onclear));
         }
         if (this.onfileselect) {
-            richfaces.Event.bind(this.element, "onfileselect", new Function("event", this.onfileselect));
+            rf.Event.bind(this.element, "onfileselect", new Function("event", this.onfileselect));
         }
     }
 
@@ -92,16 +92,16 @@
     };
 
     var pressButton = function(event) {
-        jQuery(this).children(":first").css("background-position", "3px 3px").css("padding", "4px 4px 2px 22px");
+        $(this).children(":first").css("background-position", "3px 3px").css("padding", "4px 4px 2px 22px");
     };
 
     var unpressButton = function(event) {
-        jQuery(this).children(":first").css("background-position", "2px 2px").css("padding", "3px 5px 3px 21px");
+        $(this).children(":first").css("background-position", "2px 2px").css("padding", "3px 5px 3px 21px");
     };
 
-    richfaces.BaseComponent.extend(richfaces.ui.FileUpload);
+    rf.BaseComponent.extend(rf.ui.FileUpload);
 
-    $.extend(richfaces.ui.FileUpload.prototype, (function () {
+    $.extend(rf.ui.FileUpload.prototype, (function () {
 
         return {
             name: "FileUpload",
@@ -134,7 +134,7 @@
                     this.inputContainer.append(this.input);
                     this.input.change(this.addProxy);
                     this.__updateButtons();
-                    richfaces.Event.fire(this.element, "onfileselect", fileName);
+                    rf.Event.fire(this.element, "onfileselect", fileName);
                     if (this.immediateUpload) {
                         this.__startUpload();
                     }
@@ -142,10 +142,10 @@
             },
 
             __removeItem: function(item) {
-                this.items.splice(jQuery.inArray(item, this.items), 1);
-                this.submitedItems.splice(jQuery.inArray(item, this.submitedItems), 1);
+                this.items.splice($.inArray(item, this.items), 1);
+                this.submitedItems.splice($.inArray(item, this.submitedItems), 1);
                 this.__updateButtons();
-                richfaces.Event.fire(this.element, "onclear", [item.model]);
+                rf.Event.fire(this.element, "onclear", [item.model]);
             },
 
             __removeAllItems: function(item) {
@@ -160,7 +160,7 @@
                 this.items.splice(0, this.items.length);
                 this.submitedItems.splice(0, this.submitedItems.length);
                 this.__updateButtons();
-                richfaces.Event.fire(this.element, "onclear", itemsRemoved);
+                rf.Event.fire(this.element, "onclear", itemsRemoved);
             },
 
             __updateButtons: function() {
@@ -198,8 +198,8 @@
                     this.form.attr("action", originalAction + delimiter + UID + "=" + this.loadableItem.uid);
                     this.form.attr("encoding", "multipart/form-data");
                     this.form.attr("enctype", "multipart/form-data");
-                    richfaces.submitForm(this.form, {"org.richfaces.ajax.component": this.id}, this.id);
-                    richfaces.Event.fire(this.element, "onfilesubmit", this.loadableItem.model);
+                    rf.submitForm(this.form, {"org.richfaces.ajax.component": this.id}, this.id);
+                    rf.Event.fire(this.element, "onfilesubmit", this.loadableItem.model);
                 } finally {
                     this.form.attr("action", originalAction);
                     this.form.attr("encoding", originalEncoding);
@@ -215,7 +215,7 @@
                     var documentElement = contentDocument.documentElement;
                     var responseStatus, id;
                     if (documentElement.tagName.toUpperCase() == "PARTIAL-RESPONSE") {
-                        var errors = jQuery(documentElement).children("error");
+                        var errors = $(documentElement).children("error");
                         responseStatus = errors.length > 0 ? ITEM_STATE.SERVER_ERROR : ITEM_STATE.DONE;
                     } else if ((id = documentElement.id) && id.indexOf(UID + this.loadableItem.uid + ":") == 0) {
                         responseStatus = id.split(":")[1];
@@ -245,7 +245,7 @@
                             for (var i in this.items) {
                                 items.push(this.items[i].model);
                             }
-                            richfaces.Event.fire(this.element, "onuploadcomplete", items);
+                            rf.Event.fire(this.element, "onuploadcomplete", items);
                         }
                     }
                 }
@@ -259,7 +259,7 @@
                     result = fileName.indexOf(extension, fileName.length - extension.length) !== -1;
                 }
                 if (!result) {
-                    richfaces.Event.fire(this.element, "ontyperejected", fileName);
+                    rf.Event.fire(this.element, "ontyperejected", fileName);
                 }
                 return result;
             },
@@ -305,16 +305,16 @@
         this.model = {name: fileName, state: ITEM_STATE.NEW};
     };
 
-    jQuery.extend(Item.prototype, {
+    $.extend(Item.prototype, {
             getJQuery: function() {
-                this.element = jQuery(ITEM_HTML);
+                this.element = $(ITEM_HTML);
                 var leftArea = this.element.children(".rf-fu-itm-lft:first");
                 this.label = leftArea.children(".rf-fu-itm-lbl:first");
                 this.state = this.label.nextAll(".rf-fu-itm-st:first");
                 this.link = leftArea.next().children("a");
                 this.label.html(this.model.name);
                 this.link.html(this.fileUpload["deleteLabel"]);
-                this.link.click(jQuery.proxy(this.removeOrStop, this));
+                this.link.click($.proxy(this.removeOrStop, this));
                 return this.element;
             },
 
@@ -352,4 +352,4 @@
                 this.model.state = state;
             }
         });
-}(window.RichFaces, jQuery));
+}(RichFaces.jQuery, RichFaces));

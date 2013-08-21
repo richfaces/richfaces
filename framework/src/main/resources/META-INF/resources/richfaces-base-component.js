@@ -24,10 +24,12 @@
  * @author Pavel Yaschenko
  */
 
+window.RichFaces = window.RichFaces || {};
+RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
-(function ($, richfaces, params) {
+(function ($, rf, params) {
 
-    richfaces.blankFunction = function () {
+    rf.blankFunction = function () {
     }; //TODO: add it to global library
 
     /**
@@ -85,7 +87,7 @@
      * @constructor
      * @param {String} componentId - component id
      * */
-    richfaces.BaseComponent = function(componentId) {
+    rf.BaseComponent = function(componentId) {
         this.id = componentId;
         this.options = this.options || {};
     };
@@ -94,12 +96,12 @@
 
     var extend = function (parent, child, h) {
         h = h || {};
-        var F = richfaces.blankFunction;
+        var F = rf.blankFunction;
         F.prototype = parent.prototype;
         child.prototype = new F();
         child.prototype.constructor = child;
         child.$super = parent.prototype;
-        if (child.$super == richfaces.BaseComponent.prototype) {
+        if (child.$super == rf.BaseComponent.prototype) {
             var r = jQuery.extend({}, $p, h || {});
         }
 
@@ -123,8 +125,8 @@
      *
      * @return {object}
      * */
-    richfaces.BaseComponent.extend = function(child, h) {
-        return extend(richfaces.BaseComponent, child, h);
+    rf.BaseComponent.extend = function(child, h) {
+        return extend(rf.BaseComponent, child, h);
     };
 
 
@@ -175,8 +177,8 @@
      * })
      *
      * */
-    richfaces.BaseComponent.extendClass = function (methods) {
-        var DerivedClass = methods.init || richfaces.blankFunction;
+    rf.BaseComponent.extendClass = function (methods) {
+        var DerivedClass = methods.init || rf.blankFunction;
         var SupperClass = this;
 
         SupperClass.extend(DerivedClass);
@@ -188,7 +190,7 @@
         return DerivedClass;
     };
 
-    $.extend(richfaces.BaseComponent.prototype, (function (params) {
+    $.extend(rf.BaseComponent.prototype, (function (params) {
         return {
             /**
              * Component name.
@@ -248,9 +250,9 @@
              * */
             attachToDom: function(source) {
                 source = source || this.id;
-                var element = richfaces.getDomElement(source);
+                var element = rf.getDomElement(source);
                 if (element) {
-                    var container = element[richfaces.RICH_CONTAINER] = element[richfaces.RICH_CONTAINER] || {};
+                    var container = element[rf.RICH_CONTAINER] = element[rf.RICH_CONTAINER] || {};
                     container.component = this;
                 }
                 return element;
@@ -266,8 +268,8 @@
              * */
             detach: function(source) {
                 source = source || this.id;
-                var element = richfaces.getDomElement(source);
-                element && element[richfaces.RICH_CONTAINER] && (element[richfaces.RICH_CONTAINER].component = null);
+                var element = rf.getDomElement(source);
+                element && element[rf.RICH_CONTAINER] && (element[rf.RICH_CONTAINER].component = null);
             },
 
             /**
@@ -292,7 +294,7 @@
                         eventObj.initEvent(eventType, true, false);
                     }
                 }
-                eventObj[richfaces.RICH_CONTAINER] = {component:this, data: data};
+                eventObj[rf.RICH_CONTAINER] = {component:this, data: data};
 
                 var eventHandler = this.options['on' + eventType];
 
@@ -300,8 +302,8 @@
                     handlerResult = eventHandler.call(element, eventObj);
                 }
 
-                if (richfaces.Event) {
-                    result = richfaces.Event.callHandler(this, eventType, data);
+                if (rf.Event) {
+                    result = rf.Event.callHandler(this, eventType, data);
                 }
 
                 if (result != false && handlerResult != false) result = true;
@@ -321,17 +323,17 @@
         };
     })(params));
 
-    richfaces.BaseNonVisualComponent = function(componentId) {
+    rf.BaseNonVisualComponent = function(componentId) {
         this.id = componentId;
         this.options = this.options || {};
     };
 
-    richfaces.BaseNonVisualComponent.extend = function(child, h) {
-        return extend(richfaces.BaseNonVisualComponent, child, h);
+    rf.BaseNonVisualComponent.extend = function(child, h) {
+        return extend(rf.BaseNonVisualComponent, child, h);
     };
 
-    richfaces.BaseNonVisualComponent.extendClass = function (methods) {
-        var DerivedClass = methods.init || richfaces.blankFunction;
+    rf.BaseNonVisualComponent.extendClass = function (methods) {
+        var DerivedClass = methods.init || rf.blankFunction;
         var SupperClass = this;
 
         SupperClass.extend(DerivedClass);
@@ -343,7 +345,7 @@
         return DerivedClass;
     };
 
-    $.extend(richfaces.BaseNonVisualComponent.prototype, (function (params) {
+    $.extend(rf.BaseNonVisualComponent.prototype, (function (params) {
         return {
             name: "BaseNonVisualComponent",
 
@@ -372,9 +374,9 @@
              * */
             attachToDom: function(source) {
                 source = source || this.id;
-                var element = richfaces.getDomElement(source);
+                var element = rf.getDomElement(source);
                 if (element) {
-                    var container = element[richfaces.RICH_CONTAINER] = element[richfaces.RICH_CONTAINER] || {};
+                    var container = element[rf.RICH_CONTAINER] = element[rf.RICH_CONTAINER] || {};
                     if (container.attachedComponents) {
                         container.attachedComponents[this.name] = this;
                     } else {
@@ -395,8 +397,8 @@
              * */
             detach: function(source) {
                 source = source || this.id;
-                var element = richfaces.getDomElement(source);
-                element && element[richfaces.RICH_CONTAINER] && (element[richfaces.RICH_CONTAINER].attachedComponents[this.name] = null);
+                var element = rf.getDomElement(source);
+                element && element[rf.RICH_CONTAINER] && (element[rf.RICH_CONTAINER].attachedComponents[this.name] = null);
             },
 
             /**
@@ -444,4 +446,4 @@
             }
         });
 
-})(jQuery, window.RichFaces || (window.RichFaces = {}));
+})(RichFaces.jQuery, RichFaces);

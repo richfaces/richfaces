@@ -19,11 +19,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-(function(richfaces, jQuery) {
-    richfaces.utils = richfaces.utils || {};
+(function($, rf) {
+    rf.utils = rf.utils || {};
 
-    richfaces.utils.addCSSText = function(cssText, elementId) {
-        var style = jQuery("<style></style>").attr({type: 'text/css', id: elementId}).appendTo("head");
+    rf.utils.addCSSText = function(cssText, elementId) {
+        var style = $("<style></style>").attr({type: 'text/css', id: elementId}).appendTo("head");
         try {
             style.html(cssText);
         } catch (e) {
@@ -32,13 +32,13 @@
         }
     };
     
-    richfaces.utils.getCSSRule = function (className) {
-        return richfaces.utils.findCSSRule(function(selectorText) {
+    rf.utils.getCSSRule = function (className) {
+        return rf.utils.findCSSRule(function(selectorText) {
             return selectorText.toLowerCase() == className.toLowerCase();
         });
     };
 
-    richfaces.utils.findCSSRule = function (selectFunction) {
+    rf.utils.findCSSRule = function (selectFunction) {
         var rule = null;
         var sheets = document.styleSheets;
         for (var j = 0; !rule && j < sheets.length; j++) {
@@ -51,17 +51,17 @@
                     }
                 }
             } catch (e) {
-                richfaces.log.debug("Cannot obtain CSS rule for " + (sheet.href || sheet) + ": " + e);
+                rf.log.debug("Cannot obtain CSS rule for " + (sheet.href || sheet) + ": " + e);
             }
         }
         return rule;
     };
 
-    richfaces.utils.Ranges = function() {
+    rf.utils.Ranges = function() {
         this.ranges = [];
     };
 
-    richfaces.utils.Ranges.prototype = {
+    rf.utils.Ranges.prototype = {
 
         add: function(index) {
             var i = 0;
@@ -145,15 +145,15 @@
     var WIDTH_CLASS_NAME_BASE = "rf-edt-c-";
     var MIN_WIDTH = 20;
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
 
-    richfaces.ui.ExtendedDataTable = richfaces.BaseComponent.extendClass({
+    rf.ui.ExtendedDataTable = rf.BaseComponent.extendClass({
 
             name: "ExtendedDataTable",
 
             init: function (id, rowCount, ajaxFunction, options) {
                 $super.constructor.call(this, id);
-                this.ranges = new richfaces.utils.Ranges();
+                this.ranges = new rf.utils.Ranges();
                 this.rowCount = rowCount;
                 this.ajaxFunction = ajaxFunction;
                 this.options = options || {};
@@ -161,14 +161,14 @@
                 this.newWidths = {};
                 this.storeDomReferences();
                 if (this.options['onready'] && typeof this.options['onready'] == 'function') {
-                    richfaces.Event.bind(this.element, "r:ready", this.options['onready']);
+                    rf.Event.bind(this.element, "r:ready", this.options['onready']);
                 }
-                jQuery(document).ready(jQuery.proxy(this.initialize, this));
+                $(document).ready($.proxy(this.initialize, this));
                 this.resizeEventName = "resize.rf.edt." + this.id;
                 this.activateResizeListener();
-                jQuery(this.scrollElement).bind("scroll", jQuery.proxy(this.updateScrollPosition, this));
+                $(this.scrollElement).bind("scroll", $.proxy(this.updateScrollPosition, this));
                 this.bindHeaderHandlers();
-                jQuery(this.element).bind("r:onajaxcomplete", jQuery.proxy(this.ajaxComplete, this));
+                $(this.element).bind("r:onajaxcomplete", $.proxy(this.ajaxComplete, this));
                 
                 this.resizeData = {};
                 this.idOfReorderingColumn = "";
@@ -183,9 +183,9 @@
                 this.selectionInput = document.getElementById(this.id + ":si");
 
 
-                this.header = jQuery(this.element).children(".rf-edt-hdr");
+                this.header = $(this.element).children(".rf-edt-hdr");
                 this.headerCells = this.header.find(".rf-edt-hdr-c");
-                this.footerCells = jQuery(this.element).children(".rf-edt-ftr").find(".rf-edt-ftr-c");
+                this.footerCells = $(this.element).children(".rf-edt-ftr").find(".rf-edt-ftr-c");
                 this.resizerHolders = this.header.find(".rf-edt-rsz-cntr");
 
                 this.frozenHeaderPartElement = document.getElementById(this.id + ":frozenHeader");
@@ -247,7 +247,7 @@
             getColumnStyle: function(columnId) {
                 var tableId = this.element.id;
                 var columnClass = WIDTH_CLASS_NAME_BASE + columnId;
-                var stylesheet = richfaces.utils.findCSSRule(function(selector) {
+                var stylesheet = rf.utils.findCSSRule(function(selector) {
                     return selector.indexOf(columnClass) !== -1 && selector.indexOf(tableId) !== -1;
                 });
                 if (!stylesheet) {
@@ -299,20 +299,20 @@
             },
 
             destroy: function() {
-                jQuery(window).unbind("resize", this.updateLayout);
-                jQuery(richfaces.getDomElement(this.id + ':st')).remove();
+                $(window).unbind("resize", this.updateLayout);
+                $(rf.getDomElement(this.id + ':st')).remove();
                 $super.destroy.call(this);
             },
 
             bindHeaderHandlers: function() {
-                this.header.find(".rf-edt-rsz").bind("mousedown", jQuery.proxy(this.beginResize, this));
-                this.headerCells.bind("mousedown", jQuery.proxy(this.beginReorder, this));
+                this.header.find(".rf-edt-rsz").bind("mousedown", $.proxy(this.beginResize, this));
+                this.headerCells.bind("mousedown", $.proxy(this.beginReorder, this));
                 var self = this;
                 this.header.find(".rf-edt-c-srt").each(function() {
-                    $(this).bind("click", {sortHandle: this}, jQuery.proxy(self.sortHandler, self));
+                    $(this).bind("click", {sortHandle: this}, $.proxy(self.sortHandler, self));
                 });
                 this.header.find(".rf-edt-flt-i").each(function() {
-                    $(this).bind("blur", {filterHandle: this}, jQuery.proxy(self.filterHandler, self));
+                    $(this).bind("blur", {filterHandle: this}, $.proxy(self.filterHandler, self));
                 });
             },
 
@@ -433,36 +433,36 @@
                 }
                 this.bodyElement = document.getElementById(this.id + ":b");
                 this.bodyElement.tabIndex = -1; //TODO don't use tabIndex.
-                this.normalPartStyle = richfaces.utils.getCSSRule("div.rf-edt-cnt").style;
-                var bodyJQuery = jQuery(this.bodyElement);
+                this.normalPartStyle = rf.utils.getCSSRule("div.rf-edt-cnt").style;
+                var bodyJQuery = $(this.bodyElement);
                 this.contentElement = bodyJQuery.children("div:not(.rf-edt-ndt):first")[0];
                 if (this.contentElement) {
                     this.spacerElement = this.contentElement.firstChild;//TODO this.marginElement = Richfaces.firstDescendant(this.contentElement);
                     this.dataTableElement = this.contentElement.lastChild;//TODO this.dataTableElement = Richfaces.lastDescendant(this.contentElement);
-                    this.tbodies = jQuery(document.getElementById(this.id + ":tbf")).add(document.getElementById(this.id + ":tbn"));
+                    this.tbodies = $(document.getElementById(this.id + ":tbf")).add(document.getElementById(this.id + ":tbn"));
                     this.rows = this.tbodies[0].rows.length;
                     this.rowHeight = this.dataTableElement.offsetHeight / this.rows;
                     if (this.rowCount != this.rows) {
                         this.contentElement.style.height = (this.rowCount * this.rowHeight) + "px";
                     }
-                    bodyJQuery.bind("scroll", jQuery.proxy(this.bodyScrollListener, this));
+                    bodyJQuery.bind("scroll", $.proxy(this.bodyScrollListener, this));
                     if (this.options.selectionMode != "none") {
-                        this.tbodies.bind("click", jQuery.proxy(this.selectionClickListener, this));
-                        bodyJQuery.bind(window.opera ? "keypress" : "keydown", jQuery.proxy(this.selectionKeyDownListener, this));
+                        this.tbodies.bind("click", $.proxy(this.selectionClickListener, this));
+                        bodyJQuery.bind(window.opera ? "keypress" : "keydown", $.proxy(this.selectionKeyDownListener, this));
                         this.initializeSelection();
                     }
                 } else {
                     this.spacerElement = null;
                     this.dataTableElement = null;
                 }
-                this.parts = jQuery(this.element).find(".rf-edt-cnt, .rf-edt-ftr-cnt");
+                this.parts = $(this.element).find(".rf-edt-cnt, .rf-edt-ftr-cnt");
                 this.updateLayout();
                 this.updateScrollPosition(); //TODO Restore horizontal scroll position
                 if ($(this.element).data('offscreenElements')) {
                     this.hideOffscreen(this.element);
                 }
                 this.activateResizeListener();
-                jQuery(this.element).triggerHandler("r:ready", this);
+                $(this.element).triggerHandler("r:ready", this);
             },
 
             showOffscreen: function(element) {
@@ -511,7 +511,7 @@
             },
 
             drag: function(event) {
-                jQuery(this.dragElement).setPosition({left:Math.max(this.resizeData.left + MIN_WIDTH, event.pageX)});
+                $(this.dragElement).setPosition({left:Math.max(this.resizeData.left + MIN_WIDTH, event.pageX)});
                 return false;
             },
 
@@ -519,58 +519,58 @@
                 var id = event.currentTarget.parentNode.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
                 this.resizeData = {
                     id : id,
-                    left : jQuery(event.currentTarget).parent().offset().left
+                    left : $(event.currentTarget).parent().offset().left
                 };
                 this.dragElement.style.height = this.element.offsetHeight + "px";
-                jQuery(this.dragElement).setPosition({top:jQuery(this.element).offset().top, left:event.pageX});
+                $(this.dragElement).setPosition({top:$(this.element).offset().top, left:event.pageX});
                 this.dragElement.style.display = "block";
-                jQuery(document).bind("mousemove", jQuery.proxy(this.drag, this));
-                jQuery(document).one("mouseup", jQuery.proxy(this.endResize, this));
+                $(document).bind("mousemove", $.proxy(this.drag, this));
+                $(document).one("mouseup", $.proxy(this.endResize, this));
                 return false;
             },
 
             endResize: function(event) {
-                jQuery(document).unbind("mousemove", this.drag);
+                $(document).unbind("mousemove", this.drag);
                 this.dragElement.style.display = "none";
                 var width = Math.max(MIN_WIDTH, event.pageX - this.resizeData.left);
                 this.setColumnWidth(this.resizeData.id, width);
             },
 
             reorder: function(event) {
-                jQuery(this.reorderElement).setPosition(event, {offset:[5,5]});
+                $(this.reorderElement).setPosition(event, {offset:[5,5]});
                 this.reorderElement.style.display = "block";
                 return false;
             },
 
             beginReorder: function(event) {
-                if (!jQuery(event.target).is("a, img, :input")) {
+                if (!$(event.target).is("a, img, :input")) {
                     this.idOfReorderingColumn = event.currentTarget.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
-                    jQuery(document).bind("mousemove", jQuery.proxy(this.reorder, this));
-                    this.headerCells.bind("mouseover", jQuery.proxy(this.overReorder, this));
-                    jQuery(document).one("mouseup", jQuery.proxy(this.cancelReorder, this));
+                    $(document).bind("mousemove", $.proxy(this.reorder, this));
+                    this.headerCells.bind("mouseover", $.proxy(this.overReorder, this));
+                    $(document).one("mouseup", $.proxy(this.cancelReorder, this));
                     return false;
                 }
             },
 
             overReorder: function(event) {
                 if (this.idOfReorderingColumn != event.currentTarget.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1]) {
-                    var eventElement = jQuery(event.currentTarget);
+                    var eventElement = $(event.currentTarget);
                     var offset = eventElement.offset();
-                    jQuery(this.reorderMarkerElement).setPosition({top:offset.top + eventElement.height(), left:offset.left - 5});
+                    $(this.reorderMarkerElement).setPosition({top:offset.top + eventElement.height(), left:offset.left - 5});
                     this.reorderMarkerElement.style.display = "block";
-                    eventElement.one("mouseout", jQuery.proxy(this.outReorder, this));
-                    eventElement.one("mouseup", jQuery.proxy(this.endReorder, this));
+                    eventElement.one("mouseout", $.proxy(this.outReorder, this));
+                    eventElement.one("mouseup", $.proxy(this.endReorder, this));
                 }
             },
 
             outReorder: function(event) {
                 this.reorderMarkerElement.style.display = "";
-                jQuery(event.currentTarget).unbind("mouseup", this.endReorder);
+                $(event.currentTarget).unbind("mouseup", this.endReorder);
             },
 
             endReorder: function(event) {
                 this.reorderMarkerElement.style.display = "";
-                jQuery(event.currentTarget).unbind("mouseout", this.outReorder);
+                $(event.currentTarget).unbind("mouseout", this.outReorder);
                 var id = event.currentTarget.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
                 var colunmsOrder = "";
                 var _this = this;
@@ -586,7 +586,7 @@
             },
 
             cancelReorder: function(event) {
-                jQuery(document).unbind("mousemove", this.reorder);
+                $(document).unbind("mousemove", this.reorder);
                 this.headerCells.unbind("mouseover", this.overReorder);
                 this.reorderElement.style.display = "none";
             },
@@ -627,34 +627,34 @@
             selectRow: function(index) {
                 this.ranges.add(index);
                 for (var i = 0; i < this.tbodies.length; i++) {
-                    jQuery(this.tbodies[i].rows[index]).addClass("rf-edt-r-sel");
+                    $(this.tbodies[i].rows[index]).addClass("rf-edt-r-sel");
                 }
             },
 
             deselectRow: function (index) {
                 this.ranges.remove(index);
                 for (var i = 0; i < this.tbodies.length; i++) {
-                    jQuery(this.tbodies[i].rows[index]).removeClass("rf-edt-r-sel");
+                    $(this.tbodies[i].rows[index]).removeClass("rf-edt-r-sel");
                 }
             },
 
             setActiveRow: function (index) {
                 if (typeof this.activeIndex == "number") {
                     for (var i = 0; i < this.tbodies.length; i++) {
-                        jQuery(this.tbodies[i].rows[this.activeIndex]).removeClass("rf-edt-r-act");
+                        $(this.tbodies[i].rows[this.activeIndex]).removeClass("rf-edt-r-act");
                     }
 
                 }
                 this.activeIndex = index;
                 for (var i = 0; i < this.tbodies.length; i++) {
-                    jQuery(this.tbodies[i].rows[this.activeIndex]).addClass("rf-edt-r-act");
+                    $(this.tbodies[i].rows[this.activeIndex]).addClass("rf-edt-r-act");
                 }
             },
 
             resetShiftRow: function () {
                 if (typeof this.shiftIndex == "number") {
                     for (var i = 0; i < this.tbodies.length; i++) {
-                        jQuery(this.tbodies[i].rows[this.shiftIndex]).removeClass("rf-edt-r-sht");
+                        $(this.tbodies[i].rows[this.shiftIndex]).removeClass("rf-edt-r-sht");
                     }
 
                 }
@@ -666,7 +666,7 @@
                 this.shiftIndex = index;
                 if (typeof index == "number") {
                     for (var i = 0; i < this.tbodies.length; i++) {
-                        jQuery(this.tbodies[i].rows[this.shiftIndex]).addClass("rf-edt-r-sht");
+                        $(this.tbodies[i].rows[this.shiftIndex]).addClass("rf-edt-r-sht");
                     }
                 }
             },
@@ -679,7 +679,7 @@
                 this.selectionFlag = null;
                 var rows = this.tbodies[0].rows;
                 for (var i = 0; i < rows.length; i++) {
-                    var row = jQuery(rows[i]);
+                    var row = $(rows[i]);
                     if (row.hasClass("rf-edt-r-sel")) {
                         this.ranges.add(row[0].rowIndex)
                     }
@@ -847,7 +847,7 @@
             },
 
             activateResizeListener: function() {
-                $(window).on(this.resizeEventName, jQuery.proxy(this.updateLayout, this));
+                $(window).on(this.resizeEventName, $.proxy(this.updateLayout, this));
             },
 
             deActivateResizeListener: function() {
@@ -858,8 +858,8 @@
                 var selector = "[id='" + this.element.id + "'] ";
                 selector += (typeof menu.options.targetSelector === 'undefined')
                     ?  ".rf-edt-b td" : menu.options.targetSelector;
-                selector = jQuery.trim(selector);
-                richfaces.Event.bind(selector, menu.options.showEvent, $.proxy(menu.__showHandler, menu), menu);
+                selector = $.trim(selector);
+                rf.Event.bind(selector, menu.options.showEvent, $.proxy(menu.__showHandler, menu), menu);
             },
 
             contextMenuShow: function (menu, event) {
@@ -874,5 +874,5 @@
             }
         });
 
-    var $super = richfaces.ui.ExtendedDataTable.$super;
-}(window.RichFaces, jQuery));
+    var $super = rf.ui.ExtendedDataTable.$super;
+}(RichFaces.jQuery, RichFaces));

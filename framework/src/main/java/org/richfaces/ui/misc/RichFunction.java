@@ -167,10 +167,10 @@ public final class RichFunction {
         String element = element(id);
 
         if (element != null) {
-            return "jQuery(" + element + ")";
+            return "RichFaces.jQuery(" + element + ")";
         }
 
-        return "jQuery()";
+        return "RichFaces.jQuery()";
     }
 
     /**

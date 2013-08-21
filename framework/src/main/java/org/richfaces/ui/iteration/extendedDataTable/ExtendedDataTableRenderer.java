@@ -668,7 +668,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 encodeSelectionInput(writer, context, component);
                 writer.endUpdate();
                 writer.startEval();
-                writer.write("jQuery(" + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(clientId))
+                writer.write("RichFaces.jQuery(" + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(clientId))
                     + ").triggerHandler('r:onajaxcomplete', {first: " + table.getClientFirst() + "});");
                 writer.endEval();
                 table.setRowKey(context, key);
@@ -690,7 +690,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 if (UIDataTableBase.HEADER.equals(metaComponentId)) {
                     encodeHeader(state);
                     writer.startEval();
-                    writer.write("jQuery("
+                    writer.write("RichFaces.jQuery("
                         + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(table.getClientId(context)))
                         + ").triggerHandler('r:onajaxcomplete', {reinitializeHeader: true});");
                     writer.endEval();
@@ -703,7 +703,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     encodeSelectionInput(writer, context, component);
                     writer.endUpdate();
                     writer.startEval();
-                    writer.write("jQuery(" + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(clientId))
+                    writer.write("RichFaces.jQuery(" + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(clientId))
                         + ").triggerHandler('r:onajaxcomplete', {first: " + table.getClientFirst() + ", rowCount: "
                         + getRowCount(component) + ", reinitializeBody: true});");
                     writer.endEval();

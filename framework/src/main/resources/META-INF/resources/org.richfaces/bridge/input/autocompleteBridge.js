@@ -1,4 +1,4 @@
-(function($, RichFaces) {
+(function($, rf) {
 
   $.widget('rf.richAutocompleteBridge', $.rf.bridgeBase, {
 
@@ -29,7 +29,7 @@
           }
           var params = {};
           params[clientId + 'SearchTerm'] = request.term;
-          RichFaces.ajax(clientId, null, {
+          rf.ajax(clientId, null, {
             parameters : params,
             error : done,
             complete : done
@@ -41,4 +41,4 @@
     }
   });
 
-}(jQuery, RichFaces));
+}(RichFaces.jQuery, RichFaces));

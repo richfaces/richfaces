@@ -20,11 +20,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-if (!window.RichFaces) {
-    window.RichFaces = {};
-}
+window.RichFaces = window.RichFaces || {};
+RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
-(function(jquery, richfaces) {
+(function($, rf) {
+
+    rf.ui = rf.ui || {};
 
     var evaluate = function(selector) {
         var result = selector;
@@ -38,8 +39,8 @@ if (!window.RichFaces) {
 
     var evaluateJQuery = function(element, selector) {
         var result = element || evaluate(selector);
-        if (!(result instanceof jquery)) {
-            result = jquery(result || "");
+        if (!(result instanceof $)) {
+            result = $(result || "");
         }
 
         return result;
@@ -85,11 +86,11 @@ if (!window.RichFaces) {
         if (options.timing == 'immediate') {
             createQueryFunction(options).call(this);
         } else {
-            jquery(document).ready(createQueryFunction(options));
+            $(document).ready(createQueryFunction(options));
         }
     };
 
-    richfaces.jQuery = {
+    rf.ui.jQueryComponent = {
 
         createFunction: createQueryFunction,
 
@@ -97,4 +98,4 @@ if (!window.RichFaces) {
 
     };
 
-}(jQuery, RichFaces));
+}(RichFaces.jQuery, RichFaces));

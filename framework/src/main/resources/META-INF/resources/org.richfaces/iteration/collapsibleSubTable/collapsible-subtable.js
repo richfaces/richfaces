@@ -20,22 +20,22 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-(function ($, richfaces) {
+(function ($, rf) {
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
 
-    richfaces.ui.CollapsibleSubTable = function(id, f, options) {
+    rf.ui.CollapsibleSubTable = function(id, f, options) {
         this.id = id;
         this.stateInput = options.stateInput;
         this.optionsInput = options.optionsInput;
-        this.expandMode = options.expandMode || richfaces.ui.CollapsibleSubTable.MODE_CLNT;
+        this.expandMode = options.expandMode || rf.ui.CollapsibleSubTable.MODE_CLNT;
         this.eventOptions = options.eventOptions;
         this.formId = f;
 
         this.attachToDom();
     };
 
-    $.extend(richfaces.ui.CollapsibleSubTable, {
+    $.extend(rf.ui.CollapsibleSubTable, {
             MODE_AJAX: "ajax",
             MODE_SRV: "server",
             MODE_CLNT: "client",
@@ -43,10 +43,10 @@
             expand: 1
         });
 
-    richfaces.BaseComponent.extend(richfaces.ui.CollapsibleSubTable);
-    var $super = richfaces.ui.CollapsibleSubTable.$super;
+    rf.BaseComponent.extend(rf.ui.CollapsibleSubTable);
+    var $super = rf.ui.CollapsibleSubTable.$super;
 
-    $.extend(richfaces.ui.CollapsibleSubTable.prototype, (function () {
+    $.extend(rf.ui.CollapsibleSubTable.prototype, (function () {
 
         var element = function() {
             //use parent tbody as parent dom elem
@@ -63,7 +63,7 @@
 
         var ajax = function(e, options) {
             this.__switchState();
-            richfaces.ajax(this.id, e, options);
+            rf.ajax(this.id, e, options);
         };
 
         var server = function(options) {
@@ -85,31 +85,31 @@
             name: "CollapsibleSubTable",
 
             switchState: function(e, options) {
-                if (this.expandMode == richfaces.ui.CollapsibleSubTable.MODE_AJAX) {
+                if (this.expandMode == rf.ui.CollapsibleSubTable.MODE_AJAX) {
                     ajax.call(this, e, this.eventOptions, options);
-                } else if (this.expandMode == richfaces.ui.CollapsibleSubTable.MODE_SRV) {
+                } else if (this.expandMode == rf.ui.CollapsibleSubTable.MODE_SRV) {
                     server.call(this, options);
-                } else if (this.expandMode == richfaces.ui.CollapsibleSubTable.MODE_CLNT) {
+                } else if (this.expandMode == rf.ui.CollapsibleSubTable.MODE_CLNT) {
                     client.call(this, options);
                 }
             },
 
             collapse: function(options) {
-                this.setState(richfaces.ui.CollapsibleSubTable.collapse);
+                this.setState(rf.ui.CollapsibleSubTable.collapse);
                 element.call(this).hide();
             },
 
             expand: function(options) {
-                this.setState(richfaces.ui.CollapsibleSubTable.expand);
+                this.setState(rf.ui.CollapsibleSubTable.expand);
                 element.call(this).show();
             },
 
             isExpanded: function() {
-                return (parseInt(this.getState()) == richfaces.ui.CollapsibleSubTable.expand);
+                return (parseInt(this.getState()) == rf.ui.CollapsibleSubTable.expand);
             },
 
             __switchState: function(options) {
-                var state = this.isExpanded() ? richfaces.ui.CollapsibleSubTable.collapse : richfaces.ui.CollapsibleSubTable.expand;
+                var state = this.isExpanded() ? rf.ui.CollapsibleSubTable.collapse : rf.ui.CollapsibleSubTable.expand;
                 this.setState(state);
             },
 
@@ -135,4 +135,4 @@
 
     })());
 
-})(jQuery, window.RichFaces);
+})(RichFaces.jQuery, RichFaces);

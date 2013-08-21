@@ -53,7 +53,7 @@
         this.displayed = false;
 
         this.options.positionOffset = [this.options.horizontalOffset, this.options.verticalOffset];
-        this.popup = new RichFaces.ui.Popup(this.id + "_list", {
+        this.popup = new rf.ui.Popup(this.id + "_list", {
                 attachTo : this.id,
                 direction : this.options.direction,
                 jointPoint : this.options.jointPoint,
@@ -120,7 +120,7 @@
             },
 
             activateItem : function(menuItemId) {
-                var item = $(RichFaces.getDomElement(menuItemId));
+                var item = $(rf.getDomElement(menuItemId));
                 rf.Event.fireById(item.attr('id'), 'click');
             },
 
@@ -260,4 +260,4 @@
         };
     })());
 
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

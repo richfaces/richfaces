@@ -43,7 +43,7 @@
             </tr>
         </table>
         <script type="text/javascript">
-            toolbarHandlers(#{toScriptArgs(getOptions(component))});
+            RichFaces.ui.toolbarHandlers(#{toScriptArgs(getOptions(component))});
         </script>
     </cc:implementation>
 </cdk:root>

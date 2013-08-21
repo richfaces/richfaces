@@ -350,4 +350,4 @@
 
     // define super class link
     var $super = rf.ui.PanelMenuItem.$super;
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

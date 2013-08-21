@@ -23,7 +23,6 @@
 (function($, rf) {
 
     rf.ui = rf.ui || {};
-    //rf.ui.MenuKeyNavigation = rf.ui.MenuKeyNavigation || {};
 
     rf.ui.MenuKeyNavigation = {
 
@@ -189,4 +188,4 @@
             }
         }
     }
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);
