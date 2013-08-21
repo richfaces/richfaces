@@ -87,7 +87,7 @@
             __getParentMenu : function() {
                 var menu = this.element.parents('div.' + this.options.cssClasses.labelCss);
                 if (menu && menu.length > 0)
-                    return rf.$(menu);
+                    return rf.component(menu);
                 else
                     return null;
             }

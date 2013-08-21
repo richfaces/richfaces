@@ -23,7 +23,7 @@
         if (this.target) {
             var menu = this;
             $(document).ready(function() {
-                var targetComponent = RichFaces.$(menu.target);
+                var targetComponent = RichFaces.component(menu.target);
                 if (targetComponent && targetComponent.contextMenuAttach) {
                     targetComponent.contextMenuAttach(menu);
                 } else {
@@ -142,7 +142,7 @@
 
         shutdownMenu : function() {
             if (this.openedMenu != null) {
-                rf.$(rf.getDomElement(this.openedMenu)).hide();
+                rf.component(rf.getDomElement(this.openedMenu)).hide();
             }
             this.deletedMenuId();
         },

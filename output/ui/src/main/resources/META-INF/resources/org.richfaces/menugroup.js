@@ -20,7 +20,7 @@
         rf.Event.bindById(this.id, this.options.showEvent, $.proxy(
             this.__showHandler, this), this);
 
-        this.rootMenu = rf.$(this.options.rootMenuId);
+        this.rootMenu = rf.component(this.options.rootMenuId);
 
         this.shown = false;
         this.jqueryElement = $(this.element);

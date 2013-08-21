@@ -33,7 +33,7 @@
             invokeOnComponent : function(event, target, callback) {
                 if (callback && typeof callback == 'function') {
                     $(target).each(function() {
-                        var component = richfaces.$(this);
+                        var component = richfaces.component(this);
                         if (component) {
                             callback(event, component);
                         }

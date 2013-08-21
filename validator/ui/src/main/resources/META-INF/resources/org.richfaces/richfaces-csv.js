@@ -117,8 +117,8 @@
             var component = $(element);
             // TODO: add getValue to baseComponent and change jsdocs
             if (component) {
-                if (typeof rf.$(component)["getValue"] === "function") {
-                    value = rf.$(component).getValue();
+                if (typeof rf.component(component)["getValue"] === "function") {
+                    value = rf.component(component).getValue();
                 } else {
                     var nestedComponents = $(":editable", component);
                     if (nestedComponents) {

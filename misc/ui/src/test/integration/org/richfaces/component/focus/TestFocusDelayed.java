@@ -62,7 +62,7 @@ public class TestFocusDelayed {
     public void test_delayed_focus_can_be_applied_using_client_side_api() {
         browser.get(contextPath.toExternalForm());
 
-        ((JavascriptExecutor) browser).executeScript("RichFaces.$('form:focus').applyFocus(); ");
+        ((JavascriptExecutor) browser).executeScript("RichFaces.component('form:focus').applyFocus(); ");
         waitGui().until(new ElementIsFocused(input1));
     }
 

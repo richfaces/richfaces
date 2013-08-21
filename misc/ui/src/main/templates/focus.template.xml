@@ -23,7 +23,7 @@
             <cdk:call expression="renderOncompleteScript(facesContext, script)" />
 
             <c:if test="#{shouldApply(facesContext, component)}">
-                <cdk:object name="applyScript" type="String" value="RichFaces.$('#{clientId}').applyFocus()" />
+                <cdk:object name="applyScript" type="String" value="RichFaces.component('#{clientId}').applyFocus()" />
                 <cdk:call expression="renderOncompleteScript(facesContext, applyScript)" />
             </c:if>
         </span>

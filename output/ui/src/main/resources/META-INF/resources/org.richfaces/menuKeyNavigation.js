@@ -56,13 +56,13 @@
 
         __selectByIndex : function(index) {
             if (-1 != index) {
-                rf.$(this.items.eq(index)).select();
+                rf.component(this.items.eq(index)).select();
             }
         },
 
         __deselectByIndex : function(index) {
             if (index > -1) {
-                rf.$(this.items.eq(index)).unselect();
+                rf.component(this.items.eq(index)).unselect();
             }
 
         },
@@ -70,8 +70,8 @@
         __openGroup : function() {
             var item = this.__getItemByIndex(this.currentSelectedItemIndex);
             if (this.__isGroup(item)) {
-                rf.$(item).show();
-                rf.$(item).__selectFirstItem();
+                rf.component(item).show();
+                rf.component(item).__selectFirstItem();
                 this.active = false;
             }
         },
@@ -79,8 +79,8 @@
         __closeGroup : function() {
             var item = this.__getItemByIndex(this.currentSelectedItemIndex);
             if (this.__isGroup(item)) {
-                rf.$(item).__deselectCurrentItem();
-                rf.$(item).hide();
+                rf.component(item).__deselectCurrentItem();
+                rf.component(item).hide();
                 this.active = true;
             }
         },
@@ -89,9 +89,9 @@
             var item = this.__getItemByIndex(this.currentSelectedItemIndex);
             var menu;
             menu = this.__getParentMenu() || this.__getParentMenuFromItem(item);
-            if (menu != null && this.id != rf.$(menu).id) {
+            if (menu != null && this.id != rf.component(menu).id) {
                 this.hide();
-                rf.$(menu).popupElement.focus();
+                rf.component(menu).popupElement.focus();
             } else {
                 this.hide();
             }

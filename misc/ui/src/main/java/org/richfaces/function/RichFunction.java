@@ -92,7 +92,7 @@ public final class RichFunction {
     }
 
     /**
-     * The rich:component('id') function is equivalent to the RichFaces.$('clientId') code. It returns the client object
+     * The rich:component('id') function is equivalent to the RichFaces.component('clientId') code. It returns the client object
      * instance based on the passed server-side component identifier ('id'). If the specified component identifier is not found,
      * null is returned instead. The function can be used to get an object from a component to call a JavaScript API function
      * without using the <rich:componentControl> component.
@@ -102,7 +102,7 @@ public final class RichFunction {
         String clientId = clientId(id);
         if (clientId != null) {
             // TODO nick - what if jQuery.RichFaces doesn't exist?
-            return "RichFaces.$('" + clientId + "')";
+            return "RichFaces.component('" + clientId + "')";
         }
 
         return null;

@@ -144,7 +144,7 @@ public class RichFunctionTest {
         currentComponent.pushComponentToEL(environment.getFacesContext(), null);
 
         assertEquals(TEST_CLIENT_ID, RichFunction.clientId(EXISTING_TEST_ID));
-        assertEquals("RichFaces.$('" + TEST_CLIENT_ID + "')", RichFunction.component(EXISTING_TEST_ID));
+        assertEquals("RichFaces.component('" + TEST_CLIENT_ID + "')", RichFunction.component(EXISTING_TEST_ID));
         assertEquals("document.getElementById('" + TEST_CLIENT_ID + "')", RichFunction.element(EXISTING_TEST_ID));
         assertEquals(TEST_JQUERY_SELECTOR, RichFunction.jQuerySelector(EXISTING_TEST_ID));
         assertEquals("jQuery(document.getElementById('" + TEST_CLIENT_ID + "'))", RichFunction.jQuery(EXISTING_TEST_ID));
@@ -175,7 +175,7 @@ public class RichFunctionTest {
         environment.replay();
 
         assertEquals(TEST_CLIENT_ID, RichFunction.clientId(EXISTING_TEST_ID));
-        assertEquals("RichFaces.$('" + TEST_CLIENT_ID + "')", RichFunction.component(EXISTING_TEST_ID));
+        assertEquals("RichFaces.component('" + TEST_CLIENT_ID + "')", RichFunction.component(EXISTING_TEST_ID));
         assertEquals("document.getElementById('" + TEST_CLIENT_ID + "')", RichFunction.element(EXISTING_TEST_ID));
         assertEquals(TEST_JQUERY_SELECTOR, RichFunction.jQuerySelector(EXISTING_TEST_ID));
         assertEquals("jQuery(document.getElementById('" + TEST_CLIENT_ID + "'))", RichFunction.jQuery(EXISTING_TEST_ID));

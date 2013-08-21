@@ -82,12 +82,12 @@ public class TestDisablingBuiltinSortingAndFiltering {
 
         p.body("<script type='text/javascript'>");
         p.body("function sortEdt(currentSortOrder) { ");
-        p.body("  var edt = RichFaces.$('myForm:edt'); ");
+        p.body("  var edt = RichFaces.component('myForm:edt'); ");
         p.body("  var sortOrder = currentSortOrder == 'ascending' ? 'descending' : 'ascending'; ");
         p.body("  edt.sort('column2', sortOrder, true); ");
         p.body("} ");
         p.body("function filterEdt(filterValue) { ");
-        p.body("  var edt = RichFaces.$('myForm:edt'); ");
+        p.body("  var edt = RichFaces.component('myForm:edt'); ");
         p.body("  edt.filter('column2', filterValue, true); ");
         p.body("} ");
         p.body("</script>");

@@ -130,7 +130,7 @@
                 var indicatorCloneId = helper.attr('id');
                 if (indicatorCloneId) {
                     var indicatorId = indicatorCloneId.match(/(.*)Clone$/)[1];
-                    return rf.$(indicatorId);
+                    return rf.component(indicatorId);
                 }
             },
 

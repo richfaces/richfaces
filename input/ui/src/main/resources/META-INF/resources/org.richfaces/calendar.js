@@ -218,7 +218,7 @@
                                             new E('div', {'id': function(context) {
                                                     return context.calendar.TIME_EDITOR_BUTTON_OK
                                                 }, 'class': 'rf-cal-time-btn', 'style': 'float:right;', 'onmousedown': "jQuery(this).addClass('rf-cal-time-btn-press');", 'onmouseout': "jQuery(this).removeClass('rf-cal-time-btn-press');", 'onmouseup': "jQuery(this).removeClass('rf-cal-time-btn-press');", 'onclick': function(context) {
-                                                    return "RichFaces.$('" + context.calendar.id + "').hideTimeEditor(true)";
+                                                    return "RichFaces.component('" + context.calendar.id + "').hideTimeEditor(true)";
                                                 }},
                                                 [
                                                     new E('span', {},
@@ -235,7 +235,7 @@
                                             new E('div', {'id': function(context) {
                                                     return context.calendar.TIME_EDITOR_BUTTON_CANCEL
                                                 }, 'class': 'rf-cal-time-btn', 'style': 'float:left;', 'onmousedown': "jQuery(this).addClass('rf-cal-time-btn-press');", 'onmouseout': "jQuery(this).removeClass('rf-cal-time-btn-press');", 'onmouseup': "jQuery(this).removeClass('rf-cal-time-btn-press');", 'onclick': function(context) {
-                                                    return "RichFaces.$('" + context.calendar.id + "').hideTimeEditor(false)";
+                                                    return "RichFaces.component('" + context.calendar.id + "').hideTimeEditor(false)";
                                                 }},
                                                 [
                                                     new E('span', {},
@@ -496,7 +496,7 @@
             this.isVisible = false;
         }
 
-        var tempStr = "RichFaces.$('" + this.id + "').";
+        var tempStr = "RichFaces.component('" + this.id + "').";
 
         var htmlTextHeader = '<table id="' + this.CALENDAR_CONTENT + '" border="0" cellpadding="0" cellspacing="0" class="rf-cal-extr rf-cal-popup ' + this.options.styleClass + '" style="' + popupStyles + this.options.style + '" onclick="' + tempStr + 'skipEventOnCollapse=true;"><tbody>';
         var colspan = (this.options.showWeeksBar ? "8" : "7");
@@ -570,7 +570,7 @@
 
         // add onclick event handlers to input field and popup button
         if (this.options.popup && !this.options.disabled) {
-            var handler = new Function('event', "RichFaces.$('" + this.id + "').switchPopup();");
+            var handler = new Function('event', "RichFaces.component('" + this.id + "').switchPopup();");
             rf.Event.bindById(this.POPUP_BUTTON_ID, "click" + this.namespace, handler, this);
             if (!this.options.enableManualInput) {
                 rf.Event.bindById(this.INPUT_DATE_ID, "click" + this.namespace, handler, this);
@@ -706,7 +706,7 @@
             createEditor: function() {
                 var element = $(rf.getDomElement(this.CALENDAR_CONTENT));
                 var zindex = parseInt(element.css('z-index'), 10);
-                var htmlBegin = '<div id="' + this.EDITOR_SHADOW_ID + '" class="rf-cal-edtr-shdw" style="position:absolute; display:none;z-index:' + zindex + '"></div><table border="0" cellpadding="0" cellspacing="0" id="' + this.EDITOR_ID + '" style="position:absolute; display:none;z-index:' + (zindex + 1) + '" onclick="RichFaces.$(\'' + this.id + '\').skipEventOnCollapse=true;"><tbody><tr><td class="rf-cal-edtr-cntr" align="center"><div style="position:relative; display:inline-block;">';
+                var htmlBegin = '<div id="' + this.EDITOR_SHADOW_ID + '" class="rf-cal-edtr-shdw" style="position:absolute; display:none;z-index:' + zindex + '"></div><table border="0" cellpadding="0" cellspacing="0" id="' + this.EDITOR_ID + '" style="position:absolute; display:none;z-index:' + (zindex + 1) + '" onclick="RichFaces.component(\'' + this.id + '\').skipEventOnCollapse=true;"><tbody><tr><td class="rf-cal-edtr-cntr" align="center"><div style="position:relative; display:inline-block;">';
                 var htmlContent = '<div id="' + this.EDITOR_LAYOUT_SHADOW_ID + '" class="rf-cal-edtr-layout-shdw"></div>';
 
                 var htmlEnd = '</div></td></tr></tbody></table>';
@@ -760,11 +760,11 @@
             createDECell: function(id, value, buttonType, param, className) {
                 if (buttonType == 0) {
                     return '<div id="' + id + '" class="rf-cal-edtr-btn' + (className ? ' ' + className : '') +
-                        '" onmouseover="this.className=\'rf-cal-edtr-btn rf-cal-edtr-tl-over\';" onmouseout="this.className=\'rf-cal-edtr-btn\';" onmousedown="this.className=\'rf-cal-edtr-btn rf-cal-edtr-tl-press\';" onmouseup="this.className=\'rf-cal-edtr-btn rf-cal-edtr-tl-over\';" onclick="RichFaces.$(\'' + this.id + '\').scrollEditorYear(' + param + ');">' + value + '</div>';
+                        '" onmouseover="this.className=\'rf-cal-edtr-btn rf-cal-edtr-tl-over\';" onmouseout="this.className=\'rf-cal-edtr-btn\';" onmousedown="this.className=\'rf-cal-edtr-btn rf-cal-edtr-tl-press\';" onmouseup="this.className=\'rf-cal-edtr-btn rf-cal-edtr-tl-over\';" onclick="RichFaces.component(\'' + this.id + '\').scrollEditorYear(' + param + ');">' + value + '</div>';
                 }
                 else {
-                    var onclick = (buttonType == 1 ? 'RichFaces.$(\'' + this.id + '\').dateEditorSelectMonth(' + param + ');' :
-                        'RichFaces.$(\'' + this.id + '\').dateEditorSelectYear(' + param + ');' );
+                    var onclick = (buttonType == 1 ? 'RichFaces.component(\'' + this.id + '\').dateEditorSelectMonth(' + param + ');' :
+                        'RichFaces.component(\'' + this.id + '\').dateEditorSelectYear(' + param + ');' );
                     return '<div id="' + id + '" class="rf-cal-edtr-btn' + (className ? ' ' + className : '') +
                         '" onmouseover="jQuery(this).addClass(\'rf-cal-edtr-btn-over\');" onmouseout="$(this).removeClass(\'rf-cal-edtr-btn-over\');" onclick="' + onclick + '">' + value + '</div>';
                 }
@@ -795,9 +795,9 @@
                 this.dateEditorMonthID = this.DATE_EDITOR_LAYOUT_ID + 'M' + this.dateEditorMonth;
 
                 htmlContent += '</tr><tr><td colspan="2" class="rf-cal-monthpicker-ok">' +
-                    '<div id="' + this.DATE_EDITOR_BUTTON_OK + '" class="rf-cal-time-btn" style="float:right;" onmousedown="jQuery(this).addClass(\'rf-cal-time-btn-press\');" onmouseout="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onmouseup="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onclick="RichFaces.$(\'' + this.id + '\').hideDateEditor(true);"><span>' + this.options.labels.ok + '</span></div>' +
+                    '<div id="' + this.DATE_EDITOR_BUTTON_OK + '" class="rf-cal-time-btn" style="float:right;" onmousedown="jQuery(this).addClass(\'rf-cal-time-btn-press\');" onmouseout="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onmouseup="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onclick="RichFaces.component(\'' + this.id + '\').hideDateEditor(true);"><span>' + this.options.labels.ok + '</span></div>' +
                     '</td><td colspan="2" class="rf-cal-monthpicker-cancel">' +
-                    '<div id="' + this.DATE_EDITOR_BUTTON_CANCEL + '" class="rf-cal-time-btn" style="float:left;" onmousedown="jQuery(this).addClass(\'rf-cal-time-btn-press\');" onmouseout="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onmouseup="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onclick="RichFaces.$(\'' + this.id + '\').hideDateEditor(false);"><span>' + this.options.labels.cancel + '</span></div>' +
+                    '<div id="' + this.DATE_EDITOR_BUTTON_CANCEL + '" class="rf-cal-time-btn" style="float:left;" onmousedown="jQuery(this).addClass(\'rf-cal-time-btn-press\');" onmouseout="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onmouseup="jQuery(this).removeClass(\'rf-cal-time-btn-press\');" onclick="RichFaces.component(\'' + this.id + '\').hideDateEditor(false);"><span>' + this.options.labels.cancel + '</span></div>' +
                     '</td>';
 
 
