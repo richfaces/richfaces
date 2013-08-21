@@ -34,9 +34,9 @@ import javax.faces.component.UIMessages;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.component.AbstractMessage;
 import org.richfaces.component.AbstractMessages;
 import org.richfaces.javascript.JavaScriptService;

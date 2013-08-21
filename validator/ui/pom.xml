@@ -41,10 +41,6 @@
         </dependency>
         <!-- runtime -->
         <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-impl</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.richfaces.ui.common</groupId>
             <artifactId>richfaces-ui-common-ui</artifactId>
         </dependency>
@@ -53,10 +49,15 @@
             <artifactId>richfaces-ui-core-ui</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
+        </dependency>
+        <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <scope>provided</scope>
             <optional>true</optional>
+            <version>1.0.0.GA</version>
         </dependency>
         <!-- tests -->
         <dependency>
@@ -73,6 +74,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <scope>test</scope>
+            <version>1.6.6</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.test-jsf</groupId>
@@ -109,10 +111,14 @@
             </plugin>
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-cdk-plugin</artifactId>
+                <artifactId>richfaces-cdk-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

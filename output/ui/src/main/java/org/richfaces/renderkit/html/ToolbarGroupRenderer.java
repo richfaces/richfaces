@@ -31,7 +31,7 @@ import javax.faces.context.ResponseWriter;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractToolbar;
 import org.richfaces.component.AbstractToolbarGroup;
-import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.ui.common.HtmlConstants;
 
 @JsfRenderer(type = ToolbarGroupRenderer.RENDERER_TYPE, family = AbstractToolbar.COMPONENT_FAMILY)
 public class ToolbarGroupRenderer extends ToolbarRendererBase {

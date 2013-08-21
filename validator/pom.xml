@@ -23,10 +23,10 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-root-parent</artifactId>
-        <version>4.3.3-SNAPSHOT</version>
-        <relativePath>../../build/parent/pom.xml</relativePath>
+        <groupId>org.richfaces.ui</groupId>
+        <artifactId>richfaces-ui-parent</artifactId>
+        <version>4.5.0-SNAPSHOT</version>
+        <relativePath>../../parent/pom.xml</relativePath>
     </parent>
     <groupId>org.richfaces.ui.validator</groupId>
     <artifactId>richfaces-ui-validator-aggregator</artifactId>

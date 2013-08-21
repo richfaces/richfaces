@@ -27,11 +27,11 @@ import java.util.Map;
 
 import javax.faces.component.UIComponent;
 
-import org.richfaces.component.ComponentPredicates;
 import org.richfaces.component.TreeModelAdaptor;
 import org.richfaces.component.TreeModelRecursiveAdaptor;
 import org.richfaces.model.SequenceRowKey;
 import org.richfaces.model.TreeDataModelTuple;
+import org.richfaces.ui.common.ComponentPredicates;
 
 import com.google.common.collect.ForwardingIterator;
 import com.google.common.collect.Iterables;

@@ -30,7 +30,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.javascript.AjaxScript;
+import org.richfaces.javascript.AjaxScript;
 import org.ajax4jsf.renderkit.HeaderResourceProducer2;
 import org.ajax4jsf.renderkit.ProducerContext;
 import org.ajax4jsf.renderkit.RendererBase;

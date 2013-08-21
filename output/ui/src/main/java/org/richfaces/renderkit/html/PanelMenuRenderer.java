@@ -34,11 +34,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenu;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author akolonitsky

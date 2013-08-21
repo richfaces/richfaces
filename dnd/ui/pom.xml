@@ -38,10 +38,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.richfaces.ui.common</groupId>
             <artifactId>richfaces-ui-common-ui</artifactId>
         </dependency>
@@ -52,6 +48,10 @@
         <dependency>
             <groupId>org.richfaces.ui.dnd</groupId>
             <artifactId>richfaces-ui-dnd-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
         </dependency>
         <dependency>
             <groupId>xmlunit</groupId>
@@ -68,7 +68,7 @@
             </plugin>
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-cdk-plugin</artifactId>
+                <artifactId>richfaces-cdk-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>

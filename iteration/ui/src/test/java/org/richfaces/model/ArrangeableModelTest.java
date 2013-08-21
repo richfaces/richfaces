@@ -35,11 +35,6 @@ import javax.faces.model.DataModelListener;
 
 import junit.framework.Assert;
 
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.SequenceDataModel;
-import org.ajax4jsf.model.SequenceRange;
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
 import org.junit.Before;
@@ -167,7 +162,7 @@ public class ArrangeableModelTest extends AbstractFacesTest {
 
     /**
      * Test method for
-     * {@link org.richfaces.model.ArrangeableModel#walk(javax.faces.context.FacesContext, org.ajax4jsf.model.DataVisitor, org.ajax4jsf.model.Range, java.lang.Object)}
+     * {@link org.richfaces.model.ArrangeableModel#walk(javax.faces.context.FacesContext, org.richfaces.model.DataVisitor, org.richfaces.model.Range, java.lang.Object)}
      * .
      */
     @Test

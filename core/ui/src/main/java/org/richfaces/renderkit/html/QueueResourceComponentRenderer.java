@@ -21,7 +21,7 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
 
 import java.io.IOException;
@@ -36,11 +36,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
-import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.application.CommonComponentsConfiguration;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.QueueRegistry;
-import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author Nick Belaevski

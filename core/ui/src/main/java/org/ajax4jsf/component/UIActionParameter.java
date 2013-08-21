@@ -32,7 +32,8 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
-import org.ajax4jsf.Messages;
+import org.richfaces.l10n.Messages;
+import org.richfaces.ui.ajax.parameter.JavaScriptParameter;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)

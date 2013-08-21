@@ -22,9 +22,10 @@
 package org.richfaces.component;
 
 import com.google.common.base.Strings;
+
 import org.richfaces.application.FacesMessages;
-import org.richfaces.application.MessageFactory;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.l10n.MessageFactory;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -40,7 +41,9 @@ import org.richfaces.event.ItemChangeListener;
 import org.richfaces.event.ItemChangeSource;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentEncoder;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.renderkit.util.RendererUtils;
 
 import javax.el.ELException;
@@ -63,6 +66,7 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PostValidateEvent;
 import javax.faces.event.PreValidateEvent;
+
 import java.io.IOException;
 import java.util.EnumSet;
 import java.util.Iterator;

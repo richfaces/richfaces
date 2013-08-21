@@ -40,7 +40,7 @@ import javax.faces.view.facelets.FaceletHandler;
 import org.richfaces.component.AbstractParameter;
 import org.richfaces.component.UIHashParameter;
 import org.richfaces.component.behavior.ComponentControlBehavior;
-import org.richfaces.view.facelets.html.CustomBehaviorHandler;
+import org.richfaces.ui.common.CustomBehaviorHandler;
 
 /**
  * @author Anton Belevich

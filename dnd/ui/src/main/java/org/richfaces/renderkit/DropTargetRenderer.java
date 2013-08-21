@@ -32,8 +32,8 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.JSReference;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractDragSource;
 import org.richfaces.component.AbstractDropTarget;
@@ -41,7 +41,7 @@ import org.richfaces.event.DropEvent;
 import org.richfaces.javascript.DnDScript;
 import org.richfaces.javascript.DropScript;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
-import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
+import org.richfaces.util.Sets;
 
 import com.google.common.base.Strings;
 
@@ -137,7 +137,7 @@ public class DropTargetRenderer extends DnDRenderBase {
             function.addToBody(ajaxFunction);
 
             AbstractDropTarget dropTarget = (AbstractDropTarget) component;
-            Set<String> acceptedTypes = CoreAjaxRendererUtils.asSimpleSet(dropTarget.getAcceptedTypes());
+            Set<String> acceptedTypes = Sets.asSet(dropTarget.getAcceptedTypes());
 
             if (acceptedTypes != null) {
                 if (acceptedTypes.contains("@none")) {

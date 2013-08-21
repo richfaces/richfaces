@@ -30,6 +30,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.DivPanelRenderer;
+import org.richfaces.ui.common.ComponentIterators;
 
 /**
  * <p>The &lt;rich:accordionItem&gt; component is a panel for use with the &lt;rich:accordion&gt; component.

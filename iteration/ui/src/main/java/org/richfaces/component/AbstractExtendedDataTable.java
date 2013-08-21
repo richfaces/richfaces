@@ -43,6 +43,8 @@ import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.SelectionMode;
+import org.richfaces.ui.common.meta.MetaComponentEncoder;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 /**
  * <p> The &lt;rich:extendedDataTable&gt; component builds on the functionality of the &lt;rich:dataTable&gt; component,

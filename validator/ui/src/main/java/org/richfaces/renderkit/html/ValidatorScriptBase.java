@@ -2,9 +2,9 @@ package org.richfaces.renderkit.html;
 
 import java.io.IOException;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.JSReference;
 
 public abstract class ValidatorScriptBase extends JSFunctionDefinition implements ComponentValidatorScript {
     public static final String ELEMENT = "e";

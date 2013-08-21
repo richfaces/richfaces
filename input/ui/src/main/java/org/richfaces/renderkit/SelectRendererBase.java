@@ -30,15 +30,16 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.javascript.JSReference;
-import org.ajax4jsf.javascript.ScriptString;
+import org.richfaces.javascript.JSReference;
+import org.richfaces.javascript.ScriptString;
 import org.richfaces.application.FacesMessages;
-import org.richfaces.application.MessageFactory;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.component.AbstractSelect;
 import org.richfaces.component.AbstractSelectComponent;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import org.richfaces.l10n.MessageFactory;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.util.HtmlDimensions;
 import org.richfaces.validator.SelectLabelValueValidator;
 import org.richfaces.validator.csv.AddCSVMessageScript;
 

@@ -21,7 +21,7 @@
  */
 package org.richfaces.model;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -36,11 +36,6 @@ import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModelListener;
 
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.Range;
-import org.ajax4jsf.model.SequenceRange;
 import org.richfaces.application.IterationComponentsConfiguration;
 import org.richfaces.component.SortOrder;
 
@@ -77,7 +72,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.model.ExtendedDataModel#getRowKey()
+     * @see org.richfaces.model.ExtendedDataModel#getRowKey()
      */
     public Object getRowKey() {
         return originalModel.getRowKey();
@@ -86,7 +81,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.model.ExtendedDataModel#setRowKey(java.lang.Object)
+     * @see org.richfaces.model.ExtendedDataModel#setRowKey(java.lang.Object)
      */
     public void setRowKey(Object key) {
         originalModel.setRowKey(key);
@@ -95,8 +90,8 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     /*
      * (non-Javadoc)
      *
-     * @see org.ajax4jsf.model.ExtendedDataModel#walk(javax.faces.context.FacesContext, org.ajax4jsf.model.DataVisitor,
-     * org.ajax4jsf.model.Range, java.lang.Object)
+     * @see org.richfaces.model.ExtendedDataModel#walk(javax.faces.context.FacesContext, org.richfaces.model.DataVisitor,
+     * org.richfaces.model.Range, java.lang.Object)
      */
     public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
         final SequenceRange seqRange = (SequenceRange) range;

@@ -123,7 +123,7 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <classifier>sources</classifier>
+<!--                             <classifier>sources</classifier> -->
                             <includeGroupIds>
                                 org.richfaces.ui.core,org.richfaces.ui.common,org.richfaces.ui.misc,org.richfaces.ui.iteration,org.richfaces.ui.output,org.richfaces.ui.input,org.richfaces.ui.dnd,org.richfaces.ui.validator
                             </includeGroupIds>

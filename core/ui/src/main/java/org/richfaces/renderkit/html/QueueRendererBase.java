@@ -21,7 +21,7 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
 import java.util.List;
 

@@ -31,7 +31,8 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractInplaceSelect;
 import org.richfaces.component.InplaceComponent;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.util.HtmlDimensions;
 
 /**
  * @author Anton Belevich

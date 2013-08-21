@@ -37,12 +37,12 @@ import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractToolbar;
 import org.richfaces.component.AbstractToolbarGroup;
-import org.richfaces.renderkit.ComponentAttribute;
-import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.RendererBase;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import org.richfaces.ui.common.ComponentAttribute;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.util.HtmlDimensions;
 
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "toolbar.js"),

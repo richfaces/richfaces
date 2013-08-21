@@ -32,7 +32,7 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;

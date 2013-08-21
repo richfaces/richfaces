@@ -21,8 +21,8 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
@@ -38,15 +38,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.javascript.JSObject;
 import org.richfaces.TooltipMode;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTooltip;
 import org.richfaces.component.Positioning;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.util.RendererUtils;
 

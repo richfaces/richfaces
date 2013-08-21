@@ -47,9 +47,9 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.event.ValueChangeListener;
 import javax.faces.model.ListDataModel;
 
-import org.ajax4jsf.component.IterationStateHolder;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.SequenceDataModel;
+import org.richfaces.model.ExtendedDataModel;
+import org.richfaces.model.SequenceDataModel;
+import org.richfaces.ui.iteration.IterationStateHolder;
 import org.jboss.test.faces.AbstractFacesTest;
 
 /**

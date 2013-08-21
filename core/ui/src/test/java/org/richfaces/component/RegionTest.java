@@ -24,9 +24,9 @@ package org.richfaces.component;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.richfaces.renderkit.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
-import static org.richfaces.renderkit.AjaxConstants.ALL;
-import static org.richfaces.renderkit.AjaxConstants.THIS;
+import static org.richfaces.ui.common.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
+import static org.richfaces.ui.common.AjaxConstants.ALL;
+import static org.richfaces.ui.common.AjaxConstants.THIS;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -45,6 +45,7 @@ import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.richfaces.ui.ajax.region.AjaxContainer;
 
 /**
  * Test page pseudo-code:

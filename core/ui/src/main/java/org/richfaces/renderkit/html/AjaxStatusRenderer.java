@@ -33,11 +33,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractAjaxStatus;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.HandlersChain;

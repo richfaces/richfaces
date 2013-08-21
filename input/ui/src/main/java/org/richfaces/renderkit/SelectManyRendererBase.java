@@ -24,7 +24,7 @@ package org.richfaces.renderkit;
 import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.SelectUtils;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import org.richfaces.util.HtmlDimensions;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

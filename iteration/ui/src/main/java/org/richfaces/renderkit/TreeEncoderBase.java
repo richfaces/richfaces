@@ -28,13 +28,14 @@ import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.javascript.JSFunction;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.model.TreeDataModelTuple;
 import org.richfaces.model.TreeDataVisitor;
+import org.richfaces.ui.common.HtmlConstants;
 
 abstract class TreeEncoderBase implements TreeDataVisitor {
     private static final class QueuedData {

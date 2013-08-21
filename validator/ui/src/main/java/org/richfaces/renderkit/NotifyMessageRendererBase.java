@@ -30,9 +30,9 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.application.ServiceTracker;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSObject;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.component.AbstractNotifyMessage;
 import org.richfaces.component.AbstractNotifyMessages;
 import org.richfaces.component.util.HtmlUtil;

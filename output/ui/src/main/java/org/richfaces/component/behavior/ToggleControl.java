@@ -33,8 +33,9 @@ import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.AbstractTogglePanel;
-import org.richfaces.component.ComponentIterators;
 import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.ui.common.ComponentIterators;
+import org.richfaces.ui.common.CustomBehaviorHandler;
 
 /**
  * <p> The &lt;rich:toggleControl&gt; behavior can be attached to any interface component, whether inside or outside the
@@ -43,7 +44,7 @@ import org.richfaces.renderkit.util.RendererUtils;
  *
  * @author akolonitsky
  */
-@JsfBehavior(id = "org.richfaces.component.behavior.ToggleControl", tag = @Tag(name = "toggleControl", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets), renderer = @JsfBehaviorRenderer(type = "org.richfaces.component.behavior.ToggleControl"))
+@JsfBehavior(id = "org.richfaces.component.behavior.ToggleControl", tag = @Tag(name = "toggleControl", handlerClass = CustomBehaviorHandler.class, type = TagType.Facelets), renderer = @JsfBehaviorRenderer(type = "org.richfaces.component.behavior.ToggleControl"))
 public class ToggleControl extends ClientBehavior {
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.ToggleControl";
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();

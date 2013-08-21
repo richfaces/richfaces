@@ -157,8 +157,8 @@ public class AbstractTogglePanelTest {
     }
 */
 
-    private static org.richfaces.component.UITogglePanelItem createItem(String name) {
-        org.richfaces.component.UITogglePanelItem item = new org.richfaces.component.UITogglePanelItem();
+    private static UITogglePanelItem createItem(String name) {
+        UITogglePanelItem item = new UITogglePanelItem();
         item.setName(name);
 
         return item;

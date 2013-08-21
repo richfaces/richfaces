@@ -38,9 +38,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.JSReference;
 import org.ajax4jsf.renderkit.AjaxRendererUtils;
 import org.ajax4jsf.renderkit.UserResourceRenderer2;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;

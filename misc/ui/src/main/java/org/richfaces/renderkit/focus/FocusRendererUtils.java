@@ -5,7 +5,9 @@ import javax.faces.component.UIForm;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.focus.FocusManager;
+import org.richfaces.ui.misc.focus.FocusManager;
+
+
 
 public final class FocusRendererUtils {
 

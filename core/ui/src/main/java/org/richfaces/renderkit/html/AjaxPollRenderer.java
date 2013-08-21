@@ -32,12 +32,12 @@ import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.JSReference;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPoll;
-import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
@@ -81,7 +81,7 @@ public class AjaxPollRenderer extends RendererBase {
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         RendererUtils utils = getUtils();
-        boolean shouldRenderForm = utils.getNestingForm(context, component) == null;
+        boolean shouldRenderForm = utils.getNestingForm(component) == null;
         String rootElementName = shouldRenderForm ? HtmlConstants.DIV_ELEM : HtmlConstants.SPAN_ELEM;
 
         AbstractPoll poll = (AbstractPoll) component;

@@ -74,7 +74,7 @@ public abstract class BaseUploadedFile implements UploadedFile {
         }
     }
 
-    @Override
+    //@Override
     public String getFileExtension() {
         String name = this.getName();
         if (name != null) {

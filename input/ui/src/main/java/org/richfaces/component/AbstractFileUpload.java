@@ -269,26 +269,26 @@ public abstract class AbstractFileUpload extends UIComponentBase {
      *
      * Then, the file extension of uploaded file needs to be acceptable by this component (see {@link #getAcceptedTypes()}).
      */
-    public boolean acceptsFile(UploadedFile file) {
-        final String clientId = this.getClientId();
-        final int maxFilesQuantity = this.getMaxFilesQuantity();
-        final List<String> acceptedTypes = this.getAcceptedTypesList();
-
-        if ((maxFilesQuantity > 0) && (queuedFileUploadEvents().get() >= maxFilesQuantity))
-            return false;
-
-        if (clientId.equals(file.getParameterName())) {
-            if (acceptedTypes.isEmpty()) {
-                return true;
-            }
-
-            if (acceptedTypes.contains(file.getFileExtension().toLowerCase())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
+//    public boolean acceptsFile(UploadedFile file) {
+//        final String clientId = this.getClientId();
+//        final int maxFilesQuantity = this.getMaxFilesQuantity();
+//        final List<String> acceptedTypes = this.getAcceptedTypesList();
+//
+//        if ((maxFilesQuantity > 0) && (queuedFileUploadEvents().get() >= maxFilesQuantity))
+//            return false;
+//
+//        if (clientId.equals(file.getParameterName())) {
+//            if (acceptedTypes.isEmpty()) {
+//                return true;
+//            }
+//
+//            if (acceptedTypes.contains(file.getFileExtension().toLowerCase())) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
 
     /**
      * Increments number of {@link FileUploadEvent} which were queued
