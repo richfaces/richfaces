@@ -336,4 +336,4 @@
 
     // define super class link
     var $super = rf.ui.Tooltip.$super;
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

@@ -19,13 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-(function(jsf, richfaces, _$) {
+(function(jsf, rf, $) {
 
     var COMPONENT_NAME = "Push";
 
-    var RICH_NAMESPACE = richfaces.Event.RICH_NAMESPACE;
+    var RICH_NAMESPACE = rf.Event.RICH_NAMESPACE;
 
-    var EVENT_NAMESPACE_SEPARATOR = richfaces.Event.EVENT_NAMESPACE_SEPARATOR;
+    var EVENT_NAMESPACE_SEPARATOR = rf.Event.EVENT_NAMESPACE_SEPARATOR;
 
     var DATA_EVENT_NAME = 'dataAvailable' + EVENT_NAMESPACE_SEPARATOR + RICH_NAMESPACE + EVENT_NAMESPACE_SEPARATOR + COMPONENT_NAME;
     
@@ -45,7 +45,7 @@
         return ERROR_EVENT_NAME + EVENT_NAMESPACE_SEPARATOR + address;
     };
 
-    richfaces.Push = (function() {
+    rf.Push = (function() {
 
         var addedTopics = {};
 
@@ -86,13 +86,13 @@
                         continue;
                     }
 
-                    var message = _$.parseJSON('{' + messageToken[1] + '}');
+                    var message = $.parseJSON('{' + messageToken[1] + '}');
 
                     if (message.number <= lastMessageNumber) {
                         continue;
                     }
 
-                    richfaces.Event.fire(document, getDataEventNamespace(message.topic), message.data);
+                    rf.Event.fire(document, getDataEventNamespace(message.topic), message.data);
                     lastMessageNumber = message.number;
                 }
             }
@@ -102,11 +102,11 @@
             var newlySubcribed = {}; 
             
             var pushSessionIdRequestHandler = function(data) {
-                var subscriptionData = _$.parseJSON(data);
+                var subscriptionData = $.parseJSON(data);
 
 
                 for (var failedTopicKey in subscriptionData.failures) {
-                    richfaces.Event.fire(
+                    rf.Event.fire(
                         document,
                         getErrorEventNamespace(failedTopicKey),
                         subscriptionData.failures[failedTopicKey]
@@ -116,16 +116,16 @@
                 if (subscriptionData.sessionId) {
                     pushSessionId = subscriptionData.sessionId;
 
-                    _$.atmosphere.subscribe((pushHandlerUrl || pushResourceUrl) + "?__richfacesPushAsync=1&pushSessionId=" + pushSessionId, messageCallback, {
-                            transport: richfaces.Push.transport,
-                            fallbackTransport: richfaces.Push.fallbackTransport,
-                            logLevel: richfaces.Push.logLevel
+                    $.atmosphere.subscribe((pushHandlerUrl || pushResourceUrl) + "?__richfacesPushAsync=1&pushSessionId=" + pushSessionId, messageCallback, {
+                            transport: rf.Push.transport,
+                            fallbackTransport: rf.Push.fallbackTransport,
+                            logLevel: rf.Push.logLevel
                         });
                     
                     // fire subscribed events
                     for (var topicName in newlySubcribed) {
                         subscribedTopics[topicName] = true;
-                        richfaces.Event.fire(document, getSubscribedEventNamespace(topicName));
+                        rf.Event.fire(document, getSubscribedEventNamespace(topicName));
                     }
                 }
             };
@@ -147,7 +147,7 @@
             }
 
             //TODO handle request errors
-            _$.ajax({
+            $.ajax({
                     data: data,
                     dataType: 'text',
                     success: pushSessionIdRequestHandler,
@@ -158,7 +158,7 @@
         };
 
         var disconnect = function() {
-            _$.atmosphere.unsubscribe();
+            $.atmosphere.unsubscribe();
         };
 
         return {
@@ -186,9 +186,9 @@
             },
 
             updateConnection: function() {
-                if (_$.isEmptyObject(handlersCounter)) {
+                if ($.isEmptyObject(handlersCounter)) {
                     disconnect();
-                } else if (!_$.isEmptyObject(addedTopics) || !_$.isEmptyObject(removedTopics)) {
+                } else if (!$.isEmptyObject(addedTopics) || !$.isEmptyObject(removedTopics)) {
                     disconnect();
                     connect();
                 }
@@ -200,11 +200,11 @@
 
     }());
 
-    _$(document).ready(richfaces.Push.updateConnection);
+    $(document).ready(rf.Push.updateConnection);
 
-    richfaces.Push.transport = "long-polling";// "websocket";
-    richfaces.Push.fallbackTransport = undefined;//"long-polling";
-    richfaces.Push.logLevel = "info";
+    rf.Push.transport = "long-polling";// "websocket";
+    rf.Push.fallbackTransport = undefined;//"long-polling";
+    rf.Push.logLevel = "info";
 
     var ajaxEventHandler = function(event) {
         if (event.type == 'event') {
@@ -215,15 +215,15 @@
             return;
         }
 
-        richfaces.Push.updateConnection();
+        rf.Push.updateConnection();
     };
 
     jsf.ajax.addOnEvent(ajaxEventHandler);
     jsf.ajax.addOnError(ajaxEventHandler);
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
 
-    richfaces.ui.Push = richfaces.BaseComponent.extendClass({
+    rf.ui.Push = rf.BaseComponent.extendClass({
 
             name: COMPONENT_NAME,
 
@@ -246,18 +246,18 @@
                     this.__bindErrorHandler(options.onerror);
                 }
 
-                richfaces.Push.increaseSubscriptionCounters(this.__address);
+                rf.Push.increaseSubscriptionCounters(this.__address);
             },
 
             __bindDataHandler: function(handlerCode) {
                 var ns = getDataEventNamespace(this.__address);
-                this.__handlers.data = richfaces.Event.bind(document, ns, $.proxy(handlerCode, document.getElementById(this.id)), this);
+                this.__handlers.data = rf.Event.bind(document, ns, $.proxy(handlerCode, document.getElementById(this.id)), this);
             },
 
             __unbindDataHandler: function() {
                 if (this.__handlers.data) {
                     var ns = getDataEventNamespace(this.__address);
-                    richfaces.Event.unbind(document, ns, this.__handlers.data);
+                    rf.Event.unbind(document, ns, this.__handlers.data);
 
                     this.__handlers.data = null;
                 }
@@ -265,13 +265,13 @@
             
             __bindSubscribedHandler: function(handlerCode) {
                 var ns = getSubscribedEventNamespace(this.__address);
-                this.__handlers.subscribed = richfaces.Event.bind(document, ns, $.proxy(handlerCode, document.getElementById(this.id)), this);
+                this.__handlers.subscribed = rf.Event.bind(document, ns, $.proxy(handlerCode, document.getElementById(this.id)), this);
             },
 
             __unbindSubscribedHandler: function() {
                 if (this.__handlers.subscribed) {
                     var ns = getSubscribedEventNamespace(this.__address);
-                    richfaces.Event.unbind(document, ns, this.__handlers.subscribed);
+                    rf.Event.unbind(document, ns, this.__handlers.subscribed);
 
                     this.__handlers.subscribed = null;
                 }
@@ -279,13 +279,13 @@
 
             __bindErrorHandler: function(handlerCode) {
                 var ns = getErrorEventNamespace(this.__address);
-                this.__handlers.error = richfaces.Event.bind(document, ns, $.proxy(handlerCode, document.getElementById(this.id)), this);
+                this.__handlers.error = rf.Event.bind(document, ns, $.proxy(handlerCode, document.getElementById(this.id)), this);
             },
 
             __unbindErrorHandler: function() {
                 if (this.__handlers.error) {
                     var ns = getErrorEventNamespace(this.__address);
-                    richfaces.Event.unbind(document, ns, this.__handlers.error);
+                    rf.Event.unbind(document, ns, this.__handlers.error);
 
                     this.__handlers.error = null;
                 }
@@ -296,12 +296,12 @@
                 this.__unbindErrorHandler();
                 this.__unbindSubscribedHandler();
 
-                richfaces.Push.decreaseSubscriptionCounters(this.__address);
+                rf.Push.decreaseSubscriptionCounters(this.__address);
                 $super.destroy.call(this);
             }
         });
 
     // define super class link
-    var $super = richfaces.ui.Push.$super;
+    var $super = rf.ui.Push.$super;
 
-}(jsf, window.RichFaces, jQuery));
+}(jsf, window.RichFaces, RichFaces.jQuery));

@@ -61,4 +61,4 @@
             }
         });
 
-})(jQuery, window.RichFaces || (window.RichFaces = {}));
+})(RichFaces.jQuery, window.RichFaces || (window.RichFaces = {}));

@@ -74,4 +74,4 @@
     
     var $super = rf.ui.NotifyStack.$super;
 
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

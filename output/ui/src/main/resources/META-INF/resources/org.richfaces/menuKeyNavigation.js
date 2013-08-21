@@ -167,4 +167,4 @@
             }
         }
     }
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

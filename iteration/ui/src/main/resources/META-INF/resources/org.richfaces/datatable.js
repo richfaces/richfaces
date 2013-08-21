@@ -1,27 +1,27 @@
-(function ($, richfaces) {
+(function ($, rf) {
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
 
-    richfaces.ui.DataTable = function(id, options) {
+    rf.ui.DataTable = function(id, options) {
         $super.constructor.call(this, id);
         this.options = $.extend(this.options, options || {});
         this.attachToDom();
 
     };
 
-    richfaces.BaseComponent.extend(richfaces.ui.DataTable);
-    var $super = richfaces.ui.DataTable.$super;
+    rf.BaseComponent.extend(rf.ui.DataTable);
+    var $super = rf.ui.DataTable.$super;
 
-    $.extend(richfaces.ui.DataTable, {
+    $.extend(rf.ui.DataTable, {
             SORTING: "rich:sorting",
             FILTERING: "rich:filtering",
             SUBTABLE_SELECTOR:".rf-cst"
         });
 
-    $.extend(richfaces.ui.DataTable.prototype, ( function () {
+    $.extend(rf.ui.DataTable.prototype, ( function () {
 
         var invoke = function(event, attributes) {
-            richfaces.ajax(this.id, event, {"parameters" : attributes});
+            rf.ajax(this.id, event, {"parameters" : attributes});
         };
 
         var createParameters = function(type, id, arg1, arg2) {
@@ -44,7 +44,7 @@
             name : "RichFaces.ui.DataTable",
 
             sort: function(columnId, direction, isClear) {
-                invoke.call(this, null, createParameters.call(this, richfaces.ui.DataTable.SORTING, columnId, direction, isClear));
+                invoke.call(this, null, createParameters.call(this, rf.ui.DataTable.SORTING, columnId, direction, isClear));
             },
 
             clearSorting: function() {
@@ -52,7 +52,7 @@
             },
 
             filter: function(columnId, filterValue, isClear) {
-                invoke.call(this, null, createParameters.call(this, richfaces.ui.DataTable.FILTERING, columnId, filterValue, isClear));
+                invoke.call(this, null, createParameters.call(this, rf.ui.DataTable.FILTERING, columnId, filterValue, isClear));
             },
 
             clearFiltering: function() {
@@ -72,16 +72,16 @@
             },
 
             getSubTable: function(id) {
-                return richfaces.component(id);
+                return rf.component(id);
             },
 
             invokeOnSubTables: function(funcName) {
-                var elements = $(document.getElementById(this.id)).children(richfaces.ui.DataTable.SUBTABLE_SELECTOR);
+                var elements = $(document.getElementById(this.id)).children(rf.ui.DataTable.SUBTABLE_SELECTOR);
                 var invokeOnComponent = this.invokeOnComponent;
                 elements.each(
                     function() {
-                        if (this.firstChild && this.firstChild[richfaces.RICH_CONTAINER] && this.firstChild[richfaces.RICH_CONTAINER].component) {
-                            var component = this.firstChild[richfaces.RICH_CONTAINER].component;
+                        if (this.firstChild && this.firstChild[rf.RICH_CONTAINER] && this.firstChild[rf.RICH_CONTAINER].component) {
+                            var component = this.firstChild[rf.RICH_CONTAINER].component;
                             if (component instanceof RichFaces.ui.CollapsibleSubTable) {
                                 invokeOnComponent(component, funcName);
                             }
@@ -110,5 +110,5 @@
 
     })());
 
-})(jQuery, window.RichFaces);
+})(RichFaces.jQuery, window.RichFaces);
 

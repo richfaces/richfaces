@@ -433,4 +433,4 @@
 
     // define super class link
     var $super = rf.ui.TogglePanel.$super;
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);

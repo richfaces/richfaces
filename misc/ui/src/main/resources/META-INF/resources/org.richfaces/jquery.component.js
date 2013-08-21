@@ -2,7 +2,7 @@ if (!window.RichFaces) {
     window.RichFaces = {};
 }
 
-(function(jquery, richfaces) {
+(function($, rf) {
 
     var evaluate = function(selector) {
         var result = selector;
@@ -16,8 +16,8 @@ if (!window.RichFaces) {
 
     var evaluateJQuery = function(element, selector) {
         var result = element || evaluate(selector);
-        if (!(result instanceof jquery)) {
-            result = jquery(result || "");
+        if (!(result instanceof $)) {
+            result = $(result || "");
         }
 
         return result;
@@ -69,11 +69,11 @@ if (!window.RichFaces) {
         if (options.timing == 'immediate') {
             createQueryFunction(options).call(this);
         } else {
-            jquery(document).ready(createQueryFunction(options));
+            $(document).ready(createQueryFunction(options));
         }
     };
 
-    richfaces.jQuery = {
+    rf.jQuery = {
 
         createFunction: createQueryFunction,
 
@@ -81,4 +81,4 @@ if (!window.RichFaces) {
 
     };
 
-}(jQuery, RichFaces));
+}(RichFaces.jQuery, RichFaces));

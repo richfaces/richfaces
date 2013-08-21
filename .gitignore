@@ -5,6 +5,7 @@ test-output
 .project
 .clover
 .externalToolBuilders
+.idea
 MANIFEST.MF
 dependency-reduced-pom.xml
 *.orig

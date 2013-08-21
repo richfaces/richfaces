@@ -1,12 +1,12 @@
-(function ($, richfaces) {
+(function ($, rf) {
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
 
-    richfaces.ui.PopupPanel.Border = function(id, modalPanel, cursor, sizer) {
+    rf.ui.PopupPanel.Border = function(id, modalPanel, cursor, sizer) {
 
         $super.constructor.call(this, id);
 
-        this.element = $(richfaces.getDomElement(id));
+        this.element = $(rf.getDomElement(id));
         this.element.css('cursor', cursor);
         var border = this;
         this.element.bind('mousedown', {border:border}, this.startDrag);
@@ -15,10 +15,10 @@
         this.sizer = sizer;
     };
 
-    var $super = richfaces.BaseComponent.extend(richfaces.ui.PopupPanel.Border);
-    var $super = richfaces.ui.PopupPanel.Border.$super;
+    var $super = rf.BaseComponent.extend(rf.ui.PopupPanel.Border);
+    var $super = rf.ui.PopupPanel.Border.$super;
 
-    $.extend(richfaces.ui.PopupPanel.Border.prototype, (function (options) {
+    $.extend(rf.ui.PopupPanel.Border.prototype, (function (options) {
 
         return {
 
@@ -155,7 +155,7 @@
 
                 border.modalPanel.endDrag(border);
 
-                border.modalPanel.doResizeOrMove(richfaces.ui.PopupPanel.Sizer.Diff.EMPTY);
+                border.modalPanel.doResizeOrMove(rf.ui.PopupPanel.Sizer.Diff.EMPTY);
 
                 document.onselectstart = border.onselectStartHandler;
                 border.onselectStartHandler = null;
@@ -168,4 +168,4 @@
 
     })());
 
-})(jQuery, window.RichFaces);
+})(RichFaces.jQuery, window.RichFaces);

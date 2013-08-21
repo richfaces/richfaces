@@ -1,10 +1,10 @@
-(function ($, richfaces) {
+(function ($, rf) {
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
 
-    richfaces.ui.ComponentControl = richfaces.ui.ComponentControl || {};
+    rf.ui.ComponentControl = rf.ui.ComponentControl || {};
 
-    $.extend(richfaces.ui.ComponentControl, {
+    $.extend(rf.ui.ComponentControl, {
 
             execute: function(event, parameters) {
                 var targetList = parameters.target;
@@ -20,20 +20,20 @@
                     for (var i = 0; i < targetList.length; i++) {
                         var component = document.getElementById(targetList[i]);
                         if (component) {
-                            richfaces.ui.ComponentControl.invokeOnComponent(event, component, callback);
+                            rf.ui.ComponentControl.invokeOnComponent(event, component, callback);
                         }
                     }
                 }
 
                 if (selector) {
-                    richfaces.ui.ComponentControl.invokeOnComponent(event, selector, callback);
+                    rf.ui.ComponentControl.invokeOnComponent(event, selector, callback);
                 }
             },
 
             invokeOnComponent : function(event, target, callback) {
                 if (callback && typeof callback == 'function') {
                     $(target).each(function() {
-                        var component = richfaces.component(this);
+                        var component = rf.component(this);
                         if (component) {
                             callback(event, component);
                         }
@@ -42,4 +42,4 @@
             }
         });
 
-})(jQuery, window.RichFaces);
+})(RichFaces.jQuery, window.RichFaces);

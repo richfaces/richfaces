@@ -19,10 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-(function(richfaces, jQuery) {
+(function($, rf) {
 
     var getGlobalStatusNameVariable = function() {
-        return richfaces.statusName;
+        return rf.statusName;
     }
 
     var RICHFACES_AJAX_STATUS = "richfaces:ajaxStatus";
@@ -42,9 +42,9 @@
 
             var statusContainers;
             if (statusName) {
-                statusContainers = [jQuery(document)];
+                statusContainers = [$(document)];
             } else {
-                statusContainers = [jQuery(source).parents('form'), jQuery(document)];
+                statusContainers = [$(source).parents('form'), $(document)];
             }
 
             for (var containerIdx = 0; containerIdx < statusContainers.length && !statusApplied;
@@ -76,7 +76,7 @@
         if (!thisFunction.initialized) {
             thisFunction.initialized = true;
 
-            var jsfEventsListener = richfaces.createJSFEventsAdapter({
+            var jsfEventsListener = rf.createJSFEventsAdapter({
                     begin: function(event) {
                         statusAjaxEventHandler(event, 'start');
                     },
@@ -87,7 +87,7 @@
                         statusAjaxEventHandler(event, 'success');
                     },
                     complete: function() {
-                        richfaces.setGlobalStatusNameVariable(null);
+                        rf.setGlobalStatusNameVariable(null);
                     }
                 });
 
@@ -97,9 +97,9 @@
         }
     };
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
 
-    richfaces.ui.Status = richfaces.BaseComponent.extendClass({
+    rf.ui.Status = rf.BaseComponent.extendClass({
 
             name: "Status",
 
@@ -119,11 +119,11 @@
 
                 var container;
                 if (statusName) {
-                    container = jQuery(document);
+                    container = $(document);
                 } else {
-                    container = jQuery(richfaces.getDomElement(this.id)).parents('form');
+                    container = $(rf.getDomElement(this.id)).parents('form');
                     if (container.length == 0) {
-                        container = jQuery(document);
+                        container = $(document);
                     }
                     ;
                 }
@@ -167,11 +167,11 @@
             },
 
             __showHide: function(selector) {
-                var element = jQuery(richfaces.getDomElement(this.id));
+                var element = $(rf.getDomElement(this.id));
                 if (element) {
                     var statusElts = element.children();
                     statusElts.each(function() {
-                        var t = jQuery(this);
+                        var t = $(this);
                         t.css('display', t.is(selector) ? '' : 'none');
                     });
 
@@ -186,4 +186,4 @@
                 }
             }
         });
-}(window.RichFaces, jQuery));
+}(RichFaces.jQuery, window.RichFaces));

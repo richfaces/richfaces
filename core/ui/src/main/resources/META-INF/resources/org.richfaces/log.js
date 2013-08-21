@@ -1,4 +1,4 @@
-(function(jquery, richfaces) {
+(function($, rf) {
     var logLevels = ['debug', 'info', 'warn', 'error'];
     var logLevelsPadded = {'debug': 'debug', 'info': 'info ', 'warn': 'warn ', 'error': 'error'};
     var logLevelValues = {'debug': 1, 'info': 2, 'warn': 3, 'error': 4};
@@ -10,7 +10,7 @@
                 return node;
             }
 
-            var result = jquery();
+            var result = $();
             for (var i = 0; i < node.length; i++) {
                 if (doc.importNode) {
                     result = result.add(doc.importNode(node[i], true));
@@ -27,7 +27,7 @@
         },
 
         __getStyles: function() {
-            var head = jQuery("head");
+            var head = $("head");
 
             if (head.length == 0) {
                 return "";
@@ -104,32 +104,32 @@
         },
 
         __initializeControls : function(doc) {
-            var console = jquery("#richfaces\\.log", doc);
+            var console = $("#richfaces\\.log", doc);
 
             var clearBtn = console.children("button.rf-log-element");
             if (clearBtn.length == 0) {
-                clearBtn = jquery("<button type='button' name='clear' class='rf-log-element'>Clear</button>", doc).appendTo(console);
+                clearBtn = $("<button type='button' name='clear' class='rf-log-element'>Clear</button>", doc).appendTo(console);
             }
 
-            clearBtn.click(jquery.proxy(this.clear, this));
+            clearBtn.click($.proxy(this.clear, this));
 
             var levelSelect = console.children("select.rf-log-element");
             if (levelSelect.length == 0) {
-                levelSelect = jquery("<select class='rf-log-element' name='richfaces.log' />", doc).appendTo(console);
+                levelSelect = $("<select class='rf-log-element' name='richfaces.log' />", doc).appendTo(console);
             }
 
             if (levelSelect.children().length == 0) {
                 for (var l = 0; l < logLevels.length; l++) {
-                    jquery("<option value='" + logLevels[l] + "'>" + logLevels[l] + "</option>", doc).appendTo(levelSelect);
+                    $("<option value='" + logLevels[l] + "'>" + logLevels[l] + "</option>", doc).appendTo(levelSelect);
                 }
             }
 
             levelSelect.val(this.getLevel());
-            levelSelect.change(jquery.proxy(this.__setLevelFromSelect, this));
+            levelSelect.change($.proxy(this.__setLevelFromSelect, this));
 
             var consoleEntries = console.children(".rf-log-contents");
             if (consoleEntries.length == 0) {
-                consoleEntries = jquery("<div class='rf-log-contents'></div>", doc).appendTo(console);
+                consoleEntries = $("<div class='rf-log-contents'></div>", doc).appendTo(console);
             }
             this.__contentsElement = consoleEntries;
         },
@@ -138,9 +138,9 @@
             var target = this.__contentsElement;
             if (this.mode == "popup") {
                 var doc = this.__popupWindow.document;
-                jquery(doc.createElement("div")).appendTo(target).append(this.__import(doc, element));
+                $(doc.createElement("div")).appendTo(target).append(this.__import(doc, element));
             } else {
-                jquery(document.createElement("div")).appendTo(target).append(element);
+                $(document.createElement("div")).appendTo(target).append(element);
             }
         },
 
@@ -162,10 +162,10 @@
             }
 
             if (logLevelValues[level] >= logLevelValues[this.getLevel()]) {
-                var newEntry = jquery();
-                newEntry = newEntry.add(jquery("<span class='rf-log-entry-lbl rf-log-entry-lbl-" + level + "'></span>").text(this.__getMessagePrefix(level)));
+                var newEntry = $();
+                newEntry = newEntry.add($("<span class='rf-log-entry-lbl rf-log-entry-lbl-" + level + "'></span>").text(this.__getMessagePrefix(level)));
 
-                var entrySpan = jquery("<span class='rf-log-entry-msg rf-log-entry-msg-" + level + "'></span>");
+                var entrySpan = $("<span class='rf-log-entry-msg rf-log-entry-msg-" + level + "'></span>");
                 if (typeof message != 'object' || !message.appendTo) {
                     entrySpan.text(message);
                 } else {
@@ -181,7 +181,7 @@
         init: function(options) {
             $super.constructor.call(this, 'richfaces.log');
             this.attachToDom();
-            richfaces.setLog(this);
+            rf.setLog(this);
 
             options = options || {};
 
@@ -192,15 +192,15 @@
             if (this.mode == 'console') {
                 // do nothing
             } else if (this.mode == 'popup') {
-                this.__boundHotkeyHandler = jquery.proxy(this.__hotkeyHandler, this);
-                jquery(document).bind('keydown', this.__boundHotkeyHandler);
+                this.__boundHotkeyHandler = $.proxy(this.__hotkeyHandler, this);
+                $(document).bind('keydown', this.__boundHotkeyHandler);
             } else {
                 this.__initializeControls(document);
             }
         },
 
         destroy: function() {
-            richfaces.setLog(null);
+            rf.setLog(null);
 
             //TODO test this method
             if (this.__popupWindow) {
@@ -209,7 +209,7 @@
             this.__popupWindow = null;
 
             if (this.__boundHotkeyHandler) {
-                jquery(document).unbind('keydown', this.__boundHotkeyHandler);
+                $(document).unbind('keydown', this.__boundHotkeyHandler);
                 this.__boundHotkeyHandler = null;
             }
 
@@ -242,18 +242,18 @@
         }());
     }
 
-    richfaces.HtmlLog = richfaces.BaseComponent.extendClass(logClassMethods);
+    rf.HtmlLog = rf.BaseComponent.extendClass(logClassMethods);
     // define super class link
-    var $super = richfaces.HtmlLog.$super;
+    var $super = rf.HtmlLog.$super;
 
-    jQuery(document).ready(function() {
+    $(document).ready(function() {
         if (typeof jsf != 'undefined') {
-            (function(jQuery, richfaces, jsf) {
+            (function($, rf, jsf) {
 
                 //JSF log adapter
                 var identifyElement = function(elt) {
                     var identifier = '<' + elt.tagName.toLowerCase();
-                    var e = jQuery(elt);
+                    var e = $(elt);
                     if (e.attr('id')) {
                         identifier += (' id=' + e.attr('id'));
                     }
@@ -267,23 +267,23 @@
                 }
 
                 var formatPartialResponseElement = function(logElement, responseElement) {
-                    var change = jQuery(responseElement);
+                    var change = $(responseElement);
 
                     logElement.append("Element <b>" + responseElement.nodeName + "</b>");
                     if (change.attr("id")) {
                         logElement.append(document.createTextNode(" for id=" + change.attr("id")));
                     }
 
-                    jQuery(document.createElement("br")).appendTo(logElement);
-                    jQuery("<span class='rf-log-entry-msg-xml'></span>").appendTo(logElement).text(change.toXML());
-                    jQuery(document.createElement("br")).appendTo(logElement);
+                    $(document.createElement("br")).appendTo(logElement);
+                    $("<span class='rf-log-entry-msg-xml'></span>").appendTo(logElement).text(change.toXML());
+                    $(document.createElement("br")).appendTo(logElement);
                 }
 
                 var formatPartialResponse = function(partialResponse) {
-                    var logElement = jQuery(document.createElement("span"));
+                    var logElement = $(document.createElement("span"));
 
                     partialResponse.children().each(function() {
-                        var responseElement = jQuery(this);
+                        var responseElement = $(this);
                         if (responseElement.is('changes')) {
                             logElement.append("Listing content of response <b>changes</b> element:<br />");
                             responseElement.children().each(function() {
@@ -299,7 +299,7 @@
 
                 var jsfAjaxLogAdapter = function(data) {
                     try {
-                        var log = richfaces.log;
+                        var log = rf.log;
 
                         var source = data.source;
                         var type = data.type;
@@ -315,10 +315,10 @@
                                 var partialResponse;
 
                                 if (responseXML) {
-                                    partialResponse = jQuery(responseXML).children("partial-response");
+                                    partialResponse = $(responseXML).children("partial-response");
                                 }
 
-                                var responseTextEntry = jQuery("<span>Server returned responseText: </span><span class='rf-log-entry-msg-xml'></span>").eq(1).text(responseText).end();
+                                var responseTextEntry = $("<span>Server returned responseText: </span><span class='rf-log-entry-msg-xml'></span>").eq(1).text(responseText).end();
 
                                 if (partialResponse && partialResponse.length) {
                                     log.debug(responseTextEntry);
@@ -337,7 +337,7 @@
                     }
                 };
 
-                var eventsListener = richfaces.createJSFEventsAdapter({
+                var eventsListener = rf.createJSFEventsAdapter({
                         begin: jsfAjaxLogAdapter,
                         beforedomupdate: jsfAjaxLogAdapter,
                         success: jsfAjaxLogAdapter,
@@ -348,9 +348,8 @@
                 jsf.ajax.addOnEvent(eventsListener);
                 jsf.ajax.addOnError(eventsListener);
                 //
-            }(jQuery, RichFaces, jsf));
+            }($, rf, jsf));
         }
-        ;
     });
 
-}(jQuery, RichFaces));
+}(RichFaces.jQuery, RichFaces));

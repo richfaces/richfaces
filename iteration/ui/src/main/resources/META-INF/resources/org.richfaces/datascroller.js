@@ -1,6 +1,6 @@
-(function ($, richfaces) {
+(function ($, rf) {
 
-    richfaces.ui = richfaces.ui || {};
+    rf.ui = rf.ui || {};
 
     var initButtons = function(buttons, css, component) {
         var id;
@@ -43,7 +43,7 @@
         }
     };
 
-    richfaces.ui.DataScroller = function(id, submit, options) {
+    rf.ui.DataScroller = function(id, submit, options) {
 
         $super.constructor.call(this, id);
 
@@ -82,10 +82,10 @@
         }
     };
 
-    richfaces.BaseComponent.extend(richfaces.ui.DataScroller);
-    var $super = richfaces.ui.DataScroller.$super;
+    rf.BaseComponent.extend(rf.ui.DataScroller);
+    var $super = rf.ui.DataScroller.$super;
 
-    $.extend(richfaces.ui.DataScroller.prototype, (function () {
+    $.extend(rf.ui.DataScroller.prototype, (function () {
 
         var scrollEventName = "rich:datascroller:onscroll";
 
@@ -143,4 +143,4 @@
 
     })());
 
-})(jQuery, window.RichFaces);
+})(RichFaces.jQuery, window.RichFaces);

@@ -19,10 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-(function(richfaces, jQuery) {
-    richfaces.ui = richfaces.ui || {};
+(function($, rf) {
+    rf.ui = rf.ui || {};
 
-    richfaces.ui.InputNumberSlider = richfaces.BaseComponent.extendClass({
+    rf.ui.InputNumberSlider = rf.BaseComponent.extendClass({
 
             name: "InputNumberSlider",
 
@@ -38,10 +38,10 @@
 
             init: function (id, options, selectedClasses) {
                 $superInputNumberSlider.constructor.call(this, id);
-                jQuery.extend(this, options);
+                $.extend(this, options);
                 this.range = this.maxValue - this.minValue;
                 this.id = id;
-                this.element = jQuery(this.attachToDom());
+                this.element = $(this.attachToDom());
                 this.input = this.element.children(".rf-insl-inp-cntr").children(".rf-insl-inp");
                 this.track = this.element.children(".rf-insl-trc-cntr").children(".rf-insl-trc");
                 this.handleContainer = this.track.children("span");
@@ -65,14 +65,14 @@
                     for (var i in selectedClasses) {
                         this[i] += " " + selectedClasses[i];
                     }
-                    var proxy = jQuery.proxy(this.__inputHandler, this);
+                    var proxy = $.proxy(this.__inputHandler, this);
                     this.input.change(proxy);
                     this.input.submit(proxy);
-                    this.element.mousewheel(jQuery.proxy(this.__mousewheelHandler, this));
-                    this.track.keydown(jQuery.proxy(this.__keydownHandler, this));
-                    this.decreaseButton.mousedown(jQuery.proxy(this.__decreaseHandler, this));
-                    this.increaseButton.mousedown(jQuery.proxy(this.__increaseHandler, this));
-                    this.track.mousedown(jQuery.proxy(this.__mousedownHandler, this));
+                    this.element.mousewheel($.proxy(this.__mousewheelHandler, this));
+                    this.track.keydown($.proxy(this.__keydownHandler, this));
+                    this.decreaseButton.mousedown($.proxy(this.__decreaseHandler, this));
+                    this.increaseButton.mousedown($.proxy(this.__increaseHandler, this));
+                    this.track.mousedown($.proxy(this.__mousedownHandler, this));
                 }
             },
 
@@ -189,7 +189,7 @@
                 this.intervalId = window.setInterval(function() {
                     component.decrease(event);
                 }, this.delay);
-                jQuery(document).one("mouseup", true, jQuery.proxy(this.__clearInterval, this));
+                $(document).one("mouseup", true, $.proxy(this.__clearInterval, this));
                 this.decreaseButton.addClass(this.decreaseSelectedClass);
                 event.preventDefault();
             },
@@ -200,7 +200,7 @@
                 this.intervalId = window.setInterval(function() {
                     component.increase(event);
                 }, this.delay);
-                jQuery(document).one("mouseup", jQuery.proxy(this.__clearInterval, this));
+                $(document).one("mouseup", $.proxy(this.__clearInterval, this));
                 this.increaseButton.addClass(this.increaseSelectedClass);
                 event.preventDefault();
             },
@@ -217,9 +217,9 @@
             __mousedownHandler: function (event) {
                 this.__mousemoveHandler(event);
                 this.track.focus();
-                var jQueryDocument = jQuery(document);
-                jQueryDocument.mousemove(jQuery.proxy(this.__mousemoveHandler, this));
-                jQueryDocument.one("mouseup", jQuery.proxy(this.__mouseupHandler, this));
+                var jQueryDocument = $(document);
+                jQueryDocument.mousemove($.proxy(this.__mousemoveHandler, this));
+                jQueryDocument.one("mouseup", $.proxy(this.__mouseupHandler, this));
                 this.handle.addClass(this.handleSelectedClass);
                 this.tooltip.show();
             },
@@ -236,13 +236,13 @@
             __mouseupHandler: function () {
                 this.handle.removeClass(this.handleSelectedClass);
                 this.tooltip.hide();
-                jQuery(document).unbind("mousemove", this.__mousemoveHandler);
+                $(document).unbind("mousemove", this.__mousemoveHandler);
             },
 
             destroy: function (event) {
-                jQuery(document).unbind("mousemove", this.__mousemoveHandler);
+                $(document).unbind("mousemove", this.__mousemoveHandler);
                 $superInputNumberSlider.destroy.call(this);
             }
         });
-    $superInputNumberSlider = richfaces.ui.InputNumberSlider.$super;
-}(window.RichFaces, jQuery));
+    $superInputNumberSlider = rf.ui.InputNumberSlider.$super;
+}(RichFaces.jQuery, window.RichFaces));

@@ -39,7 +39,7 @@ JSNode.prototype = {
 	},
 	// Escape XML symbols - < > & ' ...
 	xmlEscape : function(value) {
-		return jQuery("<div></div>").text(value).html();
+		return RichFaces.jQuery("<div></div>").text(value).html();
 	}
 };
 

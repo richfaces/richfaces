@@ -155,4 +155,4 @@
             return this.activeSubMenu;
         }
     }
-})(jQuery, RichFaces);
+})(RichFaces.jQuery, RichFaces);
