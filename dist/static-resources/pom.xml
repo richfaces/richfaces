@@ -157,8 +157,15 @@
     <build>
         <plugins>
             <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
+                <version>${version.richfaces}</version>
                 <configuration>
                     <skins>
                         <skin>blueSky</skin>
