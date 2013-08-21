@@ -32,11 +32,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.richfaces.model.DataVisitResult;
-import org.richfaces.model.DataVisitor;
-import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
+import org.richfaces.model.DataVisitResult;
+import org.richfaces.model.DataVisitor;
+import org.richfaces.ui.common.ComponentAttribute;
+import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author Anton Belevich

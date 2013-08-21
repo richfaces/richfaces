@@ -30,13 +30,14 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
+import org.richfaces.component.AbstractTree;
+import org.richfaces.component.AbstractTreeNode;
+import org.richfaces.component.SwitchType;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.ScriptStringBase;
 import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.component.AbstractTree;
-import org.richfaces.component.AbstractTreeNode;
-import org.richfaces.component.SwitchType;
+import org.richfaces.ui.common.ComponentAttribute;
 
 /**
  * @author Nick Belaevski

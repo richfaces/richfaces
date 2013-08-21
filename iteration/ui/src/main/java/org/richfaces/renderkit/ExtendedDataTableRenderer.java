@@ -46,12 +46,6 @@ import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSReference;
-import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.model.DataVisitResult;
-import org.richfaces.model.DataVisitor;
-import org.richfaces.model.SequenceRange;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractColumn;
 import org.richfaces.component.AbstractExtendedDataTable;
@@ -60,8 +54,15 @@ import org.richfaces.component.SortOrder;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.OnOffResponseWriter;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSReference;
+import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.model.DataVisitResult;
+import org.richfaces.model.DataVisitor;
 import org.richfaces.model.SelectionMode;
+import org.richfaces.model.SequenceRange;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
+import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 
@@ -232,7 +233,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
     }
 
-    private static final Map<java.lang.String, org.richfaces.renderkit.ComponentAttribute> EVENT_ATTRIBUTES = Collections
+    private static final Map<java.lang.String, ComponentAttribute> EVENT_ATTRIBUTES = Collections
         .unmodifiableMap(ComponentAttribute.createMap(
             new ComponentAttribute("onselectionchange").setEventNames(new String[] { "selectionchange" }),
             new ComponentAttribute("onbeforeselectionchange").setEventNames(new String[] { "beforeselectionchange" }),

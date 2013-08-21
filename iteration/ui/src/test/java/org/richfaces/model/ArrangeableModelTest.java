@@ -35,11 +35,6 @@ import javax.faces.model.DataModelListener;
 
 import junit.framework.Assert;
 
-import org.richfaces.model.DataVisitResult;
-import org.richfaces.model.DataVisitor;
-import org.richfaces.model.ExtendedDataModel;
-import org.richfaces.model.SequenceDataModel;
-import org.richfaces.model.SequenceRange;
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
 import org.junit.Before;
