@@ -27,7 +27,7 @@ RichFaces.QUnit.run(function() {
     var PANEL_MENU_GROUP_ID = "f:panelMenuGroup";
 
     test("RichFaces.ui.PanelMenuGroup test constructor", function () {
-        var c = RichFaces.$(PANEL_MENU_GROUP_ID);
+        var c = RichFaces.component(PANEL_MENU_GROUP_ID);
 
         ok(c instanceof RichFaces.ui.PanelMenuGroup, "instance of RichFaces.ui.PanelMenuGroup");
         equals(c.id, PANEL_MENU_GROUP_ID, "id");
@@ -39,7 +39,7 @@ RichFaces.QUnit.run(function() {
     });
 
     test("RichFaces.ui.PanelMenuGroup test public api", function () {
-        var c = RichFaces.$(PANEL_MENU_GROUP_ID);
+        var c = RichFaces.component(PANEL_MENU_GROUP_ID);
 
         var PUBLIC_API = ["collapsed", "expanded", "collapse", "expand", "switch"];
 
@@ -51,7 +51,7 @@ RichFaces.QUnit.run(function() {
     });
 
     function testCollapseEvents(cancelEvent) {
-        var c = RichFaces.$(PANEL_MENU_GROUP_ID);
+        var c = RichFaces.component(PANEL_MENU_GROUP_ID);
 
         expect(cancelEvent ? 2 : 3);
         var beforeCollapseHandler = function (event, comp, data) {
@@ -82,7 +82,7 @@ RichFaces.QUnit.run(function() {
     });
 
     function testExpandEvents(cancelEvent) {
-        var c = RichFaces.$(PANEL_MENU_GROUP_ID);
+        var c = RichFaces.component(PANEL_MENU_GROUP_ID);
 
         expect(cancelEvent ? 2 : 3);
         var beforeExpandHandler = function (event, comp, data) {
@@ -113,7 +113,7 @@ RichFaces.QUnit.run(function() {
     });
 
     function testSwitchEvents(cancelEvent) {
-        var c = RichFaces.$(PANEL_MENU_GROUP_ID);
+        var c = RichFaces.component(PANEL_MENU_GROUP_ID);
 
         expect(cancelEvent ? 2 : 3);
         var beforeSwitchHandler = function (event, comp, data) {

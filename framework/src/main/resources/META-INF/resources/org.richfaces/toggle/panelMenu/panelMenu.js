@@ -199,7 +199,7 @@
                 var topGroup = source.__rfTopGroup();
                 this.__childGroups().each(function (index, group) {
                     if (group.id != source.getEventElement() && (!topGroup || group.id != topGroup.id)) {
-                        rf.$(group).__collapse();
+                        rf.component(group).__collapse();
                     }
                 });
 

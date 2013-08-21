@@ -37,7 +37,7 @@ RichFaces.QUnit.run(function() {
     }
 
     test("RichFaces.ui.Tooltip test constructor", function () {
-        var c = RichFaces.$(TOOLTIP_ID);
+        var c = RichFaces.component(TOOLTIP_ID);
 
         ok(c instanceof RichFaces.ui.Tooltip, "instance of RichFaces.ui.Tooltip");
         equals(c.id, TOOLTIP_ID, "id");
@@ -57,7 +57,7 @@ RichFaces.QUnit.run(function() {
     });
 
     test("RichFaces.ui.Tooltip test public api", function () {
-        var c = RichFaces.$(TOOLTIP_ID);
+        var c = RichFaces.component(TOOLTIP_ID);
 
         var PUBLIC_API = ["hide", "show"];
 
@@ -69,7 +69,7 @@ RichFaces.QUnit.run(function() {
     });
 
     function testHideEvents(cancelEvent) {
-        var c = RichFaces.$(TOOLTIP_ID);
+        var c = RichFaces.component(TOOLTIP_ID);
 
         expect(cancelEvent ? 2 : 3);
         var beforeHideHandler = function (event, comp, data) {
@@ -100,7 +100,7 @@ RichFaces.QUnit.run(function() {
     });
 
     function testShowEvents(cancelEvent) {
-        var c = RichFaces.$(TOOLTIP_ID);
+        var c = RichFaces.component(TOOLTIP_ID);
 
         expect(cancelEvent ? 2 : 3);
         var beforeShowHandler = function (event, comp, data) {

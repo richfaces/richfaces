@@ -26,7 +26,7 @@ RichFaces.QUnit.run(function() {
     var ACCORDION_ITEM_ID = "f:panel";
 
     test("RichFaces.ui.AccordionItem test constructor", function () {
-        var c = RichFaces.$(ACCORDION_ITEM_ID);
+        var c = RichFaces.component(ACCORDION_ITEM_ID);
 
         ok(c instanceof RichFaces.ui.AccordionItem, "inctance of RichFaces.ui.AccordionItem");
         equals(c.id, ACCORDION_ITEM_ID, "id");
@@ -35,7 +35,7 @@ RichFaces.QUnit.run(function() {
     });
 
     test("RichFaces.ui.AccordionItem test public api", function () {
-        var c = RichFaces.$(ACCORDION_ITEM_ID);
+        var c = RichFaces.component(ACCORDION_ITEM_ID);
 
         var PUBLIC_API = [/* ... */];
 
@@ -48,7 +48,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.ui.AccordionItem test events", function () {
         var componentId = ACCORDION_ITEM_ID;
-        var c = RichFaces.$(componentId);
+        var c = RichFaces.component(componentId);
 
         expect(5);
         var beforeitemchngeHandler = function (event, comp, data) {

@@ -48,7 +48,7 @@
         this.hiddenContainer = this.list.next();
         this.iframe = this.hiddenContainer.children("iframe:first");
         this.progressBarElement = this.iframe.next();
-        this.progressBar = richfaces.$(this.progressBarElement);
+        this.progressBar = richfaces.component(this.progressBarElement);
         this.cleanInput = this.input.clone();
         this.addProxy = jQuery.proxy(this.__addItem, this);
         this.input.change(this.addProxy);

@@ -27,7 +27,7 @@ RichFaces.QUnit.run(function() {
     var PANEL_MENU_ID = "f:panelMenu";
 
     test("RichFaces.ui.PanelMenu test constructor", function () {
-        var c = RichFaces.$(PANEL_MENU_ID);
+        var c = RichFaces.component(PANEL_MENU_ID);
 
         ok(c instanceof RichFaces.ui.PanelMenu, "instance of RichFaces.ui.PanelMenu");
         equals(c.id, PANEL_MENU_ID, "id");
@@ -40,7 +40,7 @@ RichFaces.QUnit.run(function() {
     });
 
     test("RichFaces.ui.PanelMenu test public api", function () {
-        var c = RichFaces.$(PANEL_MENU_ID);
+        var c = RichFaces.component(PANEL_MENU_ID);
 
         var PUBLIC_API = ["selectItem", "selectedItem", "expandAll", "collapseAll", "expandGroup", "collapseGroup"];
 

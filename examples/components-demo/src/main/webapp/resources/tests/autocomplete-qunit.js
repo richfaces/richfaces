@@ -28,7 +28,7 @@ RichFaces.QUnit.run(function() {
     // Constructor tests
     test("RichFaces.ui.Autocomplete constructor test", function () {
         expect(15);
-        var c = RichFaces.$(AUTOCOMPLETE_ID + 'Default');
+        var c = RichFaces.component(AUTOCOMPLETE_ID + 'Default');
 
         ok(c instanceof RichFaces.ui.AutocompleteBase, "inctance of RichFaces.ui.AutocompleteBase");
         ok(c instanceof RichFaces.ui.Autocomplete, "inctance of RichFaces.ui.Autocomplete");
@@ -53,7 +53,7 @@ RichFaces.QUnit.run(function() {
         expect(5);
         var CLIENT_API_BASE = ['show','hide','getNamespace','getInputValue','setInputValue'];
         var CLIENT_API = [];
-        var c = RichFaces.$(AUTOCOMPLETE_ID + 'Default');
+        var c = RichFaces.component(AUTOCOMPLETE_ID + 'Default');
         var fn = "";
         for (var i = 0; i < CLIENT_API_BASE.length; i++) {
             fn = CLIENT_API_BASE[i];
@@ -63,7 +63,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.ui.Autocomplete client api: show/hide [attachToDom=true]", function () {
         expect(6);
-        var c = RichFaces.$(AUTOCOMPLETE_ID + 'Default');
+        var c = RichFaces.component(AUTOCOMPLETE_ID + 'Default');
         var e = RichFaces.getDomElement(AUTOCOMPLETE_ID + 'DefaultList');
         equals(e.parentNode.tagName.toLowerCase(), "div", "before show list attached to");
         equals($(e).css("display"), "none", "list style.display");
@@ -79,13 +79,13 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.ui.Autocomplete client api: getNamespace", function () {
         expect(1);
-        var c = RichFaces.$(AUTOCOMPLETE_ID + 'Default');
+        var c = RichFaces.component(AUTOCOMPLETE_ID + 'Default');
         equals(c.getNamespace(), '.' + RichFaces.Event.createNamespace(c.name, AUTOCOMPLETE_ID + 'Default'), "getNamespace");
     });
 
     test("RichFaces.ui.Autocomplete client api: getInputValue / setInputValue", function () {
         expect(2);
-        var c = RichFaces.$(AUTOCOMPLETE_ID + 'Default');
+        var c = RichFaces.component(AUTOCOMPLETE_ID + 'Default');
         equals(c.getInputValue(), 'a', "getInputValue");
         c.setInputValue("b");
         equals(c.getInputValue(), 'b', "getInputValue after setInputValue");
@@ -105,7 +105,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.ui.Autocomplete inline event handlers: focus/blur", function () {
         expect(10);
-        var c = RichFaces.$(AUTOCOMPLETE_ID + 'Default');
+        var c = RichFaces.component(AUTOCOMPLETE_ID + 'Default');
 
         window.onEvent = function (event) {
             ok(event, "event is present");
@@ -128,7 +128,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.ui.Autocomplete inline event handlers: change", function () {
         expect(5);
-        var c = RichFaces.$(AUTOCOMPLETE_ID + 'Default');
+        var c = RichFaces.component(AUTOCOMPLETE_ID + 'Default');
 
         window.onEvent = function (event) {
             if (event.type != "change") return;
@@ -148,7 +148,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.ui.Autocomplete inline event handlers: selectitem", function () {
         expect(7);
-        var c = RichFaces.$(AUTOCOMPLETE_ID + 'Default2');
+        var c = RichFaces.component(AUTOCOMPLETE_ID + 'Default2');
 
         window.onEvent = function (event) {
             if (event.type != "selectitem") return;
@@ -171,12 +171,12 @@ RichFaces.QUnit.run(function() {
     //Binded user's event handlers tests
     window.checkBindedEvent = function (event, element, c) {
         equals(element.id, c.id, "element id");
-        equals(RichFaces.$(element.id), c, "component");
+        equals(RichFaces.component(element.id), c, "component");
     };
 
     test("RichFaces.ui.Autocomplete binded event handlers: focus/blur", function () {
         expect(10);
-        var c = RichFaces.$(AUTOCOMPLETE_ID + 'Default');
+        var c = RichFaces.component(AUTOCOMPLETE_ID + 'Default');
         RichFaces.Event.bindById(AUTOCOMPLETE_ID + 'Default', {"focus": function (event, element) {
                 ok(event, "event is present");
                 ok(element, "element is present");
@@ -199,7 +199,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.ui.Autocomplete binded event handlers: change", function () {
         expect(5);
-        var c = RichFaces.$(AUTOCOMPLETE_ID + 'Default');
+        var c = RichFaces.component(AUTOCOMPLETE_ID + 'Default');
         RichFaces.Event.bindById(AUTOCOMPLETE_ID + 'Default', "change", function (event, element) {
             ok(event, "event is present");
             ok(element, "element is present");
@@ -217,7 +217,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.ui.Autocomplete binded event handlers: selectitem", function () {
         expect(7);
-        var c = RichFaces.$(AUTOCOMPLETE_ID + 'Default2');
+        var c = RichFaces.component(AUTOCOMPLETE_ID + 'Default2');
 
         RichFaces.Event.bindById(AUTOCOMPLETE_ID + 'Default2', "selectitem", function (event, element, data) {
             ok(event, "event is present");

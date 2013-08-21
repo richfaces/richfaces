@@ -59,7 +59,7 @@ RichFaces.QUnit.run(function() {
     }
 
     test("RichFaces.ui.Accordion change headers", function () {
-        var c = RichFaces.$(ACCORDION_ID);
+        var c = RichFaces.component(ACCORDION_ID);
 
         ok(c instanceof RichFaces.ui.Accordion, "inctance of RichFaces.ui.Accordion");
         equals(c.id, ACCORDION_ID, "id");
@@ -86,7 +86,7 @@ RichFaces.QUnit.run(function() {
     });
 
     test("RichFaces.ui.Accordion change disabled headers", function () {
-        var c = RichFaces.$(ACCORDION_ID);
+        var c = RichFaces.component(ACCORDION_ID);
 
         ok(c instanceof RichFaces.ui.Accordion, "inctance of RichFaces.ui.Accordion");
         equals(c.id, ACCORDION_ID, "id");

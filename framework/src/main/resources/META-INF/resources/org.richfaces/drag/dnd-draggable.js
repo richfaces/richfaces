@@ -114,7 +114,7 @@
             drag: function(e) {
                 var ui = e.rf.data;
                 if (this.__isCustomDragIndicator()) {
-                    var indicator = rf.$(this.options.indicator);
+                    var indicator = rf.component(this.options.indicator);
                     if (indicator) {
                         ui.helper.addClass(indicator.getDraggingClass());
                     } else {

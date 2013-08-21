@@ -124,9 +124,9 @@ RichFaces.QUnit.run(function() {
 
         var c = new MyComponent("myId");
         c.attachToDom();
-        equal(RichFaces.$("myId"), c, "attachToDom without params");
+        equal(RichFaces.component("myId"), c, "attachToDom without params");
         c.attachToDom("myId2");
-        equal(RichFaces.$("myId2"), c, "attachToDom with custom id");
+        equal(RichFaces.component("myId2"), c, "attachToDom with custom id");
     });
 
 });

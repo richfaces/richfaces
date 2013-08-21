@@ -129,7 +129,7 @@
                     this.invokeEvent("show", rf.getDomElement(this.id), null);
                     this.popup.show(e);
                     this.displayed = true;
-                    rf.ui.MenuManager.setActiveSubMenu(rf.$(this.element));
+                    rf.ui.MenuManager.setActiveSubMenu(rf.component(this.element));
                 }
                 this.popupElement.focus();
             },
@@ -144,7 +144,7 @@
                     this.displayed = false;
                     this.__deselectCurrentItem();
                     this.currentSelectedItemIndex = -1;
-                    var parentMenu = rf.$(this.__getParentMenu());
+                    var parentMenu = rf.component(this.__getParentMenu());
                     if (this.id != parentMenu.id) {
                         parentMenu.popupElement.focus();
                         rf.ui.MenuManager.setActiveSubMenu(parentMenu);
@@ -158,7 +158,7 @@
                 for (i in this.items) {
                     menuItem = this.items.eq(i);
                     if (this.__isGroup(menuItem)) {
-                        rf.$(menuItem).hide();
+                        rf.component(menuItem).hide();
                     }
                 }
             },
@@ -216,8 +216,8 @@
             },
 
             __selectItem : function(item) {
-                if (!rf.$(item).isSelected) {
-                    rf.$(item).select();
+                if (!rf.component(item).isSelected) {
+                    rf.component(item).select();
                 }
             },
 

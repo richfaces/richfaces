@@ -36,7 +36,7 @@ RichFaces.QUnit.run(function() {
     }
 
     test("RichFaces.ui.CollapsiblePanel test constructor", function () {
-        var c = RichFaces.$(COLLAPSIBLE_PANEL_ID);
+        var c = RichFaces.component(COLLAPSIBLE_PANEL_ID);
 
         ok(c instanceof RichFaces.ui.CollapsiblePanel, "inctance of RichFaces.ui.CollapsiblePanel");
         equals(c.id, COLLAPSIBLE_PANEL_ID, "id");
@@ -45,7 +45,7 @@ RichFaces.QUnit.run(function() {
     });
 
     test("RichFaces.ui.CollapsiblePanel test public api", function () {
-        var c = RichFaces.$(COLLAPSIBLE_PANEL_ID);
+        var c = RichFaces.component(COLLAPSIBLE_PANEL_ID);
 
         var PUBLIC_API = ["switchPanel"];
 
@@ -58,7 +58,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.ui.CollapsiblePanel.Events", function () {
         var componentId = COLLAPSIBLE_PANEL_ID;
-        var c = RichFaces.$(componentId);
+        var c = RichFaces.component(componentId);
 
         expect(4);
 
@@ -85,7 +85,7 @@ RichFaces.QUnit.run(function() {
     });
 
     test("RichFaces.ui.CollapsiblePanel.Events test cancelable", function () {
-        var c = RichFaces.$(COLLAPSIBLE_PANEL_ID);
+        var c = RichFaces.component(COLLAPSIBLE_PANEL_ID);
 
         expect(2);
         var beforeswitch1 = RichFaces.Event.bindById(COLLAPSIBLE_PANEL_ID, "beforeswitch", function () {

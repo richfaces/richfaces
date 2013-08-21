@@ -41,7 +41,7 @@ public class ToggleControlRenderer extends ClientBehaviorRenderer {
         ToggleControl control = (ToggleControl) behavior;
 
         StringBuilder builder = new StringBuilder();
-        builder.append("RichFaces.$('").append(control.getPanelId(behaviorContext)).append("').switchToItem('")
+        builder.append("RichFaces.component('").append(control.getPanelId(behaviorContext)).append("').switchToItem('")
             .append(control.getTargetItem()).append("'); return ").append(!control.getDisableDefault()).append(';');
 
         return builder.toString();

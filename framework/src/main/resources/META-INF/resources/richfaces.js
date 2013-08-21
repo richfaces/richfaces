@@ -86,7 +86,7 @@ if (!window.RichFaces) {
     };
 
     // get RichFaces component object by component id or DOM element or jQuery object
-    richfaces.$ = function (source) {
+    richfaces.component = function (source) {
         var element = richfaces.getDomElement(source);
 
         if (element) {
@@ -123,7 +123,7 @@ if (!window.RichFaces) {
 
     // find component and call his method
     richfaces.invokeMethod = function(source, method) {
-        var c = richfaces.$(source);
+        var c = richfaces.component(source);
         var f;
         if (c && typeof (f = c[method]) == "function") {
             return f.apply(c, Array.prototype.slice.call(arguments, 2));
@@ -132,7 +132,7 @@ if (!window.RichFaces) {
 
     //dom cleaner
     richfaces.cleanComponent = function (source) {
-        var component = richfaces.$(source);
+        var component = richfaces.component(source);
         if (component) {
             //TODO fire destroy event
             component.destroy();
@@ -709,7 +709,7 @@ if (!window.RichFaces) {
      * Supports detection of RichFaces 5 (bridgeBase.js) and RichFaces 4 (richfaces-base-component.js) components.
      */
     var isRichFacesComponent = function(element) {
-      return $(element).data('jsf.bridge') || richfaces.$(element);
+      return $(element).data('jsf.bridge') || richfaces.component(element);
     };
 
     var getSourceElement = function(source) {

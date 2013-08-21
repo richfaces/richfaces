@@ -71,7 +71,7 @@
                     this.menuManager.shutdownMenu();
                     this.menuManager.addMenuId(this.id);
                     this.__showPopup(e); // include the event to position the popup at the cursor
-                    var parent = rf.$(this.target);
+                    var parent = rf.component(this.target);
                     if (parent && parent.contextMenuShow) {
                         parent.contextMenuShow(this, e);
                     }

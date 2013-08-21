@@ -26,7 +26,7 @@ RichFaces.QUnit.run(function() {
     var TAB_ID = "f:panel";
 
     test("RichFaces.ui.Tab test constructor", function () {
-        var c = RichFaces.$(TAB_ID);
+        var c = RichFaces.component(TAB_ID);
 
         ok(c instanceof RichFaces.ui.Tab, "inctance of RichFaces.ui.Tab");
         equals(c.id, TAB_ID, "id");
@@ -35,7 +35,7 @@ RichFaces.QUnit.run(function() {
     });
 
     test("RichFaces.ui.Tab test public api", function () {
-        var c = RichFaces.$(TAB_ID);
+        var c = RichFaces.component(TAB_ID);
 
         var PUBLIC_API = [/* ... */];
 
@@ -48,7 +48,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.ui.Tab test events", function () {
         var componentId = TAB_ID;
-        var c = RichFaces.$(componentId);
+        var c = RichFaces.component(componentId);
 
         expect(5);
         var beforeitemchngeHandler = function (event, comp, data) {

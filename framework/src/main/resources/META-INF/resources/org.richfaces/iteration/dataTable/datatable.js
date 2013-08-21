@@ -94,7 +94,7 @@
             },
 
             getSubTable: function(id) {
-                return richfaces.$(id);
+                return richfaces.component(id);
             },
 
             invokeOnSubTables: function(funcName) {

@@ -430,7 +430,7 @@
         var value = $(document.getElementById(id + 'selValue')).val();
         var label = $(document.getElementById(id + 'Input')).val();
         
-        var defaultLabel = RichFaces.$(id).defaultLabel;
+        var defaultLabel = RichFaces.component(id).defaultLabel;
         
         if (!value && label && (label != defaultLabel)) {
             throw rf.csv.getMessage(null, 'UISELECTONE_INVALID', [id, ""]);

@@ -36,14 +36,14 @@ RichFaces.QUnit.run(function() {
     }
 
     test("RichFaces.ui.TabPanel test constructor", function () {
-        var c = RichFaces.$(TAB_PANEL_ID);
+        var c = RichFaces.component(TAB_PANEL_ID);
 
         ok(c instanceof RichFaces.ui.TabPanel, "inctance of RichFaces.ui.TabPanel");
         equals(c.id, TAB_PANEL_ID, "id");
     });
 
     test("RichFaces.ui.TabPanel test public api", function () {
-        var c = RichFaces.$(TAB_PANEL_ID);
+        var c = RichFaces.component(TAB_PANEL_ID);
 
         var PUBLIC_API = [/* ... */];
 
@@ -56,7 +56,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.ui.TabPanel test events", function () {
         var componentId = TAB_PANEL_ID;
-        var c = RichFaces.$(componentId);
+        var c = RichFaces.component(componentId);
 
         expect(5);
         var beforeitemchngeHandler = function (event, comp, data) {

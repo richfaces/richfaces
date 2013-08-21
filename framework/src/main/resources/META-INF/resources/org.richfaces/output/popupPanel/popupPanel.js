@@ -777,13 +777,13 @@
 
             showPopupPanel : function (id, opts, event) {
                 richfaces.Event.ready(function() {
-                    richfaces.$(id).show()
+                    richfaces.component(id).show()
                 });
             },
 
             hidePopupPanel : function (id, opts, event) {
                 richfaces.Event.ready(function() {
-                    richfaces.$(id).hide()
+                    richfaces.component(id).hide()
                 });
             }
         });

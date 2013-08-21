@@ -54,7 +54,7 @@
             <script type="text/javascript">
                 
                 function invokeJSAPI() {
-                    eval("document.getElementById('js_api_result').value = RichFaces.$('" + document.getElementById("js_api_id_input").value + "')."
+                    eval("document.getElementById('js_api_result').value = RichFaces.component('" + document.getElementById("js_api_id_input").value + "')."
                         + document.getElementById("js_api_function_string_input").value);
                 }
                 //

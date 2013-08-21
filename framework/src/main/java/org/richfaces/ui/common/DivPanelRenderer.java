@@ -161,7 +161,7 @@ public abstract class DivPanelRenderer extends RendererBase {
      * @param panelId the panel
      */
     protected void addOnCompleteParam(FacesContext context, String itemName, String panelId) {
-        String script = new StringBuilder().append("RichFaces.$('").append(panelId).append("').onCompleteHandler('")
+        String script = new StringBuilder().append("RichFaces.component('").append(panelId).append("').onCompleteHandler('")
                 .append(itemName).append("');").toString();
 
         JavaScriptService scriptService = ServiceTracker.getService(JavaScriptService.class);

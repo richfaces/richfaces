@@ -88,7 +88,7 @@
         if (!stackId) {
             return getDefaultStack();
         }
-        return rf.$(stackId).getStack();
+        return rf.component(stackId).getStack();
     };
     
 

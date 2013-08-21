@@ -33,7 +33,7 @@
     <ui:define name="content">
 
         <h:form id="form">
-            <h:outputLink value="#" onclick="RichFaces.$('form:popup').show(); return false;">
+            <h:outputLink value="#" onclick="RichFaces.component('form:popup').show(); return false;">
                 Open popup
             </h:outputLink>
             <r:popupPanel id="popup" left="#{modalPanel.left}" top="#{modalPanel.top}" height="#{modalPanel.height}"
@@ -47,7 +47,7 @@
                     <h:outputText value="HEADER for popup" />
                 </f:facet>
                 <f:facet name="controls">
-                    <h:outputLink value="#" onclick="RichFaces.$('form:popup').hide(); return false;">
+                    <h:outputLink value="#" onclick="RichFaces.component('form:popup').hide(); return false;">
                         X
                     </h:outputLink>
                 </f:facet>
@@ -60,9 +60,9 @@
 
                 <p>
                     The popup panel is open and closed from the javascript function of component client side object. The
-                    following code <a href="#" onclick="RichFaces.$('form:popup').hide()">hide this panel</a>:
+                    following code <a href="#" onclick="RichFaces.component('form:popup').hide()">hide this panel</a>:
                     <f:verbatim>&#35;</f:verbatim>
-                    RichFaces.$('form:popup').hide()
+                    RichFaces.component('form:popup').hide()
                 </p>
 
                 <h:inputText value="#{modalPanel.inputTextTest}" />

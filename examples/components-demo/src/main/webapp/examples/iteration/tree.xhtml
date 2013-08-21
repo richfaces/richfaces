@@ -76,18 +76,18 @@
         }
     
         function handleNodeToggle(nodeData, event, isTreeNodeLevel) {
-        var treeNode = RichFaces.$(event.target);
+        var treeNode = RichFaces.component(event.target);
         RichFaces.log.info('Toggle event ' + (isTreeNodeLevel ? '(treeNode level)' : '')
         + '[' + nodeData + ']:\n ' + treeNode.getId() + ' became ' + getNodeStateString(treeNode));
         }
     
         function handleBeforeNodeToggle(event, isTreeNodeLevel) {
-        var treeNode = RichFaces.$(event.target);
+        var treeNode = RichFaces.component(event.target);
         return confirm('Tree' + (isTreeNodeLevel ? ' node ' : ' ') + 'asks: really toggle node ' + treeNode.getId() + '?');
         }
     
         function handleBeforeNodeSelect(event) {
-        var treeNode = RichFaces.$(event.target);
+        var treeNode = RichFaces.component(event.target);
     
         var oldSelectionString = nodesArrayToString(event.rf.data.oldSelection);
         var newSelectionString = nodesArrayToString(event.rf.data.newSelection);
@@ -96,7 +96,7 @@
         }
     
         function handleNodeSelect(event) {
-        var treeNode = RichFaces.$(event.target);
+        var treeNode = RichFaces.component(event.target);
     
         var oldSelectionString = nodesArrayToString(event.rf.data.oldSelection);
         var newSelectionString = nodesArrayToString(event.rf.data.newSelection);

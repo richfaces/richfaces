@@ -24,7 +24,7 @@ RichFaces.QUnit.run(function() {
     module("richfaces-toggle-panel");
 
     test("TogglePanelItem test public methods", function () {
-        var item = RichFaces.$('f:name1');
+        var item = RichFaces.component('f:name1');
 
         ok(item, "item");
         equals(item.getName(), "name1", "item.getName()");
@@ -38,7 +38,7 @@ RichFaces.QUnit.run(function() {
 
     test("TogglePanelItem test events order", function () {
         var componentId = 'f:name1';
-        var item = RichFaces.$(componentId);
+        var item = RichFaces.component(componentId);
 
         expect(2);
         var state = 1;
@@ -62,7 +62,7 @@ RichFaces.QUnit.run(function() {
 
     test("TogglePanelItem test cacelable of leave", function () {
         var componentId = 'f:name1';
-        var item = RichFaces.$(componentId);
+        var item = RichFaces.component(componentId);
 
         expect(2);
         var state = 1;

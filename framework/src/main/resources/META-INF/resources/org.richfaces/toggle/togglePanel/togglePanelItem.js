@@ -64,7 +64,7 @@
              * @return {TogglePanel} parent TogglePanel
              * */
             getTogglePanel : function () {
-                return rf.$(this.togglePanelId);
+                return rf.component(this.togglePanelId);
             },
 
             /**

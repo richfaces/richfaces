@@ -27,7 +27,7 @@ RichFaces.QUnit.run(function() {
     var PANEL_MENU_ITEM_ID = "f:panelMenuItem";
 
     test("RichFaces.ui.PanelMenuItem test constructor", function () {
-        var c = RichFaces.$(PANEL_MENU_ITEM_ID);
+        var c = RichFaces.component(PANEL_MENU_ITEM_ID);
 
         ok(c instanceof RichFaces.ui.PanelMenuItem, "instance of RichFaces.ui.PanelMenuItem");
         equals(c.id, PANEL_MENU_ITEM_ID, "id");
@@ -42,7 +42,7 @@ RichFaces.QUnit.run(function() {
     });
 
     test("RichFaces.ui.PanelMenuItem test public api", function () {
-        var c = RichFaces.$(PANEL_MENU_ITEM_ID);
+        var c = RichFaces.component(PANEL_MENU_ITEM_ID);
 
         var PUBLIC_API = ["selected", "unselect", "select"];
 
@@ -54,7 +54,7 @@ RichFaces.QUnit.run(function() {
     });
 
     function testSelectEvents(cancelEvent) {
-        var c = RichFaces.$(PANEL_MENU_ITEM_ID);
+        var c = RichFaces.component(PANEL_MENU_ITEM_ID);
 
         expect(cancelEvent ? 2 : 3);
         var beforeSelectHandler = function (event, comp, data) {

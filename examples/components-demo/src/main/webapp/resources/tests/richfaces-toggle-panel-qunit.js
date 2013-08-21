@@ -36,7 +36,7 @@ RichFaces.QUnit.run(function() {
     }
 
     test("RichFaces.TogglePanel.constructor", function () {
-        var c = RichFaces.$(TOGGLE_PANEL_ID);
+        var c = RichFaces.component(TOGGLE_PANEL_ID);
 
         ok(c instanceof RichFaces.ui.TogglePanel, "inctance of RichFaces.ui.TogglePanel");
         equals(c.componentId, undefined, "componentId shouldn't be here, we must use id form component base");
@@ -81,7 +81,7 @@ RichFaces.QUnit.run(function() {
     });
 
     test("Richfaces.TogglePanel test getNextItem", function () {
-        var c = RichFaces.$(TOGGLE_PANEL_ID);
+        var c = RichFaces.component(TOGGLE_PANEL_ID);
 
         c.switchToItem("name1");
         equals(c.getNextItem("@first").getName(), "name1", "@first");
@@ -104,7 +104,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.TogglePanel.Events", function () {
         var componentId = 'f:panel';
-        var c = RichFaces.$(componentId);
+        var c = RichFaces.component(componentId);
         c.switchToItem("name1");
 
         expect(5);
@@ -134,7 +134,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.TogglePanel.Events test cancelable", function () {
         var componentId = 'f:panel';
-        var c = RichFaces.$(componentId);
+        var c = RichFaces.component(componentId);
 
         expect(2);
         var beforeitemchange1 = RichFaces.Event.bindById(componentId, "beforeitemchange", function () {
@@ -164,7 +164,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.TogglePanel.Events test all 4 events and there order", function () {
         var componentId = 'f:panel';
-        var c = RichFaces.$(componentId);
+        var c = RichFaces.component(componentId);
 
         expect(4);
         var state = 1;
@@ -208,7 +208,7 @@ RichFaces.QUnit.run(function() {
 
     test("RichFaces.TogglePanel.Events test leave cancelable", function () {
         var componentId = 'f:panel';
-        var c = RichFaces.$(componentId);
+        var c = RichFaces.component(componentId);
 
         expect(2);
 

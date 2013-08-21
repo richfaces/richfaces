@@ -243,7 +243,7 @@
                     res = this.__panelMenu();
                 }
 
-                return res ? rf.$(res) : null;
+                return res ? rf.component(res) : null;
             },
 
             __getNestingLevel : function () {
@@ -268,7 +268,7 @@
             },
 
             __rfPanelMenu : function () {
-                return rf.$(this.__panelMenu());
+                return rf.component(this.__panelMenu());
             },
 
             __changeState : function () {

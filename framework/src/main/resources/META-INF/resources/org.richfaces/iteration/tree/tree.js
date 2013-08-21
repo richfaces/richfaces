@@ -282,7 +282,7 @@
 
         var idx = node.prevAll(".rf-tr-nd").length;
 
-        var parentNode = richfaces.$(parent[0]);
+        var parentNode = richfaces.component(parent[0]);
         opts.treeId = parentNode.getTree().getId();
 
         var newChild = new richfaces.ui.TreeNode(node[0], opts);
@@ -301,15 +301,15 @@
             return;
         }
 
-        richfaces.$(node).__fireToggleEvent();
+        richfaces.component(node).__fireToggleEvent();
     };
 
     var findTree = function(elt) {
-        return richfaces.$($(elt).closest(".rf-tr"));
+        return richfaces.component($(elt).closest(".rf-tr"));
     };
 
     var findTreeNode = function(elt) {
-        return richfaces.$($(elt).closest(".rf-tr-nd"));
+        return richfaces.component($(elt).closest(".rf-tr-nd"));
     };
 
     var isEventForAnotherTree = function(tree, elt) {
@@ -422,7 +422,7 @@
                     toggleSource.__makeLoading();
                     clientParams[toggleSourceId + TRIGGER_NODE_AJAX_UPDATE] = newNodeState;
                     this.__ajaxSubmitFunction(event, toggleSourceId, clientParams, function() {
-                        var treeNode = richfaces.$(toggleSourceId);
+                        var treeNode = richfaces.component(toggleSourceId);
                         if (treeNode) {
                             treeNode.__resetLoading();
                         }
@@ -543,7 +543,7 @@
 
             getNodes: function() {
                 if (this.__nodeId) {
-                    var node = richfaces.$(this.__nodeId);
+                    var node = richfaces.component(this.__nodeId);
                     if (node) {
                         return [node];
                     } else {

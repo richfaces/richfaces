@@ -142,7 +142,7 @@
                     </div>
                     <script type="text/javascript">
                         onEvent = function (event, element, data) {
-                            RichFaces.log.info("jQuery Event: " + (event instanceof jQuery.Event) + "; event: " + event.type + "; data:" + (data || (event['rich'] || {})['data']) + "; this.id:" + this.id + "; component:" + (event['rich'] || {})['component'] || RichFaces.$(this.id));
+                            RichFaces.log.info("jQuery Event: " + (event instanceof jQuery.Event) + "; event: " + event.type + "; data:" + (data || (event['rich'] || {})['data']) + "; this.id:" + this.id + "; component:" + (event['rich'] || {})['component'] || RichFaces.component(this.id));
                         };
                         //RichFaces.Event.bindById("form:calendar", "dateselect dateselected currentdateselect currentdateselected timeselect timeselected changed clean collapse expand complete datemouseout datemouseout", onEvent);
                     </script>

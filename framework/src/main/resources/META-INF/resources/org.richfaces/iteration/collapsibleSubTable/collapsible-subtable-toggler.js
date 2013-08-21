@@ -46,7 +46,7 @@
         return {
 
             switchState: function(e) {
-                var subtable = richfaces.$(this.forId);
+                var subtable = richfaces.component(this.forId);
                 if (subtable) {
                     var mode = subtable.getMode();
 

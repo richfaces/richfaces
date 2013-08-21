@@ -255,7 +255,7 @@
 
                 this.__childGroups().each(function(index, group) {
                     //TODO nick - why not group.collapse()?
-                    rf.$(group.id).__collapse();
+                    rf.component(group.id).__collapse();
                 });
 
                 return this.__fireEvent("collapse");
