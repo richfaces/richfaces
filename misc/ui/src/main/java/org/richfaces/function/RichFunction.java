@@ -26,8 +26,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.cdk.annotations.Function;
+import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.renderkit.util.RendererUtils;
 import org.richfaces.util.Sets;
 
@@ -44,7 +44,7 @@ public final class RichFunction {
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     // EasyMock requires at least protected access for the interface for calls to be delegated to
-    protected static interface ComponentLocator {
+    protected interface ComponentLocator {
         UIComponent findComponent(FacesContext facesContext, UIComponent contextComponent, String id);
     }
 
