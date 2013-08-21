@@ -237,7 +237,7 @@ public final class RichFaces5Conventions implements NamingConventions {
     @Override
     public String inferTaglibUri(ComponentLibrary library) {
         // TODO infer name from library base names.
-        return "http://richfaces.org/rich";
+        return "http://richfaces.org";
     }
 
     @Override

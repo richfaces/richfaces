@@ -23,7 +23,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-    xmlns:r="http://richfaces.org/rich">
+    xmlns:r="http://richfaces.org">
     <r:repeat rendered="#{fn:length(result) > 0}" id="albumsList" value="#{result}" var="album">
         <h:panelGroup layout="block" styleClass="preview_box_album_120">
             <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />

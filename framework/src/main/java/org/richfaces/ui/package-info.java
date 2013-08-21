@@ -23,5 +23,5 @@
 /**
  * The RichFaces components set
  */
-@org.richfaces.cdk.annotations.TagLibrary(uri = "http://richfaces.org/rich", shortName = "r")
+@org.richfaces.cdk.annotations.TagLibrary(uri = "http://richfaces.org", shortName = "r")
 package org.richfaces.ui;

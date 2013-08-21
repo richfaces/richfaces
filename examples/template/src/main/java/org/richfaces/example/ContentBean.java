@@ -35,7 +35,7 @@ import javax.faces.context.FacesContext;
 public class ContentBean {
     private static final String PRELUDE = "<html xmlns=\"http://www.w3.org/1999/xhtml\"\n"
             + " xmlns:f=\"http://java.sun.com/jsf/core\"\n" + " xmlns:h=\"http://java.sun.com/jsf/html\"\n"
-            + " xmlns:r=\"http://richfaces.org/rich\"\n" + " xmlns:c=\"http://java.sun.com/jsp/jstl/core\">\n";
+            + " xmlns:r=\"http://richfaces.org\"\n" + " xmlns:c=\"http://java.sun.com/jsp/jstl/core\">\n";
     private static final String TAIL = "\n</html>";
     private String xpath = "//*[local-name()='define'][@name='content']/*";
 

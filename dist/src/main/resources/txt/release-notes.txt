@@ -112,7 +112,7 @@
     [RF-12469] - Setup continuous integration
     [RF-12473] - Add depchain to jsf-test
     [RF-12480] - Fix dependency errors with the showcase
-    [RF-12487] - Change namespace http://richfaces.org/core to http://richfaces.org/rich once refactoring ends
+    [RF-12487] - Change namespace http://richfaces.org/core to http://richfaces.org once refactoring ends
     [RF-12497] - Run dos2unix over all files in all repositories
     [RF-12742] - Migrate patches between 4.3.0.Final and 4.3.1.Final from richfaces4 repos to richfaces5 repo
     [RF-12745] - Assess and fix deprecations in Maven compile step

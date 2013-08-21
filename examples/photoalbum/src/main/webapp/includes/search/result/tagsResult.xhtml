@@ -23,7 +23,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-    xmlns:r="http://richfaces.org/rich">
+    xmlns:r="http://richfaces.org">
     <r:repeat rendered="#{fn:length(result) > 0}" id="tagList" value="#{result}" var="tag">
         <r:commandLink render="mainArea" actionListener="#{controller.showTag(tag)}" value="#{tag.tag}" />
         <br />

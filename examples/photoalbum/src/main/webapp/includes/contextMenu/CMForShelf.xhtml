@@ -22,7 +22,7 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
+    xmlns:r="http://richfaces.org" xmlns:richx="http://richfaces.orgx">
     <r:contextMenu style="text-align:left;" rendered="#{controller.isUserShelf(shelf)}" mode="ajax" target="#{target}">
         <r:menuItem label="#{messages['add_album']}" limitRender="true" render="albumModalPanel"
             data="#{albumManager.errorInCreate}" actionListener="#{albumManager.createAlbum(shelf, true)}"

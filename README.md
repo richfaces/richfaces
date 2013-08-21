@@ -61,13 +61,13 @@ In order to start with the project, you need just include the RichFaces JARs on 
 
 or download the project ZIP distribution from [Downloads Page](http://www.jboss.org/richfaces/download.html).
 
-Once you have the RichFaces JARs on the classpath, you can start developing by adding JSF page which includes RichFaces taglib from `http://richfaces.org/rich` namespace:
+Once you have the RichFaces JARs on the classpath, you can start developing by adding JSF page which includes RichFaces taglib from `http://richfaces.org` namespace:
 
     <!DOCTYPE html>
     <html lang="en"
 		xmlns="http://www.w3.org/1999/xhtml"
 		...
-		xmlns:r="http://richfaces.org/rich">
+		xmlns:r="http://richfaces.org">
 
 	</html>
 
