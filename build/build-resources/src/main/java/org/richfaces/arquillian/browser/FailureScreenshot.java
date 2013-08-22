@@ -5,7 +5,8 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.jboss.arquillian.core.api.annotation.Observes;
-import org.jboss.arquillian.graphene.context.GrapheneContext;
+import org.jboss.arquillian.drone.api.annotation.Default;
+import org.jboss.arquillian.graphene.GrapheneContext;
 import org.jboss.arquillian.test.spi.TestResult;
 import org.jboss.arquillian.test.spi.TestResult.Status;
 import org.jboss.arquillian.test.spi.event.suite.After;
@@ -23,7 +24,7 @@ public class FailureScreenshot {
 
     public void takeScreenshotOnFailure(@Observes(precedence = 500) After event, TestResult result) throws IOException {
         if (result.getStatus() == Status.FAILED) {
-            TakesScreenshot takesScreenshot = GrapheneContext.getProxyForInterfaces(TakesScreenshot.class);
+            TakesScreenshot takesScreenshot = (TakesScreenshot) GrapheneContext.getContextFor(Default.class).getWebDriver(TakesScreenshot.class);
             File tempFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
             String screenshotName = event.getTestClass().getJavaClass().getName() + "." + event.getTestMethod().getName();
 
