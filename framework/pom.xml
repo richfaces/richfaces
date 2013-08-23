@@ -301,6 +301,11 @@
                                     <directory>${basedir}/src/main/widgets/dist/assets/font-awesome</directory>
                                     <targetPath>${project.build.directory}/classes/META-INF/resources/font-awesome/</targetPath>
                                 </resource>
+                                <!-- Flot -->
+                                <resource>
+                                    <directory>${basedir}/src/main/widgets/dist/assets/flot</directory>
+                                    <targetPath>${project.build.directory}/classes/META-INF/resources/flot/</targetPath>
+                                </resource>
                             </resources>
                         </configuration>
                     </execution>
