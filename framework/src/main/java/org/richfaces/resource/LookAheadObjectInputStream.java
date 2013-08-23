@@ -34,12 +34,16 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
 /**
  * When deserializing objects, first check that the class being deserialized is in the allowed whitelist.
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public class LookAheadObjectInputStream extends ObjectInputStream {
+    private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     private static final Map<String, Class<?>> PRIMITIVE_TYPES = new HashMap<String, Class<?>>(9, 1.0F);
     private static Set<Class> whitelistBaseClasses = new HashSet<Class>();
     private static Set<String> whitelistClassNameCache = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>());
@@ -141,7 +145,9 @@ public class LookAheadObjectInputStream extends ObjectInputStream {
                 Class<?> baseClass = Class.forName(baseClassName);
                 whitelistBaseClasses.add(baseClass);
             } catch (ClassNotFoundException e) {
-                throw new RuntimeException("Unable to load whiteList class " + baseClassName, e);
+                if (LOGGER.isInfoEnabled()) {
+                    LOGGER.debug(e);
+                }
             }
         }
     }
