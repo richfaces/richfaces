@@ -30,8 +30,16 @@ import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.arquillian.warp.Activity;
+import org.jboss.arquillian.warp.Inspection;
+import org.jboss.arquillian.warp.Warp;
+import org.jboss.arquillian.warp.WarpTest;
+import org.jboss.arquillian.warp.jsf.AfterPhase;
+import org.jboss.arquillian.warp.jsf.BeforePhase;
+import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -43,7 +51,12 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Failing;
 
+import javax.inject.Inject;
+
+import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
+
 @RunAsClient
+@WarpTest
 @RunWith(Arquillian.class)
 public class ITTestJsFunction {
 
@@ -58,6 +71,7 @@ public class ITTestJsFunction {
         FrameworkDeployment deployment = new FrameworkDeployment(ITTestJsFunction.class);
         deployment.archive().addClass(AjaxBean.class);
         addIndexPage(deployment);
+        addParamPage(deployment);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
         return deployment.getFinalArchive();
@@ -93,6 +107,51 @@ public class ITTestJsFunction {
         p.body("</r:panel> ");
         p.body("<r:messages /> ");
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    @Test
+    public void js_function_with_param() throws InterruptedException {
+        // given
+        browser.get(contextPath.toExternalForm() + "param.jsf");
+        final WebElement panel3 = browser.findElement(By.id("myForm:repeat:3:panel"));
+
+
+        Warp.initiate(new Activity() {
+            public void perform() {
+                panel3.click();
+            }
+        }).group().observe(request().uri().contains("param")).inspect(new Inspection() {
+            private static final long serialVersionUID = 1L;
+
+            @Inject
+            AjaxBean bean;
+
+            @BeforePhase(Phase.INVOKE_APPLICATION)
+            public void verify_param_not_yet_assigned() {
+                Assert.assertEquals(0, bean.getLongValue());
+            }
+
+            @AfterPhase(Phase.INVOKE_APPLICATION)
+            public void verify_param_assigned() {
+                Assert.assertEquals(3, bean.getLongValue());
+            }
+        }).execute();;
+    }
+
+    private static void addParamPage(FrameworkDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+        p.body("<h:form id='myForm'> ");
+        p.body("    <r:jsFunction name='jsFunctionTest' actionListener='#{ajaxBean.listener}' render='@form'> ");
+        p.body("        <r:param name='param1' assignTo='#{ajaxBean.longValue}'/> ");
+        p.body("    </r:jsFunction> ");
+        p.body("    <r:repeat id='repeat' value='#{ajaxBean.nodes}' var='node' rowKeyVar='key' rows='30'> ");
+        p.body("        <r:outputPanel id='panel' layout='block' onclick='jsFunctionTest(#{key});'> ");
+        p.body("            <h:outputText value='#{node.label}  key: #{key}'/> ");
+        p.body("        </r:outputPanel> ");
+        p.body("    </r:repeat> ");
+        p.body("    <r:messages /> ");
+        p.body("</h:form> ");
+        deployment.archive().addAsWebResource(p, "param.xhtml");
     }
 
 }

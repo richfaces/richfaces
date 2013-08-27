@@ -22,21 +22,50 @@
 package org.richfaces.ui.ajax;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@SessionScoped
+@RequestScoped
 @Named
 public class AjaxBean implements Serializable {
     private static final long serialVersionUID = 1L;
+    private List<Node> nodes;
 
+    public class Node implements Serializable {
+        private static final long serialVersionUID = 1L;
+
+        private String label;
+
+        public Node(String label) {
+            this.label = label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public void setLabel(String label) {
+            this.label = label;
+        }
+    }
+    
     private String value = "0";
-
+    private long longValue;
+    
     public AjaxBean() {
+        nodes = new ArrayList<Node>(5);
+        nodes.add(new Node("a"));
+        nodes.add(new Node("b"));
+        nodes.add(new Node("c"));
+        nodes.add(new Node("d"));
+        nodes.add(new Node("e"));
     }
 
     public String getValue() {
@@ -44,10 +73,35 @@ public class AjaxBean implements Serializable {
     }
 
     public void setValue(String value) {
+        System.err.println("Setting Value to: " + value);
         this.value = value;
+    }
+
+    public long getLongValue() {
+        return longValue;
+    }
+
+    public void setLongValue(long longValue) {
+        this.longValue = longValue;
+    }
+
+    public List<Node> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(List<Node> nodes) {
+        this.nodes = nodes;
     }
 
     public void listener(String newValue) {
         this.value = newValue;
+    }
+
+    public void methodA(ActionEvent event) {
+        System.out.println("TestMBean.methodA()");
+    }
+
+    public void methodB(ActionEvent event) {
+        System.out.println("TestMBean.methodB()");
     }
 }
