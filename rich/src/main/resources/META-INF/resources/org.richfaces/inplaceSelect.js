@@ -208,7 +208,10 @@
                 var item = this.list.__selectItemByValue(value);
                 var clientSelectItem = item.data('clientSelectItem');
                 this.__setValue(clientSelectItem.label);
-                this.save();
+                if (this.__isValueChanged()) {
+                    this.save();
+                    this.invokeEvent.call(this, "change", document.getElementById(this.id));
+                }
             },
             destroy: function() {
                 this.popupList.destroy();
