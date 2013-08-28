@@ -447,7 +447,10 @@
                     this.spacerElement = null;
                     this.dataTableElement = null;
                 }
-                this.parts = $(this.element).find(".rf-edt-cnt, .rf-edt-ftr-cnt");
+                var edt = this.element;
+                this.parts = $(this.element).find(".rf-edt-cnt, .rf-edt-ftr-cnt").filter(function() {
+                    return $(this).parents('.rf-edt').get(0) === edt;
+                });
                 this.updateLayout();
                 this.updateScrollPosition(); //TODO Restore horizontal scroll position
                 if ($(this.element).data('offscreenElements')) {
