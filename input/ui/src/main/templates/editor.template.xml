@@ -80,7 +80,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     </c:choose>
                     };
                     
-                    new RichFaces.ui.Editor("#{clientId}", options, config);
+                    new RichFaces.rf4.ui.Editor("#{clientId}", options, config);
                 })();
 	        </script>
         </div>

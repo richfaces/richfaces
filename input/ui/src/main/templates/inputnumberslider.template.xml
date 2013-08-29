@@ -78,7 +78,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <!-- TODO Rewrite the next line when the CDK will support normal way to take event handlers from attributes and behaviors. -->
             <cdk:object name="onchange" type="String"
                 value="#{convertToString(RenderKitUtils.getAttributeAndBehaviorsValue(facesContext, component, RenderKitUtils.attributes().generic('onchange', 'onchange', 'change', 'valueChange').first()))}" />
-            <script type="text/javascript">new RichFaces.ui.InputNumberSlider('#{clientId}', {
+            <script type="text/javascript">new RichFaces.rf4.ui.InputNumberSlider('#{clientId}', {
                 delay: #{component.attributes['delay']},
                 disabled: #{component.attributes['disabled']},
                 handleType: '#{component.attributes['handleType']}',

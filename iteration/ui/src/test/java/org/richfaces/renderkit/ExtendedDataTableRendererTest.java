@@ -171,7 +171,7 @@ public class ExtendedDataTableRendererTest {
         assertEquals("rf-edt-rord rf-edt-tbl", table.getElementById("table:r").getAttribute("class"));
         assertEquals("rf-edt-rord-mkr", table.getElementById("table:rm").getAttribute("class"));
         assertEquals("table:wi", table.getElementById("table:wi").getAttribute("name"));
-        assertTrue(table.getElementsByTagName("script").get(0).getTextContent().contains("RichFaces.ui.ExtendedDataTable"));
+        assertTrue(table.getElementsByTagName("script").get(0).getTextContent().contains("RichFaces.rf4.ui.ExtendedDataTable"));
     }
 
     /**

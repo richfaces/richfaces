@@ -79,7 +79,7 @@ class TreeEncoderPartial extends TreeEncoderBase {
         }
 
         prw.startEval();
-        JSFunction function = new JSFunction("RichFaces.ui.TreeNode.initNodeByAjax", elementId, Collections.singletonMap(
+        JSFunction function = new JSFunction("RichFaces.rf4.ui.TreeNode.initNodeByAjax", elementId, Collections.singletonMap(
             "clientEventHandlers", clientEventHandlers));
         prw.write(function.toScript());
         prw.endEval();

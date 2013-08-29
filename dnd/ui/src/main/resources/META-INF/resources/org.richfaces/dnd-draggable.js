@@ -8,7 +8,8 @@
 
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     var defaultIndicatorClasses = {
         rejectClass : "rf-ind-rejt",
@@ -16,7 +17,7 @@
         draggingClass : "rf-ind-drag"
     };
 
-    rf.ui.Draggable = function(id, options) {
+    rf.rf4.ui.Draggable = function(id, options) {
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
         $super.constructor.call(this, id);
@@ -61,15 +62,15 @@
         rf.Event.bind(this.dragElement, 'drag' + this.namespace, this.drag, this);
     };
 
-    rf.BaseNonVisualComponent.extend(rf.ui.Draggable);
+    rf.BaseNonVisualComponent.extend(rf.rf4.ui.Draggable);
 
     // define super class link
-    var $super = rf.ui.Draggable.$super;
+    var $super = rf.rf4.ui.Draggable.$super;
 
     var defaultOptions = {
     };
 
-    $.extend(rf.ui.Draggable.prototype, ( function () {
+    $.extend(rf.rf4.ui.Draggable.prototype, ( function () {
         return {
             name : "Draggable",
             dragStart: function(e) {

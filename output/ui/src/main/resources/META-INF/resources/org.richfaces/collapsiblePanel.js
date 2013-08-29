@@ -22,9 +22,10 @@
 
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.CollapsiblePanel = rf.ui.TogglePanel.extendClass({
+    rf.rf4.ui.CollapsiblePanel = rf.rf4.ui.TogglePanel.extendClass({
 
             name:"CollapsiblePanel",
 
@@ -37,7 +38,7 @@
              * @param {Hash} options - params
              * */
             init : function (componentId, options) {
-                rf.ui.TogglePanel.call(this, componentId, options);
+                rf.rf4.ui.TogglePanel.call(this, componentId, options);
                 this.switchMode = options.switchMode;
 
                 this.__addUserEventHandler("beforeswitch");
@@ -49,10 +50,10 @@
                 $(document.getElementById(this.id)).ready(function () { // TODO
                     rf.Event.bindById(panel.id + ":header", "click", panel.__onHeaderClick, panel);
 
-                    new RichFaces.ui.CollapsiblePanelItem(
+                    new RichFaces.rf4.ui.CollapsiblePanelItem(
                         panel.id + ":content", {"index":0, "togglePanelId":panel.id, "switchMode":panel.switchMode, "name":"true"}),
 
-                        new RichFaces.ui.CollapsiblePanelItem(
+                        new RichFaces.rf4.ui.CollapsiblePanelItem(
                             panel.id + ":empty", {"index":1, "togglePanelId":panel.id, "switchMode":panel.switchMode, "name":"false"})
                 })
             },

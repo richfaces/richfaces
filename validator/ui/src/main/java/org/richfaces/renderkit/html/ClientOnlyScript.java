@@ -15,7 +15,7 @@ import com.google.common.collect.Sets;
 import com.google.common.collect.UnmodifiableIterator;
 
 public class ClientOnlyScript extends ValidatorScriptBase {
-    public static final ResourceKey CSV_RESOURCE = ResourceKey.create("csv.reslib", "org.richfaces");
+    public static final ResourceKey CSV_RESOURCE = ResourceKey.create("csv.rf4.reslib", "org.richfaces");
     protected final LibraryScriptFunction converter;
     protected final ImmutableList<? extends LibraryScriptFunction> validators;
     private final ImmutableSet<ResourceKey> resources;

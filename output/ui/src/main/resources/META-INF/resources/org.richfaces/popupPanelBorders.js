@@ -1,8 +1,9 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.PopupPanel.Border = function(id, modalPanel, cursor, sizer) {
+    rf.rf4.ui.PopupPanel.Border = function(id, modalPanel, cursor, sizer) {
 
         $super.constructor.call(this, id);
 
@@ -15,14 +16,14 @@
         this.sizer = sizer;
     };
 
-    var $super = rf.BaseComponent.extend(rf.ui.PopupPanel.Border);
-    var $super = rf.ui.PopupPanel.Border.$super;
+    var $super = rf.BaseComponent.extend(rf.rf4.ui.PopupPanel.Border);
+    var $super = rf.rf4.ui.PopupPanel.Border.$super;
 
-    $.extend(rf.ui.PopupPanel.Border.prototype, (function (options) {
+    $.extend(rf.rf4.ui.PopupPanel.Border.prototype, (function (options) {
 
         return {
 
-            name: "RichFaces.ui.PopupPanel.Border",
+            name: "RichFaces.rf4.ui.PopupPanel.Border",
 
             destroy: function() {
                 if (this.doingDrag) {
@@ -155,7 +156,7 @@
 
                 border.modalPanel.endDrag(border);
 
-                border.modalPanel.doResizeOrMove(rf.ui.PopupPanel.Sizer.Diff.EMPTY);
+                border.modalPanel.doResizeOrMove(rf.rf4.ui.PopupPanel.Sizer.Diff.EMPTY);
 
                 document.onselectstart = border.onselectStartHandler;
                 border.onselectStartHandler = null;

@@ -1,5 +1,6 @@
 (function($, rf) {
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     var defaultOptions = {
         showEvent : 'contextmenu',
@@ -9,7 +10,7 @@
     };
 
     // constructor definition
-    rf.ui.ContextMenu = function(componentId, options) {
+    rf.rf4.ui.ContextMenu = function(componentId, options) {
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
         $super.constructor.call(this, componentId, this.options);
@@ -19,12 +20,12 @@
         rf.Event.bindById(this.id, 'click' + this.namespace, $.proxy(this.__clilckHandler, this));
     }
 
-    rf.ui.Menu.extend(rf.ui.ContextMenu);
+    rf.rf4.ui.Menu.extend(rf.rf4.ui.ContextMenu);
 
     // define super class link
-    var $super = rf.ui.ContextMenu.$super;
+    var $super = rf.rf4.ui.ContextMenu.$super;
 
-    $.extend(rf.ui.ContextMenu.prototype, (function() {
+    $.extend(rf.rf4.ui.ContextMenu.prototype, (function() {
         return {
             name : "ContextMenu",
 

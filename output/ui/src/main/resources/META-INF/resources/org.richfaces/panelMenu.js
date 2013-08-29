@@ -23,14 +23,15 @@
 
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     var __DEFAULT_OPTIONS = {
         expandSingle : true,
         bubbleSelection : true
     };
 
-    rf.ui.PanelMenu = rf.BaseComponent.extendClass({
+    rf.rf4.ui.PanelMenu = rf.BaseComponent.extendClass({
             // class name
             name:"PanelMenu",
 
@@ -212,6 +213,6 @@
         });
 
     // define super class link
-    var $super = rf.ui.PanelMenu.$super;
+    var $super = rf.rf4.ui.PanelMenu.$super;
 
 })(RichFaces.jQuery, RichFaces);

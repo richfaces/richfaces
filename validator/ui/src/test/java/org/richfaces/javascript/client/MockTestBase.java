@@ -69,7 +69,7 @@ public abstract class MockTestBase {
 
     protected org.jboss.test.qunit.Qunit.Builder createQunitPage() {
         return Qunit.builder().loadJsfResource("jquery.js").loadJsfResource("richfaces.js")
-            .loadJsfResource("richfaces-event.js").loadJsfResource("richfaces-csv.js", "org.richfaces");
+            .loadJsfResource("richfaces-event.js").loadJsfResource("richfaces-csv.rf4.js", "org.richfaces");
     }
 
     protected abstract String getJavaScriptFunctionName();

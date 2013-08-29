@@ -37,7 +37,7 @@
                     <cdk:scriptOption wrapper="eventHandler" attributes="ondataavailable onsubscribed onerror" />
                 </cdk:scriptObject>
 
-                new RichFaces.ui.Push(#{toScriptArgs(clientId, options)});
+                new RichFaces.rf4.ui.Push(#{toScriptArgs(clientId, options)});
             </script>
         </span>
     </cc:implementation>

@@ -53,7 +53,7 @@ import org.richfaces.renderkit.util.RendererUtils;
 public class AjaxPollRenderer extends RendererBase {
     public static final String COMPONENT_FAMILY = "org.richfaces.Poll";
     public static final String RENDERER_TYPE = "org.richfaces.PollRenderer";
-    private static final String AJAX_POLL_FUNCTION = "new RichFaces.ui.Poll";
+    private static final String AJAX_POLL_FUNCTION = "new RichFaces.rf4.ui.Poll";
     private static final String ENABLED = "enabled";
 
     private void addComponentToAjaxRender(FacesContext context, UIComponent component) {

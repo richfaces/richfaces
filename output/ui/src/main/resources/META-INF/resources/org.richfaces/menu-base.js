@@ -1,6 +1,7 @@
 (function($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     var defaultOptions = {
         mode : 'server',
@@ -15,7 +16,7 @@
         cssClasses : {}
     };
 
-    rf.ui.MenuBase = function(componentId, options) {
+    rf.rf4.ui.MenuBase = function(componentId, options) {
         $super.constructor.call(this, componentId, options);
         this.id = componentId;
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
@@ -31,7 +32,7 @@
         this.displayed = false;
 
         this.options.positionOffset = [this.options.horizontalOffset, this.options.verticalOffset];
-        this.popup = new RichFaces.ui.Popup(this.id + "_list", {
+        this.popup = new RichFaces.rf4.ui.Popup(this.id + "_list", {
                 attachTo : this.id,
                 direction : this.options.direction,
                 jointPoint : this.options.jointPoint,
@@ -73,12 +74,12 @@
         return cssClasses;
     }
 
-    rf.BaseComponent.extend(rf.ui.MenuBase);
+    rf.BaseComponent.extend(rf.rf4.ui.MenuBase);
 
     // define super class link
-    var $super = rf.ui.MenuBase.$super;
+    var $super = rf.rf4.ui.MenuBase.$super;
 
-    $.extend(rf.ui.MenuBase.prototype, (function() {
+    $.extend(rf.rf4.ui.MenuBase.prototype, (function() {
         return {
             name : "MenuBase",
 
@@ -107,7 +108,7 @@
                     this.invokeEvent("show", rf.getDomElement(this.id), null);
                     this.popup.show(e);
                     this.displayed = true;
-                    rf.ui.MenuManager.setActiveSubMenu(rf.component(this.element));
+                    rf.rf4.ui.MenuManager.setActiveSubMenu(rf.component(this.element));
                 }
                 this.popupElement.focus();
             },
@@ -125,7 +126,7 @@
                     var parentMenu = rf.component(this.__getParentMenu());
                     if (this.id != parentMenu.id) {
                         parentMenu.popupElement.focus();
-                        rf.ui.MenuManager.setActiveSubMenu(parentMenu);
+                        rf.rf4.ui.MenuManager.setActiveSubMenu(parentMenu);
                     }
                 }
             },

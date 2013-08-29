@@ -74,7 +74,7 @@
                         <cdk:scriptOption name="lazyClientMode" value="#{lazyClient == mode ? true : false}"
                             defaultValue="false" />
                     </cdk:scriptObject>
-                    new RichFaces.ui.Autocomplete("#{clientId}",
+                    new RichFaces.rf4.ui.Autocomplete("#{clientId}",
                     "#{clientId}Input", #{toScriptArgs(options)}
                     );
                 </script>

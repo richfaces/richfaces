@@ -63,7 +63,7 @@ public class DragSourceRenderer extends DnDRenderBase {
 
     @Override
     public String getScriptName() {
-        return "new RichFaces.ui.Draggable";
+        return "new RichFaces.rf4.ui.Draggable";
     }
 
     @Override

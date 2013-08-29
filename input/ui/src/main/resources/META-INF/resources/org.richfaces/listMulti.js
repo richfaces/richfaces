@@ -1,22 +1,23 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.ListMulti = function(id, options) {
+    rf.rf4.ui.ListMulti = function(id, options) {
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, id);
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
         this.disabled = mergedOptions.disabled;
     };
 
-    rf.ui.List.extend(rf.ui.ListMulti);
-    var $super = rf.ui.ListMulti.$super;
+    rf.rf4.ui.List.extend(rf.rf4.ui.ListMulti);
+    var $super = rf.rf4.ui.ListMulti.$super;
 
     var defaultOptions = {
         clickRequiredToSelect: true
     };
 
-    $.extend(rf.ui.ListMulti.prototype, ( function () {
+    $.extend(rf.rf4.ui.ListMulti.prototype, ( function () {
 
         return{
 

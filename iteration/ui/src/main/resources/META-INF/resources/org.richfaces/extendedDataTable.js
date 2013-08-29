@@ -20,9 +20,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 (function($, rf) {
-    rf.utils = rf.utils || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.utils = rf.rf4.utils || {};
 
-    rf.utils.addCSSText = function(cssText, elementId) {
+    rf.rf4.utils.addCSSText = function(cssText, elementId) {
         var style = $("<style></style>").attr({type: 'text/css', id: elementId}).appendTo("head");
         try {
             style.html(cssText);
@@ -32,13 +33,13 @@
         }
     };
     
-    rf.utils.getCSSRule = function (className) {
-        return rf.utils.findCSSRule(function(selectorText) {
+    rf.rf4.utils.getCSSRule = function (className) {
+        return rf.rf4.utils.findCSSRule(function(selectorText) {
             return selectorText.toLowerCase() == className.toLowerCase();
         });
     };
 
-    rf.utils.findCSSRule = function (selectFunction) {
+    rf.rf4.utils.findCSSRule = function (selectFunction) {
         var rule = null;
         var sheets = document.styleSheets;
         for (var j = 0; !rule && j < sheets.length; j++) {
@@ -57,11 +58,11 @@
         return rule;
     };
 
-    rf.utils.Ranges = function() {
+    rf.rf4.utils.Ranges = function() {
         this.ranges = [];
     };
 
-    rf.utils.Ranges.prototype = {
+    rf.rf4.utils.Ranges.prototype = {
 
         add: function(index) {
             var i = 0;
@@ -145,15 +146,16 @@
     var WIDTH_CLASS_NAME_BASE = "rf-edt-c-";
     var MIN_WIDTH = 20;
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.ExtendedDataTable = rf.BaseComponent.extendClass({
+    rf.rf4.ui.ExtendedDataTable = rf.BaseComponent.extendClass({
 
             name: "ExtendedDataTable",
 
             init: function (id, rowCount, ajaxFunction, options) {
                 $super.constructor.call(this, id);
-                this.ranges = new rf.utils.Ranges();
+                this.ranges = new rf.rf4.utils.Ranges();
                 this.rowCount = rowCount;
                 this.ajaxFunction = ajaxFunction;
                 this.options = options || {};
@@ -247,7 +249,7 @@
             getColumnStyle: function(columnId) {
                 var tableId = this.element.id;
                 var columnClass = WIDTH_CLASS_NAME_BASE + columnId;
-                var stylesheet = rf.utils.findCSSRule(function(selector) {
+                var stylesheet = rf.rf4.utils.findCSSRule(function(selector) {
                     return selector.indexOf(columnClass) !== -1 && selector.indexOf(tableId) !== -1;
                 });
                 if (!stylesheet) {
@@ -433,7 +435,7 @@
                 }
                 this.bodyElement = document.getElementById(this.id + ":b");
                 this.bodyElement.tabIndex = -1; //TODO don't use tabIndex.
-                this.normalPartStyle = rf.utils.getCSSRule("div.rf-edt-cnt").style;
+                this.normalPartStyle = rf.rf4.utils.getCSSRule("div.rf-edt-cnt").style;
                 var bodyJQuery = $(this.bodyElement);
                 this.contentElement = bodyJQuery.children("div:not(.rf-edt-ndt):first")[0];
                 if (this.contentElement) {
@@ -874,5 +876,5 @@
             }
         });
 
-    var $super = rf.ui.ExtendedDataTable.$super;
+    var $super = rf.rf4.ui.ExtendedDataTable.$super;
 }(RichFaces.jQuery, window.RichFaces));

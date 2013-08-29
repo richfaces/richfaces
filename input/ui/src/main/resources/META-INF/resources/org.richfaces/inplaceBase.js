@@ -1,8 +1,9 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.InplaceBase = function(id, options) {
+    rf.rf4.ui.InplaceBase = function(id, options) {
         $super.constructor.call(this, id);
         var mergedOptions = $.extend({}, defaultOptions, options);
         this.editEvent = mergedOptions.editEvent;
@@ -22,15 +23,15 @@
         this.editState = false;
     };
 
-    rf.ui.InputBase.extend(rf.ui.InplaceBase);
-    var $super = rf.ui.InplaceBase.$super;
+    rf.rf4.ui.InputBase.extend(rf.rf4.ui.InplaceBase);
+    var $super = rf.rf4.ui.InplaceBase.$super;
 
     var defaultOptions = {
         editEvent: "click",
         state: "ready"
     };
 
-    $.extend(rf.ui.InplaceBase.prototype, ( function () {
+    $.extend(rf.rf4.ui.InplaceBase.prototype, ( function () {
 
         var STATE = {
             READY : 'ready',

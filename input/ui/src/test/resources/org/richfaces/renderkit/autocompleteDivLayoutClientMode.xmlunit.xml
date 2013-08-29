@@ -179,7 +179,7 @@
                     </div>
                     <script type="text/javascript">
                         //<![CDATA[
-new RichFaces.ui.Autocomplete.setData("form:myAutocompleteItems",["Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruba","Ashmore and Cartier Islands","Australia","Austria","Azerbaijan","Bahamas, The","Bahrain","Baker Island","Bangladesh","Barbados","Bassas da India","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia and Herzegovina"] )
+new RichFaces.rf4.ui.Autocomplete.setData("form:myAutocompleteItems",["Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruba","Ashmore and Cartier Islands","Australia","Austria","Azerbaijan","Bahamas, The","Bahrain","Baker Island","Bangladesh","Barbados","Bassas da India","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia and Herzegovina"] )
 //]]>
                     </script>
                 </div>
@@ -188,7 +188,7 @@ new RichFaces.ui.Autocomplete.setData("form:myAutocompleteItems",["Afghanistan",
     </div>
     <script type="text/javascript">
         //<![CDATA[
-new RichFaces.ui.Autocomplete("form:myAutocomplete",
+new RichFaces.rf4.ui.Autocomplete("form:myAutocomplete",
                 "form:myAutocompleteInput", {"buttonId":"form:myAutocompleteButton","autofill":false,"minChars":2,"onchange":function(event){RichFaces.ajax(this,event,{"parameters":{"javax.faces.behavior.event":"change"} ,"sourceId":"form:myAutocomplete"} )},"ajaxMode":false} 
                  );
 //]]>

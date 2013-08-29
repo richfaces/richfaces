@@ -1,8 +1,9 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.List = function(id, options) {
+    rf.rf4.ui.List = function(id, options) {
         $super.constructor.call(this, id);
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.attachToDom();
@@ -45,8 +46,8 @@
         }
     };
 
-    rf.BaseComponent.extend(rf.ui.List);
-    var $super = rf.ui.List.$super;
+    rf.BaseComponent.extend(rf.rf4.ui.List);
+    var $super = rf.rf4.ui.List.$super;
 
     var defaultOptions = {
         clickRequiredToSelect: false,
@@ -102,7 +103,7 @@
         }
     };
 
-    $.extend(rf.ui.List.prototype, ( function () {
+    $.extend(rf.rf4.ui.List.prototype, ( function () {
 
         return{
 

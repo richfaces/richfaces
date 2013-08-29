@@ -281,7 +281,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         options.put("expandMode", subTable.getExpandMode());
         options.put("eventOptions", AjaxRendererUtils.buildEventOptions(facesContext, subTable));
 
-        JSFunction jsFunction = new JSFunction("new RichFaces.ui.CollapsibleSubTable");
+        JSFunction jsFunction = new JSFunction("new RichFaces.rf4.ui.CollapsibleSubTable");
         jsFunction.addParameter(id);
         jsFunction.addParameter(formId);
         jsFunction.addParameter(options);

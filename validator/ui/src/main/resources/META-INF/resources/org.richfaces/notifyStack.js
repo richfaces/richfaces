@@ -1,6 +1,7 @@
 (function($, rf) {
     
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
     
     var defaultOptions = {
         position: "tr",
@@ -12,7 +13,7 @@
         }
     };
 
-    rf.ui.NotifyStack = rf.BaseComponent.extendClass({
+    rf.rf4.ui.NotifyStack = rf.BaseComponent.extendClass({
         
         name : "NotifyStack",
 
@@ -72,6 +73,6 @@
         }
     });
     
-    var $super = rf.ui.NotifyStack.$super;
+    var $super = rf.rf4.ui.NotifyStack.$super;
 
 })(RichFaces.jQuery, RichFaces);

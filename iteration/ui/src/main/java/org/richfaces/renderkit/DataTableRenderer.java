@@ -357,7 +357,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
         writer.startElement(HtmlConstants.SCRIPT_ELEM, dataTable);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.JAVASCRIPT_TYPE, null);
 
-        JSFunction function = new JSFunction("new RichFaces.ui.DataTable");
+        JSFunction function = new JSFunction("new RichFaces.rf4.ui.DataTable");
         function.addParameter(dataTable.getClientId(facesContext));
 
         AjaxOptions ajaxOptions = AjaxRendererUtils.buildEventOptions(facesContext, dataTable);

@@ -23,7 +23,8 @@
 
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     var __DEFAULT_OPTIONS = {
         expanded : false,
@@ -107,7 +108,7 @@
         }
     };
 
-    rf.ui.PanelMenuGroup = rf.ui.PanelMenuItem.extendClass({
+    rf.rf4.ui.PanelMenuGroup = rf.rf4.ui.PanelMenuItem.extendClass({
             // class name
             name:"PanelMenuGroup",
 
@@ -406,5 +407,5 @@
         });
 
     // define super class link
-    var $super = rf.ui.PanelMenuGroup.$super;
+    var $super = rf.rf4.ui.PanelMenuGroup.$super;
 })(RichFaces.jQuery, RichFaces);

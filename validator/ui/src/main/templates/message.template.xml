@@ -20,7 +20,7 @@
         <cdk:superclass>org.richfaces.renderkit.MessageRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Message</cdk:component-family>
         <cdk:renderer-type>org.richfaces.MessageRenderer</cdk:renderer-type>
-        <cdk:resource-dependency library="org.richfaces" name="message.reslib" />
+        <cdk:resource-dependency library="org.richfaces" name="message.rf4.reslib" />
         <cdk:resource-dependency library="org.richfaces" name="msg.ecss" />
     </cc:interface>
     <cc:implementation>

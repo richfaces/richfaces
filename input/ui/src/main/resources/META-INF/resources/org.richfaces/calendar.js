@@ -6,7 +6,8 @@
 
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     //calendar templates
     var CalendarView = {
@@ -21,7 +22,7 @@
 
             if (!calendar.selectedDate || calendar.options.showApplyButton) return "";
 
-            var text = rf.calendarUtils.formatDate(calendar.selectedDate, (calendar.timeType ? calendar.datePattern : calendar.options.datePattern), calendar.options.monthLabels, calendar.options.monthLabelsShort);
+            var text = rf.rf4.calendarUtils.formatDate(calendar.selectedDate, (calendar.timeType ? calendar.datePattern : calendar.options.datePattern), calendar.options.monthLabels, calendar.options.monthLabelsShort);
             var onclick = "RichFaces.$$('Calendar',this).showSelectedDate(); return true;"
             var markup = ( calendar.options.disabled ?
                 new E('div', {'class': 'rf-cal-tl-btn-dis'}, [new ET(text)]) :
@@ -34,7 +35,7 @@
 
             if (!calendar.selectedDate || !calendar.timeType) return "";
 
-            var text = rf.calendarUtils.formatDate(calendar.selectedDate, calendar.timePattern, calendar.options.monthLabels, calendar.options.monthLabelsShort);
+            var text = rf.rf4.calendarUtils.formatDate(calendar.selectedDate, calendar.timePattern, calendar.options.monthLabels, calendar.options.monthLabelsShort);
 
             var onmouseover = "RichFaces.jQuery(this).removeClass('rf-cal-btn-press');";
             var onmouseout = "RichFaces.jQuery(this).addClass('rf-cal-btn-press');";
@@ -62,7 +63,7 @@
             return (!context.calendar.options.disabled ? CalendarView.getControl("<", CalendarView.toolButtonAttributes, "prevMonth") : "");
         },
         currentMonthControl: function (context) {
-            var text = rf.calendarUtils.formatDate(context.calendar.getCurrentDate(), "MMMM, yyyy", context.monthLabels, context.monthLabelsShort);
+            var text = rf.rf4.calendarUtils.formatDate(context.calendar.getCurrentDate(), "MMMM, yyyy", context.monthLabels, context.monthLabelsShort);
             var markup = context.calendar.options.disabled ?
                 new E('div', {className: "rf-cal-tl-btn-dis"}, [new T(text)]) :
                 CalendarView.getControl(text, CalendarView.toolButtonAttributes, "showDateEditor");
@@ -101,31 +102,31 @@
                                     new E('td', {'class': 'rf-cal-tl'},
                                         [
                                             new ET(function (context) {
-                                                return rf.calendarTemplates.evalMacro("previousYearControl", context)
+                                                return rf.rf4.calendarTemplates.evalMacro("previousYearControl", context)
                                             })
                                         ]),
                                     new E('td', {'class': 'rf-cal-tl'},
                                         [
                                             new ET(function (context) {
-                                                return rf.calendarTemplates.evalMacro("previousMonthControl", context)
+                                                return rf.rf4.calendarTemplates.evalMacro("previousMonthControl", context)
                                             })
                                         ]),
                                     new E('td', {'class': 'rf-cal-hdr-month'},
                                         [
                                             new ET(function (context) {
-                                                return rf.calendarTemplates.evalMacro("currentMonthControl", context)
+                                                return rf.rf4.calendarTemplates.evalMacro("currentMonthControl", context)
                                             })
                                         ]),
                                     new E('td', {'class': 'rf-cal-tl'},
                                         [
                                             new ET(function (context) {
-                                                return rf.calendarTemplates.evalMacro("nextMonthControl", context)
+                                                return rf.rf4.calendarTemplates.evalMacro("nextMonthControl", context)
                                             })
                                         ]),
                                     new E('td', {'class': 'rf-cal-tl'},
                                         [
                                             new ET(function (context) {
-                                                return rf.calendarTemplates.evalMacro("nextYearControl", context)
+                                                return rf.rf4.calendarTemplates.evalMacro("nextYearControl", context)
                                             })
                                         ]),
                                     new E('td', {'class': 'rf-cal-tl rf-cal-btn-close', 'style':function(context) {
@@ -133,7 +134,7 @@
                                         }},
                                         [
                                             new ET(function (context) {
-                                                return rf.calendarTemplates.evalMacro("closeControl", context)
+                                                return rf.rf4.calendarTemplates.evalMacro("closeControl", context)
                                             })
                                         ])
                                 ])
@@ -153,7 +154,7 @@
                                         }},
                                         [
                                             new ET(function (context) {
-                                                return rf.calendarTemplates.evalMacro("selectedDateControl", context)
+                                                return rf.rf4.calendarTemplates.evalMacro("selectedDateControl", context)
                                             })
                                         ]),
                                     new E('td', {'class': 'rf-cal-tl-ftr', 'style':function(context) {
@@ -161,7 +162,7 @@
                                         }},
                                         [
                                             new ET(function (context) {
-                                                return rf.calendarTemplates.evalMacro("cleanControl", context)
+                                                return rf.rf4.calendarTemplates.evalMacro("cleanControl", context)
                                             })
                                         ]),
                                     new E('td', {'class': 'rf-cal-tl-ftr', 'style':function(context) {
@@ -169,7 +170,7 @@
                                         }},
                                         [
                                             new ET(function (context) {
-                                                return rf.calendarTemplates.evalMacro("timeControl", context)
+                                                return rf.rf4.calendarTemplates.evalMacro("timeControl", context)
                                             })
                                         ]),
                                     new E('td', {'class': 'rf-cal-tl-ftr', 'style': 'background-image:none;', 'width': '100%'}, []),
@@ -178,7 +179,7 @@
                                         }},
                                         [
                                             new ET(function (context) {
-                                                return rf.calendarTemplates.evalMacro("todayControl", context)
+                                                return rf.rf4.calendarTemplates.evalMacro("todayControl", context)
                                             })
                                         ]),
                                     new E('td', {'class': 'rf-cal-tl-ftr', 'style':function(context) {
@@ -186,7 +187,7 @@
                                         }},
                                         [
                                             new ET(function (context) {
-                                                return rf.calendarTemplates.evalMacro("applyControl", context)
+                                                return rf.rf4.calendarTemplates.evalMacro("applyControl", context)
                                             })
                                         ])
                                 ])
@@ -207,7 +208,7 @@
                                     new E('td', {'class': 'rf-cal-timepicker-inp', 'colspan': '2', 'align': 'center'},
                                         [
                                             new ET(function (context) {
-                                                return rf.calendarTemplates.evalMacro("timeEditorFields", context)
+                                                return rf.rf4.calendarTemplates.evalMacro("timeEditorFields", context)
                                             })
                                         ])
                                 ]),
@@ -360,7 +361,7 @@
     }
 
     // Constructor definition
-    rf.ui.Calendar = function(componentId, locale, options, markups) {
+    rf.rf4.ui.Calendar = function(componentId, locale, options, markups) {
 
         // dayListMarkup - day cell markup
         //		context: {day, date, weekNumber, weekDayNumber, isWeekend, isCurrentMonth,  elementId, component}
@@ -590,15 +591,15 @@
     };
 
     // Extend component class and add protected methods from parent class to our container
-    rf.BaseComponent.extend(rf.ui.Calendar);
+    rf.BaseComponent.extend(rf.rf4.ui.Calendar);
 
     // define super class link
-    var $super = rf.ui.Calendar.$super;
+    var $super = rf.rf4.ui.Calendar.$super;
 
     // static methods definition
     var locales = {};
 
-    rf.ui.Calendar.addLocale = function (locale, symbols) {
+    rf.rf4.ui.Calendar.addLocale = function (locale, symbols) {
         if (!locales[locale]) {
             locales[locale] = symbols;
         }
@@ -607,7 +608,7 @@
     /*
      * Prototype definition
      */
-    $.extend(rf.ui.Calendar.prototype, {
+    $.extend(rf.rf4.ui.Calendar.prototype, {
             name: "Calendar",
             destroy: function() {
                 if (this.options.popup && this.isVisible) {
@@ -1022,7 +1023,7 @@
             __getSelectedDateString: function(pattern) {
                 if (!this.selectedDate) return "";
                 if (!pattern) pattern = this.options.datePattern;
-                return rf.calendarUtils.formatDate(this.selectedDate, pattern, this.options.monthLabels, this.options.monthLabelsShort);
+                return rf.rf4.calendarUtils.formatDate(this.selectedDate, pattern, this.options.monthLabels, this.options.monthLabelsShort);
             },
 
             getPrevYear: function() {
@@ -1067,9 +1068,9 @@
                     (this.selectedDate.getFullYear() == date.getFullYear() &&
                         this.selectedDate.getMonth() == date.getMonth() &&
                         this.selectedDate.getDate() == date.getDate()))) {
-                    result = rf.calendarUtils.createDate(date.getFullYear(), date.getMonth(), date.getDate(), this.selectedDate.getHours(), this.selectedDate.getMinutes(), this.selectedDate.getSeconds());
+                    result = rf.rf4.calendarUtils.createDate(date.getFullYear(), date.getMonth(), date.getDate(), this.selectedDate.getHours(), this.selectedDate.getMinutes(), this.selectedDate.getSeconds());
                 } else {
-                    result = rf.calendarUtils.createDate(date.getFullYear(), date.getMonth(), date.getDate(), this.options.defaultTime.hours, this.options.defaultTime.minutes, this.options.defaultTime.seconds);
+                    result = rf.rf4.calendarUtils.createDate(date.getFullYear(), date.getMonth(), date.getDate(), this.options.defaultTime.hours, this.options.defaultTime.minutes, this.options.defaultTime.seconds);
                 }
                 return result;
             },
@@ -1077,7 +1078,7 @@
             eventCellOnClick: function (e, obj) {
                 var daydata = this.days[parseInt(obj.id.substr(this.DATE_ELEMENT_ID.length), 10)];
                 if (daydata.enabled && daydata._month == 0) {
-                    var date = rf.calendarUtils.createDate(this.currentDate.getFullYear(), this.currentDate.getMonth(), daydata.day);
+                    var date = rf.rf4.calendarUtils.createDate(this.currentDate.getFullYear(), this.currentDate.getMonth(), daydata.day);
                     if (this.timeType) {
                         date = this.setupTimeForDate(date);
                     }
@@ -1165,7 +1166,7 @@
                     this.currentDate.setDate(1);
                     return daysData;
                 }
-                var idx = rf.calendarUtils.daysInMonthByDate(daysData.startDate) - daysData.startDate.getDate() + 1;
+                var idx = rf.rf4.calendarUtils.daysInMonthByDate(daysData.startDate) - daysData.startDate.getDate() + 1;
 
                 while (daysData.days[idx]) {
                     if (dateMonth == 11) {
@@ -1205,9 +1206,9 @@
                 var selectedflag = this.selectedDate && (currentYear == this.selectedDate.getFullYear() && currentMonth == this.selectedDate.getMonth())
                 var selecteddate = this.selectedDate && this.selectedDate.getDate();
 
-                var wd = rf.calendarUtils.getDay(this.currentDate, this.options.firstWeekDay);
-                var currentMonthDays = rf.calendarUtils.daysInMonthByDate(this.currentDate);
-                var previousMonthDays = rf.calendarUtils.daysInMonth(currentYear, currentMonth - 1);
+                var wd = rf.rf4.calendarUtils.getDay(this.currentDate, this.options.firstWeekDay);
+                var currentMonthDays = rf.rf4.calendarUtils.daysInMonthByDate(this.currentDate);
+                var previousMonthDays = rf.rf4.calendarUtils.daysInMonth(currentYear, currentMonth - 1);
 
                 var p = 0;
                 var month = -1;
@@ -1272,7 +1273,7 @@
                 var element;
                 var dataobj;
                 var wn;
-                if (this.options.showWeeksBar) wn = rf.calendarUtils.weekNumber(currentYear, currentMonth, this.options.minDaysInFirstWeek, this.options.firstWeekDay); /// fix it
+                if (this.options.showWeeksBar) wn = rf.rf4.calendarUtils.weekNumber(currentYear, currentMonth, this.options.minDaysInFirstWeek, this.options.firstWeekDay); /// fix it
                 this.selectedDayElement = null;
                 var weekflag = true;
 
@@ -1415,7 +1416,7 @@
             },
 
             onUpdate: function() {
-                var formattedDate = rf.calendarUtils.formatDate(this.getCurrentDate(), "MM/yyyy");
+                var formattedDate = rf.rf4.calendarUtils.formatDate(this.getCurrentDate(), "MM/yyyy");
                 rf.getDomElement(this.id + 'InputCurrentDate').value = formattedDate;
 
                 if (this.isAjaxMode && this.callAjax)
@@ -1561,7 +1562,7 @@
                 var newSelectedDate;
                 if (date) {
                     if (typeof date == 'string') {
-                        date = rf.calendarUtils.parseDate(date, this.options.datePattern, this.options.monthLabels, this.options.monthLabelsShort);
+                        date = rf.rf4.calendarUtils.parseDate(date, this.options.datePattern, this.options.monthLabels, this.options.monthLabelsShort);
                     }
                     newSelectedDate = date;
                 }
@@ -1747,7 +1748,7 @@
                             if (h != 12) h += 12;
                         }
                     }
-                    var date = rf.calendarUtils.createDate(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), h, m, s);
+                    var date = rf.rf4.calendarUtils.createDate(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), h, m, s);
                     if (date - this.selectedDate && this.invokeEvent("beforetimeselect", null, null, date)) {
                         this.selectedDate = date;
                         this.renderHF();

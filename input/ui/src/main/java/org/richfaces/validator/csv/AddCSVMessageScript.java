@@ -40,7 +40,7 @@ import org.richfaces.javascript.JavaScriptService;
  */
 public class AddCSVMessageScript extends ScriptStringBase implements ScriptString {
 
-    private static final String MESSAGE_OBJECT = "if (RichFaces.csv && RichFaces.csv.addMessage) '{' RichFaces.csv.addMessage('{' ''{0}'': '{'detail:''{1}'',summary:''{2}'',severity:{3}'}' '}'); '}'";
+    private static final String MESSAGE_OBJECT = "if (RichFaces.rf4.csv && RichFaces.rf4.csv.addMessage) '{' RichFaces.rf4.csv.addMessage('{' ''{0}'': '{'detail:''{1}'',summary:''{2}'',severity:{3}'}' '}'); '}'";
 
     private FacesMessage facesMessage;
     private String messageId;

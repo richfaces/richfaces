@@ -1,5 +1,6 @@
 (function($, rf) {
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     var defaultOptions = {
         positionType : "DROPDOWN",
@@ -10,7 +11,7 @@
     };
 
     // constructor definition
-    rf.ui.Menu = function(componentId, options) {
+    rf.rf4.ui.Menu = function(componentId, options) {
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
         $.extend(this.options.cssClasses, buildCssClasses.call(this, this.options.cssRoot));
@@ -33,10 +34,10 @@
         }
         this.element = $(rf.getDomElement(this.id));
 
-        if (!rf.ui.MenuManager) {
-            rf.ui.MenuManager = {};
+        if (!rf.rf4.ui.MenuManager) {
+            rf.rf4.ui.MenuManager = {};
         }
-        this.menuManager = rf.ui.MenuManager;
+        this.menuManager = rf.rf4.ui.MenuManager;
     };
 
     var buildCssClasses = function(cssRoot) {
@@ -47,21 +48,21 @@
         return cssClasses;
     }
 
-    rf.ui.MenuBase.extend(rf.ui.Menu);
+    rf.rf4.ui.MenuBase.extend(rf.rf4.ui.Menu);
 
     // define super class link
-    var $super = rf.ui.Menu.$super;
+    var $super = rf.rf4.ui.Menu.$super;
 
-    $.extend(rf.ui.Menu.prototype, rf.ui.MenuKeyNavigation);
+    $.extend(rf.rf4.ui.Menu.prototype, rf.rf4.ui.MenuKeyNavigation);
 
-    $.extend(rf.ui.Menu.prototype, (function() {
+    $.extend(rf.rf4.ui.Menu.prototype, (function() {
         return {
             name : "Menu",
             initiateGroups : function(groupOptions) {
                 for (var i in groupOptions) {
                     var groupId = groupOptions[i].id;
                     if (null != groupId) {
-                        this.groupList[groupId] = new RichFaces.ui.MenuGroup(
+                        this.groupList[groupId] = new RichFaces.rf4.ui.MenuGroup(
                             groupId, {
                                 rootMenuId : this.id,
                                 onshow : groupOptions[i].onshow,
@@ -127,7 +128,7 @@
         };
     })());
 
-    rf.ui.MenuManager = {
+    rf.rf4.ui.MenuManager = {
         openedMenu : null,
 
         activeSubMenu : null,

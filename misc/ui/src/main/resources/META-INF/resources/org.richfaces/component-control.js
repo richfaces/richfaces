@@ -1,10 +1,11 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.ComponentControl = rf.ui.ComponentControl || {};
+    rf.rf4.ui.ComponentControl = rf.rf4.ui.ComponentControl || {};
 
-    $.extend(rf.ui.ComponentControl, {
+    $.extend(rf.rf4.ui.ComponentControl, {
 
             execute: function(event, parameters) {
                 var targetList = parameters.target;
@@ -20,13 +21,13 @@
                     for (var i = 0; i < targetList.length; i++) {
                         var component = document.getElementById(targetList[i]);
                         if (component) {
-                            rf.ui.ComponentControl.invokeOnComponent(event, component, callback);
+                            rf.rf4.ui.ComponentControl.invokeOnComponent(event, component, callback);
                         }
                     }
                 }
 
                 if (selector) {
-                    rf.ui.ComponentControl.invokeOnComponent(event, selector, callback);
+                    rf.rf4.ui.ComponentControl.invokeOnComponent(event, selector, callback);
                 }
             },
 

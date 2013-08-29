@@ -62,7 +62,7 @@ public class AccordionRenderer extends TogglePanelRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.Accordion", component.getClientId(context),
+        return new JSObject("RichFaces.rf4.ui.Accordion", component.getClientId(context),
             getScriptObjectOptions(context, component));
     }
 

@@ -1,8 +1,9 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.InplaceInput = function(id, options) {
+    rf.rf4.ui.InplaceInput = function(id, options) {
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
         this.label = $(document.getElementById(id + "Label"));
@@ -25,8 +26,8 @@
         }
     };
 
-    rf.ui.InplaceBase.extend(rf.ui.InplaceInput);
-    var $super = rf.ui.InplaceInput.$super;
+    rf.rf4.ui.InplaceBase.extend(rf.rf4.ui.InplaceInput);
+    var $super = rf.rf4.ui.InplaceInput.$super;
 
     var defaultOptions = {
         defaultLabel: "",
@@ -38,7 +39,7 @@
         changedCss: "rf-ii-chng"
     };
 
-    $.extend(rf.ui.InplaceInput.prototype, ( function () {
+    $.extend(rf.rf4.ui.InplaceInput.prototype, ( function () {
 
         return {
 

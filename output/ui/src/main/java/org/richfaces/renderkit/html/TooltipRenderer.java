@@ -57,7 +57,7 @@ import org.richfaces.renderkit.util.RendererUtils;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "popup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "popup.rf4.js"),
         @ResourceDependency(library = "org.richfaces", name = "tooltip.js"),
         @ResourceDependency(library = "org.richfaces", name = "tooltip.ecss") })
 @JsfRenderer(type = "org.richfaces.TooltipRenderer", family = AbstractTooltip.COMPONENT_FAMILY)
@@ -163,7 +163,7 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.Tooltip", component.getClientId(context), getScriptObjectOptions(context, component));
+        return new JSObject("RichFaces.rf4.ui.Tooltip", component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override

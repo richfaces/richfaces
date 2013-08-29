@@ -5,7 +5,8 @@
 
 (function($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     var defaultOptions = {
         enabledInInput : false,
@@ -14,7 +15,7 @@
     
     var types = [ 'keydown', 'keyup' ];
 
-    rf.ui.HotKey = function(componentId, options) {
+    rf.rf4.ui.HotKey = function(componentId, options) {
         $super.constructor.call(this, componentId);
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.attachToDom(this.componentId);
@@ -28,11 +29,11 @@
         }, this));
     };
 
-    rf.BaseComponent.extend(rf.ui.HotKey);
+    rf.BaseComponent.extend(rf.rf4.ui.HotKey);
 
-    var $super = rf.ui.HotKey.$super;
+    var $super = rf.rf4.ui.HotKey.$super;
 
-    $.extend(rf.ui.HotKey.prototype, {
+    $.extend(rf.rf4.ui.HotKey.prototype, {
 
         name : "HotKey",
         

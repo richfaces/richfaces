@@ -3,7 +3,8 @@
  */
 
 (function($, rf) {
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     /**
      * Default component configuration
@@ -29,7 +30,7 @@
     
     var eventsForDirty = [ "key", "paste", "undo", "redo" ];
 
-    rf.ui.Editor = function(componentId, options, config) {
+    rf.rf4.ui.Editor = function(componentId, options, config) {
         $super.constructor.call(this, componentId);
         this.options = $.extend({}, defaultOptions, options);
 
@@ -47,11 +48,11 @@
         rf.Event.bindById(this.__getTextarea(), 'dirty', this.options.ondirty, this);
     };
 
-    rf.BaseComponent.extend(rf.ui.Editor);
+    rf.BaseComponent.extend(rf.rf4.ui.Editor);
 
-    var $super = rf.ui.Editor.$super;
+    var $super = rf.rf4.ui.Editor.$super;
 
-    $.extend(rf.ui.Editor.prototype, {
+    $.extend(rf.rf4.ui.Editor.prototype, {
 
         name : "Editor",
 

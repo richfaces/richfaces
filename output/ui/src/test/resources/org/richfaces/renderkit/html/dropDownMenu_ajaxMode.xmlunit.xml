@@ -15,7 +15,7 @@
                     </span>
                     <script type="text/javascript">
                         //<![CDATA[
-new RichFaces.ui.MenuItem("form:open",{"submitFunction":function(event){RichFaces.ajax("form:open",event,{"incId":"1"} );return false;}} );
+new RichFaces.rf4.ui.MenuItem("form:open",{"submitFunction":function(event){RichFaces.ajax("form:open",event,{"incId":"1"} );return false;}} );
 //]]>
                     </script>
                 </div>
@@ -40,7 +40,7 @@ new RichFaces.ui.MenuItem("form:open",{"submitFunction":function(event){RichFace
                                     </span>
                                     <script type="text/javascript">
                                         //<![CDATA[
-new RichFaces.ui.MenuItem("form:save",{"submitFunction":function(event){RichFaces.ajax("form:save",event,{"incId":"1"});return false;}});
+new RichFaces.rf4.ui.MenuItem("form:save",{"submitFunction":function(event){RichFaces.ajax("form:save",event,{"incId":"1"});return false;}});
 //]]>
                                     </script>
                                 </div>
@@ -58,7 +58,7 @@ new RichFaces.ui.MenuItem("form:save",{"submitFunction":function(event){RichFace
                                     <script type="text/javascript">
 
                                         //<![CDATA[
-new RichFaces.ui.MenuItem("form:saveAll",{"submitFunction":function(event){RichFaces.ajax("form:saveAll",event,{"incId":"1"});return false;}});
+new RichFaces.rf4.ui.MenuItem("form:saveAll",{"submitFunction":function(event){RichFaces.ajax("form:saveAll",event,{"incId":"1"});return false;}});
 //]]>
                                     </script>
                                 </div>
@@ -71,7 +71,7 @@ new RichFaces.ui.MenuItem("form:saveAll",{"submitFunction":function(event){RichF
     </div>
     <script type="text/javascript">
         //<![CDATA[
-new RichFaces.ui.Menu("form:ddmenu",{"direction":"auto","jointPoint":"auto","showEvent":"click","mode":"ajax"}).initiateGroups([{"id":"form:group"} ] );
+new RichFaces.rf4.ui.Menu("form:ddmenu",{"direction":"auto","jointPoint":"auto","showEvent":"click","mode":"ajax"}).initiateGroups([{"id":"form:group"} ] );
 //]]>
     </script>
 </div>

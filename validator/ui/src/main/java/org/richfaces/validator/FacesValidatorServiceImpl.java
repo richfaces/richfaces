@@ -43,7 +43,7 @@ public class FacesValidatorServiceImpl extends FacesServiceBase<Validator> imple
 
     @Override
     protected String getMessageId(Validator component) {
-        // TODO: all messages should be passed to client side using js function RichFaces.csv.addMessage
+        // TODO: all messages should be passed to client side using js function RichFaces.rf4.csv.addMessage
         String messageId;
         if (component instanceof DoubleRangeValidator) {
             DoubleRangeValidator validator = (DoubleRangeValidator) component;

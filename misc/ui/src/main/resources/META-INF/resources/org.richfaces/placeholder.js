@@ -1,12 +1,13 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     var defaultOptions = {
         useNative: false
     };
 
-    rf.ui.Placeholder = rf.BaseComponent.extendClass({
+    rf.rf4.ui.Placeholder = rf.BaseComponent.extendClass({
 
         name:"Placeholder",
 
@@ -38,5 +39,5 @@
     });
     
     // define super class reference - reference to the parent prototype
-    var $super = rf.ui.Placeholder.$super;
+    var $super = rf.rf4.ui.Placeholder.$super;
 })(RichFaces.jQuery, RichFaces);

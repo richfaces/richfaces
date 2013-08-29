@@ -78,7 +78,7 @@ public abstract class CollapsibleSubTableTogglerRendererBase extends RendererBas
             encodeControl(context, writer, toggleControl, expanded, true);
             encodeControl(context, writer, toggleControl, !expanded, false);
 
-            JSFunction jsFunction = new JSFunction("new RichFaces.ui.CollapsibleSubTableToggler");
+            JSFunction jsFunction = new JSFunction("new RichFaces.rf4.ui.CollapsibleSubTableToggler");
             String toggleId = toggleControl.getClientId(context);
             jsFunction.addParameter(toggleId);
             Map<String, Object> options = encodeOptions(context, toggleControl, subTable);

@@ -1,12 +1,13 @@
 (function($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     var defaultOptions = {
         useNative : false
     };
 
-    rf.ui.Focus = rf.BaseComponent.extendClass({
+    rf.rf4.ui.Focus = rf.BaseComponent.extendClass({
 
         name : "Focus",
 
@@ -177,7 +178,7 @@
     /**
      * Exposes sortTabindex family of functions for testing
      */
-    rf.ui.Focus.__fn = {
+    rf.rf4.ui.Focus.__fn = {
         'sortTabindex' : sortTabindex,
         'sortTabindexNums' : sortTabindexNums,
         'searchCommonParent' : searchCommonParent,
@@ -185,5 +186,5 @@
     }
 
     // define super class reference - reference to the parent prototype
-    var $super = rf.ui.Focus.$super;
+    var $super = rf.rf4.ui.Focus.$super;
 })(RichFaces.jQuery, RichFaces);

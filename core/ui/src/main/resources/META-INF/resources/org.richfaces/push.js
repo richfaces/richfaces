@@ -221,9 +221,10 @@
     jsf.ajax.addOnEvent(ajaxEventHandler);
     jsf.ajax.addOnError(ajaxEventHandler);
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.Push = rf.BaseComponent.extendClass({
+    rf.rf4.ui.Push = rf.BaseComponent.extendClass({
 
             name: COMPONENT_NAME,
 
@@ -302,6 +303,6 @@
         });
 
     // define super class link
-    var $super = rf.ui.Push.$super;
+    var $super = rf.rf4.ui.Push.$super;
 
 }(jsf, window.RichFaces, RichFaces.jQuery));
