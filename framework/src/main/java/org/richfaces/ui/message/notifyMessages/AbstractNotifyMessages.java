@@ -28,6 +28,7 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.attribute.AjaxOutputProps;
 import org.richfaces.ui.common.AjaxOutput;
 import org.richfaces.ui.message.ClientSideMessage;
 import org.richfaces.ui.message.NotifyAttributes;
@@ -41,8 +42,8 @@ import org.richfaces.ui.message.NotifyAttributes;
  */
 @JsfComponent(type = "org.richfaces.NotifyMessages", tag = @Tag(name = "notifyMessages"),
         renderer = @JsfRenderer(template = "notifyMessages.template.xml", type = "org.richfaces.NotifyMessagesRenderer"),
-        attributes = { "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml" })
-public abstract class AbstractNotifyMessages extends UIMessages implements AjaxOutput, ClientSideMessage, NotifyAttributes {
+        attributes = { "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml" })
+public abstract class AbstractNotifyMessages extends UIMessages implements AjaxOutput, ClientSideMessage, NotifyAttributes, AjaxOutputProps {
 
     @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();
