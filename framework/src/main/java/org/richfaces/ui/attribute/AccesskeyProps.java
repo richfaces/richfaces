@@ -33,6 +33,10 @@ public interface AccesskeyProps {
     /**
      * Access key that, when pressed, transfers focus to this element.
      */
-    @Attribute(description = @Description("Access key that, when pressed, transfers focus to this element."), passThrough = true)
+    @Attribute(
+            description = @Description(
+                    value = "Access key that, when pressed, transfers focus to this element.",
+                    displayName = "Access Key"),
+            passThrough = true)
     String getAccesskey();
 }
