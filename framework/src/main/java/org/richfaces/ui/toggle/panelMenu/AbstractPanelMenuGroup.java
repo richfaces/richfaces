@@ -27,6 +27,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.attribute.AjaxProps;
+import org.richfaces.ui.attribute.BypassProps;
 import org.richfaces.ui.toggle.ItemChangeEvent;
 import org.richfaces.ui.toggle.PanelToggleEvent;
 
@@ -43,8 +44,8 @@ import javax.faces.event.PhaseId;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "style-prop.xml", "styleClass-prop.xml",
-        "bypass-props.xml", "events-mouse-props.xml" })
-public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem implements AjaxProps {
+        "events-mouse-props.xml" })
+public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem implements AjaxProps, BypassProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuGroup";
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuGroup";
     private Boolean submittedExpanded;
