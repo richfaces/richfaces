@@ -26,6 +26,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.ui.attribute.AjaxProps;
 import org.richfaces.ui.common.AbstractActionComponent;
 
 /**
@@ -36,8 +37,8 @@ import org.richfaces.ui.common.AbstractActionComponent;
  * </p>
  * @author asmirnov@exadel.com
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.FunctionRenderer"), tag = @Tag(name = "jsFunction", type = TagType.Facelets), attributes = { "ajax-props.xml" })
-public abstract class AbstractAjaxFunction extends AbstractActionComponent {
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.FunctionRenderer"), tag = @Tag(name = "jsFunction", type = TagType.Facelets))
+public abstract class AbstractAjaxFunction extends AbstractActionComponent implements AjaxProps {
     public static final String COMPONENT_FAMILY = "javax.faces.Command";
     public static final String COMPONENT_TYPE = "org.richfaces.Function";
 

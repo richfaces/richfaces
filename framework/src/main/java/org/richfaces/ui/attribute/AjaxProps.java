@@ -26,7 +26,7 @@ import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 
 /**
- * Interface defining the methods for command-button-props.xml
+ * Interface defining the methods for ajax-props.xml
  *
  * @author Lukas Fryc
  */

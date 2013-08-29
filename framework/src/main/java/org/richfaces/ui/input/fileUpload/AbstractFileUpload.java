@@ -38,6 +38,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.ui.attribute.AjaxProps;
 
 /**
  * <p> The &lt;r:fileUpload&gt; component allows the user to upload files to a server. It features multiple uploads,
@@ -46,9 +47,9 @@ import org.richfaces.renderkit.RenderKitUtils;
  * @author Konstantin Mishin
  */
 @JsfComponent(tag = @Tag(generate = false, handlerClass = FileUploadHandler.class), renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"), attributes = {
-        "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "ajax-props.xml", "i18n-props.xml", "fileUploadListener-props.xml" })
+        "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "fileUploadListener-props.xml" })
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractFileUpload extends UIComponentBase {
+public abstract class AbstractFileUpload extends UIComponentBase implements AjaxProps {
     public static final String COMPONENT_TYPE = "org.richfaces.FileUpload";
     public static final String COMPONENT_FAMILY = "org.richfaces.FileUpload";
 

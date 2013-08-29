@@ -33,6 +33,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.ui.attribute.AjaxProps;
 
 /**
  * <p>
@@ -42,8 +43,8 @@ import org.richfaces.cdk.annotations.TagType;
  * @author abelevich
  */
 @JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"), attributes = {
-        "ajax-props.xml", "immediate-prop.xml", "bypass-props.xml", "dropListener-props.xml" }, tag = @Tag(name = "dropTarget", handlerClass = DropHandler.class, type = TagType.Facelets))
-public abstract class AbstractDropTarget extends UIComponentBase {
+        "immediate-prop.xml", "bypass-props.xml", "dropListener-props.xml" }, tag = @Tag(name = "dropTarget", handlerClass = DropHandler.class, type = TagType.Facelets))
+public abstract class AbstractDropTarget extends UIComponentBase implements AjaxProps {
     public static final String COMPONENT_TYPE = "org.richfaces.DropTarget";
     public static final String COMPONENT_FAMILY = "org.richfaces.DropTarget";
 

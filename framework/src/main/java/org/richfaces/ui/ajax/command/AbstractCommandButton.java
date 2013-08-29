@@ -32,6 +32,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.ajax.region.AjaxContainer;
 import org.richfaces.ui.attribute.AccesskeyProps;
+import org.richfaces.ui.attribute.AjaxProps;
 import org.richfaces.ui.common.AbstractActionComponent;
 import org.richfaces.ui.common.AjaxConstants;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
@@ -44,8 +45,8 @@ import org.richfaces.ui.common.meta.MetaComponentResolver;
  * @author Nick Belaevski
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandButtonRenderer"), tag = @Tag(type = TagType.Facelets),
-        attributes = {"ajax-props.xml", "command-button-props.xml", "core-props.xml" })
-public abstract class AbstractCommandButton extends AbstractActionComponent implements MetaComponentResolver, AccesskeyProps {
+        attributes = {"command-button-props.xml", "core-props.xml" })
+public abstract class AbstractCommandButton extends AbstractActionComponent implements MetaComponentResolver, AccesskeyProps, AjaxProps {
     public static final String COMPONENT_TYPE = "org.richfaces.CommandButton";
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
 

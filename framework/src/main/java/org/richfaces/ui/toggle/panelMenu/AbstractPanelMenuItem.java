@@ -40,7 +40,7 @@ import javax.faces.component.UIComponent;
  *
  * @author akolonitsky
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "style-prop.xml", "styleClass-prop.xml", "ajax-props.xml", "bypass-props.xml",
+@JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "style-prop.xml", "styleClass-prop.xml", "bypass-props.xml",
         "events-mouse-props.xml" })
 public abstract class AbstractPanelMenuItem extends AbstractActionComponent implements AjaxProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";

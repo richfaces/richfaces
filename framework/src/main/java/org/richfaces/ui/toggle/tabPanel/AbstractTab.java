@@ -50,7 +50,7 @@ import javax.faces.render.Renderer;
 @JsfComponent(
         tag = @Tag(type = TagType.Facelets), facets = { @Facet(name = "header", generate = false) },
         renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"),
-        attributes = {"core-props.xml", "ajax-props.xml", "bypass-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
+        attributes = {"core-props.xml", "bypass-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
 public abstract class AbstractTab extends AbstractActionComponent implements AbstractTogglePanelTitledItem, AjaxProps, ClientBehaviorHolder {
     public static final String COMPONENT_TYPE = "org.richfaces.Tab";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tab";

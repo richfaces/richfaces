@@ -44,6 +44,7 @@ import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.ui.attribute.AjaxProps;
 import org.richfaces.ui.behavior.ClientBehavior;
 import org.richfaces.util.Sets;
 
@@ -55,8 +56,8 @@ import org.richfaces.util.Sets;
  * @author Anton Belevich
  */
 @JsfBehavior(id = "org.richfaces.behavior.Ajax", tag = @Tag(name = "ajax", handlerClass = AjaxHandler.class, type = TagType.Facelets),
-        attributes = { "ajax-props.xml", "ajaxBehavior-prop.xml" })
-public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
+        attributes = { "ajaxBehavior-prop.xml" })
+public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior, AjaxProps {
     public static final String BEHAVIOR_ID = "org.richfaces.behavior.Ajax";
     private static final Set<ClientBehaviorHint> HINTS = Collections.unmodifiableSet(EnumSet.of(ClientBehaviorHint.SUBMITTING));
 
