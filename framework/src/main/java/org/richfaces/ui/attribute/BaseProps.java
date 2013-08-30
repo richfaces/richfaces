@@ -45,6 +45,6 @@ public interface BaseProps {
     /**
      * An override for the rendered attribute associated with our component.
      */
-    @Attribute(description = @Description("An override for the rendered attribute associated with our component."))
+    @Attribute(description = @Description("An override for the rendered attribute associated with our component."), defaultValue = "true")
     boolean isRendered();
 }
