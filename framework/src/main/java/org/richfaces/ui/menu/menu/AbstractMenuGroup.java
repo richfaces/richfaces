@@ -28,6 +28,7 @@ import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
 
@@ -38,10 +39,11 @@ import javax.faces.component.UIOutput;
  * &lt;r:menuGroup&gt; component can contain a number of &lt;r:menuItem&gt; components, or further nested
  * &lt;r:menuGroup&gt; components.</p>
  */
-@JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuGroup.COMPONENT_TYPE, facets = {
-        @Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) }, renderer = @JsfRenderer(type = MenuGroupRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuGroup"), attributes = {
-        "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "position-props.xml" })
-public abstract class AbstractMenuGroup extends UIOutput {
+@JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuGroup.COMPONENT_TYPE,
+        facets = {@Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) },
+        renderer = @JsfRenderer(type = MenuGroupRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuGroup"),
+        attributes = {"events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "position-props.xml" })
+public abstract class AbstractMenuGroup extends UIOutput implements CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuGroup";
 
     /**
@@ -67,14 +69,6 @@ public abstract class AbstractMenuGroup extends UIOutput {
      */
     @Attribute
     public abstract String getLabel();
-
-    //---------- core-props.xml
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute
-    public abstract String getStyle();
 
     //---------- position-props.xml
 

@@ -31,14 +31,17 @@ import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.attribute.CoreProps;
 
 /**
  * <p> The &lt;r:editor&gt; component is used for creating a WYSIWYG editor on a page. </p>
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-@JsfComponent(type = AbstractEditor.COMPONENT_TYPE, family = AbstractEditor.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.EditorRenderer"), facets = @Facet(name = "config", description = @Description("Detailed configuration of editor in JSON format")), tag = @Tag(name = "editor"), attributes = "core-props.xml")
-public abstract class AbstractEditor extends UIInput {
+@JsfComponent(type = AbstractEditor.COMPONENT_TYPE, family = AbstractEditor.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = "org.richfaces.EditorRenderer"), tag = @Tag(name = "editor"),
+        facets = @Facet(name = "config", description = @Description("Detailed configuration of editor in JSON format")))
+public abstract class AbstractEditor extends UIInput implements CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Editor";
     public static final String COMPONENT_FAMILY = "org.richfaces.Editor";
 

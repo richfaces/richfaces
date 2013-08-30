@@ -27,6 +27,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.toggle.TogglePanelTagHandler;
 import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
 
@@ -39,8 +40,8 @@ import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.AccordionRenderer"), attributes = {"events-mouse-props.xml", "i18n-props.xml", "core-props.xml"})
-public abstract class AbstractAccordion extends AbstractTogglePanel {
+        renderer = @JsfRenderer(type = "org.richfaces.AccordionRenderer"), attributes = {"events-mouse-props.xml", "i18n-props.xml"})
+public abstract class AbstractAccordion extends AbstractTogglePanel implements CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Accordion";
     public static final String COMPONENT_FAMILY = "org.richfaces.Accordion";
 

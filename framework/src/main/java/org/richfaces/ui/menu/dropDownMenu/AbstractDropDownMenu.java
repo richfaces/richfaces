@@ -27,16 +27,18 @@ import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.menu.menu.AbstractMenuContainer;
 
 /**
  * The &lt;r:dropDownMenu&gt; component is used for creating a drop-down, hierarchical menu. It can be used with the
  * &lt;r:toolbar&gt; component to create menus in an application's toolbar.
  */
-@JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractDropDownMenu.COMPONENT_TYPE, facets = {
-        @Facet(name = "label", generate = false), @Facet(name = "labelDisabled", generate = false) }, renderer = @JsfRenderer(type = DropDownMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "dropDownMenu"), attributes = {
-        "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "position-props.xml" })
-public abstract class AbstractDropDownMenu extends AbstractMenuContainer {
+@JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractDropDownMenu.COMPONENT_TYPE,
+        facets = {@Facet(name = "label", generate = false), @Facet(name = "labelDisabled", generate = false) },
+        renderer = @JsfRenderer(type = DropDownMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "dropDownMenu"),
+        attributes = {"events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "position-props.xml" })
+public abstract class AbstractDropDownMenu extends AbstractMenuContainer implements CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.DropDownMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.DropDownMenu";
 

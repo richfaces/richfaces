@@ -34,19 +34,28 @@ public interface CoreProps {
     /**
      * CSS style(s) to be applied when this component is rendered.
      */
-    @Attribute(passThrough = true, description = @Description("CSS style(s) to be applied when this component is rendered."))
+    @Attribute(passThrough = true,
+            description = @Description(
+                    value = "CSS style(s) to be applied when this component is rendered.",
+                    displayName = "CSS Styles"))
     String getStyle();
 
     /**
      * Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed
      * through as the "class" attribute on generated markup.
      */
-    @Attribute(passThrough = false, description = @Description("Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the \"class\" attribute on generated markup."))
+    @Attribute(passThrough = false,
+            description = @Description(
+                    value = "Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the \"class\" attribute on generated markup.",
+                displayName = "CSS Style Classes"))
     String getStyleClass();
 
     /**
      * Advisory title information about markup elements generated for this component.
      */
-    @Attribute(passThrough = true, description = @Description("Advisory title information about markup elements generated for this component."))
+    @Attribute(passThrough = true,
+            description = @Description(
+                    value = "Advisory title information about markup elements generated for this component.",
+                    displayName = "Advisory Title"))
     String getTitle();
 }

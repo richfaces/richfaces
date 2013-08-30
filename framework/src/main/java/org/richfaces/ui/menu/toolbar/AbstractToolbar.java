@@ -26,6 +26,7 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.attribute.CoreProps;
 
 import javax.faces.component.UIComponentBase;
 
@@ -33,8 +34,9 @@ import javax.faces.component.UIComponentBase;
  * <p>The &lt;r:toolbar&gt; component is a horizontal toolbar. Any JavaServer Faces (JSF) component can be added to the
  * toolbar.</p>
  */
-@JsfComponent(family = AbstractToolbar.COMPONENT_FAMILY, type = AbstractToolbar.COMPONENT_TYPE, renderer = @JsfRenderer(type = ToolbarRendererBase.RENDERER_TYPE), tag = @Tag(name = "toolbar"), attributes = { "core-props.xml" })
-public abstract class AbstractToolbar extends UIComponentBase {
+@JsfComponent(family = AbstractToolbar.COMPONENT_FAMILY, type = AbstractToolbar.COMPONENT_TYPE,
+        renderer = @JsfRenderer(type = ToolbarRendererBase.RENDERER_TYPE), tag = @Tag(name = "toolbar"))
+public abstract class AbstractToolbar extends UIComponentBase implements CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Toolbar";
     public static final String COMPONENT_FAMILY = "org.richfaces.Toolbar";
 

@@ -61,6 +61,7 @@ import org.richfaces.l10n.MessageFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
+import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.common.AbstractDivPanel;
 import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
@@ -90,10 +91,10 @@ import com.google.common.base.Strings;
  * @author akolonitsky
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"), attributes = {
-        "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
-public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource,
-        MetaComponentResolver, MetaComponentEncoder {
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class),
+        renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"),
+        attributes = {"events-mouse-props.xml", "i18n-props.xml" })
+public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource, MetaComponentResolver, MetaComponentEncoder, CoreProps {
     public static final String ACTIVE_ITEM_META_COMPONENT = "activeItem";
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanel";

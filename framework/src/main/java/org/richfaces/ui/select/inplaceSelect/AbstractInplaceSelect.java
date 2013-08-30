@@ -26,6 +26,7 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.common.InplaceComponent;
 import org.richfaces.ui.common.InplaceState;
 import org.richfaces.ui.select.AbstractSelectComponent;
@@ -41,8 +42,8 @@ import org.richfaces.ui.select.AbstractSelectComponent;
  */
 @JsfComponent(type = AbstractInplaceSelect.COMPONENT_TYPE, family = AbstractInplaceSelect.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"), tag = @Tag(name = "inplaceSelect"),
-        attributes = {"core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "focus-props.xml", "select-props.xml"})
-public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent {
+        attributes = {"events-mouse-props.xml", "events-key-props.xml", "focus-props.xml", "select-props.xml"})
+public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent, CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceSelect";
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
 

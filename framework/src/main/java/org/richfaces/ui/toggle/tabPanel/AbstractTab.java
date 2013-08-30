@@ -29,6 +29,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.attribute.AjaxProps;
 import org.richfaces.ui.attribute.BypassProps;
+import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.common.AbstractActionComponent;
 import org.richfaces.ui.common.ComponentIterators;
 import org.richfaces.ui.common.DivPanelRenderer;
@@ -51,8 +52,8 @@ import javax.faces.render.Renderer;
 @JsfComponent(
         tag = @Tag(type = TagType.Facelets), facets = { @Facet(name = "header", generate = false) },
         renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"),
-        attributes = {"core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
-public abstract class AbstractTab extends AbstractActionComponent implements AbstractTogglePanelTitledItem, ClientBehaviorHolder, AjaxProps, BypassProps {
+        attributes = {"events-mouse-props.xml", "i18n-props.xml" })
+public abstract class AbstractTab extends AbstractActionComponent implements AbstractTogglePanelTitledItem, ClientBehaviorHolder, AjaxProps, BypassProps, CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Tab";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tab";
 

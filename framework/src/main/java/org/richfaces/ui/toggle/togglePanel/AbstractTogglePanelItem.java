@@ -28,6 +28,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.common.ComponentIterators;
 import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.toggle.AbstractTogglePanelItemInterface;
@@ -40,9 +41,10 @@ import org.richfaces.ui.toggle.AbstractTogglePanelItemInterface;
  * @author akolonitsky
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"), attributes = {
-        "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
-public abstract class AbstractTogglePanelItem extends UIOutput implements AbstractTogglePanelItemInterface {
+@JsfComponent(tag = @Tag(type = TagType.Facelets),
+        renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"),
+        attributes = {"events-mouse-props.xml", "i18n-props.xml" })
+public abstract class AbstractTogglePanelItem extends UIOutput implements AbstractTogglePanelItemInterface, CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelItem";
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelItem";
     public static final String NAME = "name";

@@ -28,6 +28,7 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.common.InplaceComponent;
 import org.richfaces.ui.common.InplaceState;
 
@@ -42,8 +43,8 @@ import org.richfaces.ui.common.InplaceState;
  */
 @JsfComponent(type = AbstractInplaceInput.COMPONENT_TYPE, family = AbstractInplaceInput.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"), tag = @Tag(name = "inplaceInput"),
-        attributes = {"core-props.xml", "focus-props.xml", "events-key-props.xml", "events-mouse-props.xml"})
-public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent {
+        attributes = {"focus-props.xml", "events-key-props.xml", "events-mouse-props.xml"})
+public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent, CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceInput";
     public static final String COMPONENT_FAMILY = "org.richfaces.InplaceInput";
 

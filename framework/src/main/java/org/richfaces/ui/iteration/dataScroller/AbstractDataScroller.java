@@ -45,6 +45,7 @@ import org.richfaces.l10n.FacesMessages;
 import org.richfaces.l10n.MessageFactory;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.attribute.AjaxProps;
+import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.ui.iteration.IterationStateHolder;
 import org.richfaces.ui.iteration.UIDataTableBase;
@@ -55,9 +56,8 @@ import org.richfaces.util.MessageUtil;
  */
 @JsfComponent(type = AbstractDataScroller.COMPONENT_TYPE, family = AbstractDataScroller.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"),
-        tag = @Tag(name = "dataScroller", handlerClass = DataScrollerHandler.class, type = TagType.Facelets),
-        attributes = {"core-props.xml" })
-public abstract class AbstractDataScroller extends UIComponentBase implements DataScrollSource, IterationStateHolder, AjaxProps {
+        tag = @Tag(name = "dataScroller", handlerClass = DataScrollerHandler.class, type = TagType.Facelets) )
+public abstract class AbstractDataScroller extends UIComponentBase implements DataScrollSource, IterationStateHolder, AjaxProps, CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.DataScroller";
     public static final String COMPONENT_FAMILY = "org.richfaces.DataScroller";
     public static final String SCROLLER_STATE_ATTRIBUTE = COMPONENT_TYPE + ":page";

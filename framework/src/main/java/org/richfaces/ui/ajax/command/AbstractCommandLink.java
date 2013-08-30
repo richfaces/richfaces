@@ -33,6 +33,7 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.ajax.region.AjaxContainer;
 import org.richfaces.ui.attribute.AccesskeyProps;
 import org.richfaces.ui.attribute.AjaxProps;
+import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.common.AbstractActionComponent;
 import org.richfaces.ui.common.AjaxConstants;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
@@ -45,8 +46,8 @@ import org.richfaces.ui.common.meta.MetaComponentResolver;
  * @author Nick Belaevski
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandLinkRenderer"), tag = @Tag(type = TagType.Facelets),
-        attributes = {"commandLink-target-prop.xml", "link-props.xml", "core-props.xml"})
-public abstract class AbstractCommandLink extends AbstractActionComponent implements MetaComponentResolver, AccesskeyProps, AjaxProps {
+        attributes = {"commandLink-target-prop.xml", "link-props.xml"})
+public abstract class AbstractCommandLink extends AbstractActionComponent implements MetaComponentResolver, AccesskeyProps, AjaxProps, CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.CommandLink";
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
 

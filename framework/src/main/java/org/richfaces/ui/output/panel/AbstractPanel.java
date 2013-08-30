@@ -26,15 +26,16 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.ui.attribute.CoreProps;
 
 import javax.faces.component.UIComponentBase;
 
 /**
  * <p>The &lt;r:panel&gt; component is a bordered panel with an optional header.</p>
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PanelRenderer"), attributes = {
-        "core-props.xml", "events-mouse-props.xml", "events-key-props.xml" })
-public abstract class AbstractPanel extends UIComponentBase {
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PanelRenderer"),
+        attributes = {"events-mouse-props.xml", "events-key-props.xml" })
+public abstract class AbstractPanel extends UIComponentBase implements CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Panel";
     public static final String COMPONENT_FAMILY = "org.richfaces.Panel";
 

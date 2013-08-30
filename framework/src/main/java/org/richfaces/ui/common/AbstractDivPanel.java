@@ -23,29 +23,20 @@ package org.richfaces.ui.common;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.ui.attribute.CoreProps;
 
 /**
  * @author akolonitsky
  * @version 1.0
  *
  */
-public interface AbstractDivPanel {
+public interface AbstractDivPanel extends CoreProps {
     // -------- i18n-props.xml
     @Attribute
     String getLang();
 
     @Attribute
     String getDir();
-
-    // -------- core-props.xml
-    @Attribute
-    String getTitle();
-
-    @Attribute
-    String getStyle();
-
-    @Attribute
-    String getStyleClass();
 
     // -------- events-mouse-props.xml
     @Attribute(events = @EventName("click"))

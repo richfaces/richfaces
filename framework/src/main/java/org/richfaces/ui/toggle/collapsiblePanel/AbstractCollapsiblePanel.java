@@ -34,6 +34,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.toggle.ItemChangeEvent;
 import org.richfaces.ui.toggle.PanelToggleEvent;
 import org.richfaces.ui.toggle.PanelToggleListener;
@@ -48,8 +49,8 @@ import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = CollapsiblePanelTagHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"), attributes = {"core-props.xml", "events-mouse-props.xml", "i18n-props.xml"})
-public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource {
+        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"), attributes = {"events-mouse-props.xml", "i18n-props.xml"})
+public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource, CoreProps {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsiblePanel";
 
@@ -204,17 +205,6 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
 
     @Attribute
     public abstract String getDir();
-
-    // ---------------- core-props.xml
-
-    @Attribute
-    public abstract String getTitle();
-
-    @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
 
     // ---------------- events-mouse-props.xml
 
