@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.input.inputNumberSlider;
+package org.richfaces.ui.input.inputNumberSpinner;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -29,6 +29,7 @@ import org.richfaces.cdk.annotations.RendererSpecificComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.attribute.AccesskeyProps;
 import org.richfaces.ui.input.AbstractInputNumber;
+import org.richfaces.ui.input.inputNumberSlider.InputNumberSliderInputPosition;
 
 /**
  * <p> The &amp;lt;r:inputNumberSpinner&amp;gt; component is a single-line input field with buttons to increase and decrease a numerical value.
