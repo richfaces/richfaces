@@ -119,13 +119,13 @@ public abstract class AbstractInputNumberSpinner extends AbstractInputNumber imp
      * The client-side script method to be called when the component input field is clicked
      */
     @Attribute(events = @EventName("inputclick"))
-    public abstract String getInputclick();
+    public abstract String getOninputclick();
 
     /**
      * The client-side script method to be called when the component input field is double-clicked
      */
     @Attribute(events = @EventName("inputdblclick"))
-    public abstract String getInputdblclick();
+    public abstract String getOninputdblclick();
 
     /**
      * The client-side script method to be called when a key is pressed down in the input field
