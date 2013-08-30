@@ -70,6 +70,9 @@ import org.richfaces.model.TreeNode;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.attribute.AjaxProps;
 import org.richfaces.ui.attribute.CoreProps;
+import org.richfaces.ui.attribute.EventsKeyProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.I18nProps;
 import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
@@ -94,9 +97,9 @@ import com.google.common.collect.Maps;
 @JsfComponent(type = AbstractTree.COMPONENT_TYPE, family = AbstractTree.COMPONENT_FAMILY,
         tag = @Tag(name = "tree", handlerClass = TreeHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"),
-        attributes = {"events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "tree-common-props.xml", "tree-props.xml", "sequence-props.xml", "immediate-prop.xml" })
+        attributes = {"tree-common-props.xml", "tree-props.xml", "sequence-props.xml", "immediate-prop.xml"})
 // TODO add rowData caching for wrapper events
-public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder, TreeSelectionChangeSource, TreeToggleSource, AjaxProps, CoreProps {
+public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder, TreeSelectionChangeSource, TreeToggleSource, AjaxProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Tree";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tree";
     public static final String SELECTION_META_COMPONENT_ID = "selection";

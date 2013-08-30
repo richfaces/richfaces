@@ -30,6 +30,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.attribute.AjaxProps;
 import org.richfaces.ui.attribute.BypassProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.common.AbstractActionComponent;
 import org.richfaces.ui.common.ComponentIterators;
 
@@ -41,9 +42,8 @@ import javax.faces.component.UIComponent;
  *
  * @author akolonitsky
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "style-prop.xml", "styleClass-prop.xml",
-        "events-mouse-props.xml" })
-public abstract class AbstractPanelMenuItem extends AbstractActionComponent implements AjaxProps, BypassProps {
+@JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "style-prop.xml", "styleClass-prop.xml" })
+public abstract class AbstractPanelMenuItem extends AbstractActionComponent implements AjaxProps, BypassProps, EventsMouseProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuItem";
     private static final ParentItemPredicate PARENT_ITEM_PREDICATE = new ParentItemPredicate();

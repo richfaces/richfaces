@@ -21,15 +21,17 @@
  */
 package org.richfaces.ui.message.notify;
 
-import javax.faces.component.UIComponentBase;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.attribute.EventsKeyProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.message.NotifyAttributes;
+
+import javax.faces.component.UIComponentBase;
 
 /**
  * <p>
@@ -41,11 +43,12 @@ import org.richfaces.ui.message.NotifyAttributes;
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"), attributes = {
-        "styleClass-prop.xml", "events-mouse-props.xml", "events-key-props.xml" }, facets = {
-        @Facet(name = "summary", description = @Description("Summary of the notification message")),
-        @Facet(name = "detail", description = @Description("Detail of the notification message")) })
-public abstract class AbstractNotify extends UIComponentBase implements NotifyAttributes {
+@JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"), attributes = {"styleClass-prop.xml"},
+        facets = {
+            @Facet(name = "summary", description = @Description("Summary of the notification message")),
+            @Facet(name = "detail", description = @Description("Detail of the notification message")) })
+public abstract class AbstractNotify extends UIComponentBase implements NotifyAttributes, EventsKeyProps, EventsMouseProps {
 
     public static final String COMPONENT_FAMILY = "org.richfaces.Notify";
     public static final String COMPONENT_TYPE = "org.richfaces.Notify";

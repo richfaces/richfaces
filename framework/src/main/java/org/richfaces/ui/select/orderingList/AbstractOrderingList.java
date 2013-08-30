@@ -27,6 +27,8 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.ui.attribute.EventsKeyProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.select.AbstractOrderingComponent;
 import org.richfaces.ui.select.SelectItemsInterface;
 
@@ -36,8 +38,8 @@ import org.richfaces.ui.select.SelectItemsInterface;
  */
 @JsfComponent(type = AbstractOrderingList.COMPONENT_TYPE, family = AbstractOrderingList.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.OrderingListRenderer"), tag = @Tag(name = "orderingList"),
-        attributes = {"events-mouse-props.xml", "events-key-props.xml", "multiselect-props.xml"})
-public abstract class AbstractOrderingList extends AbstractOrderingComponent implements SelectItemsInterface {
+        attributes = {"multiselect-props.xml"})
+public abstract class AbstractOrderingList extends AbstractOrderingComponent implements SelectItemsInterface, EventsKeyProps, EventsMouseProps {
     public static final String COMPONENT_TYPE = "org.richfaces.OrderingList";
     public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 

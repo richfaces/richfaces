@@ -25,6 +25,8 @@ import com.google.common.collect.Iterators;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.ui.attribute.EventsKeyProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UISelectItems;
@@ -37,7 +39,7 @@ import java.util.Iterator;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  *
  */
-public abstract class AbstractSelectManyComponent extends UISelectMany {
+public abstract class AbstractSelectManyComponent extends UISelectMany implements EventsKeyProps, EventsMouseProps {
 
     public Iterator<UIColumn> columns() {
         return Iterators.filter(getChildren().iterator(), UIColumn.class);
@@ -110,40 +112,6 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
      */
     @Attribute(events = @EventName("blur"))
     public abstract String getOnblur();
-
-    //---------- events-key-props.xml
-
-    @Attribute(events = @EventName("keydown"))
-    public abstract String getOnkeydown();
-
-    @Attribute(events = @EventName("keypress"))
-    public abstract String getOnkeypress();
-
-    @Attribute(events = @EventName("keyup"))
-    public abstract String getOnkeyup();
-
-    //---------- events-mouse-props.xml
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
 
     /**
      * Override the validateValue of SelectMany in cases where the component implements SelectItemsInterface

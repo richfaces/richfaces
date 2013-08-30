@@ -32,10 +32,6 @@
         <cdk:superclass>org.richfaces.ui.iteration.tree.TreeNodeRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.TreeNode</cdk:component-family>
         <cdk:renderer-type>org.richfaces.TreeNodeRenderer</cdk:renderer-type>
-
-        <cdk:import-attributes src="urn:attributes:events-mouse-props.xml" />
-        <cdk:import-attributes src="urn:attributes:events-key-props.xml" />
-        <cdk:import-attributes src="urn:attributes:i18n-props.xml" />
     </cc:interface>
 
     <cc:implementation>

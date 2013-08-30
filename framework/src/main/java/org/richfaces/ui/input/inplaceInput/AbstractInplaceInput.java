@@ -29,6 +29,8 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.attribute.CoreProps;
+import org.richfaces.ui.attribute.EventsKeyProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.common.InplaceComponent;
 import org.richfaces.ui.common.InplaceState;
 
@@ -43,8 +45,8 @@ import org.richfaces.ui.common.InplaceState;
  */
 @JsfComponent(type = AbstractInplaceInput.COMPONENT_TYPE, family = AbstractInplaceInput.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"), tag = @Tag(name = "inplaceInput"),
-        attributes = {"focus-props.xml", "events-key-props.xml", "events-mouse-props.xml"})
-public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent, CoreProps {
+        attributes = {"focus-props.xml"})
+public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent, CoreProps, EventsKeyProps, EventsMouseProps {
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceInput";
     public static final String COMPONENT_FAMILY = "org.richfaces.InplaceInput";
 
@@ -109,40 +111,6 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
      */
     @Attribute
     public abstract String getDisabledClass();
-
-    //--------- events-key-props.xml
-
-    @Attribute(events = @EventName("keydown"))
-    public abstract String getOnkeydown();
-
-    @Attribute(events = @EventName("keypress"))
-    public abstract String getOnkeypress();
-
-    @Attribute(events = @EventName("keyup"))
-    public abstract String getOnkeyup();
-
-    //--------- events-mouse-props.xml
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("ondblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
 
     /**
      * The client-side script method to be called when

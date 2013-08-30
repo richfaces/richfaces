@@ -39,10 +39,6 @@
         <cdk:resource-dependency library = "org.richfaces" name = "iteration/tree/tree.js" />
         <cdk:resource-dependency library = "org.richfaces" name = "iteration/tree/tree.ecss" />
 
-        <cdk:import-attributes src="urn:attributes:events-mouse-props.xml" />
-        <cdk:import-attributes src="urn:attributes:events-key-props.xml" />
-        <cdk:import-attributes src="urn:attributes:i18n-props.xml" />
-
         <cdk:import package="org.richfaces.ui.common" names="SwitchType" />
     </cc:interface>
 

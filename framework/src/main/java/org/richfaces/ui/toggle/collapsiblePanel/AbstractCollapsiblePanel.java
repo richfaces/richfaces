@@ -35,6 +35,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.attribute.CoreProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.I18nProps;
 import org.richfaces.ui.toggle.ItemChangeEvent;
 import org.richfaces.ui.toggle.PanelToggleEvent;
 import org.richfaces.ui.toggle.PanelToggleListener;
@@ -49,8 +51,8 @@ import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = CollapsiblePanelTagHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"), attributes = {"events-mouse-props.xml", "i18n-props.xml"})
-public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource, CoreProps {
+        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer") )
+public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource, CoreProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsiblePanel";
 
@@ -197,37 +199,6 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
 
     @Attribute(events = @EventName("itemchange"), hidden = true)
     public abstract String getOnitemchange();
-
-    // ---------------- i18ln-props.xml
-
-    @Attribute
-    public abstract String getLang();
-
-    @Attribute
-    public abstract String getDir();
-
-    // ---------------- events-mouse-props.xml
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
 
     // ------------------------------------------------ Event Processing Methods
 

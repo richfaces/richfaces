@@ -30,6 +30,9 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.attribute.AjaxProps;
 import org.richfaces.ui.attribute.BypassProps;
 import org.richfaces.ui.attribute.CoreProps;
+import org.richfaces.ui.attribute.EventsKeyProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.I18nProps;
 import org.richfaces.ui.common.AbstractActionComponent;
 import org.richfaces.ui.common.Mode;
 import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
@@ -40,9 +43,8 @@ import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
  */
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuItem.COMPONENT_TYPE,
         facets = {@Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) },
-        renderer = @JsfRenderer(type = MenuItemRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuItem"),
-        attributes = {"events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml" })
-public abstract class AbstractMenuItem extends AbstractActionComponent implements AjaxProps, BypassProps, CoreProps {
+        renderer = @JsfRenderer(type = MenuItemRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuItem"))
+public abstract class AbstractMenuItem extends AbstractActionComponent implements AjaxProps, BypassProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuItem";
     public static final String CSS_ROOT_DEFAULT = "ddm";
 

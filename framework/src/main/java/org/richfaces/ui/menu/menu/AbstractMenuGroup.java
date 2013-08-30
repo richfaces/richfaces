@@ -29,6 +29,9 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.attribute.CoreProps;
+import org.richfaces.ui.attribute.EventsKeyProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.I18nProps;
 import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
 
@@ -42,8 +45,8 @@ import javax.faces.component.UIOutput;
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuGroup.COMPONENT_TYPE,
         facets = {@Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) },
         renderer = @JsfRenderer(type = MenuGroupRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuGroup"),
-        attributes = {"events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "position-props.xml" })
-public abstract class AbstractMenuGroup extends UIOutput implements CoreProps {
+        attributes = {"position-props.xml" })
+public abstract class AbstractMenuGroup extends UIOutput implements CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuGroup";
 
     /**

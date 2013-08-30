@@ -24,39 +24,12 @@ package org.richfaces.ui.common;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.ui.attribute.CoreProps;
+import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.I18nProps;
 
 /**
  * @author akolonitsky
  * @version 1.0
  *
  */
-public interface AbstractDivPanel extends CoreProps {
-    // -------- i18n-props.xml
-    @Attribute
-    String getLang();
-
-    @Attribute
-    String getDir();
-
-    // -------- events-mouse-props.xml
-    @Attribute(events = @EventName("click"))
-    String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    String getOnmouseup();
-}
+public interface AbstractDivPanel extends CoreProps, EventsMouseProps, I18nProps {}

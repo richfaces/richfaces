@@ -26,38 +26,26 @@ import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 
 /**
- * Interface defining the methods for events-key-props.xml
+ * Interface defining the methods for i18n-props.xml
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public interface EventsKeyProps {
+public interface I18nProps {
     /**
-     * Javascript code executed when a key is pressed and released over this element.
+     * Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).
      */
-    @Attribute(events = @EventName(value = "onkeypress"),
-            passThrough = true,
+    @Attribute(passThrough = true,
             description = @Description(
-                    value = "Javascript code executed when a key is pressed and released over this element.",
-                    displayName = "Key Press Script"))
-    String getOnkeypress();
+                    value = "Direction indication for text that does not inherit directionality. Valid values are \"LTR\" (left-to-right) and \"RTL\" (right-to-left).",
+                    displayName = "Direction"))
+    String getDir();
 
     /**
-     * Javascript code executed when a key is pressed down over this element.
+     * Code describing the language used in the generated markup for this component.
      */
-    @Attribute(events = @EventName(value = "onkeydown"),
-            passThrough = true,
+    @Attribute(passThrough = true,
             description = @Description(
-                    value = "Javascript code executed when a key is pressed down over this element.",
-                    displayName = "Key Down Script"))
-    String getOnkeydown();
-
-    /**
-     * Javascript code executed when a key is released over this element.
-     */
-    @Attribute(events = @EventName(value = "onkeyup"),
-            passThrough = true,
-            description = @Description(
-                    value = "Javascript code executed when a key is released over this element.",
-                    displayName = "Key Up Script"))
-    String getOnkeyup();
+                    value = "Code describing the language used in the generated markup for this component.",
+                    displayName = "Language Code"))
+    String getLang();
 }
