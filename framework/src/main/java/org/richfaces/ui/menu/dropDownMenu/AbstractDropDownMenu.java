@@ -31,6 +31,7 @@ import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.I18nProps;
+import org.richfaces.ui.attribute.PositionProps;
 import org.richfaces.ui.menu.menu.AbstractMenuContainer;
 
 /**
@@ -39,9 +40,8 @@ import org.richfaces.ui.menu.menu.AbstractMenuContainer;
  */
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractDropDownMenu.COMPONENT_TYPE,
         facets = {@Facet(name = "label", generate = false), @Facet(name = "labelDisabled", generate = false) },
-        renderer = @JsfRenderer(type = DropDownMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "dropDownMenu"),
-        attributes = {"position-props.xml" })
-public abstract class AbstractDropDownMenu extends AbstractMenuContainer implements CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
+        renderer = @JsfRenderer(type = DropDownMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "dropDownMenu"))
+public abstract class AbstractDropDownMenu extends AbstractMenuContainer implements CoreProps, EventsKeyProps, EventsMouseProps, I18nProps, PositionProps {
     public static final String COMPONENT_TYPE = "org.richfaces.DropDownMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.DropDownMenu";
 

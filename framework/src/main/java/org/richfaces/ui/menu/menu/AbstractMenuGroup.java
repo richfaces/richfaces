@@ -32,6 +32,7 @@ import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.I18nProps;
+import org.richfaces.ui.attribute.PositionProps;
 import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
 
@@ -44,9 +45,8 @@ import javax.faces.component.UIOutput;
  */
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuGroup.COMPONENT_TYPE,
         facets = {@Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) },
-        renderer = @JsfRenderer(type = MenuGroupRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuGroup"),
-        attributes = {"position-props.xml" })
-public abstract class AbstractMenuGroup extends UIOutput implements CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
+        renderer = @JsfRenderer(type = MenuGroupRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuGroup"))
+public abstract class AbstractMenuGroup extends UIOutput implements CoreProps, EventsKeyProps, EventsMouseProps, I18nProps, PositionProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuGroup";
 
     /**
@@ -72,21 +72,6 @@ public abstract class AbstractMenuGroup extends UIOutput implements CoreProps, E
      */
     @Attribute
     public abstract String getLabel();
-
-    //---------- position-props.xml
-
-    @Attribute
-    public abstract Positioning getDirection();
-
-    // TODO is it correct or cdk issue
-    @Attribute
-    public abstract Positioning getJointPoint();
-
-    @Attribute
-    public abstract int getVerticalOffset();
-
-    @Attribute
-    public abstract int getHorizontalOffset();
 
     /**
      * The client-side script method to be called when this menuGroup is shown

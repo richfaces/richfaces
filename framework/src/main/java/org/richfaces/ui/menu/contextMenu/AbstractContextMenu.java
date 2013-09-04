@@ -29,6 +29,7 @@ import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.I18nProps;
+import org.richfaces.ui.attribute.PositionProps;
 import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.menu.menu.AbstractMenuContainer;
 
@@ -40,9 +41,8 @@ import org.richfaces.ui.menu.menu.AbstractMenuContainer;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(family = AbstractContextMenu.COMPONENT_FAMILY, type = AbstractContextMenu.COMPONENT_TYPE,
-        renderer = @JsfRenderer(type = ContextMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "contextMenu"),
-        attributes = {"position-props.xml" })
-public abstract class AbstractContextMenu extends AbstractMenuContainer implements CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
+        renderer = @JsfRenderer(type = ContextMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "contextMenu"))
+public abstract class AbstractContextMenu extends AbstractMenuContainer implements CoreProps, EventsKeyProps, EventsMouseProps, I18nProps, PositionProps {
     public static final String COMPONENT_TYPE = "org.richfaces.ContextMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.ContextMenu";
 

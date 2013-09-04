@@ -36,6 +36,7 @@ import org.richfaces.ui.attribute.EventsPopupsBeforeProps;
 import org.richfaces.ui.attribute.EventsPopupsProps;
 import org.richfaces.ui.attribute.I18nProps;
 import org.richfaces.ui.attribute.PopupsProps;
+import org.richfaces.ui.attribute.PositionProps;
 import org.richfaces.ui.common.AbstractDivPanel;
 import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
@@ -58,8 +59,8 @@ import java.io.IOException;
  * @author amarkhel
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"),
-        attributes = { "tooltip-props.xml", "position-props.xml" })
-public abstract class AbstractTooltip extends UIOutput implements AbstractDivPanel, MetaComponentResolver, MetaComponentEncoder, AjaxProps, CoreProps, EventsMouseProps, EventsPopupsProps, EventsPopupsBeforeProps, I18nProps, PopupsProps {
+        attributes = { "tooltip-props.xml" })
+public abstract class AbstractTooltip extends UIOutput implements AbstractDivPanel, MetaComponentResolver, MetaComponentEncoder, AjaxProps, CoreProps, EventsMouseProps, EventsPopupsProps, EventsPopupsBeforeProps, I18nProps, PopupsProps, PositionProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Tooltip";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tooltip";
     public static final String CONTENT_META_COMPONENT_ID = "content";
