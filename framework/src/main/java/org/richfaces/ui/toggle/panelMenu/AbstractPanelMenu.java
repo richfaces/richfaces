@@ -37,6 +37,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.ImmediateProps;
 import org.richfaces.ui.common.PanelIcons;
 import org.richfaces.ui.toggle.ItemChangeEvent;
 import org.richfaces.ui.toggle.ItemChangeListener;
@@ -51,8 +52,8 @@ import org.richfaces.ui.toggle.ItemChangeSource;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = PanelMenuTagHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.PanelMenuRenderer"),
-        attributes = {"style-prop.xml", "styleClass-prop.xml", "immediate-prop.xml" })
-public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSource, EventsMouseProps {
+        attributes = {"style-prop.xml", "styleClass-prop.xml" })
+public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSource, EventsMouseProps, ImmediateProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenu";
     private String submittedActiveItem;

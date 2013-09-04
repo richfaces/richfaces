@@ -58,6 +58,7 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.ajax.ajax.AjaxBehavior;
+import org.richfaces.ui.attribute.ImmediateProps;
 import org.richfaces.ui.behavior.AnonymousFunctionCall;
 import org.richfaces.ui.behavior.ConverterNotFoundException;
 import org.richfaces.ui.message.ClientSideMessage;
@@ -82,8 +83,8 @@ import com.google.common.collect.Lists;
  * @author asmirnov@exadel.com
  */
 @JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handlerClass = ClientValidatorHandler.class, type = TagType.Facelets), attributes = {
-        "validator-props.xml", "immediate-prop.xml" })
-public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior {
+        "validator-props.xml" })
+public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior, ImmediateProps {
     private static final Set<String> NONE = Collections.emptySet();
     private static final Set<String> THIS = Collections.singleton("@this");
     private static final Class<?>[] EMPTY_GROUPS = new Class<?>[0];

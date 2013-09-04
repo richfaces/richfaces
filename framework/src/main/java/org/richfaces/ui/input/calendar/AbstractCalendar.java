@@ -56,7 +56,7 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.CalendarDataModel;
 import org.richfaces.model.CalendarDataModelItem;
-import org.richfaces.ui.attribute.EventsPopupProps;
+import org.richfaces.ui.attribute.EventsPopupsProps;
 import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
@@ -71,7 +71,7 @@ import org.richfaces.ui.common.meta.MetaComponentResolver;
  */
 @JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), attributes = {
         "position-props.xml", "popups-props.xml" }, tag = @Tag(name = "calendar", handlerClass = CalendarHandler.class))
-public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder, EventsPopupProps {
+public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder, EventsPopupsProps {
     public static final String DAYSDATA_META_COMPONENT_ID = "daysData";
     public static final String COMPONENT_TYPE = "org.richfaces.Calendar";
     public static final String COMPONENT_FAMILY = "org.richfaces.Calendar";

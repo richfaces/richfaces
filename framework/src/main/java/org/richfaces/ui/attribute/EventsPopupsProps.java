@@ -26,11 +26,11 @@ import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 
 /**
- * Interface defining the methods for events-popup-props.xml
+ * Interface defining the methods for events-popups-props.xml
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public interface EventsPopupProps {
+public interface EventsPopupsProps {
     /**
      * The client-side code executed after the popup disappears.
      */
