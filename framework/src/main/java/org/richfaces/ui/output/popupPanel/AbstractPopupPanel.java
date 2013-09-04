@@ -29,6 +29,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.attribute.EventsPopupsBeforeProps;
 import org.richfaces.ui.attribute.EventsPopupsProps;
+import org.richfaces.ui.attribute.PopupsProps;
 
 import javax.faces.component.UIComponentBase;
 
@@ -38,9 +39,10 @@ import javax.faces.component.UIComponentBase;
  * the rest of the application while active, or as a non-modal window. It can be positioned on the screen, dragged to a
  * new position by the user, and re-sized.</p>
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PopupPanelRenderer"), attributes = {
-        "style-prop.xml", "styleClass-prop.xml", "popups-props.xml" })
-public abstract class AbstractPopupPanel extends UIComponentBase implements EventsPopupsProps, EventsPopupsBeforeProps {
+@JsfComponent(tag = @Tag(type = TagType.Facelets),
+        renderer = @JsfRenderer(type = "org.richfaces.PopupPanelRenderer"),
+        attributes = { "style-prop.xml", "styleClass-prop.xml" })
+public abstract class AbstractPopupPanel extends UIComponentBase implements EventsPopupsProps, EventsPopupsBeforeProps, PopupsProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PopupPanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.PopupPanel";
 
