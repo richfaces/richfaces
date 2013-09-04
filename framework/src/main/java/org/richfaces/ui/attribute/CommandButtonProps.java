@@ -46,8 +46,7 @@ public interface CommandButtonProps extends EventsMouseProps, EventsKeyProps {
     @Attribute(events = { @EventName(value = "click", defaultEvent = true), @EventName(value = "action") },
             description = @Description(
                     value = "Javascript code executed when a pointer button is clicked over this element.",
-                    displayName = "Button Click Script"),
-            defaultBehavior = false)
+                    displayName = "Button Click Script"))
     String getOnclick();
 
     /**
