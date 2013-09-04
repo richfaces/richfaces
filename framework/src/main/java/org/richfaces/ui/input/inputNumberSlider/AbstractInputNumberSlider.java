@@ -30,6 +30,7 @@ import org.richfaces.ui.attribute.BaseProps;
 import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.FocusProps;
 import org.richfaces.ui.attribute.I18nProps;
 import org.richfaces.ui.input.AbstractInputNumber;
 
@@ -44,9 +45,9 @@ import org.richfaces.ui.input.AbstractInputNumber;
         type = AbstractInputNumberSlider.COMPONENT_TYPE,
         family = AbstractInputNumberSlider.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InputNumberSliderRenderer"),
-        attributes = {"input-props.xml", "focus-props.xml" },
+        attributes = {"input-props.xml"},
         tag = @Tag(name = "inputNumberSlider"))
-public abstract class AbstractInputNumberSlider extends AbstractInputNumber implements AccesskeyProps, BaseProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
+public abstract class AbstractInputNumberSlider extends AbstractInputNumber implements AccesskeyProps, BaseProps, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.InputNumberSlider";
     public static final String COMPONENT_FAMILY = "javax.faces.Input";
 

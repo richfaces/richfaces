@@ -31,6 +31,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.FocusProps;
 import org.richfaces.ui.common.InplaceComponent;
 import org.richfaces.ui.common.InplaceState;
 
@@ -44,9 +45,8 @@ import org.richfaces.ui.common.InplaceState;
  * @author Anton Belevich
  */
 @JsfComponent(type = AbstractInplaceInput.COMPONENT_TYPE, family = AbstractInplaceInput.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"), tag = @Tag(name = "inplaceInput"),
-        attributes = {"focus-props.xml"})
-public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent, CoreProps, EventsKeyProps, EventsMouseProps {
+        renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"), tag = @Tag(name = "inplaceInput"))
+public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps {
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceInput";
     public static final String COMPONENT_FAMILY = "org.richfaces.InplaceInput";
 
@@ -86,10 +86,6 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
      */
     @Attribute
     public abstract String getInputWidth();
-
-    //--------- focus-props.xml
-    @Attribute
-    public abstract String getTabindex();
 
     /**
      * Space-separated list of CSS style class(es) to be applied when this element is active. This value must be
@@ -183,14 +179,6 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
      */
     @Attribute(events = @EventName(value = "change", defaultEvent = true))
     public abstract String getOnchange();
-
-    //--------- focus-props.xml
-
-    @Attribute(events = @EventName("focus"))
-    public abstract String getOnfocus();
-
-    @Attribute(events = @EventName("blur"))
-    public abstract String getOnblur();
 
     //---------
 

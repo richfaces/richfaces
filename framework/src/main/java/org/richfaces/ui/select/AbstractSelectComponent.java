@@ -25,13 +25,14 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.FocusProps;
 
 import javax.faces.component.UISelectOne;
 
 /**
  * @author abelevich
  */
-public abstract class AbstractSelectComponent extends UISelectOne implements EventsKeyProps, EventsMouseProps {
+public abstract class AbstractSelectComponent extends UISelectOne implements EventsKeyProps, EventsMouseProps, FocusProps {
     /**
      * The width of the list element
      */
@@ -78,20 +79,6 @@ public abstract class AbstractSelectComponent extends UISelectOne implements Eve
 
     @Attribute
     public abstract String getListClass();
-
-    // --------- Some of focus-props.xml (TODO: add tabindex here)
-
-    /**
-     * Javascript code executed when this element loses focus.
-     */
-    @Attribute(events = @EventName("blur"))
-    public abstract String getOnblur();
-
-    /**
-     * Javascript code executed when this element receives focus.
-     */
-    @Attribute(events = @EventName("focus"))
-    public abstract String getOnfocus();
 
     // --------- list events
 

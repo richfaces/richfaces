@@ -29,6 +29,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.FocusProps;
 import org.richfaces.ui.common.InplaceComponent;
 import org.richfaces.ui.common.InplaceState;
 import org.richfaces.ui.select.AbstractSelectComponent;
@@ -44,8 +45,8 @@ import org.richfaces.ui.select.AbstractSelectComponent;
  */
 @JsfComponent(type = AbstractInplaceSelect.COMPONENT_TYPE, family = AbstractInplaceSelect.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"), tag = @Tag(name = "inplaceSelect"),
-        attributes = {"focus-props.xml", "select-props.xml"})
-public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent, CoreProps, EventsKeyProps, EventsMouseProps {
+        attributes = {"select-props.xml"})
+public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps {
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceSelect";
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
 
@@ -84,10 +85,6 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
      */
     @Attribute
     public abstract boolean isShowControls();
-
-    //--------- focus-props.xml
-    @Attribute
-    public abstract String getTabindex();
 
     @Attribute
     public abstract String getDefaultLabel();
