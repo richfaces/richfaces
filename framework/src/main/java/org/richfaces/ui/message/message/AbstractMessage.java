@@ -32,6 +32,7 @@ import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.I18nProps;
+import org.richfaces.ui.attribute.OutputFormatProps;
 import org.richfaces.ui.common.AjaxOutput;
 
 /**
@@ -42,9 +43,8 @@ import org.richfaces.ui.common.AjaxOutput;
  * @author asmirnov@exadel.com
  */
 @JsfComponent(type = "org.richfaces.Message", tag = @Tag(name = "message"),
-        renderer = @JsfRenderer(template = "message.template.xml", type = "org.richfaces.MessageRenderer"),
-        attributes = {"output-format-props.xml" })
-public abstract class AbstractMessage extends UIMessage implements AjaxOutput, AjaxOutputProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
+        renderer = @JsfRenderer(template = "message.template.xml", type = "org.richfaces.MessageRenderer"))
+public abstract class AbstractMessage extends UIMessage implements AjaxOutput, AjaxOutputProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps, OutputFormatProps {
     @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();
 
