@@ -19,35 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
 package org.richfaces.ui.attribute;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
-import org.richfaces.cdk.annotations.EventName;
 
 /**
- * Interface defining the methods for command-button-props.xml
+ * Interface defining the disabled attribute
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public interface CommandButtonProps extends DisabledProps, EventsMouseProps, EventsKeyProps {
+public interface DisabledProps {
     /**
-     * Javascript code executed when a pointer button is clicked over this element.
+     * Flag indicating that this element must never receive focus or be included in a subsequent submit.
      */
-    @Override
-    @Attribute(events = { @EventName(value = "click", defaultEvent = true), @EventName(value = "action") },
-            description = @Description(
-                    value = "Javascript code executed when a pointer button is clicked over this element.",
-                    displayName = "Button Click Script"))
-    String getOnclick();
-
-    /**
-     * Type of button to create. Can be one of "submit", "button", "image" and "reset". If not specified, the default value is "submit".
-     */
-    @Attribute(defaultValue = "submit",
-            description = @Description(
-                    value = "Type of button to create. Can be one of \"submit\", \"button\", \"image\" and \"reset\". If not specified, the default value is \"submit\".",
-                    displayName = "Button Type"))
-    String getType();
-
+    @Attribute(description = @Description(
+            value = "Flag indicating that this element must never receive focus or be included in a subsequent submit.",
+            displayName = "Disabled Flag"))
+    boolean isDisabled();
 }

@@ -30,15 +30,7 @@ import org.richfaces.cdk.annotations.EventName;
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public interface InputProps {
-
-    /**
-     * Flag indicating that this element must never receive focus or be included in a subsequent submit. A value of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as disabled="disabled".
-     */
-    @Attribute(description = @Description(
-            value = "Flag indicating that this element must never receive focus or be included in a subsequent submit. A value of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as disabled=\"disabled\".",
-            displayName = "Disabled Flag"))
-    boolean isDisabled();
+public interface InputProps extends DisabledProps {
 
     /**
      * Javascript code executed when this element loses focus and its value has been modified since gaining focus.
