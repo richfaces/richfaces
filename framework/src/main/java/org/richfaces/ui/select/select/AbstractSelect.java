@@ -37,6 +37,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.SelectProps;
 import org.richfaces.ui.select.AbstractSelectComponent;
 
 /**
@@ -49,10 +50,9 @@ import org.richfaces.ui.select.AbstractSelectComponent;
  * @author abelevich
  */
 @JsfComponent(type = AbstractSelect.COMPONENT_TYPE, family = AbstractSelect.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.SelectRenderer"), tag = @Tag(name = "select"),
-        attributes = {"select-props.xml" })
+        renderer = @JsfRenderer(type = "org.richfaces.SelectRenderer"), tag = @Tag(name = "select"))
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractSelect extends AbstractSelectComponent implements CoreProps, EventsKeyProps, EventsMouseProps {
+public abstract class AbstractSelect extends AbstractSelectComponent implements CoreProps, EventsKeyProps, EventsMouseProps, SelectProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Select";
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
 

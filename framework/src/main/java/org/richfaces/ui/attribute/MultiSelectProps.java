@@ -30,7 +30,7 @@ import org.richfaces.cdk.annotations.EventName;
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public interface MultiSelectProps {
+public interface MultiSelectProps extends SelectProps {
     /**
      * Expose the value from the value attribute under this request scoped key so that it may be referred to in EL for the value of other attributes.
      */
@@ -45,18 +45,6 @@ public interface MultiSelectProps {
     String getCollectionType();
 
     /**
-     * The width of the item list (in pixels).
-     */
-    @Attribute()
-    String getListWidth();
-
-    /**
-     * The height of the item list (in pixels).
-     */
-    @Attribute()
-    String getListHeight();
-
-    /**
      * The minimum height of the item list (in pixels).
      */
     @Attribute()
@@ -69,28 +57,16 @@ public interface MultiSelectProps {
     String getMaxListHeight();
 
     @Attribute(hidden = true)
+    String getDefaultLabel();
+
+    @Attribute(hidden = true)
     String getActiveClass();
 
     @Attribute(hidden = true)
     String getChangedClass();
 
-    /**
-     * Space-separated list of CSS style class(es) to be applied to the list items. This value must be passed through as the "class" attribute on generated markup.
-     */
-    @Attribute
-    String getItemClass();
-
-    /**
-     * Space-separated list of CSS style class(es) to be applied to the selected list item. This value must be passed through as the "class" attribute on generated markup.
-     */
-    @Attribute
-    String getSelectItemClass();
-
-    /**
-     * Space-separated list of CSS style class(es) to be applied to the list element when it is disabled. This value must be passed through as the "class" attribute on generated markup.
-     */
-    @Attribute
-    String getDisabledClass();
+    @Attribute(hidden = true)
+    String getListClass();
 
     /**
      * Space-separated list of CSS style class(es) to be applied to the columns of the list elements. This value must be passed through as the "class" attribute on generated markup.

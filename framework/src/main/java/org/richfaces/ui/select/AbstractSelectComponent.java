@@ -26,25 +26,14 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.FocusProps;
+import org.richfaces.ui.attribute.SelectProps;
 
 import javax.faces.component.UISelectOne;
 
 /**
  * @author abelevich
  */
-public abstract class AbstractSelectComponent extends UISelectOne implements EventsKeyProps, EventsMouseProps, FocusProps {
-    /**
-     * The width of the list element
-     */
-    @Attribute
-    public abstract String getListWidth();
-
-    /**
-     * The height of the list element
-     */
-    @Attribute
-    public abstract String getListHeight();
-
+public abstract class AbstractSelectComponent extends UISelectOne implements EventsKeyProps, EventsMouseProps, FocusProps, SelectProps {
     /**
      * Javascript code executed when the list element loses focus and its value has been modified since gaining focus.
      */
@@ -56,29 +45,6 @@ public abstract class AbstractSelectComponent extends UISelectOne implements Eve
      */
     @Attribute(events = @EventName("selectitem"))
     public abstract String getOnselectitem();
-
-    // --------- select-props.xml
-
-    @Attribute
-    public abstract String getDefaultLabel();
-
-    @Attribute
-    public abstract String getItemClass();
-
-    @Attribute
-    public abstract String getSelectItemClass();
-
-    @Attribute
-    public abstract String getActiveClass();
-
-    @Attribute
-    public abstract String getChangedClass();
-
-    @Attribute
-    public abstract String getDisabledClass();
-
-    @Attribute
-    public abstract String getListClass();
 
     // --------- list events
 
