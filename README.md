@@ -1,11 +1,11 @@
 ![RichFaces Project Logo][logo]
 
-RichFaces 5
+RichFaces 5 [![Build Status](https://travis-ci.org/richfaces/richfaces.png?branch=master)](https://travis-ci.org/richfaces/richfaces)
 ===========
 
 <h3>The next-generation JSF component framework by JBoss, Red Hat</h3>
 
-The RichFaces project is an advanced UI component framework for easily integrating Ajax capabilities into business applications using JSF.
+> The RichFaces project is an advanced UI component framework for easily integrating Ajax capabilities into business applications using JSF.
 
 
 Goal
