@@ -29,6 +29,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
+import org.richfaces.ui.attribute.MultiSelectProps;
 import org.richfaces.ui.select.AbstractOrderingComponent;
 
 /**
@@ -39,9 +40,8 @@ import org.richfaces.ui.select.AbstractOrderingComponent;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(type = AbstractPickList.COMPONENT_TYPE, family = AbstractPickList.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.PickListRenderer"), tag = @Tag(name = "pickList"),
-        attributes = {"multiselect-props.xml"})
-public abstract class AbstractPickList extends AbstractOrderingComponent implements EventsKeyProps, EventsMouseProps {
+        renderer = @JsfRenderer(type = "org.richfaces.PickListRenderer"), tag = @Tag(name = "pickList"))
+public abstract class AbstractPickList extends AbstractOrderingComponent implements EventsKeyProps, EventsMouseProps, MultiSelectProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PickList";
     public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 
