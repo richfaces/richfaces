@@ -30,6 +30,8 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.ui.attribute.EventsPopupsBeforeProps;
 import org.richfaces.ui.attribute.EventsPopupsProps;
 import org.richfaces.ui.attribute.PopupsProps;
+import org.richfaces.ui.attribute.StyleClassProps;
+import org.richfaces.ui.attribute.StyleProps;
 
 import javax.faces.component.UIComponentBase;
 
@@ -40,9 +42,8 @@ import javax.faces.component.UIComponentBase;
  * new position by the user, and re-sized.</p>
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.PopupPanelRenderer"),
-        attributes = { "style-prop.xml", "styleClass-prop.xml" })
-public abstract class AbstractPopupPanel extends UIComponentBase implements EventsPopupsProps, EventsPopupsBeforeProps, PopupsProps {
+        renderer = @JsfRenderer(type = "org.richfaces.PopupPanelRenderer"))
+public abstract class AbstractPopupPanel extends UIComponentBase implements EventsPopupsProps, EventsPopupsBeforeProps, PopupsProps, StyleProps, StyleClassProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PopupPanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.PopupPanel";
 
