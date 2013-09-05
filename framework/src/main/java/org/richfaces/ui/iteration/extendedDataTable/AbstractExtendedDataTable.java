@@ -44,7 +44,9 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.SelectionMode;
 import org.richfaces.ui.attribute.EventsRowProps;
+import org.richfaces.ui.attribute.IterationProps;
 import org.richfaces.ui.attribute.RowsProps;
+import org.richfaces.ui.attribute.SequenceProps;
 import org.richfaces.ui.attribute.StyleClassProps;
 import org.richfaces.ui.attribute.StyleProps;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
@@ -61,9 +63,8 @@ import org.richfaces.ui.iteration.UIDataTableBase;
  */
 @JsfComponent(type = AbstractExtendedDataTable.COMPONENT_TYPE, family = AbstractExtendedDataTable.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer"),
-        tag = @Tag(name = "extendedDataTable", handlerClass = ExtendedDataTableHandler.class, type = TagType.Facelets),
-        attributes = {"iteration-props.xml", "sequence-props.xml"})
-public abstract class AbstractExtendedDataTable extends UIDataTableBase implements MetaComponentResolver, MetaComponentEncoder, EventsRowProps, RowsProps, StyleProps, StyleClassProps {
+        tag = @Tag(name = "extendedDataTable", handlerClass = ExtendedDataTableHandler.class, type = TagType.Facelets))
+public abstract class AbstractExtendedDataTable extends UIDataTableBase implements MetaComponentResolver, MetaComponentEncoder, EventsRowProps, RowsProps, StyleProps, StyleClassProps, SequenceProps, IterationProps {
     public static final String COMPONENT_TYPE = "org.richfaces.ExtendedDataTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String SCROLL = "scroll";

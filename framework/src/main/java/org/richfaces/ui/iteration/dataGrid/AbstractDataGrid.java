@@ -45,6 +45,8 @@ import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.ui.attribute.CoreProps;
+import org.richfaces.ui.attribute.IterationProps;
+import org.richfaces.ui.attribute.SequenceProps;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
@@ -61,9 +63,8 @@ import org.richfaces.ui.iteration.UISequence;
  */
 @JsfComponent(type = AbstractDataGrid.COMPONENT_TYPE, family = AbstractDataGrid.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.DataGridRenderer"),
-        tag = @Tag(name = "dataGrid", handlerClass = DataGridHandler.class, type = TagType.Facelets),
-        attributes = {"iteration-props.xml", "sequence-props.xml" })
-public abstract class AbstractDataGrid extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder, CoreProps {
+        tag = @Tag(name = "dataGrid", handlerClass = DataGridHandler.class, type = TagType.Facelets))
+public abstract class AbstractDataGrid extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder, CoreProps, SequenceProps, IterationProps {
     public static final String COMPONENT_TYPE = "org.richfaces.DataGrid";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String HEADER_FACET_NAME = "header";

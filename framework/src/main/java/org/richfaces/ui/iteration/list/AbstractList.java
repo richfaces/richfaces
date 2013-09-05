@@ -37,7 +37,9 @@ import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.EventsRowProps;
 import org.richfaces.ui.attribute.I18nProps;
+import org.richfaces.ui.attribute.IterationProps;
 import org.richfaces.ui.attribute.RowsProps;
+import org.richfaces.ui.attribute.SequenceProps;
 import org.richfaces.ui.iteration.UISequence;
 
 import com.google.common.base.Predicate;
@@ -52,9 +54,8 @@ import com.google.common.collect.Maps;
  */
 @JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM),
         tag = @Tag(name = "list", handlerClass = ListHandler.class, type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"),
-        attributes = {"iteration-props.xml", "sequence-props.xml" })
-public abstract class AbstractList extends UISequence implements CoreProps, EventsKeyProps, EventsMouseProps, EventsRowProps, I18nProps, RowsProps {
+        renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"))
+public abstract class AbstractList extends UISequence implements CoreProps, EventsKeyProps, EventsMouseProps, EventsRowProps, I18nProps, RowsProps, SequenceProps, IterationProps {
     public static final String TERM = "term";
     private static final Predicate<String> TERM_PREDICATE = new Predicate<String>() {
         public boolean apply(String input) {
