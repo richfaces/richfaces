@@ -58,8 +58,7 @@ import java.io.IOException;
  *
  * @author amarkhel
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"),
-        attributes = { "tooltip-props.xml" })
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"))
 public abstract class AbstractTooltip extends UIOutput implements AbstractDivPanel, MetaComponentResolver, MetaComponentEncoder, AjaxProps, CoreProps, EventsMouseProps, EventsPopupsProps, EventsPopupsBeforeProps, I18nProps, PopupsProps, PositionProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Tooltip";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tooltip";
@@ -168,6 +167,9 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
      */
     @Attribute(defaultValue = "10")
     public abstract int getVerticalOffset();
+
+    @Attribute(hidden = true)
+    public abstract Object getExecute();
 
     // ------------------------------------------------ Html Attributes
 
