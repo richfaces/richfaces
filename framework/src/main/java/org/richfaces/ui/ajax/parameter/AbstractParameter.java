@@ -46,7 +46,7 @@ import org.richfaces.util.PartialStateHolderUtil;
  * </p>
  * @author shura, alexsmirnov
  */
-@JsfComponent(tag = @Tag(name = "param", handlerClass = ParameterHandler.class, generate = false, type = TagType.Facelets), attributes = "param-assignTo-prop.xml")
+@JsfComponent(tag = @Tag(name = "param", handlerClass = ParameterHandler.class, generate = false, type = TagType.Facelets))
 public abstract class AbstractParameter extends UIParameter implements ActionListener, JavaScriptParameter {
     public static final String COMPONENT_TYPE = "org.richfaces.Parameter";
     public static final String COMPONENT_FAMILY = UIParameter.COMPONENT_FAMILY;
@@ -65,6 +65,12 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
      */
     @Attribute
     public abstract boolean isNoEscape();
+
+    /**
+     * EL expression for updatable bean property. This property will be updated if the parent command component performs an actionEvent.
+     */
+    @Attribute
+    public abstract Object getAssignTo();
 
     public abstract void setNoEscape(boolean noEscape);
 
