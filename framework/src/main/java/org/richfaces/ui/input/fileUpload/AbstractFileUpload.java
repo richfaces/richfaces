@@ -23,6 +23,7 @@ package org.richfaces.ui.input.fileUpload;
 
 import java.util.Map;
 
+import javax.el.MethodExpression;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
@@ -50,7 +51,8 @@ import org.richfaces.ui.attribute.I18nProps;
  *
  * @author Konstantin Mishin
  */
-@JsfComponent(tag = @Tag(generate = false, handlerClass = FileUploadHandler.class), renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"), attributes = {"fileUploadListener-props.xml" })
+@JsfComponent(tag = @Tag(generate = false, handlerClass = FileUploadHandler.class),
+        renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"))
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractFileUpload extends UIComponentBase implements AjaxProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.FileUpload";
@@ -200,6 +202,14 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
             component.getAttributes().put("resource", resourcePath);
         }
     }
+
+    /**
+     * A listener function on the server side after each file is uploaded.
+     * The listener should process files as required, such as storing them in the session/db/filesystem/ directory.
+     * The component itself does not store uploaded files, so if the listener is not implemented they are not stored anywhere
+     */
+    @Attribute
+    public abstract MethodExpression getFileUploadListener();
 
     /**
      * <p>
