@@ -42,7 +42,7 @@ public interface PositionProps {
     @Attribute(description = @Description(
             value = "<p>Set the corner attachment point with which the popup should be connected. Possible values are:<br />AA (auto), LT (topLeft), RT (topRight), LB (bottomLeft), RB (bottomRight, LA (autoLeft),RA (autoRight), AT (topAuto), AB (bottomAuto)</p><p>Default value is auto</p>",
             displayName = "Joint Point"),
-            defaultValue = "auto")
+            defaultValue = "Positioning.auto")
     Positioning getJointPoint();
 
     /**
@@ -55,7 +55,7 @@ public interface PositionProps {
     @Attribute(description = @Description(
             value = "<p>Set the direction of the popup.  Possible values are:<br />AA (auto), LT (topLeft), RT (topRight), LB (bottomLeft), RB (bottomRight, LA (autoLeft),RA (autoRight), AT (topAuto), AB (bottomAuto)</p><p>Default value is auto</p>",
             displayName = "Direction"),
-            defaultValue = "auto")
+            defaultValue = "Positioning.auto")
     Positioning getDirection();
 
     /**
