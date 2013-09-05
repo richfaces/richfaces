@@ -27,14 +27,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.enricher.findby.FindBy;
-import org.jboss.arquillian.graphene.enricher.findby.FindBys;
-import org.jboss.arquillian.graphene.spi.annotations.Root;
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
@@ -57,7 +57,7 @@ public class RichAutocomplete {
     @FindBy(xpath = "//body")
     private WebElement body;
 
-    @FindBys({@FindBy(xpath = "//body"), @FindBy(jquery = "ul.ui-autocomplete.ui-menu:visible")})
+    @FindByJQuery("body ul.ui-autocomplete.ui-menu:visible")
     private Menu menu;
 
 

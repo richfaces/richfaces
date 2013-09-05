@@ -21,7 +21,6 @@
  */
 package org.richfaces.ui.placeholder;
 
-import static org.jboss.arquillian.graphene.Graphene.element;
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
@@ -36,7 +35,8 @@ import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.spi.annotations.Root;
+import org.jboss.arquillian.graphene.GrapheneElement;
+import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
@@ -138,7 +138,7 @@ public abstract class AbstractPlaceholderTest {
         // having
         browser.navigate().to(contextPath.toExternalForm() + "rendered.jsf");
         // then
-        assertFalse("Placeholder should not be present.", element(placeholderElement).isPresent().apply(browser));
+        assertFalse("Placeholder should not be present.", new GrapheneElement(placeholderElement).isPresent());
     }
 
     @Test
