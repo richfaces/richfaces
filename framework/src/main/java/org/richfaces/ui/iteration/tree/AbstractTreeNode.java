@@ -46,6 +46,8 @@ import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.I18nProps;
 import org.richfaces.ui.attribute.ImmediateProps;
+import org.richfaces.ui.attribute.TreeCommonProps;
+import org.richfaces.ui.attribute.TreeProps;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
@@ -59,9 +61,8 @@ import org.richfaces.ui.iteration.IterationStateHolder;
  */
 @JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY,
         tag = @Tag(name = "treeNode", handlerClass = TreeNodeHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"),
-        attributes = {"tree-common-props.xml", "treeNode-props.xml" })
-public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, IterationStateHolder, TreeToggleSource, CoreProps, EventsKeyProps, EventsMouseProps, ImmediateProps, I18nProps {
+        renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"))
+public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, IterationStateHolder, TreeToggleSource, CoreProps, EventsKeyProps, EventsMouseProps, ImmediateProps, I18nProps, TreeProps, TreeCommonProps {
     public static final String COMPONENT_TYPE = "org.richfaces.TreeNode";
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeNode";
     public static final String SUBTREE_META_COMPONENT_ID = "subtree";

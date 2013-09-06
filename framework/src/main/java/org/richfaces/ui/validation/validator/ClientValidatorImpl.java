@@ -82,8 +82,9 @@ import com.google.common.collect.Lists;
  *
  * @author asmirnov@exadel.com
  */
-@JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handlerClass = ClientValidatorHandler.class, type = TagType.Facelets), attributes = {
-        "validator-props.xml" })
+@JsfBehavior(id = "org.richfaces.behavior.ClientValidator",
+        tag = @Tag(name = "validator", handlerClass = ClientValidatorHandler.class, type = TagType.Facelets),
+        attributes = {"validator-props.xml" })
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior, ImmediateProps {
     private static final Set<String> NONE = Collections.emptySet();
     private static final Set<String> THIS = Collections.singleton("@this");
