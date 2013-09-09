@@ -37,7 +37,11 @@ import javax.faces.context.FacesContext;
 import org.richfaces.configuration.ConfigurationService;
 import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.el.BaseReadOnlyValueExpression;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
+import org.richfaces.skin.Skin;
+import org.richfaces.skin.SkinFactory;
 
 /**
  * @author Nick Belaevski
@@ -52,6 +56,7 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
     private static final String BOTH_SKINNING;
     private static final String CLASSES_SKINNING;
     private static final String HEAD = "head";
+    private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
 
     static {
         String skinningName = "skinning";
@@ -148,16 +153,25 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
     public UIViewRoot createView(FacesContext context, String viewId) {
         UIViewRoot viewRoot = super.createView(context, viewId);
 
-        boolean skinningResourceFound = false;
+        boolean addSkinningResource = true;
         List<UIComponent> resources = viewRoot.getComponentResources(context, HEAD);
-        for (UIComponent resource : resources) {
-            if (SKINNING_RESOURCE_ID.equals(resource.getId())) {
-                skinningResourceFound = true;
-                break;
+
+        Skin skin = SkinFactory.getInstance(context).getSkin(context);
+        if (skin != null && "plain".equals(skin.getName())) {
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Control skinning is disabled for 'plain' skin.  Control skinning resources will not be included.");
+            }
+            addSkinningResource = false;
+        } else {
+            for (UIComponent resource : resources) {
+                if (SKINNING_RESOURCE_ID.equals(resource.getId())) {
+                    addSkinningResource = false;
+                    break;
+                }
             }
         }
 
-        if (!skinningResourceFound) {
+        if (addSkinningResource) {
             // it's important for skinning resources to come *before* any users/components stylesheet,
             // that's why they are *always* added here
             UIComponent basic = createComponentResource(context);
