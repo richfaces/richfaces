@@ -116,8 +116,8 @@
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
         
         <!-- Container Versions -->
-        <version.wildfly8>8.0.0.Alpha4</version.wildfly8>
-        <version.jboss-as7>7.1.1.Final</version.jboss-as7>
+        <version.wildfly80>8.0.0.Alpha4</version.wildfly80>
+        <version.jbossas71>7.1.1.Final</version.jbossas71>
         <version.tomee15>1.5.1</version.tomee15>
         <version.glassfish31>3.1.2.2</version.glassfish31>
         <version.tomcat6>6.0.35</version.tomcat6>
@@ -657,7 +657,7 @@
 
         <!-- Containers -->
         <profile>
-            <id>wildfly-managed-8</id>
+            <id>wildfly-managed-8-0</id>
             <activation>
                 <property>
                     <name>integration</name>
@@ -666,8 +666,8 @@
             </activation>
             <properties>
                 <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
-                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly8}</arquillian.container.home>
-                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly8}</arquillian.container.distribution>
+                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly80}</arquillian.container.home>
+                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly80}</arquillian.container.distribution>
             </properties>
             <dependencies>
                 <dependency>
@@ -678,7 +678,7 @@
             </dependencies>
         </profile>
         <profile>
-            <id>wildfly-remote-8</id>
+            <id>wildfly-remote-8-0</id>
             <activation>
                 <property>
                     <name>integration</name>
@@ -703,8 +703,8 @@
             </activation>
             <properties>
                 <arquillian.launch.jbossas71>true</arquillian.launch.jbossas71>
-                <arquillian.container.home>${project.build.directory}/jboss-as-${version.jboss-as7}</arquillian.container.home>
-                <arquillian.container.distribution>org.jboss.as:jboss-as-dist:zip:${version.jboss-as7}</arquillian.container.distribution>
+                <arquillian.container.home>${project.build.directory}/jboss-as-${version.jbossas71}</arquillian.container.home>
+                <arquillian.container.distribution>org.jboss.as:jboss-as-dist:zip:${version.jbossas71}</arquillian.container.distribution>
             </properties>
             <dependencies>
                 <dependency>

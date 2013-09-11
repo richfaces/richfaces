@@ -229,13 +229,17 @@ Note that those categories use keywords `*Only`, `No*` and `FailingOn*` in order
 Managed Containers 
 ==================
 
-### JBoss AS 7.1 - Managed
+### WildFly 8.0 - Managed
 
-    mvn verify -Dintegration=jbossas71
+    mvn verify -Dintegration=wildfly80
 
 ### JBoss EAP 6.1 - Managed
 
     mvn verify -Dintegration=jbosseap61
+
+### JBoss AS 7.1 - Managed
+
+    mvn verify -Dintegration=jbossas71
 
 ### TomEE 1.5 - Managed
 
@@ -287,13 +291,14 @@ First, start the Selenium Server:
 
 then run the test from the IDE (eg. in Eclipse: `Run As > JUnit Test`).
 
-### JBoss AS 7.1 - Remote
 
-Start: `[jboss-as-7.1.1.Final]$ ./bin/standalone.sh`
+### WildFly 8.0 - Remote
 
-Profile: `jbossas-remote-7-1`
+Start: `[wildfly-8.0]$ ./bin/standalone.sh`
 
-    mvn verify -Dintegration=jbossas71-remote
+Profile: `wildfly-remote-8.0`
+
+    mvn verify -Dintegration=wildfly80-remote
 
 ### JBoss EAP 6.1 - Remote
 
@@ -302,6 +307,14 @@ Start: `[jboss-eap-6.1]$ ./bin/standalone.sh`
 Profile: `jbosseap-remote-6-1`
 
     mvn verify -Dintegration=jbosseap61-remote
+
+### JBoss AS 7.1 - Remote
+
+Start: `[jboss-as-7.1.1.Final]$ ./bin/standalone.sh`
+
+Profile: `jbossas-remote-7-1`
+
+    mvn verify -Dintegration=jbossas71-remote
 
 ### GlassFish 3.1 - Remote
 
