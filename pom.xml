@@ -661,7 +661,7 @@
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>wildfly8</value>
+                    <value>wildfly80</value>
                 </property>
             </activation>
             <properties>
@@ -682,7 +682,7 @@
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>wildfly8-remote</value>
+                    <value>wildfly80-remote</value>
                 </property>
             </activation>
             <dependencies>
