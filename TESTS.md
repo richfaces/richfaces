@@ -7,6 +7,7 @@ The supported container matrix is:
 
 * JBoss AS 7.1
 * JBoss EAP 6.1
+* WildFly 8.0
 * TomEE 1.5
 * GlassFish 3.1
 * Tomcat 6

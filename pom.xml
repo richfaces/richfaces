@@ -116,6 +116,7 @@
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
         
         <!-- Container Versions -->
+        <version.wildfly8>8.0.0.Alpha4</version.wildfly8>
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
         <version.tomee15>1.5.1</version.tomee15>
         <version.glassfish31>3.1.2.2</version.glassfish31>
@@ -655,6 +656,43 @@
         </profile>
 
         <!-- Containers -->
+        <profile>
+            <id>wildfly-managed-8</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly80</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.launch.wildfly8>true</arquillian.launch.wildfly8>
+                <arquillian.container.home>${project.build.directory}/wildfly-${version.wildfly8}</arquillian.container.home>
+                <arquillian.container.distribution>org.wildfly:wildfly-dist:zip:${version.wildfly8}</arquillian.container.distribution>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>wildfly-remote-8</id>
+            <activation>
+                <property>
+                    <name>integration</name>
+                    <value>wildfly80-remote</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-remote</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
         <profile>
             <id>jbossas-managed-7-1</id>
             <activation>
