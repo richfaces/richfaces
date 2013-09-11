@@ -3,10 +3,10 @@
 <fileset-config file-format-version="1.2.0" simple-config="false" sync-formatter="false">
   <local-check-config name="maven-checkstyle-plugin" location="jar:file:/home/manovotn/.m2/repository/org/richfaces/richfaces-build-resources/5.0.0-SNAPSHOT/richfaces-build-resources-5.0.0-SNAPSHOT.jar!/richfaces-checkstyle/richfaces-checkstyle.xml" type="remote" description="maven-checkstyle-plugin configuration">
     <property name="checkstyle.cache.file" value="${project_loc}/target/checkstyle-cachefile"/>
-    <property name="checkstyle.header.file" value="/home/manovotn/GitRepo/richfaces/examples/irc-client/target/checkstyle-header.txt"/>
+    <property name="checkstyle.header.file" value="/home/manovotn/GitRepo/richfaces/examples/showcase/target/checkstyle-header.txt"/>
   </local-check-config>
   <fileset name="java-sources" enabled="true" check-config-name="maven-checkstyle-plugin" local="true">
-    <file-match-pattern match-pattern="src/main/java/.*/.*\.java" include-pattern="true"/>
     <file-match-pattern match-pattern="src/test/java.*/.*\.java" include-pattern="true"/>
+    <file-match-pattern match-pattern="src/main/java/.*/.*\.java" include-pattern="true"/>
   </fileset>
 </fileset-config>
