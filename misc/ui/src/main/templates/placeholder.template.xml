@@ -20,7 +20,7 @@
                     <cdk:scriptOption name="selector" value="#{not empty component.selector ? component.selector : null}" />
                     <cdk:scriptOption name="text" value="#{getConvertedValue(facesContext, component)}" />
                 </cdk:scriptObject>
-                new RichFaces.ui.Placeholder("#{clientId}", #{toScriptArgs(options)});
+                new RichFaces.rf4.ui.Placeholder("#{clientId}", #{toScriptArgs(options)});
             </script>
         </span>
     </cc:implementation>

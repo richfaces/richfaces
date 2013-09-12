@@ -207,7 +207,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             ResponseWriter writer = facesContext.getResponseWriter();
             writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
             writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", null);
-            JSObject script = new JSObject("RichFaces.ui.Autocomplete.setData", component.getClientId(facesContext) + "Items",
+            JSObject script = new JSObject("RichFaces.rf4.ui.Autocomplete.setData", component.getClientId(facesContext) + "Items",
                 fetchValues);
             writer.writeText(script, null);
             writer.endElement(HtmlConstants.SCRIPT_ELEM);

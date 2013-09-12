@@ -165,7 +165,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.PanelMenuGroup", component.getClientId(context), getScriptObjectOptions(context,
+        return new JSObject("RichFaces.rf4.ui.PanelMenuGroup", component.getClientId(context), getScriptObjectOptions(context,
             component));
     }
 

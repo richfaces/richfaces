@@ -1,14 +1,15 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.PickList = function(id, options) {
+    rf.rf4.ui.PickList = function(id, options) {
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.attachToDom();
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "SourceItems"));
-        this.sourceList = new rf.ui.ListMulti(id+ "SourceList", mergedOptions);
+        this.sourceList = new rf.rf4.ui.ListMulti(id+ "SourceList", mergedOptions);
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems"));
         this.selectItemCss = mergedOptions['selectItemCss'];
         var hiddenId = id + "SelValue";
@@ -17,10 +18,10 @@
         this.orderable = mergedOptions['orderable'];
 
         if (this.orderable) {
-            this.orderingList = new rf.ui.OrderingList(id+ "Target", mergedOptions);
+            this.orderingList = new rf.rf4.ui.OrderingList(id+ "Target", mergedOptions);
             this.targetList = this.orderingList.list;
         } else {
-            this.targetList = new rf.ui.ListMulti(id+ "TargetList", mergedOptions);
+            this.targetList = new rf.rf4.ui.ListMulti(id+ "TargetList", mergedOptions);
         }
         this.pickList = $(document.getElementById(id));
 
@@ -71,8 +72,8 @@
         // TODO: Is there a "Richfaces way" of executing a method after page load?
         $(document).ready($.proxy(this.toggleButtons, this));
     };
-    rf.BaseComponent.extend(rf.ui.PickList);
-    var $super = rf.ui.PickList.$super;
+    rf.BaseComponent.extend(rf.rf4.ui.PickList);
+    var $super = rf.rf4.ui.PickList.$super;
 
     var defaultOptions = {
         defaultLabel: "",
@@ -115,7 +116,7 @@
         this.pickList.focusout($.proxy(this.__blurHandler, this));
     };
 
-    $.extend(rf.ui.PickList.prototype, (function () {
+    $.extend(rf.rf4.ui.PickList.prototype, (function () {
 
         return {
             name : "pickList",

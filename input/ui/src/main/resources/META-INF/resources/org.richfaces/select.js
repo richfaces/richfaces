@@ -1,8 +1,9 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.Select = function(id, options) {
+    rf.rf4.ui.Select = function(id, options) {
         this.id = id;
         var mergedOptions = $.extend({}, defaultOptions, options);
         mergedOptions['attachTo'] = id;
@@ -26,7 +27,7 @@
         }
 
         this.selectFirst = mergedOptions.selectFirst;
-        this.popupList = new rf.ui.PopupList((id + "List"), this, mergedOptions);
+        this.popupList = new rf.rf4.ui.PopupList((id + "List"), this, mergedOptions);
         this.list = this.popupList.__getList();
         this.listElem = $(document.getElementById(id + "List"));
 
@@ -48,8 +49,8 @@
         this.changeDelay = mergedOptions.changeDelay;
     };
 
-    rf.ui.InputBase.extend(rf.ui.Select);
-    var $super = rf.ui.Select.$super;
+    rf.rf4.ui.InputBase.extend(rf.rf4.ui.Select);
+    var $super = rf.rf4.ui.Select.$super;
 
     var defaultOptions = {
         defaultLabel: "",
@@ -75,7 +76,7 @@
         return data;
     }
 
-    $.extend(rf.ui.Select.prototype, ( function () {
+    $.extend(rf.rf4.ui.Select.prototype, ( function () {
         return{
             name : "select",
             defaultLabelClass : "rf-sel-dflt-lbl",
@@ -403,15 +404,16 @@
     })());
     
     // client-side validation
-    rf.csv = rf.csv || {};
-    rf.csv.validateSelectLabelValue = function (input, id, params, msg) {
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.csv = rf.rf4.csv || {};
+    rf.rf4.csv.validateSelectLabelValue = function (input, id, params, msg) {
         var value = $(document.getElementById(id + 'selValue')).val();
         var label = $(document.getElementById(id + 'Input')).val();
         
         var defaultLabel = RichFaces.component(id).defaultLabel;
         
         if (!value && label && (label != defaultLabel)) {
-            throw rf.csv.getMessage(null, 'UISELECTONE_INVALID', [id, ""]);
+            throw rf.rf4.csv.getMessage(null, 'UISELECTONE_INVALID', [id, ""]);
         }
     };
 

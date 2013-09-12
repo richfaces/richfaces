@@ -1,24 +1,25 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.DataTable = function(id, options) {
+    rf.rf4.ui.DataTable = function(id, options) {
         $super.constructor.call(this, id);
         this.options = $.extend(this.options, options || {});
         this.attachToDom();
 
     };
 
-    rf.BaseComponent.extend(rf.ui.DataTable);
-    var $super = rf.ui.DataTable.$super;
+    rf.BaseComponent.extend(rf.rf4.ui.DataTable);
+    var $super = rf.rf4.ui.DataTable.$super;
 
-    $.extend(rf.ui.DataTable, {
+    $.extend(rf.rf4.ui.DataTable, {
             SORTING: "rich:sorting",
             FILTERING: "rich:filtering",
             SUBTABLE_SELECTOR:".rf-cst"
         });
 
-    $.extend(rf.ui.DataTable.prototype, ( function () {
+    $.extend(rf.rf4.ui.DataTable.prototype, ( function () {
 
         var invoke = function(event, attributes) {
             rf.ajax(this.id, event, {"parameters" : attributes});
@@ -41,10 +42,10 @@
 
         return {
 
-            name : "RichFaces.ui.DataTable",
+            name : "RichFaces.rf4.ui.DataTable",
 
             sort: function(columnId, direction, isClear) {
-                invoke.call(this, null, createParameters.call(this, rf.ui.DataTable.SORTING, columnId, direction, isClear));
+                invoke.call(this, null, createParameters.call(this, rf.rf4.ui.DataTable.SORTING, columnId, direction, isClear));
             },
 
             clearSorting: function() {
@@ -52,7 +53,7 @@
             },
 
             filter: function(columnId, filterValue, isClear) {
-                invoke.call(this, null, createParameters.call(this, rf.ui.DataTable.FILTERING, columnId, filterValue, isClear));
+                invoke.call(this, null, createParameters.call(this, rf.rf4.ui.DataTable.FILTERING, columnId, filterValue, isClear));
             },
 
             clearFiltering: function() {
@@ -76,13 +77,13 @@
             },
 
             invokeOnSubTables: function(funcName) {
-                var elements = $(document.getElementById(this.id)).children(rf.ui.DataTable.SUBTABLE_SELECTOR);
+                var elements = $(document.getElementById(this.id)).children(rf.rf4.ui.DataTable.SUBTABLE_SELECTOR);
                 var invokeOnComponent = this.invokeOnComponent;
                 elements.each(
                     function() {
                         if (this.firstChild && this.firstChild[rf.RICH_CONTAINER] && this.firstChild[rf.RICH_CONTAINER].component) {
                             var component = this.firstChild[rf.RICH_CONTAINER].component;
-                            if (component instanceof RichFaces.ui.CollapsibleSubTable) {
+                            if (component instanceof RichFaces.rf4.ui.CollapsibleSubTable) {
                                 invokeOnComponent(component, funcName);
                             }
                         }

@@ -71,7 +71,7 @@ public abstract class ConverterTestBase extends MockTestBase {
     }
 
     protected Object convertOnClient(Converter converter) throws ConverterException {
-        JSFunction clientSideFunction = new JSFunction("RichFaces.csv." + getJavaScriptFunctionName(), criteria.getValue(),
+        JSFunction clientSideFunction = new JSFunction("RichFaces.rf4.csv." + getJavaScriptFunctionName(), criteria.getValue(),
             TEST_COMPONENT_ID, getJavaScriptOptions(), getErrorMessage(converter));
         return qunit.runScript(clientSideFunction.toScript());
     }

@@ -99,7 +99,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onselectitem onchange onblur onfocus"
                             wrapper="eventHandler" />
                     </cdk:scriptObject>
-                    new RichFaces.ui.InplaceInput("#{clientId}", #{toScriptArgs(options)});
+                    new RichFaces.rf4.ui.InplaceInput("#{clientId}", #{toScriptArgs(options)});
                 </script>
             </c:if>
         </span>

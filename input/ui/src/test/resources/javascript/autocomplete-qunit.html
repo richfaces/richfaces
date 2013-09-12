@@ -19,7 +19,7 @@
 <script type="text/javascript">
     test("getLastTokenIndex", function() {
         var fn = function(value) {
-            return RichFaces.ui.Autocomplete.__getLastTokenIndex(",", value);
+            return RichFaces.rf4.ui.Autocomplete.__getLastTokenIndex(",", value);
         };
         
         equal(fn(undefined), 0);
@@ -41,7 +41,7 @@
     
     test("test multiple tokens", function() {
         var fn = function(value) {
-            return RichFaces.ui.Autocomplete.__getLastTokenIndex(",;", value);
+            return RichFaces.rf4.ui.Autocomplete.__getLastTokenIndex(",;", value);
         };
         
         equal(fn("a,"), 2);
@@ -51,7 +51,7 @@
     
     test("test space tokens", function() {
         var fn = function(value) {
-            return RichFaces.ui.Autocomplete.__getLastTokenIndex(", ", value);
+            return RichFaces.rf4.ui.Autocomplete.__getLastTokenIndex(", ", value);
         };
         
         equal(fn("a "), 2);
@@ -61,7 +61,7 @@
     
     test("getBeforeLastToken", function() {
         var fn = function(value) {
-            var index = RichFaces.ui.Autocomplete.__getLastTokenIndex(",", value);
+            var index = RichFaces.rf4.ui.Autocomplete.__getLastTokenIndex(",", value);
             return value.substring(0, index);
         };
         
@@ -80,7 +80,7 @@
     
     test("getAfterLastToken", function() {
         var fn = function(value) {
-            var index = RichFaces.ui.Autocomplete.__getLastTokenIndex(",", value);
+            var index = RichFaces.rf4.ui.Autocomplete.__getLastTokenIndex(",", value);
             return value.substring(index);
         };
         

@@ -1,8 +1,9 @@
 (function ($, rf) {
 
-  rf.ui = rf.ui || {};
+  rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-  rf.ui.toolbarHandlers = function(options) {
+  rf.rf4.ui.toolbarHandlers = function(options) {
       if (options.id && options.events) {
           $('.rf-tb-itm', document.getElementById(options.id)).bind(
               options.events);

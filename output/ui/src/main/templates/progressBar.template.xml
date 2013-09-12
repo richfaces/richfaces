@@ -40,7 +40,7 @@
                     <cdk:scriptOption attributes="interval enabled value onfinish resource" />
                 </cdk:scriptObject>
 
-                new RichFaces.ui.ProgressBar(#{toScriptArgs(clientId, options)});
+                new RichFaces.rf4.ui.ProgressBar(#{toScriptArgs(clientId, options)});
             </script>
         </div>
     </cc:implementation>

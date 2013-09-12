@@ -19,7 +19,7 @@
                 <cdk:scriptOption name="focusCandidates" value="#{getFocusCandidatesAsString(facesContext, component)}" />
             </cdk:scriptObject>
             <cdk:object name="scriptArgs" value="#{toScriptArgs(options)}" />
-            <cdk:object name="script" type="String" value="new RichFaces.ui.Focus('#{clientId}', #{empty scriptArgs ? '{}' : scriptArgs});" />
+            <cdk:object name="script" type="String" value="new RichFaces.rf4.ui.Focus('#{clientId}', #{empty scriptArgs ? '{}' : scriptArgs});" />
             <cdk:call expression="renderOncompleteScript(facesContext, script)" />
 
             <c:if test="#{shouldApply(facesContext, component)}">

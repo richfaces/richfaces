@@ -187,7 +187,7 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
 
             if (initialState.isDifferentThan(nodeState)) {
                 ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(context);
-                partialContext.appendOncomplete(new JSFunction("RichFaces.ui.TreeNode.emitToggleEvent", treeNode
+                partialContext.appendOncomplete(new JSFunction("RichFaces.rf4.ui.TreeNode.emitToggleEvent", treeNode
                     .getClientId(context)));
             }
         }

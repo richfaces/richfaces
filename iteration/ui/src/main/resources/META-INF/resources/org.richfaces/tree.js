@@ -33,9 +33,10 @@
 
     var TREE_ICON_CLASSES = ["rf-trn-ico-colps", "rf-trn-ico-exp"];
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.TreeNode = rf.BaseComponent.extendClass({
+    rf.rf4.ui.TreeNode = rf.BaseComponent.extendClass({
 
             name: "TreeNode",
 
@@ -79,7 +80,7 @@
             __initializeChildren: function(commonOptions) {
                 var _this = this;
                 this.__rootElt.children(".rf-tr-nd").each(function() {
-                    _this.addChild(new rf.ui.TreeNode(this, commonOptions));
+                    _this.addChild(new rf.rf4.ui.TreeNode(this, commonOptions));
                 });
             },
 
@@ -271,9 +272,9 @@
         });
 
     // define super class link for TreeNode
-    var $superTreeNode = rf.ui.TreeNode.$super;
+    var $superTreeNode = rf.rf4.ui.TreeNode.$super;
 
-    rf.ui.TreeNode.initNodeByAjax = function(nodeId, commonOptions) {
+    rf.rf4.ui.TreeNode.initNodeByAjax = function(nodeId, commonOptions) {
         var node = $(document.getElementById(nodeId));
 
         var opts = commonOptions || {};
@@ -285,7 +286,7 @@
         var parentNode = rf.component(parent[0]);
         opts.treeId = parentNode.getTree().getId();
 
-        var newChild = new rf.ui.TreeNode(node[0], opts);
+        var newChild = new rf.rf4.ui.TreeNode(node[0], opts);
         parentNode.addChild(newChild, idx);
 
         var tree = parentNode.getTree();
@@ -295,7 +296,7 @@
         }
     };
 
-    rf.ui.TreeNode.emitToggleEvent = function(nodeId) {
+    rf.rf4.ui.TreeNode.emitToggleEvent = function(nodeId) {
         var node = document.getElementById(nodeId);
         if (!node) {
             return;
@@ -316,7 +317,7 @@
         return tree != findTree(elt);
     };
 
-    rf.ui.Tree = rf.ui.TreeNode.extendClass({
+    rf.rf4.ui.Tree = rf.rf4.ui.TreeNode.extendClass({
 
             name: "Tree",
 
@@ -355,7 +356,7 @@
                 this.__treeRootElt.delegate(".rf-trn-cnt", "mousedown", this, this.__nodeSelectionActivated);
 
                 this.__findSelectionInput();
-                this.__selection = new rf.ui.TreeNodeSet(this.__selectionInput.val());
+                this.__selection = new rf.rf4.ui.TreeNodeSet(this.__selectionInput.val());
 
                 $(document).ready($.proxy(this.__updateSelectionFromInput, this));
             },
@@ -473,7 +474,7 @@
 
             __updateSelectionFromInput: function() {
                 this.__findSelectionInput();
-                this.__updateSelection(new rf.ui.TreeNodeSet(this.__selectionInput.val()));
+                this.__updateSelection(new rf.rf4.ui.TreeNodeSet(this.__selectionInput.val()));
             },
 
             __updateSelection: function(newSelection) {
@@ -512,14 +513,14 @@
         });
 
     // define super class link for Tree
-    var $superTree = rf.ui.Tree.$super;
+    var $superTree = rf.rf4.ui.Tree.$super;
 
-    rf.ui.TreeNodeSet = function() {
+    rf.rf4.ui.TreeNodeSet = function() {
         this.init.apply(this, arguments);
     };
 
     //TODO - that's a single-node set, implement multi-node support!
-    $.extend(rf.ui.TreeNodeSet.prototype, {
+    $.extend(rf.rf4.ui.TreeNodeSet.prototype, {
 
             init: function(nodeId) {
                 this.__nodeId = nodeId;
@@ -555,7 +556,7 @@
             },
 
             cloneAndAdd: function(node) {
-                return new rf.ui.TreeNodeSet(node.getId());
+                return new rf.rf4.ui.TreeNodeSet(node.getId());
             },
 
             cloneAndToggle: function(node) {
@@ -566,7 +567,7 @@
                     nodeId = node.getId();
                 }
 
-                return new rf.ui.TreeNodeSet(nodeId);
+                return new rf.rf4.ui.TreeNodeSet(nodeId);
             },
 
             each: function(callback) {

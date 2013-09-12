@@ -22,7 +22,8 @@
 
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     var ITEMS_SWITCHER = {
 
@@ -135,7 +136,7 @@
     };
 
 
-    rf.ui.TabPanel = rf.ui.TogglePanel.extendClass({
+    rf.rf4.ui.TabPanel = rf.rf4.ui.TogglePanel.extendClass({
             // class name
             name:"TabPanel",
 
@@ -148,7 +149,7 @@
              * @param {Hash} options - params
              * */
             init : function (componentId, options) {
-                rf.ui.TogglePanel.call(this, componentId, options);
+                rf.rf4.ui.TogglePanel.call(this, componentId, options);
                 this.items = [];
 
                 this.isKeepHeight = options["isKeepHeight"] || false

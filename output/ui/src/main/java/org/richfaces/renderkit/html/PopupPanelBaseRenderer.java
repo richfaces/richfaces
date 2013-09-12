@@ -133,7 +133,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
         // We are already processed KeepVisualState and current open state in
         // doDecode, so no need to check panel.isKeepVisualState() here.
         if (panel.isShow()) {
-            result.append("RichFaces.ui.PopupPanel.showPopupPanel('" + panel.getClientId(context) + "', {");
+            result.append("RichFaces.rf4.ui.PopupPanel.showPopupPanel('" + panel.getClientId(context) + "', {");
 
             // TODO nick - use ScriptUtils.toScript
             Iterator<Map.Entry<String, Object>> it = ((Map<String, Object>) getHandledVisualOptions(panel)).entrySet()

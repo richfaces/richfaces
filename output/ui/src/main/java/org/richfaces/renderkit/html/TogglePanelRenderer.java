@@ -131,7 +131,7 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.TogglePanel", component.getClientId(context), getScriptObjectOptions(context,
+        return new JSObject("RichFaces.rf4.ui.TogglePanel", component.getClientId(context), getScriptObjectOptions(context,
             component));
     }
 

@@ -1,6 +1,7 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     var initButtons = function(buttons, css, component) {
         var id;
@@ -43,7 +44,7 @@
         }
     };
 
-    rf.ui.DataScroller = function(id, submit, options) {
+    rf.rf4.ui.DataScroller = function(id, submit, options) {
 
         $super.constructor.call(this, id);
 
@@ -82,16 +83,16 @@
         }
     };
 
-    rf.BaseComponent.extend(rf.ui.DataScroller);
-    var $super = rf.ui.DataScroller.$super;
+    rf.BaseComponent.extend(rf.rf4.ui.DataScroller);
+    var $super = rf.rf4.ui.DataScroller.$super;
 
-    $.extend(rf.ui.DataScroller.prototype, (function () {
+    $.extend(rf.rf4.ui.DataScroller.prototype, (function () {
 
         var scrollEventName = "rich:datascroller:onscroll";
 
         return {
 
-            name: "RichFaces.ui.DataScroller",
+            name: "RichFaces.rf4.ui.DataScroller",
 
             processClick: function(event) {
                 var data = event.data;

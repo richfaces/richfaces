@@ -1,6 +1,7 @@
 (function($, rf) {
 
-    rf.csv = rf.csv || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.csv = rf.rf4.csv || {};
 
     var _messages = {};
 
@@ -138,7 +139,7 @@
         return id;
     }
 
-    $.extend(rf.csv, {
+    $.extend(rf.rf4.csv, {
             RE_DIGITS: /^-?\d+$/,
             RE_FLOAT: /^(-?\d+)?(\.(\d+)?(e[+-]?\d+)?)?$/,
             // Messages API
@@ -163,7 +164,7 @@
                 var value = getValue(element);
                 var convertedValue;
                 var converter = params.c;
-                rf.csv.clearMessage(id);
+                rf.rf4.csv.clearMessage(id);
                 if (converter) {
                     var label = getLabel(converter, id);
                     try {
@@ -171,7 +172,7 @@
                             convertedValue = converter.f(value, id, getLabel(converter, id), converter.m);
                     } catch (e) {
                         e.severity = 2;
-                        rf.csv.sendMessage(id, e);
+                        rf.rf4.csv.sendMessage(id, e);
                         return false;
                     }
                 } else {
@@ -192,7 +193,7 @@
                         } catch (e) {
                             validationErrorMessage = e;
                             e.severity = 2;
-                            rf.csv.sendMessage(id, e);
+                            rf.rf4.csv.sendMessage(id, e);
                             result = false;
                         }
                     }
@@ -219,8 +220,8 @@
         var result = null;
         if (value) {
             value = $.trim(value);
-            if (!rf.csv.RE_DIGITS.test(value) || (result = parseInt(value, 10)) < min || result > max) {
-                throw rf.csv.interpolateMessage(msg, sample ? [value, sample, label] : [value,label]);
+            if (!rf.rf4.csv.RE_DIGITS.test(value) || (result = parseInt(value, 10)) < min || result > max) {
+                throw rf.rf4.csv.interpolateMessage(msg, sample ? [value, sample, label] : [value,label]);
             }
         }
         return result;
@@ -230,9 +231,9 @@
         var result = null;
         if (value) {
             value = $.trim(value);
-            if (!rf.csv.RE_FLOAT.test(value) || isNaN(result = parseFloat(value))) {
+            if (!rf.rf4.csv.RE_FLOAT.test(value) || isNaN(result = parseFloat(value))) {
                 // TODO - check Float limits.
-                throw rf.csv.interpolateMessage(msg, sample ? [value, sample, label] : [value,label]);
+                throw rf.rf4.csv.interpolateMessage(msg, sample ? [value, sample, label] : [value,label]);
             }
         }
         return result;
@@ -240,7 +241,7 @@
     /*
      * Converters implementation
      */
-    $.extend(rf.csv, {
+    $.extend(rf.rf4.csv, {
             "convertBoolean": function (value, label, params, msg) {
                 if (typeof value === "string") {
                     var lcvalue = $.trim(value).toLowerCase();
@@ -267,7 +268,7 @@
                 value = $.trim(value);
                 result = parseFloat(value);
                 if (isNaN(result)) {
-                    throw rf.csv.interpolateMessage(msg, [value, 99, label]);
+                    throw rf.rf4.csv.interpolateMessage(msg, [value, 99, label]);
                 }
                 return result;
             },
@@ -296,16 +297,16 @@
         var isMaxSet = typeof params.max === "number";// && params.max >0;
 
         if (isMaxSet && value > params.max) {
-            throw rf.csv.interpolateMessage(msg, isMinSet ? [params.min,params.max,label] : [params.max,label]);
+            throw rf.rf4.csv.interpolateMessage(msg, isMinSet ? [params.min,params.max,label] : [params.max,label]);
         }
         if (isMinSet && value < params.min) {
-            throw rf.csv.interpolateMessage(msg, isMaxSet ? [params.min,params.max,label] : [params.min,label]);
+            throw rf.rf4.csv.interpolateMessage(msg, isMaxSet ? [params.min,params.max,label] : [params.min,label]);
         }
     };
 
     var validateRegex = function(value, label, pattern, msg) {
         if (typeof pattern != "string" || pattern.length == 0) {
-            throw rf.csv.getMessage(msg, 'REGEX_VALIDATOR_PATTERN_NOT_SET', []);
+            throw rf.rf4.csv.getMessage(msg, 'REGEX_VALIDATOR_PATTERN_NOT_SET', []);
         }
 
         var matchPattern = makePatternAMatch(pattern);
@@ -313,10 +314,10 @@
         try {
             re = new RegExp(matchPattern);
         } catch (e) {
-            throw rf.csv.getMessage(msg, 'REGEX_VALIDATOR_MATCH_EXCEPTION', []);
+            throw rf.rf4.csv.getMessage(msg, 'REGEX_VALIDATOR_MATCH_EXCEPTION', []);
         }
         if (!re.test(value)) {
-            throw rf.csv.interpolateMessage(msg, [pattern,label]);
+            throw rf.rf4.csv.interpolateMessage(msg, [pattern,label]);
         }
 
     };
@@ -333,16 +334,16 @@
     /*
      * Validators implementation
      */
-    $.extend(rf.csv, {
+    $.extend(rf.rf4.csv, {
             "validateLongRange": function (value, label, params, msg) {
                 var type = typeof value;
                 if (type !== "number") {
                     if (type != "string") {
-                        throw rf.csv.getMessage(msg, 'LONG_RANGE_VALIDATOR_TYPE', [componentId, ""]);
+                        throw rf.rf4.csv.getMessage(msg, 'LONG_RANGE_VALIDATOR_TYPE', [componentId, ""]);
                     } else {
                         value = $.trim(value);
-                        if (!rf.csv.RE_DIGITS.test(value) || (value = parseInt(value, 10)) == NaN) {
-                            throw rf.csv.getMessage(msg, 'LONG_RANGE_VALIDATOR_TYPE', [componentId, ""]);
+                        if (!rf.rf4.csv.RE_DIGITS.test(value) || (value = parseInt(value, 10)) == NaN) {
+                            throw rf.rf4.csv.getMessage(msg, 'LONG_RANGE_VALIDATOR_TYPE', [componentId, ""]);
                         }
                     }
                 }
@@ -353,11 +354,11 @@
                 var type = typeof value;
                 if (type !== "number") {
                     if (type !== "string") {
-                        throw rf.csv.getMessage(msg, 'DOUBLE_RANGE_VALIDATOR_TYPE', [componentId, ""]);
+                        throw rf.rf4.csv.getMessage(msg, 'DOUBLE_RANGE_VALIDATOR_TYPE', [componentId, ""]);
                     } else {
                         value = $.trim(value);
-                        if (!rf.csv.RE_FLOAT.test(value) || (value = parseFloat(value)) == NaN) {
-                            throw rf.csv.getMessage(msg, 'DOUBLE_RANGE_VALIDATOR_TYPE', [componentId, ""]);
+                        if (!rf.rf4.csv.RE_FLOAT.test(value) || (value = parseFloat(value)) == NaN) {
+                            throw rf.rf4.csv.getMessage(msg, 'DOUBLE_RANGE_VALIDATOR_TYPE', [componentId, ""]);
                         }
                     }
                 }
@@ -380,7 +381,7 @@
             },
             "validateRequired": function (value, label, params, msg) {
                 if (undefined === value || null === value || "" === value) {
-                    throw rf.csv.interpolateMessage(msg, [label]);
+                    throw rf.rf4.csv.interpolateMessage(msg, [label]);
                 }
             },
             "validateTrue": function (value, label, params, msg) {

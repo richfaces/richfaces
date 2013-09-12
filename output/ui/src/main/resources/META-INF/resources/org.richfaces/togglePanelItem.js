@@ -22,9 +22,10 @@
 
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.TogglePanelItem = rf.BaseComponent.extendClass({
+    rf.rf4.ui.TogglePanelItem = rf.BaseComponent.extendClass({
 
             // class name
             name:"TogglePanelItem",
@@ -136,5 +137,5 @@
         });
 
     // define super class link
-    var $super = rf.ui.TogglePanelItem.$super;
+    var $super = rf.rf4.ui.TogglePanelItem.$super;
 })(RichFaces.jQuery, RichFaces);

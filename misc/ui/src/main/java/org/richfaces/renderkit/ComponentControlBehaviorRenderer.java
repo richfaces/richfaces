@@ -60,7 +60,7 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
      *
      */
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
-    private static final String FUNC_NAME = "RichFaces.ui.ComponentControl.execute";
+    private static final String FUNC_NAME = "RichFaces.rf4.ui.ComponentControl.execute";
     private static final String REF_EVENT = "event";
     private static final String REF_COMPONENT = "component";
     private static final String PARAM_CALLBACK = "callback";

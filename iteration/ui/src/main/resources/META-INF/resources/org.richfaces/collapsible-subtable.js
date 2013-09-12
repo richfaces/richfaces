@@ -1,19 +1,20 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.CollapsibleSubTable = function(id, f, options) {
+    rf.rf4.ui.CollapsibleSubTable = function(id, f, options) {
         this.id = id;
         this.stateInput = options.stateInput;
         this.optionsInput = options.optionsInput;
-        this.expandMode = options.expandMode || rf.ui.CollapsibleSubTable.MODE_CLNT;
+        this.expandMode = options.expandMode || rf.rf4.ui.CollapsibleSubTable.MODE_CLNT;
         this.eventOptions = options.eventOptions;
         this.formId = f;
 
         this.attachToDom();
     };
 
-    $.extend(rf.ui.CollapsibleSubTable, {
+    $.extend(rf.rf4.ui.CollapsibleSubTable, {
             MODE_AJAX: "ajax",
             MODE_SRV: "server",
             MODE_CLNT: "client",
@@ -21,10 +22,10 @@
             expand: 1
         });
 
-    rf.BaseComponent.extend(rf.ui.CollapsibleSubTable);
-    var $super = rf.ui.CollapsibleSubTable.$super;
+    rf.BaseComponent.extend(rf.rf4.ui.CollapsibleSubTable);
+    var $super = rf.rf4.ui.CollapsibleSubTable.$super;
 
-    $.extend(rf.ui.CollapsibleSubTable.prototype, (function () {
+    $.extend(rf.rf4.ui.CollapsibleSubTable.prototype, (function () {
 
         var element = function() {
             //use parent tbody as parent dom elem
@@ -63,31 +64,31 @@
             name: "CollapsibleSubTable",
 
             switchState: function(e, options) {
-                if (this.expandMode == rf.ui.CollapsibleSubTable.MODE_AJAX) {
+                if (this.expandMode == rf.rf4.ui.CollapsibleSubTable.MODE_AJAX) {
                     ajax.call(this, e, this.eventOptions, options);
-                } else if (this.expandMode == rf.ui.CollapsibleSubTable.MODE_SRV) {
+                } else if (this.expandMode == rf.rf4.ui.CollapsibleSubTable.MODE_SRV) {
                     server.call(this, options);
-                } else if (this.expandMode == rf.ui.CollapsibleSubTable.MODE_CLNT) {
+                } else if (this.expandMode == rf.rf4.ui.CollapsibleSubTable.MODE_CLNT) {
                     client.call(this, options);
                 }
             },
 
             collapse: function(options) {
-                this.setState(rf.ui.CollapsibleSubTable.collapse);
+                this.setState(rf.rf4.ui.CollapsibleSubTable.collapse);
                 element.call(this).hide();
             },
 
             expand: function(options) {
-                this.setState(rf.ui.CollapsibleSubTable.expand);
+                this.setState(rf.rf4.ui.CollapsibleSubTable.expand);
                 element.call(this).show();
             },
 
             isExpanded: function() {
-                return (parseInt(this.getState()) == rf.ui.CollapsibleSubTable.expand);
+                return (parseInt(this.getState()) == rf.rf4.ui.CollapsibleSubTable.expand);
             },
 
             __switchState: function(options) {
-                var state = this.isExpanded() ? rf.ui.CollapsibleSubTable.collapse : rf.ui.CollapsibleSubTable.expand;
+                var state = this.isExpanded() ? rf.rf4.ui.CollapsibleSubTable.collapse : rf.rf4.ui.CollapsibleSubTable.expand;
                 this.setState(state);
             },
 

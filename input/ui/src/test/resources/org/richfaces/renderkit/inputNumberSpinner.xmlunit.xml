@@ -9,7 +9,7 @@
   </span>
   <script type="text/javascript">
 //<![CDATA[
-new RichFaces.ui.InputNumberSpinner('form:spinner', {
+new RichFaces.rf4.ui.InputNumberSpinner('form:spinner', {
                 cycled: true,
                 maxValue: 100,
                 minValue: 0,

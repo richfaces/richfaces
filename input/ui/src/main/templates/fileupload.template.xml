@@ -85,7 +85,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                         attributes="acceptedTypes maxFilesQuantity immediateUpload onfileselect noDuplicate onfilesubmit ontyperejected onuploadcomplete doneLabel
 						sizeExceededLabel stoppedLabel serverErrorLabel clearLabel deleteLabel onclear" />
                 </cdk:scriptObject>
-                <script type="text/javascript">new RichFaces.ui.FileUpload(#{toScriptArgs(clientId, options)});</script>
+                <script type="text/javascript">new RichFaces.rf4.ui.FileUpload(#{toScriptArgs(clientId, options)});</script>
             </c:if>
         </div>
     </cc:implementation>

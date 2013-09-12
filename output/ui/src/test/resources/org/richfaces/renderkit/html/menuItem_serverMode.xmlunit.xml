@@ -7,7 +7,7 @@
     </span>
     <script type="text/javascript">
         //<![CDATA[
-new RichFaces.ui.MenuItem("form:menuItem", {"submitFunction": function(event) {RichFaces.submitForm("form", {"form:menuItem":"form:menuItem"})}});
+new RichFaces.rf4.ui.MenuItem("form:menuItem", {"submitFunction": function(event) {RichFaces.submitForm("form", {"form:menuItem":"form:menuItem"})}});
  //]]>
     </script>
 </div>

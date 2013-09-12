@@ -22,7 +22,8 @@
 
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     /* SIMPLE INNER CLASS for handle switch operation*/
     function SwitchItems(comp) {
@@ -147,7 +148,7 @@
      * @param {String} componentId - component id
      * @param {Hash} options - params
      * */
-    rf.ui.TogglePanel = rf.BaseComponent.extendClass({
+    rf.rf4.ui.TogglePanel = rf.BaseComponent.extendClass({
 
             // class name
             name:"TogglePanel",
@@ -432,5 +433,5 @@
         });
 
     // define super class link
-    var $super = rf.ui.TogglePanel.$super;
+    var $super = rf.rf4.ui.TogglePanel.$super;
 })(RichFaces.jQuery, RichFaces);

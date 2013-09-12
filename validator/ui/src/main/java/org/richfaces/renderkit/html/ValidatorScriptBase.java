@@ -29,7 +29,7 @@ public abstract class ValidatorScriptBase extends JSFunctionDefinition implement
     public static final String MESSAGE = "m";
     public static final JSReference MESSAGE_REF = new JSReference(MESSAGE);
     public static final NullConverterScript NULL_CONVERTER_SCRIPT = new NullConverterScript();
-    public static final String CSV_NAMESPACE = "RichFaces.csv.";
+    public static final String CSV_NAMESPACE = "RichFaces.rf4.csv.";
     public static final String VALUE_FUNCTION_NAME = CSV_NAMESPACE + "getValue";
     public static final JSFunction GET_VALUE_FUNCTION = new JSFunction(VALUE_FUNCTION_NAME, CLIENT_ID_REF, ELEMENT_REF);
     public static final String VALIDATE_FUNCTION_NAME = CSV_NAMESPACE + "validate";

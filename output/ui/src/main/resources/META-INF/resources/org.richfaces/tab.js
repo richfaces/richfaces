@@ -22,9 +22,10 @@
 
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.Tab = rf.ui.TogglePanelItem.extendClass({
+    rf.rf4.ui.Tab = rf.rf4.ui.TogglePanelItem.extendClass({
             // class name
             name:"Tab",
 
@@ -152,5 +153,5 @@
         });
 
     // define super class link
-    var $super = rf.ui.Tab.$super;
+    var $super = rf.rf4.ui.Tab.$super;
 })(RichFaces.jQuery, RichFaces);

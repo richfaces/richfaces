@@ -39,7 +39,7 @@ public class MessageTestBase {
             .loadJsfResource("richfaces.js")
             .loadJsfResource("richfaces-event.js")
             .loadJsfResource("richfaces-base-component.js")
-            .loadJsfResource("richfaces-csv.js", "org.richfaces")
+            .loadJsfResource("richfaces-csv.rf4.js", "org.richfaces")
             .loadJsfResource("message.js", "org.richfaces")
             .content(
                 "<form id=\"form\" name=\"form\" method=\"post\" action=\"/client-test.jsf\" enctype=\"application/x-www-form-urlencoded\">\n"
@@ -61,7 +61,7 @@ public class MessageTestBase {
     }
 
     protected Object sendMessage() {
-        JSFunction clientSideFunction = new JSFunction("RichFaces.csv." + getJavaScriptFunctionName(), COMPONENT,
+        JSFunction clientSideFunction = new JSFunction("RichFaces.rf4.csv." + getJavaScriptFunctionName(), COMPONENT,
             getErrorMessage());
         return qunit.runScript(clientSideFunction.toScript());
     }
@@ -89,7 +89,7 @@ public class MessageTestBase {
      * @return the messageInit
      */
     public String getMessageInit(String messageOptions) {
-        return "new RichFaces.ui.Message(\"" + MY_MESSAGE + "\", {forComponentId:\"" + COMPONENT + "\"" + messageOptions + "})";
+        return "new RichFaces.rf4.ui.Message(\"" + MY_MESSAGE + "\", {forComponentId:\"" + COMPONENT + "\"" + messageOptions + "})";
     }
 
     protected void checkMessageContent(String summary) {

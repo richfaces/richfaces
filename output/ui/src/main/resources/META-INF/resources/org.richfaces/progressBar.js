@@ -1,6 +1,7 @@
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
     var defaultOptions = {
         interval: 1000,
@@ -15,7 +16,7 @@
     };
 
     // Constructor definition
-    rf.ui.ProgressBar = function(componentId, options) {
+    rf.rf4.ui.ProgressBar = function(componentId, options) {
         // call constructor of parent class
         $super.constructor.call(this, componentId);
         this.__elt = this.attachToDom();
@@ -39,12 +40,12 @@
     };
 
     // Extend component class and add protected methods from parent class to our container
-    rf.BaseComponent.extend(rf.ui.ProgressBar);
+    rf.BaseComponent.extend(rf.rf4.ui.ProgressBar);
 
     // define super class link
-    var $super = rf.ui.ProgressBar.$super;
+    var $super = rf.rf4.ui.ProgressBar.$super;
 
-    $.extend(rf.ui.ProgressBar.prototype, (function() {
+    $.extend(rf.rf4.ui.ProgressBar.prototype, (function() {
         return {
             name: "ProgressBar",
 

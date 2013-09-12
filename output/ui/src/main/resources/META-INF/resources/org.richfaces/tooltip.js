@@ -23,15 +23,16 @@
 
 (function ($, rf) {
 
-    rf.ui = rf.ui || {};
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.ui.TooltipMode = {
+    rf.rf4.ui.TooltipMode = {
         client : "client",
         ajax : "ajax",
         DEFAULT: "client"
     };
 
-    var TooltipMode = rf.ui.TooltipMode;
+    var TooltipMode = rf.rf4.ui.TooltipMode;
 
     var DEFAULT_OPTIONS = {
         jointPoint : "AA",
@@ -92,7 +93,7 @@
         }
     };
 
-    rf.ui.Tooltip = rf.BaseComponent.extendClass({
+    rf.rf4.ui.Tooltip = rf.BaseComponent.extendClass({
             // class name
             name:"Tooltip",
 
@@ -118,7 +119,7 @@
                 this.__addUserEventHandler("beforehide");
                 this.__addUserEventHandler("beforeshow");
                 this.popupId = this.id + ':wrp';
-                this.popup = new rf.ui.Popup(this.popupId, {
+                this.popup = new rf.rf4.ui.Popup(this.popupId, {
                         attachTo: this.target,
                         attachToBody: true,
                         positionType: "TOOLTIP",
@@ -335,5 +336,5 @@
         });
 
     // define super class link
-    var $super = rf.ui.Tooltip.$super;
+    var $super = rf.rf4.ui.Tooltip.$super;
 })(RichFaces.jQuery, RichFaces);

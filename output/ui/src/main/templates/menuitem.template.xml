@@ -88,7 +88,7 @@
                                 wrapper="eventHandler" />
                         </cdk:scriptObject>
 
-                        new RichFaces.ui.MenuItem(#{toScriptArgs(clientId, options)});
+                        new RichFaces.rf4.ui.MenuItem(#{toScriptArgs(clientId, options)});
 
                     </script>
                 </c:when>
