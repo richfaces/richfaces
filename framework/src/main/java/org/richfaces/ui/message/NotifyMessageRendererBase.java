@@ -118,7 +118,8 @@ public class NotifyMessageRendererBase extends MessageRendererBase {
             escape = ((AbstractNotifyMessages) component).isEscape();
         }
 
-        options.put("severity", message.getSeverity().getOrdinal());
+        int zeroBasedSeverityOrdinal = message.getSeverity().getOrdinal() - FacesMessage.SEVERITY_INFO.getOrdinal(); // RF-13161
+        options.put("severity", zeroBasedSeverityOrdinal);
 
         if (showSummary != null && showSummary) {
             options.put("summary", escapeValue(message.getSummary(), escape));
