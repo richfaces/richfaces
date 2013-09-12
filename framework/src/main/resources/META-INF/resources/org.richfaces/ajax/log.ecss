@@ -43,7 +43,7 @@
 }
 
 .rf-log-entry-lbl {
-    
+
 }
 
 .rf-log-entry-lbl-debug {
@@ -63,11 +63,11 @@
 }
 
 .rf-log-entry-msg {
-    
+
 }
 
 .rf-log-entry-msg-debug,.rf-log-entry-msg-info,.rf-log-entry-msg-warn,.rf-log-entry-msg-error {
-    
+
 }
 
 .rf-log-entry-msg-xml {

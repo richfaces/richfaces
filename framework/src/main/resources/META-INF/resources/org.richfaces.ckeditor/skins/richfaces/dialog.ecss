@@ -6,13 +6,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 /* Restore the dialog visibility */
 body .cke_dialog
 {
-	visibility: visible;
+    visibility: visible;
 }
 
 /* Force Gecko to consider table as positioned */
 .cke_skin_richfaces table.cke_dialog.cke_browser_gecko
 {
-	display:block;
+    display:block;
 }
 
 .cke_dialog_background_cover
@@ -24,15 +24,15 @@ body .cke_dialog
 
 .cke_skin_richfaces .cke_dialog_body
 {
-	z-index: 100;
-	background-color: #fff;
-	border: '1px solid #{richSkin.panelBorderColor}';
-	background: '#{richSkin.generalBackgroundColor}';
+    z-index: 100;
+    background-color: #fff;
+    border: '1px solid #{richSkin.panelBorderColor}';
+    background: '#{richSkin.generalBackgroundColor}';
 
-	/* 'cke_dialog' element has been fixed positioned in all but IE6, while we
-		need it to be positioned to hold e.g. close button. */
-	position: relative;
-	_position: static;
+    /* 'cke_dialog' element has been fixed positioned in all but IE6, while we
+        need it to be positioned to hold e.g. close button. */
+    position: relative;
+    _position: static;
 }
 
 .cke_skin_richfaces .cke_dialog_tl,
@@ -44,12 +44,12 @@ body .cke_dialog
 .cke_skin_richfaces .cke_dialog_ml,
 .cke_skin_richfaces .cke_dialog_mr
 {
-	display:none;
+    display:none;
 }
 
 .cke_skin_richfaces .cke_dialog_title
 {
-	background: "url(#{resource['org.richfaces.images:gradientA.png']})";
+    background: "url(#{resource['org.richfaces.images:gradientA.png']})";
     repeat-x: 'top left #{richSkin.headerBackgroundColor}';
     position: relative;
     cursor: move;
@@ -67,74 +67,74 @@ body .cke_dialog
 .cke_skin_richfaces .cke_browser_ie6 .cke_dialog_title,
 .cke_skin_richfaces .cke_browser_ie7 .cke_dialog_title
 {
-	margin-bottom: 22px;
+    margin-bottom: 22px;
 }
 
 .cke_skin_richfaces .cke_browser_iequirks.cke_single_page .cke_dialog_title,
 .cke_skin_richfaces .cke_browser_ie6.cke_single_page .cke_dialog_title,
 .cke_skin_richfaces .cke_browser_ie7.cke_single_page .cke_dialog_title
 {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .cke_skin_richfaces .cke_dialog_contents
 {
-	background-color: '#{richSkin.additionalBackgroundColor}';
-	border: solid 1px #fff;
-	border-bottom: none;
-	border-top: 3px solid;
-	border-top-color: '#{richSkin.headerBackgroundColor}';
-	overflow: auto;
-	padding: 17px 10px 5px 10px;
+    background-color: '#{richSkin.additionalBackgroundColor}';
+    border: solid 1px #fff;
+    border-bottom: none;
+    border-top: 3px solid;
+    border-top-color: '#{richSkin.headerBackgroundColor}';
+    overflow: auto;
+    padding: 17px 10px 5px 10px;
 }
 
 .cke_skin_richfaces .cke_dialog_footer
 {
-	text-align: right;
-	background-color: '#{richSkin.additionalBackgroundColor}';
-	border: solid 1px #fff;
-	border-bottom: none;
-	border-top: 3px solid;
-	border-top-color: '#{richSkin.headerBackgroundColor}';
+    text-align: right;
+    background-color: '#{richSkin.additionalBackgroundColor}';
+    border: solid 1px #fff;
+    border-bottom: none;
+    border-top: 3px solid;
+    border-top-color: '#{richSkin.headerBackgroundColor}';
 }
 
 .cke_skin_richfaces .cke_rtl .cke_dialog_footer
 {
-	text-align: left;
+    text-align: left;
 }
 
 .cke_skin_richfaces .cke_dialog_footer .cke_resizer
 {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 .cke_skin_richfaces .cke_browser_iequirks .cke_dialog_footer .cke_resizer,
 .cke_skin_richfaces .cke_browser_ie6 .cke_dialog_footer .cke_resizer
 {
-	margin-top: 27px;
+    margin-top: 27px;
 }
 
 /* tabs */
 
 .cke_skin_richfaces .cke_dialog_tabs
 {
-	height: 23px;
-	display: inline-block;
-	_display: block;
-	margin-left:10px;
-	margin-right:10px;
-	margin-top: 11px;
+    height: 23px;
+    display: inline-block;
+    _display: block;
+    margin-left:10px;
+    margin-right:10px;
+    margin-top: 11px;
 }
 
 .cke_skin_richfaces .cke_browser_iequirks .cke_dialog_tabs,
 .cke_skin_richfaces .cke_browser_ie6 .cke_dialog_tabs,
 .cke_skin_richfaces .cke_browser_ie7 .cke_dialog_tabs
 {
-	top: 33px;
+    top: 33px;
 }
 
 .cke_skin_richfaces .cke_rtl .cke_dialog_tabs
 {
-	right: 10px;
+    right: 10px;
 }
 
 .cke_skin_richfaces a.cke_dialog_tab,
@@ -144,15 +144,15 @@ body .cke_dialog
 .cke_skin_richfaces a:visited.cke_dialog_tab
 {
     color: '#{richSkin.generalTextColor}';
-	height: 14px;
-	padding: 4px 8px;
-	display: inline-block;
-	cursor: pointer;
-	border: 1px solid;
-	border-color: '#{richSkin.headerBackgroundColor}';
-	border-bottom: none;
-	
-	background-image: "url(#{resource['org.richfaces.images:tabBg.png']})";
+    height: 14px;
+    padding: 4px 8px;
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid;
+    border-color: '#{richSkin.headerBackgroundColor}';
+    border-bottom: none;
+
+    background-image: "url(#{resource['org.richfaces.images:tabBg.png']})";
     background-position: top;
     background-repeat: repeat-x;
     background-color: "#{richSkin.tabBackgroundColor}";
@@ -166,9 +166,9 @@ body .cke_dialog
 .cke_skin_richfaces .cke_browser_gecko18 a:hover.cke_dialog_tab,
 .cke_skin_richfaces .cke_browser_gecko18 a:visited.cke_dialog_tab
 {
-	/*display: inline;
-	position: relative;
-	top: 6px;*/
+    /*display: inline;
+    position: relative;
+    top: 6px;*/
 }
 
 .cke_skin_richfaces a:hover.cke_dialog_tab
@@ -177,8 +177,8 @@ body .cke_dialog
 
 .cke_skin_richfaces .cke_hc a:hover.cke_dialog_tab
 {
-	padding: 2px 6px !important;
-	border-width: 3px;
+    padding: 2px 6px !important;
+    border-width: 3px;
 }
 
 .cke_skin_richfaces a.cke_dialog_tab_selected,
@@ -187,9 +187,9 @@ body .cke_dialog
 .cke_skin_richfaces a:hover.cke_dialog_tab_selected,
 .cke_skin_richfaces a:visited.cke_dialog_tab_selected
 {
-	cursor: default;
-	
-	font-weight: bold;
+    cursor: default;
+
+    font-weight: bold;
     background-image: "url(#{resource['org.richfaces.images:actTabBg.png']})";
     background-position: top;
     background-repeat: repeat-x;
@@ -202,58 +202,58 @@ body .cke_dialog
 .cke_skin_richfaces .cke_hc a:hover.cke_dialog_tab_selected,
 .cke_skin_richfaces .cke_hc a:visited.cke_dialog_tab_selected
 {
-	padding: 2px 6px !important;
-	border-width: 3px;
+    padding: 2px 6px !important;
+    border-width: 3px;
 }
 
 /* single_page */
 
 .cke_skin_richfaces .cke_single_page .cke_dialog_tabs
 {
-	display: none;
+    display: none;
 }
 
 .cke_skin_richfaces .cke_single_page .cke_dialog_contents
 {
-	padding-top: 5px;
-	margin-top: 10px;
+    padding-top: 5px;
+    margin-top: 10px;
 }
 
 /* IE7 + IE quirks */
 .cke_skin_richfaces .cke_browser_ie7.cke_single_page .cke_dialog_contents
 {
-	margin-top: 0px;
-	position: relative;
-	margin-bottom: -22px;
+    margin-top: 0px;
+    position: relative;
+    margin-bottom: -22px;
 }
 
 .cke_skin_richfaces .cke_dialog_ui_vbox table,
 .cke_skin_richfaces .cke_dialog_ui_hbox table
 {
-	margin: auto;
+    margin: auto;
 }
 
 .cke_skin_richfaces .cke_dialog_ui_vbox_child
 {
-	padding: 5px 0px;
+    padding: 5px 0px;
 }
 
 .cke_skin_richfaces input.cke_dialog_ui_input_text,
 .cke_skin_richfaces input.cke_dialog_ui_input_password
 {
-	background-color: white;
-	border: none;
-	padding: 0px;
-	width: 100%;
-	height: 14px;
+    background-color: white;
+    border: none;
+    padding: 0px;
+    width: 100%;
+    height: 14px;
 }
 
 .cke_skin_richfaces div.cke_dialog_ui_input_text,
 .cke_skin_richfaces div.cke_dialog_ui_input_password
 {
-	padding: 1px 0px;
-	/* IE6/Quirks - make sure the content does not overflow (#7321) */
-	_width: 99.9%;
+    padding: 1px 0px;
+    /* IE6/Quirks - make sure the content does not overflow (#7321) */
+    _width: 99.9%;
 }
 
 /* Opera/IE doesn't leave enough padding in text input for cursor to blink in RTL. (#6087) */
@@ -262,7 +262,7 @@ body .cke_dialog
 .cke_skin_richfaces .cke_browser_ie.cke_rtl input.cke_dialog_ui_input_password,
 .cke_skin_richfaces .cke_browser_opera.cke_rtl input.cke_dialog_ui_input_password
 {
-	padding-right: 2px;
+    padding-right: 2px;
 }
 
 /* Compensate the padding added above on container. */
@@ -271,7 +271,7 @@ body .cke_dialog
 .cke_skin_richfaces .cke_browser_ie.cke_rtl div.cke_dialog_ui_input_password,
 .cke_skin_richfaces .cke_browser_opera.cke_rtl div.cke_dialog_ui_input_password
 {
-	padding-left: 2px;
+    padding-left: 2px;
 }
 
 .cke_skin_richfaces .cke_browser_ie.cke_rtl .cke_dialog_ui_vbox_child,
@@ -279,90 +279,90 @@ body .cke_dialog
 .cke_skin_richfaces .cke_browser_ie.cke_rtl .cke_dialog_ui_hbox_first,
 .cke_skin_richfaces .cke_browser_ie.cke_rtl .cke_dialog_ui_hbox_last
 {
-	padding-right: 2px !important;
+    padding-right: 2px !important;
 }
 
 .cke_skin_richfaces .cke_browser_ie.cke_rtl div.cke_dialog_ui_input_text {
-	padding-right: 1px;
+    padding-right: 1px;
 }
 
 .cke_skin_richfaces .cke_browser_gecko.cke_hc div.cke_dialog_ui_input_text,
 .cke_skin_richfaces .cke_browser_gecko.cke_hc div.cke_dialog_ui_input_password
 {
-	border-width: 0px;
+    border-width: 0px;
 }
 
 .cke_skin_richfaces .cke_browser_gecko18.cke_hc div.cke_dialog_ui_input_text,
 .cke_skin_richfaces .cke_browser_gecko18.cke_hc div.cke_dialog_ui_input_password
 {
-	border-width: 1px;
+    border-width: 1px;
 }
 
 .cke_skin_richfaces textarea.cke_dialog_ui_input_textarea
 {
-	background-color: white;
-	border: none;
-	padding: 0px;
-	width: 100%;
-	/*
-	 * IE6 BUG: Scrollbars in textareas can overflow even if the outer DIV is set to overflow:hidden.
-	 * So leave 1% width for the scrollbar. In most situations the 1% isn't noticeable by users.
-	 */
-	_width: 99%;
-	overflow: auto;
-	resize: none;
+    background-color: white;
+    border: none;
+    padding: 0px;
+    width: 100%;
+    /*
+     * IE6 BUG: Scrollbars in textareas can overflow even if the outer DIV is set to overflow:hidden.
+     * So leave 1% width for the scrollbar. In most situations the 1% isn't noticeable by users.
+     */
+    _width: 99%;
+    overflow: auto;
+    resize: none;
 }
 
 .cke_skin_richfaces div.cke_dialog_ui_input_textarea
 {
-	background-color: white;
-	border: 1px solid #a0a0a0;
-	padding: 1px 0px;
+    background-color: white;
+    border: 1px solid #a0a0a0;
+    padding: 1px 0px;
 }
 
 .cke_skin_richfaces div.cke_disabled .cke_dialog_ui_labeled_content *
 {
-	background-color : #a0a0a0;
-	cursor : default;
+    background-color : #a0a0a0;
+    cursor : default;
 }
 
 /* RTL + IE6: Input overflows dialog element. (#7321) */
 .cke_skin_richfaces .cke_rtl .cke_dialog_ui_labeled_content
 {
-	_width: 95%;
+    _width: 95%;
 }
 
 .cke_skin_richfaces .cke_dialog_ui_hbox
 {
-	width: 100%;
+    width: 100%;
 }
 
 .cke_skin_richfaces .cke_dialog_ui_hbox_first,
 .cke_skin_richfaces .cke_dialog_ui_hbox_child,
 .cke_skin_richfaces .cke_dialog_ui_hbox_last
 {
-	vertical-align: top;
+    vertical-align: top;
 }
 
 .cke_skin_richfaces .cke_ltr .cke_dialog_ui_hbox_first,
 .cke_skin_richfaces .cke_ltr .cke_dialog_ui_hbox_child
 {
-	padding-right: 10px;
+    padding-right: 10px;
 }
 
 .cke_skin_richfaces .cke_rtl .cke_dialog_ui_hbox_first,
 .cke_skin_richfaces .cke_rtl .cke_dialog_ui_hbox_child
 {
-	padding-left: 10px;
+    padding-left: 10px;
 }
 
 /* button */
 
 .cke_skin_richfaces a.cke_dialog_ui_button
 {
-	padding: 2px 0;
-	border-width: 1px;
-	border-style: outset;
+    padding: 2px 0;
+    border-width: 1px;
+    border-style: outset;
     border-color: '#{richSkin.panelBorderColor}';
     font-size: '#{richSkin.generalSizeFont}';
     font-family: '#{richSkin.generalFamilyFont}';
@@ -375,52 +375,52 @@ body .cke_dialog
 
 .cke_skin_richfaces .cke_browser_iequirks a.cke_dialog_ui_button
 {
-	padding: 0;
+    padding: 0;
 }
 
 /* IE6 buttons. */
 .cke_skin_richfaces .cke_browser_ie6 a.cke_dialog_ui_button span
 {
-	width: 70px;
+    width: 70px;
 }
 
 .cke_skin_richfaces .cke_browser_iequirks a.cke_dialog_ui_button span,
 .cke_skin_richfaces .cke_browser_iequirks a.cke_dialog_ui_button span
 {
-	width: 100px;
+    width: 100px;
 }
 
 .cke_skin_richfaces .cke_browser_iequirks a.cke_dialog_ui_button span,
 .cke_skin_richfaces .cke_browser_iequirks a.cke_dialog_ui_button span,
 .cke_skin_richfaces .cke_browser_ie6 a.cke_dialog_ui_button span
 {
-	padding: 5px 15px;
-	text-align: center;
-	color: #3b3b1f;
-	background: #53D9F0 none;
-	display: inline-block;
-	cursor: default;
+    padding: 5px 15px;
+    text-align: center;
+    color: #3b3b1f;
+    background: #53D9F0 none;
+    display: inline-block;
+    cursor: default;
 }
 /* END IE6 buttons. */
 
 .cke_skin_richfaces .cke_browser_webkit a.cke_dialog_ui_button span.cke_dialog_ui_button
 {
-	margin: 0;
+    margin: 0;
 }
 .cke_skin_richfaces .cke_browser_webkit a.cke_dialog_ui_button
 {
-	display:inline-block;
-	padding-top: 3px;
-	padding-bottom: 2px;
-	margin: 2px 0;
+    display:inline-block;
+    padding-top: 3px;
+    padding-bottom: 2px;
+    margin: 2px 0;
 }
 
 .cke_skin_richfaces a.cke_dialog_ui_button_ok span,
 .cke_skin_richfaces a.cke_dialog_ui_button_cancel span
 {
-	width:60px;
-	padding-right: 20px;
-	padding-left: 20px;
+    width:60px;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .cke_skin_richfaces a.cke_dialog_ui_button_ok
@@ -429,19 +429,19 @@ body .cke_dialog
 
 .cke_skin_richfaces a.cke_dialog_ui_button_ok span
 {
-	background: transparent url(images/sprites.png) no-repeat scroll right -1219px;
+    background: transparent url(images/sprites.png) no-repeat scroll right -1219px;
 }
 
 .cke_skin_richfaces .cke_rtl a.cke_dialog_ui_button_ok span
 {
-	background-position: left -1219px;
+    background-position: left -1219px;
 }
 
 .cke_skin_richfaces .cke_browser_iequirks a.cke_dialog_ui_button_ok span,
 .cke_skin_richfaces .cke_browser_ie6 a.cke_dialog_ui_button_ok span
 {
-	background-color: #B8E834;
-	margin-right: 0;
+    background-color: #B8E834;
+    margin-right: 0;
 }
 
 .cke_skin_richfaces a.cke_dialog_ui_button_cancel
@@ -450,18 +450,18 @@ body .cke_dialog
 
 .cke_skin_richfaces a.cke_dialog_ui_button_cancel span
 {
-	background: transparent url(images/sprites.png) no-repeat scroll right -1245px;
+    background: transparent url(images/sprites.png) no-repeat scroll right -1245px;
 }
 
 .cke_skin_richfaces .cke_rtl a.cke_dialog_ui_button_cancel span
 {
-	background-position: left -1245px;
+    background-position: left -1245px;
 }
 
 .cke_skin_richfaces .cke_browser_iequirks a.cke_dialog_ui_button_cancel span,
 .cke_skin_richfaces .cke_browser_ie6 a.cke_dialog_ui_button_cancel span
 {
-	background-color: #F65D20;
+    background-color: #F65D20;
 }
 
 .cke_skin_richfaces .cke_browser_iequirks a.cke_dialog_ui_button_cancel span,
@@ -469,38 +469,38 @@ body .cke_dialog
 .cke_skin_richfaces .cke_browser_iequirks a.cke_dialog_ui_button_ok span,
 .cke_skin_richfaces .cke_browser_ie6 a.cke_dialog_ui_button_ok span
 {
-	background-image: none;
+    background-image: none;
 }
 
 .cke_skin_richfaces span.cke_dialog_ui_button
 {
-	padding: 2px 10px;
-	text-align: center;
-	color: '#{richSkin.headerTextColor}';
-	display: inline-block;
-	cursor: default;
-	min-width: 60px;
-	/*+margin: 2px 0; // IE7 */
+    padding: 2px 10px;
+    text-align: center;
+    color: '#{richSkin.headerTextColor}';
+    display: inline-block;
+    cursor: default;
+    min-width: 60px;
+    /*+margin: 2px 0; // IE7 */
 }
 
 /* Gecko 1.8 does not support display: inline-block */
 .cke_skin_richfaces .cke_browser_gecko18 .cke_dialog_footer_buttons span.cke_dialog_ui_button
 {
-	display: block;
+    display: block;
 }
 
 .cke_skin_richfaces a.cke_dialog_ui_button span.cke_disabled
 {
-	border: #898980 1px solid;
-	color: #5e5e55;
-	background-color: #c5c5b3;
+    border: #898980 1px solid;
+    color: #5e5e55;
+    background-color: #c5c5b3;
 }
 
 .cke_skin_richfaces a:hover.cke_dialog_ui_button,
 .cke_skin_richfaces a:focus.cke_dialog_ui_button,
 .cke_skin_richfaces a:active.cke_dialog_ui_button
 {
-	background-position: bottom left;
+    background-position: bottom left;
     background-repeat: repeat-x;
     background-image: "url(#{resource['org.richfaces.images:buttonHoverBackgroundImage.png']})";
 }
@@ -509,7 +509,7 @@ body .cke_dialog
 .cke_skin_richfaces .cke_hc a:focus.cke_dialog_ui_button,
 .cke_skin_richfaces .cke_hc a:active.cke_dialog_ui_button
 {
-	border-width: 2px;
+    border-width: 2px;
 }
 
 /* Skip hover effect on IE6 */
@@ -520,77 +520,77 @@ body .cke_dialog
 .cke_skin_richfaces .cke_browser_ie6 a:focus.cke_dialog_ui_button span,
 .cke_skin_richfaces .cke_browser_ie6 a:active.cke_dialog_ui_button span
 {
-	background-image: none;
-	background: #F7A922;
+    background-image: none;
+    background: #F7A922;
 }
 
 .cke_skin_richfaces .cke_dialog_footer_buttons
 {
-	display: inline-table;
-	margin-right: 12px;
-	margin-left: 12px;
-	width: auto;
-	position: relative;
+    display: inline-table;
+    margin-right: 12px;
+    margin-left: 12px;
+    width: auto;
+    position: relative;
 }
 
 /* IE7 needs position static #6806 */
 .cke_skin_richfaces .cke_browser_ie7 .cke_dialog_footer_buttons
 {
-	position: static;
+    position: static;
 }
 
 /* Gecko 1.8 does not support for display: inline-table */
 .cke_skin_richfaces .cke_browser_gecko18 .cke_dialog_footer_buttons
 {
-	display: inline;
+    display: inline;
 }
 
 .cke_skin_richfaces .cke_dialog_footer_buttons span.cke_dialog_ui_button
 {
-	margin: 7px 0;
-	text-align: center;
+    margin: 7px 0;
+    text-align: center;
 }
 
 /* Firefox2 buttons */
 .cke_skin_richfaces .cke_browser_gecko18 .cke_dialog_footer_buttons a.cke_dialog_ui_button
 {
-	display: block;
-	padding: 0;
+    display: block;
+    padding: 0;
 }
 
 .cke_skin_richfaces .cke_browser_gecko18 .cke_dialog_footer_buttons span.cke_dialog_ui_button
 {
-	padding-bottom: 5px;
-	padding-top: 6px;
-	margin-bottom: 0;
+    padding-bottom: 5px;
+    padding-top: 6px;
+    margin-bottom: 0;
 }
 
 .cke_skin_richfaces .cke_browser_gecko18 .cke_dialog_footer_buttons .cke_dialog_ui_button_ok .cke_dialog_ui_button
 {
-	background-position: right -1214px;
+    background-position: right -1214px;
 }
 
 .cke_skin_richfaces .cke_browser_gecko18 .cke_dialog_footer_buttons .cke_dialog_ui_button_cancel .cke_dialog_ui_button
 {
-	background-position: right -1242px;
+    background-position: right -1242px;
 }
 /* END Firefox2 buttons */
 
 .cke_skin_richfaces .cke_browser_ie9.cke_rtl .cke_dialog_footer_buttons td
 {
-	padding-left: 2px;
+    padding-left: 2px;
 }
 
 .cke_skin_richfaces strong
 {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 /* close_button */
 
 .cke_skin_richfaces .cke_dialog .cke_dialog_body .cke_dialog_close_button
 {
-	position: absolute;
+    position: absolute;
     top: 2px;
     right: 2px;
     white-space: nowrap;
@@ -614,54 +614,54 @@ body .cke_dialog
 
 .cke_skin_richfaces .cke_ltr .cke_dialog_close_button
 {
-	right: 2px;
+    right: 2px;
 }
 
 .cke_skin_richfaces .cke_browser_ie8.cke_rtl .cke_dialog_close_button
 {
-	left: 8px;
+    left: 8px;
 }
 
 .cke_skin_richfaces .cke_rtl .cke_dialog_close_button
 {
-	left: 10px;
+    left: 10px;
 }
 
 .cke_skin_richfaces .cke_browser_ie7.cke_rtl .cke_dialog_close_button
 {
-	left: 16px;
-	top: 0;
+    left: 16px;
+    top: 0;
 }
 
 /*.cke_skin_richfaces .cke_browser_ie6.cke_rtl .cke_dialog_close_button
 {
-	left: 16px;
+    left: 16px;
 }*/
 
 /* IE7 + IE quirks */
 .cke_skin_richfaces .cke_browser_ie7.cke_rtl .cke_dialog_close_button
 {
-	position: absolute;
-	left: 10px;
-	top: 5px;
+    position: absolute;
+    left: 10px;
+    top: 5px;
 }
 
 /* IE7 + IE quirks */
 .cke_skin_richfaces .cke_browser_ie7.cke_single_page .cke_dialog_footer
 {
-	margin-top: 22px;
+    margin-top: 22px;
 }
 
 .cke_skin_richfaces .cke_browser_ie6 .cke_dialog_close_button,
 .cke_skin_richfaces .cke_browser_iequirks .cke_dialog_close_button
 {
-	top: 7px;
+    top: 7px;
 }
 
 /* IE7 + IE quirks */
 .cke_skin_richfaces .cke_browser_ie7.cke_ltr .cke_dialog_close_button
 {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 .cke_skin_richfaces .cke_dialog_ui_input_select
@@ -670,8 +670,8 @@ body .cke_dialog
 
 .cke_skin_richfaces .cke_dialog_ui_input_file
 {
-	width: 100%;
-	height: 25px;
+    width: 100%;
+    height: 25px;
 }
 
 /*
@@ -679,159 +679,159 @@ body .cke_dialog
  */
 .cke_skin_richfaces .cke_dialog .cke_dark_background
 {
-	background-color: #eaead1;
+    background-color: #eaead1;
 }
 
 .cke_skin_richfaces .cke_dialog .cke_hand
 {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .cke_skin_richfaces .cke_dialog .cke_centered
 {
-	text-align: center;
+    text-align: center;
 }
 
 .cke_skin_richfaces .cke_dialog a.cke_btn_reset
 {
-	float: right;
-	background-position: 0 -32px;
-	background-image: url(images/mini.gif);
-	width: 16px;
-	height: 16px;
-	background-repeat: no-repeat;
-	border: 1px none;
-	font-size: 1px;
+    float: right;
+    background-position: 0 -32px;
+    background-image: url(images/mini.gif);
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    border: 1px none;
+    font-size: 1px;
 }
 
 .cke_skin_richfaces .cke_rtl .cke_dialog a.cke_btn_reset
 {
-	float: left;
+    float: left;
 }
 
 .cke_skin_richfaces .cke_dialog a.cke_btn_locked,
 .cke_skin_richfaces .cke_dialog a.cke_btn_unlocked
 {
-	float: left;
-	background-position: 0 0;
-	background-image: url(images/mini.gif);
-	width: 16px;
-	height: 16px;
-	background-repeat: no-repeat;
-	border: none 1px;
-	font-size: 1px;
+    float: left;
+    background-position: 0 0;
+    background-image: url(images/mini.gif);
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    border: none 1px;
+    font-size: 1px;
 }
 .cke_skin_richfaces .cke_dialog a.cke_btn_locked .cke_icon
 {
-	display:none;
+    display:none;
 }
 
 .cke_skin_richfaces .cke_rtl .cke_dialog a.cke_btn_locked,
 .cke_skin_richfaces .cke_rtl .cke_dialog a.cke_btn_unlocked
 {
-	float: right;
+    float: right;
 }
 
 .cke_skin_richfaces .cke_dialog a.cke_btn_unlocked
 {
-	background-position: 0 -16px;
-	background-image: url(images/mini.gif);
+    background-position: 0 -16px;
+    background-image: url(images/mini.gif);
 }
 
 .cke_skin_richfaces .cke_dialog .cke_btn_over
 {
-	border: outset 1px;
-	cursor: pointer;
+    border: outset 1px;
+    cursor: pointer;
 }
 
 .cke_skin_richfaces .cke_dialog  .ImagePreviewBox
 {
-	border : 2px ridge black;
-	overflow : scroll;
-	height : 200px;
-	width : 300px;
-	padding : 2px;
-	background-color : white;
+    border : 2px ridge black;
+    overflow : scroll;
+    height : 200px;
+    width : 300px;
+    padding : 2px;
+    background-color : white;
 }
 
 .cke_skin_richfaces .cke_dialog .ImagePreviewBox table td {
-	white-space: normal;
+    white-space: normal;
 }
 
 /* Fix iframedialog's height doesn't stretch to 100% #4863.*/
 .cke_skin_richfaces .cke_browser_iequirks .cke_dialog_page_contents
 {
-	_position: absolute;
+    _position: absolute;
 }
 
 .cke_skin_richfaces .cke_dialog  .ImagePreviewLoader
 {
-	position: absolute;
-	white-space : normal;
-	overflow : hidden;
-	height : 160px;
-	width : 230px;
-	margin : 2px;
-	padding : 2px;
-	opacity : 0.9;
-	filter : 'alpha(opacity=90)';
+    position: absolute;
+    white-space : normal;
+    overflow : hidden;
+    height : 160px;
+    width : 230px;
+    margin : 2px;
+    padding : 2px;
+    opacity : 0.9;
+    filter : 'alpha(opacity=90)';
 
-	background-color : #e4e4e4;
+    background-color : #e4e4e4;
 }
 
 .cke_skin_richfaces .cke_dialog  .FlashPreviewBox
 {
-	white-space : normal;
-	border : 2px ridge black;
-	overflow : auto;
-	height : 160px;
-	width : 390px;
-	padding : 2px;
-	background-color : white;
+    white-space : normal;
+    border : 2px ridge black;
+    overflow : auto;
+    height : 160px;
+    width : 390px;
+    padding : 2px;
+    background-color : white;
 }
 
 .cke_skin_richfaces .cke_dialog .cke_pastetext
 {
-	width: 346px;
-	height: 170px;
+    width: 346px;
+    height: 170px;
 }
 
 .cke_skin_richfaces .cke_dialog .cke_pastetext textarea
 {
-	width: 340px;
-	height: 170px;
-	resize: none;
+    width: 340px;
+    height: 170px;
+    resize: none;
 }
 
 .cke_skin_richfaces .cke_dialog iframe.cke_pasteframe
 {
-	width: 346px;
-	height: 130px;
-	background-color: white;
-	border: 1px solid black;
+    width: 346px;
+    height: 130px;
+    background-color: white;
+    border: 1px solid black;
 }
 
 .cke_skin_richfaces .cke_dialog .cke_dark_background
 {
-	text-align : center;
-	background-color: #eaead1;
-	font-size : 14px;
+    text-align : center;
+    background-color: #eaead1;
+    font-size : 14px;
 }
 
 .cke_skin_richfaces .cke_dialog .cke_light_background
 {
-	text-align : center;
-	background-color: #ffffbe;
+    text-align : center;
+    background-color: #ffffbe;
 }
 
 .cke_skin_richfaces .cke_dialog .cke_hand
 {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .cke_skin_richfaces .cke_disabled
 {
-	color: #a0a0a0;
+    color: #a0a0a0;
 }
 
 /* High Contrast Mode */
@@ -841,91 +841,91 @@ body .cke_dialog
 .cke_skin_richfaces .cke_hc .cke_dialog_contents,
 .cke_skin_richfaces .cke_hc .cke_dialog_footer
 {
-	border-left: 1px solid;
-	border-right: 1px solid;
+    border-left: 1px solid;
+    border-right: 1px solid;
 }
 
 .cke_skin_richfaces .cke_hc .cke_dialog_title
 {
-	border-top: 1px solid;
+    border-top: 1px solid;
 }
 
 .cke_skin_richfaces .cke_hc .cke_dialog_footer
 {
-	border-bottom: 1px solid;
+    border-bottom: 1px solid;
 }
 
 .cke_skin_richfaces .cke_hc .cke_dialog_close_button span
 {
-	display: inline;
-	cursor: pointer;
-	font-weight: bold;
-	position: relative;
-	top: 3px;
+    display: inline;
+    cursor: pointer;
+    font-weight: bold;
+    position: relative;
+    top: 3px;
 }
 
 .cke_skin_richfaces .cke_dialog_body .cke_label
 {
-	display: none;
+    display: none;
 }
 
 .cke_skin_richfaces .cke_dialog_body label.cke_required
 {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .cke_skin_richfaces .cke_hc .cke_dialog_body .cke_label
 {
-	display: inline;
-	cursor: inherit;
+    display: inline;
+    cursor: inherit;
 }
 
 .cke_skin_richfaces .cke_hc a.cke_btn_locked,
 .cke_skin_richfaces .cke_hc a.cke_btn_unlocked,
 .cke_skin_richfaces .cke_hc a.cke_btn_reset
 {
-	border-style: solid;
-	float: left;
-	width: auto;
-	height: auto;
-	padding: 0 2px;
+    border-style: solid;
+    float: left;
+    width: auto;
+    height: auto;
+    padding: 0 2px;
 }
 
 .cke_skin_richfaces .cke_rtl.cke_hc a.cke_btn_locked,
 .cke_skin_richfaces .cke_rtl.cke_hc a.cke_btn_unlocked,
 .cke_skin_richfaces .cke_rtl.cke_hc a.cke_btn_reset
 {
-	float: right;
+    float: right;
 }
 .cke_skin_richfaces .cke_hc a.cke_btn_locked .cke_icon
 {
-	display:inline;
+    display:inline;
 }
 
 .cke_skin_richfaces a.cke_smile img
 {
-	/* IE6 does not support transparent borders */
-	border: 2px solid #eaead1;
+    /* IE6 does not support transparent borders */
+    border: 2px solid #eaead1;
 }
 
 .cke_skin_richfaces a.cke_smile:focus img,
 .cke_skin_richfaces a.cke_smile:active img,
 .cke_skin_richfaces a.cke_smile:hover img
 {
-	border-color: #C7C78F;
+    border-color: #C7C78F;
 }
 
 .cke_skin_richfaces .cke_hc .cke_dialog_tabs a,
 .cke_skin_richfaces .cke_hc .cke_dialog_footer a
 {
-	opacity: 1.0;
-	filter: 'alpha(opacity=100)';
-	border: 1px solid white;
+    opacity: 1.0;
+    filter: 'alpha(opacity=100)';
+    border: 1px solid white;
 }
 
 .cke_skin_richfaces .cke_hc .ImagePreviewBox
 {
-	width: 260px;
+    width: 260px;
 }
 
 /**
@@ -934,13 +934,13 @@ body .cke_dialog
 
 .cke_skin_richfaces .cke_dialog_contents a.colorChooser
 {
-	display:block;
-	margin-top:6px;
-	margin-left: 10px;
-	width: 80px;
+    display:block;
+    margin-top:6px;
+    margin-left: 10px;
+    width: 80px;
 }
 
 .cke_skin_richfaces .cke_rtl .cke_dialog_contents a.colorChooser
 {
-	margin-right: 10px;
+    margin-right: 10px;
 }

@@ -12,19 +12,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 .cke_skin_richfaces a:visited,
 .cke_skin_richfaces a:active
 {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	background: transparent;
-	text-decoration: none;
-	width: auto;
-	height: auto;
-	border-collapse: collapse;
-	text-align: left;
-	vertical-align: baseline;
-	white-space: nowrap;
-	cursor: auto;
-	color: #000;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    text-decoration: none;
+    width: auto;
+    height: auto;
+    border-collapse: collapse;
+    text-align: left;
+    vertical-align: baseline;
+    white-space: nowrap;
+    cursor: auto;
+    color: #000;
 
     /*font: normal normal normal 100% Sans-Serif;
     font-size: 12px;
@@ -42,43 +42,43 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 .cke_rtl .cke_skin_richfaces a:visited,
 .cke_rtl .cke_skin_richfaces a:active
 {
-	text-align: right;
+    text-align: right;
 }
 
 .cke_skin_richfaces iframe
 {
-	vertical-align: inherit;	/** For IE */
+    vertical-align: inherit;    /** For IE */
 }
 
 .cke_skin_richfaces textarea
 {
-	white-space: pre;
+    white-space: pre;
 }
 
 .cke_skin_richfaces .cke_browser_gecko textarea
 {
-	cursor: text;
+    cursor: text;
 }
 
 .cke_skin_richfaces .cke_browser_gecko textarea[disabled]
 {
-	cursor: default;
+    cursor: default;
 }
 
 .cke_skin_richfaces input[type="text"],
 .cke_skin_richfaces input[type="password"]
 {
-	cursor: text;
+    cursor: text;
 }
 
 .cke_skin_richfaces input[type="text"][disabled],
 .cke_skin_richfaces input[type="password"][disabled]
 {
-	cursor: default;
+    cursor: default;
 }
 
 .cke_skin_richfaces fieldset
 {
-	padding: 10px;
-	border: 2px groove #E0DFE3;
+    padding: 10px;
+    border: 2px groove #E0DFE3;
 }
