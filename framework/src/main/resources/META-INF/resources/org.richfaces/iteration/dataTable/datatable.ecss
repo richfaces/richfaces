@@ -83,7 +83,7 @@
     border-right-style: solid;
     border-right-color: '#{richSkin.tableBorderColor}';
     background-color: '#{richSkin.tableHeaderBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
+    background-image: "#{richSkin.imageUrl('colHdrGrad.png')}";
     background-position: top left;
     color: '#{richSkin.tableHeaderTextColor}';
     font-family: '#{richSkin.generalFamilyFont}';
@@ -109,7 +109,7 @@
     border-right-style: solid;
     border-right-color: '#{richSkin.tableBorderColor}';
     background-color: '#{richSkin.tableHeaderBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
+    background-image: "#{richSkin.imageUrl('colHdrGrad.png')}";
     background-position: top left;
     color: '#{richSkin.tableHeaderTextColor}';
     font-family: '#{richSkin.generalFamilyFont}';

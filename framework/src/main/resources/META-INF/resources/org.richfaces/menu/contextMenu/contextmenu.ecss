@@ -38,7 +38,7 @@
 }
 
 .rf-ctx-sel {
-    background-image: "url(#{resource['org.richfaces.images:menu_item_bg.png']})";
+    background-image: "#{richSkin.imageUrl('menu_item_bg.png')}";
     background-repeat: repeat-x;
     background-position: bottom left;
     background-color: '#{richSkin.additionalBackgroundColor}';
@@ -85,7 +85,7 @@
     border-color: '#{richSkin.additionalBackgroundColor}';
     background-repeat: repeat-y;
     background-position: left;
-    background-image: "url(#{resource['org.richfaces.images:menu_list_bg.png']})";
+    background-image: "#{richSkin.imageUrl('menu_list_bg.png')}";
     /*from additionalBackgroundColor (left) to tabBackgroundColor (right)*/
 }
 
@@ -110,7 +110,7 @@
     background-color: '#{richSkin.additionalBackgroundColor}';
     background-repeat: repeat-x;
     background-position: bottom left;
-    background-image: "url(#{resource['org.richfaces.images:menu_item_bg.png']})";
+    background-image: "#{richSkin.imageUrl('menu_item_bg.png')}";
     z-index: 10;
 }
 
@@ -142,7 +142,7 @@
 }
 
 .rf-ctx-nd {
-    background-image: "url(#{resource['org.richfaces.images:menuNodeImage.gif']})";
+    background-image: "#{richSkin.imageUrl('menuNodeImage.gif')}";
     background-repeat: no-repeat;
     background-position: top;
     font-size: 1px;

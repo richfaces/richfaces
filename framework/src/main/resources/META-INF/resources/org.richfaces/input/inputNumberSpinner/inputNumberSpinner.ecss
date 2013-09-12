@@ -30,7 +30,7 @@
 
 input.rf-insp-inp[type="text"] {
     background-color: '#{richSkin.controlBackgroundColor}';
-    background-image: url("#{resource['org.richfaces.images:inputBackgroundImage.png']}");
+    background-image: "#{richSkin.imageUrl('inputBackgroundImage.png')}";
     background-position: 1px 1px;
     background-repeat: no-repeat;
     border: 0px;
@@ -44,7 +44,7 @@ input.rf-insp-inp[type="text"] {
 
 .rf-insp-btns {
     background-color: '#{richSkin.headerBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
+    background-image: "#{richSkin.imageUrl('buttonBackgroundImage.png')}";
     background-position: top left;
     background-repeat: repeat-x;
     border-left-width: 1px;
@@ -63,17 +63,17 @@ input.rf-insp-inp[type="text"] {
 }
 
 .rf-insp-dec {
-    background-image: url("#{resource['org.richfaces.images:spinnerArrowBottom.png']}");
+    background-image: "#{richSkin.imageUrl('spinnerArrowBottom.png')}";
 }
 
 .rf-insp-inc {
-    background-image: url("#{resource['org.richfaces.images:spinnerArrowTop.png']}");
+    background-image: "#{richSkin.imageUrl('spinnerArrowTop.png')}";
 }
 
 .rf-insp-dec-dis {
-    background-image: url("#{resource['org.richfaces.images:spinnerDisabledArrowBottom.png']}");
+    background-image: "#{richSkin.imageUrl('spinnerDisabledArrowBottom.png')}";
 }
 
 .rf-insp-inc-dis {
-    background-image: url("#{resource['org.richfaces.images:spinnerDisabledArrowTop.png']}");
+    background-image: "#{richSkin.imageUrl('spinnerDisabledArrowTop.png')}";
 }

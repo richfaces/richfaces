@@ -54,7 +54,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
     background-repeat: no-repeat;
     background-position: 1px 1px;
     background-color: '#{richSkin.controlBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:inputBackgroundImage.png']})";
+    background-image: "#{richSkin.imageUrl('inputBackgroundImage.png')}";
     margin: 5px 6px 5px 0;
     height: 16px;
 }
@@ -131,7 +131,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 .cke_skin_richfaces .cke_rcombo .cke_openbutton
 {
-    background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
+    background-image: "#{richSkin.imageUrl('autocompleteButtonGradient.png')}";
     background-repeat: repeat-x;
     background-position: top left;
     background-color: '#{richSkin.headerBackgroundColor}';
@@ -146,7 +146,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 {
     background-position: center;
     background-repeat: no-repeat;
-    background-image: "url(#{resource['org.richfaces.images:comboDownButton.png']})";
+    background-image: "#{richSkin.imageUrl('comboDownButton.png')}";
     cursor: pointer;
     width: 15px;
     height: 16px;

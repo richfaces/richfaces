@@ -43,7 +43,7 @@
     border-style: solid;
     background-position: top left;
     background-repeat: repeat-x;
-    background-image: "url(#{resource['org.richfaces.images:gradientA.png']})";
+    background-image: "#{richSkin.imageUrl('gradientA.png')}";
 }
 
 .rf-p-b {

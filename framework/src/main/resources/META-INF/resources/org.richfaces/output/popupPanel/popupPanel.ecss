@@ -64,7 +64,7 @@
 }
 
 .rf-pp-hdr {
-    background: "url(#{resource['org.richfaces.images:gradientA.png']})";
+    background: "#{richSkin.imageUrl('gradientA.png')}";
     repeat-x: 'top left #{richSkin.headerBackgroundColor}';
     position: relative;
     padding-left: 10px;
