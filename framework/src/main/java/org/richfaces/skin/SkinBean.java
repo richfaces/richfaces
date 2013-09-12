@@ -176,4 +176,8 @@ public class SkinBean extends AbstractMap implements Skin {
     public String getName() {
         return getSkin().getName();
     }
+
+    public String imageUrl(String resourceName) {
+        return getSkin().imageUrl(resourceName);
+    }
 }

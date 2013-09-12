@@ -23,6 +23,7 @@ package org.richfaces.skin;
 
 import java.awt.Color;
 
+import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.util.HtmlColor;
@@ -76,4 +77,14 @@ public abstract class AbstractSkin implements Skin {
     public Integer getIntegerParameter(FacesContext context, String name, Object defaultValue) {
         return decodeInteger(getParameter(context, name, defaultValue));
     }
+
+    public String imageUrl(String resourceName) {
+        if ("plain".equals(getName())){
+            return "none";
+        }
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Resource resource = facesContext.getApplication().getResourceHandler().createResource(resourceName, IMAGE_LIBRARY);
+        return String.format("url(%s)", resource.getRequestPath());
+    }
+
 }

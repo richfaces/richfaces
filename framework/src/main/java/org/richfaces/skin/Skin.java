@@ -31,6 +31,8 @@ import javax.faces.context.FacesContext;
  *
  */
 public interface Skin {
+    String IMAGE_LIBRARY = "org.richfaces.images";
+
     /**
      * Style of the text displaying on the active (selected) tabs.Default value normal.
      */
@@ -294,4 +296,6 @@ public interface Skin {
          */
         String PANEL_BODY_PADDING = "preferablePanelBodyPadding";
     }
+
+    String imageUrl(String resourceName);
 }
