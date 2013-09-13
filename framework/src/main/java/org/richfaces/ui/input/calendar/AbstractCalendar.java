@@ -59,7 +59,6 @@ import org.richfaces.model.CalendarDataModelItem;
 import org.richfaces.ui.attribute.EventsPopupsProps;
 import org.richfaces.ui.attribute.PopupsProps;
 import org.richfaces.ui.attribute.PositionProps;
-import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
@@ -403,6 +402,12 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
      */
     @Attribute
     public abstract String getInputSize();
+
+    /**
+     * Specifies the maximum number of digits that could be entered into the input field.
+     */
+    @Attribute
+    public abstract Integer getMaxlength();
 
     /**
      * Used to define the month and year which will be displayed
