@@ -42,7 +42,7 @@ import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.ResourceLibraryFactoryImpl;
 import org.richfaces.resource.external.ExternalResourceTracker;
-import org.richfaces.resource.external.ExternalResourceTrackerWrapper;
+import org.richfaces.resource.external.DefaultExternalResourceTracker;
 import org.richfaces.resource.external.ExternalStaticResourceFactory;
 import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
 import org.richfaces.skin.SkinFactory;
@@ -66,7 +66,7 @@ public class DefaultModule implements Module {
                 ServiceLoader.loadService(PushContextFactory.class, PushContextFactoryImpl.class));
         factory.setInstance(JavaScriptService.class, new JavaScriptServiceImpl());
         factory.setInstance(GenericsIntrospectionService.class, new GenericsIntrospectionServiceImpl());
-        factory.setInstance(ExternalResourceTracker.class, new ExternalResourceTrackerWrapper());
+        factory.setInstance(ExternalResourceTracker.class, new DefaultExternalResourceTracker());
         factory.setInstance(ExternalStaticResourceFactory.class, new ExternalStaticResourceFactoryImpl());
         factory.setInstance(FocusManager.class, ServiceLoader.loadService(FocusManager.class, FocusManagerImpl.class));
     }

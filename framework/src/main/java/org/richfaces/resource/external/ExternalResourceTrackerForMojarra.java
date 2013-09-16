@@ -21,22 +21,20 @@
  */
 package org.richfaces.resource.external;
 
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Map;
+import java.util.Set;
 
 import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
+import org.richfaces.services.ServiceTracker;
 
 /**
- * Wraps known implementations of {@link ExternalResourceTracker} and decides which one to choose in runtime
+ * Tracks what external resources are renderered to the page (specific for Mojarra)
  *
  * @author Lukas Fryc
  */
-public class ExternalResourceTrackerWrapper implements ExternalResourceTracker {
-
-    private static final String MYFACES_RESOURCE_UTILS_CLASS = "org.apache.myfaces.shared.renderkit.html.util.ResourceUtils";
-
-    private AtomicReference<ExternalResourceTracker> externalResourceTracker = new AtomicReference<ExternalResourceTracker>();
+public class ExternalResourceTrackerForMojarra implements ExternalResourceTracker {
 
     /*
      * (non-Javadoc)
@@ -46,7 +44,11 @@ public class ExternalResourceTrackerWrapper implements ExternalResourceTracker {
      */
     @Override
     public boolean isResourceRenderered(FacesContext facesContext, ResourceKey resourceKey) {
-        return getWrapped().isResourceRenderered(facesContext, resourceKey);
+        Map<Object, Object> contextMap = facesContext.getAttributes();
+
+        String key = resourceKey.getResourceName() + resourceKey.getLibraryName();
+
+        return contextMap.containsKey(key);
     }
 
     /*
@@ -57,7 +59,20 @@ public class ExternalResourceTrackerWrapper implements ExternalResourceTracker {
      */
     @Override
     public void markResourceRendered(FacesContext facesContext, ResourceKey resourceKey) {
-        getWrapped().markResourceRendered(facesContext, resourceKey);
+        final Map<Object, Object> contextMap = facesContext.getAttributes();
+
+        String resourceName = resourceKey.getResourceName();
+        String libraryName = resourceKey.getLibraryName();
+
+        String key = resourceName + libraryName;
+        putToContext(contextMap, key);
+
+        // also store this in the context map with library as "null"
+        if (libraryName == null || libraryName.isEmpty()) {
+            libraryName = "null";
+            key = resourceName + libraryName;
+            putToContext(contextMap, key);
+        }
     }
 
     /*
@@ -69,22 +84,24 @@ public class ExternalResourceTrackerWrapper implements ExternalResourceTracker {
      */
     @Override
     public void markExternalResourceRendered(FacesContext facesContext, ExternalResource resource) {
-        getWrapped().markExternalResourceRendered(facesContext, resource);
+        ExternalStaticResourceFactory externalStaticResourceFactory = ServiceTracker
+                .getService(ExternalStaticResourceFactory.class);
+        Set<ResourceKey> resourcesKeys = externalStaticResourceFactory.getResourcesForLocation(resource.getExternalLocation());
+
+        for (ResourceKey resourceKey : resourcesKeys) {
+            markResourceRendered(facesContext, resourceKey);
+        }
     }
 
-    private ExternalResourceTracker getWrapped() {
-        ExternalResourceTracker tracker = externalResourceTracker.get();
-        if (tracker == null) {
-            try {
-                this.getClass().getClassLoader().loadClass(MYFACES_RESOURCE_UTILS_CLASS);
-
-                externalResourceTracker.compareAndSet(null, new MyFacesExternalResourceTracker());
-            } catch (Exception e) {
-                externalResourceTracker.compareAndSet(null, new MojarraExternalResourceTracker());
-            }
-            tracker = externalResourceTracker.get();
+    /**
+     * Put resource key to contextMap to avoid rendering that multiple times per request
+     *
+     * @param contextMap contextMap as provided by current {@link FacesContext}
+     * @param key the resource key to be stored in contextMap
+     */
+    private void putToContext(Map<Object, Object> contextMap, String key) {
+        if (!contextMap.containsKey(key)) {
+            contextMap.put(key, Boolean.TRUE);
         }
-
-        return tracker;
     }
 }

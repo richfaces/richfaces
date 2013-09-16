@@ -21,20 +21,22 @@
  */
 package org.richfaces.resource.external;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.services.ServiceTracker;
 
 /**
- * Tracks what external resources are renderered to the page (specific for Mojarra)
+ * Wraps known implementations of {@link ExternalResourceTracker} and decides which one to choose in runtime
  *
  * @author Lukas Fryc
  */
-public class MojarraExternalResourceTracker implements ExternalResourceTracker {
+public class DefaultExternalResourceTracker implements ExternalResourceTracker {
+
+    private static final String MYFACES_RESOURCE_UTILS_CLASS = "org.apache.myfaces.shared.renderkit.html.util.ResourceUtils";
+
+    private AtomicReference<ExternalResourceTracker> externalResourceTracker = new AtomicReference<ExternalResourceTracker>();
 
     /*
      * (non-Javadoc)
@@ -44,11 +46,7 @@ public class MojarraExternalResourceTracker implements ExternalResourceTracker {
      */
     @Override
     public boolean isResourceRenderered(FacesContext facesContext, ResourceKey resourceKey) {
-        Map<Object, Object> contextMap = facesContext.getAttributes();
-
-        String key = resourceKey.getResourceName() + resourceKey.getLibraryName();
-
-        return contextMap.containsKey(key);
+        return getImplementation().isResourceRenderered(facesContext, resourceKey);
     }
 
     /*
@@ -59,20 +57,7 @@ public class MojarraExternalResourceTracker implements ExternalResourceTracker {
      */
     @Override
     public void markResourceRendered(FacesContext facesContext, ResourceKey resourceKey) {
-        final Map<Object, Object> contextMap = facesContext.getAttributes();
-
-        String resourceName = resourceKey.getResourceName();
-        String libraryName = resourceKey.getLibraryName();
-
-        String key = resourceName + libraryName;
-        putToContext(contextMap, key);
-
-        // also store this in the context map with library as "null"
-        if (libraryName == null || libraryName.isEmpty()) {
-            libraryName = "null";
-            key = resourceName + libraryName;
-            putToContext(contextMap, key);
-        }
+        getImplementation().markResourceRendered(facesContext, resourceKey);
     }
 
     /*
@@ -84,24 +69,25 @@ public class MojarraExternalResourceTracker implements ExternalResourceTracker {
      */
     @Override
     public void markExternalResourceRendered(FacesContext facesContext, ExternalResource resource) {
-        ExternalStaticResourceFactory externalStaticResourceFactory = ServiceTracker
-                .getService(ExternalStaticResourceFactory.class);
-        Set<ResourceKey> resourcesKeys = externalStaticResourceFactory.getResourcesForLocation(resource.getExternalLocation());
-
-        for (ResourceKey resourceKey : resourcesKeys) {
-            markResourceRendered(facesContext, resourceKey);
-        }
+        getImplementation().markExternalResourceRendered(facesContext, resource);
     }
 
     /**
-     * Put resource key to contextMap to avoid rendering that multiple times per request
-     *
-     * @param contextMap contextMap as provided by current {@link FacesContext}
-     * @param key the resource key to be stored in contextMap
+     * Decides what implementation of available {@link ExternalResourceTracker} should be used.
      */
-    private void putToContext(Map<Object, Object> contextMap, String key) {
-        if (!contextMap.containsKey(key)) {
-            contextMap.put(key, Boolean.TRUE);
+    private ExternalResourceTracker getImplementation() {
+        ExternalResourceTracker tracker = externalResourceTracker.get();
+        if (tracker == null) {
+            try {
+                this.getClass().getClassLoader().loadClass(MYFACES_RESOURCE_UTILS_CLASS);
+
+                externalResourceTracker.compareAndSet(null, new ExternalResourceTrackerForMyFaces());
+            } catch (Exception e) {
+                externalResourceTracker.compareAndSet(null, new ExternalResourceTrackerForMojarra());
+            }
+            tracker = externalResourceTracker.get();
         }
+
+        return tracker;
     }
 }
