@@ -35,7 +35,7 @@ import org.richfaces.services.ServiceTracker;
  *
  * @author Lukas Fryc
  */
-public class MyFacesExternalResourceTracker implements ExternalResourceTracker {
+public class ExternalResourceTrackerForMyFaces implements ExternalResourceTracker {
 
     /*
      * (non-Javadoc)
