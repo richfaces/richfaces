@@ -22,19 +22,17 @@
 package org.richfaces.resource.external;
 
 import java.util.Map;
-import java.util.Set;
 
 import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.services.ServiceTracker;
 
 /**
  * Tracks what external resources are renderered to the page (specific for Mojarra)
  *
  * @author Lukas Fryc
  */
-public class ExternalResourceTrackerForMojarra implements ExternalResourceTracker {
+public class ResourceTrackerForMojarra implements ResourceTracker {
 
     /*
      * (non-Javadoc)
@@ -72,24 +70,6 @@ public class ExternalResourceTrackerForMojarra implements ExternalResourceTracke
             libraryName = "null";
             key = resourceName + libraryName;
             putToContext(contextMap, key);
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.richfaces.resource.external.ExternalResourceTracker#markExternalResourceRendered(javax.faces.context.FacesContext,
-     * org.richfaces.resource.external.ExternalResource)
-     */
-    @Override
-    public void markExternalResourceRendered(FacesContext facesContext, ExternalResource resource) {
-        ExternalStaticResourceFactory externalStaticResourceFactory = ServiceTracker
-                .getService(ExternalStaticResourceFactory.class);
-        Set<ResourceKey> resourcesKeys = externalStaticResourceFactory.getResourcesForLocation(resource.getExternalLocation());
-
-        for (ResourceKey resourceKey : resourcesKeys) {
-            markResourceRendered(facesContext, resourceKey);
         }
     }
 

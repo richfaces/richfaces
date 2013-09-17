@@ -39,8 +39,8 @@ import org.richfaces.l10n.MessageFactory;
 import org.richfaces.push.PushContextFactory;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
-import org.richfaces.resource.external.ExternalResourceTracker;
-import org.richfaces.resource.external.ExternalStaticResourceFactory;
+import org.richfaces.resource.external.ResourceTracker;
+import org.richfaces.resource.external.MappedResourceFactory;
 import org.richfaces.services.DependencyInjector;
 import org.richfaces.services.Uptime;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
@@ -90,7 +90,7 @@ public class FrameworkDeployment extends Deployment {
         archive().addClasses(ConfigurationService.class, SkinFactory.class, AjaxDataSerializer.class,
                 ResourceCodec.class, Cache.class, Uptime.class, DependencyInjector.class, MessageFactory.class,
                 ResourceLibraryFactory.class, PushContextFactory.class, JavaScriptService.class,
-                GenericsIntrospectionService.class, ExternalResourceTracker.class, ExternalStaticResourceFactory.class);
+                GenericsIntrospectionService.class, ResourceTracker.class, MappedResourceFactory.class);
     }
 
     private void withWaiting() {

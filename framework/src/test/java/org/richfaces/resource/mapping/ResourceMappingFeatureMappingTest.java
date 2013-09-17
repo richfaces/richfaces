@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource;
+package org.richfaces.resource.mapping;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -48,6 +48,7 @@ public class ResourceMappingFeatureMappingTest extends AbstractResourceMappingTe
     private static final String PACKED = "META-INF/richfaces/optimizedResourcesMapping/Packed.properties";
     private static final String COMPRESSED = "META-INF/richfaces/optimizedResourcesMapping/Compressed.properties";
     private static final String PACKED_COMPRESSED = "META-INF/richfaces/optimizedResourcesMapping/PackedCompressed.properties";
+
 
     @Test
     public void testDefaultMappingFilesWhenResourceLoadingOptimizationDisabled() {

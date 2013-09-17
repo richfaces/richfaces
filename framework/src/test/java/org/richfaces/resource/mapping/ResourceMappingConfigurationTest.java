@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource;
+package org.richfaces.resource.mapping;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -33,6 +33,8 @@ import static org.richfaces.configuration.CoreConfiguration.Items.staticResource
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.richfaces.resource.mapping.ResourceLoadingOptimization;
+import org.richfaces.resource.mapping.ResourceMappingConfiguration;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>

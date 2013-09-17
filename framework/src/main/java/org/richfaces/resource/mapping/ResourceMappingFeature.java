@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource;
+package org.richfaces.resource.mapping;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +43,7 @@ public final class ResourceMappingFeature {
     private ResourceMappingFeature() {
     }
 
-    static final String DEFAULT_LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/#{resourceLocation}";
+    static final String DEFAULT_LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/";
 
     /**
      * Returns locations of static resource mapping configuration files for current application stage.

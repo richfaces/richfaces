@@ -28,10 +28,10 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.configuration.ConfigurationService;
 import org.richfaces.configuration.ConfigurationServiceImpl;
-import org.richfaces.resource.external.ExternalResourceTracker;
-import org.richfaces.resource.external.DefaultExternalResourceTracker;
-import org.richfaces.resource.external.ExternalStaticResourceFactory;
-import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
+import org.richfaces.resource.external.ResourceTracker;
+import org.richfaces.resource.external.ResourceTrackerImpl;
+import org.richfaces.resource.external.MappedResourceFactory;
+import org.richfaces.resource.external.MappedResourceFactoryImpl;
 import org.richfaces.resource.optimizer.Faces;
 import org.richfaces.resource.optimizer.FileNameMapper;
 import org.richfaces.resource.optimizer.skin.SkinFactoryImpl;
@@ -69,8 +69,8 @@ public class FacesImpl implements Faces {
                 factory.setInstance(FileNameMapper.class, fileNameMapper);
                 factory.setInstance(DependencyInjector.class, new DependencyInjectionServiceImpl());
                 factory.setInstance(ResourceHandler.class, resourceHandler);
-                factory.setInstance(ExternalResourceTracker.class, new DefaultExternalResourceTracker());
-                factory.setInstance(ExternalStaticResourceFactory.class, new ExternalStaticResourceFactoryImpl());
+                factory.setInstance(ResourceTracker.class, new ResourceTrackerImpl());
+                factory.setInstance(MappedResourceFactory.class, new MappedResourceFactoryImpl());
             }
         };
         

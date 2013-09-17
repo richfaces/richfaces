@@ -36,8 +36,8 @@ import org.richfaces.l10n.MessageFactory;
 import org.richfaces.push.PushContextFactory;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
-import org.richfaces.resource.external.ExternalResourceTracker;
-import org.richfaces.resource.external.ExternalStaticResourceFactory;
+import org.richfaces.resource.external.ResourceTracker;
+import org.richfaces.resource.external.MappedResourceFactory;
 import org.richfaces.services.DependencyInjector;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.services.Uptime;
@@ -109,9 +109,9 @@ public class CoreServicesEnricher {
     public static class GenericsIntrospectionServiceProvider extends AbstractProvider<GenericsIntrospectionService> {
     };
 
-    public static class ExternalResourceTrackerProvider extends AbstractProvider<ExternalResourceTracker> {
+    public static class ExternalResourceTrackerProvider extends AbstractProvider<ResourceTracker> {
     };
 
-    public static class ExternalStaticResourceFactoryProvider extends AbstractProvider<ExternalStaticResourceFactory> {
+    public static class ExternalStaticResourceFactoryProvider extends AbstractProvider<MappedResourceFactory> {
     };
 }
