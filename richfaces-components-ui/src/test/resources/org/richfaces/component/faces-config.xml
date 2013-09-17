@@ -21,5 +21,16 @@
         <managed-bean-class>org.richfaces.component.DropDownMenuBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    
+    <!-- Validator -->
+    <managed-bean>
+        <managed-bean-name>test</managed-bean-name>
+        <managed-bean-class>org.richfaces.component.Bean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <validator>
+        <validator-id>custom</validator-id>
+        <validator-class>org.richfaces.component.CustomValidator</validator-class>
+    </validator>
 
 </faces-config>
