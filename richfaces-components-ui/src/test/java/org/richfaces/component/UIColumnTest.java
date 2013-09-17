@@ -36,6 +36,7 @@ import org.junit.Test;
 import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
+import org.richfaces.model.SortOrder;
 
 /**
  * @author Konstantin Mishin

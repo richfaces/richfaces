@@ -21,9 +21,13 @@
  */
 package org.richfaces.renderkit;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class DataBean {
     private String value = "Test String";
-    
+
     private List<Data> list = new ArrayList<Data>();
 
     public DataBean() {

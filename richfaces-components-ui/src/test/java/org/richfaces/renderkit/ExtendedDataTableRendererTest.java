@@ -41,7 +41,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.component.AbstractExtendedDataTable;
-import org.richfaces.component.SortOrder;
+import org.richfaces.model.SortOrder;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;

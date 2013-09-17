@@ -37,7 +37,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.DataModelListener;
 
 import org.richfaces.application.IterationComponentsConfiguration;
-import org.richfaces.component.SortOrder;
 
 /**
  * @author Konstantin Mishin

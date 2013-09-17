@@ -491,10 +491,4 @@
             </cdk:tag>
         </component-extension>
     </component>
-    <faces-config-extension>
-        <cdk:taglib>
-            <cdk:shortName>input</cdk:shortName>
-            <cdk:uri>http://richfaces.org/input</cdk:uri>
-        </cdk:taglib>
-    </faces-config-extension>
 </faces-config>

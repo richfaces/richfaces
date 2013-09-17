@@ -31,9 +31,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.model.DataVisitor;
-import org.richfaces.model.ExtendedDataModel;
-import org.richfaces.model.Range;
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
 import org.junit.Assert;
@@ -41,9 +38,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.model.Arrangeable;
 import org.richfaces.model.ArrangeableState;
+import org.richfaces.model.DataVisitor;
+import org.richfaces.model.ExtendedDataModel;
 import org.richfaces.model.FilterField;
+import org.richfaces.model.Range;
 import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
+import org.richfaces.model.SortOrder;
 
 /**
  * @author Konstantin Mishin

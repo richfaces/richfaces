@@ -39,7 +39,6 @@ import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.richfaces.component.SortOrder;
 
 /**
  * @author Konstantin Mishin

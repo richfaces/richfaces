@@ -27,6 +27,7 @@ public class DataGridRendererTest {
         environment = new HtmlUnitEnvironment();
         environment.withWebRoot(new File("src/test/resources"));
         environment.start();
+        environment.getWebClient().setJavaScriptEnabled(true);
     }
 
     @After

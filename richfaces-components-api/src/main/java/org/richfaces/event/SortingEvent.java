@@ -25,7 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 
-import org.richfaces.component.SortOrder;
+import org.richfaces.model.SortOrder;
 
 public class SortingEvent extends FacesEvent {
     private static final long serialVersionUID = 2125258204996535522L;

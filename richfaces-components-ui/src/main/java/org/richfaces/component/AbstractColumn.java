@@ -26,16 +26,17 @@ import java.util.Comparator;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.configuration.ConfigurationServiceHelper;
-import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.configuration.ConfigurationServiceHelper;
+import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
+import org.richfaces.model.SortOrder;
 
 /**
  * <p> The &lt;rich:column&gt; component facilitates columns in a table. It supports merging columns and rows, sorting,
