@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 import com.google.common.base.Strings;
 

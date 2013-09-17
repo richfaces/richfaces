@@ -5,12 +5,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.javascript.JSLiteral;
-import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.misc.focus.FocusManager;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.services.ServiceTracker;
+import org.richfaces.ui.misc.focus.FocusManager;
+import org.richfaces.util.RendererUtils;
 
 public class FocusManagerImpl implements FocusManager {
 

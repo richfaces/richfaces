@@ -40,9 +40,9 @@ import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.DataVisitResult;
 import org.richfaces.model.DataVisitor;
-import org.richfaces.renderkit.util.RendererUtils;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.util.RendererUtils;
 
 /**
  * @author Nick Belaevski

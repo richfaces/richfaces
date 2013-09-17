@@ -31,9 +31,9 @@ import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.l10n.Messages;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.renderkit.util.RendererUtils;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
+import org.richfaces.util.RendererUtils;
 
 /**
  * Base Renderer for all chameleon Skin's and components. At most, make all common procedures and realise concrete work in
@@ -42,7 +42,7 @@ import org.richfaces.skin.SkinFactory;
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:58:51 $
  */
-public abstract class RendererBase extends Renderer {
+public abstract class _RendererBase extends Renderer {
     private static final Logger LOG = RichfacesLogger.RENDERKIT.getLogger();
     private static final RendererUtils UTILS = RendererUtils.getInstance();
     private SkinFactory skinFactory = null;

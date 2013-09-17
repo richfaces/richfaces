@@ -34,13 +34,13 @@ import javax.faces.component.UIMessages;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSObject;
-import org.richfaces.services.ServiceTracker;
 import org.richfaces.component.AbstractMessage;
 import org.richfaces.component.AbstractMessages;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.services.ServiceTracker;
+import org.richfaces.util.RendererUtils;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;

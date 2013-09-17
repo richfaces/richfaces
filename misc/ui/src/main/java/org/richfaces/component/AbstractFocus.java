@@ -8,7 +8,6 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
-import org.richfaces.ui.common.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -16,7 +15,8 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.FocusRendererBase;
 import org.richfaces.renderkit.focus.FocusRendererInterface;
-import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.ui.common.AjaxOutput;
+import org.richfaces.util.RendererUtils;
 
 /**
  * <p>

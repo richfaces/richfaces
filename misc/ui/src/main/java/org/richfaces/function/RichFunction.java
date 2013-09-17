@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.Function;
 import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.util.RendererUtils;
 import org.richfaces.util.Sets;
 
 /**

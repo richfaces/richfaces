@@ -33,6 +33,7 @@ import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.ui.ajax.ajax.AjaxClientBehavior;
 import org.richfaces.ui.common.AjaxConstants;
 import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.util.RendererUtils;
 
 import com.google.common.base.Strings;
 

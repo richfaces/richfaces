@@ -56,10 +56,10 @@ import org.richfaces.util.HtmlDimensions;
  * @version $Revision: 1.1.2.6 $ $Date: 2007/02/08 19:07:16 $
  *
  */
-public final class RendererUtils {
+public final class _RendererUtils {
     public static final String DUMMY_FORM_ID = ":_form";
     // we'd better use this instance multithreadly quickly
-    private static final RendererUtils INSTANCE = new RendererUtils();
+    private static final _RendererUtils INSTANCE = new _RendererUtils();
     /**
      * Substitutions for components properies names and HTML attributes names.
      */
@@ -76,7 +76,7 @@ public final class RendererUtils {
 
     // can be created by subclasses;
     // administratively restricted to be created by package members ;)
-    protected RendererUtils() {
+    protected _RendererUtils() {
         super();
     }
 
@@ -85,7 +85,7 @@ public final class RendererUtils {
      *
      * @return singleton instance
      */
-    public static RendererUtils getInstance() {
+    public static _RendererUtils getInstance() {
         return INSTANCE;
     }
 

@@ -37,7 +37,7 @@ import javax.faces.render.RenderKitFactory;
 import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
-import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 /**
  * @author Anton Belevich

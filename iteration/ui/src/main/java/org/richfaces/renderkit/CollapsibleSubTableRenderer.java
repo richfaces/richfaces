@@ -34,13 +34,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
 
-import org.richfaces.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractCollapsibleSubTable;
 import org.richfaces.component.AbstractDataTable;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.event.CollapsibleSubTableToggleEvent;
+import org.richfaces.javascript.JSFunction;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.ui.common.HtmlConstants;
 
@@ -272,7 +272,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
 
         String id = subTable.getClientId(facesContext);
 
-        UIComponent nestingForm = getUtils().getNestingForm(facesContext, subTable);
+        UIComponent nestingForm = getUtils().getNestingForm(subTable);
         String formId = nestingForm != null ? nestingForm.getClientId(facesContext) : "";
 
         Map<String, Object> options = new HashMap<String, Object>();

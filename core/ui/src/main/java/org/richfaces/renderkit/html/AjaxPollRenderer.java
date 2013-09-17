@@ -32,16 +32,16 @@ import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractPoll;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractPoll;
-import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
-import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.util.RendererUtils;
 
 /**
  * @author shura

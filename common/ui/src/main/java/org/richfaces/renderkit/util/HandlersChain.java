@@ -39,6 +39,7 @@ import javax.faces.context.FacesContext;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.ScriptString;
+import org.richfaces.util.RendererUtils;
 
 /**
  * @author Nick Belaevski

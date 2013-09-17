@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractQueue;
-import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.util.RendererUtils;
 
 /**
  * @author Nick Belaevski Renderer for queue component
@@ -39,7 +39,7 @@ public class QueueRenderer extends QueueRendererBase {
         String nameAttributeValue = (String) comp.getAttributes().get(NAME_ATTRIBBUTE);
 
         if (nameAttributeValue == null || nameAttributeValue.length() == 0) {
-            UIComponent form = utils.getNestingForm(context, comp);
+            UIComponent form = utils.getNestingForm(comp);
             if (form != null) {
                 nameAttributeValue = form.getClientId(context);
             } else {
