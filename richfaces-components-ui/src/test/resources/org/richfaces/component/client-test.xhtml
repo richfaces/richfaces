@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:csv="http://richfaces.org/csv">
+    xmlns:rich="http://richfaces.org/rich">
 <h:head>
     <title>Ajax validator</title>
 </h:head>
@@ -7,10 +7,10 @@
     <h:form id="form">
         <h:inputText id="text" value="#{test.value}">
             <f:validateLength minimum="1" maximum="3" />
-            <csv:validator event="blur" />
+            <rich:validator event="blur" />
         </h:inputText>
         <h:outputText id="out" value="#{test.value}"></h:outputText>
     </h:form>
-    <csv:message id="uiMessage" for="text" />
+    <rich:message id="uiMessage" for="text" />
 </h:body>
 </html>

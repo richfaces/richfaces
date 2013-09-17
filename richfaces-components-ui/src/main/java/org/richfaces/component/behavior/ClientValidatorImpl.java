@@ -50,24 +50,24 @@ import javax.faces.validator.BeanValidator;
 import javax.faces.validator.Validator;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
-import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.services.ServiceTracker;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.ClientSideMessage;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.javascript.Message;
+import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.html.ClientValidatorRenderer;
 import org.richfaces.renderkit.html.FormClientValidatorRenderer;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesBeanValidator;
 import org.richfaces.validator.FacesConverterService;
 import org.richfaces.validator.FacesValidatorService;
+import org.richfaces.validator.Message;
 import org.richfaces.validator.ValidatorDescriptor;
 
 import com.google.common.base.Function;

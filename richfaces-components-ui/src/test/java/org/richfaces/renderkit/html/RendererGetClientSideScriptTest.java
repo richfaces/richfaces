@@ -17,17 +17,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.services.ServiceTracker;
 import org.richfaces.javascript.ClientScriptService;
 import org.richfaces.javascript.LibraryFunction;
 import org.richfaces.javascript.ScriptNotFoundException;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.ValidatorDescriptor;
 
 import com.google.common.collect.Iterables;
 
 @RunWith(MockTestRunner.class)
-public class RendererGetClientSideScriptTest extends RendererTestBase {
+public class RendererGetClientSideScriptTest extends ValidatorRendererTestBase {
     @Mock
     private ValidatorDescriptor descriptor;
     @Mock

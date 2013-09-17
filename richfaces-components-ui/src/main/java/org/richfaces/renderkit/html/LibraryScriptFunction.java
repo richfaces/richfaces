@@ -25,9 +25,9 @@ package org.richfaces.renderkit.html;
 import java.util.Map;
 
 import org.richfaces.javascript.LibraryFunction;
-import org.richfaces.javascript.Message;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
+import org.richfaces.validator.Message;
 
 import com.google.common.collect.ImmutableSet;
 

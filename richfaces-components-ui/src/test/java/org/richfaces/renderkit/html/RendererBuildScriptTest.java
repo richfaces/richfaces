@@ -12,12 +12,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.services.ServiceTracker;
 import org.richfaces.component.behavior.ClientValidatorBehavior;
 import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.services.ServiceTracker;
 
 @RunWith(MockTestRunner.class)
-public class RendererBuildScriptTest extends RendererTestBase {
+public class RendererBuildScriptTest extends ValidatorRendererTestBase {
     private static final String FUNCTION_NAME = "inputValidate";
     private static final String SOURCE_ID = "clientValidator";
     @Mock

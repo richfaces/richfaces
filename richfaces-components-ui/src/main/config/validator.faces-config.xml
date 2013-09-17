@@ -24,11 +24,5 @@
             <client-behavior-renderer-class>org.richfaces.renderkit.html.FormClientValidatorRenderer</client-behavior-renderer-class>
         </client-behavior-renderer>
     </render-kit>
-    <faces-config-extension>
-        <cdk:taglib>
-            <cdk:shortName>csv</cdk:shortName>
-            <cdk:uri>http://richfaces.org/csv</cdk:uri>
-        </cdk:taglib>
-    </faces-config-extension>
 
 </faces-config>

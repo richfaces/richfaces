@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(MockTestRunner.class)
-public class ValidatorRendererGetScriptTest extends RendererTestBase {
+public class ValidatorRendererGetScriptTest extends ValidatorRendererTestBase {
     @Test(expected = NullPointerException.class)
     public void testGetScriptNullContext() {
         renderer.getScript(null, mockBehavior);
