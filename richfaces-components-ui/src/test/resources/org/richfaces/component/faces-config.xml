@@ -3,6 +3,7 @@
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd" version="2.0">
 
+    <!-- Input -->
     <managed-bean>
         <managed-bean-name>calendarBean</managed-bean-name>
         <managed-bean-class>org.richfaces.component.CalendarBean</managed-bean-class>
@@ -12,6 +13,13 @@
         <managed-bean-name>calendarDataModel</managed-bean-name>
         <managed-bean-class>org.richfaces.component.CalendarDataModelImpl</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    
+    <!-- Output -->
+    <managed-bean>
+        <managed-bean-name>ddmBean</managed-bean-name>
+        <managed-bean-class>org.richfaces.component.DropDownMenuBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 
 </faces-config>
