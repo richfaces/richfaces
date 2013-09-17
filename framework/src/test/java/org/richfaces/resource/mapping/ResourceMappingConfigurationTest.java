@@ -28,18 +28,17 @@ import static org.junit.Assert.assertTrue;
 import static org.richfaces.configuration.CoreConfiguration.Items.resourceMappingFile;
 import static org.richfaces.configuration.CoreConfiguration.Items.resourceMappingLocation;
 import static org.richfaces.configuration.CoreConfiguration.Items.resourceOptimizationEnabled;
-import static org.richfaces.configuration.CoreConfiguration.Items.staticResourceLocation;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.resource.mapping.ResourceLoadingOptimization;
-import org.richfaces.resource.mapping.ResourceMappingConfiguration;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-@SuppressWarnings("deprecation")
 @RunWith(FacesMockitoRunner.class)
 public class ResourceMappingConfigurationTest extends AbstractResourceMappingTest {
 
@@ -49,7 +48,7 @@ public class ResourceMappingConfigurationTest extends AbstractResourceMappingTes
         configure(resourceOptimizationEnabled, (Boolean) false);
 
         // then
-        boolean enabled = ResourceLoadingOptimization.isEnabled();
+        boolean enabled = ResourceLoadingOptimizationConfiguration.isEnabled();
 
         // verify
         assertFalse(enabled);
@@ -61,7 +60,7 @@ public class ResourceMappingConfigurationTest extends AbstractResourceMappingTes
         configure(resourceOptimizationEnabled, true);
 
         // then
-        boolean enabled = ResourceLoadingOptimization.isEnabled();
+        boolean enabled = ResourceLoadingOptimizationConfiguration.isEnabled();
 
         // verify
         assertTrue(enabled);
@@ -70,54 +69,23 @@ public class ResourceMappingConfigurationTest extends AbstractResourceMappingTes
     @Test
     public void testLocationIsNull() {
         // when
-        configure(staticResourceLocation, (String) null);
         configure(resourceMappingLocation, (String) null);
 
         // then
-        String location = ResourceMappingConfiguration.getLocation();
+        String location = PropertiesMappingConfiguration.getLocation();
 
         // verify
         assertNull(location);
     }
 
     @Test
-    public void testLocationConfiguredUsingStaticResourceLocation() {
-        // when
-        String expected = "some_location";
-        configure(staticResourceLocation, expected);
-        configure(resourceMappingLocation, (String) null);
-
-        // then
-        String location = ResourceMappingConfiguration.getLocation();
-
-        // verify
-        assertEquals(expected, location);
-    }
-
-    @Test
     public void testLocationConfiguredWithResourceMappingLocationSwitch() {
         // when
         String expected = "some_location";
-        configure(staticResourceLocation, (String) null);
         configure(resourceMappingLocation, expected);
 
         // then
-        String location = ResourceMappingConfiguration.getLocation();
-
-        // verify
-        assertEquals(expected, location);
-    }
-
-    @Test
-    public void testLocationStaticResourceLocationHasPrecedence() {
-        // when
-        String expected = "some_location";
-        String wrong = "fail";
-        configure(staticResourceLocation, expected);
-        configure(resourceMappingLocation, wrong);
-
-        // then
-        String location = ResourceMappingConfiguration.getLocation();
+        String location = PropertiesMappingConfiguration.getLocation();
 
         // verify
         assertEquals(expected, location);
@@ -126,54 +94,37 @@ public class ResourceMappingConfigurationTest extends AbstractResourceMappingTes
     @Test
     public void testMappingFileIsNull() {
         // when
-        configure(staticResourceLocation, (String) null);
         configure(resourceMappingFile, (String) null);
 
         // then
-        String mappingFile = ResourceMappingConfiguration.getResourceMappingFile();
+        List<String> mappingFiles = PropertiesMappingConfiguration.getMappingFiles();
 
         // verify
-        assertNull(mappingFile);
+        assertEquals(Arrays.asList(PropertiesMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION), mappingFiles);
     }
 
     @Test
     public void testMappingFileConfiguredUsingStaticResourceLocation() {
         // when
-        configure(staticResourceLocation, "some_location");
         configure(resourceMappingFile, (String) null);
 
         // then
-        String mappingFile = ResourceMappingConfiguration.getResourceMappingFile();
+        List<String> mappingFiles = PropertiesMappingConfiguration.getMappingFiles();
 
         // verify
-        assertEquals(ResourceMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION, mappingFile);
+        assertEquals(Arrays.asList(PropertiesMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION), mappingFiles);
     }
 
     @Test
     public void testMappingFileConfiguredWithResourceMappingFileSwitch() {
         // when
         String expected = "some_file";
-        configure(staticResourceLocation, (String) null);
         configure(resourceMappingFile, expected);
 
         // then
-        String mappingFile = ResourceMappingConfiguration.getResourceMappingFile();
+        List<String> mappingFiles = PropertiesMappingConfiguration.getMappingFiles();
 
         // verify
-        assertEquals(expected, mappingFile);
-    }
-
-    @Test
-    public void testMappingFileStaticResourceLocationHasPrecedence() {
-        // when
-        String wrong = "some_file";
-        configure(staticResourceLocation, "some_location");
-        configure(resourceMappingFile, wrong);
-
-        // then
-        String mappingFile = ResourceMappingConfiguration.getResourceMappingFile();
-
-        // verify
-        assertEquals(ResourceMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION, mappingFile);
+        assertEquals(Arrays.asList(PropertiesMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION, expected), mappingFiles);
     }
 }

@@ -41,10 +41,11 @@ import org.richfaces.resource.DefaultResourceCodec;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.ResourceLibraryFactoryImpl;
-import org.richfaces.resource.external.ResourceTracker;
-import org.richfaces.resource.external.ResourceTrackerImpl;
 import org.richfaces.resource.external.MappedResourceFactory;
 import org.richfaces.resource.external.MappedResourceFactoryImpl;
+import org.richfaces.resource.external.ResourceTracker;
+import org.richfaces.resource.external.ResourceTrackerImpl;
+import org.richfaces.resource.mapping.ResourceMappingConfiguration;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.skin.SkinFactoryImpl;
 import org.richfaces.ui.misc.focus.FocusManager;
@@ -69,5 +70,6 @@ public class DefaultModule implements Module {
         factory.setInstance(ResourceTracker.class, new ResourceTrackerImpl());
         factory.setInstance(MappedResourceFactory.class, new MappedResourceFactoryImpl());
         factory.setInstance(FocusManager.class, ServiceLoader.loadService(FocusManager.class, FocusManagerImpl.class));
+        factory.setInstance(ResourceMappingConfiguration.class, new ResourceMappingConfiguration());
     }
 }

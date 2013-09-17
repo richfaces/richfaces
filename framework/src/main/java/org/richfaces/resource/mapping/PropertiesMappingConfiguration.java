@@ -24,37 +24,45 @@ package org.richfaces.resource.mapping;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.el.ELUtils;
+import org.richfaces.configuration.ConfigurationService;
+import org.richfaces.configuration.ConfigurationServiceHelper;
+import org.richfaces.configuration.CoreConfiguration;
 
 import com.google.common.collect.Lists;
 
 /**
  * <p>
- * Determines resource mappings and request path for mapped resources.
+ * Utility class for retrieving configuration options of resource mapping feature
  * </p>
+ *
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public final class ResourceMappingFeature {
+final class PropertiesMappingConfiguration {
 
-    private ResourceMappingFeature() {
+    public static final String DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION = "META-INF/richfaces/static-resource-mappings.properties";
+
+    /**
+     * Returns configured location for resource mapping
+     *
+     * @return configured location for resource mapping
+     */
+    static String getLocation() {
+        return getConfiguration(CoreConfiguration.Items.resourceMappingLocation);
     }
-
-    static final String DEFAULT_LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/";
 
     /**
      * Returns locations of static resource mapping configuration files for current application stage.
      *
      * @return locations of static resource mapping configuration files for current application stage
      */
-    public static List<String> getMappingFiles() {
+    static List<String> getMappingFiles() {
         List<String> mappingFiles = Lists.newLinkedList();
 
-        if (ResourceLoadingOptimization.isEnabled()) {
-            mappingFiles.add(ResourceLoadingOptimization.getResourceLoadingSpecificMappingFile());
+        if (ResourceLoadingOptimizationConfiguration.isEnabled()) {
+            mappingFiles.add(ResourceLoadingOptimizationConfiguration.getResourceLoadingSpecificMappingFile());
         }
         mappingFiles.add(getDefaultMappingFile());
         mappingFiles.addAll(getUserConfiguredMappingFile());
@@ -63,11 +71,11 @@ public final class ResourceMappingFeature {
     }
 
     private static String getDefaultMappingFile() {
-        return ResourceMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION;
+        return PropertiesMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION;
     }
 
     private static List<String> getUserConfiguredMappingFile() {
-        String configured = ResourceMappingConfiguration.getResourceMappingFile();
+        String configured = getConfiguration(CoreConfiguration.Items.resourceMappingFile);
         if (configured == null) {
             return Arrays.asList();
         }
@@ -75,27 +83,9 @@ public final class ResourceMappingFeature {
     }
 
     /**
-     * Returns the configured location of static resources as string evaluated against EL expressions in current context, either
-     * from configuration option or predefined location corresponding to current application stage.
-     *
-     * @return the configured location of static resources as string evaluated against EL expressions in current context
+     * Obtains configuration from {@link ConfigurationService}.
      */
-    public static String getLocation() {
-        ValueExpression mappingLocationExpression = ELUtils.createValueExpression(getLocationAsExpression());
-        return mappingLocationExpression.getValue(FacesContext.getCurrentInstance().getELContext()).toString();
-    }
-
-    /**
-     * Returns the configured location of static resources as string with EL expressions, either from configuration option or
-     * predefined location corresponding to current application stage.
-     *
-     * @return the configured location of static resources as string with EL expressions
-     */
-    private static String getLocationAsExpression() {
-        String location = ResourceMappingConfiguration.getLocation();
-        if (location == null) {
-            return DEFAULT_LOCATION;
-        }
-        return location;
+    static String getConfiguration(CoreConfiguration.Items configurationItem) {
+        return ConfigurationServiceHelper.getStringConfigurationValue(FacesContext.getCurrentInstance(), configurationItem);
     }
 }

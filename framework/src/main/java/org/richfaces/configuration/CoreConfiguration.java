@@ -57,9 +57,6 @@ public final class CoreConfiguration {
         resourcesDefaultVersion,
         @ConfigurationItem(names = "org.richfaces.cache.LRU_MAP_CACHE_SIZE", literal = true)
         lruMapCacheSize,
-        @Deprecated
-        @ConfigurationItem(names = "org.richfaces.staticResourceLocation")
-        staticResourceLocation,
         @ConfigurationItem(names = "org.richfaces.resourceMapping.location", literal = true)
         resourceMappingLocation,
         @ConfigurationItem(names = "org.richfaces.resourceMapping.mappingFile")

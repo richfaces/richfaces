@@ -45,7 +45,7 @@ import com.google.common.collect.Sets;
  *
  * @author Lukas Fryc
  */
-public class PropertiesFileResourceMapper implements ResourceMapper, ResourceAggregator, Initializable {
+public class PropertiesResourceMapper implements ResourceMapper, ResourceAggregator, Initializable {
 
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
 
@@ -60,7 +60,7 @@ public class PropertiesFileResourceMapper implements ResourceMapper, ResourceAgg
     public void init() {
         final Map<ResourceKey, ResourceMapping> result = Maps.newHashMap();
 
-        final List<String> mappingFiles = ResourceMappingFeature.getMappingFiles();
+        final List<String> mappingFiles = PropertiesMappingConfiguration.getMappingFiles();
         for (String mappingFile : mappingFiles) {
             if (classpathResourceExistsForLocation(mappingFile)) {
                 for (Entry<String, String> entry : PropertiesUtil.loadProperties(mappingFile).entrySet()) {
@@ -134,7 +134,7 @@ public class PropertiesFileResourceMapper implements ResourceMapper, ResourceAgg
      * Checks whenever given location is default static resource mapping location
      */
     private boolean isDefaultStaticResourceMappingLocation(String location) {
-        return ResourceMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION.equals(location);
+        return PropertiesMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION.equals(location);
     }
 
     /**

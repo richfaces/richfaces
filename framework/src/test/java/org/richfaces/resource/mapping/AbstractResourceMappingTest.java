@@ -107,5 +107,6 @@ public class AbstractResourceMappingTest extends AbstractServicesTest {
         injector.setInstance(MappedResourceFactory.class, mappedResourceFactory);
         injector.setInstance(ResourceTracker.class, externalResourceTracker);
         injector.setInstance(SkinFactory.class, skinFactory);
+        injector.setInstance(ResourceMappingConfiguration.class, new ResourceMappingConfiguration());
     }
 }

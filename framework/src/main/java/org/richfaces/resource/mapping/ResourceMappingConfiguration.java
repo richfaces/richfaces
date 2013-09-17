@@ -21,85 +21,59 @@
  */
 package org.richfaces.resource.mapping;
 
-import java.util.Map;
-
+import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.configuration.ConfigurationService;
-import org.richfaces.configuration.ConfigurationServiceHelper;
-import org.richfaces.configuration.CoreConfiguration;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import org.richfaces.el.ELUtils;
 
 /**
  * <p>
- * Utility class for retrieving configuration options of resource mapping feature
+ * Determines resource mappings and request path for mapped resources.
  * </p>
- *
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public final class ResourceMappingConfiguration {
+public class ResourceMappingConfiguration {
 
-    public static final String DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION = "META-INF/richfaces/static-resource-mappings.properties";
-    private static final Logger LOG = RichfacesLogger.CONFIG.getLogger();
-    private static final String STATIC_RESOURCE_DEPRECATION_LOGGED = "org.richfaces.staticResourceLocation.deprecation.logged";
+    public ResourceMappingConfiguration() {
+    }
+
+    private static final String KEY = ResourceMappingConfiguration.class.getName() + ".location";
+
+    static final String DEFAULT_LOCATION = "#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/";
 
     /**
-     * Returns configured location for resource mapping
+     * Returns the configured location of static resources as string evaluated against EL expressions in current context, either
+     * from configuration option or predefined location corresponding to current application stage.
      *
-     * @return configured location for resource mapping
+     * @return the configured location of static resources as string evaluated against EL expressions in current context
      */
-    static String getLocation() {
-        if (getStaticResourceLocation() != null) {
-            return getStaticResourceLocation();
+    public String getLocation() {
+        final FacesContext context = FacesContext.getCurrentInstance();
+
+        String location = (String) context.getAttributes().get(KEY);
+
+        if (location == null) {
+            ValueExpression mappingLocationExpression = ELUtils.createValueExpression(getLocationAsExpression());
+            location = mappingLocationExpression.getValue(FacesContext.getCurrentInstance().getELContext()).toString();
+
+            context.getAttributes().put(KEY, location);
         }
-        return getConfiguration(CoreConfiguration.Items.resourceMappingLocation);
+
+        return location;
     }
 
     /**
-     * Returns resource mapping configuration file location
+     * Returns the configured location of static resources as string with EL expressions, either from configuration option or
+     * predefined location corresponding to current application stage.
      *
-     * @return resource mapping configuration file location
+     * @return the configured location of static resources as string with EL expressions
      */
-    static String getResourceMappingFile() {
-        if (getStaticResourceLocation() != null) {
-            return DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION;
+    private static String getLocationAsExpression() {
+        String location = PropertiesMappingConfiguration.getLocation();
+        if (location == null) {
+            return DEFAULT_LOCATION;
         }
-        return getConfiguration(CoreConfiguration.Items.resourceMappingFile);
-    }
-
-    /**
-     * Returns static resource location configuration from RichFaces 4.0.
-     *
-     * <b>Deprecated in 4.1</b>
-     *
-     * @return static resource location configuration from RichFaces 4.0.
-     */
-    @SuppressWarnings("deprecation")
-    private static String getStaticResourceLocation() {
-        String staticResourceLocation = getConfiguration(CoreConfiguration.Items.staticResourceLocation);
-        logDeprecation(staticResourceLocation);
-        return staticResourceLocation;
-    }
-
-    /**
-     * Log only once that resource location has been deprecated.
-     *
-     * @param staticResourceLocation
-     */
-    private static void logDeprecation(String staticResourceLocation) {
-        Map<String, Object> applicationMap = FacesContext.getCurrentInstance().getExternalContext().getApplicationMap();
-        if (staticResourceLocation != null && !applicationMap.containsKey(STATIC_RESOURCE_DEPRECATION_LOGGED)) {
-            applicationMap.put(STATIC_RESOURCE_DEPRECATION_LOGGED, Boolean.TRUE);
-            LOG.warn("Context-param 'org.richfaces.staticResourceLocation' is deprecated, it was replaced by 'org.richfaces.resourceMapping.enabled', 'org.richfaces.resourceMapping.location' and 'org.richfaces.resourceMapping.mappingFile'");
-        }
-    }
-
-    /**
-     * Obtains configuration from {@link ConfigurationService}.
-     */
-    static String getConfiguration(CoreConfiguration.Items configurationItem) {
-        return ConfigurationServiceHelper.getStringConfigurationValue(FacesContext.getCurrentInstance(), configurationItem);
+        return location;
     }
 }
