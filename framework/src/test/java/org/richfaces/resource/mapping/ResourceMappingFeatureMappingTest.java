@@ -43,7 +43,7 @@ import org.junit.runner.RunWith;
 @RunWith(FacesMockitoRunner.class)
 public class ResourceMappingFeatureMappingTest extends AbstractResourceMappingTest {
 
-    private static final String DEFAULT = ResourceMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION;
+    private static final String DEFAULT = PropertiesMappingConfiguration.DEFAULT_STATIC_RESOURCE_MAPPING_LOCATION;
     private static final String STATIC = "META-INF/richfaces/optimizedResourcesMapping/Static.properties";
     private static final String PACKED = "META-INF/richfaces/optimizedResourcesMapping/Packed.properties";
     private static final String COMPRESSED = "META-INF/richfaces/optimizedResourcesMapping/Compressed.properties";
@@ -121,7 +121,7 @@ public class ResourceMappingFeatureMappingTest extends AbstractResourceMappingTe
         configure(resourceMappingFile, configuredValue);
 
         // when
-        List<String> mappingFiles = ResourceMappingFeature.getMappingFiles();
+        List<String> mappingFiles = PropertiesMappingConfiguration.getMappingFiles();
 
         // then
         assertEquals(Arrays.asList(expectedResolvedMappingFiles), mappingFiles);

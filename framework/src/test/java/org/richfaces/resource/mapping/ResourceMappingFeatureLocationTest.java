@@ -33,6 +33,7 @@ import javax.el.ValueExpression;
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.richfaces.services.ServiceTracker;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
@@ -43,13 +44,13 @@ public class ResourceMappingFeatureLocationTest extends AbstractResourceMappingT
     @Test
     public void shouldThrowExceptionWhenResourceLoadingOptimizationDisabled() {
         configure(resourceOptimizationEnabled, false);
-        testLocation(null, ResourceMappingFeature.DEFAULT_LOCATION);
+        testLocation(null, ResourceMappingConfiguration.DEFAULT_LOCATION);
     }
 
     @Test
     public void testDefaultLocationWhenResourceLoadingOptimizationEnabled() {
         configure(resourceOptimizationEnabled, true);
-        testLocation(null, ResourceMappingFeature.DEFAULT_LOCATION);
+        testLocation(null, ResourceMappingConfiguration.DEFAULT_LOCATION);
     }
 
     @Test
@@ -77,7 +78,7 @@ public class ResourceMappingFeatureLocationTest extends AbstractResourceMappingT
         when(valueExpression.getValue(elContext)).thenReturn(expectedResolvedLocation);
 
         // when
-        String location = ResourceMappingFeature.getLocation();
+        String location = ServiceTracker.getService(ResourceMappingConfiguration.class).getLocation();
 
         // then
         assertEquals(expectedResolvedLocation, location);

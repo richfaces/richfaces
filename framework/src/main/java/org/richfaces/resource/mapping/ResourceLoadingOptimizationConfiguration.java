@@ -34,7 +34,7 @@ import org.richfaces.configuration.CoreConfiguration;
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public enum ResourceLoadingOptimization {
+enum ResourceLoadingOptimizationConfiguration {
 
     /**
      * Packaging of selected static resources of certain types (CSS/JS)
@@ -51,7 +51,7 @@ public enum ResourceLoadingOptimization {
 
     private CoreConfiguration.Items associatedConfiguration;
 
-    private ResourceLoadingOptimization(CoreConfiguration.Items associatedConfiguration) {
+    private ResourceLoadingOptimizationConfiguration(CoreConfiguration.Items associatedConfiguration) {
         this.associatedConfiguration = associatedConfiguration;
     }
 
@@ -82,7 +82,7 @@ public enum ResourceLoadingOptimization {
      * @return true if the feature is enabled in current stage; false otherwise
      */
     private boolean enabled() {
-        String configuredPhases = ResourceMappingConfiguration.getConfiguration(associatedConfiguration);
+        String configuredPhases = PropertiesMappingConfiguration.getConfiguration(associatedConfiguration);
         if (configuredPhases == null) {
             return false;
         }
@@ -100,7 +100,7 @@ public enum ResourceLoadingOptimization {
      * </p>
      *
      * <p>
-     * Items are composed in order in which are specified in {@link ResourceMappingFeature} enumeration.
+     * Items are composed in order in which are specified in {@link ResourceMappingConfiguration} enumeration.
      * </p>
      *
      * @return infix composed from items of enumeration of features which are turned on in current {@link ProjectStage};
@@ -108,7 +108,7 @@ public enum ResourceLoadingOptimization {
      */
     private static String getEnabledFeatures() {
         StringBuffer affix = new StringBuffer();
-        for (ResourceLoadingOptimization feature : ResourceLoadingOptimization.values()) {
+        for (ResourceLoadingOptimizationConfiguration feature : ResourceLoadingOptimizationConfiguration.values()) {
             if (feature.enabled()) {
                 affix.append(feature.toString());
             }

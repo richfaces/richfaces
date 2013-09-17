@@ -31,7 +31,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.URLResource;
-import org.richfaces.resource.mapping.PropertiesFileResourceMapper;
+import org.richfaces.resource.mapping.PropertiesResourceMapper;
 import org.richfaces.resource.mapping.ResourceAggregator;
 import org.richfaces.resource.mapping.ResourceMapper;
 import org.richfaces.resource.mapping.ResourceMapping;
@@ -61,7 +61,7 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
         List<ResourceMapper> mappers = new LinkedList<ResourceMapper>();
 
         // default mappers
-        mappers.add(new PropertiesFileResourceMapper());
+        mappers.add(new PropertiesResourceMapper());
         // user-defined mappers
         mappers.addAll(ServiceLoader.loadServices(ResourceMapper.class));
 

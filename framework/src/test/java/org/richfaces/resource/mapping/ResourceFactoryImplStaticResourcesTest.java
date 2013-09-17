@@ -85,7 +85,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
         super.setUp();
 
         setupExpressionFactory();
-        configuredLocation = ResourceMappingFeature.DEFAULT_LOCATION;
+        configuredLocation = ResourceMappingConfiguration.DEFAULT_LOCATION;
     }
 
     @Test

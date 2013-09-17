@@ -21,10 +21,9 @@
  */
 package org.richfaces.resource.mapping;
 
-import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.el.ELUtils;
+import org.richfaces.services.ServiceTracker;
 import org.richfaces.servlet.ResourceServlet;
 
 /**
@@ -42,8 +41,8 @@ public class ResourceServletMapping implements ResourceMapping {
 
     @Override
     public ResourcePath getResourcePath(FacesContext context) {
-        ValueExpression expression = ELUtils.createValueExpression(ResourceMappingFeature.getLocation());
-        String contextPath = (String) expression.getValue(FacesContext.getCurrentInstance().getELContext());
+        ResourceMappingConfiguration service = ServiceTracker.getService(ResourceMappingConfiguration.class);
+        String contextPath = service.getLocation();
 
         return new ResourcePath(contextPath + resourcePath.toExternalForm());
     }
