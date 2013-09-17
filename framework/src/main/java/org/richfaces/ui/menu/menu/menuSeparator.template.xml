@@ -29,8 +29,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.menu.menu.MenuSeparatorRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.menu.menu.MenuSeparatorRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.DropDownMenu</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.MenuSeparatorRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.DropDownMenu</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.MenuSeparatorRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
     </cc:interface>
 

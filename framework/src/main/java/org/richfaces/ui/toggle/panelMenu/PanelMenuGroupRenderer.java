@@ -52,7 +52,7 @@ import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.getAjaxOpt
  * @author akolonitsky
  * @since 2010-10-25
  */
-@JsfRenderer(type = "org.richfaces.PanelMenuGroupRenderer", family = AbstractPanelMenuGroup.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.PanelMenuGroupRenderer", family = AbstractPanelMenuGroup.COMPONENT_FAMILY)
 public class PanelMenuGroupRenderer extends DivPanelRenderer {
     public static final String COLLAPSE = "collapse";
     public static final String EXPAND = "expand";

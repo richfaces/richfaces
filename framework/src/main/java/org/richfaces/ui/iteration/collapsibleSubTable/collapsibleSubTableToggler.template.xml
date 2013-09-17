@@ -29,8 +29,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.iteration.collapsibleSubTable.CollapsibleSubTableTogglerRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.iteration.collapsibleSubTable.CollapsibleSubTableTogglerRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.CollapsibleSubTableToggler</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.CollapsibleSubTableTogglerRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.CollapsibleSubTableToggler</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.CollapsibleSubTableTogglerRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>

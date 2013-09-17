@@ -40,11 +40,11 @@ import org.richfaces.ui.select.AbstractSelectComponent;
  * @author Anton Belevich
  */
 @JsfComponent(type = AbstractInplaceSelect.COMPONENT_TYPE, family = AbstractInplaceSelect.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"), tag = @Tag(name = "inplaceSelect"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.InplaceSelectRenderer"), tag = @Tag(name = "inplaceSelect"),
         attributes = {"core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "focus-props.xml", "select-props.xml"})
 public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent {
-    public static final String COMPONENT_TYPE = "org.richfaces.InplaceSelect";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Select";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.InplaceSelect";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Select";
 
     /**
      * The width of the input element

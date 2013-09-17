@@ -53,12 +53,12 @@ import org.richfaces.util.MessageUtil;
  * <p> The &lt;r:dataScroller&gt; component is used for navigating through multiple pages of tables or grids. </p>
  */
 @JsfComponent(type = AbstractDataScroller.COMPONENT_TYPE, family = AbstractDataScroller.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.DataScrollerRenderer"),
         tag = @Tag(name = "dataScroller", handlerClass = DataScrollerHandler.class, type = TagType.Facelets),
         attributes = {"ajax-props.xml", "core-props.xml" })
 public abstract class AbstractDataScroller extends UIComponentBase implements DataScrollSource, IterationStateHolder {
-    public static final String COMPONENT_TYPE = "org.richfaces.DataScroller";
-    public static final String COMPONENT_FAMILY = "org.richfaces.DataScroller";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.DataScroller";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.DataScroller";
     public static final String SCROLLER_STATE_ATTRIBUTE = COMPONENT_TYPE + ":page";
     public static final String FIRST_FACET_NAME = "first";
     public static final String LAST_FACET_NAME = "last";

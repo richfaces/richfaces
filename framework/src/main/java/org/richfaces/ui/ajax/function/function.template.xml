@@ -30,7 +30,7 @@
         <cdk:class>org.richfaces.ui.ajax.function.AjaxFunctionRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.ajax.function.AjaxFunctionRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Command</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.FunctionRenderer</cdk:renderer-type>
+        <cdk:renderer-type>org.richfaces.ui.FunctionRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>

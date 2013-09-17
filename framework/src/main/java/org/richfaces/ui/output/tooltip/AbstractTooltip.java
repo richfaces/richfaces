@@ -50,12 +50,12 @@ import java.io.IOException;
  *
  * @author amarkhel
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"), attributes = {
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ui.TooltipRenderer"), attributes = {
         "core-props.xml", "tooltip-props.xml", "ajax-props.xml", "i18n-props.xml", "position-props.xml",
         "events-mouse-props.xml", "popups-props.xml", "events-popups-props.xml", "events-popups-before-props.xml" })
 public abstract class AbstractTooltip extends UIOutput implements AbstractDivPanel, MetaComponentResolver, MetaComponentEncoder {
-    public static final String COMPONENT_TYPE = "org.richfaces.Tooltip";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Tooltip";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Tooltip";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Tooltip";
     public static final String CONTENT_META_COMPONENT_ID = "content";
 
     protected AbstractTooltip() {

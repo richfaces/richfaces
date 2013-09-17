@@ -42,7 +42,7 @@ import javax.faces.component.UIOutput;
         @Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) }, renderer = @JsfRenderer(type = MenuGroupRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuGroup"), attributes = {
         "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "position-props.xml" })
 public abstract class AbstractMenuGroup extends UIOutput {
-    public static final String COMPONENT_TYPE = "org.richfaces.MenuGroup";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.MenuGroup";
 
     /**
      * Disables the menu component, so it will not activate/expand

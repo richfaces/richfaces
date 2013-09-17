@@ -48,7 +48,7 @@ import static org.richfaces.ui.common.HtmlConstants.STYLE_ATTRIBUTE;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/togglePanel/togglePanelItem.js") })
-@JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer", family = AbstractTogglePanelItem.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.TogglePanelItemRenderer", family = AbstractTogglePanelItem.COMPONENT_FAMILY)
 public class TogglePanelItemRenderer extends DivPanelRenderer {
     private static final String LEAVE = "leave";
     private static final String ENTER = "enter";

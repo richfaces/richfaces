@@ -48,13 +48,13 @@ import org.richfaces.util.AjaxRendererUtils;
  * </p>
  * @author Nick Belaevski
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.AttachQueueRenderer"), tag = @Tag(name = "attachQueue", handlerClass = AttachQueueHandler.class,
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.ui.AttachQueueRenderer"), tag = @Tag(name = "attachQueue", handlerClass = AttachQueueHandler.class,
 
 generate = false, type = TagType.Facelets))
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractAttachQueue extends UIComponentBase implements ComponentSystemEventListener {
-    public static final String COMPONENT_TYPE = "org.richfaces.AttachQueue";
-    public static final String COMPONENT_FAMILY = "org.richfaces.AttachQueue";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.AttachQueue";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.AttachQueue";
     private transient List<UIComponent> componentsToAssociate;
     private transient List<AjaxBehavior> behaviorsToAssociate;
 

@@ -58,7 +58,7 @@ import com.google.common.base.Strings;
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.draggable.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.droppable.js"),
         @ResourceDependency(library = "org.richfaces", name = "drag/dnd-droppable.js") })
-@JsfRenderer(type = "org.richfaces.DropTargetRenderer", family = AbstractDropTarget.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.DropTargetRenderer", family = AbstractDropTarget.COMPONENT_FAMILY)
 public class DropTargetRenderer extends DnDRenderBase {
     /**
      *

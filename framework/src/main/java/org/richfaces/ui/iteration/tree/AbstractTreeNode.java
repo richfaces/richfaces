@@ -52,13 +52,13 @@ import org.richfaces.ui.iteration.IterationStateHolder;
  *
  * @author Nick Belaevski
  */
-@JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY, tag = @Tag(name = "treeNode", handlerClass = TreeNodeHandler.class), renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"), attributes = {
+@JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY, tag = @Tag(name = "treeNode", handlerClass = TreeNodeHandler.class), renderer = @JsfRenderer(type = "org.richfaces.ui.TreeNodeRenderer"), attributes = {
         "tree-common-props.xml", "treeNode-props.xml", "events-mouse-props.xml", "events-key-props.xml", "core-props.xml",
         "i18n-props.xml", "immediate-prop.xml" })
 public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder,
         IterationStateHolder, TreeToggleSource {
-    public static final String COMPONENT_TYPE = "org.richfaces.TreeNode";
-    public static final String COMPONENT_FAMILY = "org.richfaces.TreeNode";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.TreeNode";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.TreeNode";
     public static final String SUBTREE_META_COMPONENT_ID = "subtree";
 
     enum PropertyKeys {

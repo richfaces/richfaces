@@ -29,8 +29,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.ajax.log.AjaxLogRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.ajax.log.LogRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.AjaxLog</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.AjaxLogRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.AjaxLog</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.AjaxLogRenderer</cdk:renderer-type>
 
         <cdk:import package="org.richfaces.ui.ajax.log" names="LogMode" />
     </cc:interface>

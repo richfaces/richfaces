@@ -39,8 +39,8 @@ import org.richfaces.ui.message.NotifyAttributes;
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@JsfComponent(type = "org.richfaces.NotifyMessages", tag = @Tag(name = "notifyMessages"),
-        renderer = @JsfRenderer(template = "notifyMessages.template.xml", type = "org.richfaces.NotifyMessagesRenderer"),
+@JsfComponent(type = "org.richfaces.ui.NotifyMessages", tag = @Tag(name = "notifyMessages"),
+        renderer = @JsfRenderer(template = "notifyMessages.template.xml", type = "org.richfaces.ui.NotifyMessagesRenderer"),
         attributes = { "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml" })
 public abstract class AbstractNotifyMessages extends UIMessages implements AjaxOutput, ClientSideMessage, NotifyAttributes {
 

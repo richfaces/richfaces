@@ -29,8 +29,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.iteration.dataScroller.DataScrollerRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.iteration.dataScroller.DataScrollerBaseRenderer</cdk:superclass>
-        <cdk:component-family>org.richfaces.DataScroller</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.DataScrollerRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.DataScroller</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.DataScrollerRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>

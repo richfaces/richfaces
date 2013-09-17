@@ -48,11 +48,11 @@ import org.richfaces.ui.toggle.ItemChangeSource;
  *
  * @author akolonitsky
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = PanelMenuTagHandler.class), renderer = @JsfRenderer(type = "org.richfaces.PanelMenuRenderer"), attributes = {
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = PanelMenuTagHandler.class), renderer = @JsfRenderer(type = "org.richfaces.ui.PanelMenuRenderer"), attributes = {
         "style-prop.xml", "styleClass-prop.xml", "immediate-prop.xml", "events-mouse-props.xml" })
 public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSource {
-    public static final String COMPONENT_TYPE = "org.richfaces.PanelMenu";
-    public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenu";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.PanelMenu";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.PanelMenu";
     private String submittedActiveItem;
 
     private enum PropertyKeys {

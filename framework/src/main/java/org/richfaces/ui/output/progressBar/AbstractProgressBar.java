@@ -56,13 +56,13 @@ import java.util.Iterator;
  *
  * @author "Andrey Markavtsov"
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ProgressBarRenderer"),
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ui.ProgressBarRenderer"),
         attributes = "events-mouse-props.xml")
 public abstract class AbstractProgressBar extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder {
     /** Component type */
-    public static final String COMPONENT_TYPE = "org.richfaces.ProgressBar";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.ProgressBar";
     /** Component family */
-    public static final String COMPONENT_FAMILY = "org.richfaces.ProgressBar";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.ProgressBar";
     public static final String STATE_META_COMPONENT_ID = "state";
 
     //--------- events-mouse-props.xml

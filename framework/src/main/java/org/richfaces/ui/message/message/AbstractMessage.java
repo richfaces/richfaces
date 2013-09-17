@@ -36,8 +36,8 @@ import org.richfaces.ui.common.AjaxOutput;
  *
  * @author asmirnov@exadel.com
  */
-@JsfComponent(type = "org.richfaces.Message", tag = @Tag(name = "message"),
-        renderer = @JsfRenderer(template = "message.template.xml", type = "org.richfaces.MessageRenderer"),
+@JsfComponent(type = "org.richfaces.ui.Message", tag = @Tag(name = "message"),
+        renderer = @JsfRenderer(template = "message.template.xml", type = "org.richfaces.ui.MessageRenderer"),
         attributes = {"core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml", "output-format-props.xml" })
 public abstract class AbstractMessage extends UIMessage implements AjaxOutput {
     @Attribute(defaultValue = "true")

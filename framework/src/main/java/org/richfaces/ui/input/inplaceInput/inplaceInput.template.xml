@@ -30,9 +30,9 @@
         </cdk:class>
         <cdk:superclass>org.richfaces.ui.input.inplaceInput.InplaceInputRendererBase
         </cdk:superclass>
-        <cdk:component-family>org.richfaces.InplaceInput
+        <cdk:component-family>org.richfaces.ui.InplaceInput
         </cdk:component-family>
-        <cdk:renderer-type>org.richfaces.InplaceInputRenderer
+        <cdk:renderer-type>org.richfaces.ui.InplaceInputRenderer
         </cdk:renderer-type>
     </cc:interface>
 

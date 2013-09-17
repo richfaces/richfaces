@@ -43,8 +43,8 @@ import javax.faces.component.UIComponent;
 @JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "style-prop.xml", "styleClass-prop.xml", "ajax-props.xml", "bypass-props.xml",
         "events-mouse-props.xml" })
 public abstract class AbstractPanelMenuItem extends AbstractActionComponent implements AjaxProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";
-    public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuItem";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.PanelMenuItem";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.PanelMenuItem";
     private static final ParentItemPredicate PARENT_ITEM_PREDICATE = new ParentItemPredicate();
 
     protected AbstractPanelMenuItem() {

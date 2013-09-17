@@ -29,8 +29,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.output.progressBar.ProgressBarRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.output.progressBar.ProgressBarBaseRenderer</cdk:superclass>
-        <cdk:component-family>org.richfaces.ProgressBarRenderer</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.ProgressBarRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.ProgressBarRenderer</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.ProgressBarRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
     </cc:interface>
 

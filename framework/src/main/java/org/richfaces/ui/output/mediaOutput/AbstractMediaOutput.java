@@ -45,11 +45,11 @@ import org.richfaces.ui.attribute.AccesskeyProps;
  * @author shura
  */
 @JsfComponent(tag = @Tag(generate = false, handlerClass = MediaOutputHandler.class, type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.MediaOutputRenderer"),
         attributes = {"events-mouse-props.xml", "events-key-props.xml", "focus-props.xml", "i18n-props.xml"})
 public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.MediaOutput";
-    public static final String COMPONENT_FAMILY = "org.richfaces.MediaOutput";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.MediaOutput";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.MediaOutput";
 
     public Resource getResource() {
         ResourceHandler resourceHandler = getFacesContext().getApplication().getResourceHandler();

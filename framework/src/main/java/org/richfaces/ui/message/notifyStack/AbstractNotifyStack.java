@@ -38,11 +38,11 @@ import org.richfaces.cdk.annotations.Tag;
  * @author Bernard Labno
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-@JsfComponent(tag = @Tag(name = "notifyStack"), type = AbstractNotifyStack.COMPONENT_TYPE, family = AbstractNotifyStack.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.NotifyStackRenderer"))
+@JsfComponent(tag = @Tag(name = "notifyStack"), type = AbstractNotifyStack.COMPONENT_TYPE, family = AbstractNotifyStack.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ui.NotifyStackRenderer"))
 public abstract class AbstractNotifyStack extends UIComponentBase {
 
-    public static final String COMPONENT_FAMILY = "org.richfaces.NotifyStack";
-    public static final String COMPONENT_TYPE = "org.richfaces.NotifyStack";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.NotifyStack";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.NotifyStack";
 
     @Attribute(description = @Description("Defines the position of the start of stack: topLeft, topRight (default), bottomLeft, bottomRight"))
     public abstract CornerPosition getPosition();

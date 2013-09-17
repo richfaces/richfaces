@@ -32,11 +32,11 @@ import javax.faces.component.UIComponentBase;
 /**
  * <p>The &lt;r:panel&gt; component is a bordered panel with an optional header.</p>
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PanelRenderer"), attributes = {
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ui.PanelRenderer"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "events-key-props.xml" })
 public abstract class AbstractPanel extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.Panel";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Panel";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Panel";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Panel";
 
     /**
      * Space-separated list of CSS style class(es) to be applied to the panel header.

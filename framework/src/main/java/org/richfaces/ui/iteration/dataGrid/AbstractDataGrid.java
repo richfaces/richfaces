@@ -58,10 +58,10 @@ import org.richfaces.ui.iteration.UISequence;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractDataGrid.COMPONENT_TYPE, family = AbstractDataGrid.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DataGridRenderer"), tag = @Tag(name = "dataGrid", handlerClass = DataGridHandler.class, type = TagType.Facelets), attributes = {
+@JsfComponent(type = AbstractDataGrid.COMPONENT_TYPE, family = AbstractDataGrid.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ui.DataGridRenderer"), tag = @Tag(name = "dataGrid", handlerClass = DataGridHandler.class, type = TagType.Facelets), attributes = {
         "core-props.xml", "iteration-props.xml", "sequence-props.xml" })
 public abstract class AbstractDataGrid extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
-    public static final String COMPONENT_TYPE = "org.richfaces.DataGrid";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.DataGrid";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String HEADER_FACET_NAME = "header";
     public static final String FOOTER_FACET_NAME = "footer";

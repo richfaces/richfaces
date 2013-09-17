@@ -41,14 +41,14 @@ import org.richfaces.ui.message.NotifyAttributes;
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"), attributes = {
+@JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ui.NotifyRenderer"), attributes = {
         "styleClass-prop.xml", "events-mouse-props.xml", "events-key-props.xml" }, facets = {
         @Facet(name = "summary", description = @Description("Summary of the notification message")),
         @Facet(name = "detail", description = @Description("Detail of the notification message")) })
 public abstract class AbstractNotify extends UIComponentBase implements NotifyAttributes {
 
-    public static final String COMPONENT_FAMILY = "org.richfaces.Notify";
-    public static final String COMPONENT_TYPE = "org.richfaces.Notify";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Notify";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Notify";
 
     public static final double DEFAULT_NONBLOCKING_OPACITY = .2;
 

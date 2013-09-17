@@ -35,8 +35,8 @@ import javax.faces.component.UIComponentBase;
  */
 @JsfComponent(family = AbstractToolbar.COMPONENT_FAMILY, type = AbstractToolbar.COMPONENT_TYPE, renderer = @JsfRenderer(type = ToolbarRendererBase.RENDERER_TYPE), tag = @Tag(name = "toolbar"), attributes = { "core-props.xml" })
 public abstract class AbstractToolbar extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.Toolbar";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Toolbar";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Toolbar";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Toolbar";
 
     /**
      * A height of a bar in pixels. If a height is not defined, a bar height depends of the "headerFontSize" skin parameter.

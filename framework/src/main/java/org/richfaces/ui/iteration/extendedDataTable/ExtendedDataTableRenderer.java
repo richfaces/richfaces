@@ -72,7 +72,7 @@ import org.richfaces.util.HtmlUtil;
  * @author Konstantin Mishin
  *
  */
-@JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer", family = AbstractExtendedDataTable.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.ExtendedDataTableRenderer", family = AbstractExtendedDataTable.COMPONENT_FAMILY)
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"),

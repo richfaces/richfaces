@@ -45,12 +45,12 @@ import org.richfaces.ui.select.AbstractSelectComponent;
  *
  * @author abelevich
  */
-@JsfComponent(type = AbstractSelect.COMPONENT_TYPE, family = AbstractSelect.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.SelectRenderer"), tag = @Tag(name = "select"), attributes = {
+@JsfComponent(type = AbstractSelect.COMPONENT_TYPE, family = AbstractSelect.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ui.SelectRenderer"), tag = @Tag(name = "select"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "select-props.xml" })
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractSelect extends AbstractSelectComponent {
-    public static final String COMPONENT_TYPE = "org.richfaces.Select";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Select";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Select";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Select";
 
     /**
      * If "true", this component is disabled

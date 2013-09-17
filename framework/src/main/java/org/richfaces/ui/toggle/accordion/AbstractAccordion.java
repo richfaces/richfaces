@@ -39,10 +39,10 @@ import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.AccordionRenderer"), attributes = {"events-mouse-props.xml", "i18n-props.xml", "core-props.xml"})
+        renderer = @JsfRenderer(type = "org.richfaces.ui.AccordionRenderer"), attributes = {"events-mouse-props.xml", "i18n-props.xml", "core-props.xml"})
 public abstract class AbstractAccordion extends AbstractTogglePanel {
-    public static final String COMPONENT_TYPE = "org.richfaces.Accordion";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Accordion";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Accordion";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Accordion";
 
     protected AbstractAccordion() {
         setRendererType("org.richfaces.AccordionRenderer");

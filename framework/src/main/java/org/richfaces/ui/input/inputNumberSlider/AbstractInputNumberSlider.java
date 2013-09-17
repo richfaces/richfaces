@@ -38,11 +38,11 @@ import org.richfaces.ui.input.AbstractInputNumber;
 @JsfComponent(
         type = AbstractInputNumberSlider.COMPONENT_TYPE,
         family = AbstractInputNumberSlider.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.InputNumberSliderRenderer"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.InputNumberSliderRenderer"),
         attributes = {"events-mouse-props.xml", "events-key-props.xml", "base-props.xml", "core-props.xml", "input-props.xml", "focus-props.xml", "i18n-props.xml" },
         tag = @Tag(name = "inputNumberSlider"))
 public abstract class AbstractInputNumberSlider extends AbstractInputNumber implements AccesskeyProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.InputNumberSlider";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.InputNumberSlider";
     public static final String COMPONENT_FAMILY = "javax.faces.Input";
 
     @Attribute(hidden = true)

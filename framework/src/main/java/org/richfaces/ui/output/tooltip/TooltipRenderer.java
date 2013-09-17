@@ -60,7 +60,7 @@ import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.getAjaxOpt
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "output/tooltip/tooltip.js"),
         @ResourceDependency(library = "org.richfaces", name = "output/tooltip/tooltip.ecss") })
-@JsfRenderer(type = "org.richfaces.TooltipRenderer", family = AbstractTooltip.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.TooltipRenderer", family = AbstractTooltip.COMPONENT_FAMILY)
 public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRenderer {
     public static final String HIDE = "hide";
     public static final String SHOW = "show";

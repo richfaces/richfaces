@@ -39,10 +39,10 @@ import javax.faces.component.UIPanel;
  *
  * @author asmirnov@exadel.com
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.OutputPanelRenderer"), tag = @Tag(type = TagType.Facelets), attributes = {
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.ui.OutputPanelRenderer"), tag = @Tag(type = TagType.Facelets), attributes = {
         "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "core-props.xml", "AjaxOutput-props.xml" })
 public abstract class AbstractOutputPanel extends UIPanel implements AjaxOutput {
-    public static final String COMPONENT_TYPE = "org.richfaces.OutputPanel";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.OutputPanel";
     public static final String COMPONENT_FAMILY = "javax.faces.Panel";
 
     @Attribute(defaultValue = "false")

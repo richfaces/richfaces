@@ -7,8 +7,8 @@
 
     <cc:interface>
         <cdk:superclass>org.richfaces.ui.input.autocomplete.AutocompleteRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.AutocompleteFamily</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.AutocompleteRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.AutocompleteFamily</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.AutocompleteRenderer</cdk:renderer-type>
         <cdk:component-base-class>org.richfaces.ui.input.autocomplete.AbstractAutocomplete</cdk:component-base-class>
 
         <cdk:resource-dependency library="bootstrap" name="bootstrap.css" />

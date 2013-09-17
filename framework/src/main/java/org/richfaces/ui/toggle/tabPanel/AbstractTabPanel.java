@@ -36,11 +36,11 @@ import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
  *
  * @author akolonitsky
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class), renderer = @JsfRenderer(type = "org.richfaces.TabPanelRenderer"), attributes = {
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class), renderer = @JsfRenderer(type = "org.richfaces.ui.TabPanelRenderer"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
 public abstract class AbstractTabPanel extends AbstractTogglePanel {
-    public static final String COMPONENT_TYPE = "org.richfaces.TabPanel";
-    public static final String COMPONENT_FAMILY = "org.richfaces.TabPanel";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.TabPanel";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.TabPanel";
 
     protected AbstractTabPanel() {
         setRendererType("org.richfaces.TabPanelRenderer");

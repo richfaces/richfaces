@@ -87,13 +87,13 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * The standard component family for this component.
      * </p>
      */
-    public static final String COMPONENT_FAMILY = "org.richfaces.Data";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Data";
     /**
      * <p>
      * The standard component type for this component.
      * </p>
      */
-    public static final String COMPONENT_TYPE = "org.richfaces.Data";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Data";
 
     private String PRE_RENDER_VIEW_EVENT_REGISTERED = UIDataAdaptor.class.getName() + ":preRenderViewEventRegistered";
 

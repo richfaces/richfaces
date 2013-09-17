@@ -28,8 +28,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.misc.placeholder.PlaceholderRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.misc.placeholder.PlaceholderRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.Placeholder</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.PlaceholderRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.Placeholder</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.PlaceholderRenderer</cdk:renderer-type>
         <cdk:component-base-class>org.richfaces.ui.misc.placeholder.AbstractPlaceholder</cdk:component-base-class>
     </cc:interface>
 

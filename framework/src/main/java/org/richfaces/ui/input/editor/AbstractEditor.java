@@ -37,10 +37,10 @@ import org.richfaces.cdk.annotations.Tag;
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-@JsfComponent(type = AbstractEditor.COMPONENT_TYPE, family = AbstractEditor.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.EditorRenderer"), facets = @Facet(name = "config", description = @Description("Detailed configuration of editor in JSON format")), tag = @Tag(name = "editor"), attributes = "core-props.xml")
+@JsfComponent(type = AbstractEditor.COMPONENT_TYPE, family = AbstractEditor.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ui.EditorRenderer"), facets = @Facet(name = "config", description = @Description("Detailed configuration of editor in JSON format")), tag = @Tag(name = "editor"), attributes = "core-props.xml")
 public abstract class AbstractEditor extends UIInput {
-    public static final String COMPONENT_TYPE = "org.richfaces.Editor";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Editor";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Editor";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Editor";
 
     /**
      * <p>

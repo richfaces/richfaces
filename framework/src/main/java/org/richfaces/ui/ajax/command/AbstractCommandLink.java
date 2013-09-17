@@ -43,10 +43,10 @@ import org.richfaces.ui.common.meta.MetaComponentResolver;
  * </p>
  * @author Nick Belaevski
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandLinkRenderer"), tag = @Tag(type = TagType.Facelets),
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.ui.CommandLinkRenderer"), tag = @Tag(type = TagType.Facelets),
         attributes = {"commandLink-target-prop.xml", "ajax-props.xml", "link-props.xml", "core-props.xml"})
 public abstract class AbstractCommandLink extends AbstractActionComponent implements MetaComponentResolver, AccesskeyProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.CommandLink";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.CommandLink";
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
 
     @Attribute(hidden = true)

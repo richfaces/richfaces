@@ -38,11 +38,11 @@ import org.richfaces.ui.iteration.UIDataTableBase;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractDataTable.COMPONENT_TYPE, family = AbstractDataTable.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"), tag = @Tag(name = "dataTable", handlerClass = DataTableHandler.class, type = TagType.Facelets), attributes = {
+@JsfComponent(type = AbstractDataTable.COMPONENT_TYPE, family = AbstractDataTable.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ui.DataTableRenderer"), tag = @Tag(name = "dataTable", handlerClass = DataTableHandler.class, type = TagType.Facelets), attributes = {
         "style-prop.xml", "styleClass-prop.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml",
         "events-row-props.xml" })
 public abstract class AbstractDataTable extends UIDataTableBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.DataTable";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.DataTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String CAPTION_FACET_NAME = "caption";
 

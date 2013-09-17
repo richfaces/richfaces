@@ -36,10 +36,10 @@ import org.richfaces.ui.common.AbstractActionComponent;
  * </p>
  * @author shura
  */
-@JsfComponent(tag = @Tag(generate = false, handlerClass = AjaxPollHandler.class, type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PollRenderer"), attributes = { "ajax-props.xml" })
+@JsfComponent(tag = @Tag(generate = false, handlerClass = AjaxPollHandler.class, type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ui.PollRenderer"), attributes = { "ajax-props.xml" })
 public abstract class AbstractPoll extends AbstractActionComponent {
-    public static final String COMPONENT_TYPE = "org.richfaces.Poll";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Poll";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Poll";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Poll";
     public static final String TIMER = "timer";
     public static final String ON_TIMER = "ontimer";
     public static final String BEGIN = "begin";

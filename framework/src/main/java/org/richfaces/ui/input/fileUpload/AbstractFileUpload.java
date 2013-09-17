@@ -45,12 +45,12 @@ import org.richfaces.renderkit.RenderKitUtils;
  *
  * @author Konstantin Mishin
  */
-@JsfComponent(tag = @Tag(generate = false, handlerClass = FileUploadHandler.class), renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"), attributes = {
+@JsfComponent(tag = @Tag(generate = false, handlerClass = FileUploadHandler.class), renderer = @JsfRenderer(type = "org.richfaces.ui.FileUploadRenderer"), attributes = {
         "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "ajax-props.xml", "i18n-props.xml", "fileUploadListener-props.xml" })
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractFileUpload extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.FileUpload";
-    public static final String COMPONENT_FAMILY = "org.richfaces.FileUpload";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.FileUpload";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.FileUpload";
 
     /**
      * Defines comma separated list of file extensions accepted by component.

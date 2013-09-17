@@ -67,7 +67,7 @@ import org.richfaces.util.HtmlUtil;
         @ResourceDependency(library = "org.richfaces", name = "toggle/togglePanel/togglePanel.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/tabPanel/tabPanel.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/tabPanel/tabPanel.ecss") })
-@JsfRenderer(type = "org.richfaces.TabPanelRenderer", family = AbstractTabPanel.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.TabPanelRenderer", family = AbstractTabPanel.COMPONENT_FAMILY)
 public class TabPanelRenderer extends TogglePanelRenderer {
     private static final RenderKitUtils.Attributes HEADER_ATTRIBUTES = RenderKitUtils.attributes()
             .generic("onclick", "onheaderclick", "headerclick").generic("ondblclick", "onheaderdblclick", "headerdblclick")

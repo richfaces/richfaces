@@ -56,7 +56,7 @@ import static org.richfaces.ui.common.HtmlConstants.STYLE_ATTRIBUTE;
         @ResourceDependency(library = "org.richfaces", name = "toggle/collapsiblePanel/collapsiblePanelItem.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/icons.ecss"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/collapsiblePanel/collapsiblePanel.ecss") })
-@JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer", family = AbstractCollapsiblePanel.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.CollapsiblePanelRenderer", family = AbstractCollapsiblePanel.COMPONENT_FAMILY)
 public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     public static final String SWITCH = "switch";
     public static final String BEFORE_SWITCH = "beforeswitch";

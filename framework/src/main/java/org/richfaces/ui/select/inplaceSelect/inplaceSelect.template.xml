@@ -30,9 +30,9 @@
         </cdk:class>
         <cdk:superclass>org.richfaces.ui.select.inplaceSelect.InplaceSelectRendererBase
         </cdk:superclass>
-        <cdk:component-family>org.richfaces.InplaceSelect
+        <cdk:component-family>org.richfaces.ui.InplaceSelect
         </cdk:component-family>
-        <cdk:renderer-type>org.richfaces.InplaceSelectRenderer
+        <cdk:renderer-type>org.richfaces.ui.InplaceSelectRenderer
         </cdk:renderer-type>
     </cc:interface>
 

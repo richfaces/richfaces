@@ -37,11 +37,11 @@ import org.richfaces.ui.select.AbstractOrderingComponent;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(type = AbstractPickList.COMPONENT_TYPE, family = AbstractPickList.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.PickListRenderer"), tag = @Tag(name = "pickList"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.PickListRenderer"), tag = @Tag(name = "pickList"),
         attributes = {"events-mouse-props.xml", "events-key-props.xml", "multiselect-props.xml"})
 public abstract class AbstractPickList extends AbstractOrderingComponent {
-    public static final String COMPONENT_TYPE = "org.richfaces.PickList";
-    public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.PickList";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.SelectMany";
 
     /**
      * <p>If "true", then the target list is orderable, and the ordering controls are displayed</p>

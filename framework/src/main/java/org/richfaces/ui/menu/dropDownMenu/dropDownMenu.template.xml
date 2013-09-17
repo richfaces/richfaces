@@ -30,8 +30,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.menu.dropDownMenu.DropDownMenuRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.menu.dropDownMenu.DropDownMenuRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.DropDownMenu</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.DropDownMenuRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.DropDownMenu</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.DropDownMenuRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
     </cc:interface>
 

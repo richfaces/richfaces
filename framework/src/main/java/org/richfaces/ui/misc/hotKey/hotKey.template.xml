@@ -29,8 +29,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.misc.hotKey.HotKeyRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.misc.hotKey.HotKeyRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.HotKey</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.HotKeyRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.HotKey</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.HotKeyRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>

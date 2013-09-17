@@ -41,11 +41,11 @@ import org.richfaces.cdk.annotations.TagType;
  * </p>
  * @author abelevich
  */
-@JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"), attributes = {
+@JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ui.DropTargetRenderer"), attributes = {
         "ajax-props.xml", "immediate-prop.xml", "bypass-props.xml", "dropListener-props.xml" }, tag = @Tag(name = "dropTarget", handlerClass = DropHandler.class, type = TagType.Facelets))
 public abstract class AbstractDropTarget extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.DropTarget";
-    public static final String COMPONENT_FAMILY = "org.richfaces.DropTarget";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.DropTarget";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.DropTarget";
 
     /**
      * Data to be processed after a drop event

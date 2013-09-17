@@ -42,12 +42,12 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
  *
  * @author akolonitsky
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.AccordionItemRenderer"),
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ui.AccordionItemRenderer"),
         attributes = {"events-mouse-props.xml", "i18n-props.xml", "core-props.xml"})
 public abstract class AbstractAccordionItem extends AbstractTogglePanelItem implements AbstractTogglePanelTitledItem,
         ClientBehaviorHolder {
-    public static final String COMPONENT_TYPE = "org.richfaces.AccordionItem";
-    public static final String COMPONENT_FAMILY = "org.richfaces.AccordionItem";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.AccordionItem";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.AccordionItem";
 
     enum Properties {
         header,

@@ -59,7 +59,7 @@ import org.richfaces.util.HtmlUtil;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/togglePanel/togglePanel.js") })
-@JsfRenderer(type = "org.richfaces.TogglePanelRenderer", family = AbstractTogglePanel.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.TogglePanelRenderer", family = AbstractTogglePanel.COMPONENT_FAMILY)
 public class TogglePanelRenderer extends DivPanelRenderer implements MetaComponentRenderer {
     public static final String VALUE_POSTFIX = "-value";
     protected static final String ITEM_CHANGE = "itemchange";

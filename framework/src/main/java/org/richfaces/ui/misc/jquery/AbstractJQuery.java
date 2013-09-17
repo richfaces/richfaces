@@ -39,10 +39,10 @@ import org.richfaces.cdk.annotations.TagType;
  *
  * @author nick
  */
-@JsfComponent(type = AbstractJQuery.COMPONENT_TYPE, family = AbstractJQuery.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.JQueryRenderer"), tag = @Tag(type = TagType.Facelets))
+@JsfComponent(type = AbstractJQuery.COMPONENT_TYPE, family = AbstractJQuery.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ui.JQueryRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractJQuery extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.JQuery";
-    public static final String COMPONENT_FAMILY = "org.richfaces.JQuery";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.JQuery";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.JQuery";
 
     // TODO nick - CDK should be doing this
     public AbstractJQuery() {

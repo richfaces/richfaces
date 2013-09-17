@@ -48,10 +48,10 @@ import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = CollapsiblePanelTagHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"), attributes = {"core-props.xml", "events-mouse-props.xml", "i18n-props.xml"})
+        renderer = @JsfRenderer(type = "org.richfaces.ui.CollapsiblePanelRenderer"), attributes = {"core-props.xml", "events-mouse-props.xml", "i18n-props.xml"})
 public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource {
-    public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";
-    public static final String COMPONENT_FAMILY = "org.richfaces.CollapsiblePanel";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.CollapsiblePanel";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.CollapsiblePanel";
 
     public enum States {
         expanded("exp"),

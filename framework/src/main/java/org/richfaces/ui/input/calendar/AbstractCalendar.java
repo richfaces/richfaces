@@ -68,12 +68,12 @@ import org.richfaces.ui.common.meta.MetaComponentResolver;
  *
  * @author amarkhel
  */
-@JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), attributes = {
+@JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ui.CalendarRenderer"), attributes = {
         "position-props.xml", "popups-props.xml", "events-popups-props.xml" }, tag = @Tag(name = "calendar", handlerClass = CalendarHandler.class))
 public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
     public static final String DAYSDATA_META_COMPONENT_ID = "daysData";
-    public static final String COMPONENT_TYPE = "org.richfaces.Calendar";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Calendar";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Calendar";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Calendar";
     public static final String SUB_TIME_PATTERN = "\\s*[hHkKma]+[\\W&&\\S]+[hHkKma]+[\\W&&\\S]*[s]*\\s*";
     public static final String TIME_PATTERN = "HH:mm:ss";
     public static final String DEFAULT_DATE_PATTERN = "MMM d, yyyy";

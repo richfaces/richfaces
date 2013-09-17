@@ -45,7 +45,7 @@ import org.richfaces.util.RendererUtils;
  *
  * @author akolonitsky
  */
-@JsfBehavior(id = "org.richfaces.component.behavior.ToggleControl", tag = @Tag(name = "toggleControl", handlerClass = CustomBehaviorHandler.class, type = TagType.Facelets), renderer = @JsfBehaviorRenderer(type = "org.richfaces.component.behavior.ToggleControl"))
+@JsfBehavior(id = "org.richfaces.component.behavior.ToggleControl", tag = @Tag(name = "toggleControl", handlerClass = CustomBehaviorHandler.class, type = TagType.Facelets), renderer = @JsfBehaviorRenderer(type = "org.richfaces.ui.component.behavior.ToggleControl"))
 public class ToggleControl extends ClientBehavior {
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.ToggleControl";
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();

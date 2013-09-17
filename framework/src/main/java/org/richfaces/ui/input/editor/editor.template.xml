@@ -28,8 +28,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.input.editor.EditorRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.input.editor.EditorRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.Editor</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.EditorRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.Editor</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.EditorRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>
