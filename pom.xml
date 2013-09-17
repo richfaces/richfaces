@@ -48,5 +48,7 @@
         <module>dnd</module>
         <module>validator</module>
         <module>dist</module>
+        <module>richfaces-components-ui</module>
+        <module>richfaces-components-api</module>
     </modules>
 </project>
