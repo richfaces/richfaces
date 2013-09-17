@@ -28,15 +28,15 @@ import javax.faces.context.FacesContext;
 import org.richfaces.resource.ResourceKey;
 
 /**
- * Wraps known implementations of {@link ExternalResourceTracker} and decides which one to choose in runtime
+ * Wraps known implementations of {@link ResourceTracker} and decides which one to choose in runtime
  *
  * @author Lukas Fryc
  */
-public class DefaultExternalResourceTracker implements ExternalResourceTracker {
+public class ResourceTrackerImpl implements ResourceTracker {
 
     private static final String MYFACES_RESOURCE_UTILS_CLASS = "org.apache.myfaces.shared.renderkit.html.util.ResourceUtils";
 
-    private AtomicReference<ExternalResourceTracker> externalResourceTracker = new AtomicReference<ExternalResourceTracker>();
+    private AtomicReference<ResourceTracker> externalResourceTracker = new AtomicReference<ResourceTracker>();
 
     /*
      * (non-Javadoc)
@@ -60,30 +60,18 @@ public class DefaultExternalResourceTracker implements ExternalResourceTracker {
         getImplementation().markResourceRendered(facesContext, resourceKey);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.richfaces.resource.external.ExternalResourceTracker#markExternalResourceRendered(javax.faces.context.FacesContext,
-     * org.richfaces.resource.external.ExternalResource)
-     */
-    @Override
-    public void markExternalResourceRendered(FacesContext facesContext, ExternalResource resource) {
-        getImplementation().markExternalResourceRendered(facesContext, resource);
-    }
-
     /**
-     * Decides what implementation of available {@link ExternalResourceTracker} should be used.
+     * Decides what implementation of available {@link ResourceTracker} should be used.
      */
-    private ExternalResourceTracker getImplementation() {
-        ExternalResourceTracker tracker = externalResourceTracker.get();
+    private ResourceTracker getImplementation() {
+        ResourceTracker tracker = externalResourceTracker.get();
         if (tracker == null) {
             try {
                 this.getClass().getClassLoader().loadClass(MYFACES_RESOURCE_UTILS_CLASS);
 
-                externalResourceTracker.compareAndSet(null, new ExternalResourceTrackerForMyFaces());
+                externalResourceTracker.compareAndSet(null, new ResourceTrackerForMyFaces());
             } catch (Exception e) {
-                externalResourceTracker.compareAndSet(null, new ExternalResourceTrackerForMojarra());
+                externalResourceTracker.compareAndSet(null, new ResourceTrackerForMojarra());
             }
             tracker = externalResourceTracker.get();
         }

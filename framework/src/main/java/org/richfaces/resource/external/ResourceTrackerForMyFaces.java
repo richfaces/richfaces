@@ -22,20 +22,18 @@
 package org.richfaces.resource.external;
 
 import java.util.Arrays;
-import java.util.Set;
 
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.shared.renderkit.html.util.ResourceUtils;
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.services.ServiceTracker;
 
 /**
  * Tracks what external resources are renderered to the page (specific for MyFaces)
  *
  * @author Lukas Fryc
  */
-public class ExternalResourceTrackerForMyFaces implements ExternalResourceTracker {
+public class ResourceTrackerForMyFaces implements ResourceTracker {
 
     /*
      * (non-Javadoc)
@@ -71,28 +69,6 @@ public class ExternalResourceTrackerForMyFaces implements ExternalResourceTracke
             ResourceUtils.markStylesheetAsRendered(facesContext, resourceKey.getLibraryName(), resourceKey.getResourceName());
         } else if (MimeType.SCRIPT.contains(mimeType)) {
             ResourceUtils.markScriptAsRendered(facesContext, resourceKey.getLibraryName(), resourceKey.getResourceName());
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.richfaces.resource.external.ExternalResourceTracker#markExternalResourceRendered(javax.faces.context.FacesContext,
-     * org.richfaces.resource.external.ExternalResource)
-     */
-    @Override
-    public void markExternalResourceRendered(FacesContext facesContext, ExternalResource resource) {
-        ExternalStaticResourceFactory externalStaticResourceFactory = ServiceTracker
-                .getService(ExternalStaticResourceFactory.class);
-
-        ResourceKey originalResourceKey = ResourceKey.create(resource);
-        Set<ResourceKey> resourcesKeys = externalStaticResourceFactory.getResourcesForLocation(resource.getExternalLocation());
-
-        for (ResourceKey resourceKey : resourcesKeys) {
-            if (!originalResourceKey.equals(resourceKey)) {
-                markResourceRendered(facesContext, resourceKey);
-            }
         }
     }
 

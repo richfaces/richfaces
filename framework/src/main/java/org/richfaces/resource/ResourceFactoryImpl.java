@@ -35,9 +35,9 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.resource.external.ExternalResource;
-import org.richfaces.resource.external.ExternalResourceTracker;
-import org.richfaces.resource.external.ExternalStaticResourceFactory;
+import org.richfaces.resource.external.MappedResourceFactory;
+import org.richfaces.resource.external.ResourceTracker;
+import org.richfaces.resource.mapping.ResourcePath;
 import org.richfaces.services.DependencyInjector;
 import org.richfaces.services.ServiceTracker;
 
@@ -82,8 +82,8 @@ public class ResourceFactoryImpl implements ResourceFactory {
     private ResourceHandler defaultHandler;
     // private Map<ResourceKey, ExternalStaticResourceFactory> externalStaticResourceFactories;
     private Map<ResourceKey, MappedResourceData> mappedResourceDataMap;
-    private ExternalStaticResourceFactory externalStaticResourceFactory;
-    private ExternalResourceTracker resourceTracker;
+    private MappedResourceFactory mappedResourceFactory;
+    private ResourceTracker resourceTracker;
 
     public ResourceFactoryImpl(ResourceHandler defaultHandler) {
         super();
@@ -91,8 +91,8 @@ public class ResourceFactoryImpl implements ResourceFactory {
         this.defaultHandler = defaultHandler;
         this.mappedResourceDataMap = ResourceUtils.readMappings(DYNAMIC_MAPPINGS_DATA_PRODUCER,
                 ResourceFactory.DYNAMIC_RESOURCE_MAPPINGS);
-        this.externalStaticResourceFactory = ServiceTracker.getProxy(ExternalStaticResourceFactory.class);
-        this.resourceTracker = ServiceTracker.getProxy(ExternalResourceTracker.class);
+        this.mappedResourceFactory = ServiceTracker.getProxy(MappedResourceFactory.class);
+        this.resourceTracker = ServiceTracker.getProxy(ResourceTracker.class);
     }
 
     private static String extractParametersFromResourceName(String resourceName) {
@@ -352,10 +352,15 @@ public class ResourceFactoryImpl implements ResourceFactory {
         ResourceKey resourceKey = new ResourceKey(resourceName, libraryName);
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
-        ExternalResource externalResource = externalStaticResourceFactory.createResource(facesContext, resourceKey);
-        if (externalResource != null) {
-            resourceTracker.markExternalResourceRendered(facesContext, externalResource);
-            return externalResource;
+        Resource mappedResource = mappedResourceFactory.createResource(facesContext, resourceKey);
+        if (mappedResource != null) {
+            resourceTracker.markResourceRendered(facesContext, resourceKey);
+            ResourcePath path = new ResourcePath(mappedResource.getRequestPath());
+            for (ResourceKey key : mappedResourceFactory.getAggregatedResources(path)) {
+                resourceTracker.markResourceRendered(facesContext, key);
+            }
+
+            return mappedResource;
         }
 
         return createDynamicResource(resourceKey, true);

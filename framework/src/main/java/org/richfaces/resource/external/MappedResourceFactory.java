@@ -21,20 +21,35 @@
  */
 package org.richfaces.resource.external;
 
+import java.util.Set;
+
 import javax.faces.application.Resource;
+import javax.faces.context.FacesContext;
+
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.resource.mapping.ResourcePath;
 
 /**
- * This resource provides location external to standard JSF resource handler.
+ * Creates resources pointing outside of JSF resource handler.
  *
  * @author Lukas Fryc
  */
-public abstract class ExternalResource extends Resource {
+public interface MappedResourceFactory {
 
     /**
-     * The location external to standard JSF resource handler
+     * Creates external resource
      *
-     * @return location external to standard JSF resource handler
+     * @param facesContext {@link FacesContext}
+     * @param resourceKey the resource key
+     * @return external resource for given resource key
      */
-    public abstract String getExternalLocation();
+    Resource createResource(FacesContext facesContext, ResourceKey resourceKey);
 
+    /**
+     * Get all resources which maps to same location
+     *
+     * @param resourcePath
+     * @return
+     */
+    Set<ResourceKey> getAggregatedResources(ResourcePath resourcePath);
 }

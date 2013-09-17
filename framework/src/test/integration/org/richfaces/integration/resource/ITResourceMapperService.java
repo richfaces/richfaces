@@ -25,10 +25,14 @@ package org.richfaces.integration.resource;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.faces.context.FacesContext;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -48,10 +52,14 @@ import org.openqa.selenium.WebElement;
 import org.richfaces.base64.Codec;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.resource.ResourceHandlerImpl;
+import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.external.ResourceTracker;
+import org.richfaces.resource.mapping.ResourceAggregator;
 import org.richfaces.resource.mapping.ResourceMapper;
+import org.richfaces.resource.mapping.ResourceMapping;
+import org.richfaces.resource.mapping.ResourcePath;
+import org.richfaces.resource.mapping.ResourceServletMapping;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 
 import category.Smoke;
 
@@ -61,35 +69,23 @@ import com.google.common.base.Function;
 @WarpTest
 @RunAsClient
 @Category(Smoke.class)
-public class ITResourceMapping {
+public class ITResourceMapperService {
 
     @Drone
-    WebDriver driver;
+    private WebDriver driver;
 
     @ArquillianResource
-    URL contextPath;
+    private URL contextPath;
 
     @Deployment
     public static WebArchive createDeployment() {
 
         FrameworkDeployment deployment = new FrameworkDeployment(null);
 
-        PropertiesAsset staticResourceMapping = new PropertiesAsset()
-                .key(":original.css").value("relocated.css")
-                .key(":part1.css").value("aggregated.css")
-                .key(":part2.css").value("aggregated.css")
-                .key("part1.js").value("aggregated.js")
-                .key("part2.js").value("aggregated.js");
-
         EmptyAsset emptyResource = EmptyAsset.INSTANCE;
 
-        FaceletAsset relocationPage = new FaceletAsset().head("<h:outputStylesheet name=\"original.css\" />");
-
-        FaceletAsset aggregationPage = new FaceletAsset().head("<h:outputStylesheet name=\"part1.css\" />"
-                + "<h:outputStylesheet name=\"part2.css\" />");
-
-        FaceletAsset javaScriptAggregationPage = new FaceletAsset().head("<h:outputScript name=\"part1.js\" />"
-                + "<h:outputScript name=\"part2.js\" />");
+        FaceletAsset page = new FaceletAsset().head("<h:outputStylesheet name='stylesheet.css' library='some.library' />"
+                + "<h:outputStylesheet name='stylesheet.css' library='another.library' />");
 
         deployment.archive()
                 /** classes */
@@ -97,28 +93,20 @@ public class ITResourceMapping {
                 .addPackage(ResourceTracker.class.getPackage())
                 .addPackage(ResourceMapper.class.getPackage())
                 .addClasses(Codec.class)
-                /** META-INF */
-                .addAsResource(staticResourceMapping, "META-INF/richfaces/static-resource-mappings.properties")
                 /** ROOT */
-                .addAsWebResource(relocationPage, "relocation.xhtml")
-                .addAsWebResource(aggregationPage, "aggregation.xhtml")
-                .addAsWebResource(javaScriptAggregationPage, "javaScriptAggregation.xhtml")
-                .addAsWebResource(emptyResource, "resources/original.css")
-                .addAsWebResource(emptyResource, "resources/part1.css")
-                .addAsWebResource(emptyResource, "resources/part2.css")
-                .addAsWebResource(emptyResource, "resources/relocated.css")
-                .addAsWebResource(emptyResource, "resources/aggregated.css")
-                .addAsWebResource(emptyResource, "resources/part1.js")
-                .addAsWebResource(emptyResource, "resources/part2.js")
-                .addAsWebResource(emptyResource, "resources/aggregated.js");
+                .addAsWebResource(page, "index.xhtml")
+                .addAsWebResource(emptyResource, "resources/some.library/stylesheet.css")
+                .addAsWebResource(emptyResource, "resources/another.library/stylesheet.css")
+                .addAsWebResource(emptyResource, "resources/mapped.library/stylesheet.css")
+
+                .addClasses(Mapper.class)
+                .addAsServiceProvider(ResourceMapper.class, Mapper.class);
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor descriptor) {
-
                 descriptor.getOrCreateContextParam()
                         .paramName("org.richfaces.enableControlSkinning")
                         .paramValue("false");
-
                 return descriptor;
             }
         });
@@ -127,20 +115,9 @@ public class ITResourceMapping {
     }
 
     @Test
-    public void test_stylesheet_resource_relocation() {
-
-        driver.navigate().to(contextPath + "relocation.jsf");
-
-        WebElement element = driver.findElement(By.cssSelector("head > link[rel=stylesheet]"));
-        String href = element.getAttribute("href");
-
-        assertThat(href, containsString("/javax.faces.resource/relocated.css"));
-    }
-
-    @Test
     public void test_stylesheet_resource_aggregation() {
 
-        driver.navigate().to(contextPath + "aggregation.jsf");
+        driver.navigate().to(contextPath);
 
         List<WebElement> elements = driver.findElements(By.cssSelector("head > link[rel=stylesheet]"));
 
@@ -149,21 +126,37 @@ public class ITResourceMapping {
         WebElement element = elements.get(0);
         String href = element.getAttribute("href");
 
-        assertTrue("href must contain aggregated.css resource path: " + href, href.contains("/javax.faces.resource/aggregated.css"));
+        assertThat(href, containsString("/javax.faces.resource/mapped.library/stylesheet.css"));
     }
 
-    @Test
-    public void test_javascript_resource_aggregation() {
+    public static class Mapper implements ResourceMapper, ResourceAggregator {
 
-        driver.navigate().to(contextPath + "javaScriptAggregation.jsf");
+        private Map<ResourceKey, String> mapping = new HashMap<ResourceKey, String>() {
+            {
+                put(ResourceKey.create("some.library:stylesheet.css"), "mapped.library/stylesheet.css");
+                put(ResourceKey.create("another.library:stylesheet.css"), "mapped.library/stylesheet.css");
+            }
+        };
 
-        List<WebElement> elements = driver.findElements(By.cssSelector("head > script"));
+        @Override
+        public ResourceMapping mapResource(ResourceKey resourceKey) {
+            final String mapped = mapping.get(resourceKey);
 
-        assertEquals("There must be exactly one resource link rendered", 1, elements.size());
+            if (mapped == null) {
+                return null;
+            }
 
-        WebElement element = elements.get(0);
-        String src = element.getAttribute("src");
+            return new ResourceMapping() {
+                @Override
+                public ResourcePath getResourcePath(FacesContext context) {
+                    return new ResourceServletMapping(new ResourcePath(mapped)).getResourcePath(context);
+                }
+            };
+        }
 
-        assertTrue("src must contain aggregated.js resource path: " + src, src.contains("/javax.faces.resource/aggregated.js"));
+        @Override
+        public Set<ResourceKey> getAggregatedResources(ResourcePath requestPath) {
+            return mapping.keySet();
+        }
     }
 }

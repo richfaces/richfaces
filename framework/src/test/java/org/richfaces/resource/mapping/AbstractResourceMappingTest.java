@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource;
+package org.richfaces.resource.mapping;
 
 import static org.mockito.Mockito.when;
 
@@ -34,11 +34,14 @@ import javax.inject.Inject;
 
 import org.junit.Before;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.richfaces.configuration.ConfigurationService;
-import org.richfaces.resource.external.ExternalResourceTracker;
-import org.richfaces.resource.external.ExternalStaticResourceFactory;
-import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
+import org.richfaces.resource.external.MappedResourceFactory;
+import org.richfaces.resource.external.MappedResourceFactoryImpl;
+import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.services.ServicesFactory;
+import org.richfaces.skin.Skin;
+import org.richfaces.skin.SkinFactory;
 import org.richfaces.test.AbstractServicesTest;
 
 /**
@@ -61,10 +64,15 @@ public class AbstractResourceMappingTest extends AbstractServicesTest {
     @Mock
     ConfigurationService configurationService;
 
-    ExternalStaticResourceFactoryImpl externalStaticResourceFactory = new ExternalStaticResourceFactoryImpl();
+    @Mock
+    SkinFactory skinFactory;
+    @Mock
+    Skin skin;
+
+    MappedResourceFactoryImpl mappedResourceFactory = new MappedResourceFactoryImpl();
 
     @Mock
-    ExternalResourceTracker externalResourceTracker;
+    ResourceTracker externalResourceTracker;
 
     Map<Object, Object> facesAttributes;
     Map<String, Object> requestMap;
@@ -76,24 +84,28 @@ public class AbstractResourceMappingTest extends AbstractServicesTest {
 
         requestMap = new HashMap<String, Object>();
         when(externalContext.getRequestMap()).thenReturn(requestMap);
+
+        when(skinFactory.getSkin(Mockito.any(FacesContext.class))).thenReturn(skin);
+        when(skin.getName()).thenReturn("skin");
     }
 
     protected void configure(Enum<?> key, Boolean value) {
         when(configurationService.getBooleanValue(facesContext, key)).thenReturn(value);
         // reload configuration
-        externalStaticResourceFactory.init();
+        mappedResourceFactory.init();
     }
 
     protected void configure(Enum<?> key, String value) {
         when(configurationService.getStringValue(facesContext, key)).thenReturn(value);
         // reload configuration
-        externalStaticResourceFactory.init();
+        mappedResourceFactory.init();
     }
 
     @Override
     protected void configureServices(ServicesFactory injector) {
         injector.setInstance(ConfigurationService.class, configurationService);
-        injector.setInstance(ExternalStaticResourceFactory.class, externalStaticResourceFactory);
-        injector.setInstance(ExternalResourceTracker.class, externalResourceTracker);
+        injector.setInstance(MappedResourceFactory.class, mappedResourceFactory);
+        injector.setInstance(ResourceTracker.class, externalResourceTracker);
+        injector.setInstance(SkinFactory.class, skinFactory);
     }
 }

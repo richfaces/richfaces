@@ -19,17 +19,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource;
+package org.richfaces.resource.mapping;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.richfaces.configuration.CoreConfiguration.Items.resourceMappingFile;
 import static org.richfaces.configuration.CoreConfiguration.Items.resourceMappingLocation;
 import static org.richfaces.configuration.CoreConfiguration.Items.resourceOptimizationEnabled;
-import static org.richfaces.resource.ResourceMappingFeature.DEFAULT_LOCATION;
 
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
@@ -43,7 +43,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.richfaces.resource.external.ExternalStaticResource;
+import org.richfaces.resource.ResourceFactory;
+import org.richfaces.resource.ResourceFactoryImpl;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
@@ -84,7 +85,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
         super.setUp();
 
         setupExpressionFactory();
-        configuredLocation = DEFAULT_LOCATION;
+        configuredLocation = ResourceMappingFeature.DEFAULT_LOCATION;
     }
 
     @Test
@@ -142,9 +143,7 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
             assertNotNull(
                     "resource is not present: " + expectedResource.getLibraryName() + ":" + expectedResource.getResourceName(),
                     resource);
-            assertEquals(expectedResource.getLibraryName(), resource.getLibraryName());
-            assertEquals(expectedResource.getResourceName(), resource.getResourceName());
-            assertEquals(expectedResource.getRequestPath(), resource.getRequestPath());
+            assertThat(resource.getRequestPath(), equalTo(expectedResource.getRequestPath()));
         }
     }
 
@@ -219,10 +218,9 @@ public class ResourceFactoryImplStaticResourcesTest extends AbstractResourceMapp
                         Mockito.any(Class.class))).thenAnswer(new Answer<ValueExpression>() {
             @Override
             public ValueExpression answer(InvocationOnMock invocation) throws Throwable {
-                String resourceLocation = (String) requestMap.get(ExternalStaticResource.STATIC_RESOURCE_LOCATION_VARIABLE);
                 final String expression = (String) invocation.getArguments()[1];
                 ValueExpression valueExpression = mock(ValueExpression.class);
-                when(valueExpression.getValue(elContext)).thenReturn(expression + resourceLocation);
+                when(valueExpression.getValue(elContext)).thenReturn(expression);
                 return valueExpression;
             }
         });

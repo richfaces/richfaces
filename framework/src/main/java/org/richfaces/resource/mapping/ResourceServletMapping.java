@@ -19,35 +19,32 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource.external;
+package org.richfaces.resource.mapping;
 
-import java.util.Set;
-
+import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.resource.ResourceKey;
+import org.richfaces.el.ELUtils;
+import org.richfaces.servlet.ResourceServlet;
 
 /**
- * Creates resources pointing outside of JSF resource handler.
+ * Maps resource with given key to RichFaces {@link ResourceServlet}.
  *
  * @author Lukas Fryc
  */
-public interface ExternalStaticResourceFactory {
+public class ResourceServletMapping implements ResourceMapping {
 
-    /**
-     * Creates external resource
-     *
-     * @param facesContext {@link FacesContext}
-     * @param resourceKey the resource key
-     * @return external resource for given resource key
-     */
-    ExternalResource createResource(FacesContext facesContext, ResourceKey resourceKey);
+    private ResourcePath resourcePath;
 
-    /**
-     * Returns all resource keys which points to the given external resource location
-     *
-     * @param resourceLocation the external resource location
-     * @return all resource keys which points to the given external resource location
-     */
-    Set<ResourceKey> getResourcesForLocation(String resourceLocation);
+    public ResourceServletMapping(ResourcePath location) {
+        this.resourcePath = location;
+    }
+
+    @Override
+    public ResourcePath getResourcePath(FacesContext context) {
+        ValueExpression expression = ELUtils.createValueExpression(ResourceMappingFeature.getLocation());
+        String contextPath = (String) expression.getValue(FacesContext.getCurrentInstance().getELContext());
+
+        return new ResourcePath(contextPath + resourcePath.toExternalForm());
+    }
 }

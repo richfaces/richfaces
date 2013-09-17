@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource.external;
+package org.richfaces.resource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +28,8 @@ import java.util.Map;
 
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
+
+import org.richfaces.resource.mapping.ResourcePath;
 
 /**
  * <p>
@@ -40,18 +42,26 @@ import javax.faces.context.FacesContext;
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-public class AbsoluteRequestPathResource extends ExternalResource {
+public class URLResource extends Resource {
 
-    private String absoluteRequestPath;
+    private ResourcePath path;
 
-    public AbsoluteRequestPathResource(String absoluteRequestPath) {
-        super();
-        this.absoluteRequestPath = absoluteRequestPath;
+    public URLResource(ResourcePath resourcePath) {
+        this.path = resourcePath;
+    }
+
+    public URLResource(URL url) {
+        this.path = new ResourcePath(url);
     }
 
     @Override
     public String getRequestPath() {
-        return absoluteRequestPath;
+        return path.toExternalForm();
+    }
+
+    @Override
+    public URL getURL() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -65,17 +75,7 @@ public class AbsoluteRequestPathResource extends ExternalResource {
     }
 
     @Override
-    public URL getURL() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public boolean userAgentNeedsUpdate(FacesContext context) {
         throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String getExternalLocation() {
-        return absoluteRequestPath;
     }
 }

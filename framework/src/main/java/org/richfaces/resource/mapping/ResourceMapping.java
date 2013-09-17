@@ -19,35 +19,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource.external;
+package org.richfaces.resource.mapping;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.resource.ResourceKey;
-
 /**
- * Tracks what external resources are renderered to the page
+ * Resource mapping determines URL where given resource is mapped.
  *
  * @author Lukas Fryc
- *
  */
-public interface ExternalResourceTracker {
+public interface ResourceMapping {
 
     /**
-     * Returns true if given resource has been already renderered to the page
+     * Returns an URL where resource interpred by this mapping is mapped.
      *
-     * @return true if given resource has been already renderered to the page; false otherwise
+     * @return URL where resource interpred by this mapping is mapped
      */
-    boolean isResourceRenderered(FacesContext facesContext, ResourceKey resourceKey);
-
-    /**
-     * Marks given resource as renderered
-     */
-    void markResourceRendered(FacesContext facesContext, ResourceKey resourceKey);
-
-    /**
-     * Marks given {@link ExternalResource} and all other resources with same external location (
-     * {@link ExternalResource#getExternalLocation()}) as rendered
-     */
-    void markExternalResourceRendered(FacesContext facesContext, ExternalResource resourceKey);
+    ResourcePath getResourcePath(FacesContext context);
 }

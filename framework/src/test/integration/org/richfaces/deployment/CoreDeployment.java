@@ -107,10 +107,10 @@ import org.richfaces.resource.ResourceLibrary;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.ResourceLibraryFactoryImpl;
 import org.richfaces.resource.StaticResourceLibrary;
-import org.richfaces.resource.external.ExternalResourceTracker;
-import org.richfaces.resource.external.ExternalResourceTrackerWrapper;
-import org.richfaces.resource.external.ExternalStaticResourceFactory;
-import org.richfaces.resource.external.ExternalStaticResourceFactoryImpl;
+import org.richfaces.resource.external.ResourceTracker;
+import org.richfaces.resource.external.ResourceTrackerImpl;
+import org.richfaces.resource.external.MappedResourceFactory;
+import org.richfaces.resource.external.MappedResourceFactoryImpl;
 import org.richfaces.services.DependencyInjectionServiceImpl;
 import org.richfaces.services.DependencyInjector;
 import org.richfaces.services.Initializable;
@@ -394,8 +394,8 @@ public class CoreDeployment extends Deployment {
             // cache
             .addClasses(Cache.class);
 
-        withService(ExternalStaticResourceFactory.class, ExternalStaticResourceFactoryImpl.class);
-        withService(ExternalResourceTracker.class, ExternalResourceTrackerWrapper.class);
+        withService(MappedResourceFactory.class, MappedResourceFactoryImpl.class);
+        withService(ResourceTracker.class, ResourceTrackerImpl.class);
 
         facesConfig(new Function<WebFacesConfigDescriptor, WebFacesConfigDescriptor>() {
 
@@ -431,7 +431,7 @@ public class CoreDeployment extends Deployment {
         archive().addClasses(ConfigurationService.class, SkinFactory.class, AjaxDataSerializer.class,
                 ResourceCodec.class, Cache.class, Uptime.class, DependencyInjector.class, MessageFactory.class,
                 ResourceLibraryFactory.class, PushContextFactory.class, JavaScriptService.class,
-                GenericsIntrospectionService.class, ExternalResourceTracker.class, ExternalStaticResourceFactory.class);
+                GenericsIntrospectionService.class, ResourceTracker.class, MappedResourceFactory.class);
         return this;
     }
 
