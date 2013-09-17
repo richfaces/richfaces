@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:it="http://richfaces.org/iteration">
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
 <f:view contentType="text/html" />
 
 <h:head>
@@ -10,17 +10,17 @@
 <h:body>
     <h:form id="form">
 
-        <it:dataScroller fastStep="2" id="scroller1" for="richTable" page="#{dataScrollerBean.pageNumber}" maxPages="5"></it:dataScroller>
-        <it:dataTable id="richTable" rowKeyVar="rowKey" var="content" value="#{dataScrollerBean.content}" rows="1">
-            <it:column>
+        <rich:dataScroller fastStep="2" id="scroller1" for="richTable" page="#{dataScrollerBean.pageNumber}" maxPages="5"></rich:dataScroller>
+        <rich:dataTable id="richTable" rowKeyVar="rowKey" var="content" value="#{dataScrollerBean.content}" rows="1">
+            <rich:column>
                 <h:panelGroup id="pageContent">
                     <h:outputText value="#{content}" />
                 </h:panelGroup>
-            </it:column>
+            </rich:column>
             <f:facet name="footer">
-                <it:dataScroller fastStep="2" id="scroller2" for="richTable" page="#{dataScrollerBean.pageNumber}" maxPages="5"></it:dataScroller>
+                <rich:dataScroller fastStep="2" id="scroller2" for="richTable" page="#{dataScrollerBean.pageNumber}" maxPages="5"></rich:dataScroller>
             </f:facet>
-        </it:dataTable>
+        </rich:dataTable>
     </h:form>
 </h:body>
 </html>

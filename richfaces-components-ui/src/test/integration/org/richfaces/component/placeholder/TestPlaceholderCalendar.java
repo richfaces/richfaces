@@ -45,28 +45,28 @@ public class TestPlaceholderCalendar extends AbstractPlaceholderTest {
 
         FaceletAsset p;
         p = deployment.baseFacelet("index.xhtml");
-        p.body("<input:calendar id='input' enableManualInput='true' datePattern='MMM d, yyyy' timezone='UTC' >");
-        p.body("    <misc:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
-        p.body("</input:calendar>");
+        p.body("<rich:calendar id='input' enableManualInput='true' datePattern='MMM d, yyyy' timezone='UTC' >");
+        p.body("    <rich:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
+        p.body("</rich:calendar>");
 
         p = deployment.baseFacelet("selector.xhtml");
-        p.body("<input:calendar id='input' />");
-        p.body("<misc:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
+        p.body("<rich:calendar id='input' />");
+        p.body("<rich:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
 
         p = deployment.baseFacelet("rendered.xhtml");
-        p.body("<input:calendar id='input' >");
-        p.body("    <misc:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
-        p.body("</input:calendar>");
+        p.body("<rich:calendar id='input' >");
+        p.body("    <rich:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
+        p.body("</rich:calendar>");
 
         p = deployment.baseFacelet("converter.xhtml");
-        p.body("<input:calendar id='input' >");
-        p.body("    <misc:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
-        p.body("</input:calendar>");
+        p.body("<rich:calendar id='input' >");
+        p.body("    <rich:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
+        p.body("</rich:calendar>");
 
         p = deployment.baseFacelet("submit.xhtml");
-        p.form("<input:calendar id='input' value='#{placeHolderValue.value2}' enableManualInput='true' datePattern='MMM d, yyyy' timezone='UTC' >");
-        p.form("    <misc:placeholder id='placeholderID' value='Placeholder Text' />");
-        p.form("</input:calendar>");
+        p.form("<rich:calendar id='input' value='#{placeHolderValue.value2}' enableManualInput='true' datePattern='MMM d, yyyy' timezone='UTC' >");
+        p.form("    <rich:placeholder id='placeholderID' value='Placeholder Text' />");
+        p.form("</rich:calendar>");
         p.form("<br />");
         p.form("<a4j:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");
         p.form("<h:commandButton id='httpSubmit' value='http submit' />");

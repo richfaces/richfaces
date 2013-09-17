@@ -25,7 +25,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:pn="http://richfaces.org/output" xmlns:rich="http://richfaces.org/rich">
+    xmlns:rich="http://richfaces.org/rich">
 
 <h:head>
     <title>Richfaces PanelMenu Test</title>
@@ -33,17 +33,17 @@
 
 <h:body>
     <h:form id="f" style="border:blue solid thin;">
-        <pn:panelMenu id="panelMenu" itemClass="my-item-class" itemDisabledClass="my-item-disabled-class">
-            <pn:panelMenuGroup>
-                <pn:panelMenuItem id="item">
+        <rich:panelMenu id="panelMenu" itemClass="my-item-class" itemDisabledClass="my-item-disabled-class">
+            <rich:panelMenuGroup>
+                <rich:panelMenuItem id="item">
                     My Item
-                </pn:panelMenuItem>
-                <pn:panelMenuItem id="item_disabled" disabled="true">
+                </rich:panelMenuItem>
+                <rich:panelMenuItem id="item_disabled" disabled="true">
                     My Disabled Item
-                </pn:panelMenuItem>
-            </pn:panelMenuGroup>
+                </rich:panelMenuItem>
+            </rich:panelMenuGroup>
 
-        </pn:panelMenu>
+        </rich:panelMenu>
     </h:form>
 </h:body>
 </html>

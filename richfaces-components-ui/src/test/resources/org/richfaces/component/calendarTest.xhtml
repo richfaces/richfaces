@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:in="http://richfaces.org/input">
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
 <f:view contentType="text/html" />
 
 <h:head>
@@ -9,12 +9,12 @@
 
 <h:body>
     <h:form id="form">
-        <in:calendar value="#{calendarBean.selectedDate}" id="calendar" locale="#{calendarBean.locale}"
+        <rich:calendar value="#{calendarBean.selectedDate}" id="calendar" locale="#{calendarBean.locale}"
             popup="#{calendarBean.popup}" datePattern="#{calendarBean.pattern}" dataModel="#{calendarDataModel}"
             mode="#{calendarBean.mode}" showHeader="true" currentDate="#{calendarBean.selectedDate}"
             showApplyButton="#{calendarBean.showApply}" cellWidth="24px" cellHeight="22px">
             <f:convertDateTime pattern="#{calendarBean.pattern}" onchange="alert('1')" />
-        </in:calendar>
+        </rich:calendar>
     </h:form>
 </h:body>
 </html>

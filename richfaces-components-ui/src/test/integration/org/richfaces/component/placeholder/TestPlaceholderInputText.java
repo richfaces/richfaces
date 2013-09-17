@@ -49,26 +49,26 @@ public class TestPlaceholderInputText extends AbstractPlaceholderTest {
         FaceletAsset p;
         p = deployment.baseFacelet("index.xhtml");
         p.body("<h:inputText id='input' >");
-        p.body("    <misc:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
+        p.body("    <rich:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
         p.body("</h:inputText>");
 
         p = deployment.baseFacelet("selector.xhtml");
         p.body("<h:inputText id='input' />");
-        p.body("<misc:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
+        p.body("<rich:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
 
         p = deployment.baseFacelet("rendered.xhtml");
         p.body("<h:inputText id='input' >");
-        p.body("    <misc:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
+        p.body("    <rich:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
         p.body("</h:inputText>");
 
         p = deployment.baseFacelet("converter.xhtml");
         p.body("<h:inputText id='input' >");
-        p.body("    <misc:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
+        p.body("    <rich:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
         p.body("</h:inputText>");
 
         p = deployment.baseFacelet("submit.xhtml");
         p.form("<h:inputText id='input' value='#{placeHolderValue.value2}' >");
-        p.form("    <misc:placeholder id='placeholderID' value='Placeholder Text' />");
+        p.form("    <rich:placeholder id='placeholderID' value='Placeholder Text' />");
         p.form("</h:inputText>");
         p.form("<br />");
         p.form("<a4j:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");

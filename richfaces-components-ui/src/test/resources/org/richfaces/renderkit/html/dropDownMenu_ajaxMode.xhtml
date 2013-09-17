@@ -24,7 +24,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:pn="http://richfaces.org/output" xmlns:rich="http://richfaces.org/rich">
+    xmlns:rich="http://richfaces.org/rich">
 
 <h:head>
     <title>Richfaces MenuItem Test</title>
@@ -32,24 +32,24 @@
 
 <h:body>
     <h:form id="form">
-        <pn:dropDownMenu id="ddmenu" mode="ajax">
+        <rich:dropDownMenu id="ddmenu" mode="ajax">
             <f:facet name="label">
                 <h:panelGroup>
                     <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
                     <h:outputText value="File" />
                 </h:panelGroup>
             </f:facet>
-            <pn:menuItem label="Open" id="open" />
-            <pn:menuGroup label="Save As..." id="group">
-                <pn:menuItem label="Save" id="save">
+            <rich:menuItem label="Open" id="open" />
+            <rich:menuGroup label="Save As..." id="group">
+                <rich:menuItem label="Save" id="save">
                     <f:facet name="icon">
                         <h:graphicImage value="/images/ddmenu/save.gif" />
                     </f:facet>
-                </pn:menuItem>
-                <pn:menuSeparator id="menuSeparator1" />
-                <pn:menuItem id="saveAll" label="SaveAll" action="#{ddmBean.doAction}" />
-            </pn:menuGroup>
-        </pn:dropDownMenu>
+                </rich:menuItem>
+                <rich:menuSeparator id="menuSeparator1" />
+                <rich:menuItem id="saveAll" label="SaveAll" action="#{ddmBean.doAction}" />
+            </rich:menuGroup>
+        </rich:dropDownMenu>
     </h:form>
 </h:body>
 </html>

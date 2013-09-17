@@ -25,7 +25,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:pn="http://richfaces.org/output">
+    xmlns:rich="http://richfaces.org/rich">
 
 <h:head>
     <title>Richfaces Accordion Test</title>
@@ -33,11 +33,11 @@
 
 <h:body>
     <h:form id="f">
-        <pn:accordion id="accordion" itemActiveHeaderClass="my-ac-active-header-class"
+        <rich:accordion id="accordion" itemActiveHeaderClass="my-ac-active-header-class"
             itemInactiveHeaderClass="my-ac-inactive-header-class" itemDisabledHeaderClass="my-ac-disabled-header-class">
-            <pn:accordionItem id="item" />
-            <pn:accordionItem id="item2" disabled="true" />
-        </pn:accordion>
+            <rich:accordionItem id="item" />
+            <rich:accordionItem id="item2" disabled="true" />
+        </rich:accordion>
     </h:form>
 </h:body>
 </html>

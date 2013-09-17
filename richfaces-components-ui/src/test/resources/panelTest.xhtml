@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:panel="http://richfaces.org/output" xmlns:rich="http://richfaces.org/rich">
+    xmlns:rich="http://richfaces.org/rich">
 <!--
 JBoss, Home of Professional Open Source
 Copyright ${year}, Red Hat, Inc. and individual contributors
@@ -32,7 +32,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 </h:head>
 
 <h:body>
-    <panel:panel styleClass="panel" id="panelWithFacet">
+    <rich:panel styleClass="panel" id="panelWithFacet">
         <f:facet name="header">
             Write your own custom rich components with built-in AJAX support
         </f:facet>
@@ -43,20 +43,20 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         rich components with built-in Ajax functionality even more easily than
         the creation of simpler components by means of the traditional coding
         approach.
-    </panel:panel>
-    <panel:panel id="simplePanel" bodyClass="rich-laguna-panel-no-header">
+    </rich:panel>
+    <rich:panel id="simplePanel" bodyClass="rich-laguna-panel-no-header">
         RichFaces is a library for adding rich user interface features to JSF
         applications. It extends the Ajax4jsf framework to include a large
         (and growing) set of powerful rich AJAX-enabled components that come
         with extensive skins support.
-    </panel:panel>
-    <panel:panel id="simplePanelWithTextHeader" header="rich-laguna-panel-no-header">
+    </rich:panel>
+    <rich:panel id="simplePanelWithTextHeader" header="rich-laguna-panel-no-header">
         RichFaces is a library for adding rich user interface features to JSF
         applications. It extends the Ajax4jsf framework to include a large
         (and growing) set of powerful rich AJAX-enabled components that come
         with extensive skins support.
-    </panel:panel>
-    <panel:panel id="nestedPanelContainer" style="padding:0" headerClass="outpanelHeader">
+    </rich:panel>
+    <rich:panel id="nestedPanelContainer" style="padding:0" headerClass="outpanelHeader">
         <f:facet name="header">
             ||||
         </f:facet>
@@ -64,7 +64,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <h:outputText value="Benefits of Using Ajax4jsf" />
         </h2>
         <h:panelGrid columns="2" columnClasses="gridContent">
-            <panel:panel id="nestedPanel1" bodyClass="inpanelBody">
+            <rich:panel id="nestedPanel1" bodyClass="inpanelBody">
                 <f:facet name="header">
                     For Application Developers
                 </f:facet>
@@ -76,8 +76,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <li>Works with standard and third party components</li>
                     <li>Adds the Ajax capability to existing non-Ajax components</li>
                 </ul>
-            </panel:panel>
-            <panel:panel id="nestedPanel2" bodyClass="inpanelBody">
+            </rich:panel>
+            <rich:panel id="nestedPanel2" bodyClass="inpanelBody">
                 <f:facet name="header">
                     For Component Developers
                 </f:facet>
@@ -89,8 +89,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                     <li>Automatically generates the unit test-cases for developing components</li>
                     <li>Allows to pack javascript code, images, css inside the final jar</li>
                 </ul>
-            </panel:panel>
+            </rich:panel>
         </h:panelGrid>
-    </panel:panel>
+    </rich:panel>
 </h:body>
 </html>

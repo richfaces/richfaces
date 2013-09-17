@@ -1,19 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:input="http://richfaces.org/input"
-    xmlns:rich="http://richfaces.org/iteration" xmlns:a4j="http://richfaces.org/a4j">
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
 <f:view contentType="text/html" />
 <h:head>
     <title>Richfaces Autocomplete</title>
 </h:head>
 <h:body>
     <h:form id="form">
-        <input:autocomplete autofill="false" id="myAutocomplete" mode="#{autoCompleteBean.mode}" minChars="2"
+        <rich:autocomplete autofill="false" id="myAutocomplete" mode="#{autoCompleteBean.mode}" minChars="2"
             autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
             value="#{autoCompleteBean.value}" layout="list">
             #{country.name} #{country.iso} #{country.domain}
             <a4j:ajax event="change" render="output" />
-        </input:autocomplete>
+        </rich:autocomplete>
         <br />
         <br />
         Your selection:

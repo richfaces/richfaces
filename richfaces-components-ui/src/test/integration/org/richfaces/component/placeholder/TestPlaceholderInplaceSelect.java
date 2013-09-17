@@ -48,30 +48,30 @@ public class TestPlaceholderInplaceSelect extends AbstractPlaceholderTest {
 
         FaceletAsset p;
         p = deployment.baseFacelet("index.xhtml");
-        p.body("<input:inplaceSelect id='input'>");
+        p.body("<rich:inplaceSelect id='input'>");
         p.body("    <f:selectItems value='#{placeHolderValue.items}' />");
-        p.body("    <misc:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
-        p.body("</input:inplaceSelect>");
+        p.body("    <rich:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
+        p.body("</rich:inplaceSelect>");
 
         p = deployment.baseFacelet("selector.xhtml");
-        p.body("<input:inplaceSelect id='input' />");
-        p.body("<misc:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
+        p.body("<rich:inplaceSelect id='input' />");
+        p.body("<rich:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
 
         p = deployment.baseFacelet("rendered.xhtml");
-        p.body("<input:inplaceSelect id='input' defaultLabel='#{not empty param.defaultLabel ? param.defaultLabel : null}' >");
-        p.body("    <misc:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
-        p.body("</input:inplaceSelect>");
+        p.body("<rich:inplaceSelect id='input' defaultLabel='#{not empty param.defaultLabel ? param.defaultLabel : null}' >");
+        p.body("    <rich:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
+        p.body("</rich:inplaceSelect>");
 
         p = deployment.baseFacelet("converter.xhtml");
-        p.body("<input:inplaceSelect id='input' >");
-        p.body("    <misc:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
-        p.body("</input:inplaceSelect>");
+        p.body("<rich:inplaceSelect id='input' >");
+        p.body("    <rich:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
+        p.body("</rich:inplaceSelect>");
 
         p = deployment.baseFacelet("submit.xhtml");
-        p.form("<input:inplaceSelect id='input' value='#{placeHolderValue.value2}' >");
+        p.form("<rich:inplaceSelect id='input' value='#{placeHolderValue.value2}' >");
         p.form("    <f:selectItems value='#{placeHolderValue.items}' />");
-        p.form("    <misc:placeholder id='placeholderID' value='Placeholder Text' />");
-        p.form("</input:inplaceSelect>");
+        p.form("    <rich:placeholder id='placeholderID' value='Placeholder Text' />");
+        p.form("</rich:inplaceSelect>");
         p.form("<br />");
         p.form("<a4j:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");
         p.form("<h:commandButton id='httpSubmit' value='http submit' />");
