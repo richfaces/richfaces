@@ -22,9 +22,8 @@
 package org.richfaces.ui.drag.dragSource;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.javascript.DnDScript;
-import org.richfaces.javascript.DragScript;
 import org.richfaces.ui.drag.DnDRenderBase;
+import org.richfaces.ui.drag.DnDScript;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;

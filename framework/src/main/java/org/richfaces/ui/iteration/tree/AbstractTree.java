@@ -59,7 +59,6 @@ import org.richfaces.model.ClassicTreeNodeDataModelImpl;
 import org.richfaces.model.DataComponentState;
 import org.richfaces.model.DataVisitor;
 import org.richfaces.model.DeclarativeModelKey;
-import org.richfaces.model.DeclarativeTreeDataModelImpl;
 import org.richfaces.model.DeclarativeTreeModel;
 import org.richfaces.model.ExtendedDataModel;
 import org.richfaces.model.SwingTreeNodeDataModelImpl;

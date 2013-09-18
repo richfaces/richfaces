@@ -33,12 +33,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.javascript.DnDScript;
-import org.richfaces.javascript.DropScript;
 import org.richfaces.javascript.JSFunctionDefinition;
 import org.richfaces.javascript.JSReference;
 import org.richfaces.ui.common.AjaxFunction;
 import org.richfaces.ui.drag.DnDRenderBase;
+import org.richfaces.ui.drag.DnDScript;
 import org.richfaces.ui.drag.dragSource.AbstractDragSource;
 import org.richfaces.util.AjaxRendererUtils;
 import org.richfaces.util.Sets;

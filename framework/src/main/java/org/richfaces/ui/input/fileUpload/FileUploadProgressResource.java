@@ -19,29 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.javascript;
+package org.richfaces.ui.input.fileUpload;
 
-import org.richfaces.resource.ResourceKey;
+import javax.faces.context.FacesContext;
 
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import org.richfaces.request.ProgressControl;
+import org.richfaces.resource.AbstractJSONResource;
 
 /**
- * @author abelevich
+ * @author Nick Belaevski
  *
  */
-public final class DragScript extends DnDScript {
-    private static final Set<ResourceKey> DRAG_SCRIPT = Collections.singleton(new ResourceKey("drag/dnd-draggable.js", "org.richfaces"));
+public class FileUploadProgressResource extends AbstractJSONResource {
+    private static final Object UID_ALT_KEY = "rf_fu_uid_alt";
 
-    public DragScript(String name) {
-        super(name);
-    }
-
-    public Iterable<ResourceKey> getResources() {
-        Set<ResourceKey> dragResourceKeys = new LinkedHashSet<ResourceKey>();
-        dragResourceKeys.addAll(getBaseResources());
-        dragResourceKeys.addAll(DRAG_SCRIPT);
-        return dragResourceKeys;
+    @Override
+    protected Object getData(FacesContext context) {
+        String uploadId = context.getExternalContext().getRequestParameterMap().get(UID_ALT_KEY);
+        return ProgressControl.getProgress(context, uploadId);
     }
 }

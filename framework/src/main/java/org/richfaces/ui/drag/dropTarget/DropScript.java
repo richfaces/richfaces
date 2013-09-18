@@ -19,22 +19,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource;
+package org.richfaces.ui.drag.dropTarget;
 
-import javax.faces.context.FacesContext;
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.ui.drag.DnDScript;
 
-import org.richfaces.request.ProgressControl;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
- * @author Nick Belaevski
+ * @author abelevich
  *
  */
-public class FileUploadProgressResource extends AbstractJSONResource {
-    private static final Object UID_ALT_KEY = "rf_fu_uid_alt";
+public final class DropScript extends DnDScript {
+    private static final Set<ResourceKey> DRAG_SCRIPT = Collections.singleton(new ResourceKey("drag/dnd-droppable.js", "org.richfaces"));
 
-    @Override
-    protected Object getData(FacesContext context) {
-        String uploadId = context.getExternalContext().getRequestParameterMap().get(UID_ALT_KEY);
-        return ProgressControl.getProgress(context, uploadId);
+    public DropScript(String name) {
+        super(name);
+    }
+
+    public Iterable<ResourceKey> getResources() {
+        Set<ResourceKey> dragResourceKeys = new LinkedHashSet<ResourceKey>();
+        dragResourceKeys.addAll(getBaseResources());
+        dragResourceKeys.addAll(DRAG_SCRIPT);
+        return dragResourceKeys;
     }
 }

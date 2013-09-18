@@ -19,9 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.javascript;
+package org.richfaces.ui.drag.dragSource;
 
 import org.richfaces.resource.ResourceKey;
+import org.richfaces.ui.drag.DnDScript;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -31,10 +32,10 @@ import java.util.Set;
  * @author abelevich
  *
  */
-public final class DropScript extends DnDScript {
-    private static final Set<ResourceKey> DRAG_SCRIPT = Collections.singleton(new ResourceKey("drag/dnd-droppable.js", "org.richfaces"));
+public final class DragScript extends DnDScript {
+    private static final Set<ResourceKey> DRAG_SCRIPT = Collections.singleton(new ResourceKey("drag/dnd-draggable.js", "org.richfaces"));
 
-    public DropScript(String name) {
+    public DragScript(String name) {
         super(name);
     }
 
