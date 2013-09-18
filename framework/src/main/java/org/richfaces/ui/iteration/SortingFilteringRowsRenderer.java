@@ -22,6 +22,7 @@
 package org.richfaces.ui.iteration;
 
 import org.richfaces.model.SortMode;
+import org.richfaces.model.SortOrder;
 import org.richfaces.ui.iteration.column.AbstractColumn;
 import org.richfaces.validator.MessageFactory;
 

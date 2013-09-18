@@ -34,7 +34,6 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.resource.MediaOutputResource;
 import org.richfaces.ui.attribute.AccesskeyProps;
 
 /**

@@ -36,7 +36,7 @@ import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
-import org.richfaces.ui.iteration.SortOrder;
+import org.richfaces.model.SortOrder;
 
 /**
  * <p> The &lt;r:column&gt; component facilitates columns in a table. It supports merging columns and rows, sorting,
