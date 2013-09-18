@@ -38,10 +38,10 @@
                     <span id="form:inplaceSelectWithControlsBtn" class="rf-is-btn-cntr" tabindex="-1">
                         <input class="rf-is-btn" id="form:inplaceSelectWithControlsOkbtn" name="form:inplaceSelectWithControlsOkbtn" onmousedown="this.className='rf-is-btn-press'"
                             onmouseout="this.className='rf-is-btn'" onmouseup="this.className='rf-is-btn'"
-                            src="/javax.faces.resource/common/ico_ok.gif.jsf?ln=org.richfaces" type="image" />
+                            src="/javax.faces.resource/common/inplace/ico_ok.gif.jsf?ln=org.richfaces" type="image" />
                         <input class="rf-is-btn" id="form:inplaceSelectWithControlsCancelbtn" name="form:inplaceSelectWithControlsCancelbtn" onmousedown="this.className='rf-is-btn-press'"
                             onmouseout="this.className='rf-is-btn'" onmouseup="this.className='rf-is-btn'"
-                            src="/javax.faces.resource/common/ico_cancel.gif.jsf?ln=org.richfaces" type="image" />
+                            src="/javax.faces.resource/common/inplace/ico_cancel.gif.jsf?ln=org.richfaces" type="image" />
                     </span>
                 </span>
             </span>

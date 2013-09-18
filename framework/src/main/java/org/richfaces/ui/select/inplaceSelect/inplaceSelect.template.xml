@@ -73,11 +73,11 @@
 
                                     <span id="#{clientId}Btn" class="rf-is-btn-cntr">
                                         <input type="image" id="#{clientId}Okbtn" name="#{clientId}Okbtn"
-                                            src="#{getResourcePath(facesContext, 'org.richfaces', 'common/ico_ok.gif')}" class="rf-is-btn"
+                                            src="#{getResourcePath(facesContext, 'org.richfaces', 'common/inplace/ico_ok.gif')}" class="rf-is-btn"
                                             onmousedown="this.className='rf-is-btn-press'" onmouseout="this.className='rf-is-btn'"
                                             onmouseup="this.className='rf-is-btn'" />
                                         <input type="image" id="#{clientId}Cancelbtn" name="#{clientId}Cancelbtn"
-                                            src="#{getResourcePath(facesContext,'org.richfaces', 'common/ico_cancel.gif')}" class="rf-is-btn"
+                                            src="#{getResourcePath(facesContext,'org.richfaces', 'common/inplace/ico_cancel.gif')}" class="rf-is-btn"
                                             onmousedown="this.className='rf-is-btn-press'" onmouseout="this.className='rf-is-btn'"
                                             onmouseup="this.className='rf-is-btn'" />
                                     </span>
