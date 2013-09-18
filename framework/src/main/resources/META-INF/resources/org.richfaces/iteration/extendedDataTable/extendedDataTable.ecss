@@ -88,7 +88,7 @@ div.rf-edt-ftr-cnt {
 }
 
 .rf-edt-rsz {
-    background-image: url("#{resource['spacer.gif']}");
+    background-image: url("#{resource['org.richfaces:common/spacer.gif']}");
     cursor: e-resize;
     height: 20px; /*TODO*/
     position: absolute;
@@ -172,7 +172,7 @@ div.rf-edt-ftr-cnt {
     height: 9px;
     font-size: 9px;
     width: 9px;
-    background-image: url("#{resource['org.richfaces:reorderMarker.gif']}");
+    background-image: url("#{resource['org.richfaces:iteration/extendedDataTable/reorderMarker.gif']}");
     display: none;
 }
 
@@ -201,15 +201,15 @@ div.rf-edt-ftr-cnt {
 }
 
 .rf-edt-srt-uns {
-    background: "url(#{resource['org.richfaces:sort_uns.gif']}) no-repeat center";
+    background: "url(#{resource['org.richfaces:iteration/extendedDataTable/sort_uns.gif']}) no-repeat center";
 }
 
 .rf-edt-srt-asc {
-    background: "url(#{resource['org.richfaces:sort_asc.gif']}) no-repeat center";
+    background: "url(#{resource['org.richfaces:iteration/extendedDataTable/sort_asc.gif']}) no-repeat center";
 }
 
 .rf-edt-srt-des {
-    background: "url(#{resource['org.richfaces:sort_des.gif']}) no-repeat center";
+    background: "url(#{resource['org.richfaces:iteration/extendedDataTable/sort_des.gif']}) no-repeat center";
 }
 
 .rf-edt-flt-cnt {

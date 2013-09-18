@@ -32,7 +32,7 @@ input.rf-is-fld {
     border: 0px;
     margin: 0px;
     width: 112px;
-    background-image: "url(#{resource['org.richfaces:mark_list.gif']})";
+    background-image: "url(#{resource['org.richfaces:select/inplaceSelect/mark_list.gif']})";
     background-position: center right;
     background-repeat: no-repeat;
     color: '#{richSkin.generalTextColor}';
@@ -78,7 +78,7 @@ input.rf-is-fld {
 
 .rf-is-chng {
     display: inline-block;
-    background-image: "url(#{resource['org.richfaces:mark_changed.gif']})";
+    background-image: "url(#{resource['org.richfaces:common/inplace/mark_changed.gif']})";
     background-position: top left;
     background-repeat: no-repeat;
 }
@@ -209,7 +209,7 @@ input.rf-is-fld {
 
 .rf-is-shdw-t {
     display: block;
-    background-image: "url(#{resource['org.richfaces:bg_shadow.png']})";
+    background-image: "url(#{resource['org.richfaces:common/inplace/bg_shadow.png']})";
     background-position: top left;
     position: absolute;
     width: 6px;
@@ -220,7 +220,7 @@ input.rf-is-fld {
 
 .rf-is-shdw-l {
     display: block;
-    background-image: "url(#{resource['org.richfaces:bg_shadow.png']})";
+    background-image: "url(#{resource['org.richfaces:common/inplace/bg_shadow.png']})";
     background-position: bottom left;
     position: absolute;
     height: 6px;
@@ -231,7 +231,7 @@ input.rf-is-fld {
 
 .rf-is-shdw-r {
     display: block;
-    background: "url(#{resource['org.richfaces:bg_shadow.png']})";
+    background: "url(#{resource['org.richfaces:common/inplace/bg_shadow.png']})";
     background-position: bottom right;
     position: absolute;
     width: 6px;
@@ -242,7 +242,7 @@ input.rf-is-fld {
 
 .rf-is-shdw-b {
     display: block;
-    background: "url(#{resource['org.richfaces:bg_shadow.png']})";
+    background: "url(#{resource['org.richfaces:common/inplace/bg_shadow.png']})";
     background-position: right top;
     position: absolute;
     height: 6px;

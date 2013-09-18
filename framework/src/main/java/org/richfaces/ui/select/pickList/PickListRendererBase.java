@@ -21,7 +21,9 @@
  */
 package org.richfaces.ui.select.pickList;
 
-import com.google.common.collect.Iterators;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -32,9 +34,7 @@ import org.richfaces.ui.select.ClientSelectItem;
 import org.richfaces.ui.select.SelectManyHelper;
 import org.richfaces.ui.select.SelectManyRendererBase;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
+import com.google.common.collect.Iterators;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
@@ -43,8 +43,8 @@ import java.util.List;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(name = "richfaces-utils.js"), @ResourceDependency(name = "richfaces-selection.js"),
-        @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
-        @ResourceDependency(library = "org.richfaces", name = "popup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/inputBase.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "select/list.js"),
         @ResourceDependency(library = "org.richfaces", name = "select/listMulti.js"),
         @ResourceDependency(library = "org.richfaces", name = "select/popupList.js"),

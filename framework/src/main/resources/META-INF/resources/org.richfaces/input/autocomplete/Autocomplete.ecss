@@ -140,7 +140,7 @@ input.rf-au-inp {
 }
 
 .rf-au-shdw-t {
-    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
+    background-image: "url(#{resource['org.richfaces:common/combo_list_shadow.png']})";
     background-position: top left;
     position: absolute;
     width: 6px;
@@ -150,7 +150,7 @@ input.rf-au-inp {
 }
 
 .rf-au-shdw-l {
-    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
+    background-image: "url(#{resource['org.richfaces:common/combo_list_shadow.png']})";
     background-position: bottom left;
     position: absolute;
     height: 6px;
@@ -160,7 +160,7 @@ input.rf-au-inp {
 }
 
 .rf-au-shdw-r {
-    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
+    background-image: "url(#{resource['org.richfaces:common/combo_list_shadow.png']})";
     background-position: bottom right;
     position: absolute;
     width: 6px;
@@ -170,7 +170,7 @@ input.rf-au-inp {
 }
 
 .rf-au-shdw-b {
-    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
+    background-image: "url(#{resource['org.richfaces:common/combo_list_shadow.png']})";
     background-position: right top;
     position: absolute;
     height: 6px;

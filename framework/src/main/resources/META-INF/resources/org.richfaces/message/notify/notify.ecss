@@ -87,7 +87,7 @@ html > body .rf-ntf {
     display: block;
     width: 11px;
     height: 11px;
-    background-image:"url(#{resource['org.richfaces:notify_close.png']})";
+    background-image:"url(#{resource['org.richfaces:message/notify/notify_close.png']})";
 }
 
 .rf-ntf-sum {
@@ -149,22 +149,22 @@ html > body .rf-ntf {
 
 .rf-ntf-inf .rf-ntf-ico {
     display: block;
-    background-image: "url(#{resource['org.richfaces:info.png']})";
+    background-image: "url(#{resource['org.richfaces:message/info.png']})";
 }
 
 .rf-ntf-wrn .rf-ntf-ico {
     display: block;
-    background-image: "url(#{resource['org.richfaces:warning.png']})";
+    background-image: "url(#{resource['org.richfaces:message/warning.png']})";
 }
 
 .rf-ntf-err .rf-ntf-ico {
     display: block;
-    background-image: "url(#{resource['org.richfaces:error.png']})";
+    background-image: "url(#{resource['org.richfaces:message/error.png']})";
 }
 
 .rf-ntf-ftl .rf-ntf-ico {
     display: block;
-    background-image: "url(#{resource['org.richfaces:fatal.png']})";
+    background-image: "url(#{resource['org.richfaces:message/fatal.png']})";
 }
 
 .rf-ntf-pos-tl {

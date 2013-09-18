@@ -21,6 +21,23 @@
  */
 package org.richfaces.ui.output.tooltip;
 
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.addEventOption;
+import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.getAjaxOptions;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
+import javax.faces.context.ResponseWriter;
+
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JavaScriptService;
@@ -32,23 +49,6 @@ import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.util.RendererUtils;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.ResponseWriter;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
-import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.addEventOption;
-import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.getAjaxOptions;
-
 /**
  * @author amarkhel
  * @since 2010-10-24
@@ -57,7 +57,7 @@ import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.getAjaxOpt
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "popup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "output/tooltip/tooltip.js"),
         @ResourceDependency(library = "org.richfaces", name = "output/tooltip/tooltip.ecss") })
 @JsfRenderer(type = "org.richfaces.ui.TooltipRenderer", family = AbstractTooltip.COMPONENT_FAMILY)

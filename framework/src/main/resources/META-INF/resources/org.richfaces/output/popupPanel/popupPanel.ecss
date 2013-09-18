@@ -118,7 +118,7 @@
 }
 
 .rf-pp-hndlr {
-    background-image: url("#{resource['spacer.gif']}");
+    background-image: url("#{resource['org.richfaces:common/spacer.gif']}");
     position: absolute;
     margin: -4px;
 }
