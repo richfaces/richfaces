@@ -24,8 +24,8 @@ package org.richfaces.request;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.richfaces.exception.FileUploadException;
 import org.richfaces.model.UploadedFile;
-import org.richfaces.ui.input.fileUpload.FileUploadException;
 
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Closeables;
