@@ -38,17 +38,11 @@
     <name>RichFaces UI Components Aggregator</name>
 
     <modules>
-        <module>parent</module>
-        <module>common</module>
-        <module>core</module>
-        <module>iteration</module>
-        <module>misc</module>
-        <module>output</module>
-        <module>input</module>
-        <module>dnd</module>
-        <module>validator</module>
-        <module>dist</module>
-        <module>richfaces-components-ui</module>
-        <module>richfaces-components-api</module>
+        <module>common/api</module>
+        <module>common/ui</module>
+        <module>a4j/api</module>
+        <module>a4j/ui</module>
+        <module>rich/api</module>
+        <module>rich/ui</module>
     </modules>
 </project>

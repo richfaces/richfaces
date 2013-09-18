@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.richfaces.ui.core</groupId>
     <artifactId>richfaces-ui-core-api</artifactId>
-    <name>RichFaces UI Components: Core API</name>
+    <name>RichFaces UI Components: A4J API</name>
     <packaging>jar</packaging>
 
     <build>

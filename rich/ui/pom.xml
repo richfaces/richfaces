@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>richfaces-components-ui</artifactId>
+    <name>RichFaces UI Components: Rich UI</name>
 
     <dependencies>
         <dependency>

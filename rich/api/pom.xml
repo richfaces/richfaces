@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>richfaces-components-api</artifactId>
+    <name>RichFaces UI Components: Rich API</name>
 
     <build>
         <plugins>
