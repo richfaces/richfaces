@@ -4,6 +4,9 @@ if (!window.RichFaces) {
 
 (function($, rf) {
 
+    rf.rf4 = rf.rf4 || {};
+    rf.rf4.ui = rf.rf4.ui || {};
+
     var evaluate = function(selector) {
         var result = selector;
         try {
@@ -73,7 +76,7 @@ if (!window.RichFaces) {
         }
     };
 
-    rf.jQuery = {
+    rf.rf4.ui.jQueryComponent = {
 
         createFunction: createQueryFunction,
 
