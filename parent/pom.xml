@@ -29,8 +29,8 @@
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.richfaces.ui</groupId>
-    <artifactId>richfaces-ui-parent</artifactId>
+    <groupId>org.richfaces.compat</groupId>
+    <artifactId>richfaces-components-parent</artifactId>
     <version>4.5.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>RichFaces UI Components Parent</name>

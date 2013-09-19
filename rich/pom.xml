@@ -4,14 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.richfaces.ui</groupId>
-        <artifactId>richfaces-ui-parent</artifactId>
+        <groupId>org.richfaces.compat</groupId>
+        <artifactId>richfaces-components-parent</artifactId>
         <version>4.5.0-SNAPSHOT</version>
-        <relativePath>../../parent/pom.xml</relativePath>
+        <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>richfaces-components-ui</artifactId>
-    <name>RichFaces UI Components: Rich UI</name>
+    <groupId>org.richfaces.compat</groupId>
+    <artifactId>richfaces-components-rich</artifactId>
+    <name>RichFaces UI Components: http://richfaces.org/rich</name>
 
     <dependencies>
         <dependency>

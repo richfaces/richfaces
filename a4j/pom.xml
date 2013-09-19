@@ -20,17 +20,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <groupId>org.richfaces.ui</groupId>
-        <artifactId>richfaces-ui-parent</artifactId>
+        <groupId>org.richfaces.compat</groupId>
+        <artifactId>richfaces-components-parent</artifactId>
         <version>4.5.0-SNAPSHOT</version>
-        <relativePath>../../parent/pom.xml</relativePath>
+        <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.richfaces.ui.core</groupId>
-    <artifactId>richfaces-ui-core-ui</artifactId>
-    <name>RichFaces UI Components: A4J UI</name>
+    <groupId>org.richfaces.compat</groupId>
+    <artifactId>richfaces-components-a4j</artifactId>
+    <name>RichFaces UI Components: http://richfaces.org/a4j</name>
     <packaging>jar</packaging>
 
     <dependencies>

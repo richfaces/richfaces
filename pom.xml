@@ -31,18 +31,16 @@
         <relativePath>../richfaces/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.richfaces.ui</groupId>
-    <artifactId>richfaces-ui-aggregator</artifactId>
+    <groupId>org.richfaces.compat</groupId>
+    <artifactId>richfaces-components-aggregator</artifactId>
     <version>4.5.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>RichFaces UI Components Aggregator</name>
 
     <modules>
-        <module>common/api</module>
-        <module>common/ui</module>
-        <module>a4j/api</module>
-        <module>a4j/ui</module>
-        <module>rich/api</module>
-        <module>rich/ui</module>
+        <module>parent</module>
+        <module>a4j</module>
+        <module>rich</module>
     </modules>
+
 </project>
