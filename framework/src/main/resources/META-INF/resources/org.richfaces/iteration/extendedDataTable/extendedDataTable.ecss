@@ -35,7 +35,7 @@
 }
 
 .rf-edt-hdr,.rf-edt-tbl-hdr {
-    background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:colHdrGrad.png']})";
 }
 
 .rf-edt-tbl-hdr {

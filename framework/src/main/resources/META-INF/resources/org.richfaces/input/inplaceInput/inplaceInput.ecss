@@ -81,7 +81,7 @@ input.rf-ii-fld {
 }
 
 .rf-ii-btn {
-    background-image: url("#{resource['org.richfaces.images:inplaceBtnGrad.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:inplaceBtnGrad.png']}");
     background-attachment: scroll;
     background-position: center top;
     background-repeat: repeat-x;
@@ -94,7 +94,7 @@ input.rf-ii-fld {
 }
 
 .rf-ii-btn-p {
-    background-image: url("#{resource['org.richfaces.images:inplaceBtnPressGrad.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:inplaceBtnPressGrad.png']}");
     background-position: top;
     background-repeat: repeat-x;
     background-color: '#{richSkin.tabBackgroundColor}';

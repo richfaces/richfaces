@@ -144,7 +144,7 @@ html > body .rf-ntf {
     width: 16px;
     height: 16px;
     background-color: '#{richSkin.panelTextColor}';
-    background-image:"url(#{resource['org.richfaces.images:triangleDown.png']})";
+    background-image:"url(#{resource['org.richfaces.ui.images:triangleDown.png']})";
 }
 
 .rf-ntf-inf .rf-ntf-ico {

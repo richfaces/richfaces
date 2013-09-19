@@ -155,7 +155,7 @@
     background: '#{richSkin.additionalBackgroundColor}';
     font-size: '#{richSkin.generalSizeFont}';
     font-family: '#{richSkin.generalFamilyFont}';
-    background-image: "url(#{resource['org.richfaces.images:calendarSeparator.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:calendarSeparator.png']})";
     background-repeat: no-repeat;
     background-position: right center;
 }
@@ -198,7 +198,7 @@
     background-position: left top;
     background-repeat: repeat-x;
     border: 1px solid;
-    background-image: url("#{resource['org.richfaces.images:inputBackgroundImage.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:inputBackgroundImage.png']}");
     background-color: '#{richSkin.controlBackgroundColor}';
     border-color: '#{richSkin.panelBorderColor}';
     border-bottom-color: '#{richSkin.subBorderColor}';
@@ -213,7 +213,7 @@
     font-size: 0px;
     background-color: '#{richSkin.headerBackgroundColor}';
     border-color: '#{richSkin.headerBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:buttonBackgroundImage.png']})";
 }
 
 .rf-cal-spec {
@@ -275,7 +275,7 @@
 
 .rf-cal-btn-close {
     padding: 2px 2px 2px 4px;
-    background-image: "url(#{resource['org.richfaces.images:calendarSeparator.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:calendarSeparator.png']})";
     background-repeat: no-repeat;
     background-position: left center;
 }
@@ -382,11 +382,11 @@
 }
 
 .rf-cal-sp-up {
-    background-image: "url(#{resource['org.richfaces.images:spinnerArrowTop.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:spinnerArrowTop.png']})";
 }
 
 .rf-cal-sp-down {
-    background-image: "url(#{resource['org.richfaces.images:spinnerArrowBottom.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:spinnerArrowBottom.png']})";
 }
 
 .rf-cal-sp-press {
@@ -396,7 +396,7 @@
 .rf-cal-sp-btn {
     background-color: '#{richSkin.headerBackgroundColor}';
     border-color: '#{richSkin.headerBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:buttonBackgroundImage.png']})";
 }
 
 .rf-cal-edtr-layout-shdw {

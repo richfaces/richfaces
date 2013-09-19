@@ -79,7 +79,7 @@ input.rf-insl-inp {
 }
 
 .rf-insl-trc {
-    background: url("#{resource['org.richfaces.images:insldrTrackGrad.png']}") 1px 1px repeat-x;
+    background: url("#{resource['org.richfaces.ui.images:insldrTrackGrad.png']}") 1px 1px repeat-x;
     background-color: '#{richSkin.controlBackgroundColor}';
     border-width: 1px;
     border-style: solid;
@@ -101,7 +101,7 @@ input.rf-insl-inp {
 
 .rf-insl-bar .rf-insl-hnd-cntr {
     text-align: right;
-    background-image: "url(#{resource['org.richfaces.images:inputNumberSliderBarHandleBg.gif']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:inputNumberSliderBarHandleBg.gif']})";
 }
 
 .rf-insl-bar .rf-insl-trc, .rf-insl-bar .rf-insl-hnd-cntr, .rf-insl-bar .rf-insl-hnd  {
@@ -127,37 +127,37 @@ input.rf-insl-inp {
 }
 
 .rf-insl-hnd {
-    background-image: url("#{resource['org.richfaces.images:sliderArrowBottom.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:sliderArrowBottom.png']}");
 }
 
 .rf-insl-hnd-sel {
-    background-image: url("#{resource['org.richfaces.images:sliderSelectedArrowBottom.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:sliderSelectedArrowBottom.png']}");
 }
 
 .rf-insl-hnd-dis {
-    background-image: url("#{resource['org.richfaces.images:sliderDisabledArrowBottom.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:sliderDisabledArrowBottom.png']}");
 }
 
 .rf-insl-dec {
-    background-image: url("#{resource['org.richfaces.images:sliderArrowLeft.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:sliderArrowLeft.png']}");
 }
 
 .rf-insl-dec-sel {
-    background-image: url("#{resource['org.richfaces.images:sliderSelectedArrowLeft.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:sliderSelectedArrowLeft.png']}");
 }
 
 .rf-insl-dec-dis {
-    background-image: url("#{resource['org.richfaces.images:sliderDisabledArrowLeft.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:sliderDisabledArrowLeft.png']}");
 }
 
 .rf-insl-inc {
-    background-image: url("#{resource['org.richfaces.images:sliderArrowRight.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:sliderArrowRight.png']}");
 }
 
 .rf-insl-inc-sel {
-    background-image: url("#{resource['org.richfaces.images:sliderSelectedArrowRight.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:sliderSelectedArrowRight.png']}");
 }
 
 .rf-insl-inc-dis {
-    background-image: url("#{resource['org.richfaces.images:sliderDisabledArrowRight.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:sliderDisabledArrowRight.png']}");
 }

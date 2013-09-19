@@ -35,7 +35,7 @@
     border-color: '#{richSkin.panelBorderColor}';
     border-top-left-radius: '#{richSkin.panelBorderRadius}';
     border-top-right-radius: '#{richSkin.panelBorderRadius}';
-    background-image: "url(#{resource['org.richfaces.images:gradientA.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:gradientA.png']})";
     background-repeat: repeat-x;
     background-position: top left;
     background-color: '#{richSkin.headerBackgroundColor}';

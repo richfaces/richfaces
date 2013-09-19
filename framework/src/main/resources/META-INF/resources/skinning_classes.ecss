@@ -84,7 +84,7 @@ selector names conversion:
 
 .rfs-field {
     background-color: '#{richSkin.controlBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:buttonBackgroundImage.png']})";
     background-repeat: no-repeat;
     background-position: 1px 1px;
 }
@@ -95,7 +95,7 @@ selector names conversion:
 
 .rfs-field-error {
     background-color: '#{richSkin.warningBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:inputErrorIcon.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:inputErrorIcon.png']})";
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 7px;
@@ -114,19 +114,19 @@ selector names conversion:
 }
 
 .rfs-btn {
-    background-image: "url(#{resource['org.richfaces.images:standardButtonBgImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:standardButtonBgImage.png']})";
 }
 
 .rfs-btn-disabled {
-    background-image: "url(#{resource['org.richfaces.images:standardButtonBgImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:standardButtonBgImage.png']})";
 }
 
 .rfs-btn-over {
-    background-image: "url(#{resource['org.richfaces.images:standardButtonBgImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:standardButtonBgImage.png']})";
 }
 
 .rfs-btn-press {
-    background-image: "url(#{resource['org.richfaces.images:standardButtonPressedBgImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:standardButtonPressedBgImage.png']})";
     background-position: bottom left;
 }
 
@@ -337,7 +337,7 @@ selector names conversion:
     background-repeat: repeat-x;
     background-position: top left;
     background-color: '#{richSkin.headerBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:buttonBackgroundImage.png']})";
     font-size: '#{richSkin.generalSizeFont}';
     font-family: '#{richSkin.generalFamilyFont}';
     color: '#{richSkin.headerTextColor}';
@@ -347,7 +347,7 @@ selector names conversion:
     {
     background-position: bottom left;
     background-repeat: repeat-x;
-    background-image: "url(#{resource['org.richfaces.images:buttonHoverBackgroundImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:buttonHoverBackgroundImage.png']})";
 }
 
 .rfs-ctn button[disabled],.rfs-btn-disabled,.rfs-btn-btn[disabled],.rfs-btn-btn-disabled,.rfs-btn-reset[disabled],.rfs-btn-reset-disabled,.rfs-btn-submit[disabled],.rfs-btn-submit-disabled,.rfs-ctn input[type="reset"][disabled],.rfs-input-reset[disabled],.rfs-input-reset-disabled,.rfs-ctn input[type="submit"][disabled],.rfs-input-submit[disabled],.rfs-input-submit-disabled,.rfs-ctn input[type="button"][disabled],.rfs-input-btn[disabled],.rfs-input-btn-disabled
@@ -355,7 +355,7 @@ selector names conversion:
     color: '#{richSkin.tabDisabledTextColor}';
     background-color: '#{richSkin.tableFooterBackgroundColor}';
     border-color: '#{richSkin.tableFooterBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:buttonDisabledBackgroundImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:buttonDisabledBackgroundImage.png']})";
     background-position: top left;
 }
 
@@ -367,7 +367,7 @@ selector names conversion:
     background-repeat: no-repeat;
     background-position: 1px 1px;
     background-color: '#{richSkin.controlBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:inputBackgroundImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:inputBackgroundImage.png']})";
     font-size: '#{richSkin.generalSizeFont}';
     font-family: '#{richSkin.generalFamilyFont}';
     color: '#{richSkin.controlTextColor}';

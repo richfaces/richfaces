@@ -32,7 +32,7 @@
     background-position: left top;
     background-repeat: repeat-x;
     /*check gradient  from headerGradientColor to headerBackgroundColor*/
-    background-image: url("#{resource['org.richfaces.images:gradientA.png']}");
+    background-image: url("#{resource['org.richfaces.ui.images:gradientA.png']}");
     border-collapse: collapse;
     border-spacing : 0;
 }
@@ -65,25 +65,25 @@
 }
 
 .rf-tb-sep-grid {
-    background-image: url("#{resource['org.richfaces.images:gridSeparatorImage.gif']}");
+    background-image: url("#{resource['org.richfaces.ui.images:gridSeparatorImage.gif']}");
     width: 9px;
     background-repeat: repeat-y;
 }
 
 .rf-tb-sep-line {
     width: 2px;
-    background-image: url("#{resource['org.richfaces.images:lineSeparatorImage.gif']}");
+    background-image: url("#{resource['org.richfaces.ui.images:lineSeparatorImage.gif']}");
     background-repeat: repeat-y;
 }
 
 .rf-tb-sep-disc {
     width: 9px;
-    background-image: url("#{resource['org.richfaces.images:dotSeparatorImage.gif']}");
+    background-image: url("#{resource['org.richfaces.ui.images:dotSeparatorImage.gif']}");
     background-repeat: no-repeat;
 }
 
 .rf-tb-sep-square {
     width: 9px;
-    background-image: url("#{resource['org.richfaces.images:squareSeparatorImage.gif']}");
+    background-image: url("#{resource['org.richfaces.ui.images:squareSeparatorImage.gif']}");
     background-repeat: no-repeat;
 }

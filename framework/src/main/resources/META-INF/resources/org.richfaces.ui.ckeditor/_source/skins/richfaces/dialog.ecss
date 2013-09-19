@@ -49,7 +49,7 @@ body .cke_dialog
 
 .cke_skin_richfaces .cke_dialog_title
 {
-	background: "url(#{resource['org.richfaces.images:gradientA.png']})";
+	background: "url(#{resource['org.richfaces.ui.images:gradientA.png']})";
     repeat-x: 'top left #{richSkin.headerBackgroundColor}';
     position: relative;
     cursor: move;
@@ -152,7 +152,7 @@ body .cke_dialog
 	border-color: '#{richSkin.headerBackgroundColor}';
 	border-bottom: none;
 	
-	background-image: "url(#{resource['org.richfaces.images:tabBg.png']})";
+	background-image: "url(#{resource['org.richfaces.ui.images:tabBg.png']})";
     background-position: top;
     background-repeat: repeat-x;
     background-color: "#{richSkin.tabBackgroundColor}";
@@ -190,7 +190,7 @@ body .cke_dialog
 	cursor: default;
 	
 	font-weight: bold;
-    background-image: "url(#{resource['org.richfaces.images:actTabBg.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:actTabBg.png']})";
     background-position: top;
     background-repeat: repeat-x;
     background-color: "#{richSkin.additionalBackgroundColor}";
@@ -370,7 +370,7 @@ body .cke_dialog
     background-repeat: repeat-x;
     background-position: top left;
     background-color: '#{richSkin.headerBackgroundColor}';
-    background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:buttonBackgroundImage.png']})";
 }
 
 .cke_skin_richfaces .cke_browser_iequirks a.cke_dialog_ui_button
@@ -502,7 +502,7 @@ body .cke_dialog
 {
 	background-position: bottom left;
     background-repeat: repeat-x;
-    background-image: "url(#{resource['org.richfaces.images:buttonHoverBackgroundImage.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:buttonHoverBackgroundImage.png']})";
 }
 
 .cke_skin_richfaces .cke_hc a:hover.cke_dialog_ui_button,

@@ -190,7 +190,7 @@
     padding-top: 2px;
     cursor: pointer;
     white-space: nowrap;
-    background-image: "url(#{resource['org.richfaces.images:pmenu_bg.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:pmenu_bg.png']})";
     background-position: top left;
     background-repeat: repeat-x;
     background-color: '#{richSkin.headerBackgroundColor}';
@@ -204,7 +204,7 @@
     padding-top: 2px;
     cursor: pointer;
     white-space: nowrap;
-    background-image: "url(#{resource['org.richfaces.images:pmenu_bg_dis.png']})";
+    background-image: "url(#{resource['org.richfaces.ui.images:pmenu_bg_dis.png']})";
     background-position: top left;
     background-repeat: repeat-x;
     background-color: '#{richSkin.additionalBackgroundColor}';
