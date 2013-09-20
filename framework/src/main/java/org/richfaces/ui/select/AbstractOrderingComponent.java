@@ -23,7 +23,10 @@
 package org.richfaces.ui.select;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.json.JSONException;
+import org.richfaces.json.JSONObject;
 
+import javax.faces.FacesException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,26 +41,37 @@ public abstract class AbstractOrderingComponent extends AbstractSelectManyCompon
     /**
      * The text to display in the move-to-top button
      */
-    @Attribute(defaultValue = "⇑ First")
+    @Attribute
     public abstract String getUpTopText();
 
     /**
      * The text to display in the move-up button
      */
-    @Attribute(defaultValue = "↑ Up")
+    @Attribute
     public abstract String getUpText();
 
     /**
      * The text to display in the move-down button
      */
-    @Attribute(defaultValue = "↓ Down")
+    @Attribute
     public abstract String getDownText();
 
     /**
      * The text to display in the move-to-bottom button
      */
-    @Attribute(defaultValue = "⇓ Last")
+    @Attribute
     public abstract String getDownBottomText();
+
+    public String getButtonsText() {
+        JSONObject json = new JSONObject();
+        try {
+            return json.put("first", getUpTopText()).put("up", getUpText()).put("down", getDownText()).put("last", getDownBottomText()).toString();
+        } catch (JSONException e) {
+            throw new FacesException("Error converting Button text values to JSON", e);
+        }
+    }
+
+
 
     protected boolean compareValues(Object previous, Object value) {
         if (previous == null && value != null) {
