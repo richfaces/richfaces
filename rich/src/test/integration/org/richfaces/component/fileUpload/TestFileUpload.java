@@ -94,7 +94,7 @@ public class TestFileUpload {
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-        p.xmlns("rich", "http://richfaces.org/input");
+        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.body("<script type='text/javascript'>");
         p.body("    jsf.ajax.addOnError(function(e) {");

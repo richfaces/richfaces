@@ -65,7 +65,7 @@ public class TestSelectValidation {
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.xmlns("rich", "http://richfaces.org/input");
+        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.form("<rich:select id='select'  enableManualInput='true'>");
         p.form("    <f:selectItems value='#{autocompleteBean.suggestions}' />");

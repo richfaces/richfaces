@@ -78,7 +78,7 @@ public class TestAutocompleteEvents {
 
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/input");
+        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.body("<h:form id='form'>");
         p.body("    <rich:autocomplete autocompleteList='#{autocompleteBean.suggestions}'");

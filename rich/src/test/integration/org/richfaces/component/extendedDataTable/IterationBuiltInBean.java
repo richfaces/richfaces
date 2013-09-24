@@ -21,13 +21,14 @@
  **/
 package org.richfaces.component.extendedDataTable;
 
-import org.richfaces.component.SortOrder;
-
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+
+import org.richfaces.model.SortOrder;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

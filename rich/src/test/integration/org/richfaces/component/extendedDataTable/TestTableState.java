@@ -220,7 +220,7 @@ public class TestTableState {
 
     private static FaceletAsset getPage(String edtAttributes) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/iteration");
+        p.xmlns("rich", "http://richfaces.org/rich");
         p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<script type='text/javascript'>");

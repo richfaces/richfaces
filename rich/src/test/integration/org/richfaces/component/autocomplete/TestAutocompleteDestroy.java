@@ -69,7 +69,7 @@ public class TestAutocompleteDestroy {
 
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/input");
+        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.body("<h:form id='form'>");
 

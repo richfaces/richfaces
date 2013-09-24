@@ -65,7 +65,7 @@ public class ForEachTabTest {
 
     private static void addIndexPage(OutputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/output");
+        p.xmlns("rich", "http://richfaces.org/rich");
         p.xmlns("a4j", "http://richfaces.org/a4j");
         p.xmlns("c", "http://java.sun.com/jsp/jstl/core");
         p.body("<h:form id='myForm'>");

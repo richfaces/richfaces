@@ -55,7 +55,7 @@ public class RF12684 {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/iteration");
+        p.xmlns("rich", "http://richfaces.org/rich");
         p.xmlns("a4j", "http://richfaces.org/a4j");
         p.form("<rich:dataTable id='tableId' value='#{iterationBean.values}' var='bean' rows='3'> ");
         p.form("    <rich:collapsibleSubTable id='collapsibleTableId' rows='3' /> ");

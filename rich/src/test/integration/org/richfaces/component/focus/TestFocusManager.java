@@ -142,7 +142,7 @@ public class TestFocusManager {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
+        p.xmlns("rich", "http://richfaces.org/rich");
         p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='form'>");
@@ -161,7 +161,7 @@ public class TestFocusManager {
 
     private static void addFormFocusIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
+        p.xmlns("rich", "http://richfaces.org/rich");
         p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='form'>");
@@ -181,7 +181,7 @@ public class TestFocusManager {
 
     private static void addViewFocusPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/misc");
+        p.xmlns("rich", "http://richfaces.org/rich");
         p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<rich:focus id='focus' binding='#{componentBean.component}' />");

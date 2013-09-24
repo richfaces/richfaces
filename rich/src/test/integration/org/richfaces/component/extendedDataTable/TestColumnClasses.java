@@ -54,7 +54,7 @@ public class TestColumnClasses {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/iteration");
+        p.xmlns("rich", "http://richfaces.org/rich");
         p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='myForm'> ");

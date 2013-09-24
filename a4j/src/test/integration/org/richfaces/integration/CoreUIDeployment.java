@@ -21,26 +21,18 @@ public class CoreUIDeployment extends Deployment {
             addCurrentProjectClasses();
 
             this.addMavenDependency(
-                    "org.richfaces.core:richfaces-core-api",
-                    "org.richfaces.core:richfaces-core-impl",
-                    "org.richfaces.ui.common:richfaces-ui-common-api",
-                    "org.richfaces.ui.common:richfaces-ui-common-ui",
-                    "org.richfaces.ui.core:richfaces-ui-core-api");
+                    "org.richfaces:richfaces");
 
         } else {
             String version = configuration.getRichFacesVersion();
             this.addMavenDependency(
-                    "org.richfaces.core:richfaces-core-api:" + version,
-                    "org.richfaces.core:richfaces-core-impl:" + version,
-                    "org.richfaces.ui.common:richfaces-ui-common-api:" + version,
-                    "org.richfaces.ui.common:richfaces-ui-common-ui:" + version,
-                    "org.richfaces.ui.core:richfaces-ui-core-api:" + version,
-                    "org.richfaces.ui.core:richfaces-ui-core-ui:" + version);
+                    "org.richfaces:richfaces:" + version,
+                    "org.richfaces.compat:richfaces-components-a4j:" + version);
         }
     }
 
     private void addCurrentProjectClasses() {
-        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces-ui-core-ui.jar");
+        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces-components-a4j.jar");
         jar.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
             .importDirectory("target/classes/").as(GenericArchive.class),
             "/", Filters.includeAll());

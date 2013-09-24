@@ -22,28 +22,12 @@ public class MiscDeployment extends Deployment {
             addCurrentProjectClasses();
 
             this.addMavenDependency(
-                    "org.richfaces.core:richfaces-core-api",
-                    "org.richfaces.core:richfaces-core-impl",
-                    "org.richfaces.ui.common:richfaces-ui-common-api",
-                    "org.richfaces.ui.common:richfaces-ui-common-ui",
-                    "org.richfaces.ui.core:richfaces-ui-core-api",
-                    "org.richfaces.ui.core:richfaces-ui-core-ui",
-                    "org.richfaces.ui.input:richfaces-ui-input-api",
-                    "org.richfaces.ui.input:richfaces-ui-input-ui");
+                    "org.richfaces:richfaces",
+                    "org.richfaces.compat:richfaces-components-a4j");
 
         } else {
-
             String version = configuration.getRichFacesVersion();
-            this.addMavenDependency(
-                    "org.richfaces.core:richfaces-core-api:" + version,
-                    "org.richfaces.core:richfaces-core-impl:" + version,
-                    "org.richfaces.ui.common:richfaces-ui-common-api:" + version,
-                    "org.richfaces.ui.common:richfaces-ui-common-ui:" + version,
-                    "org.richfaces.ui.core:richfaces-ui-core-api:" + version,
-                    "org.richfaces.ui.core:richfaces-ui-core-ui:" + version,
-                    "org.richfaces.ui.input:richfaces-ui-input-api:" + version,
-                    "org.richfaces.ui.input:richfaces-ui-input-ui:" + version,
-                    "org.richfaces.ui.misc:richfaces-ui-misc-ui:" + version);
+            this.addMavenDependency("org.richfaces.compat:richfaces-components-rich:" + version);
         }
     }
 
@@ -58,9 +42,8 @@ public class MiscDeployment extends Deployment {
     public FaceletAsset baseFacelet(String name) {
         FaceletAsset p = new FaceletAsset();
 
-        p.xmlns("misc", "http://richfaces.org/misc");
         p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.xmlns("input", "http://richfaces.org/input");
+        p.xmlns("rich", "http://richfaces.org/rich");
 
         this.archive().add(p, name);
 
