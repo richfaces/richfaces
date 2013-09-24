@@ -10,7 +10,6 @@
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.richfaces.compat</groupId>
     <artifactId>richfaces-components-rich</artifactId>
     <name>RichFaces UI Components: http://richfaces.org/rich</name>
 
@@ -22,20 +21,26 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui.core</groupId>
-            <artifactId>richfaces-ui-core-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui.common</groupId>
-            <artifactId>richfaces-ui-common-ui</artifactId>
+            <groupId>org.richfaces.compat</groupId>
+            <artifactId>richfaces-components-a4j</artifactId>
+            <version>${version.richfaces.ui}</version>
         </dependency>
         
         <dependency>

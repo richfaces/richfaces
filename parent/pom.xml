@@ -36,6 +36,7 @@
     <name>RichFaces UI Components Parent</name>
 
     <properties>
+        <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
         <version.richfaces.ui>4.5.0-SNAPSHOT</version.richfaces.ui>
     </properties>
 
@@ -113,7 +114,6 @@
         <dependency>
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
-            <version>5.0.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -162,7 +162,7 @@
             <artifactId>richfaces</artifactId>
             <scope>test</scope>
             <type>test-jar</type>
-            <version>5.0.0-SNAPSHOT</version>
+            <version>${version.richfaces}</version>
         </dependency>
 
         <dependency>
@@ -194,15 +194,6 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.graphene</groupId>
-            <artifactId>graphene-webdriver</artifactId>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-phantom-driver</artifactId>
         </dependency>
     </dependencies>
 
