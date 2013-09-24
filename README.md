@@ -73,6 +73,13 @@ Once you have the RichFaces JARs on the classpath, you can start developing by a
 
 For more information on how to get started with the project, see [Project Documentation](http://docs.jboss.org/richfaces/).
 
+Cloning the Project
+-------------------
+
+    $ git clone --recursive git@github.com:richfaces/richfaces.git
+    
+Don't forget to use `--recursive` clone strategy, otherwise the project will miss resource dependencies that are part of the [RichWidgets](https://github.com/richwidgets/richwidgets) project referenced as a submodule.
+
 Building the Project
 --------------------
 
