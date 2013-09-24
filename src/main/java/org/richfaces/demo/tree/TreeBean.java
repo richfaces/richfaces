@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2013, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -33,7 +33,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.swing.tree.TreeNode;
 
-import org.richfaces.component.UITree;
+import org.richfaces.component.AbstractTree;
 import org.richfaces.demo.tree.model.CD;
 import org.richfaces.demo.tree.model.Company;
 import org.richfaces.demo.tree.model.Country;
@@ -69,7 +69,7 @@ public class TreeBean implements Serializable {
         // considering only single selection
         List<Object> selection = new ArrayList<Object>(selectionChangeEvent.getNewSelection());
         Object currentSelectionKey = selection.get(0);
-        UITree tree = (UITree) selectionChangeEvent.getSource();
+        AbstractTree tree = (AbstractTree) selectionChangeEvent.getSource();
 
         Object storedKey = tree.getRowKey();
         tree.setRowKey(currentSelectionKey);

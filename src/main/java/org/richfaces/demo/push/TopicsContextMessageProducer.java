@@ -1,8 +1,8 @@
-/**
- * JBoss, Home of Professional Open Source.
- * Copyright 2010, Red Hat, Inc., and individual contributors
- * as indicated by the @author tags. See the copyright.txt file in the
- * distribution for a full listing of individual contributors.
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2013, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -21,10 +21,10 @@
  */
 package org.richfaces.demo.push;
 
-import org.richfaces.application.push.TopicKey;
-import org.richfaces.application.push.TopicsContext;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.push.TopicKey;
+import org.richfaces.push.TopicsContext;
 
 /**
  * Sends message to topic using TopicsContext.

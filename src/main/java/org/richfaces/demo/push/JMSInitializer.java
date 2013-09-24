@@ -1,8 +1,8 @@
 /*
- * JBoss, Home of Professional Open Source.
- * Copyright 2010, Red Hat, Inc., and individual contributors
- * as indicated by the @author tags. See the copyright.txt file in the
- * distribution for a full listing of individual contributors.
+ * JBoss, Home of Professional Open Source
+ * Copyright 2013, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -21,7 +21,7 @@
  */
 package org.richfaces.demo.push;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 import static org.richfaces.demo.push.JMSMessageProducer.PUSH_JMS_TOPIC;
 import static org.richfaces.demo.push.PushCdiBean.PUSH_CDI_TOPIC;
 import static org.richfaces.demo.push.TopicsContextMessageProducer.PUSH_TOPICS_CONTEXT_TOPIC;
@@ -35,7 +35,7 @@ import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 
-import org.richfaces.application.CoreConfiguration;
+import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.demo.push.provider.AS6MessagingProviderManagement;
 import org.richfaces.demo.push.provider.AS7MessagingProviderManagement;
 import org.richfaces.demo.push.provider.CustomMessagingServerManagement;
