@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
@@ -7,9 +6,9 @@
 
     <parent>
         <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-root-parent</artifactId>
-        <version>4.3.4-SNAPSHOT</version>
-        <relativePath>../build/parent/pom.xml</relativePath>
+        <artifactId>richfaces-parent</artifactId>
+        <version>5.0.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.examples</groupId>
@@ -18,10 +17,11 @@
     <name>RichFaces Showcase</name>
 
     <properties>
+        <version.rf4.ui>4.5.0-SNAPSHOT</version.rf4.ui>
         <dependency.scope>compile</dependency.scope>
         <container.classifier>tomcat6</container.classifier>
         <container.resources>src/main/resources-tomcat</container.resources>
-        <container.resources.exclude></container.resources.exclude>
+        <container.resources.exclude />
         <container.webapp>src/main/webapp-tomcat</container.webapp>
         <war.outputFileNameMapping>@{artifactId}@@{dashClassifier?}@-@{version}@.@{extension}@</war.outputFileNameMapping>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
@@ -38,42 +38,38 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-impl</artifactId>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-api</artifactId>
+            <groupId>org.richfaces.compat</groupId>
+            <artifactId>richfaces-components-a4j</artifactId>
+            <version>${version.rf4.ui}</version>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-ui</artifactId>
+            <groupId>org.richfaces.compat</groupId>
+            <artifactId>richfaces-components-rich</artifactId>
+            <version>${version.rf4.ui}</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
+            <groupId>org.jboss.spec.javax.servlet.jsp</groupId>
+            <artifactId>jboss-jsp-api_2.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
+            <groupId>org.jboss.spec.javax.el</groupId>
+            <artifactId>jboss-el-api_2.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
+            <groupId>org.jboss.spec.javax.servlet.jstl</groupId>
+            <artifactId>jboss-jstl-api_1.2_spec</artifactId>
             <scope>${dependency.scope}</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>servlet-api</artifactId>
-                    <groupId>javax.servlet</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -108,12 +104,13 @@
 
         <!-- Dependencies for Push and JMS -->
         <dependency>
-            <groupId>org.atmosphere</groupId>
-            <artifactId>atmosphere-runtime</artifactId>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces-push-depchain</artifactId>
+            <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>javax.jms</groupId>
-            <artifactId>jms-api</artifactId>
+            <groupId>org.jboss.spec.javax.jms</groupId>
+            <artifactId>jboss-jms-api_1.1_spec</artifactId>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
@@ -172,7 +169,6 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.5.2</version>
         </dependency>
     </dependencies>
 
@@ -359,6 +355,7 @@
                     <plugin>
                         <groupId>org.jboss.as.plugins</groupId>
                         <artifactId>jboss-as-maven-plugin</artifactId>
+                        <version>7.1.1.Final</version>
                         <configuration>
                             <filename>richfaces-showcase-jbas71.war</filename>
                         </configuration>
@@ -831,10 +828,4 @@
             </build>
         </profile>
     </profiles>
-
-    <scm>
-        <connection>scm:git:git://github.com/richfaces/showcase.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/showcase.git</developerConnection>
-        <url>https://github.com/richfaces/showcase</url>
-    </scm>
 </project>
