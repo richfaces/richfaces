@@ -33,6 +33,7 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceSkinUtils;
 import org.richfaces.services.Initializable;
+import org.richfaces.services.Prioritizable;
 import org.richfaces.servlet.ResourceServlet;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.util.PropertiesUtil;
@@ -45,7 +46,7 @@ import com.google.common.collect.Sets;
  *
  * @author Lukas Fryc
  */
-public class PropertiesResourceMapper implements ResourceMapper, ResourceAggregator, Initializable {
+public class PropertiesResourceMapper implements ResourceMapper, ResourceAggregator, Initializable, Prioritizable {
 
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
 
@@ -177,6 +178,11 @@ public class PropertiesResourceMapper implements ResourceMapper, ResourceAggrega
             return new ResourceServletMapping(location).getResourcePath(context);
         }
 
+    }
+
+    @Override
+    public int getPriority() {
+        return 100;
     }
 
 }

@@ -21,19 +21,21 @@
  */
 package org.richfaces.ui.iteration;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
+import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
+
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author Nick Belaevski
@@ -106,7 +108,7 @@ public class RepeatTest {
     public void setUp() throws Exception {
         setupTestBean();
 
-        environment = new HtmlUnitEnvironment();
+        environment = new CustomizedHtmlUnitEnvironment();
 
         environment.withResource("/WEB-INF/classes/faces-config.xml",
             getClass().getResource("/org/richfaces/component/RepeatTest.faces-config.xml"));

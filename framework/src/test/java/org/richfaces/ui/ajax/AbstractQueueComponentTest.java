@@ -43,6 +43,7 @@ import org.jboss.test.faces.ApplicationServer;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.javascript.JSFunctionDefinition;
 
@@ -95,7 +96,7 @@ public abstract class AbstractQueueComponentTest {
 
     @Before
     public void setUp() throws Exception {
-        facesEnvironment = new HtmlUnitEnvironment();
+        facesEnvironment = new CustomizedHtmlUnitEnvironment();
 
         ApplicationServer facesServer = facesEnvironment.getServer();
         facesServer.addResource("/resources/" + SIMULATION_SCRIPT_NAME, "org/richfaces/ui/core/" + SIMULATION_SCRIPT_NAME);

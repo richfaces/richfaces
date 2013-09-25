@@ -136,6 +136,7 @@ public class ResourceServlet implements Servlet {
 
                 // prefix mapping
                 resourceName = request.getPathInfo();
+
             } else {
                 String requestServletPath = request.getServletPath();
 

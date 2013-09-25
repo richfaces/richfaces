@@ -21,9 +21,14 @@
  */
 package org.richfaces.ui.ajax;
 
-import com.gargoylesoftware.htmlunit.html.DomNode;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import org.jboss.test.faces.ApplicationServer;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
@@ -34,16 +39,12 @@ import org.junit.Test;
 import org.junit.rules.MethodRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.ui.ajax.queue.QueueRegistry;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import com.gargoylesoftware.htmlunit.html.DomNode;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author amarkhel
@@ -79,7 +80,7 @@ public class QueueRendererTest {
 
     @Before
     public void setUp() throws Exception {
-        facesEnvironment = new HtmlUnitEnvironment();
+        facesEnvironment = new CustomizedHtmlUnitEnvironment();
 
         ApplicationServer facesServer = facesEnvironment.getServer();
         facesServer.addResource("/queue.xhtml", "org/richfaces/ui/ajax/queue.xhtml");

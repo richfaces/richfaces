@@ -21,23 +21,26 @@
  */
 package org.richfaces.ui.output;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import javax.faces.application.ViewHandler;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewDeclarationLanguage;
+
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
 
-import javax.faces.application.ViewHandler;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author Andrey Markhel
@@ -48,7 +51,7 @@ public class PopupRendererTest {
 
     @Before
     public void setUp() {
-        environment = new HtmlUnitEnvironment();
+        environment = new CustomizedHtmlUnitEnvironment();
         environment.withWebRoot(new File("src/test/resources"));
         environment.start();
     }

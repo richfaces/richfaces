@@ -21,6 +21,7 @@
  */
 package org.richfaces.resource.external;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,6 +32,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.URLResource;
+import org.richfaces.resource.mapping.LibraryResourceMapper;
 import org.richfaces.resource.mapping.PropertiesResourceMapper;
 import org.richfaces.resource.mapping.ResourceAggregator;
 import org.richfaces.resource.mapping.ResourceMapper;
@@ -51,6 +53,9 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
 
     private List<ResourceMapper> mappers;
 
+    private List<String> resourceLibrariesToMap = Arrays.asList("org.richfaces", "bootstrap", "font-awesome", "com.jqueryui",
+            "org.richfaces.ckeditor");
+
     /*
      * (non-Javadoc)
      *
@@ -62,6 +67,10 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
 
         // default mappers
         mappers.add(new PropertiesResourceMapper());
+        for (String resourceLibrary : resourceLibrariesToMap) {
+            mappers.add(new LibraryResourceMapper(resourceLibrary));
+        }
+
         // user-defined mappers
         mappers.addAll(ServiceLoader.loadServices(ResourceMapper.class));
 

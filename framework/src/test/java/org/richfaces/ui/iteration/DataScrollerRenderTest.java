@@ -22,19 +22,21 @@
 
 package org.richfaces.ui.iteration;
 
-import com.gargoylesoftware.htmlunit.html.DomNode;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.ui.common.HtmlConstants;
 
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
+import com.gargoylesoftware.htmlunit.html.DomNode;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author Anton Belevich
@@ -45,7 +47,7 @@ public class DataScrollerRenderTest {
 
     @Before
     public void setUp() {
-        environment = new HtmlUnitEnvironment();
+        environment = new CustomizedHtmlUnitEnvironment();
         // environment.withWebRoot(new File("src/test/resources"));
         environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/ui/iteration/faces-config.xml");
         environment.withResource("/test.xhtml", "org/richfaces/ui/iteration/dataTableTest.xhtml");

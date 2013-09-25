@@ -22,16 +22,19 @@
 package org.richfaces.resource.optimizer.faces;
 
 import java.util.Collections;
+import java.util.Set;
 
+import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.configuration.ConfigurationService;
 import org.richfaces.configuration.ConfigurationServiceImpl;
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.resource.external.MappedResourceFactory;
 import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.external.ResourceTrackerImpl;
-import org.richfaces.resource.external.MappedResourceFactory;
-import org.richfaces.resource.external.MappedResourceFactoryImpl;
+import org.richfaces.resource.mapping.ResourcePath;
 import org.richfaces.resource.optimizer.Faces;
 import org.richfaces.resource.optimizer.FileNameMapper;
 import org.richfaces.resource.optimizer.skin.SkinFactoryImpl;
@@ -42,6 +45,8 @@ import org.richfaces.services.ServiceTracker;
 import org.richfaces.services.ServicesFactory;
 import org.richfaces.services.ServicesFactoryImpl;
 import org.richfaces.skin.SkinFactory;
+
+import com.google.common.collect.Sets;
 
 /**
  * @author Nick Belaevski
@@ -60,7 +65,7 @@ public class FacesImpl implements Faces {
     }
 
     public void start() {
-        
+
         final ServicesFactoryImpl serviceFactory = new ServicesFactoryImpl();
         Module module = new Module() {
             public void configure(ServicesFactory factory) {
@@ -70,12 +75,12 @@ public class FacesImpl implements Faces {
                 factory.setInstance(DependencyInjector.class, new DependencyInjectionServiceImpl());
                 factory.setInstance(ResourceHandler.class, resourceHandler);
                 factory.setInstance(ResourceTracker.class, new ResourceTrackerImpl());
-                factory.setInstance(MappedResourceFactory.class, new MappedResourceFactoryImpl());
+                factory.setInstance(MappedResourceFactory.class, new NullMappedResourceFactory());
             }
         };
-        
+
         ServiceTracker.setFactory(serviceFactory);
-        
+
         // initialization with FacesContext available
         startRequest();
         serviceFactory.init(Collections.singleton(module));
@@ -101,5 +106,17 @@ public class FacesImpl implements Faces {
     public void stopRequest() {
         FacesContext.getCurrentInstance().release();
         assert FacesContext.getCurrentInstance() == null;
+    }
+
+    private static class NullMappedResourceFactory implements MappedResourceFactory {
+        @Override
+        public Set<ResourceKey> getAggregatedResources(ResourcePath resourcePath) {
+            return Sets.newHashSet();
+        }
+
+        @Override
+        public Resource createResource(FacesContext facesContext, ResourceKey resourceKey) {
+            return null;
+        }
     }
 }

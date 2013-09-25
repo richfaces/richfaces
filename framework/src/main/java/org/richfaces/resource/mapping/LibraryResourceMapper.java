@@ -19,28 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.richfaces.resource.mapping;
 
-package org.richfaces.ui.input;
+import org.richfaces.resource.ResourceKey;
 
-import org.richfaces.CustomizedHtmlUnitEnvironment;
-import org.junit.Test;
-import org.richfaces.ui.common.RendererTestBase;
+import com.google.common.base.Strings;
 
-import java.io.File;
-import java.net.URISyntaxException;
+public class LibraryResourceMapper implements ResourceMapper {
 
-public class InputNumberSpinnerRendererTest extends RendererTestBase {
+    private String resourceLibrary;
 
-    @Override
-    public void setUp() throws URISyntaxException {
-        environment = new CustomizedHtmlUnitEnvironment();
-        environment.withWebRoot(new File(this.getClass().getResource(".").toURI()));
-        environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/ui/input/faces-config.xml");
-        environment.start();
+    public LibraryResourceMapper(String resourceLibrary) {
+        if (resourceLibrary == null) {
+            throw new IllegalArgumentException("resourceLibrary must not be null");
+        }
+        this.resourceLibrary = resourceLibrary;
     }
 
-    @Test
-    public void testBasicLayout() throws Exception {
-        doTest("inputNumberSpinner", "inputNumberSpinner", "form:spinner");
+    @Override
+    public ResourceMapping mapResource(ResourceKey resourceKey) {
+        String library = Strings.nullToEmpty(resourceKey.getLibraryName());
+
+        if (resourceLibrary.equals(library)) {
+            return new ResourceServletMapping(new ResourcePath(resourceKey));
+        }
+
+        return null;
     }
 }

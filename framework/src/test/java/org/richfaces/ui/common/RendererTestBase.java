@@ -43,6 +43,7 @@ import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.ui.validation.IgnoreScriptsContent;
 import org.xml.sax.SAXException;
 
@@ -65,7 +66,7 @@ public abstract class RendererTestBase {
 
     @Before
     public void setUp() throws URISyntaxException {
-        environment = new HtmlUnitEnvironment();
+        environment = new CustomizedHtmlUnitEnvironment();
         environment.withWebRoot(new File(this.getClass().getResource(".").toURI()));
         environment.start();
         environment.getWebClient().setJavaScriptEnabled(false);

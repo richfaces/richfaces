@@ -33,6 +33,7 @@ import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.w3c.dom.Element;
 
 import com.gargoylesoftware.htmlunit.html.HtmlLink;
@@ -78,7 +79,7 @@ public class ResourceLibraryTest {
 
     @Before
     public void setUp() throws Exception {
-        environment = new HtmlUnitEnvironment();
+        environment = new CustomizedHtmlUnitEnvironment();
         environment.getServer().addInitParameter("org.richfaces.enableControlSkinning", "false");
 
         environment.withResource("/index.xhtml", "org/richfaces/resource/simple.xhtml");
