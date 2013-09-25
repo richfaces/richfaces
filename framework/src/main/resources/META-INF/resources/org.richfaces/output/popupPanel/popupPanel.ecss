@@ -64,7 +64,7 @@
 }
 
 .rf-pp-hdr {
-    background: "url(#{resource['org.richfaces.ui.images:gradientA.png']})";
+    background: "#{richSkin.imageUrl('gradientA.png')}";
     repeat-x: 'top left #{richSkin.headerBackgroundColor}';
     position: relative;
     padding-left: 10px;
@@ -118,7 +118,7 @@
 }
 
 .rf-pp-hndlr {
-    background-image: url("#{resource['org.richfaces:common/spacer.gif']}");
+    background-image: url("#{resource['spacer.gif']}");
     position: absolute;
     margin: -4px;
 }
