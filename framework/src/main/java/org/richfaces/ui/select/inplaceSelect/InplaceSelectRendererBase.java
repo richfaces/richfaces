@@ -21,6 +21,14 @@
  */
 package org.richfaces.ui.select.inplaceSelect;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.InplaceComponent;
@@ -28,14 +36,6 @@ import org.richfaces.ui.input.inplaceInput.InplaceInputRendererBase;
 import org.richfaces.ui.select.ClientSelectItem;
 import org.richfaces.ui.select.SelectHelper;
 import org.richfaces.util.HtmlDimensions;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * @author Anton Belevich
@@ -45,9 +45,9 @@ import java.util.List;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(name = "richfaces-selection.js"),
-        @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
-        @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
-        @ResourceDependency(library = "org.richfaces", name = "popup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/inputBase.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/inplace/inplaceBase.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "select/list.js"),
         @ResourceDependency(library = "org.richfaces", name = "select/popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "input/inplaceInput/inplaceInput.js"),

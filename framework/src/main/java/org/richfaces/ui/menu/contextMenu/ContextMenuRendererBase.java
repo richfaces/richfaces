@@ -22,9 +22,20 @@
 
 package org.richfaces.ui.menu.contextMenu;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
 import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
+import org.richfaces.renderkit.RendererBase;
 import org.richfaces.ui.common.Mode;
 import org.richfaces.ui.common.Positioning;
 import org.richfaces.ui.menu.menu.AbstractMenuGroup;
@@ -32,22 +43,11 @@ import org.richfaces.ui.menu.menu.AbstractMenuItem;
 import org.richfaces.ui.menu.menu.AbstractMenuSeparator;
 import org.richfaces.util.RendererUtils;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "popup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu/menuKeyNavigation.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu/menu-base.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu/menu.js"),

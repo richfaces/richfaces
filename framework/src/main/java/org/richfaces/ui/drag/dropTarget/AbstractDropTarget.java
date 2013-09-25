@@ -46,11 +46,11 @@ import org.richfaces.ui.attribute.ImmediateProps;
  * @author abelevich
  */
 @JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.DropTargetRenderer"),
         tag = @Tag(name = "dropTarget", handlerClass = DropHandler.class, type = TagType.Facelets))
 public abstract class AbstractDropTarget extends UIComponentBase implements AjaxProps, BypassProps, ImmediateProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.DropTarget";
-    public static final String COMPONENT_FAMILY = "org.richfaces.DropTarget";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.DropTarget";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.DropTarget";
 
     /**
      * Data to be processed after a drop event

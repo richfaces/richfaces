@@ -19,26 +19,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.input.fileUpload;
+package org.richfaces.ui.drag.dropTarget;
 
-import javax.faces.FacesException;
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.ui.drag.DnDScript;
+
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
- * Thrown when an exception occurs while uploading a file.
+ * @author abelevich
  *
  */
-public class FileUploadException extends FacesException {
-    private static final long serialVersionUID = -3579917878909990838L;
+public final class DropScript extends DnDScript {
+    private static final Set<ResourceKey> DRAG_SCRIPT = Collections.singleton(new ResourceKey("drag/dnd-droppable.js", "org.richfaces"));
 
-    public FileUploadException() {
-        this(null, null);
+    public DropScript(String name) {
+        super(name);
     }
 
-    public FileUploadException(String message) {
-        this(message, null);
-    }
-
-    public FileUploadException(String message, Throwable cause) {
-        super(message, cause);
+    public Iterable<ResourceKey> getResources() {
+        Set<ResourceKey> dragResourceKeys = new LinkedHashSet<ResourceKey>();
+        dragResourceKeys.addAll(getBaseResources());
+        dragResourceKeys.addAll(DRAG_SCRIPT);
+        return dragResourceKeys;
     }
 }

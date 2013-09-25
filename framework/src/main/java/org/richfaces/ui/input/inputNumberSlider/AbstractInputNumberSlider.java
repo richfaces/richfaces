@@ -45,10 +45,10 @@ import org.richfaces.ui.input.AbstractInputNumber;
 @JsfComponent(
         type = AbstractInputNumberSlider.COMPONENT_TYPE,
         family = AbstractInputNumberSlider.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.InputNumberSliderRenderer"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.InputNumberSliderRenderer"),
         tag = @Tag(name = "inputNumberSlider"))
 public abstract class AbstractInputNumberSlider extends AbstractInputNumber implements AccesskeyProps, BaseProps, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps, InputProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.InputNumberSlider";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.InputNumberSlider";
     public static final String COMPONENT_FAMILY = "javax.faces.Input";
 
     @Attribute(hidden = true)

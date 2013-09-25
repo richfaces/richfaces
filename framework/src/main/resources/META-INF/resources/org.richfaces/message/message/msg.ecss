@@ -36,27 +36,27 @@
 }
 
 .rf-msg-err,.rf-msgs-err {
-    background-image: "url(#{resource['org.richfaces:error.png']})";
+    background-image: "url(#{resource['org.richfaces:message/error.png']})";
     color: '#{richSkin.errorColor}';
 }
 
 .rf-msg-ftl,.rf-msgs-ftl {
-    background-image: "url(#{resource['org.richfaces:fatal.png']})";
+    background-image: "url(#{resource['org.richfaces:message/fatal.png']})";
     color: '#{richSkin.errorColor}';
 }
 
 .rf-msg-inf,.rf-msgs-inf {
-    background-image: "url(#{resource['org.richfaces:info.png']})";
+    background-image: "url(#{resource['org.richfaces:message/info.png']})";
     color: '#{richSkin.generalTextColor}';
 }
 
 .rf-msg-wrn,.rf-msgs-wrn {
-    background-image: "url(#{resource['org.richfaces:warning.png']})";
+    background-image: "url(#{resource['org.richfaces:message/warning.png']})";
     color: '#{richSkin.warningColor}';
 }
 
 .rf-msg-ok,.rf-msgs-ok {
-    background-image: "url(#{resource['org.richfaces:ok.png']})";
+    background-image: "url(#{resource['org.richfaces:message/ok.png']})";
     color: '#{richSkin.generalTextColor}';
 }
 

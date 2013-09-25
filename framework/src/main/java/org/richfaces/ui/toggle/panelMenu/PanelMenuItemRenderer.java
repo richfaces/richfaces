@@ -52,7 +52,7 @@ import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.getAjaxOpt
  * @author akolonitsky
  * @since 2010-10-25
  */
-@JsfRenderer(type = "org.richfaces.PanelMenuItemRenderer", family = AbstractPanelMenuItem.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.PanelMenuItemRenderer", family = AbstractPanelMenuItem.COMPONENT_FAMILY)
 public class PanelMenuItemRenderer extends DivPanelRenderer {
     public static final String UNSELECT = "unselect";
     public static final String SELECT = "select";

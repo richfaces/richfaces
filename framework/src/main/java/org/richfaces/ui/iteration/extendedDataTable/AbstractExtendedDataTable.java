@@ -62,10 +62,10 @@ import org.richfaces.ui.iteration.UIDataTableBase;
  * @author Konstantin Mishin
  */
 @JsfComponent(type = AbstractExtendedDataTable.COMPONENT_TYPE, family = AbstractExtendedDataTable.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.ExtendedDataTableRenderer"),
         tag = @Tag(name = "extendedDataTable", handlerClass = ExtendedDataTableHandler.class, type = TagType.Facelets))
 public abstract class AbstractExtendedDataTable extends UIDataTableBase implements MetaComponentResolver, MetaComponentEncoder, EventsRowProps, RowsProps, StyleProps, StyleClassProps, SequenceProps, IterationProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.ExtendedDataTable";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.ExtendedDataTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String SCROLL = "scroll";
     public static final String SUBMITTED_CLIENT_FIRST = "submittedClientFirst";

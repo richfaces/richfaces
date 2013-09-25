@@ -59,7 +59,6 @@ import org.richfaces.model.ClassicTreeNodeDataModelImpl;
 import org.richfaces.model.DataComponentState;
 import org.richfaces.model.DataVisitor;
 import org.richfaces.model.DeclarativeModelKey;
-import org.richfaces.model.DeclarativeTreeDataModelImpl;
 import org.richfaces.model.DeclarativeTreeModel;
 import org.richfaces.model.ExtendedDataModel;
 import org.richfaces.model.SwingTreeNodeDataModelImpl;
@@ -99,11 +98,11 @@ import com.google.common.collect.Maps;
  */
 @JsfComponent(type = AbstractTree.COMPONENT_TYPE, family = AbstractTree.COMPONENT_FAMILY,
         tag = @Tag(name = "tree", handlerClass = TreeHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"))
+        renderer = @JsfRenderer(type = "org.richfaces.ui.TreeRenderer"))
 // TODO add rowData caching for wrapper events
 public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder, TreeSelectionChangeSource, TreeToggleSource, AjaxProps, CoreProps, EventsKeyProps, EventsMouseProps, ImmediateProps, I18nProps, SequenceProps, TreeProps, TreeCommonProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.Tree";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Tree";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Tree";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Tree";
     public static final String SELECTION_META_COMPONENT_ID = "selection";
     public static final String DEFAULT_TREE_NODE_ID = "__defaultTreeNode";
     public static final String DEFAULT_TREE_NODE_FACET_NAME = DEFAULT_TREE_NODE_ID;

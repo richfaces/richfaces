@@ -35,7 +35,7 @@ import javax.faces.component.UIComponentBase;
  */
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuSeparator.COMPONENT_TYPE, renderer = @JsfRenderer(type = MenuSeparatorRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuSeparator"))
 public abstract class AbstractMenuSeparator extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.MenuSeparator";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.MenuSeparator";
 
     @Attribute(generate = false, hidden = true, readOnly = true)
     public Object getCssRoot() {

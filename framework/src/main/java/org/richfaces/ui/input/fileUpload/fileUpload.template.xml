@@ -27,8 +27,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.input.fileUpload.FileUploadRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.input.fileUpload.FileUploadRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.FileUpload</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.FileUploadRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.FileUpload</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.FileUploadRenderer</cdk:renderer-type>
         <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
         <cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
         <cdk:resource-dependency name="richfaces-event.js" />

@@ -39,11 +39,11 @@ import org.richfaces.ui.attribute.CoreProps;
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 @JsfComponent(type = AbstractEditor.COMPONENT_TYPE, family = AbstractEditor.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.EditorRenderer"), tag = @Tag(name = "editor"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.EditorRenderer"), tag = @Tag(name = "editor"),
         facets = @Facet(name = "config", description = @Description("Detailed configuration of editor in JSON format")))
 public abstract class AbstractEditor extends UIInput implements CoreProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.Editor";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Editor";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Editor";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Editor";
 
     /**
      * <p>

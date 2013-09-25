@@ -36,7 +36,7 @@ import org.richfaces.ui.input.InputRendererBase;
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(name = "richfaces-utils.js"),
         @ResourceDependency(library = "org.richfaces", name = "input/editor/editor.js"),
-        @ResourceDependency(library = "org.richfaces.ckeditor", name = "ckeditor.js", target = "body") })
+        @ResourceDependency(library = "org.richfaces.ui.ckeditor", name = "ckeditor.js", target = "body") })
 public class EditorRendererBase extends InputRendererBase {
 
     public static final String DEFAULT_WIDTH = "100%";
@@ -53,13 +53,13 @@ public class EditorRendererBase extends InputRendererBase {
 
     public String getCKEditorRequestPath(FacesContext facesContext) {
         Resource resource = facesContext.getApplication().getResourceHandler()
-                .createResource("ckeditor.js", "org.richfaces.ckeditor");
+                .createResource("ckeditor.js", "org.richfaces.ui.ckeditor");
         return resource.getRequestPath();
     }
 
     public String getECSSQueryString(FacesContext facesContext, String resourceName) {
         Resource resource = facesContext.getApplication().getResourceHandler()
-                .createResource(resourceName, "org.richfaces.ckeditor");
+                .createResource(resourceName, "org.richfaces.ui.ckeditor");
         String requestPath = resource.getRequestPath();
         String queryString = requestPath.substring(requestPath.lastIndexOf("db="));
         String db = queryString.substring(0, queryString.indexOf('&'));

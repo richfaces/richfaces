@@ -44,9 +44,9 @@ import javax.faces.component.UIPanel;
  *
  * @author asmirnov@exadel.com
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.OutputPanelRenderer"), tag = @Tag(type = TagType.Facelets))
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.ui.OutputPanelRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractOutputPanel extends UIPanel implements AjaxOutput, AjaxOutputProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.OutputPanel";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.OutputPanel";
     public static final String COMPONENT_FAMILY = "javax.faces.Panel";
 
     @Attribute(defaultValue = "false")

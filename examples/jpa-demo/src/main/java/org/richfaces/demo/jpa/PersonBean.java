@@ -29,7 +29,7 @@ import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 
 import com.google.common.collect.Maps;
-import org.richfaces.ui.iteration.SortOrder;
+import org.richfaces.model.SortOrder;
 
 /**
  * @author Nick Belaevski

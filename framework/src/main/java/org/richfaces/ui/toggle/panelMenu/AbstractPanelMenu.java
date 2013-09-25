@@ -53,10 +53,10 @@ import org.richfaces.ui.toggle.ItemChangeSource;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = PanelMenuTagHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.PanelMenuRenderer"))
+        renderer = @JsfRenderer(type = "org.richfaces.ui.PanelMenuRenderer"))
 public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSource, EventsMouseProps, ImmediateProps, StyleProps, StyleClassProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.PanelMenu";
-    public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenu";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.PanelMenu";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.PanelMenu";
     private String submittedActiveItem;
 
     private enum PropertyKeys {

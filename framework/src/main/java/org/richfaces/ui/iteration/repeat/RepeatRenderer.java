@@ -35,7 +35,7 @@ import java.io.IOException;
  * @author Nick Belaevski
  *
  */
-@JsfRenderer(type = "org.richfaces.RepeatRenderer", family = UIRepeat.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.RepeatRenderer", family = UIRepeat.COMPONENT_FAMILY)
 public class RepeatRenderer extends Renderer {
     @Override
     public boolean getRendersChildren() {

@@ -43,8 +43,8 @@ import org.richfaces.cdk.annotations.Tag;
  */
 @JsfComponent(type = UIHashParameter.COMPONENT_TYPE, family = UIHashParameter.COMPONENT_FAMILY, tag = @Tag(name = "hashParam", handlerClass = ComponentHandler.class))
 public class UIHashParameter extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.HashParameter";
-    public static final String COMPONENT_FAMILY = "org.richfaces.HashParameter";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.HashParameter";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.HashParameter";
 
     enum PropertyKeys {
         name

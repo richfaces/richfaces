@@ -32,8 +32,8 @@ import org.richfaces.cdk.annotations.Tag;
  */
 @JsfComponent(type = UITreeModelAdaptor.COMPONENT_TYPE, family = UITreeModelAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelAdaptor", handlerClass = TreeModelAdaptorHandler.class), attributes = "tree-model-props.xml")
 public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements TreeModelAdaptor {
-    public static final String COMPONENT_TYPE = "org.richfaces.TreeModelAdaptor";
-    public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelAdaptor";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.TreeModelAdaptor";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.TreeModelAdaptor";
 
     private enum PropertyKeys {
         nodes,

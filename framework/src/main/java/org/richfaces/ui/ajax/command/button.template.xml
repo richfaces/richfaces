@@ -30,7 +30,7 @@
         <cdk:class>org.richfaces.ui.ajax.command.CommandButtonRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.ajax.command.CommandButtonRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Command</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.CommandButtonRenderer</cdk:renderer-type>
+        <cdk:renderer-type>org.richfaces.ui.CommandButtonRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>

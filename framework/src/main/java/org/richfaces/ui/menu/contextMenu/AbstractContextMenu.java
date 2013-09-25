@@ -43,8 +43,8 @@ import org.richfaces.ui.menu.menu.AbstractMenuContainer;
 @JsfComponent(family = AbstractContextMenu.COMPONENT_FAMILY, type = AbstractContextMenu.COMPONENT_TYPE,
         renderer = @JsfRenderer(type = ContextMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "contextMenu"))
 public abstract class AbstractContextMenu extends AbstractMenuContainer implements CoreProps, EventsKeyProps, EventsMouseProps, I18nProps, PositionProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.ContextMenu";
-    public static final String COMPONENT_FAMILY = "org.richfaces.ContextMenu";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.ContextMenu";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.ContextMenu";
 
     /**
      * If the value of the 'attached' attribute is true, the component is attached to the component, specified in the

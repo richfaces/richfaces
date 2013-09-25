@@ -59,8 +59,8 @@ import javax.faces.event.PostAddToViewEvent;
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractFocus extends UIOutput implements AjaxOutput {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.Focus";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Focus";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Focus";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Focus";
 
     /**
      * Defines whether focus state should be updated during each AJAX request automatically. (default: true)

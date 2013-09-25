@@ -29,8 +29,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.iteration.list.ListRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.iteration.list.ListRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.List</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.ListRenderer
+        <cdk:component-family>org.richfaces.ui.List</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.ListRenderer
         </cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
 

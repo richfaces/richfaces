@@ -30,8 +30,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.output.panel.PanelRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.output.panel.PanelBaseRenderer</cdk:superclass>
-        <cdk:component-family>org.richfaces.Panel</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.PanelRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.Panel</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.PanelRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>

@@ -51,7 +51,7 @@ import org.richfaces.util.RendererUtils;
         @ResourceDependency(library = "org.richfaces", name = "ajax/poll.js") })
 @JsfRenderer
 public class AjaxPollRenderer extends RendererBase {
-    public static final String COMPONENT_FAMILY = "org.richfaces.Poll";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Poll";
     public static final String RENDERER_TYPE = "org.richfaces.PollRenderer";
     private static final String AJAX_POLL_FUNCTION = "new RichFaces.ui.Poll";
     private static final String ENABLED = "enabled";

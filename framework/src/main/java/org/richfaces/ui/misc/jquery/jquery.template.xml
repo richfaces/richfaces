@@ -30,8 +30,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.misc.jquery.JQueryRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.misc.jquery.JQueryRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.JQuery</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.JQueryRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.JQuery</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.JQueryRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
 
         <cdk:import package="org.richfaces.ui.misc.jquery" names="JQueryAttachType JQueryTiming" />

@@ -31,7 +31,7 @@
         <cdk:class>org.richfaces.ui.ajax.command.CommandLinkRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.ajax.command.AjaxCommandRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Command</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.CommandLinkRenderer</cdk:renderer-type>
+        <cdk:renderer-type>org.richfaces.ui.CommandLinkRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
     </cc:interface>
 

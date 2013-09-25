@@ -45,10 +45,10 @@ import org.richfaces.ui.common.InplaceState;
  * @author Anton Belevich
  */
 @JsfComponent(type = AbstractInplaceInput.COMPONENT_TYPE, family = AbstractInplaceInput.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"), tag = @Tag(name = "inplaceInput"))
+        renderer = @JsfRenderer(type = "org.richfaces.ui.InplaceInputRenderer"), tag = @Tag(name = "inplaceInput"))
 public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.InplaceInput";
-    public static final String COMPONENT_FAMILY = "org.richfaces.InplaceInput";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.InplaceInput";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.InplaceInput";
 
     /**
      * If "true", this component is disabled

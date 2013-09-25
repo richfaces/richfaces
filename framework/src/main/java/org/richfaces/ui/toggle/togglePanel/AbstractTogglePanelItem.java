@@ -44,10 +44,10 @@ import org.richfaces.ui.toggle.AbstractTogglePanelItemInterface;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"))
+        renderer = @JsfRenderer(type = "org.richfaces.ui.TogglePanelItemRenderer"))
 public abstract class AbstractTogglePanelItem extends UIOutput implements AbstractTogglePanelItemInterface, CoreProps, EventsMouseProps, I18nProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelItem";
-    public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelItem";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.TogglePanelItem";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.TogglePanelItem";
     public static final String NAME = "name";
 
     enum Properties {
