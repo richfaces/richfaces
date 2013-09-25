@@ -49,10 +49,10 @@ import org.richfaces.ui.iteration.column.Column;
  */
 @JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE,
         family = AbstractCollapsibleSubTable.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.CollapsibleSubTableRenderer"),
         tag = @Tag(name = "collapsibleSubTable", handlerClass = CollapsibleSubTableHandler.class, type = TagType.Facelets))
 public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable, EventsRowProps, RowsProps, StyleProps, SequenceProps, IterationProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTable";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.CollapsibleSubTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String MODE_AJAX = "ajax";
     public static final String MODE_SERVER = "server";

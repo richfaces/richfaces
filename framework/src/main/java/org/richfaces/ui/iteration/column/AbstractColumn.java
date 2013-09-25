@@ -36,7 +36,7 @@ import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
-import org.richfaces.ui.iteration.SortOrder;
+import org.richfaces.model.SortOrder;
 
 /**
  * <p> The &lt;r:column&gt; component facilitates columns in a table. It supports merging columns and rows, sorting,
@@ -48,8 +48,8 @@ import org.richfaces.ui.iteration.SortOrder;
         @Facet(name = "header", description = @Description("Column header")),
         @Facet(name = "footer", description = @Description("Column footer")) }, tag = @Tag(name = "column"))
 public abstract class AbstractColumn extends javax.faces.component.UIColumn implements Column {
-    public static final String COMPONENT_TYPE = "org.richfaces.Column";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Column";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Column";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Column";
     private static Boolean builtInSortControlsEnabled;
     private static Boolean builtInFilterControlsEnabled;
 

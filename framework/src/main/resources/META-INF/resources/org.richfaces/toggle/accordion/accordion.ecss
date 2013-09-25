@@ -35,7 +35,7 @@
     border-color: '#{richSkin.panelBorderColor}';
     border-top-left-radius: '#{richSkin.panelBorderRadius}';
     border-top-right-radius: '#{richSkin.panelBorderRadius}';
-    background-image: "#{richSkin.imageUrl('gradientA.png')}";
+    background-image: "url(#{resource['org.richfaces.ui.images:gradientA.png']})";
     background-repeat: repeat-x;
     background-position: top left;
     background-color: '#{richSkin.headerBackgroundColor}';
@@ -66,7 +66,7 @@
 }
 
 .rf-ac-itm-hdr-act {
-
+    
 }
 
 .rf-ac-itm-hdr-inact {
@@ -92,23 +92,23 @@
 }
 
 .rf-ac-itm-ico-act {
-
+    
 }
 
 .rf-ac-itm-ico-inact {
-
+    
 }
 
 .rf-ac-itm-lbl {
-
+    
 }
 
 .rf-ac-itm-lbl-act {
-
+    
 }
 
 .rf-ac-itm-lbl-inact {
-
+    
 }
 
 .rf-ac-itm-hdr-act .rf-ac-itm-ico-act {

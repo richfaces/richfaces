@@ -55,7 +55,7 @@ import com.google.common.base.Predicate;
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/togglePanel/togglePanelItem.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/tabPanel/tab.js") })
-@JsfRenderer(type = "org.richfaces.TabRenderer", family = AbstractTab.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.TabRenderer", family = AbstractTab.COMPONENT_FAMILY)
 public class TabRenderer extends TogglePanelItemRenderer {
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {

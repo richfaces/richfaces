@@ -42,8 +42,8 @@ import org.richfaces.ui.menu.menu.AbstractMenuContainer;
         facets = {@Facet(name = "label", generate = false), @Facet(name = "labelDisabled", generate = false) },
         renderer = @JsfRenderer(type = DropDownMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "dropDownMenu"))
 public abstract class AbstractDropDownMenu extends AbstractMenuContainer implements CoreProps, EventsKeyProps, EventsMouseProps, I18nProps, PositionProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.DropDownMenu";
-    public static final String COMPONENT_FAMILY = "org.richfaces.DropDownMenu";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.DropDownMenu";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.DropDownMenu";
 
     /**
      * The text label for the menu item. Alternatively, use the label facet to define content for the label

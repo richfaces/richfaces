@@ -67,7 +67,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
 
 public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
-    public static final String COMPONENT_FAMILY = "org.richfaces.Data";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Data";
     public static final String HEADER_FACET_NAME = "header";
     public static final String FOOTER_FACET_NAME = "footer";
     public static final String NODATA_FACET_NAME = "noData";

@@ -36,7 +36,7 @@ import java.util.Iterator;
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/02/01 15:31:27 $
  */
-@JsfRenderer(type = "org.richfaces.OutputPanelRenderer", family = AbstractOutputPanel.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.OutputPanelRenderer", family = AbstractOutputPanel.COMPONENT_FAMILY)
 public class AjaxOutputPanelRenderer extends RendererBase {
     private static final String[] STYLE_ATTRIBUTES = new String[] { "style", "class" };
 

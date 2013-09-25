@@ -44,7 +44,7 @@ import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.getValueRe
  * @author akolonitsky
  * @since 2010-10-25
  */
-@JsfRenderer(type = "org.richfaces.PanelMenuRenderer", family = AbstractPanelMenu.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.PanelMenuRenderer", family = AbstractPanelMenu.COMPONENT_FAMILY)
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),

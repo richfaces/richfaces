@@ -71,12 +71,12 @@ import org.richfaces.ui.common.meta.MetaComponentResolver;
  * @author amarkhel
  */
 @JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.CalendarRenderer"),
         tag = @Tag(name = "calendar", handlerClass = CalendarHandler.class))
 public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder, EventsPopupsProps, PopupsProps, PositionProps {
     public static final String DAYSDATA_META_COMPONENT_ID = "daysData";
-    public static final String COMPONENT_TYPE = "org.richfaces.Calendar";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Calendar";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Calendar";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Calendar";
     public static final String SUB_TIME_PATTERN = "\\s*[hHkKma]+[\\W&&\\S]+[hHkKma]+[\\W&&\\S]*[s]*\\s*";
     public static final String TIME_PATTERN = "HH:mm:ss";
     public static final String DEFAULT_DATE_PATTERN = "MMM d, yyyy";
@@ -274,6 +274,20 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute
     public abstract boolean isResetTimeOnDateSelect();
 
+    // ---------- position-props.xml
+
+    @Attribute
+    public abstract Positioning getJointPoint();
+
+    @Attribute
+    public abstract Positioning getDirection();
+
+    @Attribute
+    public abstract int getHorizontalOffset();
+
+    @Attribute
+    public abstract int getVerticalOffset();
+
     /**
      * <p>
      * This attribute is responsible for behaviour of dates from the previous and next months which are displayed in the current
@@ -402,12 +416,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
      */
     @Attribute
     public abstract String getInputSize();
-
-    /**
-     * Specifies the maximum number of digits that could be entered into the input field.
-     */
-    @Attribute
-    public abstract Integer getMaxlength();
 
     /**
      * Used to define the month and year which will be displayed

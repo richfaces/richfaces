@@ -60,7 +60,7 @@ import org.richfaces.ui.common.meta.MetaComponentResolver;
 public abstract class AbstractAutocomplete extends UIInput implements FocusProps, EventsKeyProps, EventsMouseProps,
         MetaComponentResolver, MetaComponentEncoder {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.sandbox.Autocomplete";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.sandbox.Autocomplete";
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
 
     static final String SUGGESTIONS_META_COMPONENT_ID = "suggestions";

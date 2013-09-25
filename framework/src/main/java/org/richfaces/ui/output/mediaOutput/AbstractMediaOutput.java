@@ -49,10 +49,10 @@ import org.richfaces.ui.attribute.I18nProps;
  * @author shura
  */
 @JsfComponent(tag = @Tag(generate = false, handlerClass = MediaOutputHandler.class, type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer"))
+        renderer = @JsfRenderer(type = "org.richfaces.ui.MediaOutputRenderer"))
 public abstract class AbstractMediaOutput extends UIOutput implements AccesskeyProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.MediaOutput";
-    public static final String COMPONENT_FAMILY = "org.richfaces.MediaOutput";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.MediaOutput";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.MediaOutput";
 
     public Resource getResource() {
         ResourceHandler resourceHandler = getFacesContext().getApplication().getResourceHandler();

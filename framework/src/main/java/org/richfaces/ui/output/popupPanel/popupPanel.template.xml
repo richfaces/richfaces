@@ -30,8 +30,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.output.popupPanel.PopupPanelRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.output.popupPanel.PopupPanelBaseRenderer</cdk:superclass>
-        <cdk:component-family>org.richfaces.PopupPanel</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.PopupPanelRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.PopupPanel</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.PopupPanelRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>

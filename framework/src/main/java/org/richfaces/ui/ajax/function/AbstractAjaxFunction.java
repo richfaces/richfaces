@@ -37,10 +37,10 @@ import org.richfaces.ui.common.AbstractActionComponent;
  * </p>
  * @author asmirnov@exadel.com
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.FunctionRenderer"), tag = @Tag(name = "jsFunction", type = TagType.Facelets))
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.ui.FunctionRenderer"), tag = @Tag(name = "jsFunction", type = TagType.Facelets))
 public abstract class AbstractAjaxFunction extends AbstractActionComponent implements AjaxProps {
     public static final String COMPONENT_FAMILY = "javax.faces.Command";
-    public static final String COMPONENT_TYPE = "org.richfaces.Function";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Function";
 
     /**
      * The name of the generated javascript function

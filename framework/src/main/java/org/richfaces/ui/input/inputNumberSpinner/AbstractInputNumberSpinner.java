@@ -46,10 +46,10 @@ import org.richfaces.ui.input.inputNumberSlider.InputNumberSliderInputPosition;
 @JsfComponent(
         type = AbstractInputNumberSpinner.COMPONENT_TYPE,
         family = AbstractInputNumberSpinner.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.InputNumberSpinnerRenderer"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.InputNumberSpinnerRenderer"),
         tag = @Tag(name = "inputNumberSpinner"))
 public abstract class AbstractInputNumberSpinner extends AbstractInputNumber implements AccesskeyProps, BaseProps, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps, InputProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.InputNumberSpinner";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.InputNumberSpinner";
     public static final String COMPONENT_FAMILY = "javax.faces.Input";
 
 

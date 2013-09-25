@@ -53,10 +53,10 @@ import javax.faces.render.Renderer;
  */
 @JsfComponent(
         tag = @Tag(type = TagType.Facelets), facets = { @Facet(name = "header", generate = false) },
-        renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"))
+        renderer = @JsfRenderer(type = "org.richfaces.ui.TabRenderer"))
 public abstract class AbstractTab extends AbstractActionComponent implements AbstractTogglePanelTitledItem, ClientBehaviorHolder, AjaxProps, BypassProps, CoreProps, EventsMouseProps, I18nProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.Tab";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Tab";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Tab";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Tab";
 
     public AbstractTab() {setRendererType("org.richfaces.TabRenderer");
     }

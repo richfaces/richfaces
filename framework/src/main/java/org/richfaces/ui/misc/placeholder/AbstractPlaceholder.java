@@ -48,9 +48,9 @@ import javax.faces.event.PostAddToViewEvent;
 public abstract class AbstractPlaceholder extends UIOutput {
     // ------------------------------ FIELDS ------------------------------
 
-    public static final String COMPONENT_FAMILY = "org.richfaces.Placeholder";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Placeholder";
 
-    public static final String COMPONENT_TYPE = "org.richfaces.Placeholder";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Placeholder";
 
     @Attribute(required = true)
     public abstract Object getValue();

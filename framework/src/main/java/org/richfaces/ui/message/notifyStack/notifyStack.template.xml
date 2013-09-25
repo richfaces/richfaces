@@ -27,8 +27,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.message.notifyStack.NotifyStackRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.message.notifyStack.NotifyStackRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.NotifyStack</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.NotifyStackRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.NotifyStack</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.NotifyStackRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>

@@ -54,6 +54,7 @@ import org.richfaces.model.DataVisitResult;
 import org.richfaces.model.DataVisitor;
 import org.richfaces.model.SelectionMode;
 import org.richfaces.model.SequenceRange;
+import org.richfaces.model.SortOrder;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.response.OnOffResponseWriter;
@@ -63,7 +64,6 @@ import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.iteration.RowHolderBase;
 import org.richfaces.ui.iteration.SelectionRenderer;
-import org.richfaces.ui.iteration.SortOrder;
 import org.richfaces.ui.iteration.UIDataTableBase;
 import org.richfaces.ui.iteration.column.AbstractColumn;
 import org.richfaces.util.HtmlUtil;
@@ -72,7 +72,7 @@ import org.richfaces.util.HtmlUtil;
  * @author Konstantin Mishin
  *
  */
-@JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer", family = AbstractExtendedDataTable.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.ExtendedDataTableRenderer", family = AbstractExtendedDataTable.COMPONENT_FAMILY)
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"),

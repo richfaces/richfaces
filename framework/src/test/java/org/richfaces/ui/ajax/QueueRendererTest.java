@@ -21,9 +21,15 @@
  */
 package org.richfaces.ui.ajax;
 
-import com.gargoylesoftware.htmlunit.html.DomNode;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import org.jboss.test.faces.ApplicationServer;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
@@ -36,14 +42,9 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 import org.richfaces.ui.ajax.queue.QueueRegistry;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import com.gargoylesoftware.htmlunit.html.DomNode;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author amarkhel
@@ -102,7 +103,7 @@ public class QueueRendererTest {
         page = facesEnvironment.getPage("/queue.jsf");
         String queueScript = extractQueueScript(page);
         assertNotNull(queueScript, "Queue script must be not null");
-        assertEquals(dehydrate(EXPECTED_QUEUE_SCRIPT), dehydrate(queueScript));
+        assertThat(dehydrate(queueScript), equalTo(dehydrate(EXPECTED_QUEUE_SCRIPT)));
         /*
          * String[] queueArray = queueScript.split("},"); //String[] queueNames = new String[queueArray.length]; //String[]
          * queueOptions = new String[queueArray.length]; for(int i = 0; i < queueArray.length - 1; i++){ queueArray[i] =
@@ -143,6 +144,7 @@ public class QueueRendererTest {
 
     private String extractQueueScript(HtmlPage page) {
         HtmlElement scriptElement = page.getElementById(QueueRegistry.QUEUE_SCRIPT_ID);
+        System.out.println(page.asXml());
         if (scriptElement != null) {
             return getTextContent(scriptElement).replaceAll("(^<!--)|(//-->$)", "");
         }

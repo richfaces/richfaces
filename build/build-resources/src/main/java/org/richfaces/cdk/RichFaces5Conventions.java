@@ -42,7 +42,7 @@ public final class RichFaces5Conventions implements NamingConventions {
 
         Name name = inferNameByClass(componentClass, null, null);
 
-        return FacesId.parseId("org.richfaces." + name.getSimpleName());
+        return FacesId.parseId("org.richfaces.ui." + name.getSimpleName());
     }
 
     private Name inferNameByClass(ClassName componentClass, Classifier classifier, String markup) {
@@ -163,7 +163,7 @@ public final class RichFaces5Conventions implements NamingConventions {
         rendererType = rendererType.split("\\.")[0];
         rendererType = rendererType.replaceFirst("^.", new String(new char[] { rendererType.charAt(0) }).toUpperCase());
 
-        return FacesId.parseId("org.richfaces." + rendererType + "Renderer");
+        return FacesId.parseId("org.richfaces.ui." + rendererType + "Renderer");
     }
 
     @Override

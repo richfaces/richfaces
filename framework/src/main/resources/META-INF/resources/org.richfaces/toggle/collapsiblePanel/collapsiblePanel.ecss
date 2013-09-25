@@ -44,11 +44,11 @@
     border-style: solid;
     background-position: top left;
     background-repeat: repeat-x;
-    background-image: "#{richSkin.imageUrl('gradientA.png')}";
+    background-image: "url(#{resource['org.richfaces.ui.images:gradientA.png']})";
 }
 
 .rf-cp-hdr-exp {
-
+    
 }
 
 .rf-cp-hdr-colps {
@@ -78,23 +78,23 @@
 }
 
 .rf-cp-ico-colps {
-
+    
 }
 
 .rf-cp-ico-exp {
-
+    
 }
 
 .rf-cp-lbl {
-
+    
 }
 
 .rf-cp-lbl-colps {
-
+    
 }
 
 .rf-cp-lbl-exp {
-
+    
 }
 
 .rf-cp-hdr-exp .rf-cp-ico-exp {

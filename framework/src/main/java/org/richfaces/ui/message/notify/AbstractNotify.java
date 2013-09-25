@@ -45,14 +45,14 @@ import javax.faces.component.UIComponentBase;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(tag = @Tag(name = "notify"), type = AbstractNotify.COMPONENT_TYPE, family = AbstractNotify.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"),
+        renderer = @JsfRenderer(type = "org.richfaces.ui.NotifyRenderer"),
         facets = {
             @Facet(name = "summary", description = @Description("Summary of the notification message")),
             @Facet(name = "detail", description = @Description("Detail of the notification message")) })
 public abstract class AbstractNotify extends UIComponentBase implements NotifyAttributes, EventsKeyProps, EventsMouseProps, StyleClassProps {
 
-    public static final String COMPONENT_FAMILY = "org.richfaces.Notify";
-    public static final String COMPONENT_TYPE = "org.richfaces.Notify";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Notify";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Notify";
 
     public static final double DEFAULT_NONBLOCKING_OPACITY = .2;
 

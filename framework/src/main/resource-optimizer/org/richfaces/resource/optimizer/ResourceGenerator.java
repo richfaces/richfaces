@@ -207,7 +207,7 @@ public class ResourceGenerator {
      */
     private FileNameMapping[] fileNameMappings = new FileNameMapping[] {
             new FileNameMapping("^.*showcase.*/([^/]+\\.css)$", "org.richfaces.showcase.css/$1"),
-            new FileNameMapping("^.+/([^/]+\\.(png|gif|jpg))$", "org.richfaces.images/$1"),
+            new FileNameMapping("^.+/([^/]+\\.(png|gif|jpg))$", "org.richfaces.ui.images/$1"),
             new FileNameMapping("^.+/([^/]+\\.css)$", "org.richfaces.css/$1")
     };
     /**

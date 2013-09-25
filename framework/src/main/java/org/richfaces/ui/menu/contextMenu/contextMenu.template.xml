@@ -30,8 +30,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.menu.contextMenu.ContextMenuRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.menu.contextMenu.ContextMenuRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.ContextMenu</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.ContextMenuRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.ContextMenu</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.ContextMenuRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
     </cc:interface>
 

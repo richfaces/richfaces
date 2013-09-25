@@ -27,8 +27,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.drag.dragIndicator.DragIndicatorRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.drag.dragIndicator.DragIndicatorRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.DragIndicator</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.DragIndicatorRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.DragIndicator</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.DragIndicatorRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>

@@ -45,7 +45,7 @@ import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
         facets = {@Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) },
         renderer = @JsfRenderer(type = MenuItemRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuItem"))
 public abstract class AbstractMenuItem extends AbstractActionComponent implements AjaxProps, BypassProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.MenuItem";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.MenuItem";
     public static final String CSS_ROOT_DEFAULT = "ddm";
 
     /**

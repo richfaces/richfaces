@@ -22,9 +22,8 @@
 package org.richfaces.ui.drag.dragSource;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.javascript.DnDScript;
-import org.richfaces.javascript.DragScript;
 import org.richfaces.ui.drag.DnDRenderBase;
+import org.richfaces.ui.drag.DnDScript;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -47,7 +46,7 @@ import java.util.Map;
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.draggable.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.droppable.js"),
         @ResourceDependency(library = "org.richfaces", name = "drag/dnd-draggable.js") })
-@JsfRenderer(type = "org.richfaces.DragSourceRenderer", family = AbstractDragSource.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.DragSourceRenderer", family = AbstractDragSource.COMPONENT_FAMILY)
 public class DragSourceRenderer extends DnDRenderBase {
     @Override
     public Map<String, Object> getOptions(FacesContext facesContext, UIComponent component) {

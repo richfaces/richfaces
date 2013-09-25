@@ -53,7 +53,7 @@ import static org.richfaces.ui.common.HtmlConstants.STYLE_ATTRIBUTE;
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/togglePanel/togglePanelItem.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/accordion/accordionItem.js") })
-@JsfRenderer(type = "org.richfaces.AccordionItemRenderer", family = AbstractAccordionItem.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.AccordionItemRenderer", family = AbstractAccordionItem.COMPONENT_FAMILY)
 public class AccordionItemRenderer extends TogglePanelItemRenderer {
     private static final RenderKitUtils.Attributes HEADER_ATTRIBUTES = RenderKitUtils.attributes()
         .generic("style", "headerStyle").generic("onclick", "onheaderclick", "headerclick")

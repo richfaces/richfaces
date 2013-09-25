@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
 /**
  * @author Nick Belaevski Renderer for attachedQueue component
  */
-@JsfRenderer(type = "org.richfaces.AttachQueueRenderer", family = "org.richfaces.AttachQueue")
+@JsfRenderer(type = "org.richfaces.ui.AttachQueueRenderer", family = "org.richfaces.AttachQueue")
 public class AttachQueueRenderer extends QueueRendererBase {
     @Override
     protected String getQueueName(FacesContext context, UIComponent comp) {

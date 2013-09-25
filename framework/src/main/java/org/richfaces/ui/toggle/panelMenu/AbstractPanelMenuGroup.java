@@ -48,8 +48,8 @@ import javax.faces.event.PhaseId;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem implements AjaxProps, BypassProps, EventsMouseProps, StyleProps, StyleClassProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuGroup";
-    public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuGroup";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.PanelMenuGroup";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.PanelMenuGroup";
     private Boolean submittedExpanded;
 
     private enum PropertyKeys {

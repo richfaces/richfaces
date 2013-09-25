@@ -21,6 +21,15 @@
  */
 package org.richfaces.ui.select.select;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
 import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.ScriptString;
@@ -36,15 +45,6 @@ import org.richfaces.ui.select.SelectHelper;
 import org.richfaces.ui.validation.AddCSVMessageScript;
 import org.richfaces.util.HtmlDimensions;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
-import java.io.IOException;
-import java.util.List;
-
 /**
  * @author abelevich
  *
@@ -53,8 +53,8 @@ import java.util.List;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(name = "richfaces-utils.js"), @ResourceDependency(name = "richfaces-selection.js"),
-        @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
-        @ResourceDependency(library = "org.richfaces", name = "popup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/inputBase.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "select/list.js"),
         @ResourceDependency(library = "org.richfaces", name = "select/popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "select/select/select.js"),

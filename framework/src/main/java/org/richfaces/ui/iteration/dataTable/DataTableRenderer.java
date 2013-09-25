@@ -58,7 +58,7 @@ import java.util.Map;
 /**
  * @author Anton Belevich
  */
-@JsfRenderer(type = "org.richfaces.DataTableRenderer", family = AbstractDataTable.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.DataTableRenderer", family = AbstractDataTable.COMPONENT_FAMILY)
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "iteration/dataTable/datatable.js"),
         @ResourceDependency(library = "org.richfaces", name = "iteration/dataTable/datatable.ecss") })

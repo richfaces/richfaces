@@ -43,7 +43,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.ui.input.fileUpload.FileUploadException;
+import org.richfaces.exception.FileUploadException;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Lists;

@@ -46,9 +46,9 @@ import org.richfaces.ui.common.meta.MetaComponentResolver;
  * </p>
  * @author Nick Belaevski
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandButtonRenderer"), tag = @Tag(type = TagType.Facelets))
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.ui.CommandButtonRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractCommandButton extends AbstractActionComponent implements MetaComponentResolver, AccesskeyProps, AjaxProps, CommandButtonProps, CoreProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.CommandButton";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.CommandButton";
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
 
     /**

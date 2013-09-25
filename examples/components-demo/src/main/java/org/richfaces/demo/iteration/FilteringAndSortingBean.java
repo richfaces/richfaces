@@ -28,7 +28,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.richfaces.demo.iteration.model.Employee;
 import org.richfaces.model.Filter;
-import org.richfaces.ui.iteration.SortOrder;
+import org.richfaces.model.SortOrder;
 
 @ManagedBean(name = "filteringAndSortingBean")
 @SessionScoped

@@ -28,7 +28,7 @@
         <cdk:class>org.richfaces.ui.input.calendar.CalendarRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.input.calendar.CalendarRendererBase
         </cdk:superclass>
-        <cdk:renderer-type>org.richfaces.CalendarRenderer</cdk:renderer-type>
+        <cdk:renderer-type>org.richfaces.ui.CalendarRenderer</cdk:renderer-type>
         <cdk:import package="org.richfaces.ui.common" names="Positioning" />
     </cc:interface>
     <cc:implementation>

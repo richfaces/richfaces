@@ -28,7 +28,7 @@
         <cdk:class>org.richfaces.ui.message.message.HtmlMessageRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.message.MessageRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Message</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.MessageRenderer</cdk:renderer-type>
+        <cdk:renderer-type>org.richfaces.ui.MessageRenderer</cdk:renderer-type>
         <cdk:resource-dependency library="org.richfaces" name="message.reslib" />
         <cdk:resource-dependency library = "org.richfaces" name = "message/message/msg.ecss" />
     </cc:interface>

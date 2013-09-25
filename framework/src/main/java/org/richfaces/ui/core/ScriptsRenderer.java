@@ -25,22 +25,22 @@
  */
 package org.richfaces.ui.core;
 
-import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.resource.ResourceKey;
+import java.io.IOException;
+import java.util.Collection;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import java.io.IOException;
-import java.util.Collection;
+import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.resource.ResourceKey;
 
 /**
  * @author asmirnov
  *
  */
 public class ScriptsRenderer extends ResourceRenderer {
-    public static final String RENDERER_TYPE = "org.richfaces.renderer.ScriptsRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.renderer.ScriptsRenderer";
     private static final String TEXT_JAVASCRIPT = "text/javascript";
     private static final String SRC = "src";
     private static final String TYPE = "type";

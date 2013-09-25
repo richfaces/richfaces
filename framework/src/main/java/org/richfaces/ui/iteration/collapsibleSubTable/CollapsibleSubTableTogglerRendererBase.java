@@ -43,7 +43,7 @@ import java.util.Map;
 /**
  * @author Anton Belevich
  */
-@JsfRenderer(type = "org.richfaces.CollapsibleSubTableTogglerRenderer", family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.CollapsibleSubTableTogglerRenderer", family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY)
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "iteration/collapsibleSubTable/collapsible-subtable-toggler.js"),

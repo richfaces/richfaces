@@ -37,10 +37,10 @@ import javax.faces.component.UIComponentBase;
  * </p>
  * @author Nick Belaevski
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.StatusRenderer"), tag = @Tag(type = TagType.Facelets))
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.ui.StatusRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractAjaxStatus extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.Status";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Status";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Status";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Status";
 
     /**
      * The client-side script method to be called when the request starts
