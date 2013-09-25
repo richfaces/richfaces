@@ -38,6 +38,7 @@ import org.junit.Test;
 import org.junit.rules.MethodRule;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
 
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -77,7 +78,7 @@ public class QueueRendererTest {
 
     @Before
     public void setUp() throws Exception {
-        facesEnvironment = new HtmlUnitEnvironment();
+        facesEnvironment = new CustomizedHtmlUnitEnvironment();
 
         ApplicationServer facesServer = facesEnvironment.getServer();
         facesServer.addResource("/queue.xhtml", "org/richfaces/component/queue.xhtml");

@@ -28,9 +28,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.component.DropDownMenuBean;
 import org.xml.sax.SAXException;
 
@@ -40,7 +40,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class DropDownMenuRendererTest extends RendererTestBase {
     @Override
     public void setUp() throws URISyntaxException {
-        environment = new HtmlUnitEnvironment();
+        environment = new CustomizedHtmlUnitEnvironment();
         environment.withWebRoot(new File(this.getClass().getResource(".").toURI()));
         environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/component/faces-config.xml");
         environment.start();

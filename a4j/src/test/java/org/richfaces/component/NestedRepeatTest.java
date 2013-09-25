@@ -32,6 +32,7 @@ import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -41,7 +42,7 @@ public class NestedRepeatTest {
 
     @Before
     public void setUp() throws Exception {
-        environment = new HtmlUnitEnvironment();
+        environment = new CustomizedHtmlUnitEnvironment();
         environment.withWebRoot(new File(this.getClass().getResource(".").toURI()));
         environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/component/faces-config.xml");
         environment.start();

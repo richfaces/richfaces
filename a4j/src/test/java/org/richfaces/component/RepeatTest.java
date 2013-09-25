@@ -32,6 +32,7 @@ import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -107,7 +108,7 @@ public class RepeatTest {
     public void setUp() throws Exception {
         setupTestBean();
 
-        environment = new HtmlUnitEnvironment();
+        environment = new CustomizedHtmlUnitEnvironment();
 
         environment.withResource("/WEB-INF/classes/faces-config.xml",
             getClass().getResource("/org/richfaces/component/RepeatTest.faces-config.xml"));

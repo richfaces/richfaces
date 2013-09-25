@@ -9,6 +9,7 @@ import org.hamcrest.Matcher;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
@@ -26,7 +27,7 @@ public abstract class IntegrationTestBase {
 
     @Before
     public void setUp() {
-        this.environment = new HtmlUnitEnvironment();
+        this.environment = new CustomizedHtmlUnitEnvironment();
         this.environment.withResource("/" + getPageName() + ".xhtml", "org/richfaces/component/" + getPageName() + ".xhtml")
             .withResource("/WEB-INF/faces-config.xml", "org/richfaces/component/" + getFacesConfig());
         setupEnvironment(environment);

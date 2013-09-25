@@ -38,12 +38,13 @@ import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
 import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
 import net.sourceforge.htmlunit.corejs.javascript.Undefined;
 
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSFunctionDefinition;
 import org.jboss.test.faces.ApplicationServer;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSFunctionDefinition;
 
 import com.gargoylesoftware.htmlunit.ScriptPreProcessor;
 import com.gargoylesoftware.htmlunit.ScriptResult;
@@ -94,7 +95,7 @@ public abstract class AbstractQueueComponentTest {
 
     @Before
     public void setUp() throws Exception {
-        facesEnvironment = new HtmlUnitEnvironment();
+        facesEnvironment = new CustomizedHtmlUnitEnvironment();
 
         ApplicationServer facesServer = facesEnvironment.getServer();
         facesServer.addResource("/resources/" + SIMULATION_SCRIPT_NAME, "org/ajax4jsf/component/" + SIMULATION_SCRIPT_NAME);
