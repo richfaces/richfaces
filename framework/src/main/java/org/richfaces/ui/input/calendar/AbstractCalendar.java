@@ -274,20 +274,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute
     public abstract boolean isResetTimeOnDateSelect();
 
-    // ---------- position-props.xml
-
-    @Attribute
-    public abstract Positioning getJointPoint();
-
-    @Attribute
-    public abstract Positioning getDirection();
-
-    @Attribute
-    public abstract int getHorizontalOffset();
-
-    @Attribute
-    public abstract int getVerticalOffset();
-
     /**
      * <p>
      * This attribute is responsible for behaviour of dates from the previous and next months which are displayed in the current
@@ -416,6 +402,12 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
      */
     @Attribute
     public abstract String getInputSize();
+
+    /**
+     * Specifies the maximum number of digits that could be entered into the input field.
+     */
+    @Attribute
+    public abstract Integer getMaxlength();
 
     /**
      * Used to define the month and year which will be displayed
