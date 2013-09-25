@@ -41,10 +41,10 @@ import javax.faces.component.UIComponentBase;
 @ResourceDependencies(value = { @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "ajax/log.js"),
         @ResourceDependency(library = "org.richfaces", name = "ajax/log.ecss") })
-@JsfComponent(tag = @Tag(name = "log", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.AjaxLogRenderer"))
+@JsfComponent(tag = @Tag(name = "log", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ui.AjaxLogRenderer"))
 public abstract class AbstractAjaxLog extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.AjaxLog";
-    public static final String COMPONENT_FAMILY = "org.richfaces.AjaxLog";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.AjaxLog";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.AjaxLog";
 
     /**
      * CSS style(s) to be applied when this component is rendered.

@@ -30,8 +30,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.iteration.tree.TreeNodeRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.iteration.tree.TreeNodeRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.TreeNode</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.TreeNodeRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.TreeNode</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.TreeNodeRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>

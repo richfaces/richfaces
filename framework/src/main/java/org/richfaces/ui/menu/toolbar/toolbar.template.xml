@@ -29,8 +29,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.menu.toolbar.ToolbarRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.menu.toolbar.ToolbarRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.Toolbar</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.ToolbarRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.Toolbar</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.ToolbarRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>

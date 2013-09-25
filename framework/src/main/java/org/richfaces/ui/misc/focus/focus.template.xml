@@ -28,8 +28,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.misc.focus.FocusRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.misc.focus.FocusRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.Focus</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.FocusRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.Focus</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.FocusRenderer</cdk:renderer-type>
         <cdk:component-base-class>org.richfaces.ui.misc.focus.AbstractFocus</cdk:component-base-class>
     </cc:interface>
 

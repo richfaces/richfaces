@@ -52,11 +52,11 @@ import org.richfaces.ui.attribute.I18nProps;
  * @author Konstantin Mishin
  */
 @JsfComponent(tag = @Tag(generate = false, handlerClass = FileUploadHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"))
+        renderer = @JsfRenderer(type = "org.richfaces.ui.FileUploadRenderer"))
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractFileUpload extends UIComponentBase implements AjaxProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.FileUpload";
-    public static final String COMPONENT_FAMILY = "org.richfaces.FileUpload";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.FileUpload";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.FileUpload";
 
     /**
      * Defines comma separated list of file extensions accepted by component.

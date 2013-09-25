@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource;
+package org.richfaces.ui.ajax.push;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -36,6 +36,8 @@ import org.richfaces.push.PushContext;
 import org.richfaces.push.PushContextFactory;
 import org.richfaces.push.Session;
 import org.richfaces.push.TopicKey;
+import org.richfaces.resource.AbstractUserResource;
+import org.richfaces.resource.DynamicResource;
 import org.richfaces.services.ServiceTracker;
 
 /**

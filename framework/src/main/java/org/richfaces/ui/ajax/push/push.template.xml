@@ -30,8 +30,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.ajax.push.PushRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.ajax.push.PushRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.Push</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.PushRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.Push</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.PushRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
 
         

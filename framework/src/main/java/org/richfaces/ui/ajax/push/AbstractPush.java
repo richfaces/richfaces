@@ -40,10 +40,10 @@ import javax.faces.component.UIComponentBase;
  * @author Nick Belaevski
  * @author Lukas Fryc
  */
-@JsfComponent(type = AbstractPush.COMPONENT_TYPE, family = AbstractPush.COMPONENT_FAMILY, tag = @Tag(name = "push", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PushRenderer"))
+@JsfComponent(type = AbstractPush.COMPONENT_TYPE, family = AbstractPush.COMPONENT_FAMILY, tag = @Tag(name = "push", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ui.PushRenderer"))
 public abstract class AbstractPush extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.Push";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Push";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Push";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Push";
 
     @Override
     public String getFamily() {

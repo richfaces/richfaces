@@ -51,10 +51,10 @@ import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = CollapsiblePanelTagHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer") )
+        renderer = @JsfRenderer(type = "org.richfaces.ui.CollapsiblePanelRenderer") )
 public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource, CoreProps, EventsMouseProps, I18nProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";
-    public static final String COMPONENT_FAMILY = "org.richfaces.CollapsiblePanel";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.CollapsiblePanel";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.CollapsiblePanel";
 
     public enum States {
         expanded("exp"),

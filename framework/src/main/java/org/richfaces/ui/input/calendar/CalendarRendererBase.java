@@ -227,7 +227,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             buttonIcon = RenderKitUtils.getResourceURL(buttonIcon, facesContext);
         } else {
             buttonIcon = disable ? CALENDAR_DISABLE_ICON_RESOURCE_NAME : CALENDAR_ICON_RESOURCE_NAME;
-            buttonIcon = RenderKitUtils.getResourcePath(facesContext, "org.richfaces.images", buttonIcon);
+            buttonIcon = RenderKitUtils.getResourcePath(facesContext, "org.richfaces.ui.images", buttonIcon);
         }
         return buttonIcon;
     }

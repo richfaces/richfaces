@@ -44,7 +44,7 @@ import org.richfaces.model.SortField;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import org.richfaces.ui.iteration.SortOrder;
+import org.richfaces.model.SortOrder;
 
 public abstract class JPADataModel<T> extends ExtendedDataModel<T> implements Arrangeable {
     private EntityManager entityManager;

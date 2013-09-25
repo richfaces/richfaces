@@ -27,8 +27,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.message.notify.NotifyRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.message.notify.NotifyRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.Notify</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.NotifyRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.Notify</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.NotifyRenderer</cdk:renderer-type>
         <cdk:import package="org.richfaces.ui.message" names="NotifyRendererUtils.addStackIdOption" static="true" />
         <cdk:import package="org.richfaces.ui.message" names="NotifyRendererUtils.addFacetOrAttributeAsOption" static="true" />
     </cc:interface>

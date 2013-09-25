@@ -21,10 +21,13 @@
  */
 package org.richfaces.ui.ajax.queue;
 
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.configuration.CommonComponentsConfiguration;
-import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.ui.common.HtmlConstants;
+import static org.richfaces.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -33,21 +36,19 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import static org.richfaces.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
-import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.configuration.CommonComponentsConfiguration;
+import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author Nick Belaevski
  *
  */
-@JsfRenderer(type = "org.richfaces.QueueResourceComponentRenderer", family = UIOutput.COMPONENT_FAMILY)
+@JsfRenderer(type = QueueResourceComponentRenderer.TYPE, family = UIOutput.COMPONENT_FAMILY)
 @ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
 public class QueueResourceComponentRenderer extends Renderer {
+    static final String TYPE = "org.richfaces.ui.QueueResourceComponentRenderer";
     private static final String FUNCTION_NAME = "RichFaces.queue.setQueueOptions";
 
     private enum QueueOptions {

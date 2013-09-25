@@ -36,11 +36,11 @@ import javax.faces.component.UIComponentBase;
  * </p>
  * @author Nick Belaevski
  */
-@JsfComponent(tag = @Tag(name = "queue", generate = false, type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.QueueRenderer"))
+@JsfComponent(tag = @Tag(name = "queue", generate = false, type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ui.QueueRenderer"))
 public abstract class AbstractQueue extends UIComponentBase {
     public static final String GLOBAL_QUEUE_NAME = "org.richfaces.queue.global";
-    public static final String COMPONENT_TYPE = "org.richfaces.Queue";
-    public static final String COMPONENT_FAMILY = "org.richfaces.Queue";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Queue";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Queue";
 
     /**
      * Attribute defines the time (in ms) the request will be waiting in the queue before it is ready to be sent.

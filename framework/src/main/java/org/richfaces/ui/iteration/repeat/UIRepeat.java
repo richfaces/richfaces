@@ -39,9 +39,9 @@ import org.richfaces.ui.iteration.UISequence;
  * @author Nick Belaevski
  */
 @JsfComponent(tag = @Tag(name = "repeat", handlerClass = RepeatHandler.class, type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.RepeatRenderer"))
+        renderer = @JsfRenderer(type = "org.richfaces.ui.RepeatRenderer"))
 public class UIRepeat extends UISequence implements RowsProps, SequenceProps, IterationProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.Repeat";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Repeat";
     public static final String COMPONENT_FAMILY = "javax.faces.Data";
 
     public UIRepeat() {

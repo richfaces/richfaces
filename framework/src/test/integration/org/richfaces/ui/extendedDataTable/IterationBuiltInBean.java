@@ -28,7 +28,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-import org.richfaces.ui.iteration.SortOrder;
+import org.richfaces.model.SortOrder;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

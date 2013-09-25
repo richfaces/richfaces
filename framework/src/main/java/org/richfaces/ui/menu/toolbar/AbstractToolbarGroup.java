@@ -40,7 +40,7 @@ import java.util.List;
  */
 @JsfComponent(family = AbstractToolbar.COMPONENT_FAMILY, type = AbstractToolbarGroup.COMPONENT_TYPE, renderer = @JsfRenderer(type = ToolbarGroupRenderer.RENDERER_TYPE), tag = @Tag(name = "toolbarGroup"))
 public abstract class AbstractToolbarGroup extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.ToolbarGroup";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.ToolbarGroup";
 
     /**
      * <p>Location of the toolbar items in the parent toolbar.  Can be one of "left" or "right"</p>

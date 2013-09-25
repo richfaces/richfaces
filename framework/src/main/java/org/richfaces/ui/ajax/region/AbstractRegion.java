@@ -44,8 +44,8 @@ import javax.faces.context.FacesContext;
  */
 @JsfComponent(tag = @Tag(name = "region", type = TagType.Facelets))
 public abstract class AbstractRegion extends UIComponentBase implements MetaComponentResolver, AjaxContainer {
-    public static final String COMPONENT_TYPE = "org.richfaces.Region";
-    public static final String COMPONENT_FAMILY = "org.richfaces.AjaxContainer";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Region";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.AjaxContainer";
 
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaId) {
 

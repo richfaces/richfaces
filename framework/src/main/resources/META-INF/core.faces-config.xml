@@ -70,14 +70,14 @@
     </managed-bean>
 
     <component>
-        <component-type>org.richfaces.Scripts</component-type>
+        <component-type>org.richfaces.ui.Scripts</component-type>
         <component-class>org.richfaces.ui.core.UIScripts</component-class>
     </component>
 
     <render-kit>
         <renderer>
-            <component-family>org.richfaces.Script</component-family>
-            <renderer-type>org.richfaces.renderer.ScriptsRenderer</renderer-type>
+            <component-family>org.richfaces.ui.Script</component-family>
+            <renderer-type>org.richfaces.ui.renderer.ScriptsRenderer</renderer-type>
             <renderer-class>org.richfaces.ui.core.ScriptsRenderer</renderer-class>
         </renderer>
         <renderer>

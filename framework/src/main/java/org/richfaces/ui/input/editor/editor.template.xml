@@ -28,8 +28,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.input.editor.EditorRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.input.editor.EditorRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.Editor</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.EditorRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.Editor</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.EditorRenderer</cdk:renderer-type>
     </cc:interface>
 
     <cc:implementation>
@@ -52,7 +52,7 @@
 	                <cdk:scriptOption attributes="width height toolbar skin lang style styleClass editorStyle editorClass" />
 	                <cdk:scriptOption wrapper="eventHandler" attributes="onfocus onblur onchange oninit ondirty" />
 	            </cdk:scriptObject>
-	            window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.ckeditor/';
+	            window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.ui.ckeditor/';
                 window.CKEDITOR_GETURL = function(resource)  {
                     if (match = resource.match(/([a-z]+).ecss$/)) {
                         switch (match[1]) {

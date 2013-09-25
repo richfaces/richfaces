@@ -42,7 +42,7 @@ import java.util.Map;
         @ResourceDependency(library = "org.richfaces", name = "toggle/accordion/accordion.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/icons.ecss"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/accordion/accordion.ecss") })
-@JsfRenderer(type = "org.richfaces.AccordionRenderer", family = AbstractAccordion.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.AccordionRenderer", family = AbstractAccordion.COMPONENT_FAMILY)
 public class AccordionRenderer extends TogglePanelRenderer {
     @Override
     protected String getStyle(UIComponent component) {

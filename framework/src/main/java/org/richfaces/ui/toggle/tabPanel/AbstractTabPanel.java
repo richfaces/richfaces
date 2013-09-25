@@ -40,10 +40,10 @@ import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.TabPanelRenderer"))
+        renderer = @JsfRenderer(type = "org.richfaces.ui.TabPanelRenderer"))
 public abstract class AbstractTabPanel extends AbstractTogglePanel implements CoreProps, EventsMouseProps, I18nProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.TabPanel";
-    public static final String COMPONENT_FAMILY = "org.richfaces.TabPanel";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.TabPanel";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.TabPanel";
 
     protected AbstractTabPanel() {
         setRendererType("org.richfaces.TabPanelRenderer");

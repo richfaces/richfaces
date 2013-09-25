@@ -40,7 +40,7 @@ import java.util.Iterator;
  * @author Anton Belevich
  *
  */
-@JsfRenderer(type = "org.richfaces.ColumnGroupRenderer", family = AbstractColumnGroup.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ui.ColumnGroupRenderer", family = AbstractColumnGroup.COMPONENT_FAMILY)
 public class ColumnGroupRenderer extends AbstractTableBaseRenderer {
     public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase holder) throws IOException {
         RowHolder rowHolder = (RowHolder) holder;

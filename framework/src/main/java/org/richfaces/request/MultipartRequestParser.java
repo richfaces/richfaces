@@ -34,11 +34,11 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.richfaces.exception.FileUploadException;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.request.ByteSequenceMatcher.BytesHandler;
-import org.richfaces.ui.input.fileUpload.FileUploadException;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;

@@ -27,7 +27,7 @@
         <cdk:class>org.richfaces.ui.message.notifyMessage.HtmlNotifyMessageRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.message.NotifyMessageRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.NotifyMessage</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.NotifyMessageRenderer</cdk:renderer-type>
+        <cdk:renderer-type>org.richfaces.ui.NotifyMessageRenderer</cdk:renderer-type>
         <cdk:import package="org.richfaces.ui.message" names="NotifyRendererUtils.addStackIdOption" static="true" />
         <cdk:resource-dependency library="org.richfaces" name="notifyMessage.reslib" />
         <cdk:resource-dependency library = "org.richfaces" name = "message/notify/notify.ecss" />

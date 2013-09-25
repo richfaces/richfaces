@@ -52,9 +52,9 @@ import com.google.common.collect.Maps;
  * un-ordered bullet-point list, or a data definition list. The component uses a data model for managing the list items,
  * which can be updated dynamically.</p>
  */
-@JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM),
+@JsfComponent(type = "org.richfaces.ui.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM),
         tag = @Tag(name = "list", handlerClass = ListHandler.class, type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"))
+        renderer = @JsfRenderer(type = "org.richfaces.ui.ui.ListRenderer"))
 public abstract class AbstractList extends UISequence implements CoreProps, EventsKeyProps, EventsMouseProps, EventsRowProps, I18nProps, RowsProps, SequenceProps, IterationProps {
     public static final String TERM = "term";
     private static final Predicate<String> TERM_PREDICATE = new Predicate<String>() {

@@ -21,6 +21,15 @@
  */
 package org.richfaces.ui.input.inplaceInput;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
@@ -29,15 +38,6 @@ import org.richfaces.ui.common.InplaceState;
 import org.richfaces.ui.input.InputRendererBase;
 import org.richfaces.util.HtmlDimensions;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
-
 /**
  * @author Anton Belevich
  *
@@ -45,8 +45,8 @@ import java.util.Map;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
-        @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/inputBase.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/inplace/inplaceBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "input/inplaceInput/inplaceInput.js"),
         @ResourceDependency(library = "org.richfaces", name = "input/inplaceInput/inplaceInput.ecss") })
 public class InplaceInputRendererBase extends InputRendererBase {

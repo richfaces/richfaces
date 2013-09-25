@@ -38,10 +38,10 @@ import javax.faces.component.UIComponentBase;
  * @author ilya_shaikovsky
  * @author Lukas Fryc
  */
-@JsfComponent(type = AbstractHotKey.COMPONENT_TYPE, family = AbstractHotKey.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.HotKeyRenderer"), tag = @Tag(type = TagType.Facelets))
+@JsfComponent(type = AbstractHotKey.COMPONENT_TYPE, family = AbstractHotKey.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ui.HotKeyRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractHotKey extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.HotKey";
-    public static final String COMPONENT_FAMILY = "org.richfaces.HotKey";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.HotKey";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.HotKey";
 
     @Attribute(required = true, description = @Description("The key sequence to be pressed, single keys separated by + (e.g. 'ctrl+a'), more key sequences separated by space. Special keys are accepted as follows: backspace, tab, return, shift, ctrl, alt, pause, capslock, esc, space, pageup, pagedown, end, home, left, up, right, down, insert, del, numlock, scroll, meta, f1, f2, ..., f12"))
     public abstract String getKey();

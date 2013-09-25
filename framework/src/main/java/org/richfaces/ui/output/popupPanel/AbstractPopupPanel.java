@@ -42,10 +42,10 @@ import javax.faces.component.UIComponentBase;
  * new position by the user, and re-sized.</p>
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.PopupPanelRenderer"))
+        renderer = @JsfRenderer(type = "org.richfaces.ui.PopupPanelRenderer"))
 public abstract class AbstractPopupPanel extends UIComponentBase implements EventsPopupsProps, EventsPopupsBeforeProps, PopupsProps, StyleProps, StyleClassProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.PopupPanel";
-    public static final String COMPONENT_FAMILY = "org.richfaces.PopupPanel";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.PopupPanel";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.PopupPanel";
 
     @Attribute
     public abstract String getStyle();

@@ -50,8 +50,8 @@ import org.richfaces.validator.GraphValidatorState;
  */
 @JsfComponent(tag = @Tag(name = "graphValidator", type = TagType.Facelets, handlerClass = GraphValidatorHandler.class))
 public abstract class AbstractGraphValidator extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.GraphValidator";
-    public static final String COMPONENT_FAMILY = "org.richfaces.GraphValidator";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.GraphValidator";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.GraphValidator";
 
     /**
      * Bean EL reference to be validated

@@ -33,8 +33,8 @@ import org.richfaces.cdk.annotations.Tag;
  */
 @JsfComponent(type = UITreeModelRecursiveAdaptor.COMPONENT_TYPE, family = UITreeModelRecursiveAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelRecursiveAdaptor", handlerClass = TreeModelRecursiveAdaptorHandler.class), attributes = { "tree-model-props.xml" })
 public class UITreeModelRecursiveAdaptor extends AbstractTreeModelAdaptor implements TreeModelRecursiveAdaptor {
-    public static final String COMPONENT_TYPE = "org.richfaces.TreeModelRecursiveAdaptor";
-    public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelRecursiveAdaptor";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.TreeModelRecursiveAdaptor";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.TreeModelRecursiveAdaptor";
 
     private enum PropertyKeys {
         roots, nodes, leaf

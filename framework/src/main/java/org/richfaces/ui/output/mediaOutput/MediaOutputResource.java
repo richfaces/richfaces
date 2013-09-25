@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource;
+package org.richfaces.ui.output.mediaOutput;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -34,7 +34,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.ui.output.mediaOutput.AbstractMediaOutput;
+import org.richfaces.resource.AbstractUserResource;
+import org.richfaces.resource.CacheableResource;
+import org.richfaces.resource.DynamicResource;
+import org.richfaces.resource.PostConstructResource;
 
 import com.google.common.base.Strings;
 

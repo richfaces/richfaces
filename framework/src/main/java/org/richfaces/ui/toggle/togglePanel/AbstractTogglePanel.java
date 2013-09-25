@@ -94,11 +94,11 @@ import com.google.common.base.Strings;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"))
+        renderer = @JsfRenderer(type = "org.richfaces.ui.TogglePanelRenderer"))
 public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource, MetaComponentResolver, MetaComponentEncoder, CoreProps, EventsMouseProps, I18nProps {
     public static final String ACTIVE_ITEM_META_COMPONENT = "activeItem";
-    public static final String COMPONENT_TYPE = "org.richfaces.TogglePanel";
-    public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanel";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.TogglePanel";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.TogglePanel";
     public static final String META_NAME_FIRST = "@first";
     public static final String META_NAME_PREV = "@prev";
     public static final String META_NAME_NEXT = "@next";

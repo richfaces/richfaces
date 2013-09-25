@@ -30,7 +30,7 @@ import org.richfaces.util.RendererUtils;
 /**
  * @author Nick Belaevski Renderer for queue component
  */
-@JsfRenderer(type = "org.richfaces.QueueRenderer", family = "org.richfaces.Queue")
+@JsfRenderer(type = "org.richfaces.ui.QueueRenderer", family = "org.richfaces.Queue")
 public class QueueRenderer extends QueueRendererBase {
     private final RendererUtils utils = RendererUtils.getInstance();
 

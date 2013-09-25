@@ -46,8 +46,8 @@ import javax.faces.component.UIComponent;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractPanelMenuItem extends AbstractActionComponent implements AjaxProps, BypassProps, EventsMouseProps, StyleProps, StyleClassProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";
-    public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuItem";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.PanelMenuItem";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.PanelMenuItem";
     private static final ParentItemPredicate PARENT_ITEM_PREDICATE = new ParentItemPredicate();
 
     protected AbstractPanelMenuItem() {

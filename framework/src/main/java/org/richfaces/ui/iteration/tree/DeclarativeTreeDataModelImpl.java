@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.ui.iteration.tree;
 
 import java.util.Iterator;
 
@@ -27,12 +27,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import org.richfaces.ui.iteration.DeclarativeTreeDataModelWalker;
-import org.richfaces.ui.iteration.tree.AbstractTree;
-import org.richfaces.ui.iteration.tree.TreeModelAdaptor;
-import org.richfaces.ui.iteration.tree.TreeModelRecursiveAdaptor;
 import org.richfaces.convert.DeclarativeModelSequenceKeyConverter;
+import org.richfaces.model.DeclarativeTreeDataModelTuple;
+import org.richfaces.model.DeclarativeTreeModel;
+import org.richfaces.model.SequenceRowKey;
+import org.richfaces.model.TreeDataModelTuple;
+import org.richfaces.model.TreeSequenceKeyModel;
 import org.richfaces.model.iterators.DeclarativeTreeDataModelCompositeTuplesIterator;
+import org.richfaces.ui.iteration.DeclarativeTreeDataModelWalker;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;

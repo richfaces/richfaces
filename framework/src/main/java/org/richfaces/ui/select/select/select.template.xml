@@ -30,8 +30,8 @@
     <cc:interface>
         <cdk:class>org.richfaces.ui.select.select.SelectRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.select.select.SelectRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.Select</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.SelectRenderer</cdk:renderer-type>
+        <cdk:component-family>org.richfaces.ui.Select</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ui.SelectRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
     </cc:interface>
 
