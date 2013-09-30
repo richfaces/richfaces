@@ -19,36 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model.iterators;
+package org.richfaces.ui.iteration.tree.convert;
 
-import java.util.Iterator;
-
-import org.richfaces.model.SequenceRowKey;
-import org.richfaces.model.TreeNode;
+import org.richfaces.convert.ConverterUtil;
 
 /**
  * @author Nick Belaevski
  *
  */
-public class ClassicTreeNodeTuplesIterator extends BaseTupleIterator {
-    private TreeNode treeNode;
-    private Iterator<Object> childrenKeysIterator = null;
+public class IntegerSequenceRowKeyConverter extends SequenceRowKeyConverter<Integer> {
+    public static final String CONVERTER_ID = "org.richfaces.ui.IntegerSequenceRowKeyConverter";
 
-    public ClassicTreeNodeTuplesIterator(TreeNode treeNode, SequenceRowKey baseKey) {
-        super(baseKey);
-        this.treeNode = treeNode;
-        this.childrenKeysIterator = treeNode.getChildrenKeysIterator();
-    }
-
-    public boolean hasNext() {
-        return childrenKeysIterator.hasNext();
-    }
-
-    @Override
-    protected void proceedToNext() {
-        Object key = childrenKeysIterator.next();
-        TreeNode data = treeNode.getChild(key);
-
-        setKeyAndData(key, data);
+    public IntegerSequenceRowKeyConverter() {
+        super(Integer.class, ConverterUtil.integerConverter());
     }
 }

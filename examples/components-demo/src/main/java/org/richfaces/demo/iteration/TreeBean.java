@@ -41,6 +41,9 @@ import javax.faces.event.FacesEvent;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.demo.iteration.model.tree.DataHolderTreeNodeImpl;
+import org.richfaces.log.LogFactory;
+import org.richfaces.log.Logger;
+import org.richfaces.model.TreeDataModel;
 import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.iteration.tree.AbstractTree;
 import org.richfaces.ui.iteration.tree.AbstractTreeNode;
@@ -48,13 +51,10 @@ import org.richfaces.ui.iteration.tree.TreeSelectionChangeEvent;
 import org.richfaces.ui.iteration.tree.TreeSelectionChangeListener;
 import org.richfaces.ui.iteration.tree.TreeToggleEvent;
 import org.richfaces.ui.iteration.tree.TreeToggleListener;
-import org.richfaces.convert.SequenceRowKeyConverter;
-import org.richfaces.log.LogFactory;
-import org.richfaces.log.Logger;
-import org.richfaces.model.SwingTreeNodeDataModelImpl;
-import org.richfaces.model.SwingTreeNodeImpl;
-import org.richfaces.model.TreeDataModel;
-import org.richfaces.model.TreeNodeImpl;
+import org.richfaces.ui.iteration.tree.convert.SequenceRowKeyConverter;
+import org.richfaces.ui.iteration.tree.model.SwingTreeNodeDataModelImpl;
+import org.richfaces.ui.iteration.tree.model.SwingTreeNodeImpl;
+import org.richfaces.ui.iteration.tree.model.TreeNodeImpl;
 
 /**
  * @author Nick Belaevski

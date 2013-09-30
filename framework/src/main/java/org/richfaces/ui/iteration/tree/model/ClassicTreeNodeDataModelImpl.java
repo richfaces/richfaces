@@ -19,41 +19,47 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model.iterators;
+package org.richfaces.ui.iteration.tree.model;
 
 import java.util.Iterator;
-import java.util.Map;
 
-import javax.faces.component.UIComponent;
+import javax.faces.convert.Converter;
 
-import org.richfaces.model.SequenceRowKey;
+import org.richfaces.model.TreeDataModelTuple;
+import org.richfaces.model.TreeNode;
+import org.richfaces.ui.iteration.tree.convert.StringSequenceRowKeyConverter;
 
 /**
  * @author Nick Belaevski
  *
  */
-public class MapDataTuplesIterator extends BaseTupleIterator {
-    private Map<?, ?> dataMap;
-    private Iterator<?> keys;
+public class ClassicTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNode> {
+    private static final Converter DEFAULT_CONVERTER = new StringSequenceRowKeyConverter();
 
-    public MapDataTuplesIterator(SequenceRowKey baseKey, Map<?, ?> dataMap) {
-        this(baseKey, dataMap, null);
+    public boolean isLeaf() {
+        return getData().isLeaf();
     }
 
-    public MapDataTuplesIterator(SequenceRowKey baseKey, Map<?, ?> dataMap, UIComponent component) {
-        super(baseKey, component);
-
-        this.dataMap = dataMap;
-        this.keys = dataMap.keySet().iterator();
-    }
-
-    public boolean hasNext() {
-        return keys.hasNext();
+    public Iterator<TreeDataModelTuple> children() {
+        return new ClassicTreeNodeTuplesIterator(getData(), getRowKey());
     }
 
     @Override
-    protected void proceedToNext() {
-        Object key = keys.next();
-        setKeyAndData(key, dataMap.get(key));
+    protected TreeNode setupChildContext(Object segment) {
+        return getData().getChild(segment);
+    }
+
+    @Override
+    public Object getWrappedData() {
+        return getRootNode();
+    }
+
+    @Override
+    public void setWrappedData(Object data) {
+        setRootNode((TreeNode) data);
+    }
+
+    public Converter getRowKeyConverter() {
+        return DEFAULT_CONVERTER;
     }
 }

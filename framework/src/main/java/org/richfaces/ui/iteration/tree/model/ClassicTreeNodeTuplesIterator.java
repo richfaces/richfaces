@@ -19,46 +19,36 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.ui.iteration.tree.model;
 
 import java.util.Iterator;
 
-import javax.faces.convert.Converter;
-
-import org.richfaces.convert.StringSequenceRowKeyConverter;
-import org.richfaces.model.iterators.ClassicTreeNodeTuplesIterator;
+import org.richfaces.model.SequenceRowKey;
+import org.richfaces.model.TreeNode;
 
 /**
  * @author Nick Belaevski
  *
  */
-public class ClassicTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNode> {
-    private static final Converter DEFAULT_CONVERTER = new StringSequenceRowKeyConverter();
+public class ClassicTreeNodeTuplesIterator extends BaseTupleIterator {
+    private TreeNode treeNode;
+    private Iterator<Object> childrenKeysIterator = null;
 
-    public boolean isLeaf() {
-        return getData().isLeaf();
+    public ClassicTreeNodeTuplesIterator(TreeNode treeNode, SequenceRowKey baseKey) {
+        super(baseKey);
+        this.treeNode = treeNode;
+        this.childrenKeysIterator = treeNode.getChildrenKeysIterator();
     }
 
-    public Iterator<TreeDataModelTuple> children() {
-        return new ClassicTreeNodeTuplesIterator(getData(), getRowKey());
-    }
-
-    @Override
-    protected TreeNode setupChildContext(Object segment) {
-        return getData().getChild(segment);
-    }
-
-    @Override
-    public Object getWrappedData() {
-        return getRootNode();
+    public boolean hasNext() {
+        return childrenKeysIterator.hasNext();
     }
 
     @Override
-    public void setWrappedData(Object data) {
-        setRootNode((TreeNode) data);
-    }
+    protected void proceedToNext() {
+        Object key = childrenKeysIterator.next();
+        TreeNode data = treeNode.getChild(key);
 
-    public Converter getRowKeyConverter() {
-        return DEFAULT_CONVERTER;
+        setKeyAndData(key, data);
     }
 }

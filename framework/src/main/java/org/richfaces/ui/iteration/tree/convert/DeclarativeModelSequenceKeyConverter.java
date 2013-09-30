@@ -19,12 +19,12 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.convert;
+package org.richfaces.ui.iteration.tree.convert;
 
-import static org.richfaces.convert.SequenceRowKeyConverter.SEPARATOR_SPLITTER;
-import static org.richfaces.convert.TreeConverterUtil.escape;
-import static org.richfaces.convert.TreeConverterUtil.unescape;
 import static org.richfaces.model.TreeDataModel.SEPARATOR_CHAR;
+import static org.richfaces.ui.iteration.tree.convert.SequenceRowKeyConverter.SEPARATOR_SPLITTER;
+import static org.richfaces.ui.iteration.tree.convert.TreeConverterUtil.escape;
+import static org.richfaces.ui.iteration.tree.convert.TreeConverterUtil.unescape;
 
 import java.util.Iterator;
 import java.util.List;
@@ -34,9 +34,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import org.richfaces.ui.iteration.tree.AbstractTree;
 import org.richfaces.model.DeclarativeModelKey;
 import org.richfaces.model.SequenceRowKey;
+import org.richfaces.ui.iteration.tree.AbstractTree;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -46,7 +46,7 @@ import com.google.common.collect.Lists;
  *
  */
 public class DeclarativeModelSequenceKeyConverter implements Converter {
-    public static final String CONVERTER_ID = "org.richfaces.DeclarativeModelSequenceKeyConverter";
+    public static final String CONVERTER_ID = "org.richfaces.ui.DeclarativeModelSequenceKeyConverter";
 
     public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
         if (Strings.isNullOrEmpty(value)) {

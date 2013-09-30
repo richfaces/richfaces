@@ -40,6 +40,7 @@ import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.mapping.ResourcePath;
 import org.richfaces.services.DependencyInjector;
 import org.richfaces.services.ServiceTracker;
+import org.richfaces.servlet.ResourceServlet;
 
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
@@ -352,15 +353,19 @@ public class ResourceFactoryImpl implements ResourceFactory {
         ResourceKey resourceKey = new ResourceKey(resourceName, libraryName);
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
-        Resource mappedResource = mappedResourceFactory.createResource(facesContext, resourceKey);
-        if (mappedResource != null) {
-            resourceTracker.markResourceRendered(facesContext, resourceKey);
-            ResourcePath path = new ResourcePath(mappedResource.getRequestPath());
-            for (ResourceKey key : mappedResourceFactory.getAggregatedResources(path)) {
-                resourceTracker.markResourceRendered(facesContext, key);
-            }
+        boolean isResourceServletRequest = facesContext.getExternalContext().getRequestMap().get(ResourceServlet.RESOURCE_SERVLET_REQUEST_FLAG) == Boolean.TRUE;
 
-            return mappedResource;
+        if (!isResourceServletRequest) { // do not map resources for ResourceServlet requests (they should be already mapped)
+            Resource mappedResource = mappedResourceFactory.createResource(facesContext, resourceKey);
+            if (mappedResource != null) {
+                resourceTracker.markResourceRendered(facesContext, resourceKey);
+                ResourcePath path = new ResourcePath(mappedResource.getRequestPath());
+                for (ResourceKey key : mappedResourceFactory.getAggregatedResources(path)) {
+                    resourceTracker.markResourceRendered(facesContext, key);
+                }
+
+                return mappedResource;
+            }
         }
 
         return createDynamicResource(resourceKey, true);

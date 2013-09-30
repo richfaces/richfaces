@@ -19,9 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.ui.iteration.tree.model;
 
 import javax.faces.context.FacesContext;
+
+import org.richfaces.model.DataVisitor;
+import org.richfaces.model.ExtendedDataModel;
+import org.richfaces.model.Range;
+import org.richfaces.model.SequenceRowKey;
+import org.richfaces.model.TreeDataModel;
 
 /**
  * @author Nick Belaevski

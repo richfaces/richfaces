@@ -19,11 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.ui.iteration.tree.model;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import org.richfaces.model.TreeNode;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;

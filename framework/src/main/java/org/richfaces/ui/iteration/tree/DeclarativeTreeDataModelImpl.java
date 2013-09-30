@@ -27,14 +27,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import org.richfaces.convert.DeclarativeModelSequenceKeyConverter;
-import org.richfaces.model.DeclarativeTreeDataModelTuple;
-import org.richfaces.model.DeclarativeTreeModel;
 import org.richfaces.model.SequenceRowKey;
 import org.richfaces.model.TreeDataModelTuple;
-import org.richfaces.model.TreeSequenceKeyModel;
-import org.richfaces.model.iterators.DeclarativeTreeDataModelCompositeTuplesIterator;
 import org.richfaces.ui.iteration.DeclarativeTreeDataModelWalker;
+import org.richfaces.ui.iteration.tree.convert.DeclarativeModelSequenceKeyConverter;
+import org.richfaces.ui.iteration.tree.model.DeclarativeTreeDataModelCompositeTuplesIterator;
+import org.richfaces.ui.iteration.tree.model.DeclarativeTreeDataModelTuple;
+import org.richfaces.ui.iteration.tree.model.DeclarativeTreeModel;
+import org.richfaces.ui.iteration.tree.model.TreeSequenceKeyModel;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;

@@ -19,41 +19,53 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model.iterators;
-
-import java.util.Iterator;
-
-import javax.faces.component.UIComponent;
+package org.richfaces.ui.iteration.tree.model;
 
 import org.richfaces.model.SequenceRowKey;
+import org.richfaces.model.TreeDataModelTuple;
 
 /**
  * @author Nick Belaevski
  *
  */
-public class IterableDataTuplesIterator extends BaseTupleIterator {
-    private Iterator<?> iterator;
-    private int counter = 0;
+public abstract class NodesTreeSequenceKeyModel<V> extends TreeSequenceKeyModel<V> {
+    private V rootNode;
 
-    public IterableDataTuplesIterator(SequenceRowKey baseKey, Iterator<?> children) {
-        this(baseKey, children, null);
+    protected V getRootNode() {
+        return rootNode;
     }
 
-    public IterableDataTuplesIterator(SequenceRowKey baseKey, Iterator<?> children, UIComponent component) {
-        super(baseKey, component);
-        this.iterator = children;
+    protected void setRootNode(V rootNode) {
+        this.rootNode = rootNode;
     }
 
-    public boolean hasNext() {
-        return iterator.hasNext();
+    protected void setupKey(SequenceRowKey key) {
+        setRowKeyAndData(null, rootNode);
+
+        if (key != null) {
+            V data = getRootNode();
+
+            for (Object simpleKey : key.getSimpleKeys()) {
+                data = setupChildContext(simpleKey);
+
+                if (data == null) {
+                    break;
+                }
+
+                setData(data);
+            }
+
+            setRowKeyAndData(key, data);
+        }
     }
 
-    @Override
-    protected void proceedToNext() {
-        setKeyAndData(getNextCounterValue(), iterator.next());
+    protected abstract V setupChildContext(Object segment);
+
+    public TreeDataModelTuple createSnapshot() {
+        return new TreeDataModelTuple(getRowKey(), getData());
     }
 
-    private int getNextCounterValue() {
-        return counter++;
+    public void restoreFromSnapshot(TreeDataModelTuple tuple) {
+        setRowKeyAndData((SequenceRowKey) tuple.getRowKey(), (V) tuple.getData());
     }
 }

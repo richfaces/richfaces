@@ -19,16 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.convert;
+package org.richfaces.ui.iteration.tree.convert;
+
+import org.richfaces.convert.ConverterUtil;
 
 /**
  * @author Nick Belaevski
  *
  */
-public class IntegerSequenceRowKeyConverter extends SequenceRowKeyConverter<Integer> {
-    public static final String CONVERTER_ID = "org.richfaces.IntegerSequenceRowKeyConverter";
+public class StringSequenceRowKeyConverter extends SequenceRowKeyConverter<Object> {
+    public static final String CONVERTER_ID = "org.richfaces.ui.StringSequenceRowKeyConverter";
 
-    public IntegerSequenceRowKeyConverter() {
-        super(Integer.class, ConverterUtil.integerConverter());
+    public StringSequenceRowKeyConverter() {
+        super(Object.class, ConverterUtil.stringConverter());
     }
 }

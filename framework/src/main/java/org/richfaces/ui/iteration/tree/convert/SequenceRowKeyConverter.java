@@ -19,52 +19,54 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.convert;
 
-import static org.richfaces.convert.TreeConverterUtil.escape;
-import static org.richfaces.convert.TreeConverterUtil.unescape;
+package org.richfaces.ui.iteration.tree.convert;
 
-import java.util.Iterator;
+import static org.richfaces.model.TreeDataModel.SEPARATOR_CHAR;
+
+import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import org.richfaces.model.DeclarativeModelKey;
-import org.richfaces.util.SeparatorChar;
+import org.richfaces.model.SequenceRowKey;
 
+import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import com.google.common.collect.ObjectArrays;
 
 /**
  * @author Nick Belaevski
- *
+ * @since 3.3.1
  */
-public class DeclarativeModelKeyConverter implements Converter {
+public class SequenceRowKeyConverter<T> implements Converter {
+    static final Splitter SEPARATOR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
+    private Class<T> clazz;
     private Converter delegateConverter;
 
-    public DeclarativeModelKeyConverter(Converter delegateConverter) {
+    public SequenceRowKeyConverter(Class<T> clazz, Converter delegateConverter) {
         super();
+        this.clazz = clazz;
         this.delegateConverter = delegateConverter;
     }
 
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
         if (Strings.isNullOrEmpty(value)) {
             return null;
         }
 
-        String s = unescape(value);
+        Iterable<String> split = SEPARATOR_SPLITTER.split(value);
+        List<T> keysList = Lists.<T>newArrayList();
 
-        Iterator<String> split = SeparatorChar.SPLITTER.split(s).iterator();
-
-        String modelId = (String) split.next();
-        Object modelKey = delegateConverter.getAsObject(context, component, split.next());
-
-        if (split.hasNext()) {
-            throw new ConverterException(value);
+        for (String s : split) {
+            T convertedKey = clazz.cast(delegateConverter.getAsObject(context, component, s));
+            keysList.add(convertedKey);
         }
 
-        return new DeclarativeModelKey(modelId, modelKey);
+        return new SequenceRowKey(keysList.toArray(ObjectArrays.newArray(clazz, keysList.size())));
     }
 
     public String getAsString(FacesContext context, UIComponent component, Object value) {
@@ -72,11 +74,20 @@ public class DeclarativeModelKeyConverter implements Converter {
             return "";
         }
 
-        DeclarativeModelKey declarativeModelKey = (DeclarativeModelKey) value;
+        SequenceRowKey sequenceRowKey = (SequenceRowKey) value;
 
-        String convertedModelKey = delegateConverter.getAsString(context, component, declarativeModelKey.getModelKey());
-        String keyString = SeparatorChar.JOINER.join(declarativeModelKey.getModelId(), convertedModelKey);
+        StringBuilder result = new StringBuilder();
 
-        return escape(keyString);
+        for (Object simpleKey : sequenceRowKey.getSimpleKeys()) {
+            String convertedKey = delegateConverter.getAsString(context, component, simpleKey);
+
+            if (result.length() > 0) {
+                result.append(SEPARATOR_CHAR);
+            }
+
+            result.append(convertedKey);
+        }
+
+        return result.toString();
     }
 }

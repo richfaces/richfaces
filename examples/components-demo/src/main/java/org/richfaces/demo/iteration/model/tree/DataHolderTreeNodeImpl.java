@@ -21,7 +21,7 @@
  */
 package org.richfaces.demo.iteration.model.tree;
 
-import org.richfaces.model.TreeNodeImpl;
+import org.richfaces.ui.iteration.tree.model.TreeNodeImpl;
 
 /**
  * @author Nick Belaevski

@@ -27,18 +27,18 @@
     version="2.0">
 
     <converter>
-        <converter-id>org.richfaces.DeclarativeModelSequenceKeyConverter</converter-id>
-        <converter-class>org.richfaces.convert.DeclarativeModelSequenceKeyConverter</converter-class>
+        <converter-id>org.richfaces.ui.DeclarativeModelSequenceKeyConverter</converter-id>
+        <converter-class>org.richfaces.ui.iteration.tree.convert.DeclarativeModelSequenceKeyConverter</converter-class>
     </converter>
 
     <converter>
-        <converter-id>org.richfaces.IntegerSequenceRowKeyConverter</converter-id>
-        <converter-class>org.richfaces.convert.IntegerSequenceRowKeyConverter</converter-class>
+        <converter-id>org.richfaces.ui.IntegerSequenceRowKeyConverter</converter-id>
+        <converter-class>org.richfaces.ui.iteration.tree.convert.IntegerSequenceRowKeyConverter</converter-class>
     </converter>
 
     <converter>
-        <converter-id>org.richfaces.StringSequenceRowKeyConverter</converter-id>
-        <converter-class>org.richfaces.convert.StringSequenceRowKeyConverter</converter-class>
+        <converter-id>org.richfaces.ui.StringSequenceRowKeyConverter</converter-id>
+        <converter-class>org.richfaces.ui.iteration.tree.convert.StringSequenceRowKeyConverter</converter-class>
     </converter>
 
     <faces-config-extension>

@@ -19,16 +19,41 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.convert;
+package org.richfaces.ui.iteration.tree.model;
+
+import java.util.Iterator;
+
+import javax.faces.component.UIComponent;
+
+import org.richfaces.model.SequenceRowKey;
 
 /**
  * @author Nick Belaevski
  *
  */
-public class StringSequenceRowKeyConverter extends SequenceRowKeyConverter<Object> {
-    public static final String CONVERTER_ID = "org.richfaces.StringSequenceRowKeyConverter";
+public class IterableDataTuplesIterator extends BaseTupleIterator {
+    private Iterator<?> iterator;
+    private int counter = 0;
 
-    public StringSequenceRowKeyConverter() {
-        super(Object.class, ConverterUtil.stringConverter());
+    public IterableDataTuplesIterator(SequenceRowKey baseKey, Iterator<?> children) {
+        this(baseKey, children, null);
+    }
+
+    public IterableDataTuplesIterator(SequenceRowKey baseKey, Iterator<?> children, UIComponent component) {
+        super(baseKey, component);
+        this.iterator = children;
+    }
+
+    public boolean hasNext() {
+        return iterator.hasNext();
+    }
+
+    @Override
+    protected void proceedToNext() {
+        setKeyAndData(getNextCounterValue(), iterator.next());
+    }
+
+    private int getNextCounterValue() {
+        return counter++;
     }
 }

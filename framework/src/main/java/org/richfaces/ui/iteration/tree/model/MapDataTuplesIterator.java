@@ -19,14 +19,41 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.ui.iteration.tree.model;
+
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
+
+import org.richfaces.model.SequenceRowKey;
 
 /**
  * @author Nick Belaevski
  *
  */
-public interface DeclarativeTreeModel<E> extends TreeDataModel<E> {
-    UIComponent getCurrentComponent();
+public class MapDataTuplesIterator extends BaseTupleIterator {
+    private Map<?, ?> dataMap;
+    private Iterator<?> keys;
+
+    public MapDataTuplesIterator(SequenceRowKey baseKey, Map<?, ?> dataMap) {
+        this(baseKey, dataMap, null);
+    }
+
+    public MapDataTuplesIterator(SequenceRowKey baseKey, Map<?, ?> dataMap, UIComponent component) {
+        super(baseKey, component);
+
+        this.dataMap = dataMap;
+        this.keys = dataMap.keySet().iterator();
+    }
+
+    public boolean hasNext() {
+        return keys.hasNext();
+    }
+
+    @Override
+    protected void proceedToNext() {
+        Object key = keys.next();
+        setKeyAndData(key, dataMap.get(key));
+    }
 }

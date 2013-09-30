@@ -56,6 +56,8 @@ public class ResourceServlet implements Servlet {
 
     private static final String JAVAX_FACES_RESOURCE_IDENTIFIER = "/javax.faces.resource/";
 
+    public static final String RESOURCE_SERVLET_REQUEST_FLAG = ResourceServlet.class.getName();
+
     private ServletConfig servletConfig;
     private FacesServlet facesServlet;
 
@@ -94,14 +96,15 @@ public class ResourceServlet implements Servlet {
     }
 
     private void httpService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (handleRequestByEditorResourceServlet(request)) {
+        if (handleRequestByResourceServlet(request)) {
+            request.setAttribute(RESOURCE_SERVLET_REQUEST_FLAG, Boolean.TRUE);
             facesServlet.service(request, response);
         } else {
             sendResourceNotFound(response);
         }
     }
 
-    private boolean handleRequestByEditorResourceServlet(HttpServletRequest request) {
+    private boolean handleRequestByResourceServlet(HttpServletRequest request) {
         String resourcePath = getResourcePathFromRequest(request);
 
         if (resourcePath == null) {

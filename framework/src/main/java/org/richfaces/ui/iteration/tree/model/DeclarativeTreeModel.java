@@ -19,30 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.ui.iteration.tree.model;
 
 import javax.faces.component.UIComponent;
 
-import com.google.common.base.Objects.ToStringHelper;
+import org.richfaces.model.TreeDataModel;
 
 /**
  * @author Nick Belaevski
  *
  */
-public class DeclarativeTreeDataModelTuple extends TreeDataModelTuple {
-    private UIComponent component;
-
-    public DeclarativeTreeDataModelTuple(Object rowKey, Object data, UIComponent component) {
-        super(rowKey, data);
-        this.component = component;
-    }
-
-    public UIComponent getComponent() {
-        return component;
-    }
-
-    @Override
-    protected ToStringHelper createToStringHelper() {
-        return super.createToStringHelper().add("component", component);
-    }
+public interface DeclarativeTreeModel<E> extends TreeDataModel<E> {
+    UIComponent getCurrentComponent();
 }

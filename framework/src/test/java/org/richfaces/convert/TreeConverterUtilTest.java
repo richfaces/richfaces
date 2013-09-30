@@ -24,8 +24,8 @@ package org.richfaces.convert;
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.richfaces.convert.TreeConverterUtil.escape;
-import static org.richfaces.convert.TreeConverterUtil.unescape;
+import static org.richfaces.ui.iteration.tree.convert.TreeConverterUtil.escape;
+import static org.richfaces.ui.iteration.tree.convert.TreeConverterUtil.unescape;
 
 import java.util.HashMap;
 
