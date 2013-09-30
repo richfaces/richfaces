@@ -36,19 +36,19 @@ import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSReference;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.meta.MetaComponentRenderer;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.component.SwitchType;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.event.TreeSelectionChangeEvent;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSReference;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
@@ -171,7 +171,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
             encodeSelectionStateInput(context, component);
             writer.endUpdate();
 
-            JSFunction function = new JSFunction("RichFaces.$", component.getClientId(context));
+            JSFunction function = new JSFunction("RichFaces.component", component.getClientId(context));
 
             ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(context);
             partialContext.appendOncomplete(function.toScript() + ".__updateSelectionFromInput();");
