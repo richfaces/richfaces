@@ -50,6 +50,7 @@ import javax.faces.validator.Validator;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
+import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.javascript.JavaScriptService;
@@ -82,10 +83,14 @@ import com.google.common.collect.Lists;
  *
  * @author asmirnov@exadel.com
  */
-@JsfBehavior(id = "org.richfaces.ui.behavior.ClientValidator",
+@JsfBehavior(id = ClientValidatorImpl.BEHAVIOR_ID,
         tag = @Tag(name = "validator", handlerClass = ClientValidatorHandler.class, type = TagType.Facelets),
+        renderer = @JsfBehaviorRenderer(type = ClientValidatorRenderer.RENDERER_TYPE),
         attributes = {"validator-props.xml" })
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior, ImmediateProps {
+
+    public static final String BEHAVIOR_ID = "org.richfaces.ui.behavior.ClientValidator";
+
     private static final Set<String> NONE = Collections.emptySet();
     private static final Set<String> THIS = Collections.singleton("@this");
     private static final Class<?>[] EMPTY_GROUPS = new Class<?>[0];
@@ -358,7 +363,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
     }
 
     public String getAjaxScript(ClientBehaviorContext context) {
-        return getRenderer(context.getFacesContext(), BEHAVIOR_ID).getScript(context, this);
+        return getRenderer(context.getFacesContext(), AjaxBehavior.BEHAVIOR_ID).getScript(context, this);
     }
 
     @Override

@@ -49,9 +49,12 @@ import com.google.common.base.Strings;
  * @author Anton Belevich
  *
  */
-@FacesBehaviorRenderer(rendererType = "org.richfaces.behavior.Ajax", renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
+@FacesBehaviorRenderer(rendererType = AjaxBehaviorRenderer.RENDERER_TYPE, renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
 @ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
 public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
+
+    public static final String RENDERER_TYPE = "org.richfaces.ui.behavior.Ajax";
+
     private final RendererUtils utils = RendererUtils.getInstance();
 
     @Override

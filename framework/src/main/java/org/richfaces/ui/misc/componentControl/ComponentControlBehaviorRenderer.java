@@ -21,12 +21,11 @@
  */
 package org.richfaces.ui.misc.componentControl;
 
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSFunctionDefinition;
-import org.richfaces.javascript.JSReference;
-import org.richfaces.javascript.ScriptUtils;
-import org.richfaces.ui.misc.hashParameter.UIHashParameter;
-import org.richfaces.util.RendererUtils;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -39,25 +38,25 @@ import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.javascript.JSFunctionDefinition;
+import org.richfaces.javascript.JSReference;
+import org.richfaces.javascript.ScriptUtils;
+import org.richfaces.ui.misc.hashParameter.UIHashParameter;
+import org.richfaces.util.RendererUtils;
 
 /**
  * @author Anton Belevich
  *
  */
-@FacesBehaviorRenderer(rendererType = "org.richfaces.behavior.ComponentControlBehavior", renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
+@FacesBehaviorRenderer(rendererType = ComponentControlBehaviorRenderer.RENDERER_TYPE, renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "misc/componentControl/component-control.js") })
 public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
-    /**
-     *
-     */
+
+    public static final String RENDERER_TYPE = "org.richfaces.ui.behavior.ComponentControlBehaviorRenderer";
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
     private static final String FUNC_NAME = "RichFaces.ui.ComponentControl.execute";
     private static final String REF_EVENT = "event";

@@ -22,14 +22,8 @@
 
 package org.richfaces.ui.behavior;
 
-import org.jboss.test.faces.mock.Mock;
-import org.jboss.test.faces.mock.MockTestRunner;
-import org.jboss.test.faces.mock.Stub;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.richfaces.ui.ajax.ajax.AjaxBehavior;
-import org.richfaces.ui.validation.validator.ClientValidatorRenderer;
-import org.richfaces.ui.validation.validator.FormClientValidatorRenderer;
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
 
 import javax.faces.FacesException;
 import javax.faces.component.UICommand;
@@ -38,8 +32,14 @@ import javax.faces.component.UIOutput;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.render.RenderKit;
 
-import static org.easymock.EasyMock.expect;
-import static org.junit.Assert.assertEquals;
+import org.jboss.test.faces.mock.Mock;
+import org.jboss.test.faces.mock.MockTestRunner;
+import org.jboss.test.faces.mock.Stub;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.richfaces.ui.ajax.ajax.AjaxBehavior;
+import org.richfaces.ui.validation.validator.ClientValidatorRenderer;
+import org.richfaces.ui.validation.validator.FormClientValidatorRenderer;
 
 /**
  * <p class="changed_added_4_0">

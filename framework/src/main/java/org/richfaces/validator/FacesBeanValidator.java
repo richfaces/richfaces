@@ -49,7 +49,7 @@ import com.google.common.base.Strings;
  */
 @JsfValidator(id = FacesBeanValidator.BEAN_VALIDATOR_TYPE)
 public class FacesBeanValidator implements Serializable, Validator, GraphValidator {
-    public static final String BEAN_VALIDATOR_TYPE = "org.richfaces.BeanValidator";
+    public static final String BEAN_VALIDATOR_TYPE = "org.richfaces.ui.BeanValidator";
     /**
      *
      */

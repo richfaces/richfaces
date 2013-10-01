@@ -41,9 +41,9 @@ import org.richfaces.ui.behavior.ClientBehavior;
  * </p>
  * @author Anton Belevich
  */
-@JsfBehavior(id = "org.richfaces.behavior.ComponentControlBehavior", tag = @Tag(name = "componentControl", handlerClass = ComponentControlHandler.class, type = TagType.Facelets))
+@JsfBehavior(id = ComponentControlBehavior.BEHAVIOR_ID, tag = @Tag(name = "componentControl", handlerClass = ComponentControlHandler.class, type = TagType.Facelets))
 public class ComponentControlBehavior extends ClientBehavior {
-    public static final String BEHAVIOR_ID = "org.richfaces.behavior.ComponentControlBehavior";
+    public static final String BEHAVIOR_ID = "org.richfaces.ui.behavior.ComponentControlBehavior";
     private List<UIComponent> children;
 
     enum PropertyKeys {

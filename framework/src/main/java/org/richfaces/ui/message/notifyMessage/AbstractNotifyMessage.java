@@ -47,9 +47,12 @@ import org.richfaces.ui.message.NotifyAttributes;
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@JsfComponent(type = "org.richfaces.NotifyMessage", tag = @Tag(name = "notifyMessage"),
+@JsfComponent(tag = @Tag(name = "notifyMessage"), type = AbstractNotifyMessage.COMPONENT_TYPE, family = AbstractNotifyMessage.COMPONENT_FAMILY,
         renderer = @JsfRenderer(template = "notifyMessage.template.xml", type = "org.richfaces.ui.NotifyMessageRenderer"))
 public abstract class AbstractNotifyMessage extends UIMessage implements AjaxOutput, ClientSideMessage, NotifyAttributes, AjaxOutputProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
+
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.NotifyMessage";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.NotifyMessage";
 
     @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();

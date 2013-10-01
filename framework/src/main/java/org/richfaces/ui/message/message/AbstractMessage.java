@@ -42,9 +42,13 @@ import org.richfaces.ui.common.AjaxOutput;
  *
  * @author asmirnov@exadel.com
  */
-@JsfComponent(type = "org.richfaces.Message", tag = @Tag(name = "message"),
+@JsfComponent(tag = @Tag(name = "message"), type = AbstractMessage.COMPONENT_TYPE, family = AbstractMessage.COMPONENT_FAMILY,
         renderer = @JsfRenderer(template = "message.template.xml", type = "org.richfaces.ui.MessageRenderer"))
 public abstract class AbstractMessage extends UIMessage implements AjaxOutput, AjaxOutputProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps, OutputFormatProps {
+
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Message";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Message";
+
     @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();
 
