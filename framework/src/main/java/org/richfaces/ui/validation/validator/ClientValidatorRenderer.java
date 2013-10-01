@@ -26,7 +26,19 @@ package org.richfaces.ui.validation.validator;
 // Imports
 //
 
-import com.google.common.collect.Lists;
+import java.util.Collection;
+import java.util.List;
+
+import javax.faces.FacesException;
+import javax.faces.component.ActionSource;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.render.ClientBehaviorRenderer;
 
 import org.richfaces.javascript.ClientScriptService;
 import org.richfaces.javascript.JSReference;
@@ -40,25 +52,13 @@ import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesObjectDescriptor;
 import org.richfaces.validator.ValidatorDescriptor;
 
-import javax.faces.FacesException;
-import javax.faces.component.ActionSource;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehavior;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.render.ClientBehaviorRenderer;
-
-import java.util.Collection;
-import java.util.List;
+import com.google.common.collect.Lists;
 
 /**
  * Renderer for component class org.richfaces.renderkit.html.AjaxValidatorRenderer
  */
 public class ClientValidatorRenderer extends ClientBehaviorRenderer {
-    public static final String RENDERER_TYPE = "org.richfaces.ClientValidatorRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.ClientValidatorRenderer";
     public static final String VALUE_VAR = "value";
     public static final String CONVERTED_VALUE_VAR = "convertedValue";
     public static final JSReference VALUE_LITERAL = new JSReference("value");

@@ -24,25 +24,14 @@
 <faces-config version="2.0" metadata-complete="false"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd" xmlns="http://java.sun.com/xml/ns/javaee"
     xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <!--
-     <behavior>
-         <behavior-id>org.richfaces.behavior.ClientValidator</behavior-id>
-         <behavior-class>org.richfaces.component.behavior.ClientValidatorImpl</behavior-class>
-         <behavior-extension>
-             <cdk:tag>
-                 <cdk:tag-name>validator</cdk:tag-name>
-                 <cdk:tag-type>Facelets</cdk:tag-type>
-             </cdk:tag>
-         </behavior-extension>
-     </behavior>
-     -->
+
     <render-kit>
         <client-behavior-renderer>
-            <client-behavior-renderer-type>org.richfaces.ClientValidatorRenderer</client-behavior-renderer-type>
+            <client-behavior-renderer-type>org.richfaces.ui.ClientValidatorRenderer</client-behavior-renderer-type>
             <client-behavior-renderer-class>org.richfaces.ui.validation.validator.ClientValidatorRenderer</client-behavior-renderer-class>
         </client-behavior-renderer>
         <client-behavior-renderer>
-            <client-behavior-renderer-type>org.richfaces.FormValidatorRenderer</client-behavior-renderer-type>
+            <client-behavior-renderer-type>org.richfaces.ui.FormValidatorRenderer</client-behavior-renderer-type>
             <client-behavior-renderer-class>org.richfaces.ui.validation.validator.FormClientValidatorRenderer</client-behavior-renderer-class>
         </client-behavior-renderer>
     </render-kit>

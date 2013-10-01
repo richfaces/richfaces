@@ -22,15 +22,15 @@
 
 package org.richfaces.ui.validation.validator;
 
-import org.richfaces.ui.behavior.ConverterNotFoundException;
-import org.richfaces.validator.ConverterDescriptor;
-import org.richfaces.validator.ValidatorDescriptor;
+import java.util.Collection;
 
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.convert.Converter;
 
-import java.util.Collection;
+import org.richfaces.ui.behavior.ConverterNotFoundException;
+import org.richfaces.validator.ConverterDescriptor;
+import org.richfaces.validator.ValidatorDescriptor;
 
 /**
  * <p class="changed_added_4_0">
@@ -41,7 +41,7 @@ import java.util.Collection;
  *
  */
 public interface ClientValidatorBehavior extends ClientBehavior {
-    String BEHAVIOR_TYPE = "org.richfaces.behavior.ClientValidator";
+    String BEHAVIOR_TYPE = "org.richfaces.ui.behavior.ClientValidator";
 
     /**
      * <p class="changed_added_4_0">

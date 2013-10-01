@@ -31,5 +31,5 @@ import javax.faces.render.ClientBehaviorRenderer;
  *
  */
 public class FormClientValidatorRenderer extends ClientBehaviorRenderer {
-    public static final String RENDERER_TYPE = "org.richfaces.FormValidatorRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.FormValidatorRenderer";
 }

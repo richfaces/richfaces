@@ -82,7 +82,7 @@ import com.google.common.collect.Lists;
  *
  * @author asmirnov@exadel.com
  */
-@JsfBehavior(id = "org.richfaces.behavior.ClientValidator",
+@JsfBehavior(id = "org.richfaces.ui.behavior.ClientValidator",
         tag = @Tag(name = "validator", handlerClass = ClientValidatorHandler.class, type = TagType.Facelets),
         attributes = {"validator-props.xml" })
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior, ImmediateProps {
