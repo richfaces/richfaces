@@ -25,9 +25,8 @@ import java.util.Iterator;
 
 import javax.faces.convert.Converter;
 
+import org.richfaces.convert.StringSequenceRowKeyConverter;
 import org.richfaces.model.iterators.ClassicTreeNodeTuplesIterator;
-import org.richfaces.ui.iteration.tree.convert.StringSequenceRowKeyConverter;
-import org.richfaces.ui.iteration.tree.model.NodesTreeSequenceKeyModel;
 
 /**
  * @author Nick Belaevski
