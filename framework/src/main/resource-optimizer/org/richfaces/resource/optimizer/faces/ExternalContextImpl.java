@@ -47,6 +47,7 @@ import com.google.common.collect.Sets;
 public class ExternalContextImpl extends ExternalContext {
     private String webRoot;
     private Map<String, String> initParamsMap = new HashMap<String, String>();
+    private Map<String, Object> requestMap = new HashMap<String, Object>();
 
     protected void setWebRoot(String webroot) {
         this.webRoot = webroot;
@@ -246,8 +247,7 @@ public class ExternalContextImpl extends ExternalContext {
      */
     @Override
     public Map<String, Object> getRequestMap() {
-        // TODO Auto-generated method stub
-        return null;
+        return requestMap;
     }
 
     /*
@@ -449,13 +449,13 @@ public class ExternalContextImpl extends ExternalContext {
     public String getResponseCharacterEncoding() {
         return "UTF-8";
     }
-    
+
     /**
      * Returns mime-type for known resorce file types
-     * 
+     *
      * @param file the full name of file
      * @return mime-type for known resorce file types
-     * 
+     *
      * TODO load supported mime-types from mime.types file in this project
      */
     @Override
