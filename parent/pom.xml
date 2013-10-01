@@ -100,7 +100,7 @@
                         <requirePluginVersions>
                             <!-- During development SNAPSHOT versions of the CDK plugin are used.
                                  This setting ignores the no SNAPSHOT rule for the CDK  -->
-                            <unCheckedPluginList>org.richfaces.cdk:richfaces-cdk-maven-plugin</unCheckedPluginList>
+                            <unCheckedPluginList>org.richfaces.cdk:richfaces-cdk-maven-plugin, org.richfaces:richfaces-resource-optimizer-maven-plugin</unCheckedPluginList>
                         </requirePluginVersions>
                     </rules>
                 </configuration>
