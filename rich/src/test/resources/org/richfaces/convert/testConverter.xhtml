@@ -16,7 +16,7 @@
     <h:body>
         <script type="text/javascript">/* <![CDATA[ */
         window.expected = #{testBean.convertedValueAsScript};
-        RichFaces.rf4.csv.addMessage(#{testBean.errorMessagesAsScript});
+        RichFaces.csv.addMessage(#{testBean.errorMessagesAsScript});
 
         try {
             window.actual = #{testBean.clientFunction}(#{testBean.submittedValueAsScript},

@@ -20,11 +20,11 @@ public class MessageUpdateScript extends ScriptStringBase implements ScriptStrin
     }
 
     public void appendScript(Appendable target) throws IOException {
-        JSFunction resetMessages = new JSFunction("RichFaces.rf4.csv.clearMessage", clientId);
+        JSFunction resetMessages = new JSFunction("RichFaces.csv.clearMessage", clientId);
         resetMessages.appendScript(target);
         target.append(';');
         for (Message message : messages) {
-            JSFunction sendMessage = new JSFunction("RichFaces.rf4.csv.sendMessage", clientId, message);
+            JSFunction sendMessage = new JSFunction("RichFaces.csv.sendMessage", clientId, message);
             sendMessage.appendScript(target);
             target.append(';');
         }

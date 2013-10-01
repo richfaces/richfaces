@@ -42,7 +42,7 @@ public abstract class BeanValidatorTestBase extends MockTestBase {
     protected abstract Class<?> getBeanType();
 
     protected Object validateOnClient(Validator validator) throws ValidationException {
-        JSFunction clientSideFunction = new JSFunction("RichFaces.rf4.csv." + getJavaScriptFunctionName(), criteria.getValue(),
+        JSFunction clientSideFunction = new JSFunction("RichFaces.csv." + getJavaScriptFunctionName(), criteria.getValue(),
             TEST_COMPONENT_ID, getJavaScriptOptions(), getErrorMessage());
         return qunit.runScript(clientSideFunction.toScript());
     }
