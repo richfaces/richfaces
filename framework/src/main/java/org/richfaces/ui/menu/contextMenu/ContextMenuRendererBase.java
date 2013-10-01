@@ -54,7 +54,7 @@ import org.richfaces.util.RendererUtils;
         @ResourceDependency(library = "org.richfaces", name = "menu/contextMenu/contextmenu.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu/contextMenu/contextmenu.ecss", target = "head") })
 public abstract class ContextMenuRendererBase extends RendererBase {
-    public static final String RENDERER_TYPE = "org.richfaces.ContextMenuRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.ContextMenuRenderer";
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
     public static final String DEFAULT_SHOWEVENT = "mouseover";
     protected static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();

@@ -22,8 +22,7 @@
 
 package org.richfaces.ui.misc.placeholder;
 
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.util.InputUtils;
+import java.io.IOException;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -32,7 +31,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 
-import java.io.IOException;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.util.InputUtils;
 
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib", target = "head"),
         @ResourceDependency(name = "jquery.watermark.js", library = "jquery.plugins", target = "head"),
@@ -40,7 +40,7 @@ import java.io.IOException;
         @ResourceDependency(library = "org.richfaces", name = "misc/placeholder/placeholder.css") })
 public abstract class PlaceholderRendererBase extends RendererBase {
 
-    public static final String RENDERER_TYPE = "org.richfaces.PlaceholderRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.PlaceholderRenderer";
 
     @Override
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {

@@ -22,16 +22,16 @@
 
 package org.richfaces.ui.menu.menu;
 
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
+import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import java.io.IOException;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.menu.dropDownMenu.AbstractDropDownMenu;
 
 public abstract class MenuGroupRendererBase extends RendererBase {
-    public static final String RENDERER_TYPE = "org.richfaces.MenuGroupRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.MenuGroupRenderer";
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
 
     protected boolean isDisabled(FacesContext facesContext, UIComponent component) {

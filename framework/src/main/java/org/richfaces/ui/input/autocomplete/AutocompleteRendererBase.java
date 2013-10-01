@@ -45,7 +45,7 @@ import org.richfaces.util.InputUtils;
  */
 public abstract class AutocompleteRendererBase extends InputRendererBase implements MetaComponentRenderer {
 
-    public static final String RENDERER_TYPE = "org.richfaces.sandbox.AutocompleteRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.AutocompleteRenderer";
 
     private static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
 

@@ -22,19 +22,19 @@
 
 package org.richfaces.ui.menu.menu;
 
-import org.richfaces.ui.ajax.command.AjaxCommandRendererBase;
-import org.richfaces.ui.behavior.HandlersChain;
-import org.richfaces.ui.common.Mode;
-
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.ui.ajax.command.AjaxCommandRendererBase;
+import org.richfaces.ui.behavior.HandlersChain;
+import org.richfaces.ui.common.Mode;
+
 @ResourceDependencies(@ResourceDependency(library = "org.richfaces", name = "menu/dropDownMenu/dropdownmenu.ecss", target = "head"))
 public class MenuItemRendererBase extends AjaxCommandRendererBase {
-    public static final String RENDERER_TYPE = "org.richfaces.MenuItemRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.MenuItemRenderer";
 
     protected boolean isDisabled(FacesContext facesContext, UIComponent component) {
         if (component instanceof AbstractMenuItem) {

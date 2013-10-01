@@ -21,10 +21,9 @@
  */
 package org.richfaces.ui.output.mediaOutput;
 
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.l10n.Messages;
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.ui.common.HtmlConstants;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -32,9 +31,10 @@ import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.l10n.Messages;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author shura
@@ -42,7 +42,7 @@ import java.util.Map;
  */
 @JsfRenderer(family = AbstractMediaOutput.COMPONENT_FAMILY)
 public class MediaOutputRenderer extends RendererBase {
-    public static final String RENDERER_TYPE = "org.richfaces.MediaOutputRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.MediaOutputRenderer";
     /**
      * Associationd between element name and uri attributes
      */

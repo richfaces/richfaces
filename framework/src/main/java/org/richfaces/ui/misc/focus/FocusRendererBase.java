@@ -22,21 +22,21 @@
 
 package org.richfaces.ui.misc.focus;
 
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.context.FacesContext;
+
 import org.richfaces.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.services.ServiceTracker;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.context.FacesContext;
 
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js"),
         @ResourceDependency(library = "org.richfaces", name = "misc/focus/focus.js") })
 public class FocusRendererBase extends RendererBase implements FocusRendererInterface {
 
-    public static final String RENDERER_TYPE = "org.richfaces.FocusRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.FocusRenderer";
 
     private final FormFocusRenderStrategy FORM_RENDERING_STRATEGY = new FormFocusRenderStrategy();
     private final ViewFocusRenderStrategy VIEW_RENDERING_STRATEGY = new ViewFocusRenderStrategy();

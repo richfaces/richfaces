@@ -21,19 +21,19 @@
  */
 package org.richfaces.ui.menu.toolbar;
 
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.ui.common.HtmlConstants;
+import java.io.IOException;
+import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import java.io.IOException;
-import java.util.List;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.ui.common.HtmlConstants;
 
 @JsfRenderer(type = ToolbarGroupRenderer.RENDERER_TYPE, family = AbstractToolbar.COMPONENT_FAMILY)
 public class ToolbarGroupRenderer extends ToolbarRendererBase {
-    public static final String RENDERER_TYPE = "org.richfaces.ToolbarGroupRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.ToolbarGroupRenderer";
 
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractToolbarGroup.class;

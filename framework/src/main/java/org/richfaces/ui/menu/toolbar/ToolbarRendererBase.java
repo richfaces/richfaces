@@ -21,19 +21,6 @@
  */
 package org.richfaces.ui.menu.toolbar;
 
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
-import org.richfaces.ui.common.ComponentAttribute;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.util.HtmlDimensions;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,11 +29,24 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.common.ComponentAttribute;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.util.HtmlDimensions;
+
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "menu/toolbar/toolbar.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu/toolbar/toolbar.ecss") })
 public abstract class ToolbarRendererBase extends RendererBase {
-    public static final String RENDERER_TYPE = "org.richfaces.ToolbarRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.ToolbarRenderer";
     public static final Map<String, ComponentAttribute> ITEMS_HANDLER_ATTRIBUTES = Collections
         .unmodifiableMap(ComponentAttribute.createMap(
             new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("itemclick").setComponentAttributeName(

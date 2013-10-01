@@ -52,7 +52,7 @@ import org.richfaces.ui.menu.menu.AbstractMenuSeparator;
         @ResourceDependency(library = "org.richfaces", name = "menu/menu.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu/dropDownMenu/dropdownmenu.ecss", target = "head") })
 public abstract class DropDownMenuRendererBase extends RendererBase {
-    public static final String RENDERER_TYPE = "org.richfaces.DropDownMenuRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.ui.DropDownMenuRenderer";
     public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
     public static final String DEFAULT_SHOWEVENT = "mouseover";
 
