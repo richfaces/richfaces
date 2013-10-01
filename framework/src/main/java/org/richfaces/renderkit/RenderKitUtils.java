@@ -619,7 +619,7 @@ public final class RenderKitUtils {
         boolean disabled = isDisabled(component);
         for (ComponentAttribute knownAttribute : attributes) {
             if (!disabled || knownAttribute.getEventNames().length == 0) {
-                String attributeName = knownAttribute.getComponentAttributeName();
+                String attributeName = knownAttribute.getHtmlAttributeName();
                 addToScriptHash(hash, attributeName, getAttributeAndBehaviorsValue(facesContext, component, knownAttribute),
                         knownAttribute.getDefaultValue(), wrapper);
             }
