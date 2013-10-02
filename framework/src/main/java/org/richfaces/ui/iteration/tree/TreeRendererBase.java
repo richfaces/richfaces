@@ -21,8 +21,20 @@
  */
 package org.richfaces.ui.iteration.tree;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.Sets;
+import static org.richfaces.ui.iteration.tree.AbstractTree.SELECTION_META_COMPONENT_ID;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.faces.component.ContextCallback;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
 
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.javascript.JSFunction;
@@ -38,20 +50,8 @@ import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.util.AjaxRendererUtils;
 
-import javax.faces.component.ContextCallback;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
-
-import static org.richfaces.ui.iteration.tree.AbstractTree.SELECTION_META_COMPONENT_ID;
+import com.google.common.base.Strings;
+import com.google.common.collect.Sets;
 
 /**
  * @author Nick Belaevski
@@ -171,7 +171,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
             encodeSelectionStateInput(context, component);
             writer.endUpdate();
 
-            JSFunction function = new JSFunction("RichFaces.$", component.getClientId(context));
+            JSFunction function = new JSFunction("RichFaces.component", component.getClientId(context));
 
             ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(context);
             partialContext.appendOncomplete(function.toScript() + ".__updateSelectionFromInput();");
