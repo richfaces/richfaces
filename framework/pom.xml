@@ -329,7 +329,7 @@
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>enforce-files-exist</id>
+                        <id>enforce-richwidgets-submodule-exists</id>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
@@ -339,6 +339,7 @@
                                     <files>
                                         <file>src/main/widgets/Gruntfile.js</file>
                                     </files>
+                                    <message>The RichWidgets submodule is missing. Use "git clone --recursive" to clone the project.</message>
                                 </requireFilesExist>
                             </rules>
                             <fail>true</fail>
