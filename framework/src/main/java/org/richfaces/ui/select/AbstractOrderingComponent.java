@@ -62,16 +62,18 @@ public abstract class AbstractOrderingComponent extends AbstractSelectManyCompon
     @Attribute
     public abstract String getDownBottomText();
 
+    /**
+     * Format the button text attributes as a JSON object
+     */
     public String getButtonsText() {
         JSONObject json = new JSONObject();
         try {
-            return json.put("first", getUpTopText()).put("up", getUpText()).put("down", getDownText()).put("last", getDownBottomText()).toString();
+            json.put("first", getUpTopText()).put("up", getUpText()).put("down", getDownText()).put("last", getDownBottomText());
         } catch (JSONException e) {
             throw new FacesException("Error converting Button text values to JSON", e);
         }
+        return json.length() == 0 ? null : json.toString();
     }
-
-
 
     protected boolean compareValues(Object previous, Object value) {
         if (previous == null && value != null) {
