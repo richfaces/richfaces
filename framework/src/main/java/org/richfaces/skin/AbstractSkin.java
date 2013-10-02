@@ -26,6 +26,9 @@ import java.awt.Color;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.resource.ResourceKey;
 import org.richfaces.util.HtmlColor;
 import org.richfaces.util.HtmlDimensions;
 
@@ -34,6 +37,9 @@ import org.richfaces.util.HtmlDimensions;
  *
  */
 public abstract class AbstractSkin implements Skin {
+
+    private Logger LOG = RichfacesLogger.RESOURCE.getLogger();
+
     protected Integer decodeColor(Object value) {
         if (value instanceof Color) {
             return ((Color) value).getRGB();
@@ -84,7 +90,16 @@ public abstract class AbstractSkin implements Skin {
         }
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Resource resource = facesContext.getApplication().getResourceHandler().createResource(resourceName, IMAGE_LIBRARY);
-        return String.format("url(%s)", resource.getRequestPath());
+
+        String resourcePath;
+        if (resource != null) {
+            resourcePath = resource.getRequestPath();
+
+        } else {
+            resourcePath = "RES_NOT_FOUND";
+            LOG.warn("Unable to find or serve resource '" + ResourceKey.create(resourceName, IMAGE_LIBRARY) + "'");
+        }
+        return String.format("url(%s)", resourcePath);
     }
 
 }

@@ -82,11 +82,11 @@
 }
 
 .rf-trn-ico-exp,.rf-trn-ico-colps {
-    background: "#{richSkin.imageUrl('node_icon.gif')} no-repeat center";
+    background: "url(#{resource['org.richfaces:iteration/tree/node_icon.gif']}) no-repeat center";
 }
 
 .rf-trn-ico-lf {
-    background: "#{richSkin.imageUrl('leaf_icon.gif')} no-repeat center";
+    background: "url(#{resource['org.richfaces:iteration/tree/leaf_icon.gif']}) no-repeat center";
 }
 
 .rf-trn-ico-cst {
