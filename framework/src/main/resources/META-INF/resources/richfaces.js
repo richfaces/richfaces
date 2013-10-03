@@ -640,9 +640,9 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             
             // register handlers for form events: ajaxbegin and ajaxbeforedomupdate
             if (form) {
-                eventHandlers.begin = chain(function() { $(form).trigger('ajaxbegin'); }, eventHandlers.begin);
-                eventHandlers.beforedomupdate = chain(function() { $(form).trigger('ajaxbeforedomupdate'); }, eventHandlers.beforedomupdate);
-                eventHandlers.complete = chain(function() { $(form).trigger('ajaxcomplete'); }, eventHandlers.complete);
+                eventHandlers.begin = chain(eventHandlers.begin, function() { $(form).trigger('ajaxbegin'); });
+                eventHandlers.beforedomupdate = chain(eventHandlers.beforedomupdate, function() { $(form).trigger('ajaxbeforedomupdate'); });
+                eventHandlers.complete = chain(eventHandlers.complete, function() { $(form).trigger('ajaxcomplete'); });
             }
 
             if (eventHandlers) {
