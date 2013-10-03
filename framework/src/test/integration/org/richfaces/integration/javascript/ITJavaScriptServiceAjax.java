@@ -22,11 +22,10 @@
 
 package org.richfaces.integration.javascript;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.warp.jsf.Phase.INVOKE_APPLICATION;
 import static org.jboss.arquillian.warp.jsf.Phase.RENDER_RESPONSE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
 
 import java.net.URL;
 
@@ -35,14 +34,12 @@ import javax.faces.context.FacesContext;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.javascript.JavaScript;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.Activity;
 import org.jboss.arquillian.warp.Inspection;
 import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.jsf.AfterPhase;
 import org.jboss.arquillian.warp.jsf.BeforePhase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
@@ -77,9 +74,6 @@ public class ITJavaScriptServiceAjax {
     @FindBy(id = "jsfAjax")
     private WebElement jsfAjax;
 
-    @FindBy(id = "buttonWithOnComplete")
-    private WebElement buttonWithOncomplete;
-
     @ArquillianResource
     private JavascriptExecutor executor;
 
@@ -95,19 +89,6 @@ public class ITJavaScriptServiceAjax {
     }
 
     @Test
-    public void richfaces_ajax_should_trigger_script_added_by_JavaScriptService() {
-        driver.navigate().to(contextPath);
-
-        Warp.initiate(new Activity() {
-            public void perform() {
-                guardAjax(richfacesAjax).click();
-            }
-        }).inspect(new AddScriptAfterInvokeApplication());
-
-        assertEquals("executed", driver.getTitle());
-    }
-
-    @Test
     public void jsf_ajax_should_trigger_script_added_by_JavaScriptService() {
         driver.navigate().to(contextPath);
 
@@ -115,43 +96,51 @@ public class ITJavaScriptServiceAjax {
             public void perform() {
                 guardAjax(jsfAjax).click();
             }
-        }).inspect(new AddScriptAfterInvokeApplication());
+        }).inspect(new AddScriptViaJavaScriptService());
 
-        assertEquals("executed", driver.getTitle());
+        assertThat(driver.getTitle(), equalTo("ajaxbeforedomupdate javascriptServiceInProgress javascriptServiceComplete ajaxcomplete"));
     }
 
     @Test
-    public void javascript_service_complete_event_callback_should_be_called_after_oncomplete() {
+    public void richfaces_ajax_should_trigger_script_added_by_JavaScriptService() {
         driver.navigate().to(contextPath);
 
         Warp.initiate(new Activity() {
             public void perform() {
-                guardAjax(buttonWithOncomplete).click();
+                guardAjax(richfacesAjax).click();
             }
-        }).inspect(new AddScriptInBeforeRender());
+        }).inspect(new AddScriptViaJavaScriptService());
 
-        String title = (String) executor.executeScript("return document.title;");
-        assertTrue("oncomplete callback should be called before javascriptservice callback!",
-            title.indexOf("oncomplete") < title.indexOf("javascriptservice"));
+        assertThat(driver.getTitle(), equalTo("onbeforedomupdate ajaxbeforedomupdate javascriptServiceInProgress javascriptServiceComplete oncomplete ajaxcomplete"));
     }
 
     private static void addIndexPage(CoreDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-        p.head("<title>initial value</title>");
+        p.head("<title></title>");
 
         p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
         p.head("<h:outputScript name='jquery.js' />");
         p.head("<h:outputScript name='richfaces.js' />");
 
-        p.form("<r:commandButton id='buttonWithOnComplete' onclick='RichFaces.ajax(this, event, {}); return false;' oncomplete=\"document.title += ' oncomplete';\" />");
-        p.form("<h:commandButton id='richfacesAjax' onclick='RichFaces.ajax(this, event, {}); return false;' />");
-        p.form("<h:commandButton id='jsfAjax' onclick='jsf.ajax.request(this, event, {}); return false;' />");
+        p.form("<h:commandButton id='jsfAjax' "
+                + "onclick='jsf.ajax.request(this, event, {}); return false;' />");
+
+        p.form("<h:commandButton id='richfacesAjax' "
+                + "onclick='RichFaces.ajax(this, event, {}); return false;' "
+                + "onbeforedomupdate=\"document.title += ' onbeforedomupdate'\" "
+                + "oncomplete=\"document.title += ' oncomplete';\" />");
+
+        p.form("<script>");
+        p.form("$(document).on('ajaxbeforedomupdate', function() { document.title += ' ajaxbeforedomupdate'; })");
+        p.form("$(document).on('ajaxcomplete', function() { document.title += ' ajaxcomplete'; })");
+        p.form("$(document).on('javascriptServiceComplete', function() { document.title += ' javascriptServiceComplete'; })");
+        p.form("</script>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
-    public static class AddScriptInBeforeRender extends Inspection {
+    public static class AddScriptViaJavaScriptService extends Inspection {
         private static final long serialVersionUID = 1L;
 
         @ArquillianResource
@@ -162,22 +151,7 @@ public class ITJavaScriptServiceAjax {
 
         @BeforePhase(RENDER_RESPONSE)
         public void add_script_using_JavaScriptService() {
-            jsService.addScript(facesContext, new JSLiteral("document.title += ' javascriptservice';"));
-        }
-    }
-
-    public static class AddScriptAfterInvokeApplication extends Inspection {
-        private static final long serialVersionUID = 1L;
-
-        @ArquillianResource
-        private FacesContext facesContext;
-
-        @ArquillianResource
-        private JavaScriptService jsService;
-
-        @AfterPhase(INVOKE_APPLICATION)
-        public void add_script_using_JavaScriptService() {
-            jsService.addScript(facesContext, new JSLiteral("document.title = 'executed'"));
+            jsService.addScript(facesContext, new JSLiteral("document.title += ' javascriptServiceInProgress';"));
         }
     }
 }

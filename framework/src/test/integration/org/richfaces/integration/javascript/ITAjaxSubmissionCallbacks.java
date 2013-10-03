@@ -3,9 +3,10 @@ package org.richfaces.integration.javascript;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.OperateOnDeployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
@@ -45,103 +46,69 @@ public class ITAjaxSubmissionCallbacks {
     private WebElement body;
 
     private static final String FORM_ID = "form1";
-    private static final String[] EVENT_CALLBACKS = { "ajaxsubmit", "ajaxbegin", "ajaxbeforedomupdate", "ajaxcomplete" };
-    private static final int NUMBER_OF_AJAX_REQUESTS = 4;
+    private static final List<String> EVENT_CALLBACKS = Arrays.asList(new String[]{ "ajaxsubmit", "ajaxbegin", "ajaxbeforedomupdate", "ajaxcomplete" });
 
-    @Deployment(name = "formAndDocumentScope")
-    public static WebArchive createDeploymentBothFormAndDocumentScopeRegistration() {
-        return addIndexPage(getCommonDeployment(ITAjaxSubmissionCallbacks1.class), true, true);
-    }
-
-    @Deployment(name = "formScope")
-    public static WebArchive createDeploymentFormScopeRegistration() {
-        return addIndexPage(getCommonDeployment(ITAjaxSubmissionCallbacks2.class), true, false);
-    }
-
-    @Deployment(name = "documentScope")
-    public static WebArchive createDeploymentDocumentScopeRegistration() {
-        return addIndexPage(getCommonDeployment(ITAjaxSubmissionCallbacks3.class), false, true);
-    }
-    
-    private static WebArchive getCommonDeployment(Class<?> clazz) {
-        CoreDeployment deployment = new CoreDeployment(clazz);
+    @Deployment
+    public static WebArchive deployment() {
+        CoreDeployment deployment = new CoreDeployment(ITAjaxSubmissionCallbacks.class);
         deployment.withWholeCore();
-        return deployment.getFinalArchive().addClass(AjaxSubmissionsCallbacksBean.class);
+
+        deployment.archive().addAsWebResource(buildPage(true, true), "documentAndFormScoped.xhtml");
+        deployment.archive().addAsWebResource(buildPage(true, false), "formScoped.xhtml");
+        deployment.archive().addAsWebResource(buildPage(false, true), "documentScoped.xhtml");
+
+        return deployment.getFinalArchive();
     }
 
     @Test
-    @OperateOnDeployment("formAndDocumentScope")
     public void should_register_ajax_callbacks_both_on_form_and_document_object() {
         // when
-        loadThePageAndWriteTextToInput();
+        loadThePageAndWriteTextToInput("documentAndFormScoped.jsf");
 
         // then
-        assertCorrectCallbacks(true, callbacks.getDocumentScopedCalledCallbacks());
-        assertCorrectCallbacks(true, callbacks.getFormScopedCalledCallbacks());
+        assertCorrectCallbacks(true, callbacks.getDocumentScopedCallbacksCalled());
+        assertCorrectCallbacks(true, callbacks.getFormScopedCallbacksCalled());
     }
 
     @Test
-    @OperateOnDeployment("formScope")
     public void should_register_ajax_callbacks_on_form() {
         // when
-        loadThePageAndWriteTextToInput();
+        loadThePageAndWriteTextToInput("formScoped.jsf");
 
         // then
-        assertCorrectCallbacks(false, callbacks.getDocumentScopedCalledCallbacks());
-        assertCorrectCallbacks(true, callbacks.getFormScopedCalledCallbacks());
+        assertCorrectCallbacks(false, callbacks.getDocumentScopedCallbacksCalled());
+        assertCorrectCallbacks(true, callbacks.getFormScopedCallbacksCalled());
     }
 
     @Test
-    @OperateOnDeployment("documentScope")
     public void should_register_ajax_callbacks_on_document_object() {
         // when
-        loadThePageAndWriteTextToInput();
+        loadThePageAndWriteTextToInput("documentScoped.jsf");
 
         // then
-        assertCorrectCallbacks(true, callbacks.getDocumentScopedCalledCallbacks());
-        assertCorrectCallbacks(false, callbacks.getFormScopedCalledCallbacks());
+        assertCorrectCallbacks(true, callbacks.getDocumentScopedCallbacksCalled());
+        assertCorrectCallbacks(false, callbacks.getFormScopedCallbacksCalled());
     }
 
-    private void assertCorrectCallbacks(boolean registered, String callbacksToControll) {
-        for (String callback : EVENT_CALLBACKS) {
-            if (registered) {
-                assertEquals("Event callback: " + callback + ", was not called enough times!", NUMBER_OF_AJAX_REQUESTS,
-                    getCountOfSubString(callbacksToControll, callback));
-            } else {
-                assertEquals("Event callback: " + callback + ", was called even when it was not registered!", 0,
-                    getCountOfSubString(callbacksToControll, callback));
-            }
-        }
-    }
-
-    private int getCountOfSubString(String str, String findStr) {
-        int lastIndex = 0;
-        int count = 0;
-
-        while (lastIndex != -1) {
-
-            lastIndex = str.indexOf(findStr, lastIndex);
-
-            if (lastIndex != -1) {
-                count++;
-                lastIndex += findStr.length();
-            }
-        }
-        return count;
-    }
-
-    private void loadThePageAndWriteTextToInput() {
-        driver.get(contextPath.toExternalForm());
+    private void loadThePageAndWriteTextToInput(String pageName) {
+        driver.get(contextPath.toExternalForm() + pageName);
 
         String toWrite = "text";
         for (char ch : toWrite.toCharArray()) {
+            resetCallbacks();
             Graphene.guardAjax(input).sendKeys(Character.toString(ch));
         }
-
-        Graphene.waitAjax().until().element(output).text().equalTo(toWrite);
     }
 
-    private static WebArchive addIndexPage(WebArchive deployment, boolean formScopedRegistration, boolean pageScopedRegistration) {
+    private void assertCorrectCallbacks(boolean registered, String callbacksToControll) {
+        if (registered) {
+            assertEquals(Arrays.asList(callbacksToControll.trim().split(" ")), EVENT_CALLBACKS);
+        } else {
+            assertEquals("Event callback was called even when it was not registered: " + callbacksToControll, " ", callbacksToControll);
+        }
+    }
+
+    private static FaceletAsset buildPage(boolean formScopedRegistration, boolean pageScopedRegistration) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:outputScript>");
@@ -159,15 +126,8 @@ public class ITAjaxSubmissionCallbacks {
             }
         }
 
-        p.body("    document.AjaxCallbacks = {};");
-        p.body("    document.AjaxCallbacks.getFormScopedCalledCallbacks = function() {");
-        p.body("       return document.formScopedCallbacksCalled;");
-        p.body("    };");
-        p.body("    document.AjaxCallbacks.getDocumentScopedCalledCallbacks = function() {");
-        p.body("       return document.documentScopedCallbacksCalled;");
-        p.body("    };");
-        p.body("    document.formScopedCallbacksCalled = '';");
-        p.body("    document.documentScopedCallbacksCalled = '';");
+        p.body("    document.formScopedCallbacksCalled = ' ';");
+        p.body("    document.documentScopedCallbacksCalled = ' ';");
 
         p.body("});");
         p.body("</h:outputScript>");
@@ -179,7 +139,7 @@ public class ITAjaxSubmissionCallbacks {
         p.body("  <h:outputText value=\"#{ajaxSubmissionsCallbacksBean.property}\" id=\"out\" />");
         p.body("</h:form>");
 
-        return deployment.addAsWebResource(p, "index.xhtml");
+        return p;
     }
 
     private static void registerCallBackToForm(FaceletAsset p, String eventCallback) {
@@ -194,20 +154,20 @@ public class ITAjaxSubmissionCallbacks {
         p.body("    });");
     }
 
-    @JavaScript("document.AjaxCallbacks")
+    private void resetCallbacks() {
+        callbacks.setDocumentScopedCallbacksCalled(" ");
+        callbacks.setFormScopedCallbacksCalled(" ");
+    }
+
+    @JavaScript("document")
     public interface Callbacks {
 
-        String getFormScopedCalledCallbacks();
+        String getFormScopedCallbacksCalled();
 
-        String getDocumentScopedCalledCallbacks();
-    }
+        String getDocumentScopedCallbacksCalled();
 
-    private class ITAjaxSubmissionCallbacks1 {
-    }
+        void setFormScopedCallbacksCalled(String s);
 
-    private class ITAjaxSubmissionCallbacks2 {
-    }
-
-    private class ITAjaxSubmissionCallbacks3 {
+        void setDocumentScopedCallbacksCalled(String s);
     }
 }
