@@ -43,6 +43,8 @@ import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.FocusProps;
+import org.richfaces.ui.attribute.StyleClassProps;
+import org.richfaces.ui.attribute.StyleProps;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
 
@@ -57,10 +59,10 @@ import org.richfaces.ui.common.meta.MetaComponentResolver;
 @JsfComponent(
         tag = @Tag(type = TagType.Facelets, generate = true),
         renderer = @JsfRenderer(type = AutocompleteRendererBase.RENDERER_TYPE))
-public abstract class AbstractAutocomplete extends UIInput implements FocusProps, EventsKeyProps, EventsMouseProps,
-        MetaComponentResolver, MetaComponentEncoder {
+public abstract class AbstractAutocomplete extends UIInput implements FocusProps, EventsKeyProps, EventsMouseProps, StyleProps,
+        StyleClassProps, MetaComponentResolver, MetaComponentEncoder {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.ui.sandbox.Autocomplete";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.Autocomplete";
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
 
     static final String SUGGESTIONS_META_COMPONENT_ID = "suggestions";
