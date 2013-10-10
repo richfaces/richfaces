@@ -283,7 +283,7 @@
                             <resources>
                                 <!-- RichFaces -->
                                 <resource>
-                                    <directory>${basedir}/src/main/widgets/dist/assets/richfaces</directory>
+                                    <directory>${basedir}/src/main/widgets/dist/assets/richwidgets</directory>
                                     <targetPath>${project.build.directory}/classes/META-INF/resources/org.richfaces/widget/</targetPath>
                                 </resource>
                                 <!-- jQuery UI -->
