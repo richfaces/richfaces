@@ -88,7 +88,7 @@ public abstract class AbstractPlaceholderTest {
     @FindBy(css = "[id$=output]")
     WebElement output;
     @FindBy(id = PLACEHOLDER_ID)
-    WebElement placeholderElement;
+    GrapheneElement placeholderElement;
 
     abstract Input input();
 
@@ -138,7 +138,7 @@ public abstract class AbstractPlaceholderTest {
         // having
         browser.navigate().to(contextPath.toExternalForm() + "rendered.jsf");
         // then
-        assertFalse("Placeholder should not be present.", new GrapheneElement(placeholderElement).isPresent());
+        assertFalse("Placeholder should not be present.", placeholderElement.isPresent());
     }
 
     @Test
