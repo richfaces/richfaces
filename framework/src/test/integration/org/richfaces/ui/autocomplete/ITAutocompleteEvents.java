@@ -22,6 +22,7 @@
 
 package org.richfaces.ui.autocomplete;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitGui;
 
 import java.net.URL;
@@ -54,8 +55,11 @@ public class ITAutocompleteEvents {
     @FindBy(id = "render")
     private WebElement renderButton;
 
-    @FindBy(css = ".r-autocomplete")
-    private RichAutocomplete autocomplete;
+    @FindBy(id = "blur-handler")
+    private RichAutocomplete autocompleteBlurHandler;
+
+    @FindBy(id = "change-ajax")
+    private RichAutocomplete autocompleteChangeAjax;
 
     @FindBy(id = "input")
     private WebElement input;
@@ -73,20 +77,31 @@ public class ITAutocompleteEvents {
 
     /**
      * onblur should have input value available via 'this.value' expression
+     *
+     * regressions test for RF-12605
      */
     @Test
-    // RF-12605
     public void testOnblurEventPayload() {
         // given
         browser.get(contextPath.toExternalForm());
 
-        autocomplete.type("t").selectFirst();
+        autocompleteBlurHandler.type("t").selectFirst();
 
         // when
         input.click();
 
         // then
-        waitGui().until().element(autocomplete.getInput()).attribute("value").equalTo("TORONTO");
+        waitGui().until().element(autocompleteBlurHandler.getInput()).attribute("value").equalTo("TORONTO");
+    }
+
+    @Test
+    public void test_ajax_on_change() {
+        browser.get(contextPath.toExternalForm());
+
+        autocompleteChangeAjax.type("t").selectFirst();
+
+        // when
+        guardAjax(input).click();
     }
 
     private static void addIndexPage(FrameworkDeployment deployment) {
@@ -94,8 +109,12 @@ public class ITAutocompleteEvents {
 
         p.form("<input id='input' placeholder='an element to switch focus' />");
 
-        p.form("<r:autocomplete autocompleteList='#{autocompleteBean.suggestions}'");
+        p.form("<r:autocomplete id='blur-handler' autocompleteList='#{autocompleteBean.suggestions}'");
         p.form("    onblur='this.value = this.value.toUpperCase()'  />");
+
+        p.form("<r:autocomplete id='change-ajax' autocompleteList='#{autocompleteBean.suggestions}'>");
+        p.form("    <r:ajax event='change' />");
+        p.form("</r:autocomplete>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
