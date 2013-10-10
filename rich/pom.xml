@@ -40,16 +40,15 @@
         <dependency>
             <groupId>org.richfaces.compat</groupId>
             <artifactId>richfaces-components-a4j</artifactId>
-            <version>${version.richfaces.ui}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
-        
+
         <dependency>
             <groupId>xmlunit</groupId>
             <artifactId>xmlunit</artifactId>
@@ -140,9 +139,14 @@
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Static.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Static/</staticResourcePrefix>
                             <excludedFiles>
-                                <exclude>^javax.faces</exclude>
+                                <exclude>^(bootstrap|flot|font-awesome|javax\.faces|jquery\.plugins)</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                                <exclude>^\Qorg.richfaces:\E[a-z]+/</exclude>
+                                <exclude>^\Qorg.richfaces.ckeditor:\E(?!ckeditor|config|contents)</exclude>
+                                <exclude>^\Qorg.richfaces.optimized\E</exclude>
+                                <exclude>^\Qorg.richfaces.ui.\E.*</exclude>
+                                <exclude>^\Qcom.jqueryui:\E((jquery\.ui\.(?!core|draggable|droppable|mouse|resizable|widget))|(?!jquery))</exclude>
                             </excludedFiles>
                         </configuration>
                     </execution>
@@ -160,13 +164,19 @@
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Compressed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Compressed/</staticResourcePrefix>
                             <excludedFiles>
-                                <exclude>^javax.faces</exclude>
+                                <exclude>^(bootstrap|flot|font-awesome|javax\.faces|jquery\.plugins)</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                                <exclude>^\Qorg.richfaces:\E[a-z]+/</exclude>
+                                <exclude>^\Qorg.richfaces.ckeditor:\E(?!ckeditor|config|contents)</exclude>
+                                <exclude>^\Qorg.richfaces.optimized\E</exclude>
+                                <exclude>^\Qorg.richfaces.static\E</exclude>
+                                <exclude>^\Qorg.richfaces.ui.\E.*</exclude>
+                                <exclude>^\Qcom.jqueryui:\E((jquery\.ui\.(?!core|draggable|droppable|mouse|resizable|widget))|(?!jquery))</exclude>
                             </excludedFiles>
                         </configuration>
                     </execution>
-                    
+
                     <!-- Packed -->
                     <execution>
                         <id>packed-resources</id>
@@ -180,10 +190,16 @@
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/Packed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Packed/</staticResourcePrefix>
                             <excludedFiles>
-                                <exclude>^javax.faces</exclude>
+                                <exclude>^jquery.js$</exclude>
+                                <exclude>^(bootstrap|flot|font-awesome|javax\.faces|jquery\.plugins)</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
-                                <exclude>^jquery.js$</exclude>
+                                <exclude>^\Qorg.richfaces:\E[a-z]+/</exclude>
+                                <exclude>^\Qorg.richfaces.ckeditor:\E(?!ckeditor|config|contents)</exclude>
+                                <exclude>^\Qorg.richfaces.optimized\E</exclude>
+                                <exclude>^\Qorg.richfaces.static\E</exclude>                                
+                                <exclude>^\Qorg.richfaces.ui.\E.*</exclude>
+                                <exclude>^\Qcom.jqueryui:\E((jquery\.ui\.(?!core|draggable|droppable|mouse|resizable|widget))|(?!jquery))</exclude>
                             </excludedFiles>
                         </configuration>
                     </execution>
@@ -217,10 +233,16 @@
                             <staticResourceMappingFile>${resource.mappings.dir}/staticResourceMapping/PackedCompressed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/PackedCompressed/</staticResourcePrefix>
                             <excludedFiles>
-                                <exclude>^javax.faces</exclude>
+                                <exclude>^jquery.js$</exclude>
+                                <exclude>^(bootstrap|flot|font-awesome|javax\.faces|jquery\.plugins)</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                                 <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
-                                <exclude>^jquery\.js$</exclude>
+                                <exclude>^\Qorg.richfaces:\E[a-z]+/</exclude>
+                                <exclude>^\Qorg.richfaces.ckeditor:\E(?!ckeditor|config|contents)</exclude>
+                                <exclude>^\Qorg.richfaces.optimized\E</exclude>
+                                <exclude>^\Qorg.richfaces.static\E</exclude>
+                                <exclude>^\Qorg.richfaces.ui.\E.*</exclude>
+                                <exclude>^\Qcom.jqueryui:\E((jquery\.ui\.(?!core|draggable|droppable|mouse|resizable|widget))|(?!jquery))</exclude>
                             </excludedFiles>
                         </configuration>
                     </execution>

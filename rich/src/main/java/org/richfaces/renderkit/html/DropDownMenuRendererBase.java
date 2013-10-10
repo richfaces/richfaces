@@ -24,7 +24,7 @@ import org.richfaces.renderkit.RendererBase;
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "popup.rf4.js"),
+        @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "menuKeyNavigation.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu-base.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu.js"),

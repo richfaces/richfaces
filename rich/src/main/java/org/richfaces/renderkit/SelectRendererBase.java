@@ -52,7 +52,7 @@ import org.richfaces.validator.SelectLabelValueValidator;
         @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(name = "richfaces-utils.js"), @ResourceDependency(name = "richfaces-selection.js"),
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
-        @ResourceDependency(library = "org.richfaces", name = "popup.rf4.js"),
+        @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "list.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.js"),
