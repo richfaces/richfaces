@@ -50,7 +50,7 @@ import category.Failing;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-@Category(Failing.class)
+@Category(Failing.class) // RFPL-3043
 public class ITAutocompleteTokenizing {
 
     @Drone
