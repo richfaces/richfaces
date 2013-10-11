@@ -7,7 +7,8 @@
       showButton : false,
       layout : 'list',
       minChars : 0,
-      selectFirst : true
+      autoFocus : true,
+      autoFill: true
     },
 
     _create : function() {
@@ -17,11 +18,9 @@
       var bridge = this;
 
       var autocompleteOptions = $.extend({}, this.options, {
-        minLength: this.options.minLength,
-        autoFocus: this.options.selectFirst,
-        token: this.options.tokens,
-        
+
         source : '[id="' + clientId + 'Suggestions"]',
+        cached: (this.options.mode === 'cachedAjax'),
         update : function(request, done) {
           if (bridge.options.mode.match(/client/i)) {
             done();
