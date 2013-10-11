@@ -54,8 +54,8 @@ public abstract class CollapsibleSubTableTogglerRendererBase extends RendererBas
      */
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
     private static final String DISPLAY_NONE = "display: none;";
-    private static final String UP_ICON_URL = "org.richfaces/up_icon.gif";
-    private static final String DOWN_ICON_URL = "org.richfaces/down_icon.gif";
+    private static final String UP_ICON_URL = "org.richfaces/iteration/up_icon.gif";
+    private static final String DOWN_ICON_URL = "org.richfaces/iteration/down_icon.gif";
     private static final String EXPANDED_STATE = "expanded";
     private static final String COLLAPSED_STATE = "collapsed";
     private static final String EXPANDED_CONTROL_CLASS = "rf-csttg-exp";
