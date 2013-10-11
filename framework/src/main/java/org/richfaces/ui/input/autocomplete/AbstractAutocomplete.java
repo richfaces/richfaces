@@ -24,6 +24,7 @@ package org.richfaces.ui.input.autocomplete;
 import java.io.IOException;
 
 import javax.el.MethodExpression;
+import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.visit.VisitCallback;
@@ -47,6 +48,9 @@ import org.richfaces.ui.attribute.StyleClassProps;
 import org.richfaces.ui.attribute.StyleProps;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
+
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
 
 /**
  * <p>
@@ -142,25 +146,6 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
      */
     @Attribute(defaultValue = "AutocompleteMode.cachedAjax")
     public abstract AutocompleteMode getMode();
-
-    /**
-     * <p>
-     * Type of the layout encoded using nested components should be defined using layout attribute. Possible values are:
-     * </p>
-     * <dl>
-     * <dt>list</dt>
-     * <dd>suggestions wrapped to HTML unordered list</dd>
-     * <dt>div</dt>
-     * <dd>suggestions wrapped with just div element</dd>
-     * <dt>table</dt>
-     * <dd>suggestions are encoded as table rows, column definitions are required in this case</dd>
-     * </dl>
-     * <p>
-     * Default: div
-     * </p>
-     */
-    @Attribute(defaultValue = "list")
-    public abstract String getLayout();
 
     /**
      * <p>
@@ -395,5 +380,13 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
     @Override
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
         ((AutocompleteRendererBase) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
+    }
+
+    /**
+     * Returns 'table' if all children are columns and thus the component should be rendered as a table; it returns 'list' otherwise
+     */
+    @Attribute(generate = false, hidden = true, defaultValue = "Layout.list")
+    public String getLayout() {
+        return (Iterables.all(getChildren(), Predicates.instanceOf(UIColumn.class))) ? "table" : "list";
     }
 }

@@ -5,7 +5,6 @@
     options : {
       mode : 'cachedAjax',
       showButton : false,
-      layout : 'list',
       minChars : 0,
       autoFocus : true,
       autoFill: true

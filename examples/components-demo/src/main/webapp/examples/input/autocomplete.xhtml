@@ -36,7 +36,7 @@
     Following sample shows usage of autocomplete in AJAX mode with custom suggestion formatting and fetched value:
     
     <h:form id="custom-formatting">
-    	<r:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="cachedAjax" minChars="2" selectFirst="true" layout="list" var="p" fetchValue="#{p.name}"
+    	<r:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="cachedAjax" minChars="2" selectFirst="true" var="p" fetchValue="#{p.name}"
             onblur="console.log('blur')">
             #{p.name} - #{p.age}
         </r:autocomplete>
@@ -47,7 +47,7 @@
     <h3>Autocomplete with suggestion in table layout</h3>
     
     <h:form id="table-layout">
-        <r:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="ajax" layout="table" var="p" fetchValue="#{p.name}">
+        <r:autocomplete id="autocomplete" autocompleteMethod="#{autocompleteBean.suggest}" mode="ajax" var="p" fetchValue="#{p.name}">
             <r:column>
                 #{p.name}
             </r:column>

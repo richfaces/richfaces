@@ -36,7 +36,7 @@
             <cdk:renderFragment name="renderSuggestions" />
             <script>
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="token:tokens mode showButton layout minLength:minChars autoFocus:selectFirst" />
+                    <cdk:scriptOption attributes="token:tokens mode showButton minLength:minChars autoFocus:selectFirst" />
                     <cdk:scriptOption wrapper="eventHandler" attributes="" />
                     <cdk:scriptOption name="filter" value="#{this.getClientFilterFunction(component)}" />
                 </cdk:scriptObject>
