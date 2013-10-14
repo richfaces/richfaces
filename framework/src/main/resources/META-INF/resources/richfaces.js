@@ -507,18 +507,6 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         }
     };
 
-    /**
-     * curry (g, a) (b) -> g(a, b)
-     */
-    var curry = function(g, a) {
-        var _g = g;
-        var _a = a;
-
-        return function(b) {
-            _g(_a, b);
-        };
-    };
-
     var createEventHandler = function(handlerCode) {
         if (handlerCode) {
             return new Function("event", handlerCode);
@@ -535,11 +523,11 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             var serverHandler = createEventHandler(xml.children(event.type).text());
 
             if (clientHandler) {
-                clientHandler.call(window, event);
+                clientHandler.call(this, event);
             }
 
             if (serverHandler) {
-                serverHandler.call(window, event);
+                serverHandler.call(this, event);
             }
         };
 
@@ -615,7 +603,9 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
                 var serverHandler = AJAX_EVENTS[eventName];
                 if (serverHandler) {
-                    handler = curry(serverHandler, handler);
+                    handler = $.proxy(function(clientHandler, event) {
+                      return serverHandler.call(this, clientHandler, event);
+                    }, sourceElement, handler);
                 }
 
                 if (handler) {
