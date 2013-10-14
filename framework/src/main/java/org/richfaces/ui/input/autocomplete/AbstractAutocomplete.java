@@ -431,6 +431,6 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
      */
     @Attribute(generate = false, hidden = true, defaultValue = "Layout.list")
     public String getLayout() {
-        return (Iterables.all(getChildren(), Predicates.instanceOf(UIColumn.class))) ? "table" : "list";
+        return (getChildCount() > 0 && Iterables.all(getChildren(), Predicates.instanceOf(UIColumn.class))) ? "table" : "list";
     }
 }

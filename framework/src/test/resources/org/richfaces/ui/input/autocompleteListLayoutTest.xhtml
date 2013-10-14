@@ -31,7 +31,7 @@
     <h:form id="form">
         <r:autocomplete autofill="false" id="myAutocomplete" mode="#{autoCompleteBean.mode}" minChars="2"
             autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
-            value="#{autoCompleteBean.value}" layout="list">
+            value="#{autoCompleteBean.value}">
             #{country.name} #{country.iso} #{country.domain}
             <r:ajax event="change" render="output" />
         </r:autocomplete>

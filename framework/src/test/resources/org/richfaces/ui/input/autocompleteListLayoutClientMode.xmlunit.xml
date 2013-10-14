@@ -21,12 +21,12 @@
   -->
 
 <div id="form:myAutocomplete">
-  <input class="form-control" id="form:myAutocompleteInput" name="form:myAutocompleteInput" type="text" onchange="RichFaces.ajax(this,event,{&quot;parameters&quot;:{&quot;javax.faces.behavior.event&quot;:&quot;change&quot;,&quot;org.richfaces.ajax.component&quot;:&quot;form:myAutocomplete&quot;} ,&quot;sourceId&quot;:this} )"/>
+  <input class="form-control" id="form:myAutocompleteInput" name="form:myAutocompleteInput" type="text"/>
   <ul id="form:myAutocompleteSuggestions" style="display: none">
   </ul>
   <script>
 //<![CDATA[
-$(document.getElementById('form:myAutocomplete')).richAutocompleteBridge({"minChars":2,"showButton":true} );
+$(document.getElementById('form:myAutocomplete')).richAutocompleteBridge({"minLength":2,"showButton":true,"change":function(event){RichFaces.ajax(this,event,{"parameters":{"javax.faces.behavior.event":"change","org.richfaces.ajax.component":"form:myAutocomplete"} ,"sourceId":this} )}} );
 //]]>
   </script>
 </div>
