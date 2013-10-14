@@ -21,7 +21,7 @@
   -->
 
 <div id="form:myAutocomplete">
-  <input class="form-control" id="form:myAutocompleteInput" name="form:myAutocompleteInput" type="text"/>
+  <input class="form-control" id="form:myAutocompleteInput" name="form:myAutocompleteInput" type="text" onchange="RichFaces.ajax(this,event,{&quot;parameters&quot;:{&quot;javax.faces.behavior.event&quot;:&quot;change&quot;,&quot;org.richfaces.ajax.component&quot;:&quot;form:myAutocomplete&quot;} ,&quot;sourceId&quot;:this} )"/>
   <ul id="form:myAutocompleteSuggestions" style="display: none">
   </ul>
   <script>
