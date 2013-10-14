@@ -121,7 +121,7 @@
         <!-- Container Versions -->
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
         <version.tomee15>1.5.1</version.tomee15>
-        <version.wildfly8>8.0.0.Alpha4</version.wildfly8>
+        <version.wildfly8>8.0.0.Beta1</version.wildfly8>
         
         <!-- Release repositories -->
         <jboss.releases.repo.url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
