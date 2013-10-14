@@ -60,9 +60,7 @@ import com.google.common.collect.Iterables;
  *
  * @author Lukas Fryc
  */
-@JsfComponent(
-        tag = @Tag(type = TagType.Facelets, generate = true),
-        renderer = @JsfRenderer(type = AutocompleteRendererBase.RENDERER_TYPE))
+@JsfComponent(tag = @Tag(type = TagType.Facelets, generate = true), renderer = @JsfRenderer(type = AutocompleteRendererBase.RENDERER_TYPE))
 public abstract class AbstractAutocomplete extends UIInput implements FocusProps, EventsKeyProps, EventsMouseProps, StyleProps,
         StyleClassProps, MetaComponentResolver, MetaComponentEncoder {
 
@@ -219,16 +217,61 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
     // ----------- Event Attributes
 
     /**
-     * Javascript code executed when an item is selected
+     * Javascript code triggered when an item is selected from the menu. The default action is to replace the text field's value with the value of the selected item.
+     *
+     * Canceling this event prevents the value from being updated, but does not prevent the menu from closing.
      */
+    @Attribute(events = @EventName("select"))
+    public abstract String getOnselect();
+
+    /**
+     * @deprecated use {@link #getOnselect()} ('select' event instead)
+     */
+    @Deprecated
     @Attribute(events = @EventName("selectitem"))
     public abstract String getOnselectitem();
 
     /**
-     * Javascript code executed when this element loses focus and its value has been modified since gaining focus.
+     * Javascript code triggered when the field is blurred, if the value has changed.
      */
     @Attribute(events = @EventName(value = "change", defaultEvent = true))
     public abstract String getOnchange();
+
+    /**
+     * Javascript code triggered when the menu is hidden. Not every close event will be accompanied by a change event.
+     */
+    @Attribute(events = @EventName(value = "close"))
+    public abstract String getOnclose();
+
+    /**
+     * Javascript code triggered when focus is moved to an item (not selecting). The default action is to replace the text
+     * field's value with the value of the focused item, though only if the event was triggered by a keyboard interaction.
+     *
+     * Canceling this event prevents the value from being updated, but does not prevent the menu item from being focused.
+     */
+    @Attribute(events = @EventName(value = "focus"))
+    public abstract String getOnfocus();
+
+    /**
+     * Javascript code triggered when the suggestion menu is opened or updated.
+     */
+    @Attribute(events = @EventName(value = "open"))
+    public abstract String getOnopen();
+
+    /**
+     * Javascript code triggered after a search completes, before the menu is shown. Useful for local manipulation of suggestion
+     * data, where a custom source option callback is not required. This event is always triggered when a search completes, even
+     * if the menu will not be shown because there are no results or the Autocomplete is disabled.
+     */
+    @Attribute(events = @EventName(value = "response"))
+    public abstract String getOnresponse();
+
+    /**
+     * Javascript code triggered before a search is performed, after minLength and delay are met. If canceled, then no request
+     * will be started and no items suggested.
+     */
+    @Attribute(events = @EventName(value = "search"))
+    public abstract String getOnsearch();
 
     // ----------- List events
 
@@ -383,7 +426,8 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
     }
 
     /**
-     * Returns 'table' if all children are columns and thus the component should be rendered as a table; it returns 'list' otherwise
+     * Returns 'table' if all children are columns and thus the component should be rendered as a table; it returns 'list'
+     * otherwise
      */
     @Attribute(generate = false, hidden = true, defaultValue = "Layout.list")
     public String getLayout() {
