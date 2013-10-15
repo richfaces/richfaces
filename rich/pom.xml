@@ -102,6 +102,7 @@
                         <skin>japanCherry</skin>
                         <skin>ruby</skin>
                         <skin>wine</skin>
+                        <skin>plain</skin>
                         <skin>DEFAULT</skin>
                         <skin>NULL</skin>
                     </skins>
