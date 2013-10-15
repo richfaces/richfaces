@@ -102,7 +102,7 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
     /**
      * Minimal number of chars in input to activate suggestion popup
      */
-    @Attribute
+    @Attribute(defaultValue = "1")
     public abstract int getMinChars();
 
     /**

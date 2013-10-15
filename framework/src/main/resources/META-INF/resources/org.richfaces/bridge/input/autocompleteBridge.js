@@ -5,7 +5,7 @@
     options : {
       mode : 'cachedAjax',
       showButton : false,
-      minLength : 0,
+      minLength : 1,
       autoFocus : true,
       autoFill: true
     },
