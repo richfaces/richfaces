@@ -453,15 +453,15 @@
                                         <argument>--skins</argument>
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^javax.faces</argument>
+                                        <argument>^\Qjavax.faces\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.ui.images.*</argument>
+                                        <argument>^\Qorg.richfaces.ui.images.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.ui.iconimages.*</argument>
+                                        <argument>^\Qorg.richfaces.ui.iconimages.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.optimized.*</argument>
+                                        <argument>^\Qorg.richfaces.optimized.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.ckeditor.*</argument>
+                                        <argument>^\Qorg.richfaces.ckeditor.\E</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -485,15 +485,15 @@
                                         <argument>--skins</argument>
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^javax.faces</argument>
+                                        <argument>^\Qjavax.faces\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.ui.images.*</argument>
+                                        <argument>^\Qorg.richfaces.ui.images.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.ui.iconimages.*</argument>
+                                        <argument>^\Qorg.richfaces.ui.iconimages.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.optimized.*</argument>
+                                        <argument>^\Qorg.richfaces.optimized.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.ckeditor.*</argument>
+                                        <argument>^\Qorg.richfaces.ckeditor.\E</argument>
                                         <argument>--compress</argument>
                                     </arguments>
                                 </configuration>
@@ -518,17 +518,17 @@
                                         <argument>--skins</argument>
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^javax.faces</argument>
+                                        <argument>^\Qjavax.faces\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.ui.images.*</argument>
+                                        <argument>^\Qorg.richfaces.ui.images.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.ui.iconimages.*</argument>
+                                        <argument>^\Qorg.richfaces.ui.iconimages.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.optimized.*</argument>
+                                        <argument>^\Qorg.richfaces.optimized.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.ckeditor.*</argument>
+                                        <argument>^\Qorg.richfaces.ckeditor.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^jquery.js$</argument>
+                                        <argument>^jquery\.js$</argument>
                                         <argument>--pack</argument>
                                     </arguments>
                                 </configuration>
@@ -552,7 +552,7 @@
                                         <argument>--skins</argument>
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--includeFile</argument>
-                                        <argument>^jquery.js$</argument>
+                                        <argument>^jquery\.js$</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -576,17 +576,17 @@
                                         <argument>--skins</argument>
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^javax.faces</argument>
+                                        <argument>^\Qjavax.faces\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.ui.images.*</argument>
+                                        <argument>^\Qorg.richfaces.ui.images.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.ui.iconimages.*</argument>
+                                        <argument>^\Qorg.richfaces.ui.iconimages.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.optimized.*</argument>
+                                        <argument>^\Qorg.richfaces.optimized.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^org.richfaces.ckeditor.*</argument>
+                                        <argument>^\Qorg.richfaces.ckeditor.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^jquery.js$</argument>
+                                        <argument>^jquery\.js$</argument>
                                         <argument>--pack</argument>
                                         <argument>--compress</argument>
                                     </arguments>
@@ -611,7 +611,7 @@
                                         <argument>--skins</argument>
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--includeFile</argument>
-                                        <argument>^jquery.js$</argument>
+                                        <argument>^jquery\.js$</argument>
                                         <argument>--compress</argument>
                                     </arguments>
                                 </configuration>
