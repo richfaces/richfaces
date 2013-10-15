@@ -45,7 +45,7 @@
         <optimized.resources.directory>${project.build.outputDirectory}/META-INF/resources/org.richfaces.optimized/${version.richfaces}</optimized.resources.directory>
         <optimized.resources.prefix>org.richfaces.optimized/${version.richfaces}</optimized.resources.prefix>
         <optimized.resources.mapping>${project.build.outputDirectory}/META-INF/richfaces/optimizedResourcesMapping</optimized.resources.mapping>
-        <optimized.resources.skins>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</optimized.resources.skins>
+        <optimized.resources.skins>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,plain,DEFAULT,NULL</optimized.resources.skins>
     </properties>
 
     <dependencies>
@@ -609,7 +609,7 @@
                                         <argument>--mapping</argument>
                                         <argument>${optimized.resources.mapping}/PackedCompressed.properties</argument>
                                         <argument>--skins</argument>
-                                        <argument>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,DEFAULT,NULL</argument>
+                                        <argument>${optimized.resources.skins}</argument>
                                         <argument>--includeFile</argument>
                                         <argument>^jquery.js$</argument>
                                         <argument>--compress</argument>
