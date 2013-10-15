@@ -40,8 +40,7 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
 
     @Override
     public Skin getDefaultSkin(FacesContext context) {
-        // TODO Auto-generated method stub
-        return null;
+        return getSkin(context, "DEFAULT");
     }
 
     @Override
