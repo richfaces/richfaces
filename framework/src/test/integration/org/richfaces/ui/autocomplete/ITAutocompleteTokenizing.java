@@ -24,10 +24,8 @@ package org.richfaces.ui.autocomplete;
 
 import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
-import java.util.List;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -36,9 +34,10 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -46,11 +45,8 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import category.Failing;
-
 @RunAsClient
 @RunWith(Arquillian.class)
-@Category(Failing.class) // RFPL-3043
 public class ITAutocompleteTokenizing {
 
     @Drone
@@ -59,17 +55,11 @@ public class ITAutocompleteTokenizing {
     @ArquillianResource
     private URL contextPath;
 
-    @FindBy(css = "input.rf-au-inp")
-    private WebElement autocompleteInput;
-
-    @FindBy(css = ".rf-au-itm")
-    private List<WebElement> autocompleteItems;
+    @FindBy(css = ".r-autocomplete")
+    private RichAutocomplete autocomplete;
 
     @ArquillianResource
     private Actions actions;
-
-    @FindBy(css = ".rf-au-lst-cord")
-    WebElement suggestionList;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -86,87 +76,97 @@ public class ITAutocompleteTokenizing {
     public void testAutofillDisabledSelectionByMouse() {
         browser.get(contextPath.toExternalForm() + "?autofill=false");
 
-        autocompleteInput.sendKeys("t,");
-        waitGui().until().element(suggestionList).is().visible();
-        assertEquals(4, autocompleteItems.size());
-        assertEquals("t,", autocompleteInput.getAttribute("value"));
+        autocomplete.type("t,");
+        assertEquals(4, autocomplete.getSuggestions().size());
+        assertEquals("t,", autocomplete.getInput().getAttribute("value"));
 
-        WebElement secondItem = autocompleteItems.get(1);
+        WebElement secondItem = autocomplete.getSuggestions().get(1);
 
         actions.moveToElement(secondItem).perform();
-        waitGui().until().element(secondItem).attribute("class").contains("rf-au-itm-sel");
-        assertTrue(suggestionList.isDisplayed());
-        assertEquals(4, autocompleteItems.size());
-        assertEquals("t,", autocompleteInput.getAttribute("value"));
+        waitUntilItemFocused(secondItem);
+        autocomplete.waitForSuggestionsToShow();
+        assertEquals(4, autocomplete.getSuggestions().size());
+        assertEquals("t,", autocomplete.getInput().getAttribute("value"));
 
         secondItem.click();
-        waitGui().until().element(suggestionList).is().not().visible();
-        assertEquals("t,New York", autocompleteInput.getAttribute("value"));
+        autocomplete.waitForSuggestionsToHide();
+        assertEquals("t, New York", autocomplete.getInput().getAttribute("value"));
 
-        autocompleteInput.sendKeys(", ");
-        waitGui().until().element(suggestionList).is().visible();
-        assertEquals(4, autocompleteItems.size());
-        assertEquals("t,New York, ", autocompleteInput.getAttribute("value"));
+        autocomplete.type(", ");
+        autocomplete.waitForSuggestionsToShow();
+        assertEquals(4, autocomplete.getSuggestions().size());
+        assertEquals("t, New York, ", autocomplete.getInput().getAttribute("value"));
 
-        WebElement thirdItem = autocompleteItems.get(2);
+        WebElement thirdItem = autocomplete.getSuggestions().get(2);
 
         actions.moveToElement(thirdItem).perform();
-        waitGui().until().element(thirdItem).attribute("class").contains("rf-au-itm-sel");
-        assertTrue(suggestionList.isDisplayed());
-        assertEquals(4, autocompleteItems.size());
-        assertEquals("t,New York, ", autocompleteInput.getAttribute("value"));
+        waitUntilItemFocused(thirdItem);
+        autocomplete.waitForSuggestionsToShow();
+        assertEquals(4, autocomplete.getSuggestions().size());
+        assertEquals("t, New York, ", autocomplete.getInput().getAttribute("value"));
 
         thirdItem.click();
-        waitGui().until().element(suggestionList).is().not().visible();
-        assertEquals("t,New York, San Francisco", autocompleteInput.getAttribute("value"));
+        autocomplete.waitForSuggestionsToHide();
+        assertEquals("t, New York, San Francisco", autocomplete.getInput().getAttribute("value"));
     }
 
     @Test
+    @Ignore("RF-13262")
     public void testAutofillEnabledSelectionByMouse() {
         browser.get(contextPath.toExternalForm() + "?autofill=true");
 
-        autocompleteInput.sendKeys("t,");
-        waitGui().until().element(suggestionList).is().visible();
-        assertEquals(4, autocompleteItems.size());
-        assertEquals("t,Toronto", autocompleteInput.getAttribute("value"));
+        autocomplete.type("t,");
+        autocomplete.waitForSuggestionsToShow();
+        assertEquals(4, autocomplete.getSuggestions().size());
+        assertEquals("t, Toronto", autocomplete.getInput().getAttribute("value"));
 
-        WebElement secondItem = autocompleteItems.get(1);
+        WebElement secondItem = autocomplete.getSuggestions().get(1);
 
         actions.moveToElement(secondItem).perform();
-        waitGui().until().element(autocompleteInput).attribute("value").equalTo("t,New York");
-        assertTrue(suggestionList.isDisplayed());
-        assertEquals(4, autocompleteItems.size());
+        waitUntilItemFocused(secondItem);
+        waitUntilInputValueChangesTo("t, New York");
+        autocomplete.waitForSuggestionsToShow();
+        assertEquals(4, autocomplete.getSuggestions().size());
 
         secondItem.click();
-        waitGui().until().element(suggestionList).is().not().visible();
-        assertEquals("t,New York", autocompleteInput.getAttribute("value"));
+        autocomplete.waitForSuggestionsToHide();
+        assertEquals("t, New York", autocomplete.getInput().getAttribute("value"));
 
-        autocompleteInput.sendKeys(", ");
-        waitGui().until().element(suggestionList).is().visible();
-        assertEquals(4, autocompleteItems.size());
-        assertEquals("t,New York, Toronto", autocompleteInput.getAttribute("value"));
+        autocomplete.type(", ");
+        autocomplete.waitForSuggestionsToShow();
+        assertEquals(4, autocomplete.getSuggestions().size());
+        assertEquals("t, New York, Toronto", autocomplete.getInput().getAttribute("value"));
 
-        WebElement thirdItem = autocompleteItems.get(2);
+        WebElement thirdItem = autocomplete.getSuggestions().get(2);
 
         actions.moveToElement(thirdItem).perform();
-        waitGui().until().element(autocompleteInput).attribute("value").equalTo("t,New York, San Francisco");
-        assertTrue(suggestionList.isDisplayed());
-        assertEquals(4, autocompleteItems.size());
+        waitUntilInputValueChangesTo("t, New York, San Francisco");
+        autocomplete.waitForSuggestionsToShow();
+        assertEquals(4, autocomplete.getSuggestions().size());
 
         thirdItem.click();
-        waitGui().until().element(suggestionList).is().not().visible();
-        assertEquals("t,New York, San Francisco", autocompleteInput.getAttribute("value"));
+        autocomplete.waitForSuggestionsToHide();
+        assertEquals("t, New York, San Francisco", autocomplete.getInput().getAttribute("value"));
     }
+
 
     @Test
     public void when_space_is_not_token_then_it_should_not_be_used_to_separate_input() {
         browser.get(contextPath.toExternalForm() + "?autofill=false");
 
-        autocompleteInput.sendKeys("t");
-        waitGui().until().element(suggestionList).is().visible();
+        autocomplete.type("t");
+        autocomplete.waitForSuggestionsToShow();
 
-        autocompleteInput.sendKeys(" ");
-        waitGui().until().element(suggestionList).is().not().visible();
+        autocomplete.getInput().sendKeys(" ");
+        autocomplete.waitForSuggestionsToHide();
+    }
+
+    private Void waitUntilItemFocused(WebElement item) {
+        return waitGui().until().element(item.findElement(By.className("ui-state-focus"))).is().present();
+    }
+
+    private Void waitUntilInputValueChangesTo(String to) {
+        return waitGui().until().element(autocomplete.getInput()).attribute("value").equalTo(to);
     }
 
     private static void addIndexPage(FrameworkDeployment deployment) {
