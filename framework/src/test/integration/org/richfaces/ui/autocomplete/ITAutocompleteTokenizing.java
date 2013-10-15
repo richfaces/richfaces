@@ -34,7 +34,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -61,7 +60,7 @@ public class ITAutocompleteTokenizing {
     @ArquillianResource
     private Actions actions;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITAutocompleteTokenizing.class);
 
@@ -111,42 +110,41 @@ public class ITAutocompleteTokenizing {
     }
 
     @Test
-    @Ignore("RF-13262")
     public void testAutofillEnabledSelectionByMouse() {
         browser.get(contextPath.toExternalForm() + "?autofill=true");
 
-        autocomplete.type("t,");
+        autocomplete.type("t, t");
         autocomplete.waitForSuggestionsToShow();
-        assertEquals(4, autocomplete.getSuggestions().size());
-        assertEquals("t, Toronto", autocomplete.getInput().getAttribute("value"));
+        assertEquals(2, autocomplete.getSuggestions().size());
+        assertEquals("t, toronto", autocomplete.getInput().getAttribute("value"));
 
         WebElement secondItem = autocomplete.getSuggestions().get(1);
 
         actions.moveToElement(secondItem).perform();
         waitUntilItemFocused(secondItem);
-        waitUntilInputValueChangesTo("t, New York");
+        waitUntilInputValueChangesTo("t, tampa Bay");
         autocomplete.waitForSuggestionsToShow();
-        assertEquals(4, autocomplete.getSuggestions().size());
+        assertEquals(2, autocomplete.getSuggestions().size());
 
         secondItem.click();
         autocomplete.waitForSuggestionsToHide();
-        assertEquals("t, New York", autocomplete.getInput().getAttribute("value"));
+        assertEquals("t, Tampa Bay", autocomplete.getInput().getAttribute("value"));
 
         autocomplete.type(", ");
         autocomplete.waitForSuggestionsToShow();
         assertEquals(4, autocomplete.getSuggestions().size());
-        assertEquals("t, New York, Toronto", autocomplete.getInput().getAttribute("value"));
+        assertEquals("t, Tampa Bay, ", autocomplete.getInput().getAttribute("value"));
 
         WebElement thirdItem = autocomplete.getSuggestions().get(2);
 
         actions.moveToElement(thirdItem).perform();
-        waitUntilInputValueChangesTo("t, New York, San Francisco");
+        waitUntilInputValueChangesTo("t, Tampa Bay, ");
         autocomplete.waitForSuggestionsToShow();
         assertEquals(4, autocomplete.getSuggestions().size());
 
         thirdItem.click();
         autocomplete.waitForSuggestionsToHide();
-        assertEquals("t, New York, San Francisco", autocomplete.getInput().getAttribute("value"));
+        assertEquals("t, Tampa Bay, San Francisco", autocomplete.getInput().getAttribute("value"));
     }
 
 
@@ -173,7 +171,7 @@ public class ITAutocompleteTokenizing {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");
-        p.body("    <r:autocomplete id='autocomplete' mode='client' autocompleteList='#{autocompleteBean.suggestions}' tokens=',' autofill='#{param.autofill}' />");
+        p.body("    <r:autocomplete id='autocomplete' mode='client' autocompleteList='#{autocompleteBean.suggestions}' tokens=',' autofill='#{param.autofill}' minChars='0' />");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
