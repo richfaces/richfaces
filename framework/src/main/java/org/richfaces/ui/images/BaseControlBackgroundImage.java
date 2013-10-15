@@ -21,9 +21,10 @@
  */
 package org.richfaces.ui.images;
 
-import org.richfaces.skin.Skin;
-
 import javax.faces.context.FacesContext;
+
+import org.richfaces.skin.Skin;
+import org.richfaces.skin.SkinFactory;
 
 /**
  * Created 23.02.2008
@@ -42,7 +43,15 @@ public abstract class BaseControlBackgroundImage extends BaseGradient {
     @Override
     protected void initializeProperties(FacesContext context, Skin skin) {
         super.initializeProperties(context, skin);
-        setHeight(skin.getIntegerParameter(context, Skin.GENERAL_SIZE_FONT));
+
+        Integer heightParameter = skin.getIntegerParameter(context, Skin.GENERAL_SIZE_FONT);
+        if (heightParameter == null) {
+            Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
+            heightParameter = defaultSkin.getIntegerParameter(context, Skin.GENERAL_SIZE_FONT);
+        }
+
+        setHeight(heightParameter);
+
         setGradientType(GradientType.plain);
         setGradientHeight(-1);
     }
