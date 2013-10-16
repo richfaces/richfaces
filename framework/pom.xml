@@ -400,7 +400,7 @@
                                         <argument>--excludeFile</argument>
                                         <argument>^\Qorg.richfaces.optimized.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ckeditor.\E</argument>
+                                        <argument>^\Qorg.richfaces.ui.ckeditor\E</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -432,7 +432,7 @@
                                         <argument>--excludeFile</argument>
                                         <argument>^\Qorg.richfaces.optimized.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ckeditor.\E</argument>
+                                        <argument>^\Qorg.richfaces.ui.ckeditor\E</argument>
                                         <argument>--compress</argument>
                                     </arguments>
                                 </configuration>
@@ -465,7 +465,7 @@
                                         <argument>--excludeFile</argument>
                                         <argument>^\Qorg.richfaces.optimized.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ckeditor.\E</argument>
+                                        <argument>^\Qorg.richfaces.ui.ckeditor\E</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^jquery\.js$</argument>
                                         <argument>--pack</argument>
@@ -523,7 +523,7 @@
                                         <argument>--excludeFile</argument>
                                         <argument>^\Qorg.richfaces.optimized.\E</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ckeditor.\E</argument>
+                                        <argument>^\Qorg.richfaces.ui.ckeditor\E</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^jquery\.js$</argument>
                                         <argument>--pack</argument>
