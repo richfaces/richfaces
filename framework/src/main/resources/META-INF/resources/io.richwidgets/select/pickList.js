@@ -24,8 +24,7 @@
       addDomElements: null,
       destroy: null,
       focus: null,
-      blur: null,
-      change: null
+      blur: null
     },
 
     _create: function () {
@@ -95,7 +94,7 @@
     /** Public API methods **/
 
     removeItems: function (items, event) {
-      if (this.options.disabled) return;
+      if (this.options.disabled) { return; }
       this.targetList.orderingList("remove", items);
       this.sourceList.orderingList("add", items);
       var ui = this._dumpState();
@@ -104,7 +103,7 @@
     },
 
     addItems: function (items, event) {
-      if (this.options.disabled) return;
+      if (this.options.disabled) { return; }
       this.sourceList.orderingList("remove", items);
       this.targetList.orderingList("add", items);
       var ui = this._dumpState();
@@ -272,19 +271,19 @@
       }
       this.sourceList.wrap(
         $("<div />").addClass('source-wrapper col-sm-5')
-      )
+      );
       this.targetList.wrap(
         $("<div />").addClass('target-wrapper col-sm-6')
-      )
+      );
       this.content = this.element;
       this.outer.attr('tabindex', '-1');
     },
 
-    _addSubHeader: function (sourceHeader, targetHeader) {
-      if (sourceHeader || targetHeader) {
+    _addSubHeader: function (sourceHeaderText, targetHeaderText) {
+      if (sourceHeaderText || targetHeaderText) {
         var subHeaderRow = $("<div />").addClass("row sub-header-row");
-        var sourceHeader = $("<div />").addClass('col-sm-5 source header').html(sourceHeader);
-        var targetHeader = $("<div />").addClass('col-sm-6 col-sm-offset-1 target header').html(targetHeader);
+        var sourceHeader = $("<div />").addClass('col-sm-5 source header').html(sourceHeaderText);
+        var targetHeader = $("<div />").addClass('col-sm-6 col-sm-offset-1 target header').html(targetHeaderText);
         subHeaderRow.append(sourceHeader).append(targetHeader);
         var headerRow = this.outer.find('.header-row');
         if (headerRow.length !== 0) {
@@ -295,11 +294,10 @@
       }
     },
 
-    _addHeader: function (header) {
-      this.header = headerRow;
-      if (header) {
+    _addHeader: function (headerText) {
+      if (headerText) {
         var headerRow = $("<div />").addClass("row header-row");
-        var header = $("<div />").addClass('col-xs-12 header').html(header);
+        var header = $("<div />").addClass('col-xs-12 header').html(headerText);
         headerRow.append(header);
         var subHeaderRow = this.outer.find('.sub-header-row');
         if (subHeaderRow.length !== 0) {
@@ -399,7 +397,7 @@
     _disable: function () {
       this.sourceList.orderingList("option", "disabled", true);
       this.targetList.orderingList("option", "disabled", true);
-      this.element.addClass("disabled")
+      this.element.addClass("disabled");
       this.outer.find('.button-column button').attr("disabled", true);
     },
 

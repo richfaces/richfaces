@@ -23,8 +23,7 @@
       addDomElements: null,
       destroy: null,
       focus: null,
-      blur: null,
-      change: null
+      blur: null
     },
 
     _create: function () {
@@ -70,7 +69,7 @@
         },
         over: function (event, ui) {
           if (widget.fillItem) {
-            widget._updateFillRow()
+            widget._updateFillRow();
           }
         },
         beforeStop: function (event, ui) {
@@ -84,12 +83,12 @@
             ui.item.after(widget.currentItems.not(ui.item).detach());
           }
           widget.currentItems.not('.placeholder').show();
-          var ui = widget._dumpState();
-          ui.movement = 'drag';
+          var ui2 = widget._dumpState();
+          ui2.movement = 'drag';
           if (widget.fillItem) {
-            widget._updateFillRow()
+            widget._updateFillRow();
           }
-          widget._trigger("change", event, ui);
+          widget._trigger("change", event, ui2);
         }
       };
       if (this.element.is("table")) {
@@ -182,7 +181,7 @@
 
     _addDragListeners: function() {
       var widget = this;
-      if (this.options.dragSelect == false) {
+      if (this.options.dragSelect === false) {
         this.element.on("mousedown", '.ui-selectee', function (event) {
           var item = $(this);
           if (widget.selectList.get(0) !== document.activeElement) {
@@ -229,7 +228,7 @@
     },
 
     _removeDragListeners: function() {
-      if (this.options.dragSelect == false) {
+      if (this.options.dragSelect === false) {
         this.element.off("mousedown", '.ui-selectee');
         this.element.off("mousemove", '.ui-selectee');
         this.element.off("mouseup", '.ui-selectee');
@@ -307,13 +306,13 @@
     },
 
     _createKeyArray: function (items) {
-      var keys = new Array();
+      var keys = [];
       items.each(function () {
         var $this = $(this);
         var dataKey = $this.data('key');
         var key = (typeof dataKey !== 'undefined') ? dataKey : $this.text();
         keys.push(key);
-      })
+      });
       return keys;
     },
 
@@ -354,7 +353,7 @@
     },
 
     moveTop: function (items, event) {
-      if (this.options.disabled) return;
+      if (this.options.disabled) { return; }
       var first = items.prevAll().not('.ui-selected').last();
       $(items).insertBefore(first);
       var ui = this._dumpState();
@@ -363,7 +362,7 @@
     },
 
     moveUp: function (items, event) {
-      if (this.options.disabled) return;
+      if (this.options.disabled) { return; }
       $(items).each(function () {
         var $item = $(this);
         var prev = $item.prevAll().not('.ui-selected').first();
@@ -377,9 +376,9 @@
     },
 
     moveDown: function (items, event) {
-      if (this.options.disabled) return;
+      if (this.options.disabled) { return; }
       $(items).sort(function () {
-        return 1
+        return 1;
       }).each(function () {
         var $item = $(this);
         var next = $item.nextAll().not('.ui-selected').first();
@@ -393,7 +392,7 @@
     },
 
     moveLast: function (items, event) {
-      if (this.options.disabled) return;
+      if (this.options.disabled) { return; }
       var last = items.nextAll().not('.ui-selected').last();
       $(items).insertAfter(last);
       var ui = this._dumpState();
@@ -443,7 +442,7 @@
             if (widget.options.columnClasses) {
               widget._addColumnClassesToCells(children, widget.options.columnClasses);
             }
-          })
+          });
       }
       this._trigger('addDomElements', undefined, this._dumpState());
     },
@@ -458,8 +457,8 @@
         });
     },
 
-    _addColumnClassesToCells: function(cells, columnClasses) {
-      var columnClasses = columnClasses.split(" ");
+    _addColumnClassesToCells: function(cells, columnClassesString) {
+      var columnClasses = columnClassesString.split(" ");
       cells.each(function(count) {
         if (count < columnClasses.length) {
           $(this).addClass(columnClasses[count]);
@@ -517,7 +516,7 @@
 
     _addMouseHandles: function () {
       if (this.options.mouseOrderable !== true) {
-        return
+        return;
       }
       if (this.options.dragSelect === true) {
         this.content.addClass('with-handle');
@@ -563,15 +562,16 @@
 
     _addFillRow: function() {
       var connectedList = this.$pluginRoot.sortable( "option", "connectWith" );
-      if (!connectedList || this.strategy != "table") {
+      if (!connectedList || this.strategy !== "table") {
         return;
       }
 
       var itemsSelector = this.$pluginRoot.sortable( "option", "items" );
       var children = this.$pluginRoot.find(itemsSelector);
+      var child;
 
       if (children.length > 0) {
-        var child = children.first();
+        child = children.first();
       } else {
         var connectedChildren = $(connectedList).find("tr");
         if (connectedChildren.length > 0) {
@@ -688,8 +688,8 @@
       });
     },
 
-    _removeColumnClassesFromCells: function(cells, columnClasses) {
-      var columnClasses = columnClasses.split(" ");
+    _removeColumnClassesFromCells: function(cells, columnClassesString) {
+      var columnClasses = columnClassesString.split(" ");
       cells.each(function(count) {
         if (count < columnClasses.length) {
           $(this).removeClass(columnClasses[count]);

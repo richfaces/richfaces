@@ -17,7 +17,7 @@
         put: function (term, value) {
           cache[term] = value;
         }
-      }
+      };
     }
   });
 
@@ -173,12 +173,12 @@
           if (!widget.options.autoFill) {
             return false;
           }
-          if (widget.lastKeyupEvent.keyCode == 8) {
+          if (widget.lastKeyupEvent.keyCode === 8) {
             // refuse to auto-fill on on backspace
             return false;
           }
           var input = widget.input,
-            original = widget.entered;
+            original = widget.entered,
             label = ui.item.label;
 
           original = original.substring(0, input[0].selectionStart);
@@ -330,7 +330,7 @@
         suggestions.push({
           value: $(this).data("label") || $(this).text().trim(),
           dom: $(this).clone()
-        })
+        });
       });
 
       if (this.option('layout') !== layout) {
@@ -377,8 +377,8 @@
           data._renderItem = function (ul, item) {
             var link = $("<a>");
             item.dom.find("td").each(function () {
-              $('<span>').html($(this).html()).appendTo(link)
-            })
+              $('<span>').html($(this).html()).appendTo(link);
+            });
             return $("<li></li>")
               .data("item.autocomplete", item)
               .append(link)
@@ -422,7 +422,7 @@
   }
 
   function isDomBasedSource(source) {
-    return source instanceof HTMLElement || typeof source == 'string';
+    return source instanceof HTMLElement || typeof source === 'string';
   }
 
 }(jQuery));

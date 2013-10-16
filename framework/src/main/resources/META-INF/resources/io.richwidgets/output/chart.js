@@ -60,11 +60,11 @@
                     //category bar chart
                     var ticks=[],keys=[],first=true,order=0;
 
-                    for(index in this.options.data){//loop through data series
+                    for (var index in this.options.data){//loop through data series
                         var convertedData=[];
                         var cnt=0;
                         if(first){//the first series determine which keys (x-values are plotted)
-                            for(key in this.options.data[index].data){
+                            for( var key in this.options.data[index].data){
                                 ticks.push([cnt,key]);
                                 keys.push(key);
                                 convertedData.push([cnt,this.options.data[index].data[key]]);
@@ -73,10 +73,10 @@
                             first=false;
                         }
                         else{
-                            for(k in keys){ //select values for first series keys only
-                                var key=keys[k];
-                                if(this.options.data[index].data[key]){
-                                    convertedData.push([cnt,this.options.data[index].data[key]]);
+                            for (var k in keys){ //select values for first series keys only
+                                var loopKey=keys[k];
+                                if(this.options.data[index].data[loopKey]){
+                                    convertedData.push([cnt,this.options.data[index].data[loopKey]]);
                                 }
                                 cnt++;
                             }
@@ -95,7 +95,7 @@
                         ticks:ticks,
                         tickLength:0,
                         //workaround to show display proper x-value on category bars
-                        tickFormatter:function(value,axis){return axis.ticks[value].label}
+                        tickFormatter:function(value,axis){return axis.ticks[value].label;}
                     });
 
                     this.options.bars= $.extend(this.options.bars,{
@@ -244,7 +244,7 @@
         },
         
         getPlotObject: function(){
-	    return this.plot;
+            return this.plot;
 	},
 
         _unbind:function(){
