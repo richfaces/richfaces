@@ -23,14 +23,13 @@ package org.richfaces.ui.attribute;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
-import org.richfaces.cdk.annotations.EventName;
 
 /**
- * Interface defining the methods for ajax-props.xml
+ * Defines attributes for JSF AJAX parameters.
  *
  * @author Lukas Fryc
  */
-public interface AjaxProps {
+public interface AjaxProps extends AjaxEventsProps {
 
     /**
      * IDs of components that will participate in the "execute" portion of the Request Processing Lifecycle. Can be a single ID,
@@ -65,26 +64,8 @@ public interface AjaxProps {
     /**
      * Serialized (on default with JSON) data passed to the client by a developer on an AJAX request. It's accessible via
      * "event.data" syntax. Both primitive types and complex types such as arrays and collections can be serialized and used
-     * with data
+     * with data.
      */
     @Attribute(description = @Description("Serialized (on default with JSON) data passed to the client by a developer on an AJAX request. It's accessible via \"event.data\" syntax. Both primitive types and complex types such as arrays and collections can be serialized and used with data"))
     Object getData();
-
-    /**
-     * The client-side script method to be called before an ajax request.
-     */
-    @Attribute(events = @EventName("begin"), description = @Description("The client-side script method to be called before an ajax request."))
-    String getOnbegin();
-
-    /**
-     * The client-side script method to be called after the ajax response comes back, but before the DOM is updated
-     */
-    @Attribute(events = @EventName("beforedomupdate"), description = @Description("The client-side script method to be called after the ajax response comes back, but before the DOM is updated"))
-    String getOnbeforedomupdate();
-
-    /**
-     * The client-side script method to be called after the DOM is updated
-     */
-    @Attribute(events = @EventName("complete"), description = @Description("The client-side script method to be called after the DOM is updated"))
-    String getOncomplete();
 }

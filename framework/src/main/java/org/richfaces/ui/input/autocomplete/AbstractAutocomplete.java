@@ -41,6 +41,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.ui.attribute.AjaxEventsProps;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.FocusProps;
@@ -61,7 +62,7 @@ import com.google.common.collect.Iterables;
  * @author Lukas Fryc
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, generate = true), renderer = @JsfRenderer(type = AutocompleteRendererBase.RENDERER_TYPE))
-public abstract class AbstractAutocomplete extends UIInput implements FocusProps, EventsKeyProps, EventsMouseProps, StyleProps,
+public abstract class AbstractAutocomplete extends UIInput implements AjaxEventsProps, FocusProps, EventsKeyProps, EventsMouseProps, StyleProps,
         StyleClassProps, MetaComponentResolver, MetaComponentEncoder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.ui.Autocomplete";
@@ -258,28 +259,10 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
     // ----------- selected ajax props
 
     /**
-     * The client-side script method to be called before an ajax request.
-     */
-    @Attribute(events = @EventName("begin"))
-    public abstract String getOnbegin();
-
-    /**
      * The client-side script method to be called when an error has occurred during Ajax communications
      */
     @Attribute(events = @EventName("error"))
     public abstract String getOnerror();
-
-    /**
-     * The client-side script method to be called after the DOM is updated
-     */
-    @Attribute(events = @EventName("complete"))
-    public abstract String getOncomplete();
-
-    /**
-     * The client-side script method to be called after the ajax response comes back, but before the DOM is updated
-     */
-    @Attribute(events = @EventName("beforedomupdate"))
-    public abstract String getOnbeforedomupdate();
 
     /**
      * Returns the meta component ID for the suggestions ('id&#64;suggestions')
