@@ -13,15 +13,15 @@
 
         <cdk:resource-dependency library="bootstrap" name="bootstrap.css" />
         <cdk:resource-dependency library="font-awesome" name="font-awesome.css" />
-        <cdk:resource-dependency library="org.richfaces" name="widget/input/autocomplete.css" />
-        
+        <cdk:resource-dependency library="org.richwidgets" name="input/autocomplete.css" />
+
         <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.widget.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.position.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.menu.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.autocomplete.js" />
-        <cdk:resource-dependency library="org.richfaces" name="widget/input/autocomplete.js" />
+        <cdk:resource-dependency library="io.richwidgets" name="input/autocomplete.js" />
         <cdk:resource-dependency library="org.richfaces" name="bridge/bridgeBase.js" />
         <cdk:resource-dependency library="org.richfaces" name="bridge/input/autocompleteBridge.js" />
     </cc:interface>
@@ -45,7 +45,7 @@
             </script>
         </div>
     </cc:implementation>
-    
+
     <cdk:fragment name="renderSuggestionsAsList">
         <cc:interface>
             <cc:attribute name="items" type="java.lang.Iterable" />
@@ -72,7 +72,7 @@
             </ul>
         </cc:implementation>
     </cdk:fragment>
-    
+
     <cdk:fragment name="renderSuggestionsAsTable">
         <cc:interface>
             <cc:attribute name="items" type="java.lang.Iterable" />
@@ -94,7 +94,7 @@
             </table>
         </cc:implementation>
     </cdk:fragment>
-    
+
     <cdk:fragment name="renderSuggestions">
         <cc:implementation>
             <c:choose>

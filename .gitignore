@@ -9,6 +9,8 @@ test-output
 MANIFEST.MF
 rebel.xml
 *faces-config.xml.jsfdia
+bower_components
+node_modules
 
 .factorypath
 

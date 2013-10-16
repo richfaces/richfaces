@@ -1,3 +1,0 @@
-[submodule "framework/src/main/widgets"]
-	path = framework/src/main/widgets
-	url = https://github.com/richfaces/richfaces-widgets.git

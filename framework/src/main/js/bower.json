@@ -1,0 +1,20 @@
+{
+  "name": "RichWidgets Builder",
+  "version": "0.0.1-wip",
+  "homepage": "https://github.com/richfaces/richfaces",
+  "authors": [
+    "Brian Leathem <bleathem@gmail.com>"
+  ],
+  "description": "A grunt.js project used to build RichWidgets",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "richwidgets": "git@github.com:richwidgets/richwidgets.git"
+  }
+}

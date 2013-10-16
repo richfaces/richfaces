@@ -35,7 +35,7 @@
 
     <description>
         The RichFaces Framework and Component Suite.
-        
+
         Contains all project specific sources.
     </description>
 
@@ -63,7 +63,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
+
         <!-- CDK -->
         <dependency>
             <groupId>org.richfaces.cdk</groupId>
@@ -110,7 +110,7 @@
             <artifactId>oscache</artifactId>
             <optional>true</optional>
         </dependency>
-        
+
         <!-- For MyFaces specific resource loading (RF-11974) -->
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
@@ -186,7 +186,7 @@
             <artifactId>hibernate-validator</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
         <!-- Resource Optimizer -->
         <dependency>
             <groupId>org.reflections</groupId>
@@ -273,77 +273,16 @@
                             </sources>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>add-resources</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <resources>
-                                <!-- RichFaces -->
-                                <resource>
-                                    <directory>${basedir}/src/main/widgets/dist/assets/richwidgets</directory>
-                                    <targetPath>${project.build.directory}/classes/META-INF/resources/org.richfaces/widget/</targetPath>
-                                </resource>
-                                <!-- jQuery UI -->
-                                <resource>
-                                    <directory>${basedir}/src/main/widgets/dist/assets/jquery-ui</directory>
-                                    <targetPath>${project.build.directory}/classes/META-INF/resources/com.jqueryui/</targetPath>
-                                </resource>
-                                <!-- Bootstrap -->
-                                <resource>
-                                    <directory>${basedir}/src/main/widgets/dist/assets/bootstrap</directory>
-                                    <targetPath>${project.build.directory}/classes/META-INF/resources/bootstrap/</targetPath>
-                                </resource>
-                                <!-- Font-Awesome -->
-                                <resource>
-                                    <directory>${basedir}/src/main/widgets/dist/assets/font-awesome</directory>
-                                    <targetPath>${project.build.directory}/classes/META-INF/resources/font-awesome/</targetPath>
-                                </resource>
-                                <!-- Flot -->
-                                <resource>
-                                    <directory>${basedir}/src/main/widgets/dist/assets/flot</directory>
-                                    <targetPath>${project.build.directory}/classes/META-INF/resources/flot/</targetPath>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
-
-            <plugin> 
-                <groupId>org.apache.maven.plugins</groupId> 
-                <artifactId>maven-jar-plugin</artifactId>
-                <executions> 
-                    <execution> 
-                        <goals> 
-                            <goal>test-jar</goal> 
-                        </goals> 
-                    </execution> 
-                </executions> 
-            </plugin> 
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
+                <artifactId>maven-jar-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>enforce-richwidgets-submodule-exists</id>
                         <goals>
-                            <goal>enforce</goal>
+                            <goal>test-jar</goal>
                         </goals>
-                        <configuration>
-                            <rules>
-                                <requireFilesExist>
-                                    <files>
-                                        <file>src/main/widgets/Gruntfile.js</file>
-                                    </files>
-                                    <message>The RichWidgets submodule is missing. Use "git clone --recursive" to clone the project.</message>
-                                </requireFilesExist>
-                            </rules>
-                            <fail>true</fail>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
