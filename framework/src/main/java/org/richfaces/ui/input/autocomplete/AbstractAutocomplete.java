@@ -106,24 +106,6 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
     public abstract int getMinChars();
 
     /**
-     * Assigns one or more space-separated CSS class names to the selected suggestion entry
-     */
-    @Attribute(defaultValue = "rf-au-itm-sel")
-    public abstract String getSelectedItemClass();
-
-    /**
-     * Assigns one or more space-separated CSS class names to the content of the popup suggestion element
-     */
-    @Attribute()
-    public abstract String getPopupClass();
-
-    /**
-     * Assigns one or more space-separated CSS class names to the input element
-     */
-    @Attribute()
-    public abstract String getInputClass();
-
-    /**
      * <p>
      * Determine how the suggestion list is requested:
      * </p>
