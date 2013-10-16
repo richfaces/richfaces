@@ -255,68 +255,6 @@ public abstract class AbstractAutocomplete extends UIInput implements FocusProps
     @Attribute(events = @EventName(value = "search"))
     public abstract String getOnsearch();
 
-    // ----------- List events
-
-    /**
-     * Javascript code executed when a pointer button is clicked over the popup list element.
-     */
-    @Attribute(events = @EventName("listclick"))
-    public abstract String getOnlistclick();
-
-    /**
-     * Javascript code executed when a pointer button is double clicked over this element.
-     */
-    @Attribute(events = @EventName("listdblclick"))
-    public abstract String getOnlistdblclick();
-
-    /**
-     * Javascript code executed when a pointer button is pressed down over this element.
-     */
-    @Attribute(events = @EventName("listmousedown"))
-    public abstract String getOnlistmousedown();
-
-    /**
-     * Javascript code executed when a pointer button is released over this element.
-     */
-    @Attribute(events = @EventName("listmouseup"))
-    public abstract String getOnlistmouseup();
-
-    /**
-     * Javascript code executed when a pointer button is moved onto this element.
-     */
-    @Attribute(events = @EventName("listmouseover"))
-    public abstract String getOnlistmouseover();
-
-    /**
-     * Javascript code executed when a pointer button is moved within this element.
-     */
-    @Attribute(events = @EventName("listmousemove"))
-    public abstract String getOnlistmousemove();
-
-    /**
-     * Javascript code executed when a pointer button is moved away from this element.
-     */
-    @Attribute(events = @EventName("listmouseout"))
-    public abstract String getOnlistmouseout();
-
-    /**
-     * Javascript code executed when a key is pressed and released over this element.
-     */
-    @Attribute(events = @EventName("listkeypress"))
-    public abstract String getOnlistkeypress();
-
-    /**
-     * Javascript code executed when a key is pressed down over this element.
-     */
-    @Attribute(events = @EventName("listkeydown"))
-    public abstract String getOnlistkeydown();
-
-    /**
-     * Javascript code executed when a key is released over this element.
-     */
-    @Attribute(events = @EventName("listkeyup"))
-    public abstract String getOnlistkeyup();
-
     // ----------- selected ajax props
 
     /**
