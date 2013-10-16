@@ -40,12 +40,12 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
 
     @Override
     public Skin getDefaultSkin(FacesContext context) {
-        return getSkin(context, "DEFAULT");
+        return new SkinWrapper(getSkin(context, "DEFAULT"));
     }
 
     @Override
     public Skin getSkin(FacesContext context) {
-        return getSkin(context, skinNames.get());
+        return new SkinWrapper(getSkin(context, skinNames.get()));
     }
 
     /*
