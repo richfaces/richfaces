@@ -44,6 +44,7 @@ import org.w3c.css.sac.InputSource;
 import org.w3c.dom.css.CSSStyleSheet;
 
 import com.steadystate.css.parser.CSSOMParser;
+import com.steadystate.css.parser.SACParserCSS3;
 
 /**
  * @author amarkhel Class, that represented dynamic CSS resource.
@@ -95,7 +96,7 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
                 return null;
             }
             InputSource source = new InputSource(new InputStreamReader(stream));
-            CSSOMParser parser = new CSSOMParser();
+            CSSOMParser parser = new CSSOMParser(new SACParserCSS3());
             ErrorHandlerImpl errorHandler = new ErrorHandlerImpl(this, ctx.isProjectStage(ProjectStage.Production));
 
             parser.setErrorHandler(errorHandler);
