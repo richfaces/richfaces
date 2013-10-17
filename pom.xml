@@ -42,6 +42,8 @@
         <module>build/push-depchain</module>
         <module>build/resource-optimizer-plugin</module>
 
+	<module>page-fragments</module>
+
         <module>framework</module>
 
         <module>dist</module>
