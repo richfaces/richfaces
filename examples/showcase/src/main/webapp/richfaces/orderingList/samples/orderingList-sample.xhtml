@@ -22,7 +22,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:r="http://richfaces.org">
     <h:form>
         <p>This example shows an orderingList in the simpler, single column display:</p>
@@ -30,7 +30,7 @@
             <f:facet name="header">
                 <h:outputText value="Simple ordering list"></h:outputText>
             </f:facet>
-            <r:orderingList value="#{listSelectBean.capitals}" var="capital" itemValue="#{capital}" itemLabel="#{capital.name}">
+            <r:orderingList value="#{listSelectBean.capitals}" var="capital" itemValue="#{capital}" itemLabel="#{capital.name}" maxListHeight="250px">
                 <f:converter converterId="CapitalsConverter" />
             </r:orderingList>
         </r:panel>
@@ -40,7 +40,7 @@
             <f:facet name="header">
                 <h:outputText value="Ordering list with columns"></h:outputText>
             </f:facet>
-            <r:orderingList value="#{listSelectBean.capitals}" var="capital"  listWidth="300px">
+            <r:orderingList value="#{listSelectBean.capitals}" var="capital" maxListHeight="250px">
                 <f:converter converterId="CapitalsConverter" />
                 <r:column>
                     <f:facet name="header">Flag</f:facet>

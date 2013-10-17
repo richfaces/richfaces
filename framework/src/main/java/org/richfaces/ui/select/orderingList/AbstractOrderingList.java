@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.ui.select.orderingList;
+package org.richfaces.sandbox.select.orderingList;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -35,13 +35,14 @@ import org.richfaces.ui.select.SelectItemsInterface;
 
 /**
  * <p>The &lt;r:orderingList&gt; is a component for ordering items in a list (client-side).</p>
+ *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(type = AbstractOrderingList.COMPONENT_TYPE, family = AbstractOrderingList.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.ui.OrderingListRenderer"), tag = @Tag(name = "orderingList"))
+        renderer = @JsfRenderer(type = "org.richfaces.select.OrderingListRenderer"), tag = @Tag(name = "orderingList"))
 public abstract class AbstractOrderingList extends AbstractOrderingComponent implements SelectItemsInterface, EventsKeyProps, EventsMouseProps, MultiSelectProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.ui.OrderingList";
-    public static final String COMPONENT_FAMILY = "org.richfaces.ui.SelectMany";
+    public static final String COMPONENT_TYPE = "org.richfaces.select.OrderingList";
+    public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 
 
     public Object getItemValues() {
