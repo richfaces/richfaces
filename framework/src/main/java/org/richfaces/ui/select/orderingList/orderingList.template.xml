@@ -29,11 +29,11 @@
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.sandbox.select.orderingList.OrderingListRenderer</cdk:class>
+        <cdk:class>org.richfaces.ui.select.orderingList.OrderingListRenderer</cdk:class>
         <cdk:superclass>org.richfaces.ui.select.SelectManyRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.SelectMany</cdk:component-family>
         <cdk:renderer-type>org.richfaces.select.OrderingListRenderer</cdk:renderer-type>
-        <cdk:component-base-class>org.richfaces.sandbox.select.orderingList.AbstractOrderingList</cdk:component-base-class>
+        <cdk:component-base-class>org.richfaces.ui.select.orderingList.AbstractOrderingList</cdk:component-base-class>
         <cdk:renders-children>true</cdk:renders-children>
 
         <cdk:resource-dependency library="bootstrap" name="bootstrap.css" />

@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.sandbox.select.pickList;
+package org.richfaces.ui.select.pickList;
 
 import com.google.common.collect.Iterators;
 import org.richfaces.ui.select.AbstractSelectManyComponent;
