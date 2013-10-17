@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.ui.select.pickList;
+package org.richfaces.sandbox.select.pickList;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -31,36 +31,35 @@ import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.MultiSelectProps;
 import org.richfaces.ui.select.AbstractOrderingComponent;
+import org.richfaces.ui.select.SelectItemsInterface;
 
 /**
- * <p> The &lt;r:pickList&gt; is a component for selecting items from a list. Additionally, it allows for the selected
- * items to be ordered (client-side). From the client side perspective, items are added/removed from the source list,
- * and removed/added to the target list. </p>
+ * <p>The &lt;r:pickList&gt; is a component for pick items in a list (client-side).</p>
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(type = AbstractPickList.COMPONENT_TYPE, family = AbstractPickList.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.ui.PickListRenderer"), tag = @Tag(name = "pickList"))
+        renderer = @JsfRenderer(type = PickListRendererBase.RENDERER_TYPE), tag = @Tag(name = "pickList"))
 public abstract class AbstractPickList extends AbstractOrderingComponent implements EventsKeyProps, EventsMouseProps, MultiSelectProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.ui.PickList";
-    public static final String COMPONENT_FAMILY = "org.richfaces.ui.SelectMany";
+    public static final String COMPONENT_TYPE = "org.richfaces.select.PickList";
+    public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 
     /**
      * <p>If "true", then the target list is orderable, and the ordering controls are displayed</p>
-     * <p>Default is "false"</p>
+     * <p>Default is "true"</p>
      */
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isOrderable();
 
     /**
-      * The text placed above the source list of items
-      */
+     * The text placed above the source list of items
+     */
     @Attribute
     public abstract String getSourceCaption();
 
     /**
-      * The text placed above the target list of items
-      */
+     * The text placed above the target list of items
+     */
     @Attribute
     public abstract String getTargetCaption();
 
@@ -263,5 +262,4 @@ public abstract class AbstractPickList extends AbstractOrderingComponent impleme
      */
     @Attribute(events = @EventName("listkeyup"))
     public abstract String getOntargetkeyup();
-
 }
