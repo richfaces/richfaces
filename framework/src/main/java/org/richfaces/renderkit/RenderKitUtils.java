@@ -626,20 +626,86 @@ public final class RenderKitUtils {
         }
     }
 
-    public static String toScriptArgs(Object... objects) {
-        if (objects == null) {
-            return "";
+    /**
+     * <p>Returns arguments for script execution where null objects are stripped from the end of the argument list (they doesn't
+     * have to be part of JavaScript function execution).</p>
+     *
+     * <p>All other objects are converted to their JavaScript representation using {@link ScriptUtils#toScript(Object)}.</p>
+     *
+     * <p>This variant of the function is targeting zero arguments.</p>
+     *
+     * @see #toScriptArgs(Object)
+     * @see #toScriptArgs(Object, Object...)
+     */
+    public static String toScriptArgs() {
+        return "null";
+    }
+
+    /**
+     * <p>Returns arguments for script execution where null objects are stripped from the end of the argument list (they doesn't
+     * have to be part of JavaScript function execution).</p>
+     *
+     * <p>All other objects are converted to their JavaScript representation using {@link ScriptUtils#toScript(Object)}.</p>
+     *
+     * <p>This variant of the function is targeting no arguments.</p>
+     *
+     * @see #toScriptArgs()
+     * @see #toScriptArgs(Object, Object...)
+     */
+    public static String toScriptArgs(Object object) {
+        if (object == null) {
+            return "null";
         }
+
+        if (object.getClass().isArray()) {
+            Object[] array = (Object[]) object;
+            if (array.length == 0) {
+                return "[]";
+            }
+        }
+
+        return toScriptArgs_strippingNullObjectsFromEnd(object);
+    }
+
+    /**
+     * <p>Returns arguments for script execution where null objects are stripped from the end of the argument list (they doesn't
+     * have to be part of JavaScript function execution).</p>
+     *
+     * <p>All other objects are converted to their JavaScript representation using {@link ScriptUtils#toScript(Object)}.</p>
+     *
+     * <p>This variant of the function is targeting no arguments.</p>
+     *
+     * @see #toScriptArgs()
+     * @see #toScriptArgs(Object, Object...)
+     */
+    public static String toScriptArgs(Object object, Object... objects) {
+        if (objects == null) {
+            return toScriptArgs_strippingNullObjectsFromEnd(object);
+        }
+
+        Object[] args = new Object[objects.length + 1];
+        args[0] = object;
+        System.arraycopy(objects, 0, args, 1, objects.length);
+        return toScriptArgs_strippingNullObjectsFromEnd(args);
+    }
+
+    /**
+     * Returns arguments for script execution where null objects are stripped from the end of the argument list (they doesn't
+     * have to be part of JavaScript function execution).
+     *
+     * All other objects are converted to their JavaScript representation using {@link ScriptUtils#toScript(Object)}.
+     */
+    private static String toScriptArgs_strippingNullObjectsFromEnd(Object... objects) {
 
         int lastNonNullIdx = objects.length - 1;
         for (; 0 <= lastNonNullIdx; lastNonNullIdx--) {
-            if (!isEmpty(objects[lastNonNullIdx])) {
+            if (objects[lastNonNullIdx] != null) {
                 break;
             }
         }
 
         if (lastNonNullIdx < 0) {
-            return "";
+            return "null";
         }
 
         if (lastNonNullIdx == 0) {

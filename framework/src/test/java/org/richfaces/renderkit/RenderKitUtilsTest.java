@@ -127,9 +127,9 @@ public class RenderKitUtilsTest {
 
     @Test
     public void testToScriptArgs() throws Exception {
-        assertEquals("", toScriptArgs());
-        assertEquals("", toScriptArgs((Object) null));
-        assertEquals("", toScriptArgs((Object[]) null));
+        assertEquals("null", toScriptArgs());
+        assertEquals("null", toScriptArgs((Object) null));
+        assertEquals("null", toScriptArgs((Object[]) null));
 
         assertEquals("\"test\"", toScriptArgs("test"));
         assertEquals("[5,8]", dehydrate(toScriptArgs(Arrays.asList(5, 8))));
@@ -138,13 +138,18 @@ public class RenderKitUtilsTest {
         assertEquals("\"test\"", toScriptArgs("test", null));
         assertEquals("null,\"test\"", toScriptArgs(null, "test"));
 
-        assertEquals("\"test\"", toScriptArgs("test", Collections.emptyList()));
+        assertEquals("[]", dehydrate(toScriptArgs(new Object[]{})));
+
+        assertEquals("[]", dehydrate(toScriptArgs(Collections.emptyList())));
+        assertEquals("\"test\",[] ", toScriptArgs("test", Collections.emptyList()));
         assertEquals("[],\"test\"", dehydrate(toScriptArgs(Collections.emptyList(), "test")));
 
-        assertEquals("\"test\"", toScriptArgs("test", Collections.emptyMap()));
+        assertEquals("{}", dehydrate(toScriptArgs(Collections.emptyMap())));
+        assertEquals("\"test\",{} ", toScriptArgs("test", Collections.emptyMap()));
         assertEquals("{},\"test\"", dehydrate(toScriptArgs(Collections.emptyMap(), "test")));
 
-        assertEquals("\"test\"", toScriptArgs("test", ""));
+
+        assertEquals("\"test\",\"\"", toScriptArgs("test", ""));
         assertEquals("\"\",\"test\"", dehydrate(toScriptArgs("", "test")));
 
         assertEquals("1,2,3", toScriptArgs(1, 2, 3, null));

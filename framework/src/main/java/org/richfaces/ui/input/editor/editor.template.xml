@@ -63,7 +63,7 @@
                 };
                 
                 (function() {
-                    var options = #{empty toScriptArgs(options) ? 'null' : toScriptArgs(options)};
+                    var options = #{toScriptArgs(options)};
                     var config = {
                     <c:choose>
                         <c:when test="#{configFacet != null and configFacet.isRendered()}">
