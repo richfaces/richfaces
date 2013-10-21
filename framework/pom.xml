@@ -42,10 +42,12 @@
     <properties>
         <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
 
-        <optimized.resources.directory>${project.build.directory}/generated-sources/resources/META-INF/resources/org.richfaces.optimized/${version.richfaces}</optimized.resources.directory>
+        <optimized.resources.directory>${project.build.directory}/generated-sources/main/optimized-resources</optimized.resources.directory>
+        <optimized.resources.resourceDirectory>${optimized.resources.directory}/META-INF/resources/org.richfaces.optimized/${version.richfaces}</optimized.resources.resourceDirectory>
         <optimized.resources.prefix>org.richfaces.optimized/${version.richfaces}</optimized.resources.prefix>
-        <optimized.resources.mapping>${project.build.directory}/generated-sources/resources/META-INF/richfaces/optimizedResourcesMapping</optimized.resources.mapping>
+        <optimized.resources.mapping>${optimized.resources.directory}/META-INF/richfaces/optimizedResourcesMapping</optimized.resources.mapping>
         <optimized.resources.skins>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,plain,DEFAULT,NULL</optimized.resources.skins>
+        <optimized.resources.exclusions>(^\Qjavax.faces\E|^\Qorg.richfaces.ui.images.\E|^\Qorg.richfaces.ui.iconimages.\E|^\Qorg.richfaces.optimized.\E|^\Qorg.richfaces.ui.ckeditor\E)</optimized.resources.exclusions>
     </properties>
 
     <dependencies>
@@ -269,23 +271,6 @@
                                 <source>src/main/config</source>
                                 <source>src/main/resource-optimizer</source>
                                 <source>target/generated-sources/main/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-resources</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
                                 <source>target/generated-sources/main/resources</source>
                             </sources>
                         </configuration>
@@ -401,7 +386,7 @@
                                         <argument>--classpathDir</argument>
                                         <argument>${project.build.outputDirectory}</argument>
                                         <argument>--output</argument>
-                                        <argument>${optimized.resources.directory}/Static/</argument>
+                                        <argument>${optimized.resources.resourceDirectory}/Static/</argument>
                                         <argument>--prefix</argument>
                                         <argument>${optimized.resources.prefix}/Static/</argument>
                                         <argument>--mapping</argument>
@@ -409,15 +394,7 @@
                                         <argument>--skins</argument>
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qjavax.faces\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ui.images.\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ui.iconimages.\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.optimized.\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ui.ckeditor\E</argument>
+                                        <argument>${optimized.resources.exclusions}</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -433,7 +410,7 @@
                                         <argument>--classpathDir</argument>
                                         <argument>${project.build.outputDirectory}</argument>
                                         <argument>--output</argument>
-                                        <argument>${optimized.resources.directory}/Compressed/</argument>
+                                        <argument>${optimized.resources.resourceDirectory}/Compressed/</argument>
                                         <argument>--prefix</argument>
                                         <argument>${optimized.resources.prefix}/Compressed/</argument>
                                         <argument>--mapping</argument>
@@ -441,16 +418,7 @@
                                         <argument>--skins</argument>
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qjavax.faces\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ui.images.\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ui.iconimages.\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.optimized.\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ui.ckeditor\E</argument>
-                                        <argument>--compress</argument>
+                                        <argument>${optimized.resources.exclusions}</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -466,7 +434,7 @@
                                         <argument>--classpathDir</argument>
                                         <argument>${project.build.outputDirectory}</argument>
                                         <argument>--output</argument>
-                                        <argument>${optimized.resources.directory}/Packed/</argument>
+                                        <argument>${optimized.resources.resourceDirectory}/Packed/</argument>
                                         <argument>--prefix</argument>
                                         <argument>${optimized.resources.prefix}/Packed/</argument>
                                         <argument>--mapping</argument>
@@ -474,15 +442,7 @@
                                         <argument>--skins</argument>
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qjavax.faces\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ui.images.\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ui.iconimages.\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.optimized.\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ui.ckeditor\E</argument>
+                                        <argument>${optimized.resources.exclusions}</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^jquery\.js$</argument>
                                         <argument>--pack</argument>
@@ -500,7 +460,7 @@
                                         <argument>--classpathDir</argument>
                                         <argument>${project.build.outputDirectory}</argument>
                                         <argument>--output</argument>
-                                        <argument>${optimized.resources.directory}/Packed/</argument>
+                                        <argument>${optimized.resources.resourceDirectory}/Packed/</argument>
                                         <argument>--prefix</argument>
                                         <argument>${optimized.resources.prefix}/Packed/</argument>
                                         <argument>--mapping</argument>
@@ -524,7 +484,7 @@
                                         <argument>--classpathDir</argument>
                                         <argument>${project.build.outputDirectory}</argument>
                                         <argument>--output</argument>
-                                        <argument>${optimized.resources.directory}/PackedCompressed/</argument>
+                                        <argument>${optimized.resources.resourceDirectory}/PackedCompressed/</argument>
                                         <argument>--prefix</argument>
                                         <argument>${optimized.resources.prefix}/PackedCompressed/</argument>
                                         <argument>--mapping</argument>
@@ -532,15 +492,7 @@
                                         <argument>--skins</argument>
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^\Qjavax.faces\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ui.images.\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ui.iconimages.\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.optimized.\E</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^\Qorg.richfaces.ui.ckeditor\E</argument>
+                                        <argument>${optimized.resources.exclusions}</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>^jquery\.js$</argument>
                                         <argument>--pack</argument>
@@ -559,7 +511,7 @@
                                         <argument>--classpathDir</argument>
                                         <argument>${project.build.outputDirectory}</argument>
                                         <argument>--output</argument>
-                                        <argument>${optimized.resources.directory}/PackedCompressed/</argument>
+                                        <argument>${optimized.resources.resourceDirectory}/PackedCompressed/</argument>
                                         <argument>--prefix</argument>
                                         <argument>${optimized.resources.prefix}/PackedCompressed/</argument>
                                         <argument>--mapping</argument>
@@ -570,6 +522,26 @@
                                         <argument>^jquery\.js$</argument>
                                         <argument>--compress</argument>
                                     </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-resources</id>
+                                    <phase>process-classes</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${basedir}/target/classes/</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${optimized.resources.directory}</directory>
+                                        </resource>
+                                    </resources>
                                 </configuration>
                             </execution>
                         </executions>
