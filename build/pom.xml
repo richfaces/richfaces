@@ -92,6 +92,7 @@
         <version.reflections>0.9.5</version.reflections>
         <version.yuicompressor>2.3.6</version.yuicompressor>
         <version.jcommander>1.20</version.jcommander>
+        <version.jboss-el>1.0_02.CR5</version.jboss-el>
         
         <!-- Test Dependencies Versions -->
         <version.junit>4.11</version.junit>
@@ -458,6 +459,11 @@
                 <artifactId>jcommander</artifactId>
                 <version>${version.jcommander}</version>
             </dependency>
+            <dependency>
+                <groupId>org.jboss.el</groupId>
+                <artifactId>jboss-el</artifactId>
+                <version>${version.jboss-el}</version>
+            </dependency>
             
             <!-- Test Dependencie Versions -->
             <dependency>
@@ -472,10 +478,29 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
-                <artifactId>jsf-test</artifactId>
+                <artifactId>htmlunit-client</artifactId>
                 <version>${version.jsf-test}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>javax.servlet-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.test-jsf</groupId>
+                <artifactId>jsf-mock</artifactId>
+                <version>${version.jsf-test}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.test-jsf</groupId>
+                <artifactId>jsf-mockito</artifactId>
+                <version>${version.jsf-test}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.test-jsf</groupId>
+                <artifactId>jsf-test-scriptunit</artifactId>
+                <version>${version.jsf-test}</version>
             </dependency>
             <dependency>
                 <groupId>org.easymock</groupId>
