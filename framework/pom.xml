@@ -272,6 +272,9 @@
                                 <source>src/main/resource-optimizer</source>
                                 <source>target/generated-sources/main/java</source>
                                 <source>target/generated-sources/main/resources</source>
+                                <!-- the resources are copied by maven-resources-plugin later
+                                     this helps Eclipse IDE to add resources on classpath -->
+                                <source>${optimized.resources.directory}</source>
                             </sources>
                         </configuration>
                     </execution>
