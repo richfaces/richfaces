@@ -690,7 +690,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
      * Supports detection of RichFaces 5 (bridgeBase.js) and RichFaces 4 (richfaces-base-component.js) components.
      */
     var isRichFacesComponent = function(element) {
-      return $(element).data('jsf.bridge') || rf.component(element);
+      return $(element).data('rf.bridge') || rf.component(element);
     };
 
     var getSourceElement = function(source) {
