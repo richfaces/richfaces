@@ -21,23 +21,15 @@
  */
 package org.richfaces.ui.images;
 
-import javax.faces.context.FacesContext;
-
 import org.richfaces.skin.Skin;
-import org.richfaces.skin.SkinFactory;
+
+import javax.faces.context.FacesContext;
 
 public class StandardButtonBgImage extends BaseControlBackgroundImage {
     @Override
     protected void initializeProperties(FacesContext context, Skin skin) {
         super.initializeProperties(context, skin);
-
-        Integer heightParameter = skin.getIntegerParameter(context, Skin.BUTTON_SIZE_FONT);
-        if (heightParameter == null) {
-            Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
-            heightParameter = defaultSkin.getIntegerParameter(context, Skin.BUTTON_SIZE_FONT);
-        }
-
-        setHeight((int) (1.7 * heightParameter));
+        setHeight((int) (1.7 * skin.getIntegerParameter(context, Skin.BUTTON_SIZE_FONT)));
         setBaseColorParam(Skin.ADDITIONAL_BACKGROUND_COLOR);
         setGradientColorParam(Skin.TRIM_COLOR);
         setHeight(9);
