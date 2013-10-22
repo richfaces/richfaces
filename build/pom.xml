@@ -489,6 +489,11 @@
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
+                <artifactId>jsf-test-stage</artifactId>
+                <version>${version.jsf-test}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-mock</artifactId>
                 <version>${version.jsf-test}</version>
             </dependency>
