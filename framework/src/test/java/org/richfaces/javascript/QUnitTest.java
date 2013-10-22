@@ -21,19 +21,21 @@
  */
 package org.richfaces.javascript;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlListItem;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.fail;
 
 import java.net.URL;
 import java.util.Iterator;
 
-import static org.junit.Assert.fail;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlListItem;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  *
@@ -65,7 +67,7 @@ public class QUnitTest {
         HtmlPage page = loadPage(url);
         HtmlElement doc = page.getDocumentElement();
         HtmlElement tests = (HtmlElement) doc.getElementById("qunit-tests");
-        Iterator<HtmlElement> iter = tests.getChildElements().iterator();
+        Iterator<DomElement> iter = tests.getChildElements().iterator();
 
         if (!iter.hasNext()) {
             fail("No result found");
@@ -83,7 +85,7 @@ public class QUnitTest {
 
                 int j = 1;
 
-                for (HtmlElement li : testNode.<HtmlElement>getFirstByXPath("./ol").getChildElements()) {
+                for (DomElement li : testNode.<DomElement>getFirstByXPath("./ol").getChildElements()) {
                     if (li.getAttribute("class").contains("fail")) {
                         sb.append("     ").append(j).append(". ").append(li.getTextContent()).append("\n");
                     }

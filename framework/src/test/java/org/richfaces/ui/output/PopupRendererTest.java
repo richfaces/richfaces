@@ -39,6 +39,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -83,38 +84,38 @@ public class PopupRendererTest {
     @Test
     public final void testDoEncode() throws IOException {
         HtmlPage page = environment.getPage("/popupPanelTest.jsf");
-        HtmlElement panelWithFacet = page.getElementById("panel");
+        HtmlElement panelWithFacet = page.getHtmlElementById("panel");
         assertNotNull(panelWithFacet);
         assertEquals("visibility: hidden;", panelWithFacet.getAttribute("style"));
-        HtmlElement panelShade = panelWithFacet.getElementById("panel_shade");
+        HtmlElement panelShade = page.getHtmlElementById("panel_shade");
         assertEquals("rf-pp-shade", panelShade.getAttribute("class"));
         assertNotNull(panelShade);
-        HtmlElement panelShadow = panelWithFacet.getElementById("panel_shadow");
+        HtmlElement panelShadow = page.getHtmlElementById("panel_shadow");
         assertEquals("rf-pp-shdw", panelShadow.getAttribute("class"));
         assertNotNull(panelShadow);
-        HtmlElement panelContainer = panelWithFacet.getElementById("panel_container");
+        HtmlElement panelContainer = page.getHtmlElementById("panel_container");
         assertNotNull(panelContainer);
         assertEquals("rf-pp-cntr panelStyle", panelContainer.getAttribute("class"));
-        HtmlElement panelScroller = panelWithFacet.getElementById("panel_content_scroller");
+        HtmlElement panelScroller = page.getHtmlElementById("panel_content_scroller");
         assertNotNull(panelScroller);
         assertEquals("rf-pp-cnt-scrlr", panelScroller.getAttribute("class"));
-        HtmlElement panelContent = panelWithFacet.getElementById("panel_content");
+        HtmlElement panelContent = page.getHtmlElementById("panel_content");
         assertNotNull(panelContent);
         assertEquals("rf-pp-cnt", panelContent.getAttribute("class"));
         assertEquals("The CDK includes", panelContent.getTextContent().trim().substring(0, 16));
-        HtmlElement panelHeader = panelWithFacet.getElementById("panel_header");
+        HtmlElement panelHeader = page.getHtmlElementById("panel_header");
         assertNotNull(panelHeader);
         assertEquals("rf-pp-hdr header", panelHeader.getAttribute("class"));
         // assertEquals("cursor: move;", panelHeader.getAttribute("style"));
         assertEquals("Write your own custom rich components with built-in AJAX", panelHeader.getTextContent().trim());
-        HtmlElement panelResizer = panelWithFacet.getElementById("panelResizerN");
+        HtmlElement panelResizer = page.getHtmlElementById("panelResizerN");
         assertNotNull(panelResizer);
         assertEquals("rf-pp-hndlr rf-pp-hndlr-t", panelResizer.getAttribute("class"));
         assertEquals("cursor: N-resize;", panelResizer.getAttribute("style"));
-        List<HtmlElement> result = page.getElementsByName("script");
-        HtmlElement button = panelWithFacet.getElementById("button");
+        List<DomElement> result = page.getElementsByName("script");
+        HtmlElement button = page.getHtmlElementById("button");
         button.click();
-        HtmlElement sizeButton = panelWithFacet.getElementById("size");
+        HtmlElement sizeButton = page.getHtmlElementById("size");
         sizeButton.click();
         String width = panelContainer.getAttribute("width");
     }

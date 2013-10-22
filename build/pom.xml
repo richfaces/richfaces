@@ -101,6 +101,8 @@
         <version.easymock>2.5.2</version.easymock>
         <version.mockito>1.8.5</version.mockito>
         <version.xmlunit>1.2</version.xmlunit>
+        <version.htmlunit>2.12</version.htmlunit>
+        <version.xml-apis>1.4.01</version.xml-apis>
         <version.hibernate-validator>4.2.0.Final</version.hibernate-validator>
         
         <!-- Enforcing Dependency Management -->
@@ -528,6 +530,22 @@
                 <groupId>xmlunit</groupId>
                 <artifactId>xmlunit</artifactId>
                 <version>${version.xmlunit}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.htmlunit</groupId>
+                <artifactId>htmlunit</artifactId>
+                <version>${version.htmlunit}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.htmlunit</groupId>
+                <artifactId>htmlunit-core-js</artifactId>
+                <version>${version.htmlunit}</version>
+            </dependency>
+            <dependency>
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis</artifactId>
+                <version>${version.xml-apis}</version>
             </dependency>
 
             <!-- tests (TODO - is it necessary?) -->

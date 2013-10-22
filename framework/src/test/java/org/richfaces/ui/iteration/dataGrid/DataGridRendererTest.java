@@ -82,7 +82,7 @@ public class DataGridRendererTest {
     @Test
     public final void testDoEncodeChildren() throws IOException {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
-        HtmlElement dataGrid = page.getElementById("dataGrid2");
+        HtmlElement dataGrid = (HtmlElement) page.getElementById("dataGrid2");
         assertEquals("rf-dg", dataGrid.getAttribute("class"));
         assertEquals("noDataFacet",
             ((HtmlElement) dataGrid
@@ -93,7 +93,7 @@ public class DataGridRendererTest {
     @Test
     public final void testEncodeRow() throws IOException {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
-        HtmlElement dataGrid = page.getElementById("dataGrid");
+        HtmlElement dataGrid = (HtmlElement) page.getElementById("dataGrid");
         assertEquals("value",
             ((HtmlElement) dataGrid
                 .getFirstByXPath("tbody/tr[@class='rf-dg-r']/td[@class='rf-dg-c']/*[@id='dataGrid:0:outputText']"))
@@ -103,7 +103,7 @@ public class DataGridRendererTest {
     @Test
     public final void testEncodeHeader() throws IOException {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
-        HtmlElement dataGrid = page.getElementById("dataGrid");
+        HtmlElement dataGrid = (HtmlElement) page.getElementById("dataGrid");
         HtmlElement th = dataGrid.getFirstByXPath("thead[@class='rf-dg-thead']/tr[@class='rf-dg-h']/th[@class='rf-dg-h-c']");
         assertEquals("1", th.getAttribute("colspan"));
         assertEquals("headerFacet", th.getElementById("dataGrid:headerFacet").getTextContent());
@@ -112,7 +112,7 @@ public class DataGridRendererTest {
     @Test
     public final void testEncodeFooter() throws IOException {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
-        HtmlElement dataGrid = page.getElementById("dataGrid");
+        HtmlElement dataGrid = (HtmlElement) page.getElementById("dataGrid");
         HtmlElement td = dataGrid.getFirstByXPath("tfoot[@class='rf-dg-tfoot']/tr[@class='rf-dg-f']/td[@class='rf-dg-f-c']");
         assertEquals("1", td.getAttribute("colspan"));
         assertEquals("footerFacet", td.getElementById("dataGrid:footerFacet").getTextContent());
@@ -121,7 +121,7 @@ public class DataGridRendererTest {
     @Test
     public final void testEncodeCaption() throws IOException {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
-        HtmlElement dataGrid = page.getElementById("dataGrid");
+        HtmlElement dataGrid = (HtmlElement) page.getElementById("dataGrid");
         assertEquals("captionFacet",
             ((HtmlElement) dataGrid.getFirstByXPath("caption[@class='rf-dg-cap']//*[@id='dataGrid:captionFacet']"))
                 .getTextContent());
@@ -130,7 +130,7 @@ public class DataGridRendererTest {
     @Test
     public final void testEncodeTBody() throws IOException {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
-        HtmlElement dataGrid = page.getElementById("dataGrid2");
+        HtmlElement dataGrid = (HtmlElement) page.getElementById("dataGrid2");
         assertEquals("rf-dg-body", ((HtmlElement) dataGrid.getFirstByXPath("tbody[@id='dataGrid2:dgb']")).getAttribute("class"));
     }
 }

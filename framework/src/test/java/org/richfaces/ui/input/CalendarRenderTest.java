@@ -22,14 +22,8 @@
 
 package org.richfaces.ui.input;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
-import org.richfaces.CustomizedHtmlUnitEnvironment;
-import org.junit.Assert;
-import org.junit.Test;
-import org.richfaces.ui.common.RendererTestBase;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -37,8 +31,15 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.junit.Assert;
+import org.junit.Test;
+import org.richfaces.CustomizedHtmlUnitEnvironment;
+import org.richfaces.ui.common.RendererTestBase;
+
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 
 public class CalendarRenderTest extends RendererTestBase {
     @Override
@@ -48,19 +49,20 @@ public class CalendarRenderTest extends RendererTestBase {
         environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/ui/input/faces-config.xml");
         environment.start();
         environment.getWebClient().setJavaScriptEnabled(true);
+        environment.getWebClient().getOptions().setPrintContentOnFailingStatusCode(true);
     }
 
     @Test
     public void testExistenceCalendarPopup() throws Exception {
         HtmlPage page = environment.getPage("/calendarTest.jsf");
-        HtmlElement calendarPopupElement = page.getElementById("form:calendarPopup");
+        HtmlElement calendarPopupElement = (HtmlElement) page.getElementById("form:calendarPopup");
         Assert.assertNotNull("form:calendarPopup element missed.", calendarPopupElement);
     }
 
     @Test
     public void testExistenceCalendarContent() throws Exception {
         HtmlPage page = environment.getPage("/calendarTest.jsf");
-        HtmlElement calendarContentElement = page.getElementById("form:calendarContent");
+        HtmlElement calendarContentElement = (HtmlElement) page.getElementById("form:calendarContent");
         Assert.assertNotNull("form:calendarContent element missed.", calendarContentElement);
     }
 
@@ -81,7 +83,7 @@ public class CalendarRenderTest extends RendererTestBase {
         HtmlImage calendarPopupButton = (HtmlImage) page.getElementById("form:calendarPopupButton");
         assertNotNull(calendarPopupButton);
         page = (HtmlPage) calendarPopupButton.click();
-        HtmlElement calendarHeaderElement = page.getElementById("form:calendarHeader");
+        HtmlElement calendarHeaderElement = page.getHtmlElementById("form:calendarHeader");
         assertNotNull("form:calendarHeader element missed.", calendarHeaderElement);
 
         HtmlTableDataCell nextTD = null;
@@ -93,7 +95,7 @@ public class CalendarRenderTest extends RendererTestBase {
             }
         }
         assertNotNull(nextTD);
-        HtmlElement div = nextTD.getChildElements().iterator().next();
+        HtmlElement div = (HtmlElement) nextTD.getChildElements().iterator().next();
 
         // Before click
         Calendar calendar = Calendar.getInstance();

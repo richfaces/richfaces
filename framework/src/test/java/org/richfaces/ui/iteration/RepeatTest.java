@@ -190,7 +190,7 @@ public class RepeatTest {
         HtmlPage page = environment.getPage("/test.jsf");
         checkRendering(page, 0, 10);
 
-        page = (HtmlPage) page.getElementById("form:switchFirstAndRowsLink").click();
+        page = (HtmlPage) ((HtmlElement) page.getElementById("form:switchFirstAndRowsLink")).click();
 
         assertEquals(15, testBean.getFirst());
         assertEquals(7, testBean.getRows());

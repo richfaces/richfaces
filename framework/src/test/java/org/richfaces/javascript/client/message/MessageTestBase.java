@@ -22,9 +22,8 @@
 
 package org.richfaces.javascript.client.message;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.test.qunit.Qunit;
 import org.jboss.test.qunit.Qunit.Builder;
@@ -32,8 +31,9 @@ import org.junit.Rule;
 import org.richfaces.javascript.JSFunction;
 import org.richfaces.validator.Message;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class MessageTestBase {
     public static final String COMPONENT = "form:component";
@@ -98,7 +98,7 @@ public class MessageTestBase {
 
     protected HtmlElement getMessageContentElement() {
         HtmlPage page = qunit.getPage();
-        HtmlElement htmlElement = page.getElementById(MY_MESSAGE);
+        HtmlElement htmlElement = (HtmlElement) page.getElementById(MY_MESSAGE);
         assertNotNull(htmlElement);
         return htmlElement;
     }
