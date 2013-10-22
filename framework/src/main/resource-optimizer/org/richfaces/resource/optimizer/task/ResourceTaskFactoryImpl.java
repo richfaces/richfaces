@@ -43,6 +43,7 @@ import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Closeables;
 
@@ -74,6 +75,7 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
 
         private void renderResource(String skin) {
             log.debug("rendering " + resourceKey + " (" + skin + ")");
+
             try {
                 FacesContext facesContext = faces.startRequest();
 
@@ -157,6 +159,11 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
             } else {
                 if (skinDependent) {
                     for (String skin : skins) {
+
+                        if (shouldSkipResourceRenderingForSkin(skin)) {
+                            continue;
+                        }
+
                         renderResource(skin);
                     }
                 } else {
@@ -165,6 +172,19 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
                 log.debug("Resource rendered: " + resourceKey);
             }
             return null;
+        }
+
+        private boolean shouldSkipResourceRenderingForSkin(String skin) {
+            if ("plain".equals(skin)) {
+                String libraryName = Strings.nullToEmpty(resourceKey.getLibraryName());
+                String resourceName = Strings.nullToEmpty(resourceKey.getResourceName());
+                final String DYNAMIC_IMAGES_LIBRARY = "org.richfaces.ui.images";
+                if (libraryName.equals(DYNAMIC_IMAGES_LIBRARY) || resourceName.startsWith(DYNAMIC_IMAGES_LIBRARY)) {
+                    log.debug(String.format("Skipped rendering of %s as it is dynamic image that isn't required by skin %s", resourceKey, skin));
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
