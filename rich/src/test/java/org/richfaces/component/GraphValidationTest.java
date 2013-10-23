@@ -37,7 +37,7 @@ public class GraphValidationTest extends IntegrationTestBase {
 
     @Override
     protected HtmlPage submit(HtmlPage page) throws IOException {
-        HtmlElement submit = page.getElementById("form:submit");
+        HtmlElement submit = (HtmlElement) page.getElementById("form:submit");
         return submit.click();
     }
 

@@ -100,13 +100,13 @@ public class PanelRendererTest {
     @Test
     public final void testDoEncode() throws IOException {
         HtmlPage page = environment.getPage("/panelTest.jsf");
-        HtmlElement panelWithFacet = page.getElementById("panelWithFacet");
+        HtmlElement panelWithFacet = (HtmlElement) page.getElementById("panelWithFacet");
         assertEquals("rf-p panel", panelWithFacet.getAttribute("class"));
         assertEquals("Write your own custom rich components with built-in AJAX support",
             panelWithFacet.getElementById("panelWithFacet_header").getTextContent().trim());
         assertEquals("The CDK includes", panelWithFacet.getElementById("panelWithFacet_body").getTextContent().trim()
             .substring(0, 16));
-        HtmlElement simplePanel = page.getElementById("simplePanel");
+        HtmlElement simplePanel = (HtmlElement) page.getElementById("simplePanel");
         assertEquals("rf-p ", simplePanel.getAttribute("class"));
         try {
             simplePanel.getElementById("simplePanel_header");
@@ -115,9 +115,9 @@ public class PanelRendererTest {
         }
         assertEquals("RichFaces is a l", simplePanel.getElementById("simplePanel_body").getTextContent().trim()
             .substring(0, 16));
-        HtmlElement simplePanelBody = page.getElementById("simplePanel_body");
+        HtmlElement simplePanelBody = (HtmlElement) page.getElementById("simplePanel_body");
         assertEquals("rf-p-b rich-laguna-panel-no-header", simplePanelBody.getAttribute("class"));
-        HtmlElement simplePanel2 = page.getElementById("simplePanelWithTextHeader");
+        HtmlElement simplePanel2 = (HtmlElement) page.getElementById("simplePanelWithTextHeader");
         assertEquals("rf-p ", simplePanel2.getAttribute("class"));
         assertNotNull(simplePanel2.getElementById("simplePanelWithTextHeader_header"));
         assertEquals("rich-laguna-panel-no-header", simplePanel2.getElementById("simplePanelWithTextHeader_header")
@@ -125,17 +125,17 @@ public class PanelRendererTest {
         assertEquals("RichFaces is a l", simplePanel2.getElementById("simplePanelWithTextHeader_body").getTextContent().trim()
             .substring(0, 16));
 
-        HtmlElement nestedPanelContainer = page.getElementById("nestedPanelContainer");
+        HtmlElement nestedPanelContainer = (HtmlElement) page.getElementById("nestedPanelContainer");
         assertEquals("rf-p ", nestedPanelContainer.getAttribute("class"));
         assertNotNull(nestedPanelContainer.getElementById("nestedPanelContainer_header"));
         assertEquals("||||", nestedPanelContainer.getElementById("nestedPanelContainer_header").getTextContent().trim());
-        HtmlElement nestedPanelContainerHeader = page.getElementById("nestedPanelContainer_header");
+        HtmlElement nestedPanelContainerHeader = (HtmlElement) page.getElementById("nestedPanelContainer_header");
         assertEquals("rf-p-hdr outpanelHeader", nestedPanelContainerHeader.getAttribute("class"));
         assertEquals("Benefits of Usin", nestedPanelContainer.getElementById("nestedPanelContainer_body").getTextContent()
             .trim().substring(0, 16));
         HtmlElement nestedPanel1 = nestedPanelContainer.getElementById("nestedPanel1");
         assertEquals("rf-p ", nestedPanel1.getAttribute("class"));
-        HtmlElement nestedPanel1Body = page.getElementById("nestedPanel1_body");
+        HtmlElement nestedPanel1Body = (HtmlElement) page.getElementById("nestedPanel1_body");
         assertEquals("rf-p-b inpanelBody", nestedPanel1Body.getAttribute("class"));
         assertNotNull(nestedPanel1.getElementById("nestedPanel1_header"));
         assertEquals("For Application Developers", nestedPanel1.getElementById("nestedPanel1_header").getTextContent().trim());
@@ -143,7 +143,7 @@ public class PanelRendererTest {
             nestedPanel1.getElementById("nestedPanel1_body").getTextContent().trim().substring(0, 16));
         HtmlElement nestedPanel2 = nestedPanelContainer.getElementById("nestedPanel2");
         assertEquals("rf-p ", nestedPanel2.getAttribute("class"));
-        HtmlElement nestedPanel2Body = page.getElementById("nestedPanel2_body");
+        HtmlElement nestedPanel2Body = (HtmlElement) page.getElementById("nestedPanel2_body");
         assertEquals("rf-p-b inpanelBody", nestedPanel2Body.getAttribute("class"));
         assertNotNull(nestedPanel2.getElementById("nestedPanel2_header"));
         assertEquals("For Component Developers", nestedPanel2.getElementById("nestedPanel2_header").getTextContent().trim());

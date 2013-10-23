@@ -104,7 +104,7 @@ public class ExtendedDataTableRendererTest {
     @Test
     public final void testDoEncodeBegin() throws IOException {
         HtmlPage page = environment.getPage("/extendedDataTableTest.jsf");
-        HtmlElement table = page.getElementById("table");
+        HtmlElement table = (HtmlElement) page.getElementById("table");
         assertEquals("rf-edt", table.getAttribute("class"));
         assertEquals("headerFacet", table.getElementById("table:headerFacet").getTextContent());
     }
@@ -119,7 +119,7 @@ public class ExtendedDataTableRendererTest {
     @Test
     public final void testDoEncodeChildren() throws IOException {
         HtmlPage page = environment.getPage("/extendedDataTableTest.jsf");
-        HtmlElement table = page.getElementById("table");
+        HtmlElement table = (HtmlElement) page.getElementById("table");
         String text = table.getElementsByTagName("style").get(0).getTextContent();
         assertTrue(text.contains(".rf-edt-cnt"));
         assertTrue(text.contains("rf-edt-c"));
@@ -166,7 +166,7 @@ public class ExtendedDataTableRendererTest {
     @Test
     public final void testDoEncodeEnd() throws IOException {
         HtmlPage page = environment.getPage("/extendedDataTableTest.jsf");
-        HtmlElement table = page.getElementById("table");
+        HtmlElement table = (HtmlElement) page.getElementById("table");
         assertEquals("footerFacet", table.getElementById("table:footerFacet").getTextContent());
         assertEquals("rf-edt-rsz-mkr", table.getElementById("table:d").getAttribute("class"));
         assertEquals("rf-edt-rord rf-edt-tbl", table.getElementById("table:r").getAttribute("class"));
@@ -184,7 +184,7 @@ public class ExtendedDataTableRendererTest {
     @Test
     public final void testEncodeRow() throws IOException {
         HtmlPage page = environment.getPage("/extendedDataTableTest.jsf");
-        HtmlElement table = page.getElementById("table");
+        HtmlElement table = (HtmlElement) page.getElementById("table");
         HtmlElement cell = table.getElementById("table:0:f").getElementsByTagName("div").get(0);
         assertTrue(cell.getAttribute("class").contains("rf-edt-c"));
         HtmlElement cellContent = cell.getElementsByTagName("div").get(0);

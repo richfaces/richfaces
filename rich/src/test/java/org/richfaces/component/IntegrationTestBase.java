@@ -58,7 +58,7 @@ public abstract class IntegrationTestBase {
     }
 
     protected void checkMessage(HtmlPage page, String messageId, Matcher<String> matcher) {
-        HtmlElement message = page.getElementById(messageId);
+        HtmlElement message = (HtmlElement) page.getElementById(messageId);
         assertThat(message.getTextContent(), matcher);
     }
 

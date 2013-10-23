@@ -24,21 +24,24 @@ public class AutocompleteRendererTest extends RendererTestBase {
         environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/renderkit/faces-config.xml");
         environment.start();
     }
-
+ 
     @Test
     public void testListLayoutRender() throws Exception {
+        environment.getWebClient().getOptions().setJavaScriptEnabled(false);
         doTest("autocompleteListLayoutTest", "autocompleteListLayoutClientMode", "form:myAutocomplete");
     }
 
     @Test
     public void testDivLayoutRender() throws Exception {
+        environment.getWebClient().getOptions().setJavaScriptEnabled(false);
         doTest("autocompleteDivLayoutTest", "autocompleteDivLayoutClientMode", "form:myAutocomplete");
     }
 
     @Test
     public void testSetValueDivLayout() throws Exception {
+        environment.getWebClient().getOptions().setJavaScriptEnabled(true);
         HtmlPage page = environment.getPage("/autocompleteDivLayoutTest.jsf");
-        HtmlElement autocompleteList = page.getElementById("form:myAutocompleteList");
+        HtmlElement autocompleteList = (HtmlElement) page.getElementById("form:myAutocompleteList");
         Assert.assertNotNull(autocompleteList);
 
         List<?> countryList = autocompleteList.getByXPath("div/div/div/div/div");
@@ -50,7 +53,7 @@ public class AutocompleteRendererTest extends RendererTestBase {
 
         for (int i = 0; i < 20; i++) {
             synchronized (page) {
-                autocompleteList = page.getElementById("form:myAutocompleteList");
+                autocompleteList = (HtmlElement) page.getElementById("form:myAutocompleteList");
                 Assert.assertNotNull(autocompleteList);
 
                 countryList = autocompleteList.getByXPath("div/div/div/div/div");
@@ -68,8 +71,9 @@ public class AutocompleteRendererTest extends RendererTestBase {
 
     @Test
     public void testSetValueListLayout() throws Exception {
+        environment.getWebClient().getOptions().setJavaScriptEnabled(true);
         HtmlPage page = environment.getPage("/autocompleteListLayoutTest.jsf");
-        HtmlElement autocompleteList = page.getElementById("form:myAutocompleteList");
+        HtmlElement autocompleteList = (HtmlElement) page.getElementById("form:myAutocompleteList");
         Assert.assertNotNull(autocompleteList);
 
         List<?> countryList = autocompleteList.getByXPath("div/div/div/ul/li");
@@ -81,7 +85,7 @@ public class AutocompleteRendererTest extends RendererTestBase {
 
         for (int i = 0; i < 20; i++) {
             synchronized (page) {
-                autocompleteList = page.getElementById("form:myAutocompleteList");
+                autocompleteList = (HtmlElement) page.getElementById("form:myAutocompleteList");
                 Assert.assertNotNull(autocompleteList);
 
                 countryList = autocompleteList.getByXPath("div/div/div/ul/li");

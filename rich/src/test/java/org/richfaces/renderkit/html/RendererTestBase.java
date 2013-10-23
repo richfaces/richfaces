@@ -82,7 +82,7 @@ public abstract class RendererTestBase {
 
     protected void doTest(String pageName, String xmlunitPageName, String pageElementToTest) throws IOException, SAXException {
         HtmlPage page = environment.getPage('/' + pageName + ".jsf");
-        HtmlElement htmlElement = page.getElementById(pageElementToTest);
+        HtmlElement htmlElement = (HtmlElement) page.getElementById(pageElementToTest);
         assertNotNull(htmlElement);
 
         String pageCode = htmlElement.asXml();

@@ -61,15 +61,15 @@ public class NestedRepeatTest {
         HtmlPage page = environment.getPage("/NestedRepeatTest.jsf");
 
         for (int i = 0; i < 3; i++) {
-            HtmlElement input = page.getElementById("form:outer:" + i + ":inner:0:input");
+            HtmlElement input = (HtmlElement) page.getElementById("form:outer:" + i + ":inner:0:input");
             input.type(Integer.toString(i));
         }
 
-        HtmlElement ajax = page.getElementById("form:ajax");
+        HtmlElement ajax = (HtmlElement) page.getElementById("form:ajax");
         page = ajax.click();
 
         for (int i = 0; i < 3; i++) {
-            HtmlElement input = page.getElementById("form:outer:" + i + ":inner:0:input");
+            HtmlElement input = (HtmlElement) page.getElementById("form:outer:" + i + ":inner:0:input");
             assertEquals(Integer.toString(i), input.getAttribute("value"));
         }
     }

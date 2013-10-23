@@ -1,196 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <span class="rf-au" id="form:myAutocomplete">
-    <input id="form:myAutocompleteValue" name="form:myAutocompleteValue" type="hidden" />
-    <span class="rf-au-fld-btn">
-        <input autocomplete="off" class="rf-au-fnt rf-au-inp" id="form:myAutocompleteInput" name="form:myAutocompleteInput"
-            type="text" />
-        <span class="rf-au-btn" id="form:myAutocompleteButton">
-            <span class="rf-au-btn-arrow">
-            </span>
-        </span>
+  <input id="form:myAutocompleteValue" name="form:myAutocompleteValue" type="hidden"/>
+  <span class="rf-au-fld-btn">
+    <input autocomplete="off" class="rf-au-fnt rf-au-inp " id="form:myAutocompleteInput" name="form:myAutocompleteInput" type="text"/>
+    <span class="rf-au-btn" id="form:myAutocompleteButton">
+      <span class="rf-au-btn-arrow">
+      </span>
     </span>
-    <div class="rf-au-lst-cord" id="form:myAutocompleteList">
-        <div class="rf-au-shdw">
-            <div class="rf-au-shdw-t">
-            </div>
-            <div class="rf-au-shdw-l">
-            </div>
-            <div class="rf-au-shdw-r">
-            </div>
-            <div class="rf-au-shdw-b">
-            </div>
-            <div class="rf-au-lst-dcrtn">
-                <div class="rf-au-lst-scrl">
-                    <ul id="" class="rf-au-lst-ul" jquery180012373288093923807="" sizcache0902224663892877="" sizset=""
-                            innerhtml="" compact="" accesskey="" tabindex="" children="" outerhtml="" lang="" scrollwidth="" scopename="" title=""
-                            scrollheight="" document="" style="" clienttop="" dir="" scrolltop="" classname="" offsettop="" clientwidth="" all=""
-                            currentstyle="" runtimestyle="" uniqueid="" parentelement="" offsetheight="" clientleft="" offsetparent="" tagname=""
-                            scrollleft="" attributes="" language="" offsetleft="" offsetwidth="" disabled="">
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Afghanistan AF/AFG/4 .af
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Albania AL/ALB/8 .al
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Algeria DZ/DZA/12 .dz
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            American Samoa AS/ASM/16 .as
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Andorra AD/AND/20 .ad
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Angola AO/AGO/24 .ao
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Anguilla AI/AIA/660 .ai
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Antarctica AQ/ATA/10 .aq
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Antigua and Barbuda AG/ATG/28 .ag
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Argentina AR/ARG/32 .ar
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Armenia AM/ARM/51 .am
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Aruba AW/ABW/533 .aw
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Ashmore and Cartier Islands -/-/- -
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Australia AU/AUS/36 .au
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Austria AT/AUT/40 .at
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Azerbaijan AZ/AZE/31 .az
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Bahamas, The BS/BHS/44 .bs
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Bahrain BH/BHR/48 .bh
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Baker Island -/-/- -
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Bangladesh BD/BGD/50 .bd
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Barbados BB/BRB/52 .bb
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Bassas da India -/-/- -
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Belarus BY/BLR/112 .by
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Belgium BE/BEL/56 .be
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Belize BZ/BLZ/84 .bz
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Benin BJ/BEN/204 .bj
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Bermuda BM/BMU/60 .bm
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Bhutan BT/BTN/64 .bt
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Bolivia BO/BOL/68 .bo
-
-                        </li>
-                        <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
-
-                            Bosnia and Herzegovina BA/BIH/70 .ba
-
-                        </li>
-                    </ul>
-                    <script type="text/javascript">
-                        //<![CDATA[
-new RichFaces.rf4.ui.Autocomplete.setData("form:myAutocompleteItems",["Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruba","Ashmore and Cartier Islands","Australia","Austria","Azerbaijan","Bahamas, The","Bahrain","Baker Island","Bangladesh","Barbados","Bassas da India","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Bouvet Island","Brazil","British Indian Ocean Territory","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burma","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central African Republic","Chad","Chile","China","Christmas Island","Clipperton Island","Cocos (Keeling) Islands","Colombia","Comoros","Congo, Democratic Republic of the","Congo, Republic of the","Cook Islands","Coral Sea Islands","Costa Rica","Cote d'Ivoire","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Europa Island","Falkland Islands (Islas Malvinas)","Faroe Islands","Fiji","Finland","France","France, Metropolitan","French Guiana","French Polynesia","French Southern and Antarctic Lands","Gabon","Gambia, The","Gaza Strip","Georgia","Germany","Ghana","Gibraltar","Glorioso Islands","Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guinea","Guinea\u002DBissau","Guyana","Haiti","Heard Island and McDonald Islands","Holy See (Vatican City)","Honduras","Hong Kong","Howland Island","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Jan Mayen","Japan","Jarvis Island","Jersey","Johnston Atoll","Jordan","Juan de Nova Island","Kazakhstan","Kenya","Kingman Reef","Kiribati","Korea, North","Korea, South","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Micronesia, Federated States of","Midway Islands","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Navassa Island","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","Northern Mariana Islands","Norway","Oman","Pakistan","Palau","Palmyra Atoll","Panama","Papua New Guinea","Paracel Islands","Paraguay","Peru","Philippines","Pitcairn Islands","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Barthelemy","Saint Helena","Saint Kitts and Nevis","Saint Lucia","Saint Martin","Saint Pierre and Miquelon","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Georgia and the Islands","Spain","Spratly Islands","Sri Lanka","Sudan","Suriname","Svalbard","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor\u002DLeste","Togo","Tokelau","Tonga","Trinidad and Tobago","Tromelin Island","Tunisia","Turkey","Turkmenistan","Turks and Caicos Islands","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","United States Minor Outlying Islands","Uruguay","Uzbekistan","Vanuatu","Venezuela","Vietnam","Virgin Islands","Virgin Islands (UK)","Virgin Islands (US)","Wake Island","Wallis and Futuna","West Bank","Western Sahara","Western Samoa","Yemen","Zaire","Zambia","Zimbabwe"] )
+  </span>
+  <div class="rf-au-lst-cord" id="form:myAutocompleteList">
+    <div class="rf-au-shdw">
+      <div class="rf-au-shdw-t">
+      </div>
+      <div class="rf-au-shdw-l">
+      </div>
+      <div class="rf-au-shdw-r">
+      </div>
+      <div class="rf-au-shdw-b">
+      </div>
+      <div class="rf-au-lst-dcrtn ">
+        <div class="rf-au-lst-scrl">
+          <ul id="form:myAutocompleteItems" class="rf-au-lst-ul">
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Afghanistan AF/AFG/4 .af
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Albania AL/ALB/8 .al
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Algeria DZ/DZA/12 .dz
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            American Samoa AS/ASM/16 .as
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Andorra AD/AND/20 .ad
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Angola AO/AGO/24 .ao
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Anguilla AI/AIA/660 .ai
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Antarctica AQ/ATA/10 .aq
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Antigua and Barbuda AG/ATG/28 .ag
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Argentina AR/ARG/32 .ar
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Armenia AM/ARM/51 .am
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Aruba AW/ABW/533 .aw
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Ashmore and Cartier Islands -/-/- -
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Australia AU/AUS/36 .au
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Austria AT/AUT/40 .at
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Azerbaijan AZ/AZE/31 .az
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bahamas, The BS/BHS/44 .bs
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bahrain BH/BHR/48 .bh
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Baker Island -/-/- -
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bangladesh BD/BGD/50 .bd
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Barbados BB/BRB/52 .bb
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bassas da India -/-/- -
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Belarus BY/BLR/112 .by
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Belgium BE/BEL/56 .be
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Belize BZ/BLZ/84 .bz
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Benin BJ/BEN/204 .bj
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bermuda BM/BMU/60 .bm
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bhutan BT/BTN/64 .bt
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bolivia BO/BOL/68 .bo
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bosnia and Herzegovina BA/BIH/70 .ba
+            
+            </li>
+          </ul>
+          <script type="text/javascript">
+//<![CDATA[
+new RichFaces.rf4.ui.Autocomplete.setData("form:myAutocompleteItems",["Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruba","Ashmore and Cartier Islands","Australia","Austria","Azerbaijan","Bahamas, The","Bahrain","Baker Island","Bangladesh","Barbados","Bassas da India","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia and Herzegovina"] )
 //]]>
-                    </script>
-                </div>
-            </div>
+          </script>
         </div>
+      </div>
     </div>
-    <script type="text/javascript">
-        //<![CDATA[
+  </div>
+  <script type="text/javascript">
+//<![CDATA[
 new RichFaces.rf4.ui.Autocomplete("form:myAutocomplete",
-                "form:myAutocompleteInput", {"buttonId":"form:myAutocompleteButton","autofill":false,"minChars":2,"onblur":function(event){return onEvent.call(this, event);},"onchange":function(event){return jsf.util.chain(this, event, 'return onEvent.call(this, event);','RichFaces.ajax(this,event,{"parameters":{"javax.faces.behavior.event":"change"} ,"sourceId":"form:myAutocomplete"} )')},"onfocus":function(event){return onEvent.call(this, event);},"onselectitem":function(event){return onEvent.call(this, event);},"ajaxMode":false} 
-                 );
+                    "form:myAutocompleteInput", {"buttonId":"form:myAutocompleteButton","autofill":false,"onchange":function(event){RichFaces.ajax(this,event,{"parameters":{"javax.faces.behavior.event":"change","org.richfaces.ajax.component":"form:myAutocomplete"} ,"sourceId":this} )},"minChars":2,"ajaxMode":false} 
+                    );
 //]]>
-    </script>
+  </script>
 </span>

@@ -76,7 +76,7 @@ public class MessageTestBase {
 
     protected HtmlElement getMessageContentElement() {
         HtmlPage page = qunit.getPage();
-        HtmlElement htmlElement = page.getElementById(MY_MESSAGE);
+        HtmlElement htmlElement = (HtmlElement) page.getElementById(MY_MESSAGE);
         assertNotNull(htmlElement);
         return htmlElement;
     }

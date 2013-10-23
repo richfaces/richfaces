@@ -39,6 +39,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -83,7 +84,7 @@ public class PopupRendererTest {
     @Test
     public final void testDoEncode() throws IOException {
         HtmlPage page = environment.getPage("/popupPanelTest.jsf");
-        HtmlElement panelWithFacet = page.getElementById("panel");
+        HtmlElement panelWithFacet = (HtmlElement) page.getElementById("panel");
         assertNotNull(panelWithFacet);
         assertEquals("visibility: hidden;", panelWithFacet.getAttribute("style"));
         HtmlElement panelShade = panelWithFacet.getElementById("panel_shade");
@@ -111,7 +112,7 @@ public class PopupRendererTest {
         assertNotNull(panelResizer);
         assertEquals("rf-pp-hndlr rf-pp-hndlr-t", panelResizer.getAttribute("class"));
         assertEquals("cursor: N-resize;", panelResizer.getAttribute("style"));
-        List<HtmlElement> result = page.getElementsByName("script");
+        List<DomElement> result = page.getElementsByName("script");
         HtmlElement button = panelWithFacet.getElementById("button");
         button.click();
         HtmlElement sizeButton = panelWithFacet.getElementById("size");

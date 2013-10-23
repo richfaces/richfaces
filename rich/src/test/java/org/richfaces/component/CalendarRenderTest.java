@@ -31,14 +31,14 @@ public class CalendarRenderTest extends RendererTestBase {
     @Test
     public void testExistenceCalendarPopup() throws Exception {
         HtmlPage page = environment.getPage("/calendarTest.jsf");
-        HtmlElement calendarPopupElement = page.getElementById("form:calendarPopup");
+        HtmlElement calendarPopupElement = (HtmlElement) page.getElementById("form:calendarPopup");
         Assert.assertNotNull("form:calendarPopup element missed.", calendarPopupElement);
     }
 
     @Test
     public void testExistenceCalendarContent() throws Exception {
         HtmlPage page = environment.getPage("/calendarTest.jsf");
-        HtmlElement calendarContentElement = page.getElementById("form:calendarContent");
+        HtmlElement calendarContentElement = (HtmlElement) page.getElementById("form:calendarContent");
         Assert.assertNotNull("form:calendarContent element missed.", calendarContentElement);
     }
 
@@ -59,7 +59,7 @@ public class CalendarRenderTest extends RendererTestBase {
         HtmlImage calendarPopupButton = (HtmlImage) page.getElementById("form:calendarPopupButton");
         assertNotNull(calendarPopupButton);
         page = (HtmlPage) calendarPopupButton.click();
-        HtmlElement calendarHeaderElement = page.getElementById("form:calendarHeader");
+        HtmlElement calendarHeaderElement = (HtmlElement) page.getElementById("form:calendarHeader");
         assertNotNull("form:calendarHeader element missed.", calendarHeaderElement);
 
         HtmlTableDataCell nextTD = null;
@@ -71,7 +71,7 @@ public class CalendarRenderTest extends RendererTestBase {
             }
         }
         assertNotNull(nextTD);
-        HtmlElement div = nextTD.getChildElements().iterator().next();
+        HtmlElement div = (HtmlElement) nextTD.getChildElements().iterator().next();
 
         // Before click
         Calendar calendar = Calendar.getInstance();
