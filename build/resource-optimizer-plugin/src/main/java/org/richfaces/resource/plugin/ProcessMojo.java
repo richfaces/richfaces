@@ -204,7 +204,7 @@ public class ProcessMojo extends AbstractMojo {
      * Turns on packing of JavaScript/CSS resources
      * @parameter expression="${pack}"
      */
-    private boolean pack = false;
+    private String pack;
     /**
      * Mapping of file names to output file names
      * @parameter
@@ -235,7 +235,7 @@ public class ProcessMojo extends AbstractMojo {
 
     // TODO executor parameters
     private ExecutorService createExecutorService() {
-        int poolSize = pack ? 1 : Runtime.getRuntime().availableProcessors();
+        int poolSize = pack != null ? 1 : Runtime.getRuntime().availableProcessors();
         return Executors.newFixedThreadPool(poolSize);
     }
 
@@ -434,7 +434,7 @@ public class ProcessMojo extends AbstractMojo {
 
             getLog().debug("foundResources: " + foundResources);
 
-            if (pack) {
+            if (pack != null) {
                 reorderFoundResources(cpResources, dynamicResourceHandler, resourceFactory);
             }
 

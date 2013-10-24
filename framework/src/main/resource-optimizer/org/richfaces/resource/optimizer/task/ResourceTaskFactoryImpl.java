@@ -64,7 +64,7 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
 
             // when packaging JSF's JavaScript implementation, use uncompressed version
             // as double compression may lead in inability to use it
-            if (pack && ResourceConstants.JSF_COMPRESSED.equals(resourceKey)) {
+            if (packName != null && ResourceConstants.JSF_COMPRESSED.equals(resourceKey)) {
                 this.resourceKey = ResourceConstants.JSF_UNCOMPRESSED;
             }
         }
@@ -93,8 +93,8 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
                     return;
                 }
 
-                if (pack) {
-                    resourceWriter.writePackedResource(skin, resource);
+                if (packName != null) {
+                    resourceWriter.writePackedResource(packName, skin, resource);
                 } else {
                     resourceWriter.writeResource(skin, resource);
                 }
@@ -197,12 +197,12 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
     private CompletionService<Object> completionService;
     private String[] skins = new String[0];
     private Predicate<Resource> filter = Predicates.alwaysTrue();
-    private boolean pack;
+    private String packName;
 
-    public ResourceTaskFactoryImpl(Faces faces, boolean pack) {
+    public ResourceTaskFactoryImpl(Faces faces, String packName) {
         super();
         this.faces = faces;
-        this.pack = pack;
+        this.packName = packName;
     }
 
     private boolean containsELExpression(Resource resource) {

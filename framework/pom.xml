@@ -48,6 +48,8 @@
         <optimized.resources.mapping>${optimized.resources.directory}/META-INF/richfaces/optimizedResourcesMapping</optimized.resources.mapping>
         <optimized.resources.skins>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,plain,DEFAULT,NULL</optimized.resources.skins>
         <optimized.resources.exclusions>(^\Qjavax.faces\E|^\Qorg.richfaces.ui.images.\E|^\Qorg.richfaces.ui.iconimages.\E|^\Qorg.richfaces.optimized.\E|^\Qorg.richfaces.ui.ckeditor\E|^\Qfont-awesome\E|^\Qbootstrap\E|^\Qio.richwidgets:richwidgets.min.\E)</optimized.resources.exclusions>
+        <optimized.resources.packedCoreExclusions>^.+:(?!jquery-atmosphere\.js|ajax/push\.js)</optimized.resources.packedCoreExclusions>
+        <optimized.resources.packedUiExclusions>(^[^:]+$|jquery-atmosphere\.js$|push\.js$)</optimized.resources.packedUiExclusions>
     </properties>
 
     <dependencies>
@@ -425,9 +427,9 @@
                                     </arguments>
                                 </configuration>
                             </execution>
-                            <!-- Packed -->
+                            <!-- Packed UI -->
                             <execution>
-                                <id>packed-resources</id>
+                                <id>packed-ui-resources</id>
                                 <phase>process-classes</phase>
                                 <goals>
                                     <goal>java</goal>
@@ -447,13 +449,42 @@
                                         <argument>--excludeFile</argument>
                                         <argument>${optimized.resources.exclusions}</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^jquery\.js$</argument>
+                                        <argument>${optimized.resources.packedUiExclusions}</argument>
                                         <argument>--pack</argument>
+                                        <argument>ui</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <!-- Packed Core -->
+                            <execution>
+                                <id>packed-core-resources</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>
+                                        <argument>--classpathDir</argument>
+                                        <argument>${project.build.outputDirectory}</argument>
+                                        <argument>--output</argument>
+                                        <argument>${optimized.resources.resourceDirectory}/Packed/</argument>
+                                        <argument>--prefix</argument>
+                                        <argument>${optimized.resources.prefix}/Packed/</argument>
+                                        <argument>--mapping</argument>
+                                        <argument>${optimized.resources.mapping}/Packed.properties</argument>
+                                        <argument>--skins</argument>
+                                        <argument>${optimized.resources.skins}</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>${optimized.resources.exclusions}</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>${optimized.resources.packedCoreExclusions}</argument>
+                                        <argument>--pack</argument>
+                                        <argument>core</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>resources-excluded-from-packaging</id>
+                                <id>core-resources-excluded-from-packaging</id>
                                 <phase>process-classes</phase>
                                 <goals>
                                     <goal>java</goal>
@@ -475,9 +506,9 @@
                                     </arguments>
                                 </configuration>
                             </execution>
-                            <!-- PackedCompressed -->
+                            <!-- PackedCompressed UI -->
                             <execution>
-                                <id>packed-compressed-resources</id>
+                                <id>packed-compressed-ui-resources</id>
                                 <phase>process-classes</phase>
                                 <goals>
                                     <goal>java</goal>
@@ -497,14 +528,44 @@
                                         <argument>--excludeFile</argument>
                                         <argument>${optimized.resources.exclusions}</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>^jquery\.js$</argument>
+                                        <argument>${optimized.resources.packedUiExclusions} </argument>
                                         <argument>--pack</argument>
+                                        <argument>ui</argument>
+                                        <argument>--compress</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <!-- PackedCompressed Core -->
+                            <execution>
+                                <id>packed-compressed-core-resources</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>
+                                        <argument>--classpathDir</argument>
+                                        <argument>${project.build.outputDirectory}</argument>
+                                        <argument>--output</argument>
+                                        <argument>${optimized.resources.resourceDirectory}/PackedCompressed/</argument>
+                                        <argument>--prefix</argument>
+                                        <argument>${optimized.resources.prefix}/PackedCompressed/</argument>
+                                        <argument>--mapping</argument>
+                                        <argument>${optimized.resources.mapping}/PackedCompressed.properties</argument>
+                                        <argument>--skins</argument>
+                                        <argument>${optimized.resources.skins}</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>${optimized.resources.exclusions}</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>${optimized.resources.packedCoreExclusions}</argument>
+                                        <argument>--pack</argument>
+                                        <argument>core</argument>
                                         <argument>--compress</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>compressed-resources-excluded-from-packaging</id>
+                                <id>core-compressed-resources-excluded-from-packaging</id>
                                 <phase>process-classes</phase>
                                 <goals>
                                     <goal>java</goal>
