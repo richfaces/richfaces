@@ -60,7 +60,7 @@ public class MessageTestBase {
             .loadJsfResource("jquery.js")
             .loadJsfResource("richfaces.js")
             .loadJsfResource("richfaces-event.js")
-            .loadJsfResource("richfaces-base-component.js")
+            .loadJsfResource("richfaces-base-component.js", "org.richfaces/common")
             .loadJsfResource("richfaces-csv.js", "org.richfaces")
             .loadJsfResource("message/message/message.js", "org.richfaces")
             .content(

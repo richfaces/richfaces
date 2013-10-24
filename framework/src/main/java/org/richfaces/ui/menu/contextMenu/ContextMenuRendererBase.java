@@ -45,7 +45,7 @@ import org.richfaces.util.RendererUtils;
 
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(name = "jquery.position.js"),
+        @ResourceDependency(library = "org.richfaces/common", name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "common/popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "menu/menuKeyNavigation.js"),

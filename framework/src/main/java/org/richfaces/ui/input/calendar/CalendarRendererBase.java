@@ -64,8 +64,8 @@ import org.richfaces.util.MessageUtil;
  *
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(name = "richfaces-base-component.js"),
-        @ResourceDependency(name = "jquery.position.js"),
+        @ResourceDependency(library = "org.richfaces/common", name = "richfaces-base-component.js"),
+        @ResourceDependency(library = "org.richfaces/common", name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "input/calendar/json-dom.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.effect.js"),
