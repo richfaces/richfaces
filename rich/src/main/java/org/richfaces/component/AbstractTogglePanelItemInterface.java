@@ -2,6 +2,7 @@ package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.ui.common.VisitChildrenRejectable;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
