@@ -70,11 +70,6 @@ import java.util.TreeSet;
 public class SelectManyHelper {
     private static final Logger LOG = RichfacesLogger.APPLICATION.getLogger();
 
-    public static final String CELL_CSS = "-c";
-    public static final String ITEM_CSS = "-opt";
-    public static final String ITEM_CSS_DIS = "-opt-dis";
-    public static final String BUTTON_CSS = "-btn";
-    public static final String BUTTON_CSS_DIS = "-btn-dis";
     public static Comparator<ClientSelectItem> clientSelectItemComparator = new Comparator<ClientSelectItem>() {
         public int compare(ClientSelectItem clientSelectItem, ClientSelectItem clientSelectItem1) {
             Integer sortOrder = (clientSelectItem == null || clientSelectItem.getSortOrder() == null) ? 0 : clientSelectItem.getSortOrder();
@@ -83,7 +78,6 @@ public class SelectManyHelper {
         }
     };
 
-
     public static Predicate<ClientSelectItem> SELECTED_PREDICATE =  new Predicate<ClientSelectItem>() {
         public boolean apply(@Nullable ClientSelectItem clientSelectItem) {
             return clientSelectItem.isSelected();
@@ -91,144 +85,6 @@ public class SelectManyHelper {
     };
 
     public static Predicate<ClientSelectItem> UNSELECTED_PREDICATE = Predicates.not(SELECTED_PREDICATE);
-
-    public static void encodeHeader(FacesContext facesContext, UIComponent component, SelectManyRendererBase renderer, String rowClass, String cellClass) throws IOException {
-        ResponseWriter writer = facesContext.getResponseWriter();
-        AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
-        Iterator<UIColumn> headers = select.columns();
-
-        if (headers.hasNext()) {
-            writer.startElement("tr", component);
-            StringBuilder headerClass = new StringBuilder(rowClass);
-            if (select.getHeaderClass() != null && !select.getHeaderClass().isEmpty()) {
-                if (headerClass.length() > 0) {
-                    headerClass.append(" ");
-                }
-                headerClass.append(select.getHeaderClass());
-            }
-
-            writer.writeAttribute("class", headerClass, null);
-            while (headers.hasNext()) {
-                UIColumn header = headers.next();
-                writer.startElement("th", component);
-                writer.writeAttribute("class", cellClass, null);
-                UIComponent facet = header.getFacet("header");
-                if (facet != null && facet.isRendered()) {
-                    facet.encodeBegin(facesContext);
-                    if (facet.getRendersChildren()) {
-                        facet.encodeChildren(facesContext);
-                    } else {
-                        renderer.renderChildren(facesContext, facet);
-                    }
-                    facet.encodeEnd(facesContext);
-                }
-                writer.endElement("th");
-            }
-            writer.endElement("tr");
-        }
-    }
-
-    public static void encodeRows(FacesContext facesContext, UIComponent component, SelectManyRendererBase renderer, Iterator<ClientSelectItem> clientSelectItems, String cssPrefix) throws IOException {
-        AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
-        if (clientSelectItems != null && clientSelectItems.hasNext()) {
-            String clientId = component.getClientId(facesContext);
-            Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
-            Object oldVar = requestMap.get(select.getVar());
-            while (clientSelectItems.hasNext()) {
-                ClientSelectItem clientSelectItem = clientSelectItems.next();
-                requestMap.put(select.getVar(), clientSelectItem.getSelectItem().getValue());
-                encodeOneRow(facesContext, component, renderer, clientSelectItem, cssPrefix);
-            }
-            requestMap.put(select.getVar(), oldVar);
-            oldVar = null;
-        }
-    }
-
-    public static void encodeOneRow(FacesContext facesContext, UIComponent component, SelectManyRendererBase renderer, ClientSelectItem clientSelectItem, String cssPrefix) throws IOException {
-        AbstractSelectManyComponent table = (AbstractSelectManyComponent) component;
-        String defaultItemCss = cssPrefix + ITEM_CSS;
-        String defaultItemCssDis = cssPrefix + ITEM_CSS_DIS;
-
-        ResponseWriter writer = facesContext.getResponseWriter();
-        String clientId = table.getClientId(facesContext);
-        String itemClientId = clientId + "Item" + clientSelectItem.getSortOrder();
-        clientSelectItem.setClientId(itemClientId);
-        writer.startElement(HtmlConstants.TR_ELEMENT, table);
-        writer.writeAttribute("id", itemClientId, null);
-        String itemCss;
-        if (!table.isDisabled()) {
-            itemCss = HtmlUtil.concatClasses(table.getItemClass(), defaultItemCss);
-        } else {
-            itemCss = HtmlUtil.concatClasses(table.getItemClass(), defaultItemCss, defaultItemCssDis);
-        }
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemCss, null);
-
-        String cellClassName = cssPrefix + CELL_CSS;
-
-        String[] columnClasses;
-        if (table.getColumnClasses() != null) {
-            columnClasses = table.getColumnClasses().split(",");
-        } else {
-            columnClasses = new String[0];
-        }
-        int columnCounter = 0;
-        Iterator<UIColumn> columnIterator = table.columns();
-        while (columnIterator.hasNext()) {
-            UIColumn column = columnIterator.next();
-            if (column.isRendered()) {
-                writer.startElement(HtmlConstants.TD_ELEM, table);
-
-                Object width = column.getAttributes().get("width");
-                if (width != null) {
-                    writer.writeAttribute("style", "width: " + HtmlDimensions.formatSize(width.toString()), null);
-                }
-
-                String columnClass;
-                if (columnClasses.length > 0) {
-                    columnClass = HtmlUtil.concatClasses(cellClassName, columnClasses[columnCounter % columnClasses.length], column.getAttributes().get("styleClass"));
-                } else {
-                    columnClass = HtmlUtil.concatClasses(cellClassName, column.getAttributes().get("styleClass"));
-                }
-                writer.writeAttribute("class", columnClass, null);
-                renderer.renderChildren(facesContext, column);
-                writer.endElement(HtmlConstants.TD_ELEM);
-                columnCounter++;
-            }
-        }
-        writer.endElement(HtmlConstants.TR_ELEMENT);
-    }
-
-    public static void encodeItems(FacesContext facesContext, UIComponent component, Iterator<ClientSelectItem> clientSelectItems, String cssPrefix) throws IOException {
-        AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
-        String defaultItemCss = cssPrefix + ITEM_CSS;
-        String defaultItemCssDis = cssPrefix + ITEM_CSS_DIS;
-        if (clientSelectItems != null && clientSelectItems.hasNext()) {
-            ResponseWriter writer = facesContext.getResponseWriter();
-            String clientId = component.getClientId(facesContext);
-            while (clientSelectItems.hasNext()) {
-                ClientSelectItem clientSelectItem = clientSelectItems.next();
-                String itemClientId = clientId + "Item" + clientSelectItem.getSortOrder();
-                clientSelectItem.setClientId(itemClientId);
-                writer.startElement(HtmlConstants.DIV_ELEM, component);
-                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, itemClientId, null);
-                String itemCss;
-                if (!select.isDisabled()) {
-                    itemCss = HtmlUtil.concatClasses(select.getItemClass(), defaultItemCss);
-                } else {
-                    itemCss = HtmlUtil.concatClasses(select.getItemClass(), defaultItemCss, defaultItemCssDis);
-                }
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemCss, null);
-                String label = clientSelectItem.getLabel();
-                if (label != null && label.trim().length() > 0) {
-                    writer.writeText(label, null);
-                } else {
-                    writer.write("\u00a0");
-                }
-                writer.endElement(HtmlConstants.DIV_ELEM);
-                writer.write('\n');
-            }
-        }
-    }
 
     public static List<ClientSelectItem> getClientSelectItems(FacesContext facesContext, AbstractSelectManyComponent select, Iterator<SelectItem> selectItems) {
         List<ClientSelectItem> clientSelectItems = new ArrayList<ClientSelectItem>();

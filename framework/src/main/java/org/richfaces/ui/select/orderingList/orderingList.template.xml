@@ -61,7 +61,7 @@
         <div id="#{clientId}" cdk:passThrough="onclick ondblclick onkey* onmouse*">
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
-                    <ol id="#{clientId}List" cdk:passThrough="on*:onlist*">
+                    <ol id="#{clientId}List">
                         <c:forEach var="itemObject" items="#{clientSelectItems}">
                             <cdk:object name="item" type="org.richfaces.ui.select.ClientSelectItem" value="#{itemObject}" />
                             <li data-key="#{item.convertedValue}">#{item.label}</li>
@@ -70,7 +70,7 @@
                 </c:when>
                 <c:otherwise>
                     <cdk:object name="columns" type="java.util.Iterator" value="#{component.columns()}" />
-                    <table id="#{clientId}List" cdk:passThrough="on*:onlist*">
+                    <table id="#{clientId}List">
                         <c:if test="#{columns != null and columns.hasNext()}">
                             <c:if test="#{isHeaderExists(facesContext, component)}">
                                 <cdk:renderFragment name="renderColumnHeaders" columns="#{columns}" />

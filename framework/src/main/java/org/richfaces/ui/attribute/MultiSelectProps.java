@@ -30,7 +30,7 @@ import org.richfaces.cdk.annotations.EventName;
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public interface MultiSelectProps extends SelectProps {
+public interface MultiSelectProps {
     /**
      * Expose the value from the value attribute under this request scoped key so that it may be referred to in EL for the value of other attributes.
      */
@@ -45,6 +45,12 @@ public interface MultiSelectProps extends SelectProps {
     String getCollectionType();
 
     /**
+     * The height of the list element (in pixels)
+     */
+    @Attribute
+    String getListHeight();
+
+    /**
      * The minimum height of the item list (in pixels).
      */
     @Attribute()
@@ -56,29 +62,11 @@ public interface MultiSelectProps extends SelectProps {
     @Attribute()
     String getMaxListHeight();
 
-    @Attribute(hidden = true)
-    String getDefaultLabel();
-
-    @Attribute(hidden = true)
-    String getActiveClass();
-
-    @Attribute(hidden = true)
-    String getChangedClass();
-
-    @Attribute(hidden = true)
-    String getListClass();
-
     /**
      * Space-separated list of CSS style class(es) to be applied to the columns of the list elements. This value must be passed through as the "class" attribute on generated markup.
      */
     @Attribute
     String getColumnClasses();
-
-    /**
-     * Space-separated list of CSS style class(es) to be applied to the header element. This value must be passed through as the "class" attribute on generated markup.
-     */
-    @Attribute
-    String getHeaderClass();
 
     /**
      * Javascript code executed when the list element loses focus and its value has been modified since gaining focus.

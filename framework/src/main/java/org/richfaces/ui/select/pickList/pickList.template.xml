@@ -65,13 +65,13 @@
         <div id="#{clientId}" cdk:passThrough="onclick ondblclick onkey* onmouse*">
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
-                    <ol id="#{clientId}SourceList" class="source" cdk:passThrough="on*:onsourcelist*">
+                    <ol id="#{clientId}SourceList" class="source">
                         <c:forEach var="itemObject" items="#{sourceSelectItems}">
                             <cdk:object name="item" type="org.richfaces.ui.select.ClientSelectItem" value="#{itemObject}" />
                             <li data-key="#{item.convertedValue}">#{item.label}</li>
                         </c:forEach>
                     </ol>
-                    <ol id="#{clientId}TargetList" class="target" cdk:passThrough="on*:ontargetlist*">
+                    <ol id="#{clientId}TargetList" class="target">
                         <c:forEach var="itemObject" items="#{targetSelectItems}">
                             <cdk:object name="item" type="org.richfaces.ui.select.ClientSelectItem" value="#{itemObject}" />
                             <li data-key="#{item.convertedValue}">#{item.label}</li>
@@ -80,7 +80,7 @@
                 </c:when>
                 <c:otherwise>
                     <cdk:object name="columns" type="java.util.Iterator" value="#{component.columns()}" />
-                    <table id="#{clientId}SourceList" class="source" cdk:passThrough="on*:onlist*">
+                    <table id="#{clientId}SourceList" class="source">
                         <c:if test="#{columns != null and columns.hasNext()}">
                             <c:if test="#{isHeaderExists(facesContext, component)}">
                                 <cdk:renderFragment name="renderColumnHeaders" columns="#{columns}" />
@@ -89,7 +89,7 @@
                         </c:if>
                     </table>
                     <cdk:call expression="columns = component.columns()" />
-                    <table id="#{clientId}TargetList" class="target" cdk:passThrough="on*:onlist*">
+                    <table id="#{clientId}TargetList" class="target">
                         <c:if test="#{columns != null and columns.hasNext()}">
                             <c:if test="#{isHeaderExists(facesContext, component)}">
                                 <cdk:renderFragment name="renderColumnHeaders" columns="#{columns}" />
