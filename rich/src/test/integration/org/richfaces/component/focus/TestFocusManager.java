@@ -1,7 +1,7 @@
 package org.richfaces.component.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
@@ -59,7 +59,7 @@ public class TestFocusManager {
 
     private Activity ajax = new Activity() {
         public void perform() {
-            guardXhr(ajaxButton).click();
+            guardAjax(ajaxButton).click();
         }
     };
 

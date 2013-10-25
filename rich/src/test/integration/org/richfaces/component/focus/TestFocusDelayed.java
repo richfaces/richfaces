@@ -1,7 +1,7 @@
 package org.richfaces.component.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.junit.Assert.assertEquals;
 
@@ -78,7 +78,7 @@ public class TestFocusDelayed {
     public void when_focus_is_delayed_then_it_is_not_applied_on_ajax_postback() {
         browser.get(contextPath.toExternalForm());
 
-        guardXhr(ajax).click();
+        guardAjax(ajax).click();
         assertEquals(null, getFocusedElement());
     }
 

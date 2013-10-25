@@ -1,5 +1,7 @@
 package org.richfaces.component.extendedDataTable;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+
 import java.net.URL;
 import java.util.List;
 
@@ -143,7 +145,7 @@ public class TestBuiltInFilter {
         WebElement filterInput = browser.findElement(By.id("myForm:edt:column2:flt"));
         filterInput.clear();
         filterInput.sendKeys("3");
-        guardXhr(filterInput).sendKeys(Keys.TAB);
+        guardAjax(filterInput).sendKeys(Keys.TAB);
         cells = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt"));
         Assert.assertEquals("Value of the first cell of the second column", "3", cells.get(0).getText());
         Assert.assertEquals("Number of rows present", 4, cells.size());

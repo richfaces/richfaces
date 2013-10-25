@@ -52,7 +52,7 @@ public class TestColumnsOrder {
         Assert.assertTrue(cells.get(1).getAttribute("class").contains("d1"));
         Assert.assertTrue(cells.get(2).getAttribute("class").contains("d3"));
 
-        Graphene.guardXhr(button).click();
+        Graphene.guardAjax(button).click();
 
         cells = browser.findElements(By.cssSelector("#edt\\:0\\:n td"));
 

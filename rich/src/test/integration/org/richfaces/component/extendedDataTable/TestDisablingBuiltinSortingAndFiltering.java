@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import java.net.URL;
 import java.util.List;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 @RunAsClient
 @RunWith(Arquillian.class)

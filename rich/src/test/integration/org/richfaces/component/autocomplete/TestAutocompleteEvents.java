@@ -1,7 +1,5 @@
 package org.richfaces.component.autocomplete;
 
-import static org.jboss.arquillian.graphene.Graphene.attribute;
-import static org.jboss.arquillian.graphene.Graphene.element;
 import static org.jboss.arquillian.graphene.Graphene.waitGui;
 
 import java.net.URL;
@@ -66,14 +64,14 @@ public class TestAutocompleteEvents {
         // given
         browser.get(contextPath.toExternalForm());
         autocompleteInput.sendKeys("t");
-        waitGui().withMessage("suggestion list is visible").until(element(suggestionList).isVisible());
+        waitGui().withMessage("suggestion list is visible").until().element(suggestionList).is().visible();
         autocompleteItem.click();
 
         // when
         body.click();
 
         // then
-        waitGui().until(attribute(autocompleteInput, "value").valueEquals("TORONTO"));
+        waitGui().until().element(autocompleteInput).attribute("value").equalTo("TORONTO");
     }
 
     private static void addIndexPage(InputDeployment deployment) {

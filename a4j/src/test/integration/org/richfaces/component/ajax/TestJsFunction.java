@@ -46,9 +46,9 @@ public class TestJsFunction {
         // given
         browser.get(contextPath.toExternalForm());
         WebElement button1 = browser.findElement(By.id("myForm:jsFunction"));
-        Graphene.guardXhr(button1).click();
+        Graphene.guardAjax(button1).click();
         WebElement button2 = browser.findElement(By.id("myForm2:ajax2"));
-        Graphene.guardXhr(button2).click();
+        Graphene.guardAjax(button2).click();
     }
 
     // from RF-12761

@@ -1,7 +1,7 @@
 package org.richfaces.component.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 import static org.junit.Assert.assertEquals;
 
@@ -76,13 +76,13 @@ public class TestFocusMultipleForms {
     public void when_ajax_is_sent_then_first_input_from_submitted_form_should_gain_focus() {
         browser.get(contextPath.toExternalForm());
 
-        guardXhr(form2.ajax).click();
+        guardAjax(form2.ajax).click();
         waitAjax().until(new ElementIsFocused(form2.input2));
 
-        guardXhr(form1.ajax).click();
+        guardAjax(form1.ajax).click();
         waitAjax().until(new ElementIsFocused(form1.input2));
 
-        guardXhr(form3.ajax).click();
+        guardAjax(form3.ajax).click();
         waitAjax().until(new ElementIsFocused(form3.input1));
     }
 

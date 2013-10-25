@@ -1,7 +1,7 @@
 package org.richfaces.component.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 import static org.junit.Assert.assertEquals;
 
@@ -77,7 +77,7 @@ public class TestFocusPreserve {
 
         // when
         input3.click();
-        guardXhr(ajax).click();
+        guardAjax(ajax).click();
 
         // then
         waitAjax().until(new ElementIsFocused(input3));
@@ -89,11 +89,11 @@ public class TestFocusPreserve {
         browser.get(contextPath.toExternalForm());
 
         // when
-        guardXhr(renderFirstFormFromSecondForm).click();
+        guardAjax(renderFirstFormFromSecondForm).click();
         Thread.sleep(500);
 
         input2.click();
-        guardXhr(ajax).click();
+        guardAjax(ajax).click();
 
         // then
         waitAjax().until(new ElementIsFocused(input2));

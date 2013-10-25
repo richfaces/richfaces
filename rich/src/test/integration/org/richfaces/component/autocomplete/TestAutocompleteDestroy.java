@@ -1,7 +1,6 @@
 package org.richfaces.component.autocomplete;
 
-import static org.jboss.arquillian.graphene.Graphene.element;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.junit.Assert.assertFalse;
 
@@ -58,10 +57,10 @@ public class TestAutocompleteDestroy {
         // given
         browser.get(contextPath.toExternalForm());
         autocompleteInput.sendKeys("t");
-        waitGui().withMessage("suggestion list is visible").until(element(suggestionList).isVisible());
+        waitGui().withMessage("suggestion list is visible").until().element(suggestionList).is().visible();
 
         // when
-        guardXhr(renderButton).click();
+        guardAjax(renderButton).click();
 
         // then
         assertFalse("suggestion list is not displayed", browser.findElement(suggestionList).isDisplayed());

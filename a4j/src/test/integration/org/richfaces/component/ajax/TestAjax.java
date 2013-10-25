@@ -1,6 +1,9 @@
 package org.richfaces.component.ajax;
 
+import java.net.URL;
+
 import junit.framework.Assert;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -17,8 +20,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.integration.CoreUIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import java.net.URL;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -46,7 +47,7 @@ public class TestAjax {
         browser.get(contextPath.toExternalForm());
         WebElement cell = browser.findElement(By.id("myForm:input"));
         cell.sendKeys("123");
-        Graphene.guardXhr(cell).sendKeys(Keys.TAB);
+        Graphene.guardAjax(cell).sendKeys(Keys.TAB);
         cell = browser.findElement(By.id("myForm:input"));
         Assert.assertEquals("4", cell.getAttribute("value"));
     }

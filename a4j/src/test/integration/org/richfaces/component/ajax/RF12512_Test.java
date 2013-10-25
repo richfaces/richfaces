@@ -1,6 +1,10 @@
 package org.richfaces.component.ajax;
 
+import java.io.File;
+import java.net.URL;
+
 import junit.framework.Assert;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -16,9 +20,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.integration.CoreUIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import java.io.File;
-import java.net.URL;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -47,13 +48,13 @@ public class RF12512_Test {
         WebElement increaseLink00 = browser.findElement(By.id("form:a4jRepeatRows:0:a4jRepeatColumns:0:increaseLink"));
         WebElement clearLink00 = browser.findElement(By.id("form:a4jRepeatRows:0:a4jRepeatColumns:0:clearLink"));
 
-        Graphene.guardXhr(increaseLink00).click();
+        Graphene.guardAjax(increaseLink00).click();
         WebElement output00 = browser.findElement(By.id("form:outputRows:0:outputColumns:0:output"));
         WebElement input00 = browser.findElement(By.id("form:a4jRepeatRows:0:a4jRepeatColumns:0:valueInput"));
         Assert.assertEquals("1", output00.getText());
         Assert.assertEquals("1", input00.getAttribute("value"));
 
-        Graphene.guardXhr(clearLink00).click();
+        Graphene.guardAjax(clearLink00).click();
         output00 = browser.findElement(By.id("form:outputRows:0:outputColumns:0:output"));
         input00 = browser.findElement(By.id("form:a4jRepeatRows:0:a4jRepeatColumns:0:valueInput"));
         Assert.assertEquals("0", output00.getText());
@@ -68,10 +69,10 @@ public class RF12512_Test {
         Assert.assertEquals("", input.getAttribute("value"));
         input.sendKeys("123");
         WebElement submit = browser.findElement(By.id("myForm:submit"));
-        Graphene.guardXhr(submit).click();
+        Graphene.guardAjax(submit).click();
         Assert.assertEquals("123", input.getAttribute("value"));
         WebElement clear = browser.findElement(By.id("myForm:clear"));
-        Graphene.guardXhr(clear).click();
+        Graphene.guardAjax(clear).click();
         input = browser.findElement(By.id("myForm:input"));
         Assert.assertEquals("", input.getAttribute("value"));
     }

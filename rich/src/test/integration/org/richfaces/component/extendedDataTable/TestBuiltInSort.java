@@ -1,5 +1,7 @@
 package org.richfaces.component.extendedDataTable;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -59,17 +61,17 @@ public class TestBuiltInSort {
         WebElement cell = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt")).get(0);
         Assert.assertEquals("3", cell.getText());
 
-        guardXhr(sortHandle).click();
+        guardAjax(sortHandle).click();
         Thread.sleep(500);
         cell = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt")).get(0);
         Assert.assertEquals("0", cell.getText());
 
-        guardXhr(sortHandle).click();
+        guardAjax(sortHandle).click();
         Thread.sleep(500);
         cell = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt")).get(0);
         Assert.assertEquals("9", cell.getText());
 
-        guardXhr(sortHandle).click();
+        guardAjax(sortHandle).click();
         Thread.sleep(500);
         cell = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt")).get(0);
         Assert.assertEquals("0", cell.getText());

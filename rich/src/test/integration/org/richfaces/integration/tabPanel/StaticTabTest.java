@@ -19,7 +19,7 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import java.net.URL;
 import java.util.List;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -69,7 +69,7 @@ public class StaticTabTest {
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
-        guardXhr(tabs.get(1)).click();
+        guardAjax(tabs.get(1)).click();
         Assert.assertTrue(out.getText().contains("begin"));
 //        Assert.assertTrue(out.getText().contains("tabpanel_complete"));
 //        Assert.assertTrue(out.getText().contains("beforedomupdate"));
@@ -86,7 +86,7 @@ public class StaticTabTest {
     public void check_click_active_tab() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
         WebElement activeTab = tabTestHelper.getActiveTab(tabPanel);
-        guardXhr(activeTab).click();
+        guardAjax(activeTab).click();
         Assert.assertEquals(null, body.getAttribute("JSError"));
     }
 
@@ -95,7 +95,7 @@ public class StaticTabTest {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
         inputText.sendKeys("abcd");
-        guardXhr(tabs.get(1)).click();
+        guardAjax(tabs.get(1)).click();
         Assert.assertEquals("abcd", outputText.getText());
     }
 

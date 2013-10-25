@@ -1,6 +1,6 @@
 package org.richfaces.integration.tabPanel;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 import java.net.URL;
 import java.util.List;
@@ -30,29 +30,29 @@ public class DynamicTabTestHelper {
         Assert.assertEquals(6, tabs.size());
         Assert.assertEquals("content of tab 0", getTabContent(tabPanel).getText());
 
-        guardXhr(tabs.get(2)).click();
+        guardAjax(tabs.get(2)).click();
         Assert.assertEquals("content of tab 2", getTabContent(tabPanel).getText());
 
-        guardXhr(tabs.get(4)).click();
+        guardAjax(tabs.get(4)).click();
         Assert.assertEquals("content of tab 4", getTabContent(tabPanel).getText());
 
-        guardXhr(tabs.get(5)).click();
+        guardAjax(tabs.get(5)).click();
         Assert.assertEquals("content of tab 5", getTabContent(tabPanel).getText());
 
-        guardXhr(tabs.get(0)).click();
+        guardAjax(tabs.get(0)).click();
         Assert.assertEquals("content of tab 0", getTabContent(tabPanel).getText());
 
-        guardXhr(a4jCreateTabButton).click();
+        guardAjax(a4jCreateTabButton).click();
         Assert.assertEquals(7, tabs.size());
 
-        guardXhr(tabs.get(6)).click();
+        guardAjax(tabs.get(6)).click();
         Assert.assertEquals("content of tab 6", getTabContent(tabPanel).getText());
 
-        guardXhr(tabs.get(0)).click();
+        guardAjax(tabs.get(0)).click();
         Assert.assertEquals("content of tab 0", getTabContent(tabPanel).getText());
 
         WebElement removeLink =tabs.get(6).findElement(By.tagName("a"));
-        guardXhr(removeLink).click();
+        guardAjax(removeLink).click();
         Assert.assertEquals(6, tabs.size());
     }
 
@@ -77,22 +77,22 @@ public class DynamicTabTestHelper {
     public void check_row_removal(WebElement tabPanel, List<WebElement> tabs, WebElement a4jCreateTabButton) {
         Assert.assertEquals(6, tabs.size());
 
-        guardXhr(a4jCreateTabButton).click();
-        guardXhr(a4jCreateTabButton).click();
-        guardXhr(a4jCreateTabButton).click();
+        guardAjax(a4jCreateTabButton).click();
+        guardAjax(a4jCreateTabButton).click();
+        guardAjax(a4jCreateTabButton).click();
 
         Assert.assertEquals(9, tabs.size());
 
         WebElement removeLink =tabs.get(8).findElement(By.tagName("a"));
-        guardXhr(removeLink).click();
+        guardAjax(removeLink).click();
         Assert.assertEquals(8, tabs.size());
 
         removeLink =tabs.get(7).findElement(By.tagName("a"));
-        guardXhr(removeLink).click();
+        guardAjax(removeLink).click();
         Assert.assertEquals(7, tabs.size());
 
         removeLink =tabs.get(6).findElement(By.tagName("a"));
-        guardXhr(removeLink).click();
+        guardAjax(removeLink).click();
         Assert.assertEquals(6, tabs.size());
     }
 }

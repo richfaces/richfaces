@@ -1,7 +1,6 @@
 package org.richfaces.component.autocomplete;
 
-import static org.jboss.arquillian.graphene.Graphene.element;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.junit.Assert.assertTrue;
 
@@ -76,7 +75,7 @@ public class TestAutocompleteBehaviors {
         // given
         browser.get(contextPath.toExternalForm());
         autocompleteInput.sendKeys("t");
-        waitGui().withMessage("suggestion list is visible").until(element(suggestionList).isVisible());
+        waitGui().withMessage("suggestion list is visible").until().element(suggestionList).is().visible();
         autocompleteItem.click();
 
         // when / then
@@ -84,7 +83,7 @@ public class TestAutocompleteBehaviors {
 
             @Override
             public void perform() {
-                guardXhr(body).click();
+                guardAjax(body).click();
             }
         }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;

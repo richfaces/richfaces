@@ -1,6 +1,6 @@
 package org.richfaces.component.focus;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 import static org.junit.Assert.assertEquals;
 
@@ -59,7 +59,7 @@ public class TestFocusAjaxRendered {
         input2.click();
 
         // then
-        guardXhr(ajax).click();
+        guardAjax(ajax).click();
         waitAjax().until(new ElementIsFocused(null));
     }
 

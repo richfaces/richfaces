@@ -1,6 +1,6 @@
 package org.richfaces.component.extendedDataTable;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
@@ -148,7 +148,7 @@ public class TestTableState {
 
             @Override
             public void perform() {
-                guardXhr(dragAndDrop).perform();
+                guardAjax(dragAndDrop).perform();
             }
         }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
@@ -179,7 +179,7 @@ public class TestTableState {
         WebElement cell = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt")).get(0);
         Assert.assertEquals("9", cell.getText());
 
-        guardXhr(sortLink).click();
+        guardAjax(sortLink).click();
         Thread.sleep(500);
         cell = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt")).get(0);
         Assert.assertEquals("0", cell.getText());
@@ -189,7 +189,7 @@ public class TestTableState {
 
             @Override
             public void perform() {
-                guardXhr(button).click();
+                guardAjax(button).click();
             }
         }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
@@ -234,7 +234,7 @@ public class TestTableState {
 
             @Override
             public void perform() {
-                guardXhr(button).click();
+                guardAjax(button).click();
             }
         }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;

@@ -1,7 +1,7 @@
 package org.richfaces.component.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
@@ -95,7 +95,7 @@ public class TestFocusValidationAware {
 
         Warp.initiate(new Activity() {
             public void perform() {
-                guardXhr(ajaxButton).click();
+                guardAjax(ajaxButton).click();
             }
         })
                 .inspect(new VerifyFocusCandidates("First input should be focused", "form:input1 form:input2",

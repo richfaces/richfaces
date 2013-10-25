@@ -17,7 +17,7 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import java.net.URL;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -47,7 +47,7 @@ public class TogglePanelTest {
     @Test
     public void check_toggle_panel() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
-        guardXhr(button).click();
+        guardAjax(button).click();
     }
 
     private static void addIndexPage(OutputDeployment deployment) {

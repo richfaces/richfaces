@@ -21,9 +21,8 @@
  */
 package org.richfaces.component.placeholder;
 
-import static org.jboss.arquillian.graphene.Graphene.element;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitModel;
 import static org.junit.Assert.assertEquals;
@@ -35,7 +34,8 @@ import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.spi.annotations.Root;
+import org.jboss.arquillian.graphene.GrapheneElement;
+import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
@@ -45,7 +45,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.arquillian.page.source.SourceChecker;
-import org.richfaces.utils.ColorUtils;
+import org.richfaces.component.ColorUtils;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -83,7 +83,7 @@ public abstract class AbstractPlaceholderTest {
     @FindBy(tagName = "body")
     WebElement body;
     @FindBy(id = PLACEHOLDER_ID)
-    WebElement placeholderElement;
+    GrapheneElement placeholderElement;
 
     abstract Input input();
 
@@ -125,7 +125,7 @@ public abstract class AbstractPlaceholderTest {
         // having
         browser.navigate().to(contextPath.toExternalForm() + "rendered.jsf");
         // then
-        assertFalse("Placeholder should not be present.", element(placeholderElement).isPresent().apply(browser));
+        assertFalse("Placeholder should not be present.", placeholderElement.isPresent());
     }
 
     @Test
@@ -207,17 +207,17 @@ public abstract class AbstractPlaceholderTest {
         input().setTestedValue(getTestedValue());
         body.click();
 
-        guardXhr(a4jSubmitBtn).click();
+        guardAjax(a4jSubmitBtn).click();
 
-        waitAjax().until(element(output).isVisible());
+        waitAjax().until().element(output).is().visible();
         waitAjax().until().element(output).text().equalTo(getTestedValueResponse());
 
         // when
         input().clear();
-        guardXhr(a4jSubmitBtn).click();
+        guardAjax(a4jSubmitBtn).click();
 
         // then
-        waitAjax().until(element(output).not().isVisible());
+        waitAjax().until().element(output).is().not().visible();
     }
 
     @Test
@@ -226,10 +226,10 @@ public abstract class AbstractPlaceholderTest {
         browser.get(contextPath.toExternalForm() + "submit.jsf");
         // when
         input().setTestedValue(getTestedValue());
-        guardXhr(a4jSubmitBtn).click();
+        guardAjax(a4jSubmitBtn).click();
 
         // then
-        waitAjax().until(element(output).isVisible());
+        waitAjax().until().element(output).is().visible();
         waitAjax().until().element(output).text().equalTo(getTestedValueResponse());
     }
 
@@ -242,7 +242,7 @@ public abstract class AbstractPlaceholderTest {
         guardHttp(httpSubmitBtn).click();
 
         // then
-        waitModel().until(element(output).not().isVisible());
+        waitModel().until().element(output).is().not().visible();
     }
 
     @Test
@@ -253,7 +253,7 @@ public abstract class AbstractPlaceholderTest {
         input().setTestedValue(getTestedValue());
         guardHttp(httpSubmitBtn).click();
         // then
-        waitModel().until(element(output).isVisible());
+        waitModel().until().element(output).is().visible();
         assertEquals(getTestedValueResponse(), output.getText());
     }
 

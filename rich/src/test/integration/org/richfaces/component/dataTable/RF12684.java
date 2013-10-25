@@ -47,7 +47,7 @@ public class RF12684 {
     public void check_number_of_items_on_last_page() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm());
-        Graphene.guardXhr(lastButton).click();
+        Graphene.guardAjax(lastButton).click();
         Thread.sleep(200);
         List<WebElement> cells = browser.findElements(By.cssSelector(".rf-dt-c"));
         Assert.assertEquals(1, cells.size());
