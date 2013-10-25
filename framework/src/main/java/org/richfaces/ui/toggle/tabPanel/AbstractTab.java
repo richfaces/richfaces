@@ -21,6 +21,11 @@
  */
 package org.richfaces.ui.toggle.tabPanel;
 
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.FacesContext;
+import javax.faces.render.Renderer;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -39,11 +44,6 @@ import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.toggle.AbstractTogglePanelTitledItem;
 import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
 import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanelItem;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
 
 /**
  * <p>The &lt;r:tab&gt; component represents an individual tab inside a &lt;r:tabPanel&gt; component, including
@@ -224,7 +224,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
     }
 
     @Override
-    public boolean shouldProcess() {
+    public boolean shouldVisitChildren() {
         return isActive() || getSwitchType() == SwitchType.client;
     }
 

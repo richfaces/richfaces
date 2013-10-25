@@ -1,14 +1,18 @@
-package org.richfaces.component;
+package org.richfaces.ui.drag;
 
-import static org.richfaces.component.Framework.Family.cf;
-import static org.richfaces.component.Framework.Family.dotNet;
-import static org.richfaces.component.Framework.Family.php;
+import static org.richfaces.ui.drag.Framework.Family.cf;
+import static org.richfaces.ui.drag.Framework.Family.dotNet;
+import static org.richfaces.ui.drag.Framework.Family.php;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.richfaces.component.Framework.Family;
+
+import org.richfaces.ui.drag.Framework.Family;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;

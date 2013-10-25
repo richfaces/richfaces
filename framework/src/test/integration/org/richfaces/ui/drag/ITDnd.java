@@ -1,6 +1,9 @@
-package org.richfaces.component;
+package org.richfaces.ui.drag;
 
-import static org.jboss.arquillian.graphene.Graphene.guardXhr;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+
+import java.io.File;
+import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -10,6 +13,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,14 +21,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.DndDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 
-import java.io.File;
-import java.net.URL;
+import category.Smoke;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class TestDnd {
+public class ITDnd {
 
     @Drone
     private WebDriver browser;
@@ -34,20 +37,20 @@ public class TestDnd {
 
     @FindBy(id = "form:ind")
     private WebElement indicator;
-    
+
     @FindBy(id = "form:php")
     private WebElement phpTarget;
-    
+
     @FindBy(id = "form:dnet")
     private WebElement dnetTarget;
-    
+
     @FindBy(id = "form:cf")
     private WebElement cfTarget;
-    
+
     @Deployment
     public static WebArchive createDeployment() {
-        DndDeployment deployment = new DndDeployment(TestDnd.class);
-        deployment.archive().addAsWebResource(new File("src/test/resources/org/richfaces/component/dnd.xhtml"));
+        FrameworkDeployment deployment = new FrameworkDeployment(ITDnd.class);
+        deployment.archive().addAsWebResource(new File("src/test/resources/org/richfaces/ui/drag/dnd.xhtml"));
         deployment.archive().addAsWebResource(new File("src/test/resources/images/dnd/accept.gif"), "/resources/images/dnd/accept.gif");
         deployment.archive().addAsWebResource(new File("src/test/resources/images/dnd/default.gif"), "/resources/images/dnd/default.gif");
         deployment.archive().addAsWebResource(new File("src/test/resources/images/dnd/reject.gif"), "/resources/images/dnd/reject.gif");
@@ -59,15 +62,16 @@ public class TestDnd {
     }
 
     @Test
+    @Category(Smoke.class)
     public void test_dnd() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm() + "dnd.jsf");
-        
+
         WebElement framework = browser.findElements(By.cssSelector(".ui-draggable")).get(0);
 
         Actions builder = new Actions(browser);
         final Action dragAndDrop = builder.dragAndDrop(framework, phpTarget).build();
-        guardXhr(dragAndDrop).perform();
+        guardAjax(dragAndDrop).perform();
 
         Assert.assertEquals(1, phpTarget.findElements(By.cssSelector("td")).size());
     }

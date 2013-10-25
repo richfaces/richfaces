@@ -1,4 +1,4 @@
-package org.richfaces.component;
+package org.richfaces.ui.drag;
 
 import java.io.Serializable;
 
