@@ -38,7 +38,7 @@ import java.util.Map;
  *
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "org.richfaces/common", name = "jquery.position.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.widget.js"),

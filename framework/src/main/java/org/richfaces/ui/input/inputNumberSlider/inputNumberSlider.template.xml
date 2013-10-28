@@ -29,7 +29,7 @@
         <cdk:component-family>javax.faces.Input</cdk:component-family>
         <cdk:renderer-type>org.richfaces.ui.InputNumberSliderRenderer</cdk:renderer-type>
         <cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
-        <cdk:resource-dependency library = "org.richfaces/common" name="jquery.position.js" />
+        <cdk:resource-dependency library = "org.richfaces" name="common/jquery.position.js" />
         <cdk:resource-dependency library="jquery.plugins" name="jquery.mousewheel.js" />
         <cdk:resource-dependency library = "org.richfaces" name = "input/inputNumberSlider/inputNumberSlider.js" />
         <cdk:resource-dependency library = "org.richfaces" name = "input/inputNumberSlider/inputNumberSlider.ecss" />
