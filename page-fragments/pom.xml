@@ -32,10 +32,6 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.richfaces</groupId>
-            <artifactId>richfaces</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
