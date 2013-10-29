@@ -24,7 +24,7 @@ public class AutocompleteRendererTest extends RendererTestBase {
         environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/renderkit/faces-config.xml");
         environment.start();
     }
- 
+
     @Test
     public void testListLayoutRender() throws Exception {
         environment.getWebClient().getOptions().setJavaScriptEnabled(false);
