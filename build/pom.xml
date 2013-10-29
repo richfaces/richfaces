@@ -77,10 +77,6 @@
         <!-- Push Dependencies -->
         <version.atmosphere>1.0.18</version.atmosphere>
 
-        <!-- Page Fragments dependencies versions -->
-        <version.jodatime>2.3</version.jodatime>
-        <version.google.json>1.1</version.google.json>
-
         <!-- Example Dependecy Libraries Versions -->
         <version.slf4j>1.6.1</version.slf4j>
         <version.hsqldb>2.0.0</version.hsqldb>
@@ -214,18 +210,6 @@
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
                 <version>${version.jsoup}</version>
-            </dependency>
-
-            <!-- Page Fragments Dependency Management -->
-            <dependency>
-                <groupId>com.googlecode.json-simple</groupId>
-                <artifactId>json-simple</artifactId>
-                <version>${version.google.json}</version>
-            </dependency>
-            <dependency>
-                <groupId>joda-time</groupId>
-                <artifactId>joda-time</artifactId>
-                <version>${version.jodatime}</version>
             </dependency>
             
             <!-- Enforcing Dependency Management -->
