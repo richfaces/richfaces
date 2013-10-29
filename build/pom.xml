@@ -1,27 +1,35 @@
-<!-- JBoss, Home of Professional Open Source Copyright 2013, Red Hat, Inc. 
-	and individual contributors by the @authors tag. See the copyright.txt in 
-	the distribution for a full listing of individual contributors. This is free 
-	software; you can redistribute it and/or modify it under the terms of the 
-	GNU Lesser General Public License as published by the Free Software Foundation; 
-	either version 2.1 of the License, or (at your option) any later version. 
-	This software is distributed in the hope that it will be useful, but WITHOUT 
-	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
-	FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more 
-	details. You should have received a copy of the GNU Lesser General Public 
-	License along with this software; if not, write to the Free Software Foundation, 
-	Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the 
-	FSF site: http://www.fsf.org. -->
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.richfaces</groupId>
-	<artifactId>richfaces-build</artifactId>
-	<packaging>pom</packaging>
-	<version>5.0.0-SNAPSHOT</version>
-	<name>RichFaces Build Version Management</name>
+    <groupId>org.richfaces</groupId>
+    <artifactId>richfaces-build</artifactId>
+    <packaging>pom</packaging>
+    <version>5.0.0-SNAPSHOT</version>
+    <name>RichFaces Build Version Management</name>
 
-	<description>
+    <description>
         The RichFaces Framework Build Dependency Version Management manages
         versions of framework dependencies and is not specifically targetting
         RichFaces Framework users.
@@ -98,6 +106,7 @@
         <version.easymock>2.5.2</version.easymock>
         <version.mockito>1.8.5</version.mockito>
         <version.xmlunit>1.2</version.xmlunit>
+
         <version.htmlunit>2.12</version.htmlunit>
         <version.xml-apis>1.4.01</version.xml-apis>
         <version.hibernate-validator>4.2.0.Final</version.hibernate-validator>
@@ -228,11 +237,11 @@
 
             <!-- Integration Tests - Version Management -->
             <dependency>
-              <groupId>org.jboss.shrinkwrap</groupId>
-              <artifactId>shrinkwrap-bom</artifactId>
-              <version>${version.shrinkwrap}</version>
-              <type>pom</type>
-              <scope>import</scope>
+                <groupId>org.jboss.shrinkwrap</groupId>
+                <artifactId>shrinkwrap-bom</artifactId>
+                <version>${version.shrinkwrap}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.shrinkwrap.resolver</groupId>
@@ -352,7 +361,7 @@
                 <artifactId>arquillian-tomcat-managed-7</artifactId>
                 <version>${version.arquillian.tomcat}</version>
             </dependency>
-            
+
             <!-- JSF Implementations Versions -->
             <dependency>
                 <groupId>javax.faces</groupId>
@@ -389,6 +398,7 @@
                 <artifactId>myfaces-impl</artifactId>
                 <version>${version.myfaces}</version>
             </dependency>
+
 
             <!-- Push dependencies -->
             <dependency>
@@ -599,8 +609,8 @@
         <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
         <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
         <url>https://github.com/richfaces/richfaces5</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <distributionManagement>
         <repository>
