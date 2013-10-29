@@ -11,6 +11,7 @@ rebel.xml
 *faces-config.xml.jsfdia
 bower_components
 node_modules
+.checkstyle
 
 .factorypath
 

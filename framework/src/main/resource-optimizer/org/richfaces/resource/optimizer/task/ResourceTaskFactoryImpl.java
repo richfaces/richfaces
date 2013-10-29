@@ -21,12 +21,14 @@
  */
 package org.richfaces.resource.optimizer.task;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
@@ -43,7 +45,6 @@ import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Closeables;
 
@@ -176,11 +177,13 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
 
         private boolean shouldSkipResourceRenderingForSkin(String skin) {
             if ("plain".equals(skin)) {
-                String libraryName = Strings.nullToEmpty(resourceKey.getLibraryName());
-                String resourceName = Strings.nullToEmpty(resourceKey.getResourceName());
-                final String DYNAMIC_IMAGES_LIBRARY = "org.richfaces.ui.images";
-                if (libraryName.equals(DYNAMIC_IMAGES_LIBRARY) || resourceName.startsWith(DYNAMIC_IMAGES_LIBRARY)) {
-                    log.debug(String.format("Skipped rendering of %s as it is dynamic image that isn't required by skin %s", resourceKey, skin));
+
+                // detect whether the mime-type of the given resource path denotes image
+                File resourceFileName = new File(resourceKey.getResourceName());
+                String mimeType = MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(resourceFileName);
+
+                if (mimeType.startsWith("image/")) {
+                    log.debug(String.format("Skipped rendering of %s as it is image that isn't required by skin %s", resourceKey, skin));
                     return true;
                 }
             }
