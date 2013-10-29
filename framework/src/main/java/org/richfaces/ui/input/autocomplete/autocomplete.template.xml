@@ -13,7 +13,7 @@
 
         <cdk:resource-dependency library="bootstrap" name="bootstrap.css" />
         <cdk:resource-dependency library="font-awesome" name="font-awesome.css" />
-        <cdk:resource-dependency library="org.richwidgets" name="input/autocomplete.css" />
+        <cdk:resource-dependency library="io.richwidgets" name="input/autocomplete.css" />
 
         <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js" />
