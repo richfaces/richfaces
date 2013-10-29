@@ -19,7 +19,8 @@
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.richfaces</groupId>
@@ -76,6 +77,10 @@
         <!-- Push Dependencies -->
         <version.atmosphere>1.0.18</version.atmosphere>
 
+        <!-- Page Fragments dependencies versions -->
+        <version.jodatime>2.3</version.jodatime>
+        <version.google.json>1.1</version.google.json>
+
         <!-- Example Dependecy Libraries Versions -->
         <version.slf4j>1.6.1</version.slf4j>
         <version.hsqldb>2.0.0</version.hsqldb>
@@ -101,6 +106,7 @@
         <version.easymock>2.5.2</version.easymock>
         <version.mockito>1.8.5</version.mockito>
         <version.xmlunit>1.2</version.xmlunit>
+
         <version.htmlunit>2.12</version.htmlunit>
         <version.xml-apis>1.4.01</version.xml-apis>
         <version.hibernate-validator>4.2.0.Final</version.hibernate-validator>
@@ -209,6 +215,18 @@
                 <artifactId>jsoup</artifactId>
                 <version>${version.jsoup}</version>
             </dependency>
+
+            <!-- Page Fragments Dependency Management -->
+            <dependency>
+                <groupId>com.googlecode.json-simple</groupId>
+                <artifactId>json-simple</artifactId>
+                <version>${version.google.json}</version>
+            </dependency>
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${version.jodatime}</version>
+            </dependency>
             
             <!-- Enforcing Dependency Management -->
             <dependency>
@@ -219,11 +237,11 @@
 
             <!-- Integration Tests - Version Management -->
             <dependency>
-              <groupId>org.jboss.shrinkwrap</groupId>
-              <artifactId>shrinkwrap-bom</artifactId>
-              <version>${version.shrinkwrap}</version>
-              <type>pom</type>
-              <scope>import</scope>
+                <groupId>org.jboss.shrinkwrap</groupId>
+                <artifactId>shrinkwrap-bom</artifactId>
+                <version>${version.shrinkwrap}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.shrinkwrap.resolver</groupId>
@@ -343,7 +361,7 @@
                 <artifactId>arquillian-tomcat-managed-7</artifactId>
                 <version>${version.arquillian.tomcat}</version>
             </dependency>
-            
+
             <!-- JSF Implementations Versions -->
             <dependency>
                 <groupId>javax.faces</groupId>
@@ -380,6 +398,7 @@
                 <artifactId>myfaces-impl</artifactId>
                 <version>${version.myfaces}</version>
             </dependency>
+
 
             <!-- Push dependencies -->
             <dependency>
@@ -590,8 +609,8 @@
         <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
         <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
         <url>https://github.com/richfaces/richfaces5</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <distributionManagement>
         <repository>
