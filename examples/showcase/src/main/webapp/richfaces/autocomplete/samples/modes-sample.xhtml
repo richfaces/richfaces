@@ -27,8 +27,10 @@
     <p>
         <b>1)</b> provides suggestions for US state names using the <b>cachedAjax</b> mode with <i>minChars="2"</i>.
     </p>
-    <h:form>
-        <r:autocomplete mode="cachedAjax" minChars="2" autocompleteMethod="#{autocompleteBean.autocomplete}" />
+    <h:form styleClass="row">
+        <div class="col col-md-5 col-sm-5">
+            <r:autocomplete mode="cachedAjax" minChars="2" autocompleteMethod="#{autocompleteBean.autocomplete}" />
+        </div>
     </h:form>
     <p>
         <b>2)</b> Same suggestions in <b>lazyClient</b> mode. Additionally allows multiple selections using tokens (comma and space chars). 
@@ -36,16 +38,20 @@
         with a space or comma and get a separate suggestions for any of them. The <b>autoFill</b> attribute is set to false so you
         will notice values are not automatically added.
     </p>
-    <h:form>
-        <r:autocomplete mode="cachedAjax" tokens=", " minChars="1" autofill="false"
-            autocompleteMethod="#{autocompleteBean.autocomplete}" />
+    <h:form styleClass="row">
+        <div class="col col-md-5 col-sm-5">
+            <r:autocomplete mode="cachedAjax" tokens=", " minChars="1" autofill="false"
+                autocompleteMethod="#{autocompleteBean.autocomplete}" />
+        </div>
     </h:form>
     <p>
         <b>3)</b> With the <b>selectFirst</b> attribute set to false pressing enter will not choose the value from list
         automatically, but just submit currently entered value.
     </p>
-    <h:form>
-        <r:autocomplete mode="cachedAjax" tokens="," minChars="0" autoFill="false" selectFirst="false"
-            autocompleteMethod="#{autocompleteBean.autocomplete}" />
+    <h:form styleClass="row">
+        <div class="col col-md-5 col-sm-5">
+            <r:autocomplete mode="cachedAjax" tokens="," minChars="0" autoFill="false" selectFirst="false"
+                autocompleteMethod="#{autocompleteBean.autocomplete}" />
+        </div>
     </h:form>
 </ui:composition>

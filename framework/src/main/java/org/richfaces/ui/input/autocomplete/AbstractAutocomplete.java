@@ -24,6 +24,7 @@ package org.richfaces.ui.input.autocomplete;
 import java.io.IOException;
 
 import javax.el.MethodExpression;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -41,6 +42,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.log.RichfacesLogger;
 import org.richfaces.ui.attribute.AjaxEventsProps;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
@@ -335,5 +337,17 @@ public abstract class AbstractAutocomplete extends UIInput implements AjaxEvents
     @Attribute(generate = false, hidden = true, defaultValue = "Layout.list")
     public String getLayout() {
         return (getChildCount() > 0 && Iterables.all(getChildren(), Predicates.instanceOf(UIColumn.class))) ? "table" : "list";
+    }
+
+    /**
+     * {@link #setLayout(String)} was deprecated in 5.0
+     *
+     * The layout is determined by components provide as children of the autocomplete component
+     */
+    @Deprecated
+    public void setLayout(String layout) {
+        String message = "Autocomplete @layout attribute was deprecated in 5.0. The layout of the component is determined from provide children.";
+        RichfacesLogger.COMPONENTS.getLogger().warn(message);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
     }
 }

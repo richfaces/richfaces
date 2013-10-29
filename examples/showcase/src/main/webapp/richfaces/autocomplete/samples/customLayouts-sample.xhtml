@@ -30,27 +30,31 @@
 	<p>Below is a sample of <b>r:autocomplete</b> with <b>table layout</b>. <b>r:column</b>
 	components wraps the content additionally in order to define
 	cells.</p>
-	<h:form>
-		<r:autocomplete mode="client" autocompleteList="#{autocompleteBean.capitals}"
-			var="cap" fetchValue="#{cap.state}" layout="table">
-			<r:column>
-				<h:graphicImage value="#{cap.stateFlag}" />
-			</r:column>
-			<r:column>
-				<b>#{cap.state}</b>
-			</r:column>
-			<r:column>
-        		#{cap.name} 
-        	</r:column>
-		</r:autocomplete>
+	<h:form styleClass="row">
+        <div class="col col-md-5 col-sm-5">
+    		<r:autocomplete mode="client" autocompleteList="#{autocompleteBean.capitals}"
+    			var="cap" fetchValue="#{cap.state}" layout="table">
+    			<r:column>
+    				<h:graphicImage value="#{cap.stateFlag}" />
+    			</r:column>
+    			<r:column>
+    				<b>#{cap.state}</b>
+    			</r:column>
+    			<r:column>
+            		#{cap.name} 
+            	</r:column>
+    		</r:autocomplete>
+        </div>
 	</h:form>
 	<p>And next is the sample of simple div (default) layout. You're responsible to align the inners content 
 	within single div there.</p>
-	<h:form>
-		<r:autocomplete mode="client" autocompleteList="#{autocompleteBean.capitals}"
-			var="cap" fetchValue="#{cap.state}" layout="div">
-			<b>#{cap.state}</b> -
-        		<i>(#{cap.name}) </i>
-		</r:autocomplete>
+	<h:form styleClass="row">
+        <div class="col col-md-5 col-sm-5">
+    		<r:autocomplete mode="client" autocompleteList="#{autocompleteBean.capitals}"
+    			var="cap" fetchValue="#{cap.state}" layout="div">
+    			<b>#{cap.state}</b> -
+            		<i>(#{cap.name}) </i>
+    		</r:autocomplete>
+        </div>
 	</h:form>
 </ui:composition>

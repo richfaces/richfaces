@@ -33,8 +33,10 @@
                 return false;
         };
     </h:outputScript>
-    <h:form>
-        <r:autocomplete mode="client" minChars="0" autofill="false" clientFilterFunction="customFilter"
-            autocompleteMethod="#{autocompleteBean.autocomplete}" />
+    <h:form styleClass="row">
+        <div class="col col-md-5 col-sm-5">
+            <r:autocomplete mode="client" minChars="0" autofill="false" clientFilterFunction="customFilter"
+                autocompleteMethod="#{autocompleteBean.autocomplete}" />
+        </div>
     </h:form>
 </ui:composition>
