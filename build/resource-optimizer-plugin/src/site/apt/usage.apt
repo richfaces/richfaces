@@ -86,8 +86,8 @@ mvn clean richfaces-resources:process -Dskins=blueSky -DstaticResourceMappingFil
                 <!-- resources will be located under JSF_RESOURCE_ROOT/com.acme.staticResources (e.g. JAR/META-INF/com.acme.staticResources) -->
                 <staticResourcePrefix>com.acme.staticResources/</staticResourcePrefix>
             	
-            	<!-- resources will be packaged, refer to RichFaces Developer Guide -->
-            	<pack>true</pack>
+            	<!-- resources will be packaged into a file with given filename, refer to RichFaces Developer Guide -->
+            	<pack>packed</pack>
             	
             	<!-- resources will be compressed, refer to RichFaces Developer Guide -->
             	<compress>true</compress>
