@@ -148,7 +148,7 @@
                                 <exclude>^\Qorg.richfaces.optimized\E</exclude>
                                 <exclude>^\Qorg.richfaces.ui.\E.*</exclude>
                                 <exclude>^\Qcom.jqueryui:\E((jquery\.ui\.(?!core|draggable|droppable|mouse|resizable|widget))|(?!jquery))</exclude>
-                                <exclude>^[^:]+\.js$</exclude>
+                                <exclude>^(?=[^:]+)(?!jquery\.focus|jquery\.position|richfaces-base-component|richfaces-selection|richfaces-utils)[^:]+\.js$</exclude>
                             </excludedFiles>
                         </configuration>
                     </execution>
@@ -175,7 +175,7 @@
                                 <exclude>^\Qorg.richfaces.static\E</exclude>
                                 <exclude>^\Qorg.richfaces.ui.\E.*</exclude>
                                 <exclude>^\Qcom.jqueryui:\E((jquery\.ui\.(?!core|draggable|droppable|mouse|resizable|widget))|(?!jquery))</exclude>
-                                <exclude>^[^:]+\.js$</exclude>
+                                <exclude>^(?=[^:]+)(?!jquery\.focus|jquery\.position|richfaces-base-component|richfaces-selection|richfaces-utils)[^:]+\.js$</exclude>
                             </excludedFiles>
                         </configuration>
                     </execution>
@@ -202,7 +202,7 @@
                                 <exclude>^\Qorg.richfaces.static\E</exclude>                                
                                 <exclude>^\Qorg.richfaces.ui.\E.*</exclude>
                                 <exclude>^\Qcom.jqueryui:\E((jquery\.ui\.(?!core|draggable|droppable|mouse|resizable|widget))|(?!jquery))</exclude>
-                                <exclude>^[^:]+\.js$</exclude>
+                                <exclude>^(?=[^:]+)(?!jquery\.focus|jquery\.position|richfaces-base-component|richfaces-selection|richfaces-utils)[^:]+\.js$</exclude>
                             </excludedFiles>
                         </configuration>
                     </execution>
@@ -229,7 +229,7 @@
                                 <exclude>^\Qorg.richfaces.static\E</exclude>
                                 <exclude>^\Qorg.richfaces.ui.\E.*</exclude>
                                 <exclude>^\Qcom.jqueryui:\E((jquery\.ui\.(?!core|draggable|droppable|mouse|resizable|widget))|(?!jquery))</exclude>
-                                <exclude>^[^:]+\.js$</exclude>
+                                <exclude>^(?=[^:]+)(?!jquery\.focus|jquery\.position|richfaces-base-component|richfaces-selection|richfaces-utils)[^:]+\.js$</exclude>
                             </excludedFiles>
                         </configuration>
                     </execution>
