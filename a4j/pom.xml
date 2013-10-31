@@ -78,10 +78,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <scm>
-        <connection>scm:git:git://github.com/richfaces/components.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/components.git</developerConnection>
-        <url>https://github.com/richfaces/components</url>
-    </scm>
 </project>

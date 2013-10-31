@@ -276,6 +276,20 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <!-- JavaDoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -314,10 +328,4 @@
             </build>
         </profile>
     </profiles>
-
-    <scm>
-        <connection>scm:git:git://github.com/richfaces/components.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/components.git</developerConnection>
-        <url>https://github.com/richfaces/components</url>
-    </scm>
 </project>
