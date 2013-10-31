@@ -7,7 +7,12 @@
       showButton : false,
       minLength : 1,
       autoFocus : true,
-      autoFill: true
+      autoFill: true,
+      filter: function(term, value) {
+        if (term.length === 0) return true;
+        if (value.indexOf(term) === 0) return true;
+        return false;
+      }
     },
 
     _create : function() {
@@ -31,6 +36,12 @@
             parameters : params,
             error : done,
             complete : done
+          });
+        },
+        filter: function(array, term) {
+          return $.grep(array, function(item) {
+            var value = item.label || item.value || item;
+            return bridge.options.filter(term.toLowerCase(), value.toLowerCase());
           });
         }
       });
