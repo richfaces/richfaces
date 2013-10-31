@@ -1,13 +1,12 @@
-.richfaces-chart-container {
+.chart-container {
   width: 100%;
   height: 300px;
 }
-.richfaces-chart {
+.chart {
   width: 100%;
   height: 90%;
-  /*Todo .richfaces-chart-container - .richfaces-chart-title*/
 }
-.richfaces-chart-title {
+.chart-title {
   text-align: center;
 }
 .axisLabels {

@@ -1,37 +1,173 @@
+/**
+ * A widget providing selection and sorting capabilities for a list of elements
+ *
+ * @module Select
+ * @class pickList
+ */
 (function ($) {
 
   $.widget('rf.pickList', {
 
     options: {
+      /**
+       * Disable the pickList widget
+       *
+       * @property disabled
+       * @type Boolean
+       * @default false
+       */
       disabled: false,
-      header: undefined,
-      height: undefined,
-      heightMin: undefined,
-      heightMax: undefined,
-      styleClass: undefined,
-      columnClasses: undefined,
-      sourceHeader: undefined,
-      targetHeader: undefined,
-      switchByClick: undefined,
-      switchByDblClick: undefined,
+      /**
+       * The text to use for the pickList header
+       *
+       * @property header
+       * @type String
+       */
+      header: null,
+      /**
+       * The text to use for the source header of the pickList
+       *
+       * @property sourceHeader
+       * @type String
+       */
+      sourceHeader: null,
+      /**
+       * The text to use for the target header of the pickList
+       *
+       * @property targetHeader
+       * @type String
+       */
+      targetHeader: null,
+      /**
+       * The height of the pickList
+       *
+       * @property height
+       * @type String
+       */
+      height: null,
+      /**
+       * The minimum height of the pickList
+       *
+       * @property heightMin
+       * @type String
+       */
+      heightMin: null,
+      /**
+       * The maximum height of the pickList
+       *
+       * @property heightMax
+       * @type String
+       */
+      heightMax: null,
+      /**
+       * A CSS class to be added to the pickList.
+       * Multiple classes should be space separated
+       *
+       * @property styleClass
+       * @type String
+       */
+      styleClass: null,
+      /**
+       * A CSS class to be added to each column of the pickList when table layout is used.
+       * Multiple classes should be space separated
+       *
+       * @property columnClasses
+       * @type String
+       */
+      columnClasses: null,
+      /**
+       * When true, clicking on a pickList element will move it between the source and target lists
+       *
+       * @property switchByClick
+       * @type Boolean
+       * @default false
+       */
+      switchByClick: false,
+      /**
+       * When true, double-clicking on a pickList element will move it between the source and target lists
+       *
+       * @property switchByDblClick
+       * @type Boolean
+       * @default false
+       */
+      switchByDblClick: false,
+      /**
+       * When true, elements in the target list can be re-ordered
+       *
+       * @property orderable
+       * @type Boolean
+       * @default true
+       */
       orderable: true,
-      orderButtonsText: undefined, // {first: ..., up: ..., down: ..., last: ...}
-      pickButtonsText: undefined, // {addAll: ..., add: ..., remove: ..., removeAll: ...}
+      /**
+       * Text to be applied to the ordering buttons of the target list.  The text should be arranged as an object in
+       * JSON notation.
+       *
+       * eg. {first: ..., up: ..., down: ..., last: ...}
+       *
+       * @property orderButtonsText
+       * @type JSON
+       * @default null
+       */
+      orderButtonsText: null, // {first: ..., up: ..., down: ..., last: ...}
+      /**
+       * Text to be applied to the picking buttons of the picklist.  The text should be arranged as an object in
+       * JSON notation.
+       *
+       * eg. {addAll: ..., add: ..., remove: ..., removeAll: ...}
+       *
+       * @property pickButtonsText
+       * @type JSON
+       * @default null
+       */
+      pickButtonsText: null,
+      /**
+       * The String prefixed to all events triggered within the pickList widget
+       *
+       * @property widgetEventPrefix
+       * @type JSON
+       * @default picklist_
+       */
       widgetEventPrefix: 'picklist_',
 
       // callbacks
+
+      /**
+       * Fired when the target list of the pickList changes values.
+       *
+       * @event change
+       */
       change: null,
+      /**
+       * Fired after the dynamically created DOM elements of the pickList have been created
+       *
+       * @event addDomElements
+       */
       addDomElements: null,
+      /**
+       * Fired after the pickList has been destroyed
+       *
+       * @event destroy
+       */
       destroy: null,
+      /**
+       * Fired when the pickList receives focus
+       *
+       * @event focus
+       */
       focus: null,
+      /**
+       * Fired when the pickList loses focus
+       *
+       * @event blur
+       */
       blur: null
     },
 
     _create: function () {
-      var widget = this;
       this.widgetEventPrefix = this.options.widgetEventPrefix;
-      this.sourceList = this.element.find(".source");
-      this.targetList = this.element.find(".target");
+      this.sourceList = this.element.find('.source');
+      this.targetList = this.element.find('.target');
       this._addDomElements();
       this.sourceList.orderingList({
         showButtons: false,
@@ -53,8 +189,8 @@
         widgetEventPrefix: 'targetlist_'
       });
       if (this.options.orderable) {
-        this.sourceList.orderingList("connectWith", this.targetList);
-        this.targetList.orderingList("connectWith", this.sourceList);
+        this.sourceList.orderingList('connectWith', this.targetList);
+        this.targetList.orderingList('connectWith', this.sourceList);
       }
 
       this._registerListeners();
@@ -63,29 +199,35 @@
         this._disable();
       }
 
-      if (typeof this.options.height !== 'undefined') {
+      if (this.options.height !== null) {
         this._setHeight(this.options.height);
       }
-      if (typeof this.options.heightMin !== 'undefined') {
+      if (this.options.heightMin !== null) {
         this._setHeightMin(this.options.heightMin);
       }
-      if (typeof this.options.heightMax !== 'undefined') {
+      if (this.options.heightMax !== null) {
         this._setHeightMax(this.options.heightMax);
       }
       this._trigger('create', undefined, this._dumpState());
     },
 
+    /**
+     * Removes the pickList functionality completely. This will return the element back to its pre-init state.
+     *
+     * @method destroy
+     * @chainable
+     */
     destroy: function () {
       $.Widget.prototype.destroy.call(this);
       this._unregisterListeners();
-      this.sourceList.orderingList("destroy");
-      this.targetList.orderingList("destroy");
+      this.sourceList.orderingList('destroy');
+      this.targetList.orderingList('destroy');
 
       this._removeDomElements();
 
-      this.element.removeClass('inner').removeClass("row");
+      this.element.removeClass('inner').removeClass('row');
       if (!this.element.attr('class')) {
-        this.element.removeAttr("class");
+        this.element.removeAttr('class');
       }
       this._trigger('destroy', undefined, {});
       return this;
@@ -93,22 +235,42 @@
 
     /** Public API methods **/
 
+    /**
+     * Move items from the target list of the pickList to the source list.
+     *
+     * @param items {Object} A list of Elements to remove from the target list of the pickList
+     * @param event {Object} The event that triggered the removal of the elements.  This event will be made accessible
+     * when the resulting change event is fired.
+     * @method removeItems
+     * @chainable
+     */
     removeItems: function (items, event) {
       if (this.options.disabled) { return; }
-      this.targetList.orderingList("remove", items);
-      this.sourceList.orderingList("add", items);
+      this.targetList.orderingList('remove', items);
+      this.sourceList.orderingList('add', items);
       var ui = this._dumpState();
       ui.change = 'remove';
-      this._trigger("change", event, ui);
+      this._trigger('change', event, ui);
+      return this;
     },
 
+    /**
+     * Move items from the source list of the pickList to the target list.
+     *
+     * @param items {Object} A list of Elements to remove from the source list of the pickList
+     * @param event {Object} The event that triggered the removal of the elements.  This event will be made accessible
+     * when the resulting change event is fired.
+     * @method addItems
+     * @chainable
+     */
     addItems: function (items, event) {
       if (this.options.disabled) { return; }
-      this.sourceList.orderingList("remove", items);
-      this.targetList.orderingList("add", items);
+      this.sourceList.orderingList('remove', items);
+      this.targetList.orderingList('add', items);
       var ui = this._dumpState();
       ui.change = 'add';
-      this._trigger("change", event, ui);
+      this._trigger('change', event, ui);
+      return this;
     },
 
 
@@ -120,64 +282,64 @@
         return;
       }
       switch (key) {
-        case "disabled":
+        case 'disabled':
           if (value === true) {
             widget._disable();
           } else {
             widget._enable();
           }
           break;
-        case "header":
+        case 'header':
           if (!widget.options.header) {
             widget._addHeader(value);
           }
           widget.outer.find('.header-row .header').text(value);
           break;
-        case "height":
+        case 'height':
           widget._setHeight(value);
           break;
-        case "heightMin":
+        case 'heightMin':
           widget._setHeightMin(value);
           break;
-        case "heightMax":
+        case 'heightMax':
           widget._setHeightMax(value);
           break;
-        case "sourceHeader":
+        case 'sourceHeader':
           if (!widget.options.sourceHeader) {
             widget._addSubHeader(value, this.options.targetHeader);
           }
           widget.outer.find('.sub-header-row .source').text(value);
           break;
-        case "targetHeader":
+        case 'targetHeader':
           if (!widget.options.targetHeader) {
             widget._addSubHeader(value, this.options.targetHeader);
           }
           widget.outer.find('.sub-header-row .target').text(value);
           break;
-        case "styleClass":
+        case 'styleClass':
           if (widget.options.styleClass) {
             widget.outer.removeClass(widget.options.styleClass);
           }
           widget.outer.addClass(value);
           break;
-        case "columnClasses":
+        case 'columnClasses':
           widget.sourceList.orderingList('option', 'columnClasses', value);
           widget.targetList.orderingList('option', 'columnClasses', value);
           break;
-        case "orderButtonsText":
+        case 'orderButtonsText':
           widget.targetList.orderingList('option', 'buttonsText', value);
           break;
-        case "buttonsText":
+        case 'buttonsText':
           this._applyButtonsText(this.outer.find('.middle .btn-group-vertical'), value);
           break;
-        case "switchByClick":
+        case 'switchByClick':
           if (value === true) {
             widget._addClickListeners();
           } else {
             widget._removeClickListeners();
           }
           break;
-        case "switchByDblClick":
+        case 'switchByDblClick':
           if (value === true) {
             widget._addDoubleClickListeners();
           } else {
@@ -199,8 +361,8 @@
 
     _buttonStack: function () {
       var button = $('<button type="button" class="btn btn-default"/>');
-      var buttonStack = $("<div/>")
-        .addClass("btn-group-picklist");
+      var buttonStack = $('<div/>')
+        .addClass('btn-group-picklist');
       buttonStack
         .append(
           button.clone()
@@ -251,15 +413,15 @@
       if (button.hasClass('labeled')) {
         button.find('span').text(text);
       } else {
-        button.addClass("labeled").append($("<span />").text(text));
+        button.addClass('labeled').append($('<span />').text(text));
       }
     },
 
     _addParents: function () {
-      this.element.addClass("row inner").wrap(
-        $("<div />").addClass('container pick-list outer')
+      this.element.addClass('row inner').wrap(
+        $('<div />').addClass('container pick-list outer')
       );
-      this.outer = this.element.parents(".outer").first();
+      this.outer = this.element.parents('.outer').first();
       if (this.options.styleClass) {
         this.outer.addClass(this.options.styleClass);
       }
@@ -270,10 +432,10 @@
         this._addSubHeader(this.options.sourceHeader, this.options.targetHeader);
       }
       this.sourceList.wrap(
-        $("<div />").addClass('source-wrapper col-sm-5')
+        $('<div />').addClass('source-wrapper col-sm-5')
       );
       this.targetList.wrap(
-        $("<div />").addClass('target-wrapper col-sm-6')
+        $('<div />').addClass('target-wrapper col-sm-6')
       );
       this.content = this.element;
       this.outer.attr('tabindex', '-1');
@@ -281,9 +443,9 @@
 
     _addSubHeader: function (sourceHeaderText, targetHeaderText) {
       if (sourceHeaderText || targetHeaderText) {
-        var subHeaderRow = $("<div />").addClass("row sub-header-row");
-        var sourceHeader = $("<div />").addClass('col-sm-5 source header').html(sourceHeaderText);
-        var targetHeader = $("<div />").addClass('col-sm-6 col-sm-offset-1 target header').html(targetHeaderText);
+        var subHeaderRow = $('<div />').addClass('row sub-header-row');
+        var sourceHeader = $('<div />').addClass('col-sm-5 source header').html(sourceHeaderText);
+        var targetHeader = $('<div />').addClass('col-sm-6 col-sm-offset-1 target header').html(targetHeaderText);
         subHeaderRow.append(sourceHeader).append(targetHeader);
         var headerRow = this.outer.find('.header-row');
         if (headerRow.length !== 0) {
@@ -296,8 +458,8 @@
 
     _addHeader: function (headerText) {
       if (headerText) {
-        var headerRow = $("<div />").addClass("row header-row");
-        var header = $("<div />").addClass('col-xs-12 header').html(headerText);
+        var headerRow = $('<div />').addClass('row header-row');
+        var header = $('<div />').addClass('col-xs-12 header').html(headerText);
         headerRow.append(header);
         var subHeaderRow = this.outer.find('.sub-header-row');
         if (subHeaderRow.length !== 0) {
@@ -328,22 +490,22 @@
       var widget = this;
       // the widget factory converts all events to lower case
       this.sourceList.on('sortreceive', function (event, ui) {
-        var new_ui = widget._dumpState();
-        new_ui.change = 'remove';
-        new_ui.originalEvent = event;
-        widget._trigger("change", event, new_ui);
+        var newUi = widget._dumpState();
+        newUi.change = 'remove';
+        newUi.originalEvent = event;
+        widget._trigger('change', event, newUi);
       });
       this.targetList.on('sortreceive', function (event, ui) {
-        var new_ui = widget._dumpState();
-        new_ui.change = 'add';
-        new_ui.originalEvent = event;
-        widget._trigger("change", event, new_ui);
+        var newUi = widget._dumpState();
+        newUi.change = 'add';
+        newUi.originalEvent = event;
+        widget._trigger('change', event, newUi);
       });
       this.targetList.on('targetlist_change', function (event, ui) {
-        var new_ui = widget._dumpState();
-        new_ui.change = 'sort';
-        new_ui.originalEvent = event;
-        widget._trigger("change", event, new_ui);
+        var newUi = widget._dumpState();
+        newUi.change = 'sort';
+        newUi.originalEvent = event;
+        widget._trigger('change', event, newUi);
       });
       if (this.options.switchByClick) {
         this._addClickListeners();
@@ -395,25 +557,25 @@
     },
 
     _disable: function () {
-      this.sourceList.orderingList("option", "disabled", true);
-      this.targetList.orderingList("option", "disabled", true);
-      this.element.addClass("disabled");
-      this.outer.find('.button-column button').attr("disabled", true);
+      this.sourceList.orderingList('option', 'disabled', true);
+      this.targetList.orderingList('option', 'disabled', true);
+      this.element.addClass('disabled');
+      this.outer.find('.button-column button').attr('disabled', true);
     },
 
     _enable: function () {
-      this.sourceList.orderingList("option", "disabled", false);
-      this.targetList.orderingList("option", "disabled", false);
-      this.element.removeClass("disabled");
-      this.outer.find('.button-column button').attr("disabled", false);
+      this.sourceList.orderingList('option', 'disabled', false);
+      this.targetList.orderingList('option', 'disabled', false);
+      this.element.removeClass('disabled');
+      this.outer.find('.button-column button').attr('disabled', false);
       this._registerListeners();
     },
 
 
     _dumpState: function () {
       var ui = {};
-      ui.pickedElements = this.targetList.orderingList("getOrderedElements");
-      ui.pickedKeys = this.targetList.orderingList("getOrderedKeys");
+      ui.pickedElements = this.targetList.orderingList('getOrderedElements');
+      ui.pickedKeys = this.targetList.orderingList('getOrderedKeys');
       return ui;
     },
 
