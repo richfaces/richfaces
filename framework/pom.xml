@@ -478,6 +478,8 @@
                                         <argument>${optimized.resources.exclusions}</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>${optimized.resources.packedCoreExclusions}</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>^jquery\.js$</argument>
                                         <argument>--pack</argument>
                                         <argument>core</argument>
                                     </arguments>
@@ -558,6 +560,8 @@
                                         <argument>${optimized.resources.exclusions}</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>${optimized.resources.packedCoreExclusions}</argument>
+                                        <argument>--excludeFile</argument>
+                                        <argument>^jquery\.js$</argument>
                                         <argument>--pack</argument>
                                         <argument>core</argument>
                                         <argument>--compress</argument>
