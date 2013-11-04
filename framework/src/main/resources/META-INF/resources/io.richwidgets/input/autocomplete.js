@@ -1,3 +1,9 @@
+/**
+ * An autocomplete widget
+ *
+ * @module Input
+ * @class richAutocomplete
+ */
 (function ($) {
 
   var LAYOUT = {
@@ -26,7 +32,7 @@
     LAYOUT: LAYOUT,
 
     options: {
-      token: "",
+      token: '',
       showButton: false,
       autoFocus: false,
       autoFill: false,
@@ -36,25 +42,34 @@
 
       /**
        * cached turns caching on
+       *
+       * @property cached
+       * @type Boolean
+       * @default false
        */
       cached: false,
       /**
        * defines what prefix of searchTerm will be used to query cache
+       *
+       * @property extractCacheSearchPrefix
+       * @type String
        */
       extractCacheSearchPrefix: defaultExtractCacheSearchPrefix,
       /**
-       * pluggable cache implementation
+       * pluggable cache cacheImplemenation
+       *
+       * @property cached
+       * @type Object
        */
       cacheImplemenation: $.ui.richAutocomplete.objectCache,
-
-
       /**
        * Provide function which will be used to filter array of suggestions by given searchTerm
        * function filter(array, searchTerm)
+       *
+       * @property filter
+       * @type Object
        */
       filter: $.ui.autocomplete.filter,
-
-
       /**
        * Function called when search triggered but before suggestions are composed.
        *
@@ -64,6 +79,9 @@
        *
        * when doneCallback is specified, autocomplete will wait with update of suggestions before doneCallback
        * is called. Usually it is called on the end of AJAX data update.
+       *
+       * @property update
+       * @type Function
        */
       update: null,
 
@@ -126,11 +144,11 @@
       if (this.options.showButton) {
         var widget = this;
 
-        this.root.addClass("input-group");
-        this.button = $('<span class="input-group-btn"><button class="btn btn-light" type="button"><i class="icon-chevron-down"></button></i></span>').appendTo(this.root).find("button");
+        this.root.addClass('input-group');
+        this.button = $('<span class="input-group-btn"><button class="btn btn-light" type="button"><i class="icon-chevron-down"></button></i></span>').appendTo(this.root).find('button');
 
         this.buttonClickHandler = function () {
-          widget.input.autocomplete("search");
+          widget.input.autocomplete('search');
           widget.input.focus();
         };
 
@@ -218,7 +236,7 @@
     },
 
     _splitTokens: function (val) {
-      var regexp = new RegExp("\\s*" + this.options.token + "\\s*");
+      var regexp = new RegExp('\\s*' + this.options.token + '\\s*');
       return val.split(regexp);
     },
 
@@ -242,7 +260,7 @@
         terms.pop();
         // add the selected item
         terms.push(ui.item.value);
-        return terms.join(this.options.token + " ");
+        return terms.join(this.options.token + ' ');
       } else {
         return ui.item.value;
       }
@@ -260,23 +278,30 @@
       });
 
       if (this.cache) {
-        req.term = this.options.extractCacheSearchPrefix.call(this, searchTerm);
+        this._getCachedSuggestions(req, response);
+      } else {
+        this._retrieveSuggestions(req, response);
+      }
+    },
+
+    _getCachedSuggestions: function (request, response) {
+      var prefix = this.options.extractCacheSearchPrefix.call(this, request.term);
+
+      var cached = this.cache.get(prefix);
+
+      if (cached) {
+        response.call(window, this.options.filter(cached, request.term));
+        return;
       }
 
-      var resp = $.proxy(function () {
-        if (this.cache) {
-          this.cache.put(searchTerm, arguments);
-        }
+      var resp = $.proxy(function (result) {
+        this.cache.put(prefix, result);
         return response.apply(window, arguments);
       }, this);
 
-      if (this.cache) {
-        var result = this.cache.get(searchTerm);
-        if (result) {
-          response.apply(window, result);
-          return;
-        }
-      }
+      var req = $.extend({}, request, {
+        term: prefix
+      });
 
       this._retrieveSuggestions(req, resp);
     },
@@ -328,7 +353,7 @@
       }
       $(domSource).children('tr, li').each(function () {
         suggestions.push({
-          value: $(this).data("label") || $(this).text().trim(),
+          value: $(this).data('label') || $(this).text().trim(),
           dom: $(this).clone()
         });
       });
@@ -341,9 +366,9 @@
     },
 
     _preventTabbing: function () {
-      this.element.bind("keydown", function (event) {
+      this.element.bind('keydown', function (event) {
         if (event.keyCode === $.ui.keyCode.TAB &&
-          $(this).data("autocomplete").menu.active) {
+          $(this).data('autocomplete').menu.active) {
           event.preventDefault();
         }
       });
@@ -364,23 +389,23 @@
         case this.LAYOUT.list :
           data._renderMenu = $.ui.autocomplete.prototype._renderMenu;
           data._renderItem = function (ul, item) {
-            var content = item.dom ? $("<a>").html(item.dom.html()) : $("<a>").text(item.label);
-            return $("<li>").append(content).appendTo(ul);
+            var content = item.dom ? $('<a>').html(item.dom.html()) : $('<a>').text(item.label);
+            return $('<li>').append(content).appendTo(ul);
           };
           break;
         case this.LAYOUT.table :
-          this._setOption("appendTo", $("<div class='ui-autocomplete-layout-table-wrapper'>").appendTo($("body")));
+          this._setOption('appendTo', $('<div class="ui-autocomplete-layout-table-wrapper">').appendTo($('body')));
           data._renderMenu = function (ul, items) {
             ul.addClass('ui-autocomplete-layout-table');
             return $.ui.autocomplete.prototype._renderMenu.call(this, ul, items);
           };
           data._renderItem = function (ul, item) {
-            var link = $("<a>");
-            item.dom.find("td").each(function () {
+            var link = $('<a>');
+            item.dom.find('td').each(function () {
               $('<span>').html($(this).html()).appendTo(link);
             });
-            return $("<li></li>")
-              .data("item.autocomplete", item)
+            return $('<li></li>')
+              .data('item.autocomplete', item)
               .append(link)
               .appendTo(ul);
           };
