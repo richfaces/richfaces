@@ -77,7 +77,6 @@ public abstract class ChartDataModel<T, S> {
 
         // data
         jsdata = new JSONArray();
-       
 
         for (T key : keys) {
             JSONArray point = new JSONArray();
