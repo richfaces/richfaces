@@ -99,8 +99,8 @@ import com.google.common.collect.Sets;
 import com.google.common.io.Closeables;
 
 /**
- * Scans for resource dependencies (ResourceDependency annotations) on the class-path and collect them
- * in order to pre-generate resources them and optionally pack or compress them.
+ * Scans for resource dependencies (ResourceDependency annotations) on the class-path and collect them in order to pre-generate
+ * resources them and optionally pack or compress them.
  *
  * @goal process
  * @requiresDependencyResolution compile
@@ -148,6 +148,7 @@ public class ProcessMojo extends AbstractMojo {
 
     /**
      * Configures what prefix should be placed to each file before the library and name of the resource
+     *
      * @parameter expression="${staticResourcePrefix}" default-value=""
      */
     private String staticResourcePrefix;
@@ -181,6 +182,7 @@ public class ProcessMojo extends AbstractMojo {
     private List<String> includedContentTypes;
     /**
      * The list of mime-types to be excluded in processing
+     *
      * @parameter
      */
     private List<String> excludedContentTypes;
@@ -192,21 +194,25 @@ public class ProcessMojo extends AbstractMojo {
     private List<String> includedFiles;
     /**
      * List of excluded files
+     *
      * @parameter
      */
     private List<String> excludedFiles;
     /**
      * Turns on compression with YUI Compressor (JavaScript/CSS compression)
+     *
      * @parameter expression="${compress}"
      */
     private boolean compress = true;
     /**
      * Turns on packing of JavaScript/CSS resources
+     *
      * @parameter expression="${pack}"
      */
     private String pack;
     /**
      * Mapping of file names to output file names
+     *
      * @parameter
      */
     // TODO review usage of properties?
@@ -217,11 +223,13 @@ public class ProcessMojo extends AbstractMojo {
     private ProcessMode processMode = ProcessMode.embedded;
     /**
      * The expression determines the root of the webapp resources
+     *
      * @parameter default-value="${basedir}/src/main/webapp"
      */
     private String webRoot;
     /**
      * The encoding used for resource processing
+     *
      * @parameter expression="${encoding}" default-value="${project.build.sourceEncoding}"
      */
     private String encoding;
@@ -232,6 +240,24 @@ public class ProcessMojo extends AbstractMojo {
     private Set<ResourceKey> resourcesWithKnownOrder;
 
     private Logger logger;
+
+    /**
+     * Checks if pack is assigned a boolean value. If yes it changes it to an expected value and prints a warning about the
+     * deprecation.
+     */
+    private void checkBooleanPack() {
+        if (pack != null) {
+            if (pack.equals("true")) {
+                pack = "packed";
+                getLogger().warn("Boolean values for <pack> are deprecated, instead of \"true\" use \"packed\" for instance.");
+            }
+
+            if (pack.equals("false")) {
+                pack = null;
+                getLogger().warn("Boolean values for <pack> are deprecated, instead of \"false\" leave the parameter empty.");
+            }
+        }
+    }
 
     // TODO executor parameters
     private ExecutorService createExecutorService() {
@@ -245,12 +271,13 @@ public class ProcessMojo extends AbstractMojo {
         if (!Strings.isNullOrEmpty(encoding)) {
             charset = Charset.forName(encoding);
         } else {
-            getLog().warn(
+            getLog()
+                .warn(
                     "Encoding is not set explicitly, CDK resources plugin will use default platform encoding for processing char-based resources");
         }
         if (compress) {
-            return Arrays.<ResourceProcessor>asList(new JavaScriptCompressingProcessor(charset, getLogger()), new CSSCompressingProcessor(
-                    charset));
+            return Arrays.<ResourceProcessor>asList(new JavaScriptCompressingProcessor(charset, getLogger()),
+                new CSSCompressingProcessor(charset));
         } else {
             return Arrays.<ResourceProcessor>asList(new JavaScriptPackagingProcessor(charset));
         }
@@ -266,12 +293,12 @@ public class ProcessMojo extends AbstractMojo {
 
     private Predicate<Resource> createResourcesFilter() {
         Predicate<CharSequence> qualifierPredicate = MorePredicates.compose(includedFiles, excludedFiles,
-                REGEX_CONTAINS_BUILDER_FUNCTION);
+            REGEX_CONTAINS_BUILDER_FUNCTION);
 
         Predicate<Resource> qualifierResourcePredicate = Predicates.compose(qualifierPredicate, RESOURCE_QUALIFIER_FUNCTION);
 
         Predicate<CharSequence> contentTypePredicate = MorePredicates.compose(includedContentTypes, excludedContentTypes,
-                REGEX_CONTAINS_BUILDER_FUNCTION);
+            REGEX_CONTAINS_BUILDER_FUNCTION);
         Predicate<Resource> contentTypeResourcePredicate = Predicates.compose(contentTypePredicate, CONTENT_TYPE_FUNCTION);
 
         return Predicates.and(qualifierResourcePredicate, contentTypeResourcePredicate);
@@ -335,7 +362,7 @@ public class ProcessMojo extends AbstractMojo {
     protected URL[] getProjectClassPath() {
         try {
             List<String> classpath = Constraints.constrainedList(Lists.<String>newArrayList(),
-                    MoreConstraints.cast(String.class));
+                MoreConstraints.cast(String.class));
             classpath.addAll((List<String>) project.getCompileClasspathElements());
             classpath.add(project.getBuild().getOutputDirectory());
 
@@ -355,8 +382,8 @@ public class ProcessMojo extends AbstractMojo {
     }
 
     /**
-     * Initializes {@link ServiceTracker} to be able use it inside RichFaces framework code
-     * in order to handle dynamic resources.
+     * Initializes {@link ServiceTracker} to be able use it inside RichFaces framework code in order to handle dynamic
+     * resources.
      *
      * Fake {@link ServiceFactoryModule} is used for this purpose.
      *
@@ -368,11 +395,11 @@ public class ProcessMojo extends AbstractMojo {
 
         ArrayList<Module> modules = new ArrayList<Module>();
         modules.add(new ServiceFactoryModule());
-//        try {
-//            modules.addAll(ServiceLoader.loadServices(Module.class));
-//        } catch (ServiceException e) {
-//            throw new IllegalStateException(e);
-//        }
+        // try {
+        // modules.addAll(ServiceLoader.loadServices(Module.class));
+        // } catch (ServiceException e) {
+        // throw new IllegalStateException(e);
+        // }
         servicesFactory.init(modules);
     }
 
@@ -381,7 +408,8 @@ public class ProcessMojo extends AbstractMojo {
      *
      * Sorts foundResources using the determined ordering.
      */
-    private void reorderFoundResources(Collection<VFSRoot> cpResources, DynamicResourceHandler dynamicResourceHandler, ResourceFactory resourceFactory) throws Exception {
+    private void reorderFoundResources(Collection<VFSRoot> cpResources, DynamicResourceHandler dynamicResourceHandler,
+        ResourceFactory resourceFactory) throws Exception {
         Faces faces = new FacesImpl(null, new FileNameMapperImpl(fileNameMappings), dynamicResourceHandler);
         faces.start();
         initializeServiceTracker();
@@ -434,6 +462,8 @@ public class ProcessMojo extends AbstractMojo {
 
             getLog().debug("foundResources: " + foundResources);
 
+            checkBooleanPack();
+
             if (pack != null) {
                 reorderFoundResources(cpResources, dynamicResourceHandler, resourceFactory);
             }
@@ -441,7 +471,8 @@ public class ProcessMojo extends AbstractMojo {
             faces = new FacesImpl(null, new FileNameMapperImpl(fileNameMappings), dynamicResourceHandler);
             faces.start();
 
-            ResourceWriterImpl resourceWriter = new ResourceWriterImpl(new File(resourcesOutputDir), getDefaultResourceProcessors(), getLogger(), resourcesWithKnownOrder);
+            ResourceWriterImpl resourceWriter = new ResourceWriterImpl(new File(resourcesOutputDir),
+                getDefaultResourceProcessors(), getLogger(), resourcesWithKnownOrder);
             ResourceTaskFactoryImpl taskFactory = new ResourceTaskFactoryImpl(faces, pack);
             taskFactory.setResourceWriter(resourceWriter);
 
