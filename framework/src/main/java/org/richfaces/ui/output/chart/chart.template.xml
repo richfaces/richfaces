@@ -52,7 +52,7 @@
 	            //<![CDATA[  
 	                    $(document.getElementById("#{clientId}")).chartBridge(
 	                                   $.extend({
-		                                    handlers: $.extend({}, #{toScriptArgs(events)}),
+		                                    handlers: $.extend(#{toScriptArgs(events)}),
 		                                    particularSeriesHandlers: #{getParticularSeriesHandler(facesContext,component)},
 		                                    data: #{getData(facesContext,component)},
 	                                    },
