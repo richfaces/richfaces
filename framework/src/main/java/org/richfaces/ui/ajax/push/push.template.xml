@@ -39,28 +39,28 @@
         <cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
         <cdk:resource-dependency name="richfaces-event.js" />
         <cdk:resource-dependency library="net.java.dev.atmosphere" name="jquery-atmosphere.js" />
-        <cdk:resource-dependency library = "org.richfaces" name = "ajax/push.js" />
+        <cdk:resource-dependency name="push.js" />
     </cc:interface>
 
     <cc:implementation>
         <span id="#{clientId}">
             <script type="text/javascript">
                 <c:if test="#{shouldEncodePushUrl(facesContext)}">
-                    RichFaces.Push.setPushResourceUrl("#{getPushResourceUrl(facesContext)}");
+                    $.push.setPushResourceUrl("#{getPushResourceUrl(facesContext)}");
 
                     <cdk:object name="pushHandlerUrl" value="#{getPushHandlerUrl(facesContext)}" />
                     <c:if test="#{not empty pushHandlerUrl}">
-                        RichFaces.Push.setPushHandlerUrl("#{pushHandlerUrl}");
+                        $.push.setPushHandlerUrl("#{pushHandlerUrl}");
                     </c:if>
 
                 </c:if>
 
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption attributes="address" />
-                    <cdk:scriptOption wrapper="eventHandler" attributes="ondataavailable onsubscribed onerror" />
+                    <cdk:scriptOption wrapper="eventHandler" attributes="push:ondataavailable subscribed:onsubscribed error:onerror" />
                 </cdk:scriptObject>
 
-                new RichFaces.ui.Push(#{toScriptArgs(clientId, options)});
+                $(document.getElementById('#{clientId}')).push(#{toScriptArgs(options)});
             </script>
         </span>
     </cc:implementation>
