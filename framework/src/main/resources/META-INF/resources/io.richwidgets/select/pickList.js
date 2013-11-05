@@ -145,6 +145,12 @@
        */
       addDomElements: null,
       /**
+       * Fired after the pickList has been created
+       *
+       * @event create
+       */
+      create: null,
+      /**
        * Fired after the pickList has been destroyed
        *
        * @event destroy
@@ -208,7 +214,6 @@
       if (this.options.heightMax !== null) {
         this._setHeightMax(this.options.heightMax);
       }
-      this._trigger('create', undefined, this._dumpState());
     },
 
     /**

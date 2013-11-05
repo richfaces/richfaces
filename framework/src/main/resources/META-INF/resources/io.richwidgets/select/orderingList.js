@@ -137,6 +137,12 @@
        */
       addDomElements: null,
       /**
+       * Fired after the orderingList has been created
+       *
+       * @event create
+       */
+      create: null,
+      /**
        * Fired after the orderingList has been destroyed
        *
        * @event destroy
@@ -264,7 +270,6 @@
       if (this.options.heightMax !== null) {
         this._setHeightMax(this.options.heightMax);
       }
-      this._trigger('create', undefined, this._dumpState());
     },
 
     /**
@@ -809,6 +814,10 @@
       if (this.options.dragSelect === true) {
         this.content.removeClass('with-handle');
         this.element.find('.handle').remove();
+      }
+      if (this.options.disabled === true) {
+        this.element.removeClass('disabled');
+        this.element.find('.ui-disabled').removeClass('ui-disabled');
       }
       this.element.removeClass('list');
     },

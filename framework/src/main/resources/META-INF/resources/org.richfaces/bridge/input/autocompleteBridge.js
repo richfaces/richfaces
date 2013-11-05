@@ -1,6 +1,6 @@
 (function($, rf) {
 
-  $.widget('rf.richAutocompleteBridge', $.rf.bridgeBase, {
+  $.widget('rf.autocompleteBridge', $.rf.bridgeBase, {
 
     options : {
       mode : 'cachedAjax',
@@ -46,7 +46,7 @@
         }
       });
 
-      $(document.getElementById(clientId + 'Input')).richAutocomplete(autocompleteOptions);
+      $(document.getElementById(clientId + 'Input')).autocomplete(autocompleteOptions);
     }
   });
 
