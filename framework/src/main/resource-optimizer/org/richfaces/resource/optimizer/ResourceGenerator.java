@@ -201,7 +201,7 @@ public class ResourceGenerator {
      * Turns on packing of JavaScript/CSS resources
      */
     @Parameter(names = { "--pack" }, descriptionKey = "pack")
-    private boolean pack = false;
+    private String pack;
     /**
      * Mapping of file names to output file names
      */
@@ -223,7 +223,7 @@ public class ResourceGenerator {
     private Set<ResourceKey> resourcesWithKnownOrder;
 
     private ExecutorService createExecutorService() {
-        int poolSize = pack ? 1 : Runtime.getRuntime().availableProcessors();
+        int poolSize = (pack != null) ? 1 : Runtime.getRuntime().availableProcessors();
         return Executors.newFixedThreadPool(poolSize);
     }
 
@@ -407,7 +407,7 @@ public class ResourceGenerator {
 
             log.debug("foundResources: " + foundResources);
 
-            if (pack) {
+            if (pack != null) {
                 reorderFoundResources(cpResources, dynamicResourceHandler, resourceFactory);
             }
 

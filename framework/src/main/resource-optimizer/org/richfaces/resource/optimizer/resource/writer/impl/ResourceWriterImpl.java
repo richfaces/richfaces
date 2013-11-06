@@ -130,10 +130,11 @@ public class ResourceWriterImpl implements ResourceWriter {
         processedResources.put(ResourceUtil.getResourceQualifier(resource), requestPath);
     }
 
-    public void writePackedResource(String skinName, Resource resource) throws IOException {
+    public void writePackedResource(String packName, String skinName, Resource resource) throws IOException {
 
         final String requestPath = resource.getRequestPath();
         String extension = getExtension(requestPath);
+        String packFileName = packName + "." + extension;
         ResourceKey resourceKey = new ResourceKey(resource.getResourceName(), resource.getLibraryName());
 
         if (!"js".equals(extension) && !"css".equals(extension)) {
@@ -146,11 +147,11 @@ public class ResourceWriterImpl implements ResourceWriter {
             return;
         }
 
-        String requestPathWithSkinVariable = "packed/packed." + extension;
+        String requestPathWithSkinVariable = "packed/" + packFileName;
         if (skinName != null && skinName.length() > 0) {
             requestPathWithSkinVariable = ResourceSkinUtils.prefixPathWithSkinPlaceholder(requestPathWithSkinVariable);
         }
-        String requestPathWithSkin = Constants.SLASH_JOINER.join(skinName, "packed", "packed." + extension);
+        String requestPathWithSkin = Constants.SLASH_JOINER.join(skinName, "packed", packFileName);
         ResourceProcessor matchingProcessor = getMatchingResourceProcessor(requestPathWithSkin);
 
         FileOutputStream outputStream;
