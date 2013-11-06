@@ -134,7 +134,6 @@
                             <goal>process</goal>
                         </goals>
                         <configuration>
-                            <pack>false</pack>
                             <compress>false</compress>
                             <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Static/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/Static.properties</staticResourceMappingFile>
@@ -160,7 +159,6 @@
                             <goal>process</goal>
                         </goals>
                         <configuration>
-                            <pack>false</pack>
                             <compress>true</compress>
                             <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Compressed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/Compressed.properties</staticResourceMappingFile>
@@ -187,7 +185,7 @@
                             <goal>process</goal>
                         </goals>
                         <configuration>
-                            <pack>true</pack>
+                            <pack>packed</pack>
                             <compress>false</compress>
                             <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Packed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/Packed.properties</staticResourceMappingFile>
@@ -214,7 +212,7 @@
                             <goal>process</goal>
                         </goals>
                         <configuration>
-                            <pack>true</pack>
+                            <pack>packed</pack>
                             <compress>true</compress>
                             <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/PackedCompressed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/PackedCompressed.properties</staticResourceMappingFile>
