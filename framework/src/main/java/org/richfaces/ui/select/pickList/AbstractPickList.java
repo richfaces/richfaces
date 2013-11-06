@@ -48,7 +48,7 @@ public abstract class AbstractPickList extends AbstractOrderingComponent impleme
      * <p>If "true", then the target list is orderable, and the ordering controls are displayed</p>
      * <p>Default is "true"</p>
      */
-    @Attribute
+    @Attribute(defaultValue = "true")
     public abstract boolean isOrderable();
 
     /**
