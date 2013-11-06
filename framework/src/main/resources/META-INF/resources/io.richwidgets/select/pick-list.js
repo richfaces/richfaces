@@ -6,7 +6,7 @@
  */
 (function ($) {
 
-  $.widget('rf.pickList', {
+  $.widget('rich.pickList', {
 
     options: {
       /**
@@ -121,14 +121,6 @@
        * @default null
        */
       pickButtonsText: null,
-      /**
-       * The String prefixed to all events triggered within the pickList widget
-       *
-       * @property widgetEventPrefix
-       * @type JSON
-       * @default picklist_
-       */
-      widgetEventPrefix: 'picklist_',
 
       // callbacks
 
@@ -216,14 +208,8 @@
       }
     },
 
-    /**
-     * Removes the pickList functionality completely. This will return the element back to its pre-init state.
-     *
-     * @method destroy
-     * @chainable
-     */
-    destroy: function () {
-      $.Widget.prototype.destroy.call(this);
+    _destroy: function () {
+      this._super();
       this._unregisterListeners();
       this.sourceList.orderingList('destroy');
       this.targetList.orderingList('destroy');
@@ -235,7 +221,6 @@
         this.element.removeAttr('class');
       }
       this._trigger('destroy', undefined, {});
-      return this;
     },
 
     /** Public API methods **/
@@ -244,16 +229,17 @@
      * Move items from the target list of the pickList to the source list.
      *
      * @param items {Object} A list of Elements to remove from the target list of the pickList
-     * @param event {Object} The event that triggered the removal of the elements.  This event will be made accessible
+     * @param [event=null] {Object} The event that triggered the removal of the elements.  This event will be made accessible
      * when the resulting change event is fired.
      * @method removeItems
      * @chainable
      */
     removeItems: function (items, event) {
+      event = event || null;
       if (this.options.disabled) { return; }
       this.targetList.orderingList('remove', items);
       this.sourceList.orderingList('add', items);
-      var ui = this._dumpState();
+      var ui = this._uiHash();
       ui.change = 'remove';
       this._trigger('change', event, ui);
       return this;
@@ -263,16 +249,17 @@
      * Move items from the source list of the pickList to the target list.
      *
      * @param items {Object} A list of Elements to remove from the source list of the pickList
-     * @param event {Object} The event that triggered the removal of the elements.  This event will be made accessible
+     * @param [event=null] {Object} The event that triggered the removal of the elements.  This event will be made accessible
      * when the resulting change event is fired.
      * @method addItems
      * @chainable
      */
     addItems: function (items, event) {
+      event = event || null;
       if (this.options.disabled) { return; }
       this.sourceList.orderingList('remove', items);
       this.targetList.orderingList('add', items);
-      var ui = this._dumpState();
+      var ui = this._uiHash();
       ui.change = 'add';
       this._trigger('change', event, ui);
       return this;
@@ -495,19 +482,19 @@
       var widget = this;
       // the widget factory converts all events to lower case
       this.sourceList.on('sortreceive', function (event, ui) {
-        var newUi = widget._dumpState();
+        var newUi = widget._uiHash();
         newUi.change = 'remove';
         newUi.originalEvent = event;
         widget._trigger('change', event, newUi);
       });
       this.targetList.on('sortreceive', function (event, ui) {
-        var newUi = widget._dumpState();
+        var newUi = widget._uiHash();
         newUi.change = 'add';
         newUi.originalEvent = event;
         widget._trigger('change', event, newUi);
       });
       this.targetList.on('targetlist_change', function (event, ui) {
-        var newUi = widget._dumpState();
+        var newUi = widget._uiHash();
         newUi.change = 'sort';
         newUi.originalEvent = event;
         widget._trigger('change', event, newUi);
@@ -519,10 +506,10 @@
         this._addDoubleClickListeners();
       }
       this.outer.on('focusin.picklist', function (event) {
-        widget._trigger('focus', event, widget._dumpState());
+        widget._trigger('focus', event, widget._uiHash());
       });
       this.outer.on('focusout.picklist', function (event) {
-        widget._trigger('blur', event, widget._dumpState());
+        widget._trigger('blur', event, widget._uiHash());
       });
     },
 
@@ -577,7 +564,7 @@
     },
 
 
-    _dumpState: function () {
+    _uiHash: function () {
       var ui = {};
       ui.pickedElements = this.targetList.orderingList('getOrderedElements');
       ui.pickedKeys = this.targetList.orderingList('getOrderedKeys');

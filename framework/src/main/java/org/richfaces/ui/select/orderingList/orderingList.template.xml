@@ -49,7 +49,7 @@
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.button.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.selectable.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.sortable.js" />
-        <cdk:resource-dependency library="io.richwidgets" name="select/orderingList.js" />
+        <cdk:resource-dependency library="io.richwidgets" name="select/ordering-list.js" />
         <cdk:resource-dependency library="org.richfaces" name="bridge/bridgeBase.js" />
         <cdk:resource-dependency library="org.richfaces" name="bridge/select/orderingListBridge.js" />
     </cc:interface>

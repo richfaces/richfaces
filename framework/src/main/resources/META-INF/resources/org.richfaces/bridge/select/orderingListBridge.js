@@ -31,7 +31,7 @@
 
     _registerListeners: function() {
       var bridge = this;
-      this.element.on('orderinglist_change', function(event, ui) {
+      this.element.on('orderinglistchange', function(event, ui) {
         bridge._refreshInputValues(ui.orderedKeys);
       });
     },

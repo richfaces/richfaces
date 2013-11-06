@@ -6,7 +6,7 @@
  */
 (function ($) {
 
-  $.widget('rf.orderingList', {
+  $.widget('rich.orderingList', {
 
     options: {
       /**
@@ -113,14 +113,6 @@
        * @default true
        */
       mouseOrderable: true,
-      /**
-       * The String prefixed to all events triggered within the orderingList widget
-       *
-       * @property widgetEventPrefix
-       * @type JSON
-       * @default orderinglist_
-       */
-      widgetEventPrefix: 'orderinglist_',
 
       // callbacks
 
@@ -219,7 +211,7 @@
             ui.item.after(widget.currentItems.not(ui.item).detach());
           }
           widget.currentItems.not('.placeholder').show();
-          var ui2 = widget._dumpState();
+          var ui2 = widget._uiHash();
           ui2.movement = 'drag';
           if (widget.fillItem) {
             widget._updateFillRow();
@@ -256,10 +248,10 @@
       }
       this._addDragListeners();
       this.selectList.on('focusin', function (event) {
-        widget._trigger('focus', event, widget._dumpState());
+        widget._trigger('focus', event, widget._uiHash());
       });
       this.selectList.on('focusout', function (event) {
-        widget._trigger('blur', event, widget._dumpState());
+        widget._trigger('blur', event, widget._uiHash());
       });
       if (this.options.height !== null) {
         this._setHeight(this.options.height);
@@ -272,17 +264,12 @@
       }
     },
 
-    /**
-     * Removes the orderingList functionality completely. This will return the element back to its pre-init state.
-     *
-     * @method destroy
-     * @chainable
-     */
-    destroy: function () {
-      $.Widget.prototype.destroy.call(this);
-      this.$pluginRoot
-        .sortable('destroy')
-        .selectable('destroy');
+    _destroy: function () {
+      this._super();
+      if (this.options.mouseOrderable === true) {
+        this.$pluginRoot.sortable('destroy');
+      }
+      this.$pluginRoot.selectable('destroy');
       this._removeDomElements();
 
       // remove empty class attributes                             y
@@ -319,83 +306,222 @@
       this._trigger('destroy', undefined, {});
     },
 
-    _addDragListeners: function() {
+    /** Public API methods **/
+
+    /**
+     * Connect the orderingList with another orderingList, allowing items to be dragged between them.
+     *
+     * @param target {Object} The orderingList with which to connect.
+     * @method connectWith
+     * @chainable
+     */
+    connectWith: function (target) {
+      if (! this.options.mouseOrderable) {
+        return this;
+      }
+      var targetOrderingList = target.data('richOrderingList');
+      this.$pluginRoot.sortable('option', 'connectWith', targetOrderingList.$pluginRoot);
+      this._addFillRow();
+      target.on('sortover', $.proxy(this._updateFillRow, this));  // own 'out' event causes placeholder interference
+      return this;
+    },
+
+    /**
+     * Determine if the given item is selected
+     *
+     * @method isSelected
+     * @param item {Object} jQuery object of one of the orderingList elements
+     * @returns {Boolean} True if the item is selected, false otherwise
+     */
+    isSelected: function (item) {
+      return $(item).hasClass('ui-selected');
+    },
+
+    /**
+     * Find and return the list of oerderingList elements that are selected
+     *
+     * @method getSelected
+     * @returns {Object} A jQuery list of selected items
+     */
+    getSelected: function() {
+      return this.element.find('.ui-selected');
+    },
+
+    /**
+     * Select the given item
+     *
+     * @method selectItem
+     * @param item {Object} jQuery object of the orderingList element to select
+     * @chainable
+     */
+    selectItem: function (item) {
+      $(item).addClass('ui-selected');
+      return this;
+    },
+
+    /**
+     * Un-select the given item
+     *
+     * @method unSelectItem
+     * @param item {Object} jQuery object of the orderingList element to un-select
+     * @chainable
+     */
+    unSelectItem: function (item) {
+      $(item).removeClass('ui-selected');
+      return this;
+    },
+
+    /**
+     * Un-select all items in the orderingList
+     *
+     * @method unSelectAll
+     * @chainable
+     */
+    unSelectAll: function () {
       var widget = this;
-      if (this.options.dragSelect === false) {
-        this.element.on('mousedown', '.ui-selectee', function (event) {
-          var item = $(this);
-          if (widget.selectList.get(0) !== document.activeElement) {
-            widget.selectList.focus();
-          }
-          var list = item.parents('.list').first();
-          list.data('rfOrderingList').mouseStarted = true;
-        });
-        this.$pluginRoot.on('mousemove', '.ui-selectee', function (event) {
-          var item = $(this);
-          var list = item.parents('.list').first();
-          var orderingList = list.data('rfOrderingList');
-          if (orderingList.mouseStarted) {
-            orderingList.mouseStarted = false;
-            if (!item.hasClass('ui-selected')) {
-              var selectable = orderingList.$pluginRoot.data('uiSelectable');
-              selectable._mouseStart(event);
-              selectable._mouseStop(event);
-            }
-          }
-        });
-        this.element.on('mouseup', '.ui-selectee', function (event) {
-          var item = $(this);
-          var list = item.parents('.list').first();
-          var orderingList = list.data('rfOrderingList');
-          if (orderingList.mouseStarted) {
-            orderingList.mouseStarted = false;
-            var selectable = orderingList.$pluginRoot.data('uiSelectable');
-            selectable._mouseStart(event);
-            selectable._mouseStop(event);
-          }
-        });
-      } else {
-        this.element.find('.handle').on('mousedown', function (event) {
-          var item = $(this).parents('.ui-selectee').first();
-          if (!item.hasClass('ui-selected')) {
-            var list = item.parents('.list').first();
-            var selectable = list.data('rfOrderingList').$pluginRoot.data('uiSelectable');
-            selectable._mouseStart(event);
-            selectable._mouseStop(event);
-          }
-        });
-      }
-    },
-
-    _removeDragListeners: function() {
-      if (this.options.dragSelect === false) {
-        this.element.off('mousedown', '.ui-selectee');
-        this.element.off('mousemove', '.ui-selectee');
-        this.element.off('mouseup', '.ui-selectee');
-      } else {
-        this.element.find('.handle').off('mousedown');
-      }
-    },
-
-    _listHelper: function (e, item) {
-      var $helper = $('<ol />').addClass('helper')
-        .css('height', 'auto').css('width', this.element.css('width'));
-      item.parent().children('.ui-selected').not('.ui-sortable-placeholder').clone().addClass('helper-item').show().appendTo($helper);
-      return $helper;
-    },
-
-    _rowHelper: function (e, item) {
-      var $helper = $('<div />').addClass('helper').css('height', 'auto');
-      item.parent().children('.ui-selected').not('.ui-sortable-placeholder').clone().addClass('helper-item').show().appendTo($helper);
-      /* we lose the cell width in the clone, so we re-set it here: */
-      var firstRow = $helper.children('tr').first();
-      /* we only need to set the column widths on the first row */
-      firstRow.children().each(function (colindex) {
-        var originalCell = item.children().get(colindex);
-        var originalWidth = $(originalCell).css('width');
-        $(this).css('width', originalWidth);
+      this._removeDomElements();
+      this.element.children().each(function () {
+        widget.unSelectItem(this);
       });
-      return $helper;
+      return this;
+    },
+
+    /**
+     * Move the given items to the top of the orderingList
+     *
+     * @method moveTop
+     * @param items {Object} the items to move to the top
+     * @param [event=null] {Object} the event used that triggered this movement
+     * @chainable
+     */
+    moveTop: function (items, event) {
+      event = event || null;
+      if (this.options.disabled) { return; }
+      var first = items.prevAll().not('.ui-selected').last();
+      $(items).insertBefore(first);
+      var ui = this._uiHash();
+      ui.movement = 'moveTop';
+      this._trigger('change', event, ui);
+      return this;
+    },
+
+    /**
+     * Move the given items up one step in the orderingList
+     *
+     * @method moveUp
+     * @param items {Object} the items to move up
+     * @param [event=null] {Object} the event used that triggered this movement
+     * @chainable
+     */
+    moveUp: function (items, event) {
+      event = event || null;
+      if (this.options.disabled) { return; }
+      $(items).each(function () {
+        var $item = $(this);
+        var prev = $item.prevAll().not('.ui-selected').first();
+        if (prev.length > 0) {
+          $item.insertBefore(prev);
+        }
+      });
+      var ui = this._uiHash();
+      ui.movement = 'moveUp';
+      this._trigger('change', event, ui);
+      return this;
+    },
+
+    /**
+     * Move the given items down one step in the orderingList
+     *
+     * @method moveDown
+     * @param items {Object} the items to move down
+     * @param [event=null] {Object} the event used that triggered this movement
+     * @chainable
+     */
+    moveDown: function (items, event) {
+      event = event || null;
+      if (this.options.disabled) { return; }
+      $(items).sort(function () {
+        return 1;
+      }).each(function () {
+          var $item = $(this);
+          var next = $item.nextAll().not('.ui-selected').first();
+          if (next.length > 0) {
+            $item.insertAfter(next);
+          }
+        });
+      var ui = this._uiHash();
+      ui.movement = 'moveDown';
+      this._trigger('change', event, ui);
+      return this;
+    },
+
+    /**
+     * Move the given items to the end of the orderingList
+     *
+     * @method moveLast
+     * @param items {Object} the items to move to the end
+     * @param [event=null] {Object} the event used that triggered this movement
+     * @chainable
+     */
+    moveLast: function (items, event) {
+      event = event || null;
+      if (this.options.disabled) { return; }
+      var last = items.nextAll().not('.ui-selected').last();
+      $(items).insertAfter(last);
+      var ui = this._uiHash();
+      ui.movement = 'moveLast';
+      this._trigger('change', event, ui);
+      return this;
+    },
+
+    /**
+     * Remove the given items from the orderingList
+     *
+     * @method remove
+     * @param items {Object} the items to remove
+     * @returns {Object} the items removed from the orderingList
+     */
+    remove: function (items) {
+      items.detach();
+      var ui = this._uiHash();
+      ui.movement = 'remove';
+      this._trigger('change', {}, ui);
+      return items;
+    },
+
+    /**
+     * Add the given items to the orderingList
+     *
+     * @method add
+     * @param items {Object} the items to add
+     * @returns {Object} the items added to the orderingList
+     */
+    add: function (items) {
+      this.$pluginRoot.prepend(items);
+      var ui = this._uiHash();
+      ui.movement = 'add';
+      this._trigger('change', {}, ui);
+      return items;
+    },
+
+    /**
+     * Retrieve the jQuery list of all items in the orderingList
+     *
+     * @method getOrderedElements
+     * @returns {Object} the jQuery list of selected elements
+     */
+    getOrderedElements: function () {
+      return this.element.find('.ui-selectee');
+    },
+
+    /**
+     * Retrieve the keys of all items in the orderingList
+     *
+     * @method getOrderedElements
+     * @returns {Array} An array of the keys of the selected elements
+     */
+    getOrderedKeys: function () {
+      return (this._createKeyArray( this.getOrderedElements()));
     },
 
     _setOption: function (key, value) {
@@ -445,6 +571,85 @@
       $.Widget.prototype._setOption.apply(widget, arguments);
     },
 
+    _addDragListeners: function() {
+      var widget = this;
+      if (this.options.dragSelect === false) {
+        this.element.on('mousedown', '.ui-selectee', function (event) {
+          var item = $(this);
+          if (widget.selectList.get(0) !== document.activeElement) {
+            widget.selectList.focus();
+          }
+          var list = item.parents('.list').first();
+          list.data('richOrderingList').mouseStarted = true;
+        });
+        this.$pluginRoot.on('mousemove', '.ui-selectee', function (event) {
+          var item = $(this);
+          var list = item.parents('.list').first();
+          var orderingList = list.data('richOrderingList');
+          if (orderingList.mouseStarted) {
+            orderingList.mouseStarted = false;
+            if (!item.hasClass('ui-selected')) {
+              var selectable = orderingList.$pluginRoot.data('uiSelectable');
+              selectable._mouseStart(event);
+              selectable._mouseStop(event);
+            }
+          }
+        });
+        this.element.on('mouseup', '.ui-selectee', function (event) {
+          var item = $(this);
+          var list = item.parents('.list').first();
+          var orderingList = list.data('richOrderingList');
+          if (orderingList.mouseStarted) {
+            orderingList.mouseStarted = false;
+            var selectable = orderingList.$pluginRoot.data('uiSelectable');
+            selectable._mouseStart(event);
+            selectable._mouseStop(event);
+          }
+        });
+      } else {
+        this.element.find('.handle').on('mousedown', function (event) {
+          var item = $(this).parents('.ui-selectee').first();
+          if (!item.hasClass('ui-selected')) {
+            var list = item.parents('.list').first();
+            var selectable = list.data('richOrderingList').$pluginRoot.data('uiSelectable');
+            selectable._mouseStart(event);
+            selectable._mouseStop(event);
+          }
+        });
+      }
+    },
+
+    _removeDragListeners: function() {
+      if (this.options.dragSelect === false) {
+        this.element.off('mousedown', '.ui-selectee');
+        this.element.off('mousemove', '.ui-selectee');
+        this.element.off('mouseup', '.ui-selectee');
+      } else {
+        this.element.find('.handle').off('mousedown');
+      }
+    },
+
+    _listHelper: function (e, item) {
+      var $helper = $('<ol />').addClass('helper')
+        .css('height', 'auto').css('width', this.element.css('width'));
+      item.parent().children('.ui-selected').not('.ui-sortable-placeholder').clone().addClass('helper-item').show().appendTo($helper);
+      return $helper;
+    },
+
+    _rowHelper: function (e, item) {
+      var $helper = $('<div />').addClass('helper').css('height', 'auto');
+      item.parent().children('.ui-selected').not('.ui-sortable-placeholder').clone().addClass('helper-item').show().appendTo($helper);
+      /* we lose the cell width in the clone, so we re-set it here: */
+      var firstRow = $helper.children('tr').first();
+      /* we only need to set the column widths on the first row */
+      firstRow.children().each(function (colindex) {
+        var originalCell = item.children().get(colindex);
+        var originalWidth = $(originalCell).css('width');
+        $(this).css('width', originalWidth);
+      });
+      return $helper;
+    },
+
     _createKeyArray: function (items) {
       var keys = [];
       items.each(function () {
@@ -454,114 +659,6 @@
         keys.push(key);
       });
       return keys;
-    },
-
-    /** Public API methods **/
-
-    connectWith: function (target) {
-      if (! this.options.mouseOrderable) {
-        return;
-      }
-      var targetOrderingList = target.data('rfOrderingList');
-      this.$pluginRoot.sortable('option', 'connectWith', targetOrderingList.$pluginRoot);
-      this._addFillRow();
-      target.on('sortover', $.proxy(this._updateFillRow, this));  // own 'out' event causes placeholder interference
-    },
-
-    isSelected: function (item) {
-      return $(item).hasClass('ui-selected');
-    },
-
-    getSelected: function() {
-      return this.element.find('.ui-selected');
-    },
-
-    selectItem: function (item) {
-      $(item).addClass('ui-selected');
-    },
-
-    unSelectItem: function (item) {
-      $(item).removeClass('ui-selected');
-    },
-
-    unSelectAll: function () {
-      var widget = this;
-      this._removeDomElements();
-      this.element.children().each(function () {
-        widget.unSelectItem(this);
-      });
-    },
-
-    moveTop: function (items, event) {
-      if (this.options.disabled) { return; }
-      var first = items.prevAll().not('.ui-selected').last();
-      $(items).insertBefore(first);
-      var ui = this._dumpState();
-      ui.movement = 'moveTop';
-      this._trigger('change', event, ui);
-    },
-
-    moveUp: function (items, event) {
-      if (this.options.disabled) { return; }
-      $(items).each(function () {
-        var $item = $(this);
-        var prev = $item.prevAll().not('.ui-selected').first();
-        if (prev.length > 0) {
-          $item.insertBefore(prev);
-        }
-      });
-      var ui = this._dumpState();
-      ui.movement = 'moveUp';
-      this._trigger('change', event, ui);
-    },
-
-    moveDown: function (items, event) {
-      if (this.options.disabled) { return; }
-      $(items).sort(function () {
-        return 1;
-      }).each(function () {
-        var $item = $(this);
-        var next = $item.nextAll().not('.ui-selected').first();
-        if (next.length > 0) {
-          $item.insertAfter(next);
-        }
-      });
-      var ui = this._dumpState();
-      ui.movement = 'moveDown';
-      this._trigger('change', event, ui);
-    },
-
-    moveLast: function (items, event) {
-      if (this.options.disabled) { return; }
-      var last = items.nextAll().not('.ui-selected').last();
-      $(items).insertAfter(last);
-      var ui = this._dumpState();
-      ui.movement = 'moveLast';
-      this._trigger('change', event, ui);
-    },
-
-    remove: function (items) {
-      items.detach();
-      var ui = this._dumpState();
-      ui.movement = 'remove';
-      this._trigger('change', event, ui);
-      return items;
-    },
-
-    add: function (items) {
-      this.$pluginRoot.prepend(items);
-      var ui = this._dumpState();
-      ui.movement = 'add';
-      this._trigger('change', event, ui);
-      return items;
-    },
-
-    getOrderedElements: function () {
-      return this.element.find('.ui-selectee');
-    },
-
-    getOrderedKeys: function () {
-      return (this._createKeyArray( this.getOrderedElements()));
     },
 
     /** Initialisation methods **/
@@ -584,7 +681,7 @@
             }
           });
       }
-      this._trigger('addDomElements', undefined, this._dumpState());
+      this._trigger('addDomElements', undefined, this._uiHash());
     },
 
     _addColumnClasses: function(columnClasses) {
@@ -782,7 +879,7 @@
       this._addDragListeners();
     },
 
-    _dumpState: function () {
+    _uiHash: function () {
       var ui = {};
       ui.orderedElements = this.getOrderedElements();
       ui.orderedKeys = this.getOrderedKeys();

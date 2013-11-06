@@ -30,7 +30,7 @@
 
     _registerListeners: function() {
       var bridge = this;
-      this.element.on('picklist_change', function(event, ui) {
+      this.element.on('picklistchange', function(event, ui) {
         bridge._refreshInputValues(ui.pickedKeys);
       });
     },
