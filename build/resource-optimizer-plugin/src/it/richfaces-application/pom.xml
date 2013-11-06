@@ -31,7 +31,6 @@
                 <configuration>
                     <staticResourceMappingFile>${project.build.outputDirectory}/mapping.properties</staticResourceMappingFile>
                     <resourcesOutputDir>${project.build.outputDirectory}/resources/</resourcesOutputDir>
-                    <pack>false</pack>
                     <compress>false</compress>
                     <skins>
                         <skin>classic</skin>

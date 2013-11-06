@@ -101,7 +101,7 @@ public class ITResourceOptimization {
 
         driver.navigate().to(contextPath.toExternalForm() + "script.jsf");
 
-        assertEquals(1, driver.findElements(By.cssSelector("script[src*='packed.js']")).size());
+        assertEquals(1, driver.findElements(By.cssSelector("script[src*='core.js']")).size());
         assertEquals(0, driver.findElements(By.cssSelector("script[src*='richfaces.js']")).size());
     }
 
@@ -110,7 +110,7 @@ public class ITResourceOptimization {
 
         driver.navigate().to(contextPath.toExternalForm() + "stylesheet.jsf");
 
-        assertEquals(1, driver.findElements(By.cssSelector("link[href*='packed.css']")).size());
+        assertEquals(1, driver.findElements(By.cssSelector("link[href*='ui.css']")).size());
         assertEquals(0, driver.findElements(By.cssSelector("link[href*='log.ecss']")).size());
     }
 }
