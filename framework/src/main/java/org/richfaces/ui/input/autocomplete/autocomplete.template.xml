@@ -31,7 +31,7 @@
             <input id="#{clientId}Input" name="#{clientId}Input" type="text"
                    value="#{getInputValue(facesContext, component)}"
                    class="#{concatClasses('form-control', component.attributes['styleClass'])}"
-                   cdk:passThroughWithExclusions="styleClass"
+                   cdk:passThroughWithExclusions="styleClass onchange onfocus"
                    disabled="#{component.disabled}" />
             <cdk:renderFragment name="renderSuggestions" />
             <script>
