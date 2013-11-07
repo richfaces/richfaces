@@ -25,7 +25,7 @@
       var hiddenInputId = clientId + this.options.hiddenInputSuffix;
       this.hiddenInput = $('<input type="hidden" />').attr('id', hiddenInputId).attr('name', clientId);
       this.element.parents(".select-list").first().append(this.hiddenInput);
-      var ui = this.element.data('orderingList')._dumpState();
+      var ui = this.element.data('orderingList')._uiHash();
       this._refreshInputValues(ui.orderedKeys);
     },
 
