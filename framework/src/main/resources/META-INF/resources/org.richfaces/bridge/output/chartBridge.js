@@ -6,48 +6,41 @@
       this._super();
 
       var clientId = this.element.attr('id');
-      var bridge = this;
 
-      this.chartOptions = $.extend({}, this.options, {
-
-        
-        
-        plotClickServerSide : function(event) {
-          
-          var params = {};
-          params[clientId + 'name'] = "plotclick";
-          params[clientId + 'seriesIndex'] = event.data.seriesIndex;
-          params[clientId + 'dataIndex'] = event.data.dataIndex;
-          params[clientId + 'x'] = event.data.x;
-          params[clientId + 'y'] = event.data.y;
-          
-          rf.ajax(clientId, event, {
-        	  parameters : params,
-        	  incId : 1
-          });
-        
-        }
-      });
-
-      $(document.getElementById(clientId + 'Chart')).chart(this.chartOptions);
+      $(document.getElementById(clientId + 'Chart')).chart(this.options);
       
-      //bind handlers
+
       this._registerListeners();
      
     },
     
-  //bind listeners
+    _plotClickServerSide: function (event,clientId) {
+    	var params = {};
+        params[clientId + 'name'] = "plotclick";
+        params[clientId + 'seriesIndex'] = event.data.seriesIndex;
+        params[clientId + 'dataIndex'] = event.data.dataIndex;
+        params[clientId + 'x'] = event.data.x;
+        params[clientId + 'y'] = event.data.y;
+        
+        rf.ajax(clientId, event, {
+      	  parameters : params,
+      	  incId : 1
+        });
+    	
+    },
+    
+    //bind listeners
     _registerListeners:function(){
         
-        this.element.on('plotclick',this._getPlotClickHandler(this.chartOptions,this.element));
-        this.element.on('plothover',this._getPlotHoverHandler(this.chartOptions,this.element));
-        if(this.chartOptions.handlers && this.chartOptions.handlers.onmouseout){
-            this.element.on('mouseout',this.chartOptions.handlers.onmouseout);
+        this.element.on('plotclick',this._getPlotClickHandler(this.options,this.element,this._plotClickServerSide));
+        this.element.on('plothover',this._getPlotHoverHandler(this.options,this.element));
+        if(this.options.handlers && this.options.handlers.onmouseout){
+            this.element.on('mouseout',this.options.handlers.onmouseout);
         }
     },
     
   //function handles plotclick event. it calls server-side, client-side and particular series handlers if set.
-    _getPlotClickHandler:function(options,element){
+    _getPlotClickHandler:function(options,element,serverSide){
         return function(event,mouse,item){
             if(item !== null){
                 //point in a chart clicked
@@ -59,9 +52,10 @@
                     item:item
                 };
 
+                var clientId = element.attr('id');
                 //server-side
-                if(options.plotClickServerSide){
-                    options.plotClickServerSide(event);
+                if(serverSide){
+                    serverSide(event,clientId);
                 }
 
                 //client-side
