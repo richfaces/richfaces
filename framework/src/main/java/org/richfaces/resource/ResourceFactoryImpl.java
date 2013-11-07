@@ -25,6 +25,8 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -51,25 +53,10 @@ import com.google.common.base.Strings;
  */
 public class ResourceFactoryImpl implements ResourceFactory {
 
-    private static class MappedResourceData {
-        private ResourceKey resourceKey;
-        private Map<String, String> params;
-
-        public MappedResourceData(ResourceKey resourceKey, Map<String, String> params) {
-            this.resourceKey = resourceKey;
-            this.params = params;
-        }
-
-        public ResourceKey getResourceKey() {
-            return resourceKey;
-        }
-
-        public Map<String, String> getParams() {
-            return params;
-        }
-    }
-
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
+
+    private static final String MAPPED_RESOURCES_RESOLUTION_STACK = MappedResourceFactory.class.getName()
+            + ".MAPPED_RESOURCES_RESOLUTION_STACK";
 
     private static final Function<Entry<String, String>, MappedResourceData> DYNAMIC_MAPPINGS_DATA_PRODUCER = new Function<Entry<String, String>, MappedResourceData>() {
         public MappedResourceData apply(Entry<String, String> from) {
@@ -351,24 +338,62 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
     public Resource createResource(String resourceName, String libraryName, String contentType) {
         ResourceKey resourceKey = new ResourceKey(resourceName, libraryName);
-        FacesContext facesContext = FacesContext.getCurrentInstance();
 
-        boolean isResourceServletRequest = facesContext.getExternalContext().getRequestMap().get(ResourceServlet.RESOURCE_SERVLET_REQUEST_FLAG) == Boolean.TRUE;
+        Resource resource = createMappedResource(resourceKey);
 
-        if (!isResourceServletRequest) { // do not map resources for ResourceServlet requests (they should be already mapped)
-            Resource mappedResource = mappedResourceFactory.createResource(facesContext, resourceKey);
-            if (mappedResource != null) {
-                resourceTracker.markResourceRendered(facesContext, resourceKey);
-                ResourcePath path = new ResourcePath(mappedResource.getRequestPath());
-                for (ResourceKey key : mappedResourceFactory.getAggregatedResources(path)) {
-                    resourceTracker.markResourceRendered(facesContext, key);
-                }
+        if (resource != null) {
+            return resource;
+        } else {
+            return createDynamicResource(resourceKey, true);
+        }
+    }
 
-                return mappedResource;
-            }
+    private Resource createMappedResource(ResourceKey resourceKey) {
+        final FacesContext context = FacesContext.getCurrentInstance();
+
+        // do not map resources for ResourceServlet requests (they should be already mapped)
+        if (context.getExternalContext().getRequestMap().get(ResourceServlet.RESOURCE_SERVLET_REQUEST_FLAG) == Boolean.TRUE) {
+            return null;
         }
 
-        return createDynamicResource(resourceKey, true);
+        Resource mappedResource = resolveMappedResource(context, resourceKey);
+
+        if (mappedResource == null) {
+            return null;
+        }
+
+        resourceTracker.markResourceRendered(context, resourceKey);
+        ResourcePath path = new ResourcePath(mappedResource.getRequestPath());
+        for (ResourceKey key : mappedResourceFactory.getAggregatedResources(path)) {
+            resourceTracker.markResourceRendered(context, key);
+        }
+
+        return mappedResource;
+    }
+
+    private Resource resolveMappedResource(FacesContext context, ResourceKey resourceKey) {
+        // check whether we are not resolving given key (prevents infinite loop)
+        Deque<ResourceKey> mappedResourcesResolutionStack = getMappedResourcesResolutionStack(context);
+
+        if (mappedResourcesResolutionStack.contains(resourceKey)) {
+            return null;
+        }
+
+        mappedResourcesResolutionStack.push(resourceKey);
+        try {
+            return mappedResourceFactory.createResource(context, resourceKey);
+        } finally {
+            mappedResourcesResolutionStack.pop();
+        }
+    }
+
+    private Deque<ResourceKey> getMappedResourcesResolutionStack(FacesContext context) {
+        LinkedList<ResourceKey> list = (LinkedList<ResourceKey>) context.getAttributes().get(MAPPED_RESOURCES_RESOLUTION_STACK);
+        if (list == null) {
+            list = new LinkedList<ResourceKey>();
+            context.getAttributes().put(MAPPED_RESOURCES_RESOLUTION_STACK, list);
+        }
+        return list;
     }
 
     protected Resource createDynamicResource(ResourceKey resourceKey, boolean useDependencyInjection) {
@@ -432,6 +457,24 @@ public class ResourceFactoryImpl implements ResourceFactory {
         boolean versioned = isVersionedSet(resource.getClass());
 
         return new UserResourceWrapperImpl(resource, cacheable, versioned);
+    }
+
+    private static class MappedResourceData {
+        private ResourceKey resourceKey;
+        private Map<String, String> params;
+
+        public MappedResourceData(ResourceKey resourceKey, Map<String, String> params) {
+            this.resourceKey = resourceKey;
+            this.params = params;
+        }
+
+        public ResourceKey getResourceKey() {
+            return resourceKey;
+        }
+
+        public Map<String, String> getParams() {
+            return params;
+        }
     }
 
 }

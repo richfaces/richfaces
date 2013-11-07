@@ -41,7 +41,7 @@ public class LibraryResourceMapper implements ResourceMapper {
         String library = Strings.nullToEmpty(resourceKey.getLibraryName());
 
         if (resourceLibrary.equals(library)) {
-            return new ResourceServletMapping(new ResourcePath(resourceKey));
+            return new ResourceServletMapping(resourceKey);
         }
 
         return null;
