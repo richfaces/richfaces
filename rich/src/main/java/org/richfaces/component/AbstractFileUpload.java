@@ -44,7 +44,6 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.event.FileUploadListener;
-import org.richfaces.model.UploadedFile;
 import org.richfaces.renderkit.RenderKitUtils;
 
 /**
@@ -203,7 +202,7 @@ public abstract class AbstractFileUpload extends UIComponentBase {
             }
         }
         if (component != null) {
-            String resourcePath = RenderKitUtils.getResourcePath(context, "org.richfaces", "fileUploadProgress");
+            String resourcePath = RenderKitUtils.getResourcePath(context, "org.richfaces.dynamic", "fileUploadProgress");
             component.getAttributes().put("resource", resourcePath);
         }
 
