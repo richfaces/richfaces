@@ -44,6 +44,7 @@ import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.I18nProps;
+import org.richfaces.ui.output.progressBar.AbstractProgressBar;
 
 /**
  * <p> The &lt;r:fileUpload&gt; component allows the user to upload files to a server. It features multiple uploads,
@@ -187,8 +188,8 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
         UIComponent component = facets.get("progress");
         if (component == null) {
             try {
-                component = context.getApplication().createComponent(context, "org.richfaces.ProgressBar",
-                    "org.richfaces.ProgressBarRenderer");
+                component = context.getApplication().createComponent(context, AbstractProgressBar.COMPONENT_TYPE,
+                    "org.richfaces.ui.ProgressBarRenderer");
             } catch (FacesException e) {
                 // To work without ProgressBar.
             }
@@ -198,7 +199,7 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
             }
         }
         if (component != null) {
-            String resourcePath = RenderKitUtils.getResourcePath(context, "org.richfaces", "fileUploadProgress");
+            String resourcePath = RenderKitUtils.getResourcePath(context, "org.richfaces.dynamic", "fileUploadProgress");
             component.getAttributes().put("resource", resourcePath);
         }
     }
