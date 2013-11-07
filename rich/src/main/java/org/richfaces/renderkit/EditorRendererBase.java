@@ -21,6 +21,9 @@
  */
 package org.richfaces.renderkit;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -38,6 +41,8 @@ public class EditorRendererBase extends InputRendererBase {
 
     public static final String DEFAULT_WIDTH = "100%";
     public static final String DEFAULT_HEIGHT = "200px";
+
+    private Pattern DB_PATTERN = Pattern.compile("(^|.*[&|?])(db=[^&]*).*");
 
     public String resolveUnits(Object dimension) {
         String dim = (String) dimension;
@@ -58,8 +63,12 @@ public class EditorRendererBase extends InputRendererBase {
         Resource resource = facesContext.getApplication().getResourceHandler()
                 .createResource(resourceName, "org.richfaces.ckeditor");
         String requestPath = resource.getRequestPath();
-        String queryString = requestPath.substring(requestPath.lastIndexOf("db="));
-        String db = queryString.substring(0, queryString.indexOf('&'));
-        return "?" + db;
+
+        Matcher matcher = DB_PATTERN.matcher(requestPath);
+        if (matcher.matches()) {
+            return "?" + matcher.group(2);
+        } else {
+            return "";
+        }
     }
 }
