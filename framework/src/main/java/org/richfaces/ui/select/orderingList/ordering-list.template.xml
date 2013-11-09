@@ -29,18 +29,17 @@
         >
 
     <cc:interface>
-        <cdk:class>org.richfaces.ui.select.pickList.PickListRenderer</cdk:class>
-        <cdk:superclass>org.richfaces.ui.select.pickList.PickListRendererBase</cdk:superclass>
+        <cdk:class>org.richfaces.ui.select.orderingList.OrderingListRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.ui.select.SelectManyRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.SelectMany</cdk:component-family>
-        <cdk:renderer-type>org.richfaces.select.PickListRenderer</cdk:renderer-type>
-        <cdk:component-base-class>org.richfaces.ui.select.pickList.AbstractPickList</cdk:component-base-class>
+        <cdk:renderer-type>org.richfaces.select.OrderingListRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.ui.select.orderingList.AbstractOrderingList</cdk:component-base-class>
         <cdk:renders-children>true</cdk:renders-children>
 
         <cdk:resource-dependency library="bootstrap" name="bootstrap.css" />
         <cdk:resource-dependency library="font-awesome" name="font-awesome.css" />
         <cdk:resource-dependency library="io.richwidgets" name="select/select-list.css" />
         <cdk:resource-dependency library="io.richwidgets" name="select/ordering-list.css" />
-        <cdk:resource-dependency library="io.richwidgets" name="select/pick-list.css" />
 
         <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js" />
@@ -51,28 +50,19 @@
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.selectable.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.sortable.js" />
         <cdk:resource-dependency library="io.richwidgets" name="select/ordering-list.js" />
-        <cdk:resource-dependency library="io.richwidgets" name="select/pick-list.js" />
-        <cdk:resource-dependency library="org.richfaces" name="bridge/bridgeBase.js" />
-        <cdk:resource-dependency library="org.richfaces" name="bridge/select/pickListBridge.js" />
+        <cdk:resource-dependency library="org.richfaces" name="bridge/bridge-base.js" />
+        <cdk:resource-dependency library="org.richfaces" name="bridge/select/ordering-list-bridge.js" />
     </cc:interface>
 
     <cc:implementation>
 
-        <cdk:object type="java.util.List" name="clientSelectItems" value="#{getClientSelectItems(facesContext, component)}" />
-        <cdk:object type="java.util.Iterator" name="sourceSelectItems" value="#{getSourceSelectItems(clientSelectItems)}" />
-        <cdk:object type="java.util.Iterator" name="targetSelectItems" value="#{getTargetSelectItems(clientSelectItems)}" />
+        <cdk:object type="java.util.List" name="clientSelectItems" value="#{getClientSelectItems(facesContext, component)}"/>
 
         <div id="#{clientId}" cdk:passThrough="onclick ondblclick onkey* onmouse*">
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
-                    <ol id="#{clientId}SourceList" class="source">
-                        <c:forEach var="itemObject" items="#{sourceSelectItems}">
-                            <cdk:object name="item" type="org.richfaces.ui.select.ClientSelectItem" value="#{itemObject}" />
-                            <li data-key="#{item.convertedValue}">#{item.label}</li>
-                        </c:forEach>
-                    </ol>
-                    <ol id="#{clientId}TargetList" class="target">
-                        <c:forEach var="itemObject" items="#{targetSelectItems}">
+                    <ol id="#{clientId}List">
+                        <c:forEach var="itemObject" items="#{clientSelectItems}">
                             <cdk:object name="item" type="org.richfaces.ui.select.ClientSelectItem" value="#{itemObject}" />
                             <li data-key="#{item.convertedValue}">#{item.label}</li>
                         </c:forEach>
@@ -80,35 +70,26 @@
                 </c:when>
                 <c:otherwise>
                     <cdk:object name="columns" type="java.util.Iterator" value="#{component.columns()}" />
-                    <table id="#{clientId}SourceList" class="source">
+                    <table id="#{clientId}List">
                         <c:if test="#{columns != null and columns.hasNext()}">
                             <c:if test="#{isHeaderExists(facesContext, component)}">
                                 <cdk:renderFragment name="renderColumnHeaders" columns="#{columns}" />
                             </c:if>
-                            <cdk:renderFragment name="renderColumns" columns="#{columns}" clientSelectItems="#{sourceSelectItems}" />
+                            <cdk:renderFragment name="renderColumns" columns="#{columns}" clientSelectItems="#{clientSelectItems}"/>
                         </c:if>
-                    </table>
-                    <cdk:call expression="columns = component.columns()" />
-                    <table id="#{clientId}TargetList" class="target">
-                        <c:if test="#{columns != null and columns.hasNext()}">
-                            <c:if test="#{isHeaderExists(facesContext, component)}">
-                                <cdk:renderFragment name="renderColumnHeaders" columns="#{columns}" />
-                            </c:if>
-                            <cdk:renderFragment name="renderColumns" columns="#{columns}" clientSelectItems="#{targetSelectItems}" />
-                        </c:if>
+
                     </table>
                 </c:otherwise>
             </c:choose>
 
             <script>
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="disabled styleClass columnClasses orderable
-                        pickButtonsText:buttonsText orderButtonsText:buttonsText
-                        header:caption sourceHeader:sourceCaption targetHeader:targetCaption
-                        height:listHeight heightMin:minListHeight heightMax:maxListHeight" />
+                    <cdk:scriptOption attributes="disabled styleClass columnClasses buttonsText
+                        header:caption height:listHeight heightMin:minListHeight heightMax:maxListHeight" />
+                    <cdk:scriptOption name="clientId" value="#{clientId}" />
                     <cdk:scriptOption wrapper="eventHandler" attributes="change:onchange focus:onfocus blur:onblur" />
                 </cdk:scriptObject>
-                $(document.getElementById('#{clientId}')).pickListBridge(#{toScriptArgs(options)});
+                $(document.getElementById('#{clientId}List')).orderingListBridge(#{toScriptArgs(options)});
             </script>
         </div>
 
@@ -142,7 +123,7 @@
     <cdk:fragment name="renderColumns">
         <cc:interface>
             <cc:attribute name="columns" type="java.util.Iterator" />
-            <cc:attribute name="clientSelectItems" type="java.util.Iterator" />
+            <cc:attribute name="clientSelectItems" type="java.util.List" />
         </cc:interface>
         <cc:implementation>
             <tbody>

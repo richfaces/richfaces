@@ -22,8 +22,8 @@
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.menu.js" />
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.autocomplete.js" />
         <cdk:resource-dependency library="io.richwidgets" name="input/autocomplete.js" />
-        <cdk:resource-dependency library="org.richfaces" name="bridge/bridgeBase.js" />
-        <cdk:resource-dependency library="org.richfaces" name="bridge/input/autocompleteBridge.js" />
+        <cdk:resource-dependency library="org.richfaces" name="bridge/bridge-base.js" />
+        <cdk:resource-dependency library="org.richfaces" name="bridge/input/autocomplete-bridge.js" />
     </cc:interface>
 
     <cc:implementation>

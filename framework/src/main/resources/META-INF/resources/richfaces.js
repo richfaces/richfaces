@@ -687,7 +687,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
     /**
      * Detects whether the element has bound RichFaces component.
      *
-     * Supports detection of RichFaces 5 (bridgeBase.js) and RichFaces 4 (richfaces-base-component.js) components.
+     * Supports detection of RichFaces 5 (bridge-base.js) and RichFaces 4 (richfaces-base-component.js) components.
      */
     var isRichFacesComponent = function(element) {
       return $(element).data('rf.bridge') || rf.component(element);
