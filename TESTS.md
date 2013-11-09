@@ -41,9 +41,9 @@ Running particular framework test (on Chrome) from console:
     cd richfaces5/framework/
     mvn verify -Dintegration=jbossas71-remote -Dbrowser=chrome -Dreusable -DskipTests=true -Dtest=IT_RF12765
 
-You can also add following parameters to skip CDK build and/or Resource Optimization:
+You can also add following parameters to skip CDK build and/or Resource Optimization and/or disable unit tests:
 
-    -Dgeneration.skip -Doptimization.skip
+    -Dgeneration.skip -Doptimization.skip -DskipTests
 
 Framework Tests Overview
 ========================
