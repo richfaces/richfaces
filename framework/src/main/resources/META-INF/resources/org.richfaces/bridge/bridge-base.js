@@ -11,12 +11,12 @@
       this._registerCleanDomListener(this.element, this.options.pluginNames);
     },
 
-    destroy : function() {
+    _destroy : function() {
       this._unRegisterCleanDomListener();
     },
 
     _registerCleanDomListener : function(element, pluginNames) {
-      $('body').on("cleanDom.orderingList.bootstrap.RICH", function(event, ui) {
+      $('body').on("cleanDom.RICH", function(event, ui) {
         if ($.contains(ui.target, element)) {
           $.each(pluginNames, function() {
             var pluginName = this;
@@ -28,7 +28,7 @@
     },
 
     _unRegisterCleanDomListener : function() {
-      $('body').off("cleanDom.orderingList.bootstrap.RICH");
+      $('body').off("cleanDom.RICH");
     }
 
   });
