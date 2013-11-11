@@ -393,10 +393,10 @@ public abstract class ChartRendererBase extends RendererBase {
                     throw new FacesException(ex);
                 }
 
-            } else if (target instanceof AbstractXaxis) {
+            } else if (target instanceof AbstractXAxis) {
                 copyAttrs(target, chart, "x",
                         asList("min", "max", "pad", "label", "format"));
-            } else if (target instanceof AbstractYaxis) {
+            } else if (target instanceof AbstractYAxis) {
                 copyAttrs(target, chart, "y",
                         asList("min", "max", "pad", "label", "format"));
             }

@@ -30,9 +30,13 @@ import org.richfaces.cdk.annotations.Tag;
  * inside the &lt;r:series&lt; tag.
  * @author Lukas Macko
  */
-@JsfComponent(type = "org.richfaces.ui.output.Point", family = "org.richfaces.ui.output.ChartFamily", tag = @Tag(name = "point"))
+@JsfComponent(tag = @Tag(name = "point"))
 abstract class AbstractPoint extends
         javax.faces.component.UIComponentBase implements AxisAttributes {
+
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.output.Point";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.output.ChartFamily";
+
     /**
      * Value plotted on x-axis.
      */

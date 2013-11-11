@@ -27,6 +27,7 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Event;
 import org.richfaces.cdk.annotations.EventName;
@@ -40,8 +41,11 @@ import org.richfaces.cdk.annotations.TagType;
 /**
  * @author Lukas Macko
  */
-@JsfComponent(type = "org.richfaces.ui.output.Chart", family = "org.richfaces.ui.output.ChartFamily", renderer = @JsfRenderer(type = "org.richfaces.ui.output.ChartRenderer"), tag = @Tag(name = "chart", generate = true, type = TagType.Facelets), fires = { @Event(value = PlotClickEvent.class, listener = PlotClickListener.class) })
+@JsfComponent(tag = @Tag(type = TagType.Facelets, generate = true), renderer = @JsfRenderer(type = ChartRendererBase.RENDERER_TYPE), fires = { @Event(value = PlotClickEvent.class, listener = PlotClickListener.class) })
 public abstract class AbstractChart extends UIComponentBase {
+
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.output.Chart";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.output.ChartFamily";
 
     /**
      * Chart title shown above the chart.

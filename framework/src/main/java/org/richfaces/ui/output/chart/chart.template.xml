@@ -35,8 +35,8 @@
         <cdk:resource-dependency library="io.richwidgets" name="output/chart.css"/>
 
 		        
-        <cdk:resource-dependency library="org.richfaces" name="bridge/bridgeBase.js" />
-        <cdk:resource-dependency library="org.richfaces" name="bridge/output/chartBridge.js"/>
+        <cdk:resource-dependency library="org.richfaces" name="bridge/bridge-base.js" />
+        <cdk:resource-dependency library="org.richfaces" name="bridge/output/chart-bridge.js"/>
 		        
     </cc:interface>
 

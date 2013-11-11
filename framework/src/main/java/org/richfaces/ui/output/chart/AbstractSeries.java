@@ -23,6 +23,7 @@ package org.richfaces.ui.output.chart;
 
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -36,8 +37,11 @@ import org.richfaces.cdk.annotations.Tag;
  *
  * @author Lukas Macko
  */
-@JsfComponent(type = "org.richfaces.ui.output.Series", family = "org.richfaces.ui.output.ChartFamily", tag = @Tag(name = "series"))
+@JsfComponent(tag = @Tag(name = "series"))
 public abstract class AbstractSeries extends UIComponentBase {
+
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.output.Series";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.output.ChartFamily";
 
     /**
      * The attributes define type of a chart. Allowed values:

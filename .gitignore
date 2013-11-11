@@ -13,6 +13,7 @@ bower_components
 node_modules
 
 .factorypath
+.checkstyle
 
 # Selenium 
 log.txt

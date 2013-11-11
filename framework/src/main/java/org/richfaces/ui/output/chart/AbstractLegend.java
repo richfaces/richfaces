@@ -22,6 +22,7 @@
 package org.richfaces.ui.output.chart;
 
 import javax.faces.component.UIComponentBase;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
@@ -30,8 +31,11 @@ import org.richfaces.cdk.annotations.Tag;
  *
  * @author Lukas Macko
  */
-@JsfComponent(type = "org.richfaces.ui.output.Legend", family = "org.richfaces.ui.output.ChartFamily", tag = @Tag(name = "legend"))
+@JsfComponent(tag = @Tag(name = "legend"))
 public abstract class AbstractLegend extends UIComponentBase {
+
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.output.Legend";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.output.ChartFamily";
 
     /**
      * Chart legend position allowed values:
