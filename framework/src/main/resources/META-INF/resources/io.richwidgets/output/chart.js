@@ -163,6 +163,15 @@
 
           var ticks = [], keys = [], first = true, order = 0;
 
+          /**
+           * Labels are mapped to numbers 0,1,2...
+           * If a chart consists of multiple series values(from all series) with the same label
+           * are mapped to the (one number 0,1,2..) space of width 1.
+           * barWidth takes care of bars to not overlap
+           * @type {number}
+           */
+          var barWidth =  1 / (this.options.data.length + 1);
+
           for (var index in this.options.data) {//loop through data series
             var convertedData = [];
             var cnt = 0;
@@ -207,10 +216,11 @@
             }
           });
 
+
           //options for all bars
           this.options.bars = $.extend(this.options.bars, {
             show: true,
-            barWidth: 0.2,
+            barWidth: barWidth,
             align: 'center'
           });
         }

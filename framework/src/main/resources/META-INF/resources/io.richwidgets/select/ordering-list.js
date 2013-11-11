@@ -27,12 +27,24 @@
       /**
        * The height of the orderingList
        *
+       * 1. A String with appropriate units, eg.:
+       *        height: '120px'
+       *
+       * 2. An integer without any units, in which case the units of `px` are assumed.
+       *        height: 120
+       *
        * @property height
        * @type String
        */
       height: null,
       /**
        * The minimum height of the orderingList
+       *
+       * 1. A String with appropriate units, eg.:
+       *        heightMin: '120px'
+       *
+       * 2. An integer without any units, in which case the units of `px` are assumed:
+       *        heightMin: 120
        *
        * @property heightMin
        * @type String
@@ -41,6 +53,12 @@
       /**
        * The maximum height of the orderingList
        *
+       * 1. A String with appropriate units, eg.:
+       *        heightMax: '120px'
+       *
+       * 2. An integer without any units, in which case the units of `px` are assumed:
+       *        heightMax: 120
+
        * @property heightMax
        * @type String
        */
@@ -54,7 +72,7 @@
        */
       styleClass: null,
       /**
-       * A CSS class to be added to each column of the orderingList when table layout is used.
+       * A CSS class to be added to each column of the orderingList when table layout is used:
        * Multiple classes should be space separated
        *
        * @property columnClasses
@@ -482,11 +500,11 @@
      * @returns {Object} the items removed from the orderingList
      */
     remove: function (items) {
-      items.detach();
+      var removed = this.$pluginRoot.find(items).detach();
       var ui = this._uiHash();
       ui.movement = 'remove';
       this._trigger('change', {}, ui);
-      return items;
+      return removed;
     },
 
     /**
@@ -517,7 +535,7 @@
     /**
      * Retrieve the keys of all items in the orderingList
      *
-     * @method getOrderedElements
+     * @method getOrderedKeys
      * @returns {Array} An array of the keys of the selected elements
      */
     getOrderedKeys: function () {
@@ -568,7 +586,7 @@
           this._applyButtonsText(this.selectList.find('.btn-group-vertical'), value);
           break;
       }
-      $.Widget.prototype._setOption.apply(widget, arguments);
+      this._super(key, value);
     },
 
     _addDragListeners: function() {
