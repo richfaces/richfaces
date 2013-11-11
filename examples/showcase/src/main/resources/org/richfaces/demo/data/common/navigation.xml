@@ -439,7 +439,7 @@
     <group>
         <name>Output/Panels</name>
         <demos>
-        	<demo>
+        	<demo new="true">
                 <id>chart</id>
                 <name>r:chart</name>
                 <samples>
@@ -640,7 +640,7 @@
     <group>
         <name>Inputs</name>
         <demos>
-            <demo>
+            <demo new="true">
                 <id>autocomplete</id>
                 <name>r:autocomplete</name>
                 <samples>
@@ -759,7 +759,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo new="true">
                 <id>orderingList</id>
                 <name>r:orderingList</name>
                 <samples>
@@ -769,7 +769,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo>
+            <demo new="true">
                 <id>pickList</id>
                 <name>r:pickList</name>
                 <samples>
