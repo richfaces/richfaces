@@ -172,8 +172,8 @@ public abstract class ChartRendererBase extends RendererBase {
      * @param component
      * @return
      */
-    public JSONArray getData(FacesContext ctx, UIComponent component) {
-        return (JSONArray) component.getAttributes().get("data");
+    public JSONArray getChartData(FacesContext ctx, UIComponent component) {
+        return (JSONArray) component.getAttributes().get("chartData");
     }
 
     /**
@@ -192,7 +192,7 @@ public abstract class ChartRendererBase extends RendererBase {
                 .getCurrentInstance()), visitCallback);
 
         // store data to parent tag
-        component.getAttributes().put("data", visitCallback.getData());
+        component.getAttributes().put("chartData", visitCallback.getData());
 
         if (!visitCallback.isDataEmpty()) {
             component.getAttributes().put("charttype",

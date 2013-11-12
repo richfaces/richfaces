@@ -54,7 +54,7 @@
 	                                   $.extend({
 		                                    handlers: $.extend(#{toScriptArgs(events)}),
 		                                    particularSeriesHandlers: #{getParticularSeriesHandler(facesContext,component)},
-		                                    data: #{getData(facesContext,component)},
+		                                    data: #{getChartData(facesContext,component)},
 	                                    },
 	                                    #{getOpts(facesContext,component)}
 	                                   )
