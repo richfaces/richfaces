@@ -26,9 +26,6 @@ import java.util.Iterator;
 import org.jboss.arquillian.graphene.context.GrapheneContext;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -69,20 +66,7 @@ public final class Utils {
     }
 
     public static String getJSONValue(WebElement scriptElement, String property) {
-        Preconditions.checkNotNull(scriptElement, "The scriptElement cannot be null.");
-        Preconditions.checkNotNull(property, "The property cannot be null.");
-        String scriptText = getTextFromHiddenElement(scriptElement);
-        String json = scriptText.substring(scriptText.indexOf('{'), scriptText.indexOf('}') + 1);
-        JSONParser parser = new JSONParser();
-        String result = null;
-        try {
-            Object obj = parser.parse(json);
-            JSONObject jsonObj = (JSONObject) obj;
-            result = (String) jsonObj.get(property);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return result;
+        throw new UnsupportedOperationException("https://issues.jboss.org/browse/RF-13335");
     }
 
     public static Optional<String> getJSONValue2(WebElement scriptElement, String property) {
