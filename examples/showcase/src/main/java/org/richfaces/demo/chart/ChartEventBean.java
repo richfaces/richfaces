@@ -22,6 +22,7 @@
 
 package org.richfaces.demo.chart;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,8 +37,10 @@ import org.richfaces.ui.output.chart.PlotClickEvent;
 
 @ManagedBean
 @ViewScoped
-public class ChartEventBean {
+public class ChartEventBean implements Serializable{
 
+
+    private static final long serialVersionUID = 506812532467786866L;
     List<Country> countries;
     String msg;
 
