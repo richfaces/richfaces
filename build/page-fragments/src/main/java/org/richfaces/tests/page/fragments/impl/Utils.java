@@ -23,7 +23,6 @@ package org.richfaces.tests.page.fragments.impl;
 
 import java.util.Iterator;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.jboss.arquillian.graphene.context.GrapheneContext;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance;
@@ -50,11 +49,6 @@ public final class Utils {
 
     public static final By BY_BODY = By.tagName("body");
     public static final By BY_HTML = By.tagName("html");
-
-    private static final String JSON_KEY_TEMPLATE = "\"%s\":";
-    private static final String JSON_VALUES_DELIMITER = ",";
-    private static final String JSON_FUNCTION_ENDING = "}";
-    private static final String JSON_FUNCTION_START = "function";
 
     public static JavascriptExecutor getExecutorFromElement(WebElement element) {
         Preconditions.checkNotNull(element, "The element cannot be null.");
@@ -92,22 +86,7 @@ public final class Utils {
     }
 
     public static Optional<String> getJSONValue2(WebElement scriptElement, String property) {
-        Preconditions.checkNotNull(scriptElement, "The scriptElement cannot be null.");
-        Preconditions.checkNotNull(property, "The property cannot be null.");
-        String scriptText = getTextFromHiddenElement(scriptElement);
-        String keyPrefix = String.format(JSON_KEY_TEMPLATE, property);
-        int startIndex = scriptText.indexOf(keyPrefix);
-        if (startIndex == -1) {
-            return Optional.absent();
-        }
-        startIndex += keyPrefix.length();
-
-        boolean isFunction = scriptText.indexOf(JSON_FUNCTION_START, startIndex) != -1;
-        int endIndex = scriptText.indexOf(JSON_VALUES_DELIMITER, startIndex);
-        boolean isLastValue = endIndex == -1;
-        endIndex = (isLastValue ? (isFunction ? scriptText.indexOf(JSON_FUNCTION_ENDING, startIndex) + 1 : scriptText.length() - 1) : endIndex);
-        String value = scriptText.substring(startIndex, endIndex).replaceAll("\"", "");
-        return Optional.fromNullable((value == null ? null : StringEscapeUtils.unescapeJava(value)));
+        throw new UnsupportedOperationException("https://issues.jboss.org/browse/RF-13335");
     }
 
     /**

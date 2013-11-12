@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang.Validate;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.findby.ByJQuery;
@@ -37,6 +36,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.tests.page.fragments.impl.Utils;
+import org.richfaces.tests.page.fragments.impl.Validate;
 import org.richfaces.tests.page.fragments.impl.list.AbstractListComponent;
 import org.richfaces.tests.page.fragments.impl.list.ListItem;
 import org.richfaces.tests.page.fragments.impl.orderingList.AbstractSelectableListItem;
@@ -141,7 +141,7 @@ public class DayPicker {
         if (!isVisible()) {
             throw new RuntimeException("Cannot interact with DayPicker.");
         }
-        Validate.isTrue(weekFromActCalendar > 0 && weekFromActCalendar < 7);
+        Validate.isTrue(weekFromActCalendar > 0 && weekFromActCalendar < 7, "weekFromActCalendar needs to be an integer between 0 and 7");
         return getWeeks().get(weekFromActCalendar - 1);
     }
 
@@ -196,8 +196,8 @@ public class DayPicker {
         if (!isVisible()) {
             throw new RuntimeException("Cannot interact with DayPicker.");
         }
-        Validate.isTrue(day > 0 && day < 32);
-        Validate.isTrue(monthDays.size() >= day);
+        Validate.isTrue(day > 0 && day < 32, "day needs to be an integer between 0 and 32");
+        Validate.isTrue(monthDays.size() >= day, "given month has less days (%s) then provided day (%s)", monthDays.size(), day);
 
         String jq = "td[id*=DayCell]:not('.rf-cal-boundary-day'):not('.rf-cal-day-lbl'):contains('" + day + "')";
         Graphene.createPageFragment(CalendarDayImpl.class, root.findElement(ByJQuery.selector(jq))).select();
