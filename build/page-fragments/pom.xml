@@ -36,10 +36,13 @@
             <version>1.1.1</version>
         </dependency>
 
+        <!-- typetools is simple ASL dependency that we shade so we avoid need for download such a simple dependency -->
+        <!-- (shaded via shade plugin) -->
         <dependency>
             <groupId>org.jodah</groupId>
             <artifactId>typetools</artifactId>
             <version>0.3.0</version>
+            <optional>true</optional>
         </dependency>
         
         <!-- Testing dependencies -->
@@ -59,6 +62,36 @@
         <plugins>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+
+            <!-- we shade page-fragment dependencies so that they don't add any more dependencies required to be downloaded -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>shade-page-fragment-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>org.jodah</include>
+                                </includes>
+                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.jodah.typetools</pattern>
+                                    <shadedPattern>org.richfaces.fragments.org.jodah.typetools</shadedPattern>
+                                </relocation>
+                            </relocations>
+                            <createSourcesJar>true</createSourcesJar>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
