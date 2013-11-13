@@ -17,3 +17,7 @@ Copyright (C) 2005-2007 The Apache Software Foundation
 
 examples/showcase/src/main/java/org/richfaces/demo/ui/UAgentInfo.java
 Copyright (C) 2010-2012, Anthony Hand
+
+build/page-fragments/src/main/java/org/richfaces/fragment/common/TypeResolver.java
+contains source code from http://commons.apache.org/proper/commons-codec/
+Copyright (C) 2002-2013 the original author or authors.

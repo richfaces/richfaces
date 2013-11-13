@@ -24,8 +24,8 @@ package org.richfaces.fragment.panel;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.GrapheneElement;
 import org.jboss.arquillian.graphene.fragment.Root;
-import org.jodah.typetools.TypeResolver;
 import org.openqa.selenium.WebElement;
+import org.richfaces.fragment.common.TypeResolver;
 
 public abstract class AbstractPanel<HEADER, BODY> implements Panel<HEADER, BODY> {
 
