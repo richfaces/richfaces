@@ -103,7 +103,7 @@
             <script>
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption attributes="disabled styleClass columnClasses orderable
-                        pickButtonsText:buttonsText orderButtonsText:buttonsText
+                        pickButtonsText orderButtonsText
                         header:caption sourceHeader:sourceCaption targetHeader:targetCaption
                         height:listHeight heightMin:minListHeight heightMax:maxListHeight" />
                     <cdk:scriptOption wrapper="eventHandler" attributes="change:onchange focus:onfocus blur:onblur" />

@@ -27,11 +27,15 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.json.JSONException;
+import org.richfaces.json.JSONObject;
 import org.richfaces.ui.attribute.EventsKeyProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.MultiSelectProps;
 import org.richfaces.ui.select.AbstractOrderingComponent;
 import org.richfaces.ui.select.SelectItemsInterface;
+
+import javax.faces.FacesException;
 
 /**
  * <p>The &lt;r:pickList&gt; is a component for pick items in a list (client-side).</p>
@@ -86,6 +90,19 @@ public abstract class AbstractPickList extends AbstractOrderingComponent impleme
      */
     @Attribute(defaultValue = "⇐ Remove all")
     public abstract String getRemoveAllText();
+
+    /**
+     * Format the ordering buttons' text attributes as a JSON object
+     */
+    public String getPickButtonsText() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("addAll", getAddAllText()).put("add", getAddText()).put("remove", getRemoveText()).put("removeAll", getRemoveAllText());
+        } catch (JSONException e) {
+            throw new FacesException("Error converting Button text values to JSON", e);
+        }
+        return json.length() == 0 ? null : json.toString();
+    }
 
     /**
      * <p>if "true", then clicking an item moves it from one list to another</p>

@@ -63,9 +63,9 @@ public abstract class AbstractOrderingComponent extends AbstractSelectManyCompon
     public abstract String getDownBottomText();
 
     /**
-     * Format the button text attributes as a JSON object
+     * Format the ordering buttons' text attributes as a JSON object
      */
-    public String getButtonsText() {
+    public String getOrderButtonsText() {
         JSONObject json = new JSONObject();
         try {
             json.put("first", getUpTopText()).put("up", getUpText()).put("down", getDownText()).put("last", getDownBottomText());

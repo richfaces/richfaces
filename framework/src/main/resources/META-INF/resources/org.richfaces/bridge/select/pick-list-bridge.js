@@ -10,8 +10,11 @@
       $.rf.bridgeBase.prototype._create.call( this );
       var pickListOptions = $.extend({}, this.options, {});
 
-      if (pickListOptions.buttonsText) {
-          pickListOptions.buttonsText = $.parseJSON(pickListOptions.buttonsText);
+      if (pickListOptions.pickButtonsText) {
+          pickListOptions.pickButtonsText = $.parseJSON(pickListOptions.pickButtonsText);
+      }
+      if (pickListOptions.orderButtonsText) {
+          pickListOptions.orderButtonsText = $.parseJSON(pickListOptions.orderButtonsText);
       }
 
       this.element.pickList(pickListOptions);

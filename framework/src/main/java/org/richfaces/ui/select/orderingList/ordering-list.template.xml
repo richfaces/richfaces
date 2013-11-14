@@ -84,7 +84,7 @@
 
             <script>
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="disabled styleClass columnClasses buttonsText
+                    <cdk:scriptOption attributes="disabled styleClass columnClasses buttonsText:orderButtonsText
                         header:caption height:listHeight heightMin:minListHeight heightMax:maxListHeight" />
                     <cdk:scriptOption name="clientId" value="#{clientId}" />
                     <cdk:scriptOption wrapper="eventHandler" attributes="change:onchange focus:onfocus blur:onblur" />
