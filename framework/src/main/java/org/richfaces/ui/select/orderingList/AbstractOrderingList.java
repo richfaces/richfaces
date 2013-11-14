@@ -60,10 +60,4 @@ public abstract class AbstractOrderingList extends AbstractOrderingComponent imp
      */
     @Attribute()
     public abstract Object getItemLabel();
-
-    /**
-     * The text placed above the list of items
-     */
-    @Attribute
-    public abstract String getCaption();
 }
