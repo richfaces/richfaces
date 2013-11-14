@@ -58,7 +58,7 @@
 
         <cdk:object type="java.util.List" name="clientSelectItems" value="#{getClientSelectItems(facesContext, component)}"/>
 
-        <div id="#{clientId}" cdk:passThrough="onclick ondblclick onkey* onmouse*">
+        <div id="#{clientId}" cdk:passThrough="onclick ondblclick onkey* onmouse* style styleClass">
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
                     <ol id="#{clientId}List">
@@ -84,7 +84,7 @@
 
             <script>
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="disabled styleClass columnClasses buttonsText:orderButtonsText
+                    <cdk:scriptOption attributes="disabled columnClasses buttonsText:orderButtonsText
                         header:caption height:listHeight heightMin:minListHeight heightMax:maxListHeight" />
                     <cdk:scriptOption name="clientId" value="#{clientId}" />
                     <cdk:scriptOption wrapper="eventHandler" attributes="change:onchange focus:onfocus blur:onblur" />

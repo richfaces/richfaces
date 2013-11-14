@@ -26,7 +26,7 @@
       var clientId = this.element.attr('id');
       var hiddenInputId = clientId + this.options.hiddenInputSuffix;
       this.hiddenInput = $('<input type="hidden" />').attr('id', hiddenInputId).attr('name', clientId);
-      this.element.parents(".outer").first().append(this.hiddenInput);
+      this.element.append(this.hiddenInput);
       var ui = this.element.data('pickList')._uiHash();
       this._refreshInputValues(ui.pickedKeys);
     },
@@ -36,6 +36,20 @@
       this.element.on('picklistchange', function(event, ui) {
         bridge._refreshInputValues(ui.pickedKeys);
       });
+      if (this.options.onremoveitems && typeof(this.options.onremoveitems) == "function") {
+        this.element.on('picklistchange', function(event, ui) {
+          if (ui.change === 'remove') {
+            bridge.options.onremoveitems.call(this, event, ui);
+          }
+        });
+      }
+      if (this.options.onadditems && typeof(this.options.onadditems) == "function") {
+        this.element.on('picklistchange', function(event, ui) {
+          if (ui.change === 'add') {
+            bridge.options.onadditems.call(this, event, ui);
+          }
+        });
+      }
     },
 
     _refreshInputValues: function(pickedKeys) {

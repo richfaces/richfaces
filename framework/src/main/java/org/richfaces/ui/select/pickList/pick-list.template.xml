@@ -62,7 +62,7 @@
         <cdk:object type="java.util.Iterator" name="sourceSelectItems" value="#{getSourceSelectItems(clientSelectItems)}" />
         <cdk:object type="java.util.Iterator" name="targetSelectItems" value="#{getTargetSelectItems(clientSelectItems)}" />
 
-        <div id="#{clientId}" cdk:passThrough="onclick ondblclick onkey* onmouse*">
+        <div id="#{clientId}" cdk:passThrough="onclick ondblclick onkey* onmouse* style styleClass">
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
                     <ol id="#{clientId}SourceList" class="source">
@@ -102,11 +102,12 @@
 
             <script>
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="disabled styleClass columnClasses orderable
+                    <cdk:scriptOption attributes="disabled columnClasses orderable
                         pickButtonsText orderButtonsText
+                        switchByClick switchByDblClick
                         header:caption sourceHeader:sourceCaption targetHeader:targetCaption
                         height:listHeight heightMin:minListHeight heightMax:maxListHeight" />
-                    <cdk:scriptOption wrapper="eventHandler" attributes="change:onchange focus:onfocus blur:onblur" />
+                    <cdk:scriptOption wrapper="eventHandler" attributes="change:onchange focus:onfocus blur:onblur onadditems onremoveitems" />
                 </cdk:scriptObject>
                 $(document.getElementById('#{clientId}')).pickListBridge(#{toScriptArgs(options)});
             </script>
