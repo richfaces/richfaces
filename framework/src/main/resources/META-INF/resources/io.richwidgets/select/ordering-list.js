@@ -265,7 +265,9 @@
       }
       // if mouse ordering is disabled buttons have to be shown
       this._addDomElements();
-      this.widgetEventPrefix = this.options.widgetEventPrefix;
+      if (this.options.widgetEventPrefix) {
+        this.widgetEventPrefix = this.options.widgetEventPrefix;
+      }
       if (this.options.mouseOrderable === true) {
         this.$pluginRoot.sortable(this.sortableOptions);
       }

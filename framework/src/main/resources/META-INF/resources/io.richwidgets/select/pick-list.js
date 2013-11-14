@@ -184,7 +184,9 @@
     },
 
     _create: function () {
-      this.widgetEventPrefix = this.options.widgetEventPrefix;
+      if (this.options.widgetEventPrefix) {
+        this.widgetEventPrefix = this.options.widgetEventPrefix;
+      }
       this.sourceList = this.element.find('.source');
       this.targetList = this.element.find('.target');
       this._addDomElements();
