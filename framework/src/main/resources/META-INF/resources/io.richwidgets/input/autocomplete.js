@@ -412,7 +412,7 @@
         var widget = this;
 
         this.root.addClass('input-group');
-        this.button = $('<span class="input-group-btn"><button class="btn btn-light" type="button"><i class="icon-chevron-down"></button></i></span>').appendTo(this.root).find('button');
+        this.button = $('<span class="input-group-btn"><button class="btn btn-light" type="button"><i class="fa fa-chevron-down"></button></i></span>').appendTo(this.root).find('button');
 
         this.buttonClickHandler = function () {
           widget.input.autocomplete('search');
@@ -498,8 +498,8 @@
 
         if (this.button) {
           this.button.off('click', this.buttonClickHandler);
-          this.button.find('i').removeClass('icon-chevron-down');
-          this.button.find('i').addClass('icon-chevron-up');
+          this.button.find('i').removeClass('fa-chevron-down');
+          this.button.find('i').addClass('fa-chevron-up');
         }
       },
 
@@ -535,8 +535,8 @@
 
       close: function () {
         if (this.button) {
-          this.button.find('i').removeClass('icon-chevron-up');
-          this.button.find('i').addClass('icon-chevron-down');
+          this.button.find('i').removeClass('fa-chevron-up');
+          this.button.find('i').addClass('fa-chevron-down');
 
           // we must delay attaching of event handler because otherwise the click will happen
           // and the handler will be triggered right after closing the menu

@@ -8,8 +8,6 @@
 .select-list .content {
   display: table;
   border: 1px solid #e5e5e5;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
   padding-left: 2px;
   padding-right: 2px;
@@ -134,8 +132,6 @@
 }
 .select-list li {
   display: block;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
   border-radius: 5px;
   margin: 2px 0;
   padding-left: 7px;
@@ -181,8 +177,6 @@
   color: #ffffff;
 }
 .select-list tr.helper-item {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
   border-radius: 5px;
 }
 .select-list td.last,
@@ -215,15 +209,15 @@
   padding-left: 0.5em;
   padding-right: 0.5em;
 }
-.select-list .btn-group-vertical .icon-first:before {
+.select-list .btn-group-vertical .richicon-first:before {
   content: "\f102";
 }
-.select-list .btn-group-vertical .icon-up:before {
+.select-list .btn-group-vertical .richicon-up:before {
   content: "\f106";
 }
-.select-list .btn-group-vertical .icon-down:before {
+.select-list .btn-group-vertical .richicon-down:before {
   content: "\f107";
 }
-.select-list .btn-group-vertical .icon-last:before {
+.select-list .btn-group-vertical .richicon-last:before {
   content: "\f103";
 }

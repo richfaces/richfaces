@@ -237,7 +237,7 @@
 
       this._removeDomElements();
 
-      this.element.removeClass('inner').removeClass('row');
+      this.element.removeClass('inner');
       if (!this.element.attr('class')) {
         this.element.removeAttr('class');
       }
@@ -260,9 +260,7 @@
       if (this.options.disabled) { return; }
       this.targetList.orderingList('remove', items);
       this.sourceList.orderingList('add', items);
-      var ui = this._uiHash();
-      ui.change = 'remove';
-      this._trigger('change', event, ui);
+      // do not trigger an event here, as the pickList will trigger an event off of the underlying orderingList event
       return this;
     },
 
@@ -280,11 +278,16 @@
       if (this.options.disabled) { return; }
       this.sourceList.orderingList('remove', items);
       this.targetList.orderingList('add', items);
-      var ui = this._uiHash();
-      ui.change = 'add';
-      this._trigger('change', event, ui);
+      // do not trigger an event here, as the pickList will trigger an event off of the underlying orderingList event
       return this;
     },
+
+    /**
+     * Removes the pick list functionality completely. This will return the element back to its pre-init state.
+     *
+     * @method destroy
+     */
+    // method implemented in $.widget
 
 
     /** Initialisation methods **/
@@ -318,14 +321,14 @@
           widget._setHeightMax(value);
           break;
         case 'sourceHeader':
-          if (!widget.options.sourceHeader) {
-            widget._addSubHeader(value, this.options.targetHeader);
+          if (!widget.options.sourceHeader && !widget.options.targetHeader) {
+            widget._addSubHeader(value,  widget.options.targetHeader);
           }
           widget.outer.find('.sub-header-row .source').text(value);
           break;
         case 'targetHeader':
-          if (!widget.options.targetHeader) {
-            widget._addSubHeader(value, this.options.targetHeader);
+          if (!widget.options.sourceHeader && !widget.options.targetHeader) {
+            widget._addSubHeader(widget.options.sourceHeader, value);
           }
           widget.outer.find('.sub-header-row .target').text(value);
           break;
@@ -342,8 +345,8 @@
         case 'orderButtonsText':
           widget.targetList.orderingList('option', 'buttonsText', value);
           break;
-        case 'buttonsText':
-          this._applyButtonsText(this.outer.find('.middle .btn-group-vertical'), value);
+        case 'pickButtonsText':
+          this._applyButtonsText(this.outer.find('.middle .btn-group-picklist'), value);
           break;
         case 'switchByClick':
           if (value === true) {
@@ -366,7 +369,7 @@
 
     _addDomElements: function () {
       this._addParents();
-      var buttonColumn = $('<div />').addClass('middle button-column col-sm-1');
+      var buttonColumn = $('<div />').addClass('middle pick-button-column');
       buttonColumn.append(this._buttonStack());
       this.sourceList.parent().after(buttonColumn);
       this._trigger('addDomElements', undefined, {});
@@ -379,26 +382,26 @@
       buttonStack
         .append(
           button.clone()
-            .addClass('btn-add-all col-sm-12 col-xs-3')
-            .html('<i class="icon icon-right-all" />')
+            .addClass('btn-add-all')
+            .html('<i class="fa richicon-right-all" />')
             .on('click.pickList', $.proxy(this._addAllHandler, this))
         )
         .append(
           button.clone()
-            .addClass('btn-add col-sm-12 col-xs-3')
-            .html('<i class="icon icon-right" />')
+            .addClass('btn-add')
+            .html('<i class="fa richicon-right" />')
             .on('click.pickList', $.proxy(this._addHandler, this))
         )
         .append(
           button.clone()
-            .addClass('btn-remove col-sm-12 col-xs-3')
-            .html('<i class="icon icon-left" />')
+            .addClass('btn-remove')
+            .html('<i class="fa richicon-left" />')
             .on('click.pickList', $.proxy(this._removeHandler, this))
         )
         .append(
           button.clone()
-            .addClass('btn-remove-all col-sm-12 col-xs-3')
-            .html('<i class="icon icon-left-all" />')
+            .addClass('btn-remove-all')
+            .html('<i class="fa richicon-left-all" />')
             .on('click.pickList', $.proxy(this._removeAllHandler, this))
         );
       if (this.options.pickButtonsText) {
@@ -430,7 +433,7 @@
     },
 
     _addParents: function () {
-      this.element.addClass('row inner').wrap(
+      this.element.addClass('inner').wrap(
         $('<div />').addClass('container pick-list outer')
       );
       this.outer = this.element.parents('.outer').first();
@@ -444,10 +447,10 @@
         this._addSubHeader(this.options.sourceHeader, this.options.targetHeader);
       }
       this.sourceList.wrap(
-        $('<div />').addClass('source-wrapper col-sm-5')
+        $('<div />').addClass('source-wrapper')
       );
       this.targetList.wrap(
-        $('<div />').addClass('target-wrapper col-sm-6')
+        $('<div />').addClass('target-wrapper')
       );
       this.content = this.element;
       this.outer.attr('tabindex', '-1');
@@ -455,9 +458,9 @@
 
     _addSubHeader: function (sourceHeaderText, targetHeaderText) {
       if (sourceHeaderText || targetHeaderText) {
-        var subHeaderRow = $('<div />').addClass('row sub-header-row');
-        var sourceHeader = $('<div />').addClass('col-sm-5 source header').html(sourceHeaderText);
-        var targetHeader = $('<div />').addClass('col-sm-6 col-sm-offset-1 target header').html(targetHeaderText);
+        var subHeaderRow = $('<div />').addClass('sub-header-row');
+        var sourceHeader = $('<div />').addClass('source header').html(sourceHeaderText);
+        var targetHeader = $('<div />').addClass('target header').html(targetHeaderText);
         subHeaderRow.append(sourceHeader).append(targetHeader);
         var headerRow = this.outer.find('.header-row');
         if (headerRow.length !== 0) {
@@ -470,8 +473,8 @@
 
     _addHeader: function (headerText) {
       if (headerText) {
-        var headerRow = $('<div />').addClass('row header-row');
-        var header = $('<div />').addClass('col-xs-12 header').html(headerText);
+        var headerRow = $('<div />').addClass('header-row');
+        var header = $('<div />').addClass('header').html(headerText);
         headerRow.append(header);
         var subHeaderRow = this.outer.find('.sub-header-row');
         if (subHeaderRow.length !== 0) {
@@ -504,19 +507,12 @@
       this.sourceList.on('sortreceive', function (event, ui) {
         var newUi = widget._uiHash();
         newUi.change = 'remove';
-        newUi.originalEvent = event;
-        widget._trigger('change', event, newUi);
-      });
-      this.targetList.on('sortreceive', function (event, ui) {
-        var newUi = widget._uiHash();
-        newUi.change = 'add';
-        newUi.originalEvent = event;
         widget._trigger('change', event, newUi);
       });
       this.targetList.on('targetlist_change', function (event, ui) {
         var newUi = widget._uiHash();
-        newUi.change = 'sort';
-        newUi.originalEvent = event;
+        newUi.change = ui.change;
+        newUi.movement = ui.movement;
         widget._trigger('change', event, newUi);
       });
       if (this.options.switchByClick) {
@@ -572,14 +568,14 @@
       this.sourceList.orderingList('option', 'disabled', true);
       this.targetList.orderingList('option', 'disabled', true);
       this.element.addClass('disabled');
-      this.outer.find('.button-column button').attr('disabled', true);
+      this.outer.find('.pick-button-column button').attr('disabled', true);
     },
 
     _enable: function () {
       this.sourceList.orderingList('option', 'disabled', false);
       this.targetList.orderingList('option', 'disabled', false);
       this.element.removeClass('disabled');
-      this.outer.find('.button-column button').attr('disabled', false);
+      this.outer.find('.pick-button-column button').attr('disabled', false);
       this._registerListeners();
     },
 
