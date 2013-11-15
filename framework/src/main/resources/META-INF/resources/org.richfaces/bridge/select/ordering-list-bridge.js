@@ -5,6 +5,9 @@
     options : {
       clientId: null,
       hiddenInputSuffix: 'Input'
+      height: null,
+      heightMax: null,
+      heightMin: null
     },
 
     _create : function() {
@@ -14,6 +17,9 @@
       if (orderingListOptions.buttonsText) {
           orderingListOptions.buttonsText = $.parseJSON(orderingListOptions.buttonsText);
       }
+      this._addUnitsIfRequired(orderingListOptions, 'height');
+      this._addUnitsIfRequired(orderingListOptions, 'heightMax');
+      this._addUnitsIfRequired(orderingListOptions, 'heightMin');
 
       this.element.orderingList(orderingListOptions);
       this._addDomElements();

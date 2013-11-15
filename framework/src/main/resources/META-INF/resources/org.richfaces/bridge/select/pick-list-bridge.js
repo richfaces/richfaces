@@ -3,7 +3,10 @@
   $.widget('rf.pickListBridge', $.rf.bridgeBase, {
 
     options: {
-      hiddenInputSuffix: 'Input'
+      hiddenInputSuffix: 'Input',
+      height: null,
+      heightMax: null,
+      heightMin: null
     },
 
     _create : function() {
@@ -16,6 +19,10 @@
       if (pickListOptions.orderButtonsText) {
           pickListOptions.orderButtonsText = $.parseJSON(pickListOptions.orderButtonsText);
       }
+
+      this._addUnitsIfRequired(pickListOptions, 'height');
+      this._addUnitsIfRequired(pickListOptions, 'heightMax');
+      this._addUnitsIfRequired(pickListOptions, 'heightMin');
 
       this.element.pickList(pickListOptions);
       this._addDomElements();
