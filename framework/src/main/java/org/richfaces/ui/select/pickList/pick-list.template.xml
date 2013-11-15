@@ -62,7 +62,7 @@
         <cdk:object type="java.util.Iterator" name="sourceSelectItems" value="#{getSourceSelectItems(clientSelectItems)}" />
         <cdk:object type="java.util.Iterator" name="targetSelectItems" value="#{getTargetSelectItems(clientSelectItems)}" />
 
-        <div id="#{clientId}" cdk:passThrough="onclick ondblclick onkey* onmouse* style styleClass">
+        <div id="#{clientId}" cdk:passThrough="onclick ondblclick onkey* onmouse* style class:styleClass">
             <c:choose>
                 <c:when test="#{! hasColumnChildren(facesContext, component)}">
                     <ol id="#{clientId}SourceList" class="source">
