@@ -72,8 +72,16 @@
        */
       styleClass: null,
       /**
-       * A CSS class to be added to each column of the orderingList when table layout is used:
-       * Multiple classes should be space separated
+       * When _table_ layout is used,
+       * _columnClasses_ specifies a comma-delimited list of CSS style classes to apply to each column.
+       * A space separated list of classes may be specified for an individual column.
+       *
+       * If the number of classes in this list is less than the number of column children, then no class will be
+       * applied to the columns greater than the number of classes.  If however the final class in the list is the `*`
+       * character, the classes will instead be applied in a repeating manner every n-fold column, where n is the order
+       * the class in this list.
+       *
+       *  If there are more class names than columns, the overflow ones are ignored.
        *
        * @property columnClasses
        * @type String
@@ -762,14 +770,25 @@
     },
 
     _addColumnClassesToCells: function(cells, columnClassesString) {
-      var columnClasses = columnClassesString.split(' ');
+      var columnClasses = this._splitColumnClasses(columnClassesString);
+      var repeat = $.trim(columnClasses[columnClasses.length - 1]) === '*';
+      var length = repeat ? columnClasses.length - 1 : columnClasses.length;
       cells.each(function(count) {
-        if (count < columnClasses.length) {
-          $(this).addClass(columnClasses[count]);
+        if (repeat || count < columnClasses.length) {
+          var columnClass = columnClasses[count % length];
+          $(this).addClass(columnClass);
         } else {
           return false;
         }
       });
+    },
+
+    _splitColumnClasses: function(string) {
+      var array = string.split(',');
+      $.each(array, function(index, value) {
+        array[index] = $.trim(value);
+      });
+      return array;
     },
 
     _addButtons: function () {
@@ -1017,10 +1036,13 @@
     },
 
     _removeColumnClassesFromCells: function(cells, columnClassesString) {
-      var columnClasses = columnClassesString.split(' ');
+      var columnClasses = this._splitColumnClasses(columnClassesString);
+      var repeat = $.trim(columnClasses[columnClasses.length - 1]) === '*';
+      var length = repeat ? columnClasses.length - 1 : columnClasses.length;
       cells.each(function(count) {
-        if (count < columnClasses.length) {
-          $(this).removeClass(columnClasses[count]);
+        if (repeat || count < columnClasses.length) {
+          var columnClass = columnClasses[count % length];
+          $(this).removeClass(columnClass);
         } else {
           return false;
         }
