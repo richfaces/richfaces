@@ -55,10 +55,6 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
     private WebElement iconElement;
     @FindBy(css = ".rf-trn > .rf-trn-cnt > .rf-trn-lbl")
     private WebElement labelElement;
-    @FindByJQuery(".rf-trn > .rf-trn-cnt > .rf-trn-lbl[onclick]")
-    private WebElement elementForSelection;
-    @FindByJQuery(".rf-trn > .rf-trn-cnt > .rf-trn-lbl >*[onclick]")
-    private WebElement innerElementForSelection;
 
     @Drone
     private WebDriver driver;
@@ -70,9 +66,19 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
         return interactions;
     }
 
+    /**
+     * Override this method in case, that tree nodes have different element
+     * for interaction (select, collapse, expand) than the label element.
+     */
+    protected WebElement getCorrectElementForInteraction() {
+        return labelElement;
+    }
+
     @Override
     protected int getIndexOfPickedElement(ChoicePicker picker) {
-        // because the treeNode has an extra element at first index, we have to decrease the index by 1
+        // the index of picked element is returned through jQuery function,
+        // but because the treeNode has an extra child element at first index,
+        // which is not a subnode, we have to decrease the index by 1.
         return super.getIndexOfPickedElement(picker) - 1;
     }
 
@@ -111,16 +117,6 @@ public class RichFacesTreeNode extends RichFacesTree implements Tree.TreeNode {
         @Override
         public WebElement getContainerElement() {
             return containerElement;
-        }
-
-        /**
-         * We have to get correct element, which is by default the label element,
-         * but when there is a panel inside the node, the interaction point is moved to that panel.
-         * When the label element has onclick action (unchangeable event for selection), then return the label element,
-         * otherwise return a child (with onclick action) of that label.
-         */
-        private WebElement getCorrectElementForInteraction() {
-            return Utils.isVisible(elementForSelection) ? elementForSelection : innerElementForSelection;
         }
 
         @Override
