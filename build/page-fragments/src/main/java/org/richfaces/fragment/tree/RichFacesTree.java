@@ -59,7 +59,7 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
 
     @Override
     public TreeNode collapseNode(ChoicePicker picker) {
-        return childNodes.get(getIndexOfPickedElement(picker)).advanced().collapse();
+        return getChildNodes().get(getIndexOfPickedElement(picker)).advanced().collapse();
     }
 
     @Override
@@ -69,10 +69,10 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
 
     @Override
     public TreeNode expandNode(ChoicePicker picker) {
-        return childNodes.get(getIndexOfPickedElement(picker)).advanced().expand();
+        return getChildNodes().get(getIndexOfPickedElement(picker)).advanced().expand();
     }
 
-    protected List<RichFacesTreeNode> getChildNodes() {
+    protected List<? extends TreeNode> getChildNodes() {
         return Collections.unmodifiableList(childNodes);
     }
 
@@ -81,10 +81,10 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
     }
 
     protected int getIndexOfPickedElement(ChoicePicker picker) {
-        if (childNodesElements.isEmpty()) {
+        if (getChildNodesElements().isEmpty()) {
             throw new RuntimeException("Cannot find child node, because there are no child nodes.");
         }
-        return Utils.getIndexOfElement(picker.pick(childNodesElements));
+        return Utils.getIndexOfElement(picker.pick(getChildNodesElements()));
     }
 
     @Override
@@ -94,7 +94,7 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
 
     @Override
     public TreeNode selectNode(ChoicePicker picker) {
-        return childNodes.get(getIndexOfPickedElement(picker)).advanced().select();
+        return getChildNodes().get(getIndexOfPickedElement(picker)).advanced().select();
     }
 
     public class AdvancedTreeInteractionsImpl implements Tree.AdvancedTreeInteractions {
@@ -112,7 +112,7 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
         @Override
         public List<? extends TreeNode> getLeafNodes() {
             List<TreeNode> result = Lists.newArrayList();
-            for (TreeNode treeNode : childNodes) {
+            for (TreeNode treeNode : getChildNodes()) {
                 if (treeNode.advanced().isLeaf()) {
                     result.add(treeNode);
                 }
@@ -122,13 +122,13 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
 
         @Override
         public List<? extends TreeNode> getNodes() {
-            return Collections.unmodifiableList(childNodes);
+            return getChildNodes();
         }
 
         @Override
         public List<? extends TreeNode> getNodesCollapsed() {
             List<TreeNode> result = Lists.newArrayList();
-            for (TreeNode treeNode : childNodes) {
+            for (TreeNode treeNode : getChildNodes()) {
                 if (treeNode.advanced().isCollapsed()) {
                     result.add(treeNode);
                 }
@@ -138,13 +138,13 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
 
         @Override
         public List<WebElement> getNodesElements() {
-            return Collections.unmodifiableList(childNodesElements);
+            return getChildNodesElements();
         }
 
         @Override
         public List<? extends TreeNode> getNodesExpanded() {
             List<TreeNode> result = Lists.newArrayList();
-            for (TreeNode treeNode : childNodes) {
+            for (TreeNode treeNode : getChildNodes()) {
                 if (treeNode.advanced().isExpanded()) {
                     result.add(treeNode);
                 }
@@ -160,7 +160,7 @@ public class RichFacesTree implements Tree, AdvancedInteractions<RichFacesTree.A
         @Override
         public List<? extends TreeNode> getSelectedNodes() {
             List<TreeNode> result = Lists.newArrayList();
-            for (TreeNode treeNode : childNodes) {
+            for (TreeNode treeNode : getChildNodes()) {
                 if (treeNode.advanced().isSelected()) {
                     result.add(treeNode);
                 }

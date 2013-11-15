@@ -52,7 +52,7 @@ import com.google.common.base.Predicate;
  */
 public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions<RichFacesAutocomplete.AdvancedAutocompleteInteractions> {
 
-    private static final String SUGGESTIONS_CSS_SELECTOR_TEMPLATE = "ul.ui-autocomplete li.ui-menu-item";
+    private static final String SUGGESTIONS_CSS_SELECTOR = "ul.ui-autocomplete li.ui-menu-item";
     private static final String CSS_INPUT = "input[type='text']";
 
     @Drone
@@ -118,9 +118,7 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions
         }
 
         public List<WebElement> getSuggestionsElements() {
-            String id = root.getAttribute("id");
-            String selectorOfRoot = String.format(SUGGESTIONS_CSS_SELECTOR_TEMPLATE, id);
-            List<WebElement> foundElements = driver.findElements(By.cssSelector(selectorOfRoot));
+            List<WebElement> foundElements = driver.findElements(By.cssSelector(SUGGESTIONS_CSS_SELECTOR));
             if (!foundElements.isEmpty() && foundElements.get(0).isDisplayed()) { // prevent
                                                                                   // returning
                                                                                   // of
@@ -129,7 +127,7 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions
                 // elements
                 return Collections.unmodifiableList(foundElements);
             } else {
-                return Collections.EMPTY_LIST;
+                return Collections.emptyList();
             }
         }
 
@@ -206,7 +204,7 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions
 
         @Override
         public Autocomplete confirm() {
-            new Actions(driver).sendKeys(Keys.RETURN).click(driver.findElement(Utils.BY_BODY)).perform();
+            new Actions(driver).sendKeys(Keys.RETURN).click(driver.findElement(By.cssSelector("body"))).perform();
             advanced().waitForSuggestionsToBeNotVisible().perform();
             return RichFacesAutocomplete.this;
         }
@@ -227,9 +225,8 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions
             if (advanced().getScrollingType() == ScrollingType.BY_KEYS) {
                 selectWithKeys(foundValue);
             } else {
-                foundValue.click();
+                new Actions(driver).moveToElement(foundValue).click(foundValue).perform();
             }
-
             advanced().waitForSuggestionsToBeNotVisible().perform();
             return RichFacesAutocomplete.this;
         }
