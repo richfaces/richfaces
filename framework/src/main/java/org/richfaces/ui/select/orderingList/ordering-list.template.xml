@@ -89,7 +89,7 @@
                     <cdk:scriptOption name="clientId" value="#{clientId}" />
                     <cdk:scriptOption wrapper="eventHandler" attributes="change:onchange focus:onfocus blur:onblur" />
                 </cdk:scriptObject>
-                $(document.getElementById('#{clientId}List')).orderingListBridge(#{toScriptArgs(options)});
+                RichFaces.jQuery(document.getElementById('#{clientId}List')).orderingListBridge(#{toScriptArgs(options)});
             </script>
         </div>
 

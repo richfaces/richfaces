@@ -41,7 +41,7 @@
                     <cdk:scriptOption wrapper="eventHandler" attributes="select:onselectitem select:onselect change:onchange close:onclose focus:onfocus open:onopen response:onresponse search:onsearch" />
                     <cdk:scriptOption name="filter" value="#{this.getClientFilterFunction(component)}" />
                 </cdk:scriptObject>
-                $(document.getElementById('#{clientId}')).autocompleteBridge(#{toScriptArgs(options)});
+                RichFaces.jQuery(document.getElementById('#{clientId}')).autocompleteBridge(#{toScriptArgs(options)});
             </script>
         </div>
     </cc:implementation>
