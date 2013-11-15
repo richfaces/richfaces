@@ -41,19 +41,6 @@ import org.richfaces.util.HtmlUtil;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  *
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "common/jquery.position.js"),
-        @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(library = "org.richfaces", name = "common/richfaces-utils.js"),
-        @ResourceDependency(library = "org.richfaces", name = "common/richfaces-selection.js"),
-        @ResourceDependency(library = "org.richfaces", name = "common/inputBase.js"),
-        @ResourceDependency(library = "org.richfaces", name = "common/popup.js"),
-        @ResourceDependency(library = "org.richfaces", name = "select/list.js"),
-        @ResourceDependency(library = "org.richfaces", name = "select/listMulti.js"),
-        @ResourceDependency(library = "org.richfaces", name = "select/popupList.js"),
-        @ResourceDependency(library = "org.richfaces", name = "pickList.js"),
-        @ResourceDependency(library = "org.richfaces", name = "pickList.ecss")})
 public class SelectManyRendererBase extends InputRendererBase {
     private static final String HIDDEN_SUFFIX = "Hidden";
 
