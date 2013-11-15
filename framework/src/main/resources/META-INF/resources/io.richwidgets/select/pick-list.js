@@ -109,9 +109,9 @@
        *
        * @property switchByDblClick
        * @type Boolean
-       * @default false
+       * @default true
        */
-      switchByDblClick: false,
+      switchByDblClick: true,
       /**
        * When true, elements in the target list can be re-ordered
        *
