@@ -4,7 +4,7 @@
 
     options : {
       clientId: null,
-      hiddenInputSuffix: 'Input'
+      hiddenInputSuffix: 'Input',
       height: null,
       heightMax: null,
       heightMin: null
