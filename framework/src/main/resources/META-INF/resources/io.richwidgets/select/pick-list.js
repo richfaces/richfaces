@@ -436,7 +436,7 @@
 
     _addParents: function () {
       this.element.addClass('inner').wrap(
-        $('<div />').addClass('container pick-list outer')
+        $('<div />').addClass('pick-list outer')
       );
       this.outer = this.element.parents('.outer').first();
       if (this.options.styleClass) {
@@ -463,7 +463,7 @@
         var subHeaderRow = $('<div />').addClass('sub-header-row');
         var sourceHeader = $('<div />').addClass('source header').html(sourceHeaderText);
         var targetHeader = $('<div />').addClass('target header').html(targetHeaderText);
-        subHeaderRow.append(sourceHeader).append(targetHeader);
+        subHeaderRow.append(sourceHeader).append('<div class="middle" />').append(targetHeader);
         var headerRow = this.outer.find('.header-row');
         if (headerRow.length !== 0) {
           subHeaderRow.insertAfter(headerRow);
