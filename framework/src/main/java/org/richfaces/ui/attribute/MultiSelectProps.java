@@ -63,7 +63,15 @@ public interface MultiSelectProps {
     String getMaxListHeight();
 
     /**
-     * Space-separated list of CSS style class(es) to be applied to the columns of the list elements. This value must be passed through as the "class" attribute on generated markup.
+     * columnClasses specifies a comma-delimited list of CSS style classes to apply to each column.
+     * A space separated list of classes may be specified for an individual column.
+     *
+     * If the number of classes in this list is less than the number of column children, then no class will be
+     * applied to the columns greater than the number of classes.  If however the final class in the list is the `*`
+     * character, the classes will instead be applied in a repeating manner every n-fold column, where n is the order
+     * the class in this list.
+     *
+     *  If there are more class names than columns, the overflow ones are ignored.
      */
     @Attribute
     String getColumnClasses();
