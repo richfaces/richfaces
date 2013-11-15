@@ -109,7 +109,7 @@
                         height:listHeight heightMin:minListHeight heightMax:maxListHeight" />
                     <cdk:scriptOption wrapper="eventHandler" attributes="change:onchange focus:onfocus blur:onblur onadditems onremoveitems" />
                 </cdk:scriptObject>
-                $(document.getElementById('#{clientId}')).pickListBridge(#{toScriptArgs(options)});
+                RichFaces.jQuery(document.getElementById('#{clientId}')).pickListBridge(#{toScriptArgs(options)});
             </script>
         </div>
 

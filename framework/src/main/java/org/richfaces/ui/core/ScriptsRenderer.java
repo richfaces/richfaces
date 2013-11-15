@@ -66,7 +66,7 @@ public class ScriptsRenderer extends ResourceRenderer {
             responseWriter.writeText("\n", null);
         }
         if (!pageReadyScripts.isEmpty()) {
-            responseWriter.writeText("$(document).ready(function() {\n", null);
+            responseWriter.writeText("RichFaces.jQuery(document).ready(function() {\n", null);
             for (Object script : pageReadyScripts) {
                 ScriptUtils.writeToStream(responseWriter, script);
                 responseWriter.writeText("\n", null);

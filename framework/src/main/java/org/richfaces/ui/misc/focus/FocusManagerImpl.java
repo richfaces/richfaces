@@ -35,7 +35,7 @@ import org.richfaces.util.RendererUtils;
 
 public class FocusManagerImpl implements FocusManager {
 
-    private static final String SCRIPT = "$(document.getElementById('%s')).focus();";
+    private static final String SCRIPT = "RichFaces.jQuery(document.getElementById('%s')).focus();";
     private static final Logger LOG = RichfacesLogger.APPLICATION.getLogger();
 
     @Override
