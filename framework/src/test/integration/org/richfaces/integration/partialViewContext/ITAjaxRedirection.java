@@ -87,8 +87,8 @@ public class ITAjaxRedirection {
         FaceletAsset p = new FaceletAsset();
 
         p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
-        p.head("<h:outputScript name='jquery.js' />");
-        p.head("<h:outputScript name='richfaces.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 
         p.form("<h:panelGroup id='panel'>");
         p.form("    <h:commandButton id='button' action='redirected?faces-redirect=true'>");

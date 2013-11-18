@@ -45,7 +45,7 @@ public class ScriptsRenderer extends ResourceRenderer {
     private static final String SRC = "src";
     private static final String TYPE = "type";
     private static final String SCRIPT = "script";
-    private static final ResourceKey JQUERY = ResourceKey.create("jquery.js", null);
+    private static final ResourceKey JQUERY = ResourceKey.create("jquery.js", "org.richfaces");
 
     @Override
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {

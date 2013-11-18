@@ -36,7 +36,7 @@
 
         <cdk:resource-dependency library = "org.richfaces" name = "ajax.reslib" />
         <cdk:resource-dependency library = "org.richfaces" name = "base-component.reslib" />
-        <cdk:resource-dependency name="richfaces-event.js" />
+        <cdk:resource-dependency library = "org.richfaces" name = "richfaces-event.js" />
         <cdk:resource-dependency library = "org.richfaces" name = "menu/menu/menuitem.js" />
         <cdk:import package="org.richfaces.util" names="RendererUtils" />
     </cc:interface>

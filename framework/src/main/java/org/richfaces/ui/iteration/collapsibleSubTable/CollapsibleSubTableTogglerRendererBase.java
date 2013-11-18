@@ -45,7 +45,7 @@ import java.util.Map;
  */
 @JsfRenderer(type = "org.richfaces.ui.CollapsibleSubTableTogglerRenderer", family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY)
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library="org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "iteration/collapsibleSubTable/collapsible-subtable-toggler.js"),
         @ResourceDependency(library = "org.richfaces", name = "iteration/collapsibleSubTable/collapsible-subtable.ecss") })
 public abstract class CollapsibleSubTableTogglerRendererBase extends RendererBase {

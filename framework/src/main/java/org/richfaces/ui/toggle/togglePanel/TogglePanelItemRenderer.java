@@ -47,7 +47,7 @@ import org.richfaces.ui.toggle.AbstractTogglePanelItemInterface;
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library="org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/togglePanel/togglePanelItem.js") })
 @JsfRenderer(type = "org.richfaces.ui.TogglePanelItemRenderer", family = AbstractTogglePanelItem.COMPONENT_FAMILY)
 public class TogglePanelItemRenderer extends DivPanelRenderer {

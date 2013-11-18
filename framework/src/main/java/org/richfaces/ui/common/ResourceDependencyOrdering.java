@@ -39,43 +39,43 @@ public class ResourceDependencyOrdering {
 
     @ResourceDependencies({
             @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-            @ResourceDependency(name = "jquery.js"),
-            @ResourceDependency(name = "richfaces.js"),
-            @ResourceDependency(name = "richfaces-queue.js")
+            @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+            @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+            @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.js")
     })
     public static class AjaxReslib{}
 
     @ResourceDependencies({
             @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-            @ResourceDependency(name = "jquery.js"),
-            @ResourceDependency(name = "richfaces.js"),
+            @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+            @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
             @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js")
     })
     public static class BaseComponentResLib{}
 
     @ResourceDependencies({
-            @ResourceDependency(name = "jquery.js"),
-            @ResourceDependency(name = "richfaces.js"),
+            @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+            @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
             @ResourceDependency(library = "org.richfaces", name = "richfaces-csv.js")
     })
     public static class CsvReslib{}
 
     @ResourceDependencies({
             @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-            @ResourceDependency(name = "jquery.js"),
-            @ResourceDependency(name = "richfaces.js"),
+            @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+            @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
             @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js"),
-            @ResourceDependency(name = "richfaces-event.js"),
+            @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
             @ResourceDependency(library = "org.richfaces:message/message/", name = "message.js"),
     })
     public static class MessageReslib{}
 
     @ResourceDependencies({
             @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-            @ResourceDependency(name = "jquery.js"),
-            @ResourceDependency(name = "richfaces.js"),
+            @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+            @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
             @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js"),
-            @ResourceDependency(name = "richfaces-event.js"),
+            @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
             @ResourceDependency(library = "org.richfaces:message/notify/", name = "notifyMessage.js"),
             @ResourceDependency(library = "jquery.plugins:", name = "jquery.pnotify.js"),
             @ResourceDependency(library = "org.richfaces:message/notify/", name = "notify.js"),

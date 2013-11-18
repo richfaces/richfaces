@@ -57,7 +57,7 @@ import org.richfaces.util.HtmlUtil;
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library="org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/togglePanel/togglePanel.js") })
 @JsfRenderer(type = "org.richfaces.ui.TogglePanelRenderer", family = AbstractTogglePanel.COMPONENT_FAMILY)
 public class TogglePanelRenderer extends DivPanelRenderer implements MetaComponentRenderer {
