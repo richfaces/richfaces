@@ -121,7 +121,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('copy-resources', ['clean:resources', 'copy']);
 
-  grunt.registerTask('dist', ['clean:bower', 'exec:bowerInstall', 'subgrunt:richwidgets', 'copy-resources']);
+  grunt.registerTask('dist', ['clean:bower', 'exec:bowerInstall', 'copy-resources']);
 
   // Default task.
   grunt.registerTask('default', ['dist']);
