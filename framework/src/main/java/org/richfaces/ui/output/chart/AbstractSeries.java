@@ -103,7 +103,7 @@ public abstract class AbstractSeries extends UIComponentBase {
      * implemented yet.
      */
     @Attribute(signature = @Signature(parameters = PlotClickEvent.class))
-    public abstract MethodExpression getClickListener();
+    public abstract MethodExpression getPlotClickListener();
 
     /**
      * Point symbols for line chart

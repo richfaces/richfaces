@@ -93,14 +93,14 @@ public abstract class AbstractChart extends UIComponentBase {
      * Server-side listener for plotclick event.
      */
     @Attribute(signature = @Signature(parameters = PlotClickEvent.class))
-    public abstract MethodExpression getClickListener();
+    public abstract MethodExpression getPlotClickListener();
 
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
 
         if (event instanceof PlotClickEvent) {
             FacesContext context = getFacesContext();
-            MethodExpression expression = getClickListener();
+            MethodExpression expression = getPlotClickListener();
 
             if (expression != null) {
                 expression.invoke(context.getELContext(),
