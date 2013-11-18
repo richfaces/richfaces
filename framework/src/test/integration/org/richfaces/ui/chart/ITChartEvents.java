@@ -28,6 +28,7 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 
 import category.Failing;
+import category.FailingOnFirefox;
 
 
 @RunWith(Arquillian.class)
@@ -99,10 +100,11 @@ public class ITChartEvents {
 
 	@RunAsClient
 	@Test
-	@Category(Failing.class)
+	@Category({Failing.class, FailingOnFirefox.class})
 	public void ClientSideClick(){
 		browser.get(deploymentUrl.toExternalForm());
 
+		//click the first point in the first series of the chart
 		Action click = builder.moveToElement(chartCanvas,
 				chtestjs.pointXPos("frm:chart", 0, 0),
 				chtestjs.pointYPos("frm:chart", 0, 0))
@@ -128,12 +130,13 @@ public class ITChartEvents {
 
 	@RunAsClient
 	@Test
-	@Category(Failing.class)
+	@Category({Failing.class,FailingOnFirefox.class})
 	public void ServerSideClick(){
 		browser.get(deploymentUrl.toExternalForm());
 
 		String before = msg.getText();
 
+		//click the first point in the first series of the chart
 		int x = chtestjs.pointXPos("frm:chart", 0, 0);
 		int y = chtestjs.pointYPos("frm:chart", 0, 0);
 

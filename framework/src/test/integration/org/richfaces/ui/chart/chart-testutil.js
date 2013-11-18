@@ -1,10 +1,6 @@
 window.charttestutil = {
 
    //suffix chart is added automatically to ID		
-   hello : function() {
-	  return "Hello World!";
-   },
-
    seriesLength : function(id){
 	  return $(document.getElementById(id+'Chart')).chart("option","data").length;
    },
