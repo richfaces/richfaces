@@ -24,22 +24,16 @@ package org.richfaces.resource.optimizer.skin;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceFactory;
-import org.richfaces.resource.optimizer.faces.CurrentResourceContext;
 import org.richfaces.skin.Skin;
 
 /**
- * 
+ *
  * @author mpetrov
- * 
+ *
  */
-
 public class SkinWrapper implements Skin {
 
     private Skin skin;
-
-    private static final String SKINNING = "skinning.ecss";
-    private static final String SKINNING_BOTH = "skinning_both.ecss";
-    private static final String SKINNING_CLASSES = "skinning_classes.ecss";
 
     public SkinWrapper(Skin skin) {
         this.skin = skin;
@@ -90,19 +84,9 @@ public class SkinWrapper implements Skin {
         return skin.getName();
     }
 
-    private boolean isControlSkinning(String resourceName) {
-        return resourceName.equals(SKINNING) || resourceName.equals(SKINNING_BOTH) || resourceName.equals(SKINNING_CLASSES);
-    }
-
     @Override
     public String imageUrl(String resourceName) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        CurrentResourceContext crc = (CurrentResourceContext) facesContext.getAttributes().get(CurrentResourceContext.class);
-
-        String sourceResourceName = crc.getResource().getResourceName();
-
-        return isControlSkinning(sourceResourceName) ? skin.imageUrl(resourceName).replace(
-            ResourceFactory.SKINNED_RESOURCE_PREFIX, "") : skin.imageUrl(resourceName).replace(
+        return skin.imageUrl(resourceName).replace(
             ResourceFactory.SKINNED_RESOURCE_PLACEHOLDER, "..");
     }
 

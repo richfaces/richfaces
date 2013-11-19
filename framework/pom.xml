@@ -48,8 +48,9 @@
         <optimized.resources.mapping>${optimized.resources.directory}/META-INF/richfaces/optimizedResourcesMapping</optimized.resources.mapping>
         <optimized.resources.skins>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,plain,DEFAULT,NULL</optimized.resources.skins>
         <optimized.resources.exclusions>(^\Qjavax.faces\E|^\Qorg.richfaces.ui.images.\E|^\Qorg.richfaces.ui.iconimages.\E|^\Qorg.richfaces.optimized.\E|^\Qorg.richfaces.ui.ckeditor\E|^\Qfont-awesome\E|^\Qbootstrap\E|^\Qio.richwidgets:richwidgets.min.\E)</optimized.resources.exclusions>
-        <optimized.resources.packedCoreExclusions>^.+:(?!jquery-atmosphere\.js)</optimized.resources.packedCoreExclusions>
-        <optimized.resources.packedUiExclusions>(^[^:]+$|jquery-atmosphere\.js)</optimized.resources.packedUiExclusions>
+        <optimized.resources.packedCoreInclusions>^(org.richfaces|net.java.dev.atmosphere):[^/]+$</optimized.resources.packedCoreInclusions>
+        <optimized.resources.packedUiExclusions>^(org.richfaces|net.java.dev.atmosphere):[^/]+$</optimized.resources.packedUiExclusions>
+        <optimized.resources.jqueryJsPattern>^org\.richfaces:jquery\.js$</optimized.resources.jqueryJsPattern>
     </properties>
 
     <dependencies>
@@ -476,10 +477,10 @@
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>${optimized.resources.exclusions}</argument>
+                                        <argument>--includeFile</argument>
+                                        <argument>${optimized.resources.packedCoreInclusions}</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>${optimized.resources.packedCoreExclusions}</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^jquery\.js$</argument>
+                                        <argument>${optimized.resources.jqueryJsPattern}</argument>
                                         <argument>--pack</argument>
                                         <argument>core</argument>
                                     </arguments>
@@ -504,7 +505,7 @@
                                         <argument>--skins</argument>
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--includeFile</argument>
-                                        <argument>^jquery\.js$</argument>
+                                        <argument>${optimized.resources.jqueryJsPattern}</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -558,10 +559,10 @@
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--excludeFile</argument>
                                         <argument>${optimized.resources.exclusions}</argument>
+                                        <argument>--includeFile</argument>
+                                        <argument>${optimized.resources.packedCoreInclusions}</argument>
                                         <argument>--excludeFile</argument>
-                                        <argument>${optimized.resources.packedCoreExclusions}</argument>
-                                        <argument>--excludeFile</argument>
-                                        <argument>^jquery\.js$</argument>
+                                        <argument>${optimized.resources.jqueryJsPattern}</argument>
                                         <argument>--pack</argument>
                                         <argument>core</argument>
                                         <argument>--compress</argument>
@@ -587,7 +588,7 @@
                                         <argument>--skins</argument>
                                         <argument>${optimized.resources.skins}</argument>
                                         <argument>--includeFile</argument>
-                                        <argument>^jquery\.js$</argument>
+                                        <argument>${optimized.resources.jqueryJsPattern}</argument>
                                         <argument>--compress</argument>
                                     </arguments>
                                 </configuration>

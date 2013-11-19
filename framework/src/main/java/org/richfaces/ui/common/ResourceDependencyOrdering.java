@@ -66,7 +66,7 @@ public class ResourceDependencyOrdering {
             @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
             @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js"),
             @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
-            @ResourceDependency(library = "org.richfaces:message/message/", name = "message.js"),
+            @ResourceDependency(library = "org.richfaces", name = "message/message/message.js"),
     })
     public static class MessageReslib{}
 
@@ -76,10 +76,10 @@ public class ResourceDependencyOrdering {
             @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
             @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js"),
             @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
-            @ResourceDependency(library = "org.richfaces:message/notify/", name = "notifyMessage.js"),
-            @ResourceDependency(library = "jquery.plugins:", name = "jquery.pnotify.js"),
-            @ResourceDependency(library = "org.richfaces:message/notify/", name = "notify.js"),
-            @ResourceDependency(library = "org.richfaces:message/notify/", name = "notifyStack.js")
+            @ResourceDependency(library = "org.richfaces", name = "message/notify/notifyMessage.js"),
+            @ResourceDependency(library = "jquery.plugins", name = "jquery.pnotify.js"),
+            @ResourceDependency(library = "org.richfaces", name = "message/notify/notify.js"),
+            @ResourceDependency(library = "org.richfaces", name = "message/notify/notifyStack.js")
     })
     public static class NotifyMessageReslib{}
 }

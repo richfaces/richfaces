@@ -66,6 +66,7 @@ import org.richfaces.resource.optimizer.resource.util.ResourceConstants;
 import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 import org.richfaces.resource.optimizer.resource.writer.impl.CSSCompressingProcessor;
+import org.richfaces.resource.optimizer.resource.writer.impl.CSSPackagingProcessor;
 import org.richfaces.resource.optimizer.resource.writer.impl.JavaScriptCompressingProcessor;
 import org.richfaces.resource.optimizer.resource.writer.impl.JavaScriptPackagingProcessor;
 import org.richfaces.resource.optimizer.resource.writer.impl.ResourceWriterImpl;
@@ -240,7 +241,7 @@ public class ResourceGenerator {
             return Arrays.<ResourceProcessor>asList(new JavaScriptCompressingProcessor(charset, log), new CSSCompressingProcessor(
                     charset));
         } else {
-            return Arrays.<ResourceProcessor>asList(new JavaScriptPackagingProcessor(charset));
+            return Arrays.<ResourceProcessor>asList(new JavaScriptPackagingProcessor(charset), new CSSPackagingProcessor(charset));
         }
 
     }

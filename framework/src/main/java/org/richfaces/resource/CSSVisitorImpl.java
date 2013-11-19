@@ -116,6 +116,7 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
     public void visitImportRule(CSSImportRule rule) {
         // TODO nick - process imported stylesheet?
         String resourceName = rule.getHref();
+        String libraryName = null;
         if (ELUtils.isValueReference(resourceName)) {
             if (resourceName.indexOf(RESOURCE_START_PREFIX) == -1) {
                 resourceName = facesContext.getApplication().evaluateExpressionGet(facesContext, resourceName, String.class);
@@ -125,10 +126,16 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
                 resourceName = resourceName.substring(start, end);
                 resourceName = resourceName.replaceAll("\"", "").replaceAll("'", "").trim();
             }
+
+            if (resourceName.contains(":")) {
+                String[] split = resourceName.split(":", 2);
+                libraryName = split[0];
+                resourceName = split[1];
+            }
         }
-        Resource imported = facesContext.getApplication().getResourceHandler().createResource(resourceName);
+        Resource imported = facesContext.getApplication().getResourceHandler().createResource(resourceName, libraryName);
         if (imported == null) {
-            LOGGER.error("Resource with name " + resourceName + "can't be found.");
+            LOGGER.error("Resource with name " + resourceName + " can't be found.");
             return;
         }
         String toAdd = null;
