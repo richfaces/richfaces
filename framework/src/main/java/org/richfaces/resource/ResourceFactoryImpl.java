@@ -29,6 +29,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.faces.application.ProjectStage;
 import javax.faces.application.Resource;
@@ -364,8 +365,16 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
         resourceTracker.markResourceRendered(context, resourceKey);
         ResourcePath path = new ResourcePath(mappedResource.getRequestPath());
-        for (ResourceKey key : mappedResourceFactory.getAggregatedResources(path)) {
+        Set<ResourceKey> aggregatedResources = mappedResourceFactory.getAggregatedResources(path);
+        for (ResourceKey key : aggregatedResources) {
             resourceTracker.markResourceRendered(context, key);
+        }
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug(String.format("Resource '%s' is redirected to following resource path: %s", resourceKey, path));
+            if (aggregatedResources.size() >= 1) {
+                LOGGER.debug(String.format("Following resources are marked as rendered: %s", resourceKey, aggregatedResources));
+            }
         }
 
         return mappedResource;
