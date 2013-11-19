@@ -70,8 +70,8 @@ import org.richfaces.log.RichfacesLogger;
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(name = "richfaces-utils.js"), @ResourceDependency(name = "richfaces-selection.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.position.js"), @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-utils.js"), @ResourceDependency(library = "org.richfaces", name = "richfaces-selection.js"),
         @ResourceDependency(library = "org.richfaces", name = "AutocompleteBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "Autocomplete.js"),
         @ResourceDependency(library = "org.richfaces", name = "Autocomplete.ecss") })

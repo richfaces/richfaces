@@ -40,7 +40,7 @@ import org.richfaces.ui.common.meta.MetaComponentRenderer;
  * @author Anton Belevich
  *
  */
-@ResourceDependencies({ @ResourceDependency(name = "richfaces-event.js") })
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js") })
 public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer implements MetaComponentRenderer {
     public static final String HIDDEN_CONTAINER_ID = ":sc";
 

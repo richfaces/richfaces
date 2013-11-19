@@ -35,10 +35,10 @@ public class MessageTestBase {
         return Qunit
             .builder()
             .emulate(BrowserVersion.FIREFOX_3_6)
-            .loadJsfResource("jquery.js")
-            .loadJsfResource("richfaces.js")
-            .loadJsfResource("richfaces-event.js")
-            .loadJsfResource("richfaces-base-component.js")
+            .loadJsfResource("jquery.js", "org.richfaces")
+            .loadJsfResource("richfaces.js", "org.richfaces")
+            .loadJsfResource("richfaces-event.js", "org.richfaces")
+            .loadJsfResource("richfaces-base-component.js", "org.richfaces")
             .loadJsfResource("richfaces-csv.js", "org.richfaces")
             .loadJsfResource("message.js", "org.richfaces")
             .content(

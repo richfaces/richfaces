@@ -14,9 +14,9 @@
         
         <cdk:resource-dependency library="org.richfaces" name="ajax.reslib" />
         <cdk:resource-dependency library="org.richfaces" name="base-component.reslib" />
-        <cdk:resource-dependency name="richfaces-event.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-event.js" />
         <cdk:resource-dependency library="net.java.dev.atmosphere" name="jquery-atmosphere.js" />
-        <cdk:resource-dependency name="push.js" />
+        <cdk:resource-dependency library="org.richfaces" name="push.js" />
     </cc:interface>
 
     <cc:implementation>

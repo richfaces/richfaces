@@ -51,7 +51,7 @@ import com.google.common.base.Strings;
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.widget.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.mouse.js"),

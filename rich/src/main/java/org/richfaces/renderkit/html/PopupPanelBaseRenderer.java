@@ -22,7 +22,7 @@ import org.richfaces.renderkit.RendererBase;
 
 //TODO nick - JSF have concept of library, it should be used instead of '/' in resource names
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupPanel.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupPanelBorders.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupPanelSizer.js"),

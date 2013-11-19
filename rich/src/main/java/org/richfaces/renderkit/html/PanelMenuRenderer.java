@@ -47,7 +47,7 @@ import org.richfaces.ui.common.HtmlConstants;
 @JsfRenderer(type = "org.richfaces.PanelMenuRenderer", family = AbstractPanelMenu.COMPONENT_FAMILY)
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "panelMenu.js"),
         @ResourceDependency(library = "org.richfaces", name = "panelMenuItem.js"),
         @ResourceDependency(library = "org.richfaces", name = "panelMenuGroup.js"),

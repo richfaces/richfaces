@@ -73,8 +73,8 @@ import org.richfaces.ui.common.meta.MetaComponentRenderer;
 @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer", family = AbstractExtendedDataTable.COMPONENT_FAMILY)
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(name = "jquery.position.js"),
-        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.position.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.js"),
         @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.ecss") })
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {

@@ -34,7 +34,7 @@ import org.richfaces.component.behavior.ToggleControl;
  * @author akolonitsky
  *
  */
-@ResourceDependencies({ @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js") })
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "jquery.js"), @ResourceDependency(library = "org.richfaces", name = "richfaces.js") })
 @JsfBehaviorRenderer(type = "org.richfaces.component.behavior.ToggleControl")
 public class ToggleControlRenderer extends ClientBehaviorRenderer {
     @Override

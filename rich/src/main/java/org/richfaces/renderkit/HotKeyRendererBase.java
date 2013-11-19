@@ -34,7 +34,7 @@ import org.richfaces.component.util.HtmlUtil;
  * @author Lukas Fryc
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.hotkeys.js"),
         @ResourceDependency(library = "org.richfaces", name = "hotkey.js") })
 public abstract class HotKeyRendererBase extends Renderer {
