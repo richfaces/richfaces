@@ -15,6 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "richwidgets": "git@github.com:richwidgets/richwidgets.git#ea0cc75d0b1799cc45eb1bef1d3a8c8f7eaf17dc"
+    "richwidgets": "richwidgets#dist"
   }
 }
