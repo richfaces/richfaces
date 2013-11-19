@@ -70,25 +70,25 @@ public abstract class AbstractPickList extends AbstractOrderingComponent impleme
     /**
      * The text to display in the add-all button
      */
-    @Attribute(defaultValue = "⇒ Add all")
+    @Attribute
     public abstract String getAddAllText();
 
     /**
      * The text to display in the add button
      */
-    @Attribute(defaultValue = "→ Add")
+    @Attribute
     public abstract String getAddText();
 
     /**
      * The text to display in the remove button
      */
-    @Attribute(defaultValue = "← Remove")
+    @Attribute
     public abstract String getRemoveText();
 
     /**
      * The text to display in the remove-all button
      */
-    @Attribute(defaultValue = "⇐ Remove all")
+    @Attribute
     public abstract String getRemoveAllText();
 
     /**
@@ -96,10 +96,15 @@ public abstract class AbstractPickList extends AbstractOrderingComponent impleme
      */
     public String getPickButtonsText() {
         JSONObject json = new JSONObject();
-        try {
-            json.put("addAll", getAddAllText()).put("add", getAddText()).put("remove", getRemoveText()).put("removeAll", getRemoveAllText());
-        } catch (JSONException e) {
-            throw new FacesException("Error converting Button text values to JSON", e);
+        if (getAddAllText() != null && ! getAddAllText().isEmpty()
+                || getAddText() != null && ! getAddText().isEmpty()
+                || getRemoveText() != null && ! getRemoveText().isEmpty()
+                || getRemoveAllText() != null && ! getRemoveAllText().isEmpty()) {
+            try {
+                json.put("addAll", getAddAllText()).put("add", getAddText()).put("remove", getRemoveText()).put("removeAll", getRemoveAllText());
+            } catch (JSONException e) {
+                throw new FacesException("Error converting Button text values to JSON", e);
+            }
         }
         return json.length() == 0 ? null : json.toString();
     }
