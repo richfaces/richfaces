@@ -32,8 +32,8 @@ import org.richfaces.component.AbstractDragSource;
  * @author abelevich
  *
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "dnd-indicator.js"),
         @ResourceDependency(library = "org.richfaces", name = "indicator.ecss") })
 public class DragIndicatorRendererBase extends RendererBase {

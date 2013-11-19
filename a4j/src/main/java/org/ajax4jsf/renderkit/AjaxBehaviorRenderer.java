@@ -44,7 +44,7 @@ import org.richfaces.util.RendererUtils;
  *
  */
 @FacesBehaviorRenderer(rendererType = "org.ajax4jsf.behavior.Ajax", renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
-@ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
+@ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib")
 public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
     private final RendererUtils utils = RendererUtils.getInstance();
 

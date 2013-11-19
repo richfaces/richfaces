@@ -55,8 +55,8 @@ import org.richfaces.renderkit.util.HandlersChain;
  * @author akolonitsky
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "togglePanel.js") })
 @JsfRenderer(type = "org.richfaces.TogglePanelRenderer", family = AbstractTogglePanel.COMPONENT_FAMILY)

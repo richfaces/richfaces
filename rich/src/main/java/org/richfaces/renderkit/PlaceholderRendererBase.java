@@ -12,7 +12,7 @@ import javax.faces.convert.Converter;
 import org.richfaces.component.AbstractPlaceholder;
 import org.richfaces.component.util.InputUtils;
 
-@ResourceDependencies({ @ResourceDependency(name = "base-component.reslib", library = "org.richfaces", target = "head"),
+@ResourceDependencies({ @ResourceDependency(name = "base-component.rf4.reslib", library = "org.richfaces", target = "head"),
         @ResourceDependency(name = "jquery.watermark.js", library = "org.richfaces", target = "head"),
         @ResourceDependency(name = "placeholder.js", library = "org.richfaces", target = "head"),
         @ResourceDependency(name = "placeholder.css", library = "org.richfaces") })

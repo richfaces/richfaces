@@ -43,7 +43,7 @@ import org.richfaces.ui.common.HtmlConstants;
  * @author Anton Belevich
  *
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib") })
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib") })
 public abstract class AbstractRowsRenderer extends RendererBase implements DataVisitor {
     private static final Map<String, ComponentAttribute> ROW_HANDLER_ATTRIBUTES = Collections
         .unmodifiableMap(ComponentAttribute.createMap(

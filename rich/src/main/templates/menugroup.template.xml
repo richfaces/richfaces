@@ -11,7 +11,7 @@
         <cdk:renderer-type>org.richfaces.MenuGroupRenderer</cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
 	
-        <cdk:resource-dependency name="base-component.reslib" library="org.richfaces" />
+        <cdk:resource-dependency name="base-component.rf4.reslib" library="org.richfaces" />
         <cdk:resource-dependency name="menu-base.js" library="org.richfaces" />
         <cdk:resource-dependency name="menugroup.js" library="org.richfaces" />
     </cc:interface>

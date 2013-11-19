@@ -64,7 +64,7 @@ import org.richfaces.utils.CalendarHelper;
  * @author amarkhel
  *
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"), @ResourceDependency(library = "org.richfaces", name = "jquery.position.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"), @ResourceDependency(library = "org.richfaces", name = "json-dom.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.effects.core.js"),

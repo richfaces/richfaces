@@ -37,7 +37,7 @@ import org.richfaces.renderkit.util.HandlersChain;
  * @version $Revision: 1.1.2.3 $ $Date: 2007/02/12 17:46:53 $
  *
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib") })
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib") })
 public abstract class AjaxCommandRendererBase extends RendererBase {
     private static final Logger LOG = RichfacesLogger.RENDERKIT.getLogger();
 

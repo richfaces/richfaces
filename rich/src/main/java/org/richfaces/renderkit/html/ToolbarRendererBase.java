@@ -44,7 +44,7 @@ import org.richfaces.ui.common.ComponentAttribute;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.util.HtmlDimensions;
 
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "toolbar.js"),
         @ResourceDependency(library = "org.richfaces", name = "toolbar.ecss") })
 public abstract class ToolbarRendererBase extends RendererBase {

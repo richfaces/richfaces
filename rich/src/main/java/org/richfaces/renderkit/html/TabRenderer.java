@@ -52,8 +52,8 @@ import com.google.common.base.Predicate;
  * @author akolonitsky
  * @since 2010-08-24
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
         @ResourceDependency(library = "org.richfaces", name = "tab.js") })

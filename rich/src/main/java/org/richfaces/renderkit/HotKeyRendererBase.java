@@ -33,7 +33,7 @@ import org.richfaces.component.util.HtmlUtil;
  * @author ilya_shaikovsky
  * @author Lukas Fryc
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.hotkeys.js"),
         @ResourceDependency(library = "org.richfaces", name = "hotkey.js") })

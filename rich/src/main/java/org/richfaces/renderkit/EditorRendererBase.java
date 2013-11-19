@@ -32,8 +32,8 @@ import javax.faces.context.FacesContext;
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"), @ResourceDependency(library = "org.richfaces", name = "richfaces-utils.js"),
         @ResourceDependency(library = "org.richfaces", name = "editor.js"),
         @ResourceDependency(library = "org.richfaces.ckeditor", name = "ckeditor.js", target = "body") })

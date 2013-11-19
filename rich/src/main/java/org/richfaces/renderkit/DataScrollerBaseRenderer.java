@@ -44,8 +44,8 @@ import org.richfaces.event.DataScrollEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.ui.common.HtmlConstants;
 
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "datascroller.js"),
         @ResourceDependency(library = "org.richfaces", name = "datascroller.ecss") })

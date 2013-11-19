@@ -44,7 +44,7 @@ import com.google.common.base.Strings;
  * @author Anton Belevich
  */
 @JsfRenderer(type = "org.richfaces.CollapsibleSubTableTogglerRenderer", family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY)
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable-toggler.js"),
         @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable.ecss") })

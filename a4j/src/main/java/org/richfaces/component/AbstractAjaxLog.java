@@ -37,7 +37,7 @@ import org.richfaces.cdk.annotations.TagType;
  * </p>
  * @author Nick Belaevski
  */
-@ResourceDependencies(value = { @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies(value = { @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "log.js"),
         @ResourceDependency(library = "org.richfaces", name = "log.ecss") })
 @JsfComponent(tag = @Tag(name = "log", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.AjaxLogRenderer"))

@@ -36,8 +36,8 @@ import org.richfaces.component.util.HtmlUtil;
 /**
  * @author akolonitsky
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
         @ResourceDependency(library = "org.richfaces", name = "accordion.js"),
         @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
