@@ -837,6 +837,13 @@
                         this.spacerElement.style.height = (data.first * this.rowHeight) + "px";
                     }
                 }
+                
+                // resize columns if necessary
+                var size;
+                for (id in this.newWidths) {
+                    size = this.newWidths[id];
+                    this.setColumnWidth(id, size.substr(0, size.length - 2));
+                }
             },
 
             activateResizeListener: function() {
