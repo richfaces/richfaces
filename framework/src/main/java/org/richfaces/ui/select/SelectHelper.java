@@ -121,7 +121,7 @@ public final class SelectHelper {
                 value = ""; // Find Default-Values too.
             }
         }
-        value = value.toString(); // needed to compare string-sepresentations
+        value = value.toString(); // needed to compare string-representations
 
         Iterator<SelectItem> items = SelectUtils.getSelectItems(facesContext, component);
 
@@ -140,7 +140,7 @@ public final class SelectHelper {
         if (label == null) {
             label = value.toString();
         }
-        
+
         return label;
     }
 
