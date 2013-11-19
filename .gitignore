@@ -7,3 +7,4 @@ test-output
 .externalToolBuilders
 .faces-config.xml.jsfdia
 rebel.xml
+.checkstyle
