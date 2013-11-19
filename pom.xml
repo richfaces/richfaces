@@ -586,9 +586,9 @@
                                     <includes>
                                         <include>${integration.test.pattern}</include>
                                     </includes>
-                                    <groups>${testCategory.included.default} ${testCategory.excluded.browser}
+                                    <groups>${testCategory.included.default}
                                         ${testCategory.excluded.container} ${testCategory.excluded.jsf}</groups>
-                                    <excludedGroups>${testCategory.excluded.default}</excludedGroups>
+                                    <excludedGroups>${testCategory.excluded.default} ${testCategory.excluded.browser}</excludedGroups>
                                     <systemPropertyVariables>
                                         <arquillian.debug>${arquillian.debug}</arquillian.debug>
                                     </systemPropertyVariables>
@@ -641,6 +641,7 @@
                 </property>
             </activation>
             <properties>
+                <testCategory.excluded.browser>category.FailingOnFirefox</testCategory.excluded.browser>
                 <arquillian.drone.browser>firefox</arquillian.drone.browser>
             </properties>
         </profile>
