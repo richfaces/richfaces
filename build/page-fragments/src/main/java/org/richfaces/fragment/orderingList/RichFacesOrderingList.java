@@ -23,8 +23,6 @@ package org.richfaces.fragment.orderingList;
 
 import java.util.List;
 
-import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.list.AbstractListComponent;
@@ -36,43 +34,44 @@ import org.richfaces.fragment.list.ListComponent;
  */
 public class RichFacesOrderingList extends AbstractOrderingList {
 
-    @Drone
-    private WebDriver driver;
+    private static final String SELECTED_ITEM_CLASS = "ui-selected";
 
-    @FindBy(css = "button.rf-ord-dn")
+    @FindBy(className = "btn-down")
     private WebElement downButtonElement;
-    @FindBy(css = "button.rf-ord-up-tp")
+    @FindBy(className = "btn-first")
     private WebElement topButtonElement;
-    @FindBy(css = "button.rf-ord-dn-bt")
+    @FindBy(className = "btn-last")
     private WebElement bottomButtonElement;
-    @FindBy(css = "button.rf-ord-up")
+    @FindBy(className = "btn-up")
     private WebElement upButtonElement;
 
-    @FindBy(className = "rf-ord-cptn")
+    @FindBy(className = "header")
     private WebElement captionElement;
-    @FindBy(css = "thead.rf-ord-lst-hdr > tr.rf-ord-hdr")
+    @FindBy(tagName = "thead")
     private WebElement headerElement;
-    @FindBy(className = "rf-ord-lst-scrl")
+    @FindBy(className = "list")
     private WebElement listAreaElement;
+    @FindBy(className = "scroll-box")
+    private WebElement scrollBoxElement;
 
-    @FindBy(className = "rf-ord-opt")
-    private List<WebElement> items;
-    @FindBy(className = "rf-ord-sel")
-    private List<WebElement> selectedItems;
+    @FindBy(className = "ui-selectee")
+    private List<WebElement> itemsElements;
+    @FindBy(className = "ui-disabled")
+    private List<WebElement> disabledItemsElements;
+    @FindBy(className = SELECTED_ITEM_CLASS)
+    private List<WebElement> selectedItemsElements;
 
-    @FindBy(css = "div.rf-ord-lst-scrl [id$=Items]")
+    @FindBy(css = ".ui-sortable.ui-selectable")
     private SelectableListImpl list;
 
-    private final OrderingListBodyElements elements = new OrderingListBodyElementsImpl();
+    private final AdvancedOrderingListInteractions interactions = new AdvancedOrderingListInteractionsImpl();
 
     @Override
-    protected OrderingListBodyElements getBody() {
-        return elements;
+    public AdvancedOrderingListInteractions advanced() {
+        return interactions;
     }
 
-    private class OrderingListBodyElementsImpl implements OrderingListBodyElements {
-
-        private static final String SELECTED_ITEM_CLASS = "rf-ord-sel";
+    private class AdvancedOrderingListInteractionsImpl extends AdvancedOrderingListInteractions {
 
         @Override
         public WebElement getBottomButtonElement() {
@@ -96,7 +95,7 @@ public class RichFacesOrderingList extends AbstractOrderingList {
 
         @Override
         public List<WebElement> getItemsElements() {
-            return items;
+            return (itemsElements.isEmpty() ? disabledItemsElements : itemsElements);
         }
 
         @Override
@@ -115,13 +114,13 @@ public class RichFacesOrderingList extends AbstractOrderingList {
         }
 
         @Override
-        public List<WebElement> getSelectedItems() {
-            return selectedItems;
+        public WebElement getScrollBoxElement() {
+            return scrollBoxElement;
         }
 
         @Override
-        public String getStyleForSelectedItem() {
-            return SELECTED_ITEM_CLASS;
+        public List<WebElement> getSelectedItemsElements() {
+            return selectedItemsElements;
         }
 
         @Override
@@ -137,11 +136,9 @@ public class RichFacesOrderingList extends AbstractOrderingList {
 
     public static class SelectableListItemImpl extends AbstractSelectableListItem {
 
-        private static final String styleClass = "rf-ord-sel";
-
         @Override
         protected String getStyleClassForSelectedItem() {
-            return styleClass;
+            return SELECTED_ITEM_CLASS;
         }
     }
 

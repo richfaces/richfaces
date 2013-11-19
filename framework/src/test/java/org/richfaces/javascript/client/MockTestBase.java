@@ -22,8 +22,15 @@
 
 package org.richfaces.javascript.client;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableList.Builder;
+import static org.easymock.EasyMock.expect;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
 
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.jboss.test.qunit.Qunit;
@@ -34,15 +41,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.richfaces.validator.Message;
 
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import static org.easymock.EasyMock.expect;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
 
 @RunWith(Parameterized.class)
 public abstract class MockTestBase {
@@ -90,8 +90,8 @@ public abstract class MockTestBase {
     }
 
     protected org.jboss.test.qunit.Qunit.Builder createQunitPage() {
-        return Qunit.builder().loadJsfResource("jquery.js").loadJsfResource("richfaces.js")
-            .loadJsfResource("richfaces-event.js").loadJsfResource("richfaces-csv.js", "org.richfaces");
+        return Qunit.builder().loadJsfResource("jquery.js", "org.richfaces").loadJsfResource("richfaces.js", "org.richfaces")
+            .loadJsfResource("richfaces-event.js", "org.richfaces").loadJsfResource("richfaces-csv.js", "org.richfaces");
     }
 
     protected abstract String getJavaScriptFunctionName();

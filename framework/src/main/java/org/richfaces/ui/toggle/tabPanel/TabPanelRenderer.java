@@ -63,7 +63,7 @@ import org.richfaces.util.HtmlUtil;
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library="org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/togglePanel/togglePanel.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/tabPanel/tabPanel.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/tabPanel/tabPanel.ecss") })

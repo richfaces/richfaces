@@ -52,6 +52,7 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
     private static final String BOTH_SKINNING;
     private static final String CLASSES_SKINNING;
     private static final String HEAD = "head";
+    private static final String LIBRARY = "org.richfaces";
 
     static {
         String skinningName = "skinning";
@@ -161,6 +162,7 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
             // it's important for skinning resources to come *before* any users/components stylesheet,
             // that's why they are *always* added here
             UIComponent basic = createComponentResource(context);
+            basic.getAttributes().put("library", LIBRARY);
             basic.setValueExpression("name", SkinningResourceNameExpression.INSTANCE);
             basic.setValueExpression("rendered", SkinningResourceRenderedExpression.INSTANCE);
             basic.setId(SKINNING_RESOURCE_ID);

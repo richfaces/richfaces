@@ -30,30 +30,30 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
-import org.richfaces.log.Logger;
+import javax.faces.context.FacesContext;
+
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.resource.optimizer.faces.CurrentResourceContext;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 
+import com.google.common.io.ByteStreams;
 import com.google.common.io.Closeables;
 import com.google.common.io.InputSupplier;
 import com.google.common.io.OutputSupplier;
-import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
 
 /**
- * @author Nick Belaevski
- *
+ * @author Lukas Fryc
  */
-public class JavaScriptCompressingProcessor implements ResourceProcessor {
+public class CSSPackagingProcessor implements ResourceProcessor {
     private Charset charset;
-    private Logger log;
 
-    public JavaScriptCompressingProcessor(Charset charset, Logger log) {
+    public CSSPackagingProcessor(Charset charset) {
         this.charset = charset;
-        this.log = log;
     }
 
     @Override
     public boolean isSupportedFile(String name) {
-        return name.endsWith(".js");
+        return name.endsWith(".css");
     }
 
     @Override
@@ -72,22 +72,16 @@ public class JavaScriptCompressingProcessor implements ResourceProcessor {
             reader = new InputStreamReader(in, charset);
             writer = new OutputStreamWriter(out, charset);
 
-            MavenLogErrorReporter reporter = new MavenLogErrorReporter(outputName);
-            new JavaScriptCompressor(reader, reporter).compress(writer, 0, true, true, false, false);
+            CurrentResourceContext crc = (CurrentResourceContext) CurrentResourceContext.getInstance(FacesContext.getCurrentInstance());
 
-            if (!closeAtFinish) {
-                // add semicolon to satisfy end of context of each script when packing files
-                writer.write(";");
-                writer.flush();
-            }
+            // add comment to the packed resource before writing the file into stream
+            writer.write(String.format("/* resource: %s */\n", ResourceKey.create(crc.getResource())));
+            writer.flush();
 
-            if (reporter.hasErrors() && log.isErrorEnabled()) {
-                log.error(reporter.getErrorsLog());
-            }
+            ByteStreams.copy(in, out);
 
-            if (reporter.hasWarnings() && log.isDebugEnabled()) {
-                log.debug(reporter.getWarningsLog());
-            }
+            writer.write("\n\n");
+            writer.flush();
         } finally {
             Closeables.closeQuietly(reader);
             if (closeAtFinish) {

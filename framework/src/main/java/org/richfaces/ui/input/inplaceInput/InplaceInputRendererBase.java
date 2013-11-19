@@ -44,7 +44,7 @@ import org.richfaces.util.HtmlDimensions;
  */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library="org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "common/inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "common/inplace/inplaceBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "input/inplaceInput/inplaceInput.js"),

@@ -30,6 +30,10 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
+import javax.faces.context.FacesContext;
+
+import org.richfaces.resource.ResourceKey;
+import org.richfaces.resource.optimizer.faces.CurrentResourceContext;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 
 import com.google.common.io.ByteStreams;
@@ -39,7 +43,7 @@ import com.google.common.io.OutputSupplier;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class JavaScriptPackagingProcessor implements ResourceProcessor {
     private Charset charset;
@@ -52,16 +56,16 @@ public class JavaScriptPackagingProcessor implements ResourceProcessor {
     public boolean isSupportedFile(String name) {
         return name.endsWith(".js");
     }
-    
+
     @Override
-    public void process(String resourceName, InputSupplier<? extends InputStream> in,
+    public void process(String outputName, InputSupplier<? extends InputStream> in,
             OutputSupplier<? extends OutputStream> out, boolean closeAtFinish) throws IOException {
-        process(resourceName, in.getInput(), out.getOutput(), closeAtFinish);
+        process(outputName, in.getInput(), out.getOutput(), closeAtFinish);
     }
 
     @Override
-    public void process(String resourceName, InputStream in, OutputStream out, boolean closeAtFinish) throws IOException {
-        
+    public void process(String outputName, InputStream in, OutputStream out, boolean closeAtFinish) throws IOException {
+
         Reader reader = null;
         Writer writer = null;
 
@@ -69,12 +73,21 @@ public class JavaScriptPackagingProcessor implements ResourceProcessor {
             reader = new InputStreamReader(in, charset);
             writer = new OutputStreamWriter(out, charset);
 
+            CurrentResourceContext crc = (CurrentResourceContext) CurrentResourceContext.getInstance(FacesContext.getCurrentInstance());
+
+            // add comment to the packed resource before writing the file into stream
+            writer.write(String.format("// resource: %s\n", ResourceKey.create(crc.getResource())));
+            writer.flush();
+
             ByteStreams.copy(in, out);
+
             if (!closeAtFinish) {
                 // add semicolon to satisfy end of context of each script when packing files
                 writer.write(";");
-                writer.flush();
             }
+
+            writer.write("\n\n");
+            writer.flush();
         } finally {
             Closeables.closeQuietly(reader);
             if (closeAtFinish) {

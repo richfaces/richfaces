@@ -69,8 +69,8 @@ public class ITResourceOptimization {
 
         FaceletAsset p = deployment.baseFacelet("script.xhtml");
         p.head("<h:outputScript library='javax.faces' name='jsf.js' />");
-        p.head("<h:outputScript name='jquery.js' />");
-        p.head("<h:outputScript name='richfaces.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 
         p = deployment.baseFacelet("stylesheet.xhtml");
         p.head("<h:outputStylesheet library='org.richfaces' name='ajax/log.ecss' />");

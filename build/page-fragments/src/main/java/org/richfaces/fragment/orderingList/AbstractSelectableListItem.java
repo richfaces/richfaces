@@ -22,7 +22,6 @@
 package org.richfaces.fragment.orderingList;
 
 import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
@@ -43,10 +42,7 @@ public abstract class AbstractSelectableListItem extends RichFacesListItem imple
 
     @Override
     public boolean isSelected() {
-        if (getRootElement().getAttribute("class").contains(getStyleClassForSelectedItem())) {
-            return TRUE;
-        }
-        return FALSE;
+        return getRootElement().getAttribute("class").contains(getStyleClassForSelectedItem());
     }
 
     protected abstract String getStyleClassForSelectedItem();
@@ -59,15 +55,8 @@ public abstract class AbstractSelectableListItem extends RichFacesListItem imple
     @Override
     public void select(boolean deselectOthers) {
         if (deselectOthers) {
-            new Actions(driver)
-                .click(getRootElement())
-                .addAction(new Action() {
-                    @Override
-                    public void perform() {
-                        Graphene.waitGui().until().element(getRootElement()).attribute("class").contains(getStyleClassForSelectedItem());
-                    }
-                })
-                .perform();
+            getRootElement().click();// also deselects other items
+            Graphene.waitModel().until().element(getRootElement()).attribute("class").contains(getStyleClassForSelectedItem());
         } else {
             if (!isSelected()) {
                 new Actions(driver)
@@ -77,7 +66,7 @@ public abstract class AbstractSelectableListItem extends RichFacesListItem imple
                     .addAction(new Action() {
                         @Override
                         public void perform() {
-                            Graphene.waitGui().until().element(getRootElement()).attribute("class").contains(getStyleClassForSelectedItem());
+                            Graphene.waitModel().until().element(getRootElement()).attribute("class").contains(getStyleClassForSelectedItem());
                         }
                     })
                     .perform();
@@ -95,7 +84,7 @@ public abstract class AbstractSelectableListItem extends RichFacesListItem imple
                 .addAction(new Action() {
                     @Override
                     public void perform() {
-                        Graphene.waitGui().until().element(getRootElement()).attribute("class").not().contains(getStyleClassForSelectedItem());
+                        Graphene.waitModel().until().element(getRootElement()).attribute("class").not().contains(getStyleClassForSelectedItem());
                     }
                 })
                 .perform();

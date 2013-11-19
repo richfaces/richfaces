@@ -106,12 +106,15 @@ public class ResourceLibraryTest {
         assertTrue(uri.contains("javax.faces"));
 
         uri = nextUri(itr);
+        assertTrue(uri.contains("org.richfaces"));
         assertTrue(uri.contains("jquery.js"));
 
         uri = nextUri(itr);
+        assertTrue(uri.contains("org.richfaces"));
         assertTrue(uri.contains("richfaces.js"));
 
         uri = nextUri(itr);
+        assertTrue(uri.contains("org.richfaces"));
         assertTrue(uri.contains("skinning_both.ecss"));
 
         assertFalse(itr.hasNext());

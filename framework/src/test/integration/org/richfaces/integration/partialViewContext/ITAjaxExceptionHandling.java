@@ -114,8 +114,8 @@ public class ITAjaxExceptionHandling {
         FaceletAsset p = new FaceletAsset();
 
         p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
-        p.head("<h:outputScript name='jquery.js' />");
-        p.head("<h:outputScript name='richfaces.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
         p.head("<h:outputScript>");
         p.head("    var __backup = jsf.ajax.response;");
         p.head("    var __response;");

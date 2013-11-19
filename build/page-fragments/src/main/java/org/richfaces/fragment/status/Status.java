@@ -19,19 +19,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource;
-
-import com.google.common.collect.ImmutableList;
+package org.richfaces.fragment.status;
 
 /**
- * @author Nick Belaevski
- *
+ * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
-public class DynamicResourceLibrary implements ResourceLibrary {
-    private ImmutableList<ResourceKey> keys = ImmutableList.of(ResourceKey.create("skinning_classes.ecss", "org.richfaces"),
-        ResourceKey.create("jquery.js", "org.richfaces"));
+public interface Status {
 
-    public Iterable<ResourceKey> getResources() {
-        return keys;
+    StatusState getStatusState();
+
+    String getStatusText();
+
+    enum StatusState {
+
+        START, STOP, ERROR;
     }
 }

@@ -111,8 +111,8 @@ public class ITRenderAll {
         FaceletAsset p = new FaceletAsset();
 
         p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
-        p.head("<h:outputScript name='jquery.js' />");
-        p.head("<h:outputScript name='richfaces.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 
         p.form("<h:commandButton value='Render All' render='@all' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;' />");
 

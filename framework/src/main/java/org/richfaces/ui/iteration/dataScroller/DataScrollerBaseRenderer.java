@@ -45,7 +45,7 @@ import static org.richfaces.ui.iteration.dataScroller.DataScrollerControlsMode.s
 
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library="org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "iteration/dataScroller/datascroller.js"),
         @ResourceDependency(library = "org.richfaces", name = "iteration/dataScroller/datascroller.ecss") })
 public class DataScrollerBaseRenderer extends RendererBase {
