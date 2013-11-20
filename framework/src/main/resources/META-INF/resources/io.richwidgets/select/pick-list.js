@@ -152,6 +152,17 @@
        */
       pickButtonsText: null,
 
+      /**
+       * Function used to sort the elements after an item has been added to either the source or target list.
+       * `sortFunction` must meet the API requirements of the compareFunction for the
+       * [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
+       * method.
+       *
+       * @property sortFunction
+       * @type Function
+       */
+      sortFunction: null,
+
       // callbacks
 
       /**
@@ -202,6 +213,7 @@
       this.sourceList.orderingList({
         showButtons: false,
         mouseOrderable: this.options.orderable,
+        sortFunction: this.options.sortFunction,
         contained: false,
         columnClasses: this.options.columnClasses,
         disabled: this.options.disabled,
@@ -211,6 +223,7 @@
       this.targetList.orderingList({
         showButtons: this.options.orderable,
         mouseOrderable: this.options.orderable,
+        sortFunction: this.options.sortFunction,
         contained: false,
         columnClasses: this.options.columnClasses,
         buttonsText: this.options.orderButtonsText,
@@ -373,6 +386,10 @@
             widget._removeDoubleClickListeners();
           }
           break;
+        case 'sortFunction':
+          widget.sourceList.orderingList('option', 'sortFunction', value);
+          widget.targetList.orderingList('option', 'sortFunction', value);
+          break;
       }
       this._super(key, value);
     },
@@ -515,11 +532,6 @@
     _registerListeners: function () {
       var widget = this;
       // the widget factory converts all events to lower case
-      this.sourceList.on('sortreceive', function (event, ui) {
-        var newUi = widget._uiHash();
-        newUi.change = 'remove';
-        widget._trigger('change', event, newUi);
-      });
       this.targetList.on('targetlist_change', function (event, ui) {
         var newUi = widget._uiHash();
         newUi.change = ui.change;

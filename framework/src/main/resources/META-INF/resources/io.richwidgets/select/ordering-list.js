@@ -140,6 +140,17 @@
        */
       mouseOrderable: true,
 
+      /**
+       * Function used to sort the elements after an item has been added to the list.
+       * `sortFunction` must meet the API requirements of the compareFunction for the
+       * [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
+       * method.
+       *
+       * @property sortFunction
+       * @type Function
+       */
+      sortFunction: null,
+
       // callbacks
 
       /**
@@ -240,6 +251,19 @@
           if (widget.fillItem) {
             widget._updateFillRow();
           }
+          var receivingWidget = ui.item.parents('.list').data('orderingList');
+          if (receivingWidget !== widget) {
+            receivingWidget._checkSort();
+
+            // fire change events here instead of in the 'receive' handler since we manually add/remove the extra drag elements
+            var remUi = widget._uiHash();
+            remUi.change = 'remove';
+            widget._trigger('change', event, remUi);
+
+            var addUi = receivingWidget;
+            addUi.change = 'add';
+            receivingWidget._trigger('change', event, addUi);
+          }
         },
         update: function(event, ui) {
           if (ui.sender === null && ui.item.parents('.ordering-list').get(0) === widget.element.parents('.ordering-list').get(0)) {
@@ -249,11 +273,6 @@
             widget._trigger('change', event, ui2);
           }
         },
-        receive: function (event, ui) {
-          var newUi = widget._uiHash();
-          newUi.change = 'add';
-          widget._trigger('change', event, newUi);
-        }
       };
       if (this.element.is('table')) {
         this.strategy = 'table';
@@ -566,6 +585,7 @@
         return null;
       }
       this.$pluginRoot.prepend(items);
+      this._checkSort();
       var ui = this._uiHash();
       ui.change = 'add';
       this._trigger('change', {}, ui);
@@ -734,6 +754,16 @@
         keys.push(key);
       });
       return keys;
+    },
+
+    _checkSort: function () {
+      if (this.options.sortFunction && typeof this.options.sortFunction === 'function') {
+        var sortedElements = this.getOrderedElements().sort(this.options.sortFunction);
+        var widget = this;
+        sortedElements.each(function() {
+          widget.element.append(this);
+        });
+      }
     },
 
     /** Initialisation methods **/
