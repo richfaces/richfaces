@@ -145,7 +145,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
                 if (typeof rf.component(component)["getValue"] === "function") {
                     value = rf.component(component).getValue();
                 } else {
-                    var nestedComponents = $(":editable", component);
+                    var nestedComponents = $("*", component).filter(":editable");
                     if (nestedComponents) {
                         var nestedComponent = nestedComponents[0];
                         value = valueExtractors[nestedComponent.type](nestedComponent);
