@@ -249,12 +249,17 @@
   $.fn.richpush = function( options ) {
     var widget = $.extend({}, $.fn.richpush);
 
+    // for all selected elements
     return this.each(function() {
       widget.element = this;
       widget.options = $.extend({}, widget.options, options);
+
+      // call constructor
       widget._create();
 
+      // listen for global DOM destruction event
       $(document).on('cleanDom.RICH', function(event, ui) {
+        // is a push component under desctructed DOM element?
         if ($.contains(ui.target, widget.element)) {
           widget._destroy();
         }
