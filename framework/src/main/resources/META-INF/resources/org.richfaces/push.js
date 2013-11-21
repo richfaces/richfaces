@@ -6,9 +6,9 @@
    *
    * Push internally uses Atmosphere to handle connection.
    *
-   * @module $.push
+   * @module RichFaces.push
    */
-  $.push = {
+  rf.push = {
 
     options: {
       transport: "long-polling",
@@ -243,11 +243,11 @@
    * jQuery plugin which mades easy to bind the Push to the DOM element
    * and manage plugins lifecycle and event handling
    *
-   * @function $.fn.push
+   * @function $.fn.richpush
    */
 
-  $.fn.push = function( options ) {
-    var widget = $.extend({}, $.fn.push);
+  $.fn.richpush = function( options ) {
+    var widget = $.extend({}, $.fn.richpush);
 
     return this.each(function() {
       widget.element = this;
@@ -262,7 +262,7 @@
     });
   };
 
-  $.extend($.fn.push, {
+  $.extend($.fn.richpush, {
 
     options: {
 
@@ -324,7 +324,7 @@
         }
       });
 
-      $.push.increaseSubscriptionCounters(this.address);
+      rf.push.increaseSubscriptionCounters(this.address);
     },
 
     _destroy: function() {
@@ -332,7 +332,7 @@
         $(document).off(handler);
       });
 
-      $.push.decreaseSubscriptionCounters(this.address);
+      rf.push.decreaseSubscriptionCounters(this.address);
     }
 
   });
@@ -344,7 +344,7 @@
    */
 
   $(document).ready(function() {
-    $.push.updateConnection();
+    rf.push.updateConnection();
   });
 
   jsf.ajax.addOnEvent(jsfErrorHandler);
@@ -362,7 +362,7 @@
       return;
     }
 
-    $.push.updateConnection();
+    rf.push.updateConnection();
   }
 
   function qualifyUrl(url) {
