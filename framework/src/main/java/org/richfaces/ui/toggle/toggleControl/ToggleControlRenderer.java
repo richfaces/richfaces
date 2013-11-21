@@ -33,7 +33,9 @@ import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
  * @author akolonitsky
  *
  */
-@ResourceDependencies({ @ResourceDependency(library="org.richfaces", name = "jquery.js"), @ResourceDependency(library="org.richfaces", name = "richfaces.js") })
+@ResourceDependencies({
+        @ResourceDependency(library="org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library="org.richfaces", name = "richfaces.js") })
 @JsfBehaviorRenderer(type = ToggleControlRenderer.RENDERER_TYPE)
 public class ToggleControlRenderer extends ClientBehaviorRenderer {
 
