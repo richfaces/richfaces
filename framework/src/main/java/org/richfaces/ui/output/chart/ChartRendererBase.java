@@ -29,9 +29,11 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.el.MethodExpression;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
@@ -206,12 +208,25 @@ public abstract class ChartRendererBase extends RendererBase {
 
         //set flag whether request to server should be sent
         boolean anyServerSideListener = chart.getPlotClickListener()!=null?true:false;
+        if(!anyServerSideListener){
+            //check if there is particular series listener
+            List<MethodExpression> listeners = visitCallback.getParticularSeriesListeners();
+            for (MethodExpression methodExpression : listeners) {
+                if(methodExpression!=null){
+                    anyServerSideListener=true;
+                    break;
+                }
+            }
+        }
         component.getAttributes().put("serverSideListener",anyServerSideListener);
 
 
         //client-side handlers for particular series
         component.getAttributes().put("handlers",
                 visitCallback.getSeriesSpecificHandlers());
+
+        //server-side listeners for particular series
+        component.getAttributes().put("particularSeriesListeners", visitCallback.getParticularSeriesListeners());
 
     }
 
@@ -254,15 +269,16 @@ public abstract class ChartRendererBase extends RendererBase {
      */
     class VisitChart implements VisitCallback {
 
-        private AbstractChart chart;
-        private JSONArray data;
-        private JSONObject seriesSpecificHandlers;
-        private JSONArray plotClickHandlers;
-        private JSONArray plothoverHandlers;
+        private final AbstractChart chart;
+        private final JSONArray data;
+        private final JSONObject particularSeriesHandlers;
+        private final JSONArray plotClickHandlers;
+        private final JSONArray plothoverHandlers;
+        private final List<MethodExpression> particularSeriesListeners;
         private ChartDataModel.ChartType chartType;
         private Class keyType;
         private Class valType;
-        private RenderKitUtils.ScriptHashVariableWrapper eventWrapper = RenderKitUtils.ScriptHashVariableWrapper.eventHandler;
+        private final RenderKitUtils.ScriptHashVariableWrapper eventWrapper = RenderKitUtils.ScriptHashVariableWrapper.eventHandler;
         private boolean nodata;
 
         public VisitChart(AbstractChart ch) {
@@ -270,14 +286,16 @@ public abstract class ChartRendererBase extends RendererBase {
             this.chart = ch;
             this.chartType = null;
             this.data = new JSONArray();
-            this.seriesSpecificHandlers = new JSONObject();
+            this.particularSeriesHandlers = new JSONObject();
             this.plotClickHandlers = new JSONArray();
             this.plothoverHandlers = new JSONArray();
+            this.particularSeriesListeners = new LinkedList<MethodExpression>();
+
 
             try {
-                addAttribute(seriesSpecificHandlers, "onplotclick",
+                addAttribute(particularSeriesHandlers, "onplotclick",
                         plotClickHandlers);
-                addAttribute(seriesSpecificHandlers, "onplothover",
+                addAttribute(particularSeriesHandlers, "onplothover",
                         plothoverHandlers);
             } catch (IOException ex) {
                 throw new FacesException(ex);
@@ -315,6 +333,8 @@ public abstract class ChartRendererBase extends RendererBase {
             } else if (target instanceof AbstractSeries) {
                 AbstractSeries s = (AbstractSeries) target;
                 ChartDataModel model = s.getData();
+                particularSeriesListeners.add(s.getPlotClickListener());
+
 
                 // Collect Series specific handlers
                 Map<String, Object> optMap = new HashMap<String, Object>();
@@ -431,8 +451,13 @@ public abstract class ChartRendererBase extends RendererBase {
         }
 
         public JSONObject getSeriesSpecificHandlers() {
-            return seriesSpecificHandlers;
+            return particularSeriesHandlers;
         }
+
+        public List<MethodExpression> getParticularSeriesListeners() {
+            return particularSeriesListeners;
+        }
+
 
     }
 
@@ -442,7 +467,7 @@ public abstract class ChartRendererBase extends RendererBase {
     class VisitSeries implements VisitCallback {
 
         private ChartDataModel model = null;
-        private ChartDataModel.ChartType type;
+        private final ChartDataModel.ChartType type;
 
         public VisitSeries(ChartDataModel.ChartType type) {
             this.type = type;
@@ -474,9 +499,9 @@ public abstract class ChartRendererBase extends RendererBase {
                         && model.getValueType().isAssignableFrom(y.getClass())) {
 
                     if (x instanceof Number && y instanceof Number) {
-                        model.put((Number) x, (Number) y);
+                        model.put(x, y);
                     } else if (x instanceof String && y instanceof Number) {
-                        model.put((String) x, (Number) y);
+                        model.put(x, y);
                     } else {
                         throw new IllegalArgumentException(
                                 "Not supported types " + x.getClass() + " "

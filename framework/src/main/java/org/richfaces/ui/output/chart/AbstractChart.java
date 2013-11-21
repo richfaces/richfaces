@@ -22,6 +22,8 @@
 
 package org.richfaces.ui.output.chart;
 
+import java.util.List;
+
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
@@ -105,6 +107,19 @@ public abstract class AbstractChart extends UIComponentBase {
             if (expression != null) {
                 expression.invoke(context.getELContext(),
                         new Object[] { event });
+            }
+
+            //particular series listener
+            int seriesId = ((PlotClickEvent) event).getSeriesIndex();
+            List<MethodExpression> particularSeriesListeners = (List<MethodExpression>) getAttributes().get("particularSeriesListeners");
+
+            if(particularSeriesListeners!=null){
+                if(seriesId < particularSeriesListeners.size()){
+                    MethodExpression expr = particularSeriesListeners.get(seriesId);
+                    if(expr!=null){
+                        expr.invoke(context.getELContext(), new Object[]{event});
+                    }
+                }
             }
         }
         super.broadcast(event);
