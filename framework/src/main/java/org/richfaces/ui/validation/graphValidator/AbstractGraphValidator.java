@@ -78,7 +78,7 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
     public abstract void setGroups(Class<?>[] newvalue);
 
     /**
-     * The validator-id of validator used to process validation of the provided bean (Default value: org.richfaces.BeanValidator)
+     * The validator-id of validator used to process validation of the provided bean (Default value: org.richfaces.ui.BeanValidator)
      */
     @Attribute(defaultValue = FacesBeanValidator.BEAN_VALIDATOR_TYPE)
     public abstract String getType();
