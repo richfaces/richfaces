@@ -97,6 +97,7 @@ public abstract class ChartRendererBase extends RendererBase {
                 component.getAttributes().get("charttype"));
         addAttribute(obj, "xtype", component.getAttributes().get("xtype"));
         addAttribute(obj, "ytype", component.getAttributes().get("ytype"));
+        addAttribute(obj, "serverSideListener", component.getAttributes().get("serverSideListener"));
 
         JSONObject xaxis = new JSONObject();
         addAttribute(xaxis, "min", component.getAttributes().get("xmin"));
@@ -203,6 +204,12 @@ public abstract class ChartRendererBase extends RendererBase {
                     axisDataTypeToString(visitCallback.getValType()));
         }
 
+        //set flag whether request to server should be sent
+        boolean anyServerSideListener = chart.getPlotClickListener()!=null?true:false;
+        component.getAttributes().put("serverSideListener",anyServerSideListener);
+
+
+        //client-side handlers for particular series
         component.getAttributes().put("handlers",
                 visitCallback.getSeriesSpecificHandlers());
 
