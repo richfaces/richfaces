@@ -641,6 +641,7 @@
                 </property>
             </activation>
             <properties>
+                <testCategory.excluded.browser>AND NOT category.FailingOnFirefox</testCategory.excluded.browser>
                 <arquillian.drone.browser>firefox</arquillian.drone.browser>
             </properties>
         </profile>
