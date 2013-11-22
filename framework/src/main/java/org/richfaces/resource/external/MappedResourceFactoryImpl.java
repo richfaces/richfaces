@@ -53,7 +53,7 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
 
     private List<ResourceMapper> mappers;
 
-    private List<String> resourceLibrariesToMap = Arrays.asList("org.richfaces", "bootstrap", "font-awesome", "com.jqueryui",
+    private List<String> resourceLibrariesToMap = Arrays.asList("org.richfaces", "io.richwidgets", "bootstrap", "font-awesome", "com.jqueryui",
             "org.richfaces.ckeditor");
 
     /*
