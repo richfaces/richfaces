@@ -25,6 +25,7 @@ import java.io.IOException;
 
 import javax.el.MethodExpression;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ProjectStage;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -346,8 +347,10 @@ public abstract class AbstractAutocomplete extends UIInput implements AjaxEvents
      */
     @Deprecated
     public void setLayout(String layout) {
-        String message = "Autocomplete @layout attribute was deprecated in 5.0. The layout of the component is determined from provide children.";
-        RichfacesLogger.COMPONENTS.getLogger().warn(message);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
+        if (FacesContext.getCurrentInstance().isProjectStage(ProjectStage.Development)) {
+            String message = "Autocomplete @layout attribute was deprecated in 5.0. The layout of the component is determined from provide children.";
+            RichfacesLogger.COMPONENTS.getLogger().warn(message);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
+        }
     }
 }
