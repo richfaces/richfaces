@@ -1,3 +1,11 @@
+/* Red Hat Common User Experience (RCUE) */
+/* Bootstrap overrides and RCUE-specific mixins */
+/* Bootstrap overrides */
+/* RCUE-specific */
+/* Red Hat Common User Experience (RCUE) */
+/* Bootstrap overrides and RCUE-specific variables */
+/* Bootstrap overrides */
+/* RCUE-specific */
 .select-list {
   margin: 0;
   /* w/ handle styles */
@@ -53,15 +61,15 @@
   color: #333333;
 }
 .select-list .ui-selecting {
-  background: #7eb0db;
+  background: #21c2ff;
 }
 .select-list .ui-selected {
-  background-color: #428bca;
+  background-color: #0099d3;
   color: #ffffff;
 }
 .select-list .ui-selected:hover,
 .select-list .helper-item {
-  background: #2a6496;
+  background: #006286;
   color: #ffffff;
 }
 .select-list .placeholder {
@@ -106,15 +114,15 @@
   color: #333333;
 }
 .select-list .ui-selecting .handle {
-  background: #7eb0db;
+  background: #21c2ff;
 }
 .select-list .ui-selected .handle {
-  background-color: #428bca;
+  background-color: #0099d3;
   color: #ffffff;
 }
 .select-list .ui-selected:hover .handle,
 .select-list .helper-item .handle {
-  background: #2a6496;
+  background: #006286;
   color: #ffffff;
 }
 .select-list .with-handle li {
@@ -162,18 +170,18 @@
   color: #333333;
 }
 .select-list .ui-selecting td {
-  background: #7eb0db;
+  background: #21c2ff;
 }
 .select-list .ui-selected td {
-  background-color: #428bca;
+  background-color: #0099d3;
   color: #ffffff;
 }
 .select-list .ui-selected:hover td {
-  background: #2a6496;
+  background: #006286;
   color: #ffffff;
 }
 .select-list .helper-item td {
-  background: #2a6496;
+  background: #006286;
   color: #ffffff;
 }
 .select-list tr.helper-item {

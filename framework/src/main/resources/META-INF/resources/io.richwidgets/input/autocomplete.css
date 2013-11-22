@@ -4,9 +4,9 @@
   height: 0;
   margin-left: 2px;
   vertical-align: middle;
-  border-top: 4px solid #000000;
-  border-right: 4px solid transparent;
-  border-left: 4px solid transparent;
+  border-top: 0 solid #000000;
+  border-right: 0 solid transparent;
+  border-left: 0 solid transparent;
   border-bottom: 0 dotted;
 }
 .dropdown {
@@ -28,9 +28,8 @@
   list-style: none;
   font-size: 14px;
   background-color: #ffffff;
-  border: 1px solid #cccccc;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  border: 1px solid #b6b6b6;
+  border-radius: 1px;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
@@ -40,25 +39,26 @@
   left: auto;
 }
 .dropdown-menu .divider {
-  height: 1px;
-  margin: 9px 0;
-  overflow: hidden;
+  margin: 11.5px 0;
   background-color: #e5e5e5;
+  height: 1px;
+  margin: 4px 1px;
+  overflow: hidden;
 }
 .dropdown-menu > li > a {
   display: block;
   padding: 3px 20px;
   clear: both;
   font-weight: normal;
-  line-height: 1.428571429;
+  line-height: 1.81818181;
   color: #333333;
   white-space: nowrap;
 }
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
   text-decoration: none;
-  color: #262626;
-  background-color: #f5f5f5;
+  color: #4d5258;
+  background-color: #d4edfa;
 }
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
@@ -66,7 +66,7 @@
   color: #ffffff;
   text-decoration: none;
   outline: 0;
-  background-color: #428bca;
+  background-color: #0099d3;
 }
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
@@ -90,8 +90,8 @@
 .dropdown-header {
   display: block;
   padding: 3px 20px;
-  font-size: 12px;
-  line-height: 1.428571429;
+  font-size: 13px;
+  line-height: 1.81818181;
   color: #999999;
 }
 .dropdown-backdrop {
@@ -109,7 +109,7 @@
 .dropup .caret,
 .navbar-fixed-bottom .dropdown .caret {
   border-top: 0 dotted;
-  border-bottom: 4px solid #000000;
+  border-bottom: 0 solid #000000;
   content: "";
 }
 .dropup .dropdown-menu,
@@ -124,6 +124,124 @@
     left: auto;
   }
 }
+.caret {
+  font-family: "FontAwesome";
+  font-weight: normal;
+  height: 11px;
+  position: relative;
+  vertical-align: baseline;
+  width: 14px;
+}
+.caret:before {
+  bottom: 0;
+  content: "\f107";
+  left: 0;
+  line-height: 14px;
+  position: absolute;
+  text-align: center;
+  top: -1px;
+  right: 0;
+}
+.dropdown-menu .divider {
+  background-color: #e5e5e5;
+  height: 1px;
+  margin: 4px 1px;
+  overflow: hidden;
+}
+.dropdown-menu > li > a {
+  border-color: transparent;
+  border-style: solid;
+  border-width: 1px 0;
+  padding: 1px 10px;
+}
+.dropdown-menu > li > a:hover {
+  border-color: #b3d3e7;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.dropdown-menu > li > a:focus,
+.dropdown-menu > li > a:active {
+  background-color: #0099d3;
+  border-color: #0076b7;
+  color: #ffffff;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  background-color: #0099d3 !important;
+  border-color: #0076b7 !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  border-color: transparent;
+}
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  border-color: transparent;
+}
+.dropdown-header {
+  padding-left: 10px;
+  padding-right: 10px;
+  text-transform: uppercase;
+}
+.btn-group > .dropdown-menu,
+.input-group-btn > .dropdown-menu {
+  margin-top: -1px;
+}
+.dropup .dropdown-menu {
+  margin-bottom: -1px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu:hover > a {
+  background-color: #d4edfa;
+  border-color: #b3d3e7;
+}
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+.dropdown-submenu.pull-left {
+  float: none !important;
+}
+.dropdown-submenu.pull-left > .dropdown-menu {
+  left: auto;
+  margin-left: 10px;
+  right: 100%;
+}
+.dropdown-submenu > a {
+  padding-right: 20px !important;
+}
+.dropdown-submenu > a:after {
+  content: "\f105";
+  font-family: "FontAwesome";
+  display: block;
+  position: absolute;
+  right: 10px;
+  top: 2px;
+}
+.dropdown-submenu > .dropdown-menu {
+  left: 100%;
+  margin-top: 0;
+  top: -6px;
+}
+.dropup .dropdown-submenu > .dropdown-menu {
+  bottom: -5px;
+  top: auto;
+}
+.open .dropdown-submenu.active > .dropdown-menu {
+  display: block;
+}
+/* Red Hat Common User Experience (RCUE) */
+/* Bootstrap overrides and RCUE-specific mixins */
+/* Bootstrap overrides */
+/* RCUE-specific */
+/* Red Hat Common User Experience (RCUE) */
+/* Bootstrap overrides and RCUE-specific variables */
+/* Bootstrap overrides */
+/* RCUE-specific */
 .ui-autocomplete {
   position: absolute;
   top: 100%;
@@ -137,9 +255,8 @@
   list-style: none;
   font-size: 14px;
   background-color: #ffffff;
-  border: 1px solid #cccccc;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  border: 1px solid #b6b6b6;
+  border-radius: 1px;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
@@ -149,27 +266,40 @@
   left: auto;
 }
 .ui-autocomplete .divider {
-  height: 1px;
-  margin: 9px 0;
-  overflow: hidden;
+  margin: 11.5px 0;
   background-color: #e5e5e5;
+  height: 1px;
+  margin: 4px 1px;
+  overflow: hidden;
 }
 .ui-autocomplete > li > a {
   display: block;
   padding: 3px 20px;
   clear: both;
   font-weight: normal;
-  line-height: 1.428571429;
+  line-height: 1.81818181;
   color: #333333;
   white-space: nowrap;
+}
+.ui-autocomplete .divider {
+  background-color: #e5e5e5;
+  height: 1px;
+  margin: 4px 1px;
+  overflow: hidden;
+}
+.ui-autocomplete > li > a {
+  border-color: transparent;
+  border-style: solid;
+  border-width: 1px 0;
+  padding: 1px 10px;
 }
 .ui-helper-hidden-accessible {
   display: none;
 }
 .ui-menu .ui-menu-item a.ui-state-hover,
 .ui-menu .ui-menu-item a.ui-state-focus {
-  color: #262626;
-  background-color: #f5f5f5;
+  color: #4d5258;
+  background-color: #d4edfa;
   text-decoration: none;
 }
 ul.ui-autocomplete-layout-table {

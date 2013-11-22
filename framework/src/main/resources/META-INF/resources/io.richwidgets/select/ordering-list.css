@@ -1,15 +1,23 @@
+/* Red Hat Common User Experience (RCUE) */
+/* Bootstrap overrides and RCUE-specific mixins */
+/* Bootstrap overrides */
+/* RCUE-specific */
+/* Red Hat Common User Experience (RCUE) */
+/* Bootstrap overrides and RCUE-specific variables */
+/* Bootstrap overrides */
+/* RCUE-specific */
 .ordering-list {
-  margin-bottom: 1.428571429;
+  margin-bottom: 1.81818181;
   display: block;
   outline: none;
 }
 .ordering-list .header {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
   font-size: 16px;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 25px;
+  margin-bottom: 12.5px;
 }
 .ordering-list .helper li:first-child {
   margin-top: 0px;
