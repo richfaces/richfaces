@@ -253,14 +253,15 @@
     return this.each(function() {
       widget.element = this;
       widget.options = $.extend({}, widget.options, options);
+      widget.eventNamespace = '.push.RICH.' + widget.element.id;
 
       // call constructor
       widget._create();
 
       // listen for global DOM destruction event
-      $(document).on('cleanDom.RICH', function(event, ui) {
-        // is a push component under desctructed DOM element?
-        if ($.contains(ui.target, widget.element)) {
+      $(document).on('beforeDomClean' + widget.eventNamespace, function(event) {
+        // is the push component under destructed DOM element (event target)?
+        if (event.target && (event.target === widget.element || $.contains(event.target, widget.element))) {
           widget._destroy();
         }
       });
@@ -315,7 +316,7 @@
       $.each(this.handlers, function(eventName) {
         if (widget.options[eventName]) {
 
-          widget.handlers[eventName] = $(document).on(eventName + '.push.RICH.' + widget.address, function(event, data) {
+          var handler = function(event, data) {
             if (data) {
               $.extend(event, {
                 rf: {
@@ -325,7 +326,10 @@
             }
 
             widget.options[eventName].call(widget.element, event);
-          });
+          };
+
+          widget.handlers[eventName] = handler;
+          $(document).on(eventName + widget.eventNamespace + '.' + widget.address, handler);
         }
       });
 
@@ -333,11 +337,8 @@
     },
 
     _destroy: function() {
-      $.each(this.handlers, function(ev, handler) {
-        $(document).off(handler);
-      });
-
       rf.push.decreaseSubscriptionCounters(this.address);
+      $(document).off(this.eventNamespace);
     }
 
   });

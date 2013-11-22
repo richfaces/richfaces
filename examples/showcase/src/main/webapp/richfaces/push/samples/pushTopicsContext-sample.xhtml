@@ -25,7 +25,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
     xmlns:r="http://richfaces.org">
     <h:form>
-        <r:push id="pushJms" address="pushTopicsContext">
+        <r:push id="push" address="pushTopicsContext">
             <r:ajax event="dataavailable" render="uuid" />
         </r:push>
 

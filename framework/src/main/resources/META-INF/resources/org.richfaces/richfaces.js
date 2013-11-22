@@ -146,8 +146,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         }
         if (e) {
             // Fire a DOM cleanup event
-//            $(e).trigger("beforeDomClean" + RichFaces.Event.RICH_NAMESPACE);
-            $(e).trigger("beforeDomClean" + ".RICH");
+            $(e).trigger("beforeDomClean.RICH");
             var elements = e.getElementsByTagName("*");
             if (elements.length) {
                 $.each(elements, function(index) {
@@ -157,8 +156,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             }
             rf.cleanComponent(e);
             $.cleanData([e]);
-//            $(e).trigger("afterDomClean" + RichFaces.Event.RICH_NAMESPACE);
-            $(e).trigger("afterDomClean" + ".RICH");
+            $(e).trigger("afterDomClean.RICH");
         }
     };
 

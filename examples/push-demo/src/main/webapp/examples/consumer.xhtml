@@ -34,14 +34,15 @@
             $('*[id$=outputDate]').text(event.rf.data)
         }
         </script>
-        
+
         <h:form>
             <br /><br /><br /><br />
             <r:commandButton value="Push!" action="#{richBean.push}" />
+            <r:commandButton value="Re-render push" render="push" />
             
             <r:log mode="console" />
             
-            <r:push address="sampleAddress" ondataavailable="dataavailable(event)" />
+            <r:push id="push" address="sampleAddress" ondataavailable="dataavailable(event)" />
 
             <r:outputPanel id="outputDate">
                 Date: #{richBean.date}
