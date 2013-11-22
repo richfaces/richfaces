@@ -37,8 +37,13 @@
 
         <h:form>
             <br /><br /><br /><br />
-            <r:commandButton value="Push!" action="#{richBean.push}" />
+            <r:commandButton value="Push!" action="#{richBean.push}" disabled="#{viewScope.pushDisabled}" />
             <r:commandButton value="Re-render push" render="push" />
+            <r:commandButton
+                value="#{viewScope.pushDisabled ? 'Enable push' : 'Disable push'}"
+                render="@this push">
+                <r:param assignTo="#{viewScope.pushDisabled}" value="#{!viewScope.pushDisabled}" />
+            </r:commandButton>
             
             <r:log mode="console" />
             
