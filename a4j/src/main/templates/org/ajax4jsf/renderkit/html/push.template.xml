@@ -23,11 +23,11 @@
         <span id="#{clientId}">
             <script type="text/javascript">
                 <c:if test="#{shouldEncodePushUrl(facesContext)}">
-                    $.push.setPushResourceUrl("#{getPushResourceUrl(facesContext)}");
+                    RichFaces.push.setPushResourceUrl("#{getPushResourceUrl(facesContext)}");
 
                     <cdk:object name="pushHandlerUrl" value="#{getPushHandlerUrl(facesContext)}" />
                     <c:if test="#{not empty pushHandlerUrl}">
-                        $.push.setPushHandlerUrl("#{pushHandlerUrl}");
+                        RichFaces.push.setPushHandlerUrl("#{pushHandlerUrl}");
                     </c:if>
 
                 </c:if>
@@ -37,7 +37,7 @@
                     <cdk:scriptOption wrapper="eventHandler" attributes="push:ondataavailable subscribed:onsubscribed error:onerror" />
                 </cdk:scriptObject>
 
-                $(document.getElementById('#{clientId}')).push(#{toScriptArgs(options)});
+                $(document.getElementById('#{clientId}')).richpush(#{toScriptArgs(options)});
             </script>
         </span>
     </cc:implementation>
