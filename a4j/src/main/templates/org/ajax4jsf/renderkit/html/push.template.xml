@@ -37,7 +37,7 @@
                     <cdk:scriptOption wrapper="eventHandler" attributes="push:ondataavailable subscribed:onsubscribed error:onerror" />
                 </cdk:scriptObject>
 
-                $(document.getElementById('#{clientId}')).richpush(#{toScriptArgs(options)});
+                RichFaces.jQuery(document.getElementById('#{clientId}')).richpush(#{toScriptArgs(options)});
             </script>
         </span>
     </cc:implementation>
