@@ -49,6 +49,18 @@ Using these settings you will use separated local repository which will be popul
 | MAVEN_OPTS | -Xmx1024m -XX:MaxPermSize=512m
 |===
 
+=== Update RichWidgets Tag
+
+RichFaces depends on RichWidgets bower dependency in a `framework/src/main/js`.
+
+During development, it depends on `#dist` as a continous integration branch,
+but in a release, we need to switch to a tagged version (e.g. `#0.2`).
+
+1. update the tag
+1. follow instructions in `framework/src/main/js/README` to update RichWidgets resources in the project
+1. commit the updated `bower.json` and copied resources
+
+
 === Notify Development Team
 
 Also the person performing any of the releases below should also post a message to the RichFaces developer forum stating:
