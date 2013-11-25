@@ -1,5 +1,10 @@
 (function($) {
 
+  /**
+   * Base for JSF components built on top of Widget Factory pattern.
+   *
+   * The widget is destroyed by jQuery UI when called $.cleanData(e) on an element that widget is bound to.
+   */
   $.widget('rf.bridgeBase', {
 
     _create : function() {

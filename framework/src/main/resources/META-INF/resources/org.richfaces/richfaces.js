@@ -154,7 +154,9 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
                 });
                 $.cleanData(elements);
             }
+            // clean RF 4 BaseComponent components
             rf.cleanComponent(e);
+            // cleans data and jQuery UI Widget Factory components
             $.cleanData([e]);
             $(e).trigger("afterDomClean.RICH");
         }
@@ -165,7 +167,6 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         if (typeof form === "string") {
             form = $(form)
         }
-        ;
         var initialTarget = form.attr("target");
         var parameterInputs = new Array();
         try {
