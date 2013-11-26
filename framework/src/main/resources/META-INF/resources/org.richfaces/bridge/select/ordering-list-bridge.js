@@ -22,6 +22,7 @@
       this._addUnitsIfRequired(orderingListOptions, 'heightMin');
 
       this.element.orderingList(orderingListOptions);
+      this._storeWidget(this.element.data('orderingList'));
       this._addDomElements();
       this._registerListeners();
     },

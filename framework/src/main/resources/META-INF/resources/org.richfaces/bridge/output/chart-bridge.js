@@ -8,12 +8,11 @@
       var clientId = this.element.attr('id');
 
       $(document.getElementById(clientId + 'Chart')).chart(this.options);
-      
+      this._storeWidget($(document.getElementById(clientId + 'Chart')).data('chart'));
 
       this._registerListeners();
-     
     },
-    
+
     _plotClickServerSide: function (event,clientId) {
     	var params = {};
         params[clientId + 'name'] = "plotclick";
@@ -21,24 +20,24 @@
         params[clientId + 'dataIndex'] = event.data.dataIndex;
         params[clientId + 'x'] = event.data.x;
         params[clientId + 'y'] = event.data.y;
-        
+
         rf.ajax(clientId, event, {
       	  parameters : params,
       	  incId : 1
         });
-    	
+
     },
-    
+
     //bind listeners
     _registerListeners:function(){
-        
+
         this.element.on('plotclick',this._getPlotClickHandler(this.options,this.element,this._plotClickServerSide));
         this.element.on('plothover',this._getPlotHoverHandler(this.options,this.element));
         if(this.options.handlers && this.options.handlers.onmouseout){
             this.element.on('mouseout',this.options.handlers.onmouseout);
         }
     },
-    
+
   //function handles plotclick event. it calls server-side, client-side and particular series handlers if set.
     _getPlotClickHandler:function(options,element,serverSide){
         return function(event,mouse,item){
@@ -69,7 +68,7 @@
             }
         };
     },
-    
+
   //function handles plothover event. it calls client-side and particular series handlers if set.
     _getPlotHoverHandler: function(options,element){
         return function(event,mouse,item){
@@ -95,18 +94,16 @@
             }
         };
     },
-    
+
     _unbind : function(){
     	this.element.off('plotclick');
     	this.element.off('plothover');
     	this.element.off('mouseout');
     },
-    
+
     _destroy: function(){
       this._unbind();
     }
-    
-    
   });
 
 }(RichFaces.jQuery, RichFaces));

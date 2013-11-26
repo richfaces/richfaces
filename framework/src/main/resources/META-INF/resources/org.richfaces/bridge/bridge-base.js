@@ -7,8 +7,16 @@
    */
   $.widget('rf.bridgeBase', {
 
-    _create : function() {
+    _create: function() {
       this.element.data('rf.bridge', this);
+    },
+
+    _storeWidget: function(widget) {
+      this.element.data('rf.widget', widget);
+    },
+
+    getWidget: function() {
+      return this.element.data('rf.widget');
     },
 
     _addUnitsIfRequired: function(options, property) {

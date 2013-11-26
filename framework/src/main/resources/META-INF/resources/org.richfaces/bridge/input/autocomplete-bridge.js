@@ -47,6 +47,7 @@
       });
 
       $(document.getElementById(clientId + 'Input')).autocomplete(autocompleteOptions);
+      this._storeWidget($(document.getElementById(clientId + 'Input')).data('autocomplete'));
     }
   });
 

@@ -271,16 +271,53 @@
     /** Public API methods **/
 
     /**
+     * Move items from the source list of the pickList to the target list.
+     *
+     * @param [items] {Object} A list of Elements to remove from the source list of the pickList.  If no items are specified,
+     * the selected sourceList items are used.
+     * @param [event=null] {Object} The event that triggered the movement of the elements.  This event will be made accessible
+     * when the resulting change event is fired.
+     * @method addItems
+     * @chainable
+     */
+    addItems: function (items, event) {
+      event = event || null;
+      items = items || $('.ui-selected', this.sourceList);
+      if (this.options.disabled) { return; }
+      this.sourceList.orderingList('remove', items);
+      this.targetList.orderingList('add', items);
+      // do not trigger an event here, as the pickList will trigger an event off of the underlying orderingList event
+      return this;
+    },
+
+    /**
+     * Move all items from the source list of the pickList to the target list.
+     *
+     * @param [event=null] {Object} The event that triggered the movement of the elements.  This event will be made accessible
+     * when the resulting change event is fired.
+     * @method addAllItems
+     * @chainable
+     */
+    addAllItems: function (event) {
+      var items = $('.ui-selectee', this.sourceList);
+      this.addItems(items, event);
+      this.targetList.orderingList('selectItem', items);
+      return this;
+    },
+
+    /**
      * Move items from the target list of the pickList to the source list.
      *
-     * @param items {Object} A list of Elements to remove from the target list of the pickList
-     * @param [event=null] {Object} The event that triggered the removal of the elements.  This event will be made accessible
+     * @param items {Object} A list of Elements to remove from the target list of the pickList  If no items are specified,
+     * the selected targetList items are used.
+     * @param [event=null] {Object} The event that triggered the movement of the elements.  This event will be made accessible
      * when the resulting change event is fired.
      * @method removeItems
      * @chainable
      */
     removeItems: function (items, event) {
       event = event || null;
+      items = items || $('.ui-selected', this.targetList);
       if (this.options.disabled) { return; }
       this.targetList.orderingList('remove', items);
       this.sourceList.orderingList('add', items);
@@ -288,20 +325,21 @@
       return this;
     },
 
+
     /**
-     * Move items from the source list of the pickList to the target list.
+     * Move all items from the target list of the pickList to the source list.
      *
-     * @param items {Object} A list of Elements to remove from the source list of the pickList
-     * @param [event=null] {Object} The event that triggered the removal of the elements.  This event will be made accessible
+     * @param [event=null] {Object} The event that triggered the movement of the elements.  This event will be made accessible
      * when the resulting change event is fired.
-     * @method addItems
+     * @method removeAllItems
      * @chainable
      */
-    addItems: function (items, event) {
+    removeAllItems: function (event) {
       event = event || null;
+      var items = items || $('.ui-selected', this.targetList);
       if (this.options.disabled) { return; }
-      this.sourceList.orderingList('remove', items);
-      this.targetList.orderingList('add', items);
+      this.targetList.orderingList('remove', items);
+      this.sourceList.orderingList('add', items);
       // do not trigger an event here, as the pickList will trigger an event off of the underlying orderingList event
       return this;
     },
@@ -622,24 +660,22 @@
 
     /** Event Handlers **/
 
-    _removeAllHandler: function (event) {
-      var items = $('.ui-selectee', this.targetList);
-      this.removeItems(items, event);
-      this.sourceList.orderingList('selectItem', items);
+    _addHandler: function (event) {
+      this.addItems($('.ui-selected', this.sourceList), event);
+    },
+
+    _addAllHandler: function (event) {
+      this.addAllItems();
     },
 
     _removeHandler: function (event) {
       this.removeItems($('.ui-selected', this.targetList), event);
     },
 
-    _addHandler: function (event) {
-      this.addItems($('.ui-selected', this.sourceList), event);
-    },
-
-    _addAllHandler: function (event) {
-      var items = $('.ui-selectee', this.sourceList);
-      this.addItems(items, event);
-      this.targetList.orderingList('selectItem', items);
+    _removeAllHandler: function (event) {
+      var items = $('.ui-selectee', this.targetList);
+      this.removeItems(items, event);
+      this.sourceList.orderingList('selectItem', items);
     }
 
   });

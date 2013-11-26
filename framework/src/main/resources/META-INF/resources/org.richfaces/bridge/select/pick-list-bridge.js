@@ -25,6 +25,7 @@
       this._addUnitsIfRequired(pickListOptions, 'heightMin');
 
       this.element.pickList(pickListOptions);
+      this._storeWidget(this.element.data('pickList'));
       this._addDomElements();
       this._registerListeners();
     },
