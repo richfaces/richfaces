@@ -26,7 +26,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 (function($, rf) {
 
     rf.RICH_CONTAINER = "rf";
-    
+
     /**
      * All input elements which can hold value, which are enabled and visible.
      */
@@ -48,7 +48,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         DOWN: 40,
         DEL: 46
     };
-    
+
     if (window.jsf) {
         var jsfAjaxRequest = jsf.ajax.request;
         var jsfAjaxResponse = jsf.ajax.response;
@@ -81,10 +81,9 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         var element = rf.getDomElement(source);
 
         if (element) {
-            return (element[rf.RICH_CONTAINER] || {})["component"];
+            return $(element).data("rf.widget") || (element[rf.RICH_CONTAINER] || {})["component"];
         }
     };
-    
 
     /**
      * jQuery selector ":editable" which selects only input elements which can be edited, are visible and enabled
@@ -205,8 +204,8 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             $(parameterInputs).remove();
         }
     };
-    
-    
+
+
 
     //utils.js
     $.fn.toXML = function () {
@@ -540,16 +539,16 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
     rf.ajax = function(source, event, options) {
         var options = options || {};
-        
+
         var sourceId = getSourceId(source, options);
         var sourceElement = getSourceElement(source);
-        
+
         // event source re-targeting finds a RichFaces component root
         // to setup javax.faces.source correctly - RF-12616)
         if (sourceElement) {
             source = searchForComponentRootOrReturn(sourceElement);
         }
-        
+
         parameters = options.parameters || {}; // TODO: change "parameters" to "richfaces.ajax.params"
         parameters.execute = "@component";
         parameters.render = "@component";
@@ -594,7 +593,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
 
             for (var eventName in AJAX_EVENTS) {
                 var handlerCode, handler;
-                
+
                 if (options.rfExt) {
                     handlerCode = options.rfExt[eventName];
                     handler = typeof handlerCode == "function" ? handlerCode : createEventHandler(handlerCode);
@@ -626,7 +625,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
                     eventHandlers.begin = namedStatusEventHandler;
                 }
             }
-            
+
             // register handlers for form events: ajaxbegin and ajaxbeforedomupdate
             if (form) {
                 eventHandlers.begin = chain(eventHandlers.begin, function() { $(form).trigger('ajaxbegin'); });
@@ -644,10 +643,10 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             if (form) {
                 $(form).trigger('ajaxsubmit');
             }
-            
+
             return jsfAjaxRequest(source, event, parameters);
         }
-        
+
         jsf.ajax.response = function(request, context) {
             // for all RichFaces.ajax requests
             if (context.render == '@component') {
@@ -658,7 +657,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             return jsfAjaxResponse(request, context);
         }
     }
-    
+
     /**
      * Returns RichFaces component root for given element in the list of ancestors of sourceElement.
      * Otherwise returns sourceElement if RichFaces component root can't be located.
@@ -681,7 +680,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
         }
         return sourceElement;
     };
-    
+
 
     /**
      * Detects whether the element has bound RichFaces component.
@@ -701,7 +700,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             throw new Error("jsf.request: source must be object or string");
         }
     };
-    
+
     var getFormElement = function(sourceElement) {
         if ($(sourceElement).is('form')) {
             return sourceElement;
@@ -709,7 +708,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             return $('form').has(sourceElement).get(0);
         }
     };
-    
+
     var getSourceId = function(source, options) {
         if (options.sourceId) {
             return options.sourceId;
@@ -732,7 +731,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
             }
         }
     };
-    
+
     rf.javascriptServiceComplete = function(event) {
         $(function() {
             $(document).trigger("javascriptServiceComplete");
