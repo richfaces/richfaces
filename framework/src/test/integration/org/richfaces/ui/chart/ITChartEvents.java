@@ -50,137 +50,169 @@ import org.richfaces.deployment.FrameworkDeployment;
 
 import category.FailingOnFirefox;
 
-
 @RunWith(Arquillian.class)
 public class ITChartEvents {
 
-	private static final String WEBAPP_PATH = "src/test/integration/org/richfaces/ui/chart";
+    private static final String WEBAPP_PATH = "src/test/integration/org/richfaces/ui/chart";
 
+    private int seriesCount;
 
-	private int seriesCount;
+    @Drone
+    WebDriver browser;
 
-	@Drone
-	WebDriver browser;
+    @ArquillianResource
+    URL deploymentUrl;
 
-	@ArquillianResource
-	URL deploymentUrl;
+    Actions builder;
 
-	Actions builder;
+    @Deployment
+    public static WebArchive createDeployment() {
+        FrameworkDeployment deployment = new FrameworkDeployment(
+                ITChartEvents.class);
+        deployment
+                .archive()
+                .addClasses(ChartBean.class, ChartParticularBean.class)
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+                .addAsWebInfResource(
+                        new StringAsset("<faces-config version=\"2.0\"/>"),
+                        "faces-config.xml");
+        deployment.archive().addAsWebResource(
+                new File(WEBAPP_PATH, "chart.xhtml"), "index.xhtml");
+        deployment.archive().addAsWebResource(
+                new File(WEBAPP_PATH, "particular.xhtml"), "particular.xhtml");
 
-	@Deployment
-	public static WebArchive createDeployment() {
-	    FrameworkDeployment deployment = new FrameworkDeployment(ITChartEvents.class);
-	    deployment.archive()
-	    .addClasses(ChartBean.class)
-	    .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-	    .addAsWebInfResource(
-                new StringAsset("<faces-config version=\"2.0\"/>"),
-                "faces-config.xml");
-		deployment.archive().addAsWebResource(new File(WEBAPP_PATH, "chart.xhtml"),"index.xhtml");
+        return deployment.getFinalArchive();
 
-	    return deployment.getFinalArchive();
+    }
 
-	}
+    @JavaScript
+    ChartJs chtestjs;
 
-	@JavaScript
-	ChartJs chtestjs;
+    @Before
+    public void setExpectedValues() {
+        // eventBean.getCountries().size();
+        seriesCount = 4;
+    }
 
+    @Before
+    public void init() {
+        builder = new Actions(browser);
+    }
 
-	@Before
-	public void setExpectedValues(){
-		//eventBean.getCountries().size();
-		seriesCount=4;
-	}
+    @RunAsClient
+    @Test
+    public void ChartCreated() {
+        browser.get(deploymentUrl.toExternalForm());
 
-	@Before
-	public void init(){
-		builder = new Actions(browser);
-	}
+        Assert.assertNotNull("Chart should be on page.",
+                browser.findElement(By.id("frm:chartChart")));
 
-	@RunAsClient
-	@Test
-	public void ChartCreated() {
-		browser.get(deploymentUrl.toExternalForm());
+        Assert.assertNotNull(
+                "Plot canvas created.",
+                browser.findElement(By
+                        .xpath("//div[@id='frm:chartChart']/canvas[@class='flot-base']")));
 
+        Assert.assertEquals(seriesCount, chtestjs.seriesLength("frm:chart"));
+    }
 
-		Assert.assertNotNull("Chart should be on page.", browser.findElement(By.id("frm:chartChart")));
+    @FindBy(id = "clickInfo")
+    WebElement clickSpan;
 
-		Assert.assertNotNull("Plot canvas created.",browser.findElement(By.xpath("//div[@id='frm:chartChart']/canvas[@class='flot-base']")));
+    @FindBy(xpath = "//div[@id='frm:chartChart']/canvas[@class='flot-overlay']")
+    WebElement chartCanvas;
 
-		Assert.assertEquals(seriesCount,chtestjs.seriesLength("frm:chart"));
-	}
+    @RunAsClient
+    @Test
+    @Category(FailingOnFirefox.class)
+    public void ClientSideClick() {
+        browser.get(deploymentUrl.toExternalForm());
 
-	@FindBy(id="clickInfo")
-	WebElement clickSpan;
+        // click the first point in the first series of the chart
+        Action click = builder
+                .moveToElement(chartCanvas,
+                        chtestjs.pointXPos("frm:chart", 0, 0),
+                        chtestjs.pointYPos("frm:chart", 0, 0)).click().build();
 
+        click.perform();
 
-	@FindBy(xpath="//div[@id='frm:chartChart']/canvas[@class='flot-overlay']")
-	WebElement chartCanvas;
+        // crop decimal places
+        double xVal = chtestjs.pointX("frm:chart", 0, 0);
+        int xValInt = (int) xVal;
 
+        String expected = Integer.toString(xValInt) + ','
+                + Double.toString(chtestjs.pointY("frm:chart", 0, 0));
 
-	@RunAsClient
-	@Test
-	@Category(FailingOnFirefox.class)
-	public void ClientSideClick(){
-		browser.get(deploymentUrl.toExternalForm());
+        Assert.assertEquals(expected, clickSpan.getText());
+    }
 
-		//click the first point in the first series of the chart
-		Action click = builder.moveToElement(chartCanvas,
-				chtestjs.pointXPos("frm:chart", 0, 0),
-				chtestjs.pointYPos("frm:chart", 0, 0))
-				.click().build();
+    @FindBy(id = "frm:msg")
+    WebElement msg;
 
-		click.perform();
+    @RunAsClient
+    @Test
+    @Category(FailingOnFirefox.class)
+    public void ServerSideClick() {
+        browser.get(deploymentUrl.toExternalForm());
 
+        String before = msg.getText();
 
-		//crop decimal places
-		double xVal = chtestjs.pointX("frm:chart", 0, 0);
-		int xValInt = (int) xVal;
+        // click the first point in the first series of the chart
+        int x = chtestjs.pointXPos("frm:chart", 0, 0);
+        int y = chtestjs.pointYPos("frm:chart", 0, 0);
 
-		String expected =  Integer.toString(xValInt)  +
-				','+ Double.toString(chtestjs.pointY("frm:chart", 0, 0));
+        Action click = builder.moveToElement(chartCanvas, x, y).click().build();
 
+        click.perform();
 
-		Assert.assertEquals(expected, clickSpan.getText());
-	}
+        waitAjax().until().element(msg).text().not().equalTo(before);
 
-	@FindBy(id="frm:msg")
-	WebElement msg;
+        int seriesIndex = 0;
+        int pointIndex = 0;
+        // crop decimal places
+        double xVal = chtestjs.pointX("frm:chart", seriesIndex, pointIndex);
+        int xValInt = (int) xVal;
 
+        String expected = "Server's speaking:Point with index " + pointIndex
+                + "within series " + seriesIndex
+                + " was clicked. Point coordinates ["
+                + Integer.toString(xValInt) + ','
+                + Double.toString(chtestjs.pointY("frm:chart", 0, 0)) + "]";
 
-	@RunAsClient
-	@Test
-	@Category(FailingOnFirefox.class)
-	public void ServerSideClick(){
-		browser.get(deploymentUrl.toExternalForm());
+        Assert.assertEquals(expected, msg.getText());
+    }
 
-		String before = msg.getText();
+    @RunAsClient
+    @Test
+    @Category(FailingOnFirefox.class)
+    public void particularSeriesServerSideClick() {
+        browser.get(deploymentUrl.toExternalForm() + "faces/particular.xhtml");
 
-		//click the first point in the first series of the chart
-		int x = chtestjs.pointXPos("frm:chart", 0, 0);
-		int y = chtestjs.pointYPos("frm:chart", 0, 0);
+        String before = msg.getText();
 
-		Action click = builder.moveToElement(chartCanvas,x,y)
-                .click().build();
+        // click the first point in the first series of the chart
+        int x = chtestjs.pointXPos("frm:chart", 1, 0);
+        int y = chtestjs.pointYPos("frm:chart", 1, 0);
 
-		click.perform();
+        Action click = builder.moveToElement(chartCanvas, x, y).click().build();
 
-		waitAjax().until().element(msg).text().not().equalTo(before);
+        click.perform();
 
-		int seriesIndex = 0;
-		int pointIndex = 0;
-		//crop decimal places
-		double xVal = chtestjs.pointX("frm:chart", seriesIndex, pointIndex);
-		int xValInt = (int) xVal;
+        waitAjax();
+        // click on the second series should not change the text
+        Assert.assertEquals(before, msg.getText());
 
-		String expected = "Server's speaking:Point with index "+pointIndex +
-				"within series "+seriesIndex+" was clicked. Point coordinates [" +
-				Integer.toString(xValInt)  +','
-				+ Double.toString(chtestjs.pointY("frm:chart", 0, 0))+"]";
+        click = builder
+                .moveToElement(chartCanvas,
+                        chtestjs.pointXPos("frm:chart", 0, 0),
+                        chtestjs.pointYPos("frm:chart", 0, 0)).click().build();
 
-		Assert.assertEquals(expected, msg.getText());
-	}
+        click.perform();
+        String expected = "a-series";
 
+        // the first series should fire an event and change the text
+        waitAjax().until().element(msg).text().not().equalTo(before);
+        Assert.assertEquals(expected, msg.getText());
 
+    }
 
 }
