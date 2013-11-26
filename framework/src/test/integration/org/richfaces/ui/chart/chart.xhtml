@@ -29,7 +29,7 @@
 <h:body>
 
 	<h:form id="frm">
-		<r:chart id="chart" onplotclick="logClick(event)" clickListener="#{chartBean.handler}" >
+		<r:chart id="chart" onplotclick="logClick(event)" plotClickListener="#{chartBean.handler}" >
 			<r:repeat value="#{chartBean.countries}" var="country">
 				<r:series label="#{country.name}" type="line">
 					<r:repeat value="#{country.data}" var="record">

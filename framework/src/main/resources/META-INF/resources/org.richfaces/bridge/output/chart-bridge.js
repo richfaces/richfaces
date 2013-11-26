@@ -39,7 +39,7 @@
     },
 
   //function handles plotclick event. it calls server-side, client-side and particular series handlers if set.
-    _getPlotClickHandler:function(options,element,serverSide){
+    _getPlotClickHandler:function(options,element,serverSideHandler){
         return function(event,mouse,item){
             if(item !== null){
                 //point in a chart clicked
@@ -52,9 +52,13 @@
                 };
 
                 var clientId = element.attr('id');
-                //server-side
-                if(serverSide){
-                    serverSide(event,clientId);
+                
+                //sent request only if a server-side listener attached
+                if(options.serverSideListener){
+	                //server-side
+	                if(serverSideHandler){
+	                    serverSideHandler(event,clientId);
+	                }
                 }
 
                 //client-side
