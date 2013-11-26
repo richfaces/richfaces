@@ -71,12 +71,14 @@ public class ITChartEvents {
 	public static WebArchive createDeployment() {
 	    FrameworkDeployment deployment = new FrameworkDeployment(ITChartEvents.class);
 	    deployment.archive()
-	    .addClasses(ChartBean.class)
+	    .addClasses(ChartBean.class,ChartParticularBean.class)
 	    .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 	    .addAsWebInfResource(
                 new StringAsset("<faces-config version=\"2.0\"/>"),
                 "faces-config.xml");
 		deployment.archive().addAsWebResource(new File(WEBAPP_PATH, "chart.xhtml"),"index.xhtml");
+		deployment.archive().addAsWebResource(new File(WEBAPP_PATH, "particular.xhtml"),"particular.xhtml");
+
 
 	    return deployment.getFinalArchive();
 
@@ -179,6 +181,42 @@ public class ITChartEvents {
 				+ Double.toString(chtestjs.pointY("frm:chart", 0, 0))+"]";
 
 		Assert.assertEquals(expected, msg.getText());
+	}
+
+	@RunAsClient
+	@Test
+	@Category(FailingOnFirefox.class)
+	public void particularSeriesServerSideClick(){
+	    browser.get(deploymentUrl.toExternalForm()+"faces/particular.xhtml");
+
+
+        String before = msg.getText();
+
+        //click the first point in the first series of the chart
+        int x = chtestjs.pointXPos("frm:chart", 1, 0);
+        int y = chtestjs.pointYPos("frm:chart", 1, 0);
+
+        Action click = builder.moveToElement(chartCanvas,x,y)
+	                .click().build();
+
+        click.perform();
+
+	    waitAjax();
+	    //click on the second series should not change the text
+	    Assert.assertEquals(before,msg.getText());
+
+
+        click = builder.moveToElement(chartCanvas,chtestjs.pointXPos("frm:chart", 0, 0),
+                chtestjs.pointYPos("frm:chart", 0, 0))
+                .click().build();
+
+        click.perform();
+	    String expected = "a-series";
+
+	    //the first series should fire an event and change the text
+	    waitAjax().until().element(msg).text().not().equalTo(before);
+	    Assert.assertEquals(expected, msg.getText());
+
 	}
 
 

@@ -25,10 +25,12 @@ import javax.el.MethodExpression;
 import javax.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Event;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 
 /**
  * The &lt;r:series&lt; defines the data to be plotted in a chart. It represents
@@ -37,7 +39,10 @@ import org.richfaces.cdk.annotations.Tag;
  *
  * @author Lukas Macko
  */
-@JsfComponent(tag = @Tag(name = "series"))
+@JsfComponent(
+        family = "org.richfaces.ui.output.ChartFamily",
+        tag = @Tag(name = "series", generate = false, handlerClass=SeriesHandler.class, type = TagType.Facelets),
+        fires = {@Event(value = PlotClickEvent.class, listener = PlotClickListener.class)})
 public abstract class AbstractSeries extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.ui.output.Series";
@@ -105,6 +110,7 @@ public abstract class AbstractSeries extends UIComponentBase {
     @Attribute(signature = @Signature(parameters = PlotClickEvent.class))
     public abstract MethodExpression getPlotClickListener();
 
+    public abstract void setPlotClickListener(MethodExpression e);
     /**
      * Point symbols for line chart
      */
