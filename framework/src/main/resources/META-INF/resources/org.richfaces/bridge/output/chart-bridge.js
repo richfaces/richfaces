@@ -14,7 +14,7 @@
      
     },
     
-    _plotClickServerSide: function (event,clientId) {
+    _plotClickServerSide : function (event,clientId) {
     	var params = {};
         params[clientId + 'name'] = "plotclick";
         params[clientId + 'seriesIndex'] = event.data.seriesIndex;
@@ -30,19 +30,19 @@
     },
     
     //bind listeners
-    _registerListeners:function(){
+    _registerListeners : function() {
         
         this.element.on('plotclick',this._getPlotClickHandler(this.options,this.element,this._plotClickServerSide));
         this.element.on('plothover',this._getPlotHoverHandler(this.options,this.element));
-        if(this.options.handlers && this.options.handlers.onmouseout){
+        if (this.options.handlers && this.options.handlers.onmouseout) {
             this.element.on('mouseout',this.options.handlers.onmouseout);
         }
     },
     
   //function handles plotclick event. it calls server-side, client-side and particular series handlers if set.
-    _getPlotClickHandler:function(options,element,serverSideHandler){
+    _getPlotClickHandler : function(options,element,serverSideHandler) {
         return function(event,mouse,item){
-            if(item !== null){
+            if (item !== null) {
                 //point in a chart clicked
                 event.data={
                     seriesIndex: item.seriesIndex,
@@ -55,19 +55,19 @@
                 var clientId = element.attr('id');
                 
                 //sent request only if a server-side listener attached
-                if(options.serverSideListener){
+                if (options.serverSideListener) {
 	                //server-side
-	                if(serverSideHandler){
+	                if (serverSideHandler) {
 	                    serverSideHandler(event,clientId);
 	                }
                 }
 
                 //client-side
-                if(options.handlers && options.handlers['onplotclick']){
+                if (options.handlers && options.handlers['onplotclick']) {
                     options.handlers['onplotclick'].call(element,event);
                 }
                 //client-side particular series handler
-                if(options.particularSeriesHandlers && options.particularSeriesHandlers['onplotclick'][event.data.seriesIndex]){
+                if (options.particularSeriesHandlers && options.particularSeriesHandlers['onplotclick'][event.data.seriesIndex]) {
                     options.particularSeriesHandlers['onplotclick'][event.data.seriesIndex].call(element,event);
                 }
             }
@@ -75,7 +75,7 @@
     },
     
   //function handles plothover event. it calls client-side and particular series handlers if set.
-    _getPlotHoverHandler: function(options,element){
+    _getPlotHoverHandler: function(options,element) {
         return function(event,mouse,item){
             if(item !== null){
                 //point in a chart clicked
@@ -88,25 +88,25 @@
                 };
 
                 //client-side
-                if(options.handlers && options.handlers['onplothover']){
+                if (options.handlers && options.handlers['onplothover']) {
                     options.handlers['onplothover'].call(element,event);
                 }
 
                 //client-side particular series handler
-                if(options.particularSeriesHandlers && options.particularSeriesHandlers['onplothover'][event.data.seriesIndex]){
+                if (options.particularSeriesHandlers && options.particularSeriesHandlers['onplothover'][event.data.seriesIndex]) {
                     options.particularSeriesHandlers['onplothover'][event.data.seriesIndex].call(element,event);
                 }
             }
         };
     },
     
-    _unbind : function(){
+    _unbind : function() {
     	this.element.off('plotclick');
     	this.element.off('plothover');
     	this.element.off('mouseout');
     },
     
-    _destroy: function(){
+    _destroy: function() {
       this._unbind();
     }
     
