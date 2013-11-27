@@ -123,7 +123,7 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
     //dom cleaner
     rf.cleanComponent = function (source) {
         var component = rf.component(source);
-        if (component) {
+        if (component && !$(source).data('rf.bridge')) {
             //TODO fire destroy event
             component.destroy();
             component.detach(source);
