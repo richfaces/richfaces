@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
 import org.jboss.arquillian.graphene.wait.FluentWait;
 import org.openqa.selenium.By;
@@ -206,6 +207,7 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions
         public Autocomplete confirm() {
             // these two actions need to be split in order to prevent NoSuchElementException
             new Actions(driver).sendKeys(Keys.RETURN).perform();
+            Graphene.waitModel().until().element(By.cssSelector("body")).is().present();
             new Actions(driver).click(driver.findElement(By.cssSelector("body"))).perform();
             advanced().waitForSuggestionsToBeNotVisible().perform();
             return RichFacesAutocomplete.this;
