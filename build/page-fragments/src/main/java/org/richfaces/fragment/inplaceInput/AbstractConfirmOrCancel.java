@@ -26,6 +26,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.richfaces.fragment.common.Utils;
 
 public abstract class AbstractConfirmOrCancel implements ConfirmOrCancel {
 
@@ -38,7 +39,7 @@ public abstract class AbstractConfirmOrCancel implements ConfirmOrCancel {
     @Override
     public void confirmByControlls() {
         checkControllsAreAvailable();
-        getConfirmButton().click();
+        Utils.triggerJQ("mousedown",getConfirmButton() );
         waitAfterConfirmOrCancel();
     }
 
@@ -51,7 +52,7 @@ public abstract class AbstractConfirmOrCancel implements ConfirmOrCancel {
     @Override
     public void cancelByControlls() {
         checkControllsAreAvailable();
-        getCancelButton().click();
+        Utils.triggerJQ("mousedown", getCancelButton());
         waitAfterConfirmOrCancel();
     }
 

@@ -23,11 +23,12 @@ package org.richfaces.fragment.inplaceSelect;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
 import org.jboss.arquillian.graphene.fragment.Root;
+import org.jboss.arquillian.graphene.wait.FluentWait;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -38,6 +39,8 @@ import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.Event;
 import org.richfaces.fragment.common.TextInputComponentImpl;
 import org.richfaces.fragment.common.Utils;
+import org.richfaces.fragment.common.WaitingWrapper;
+import org.richfaces.fragment.common.WaitingWrapperImpl;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.inplaceInput.AbstractConfirmOrCancel;
@@ -55,16 +58,13 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedInteractio
     @FindBy(className = "rf-is-fld")
     private TextInputComponentImpl textInput;
 
-    @FindBy(css = ".rf-is-lbl")
+    @FindBy(className = "rf-is-lbl")
     private WebElement label;
 
     @FindBy(css = "span[id$=Edit] > input[id$=Input]")
     private WebElement editInputElement;
 
-    @FindBy(tagName = "script")
-    private WebElement script;
-
-    @FindBy(css = "span.rf-is-lst-cord")
+    @FindBy(className = "rf-is-lst-cord")
     private WebElement localList;
 
     @FindBy(xpath = "//body/span[contains(@class, rf-is-lst-cord)]")
@@ -98,13 +98,13 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedInteractio
     public ConfirmOrCancel select(ChoicePicker picker) {
         advanced().switchToEditingState();
         WebElement optionToBeSelected = picker.pick(advanced().getOptions());
-        if(optionToBeSelected == null) {
+        if (optionToBeSelected == null) {
             throw new IllegalArgumentException("There is no such option to be selected, which satisfied the given rules!");
         }
         optionToBeSelected.click();
         if (advanced().isSaveOnSelect() && !isShowControlls()) {
             textInput.advanced().trigger("blur");
-            waitForPopupHide();
+            advanced().waitForPopupToHide().perform();
         }
         return new ConfirmOrCancelImpl();
     }
@@ -143,7 +143,7 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedInteractio
 
         @Override
         public void waitAfterConfirmOrCancel() {
-            waitForPopupHide();
+            advanced().waitForPopupToHide().perform();
         }
     }
 
@@ -155,6 +155,8 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedInteractio
 
         private static final String RF_IS_CHNG_CLASS = "rf-is-chng";
         private static final String RF_IS_ACT_CLASS = "rf-is-act";
+        private long _timeoutForPopupToHide = -1;
+        private long _timeoutForPopupToShow = -1;
 
         public void setupEditByEvent() {
             editByEvent = DEFAULT_EDIT_EVENT;
@@ -174,6 +176,15 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedInteractio
 
         public void switchToEditingState() {
             Utils.triggerJQ(executor, editByEvent.getEventName(), root);
+            waitForPopupToShow().perform();
+        }
+
+        public void setupTimeoutForPopupToHide(long timeoutInMilliseconds) {
+            _timeoutForPopupToHide = timeoutInMilliseconds;
+        }
+
+        public void setupTimeoutForPopupToShow(long timeoutInMilliseconds) {
+            _timeoutForPopupToShow = timeoutInMilliseconds;
         }
 
         public List<WebElement> getOptions() {
@@ -224,17 +235,43 @@ public class RichFacesInplaceSelect implements InplaceSelect, AdvancedInteractio
             return null;
         }
 
+        public long getTimeoutForPopupToHide() {
+            return (_timeoutForPopupToHide == -1L) ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForPopupToHide;
+        }
+
+        public long getTimeoutForPopupToShow() {
+            return (_timeoutForPopupToShow == -1L) ? Utils.getWaitAjaxDefaultTimeout(browser) : _timeoutForPopupToShow;
+        }
+
         public boolean isSaveOnSelect() {
             return saveOnSelect;
+        }
+
+        public WaitingWrapper waitForPopupToHide() {
+            return new WaitingWrapperImpl() {
+
+                @Override
+                protected void performWait(FluentWait<WebDriver, Void> wait) {
+                    wait.until().element(localList).is().present();
+                    wait.until().element(globalList).is().not().visible();
+                }
+            }.withMessage("Waiting for popup to hide.")
+             .withTimeout(getTimeoutForPopupToHide(), TimeUnit.MILLISECONDS);
+        }
+
+        public WaitingWrapper waitForPopupToShow() {
+            return new WaitingWrapperImpl() {
+
+                @Override
+                protected void performWait(FluentWait<WebDriver, Void> wait) {
+                    wait.until().element(globalList).is().visible();
+                }
+            }.withMessage("Waiting for popup to show.")
+             .withTimeout(getTimeoutForPopupToShow(), TimeUnit.MILLISECONDS);
         }
     }
 
     private boolean isShowControlls() {
         return new WebElementConditionFactory(cancelButton).isPresent().apply(browser);
-    }
-
-    private void waitForPopupHide() {
-        Graphene.waitModel().until().element(localList).is().present();
-        Graphene.waitModel().until().element(globalList).is().not().visible();
     }
 }
