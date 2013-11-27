@@ -173,7 +173,7 @@ public class RichFacesSelect implements Select, AdvancedInteractions<RichFacesSe
         }
 
         public List<WebElement> getSuggestionsElements() {
-            return Collections.unmodifiableList(getSuggestionsElements());
+            return Collections.unmodifiableList(RichFacesSelect.this.getSuggestionsElements());
         }
 
         public boolean isPopupPresent() {
