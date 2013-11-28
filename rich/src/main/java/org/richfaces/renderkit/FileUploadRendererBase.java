@@ -50,17 +50,10 @@ public class FileUploadRendererBase extends RendererBase {
 
         if (multipartRequest != null) {
 
-            String clientId = component.getClientId(context);
             for (UploadedFile file : multipartRequest.getUploadedFiles()) {
-//                if (fileUpload.acceptsFile(file)) {
-//                    fileUpload.queueEvent(new FileUploadEvent(fileUpload, file));
-//                }
-
-                if (clientId.equals(file.getParameterName())) {
-                    component.queueEvent(new FileUploadEvent(component, file));
-                    break;
+                if (fileUpload.acceptsFile(file)) {
+                    fileUpload.queueEvent(new FileUploadEvent(fileUpload, file));
                 }
-
             }
         }
     }

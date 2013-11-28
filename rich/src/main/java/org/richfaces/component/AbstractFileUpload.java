@@ -44,6 +44,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.event.FileUploadListener;
+import org.richfaces.model.UploadedFile;
 import org.richfaces.renderkit.RenderKitUtils;
 
 /**
@@ -51,6 +52,8 @@ import org.richfaces.renderkit.RenderKitUtils;
  * progress bars, restrictions on file types, and restrictions on sizes of the files to be uploaded. </p>
  *
  * @author Konstantin Mishin
+ * @author Lukas Fryc
+ * @author Simone Cinti
  */
 @JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.FileUploadHandler"), renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"), attributes = {
         "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "ajax-props.xml", "i18n-props.xml", "fileUploadListener-props.xml" })
@@ -268,26 +271,26 @@ public abstract class AbstractFileUpload extends UIComponentBase {
      *
      * Then, the file extension of uploaded file needs to be acceptable by this component (see {@link #getAcceptedTypes()}).
      */
-//    public boolean acceptsFile(UploadedFile file) {
-//        final String clientId = this.getClientId();
-//        final int maxFilesQuantity = this.getMaxFilesQuantity();
-//        final List<String> acceptedTypes = this.getAcceptedTypesList();
-//
-//        if ((maxFilesQuantity > 0) && (queuedFileUploadEvents().get() >= maxFilesQuantity))
-//            return false;
-//
-//        if (clientId.equals(file.getParameterName())) {
-//            if (acceptedTypes.isEmpty()) {
-//                return true;
-//            }
-//
-//            if (acceptedTypes.contains(file.getFileExtension().toLowerCase())) {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
+    public boolean acceptsFile(UploadedFile file) {
+        final String clientId = this.getClientId();
+        final int maxFilesQuantity = this.getMaxFilesQuantity();
+        final List<String> acceptedTypes = this.getAcceptedTypesList();
+
+        if ((maxFilesQuantity > 0) && (queuedFileUploadEvents().get() >= maxFilesQuantity))
+            return false;
+
+        if (clientId.equals(file.getParameterName())) {
+            if (acceptedTypes.isEmpty()) {
+                return true;
+            }
+
+            if (acceptedTypes.contains(file.getFileExtension().toLowerCase())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * Increments number of {@link FileUploadEvent} which were queued
