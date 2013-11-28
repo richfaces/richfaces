@@ -31,6 +31,8 @@ import java.util.concurrent.TimeUnit;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -51,6 +53,9 @@ public class RichFacesFileUpload implements FileUpload, AdvancedInteractions<Ric
     @Root
     private WebElement rootElement;
 
+    @ArquillianResource
+    private JavascriptExecutor executor;
+
     @FindBy(className = "rf-fu-lst")
     private RichFacesFileUploadList items;
 
@@ -62,9 +67,9 @@ public class RichFacesFileUpload implements FileUpload, AdvancedInteractions<Ric
     private WebElement clearAllButtonElement;
     @FindBy(className = "rf-fu-btn-cnt-upl")
     private WebElement uploadButtonElement;
-    @FindByJQuery("input[type=file].rf-fu-inp:last")
+    @FindByJQuery(".rf-fu-inp:last")
     private WebElement fileInputElement;
-    @FindBy(css = "input[type=file].rf-fu-inp")
+    @FindBy(className = "rf-fu-inp")
     private List<WebElement> fileInputElements;
 
     private final AdvancedFileUploadInteractions interactions = new AdvancedFileUploadInteractions();
@@ -72,6 +77,8 @@ public class RichFacesFileUpload implements FileUpload, AdvancedInteractions<Ric
     @Override
     public boolean addFile(File file) {
         final int expectedSize = fileInputElements.size() + 1;
+        // hack for hidden input http://code.google.com/p/selenium/wiki/FrequentlyAskedQuestions#Q:_Does_WebDriver_support_file_uploads?
+        executor.executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", fileInputElement);
         fileInputElement.sendKeys(file.getAbsolutePath());
         try {
             Graphene.waitGui().withTimeout(1, TimeUnit.SECONDS).until(new Predicate<WebDriver>() {
