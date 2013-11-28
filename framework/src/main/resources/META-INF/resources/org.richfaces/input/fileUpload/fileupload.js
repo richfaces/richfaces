@@ -50,7 +50,7 @@
         this.progressBarElement = this.iframe.next();
         this.progressBar = rf.component(this.progressBarElement);
         this.cleanInput = this.input.clone();
-        this.addProxy = $.proxy(this.__addItem, this);
+        this.addProxy = $.proxy(this.__addItems, this);
         this.input.change(this.addProxy);
         this.addButton.mousedown(pressButton).mouseup(unpressButton).mouseout(unpressButton);
         this.uploadButton.click($.proxy(this.__startUpload, this)).mousedown(pressButton)
@@ -100,6 +100,13 @@
     };
 
     rf.BaseComponent.extend(rf.ui.FileUpload);
+    
+
+    function TypeRejectedException(fileName) {
+        this.name = "TypeRejectedException";
+        this.message = "The type of file " + fileName + " is not accepted";
+        this.fileName = fileName;
+    }
 
     $.extend(rf.ui.FileUpload.prototype, (function () {
 
@@ -113,8 +120,52 @@
             clearLabel: "Clear",
             deleteLabel: "Delete",
 
-            __addItem: function() {
-                var fileName = this.input.val();
+            __addItems : function() {
+                var context = {
+                    acceptedFileNames: [],
+                    rejectedFileNames: []
+                };
+
+                var multipleInputFiles = this.input.prop("files");
+                if (multipleInputFiles) {
+                    for (var i = 0 ; i < multipleInputFiles.length; i++) {
+                        this.__tryAddItem(context, multipleInputFiles[i].name);
+
+                        if (this.maxFilesQuantity && (context.acceptedFileNames.length >= this.maxFilesQuantity)) {
+                            this.addButton.hide();
+                            break;
+                        }
+                    }
+                } else {
+                    var fileName = this.input.val();
+                    this.__tryAddItem(context, fileName);
+                }
+
+                if (context.rejectedFileNames.length > 0) {
+                    rf.Event.fire(this.element, "ontyperejected", context.rejectedFileNames.join(','));
+                }
+
+                if (this.immediateUpload) {
+                    this.__startUpload();
+                }
+            },
+
+            __tryAddItem: function(context, fileName) {
+                try {
+                    if (this.__addItem(fileName)) {
+                        context.acceptedFileNames.push(fileName);
+                    }
+                } catch (e) {
+                    if (e instanceof TypeRejectedException) {
+                        context.rejectedFileNames.push(fileName);
+                    } else {
+                        throw e;
+                    }
+                }
+            },
+
+            __addItem: function(fileName) {
+                var fileName = fileName;
                 if (!navigator.platform.indexOf("Win")) {
                     fileName = fileName.match(/[^\\]*$/)[0];
                 } else {
@@ -135,10 +186,10 @@
                     this.input.change(this.addProxy);
                     this.__updateButtons();
                     rf.Event.fire(this.element, "onfileselect", fileName);
-                    if (this.immediateUpload) {
-                        this.__startUpload();
-                    }
+                    return true;
                 }
+
+                return false;
             },
 
             __removeItem: function(item) {
@@ -255,11 +306,17 @@
                 fileName = fileName.toUpperCase();
                 var result = !this.acceptedTypes;
                 for (var i = 0; !result && i < this.acceptedTypes.length; i++) {
-                    var extension = this.acceptedTypes[i];
-                    result = fileName.indexOf(extension, fileName.length - extension.length) !== -1;
+                    var extension = "." + this.acceptedTypes[i];
+
+                    if (extension === "." && fileName.indexOf(".") < 0) {
+                        // no extension
+                        result = true;
+                    } else {
+                        result = fileName.indexOf(extension, fileName.length - extension.length) !== -1;
+                    }
                 }
                 if (!result) {
-                    rf.Event.fire(this.element, "ontyperejected", fileName);
+                    throw new TypeRejectedException(fileName);
                 }
                 return result;
             },
