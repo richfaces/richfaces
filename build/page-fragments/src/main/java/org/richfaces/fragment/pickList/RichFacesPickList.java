@@ -23,10 +23,8 @@ package org.richfaces.fragment.pickList;
 
 import java.util.List;
 
-import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.common.AdvancedInteractions;
@@ -44,8 +42,6 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
 
     @Root
     private WebElement root;
-    @Drone
-    private WebDriver driver;
 
     @FindBy(className = "btn-add-all")
     private WebElement addAllButtonElement;
@@ -55,24 +51,19 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
     private WebElement removeAllButtonElement;
     @FindBy(className = "btn-remove")
     private WebElement removeButtonElement;
-    @FindBy(css = ".source .ui-selected")
-    private List<WebElement> selectedSourceListItems;
-    @FindBy(css = ".source .ui-selectee")
-    private List<WebElement> sourceListItems;
-    @FindBy(css = ".target ." + SELECTED_ITEM_CLASS)
-    private List<WebElement> selectedTargetListItems;
-    @FindBy(css = ".target .ui-selectee")
-    private List<WebElement> targetListItems;
+
     @FindBy(css = ".source-wrapper .ui-sortable.ui-selectable")
     private SelectableListImpl sourceList;
-    @FindBy(className = "target-wrapper")
-    private RichFacesOrderingList targetList;
     @FindBy(css = ".source")
     private WebElement listAreaElement;
     @FindBy(css = ".source.header")
     private WebElement sourceCaptionElement;
+
+    @FindBy(className = "target-wrapper")
+    private RichFacesOrderingList targetList;
     @FindBy(css = ".target.header")
     private WebElement targetCaptionElement;
+
     @FindBy(tagName = "thead")
     private WebElement headerElement;
     @FindByJQuery(".scroll-box:eq(0)")
@@ -171,7 +162,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
     }
 
     private void select(MultipleChoicePicker picker, ListComponent<? extends SelectableListItem> list) {
-        List<? extends SelectableListItem> items = targetList.advanced().getList().getItems(picker);
+        List<? extends SelectableListItem> items = list.getItems(picker);
         if (!items.isEmpty()) {
             items.get(0).select(true);// deselect all and select first item
             for (int i = 1; i < items.size(); i++) {
