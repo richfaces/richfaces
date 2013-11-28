@@ -27,7 +27,6 @@ import java.util.concurrent.ThreadFactory;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class TopicsContextImpl extends TopicsContext {
     private final ExecutorService publishService;

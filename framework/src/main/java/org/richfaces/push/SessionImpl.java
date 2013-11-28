@@ -36,7 +36,6 @@ import org.richfaces.configuration.ConfigurationServiceHelper;
 import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.push.SessionManagerImpl.DestroyableSession;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -186,7 +185,7 @@ public class SessionImpl implements Session, DestroyableSession {
             } else {
                 try {
                     // TODO - publish another events
-                    pushTopic.checkSubscription(topicKey, this);
+                    pushTopic.checkSubscription(this);
                 } catch (SubscriptionFailureException e) {
                     if (e.getMessage() != null) {
                         errorMessage = e.getMessage();

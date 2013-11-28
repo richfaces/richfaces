@@ -21,10 +21,8 @@
  */
 package org.richfaces.push;
 
-
 /**
  * @author Nick Belaevski
- *
  */
 public class SessionFactoryImpl implements SessionFactory {
     private final SessionManager sessionManager;
@@ -36,6 +34,11 @@ public class SessionFactoryImpl implements SessionFactory {
         this.topicsContext = topicsContext;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.SessionFactory#createSession(java.lang.String)
+     */
     public Session createSession(String pushSessionId) {
         Session session = new SessionImpl(pushSessionId, sessionManager, topicsContext);
         sessionManager.putPushSession(session);

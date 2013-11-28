@@ -25,10 +25,35 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
+ * <p>
+ * Session represents user’s subscription to a set of topics. This set is immutable, so new session should be
+ * created if user wants to add/remove subscriptions to some topics.
+ * </p>
+ *
+ * <p>
+ * Session does multiplexing for messages from several topics, so that only a single client connection is required to for data
+ * transfer.
+ * </p>
+ *
+ * <p>
+ * When session is created, it is getting unique UUID identifier, that client uses to communicate to that session.
+ * </p>
+ *
+ * <p>
+ * When client is subscribed to a set of topics associated with some session, session fires SessionPreSubscriptionEvent, so that
+ * application developer can control subscriptions according to access rights.
+ * </p>
+ *
+ * <p>
+ * Session is kept alive for 5 minutes since the last time it has been accessed. Note that push can work in either polling (long
+ * polling) and persistent connection (WebSocket) modes, so session should be kept-alive correctly in both cases.
+ * </p>
+ *
  * @author Nick Belaevski
  *
  */
 public interface Session {
+
     int getMaxInactiveInterval();
 
     long getLastAccessedTime();

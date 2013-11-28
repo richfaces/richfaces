@@ -22,8 +22,10 @@
 package org.richfaces.push;
 
 /**
- * @author Nick Belaevski
  *
+ * Thrown when Push message is failed to be delivered
+ *
+ * @author Nick Belaevski
  */
 public class MessageException extends Exception {
     private static final long serialVersionUID = -8684363449647232385L;

@@ -138,7 +138,7 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
                                 if (pushTopic != null) {
                                     try {
                                         Object messageData = getMessageData(message);
-                                        pushTopic.publish(topicKey, messageData);
+                                        pushTopic.publish(messageData);
                                     } catch (Exception e) {
                                         LOGGER.error(e.getMessage(), e);
                                     }

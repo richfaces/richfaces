@@ -34,12 +34,25 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 /**
+ * <p>
+ * Current implementation of Request wraps AtmosphereResource class.
+ * </p>
+ *
+ * <p>
+ * Request connects to push session to have messages written to the client and provides MessageListener interfacefor that.
+ * Current implementation of Session connects provided MessageListener to JMS bus. Also request connection notifies session
+ * manager about session activity, so that it is marked active and disconnection sets session manager to start session
+ * expiration counter.
+ * </p>
+ *
  * @author Nick Belaevski
  * @author Lukas Fryc
  */
 public class RequestImpl implements Request, AtmosphereResourceEventListener {
+
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     private static final int SUSPEND_TIMEOUT = 30 * 1000;
+
     private Session session;
     private final Meteor meteor;
     private AtomicBoolean hasActiveBroadcaster = new AtomicBoolean(false);

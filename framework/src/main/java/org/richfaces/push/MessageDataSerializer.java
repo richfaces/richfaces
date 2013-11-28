@@ -22,10 +22,11 @@
 package org.richfaces.push;
 
 /**
- * @author Nick Belaevski
+ * MessageDataSerializer is responsible for transforming message data object into a format that browser can understand, e.g. JSON.
  *
+ *
+ * @author Nick Belaevski
  */
-// TODO - byte message serializer?
 public interface MessageDataSerializer {
     String MESSAGE_ATTRIBUTE_NAME = MessageDataSerializer.class.getName();
 

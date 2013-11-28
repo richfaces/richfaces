@@ -78,8 +78,8 @@ public abstract class AbstractTopic implements Topic {
         listeners.remove(topicListener);
     }
 
-    public void checkSubscription(TopicKey key, Session session) throws SubscriptionFailureException {
-        SessionPreSubscriptionEvent event = new SessionPreSubscriptionEvent(this, key, session);
+    public void checkSubscription(Session session) throws SubscriptionFailureException {
+        SessionPreSubscriptionEvent event = new SessionPreSubscriptionEvent(this, getKey(), session);
         for (TopicListener listener : listeners) {
             if (event.isAppropriateListener(listener)) {
                 try {
@@ -109,5 +109,5 @@ public abstract class AbstractTopic implements Topic {
         }
     }
 
-    public abstract void publish(TopicKey key, Object messageData) throws MessageException;
+    public abstract void publish(Object messageData) throws MessageException;
 }

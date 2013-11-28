@@ -21,7 +21,6 @@
  */
 package org.richfaces.push;
 
-import java.text.MessageFormat;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -32,15 +31,42 @@ import org.richfaces.el.ELUtils;
 import org.richfaces.services.ServiceTracker;
 
 /**
- * @author Nick Belaevski
+ * <p>
+ * TopicsContext is a per-application singleton tracking all registered topics.
  *
+ * <p>
+ * It is erroneous to communicate with the Topic not registered via TopicsContext.
+ * </p>
+ *
+ * <p>
+ * Application developer obtains instance of TopicsContext via static lookup() method.
+ * </p>
+ *
+ * <p>
+ * When TopicsContext is being looked up for the first time, it triggers creation of {@link PushContext} via
+ * {@link PushContextFactory} that is configured as RichFaces service.
+ * </p>
+ *
+ * @author Nick Belaevski
  */
-// TODO annotations for declarative topics registration
 public abstract class TopicsContext {
+
     private ConcurrentMap<String, Topic> topics = new ConcurrentHashMap<String, Topic>();
 
+    /**
+     * Creates topic for given topic key
+     */
     protected abstract Topic createTopic(TopicKey key);
 
+    /**
+     * <p>
+     * Creates topic for given key or returns existing one when it was already created.
+     * </p>
+     *
+     * <p>
+     * This method is thread-safe.
+     * </p>
+     */
     public Topic getOrCreateTopic(TopicKey key) {
         Topic result = topics.get(key.getTopicName());
 
@@ -55,26 +81,43 @@ public abstract class TopicsContext {
         return result;
     }
 
+    /**
+     * Returns topic for given key or null if no such topic was created yet.
+     */
     public Topic getTopic(TopicKey key) {
         return topics.get(key.getTopicName());
     }
 
+    /**
+     * Removes topic with given key or does nothing when no such topic was created yet.
+     */
     public void removeTopic(TopicKey key) {
         topics.remove(key.getTopicName());
     }
 
+    /**
+     * <p>
+     * Publishes data through the topic with given key.
+     * </p>
+     *
+     * <p>
+     * The provided topic key can contain expressions as the name of topic or its subtopic. In such case, the topic name or
+     * subtopic name will be first evaluated, which will form actual topic key that will be used to publish a message.
+     * </p>
+     *
+     * @throws MessageException when topic with given key fails to publish given data object.
+     */
     public void publish(TopicKey key, Object data) throws MessageException {
         TopicKey resolvedKey = getTopicKeyWithResolvedExpressions(key);
 
         Topic topic = getOrCreateTopic(resolvedKey);
 
-        if (topic == null) {
-            throw new MessageException(MessageFormat.format("Topic {0} not found", resolvedKey.getTopicName()));
-        }
-
-        topic.publish(resolvedKey, data);
+        topic.publish(data);
     }
 
+    /**
+     * Look-ups per-application singleton of {@link TopicsContext} tracking all registered topics.
+     */
     public static TopicsContext lookup() {
         return ServiceTracker.getService(PushContextFactory.class).getPushContext().getTopicsContext();
     }

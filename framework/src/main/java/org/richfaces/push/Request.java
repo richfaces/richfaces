@@ -22,8 +22,9 @@
 package org.richfaces.push;
 
 /**
- * @author Nick Belaevski
+ * Request encapsulates active browser request to the server.
  *
+ * @author Nick Belaevski
  */
 public interface Request {
 

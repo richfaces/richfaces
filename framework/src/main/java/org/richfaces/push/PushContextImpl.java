@@ -39,14 +39,15 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class PushContextImpl implements PushContext, SystemEventListener {
+
     private static final ThreadFactory PUBLISH_THREAD_FACTORY = new ThreadFactoryBuilder().setDaemon(true)
             .setNameFormat("push-publish-thread-%1$s").build();
     private static final ThreadFactory SESSION_MANAGER_THREAD_FACTORY = new ThreadFactoryBuilder().setDaemon(true)
             .setNameFormat("push-session-manager-thread-%1$s").build();
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
+
     private String pushHandlerUrl;
     private TopicsContextImpl topicsContext;
     private SessionManager sessionManager;

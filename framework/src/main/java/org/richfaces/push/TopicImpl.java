@@ -31,7 +31,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class TopicImpl extends AbstractTopic {
     private static final class PublishTask implements Runnable {
@@ -128,11 +127,11 @@ public class TopicImpl extends AbstractTopic {
     }
 
     @Override
-    public void publish(TopicKey key, Object messageData) throws MessageException {
+    public void publish(Object messageData) throws MessageException {
         String serializedData = getMessageDataSerializer().serialize(messageData);
 
         if (serializedData != null) {
-            TopicContext topicContext = getTopicContext(key);
+            TopicContext topicContext = getTopicContext(getKey());
             if (topicContext != null) {
                 topicContext.addMessage(serializedData);
             }

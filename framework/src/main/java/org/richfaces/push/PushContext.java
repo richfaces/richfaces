@@ -24,10 +24,14 @@ package org.richfaces.push;
 import javax.faces.context.FacesContext;
 
 /**
- * @author Nick Belaevski
+ * <p>PushContext serves as container class holding references to {@link TopicsContext}, {@link SessionFactory} and {@link SessionManager}.</p>
  *
+ * <p>It has been introduced to isolate details of particular messaging bus integration from using classes.</p>
+ *
+ * @author Nick Belaevski
  */
 public interface PushContext {
+
     String INSTANCE_KEY_NAME = PushContext.class.getName();
 
     TopicsContext getTopicsContext();
@@ -36,9 +40,18 @@ public interface PushContext {
 
     SessionManager getSessionManager();
 
-    String getPushHandlerUrl();
-
+    /**
+     * Initializes {@link PushContext} instance once the application is started.
+     */
     void init(FacesContext facesContext);
 
+    /**
+     * Destroys this {@link PushContext} instance once the application is teared down.
+     */
     void destroy();
+
+    /**
+     * Returns the URL on which listens Push handler
+     */
+    String getPushHandlerUrl();
 }
