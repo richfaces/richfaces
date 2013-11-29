@@ -117,6 +117,8 @@ All the sources related to RichFaces framework and component library are located
 * `src/main/resources/META-INF/resources`
   * JavaScript and CSS resources
 
+Examples such as **RichFaces Showcase** and **Components Demo** are stored in `examples` folder.
+
 <h3>How to Test the Project</h3>
 
 RichFaces has extensive framework test suite which validates compatibility with various browsers and application servers.
