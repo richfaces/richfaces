@@ -11,8 +11,9 @@
       this.element.data('rf.bridge', this);
     },
 
-    _storeWidget: function(widget) {
-      this.element.data('rf.widget', widget);
+    _storeWidget: function(widget, optionalElement) {
+      var element = optionalElement || this.element;
+      element.data('rf.widget', widget);
     },
 
     getWidget: function() {

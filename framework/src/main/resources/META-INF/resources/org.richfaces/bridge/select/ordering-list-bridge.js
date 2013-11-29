@@ -22,18 +22,23 @@
       this._addUnitsIfRequired(orderingListOptions, 'heightMin');
 
       this.element.orderingList(orderingListOptions);
-      this._storeWidget(this.element.data('orderingList'));
+      var rootElement = $(document.getElementById(this._getClientId()));
+      this._storeWidget(this.element.data('orderingList'), rootElement);
       this._addDomElements();
       this._registerListeners();
     },
 
     _addDomElements: function() {
-      var clientId = (this.options.clientId) ? this.options.clientId : this.element.attr('id');
+      var clientId = this._getClientId();
       var hiddenInputId = clientId + this.options.hiddenInputSuffix;
       this.hiddenInput = $('<input type="hidden" />').attr('id', hiddenInputId).attr('name', clientId);
       this.element.parents(".select-list").first().append(this.hiddenInput);
       var ui = this.element.data('orderingList')._uiHash();
       this._refreshInputValues(ui.orderedKeys);
+    },
+
+    _getClientId: function() {
+      return (this.options.clientId) ? this.options.clientId : this.element.attr('id');
     },
 
     _registerListeners: function() {
