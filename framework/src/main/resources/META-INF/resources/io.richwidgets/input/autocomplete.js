@@ -431,13 +431,15 @@
     },
 
     _enable: function () {
-      this.button.removeAttr('disabled');
-      this._super();
+      if (this.button) {
+        this.button.removeAttr('disabled');
+      }
     },
 
     _disable: function () {
-      this.button.attr('disabled', 'disabled');
-      this._super();
+      if (this.button) {
+        this.button.attr('disabled', 'disabled');
+      }
     },
 
     /**
