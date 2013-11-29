@@ -142,7 +142,10 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
         private final Event DEFAULT_INVOKE_EVENT = Event.CONTEXTCLICK;
         private Event invokeEvent = DEFAULT_INVOKE_EVENT;
 
-        private static final int DEFAULT_SHOWDELAY = 100;
+        private static final int DEFAULT_HIDEDELAY = 300;
+        private int hideDelay = DEFAULT_HIDEDELAY;
+
+        private static final int DEFAULT_SHOWDELAY = 50;
         private int showDelay = DEFAULT_SHOWDELAY;
 
         private WebElement target;
@@ -245,6 +248,22 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
 //            advanced().waitUntilIsVisible().perform();
         }
 
+        public void setupHideDelay() {
+            hideDelay = DEFAULT_HIDEDELAY;
+        }
+
+        /**
+         * Delay (in ms) between losing focus and menu closing
+         *
+         * @param newHideDelayInMillis
+         */
+        public void setupHideDelay(int newHideDelayInMillis) {
+            if (newHideDelayInMillis < 0) {
+                throw new IllegalArgumentException("Can not be negative!");
+            }
+            hideDelay = newHideDelayInMillis;
+        }
+
         public void setupShowEvent() {
             invokeEvent = DEFAULT_INVOKE_EVENT;
         }
@@ -268,13 +287,13 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
         /**
          * Sets the delay which is between showevent observing and the menu opening
          *
-         * @param newShowDelay
+         * @param newShowDelayInMillis
          */
-        public void setupShowDelay(int newShowDelay) {
-            if (showDelay < 0) {
+        public void setupShowDelay(int newShowDelayInMillis) {
+            if (newShowDelayInMillis < 0) {
                 throw new IllegalArgumentException("Can not be negative!");
             }
-            showDelay = newShowDelay;
+            showDelay = newShowDelayInMillis;
         }
 
         public void setupTarget() {
@@ -323,7 +342,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
                     wait.until().element(getMenuPopupInternal()).is().not().visible();
                 }
             }.withMessage("Waiting for menu to hide.")
-             .withTimeout(getTimeoutForPopupMenuToBeNotVisible(), TimeUnit.MILLISECONDS);
+             .withTimeout(hideDelay + getTimeoutForPopupMenuToBeNotVisible(), TimeUnit.MILLISECONDS);
         }
 
         public WaitingWrapper waitUntilIsVisible() {
