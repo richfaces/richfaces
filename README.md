@@ -85,6 +85,7 @@ Prerequsities:
 
 * JDK 1.6 +
 * Maven 3.0.4 +
+* [JBoss Maven Repository](https://community.jboss.org/wiki/MavenGettingStarted-Developers)
 
 Building the project:
 
@@ -105,6 +106,16 @@ Read [How to Contribute](https://github.com/richfaces/richfaces5/blob/master/CON
 
 Developing the Project
 ----------------------
+
+<h3>How to Explore the Sources</h3>
+
+All the sources related to RichFaces framework and component library are located in `framework` folder:
+
+* `src/main/java`
+  * framework sources
+  * JSF components under `org.richfaces.ui` package
+* `src/main/resources/META-INF/resources`
+  * JavaScript and CSS resources
 
 <h3>How to Test the Project</h3>
 
