@@ -117,7 +117,13 @@ All the sources related to RichFaces framework and component library are located
 * `src/main/resources/META-INF/resources`
   * JavaScript and CSS resources
 
-Examples such as **RichFaces Showcase** and **Components Demo** are stored in `examples` folder.
+Examples such as *RichFaces Showcase* and *Components Demo* are stored in `examples` folder.
+
+<h3>Developing the Project in IDE</h3>
+
+Once you have [built the project](#building-the-project) you can import `framework` and one of `examples` to the IDE.
+
+If you are using Eclipse, you should use `Import Existing Maven Project` option.
 
 <h3>How to Test the Project</h3>
 
