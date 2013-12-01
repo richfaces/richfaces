@@ -395,7 +395,7 @@
     },
 
     /**
-     * Find and return the list of oerderingList elements that are selected
+     * Find and return the list of orderingList elements that are selected
      *
      * @method getSelected
      * @returns {Object} A jQuery list of selected items
@@ -429,30 +429,38 @@
     },
 
     /**
+     * Select all items in the orderingList
+     *
+     * @method selectAll
+     * @chainable
+     */
+    selectAll: function () {
+      this.element.find('.ui-selectee').addClass('ui-selected');
+      return this;
+    },
+
+    /**
      * Un-select all items in the orderingList
      *
      * @method unSelectAll
      * @chainable
      */
     unSelectAll: function () {
-      var widget = this;
-      this._removeDomElements();
-      this.element.children().each(function () {
-        widget.unSelectItem(this);
-      });
+      this.element.find('.ui-selected').removeClass('ui-selected');
       return this;
     },
 
     /**
      * Move the given items to the top of the orderingList
      *
-     * @method moveTop
+     * @method moveFirst
      * @param items {Object} the items to move to the top
      * @param [event=null] {Object} the event used that triggered this movement
      * @chainable
      */
-    moveTop: function (items, event) {
+    moveFirst: function (items, event) {
       event = event || null;
+      items = items || $('.ui-selected', this.element);
       if (this.options.disabled) { return; }
       var moved = this.$pluginRoot.find(items);
       var first = moved.prevAll().not('.ui-selected').last();
@@ -462,7 +470,7 @@
       if (initialState.toString() !== finalState.toString()) {
         var ui = this._uiHash();
         ui.change = 'move';
-        ui.movement = 'moveTop';
+        ui.movement = 'moveFirst';
         this._trigger('change', event, ui);
       }
       return this;
@@ -472,12 +480,13 @@
      * Move the given items up one step in the orderingList
      *
      * @method moveUp
-     * @param items {Object} the items to move up
+     * @param [items] {Object} the items to move up
      * @param [event=null] {Object} the event used that triggered this movement
      * @chainable
      */
     moveUp: function (items, event) {
       event = event || null;
+      items = items || $('.ui-selected', this.element);
       if (this.options.disabled) { return; }
       var initialState = this.getOrderedKeys();
       var moved = this.$pluginRoot.find(items);
@@ -502,12 +511,13 @@
      * Move the given items down one step in the orderingList
      *
      * @method moveDown
-     * @param items {Object} the items to move down
+     * @param [items] {Object} the items to move down
      * @param [event=null] {Object} the event used that triggered this movement
      * @chainable
      */
     moveDown: function (items, event) {
       event = event || null;
+      items = items || $('.ui-selected', this.element);
       if (this.options.disabled) { return; }
       var initialState = this.getOrderedKeys();
       var moved = this.$pluginRoot.find(items);
@@ -534,12 +544,13 @@
      * Move the given items to the end of the orderingList
      *
      * @method moveLast
-     * @param items {Object} the items to move to the end
+     * @param [items] {Object} the items to move to the end
      * @param [event=null] {Object} the event used that triggered this movement
      * @chainable
      */
     moveLast: function (items, event) {
       event = event || null;
+      items = items || $('.ui-selected', this.element);
       if (this.options.disabled) { return; }
       var initialState = this.getOrderedKeys();
       var moved = this.$pluginRoot.find(items);
@@ -559,10 +570,11 @@
      * Remove the given items from the orderingList
      *
      * @method remove
-     * @param items {Object} the items to remove
+     * @param [items] {Object} the items to remove
      * @returns {Object} the items removed from the orderingList
      */
     remove: function (items) {
+      items = items || $('.ui-selected', this.element);
       if (!items || items.length === 0) {
         return null;
       }
@@ -1011,7 +1023,7 @@
      * ````javascript
      * {
      *   change: 'move'| 'add' | 'remove',
-     *   movement: 'drag' | 'moveUp' | 'moveTop' | 'moveDown' | 'moveLast'
+     *   movement: 'drag' | 'moveUp' | 'moveFirst' | 'moveDown' | 'moveLast'
      * }
      * ````
      */
@@ -1082,7 +1094,7 @@
     /** Event Handlers **/
 
     _firstHandler: function (event) {
-      this.moveTop($('.ui-selected', this.element), event);
+      this.moveFirst($('.ui-selected', this.element), event);
     },
 
     _upHandler: function (event) {
