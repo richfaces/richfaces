@@ -5,6 +5,7 @@
     options : {
       clientId: null,
       hiddenInputSuffix: 'Input',
+      widgetRootSuffix: 'List',
       height: null,
       heightMax: null,
       heightMin: null
@@ -21,9 +22,9 @@
       this._addUnitsIfRequired(orderingListOptions, 'heightMax');
       this._addUnitsIfRequired(orderingListOptions, 'heightMin');
 
-      this.element.orderingList(orderingListOptions);
-      var rootElement = $(document.getElementById(this._getClientId()));
-      this._storeWidget(this.element.data('orderingList'), rootElement);
+      this.widgetRootElement = $(document.getElementById(this._getClientId() + this.options.widgetRootSuffix));
+      this.widgetRootElement.orderingList(orderingListOptions);
+      this._storeWidget(this.widgetRootElement.data('orderingList'));
       this._addDomElements();
       this._registerListeners();
     },
@@ -32,8 +33,8 @@
       var clientId = this._getClientId();
       var hiddenInputId = clientId + this.options.hiddenInputSuffix;
       this.hiddenInput = $('<input type="hidden" />').attr('id', hiddenInputId).attr('name', clientId);
-      this.element.parents(".select-list").first().append(this.hiddenInput);
-      var ui = this.element.data('orderingList')._uiHash();
+      this.element.append(this.hiddenInput);
+      var ui = this.widgetRootElement.data('orderingList')._uiHash();
       this._refreshInputValues(ui.orderedKeys);
     },
 
@@ -43,7 +44,7 @@
 
     _registerListeners: function() {
       var bridge = this;
-      this.element.on('orderinglistchange', function(event, ui) {
+      this.widgetRootElement.on('orderinglistchange', function(event, ui) {
         bridge._refreshInputValues(ui.orderedKeys);
       });
     },
