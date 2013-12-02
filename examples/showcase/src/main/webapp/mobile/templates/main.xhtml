@@ -25,7 +25,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      
+
       xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:r="http://richfaces.org"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
@@ -39,6 +39,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <!-- controls the appearance of the status bar in full-screen mode -->
         <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+        <h:outputStylesheet library="bootstrap" name="bootstrap.css" />
 
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/slidfast.css" />
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/mobile/slidfast.js"></script>
@@ -77,7 +79,7 @@
                    <a href="#{facesContext.externalContext.requestContextPath}/index.jsp">
                        <img src="#{facesContext.externalContext.requestContextPath}/images/mobile/rf-logo-small.png" alt="RF logo" class="logo"/>
                    </a>
-                   <h:graphicImage id="ajaxLoader" width="16" height="16" value="/images/mobile/loader.gif" alt="loader" style="float: right; margin: 14px; visibility: hidden" /> 
+                   <h:graphicImage id="ajaxLoader" width="16" height="16" value="/images/mobile/loader.gif" alt="loader" style="float: right; margin: 14px; visibility: hidden" />
                    <r:status onstart="#{r:element('ajaxLoader')}.style.visibility='visible'" onstop="#{r:element('ajaxLoader')}.style.visibility='hidden'" />
                 </div>
             </header>
