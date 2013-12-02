@@ -27,7 +27,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.behavior.ClientBehavior;
+import org.richfaces.ui.behavior.ClientBehavior;
 
 /**
  * @author Anton Belevich

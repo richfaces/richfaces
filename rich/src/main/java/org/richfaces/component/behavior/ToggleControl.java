@@ -33,6 +33,7 @@ import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.AbstractTogglePanel;
+import org.richfaces.ui.behavior.ClientBehavior;
 import org.richfaces.ui.common.ComponentIterators;
 import org.richfaces.ui.common.CustomBehaviorHandler;
 import org.richfaces.util.RendererUtils;
