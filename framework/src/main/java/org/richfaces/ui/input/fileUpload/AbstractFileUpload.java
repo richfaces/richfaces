@@ -260,10 +260,10 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
      */
     public List<String> getAcceptedTypesList() {
         String acceptedTypes = this.getAcceptedTypes();
-        if (acceptedTypes != null) {
-            return Arrays.asList(acceptedTypes.toLowerCase().replaceAll("\\s+", "").split(","));
-        } else {
+        if (acceptedTypes == null || acceptedTypes.isEmpty()) {
             return Collections.emptyList();
+        } else {
+            return Arrays.asList(acceptedTypes.toLowerCase().replaceAll("\\s+", "").split(","));
         }
     }
 
