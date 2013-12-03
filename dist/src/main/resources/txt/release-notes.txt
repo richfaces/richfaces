@@ -1,3 +1,155 @@
+5.0.0.Alpha2
+------------
+
+    Bug
+    [RF-10618] - autocomplete: unnesessary request on item selection
+    [RF-11103] - org.richfaces.skin = plain causes java.lang.IllegalArgumentException: Width (2000) and height (0) cannot be <= 0
+    [RF-12811] - VDL Documentation: rich:calendar is missing attribute "maxlength"
+    [RF-13019] - Placeholder disappears after form reset
+    [RF-13035] - Simpleapp Archetype: mobile version shows modal dialog
+    [RF-13053] - Showcase: push doesn't work on EAP 6.1
+    [RF-13090] - <rich:jQuery> named functions not working as documented
+    [RF-13098] - Regression: mediaOutput broken for CDI MediaData beans
+    [RF-13148] - RichFaces project from archetype can not be built without JBoss repositories
+    [RF-13180] - Autocomplete: ajax doesn't work with change event
+    [RF-13181] - Autocomplete: suggestion list is not valid HTML code
+    [RF-13182] - Autocomplete: attributes style and styleClass missing
+    [RF-13183] - Autocomplete: behavior of component with tokens changed
+    [RF-13184] - Autocomplete: hide attribute layout since it is auto-detected
+    [RF-13191] - The RichFaces base deployment for integration tests incorrectly disables control skinning
+    [RF-13200] - Tree: Uncaught TypeError: Object #<Object> has no method '$'
+    [RF-13204] - Loading of com.jqueryui library fails, most of the components which depend on it do not work
+    [RF-13218] - Check existence of src/main/widgets with enforcer plugin
+    [RF-13225] - RF5 build fails to render optimized resources
+    [RF-13228] - Resource Optimizer throws NPE
+    [RF-13231] - RF 5, tree component missing resource
+    [RF-13235] - Tree - Row key conversion fails (UITree should not have generated @rowKeyConverter, since it is fully implemented in AbstractTree)
+    [RF-13238] - Components' images have wrong path
+    [RF-13240] - Rich Collapsible Sub Table not working
+    [RF-13242] - ajaxcomplete event is called before javascriptServiceCompleted event
+    [RF-13254] - Images in online Component Reference are missing
+    [RF-13262] - autocomplete: @autofill=true doesn't work when @token is setup
+    [RF-13276] - Optimized resources should be generated into generated-resources
+    [RF-13280] - RF 5 packed resources cause conflict in RF 4.5
+    [RF-13281] - orderingList: ordering button's text overflows the button on Firefox
+    [RF-13291] - Optimized resource ordering is missing resources after recent changes
+    [RF-13295] - Autocomplete: css file missing
+    [RF-13296] - Autocomplete - clientFilterFunction doesn't work in showcase
+    [RF-13297] - Autocomplete - demo with cachedAjax does not update options after first request
+    [RF-13303] - Page Fragments module tests can not run
+    [RF-13304] - Autocomplete: value change listener doesn't work
+    [RF-13308] - Autocomplete: clientFilterFunction doesn't work in Firefox
+    [RF-13309] - Autocomplete doesn't work correctly when r:ajax bound to selectitem event
+    [RF-13313] - rich:fileupload - progress bar doesn't show up
+    [RF-13315] - bridgeBase: bears orderingList specific event namespacing and has wrong name of destroy method
+    [RF-13326] - pickList - caption attribute is not rendered in to its faces-config
+    [RF-13327] - pickList - setting of multiple attributes does not have any effect on the component
+    [RF-13330] - RichFaces.jQuery should be used in CDK templates instead of $
+    [RF-13342] - archetype-simpleapp: facelet with name 'title' is not defined in template, but it is used in the sample
+    [RF-13344] - pickList - maxListHeight & minListHeight need to have set units along with number to work
+    [RF-13346] - orderingList - maxListHeight & minListHeight need to have set units along with number to work
+    [RF-13347] - pickList: switchByDblClick does not work
+    [RF-13348] - pickList - columnClass attribute behaves differently than in RF4
+    [RF-13350] - pickList: styleClass attribute is rendered wrongly as styleclass instead of class attribute
+    [RF-13351] - orderingList: styleClass attribute is rendered wrongly as styleclass instead of class attribute
+    [RF-13359] - Showcase: several components don't work
+    [RF-13360] - Pick list: buttons have two icons
+    [RF-13361] - Placeholder inside calendar is not rendered
+    [RF-13365] - push: cannot be disabled with ajax request
+    [RF-13371] - Clarify and fix Push destroy logic
+    [RF-13373] - The toggle control renderer is not invoked
+    [RF-13374] - RichFaces push registered as $.fn.push overrides jQuery function
+    [RF-13375] - Bridge Base: components can't be destroyed because they listens for non-existing event cleanDom
+    [RF-13380] - Error 404 not found for fonts
+    [RF-13381] - ComponentControl doesn't work with picklist
+    [RF-13383] - Select and CSV doesn't work: UndeclaredThrowableException in ResourceFactoryImpl
+    [RF-13387] - rf.cleanComponent method is incorrectly operating on jQuery UI Widget factory widgets
+    [RF-13389] - Showcase for RF 5, pick list rendering in firefox
+    [RF-13393] - orderingList: JavaScript api is bound to wrong element
+    [RF-13398] - Autocomplete: JavaScript API doesn't work
+    [RF-13399] - RichFaces can't be built with Maven 3.1.1
+    [RF-13401] - Mobile Showcase: picklist and ordering list don't work
+    [RF-13402] - JavaScript error thrown for the orderingList in the showcase
+
+    Component Upgrade
+    [RF-12888] - Upgrade cssparser to 0.9.11
+    [RF-13131] - Upgrade Arquillian Components: Core 1.1 / Graphene 2.0 / Drone 1.2 / Arquillian Warp Alpha5
+    [RF-13132] - Upgrade JBoss Java EE BOMs to 3.0.2.Final
+    [RF-13223] - Upgrade to jsf-test 1.1.7
+
+    Enhancement
+    [RF-12784] - Showcase readme - update deployment from eclipse part
+    [RF-12822] - Create fun tests for JSF AJAX submission and JavaScriptService callbacks
+    [RF-13077] - Allow programatically configure Resource Mapping by exposing a service interface
+    [RF-13078] - Map all 'org.richfaces' resources (and other RF resources) to ResourceServlet
+    [RF-13143] - RichFaces 5: change components namespace from http://richfaces.org/rich to http://richfaces.org
+    [RF-13147] - Rename all occurences JavaScript closures which references to RichFaces object to rf
+    [RF-13160] - Refactor the InputNumber* components into abstract classes
+    [RF-13210] - Move RichFaces resources from META-INF/resources/ to org.richfaces library
+    [RF-13237] - Showcase: enable debugging tools (ui:debug, r:log) when in development mode
+    [RF-13261] - Autocomplete: introduce onfocus, onselect, onopen, onclose, onsearch, onresponse event handlers
+    [RF-13269] - Autocomplete: remove styling classes other than @styleClass
+    [RF-13270] - Split event handlers from AjaxProps to AjaxEventsProps to allow its reusing
+    [RF-13299] - Page Fragments: added license headers to all sources
+    [RF-13300] - Page Fragments: refine module dependencies
+    [RF-13338] - Page Fragments: change package from .tests.page.fragments.impl to .fragments
+    [RF-13352] - Introduce @Category(FailingOnFirefox.class) to pom.xml
+    [RF-13357] - Switch RichFaces to use dist branch of RichWidgets to avoid a need for compiling own version
+
+    Feature Request
+    [RF-12214] - Pack plain skin with UI components distribution (the resource plugin needs to be fixed)
+    [RF-12224] - fileUpload: Multiple file selection
+    [RF-12292] - "this" in oncomplete of a4j:commandButton returns window object.
+    [RF-12793] - Photoalbum improvements
+    [RF-12930] - Rename RichFaces.$ to less ambiguous RichFaces.component
+    [RF-12936] - Use jQuery in non-conflicting way
+    [RF-12952] - Favor Props interfaces over attrs.xml
+    [RF-13063] - RichFacesInputNumberSlider setValueByDragging
+    [RF-13072] - Upgrade to Warp Alpha3
+    [RF-13074] - BehaviorsTagHandlerDelegateFactoryImpl causes NullPointerException on WildFly Alpha1 (JSF 2.2)
+    [RF-13075] - Use RichFaces Widgets repository as submodule for Framework repository
+    [RF-13082] - Change the orderingList component to use the new orderingList widget
+    [RF-13083] - Change the pickList component to use the new pickList widget
+    [RF-13084] - Change the autocomplete component to use the new autocomplete widget
+    [RF-13129] - Bind Widget Bridge reference to the DOM
+    [RF-13255] - Autocomplete - cachedAjax isn't implemented
+    [RF-13273] - Font-awesome fonts not included in resource optimisation
+    [RF-13331] - Move tests for Chart component from Sandbox to Framework Tests
+    [RF-13370] - Charts - server-side improvements
+    [RF-13396] - Port patches from 4.5.0.Alpha1 to 5.0.0.Alpha2
+
+    Patch
+    [RF-13268] - Typo in LookAheadObjectInputStream.java
+
+    Task
+    [RF-11543] - Refactor ResourceMappingFeature to Service
+    [RF-12487] - Change namespace http://richfaces.org/core to http://richfaces.org/rich once refactoring ends
+    [RF-12802] - Move page fragments from repository qa to richfaces5
+    [RF-13193] - Rename the resource library to account for RF 4/5 resource overlap
+    [RF-13196] - Rename all component/renderers types org.richfaces.ui (so it won't conflict with RF4.5 org.richfaces namespace)
+    [RF-13219] - Document cloning of richfaces git repository together with its submodules
+    [RF-13253] - Move richwidgets resources from org.richfaces/widgets to richwidgets library
+    [RF-13260] - Autocomplete - remove onlist* event handlers
+    [RF-13267] - Remove the RichWidgets github submodule and instead copy/paste the widget resources into RichFaces
+    [RF-13282] - Port the RichFaces 4.3.4 fixes to RichFaces 4.5/5.0
+    [RF-13283] - Move the chart components from the sandbox into the framework
+    [RF-13284] - Create showcase samples for the chart components
+    [RF-13285] - The new autocomplete component's CSS does not play nicely with the RichFaces showcase
+    [RF-13286] - Remove the deprecated attributes from the AbstractOrderingComponent parent class
+    [RF-13318] - Update Autocomplete with refactored Autocomplete widget
+    [RF-13320] - Update OrderingList/PickList with refactored Widgets
+    [RF-13321] - Rename bridges, bridge-base and templates file names to use dashes instead of camelCase
+    [RF-13329] - Delete old 4.x and below pickList and orderingList resources from RF5
+    [RF-13332] - Showcase: update what components are new in 5.0 Alpha2
+    [RF-13333] - Charts: click server handlers throws exception
+    [RF-13363] - Sync latest page fragments changes from RF-qa repository to RF repository
+
+    Sub-task
+    [RF-13311] - Make Push independent of BaseComponent
+    [RF-13335] - Page fragments: get rid of commons-lang dependency
+    [RF-13336] - Page fragments: get rid of json-simple dependency
+    [RF-13337] - Page fragments: get rid of typetools dependency
+
 5.0.0.Alpha1
 ------------
 
