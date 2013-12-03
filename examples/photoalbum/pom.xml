@@ -26,7 +26,7 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-photoalbum</artifactId>
-    <version>5.0.0-SNAPSHOT</version>
+    <version>5.0.0.Alpha2</version>
     <packaging>war</packaging>
 
     <name>RichFaces Photoalbum</name>
@@ -52,7 +52,7 @@
     </developers>
 
     <properties>
-        <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
+        <version.richfaces>5.0.0.Alpha2</version.richfaces>
         <version.metadata-extractor>2.6.2</version.metadata-extractor>
         <version.jackson>1.9.12</version.jackson>
         <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
@@ -864,7 +864,7 @@
         <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
         <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
         <url>https://github.com/richfaces/richfaces5</url>
-      <tag>HEAD</tag>
+      <tag>5.0.0.Alpha2</tag>
   </scm>
 
     <distributionManagement>

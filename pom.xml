@@ -31,7 +31,7 @@
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-parent</artifactId>
     <packaging>pom</packaging>
-    <version>5.0.0-SNAPSHOT</version>
+    <version>5.0.0.Alpha2</version>
     <name>RichFaces Parent</name>
 
     <modules>
@@ -104,7 +104,7 @@
         <connection>scm:git:git://github.com/richfaces/richfaces5.git</connection>
         <developerConnection>scm:git:git@github.com:richfaces/richfaces5.git</developerConnection>
         <url>https://github.com/richfaces/richfaces5</url>
-      <tag>HEAD</tag>
+      <tag>5.0.0.Alpha2</tag>
   </scm>
 
     <properties>
@@ -112,7 +112,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
         <!-- Base Dependencies Versions -->
-        <version.richfaces>5.0.0-SNAPSHOT</version.richfaces>
+        <version.richfaces>5.0.0.Alpha2</version.richfaces>
         <version.cdk>4.5.0.Alpha2</version.cdk>
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
         
@@ -430,7 +430,7 @@
                 <arquillian.container.configuration />
                 <arquillian.container.uninstall>true</arquillian.container.uninstall>
                 <arquillian.container.vmargs>-Xmx768m -XX:MaxPermSize=256m</arquillian.container.vmargs>
-                <arquillian.maven.settings></arquillian.maven.settings>
+                <arquillian.maven.settings />
                 
                 <!-- Container Selection -->
                 <arquillian.launch.jbossas71>false</arquillian.launch.jbossas71>
