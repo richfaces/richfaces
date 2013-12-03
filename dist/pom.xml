@@ -29,7 +29,7 @@
     </parent>
 
     <artifactId>richfaces-distribution</artifactId>
-    <version>4.5.0-SNAPSHOT</version>
+    <version>4.5.0.Alpha1</version>
     <packaging>pom</packaging>
     <name>RichFaces Distribution Assembler</name>
 
