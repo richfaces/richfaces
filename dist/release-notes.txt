@@ -1,3 +1,43 @@
+4.5.0.Alpha1
+------------
+
+    Bug
+    [RF-13090] - <rich:jQuery> named functions not working as documented
+    [RF-13186] - Showcase 4.5.x fails
+    [RF-13214] - TreeModelAdaptor and TreeModelRecursive Adaptor doesn't work
+    [RF-13224] - RF 4.5 build fails to render optimized resources
+    [RF-13280] - RF 5 packed resources cause conflict in RF 4.5
+    [RF-13312] - rich:editor doesn't work in RF 4.5
+    [RF-13313] - rich:fileupload - progress bar doesn't show up
+    [RF-13330] - RichFaces.jQuery should be used in CDK templates instead of $
+    [RF-13362] - ajax.reslib and base-component.reslib conflicts with RF 5.0 versions
+    [RF-13384] - Showcase for 4.5.x - richfaces-event.js problem
+    [RF-13394] - Toggle control: attributes targetItem and targetPanel don't work
+    [RF-13395] - Showcase 4.5.x, input number slider
+
+    Component Upgrade
+    [RF-13134] - Tie RichFaces 4.5 Components to CDK 4.5
+    Enhancement
+    [RF-13147] - Rename all occurences JavaScript closures which references to RichFaces object to rf
+    [RF-13210] - Move RichFaces resources from META-INF/resources/ to org.richfaces library
+    [RF-13213] - RichFaces 4.5 CSV should share logic with RichFaces 5
+
+    Feature Request
+    [RF-12214] - Pack plain skin with UI components distribution (the resource plugin needs to be fixed)
+    [RF-12224] - fileUpload: Multiple file selection
+    [RF-12930] - Rename RichFaces.$ to less ambiguous RichFaces.component
+    [RF-12936] - Use jQuery in non-conflicting way
+    [RF-13265] - Add RichFaces UI 4.5 dist module for generating ZIP distribution
+
+    Task
+    [RF-13114] - PoC: port RichFaces 4.5 UI Components to work with RichFaces 5
+    [RF-13229] - Inspect RF 4.5 Java classes for occurences of 'import org.richfaces.ui'
+    [RF-13282] - Port the RichFaces 4.3.4 fixes to RichFaces 4.5/5.0
+
+    Sub-task
+    [RF-13311] - Make Push independent of BaseComponent
+
+
 New in Version 4.3.4
 --------------------
 
