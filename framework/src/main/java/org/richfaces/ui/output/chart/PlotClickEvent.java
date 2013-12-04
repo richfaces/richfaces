@@ -78,9 +78,9 @@ public class PlotClickEvent extends FacesEvent {
 
     @Override
     public String toString() {
-        return "Point with index " + getPointIndex() + "within series "
-                + getSeriesIndex() + " was clicked.\n" + "Point coordinates ["
-                + getX() + "," + getY() + "]";
+        return "Point with index " + getPointIndex() + " within series "
+                + getSeriesIndex() + " was clicked." + System.getProperty("line.separator") + "Point coordinates: ["
+                + getX() + "," + getY() + "].";
     }
 
     @Override
