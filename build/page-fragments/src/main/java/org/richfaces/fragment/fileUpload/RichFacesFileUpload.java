@@ -71,15 +71,18 @@ public class RichFacesFileUpload implements FileUpload, AdvancedInteractions<Ric
     private WebElement fileInputElement;
     @FindBy(className = "rf-fu-inp")
     private List<WebElement> fileInputElements;
+    @FindBy(css = ".rf-fu-btn-add > span")
+    private WebElement inputContainer;
 
     private final AdvancedFileUploadInteractions interactions = new AdvancedFileUploadInteractions();
 
     @Override
     public boolean addFile(File file) {
         final int expectedSize = fileInputElements.size() + 1;
-        // hack for hidden input http://code.google.com/p/selenium/wiki/FrequentlyAskedQuestions#Q:_Does_WebDriver_support_file_uploads?
-        executor.executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", fileInputElement);
+        String containerStyleClassBefore = inputContainer.getAttribute("class");
+        Utils.jQ("attr('class', '')", inputContainer);
         fileInputElement.sendKeys(file.getAbsolutePath());
+        Utils.jQ("attr('class', '" + containerStyleClassBefore + "')", inputContainer);
         try {
             Graphene.waitGui().withTimeout(1, TimeUnit.SECONDS).until(new Predicate<WebDriver>() {
                 @Override
