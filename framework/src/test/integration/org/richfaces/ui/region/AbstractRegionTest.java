@@ -22,24 +22,12 @@
 
 package org.richfaces.ui.region;
 
-import static org.jboss.arquillian.warp.jsf.Phase.RENDER_RESPONSE;
-import static org.junit.Assert.assertEquals;
-
 import java.net.URL;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.Activity;
-import org.jboss.arquillian.warp.Inspection;
 import org.jboss.arquillian.warp.Warp;
-import org.jboss.arquillian.warp.jsf.AfterPhase;
-import org.jboss.arquillian.warp.servlet.BeforeServlet;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -63,7 +51,7 @@ public abstract class AbstractRegionTest {
     protected static class RegionTestDeployment extends FrameworkDeployment {
         RegionTestDeployment(Class<?> baseClass) {
             super(baseClass);
-            this.archive().addClass(RegionBean.class);
+            this.archive().addClasses(RegionBean.class, SetupExecute.class, VerifyExecutedIds.class);
             this.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
         }
     }
@@ -88,37 +76,5 @@ public abstract class AbstractRegionTest {
                 }
             })
             .inspect(new VerifyExecutedIds(expectedExecutedIds));
-    }
-
-    public static class SetupExecute extends Inspection {
-        private static final long serialVersionUID = 1L;
-        private String execute;
-
-        public SetupExecute(String execute) {
-            this.execute = execute;
-        }
-
-        @Inject
-        private RegionBean region;
-
-        @BeforeServlet
-        public void setupExecute() {
-            region.setExecute(execute);
-        }
-    }
-
-    public static class VerifyExecutedIds extends Inspection {
-        private static final long serialVersionUID = 1L;
-        private List<String> expectedExecutedIds;
-
-        public VerifyExecutedIds(String... expectedExecutedIds) {
-            this.expectedExecutedIds = new LinkedList<String>(Arrays.asList(expectedExecutedIds));
-        }
-
-        @AfterPhase(RENDER_RESPONSE)
-        public void validaExecutedIds(@ArquillianResource FacesContext facesContext) {
-            List<String> executedIds = new LinkedList<String>(facesContext.getPartialViewContext().getExecuteIds());
-            assertEquals(expectedExecutedIds, executedIds);
-        }
     }
 }
