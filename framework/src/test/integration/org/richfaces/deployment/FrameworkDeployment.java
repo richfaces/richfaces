@@ -23,8 +23,12 @@
 package org.richfaces.deployment;
 
 import java.io.File;
+import java.lang.reflect.Method;
 
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.spi.RemoteLoadableExtension;
+import org.jboss.arquillian.core.spi.Validate;
+import org.jboss.arquillian.test.spi.TestClass;
 import org.jboss.shrinkwrap.api.Filters;
 import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -39,8 +43,8 @@ import org.richfaces.l10n.MessageFactory;
 import org.richfaces.push.PushContextFactory;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
-import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.external.MappedResourceFactory;
+import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.services.DependencyInjector;
 import org.richfaces.services.Uptime;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
@@ -52,7 +56,7 @@ import org.richfaces.wait.WaitTimeoutException;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 
-public class FrameworkDeployment extends Deployment {
+public class FrameworkDeployment extends org.richfaces.deployment.Deployment {
 
     private static Supplier<JavaArchive> RICHFACES_JAR = Suppliers.memoize(new Supplier<JavaArchive>() {
         @Override
@@ -68,9 +72,14 @@ public class FrameworkDeployment extends Deployment {
     public FrameworkDeployment(Class<?> testClass) {
         super(testClass);
 
+        Validate.notNull(testClass, "testClass can't be null");
+
         withWholeFramework();
-        withArquillianExtensions();
         withWaiting();
+
+        if (hasTestableDeployment(testClass)) {
+            withArquillianExtensions();
+        }
 
         // prevents scanning of inner classes
         archive().addAsWebInfResource(new File("src/test/resources/beans.xml"));
@@ -103,5 +112,12 @@ public class FrameworkDeployment extends Deployment {
         this.archive().add(p, name);
 
         return p;
+    }
+
+    private boolean hasTestableDeployment(Class<?> clazz) {
+        TestClass testClass = new TestClass(clazz);
+        Method method = testClass.getMethod(Deployment.class);
+        Deployment deployment = method.getAnnotation(Deployment.class);
+        return deployment.testable();
     }
 }

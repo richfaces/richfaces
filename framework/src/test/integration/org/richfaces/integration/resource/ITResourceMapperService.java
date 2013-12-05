@@ -80,7 +80,7 @@ public class ITResourceMapperService {
     @Deployment
     public static WebArchive createDeployment() {
 
-        FrameworkDeployment deployment = new FrameworkDeployment(null);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITResourceMapperService.class);
 
         EmptyAsset emptyResource = EmptyAsset.INSTANCE;
 

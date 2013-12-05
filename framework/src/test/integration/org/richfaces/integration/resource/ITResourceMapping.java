@@ -72,7 +72,7 @@ public class ITResourceMapping {
     @Deployment
     public static WebArchive createDeployment() {
 
-        FrameworkDeployment deployment = new FrameworkDeployment(null);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITResourceMapping.class);
 
         PropertiesAsset staticResourceMapping = new PropertiesAsset()
                 .key(":original.css").value("relocated.css")
