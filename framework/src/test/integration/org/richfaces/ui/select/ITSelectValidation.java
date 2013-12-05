@@ -62,7 +62,7 @@ public class ITSelectValidation {
     @FindBy(id="message")
     private WebElement message;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITSelectValidation.class);
 

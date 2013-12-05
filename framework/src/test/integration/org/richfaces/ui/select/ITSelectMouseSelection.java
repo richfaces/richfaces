@@ -59,7 +59,7 @@ public class ITSelectMouseSelection {
     @FindBy(css = ".rf-sel-opt:nth-of-type(2)")
     private WebElement tampaBayOption;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITSelectMouseSelection.class);
 

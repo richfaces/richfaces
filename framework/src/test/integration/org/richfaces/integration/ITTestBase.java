@@ -28,7 +28,7 @@ public class ITTestBase {
     @ArquillianResource
     private URL contextPath;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITTestBase.class);
         addIndexPage(deployment);

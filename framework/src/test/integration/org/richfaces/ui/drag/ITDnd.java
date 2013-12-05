@@ -47,7 +47,7 @@ public class ITDnd {
     @FindBy(id = "form:cf")
     private WebElement cfTarget;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITDnd.class);
         deployment.archive().addAsWebResource(new File("src/test/resources/org/richfaces/ui/drag/dnd.xhtml"));

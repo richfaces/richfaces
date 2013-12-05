@@ -10,6 +10,7 @@ import org.richfaces.arquillian.container.installation.ContainerInitializationOb
 import org.richfaces.arquillian.container.installation.ContainerInstaller;
 import org.richfaces.arquillian.page.source.SourceChecker;
 import org.richfaces.arquillian.page.source.SourceCheckerProvider;
+import org.richfaces.arquillian.verification.VerifyDeploymentTestability;
 ;
 
 public class RichFacesArquillianExtension implements LoadableExtension {
@@ -24,5 +25,6 @@ public class RichFacesArquillianExtension implements LoadableExtension {
         builder.observer(PrepareBrowserSession.class);
         builder.observer(FailureScreenshot.class);
         builder.observer(ScreenshotTaker.class);
+        builder.observer(VerifyDeploymentTestability.class);
     }
 }

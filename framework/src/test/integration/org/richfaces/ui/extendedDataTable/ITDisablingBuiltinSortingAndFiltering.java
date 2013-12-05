@@ -55,7 +55,7 @@ public class ITDisablingBuiltinSortingAndFiltering {
     @ArquillianResource
     private URL contextPath;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITDisablingBuiltinSortingAndFiltering.class);
         deployment.archive().addClass(IterationBuiltInBean.class);

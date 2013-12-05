@@ -50,7 +50,7 @@ public class ITColumnClasses {
     @ArquillianResource
     private URL contextPath;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITColumnClasses.class);
         deployment.archive().addClass(IterationBuiltInBean.class);

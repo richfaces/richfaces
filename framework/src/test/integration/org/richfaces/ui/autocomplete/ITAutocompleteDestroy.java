@@ -60,7 +60,7 @@ public class ITAutocompleteDestroy {
     @FindBy(css = ".r-autocomplete")
     private RichAutocomplete autocomplete;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITAutocompleteDestroy.class);
 

@@ -42,7 +42,7 @@ import category.Smoke;
 @RunAsClient
 public class ITClientValidation extends ValidationTestBase {
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive deployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITClientValidation.class);
 

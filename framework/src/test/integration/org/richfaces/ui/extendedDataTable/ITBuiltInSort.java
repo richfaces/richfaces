@@ -67,7 +67,7 @@ public class ITBuiltInSort {
     @FindBy(className = "rf-edt-srt")
     private WebElement sortHandle;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITBuiltInSort.class);
         deployment.archive().addClass(IterationBuiltInBean.class);

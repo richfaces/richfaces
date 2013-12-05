@@ -65,7 +65,7 @@ public class ITSelectKeyboardSelection {
     @ArquillianResource
     private Keyboard keyboard;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITSelectKeyboardSelection.class);
 

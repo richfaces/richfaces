@@ -76,7 +76,7 @@ public class ITStaticTabTest {
 
     private DynamicTabTestHelper tabTestHelper = new DynamicTabTestHelper();
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITStaticTabTest.class);
         deployment.archive().addClass(SimpleBean.class);

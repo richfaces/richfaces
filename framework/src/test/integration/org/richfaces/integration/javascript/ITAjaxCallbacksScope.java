@@ -36,7 +36,7 @@ public class ITAjaxCallbacksScope {
     @ArquillianResource
     private JavascriptExecutor executor;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive deployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITAjaxCallbacksScope.class);
 

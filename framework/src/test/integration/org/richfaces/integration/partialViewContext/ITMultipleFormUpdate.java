@@ -63,7 +63,7 @@ public class ITMultipleFormUpdate {
     @FindBy(id = "secondForm")
     Form secondForm;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         CoreDeployment deployment = new CoreDeployment(ITMultipleFormUpdate.class);
 

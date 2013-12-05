@@ -48,7 +48,7 @@ public class ITAjaxSubmissionCallbacks {
     private static final String FORM_ID = "form1";
     private static final List<String> EVENT_CALLBACKS = Arrays.asList(new String[]{ "ajaxsubmit", "ajaxbegin", "ajaxbeforedomupdate", "ajaxcomplete" });
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive deployment() {
         CoreDeployment deployment = new CoreDeployment(ITAjaxSubmissionCallbacks.class);
         deployment.withWholeCore();

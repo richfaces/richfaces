@@ -69,7 +69,7 @@ public class ITCommandButtonImage {
 
     private static final String EXPETED_ROOT_CONTEXT_PATH = ITCommandButtonImage.class.getSimpleName();
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITCommandButtonImage.class);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")

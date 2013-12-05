@@ -43,7 +43,7 @@ import category.Smoke;
 @RunAsClient
 public class ITAjaxValidation extends ValidationTestBase {
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive deployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITAjaxValidation.class);
 

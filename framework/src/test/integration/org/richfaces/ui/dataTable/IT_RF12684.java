@@ -56,7 +56,7 @@ public class IT_RF12684 {
     @FindBy(className = "rf-ds-btn-last")
     private WebElement lastButton;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(IT_RF12684.class);
         deployment.archive().addClass(IterationBean.class);

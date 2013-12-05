@@ -64,7 +64,7 @@ public class ITPlainSkin {
     @FindBy(id = "buttonDefault")
     WebElement buttonDefault;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITPlainSkin.class);
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {

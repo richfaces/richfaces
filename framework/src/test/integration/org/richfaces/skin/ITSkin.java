@@ -72,7 +72,7 @@ public class ITSkin {
     @FindBy(id = "buttonSkin3")
     WebElement buttonSkin3;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITSkin.class);
         deployment.archive().addClass(SkinTestBean.class);

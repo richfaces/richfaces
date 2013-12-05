@@ -40,7 +40,7 @@ public class ITAutocompleteModes {
     @JavaScript
     private RequestGuard guard;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive deployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITAutocompleteModes.class);
 

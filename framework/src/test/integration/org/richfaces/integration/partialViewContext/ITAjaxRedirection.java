@@ -62,7 +62,7 @@ public class ITAjaxRedirection {
     @FindBy(tagName = "body")
     private WebElement body;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         CoreDeployment deployment = new CoreDeployment(ITAjaxRedirection.class);
 

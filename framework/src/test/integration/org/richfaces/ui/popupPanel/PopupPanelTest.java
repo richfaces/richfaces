@@ -45,7 +45,7 @@ public class PopupPanelTest {
     @FindBy(className = "closeLink")
     private WebElement closeLink;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(PopupPanelTest.class);
         addIndexPage(deployment);

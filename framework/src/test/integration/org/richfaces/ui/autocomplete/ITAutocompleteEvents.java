@@ -64,7 +64,7 @@ public class ITAutocompleteEvents {
     @FindBy(id = "input")
     private WebElement input;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITAutocompleteEvents.class);
 

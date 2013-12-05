@@ -36,7 +36,7 @@ import com.google.common.base.Function;
 @RunAsClient
 public class ITFacesBeanValidator extends GraphValidationTestBase {
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive deployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITFacesBeanValidator.class);
 

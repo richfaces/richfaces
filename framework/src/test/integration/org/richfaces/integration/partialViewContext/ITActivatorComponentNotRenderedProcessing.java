@@ -68,7 +68,7 @@ public class ITActivatorComponentNotRenderedProcessing {
     @FindBy(id = "output")
     WebElement output;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         CoreDeployment deployment = new CoreDeployment(ITActivatorComponentNotRenderedProcessing.class);
 

@@ -59,7 +59,7 @@ public class ITValidatorMessageWithLabel {
     @ArquillianResource
     private URL contextPath;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITValidatorMessageWithLabel.class);
         deployment.archive().addClass(ValidatorBean.class);

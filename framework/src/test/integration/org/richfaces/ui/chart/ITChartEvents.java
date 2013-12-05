@@ -65,7 +65,7 @@ public class ITChartEvents {
 
     Actions builder;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(
                 ITChartEvents.class);

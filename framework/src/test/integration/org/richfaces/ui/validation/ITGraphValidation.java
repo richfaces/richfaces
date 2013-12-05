@@ -33,7 +33,7 @@ import org.richfaces.deployment.FrameworkDeployment;
 @RunAsClient
 public class ITGraphValidation extends GraphValidationTestBase {
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive deployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITGraphValidation.class);
 

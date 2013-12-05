@@ -34,7 +34,7 @@ public class ITTogglePanel {
     @FindBy(className = "submit")
     private WebElement button;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITTogglePanel.class);
         addIndexPage(deployment);

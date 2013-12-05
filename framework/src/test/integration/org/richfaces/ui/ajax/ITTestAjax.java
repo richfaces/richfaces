@@ -52,7 +52,7 @@ public class ITTestAjax {
     @ArquillianResource
     private URL contextPath;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITTestAjax.class);
         deployment.archive().addClass(AjaxBean.class);

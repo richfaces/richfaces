@@ -55,7 +55,7 @@ public class ITColumnsOrder {
     @FindBy(id = "button")
     private WebElement button;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITColumnsOrder.class);
         deployment.archive().addClass(IterationBean.class);

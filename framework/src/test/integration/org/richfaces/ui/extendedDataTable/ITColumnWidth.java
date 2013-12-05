@@ -61,7 +61,7 @@ public class ITColumnWidth {
     @FindBy(id = "myForm:edt:0:n")
     private WebElement firstRow;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITColumnWidth.class);
         deployment.archive().addClass(IterationBean.class);
