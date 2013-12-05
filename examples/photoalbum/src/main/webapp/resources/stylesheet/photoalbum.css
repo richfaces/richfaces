@@ -824,7 +824,7 @@ h1 {
 
 .search-input {
     border: 0px none !important;
-    background: transparent url('../img/spacer.gif') repeat scroll 0% 0% !important;
+    background: transparent url(../img/spacer.gif) repeat scroll 0% 0% !important;
     width: 176px !important;
     height: 17px !important;
     position: absolute;
@@ -1033,7 +1033,7 @@ h1 {
     position: relative;
     width: 103px !important;
     height: 28px !important;
-    background-image: url('/richfaces-photoalbum/img/shell/button.png');
+    background-image: url(../img/shell/button.png);
 }
 
 .buttons-body-image {
@@ -1243,7 +1243,7 @@ h1 {
     width: 103px !important;
     height: 28px !important;
     cursor: pointer;
-    background-image: url('/richfaces-photoalbum/img/shell/button.png');
+    background-image: url(../img/shell/button.png);
     background-position: 0 0;
 }
 
@@ -1431,11 +1431,11 @@ h1 {
 }
 
 .rf-trn-hnd-colps {
-    background: url(/richfaces-photoalbum/img/shell/tree_icon_plus.png) no-repeat center !important;
+    background: url(../img/shell/tree_icon_plus.png) no-repeat center !important;
 }
 
 .rf-trn-hnd-exp {
-    background: url(/richfaces-photoalbum/img/shell/tree_icon_minus.png) no-repeat center !important;
+    background: url(../img/shell/tree_icon_minus.png) no-repeat center !important;
 }
 
 .rf-trn-lbl:hover {
@@ -1469,7 +1469,7 @@ h1 {
 }
 
 .photoalbum-message.rf-ntf-err .rf-ntf-ico {
-	background-image: url(/richfaces-photoalbum/img/modal/ico_warning.png) !important;
+	background-image: url(../img/modal/ico_warning.png) !important;
 	background-size: 18px 29px;
 }
 
@@ -1493,7 +1493,7 @@ input[type='submit'].fb-button {
 }
 
 .fb-comm-button {
-	background-image: url('/richfaces-photoalbum/img/shell/buttonfb.png');
+	background-image: url(../img/shell/buttonfb.png);
 	font-weight: bold;
 }
 
