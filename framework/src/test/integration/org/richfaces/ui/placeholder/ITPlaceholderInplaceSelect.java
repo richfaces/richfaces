@@ -42,7 +42,7 @@ public class ITPlaceholderInplaceSelect extends AbstractPlaceholderTest {
     @FindBy(css = INPUT_SELECTOR)
     private InplaceSelectInput firstInplaceSelect;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITPlaceholderInplaceSelect.class);
 

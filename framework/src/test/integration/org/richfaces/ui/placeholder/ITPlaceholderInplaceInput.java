@@ -41,7 +41,7 @@ public class ITPlaceholderInplaceInput extends AbstractPlaceholderTest {
     @FindBy(id = INPUT_ID)
     private InplaceInput inplaceInput;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITPlaceholderInputText.class);
 

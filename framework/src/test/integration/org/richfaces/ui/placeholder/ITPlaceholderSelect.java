@@ -39,7 +39,7 @@ public class ITPlaceholderSelect extends AbstractPlaceholderTest {
     @FindBy(css = INPUT_SELECTOR + " input[id$=Input]")
     private SelectInput firstInput;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITPlaceholderTextarea.class);
 
