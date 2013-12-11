@@ -26,8 +26,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
 
-import javax.faces.context.PartialViewContext;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -38,31 +36,29 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.deployment.CoreDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
- * Tests r:commandButton processing using {@link PartialViewContext}. (RF-12145)
+ * Tests partial view updates using {@link ExtendedPartialViewContext}. (RF-13317)
  */
 @RunAsClient
 @RunWith(Arquillian.class)
-public class ITMultipleFormUpdate {
+public class ITViewScoped {
 
     @Drone
-    WebDriver browser;
+    private WebDriver browser;
 
     @ArquillianResource
-    URL contextPath;
+    private URL contextPath;
 
-    @FindBy(id = "firstForm")
-    Form firstForm;
-
-    @FindBy(id = "secondForm")
-    Form secondForm;
+    @FindBy(id = "form")
+    private Form form;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        CoreDeployment deployment = new CoreDeployment(ITMultipleFormUpdate.class);
+        CoreDeployment deployment = new CoreDeployment(ITViewScoped.class);
 
         deployment.withWholeCore();
 
@@ -72,27 +68,25 @@ public class ITMultipleFormUpdate {
     }
 
     @Test
-    public void when_form_is_explicitly_listed_in_render_then_its_ViewState_should_be_updated_after_response() {
+    public void test() {
+        // given
         browser.get(contextPath.toExternalForm());
-        assertEquals("both forms should have same ViewState", firstForm.getViewState(), secondForm.getViewState());
+        String viewState = form.getViewState();
 
-        String viewState = firstForm.getViewState();
-        firstForm.setInput("1");
-        firstForm.submit();
+        // when
+        form.setInput("text");
 
-        assertEquals("ViewState should not change", viewState, firstForm.getViewState());
-        assertEquals("both forms should have same ViewState", firstForm.getViewState(), secondForm.getViewState());
-        assertEquals("first form input should be 1", "1", firstForm.getInput());
-        assertEquals("second form input should be 1", "1", secondForm.getInput());
+        // then
+        form.submit();
+        assertEquals("text", form.getInput());
+        assertEquals(viewState, form.getViewState());
 
-        secondForm.setInput("2");
-        secondForm.submit();
-
-        assertEquals("ViewState should not change", viewState, secondForm.getViewState());
-        assertEquals("both forms should have same ViewState", secondForm.getViewState(), firstForm.getViewState());
-        assertEquals("first form input should be 2", "2", firstForm.getInput());
-        assertEquals("second form input should be 2", "2", secondForm.getInput());
+        form.submit();
+        assertEquals("text", form.getInput());
+        assertEquals(viewState, form.getViewState());
     }
+
+
 
     private static void addIndexPage(CoreDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
@@ -101,14 +95,9 @@ public class ITMultipleFormUpdate {
         p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
         p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 
-        p.body("<h:form id='firstForm'>");
-        p.body("    <h:inputText value='#{value}' />");
-        p.body("    <h:commandButton value='Submit 1' execute='@form' render='@form :secondForm' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;' />");
-        p.body("</h:form>");
-
-        p.body("<h:form id='secondForm'>");
-        p.body("    <h:inputText value='#{value}' />");
-        p.body("    <h:commandButton value='Submit 2' execute='@form' render='@form :firstForm' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;'  />");
+        p.body("<h:form id='form'>");
+        p.body("    <h:inputText value='#{viewScope.value}' />");
+        p.body("    <h:commandButton value='Submit' execute='@form' render='@form' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;' />");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
