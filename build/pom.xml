@@ -66,11 +66,10 @@
         <version.cssparser>0.9.11</version.cssparser>
 
         <!-- JSF Implementations Versions-->
-        <version.javax.faces-api>2.1</version.javax.faces-api>
-        <version.com.sun.faces.jsf-api>2.1.19</version.com.sun.faces.jsf-api>
-        <version.org.glassfish.javax.faces>2.1.19</version.org.glassfish.javax.faces>
-        <version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>2.1.19.1.Final</version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec>
-        <version.org.jboss.javax.faces.jsf-impl>2.1.19-jbossorg-1</version.org.jboss.javax.faces.jsf-impl>
+        <version.javax.faces-api>2.2</version.javax.faces-api>
+        <version.org.glassfish.javax.faces>2.2.4</version.org.glassfish.javax.faces>
+        <version.org.jboss.spec.javax.faces.jboss-jsf-api_2.2_spec>2.2.4</version.org.jboss.spec.javax.faces.jboss-jsf-api_2.2_spec>
+        <version.org.jboss.javax.faces.jsf-impl>2.2.4-jbossorg-1</version.org.jboss.javax.faces.jsf-impl>
         <version.myfaces>2.1.10</version.myfaces>
 
         <!-- Push Dependencies -->
@@ -352,19 +351,14 @@
                 <version>${version.javax.faces-api}</version>
             </dependency>
             <dependency>
-                <groupId>com.sun.faces</groupId>
-                <artifactId>jsf-api</artifactId>
-                <version>${version.com.sun.faces.jsf-api}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.glassfish</groupId>
                 <artifactId>javax.faces</artifactId>
                 <version>${version.org.glassfish.javax.faces}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.spec.javax.faces</groupId>
-                <artifactId>jboss-jsf-api_2.1_spec</artifactId>
-                <version>${version.org.jboss.spec.javax.faces.jboss-jsf-api_2.1_spec}</version>
+                <artifactId>jboss-jsf-api_2.2_spec</artifactId>
+                <version>${version.org.jboss.spec.javax.faces.jboss-jsf-api_2.2_spec}</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.faces</groupId>
