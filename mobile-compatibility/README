@@ -1,4 +1,4 @@
-SlidFast is a minimalistic approach to writing mobile web apps with RichFaces 4.5.0.Alpha1.
+SlidFast is a minimalistic approach to writing mobile web apps with RichFaces 4.5.0-SNAPSHOT.
 It utilizes core HTML5 APIs for WebKit based web browsers.
 
 Include the slidfast.js, slidfast.css and rf-mobile-skin.css files in your project, then initialize with:
