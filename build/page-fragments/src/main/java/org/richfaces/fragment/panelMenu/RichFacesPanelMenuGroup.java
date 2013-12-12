@@ -22,6 +22,7 @@
 
 package org.richfaces.fragment.panelMenu;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
@@ -46,16 +47,17 @@ public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
 
     @Root
     private WebElement root;
-    private AdvancedPanelMenuGroupInteractions advancedInteractions = new AdvancedPanelMenuGroupInteractions();
+
+    private final AdvancedPanelMenuGroupInteractions advancedInteractions = new AdvancedPanelMenuGroupInteractions();
 
     @Override
     public List<WebElement> getMenuItems() {
-        return menuItems;
+        return Collections.unmodifiableList(menuItems);
     }
 
     @Override
     public List<WebElement> getMenuGroups() {
-        return menuGroups;
+        return Collections.unmodifiableList(menuGroups);
     }
 
     public AdvancedPanelMenuGroupInteractions advanced() {
@@ -65,11 +67,11 @@ public class RichFacesPanelMenuGroup extends AbstractPanelMenu {
     public class AdvancedPanelMenuGroupInteractions extends AbstractPanelMenu.AdvancedAbstractPanelMenuInteractions {
 
         public List<WebElement> getMenuGroupElements() {
-            return menuGroups;
+            return getMenuGroups();
         }
 
         public List<WebElement> getMenuItemElements() {
-            return menuItems;
+            return getMenuItems();
         }
 
         public boolean isExpanded() {

@@ -19,36 +19,46 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.fragment.panelMenu;
 
+import java.util.Collections;
 import java.util.List;
 
-import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.graphene.fragment.Root;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class RichFacesPanelMenu extends AbstractPanelMenu {
 
-    @FindByJQuery(".rf-pm-top-gr,.rf-pm-gr")
+    @FindBy(css = ".rf-pm-top-gr,.rf-pm-gr")
     private List<WebElement> menuGroups;
-    @FindByJQuery(".rf-pm-top-itm,.rf-pm-itm")
+    @FindBy(css = ".rf-pm-top-itm,.rf-pm-itm")
     private List<WebElement> menuItems;
 
-    private AdvancedPanelMenuInteractions advancedInteractions = new AdvancedPanelMenuInteractions();
+    @FindBy(css = "div[class*=rf-pm-][class*=-itm-dis]")
+    private List<WebElement> allDisabledItems;
+    @FindBy(css = "div[class*=rf-pm-][class*=-gr-dis]")
+    private List<WebElement> allDisabledGroups;
+    @FindBy(css = "div[class*=rf-pm][class*=-itm-sel]")
+    private List<WebElement> allSelectedItems;
+    @FindBy(css = "div[class*=rf-pm][class*=-gr-sel]")
+    private List<WebElement> allSelectedGroups;
+    @FindBy(css = "div.rf-pm-hdr-exp")
+    private List<WebElement> allExpandedGroups;
+
+    private final AdvancedPanelMenuInteractions advancedInteractions = new AdvancedPanelMenuInteractions();
 
     @Root
     private WebElement root;
 
     @Override
     public List<WebElement> getMenuItems() {
-        return menuItems;
+        return Collections.unmodifiableList(menuItems);
     }
 
     @Override
     public List<WebElement> getMenuGroups() {
-        return menuGroups;
+        return Collections.unmodifiableList(menuGroups);
     }
 
     @Override
@@ -59,31 +69,31 @@ public class RichFacesPanelMenu extends AbstractPanelMenu {
     public class AdvancedPanelMenuInteractions extends AbstractPanelMenu.AdvancedAbstractPanelMenuInteractions {
 
         public List<WebElement> getMenuGroupElements() {
-            return menuGroups;
+            return getMenuGroups();
         }
 
         public List<WebElement> getMenuItemElements() {
-            return menuItems;
+            return getMenuItems();
         }
 
         public List<WebElement> getAllSelectedItems() {
-            return root.findElements(By.cssSelector("div[class*=rf-pm][class*=-itm-sel]"));
+            return Collections.unmodifiableList(allSelectedItems);
         }
 
         public List<WebElement> getAllSelectedGroups() {
-            return root.findElements(By.cssSelector("div[class*=rf-pm][class*=-gr-sel]"));
+            return Collections.unmodifiableList(allSelectedGroups);
         }
 
         public List<WebElement> getAllDisabledGroups() {
-            return root.findElements(By.cssSelector("div[class*=rf-pm-][class*=-gr-dis]"));
+            return Collections.unmodifiableList(allDisabledGroups);
         }
 
         public List<WebElement> getAllDisabledItems() {
-            return root.findElements(By.cssSelector("div[class*=rf-pm-][class*=-itm-dis]"));
+            return Collections.unmodifiableList(allDisabledItems);
         }
 
         public List<WebElement> getAllExpandedGroups() {
-            return root.findElements(By.cssSelector("div.rf-pm-hdr-exp"));
+            return Collections.unmodifiableList(allExpandedGroups);
         }
 
         public WebElement getRootElement() {

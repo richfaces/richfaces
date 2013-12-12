@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.fragment.panelMenu;
 
 import java.util.List;
@@ -28,9 +27,9 @@ import java.util.concurrent.TimeUnit;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.condition.element.WebElementConditionFactory;
-import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.graphene.wait.FluentWait;
 import org.jboss.arquillian.test.api.ArquillianResource;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -52,14 +51,14 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
     public static final String CSS_HOVERED_SUFFIX = "-hov";
     public static final String CSS_DISABLED_SUFFIX = "-dis";
     public static final String CSS_COLLAPSED_SUFFIX = "-colps";
-    private static final String HEADER_SELECTOR_TO_INVOKE_EVENT_ON = "> div[class*=rf-pm-][class*=-gr-hdr]";
+    private static final String HEADER_SELECTOR_TO_INVOKE_EVENT_ON = "div[class*=rf-pm-][class*=-gr-hdr]";
 
     @ArquillianResource
     private JavascriptExecutor executor;
     @Drone
     private WebDriver browser;
 
-    private AdvancedAbstractPanelMenuInteractions advancedInteractions = new AdvancedAbstractPanelMenuInteractions();
+    private final AdvancedAbstractPanelMenuInteractions advancedInteractions = new AdvancedAbstractPanelMenuInteractions();
 
     private Event expandEvent = Event.CLICK;
     private Event collapseEvent = Event.CLICK;
@@ -94,9 +93,7 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
             return Graphene.createPageFragment(RichFacesPanelMenuGroup.class, groupRoot);
         }
         executeEventOn(expandEvent, groupHeader);
-        // can not work with already picked element as it can be stale
-        advanced().waitUntilMenuGroupExpanded(getHeaderElementDynamically(picker.pick(getMenuGroups())))
-                  .perform();
+        advanced().waitUntilMenuGroupExpanded(groupHeader).perform();
         return Graphene.createPageFragment(RichFacesPanelMenuGroup.class, groupRoot);
     }
 
@@ -120,8 +117,7 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
             return;
         }
         executeEventOn(collapseEvent, groupHeader);
-        // can not work with already picked element as it can be stale
-        advanced().waitUntilMenuGroupCollapsed(getHeaderElementDynamically(picker.pick(getMenuGroups()))).perform();
+        advanced().waitUntilMenuGroupCollapsed(groupHeader).perform();
     }
 
     @Override
@@ -170,7 +166,7 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
             return AbstractPanelMenu.this.isGroupExpanded(getHeaderElementDynamically(groupRoot));
         }
 
-        public WaitingWrapper waitUntilMenuGroupExpanded(final WebElement group) {
+        public WaitingWrapper waitUntilMenuGroupExpanded(final WebElement groupHeader) {
             return new WaitingWrapperImpl() {
 
                 @Override
@@ -179,7 +175,7 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
                         new Predicate<WebDriver>() {
                             @Override
                             public boolean apply(WebDriver input) {
-                                return AbstractPanelMenu.this.isGroupExpanded(group);
+                                return AbstractPanelMenu.this.isGroupExpanded(groupHeader);
                             }
                         });
                 }
@@ -187,7 +183,7 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
              .withTimeout(getTimoutForMenuGroupToBeExpanded(), TimeUnit.MILLISECONDS);
         }
 
-        public WaitingWrapper waitUntilMenuGroupCollapsed(final WebElement group) {
+        public WaitingWrapper waitUntilMenuGroupCollapsed(final WebElement groupHeader) {
             return new WaitingWrapperImpl() {
 
                 @Override
@@ -196,7 +192,7 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
                         new Predicate<WebDriver>() {
                             @Override
                             public boolean apply(WebDriver input) {
-                                return !AbstractPanelMenu.this.isGroupExpanded(group);
+                                return !AbstractPanelMenu.this.isGroupExpanded(groupHeader);
                             }
                         });
                 }
@@ -221,8 +217,8 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
         }
     }
 
-    private boolean isGroupExpanded(WebElement group) {
-        return group.getAttribute("class").contains(CSS_EXPANDED_SUFFIX);
+    private boolean isGroupExpanded(WebElement groupHeader) {
+        return groupHeader.getAttribute("class").contains(CSS_EXPANDED_SUFFIX);
     }
 
     private void ensureElementIsEnabledAndVisible(WebElement element) {
@@ -247,7 +243,7 @@ public abstract class AbstractPanelMenu implements PanelMenu, PanelMenuGroup, Ad
     }
 
     private WebElement getHeaderElementDynamically(WebElement element) {
-        return element.findElement(ByJQuery.selector(HEADER_SELECTOR_TO_INVOKE_EVENT_ON));
+        return element.findElement(By.cssSelector(HEADER_SELECTOR_TO_INVOKE_EVENT_ON));
     }
 
     private void ensureElementExist(WebElement element) {
