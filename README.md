@@ -135,9 +135,9 @@ For more information on how to run and develop this test suite, see [Framework T
 
 In order to effectively test the project with each code modification, you need to run at least framework's smoke tests:
 
-    $ mvn clean install -Dintegration=jbossas71 -Dsmoke
+    $ mvn clean install -Dintegration=wildfly80 -Dsmoke
 
-This will run the project tests against managed instance of JBoss AS 7.1 and test it on headless PhantomJS browser.
+This will run the project tests against managed instance of WildFly 8.0 and test it on headless PhantomJS browser.
 
 This step is also executed in [the continuous integration job](https://travis-ci.org/richfaces/richfaces/builds).
 

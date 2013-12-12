@@ -5,9 +5,9 @@ Framework tests allow you to run a set of Arquillian-based tests using the Graph
 
 The supported container matrix is:
 
-* JBoss AS 7.1
-* JBoss EAP 6.1
 * WildFly 8.0
+* JBoss EAP 6.1
+* JBoss AS 7.1
 * TomEE 1.5
 * GlassFish 3.1
 * Tomcat 6
@@ -27,19 +27,19 @@ TL;DR
 
 Running a full build including smoke tests:
 
-    mvn install -Dintegration=jbossas71 -Dsmoke
+    mvn install -Dintegration=wildfly80 -Dsmoke
 
 Running particular framework test (on Chrome) from console:
 
     // console 1: start JBoss AS 7 
-    ./jboss-as-7.1.1.Final/bin/standalone.sh
+    ./wildfly-8.0.0.Final/bin/standalone.sh
 
     // console 2: start Selenium Server
     java -jar selenium-server-standalone-${VERSION}.jar -Dwebdriver.chrome.driver=/opt/google/chrome/chromedriver
     
     // console 3: run a test
     cd richfaces/framework/
-    mvn verify -Dintegration=jbossas71-remote -Dbrowser=chrome -Dreusable -DskipTests=true -Dtest=IT_RF12765
+    mvn verify -Dintegration=wildfly80-remote -Dbrowser=chrome -Dreusable -DskipTests=true -Dtest=IT_RF12765
 
 You can also add following parameters to skip CDK build and/or Resource Optimization and/or disable unit tests:
 
