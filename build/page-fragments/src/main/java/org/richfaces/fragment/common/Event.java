@@ -48,6 +48,8 @@ public class Event {
     public static final Event CLICK = new Event("click");
     /** The event definition for 'right click', just a marker, not valid JS event*/
     public static final Event CONTEXTCLICK = new Event("contextclick");
+    /** The event definition for 'right click' */
+    public static final Event CONTEXTMENU = new Event("contextmenu");
     /** The event definition for 'dblclick' */
     public static final Event DBLCLICK = new Event("dblclick");
     /** The event definition for 'error' */

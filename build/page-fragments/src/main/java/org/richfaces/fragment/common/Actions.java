@@ -21,6 +21,8 @@
  */
 package org.richfaces.fragment.common;
 
+import static org.richfaces.fragment.common.Event.CLICK;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,6 +34,7 @@ import org.openqa.selenium.interactions.Action;
 
 /**
  * Extending org.openqa.selenium.interactions.Actions by some functionality.
+ *
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */
 public class Actions extends org.openqa.selenium.interactions.Actions {
@@ -181,6 +184,13 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
         return this;
     }
 
+    /**
+     * Will try to trigger given event with webdriver standard API method - nativelly
+     * @param event
+     * @param element
+     * @return
+     * @throws IllegalArgumentException when given event can not be triggered by webdriver API
+     */
     public Actions triggerEventByWD(Event event, WebElement element) {
         if (event.equals(Event.CLICK)) {
             return click(element);
@@ -192,6 +202,8 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
             return moveToElement(element);
         } else if (event.equals(Event.CONTEXTCLICK)) {
             return contextClick(element);
+        } else if (event.equals(Event.CONTEXTMENU)) {
+            return contextClick(element);
         } else if (event.equals(Event.MOUSEOUT)) {
             return moveToElement(element).moveByOffset(-1000, -1000);
         } else if (event.equals(Event.MOUSEOVER)) {
@@ -199,9 +211,8 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
         } else if (event.equals(Event.MOUSEUP)) {
             return clickAndHold(element).release();
         } else {
-            Logger.getLogger(Actions.class.getName()).log(Level.WARNING, "Cannot trigger this event " + event + " with WebDriver. Try to use 'triggerEventByJS' instead.");
+            throw new IllegalArgumentException("Cannot trigger this event " + event + " with WebDriver. Try to use 'triggerEventByJS' instead.");
         }
-        return this;
     }
 
     public Actions waitAction(final long timeInMillis) {

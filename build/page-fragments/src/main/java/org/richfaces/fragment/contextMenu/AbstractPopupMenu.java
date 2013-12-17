@@ -276,7 +276,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
         }
 
         public void setupShowEventFromWidget() {
-            Optional<String> event = Utils.getJSONValue2(getScriptElement(), "showEvent");
+            Optional<String> event = Utils.getComponentOption(root, "showEvent");
             invokeEvent = new Event(event.or(DEFAULT_INVOKE_EVENT.getEventName()));
         }
 
@@ -305,7 +305,7 @@ public abstract class AbstractPopupMenu implements PopupMenu, AdvancedInteractio
         }
 
         public void setupTargetFromWidget() {
-            String targetId = Utils.getJSONValue(getScriptElement(), "target");
+            String targetId = Utils.getComponentOption(root, "target").orNull();
             if (targetId != null) {
                 target = browser.findElement(By.id(targetId));
             } else {

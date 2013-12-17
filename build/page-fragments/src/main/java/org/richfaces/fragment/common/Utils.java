@@ -53,24 +53,55 @@ public final class Utils {
             GrapheneContext context = ((GrapheneProxyInstance) element).getContext();
             return (JavascriptExecutor) context.getWebDriver(JavascriptExecutor.class);
         }
-        throw new RuntimeException("Cannot obtain JavascriptExecutor from element which is not an instance of GrapheneProxyInstance.");
+        throw new RuntimeException(
+            "Cannot obtain JavascriptExecutor from element which is not an instance of GrapheneProxyInstance.");
     }
 
     /**
      * Returns the result of invocation of jQuery function <code>index()</code> on given element.
      *
-     * @param element element on which the command will be executed, has to be instance of org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance
+     * @param element element on which the command will be executed, has to be instance of
+     *        org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance
      */
     public static int getIndexOfElement(WebElement element) {
         return Integer.valueOf(returningJQ(getExecutorFromElement(element), "index()", element));
     }
 
-    public static String getJSONValue(WebElement scriptElement, String property) {
-        throw new UnsupportedOperationException("https://issues.jboss.org/browse/RF-13335");
+    /**
+     * Returns the given option of the component determined by its root element.
+     *
+     * For example <tt>getComponentOption(rootOfHotKey, "key")</tt> will return concrete value of the hotkey's option
+     * <tt>key</tt>
+     *
+     * @param rootOfComponent
+     * @param option
+     * @return
+     */
+    public static Optional<String> getComponentOption(WebElement rootOfComponent, String option) {
+        JavascriptExecutor executor = getExecutorFromElement(rootOfComponent);
+        String result = (String) executor
+            .executeScript("return RichFaces.component(arguments[0]).options." + option, rootOfComponent);
+        return Optional.of(result);
     }
 
-    public static Optional<String> getJSONValue2(WebElement scriptElement, String property) {
-        throw new UnsupportedOperationException("https://issues.jboss.org/browse/RF-13335");
+    /**
+     * Returns the given option of the component determined by its root element in a document object safe way.
+     *
+     * It provides a safe way to retrieve an option if the option value can be equal to the JavaScript object <tt>document</tt>.
+     *
+     * @param rootOfComponent
+     * @param option
+     * @return actual component option value, or null if it is equal to document object
+     */
+    public static Optional<String> getComponentOptionDocumentObjectSafe(WebElement rootOfComponent, String option) {
+        JavascriptExecutor executor = getExecutorFromElement(rootOfComponent);
+        Boolean resultIsDocumentObject = (Boolean) executor.executeScript("return RichFaces.component(arguments[0]).options."
+            + option + " == document", rootOfComponent);
+        if (!resultIsDocumentObject) {
+            return getComponentOption(rootOfComponent, option);
+        } else {
+            return Optional.fromNullable(null);
+        }
     }
 
     /**
@@ -110,10 +141,12 @@ public final class Utils {
      * Invokes RF JS API function on given root of RF component. The root must be set correctly.
      *
      * @param componentRoot root of the RF component
-     * @param functionWithParams JS API function with params (e.g. <code>setValue(new Date('October 10, 2012 12:00:00'))</code>  )
+     * @param functionWithParams JS API function with params (e.g. <code>setValue(new Date('October 10, 2012 12:00:00'))</code>
+     *        )
      */
     public static <T> T invokeRichFacesJSAPIFunction(WebElement componentRoot, String functionWithParams) {
-        return (T) getExecutorFromElement(componentRoot).executeScript("return RichFaces.component(arguments[0])." + functionWithParams, componentRoot);
+        return (T) getExecutorFromElement(componentRoot).executeScript(
+            "return RichFaces.component(arguments[0])." + functionWithParams, componentRoot);
     }
 
     public static boolean isVisible(WebElement e) {
@@ -244,7 +277,8 @@ public final class Utils {
      * mouseout...
      *
      * @param event event to be triggered
-     * @param element element on which the command will be executed, has to be instance of org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance
+     * @param element element on which the command will be executed, has to be instance of
+     *        org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance
      */
     public static void triggerJQ(String event, WebElement element) {
         triggerJQ(getExecutorFromElement(element), event, element);

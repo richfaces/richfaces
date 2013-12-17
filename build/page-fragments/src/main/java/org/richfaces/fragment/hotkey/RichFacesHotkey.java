@@ -95,8 +95,9 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
         Preconditions.checkNotNull(element);
 
         String hotkey = advanced().getHotkey();
-        if(hotkey == null || hotkey.trim().isEmpty()) {
-            throw new IllegalArgumentException("The hotkey can not be null nor empty! Set it up correctly with #setUp(String) method.");
+        if (hotkey == null || hotkey.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                "The hotkey can not be null nor empty! Set it up correctly with #setUp(String) method.");
         }
         actions.sendKeys(element, hotkey).perform();
     }
@@ -104,14 +105,15 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
     @Override
     public void setupHotkey(String hotkey) {
         if (hotkey == null || hotkey.isEmpty()) {
-            throw new IllegalArgumentException("Hotkey cannot be empty or null. Set up hotkey from widget if you want to reset it.");
+            throw new IllegalArgumentException(
+                "Hotkey cannot be empty or null. Set up hotkey from widget if you want to reset it.");
         }
         this.hotkey = parseHotKey(hotkey);
     }
 
     @Override
     public void setupSelector(String selector) {
-        if(selector == null || selector.isEmpty()) {
+        if (selector == null || selector.isEmpty()) {
             throw new IllegalArgumentException("Selector cannot be empty or null.");
         }
         this.selector = selector;
@@ -152,19 +154,6 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
             return hotkey;
         }
 
-        private void initHotkeyFromScript() {
-            Optional<String> hotkeyText = Utils.getJSONValue2(script, "key");
-            if (!hotkeyText.isPresent()) {
-                throw new NullPointerException("The hotkey value is null.");
-            }
-
-            // simple caching
-            if (previousKeyText.equals(hotkeyText.get())) {
-                return;
-            }
-            hotkey = parseHotKey(hotkeyText.get());
-        }
-
         public WebElement getRootElement() {
             return rootElement;
         }
@@ -180,11 +169,20 @@ public class RichFacesHotkey implements Hotkey, AdvancedInteractions<RichFacesHo
         }
 
         public void setupHotkeyFromWidget() {
-            initHotkeyFromScript();
+            Optional<String> hotkeyText = Utils.getComponentOption(rootElement, "key");
+            if (!hotkeyText.isPresent()) {
+                throw new NullPointerException("The hotkey value is null.");
+            }
+
+            // simple caching
+            if (previousKeyText.equals(hotkeyText.get())) {
+                return;
+            }
+            setupHotkey(hotkeyText.get());
         }
 
         public void setupSelectorFromWidget() {
-            setupSelector(Utils.getJSONValue2(script, "selector").orNull());
+            selector = Utils.getComponentOptionDocumentObjectSafe(rootElement, "selector").orNull();
         }
     }
 }
