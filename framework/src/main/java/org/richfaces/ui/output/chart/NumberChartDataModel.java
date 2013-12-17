@@ -37,7 +37,7 @@ public class NumberChartDataModel extends ChartDataModel<Number, Number> {
             break;
         default:
             throw new IllegalArgumentException(type
-                    + "not supported by StringChartDataModel");
+                    + "not supported by NumberChartDataModel");
         }
     }
 
