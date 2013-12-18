@@ -37,12 +37,14 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.ui.tabPanel.model.SimpleBean;
+import category.Failing;
 
 import category.Smoke;
 
@@ -63,7 +65,10 @@ public class ITStaticTabTest {
     private WebElement tabPanel;
 
     @FindBy(className = "rf-tab-hdr-inact")
-    private List<WebElement> tabs;
+    private List<WebElement> inactiveHeaders;
+
+    @FindBy(className = "rf-tab-hdr-act")
+    private List<WebElement> activeHeaders;
 
     @FindBy(id = "out")
     private WebElement out;
@@ -82,6 +87,7 @@ public class ITStaticTabTest {
         deployment.archive().addClass(SimpleBean.class);
 
         addIndexPage(deployment);
+        addHeaderPage(deployment);
 
         WebArchive archive = deployment.getFinalArchive();
         return archive;
@@ -95,7 +101,7 @@ public class ITStaticTabTest {
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
-        guardAjax(tabs.get(1)).click();
+        guardAjax(inactiveHeaders.get(1)).click();
         Assert.assertTrue(out.getText().contains("begin"));
 //        Assert.assertTrue(out.getText().contains("tabpanel_complete"));
 //        Assert.assertTrue(out.getText().contains("beforedomupdate"));
@@ -121,8 +127,20 @@ public class ITStaticTabTest {
         browser.get(contextPath.toExternalForm() + "index.jsf");
 
         inputText.sendKeys("abcd");
-        guardAjax(tabs.get(1)).click();
+        guardAjax(inactiveHeaders.get(1)).click();
         Assert.assertEquals("abcd", outputText.getText());
+    }
+
+    /**
+     * {@link https://issues.jboss.org/browse/RF-13278}
+     */
+    @Test
+    @Category(Failing.class)
+    public void check_header_render() {
+        browser.get(contextPath.toExternalForm() + "header.jsf");
+        Assert.assertEquals("0 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        guardAjax(activeHeaders.get(0)).click();
+        Assert.assertEquals("1 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
     }
 
 
@@ -156,6 +174,38 @@ public class ITStaticTabTest {
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
+    }
+
+    private static void addHeaderPage(FrameworkDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.head("<script type='text/javascript'>");
+        p.head("    window.onerror=function(msg) { ");
+        p.head("        $('body').attr('JSError',msg);");
+        p.head("    }");
+        p.head("</script>");
+
+        p.body("<h:form id='myForm'>");
+        p.body("<r:tabPanel id='tabPanel' >");
+        p.body("    <r:tab id='tab0' name='tab0' header='tab0 header' ");
+        p.body("               action='#{simpleBean.incrementCount()}'>");
+        p.body("               render='label' ");
+        p.body("               execute='@this' ");
+        p.body("        content of tab 1");
+        p.body("    </r:tab>");
+        p.body("    <r:tab id='tab1'>");
+        p.body("        <f:facet name='header'> ");
+        p.body("            <h:outputText id='label' value='#{simpleBean.count} clicks' /> ");
+        p.body("        </f:facet> ");
+        p.body("        content of tab 2");
+        p.body("        <h:outputText id = 'outputText' value='#{simpleBean.string}' />");
+        p.body("    </r:tab>");
+        p.body("</r:tabPanel> ");
+        p.body("<h:inputText id = 'inputText' value='#{simpleBean.string}' />");
+        p.body("<div id='out'></div>");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "header.xhtml");
     }
 
 }
