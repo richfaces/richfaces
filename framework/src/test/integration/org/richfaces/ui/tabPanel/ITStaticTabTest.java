@@ -135,7 +135,6 @@ public class ITStaticTabTest {
      * {@link https://issues.jboss.org/browse/RF-13278}
      */
     @Test
-    @Category(Failing.class)
     public void check_header_render() {
         browser.get(contextPath.toExternalForm() + "header.jsf");
         Assert.assertEquals("0 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
@@ -179,18 +178,12 @@ public class ITStaticTabTest {
     private static void addHeaderPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-        p.head("<script type='text/javascript'>");
-        p.head("    window.onerror=function(msg) { ");
-        p.head("        $('body').attr('JSError',msg);");
-        p.head("    }");
-        p.head("</script>");
-
         p.body("<h:form id='myForm'>");
         p.body("<r:tabPanel id='tabPanel' >");
         p.body("    <r:tab id='tab0' name='tab0' header='tab0 header' ");
-        p.body("               action='#{simpleBean.incrementCount()}'>");
-        p.body("               render='label' ");
-        p.body("               execute='@this' ");
+        p.body("               action='#{simpleBean.incrementCount()}'");
+        p.body("               render='tabPanel' ");
+        p.body("               execute='@this'> ");
         p.body("        content of tab 1");
         p.body("    </r:tab>");
         p.body("    <r:tab id='tab1'>");
@@ -201,8 +194,6 @@ public class ITStaticTabTest {
         p.body("        <h:outputText id = 'outputText' value='#{simpleBean.string}' />");
         p.body("    </r:tab>");
         p.body("</r:tabPanel> ");
-        p.body("<h:inputText id = 'inputText' value='#{simpleBean.string}' />");
-        p.body("<div id='out'></div>");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "header.xhtml");
