@@ -26,11 +26,18 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.I18nProps;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.ui.toggle.TogglePanelTagHandler;
 import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
 
 /**
  * <p>The &lt;r:tabPanel&gt; component provides a set of tabbed panels for displaying one panel of content at a time.
@@ -42,6 +49,7 @@ import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.ui.TabPanelRenderer"))
 public abstract class AbstractTabPanel extends AbstractTogglePanel implements CoreProps, EventsMouseProps, I18nProps {
+    public static final String HEADERS_META_COMPONENT = "headers";
     public static final String COMPONENT_TYPE = "org.richfaces.ui.TabPanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.ui.TabPanel";
 
@@ -127,5 +135,18 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel implements Co
 
     public boolean isHeaderAlignedLeft() {
         return (null == this.getHeaderAlignment()) || (this.getHeaderAlignment().equals(HeaderAlignment.left));
+    }
+
+    public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
+        if (HEADERS_META_COMPONENT.equals(metaComponentId)) {
+            return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
+        }
+        return null;
+    }
+
+    @Override
+    protected VisitResult visitMetaComponents(ExtendedVisitContext extendedVisitContext, VisitCallback callback) {
+        extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, AbstractTabPanel.HEADERS_META_COMPONENT);
+        return super.visitMetaComponents(extendedVisitContext, callback);
     }
 }
