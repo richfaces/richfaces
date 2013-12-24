@@ -24,8 +24,9 @@ package org.richfaces.ui.iteration;
 import java.io.Serializable;
 
 /**
- * @author Nick Belaevski
+ * Provides access to the iteration status of a sequence.
  *
+ * @author Nick Belaevski
  */
 public final class SequenceIterationStatus implements Serializable {
     private static final long serialVersionUID = 1968212566967489719L;
@@ -38,6 +39,14 @@ public final class SequenceIterationStatus implements Serializable {
     private boolean last;
     private boolean even;
 
+    /**
+     * The SequenceIterationsStatus constructor.
+     *
+     * @param begin the index of the first row of the current page of the table
+     * @param end the index of the last row of the current page of the table
+     * @param index the index of the current row
+     * @param rowCount the number of rows in the model
+     */
     public SequenceIterationStatus(Integer begin, Integer end, int index, Integer rowCount) {
         int iBegin = (begin != null ? begin.intValue() : 0);
 
@@ -58,50 +67,88 @@ public final class SequenceIterationStatus implements Serializable {
         this.even = ((count % 2) == 0);
     }
 
+    /**
+     * @return the index of the first row of the current page of the table
+     */
     public Integer getBegin() {
         return begin;
     }
 
+    /**
+     * @return the number of rows shown on the current page
+     */
     public int getCount() {
         return count;
     }
 
+    /**
+     * Currently unused
+     * @return null
+     */
     public Object getCurrent() {
         return null;
     }
 
+    /**
+     * @return the index of the last row of the current page of the table
+     */
     public Integer getEnd() {
         return end;
     }
 
+    /**
+     * @return the index of the current row
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     * Used for complex components
+     * @return 1
+     */
     public Integer getStep() {
         return 1;
     }
 
+    /**
+     * @return true if the current row is the first row on the page, false otherwise
+     */
     public boolean isFirst() {
         return first;
     }
 
+    /**
+     * @return true if the current row is the last row on the page, false otherwise
+     */
     public boolean isLast() {
         return last;
     }
 
+    /**
+     * @return the number of rows in the model
+     */
     public Integer getRowCount() {
         return rowCount;
     }
 
+    /**
+     * @return true if the current row has an even numbered index, false otherwise
+     */
     public boolean isEven() {
         return even;
     }
 
+    /**
+     * @return true if the current row has an odd numbered index, false otherwise
+     */
     public boolean isOdd() {
         return !isEven();
     }
 
+    /**
+     * @return a string representation of the iteration status state
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
