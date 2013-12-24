@@ -73,6 +73,9 @@ public class ITStaticTabTest {
     @FindBy(id = "out")
     private WebElement out;
 
+    @FindBy(id = "myForm:button")
+    private WebElement button;
+
     @FindBy(id = "myForm:inputText")
     private WebElement inputText;
 
@@ -138,7 +141,7 @@ public class ITStaticTabTest {
     public void check_header_render() {
         browser.get(contextPath.toExternalForm() + "header.jsf");
         Assert.assertEquals("0 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
-        guardAjax(activeHeaders.get(0)).click();
+        guardAjax(activeHeaders.get(0).findElement(By.className("button"))).click();
         Assert.assertEquals("1 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
     }
 
@@ -180,10 +183,15 @@ public class ITStaticTabTest {
 
         p.body("<h:form id='myForm'>");
         p.body("<r:tabPanel id='tabPanel' >");
-        p.body("    <r:tab id='tab0' name='tab0' header='tab0 header' ");
-        p.body("               action='#{simpleBean.incrementCount()}'");
-        p.body("               render='tabPanel' ");
-        p.body("               execute='@this'> ");
+        p.body("    <r:tab id='tab0' name='tab0'> "); // header='tab0 header' ");
+        p.body("        <f:facet name='header'> ");
+        p.body("            <r:commandLink value='click me' ");
+        p.body("                styleClass='button' ");
+        p.body("                action='#{simpleBean.incrementCount()}' ");
+        p.body("                render='tabPanel@headers' ");
+        p.body("                oncomplete='return false;' ");
+        p.body("                execute='@this' /> ");
+        p.body("        </f:facet> ");
         p.body("        content of tab 1");
         p.body("    </r:tab>");
         p.body("    <r:tab id='tab1'>");

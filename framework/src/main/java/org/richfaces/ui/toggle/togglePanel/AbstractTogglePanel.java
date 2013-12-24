@@ -79,6 +79,7 @@ import org.richfaces.ui.toggle.TogglePanelTagHandler;
 import org.richfaces.ui.toggle.TogglePanelVisitCallback;
 import org.richfaces.ui.toggle.TogglePanelVisitException;
 import org.richfaces.ui.toggle.TogglePanelVisitState;
+import org.richfaces.ui.toggle.tabPanel.AbstractTabPanel;
 import org.richfaces.util.MessageUtil;
 import org.richfaces.util.RendererUtils;
 
@@ -923,8 +924,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
                     ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
                     if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
 
-                        result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
-                                ACTIVE_ITEM_META_COMPONENT);
+                        result = visitMetaComponents(extendedVisitContext, callback);
                         if (result == VisitResult.COMPLETE) {
                             return true;
                         }
@@ -948,6 +948,10 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         }
 
         return false;
+    }
+
+    protected VisitResult visitMetaComponents(ExtendedVisitContext extendedVisitContext, VisitCallback callback) {
+        return extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, ACTIVE_ITEM_META_COMPONENT);
     }
 }
 
