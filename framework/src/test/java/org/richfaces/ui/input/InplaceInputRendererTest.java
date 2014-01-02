@@ -65,7 +65,7 @@ public class InplaceInputRendererTest extends InplaceRendererTestBase {
 
     @Test
     public void testEditWithControls() throws Exception {
-        HtmlPage page = environment.getPage("//inplaceInputTest.jsf");
+        HtmlPage page = environment.getPage("/inplaceInputTest.jsf");
         String withControlsComponentId = BASE_ID + WITH_CONTROLS;
         edit(page, withControlsComponentId, "Another Test String");
 
