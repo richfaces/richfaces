@@ -79,7 +79,6 @@ import org.richfaces.ui.toggle.TogglePanelTagHandler;
 import org.richfaces.ui.toggle.TogglePanelVisitCallback;
 import org.richfaces.ui.toggle.TogglePanelVisitException;
 import org.richfaces.ui.toggle.TogglePanelVisitState;
-import org.richfaces.ui.toggle.tabPanel.AbstractTabPanel;
 import org.richfaces.util.MessageUtil;
 import org.richfaces.util.RendererUtils;
 

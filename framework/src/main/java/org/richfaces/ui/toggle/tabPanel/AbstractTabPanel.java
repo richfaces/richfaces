@@ -21,6 +21,11 @@
  */
 package org.richfaces.ui.toggle.tabPanel;
 
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -33,11 +38,6 @@ import org.richfaces.ui.attribute.I18nProps;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.ui.toggle.TogglePanelTagHandler;
 import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
 
 /**
  * <p>The &lt;r:tabPanel&gt; component provides a set of tabbed panels for displaying one panel of content at a time.
@@ -137,11 +137,12 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel implements Co
         return (null == this.getHeaderAlignment()) || (this.getHeaderAlignment().equals(HeaderAlignment.left));
     }
 
+    @Override
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         if (HEADERS_META_COMPONENT.equals(metaComponentId)) {
             return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
         }
-        return null;
+        return super.resolveClientId(facesContext, contextComponent, metaComponentId);
     }
 
     @Override
