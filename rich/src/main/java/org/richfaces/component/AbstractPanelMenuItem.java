@@ -46,6 +46,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuItem";
     private static final ParentItemPredicate PARENT_ITEM_PREDICATE = new ParentItemPredicate();
+    private static final DisabledParentItemPredicate DISABLED_PARENT_ITEM_PREDICATE = new DisabledParentItemPredicate();
 
     protected AbstractPanelMenuItem() {
         setRendererType("org.richfaces.PanelMenuItemRenderer");
@@ -112,6 +113,10 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
      */
     @Attribute
     public abstract boolean isDisabled();
+
+    public boolean isParentDisabled() {
+        return ComponentIterators.getParent(this, DISABLED_PARENT_ITEM_PREDICATE) != null;
+    }
 
     @Attribute(generate = false)
     public Object getExecute() {
@@ -263,6 +268,18 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     private static class ParentItemPredicate implements Predicate<UIComponent> {
         public boolean apply(UIComponent comp) {
             return comp instanceof AbstractPanelMenuGroup || comp instanceof AbstractPanelMenu;
+        }
+    }
+
+    private static class DisabledParentItemPredicate implements Predicate<UIComponent> {
+        public boolean apply(UIComponent comp) {
+            if (comp instanceof AbstractPanelMenuGroup && ((AbstractPanelMenuGroup)comp).isDisabled()) {
+                return true;
+            }
+            if (comp instanceof AbstractPanelMenu && ((AbstractPanelMenu)comp).isDisabled()) {
+                return true;
+            }
+            return false;
         }
     }
 
