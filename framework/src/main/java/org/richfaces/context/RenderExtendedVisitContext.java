@@ -72,12 +72,7 @@ public class RenderExtendedVisitContext extends BaseExtendedVisitContext {
                 }
             }
         }
-
-        if (component instanceof VisitChildrenRejectable && !((VisitChildrenRejectable) component).shouldVisitChildren()) {
-            return VisitResult.REJECT;
-        } else {
-            return VisitResult.ACCEPT;
-        }
+        return VisitResult.ACCEPT;
     }
 
     protected boolean shouldCompleteOnEmptyIds() {

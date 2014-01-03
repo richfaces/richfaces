@@ -22,6 +22,7 @@
 package org.richfaces.ui.tabPanel.model;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -33,7 +34,7 @@ import java.util.List;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class SimpleBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
