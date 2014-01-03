@@ -70,9 +70,12 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         AbstractPanelMenuItem menuItem = (AbstractPanelMenuItem) component;
         String compClientId = component.getClientId(context);
         if (requestMap.get(compClientId) != null) {
-            AbstractPanelMenu pm = getParentPanelMenu(menuItem);
+            if (menuItem.isDisabled()) {
+                return;
+            }
+            AbstractPanelMenu parentPanelMenu = getParentPanelMenu(menuItem);
 
-            if (pm.isImmediate()) {
+            if (parentPanelMenu.isImmediate()) {
                 menuItem.setImmediate(true);
             }
             new ActionEvent(menuItem).queue();
