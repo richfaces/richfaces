@@ -91,6 +91,7 @@ public class ITStaticTabTest {
 
         addIndexPage(deployment);
         addHeaderPage(deployment);
+        addHeaderButtonPage(deployment);
 
         WebArchive archive = deployment.getFinalArchive();
         return archive;
@@ -141,6 +142,17 @@ public class ITStaticTabTest {
     public void check_header_render() {
         browser.get(contextPath.toExternalForm() + "header.jsf");
         Assert.assertEquals("0 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
+        guardAjax(activeHeaders.get(0)).click();
+        Assert.assertEquals("1 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
+    }
+
+    /**
+     * {@link https://issues.jboss.org/browse/RF-13278}
+     */
+    @Test
+    public void check_header_button_render() {
+        browser.get(contextPath.toExternalForm() + "headerButton.jsf");
+        Assert.assertEquals("0 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
         guardAjax(activeHeaders.get(0).findElement(By.className("button"))).click();
         Assert.assertEquals("1 clicks", inactiveHeaders.get(1).findElement(By.className("rf-tab-lbl")).getText());
     }
@@ -183,12 +195,38 @@ public class ITStaticTabTest {
 
         p.body("<h:form id='myForm'>");
         p.body("<r:tabPanel id='tabPanel' >");
+        p.body("    <r:tab id='tab0' name='tab0' "); // header='tab0 header' ");
+        p.body("            action='#{simpleBean.incrementCount()}' ");
+        p.body("            render='tabPanel@header'> ");
+        p.body("        <f:facet name='header'> ");
+        p.body("        Click Me ");
+        p.body("        </f:facet> ");
+        p.body("        content of tab 1");
+        p.body("    </r:tab>");
+        p.body("    <r:tab id='tab1'>");
+        p.body("        <f:facet name='header'> ");
+        p.body("            <h:outputText id='label' value='#{simpleBean.count} clicks' /> ");
+        p.body("        </f:facet> ");
+        p.body("        content of tab 2");
+        p.body("        <h:outputText id = 'outputText' value='#{simpleBean.string}' />");
+        p.body("    </r:tab>");
+        p.body("</r:tabPanel> ");
+        p.body("</h:form>");
+
+        deployment.archive().addAsWebResource(p, "header.xhtml");
+    }
+
+    private static void addHeaderButtonPage(FrameworkDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        p.body("<h:form id='myForm'>");
+        p.body("<r:tabPanel id='tabPanel' >");
         p.body("    <r:tab id='tab0' name='tab0'> "); // header='tab0 header' ");
         p.body("        <f:facet name='header'> ");
         p.body("            <r:commandLink value='click me' ");
         p.body("                styleClass='button' ");
         p.body("                action='#{simpleBean.incrementCount()}' ");
-        p.body("                render='tabPanel@header' ");
+        p.body("                render='label' ");
         p.body("                oncomplete='return false;' ");
         p.body("                execute='@this' /> ");
         p.body("        </f:facet> ");
@@ -204,7 +242,7 @@ public class ITStaticTabTest {
         p.body("</r:tabPanel> ");
         p.body("</h:form>");
 
-        deployment.archive().addAsWebResource(p, "header.xhtml");
+        deployment.archive().addAsWebResource(p, "headerButton.xhtml");
     }
 
 }
