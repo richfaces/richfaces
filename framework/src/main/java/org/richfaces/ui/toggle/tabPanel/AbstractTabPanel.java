@@ -49,7 +49,7 @@ import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.ui.TabPanelRenderer"))
 public abstract class AbstractTabPanel extends AbstractTogglePanel implements CoreProps, EventsMouseProps, I18nProps {
-    public static final String HEADERS_META_COMPONENT = "headers";
+    public static final String HEADER_META_COMPONENT = "header";
     public static final String COMPONENT_TYPE = "org.richfaces.ui.TabPanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.ui.TabPanel";
 
@@ -139,7 +139,7 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel implements Co
 
     @Override
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
-        if (HEADERS_META_COMPONENT.equals(metaComponentId)) {
+        if (HEADER_META_COMPONENT.equals(metaComponentId)) {
             return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
         }
         return super.resolveClientId(facesContext, contextComponent, metaComponentId);
@@ -147,7 +147,7 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel implements Co
 
     @Override
     protected VisitResult visitMetaComponents(ExtendedVisitContext extendedVisitContext, VisitCallback callback) {
-        extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, AbstractTabPanel.HEADERS_META_COMPONENT);
+        extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, AbstractTabPanel.HEADER_META_COMPONENT);
         return super.visitMetaComponents(extendedVisitContext, callback);
     }
 }

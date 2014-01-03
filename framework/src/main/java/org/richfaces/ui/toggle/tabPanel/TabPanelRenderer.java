@@ -41,14 +41,12 @@ import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
-import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.javascript.JSObject;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.common.HtmlConstants;
@@ -111,7 +109,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
     private void writeTabsLine(ResponseWriter w, FacesContext context, UIComponent comp) throws IOException {
         w.startElement(DIV, comp);
-        String id = comp.getClientId() + AbstractTabPanel.HEADERS_META_COMPONENT;
+        String id = comp.getClientId() + AbstractTabPanel.HEADER_META_COMPONENT;
         w.writeAttribute(ID_ATTRIBUTE, id, null);
         AbstractTabPanel tabPanel = (AbstractTabPanel) comp;
         if (tabPanel.isHeaderPositionedTop()) {
@@ -190,10 +188,10 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
     @Override
     public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
-        if (AbstractTabPanel.HEADERS_META_COMPONENT.equals(metaComponentId)) {
+        if (AbstractTabPanel.HEADER_META_COMPONENT.equals(metaComponentId)) {
             AbstractTabPanel panel = (AbstractTabPanel) component;
             PartialResponseWriter w = context.getPartialViewContext().getPartialResponseWriter();
-            String id = component.getClientId() + AbstractTabPanel.HEADERS_META_COMPONENT;
+            String id = component.getClientId() + AbstractTabPanel.HEADER_META_COMPONENT;
             w.startUpdate(id);
             writeTabsLine(w, context, panel);
             w.endUpdate();

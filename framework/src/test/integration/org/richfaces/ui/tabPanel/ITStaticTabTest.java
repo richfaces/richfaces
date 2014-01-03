@@ -188,7 +188,7 @@ public class ITStaticTabTest {
         p.body("            <r:commandLink value='click me' ");
         p.body("                styleClass='button' ");
         p.body("                action='#{simpleBean.incrementCount()}' ");
-        p.body("                render='tabPanel@headers' ");
+        p.body("                render='tabPanel@header' ");
         p.body("                oncomplete='return false;' ");
         p.body("                execute='@this' /> ");
         p.body("        </f:facet> ");
