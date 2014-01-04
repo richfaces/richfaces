@@ -25,6 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitContextWrapper;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
@@ -324,7 +325,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
      */
     private Iterator<UIComponent> getKids(VisitContext visitContext) {
         Iterator<UIComponent> kids;
-        if (visitContext instanceof RenderExtendedVisitContext && !shouldVisitChildren()) {
+        if (isRenderExtendedVisitContext(visitContext) && !shouldVisitChildren()) {
             if (this.getFacetCount() > 0) {
                 kids = this.getFacets().values().iterator();
             } else {
@@ -334,6 +335,21 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
             kids =  this.getFacetsAndChildren();
         }
         return kids;
+    }
+
+    private boolean isRenderExtendedVisitContext(VisitContext visitContext) {
+        if  (visitContext instanceof RenderExtendedVisitContext) {
+            return true;
+        } else {
+            VisitContext wrapped = visitContext;
+            while (wrapped instanceof  VisitContextWrapper) {
+                wrapped = ((VisitContextWrapper) wrapped).getWrapped();
+                if  (wrapped instanceof RenderExtendedVisitContext) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
