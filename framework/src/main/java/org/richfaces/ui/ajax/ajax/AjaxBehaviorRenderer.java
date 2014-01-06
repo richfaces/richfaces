@@ -23,6 +23,7 @@ package org.richfaces.ui.ajax.ajax;
 
 import java.util.Map;
 
+import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.ActionSource;
 import javax.faces.component.EditableValueHolder;
@@ -50,7 +51,12 @@ import com.google.common.base.Strings;
  *
  */
 @FacesBehaviorRenderer(rendererType = AjaxBehaviorRenderer.RENDERER_TYPE, renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
-@ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
+@ResourceDependencies({
+        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")
+})
 public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
 
     public static final String RENDERER_TYPE = "org.richfaces.ui.behavior.Ajax";
