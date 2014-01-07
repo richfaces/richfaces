@@ -73,7 +73,10 @@ import org.richfaces.util.HtmlUtil;
  *
  */
 @JsfRenderer(type = "org.richfaces.ui.ExtendedDataTableRenderer", family = AbstractExtendedDataTable.COMPONENT_FAMILY)
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "common/jquery.position.js"),
         @ResourceDependency(library="org.richfaces", name = "richfaces-event.js"),

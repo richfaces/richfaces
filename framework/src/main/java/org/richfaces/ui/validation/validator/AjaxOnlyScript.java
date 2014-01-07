@@ -22,15 +22,21 @@
 
 package org.richfaces.ui.validation.validator;
 
-import com.google.common.collect.ImmutableSet;
+import java.io.IOException;
 
 import org.richfaces.resource.ResourceKey;
 
-import java.io.IOException;
+import com.google.common.collect.ImmutableSet;
 
 public class AjaxOnlyScript extends ValidatorScriptBase {
-    public static final ResourceKey AJAX_RESOURCE = ResourceKey.create("ajax.reslib", "org.richfaces");
-    public static final Iterable<ResourceKey> AJAX_LIBRARIES = ImmutableSet.of(AJAX_RESOURCE, ClientOnlyScript.CSV_RESOURCE);
+
+    public static final Iterable<ResourceKey> AJAX_LIBRARIES = ImmutableSet.of(
+            ResourceKey.create("javax.faces:jsf.js"),
+            ResourceKey.create("org.richfaces:jquery.js"),
+            ResourceKey.create("org.richfaces:richfaces.js"),
+            ResourceKey.create("org.richfaces:richfaces-queue.reslib"),
+            ClientOnlyScript.CSV_RESOURCE);
+
     private final String ajaxScript;
 
     public AjaxOnlyScript(String ajaxScript) {
