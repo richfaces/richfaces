@@ -29,7 +29,16 @@
         <cdk:component-family>javax.faces.NotifyMessages</cdk:component-family>
         <cdk:renderer-type>org.richfaces.ui.NotifyMessagesRenderer</cdk:renderer-type>
         <cdk:import package="org.richfaces.ui.message" names="NotifyRendererUtils.addStackIdOption" static="true" />
-        <cdk:resource-dependency library="org.richfaces" name="notifyMessage.reslib" />
+
+        <cdk:resource-dependency library="javax.faces" name="jsf.js" />
+        <cdk:resource-dependency library="org.richfaces" name="jquery.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
+        <cdk:resource-dependency library="org.richfaces" name="common/richfaces-base-component.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-event.js" />
+        <cdk:resource-dependency library="org.richfaces" name="message/notify/notifyMessage.js" />
+        <cdk:resource-dependency library="jquery.plugins" name="jquery.pnotify.js" />
+        <cdk:resource-dependency library="org.richfaces" name="message/notify/notify.js" />
+        <cdk:resource-dependency library="org.richfaces" name="message/notify/notifyStack.js" />        
         <cdk:resource-dependency library = "org.richfaces" name = "message/notify/notify.ecss" />
     </cc:interface>
     <cc:implementation>
