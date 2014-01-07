@@ -22,13 +22,13 @@
 
 package org.richfaces.ui.validation.validator;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSet.Builder;
+import java.io.IOException;
+import java.util.Collection;
 
 import org.richfaces.resource.ResourceKey;
 
-import java.io.IOException;
-import java.util.Collection;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSet.Builder;
 
 public class ClientAndAjaxScript extends ClientOnlyScript {
     private final String ajaxScript;
@@ -39,7 +39,7 @@ public class ClientAndAjaxScript extends ClientOnlyScript {
         super(clientSideConverterScript, validatorScripts, onvalid, oninvalid);
         this.ajaxScript = ajaxScript;
         Builder<ResourceKey> builder = ImmutableSet.<ResourceKey>builder();
-        builder.add(AjaxOnlyScript.AJAX_RESOURCE);
+        builder.addAll(AjaxOnlyScript.AJAX_LIBRARIES);
         builder.addAll(super.getResources());
         resources = builder.build();
     }

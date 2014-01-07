@@ -50,8 +50,11 @@ import org.richfaces.util.RendererUtils;
  *
  */
 @FacesBehaviorRenderer(rendererType = ComponentControlBehaviorRenderer.RENDERER_TYPE, renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js"),
         @ResourceDependency(library="org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "misc/componentControl/component-control.js") })
 public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {

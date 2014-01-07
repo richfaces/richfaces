@@ -29,6 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -46,7 +47,12 @@ import org.richfaces.ui.common.HtmlConstants;
  *
  */
 @JsfRenderer(type = QueueResourceComponentRenderer.TYPE, family = UIOutput.COMPONENT_FAMILY)
-@ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
+@ResourceDependencies({
+        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")
+})
 public class QueueResourceComponentRenderer extends Renderer {
     static final String TYPE = "org.richfaces.ui.QueueResourceComponentRenderer";
     private static final String FUNCTION_NAME = "RichFaces.queue.setQueueOptions";

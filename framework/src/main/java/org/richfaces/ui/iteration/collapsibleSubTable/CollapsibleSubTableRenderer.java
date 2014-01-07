@@ -52,7 +52,10 @@ import org.richfaces.util.AjaxRendererUtils;
  *
  */
 @JsfRenderer(type = "org.richfaces.ui.CollapsibleSubTableRenderer", family = AbstractCollapsibleSubTable.COMPONENT_FAMILY)
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "iteration/collapsibleSubTable/collapsible-subtable.js"),
         @ResourceDependency(library = "org.richfaces", name = "iteration/collapsibleSubTable/collapsible-subtable.ecss") })
 public class CollapsibleSubTableRenderer extends AbstractTableRenderer {

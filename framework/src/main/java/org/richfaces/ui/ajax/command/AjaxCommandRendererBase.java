@@ -39,7 +39,10 @@ import java.util.Map;
  * @version $Revision: 1.1.2.3 $ $Date: 2007/02/12 17:46:53 $
  *
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib") })
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib") })
 public abstract class AjaxCommandRendererBase extends RendererBase {
     private static final Logger LOG = RichfacesLogger.RENDERKIT.getLogger();
 

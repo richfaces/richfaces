@@ -38,7 +38,10 @@ import javax.faces.component.UIComponentBase;
  * </p>
  * @author Nick Belaevski
  */
-@ResourceDependencies(value = { @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies(value = { @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "ajax/log.js"),
         @ResourceDependency(library = "org.richfaces", name = "ajax/log.ecss") })
 @JsfComponent(tag = @Tag(name = "log", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ui.AjaxLogRenderer"))

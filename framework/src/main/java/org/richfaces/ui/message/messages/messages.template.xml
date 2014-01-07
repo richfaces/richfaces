@@ -29,8 +29,14 @@
         <cdk:superclass>org.richfaces.ui.message.MessageRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Messages</cdk:component-family>
         <cdk:renderer-type>org.richfaces.ui.MessagesRenderer</cdk:renderer-type>
-        <cdk:resource-dependency library="org.richfaces" name="message.reslib" />
-        <cdk:resource-dependency library = "org.richfaces" name = "message/message/msg.ecss" />
+
+        <cdk:resource-dependency library="javax.faces" name="jsf.js" />
+        <cdk:resource-dependency library="org.richfaces" name="jquery.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
+        <cdk:resource-dependency library="org.richfaces" name="common/richfaces-base-component.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-event.js" />
+        <cdk:resource-dependency library="org.richfaces" name="message/message/message.js" />
+        <cdk:resource-dependency library="org.richfaces" name="message/message/msg.ecss" />
     </cc:interface>
     <cc:implementation>
         <span id="#{clientId}" class="rf-msgs #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">

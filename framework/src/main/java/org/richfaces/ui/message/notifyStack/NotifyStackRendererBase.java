@@ -29,8 +29,11 @@ import javax.faces.application.ResourceDependency;
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js"),
         @ResourceDependency(library = "jquery.plugins", name = "jquery.pnotify.js", target = "head"),
         @ResourceDependency(library = "org.richfaces", name = "message/notify/notify.js", target = "head"),
         @ResourceDependency(library = "org.richfaces", name = "message/notify/notifyStack.js", target = "head"),
