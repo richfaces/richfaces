@@ -31,7 +31,10 @@ import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.services.ServiceTracker;
 
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js"),
         @ResourceDependency(library = "com.jqueryui", name = "jquery.ui.core.js"),
         @ResourceDependency(library = "org.richfaces", name = "misc/focus/focus.js") })
 public class FocusRendererBase extends RendererBase implements FocusRendererInterface {

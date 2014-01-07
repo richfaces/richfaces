@@ -34,9 +34,12 @@ import javax.faces.convert.Converter;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.util.InputUtils;
 
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib", target = "head"),
-        @ResourceDependency(name = "jquery.watermark.js", library = "jquery.plugins", target = "head"),
-        @ResourceDependency(library = "org.richfaces", name = "misc/placeholder/placeholder.js", target = "head"),
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js"),
+        @ResourceDependency(library = "jquery.plugins", name = "jquery.watermark.js"),
+        @ResourceDependency(library = "org.richfaces", name = "misc/placeholder/placeholder.js"),
         @ResourceDependency(library = "org.richfaces", name = "misc/placeholder/placeholder.css") })
 public abstract class PlaceholderRendererBase extends RendererBase {
 

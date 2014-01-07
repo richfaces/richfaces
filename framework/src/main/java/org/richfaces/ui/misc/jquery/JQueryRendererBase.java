@@ -33,7 +33,10 @@ import javax.faces.render.Renderer;
  * @author nick
  *
  */
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "misc/jquery/jquery.component.js") })
 public abstract class JQueryRendererBase extends Renderer {
     protected String getEscapedSelector(FacesContext context, UIComponent component) {

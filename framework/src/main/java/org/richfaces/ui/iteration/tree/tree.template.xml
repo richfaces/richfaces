@@ -37,7 +37,7 @@
         <cdk:resource-dependency library="org.richfaces" name="jquery.js" />
         <cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
         <cdk:resource-dependency library="org.richfaces" name="richfaces-queue.reslib" />
-        <cdk:resource-dependency library = "org.richfaces" name = "base-component.reslib" />
+        <cdk:resource-dependency library="org.richfaces" name="common/richfaces-base-component.js" />
         <cdk:resource-dependency library = "org.richfaces" name = "richfaces-event.js" />
         <cdk:resource-dependency library = "org.richfaces" name = "iteration/tree/tree.js" />
         <cdk:resource-dependency library = "org.richfaces" name = "iteration/tree/tree.ecss" />

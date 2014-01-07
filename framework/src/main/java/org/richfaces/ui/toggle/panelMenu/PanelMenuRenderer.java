@@ -49,7 +49,7 @@ import static org.richfaces.ui.toggle.togglePanel.TogglePanelRenderer.getValueRe
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "common/richfaces-base-component.js"),
         @ResourceDependency(library="org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/panelMenu/panelMenu.js"),
         @ResourceDependency(library = "org.richfaces", name = "toggle/panelMenu/panelMenuItem.js"),
