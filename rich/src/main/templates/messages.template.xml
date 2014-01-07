@@ -20,7 +20,13 @@
         <cdk:superclass>org.richfaces.renderkit.MessageRendererBase</cdk:superclass>
         <cdk:component-family>javax.faces.Messages</cdk:component-family>
         <cdk:renderer-type>org.richfaces.MessagesRenderer</cdk:renderer-type>
-        <cdk:resource-dependency library="org.richfaces" name="message.rf4.reslib" />
+
+        <cdk:resource-dependency library="javax.faces" name="jsf.js" />
+        <cdk:resource-dependency library="org.richfaces" name="jquery.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-base-component.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-event.js" />
+        <cdk:resource-dependency library="org.richfaces" name="message.js" />
         <cdk:resource-dependency library="org.richfaces" name="msg.ecss" />
     </cc:interface>
     <cc:implementation>
