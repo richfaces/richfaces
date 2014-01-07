@@ -26,9 +26,12 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.context.RenderExtendedVisitContext;
 import org.richfaces.ui.common.ComponentIterators;
 
 import javax.faces.component.UIOutput;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
 
 /**
  * <p>The &lt;rich:togglePanelItem&gt; component is a switchable panel for use with the &lt;rich:togglePanel&gt;
@@ -119,5 +122,18 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
 
     public void setSwitchType(SwitchType switchType) {
         getStateHelper().put(Properties.switchType, switchType);
+    }
+
+    @Override
+    /**
+     * UIComponent#visitTree modified to delegate to AbstractTab#getVisitableChildren() to retrieve the children iterator
+     */
+    public boolean visitTree(VisitContext context, VisitCallback callback) {
+        if (RenderExtendedVisitContext.isRenderExtendedVisitContext(context) && ! shouldVisitChildren()) {
+            // Return false to allow the visit to continue
+            return false;
+        } else {
+            return super.visitTree(context, callback);
+        }
     }
 }

@@ -23,6 +23,10 @@ package org.richfaces.component;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -31,6 +35,8 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.DivPanelRenderer;
 import org.richfaces.ui.common.ComponentIterators;
+
+import java.util.Iterator;
 
 /**
  * <p>The &lt;rich:accordionItem&gt; component is a panel for use with the &lt;rich:accordion&gt; component.
@@ -248,5 +254,41 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
 
     public void setSwitchType(SwitchType switchType) {
         getStateHelper().put(Properties.switchType, switchType);
+    }
+
+    @Overridestat
+    /**
+     * UIComponent#visitTree modified to delegate to AbstractTab#getVisitableChildren() to retrieve the children iterator
+     */
+    public boolean visitTree(VisitContext context, VisitCallback callback) {
+        if (!isVisitable(context))
+            return false;
+
+        FacesContext facesContext = context.getFacesContext();
+        pushComponentToEL(facesContext, null);
+
+        try {
+            VisitResult result = context.invokeVisitCallback(this, callback);
+
+            if (result == VisitResult.COMPLETE)
+                return true;
+
+            if (result == VisitResult.ACCEPT) {
+                // Do not render the non-active children, but always render the visible header facets.
+                Iterator<UIComponent> kids = org.richfaces.ui.toggle.tabPanel.AbstractTab.getVisitableChildren(this, context);
+
+                while(kids.hasNext()) {
+                    boolean done = kids.next().visitTree(context, callback);
+
+                    if (done)
+                        return true;
+                }
+            }
+        }
+        finally {
+            popComponentFromEL(facesContext);
+        }
+
+        return false;
     }
 }
