@@ -73,7 +73,7 @@ public final class ChoicePickerHelper {
 
     public static class ByIndexChoicePicker implements ChoicePicker, MultipleChoicePicker {
 
-        private final Set<FindIndexCommand> commands = new LinkedHashSet<FindIndexCommand>();
+        private final Set<Integer> indexes = new LinkedHashSet<Integer>();
         private final List<PreparationCommand> preparationCommands = Lists.newArrayList();
 
         private ByIndexChoicePicker() {
@@ -140,7 +140,7 @@ public final class ChoicePickerHelper {
         }
 
         private ByIndexChoicePicker indexInner(final int index) {
-            commands.add(new FindIndexCommand(index));
+            indexes.add(index);
             return this;
         }
 
@@ -163,20 +163,25 @@ public final class ChoicePickerHelper {
 
         private List<WebElement> pickInner(List<WebElement> options, boolean pickFirst) {
             Preconditions.checkNotNull(options, "Options cannot be null.");
-            Preconditions.checkArgument(!commands.isEmpty() || !preparationCommands.isEmpty(), "No filter specified.");
+            Preconditions.checkArgument(!indexes.isEmpty() || !preparationCommands.isEmpty(), "No filter specified.");
             if (options.isEmpty()) {
-                return Collections.EMPTY_LIST;
+                return Collections.emptyList();
             }
             for (PreparationCommand command : preparationCommands) {
                 command.prepare(options);
             }
+            if (indexes.isEmpty()) {
+                return Collections.emptyList();
+            }
 
             List<WebElement> result = Lists.newArrayList();
-            for (FindIndexCommand command : commands) {
-                result.add(command.find(options));
-                if (pickFirst) {
-                    break;
+            if (pickFirst) {
+                result.add(options.get(indexes.iterator().next()));
+            } else {
+                for (Integer i : indexes) {
+                    result.add(options.get(i));
                 }
+
             }
             return result;
         }
@@ -188,46 +193,7 @@ public final class ChoicePickerHelper {
 
         @Override
         public String toString() {
-            return (commands.isEmpty() ? "unknown index picking" : commands.toString());
-        }
-
-        private static class FindIndexCommand {
-
-            private final int index;
-
-            public FindIndexCommand(int index) {
-                this.index = index;
-            }
-
-            @Override
-            public boolean equals(Object obj) {
-                if (obj == null) {
-                    return false;
-                }
-                if (getClass() != obj.getClass()) {
-                    return false;
-                }
-                final FindIndexCommand other = (FindIndexCommand) obj;
-                if (this.index != other.index) {
-                    return false;
-                }
-                return true;
-            }
-
-            public WebElement find(List<WebElement> list) {
-                return list.get(index);
-            }
-
-            @Override
-            public int hashCode() {
-                return index;
-            }
-
-            @Override
-            public String toString() {
-                return "index(" + index + ')';
-            }
-
+            return (indexes.isEmpty() ? "unknown index picking" : indexes.toString());
         }
 
         private interface PreparationCommand {

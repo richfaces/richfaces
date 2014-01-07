@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.fragment.test.choicePicker;
 
 import static org.junit.Assert.assertEquals;
@@ -80,5 +79,14 @@ public class TestChoicePickerByIndex extends AbstractChoicePickerTest {
     public void testPickNotExistingElement() {
         ByIndexChoicePicker picker = ChoicePickerHelper.byIndex().index(15);
         assertNull(picker.pick(myFragment.getDivs()));
+    }
+
+    @Test
+    public void testPickingPreservesOrder() {
+        ByIndexChoicePicker picker = ChoicePickerHelper.byIndex()
+            .last().first().beforeLast(1).index(1);
+
+        List<WebElement> pickMultiple = picker.pickMultiple(myFragment.getDivs());
+        assertEquals(Lists.newArrayList("6", "1", "5", "2"), getStringsFromElements(pickMultiple));
     }
 }
