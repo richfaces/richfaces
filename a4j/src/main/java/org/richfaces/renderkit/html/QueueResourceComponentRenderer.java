@@ -29,6 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -36,10 +37,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
-import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.application.CommonComponentsConfiguration;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.QueueRegistry;
+import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.ui.common.HtmlConstants;
 
 /**
@@ -47,7 +48,12 @@ import org.richfaces.ui.common.HtmlConstants;
  *
  */
 @JsfRenderer(type = "org.richfaces.QueueResourceComponentRenderer", family = UIOutput.COMPONENT_FAMILY)
-@ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib")
+@ResourceDependencies({
+        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")
+})
 public class QueueResourceComponentRenderer extends Renderer {
     private static final String FUNCTION_NAME = "RichFaces.queue.setQueueOptions";
 

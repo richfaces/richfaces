@@ -26,6 +26,7 @@ import static org.richfaces.configuration.ConfigurationServiceHelper.getBooleanC
 import java.util.List;
 
 import javax.faces.application.Application;
+import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -47,7 +48,12 @@ import org.richfaces.log.RichfacesLogger;
 /**
  * @author Nick Belaevski Base class for rendering Queue
  */
-@ResourceDependency(library = "org.richfaces", name = "ajax.rf4.reslib")
+@ResourceDependencies({
+        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")
+})
 @ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class),
         @ListenerFor(systemEventClass = PreRemoveFromViewEvent.class) })
 public abstract class QueueRendererBase extends Renderer implements ComponentSystemEventListener {
