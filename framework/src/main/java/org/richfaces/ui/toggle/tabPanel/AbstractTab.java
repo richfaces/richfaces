@@ -47,6 +47,7 @@ import org.richfaces.ui.common.AbstractActionComponent;
 import org.richfaces.ui.common.ComponentIterators;
 import org.richfaces.ui.common.DivPanelRenderer;
 import org.richfaces.ui.common.SwitchType;
+import org.richfaces.ui.common.VisitChildrenRejectable;
 import org.richfaces.ui.toggle.AbstractTogglePanelTitledItem;
 import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanel;
 import org.richfaces.ui.toggle.togglePanel.AbstractTogglePanelItem;
@@ -196,6 +197,30 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         return headerFacet;
     }
 
+    /**
+     * If the VisitContext is not the RenderExtendedVisitContext, return the usual FacetsAndChildren iterator.
+     * Otherwise return only the Facet iterator when a child visit is not required.
+     *
+     * This is useful to not render the tab contents when an item is not visible, while still visiting the header facets.
+     *
+     * @param visitContext The VisitContext of the component tree visit.
+     */
+    public static Iterator<UIComponent> getVisitableChildren(UIComponent component, VisitContext visitContext) {
+        Iterator<UIComponent> kids;
+        if (RenderExtendedVisitContext.isRenderExtendedVisitContext(visitContext)
+                && component instanceof VisitChildrenRejectable
+                && ! ((VisitChildrenRejectable)component).shouldVisitChildren()) {
+            if (component.getFacetCount() > 0) {
+                kids = component.getFacets().values().iterator();
+            } else {
+                kids = Iterators.emptyIterator();
+            }
+        } else {
+            kids =  component.getFacetsAndChildren();
+        }
+        return kids;
+    }
+
     // ------------------------------------------------ Component Attributes
 
     /**
@@ -281,7 +306,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
 
     @Override
     /**
-     * Identical to the UIComponent#visitTree method except for the callout to getKids() to retrieve the kids iterator
+     * UIComponent#visitTree modified to delegate to AbstractTab#getVisitableChildren() to retrieve the children iterator
      */
     public boolean visitTree(VisitContext context, VisitCallback callback) {
         if (!isVisitable(context))
@@ -298,7 +323,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
 
             if (result == VisitResult.ACCEPT) {
                 // Do not render the non-active children, but always render the visible header facets.
-                Iterator<UIComponent> kids = this.getKids(context);
+                Iterator<UIComponent> kids = AbstractTab.getVisitableChildren(this, context);
 
                 while(kids.hasNext()) {
                     boolean done = kids.next().visitTree(context, callback);
@@ -314,42 +339,4 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
 
         return false;
     }
-
-    /**
-     * If the VisitContext is not the RenderExtendedVisitContext, return the usual FacetsAndChildren iterator.
-     * Otherwise return only the Facet iterator when a child visit is not required.
-     *
-     * This is useful to not render the tab contents when a tab is not visible, while still visiting the header facets.
-     *
-     * @param visitContext The VisitContext of the component tree visit.
-     */
-    private Iterator<UIComponent> getKids(VisitContext visitContext) {
-        Iterator<UIComponent> kids;
-        if (isRenderExtendedVisitContext(visitContext) && !shouldVisitChildren()) {
-            if (this.getFacetCount() > 0) {
-                kids = this.getFacets().values().iterator();
-            } else {
-                kids = Iterators.emptyIterator();
-            }
-        } else {
-            kids =  this.getFacetsAndChildren();
-        }
-        return kids;
-    }
-
-    private boolean isRenderExtendedVisitContext(VisitContext visitContext) {
-        if  (visitContext instanceof RenderExtendedVisitContext) {
-            return true;
-        } else {
-            VisitContext wrapped = visitContext;
-            while (wrapped instanceof  VisitContextWrapper) {
-                wrapped = ((VisitContextWrapper) wrapped).getWrapped();
-                if  (wrapped instanceof RenderExtendedVisitContext) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
 }
