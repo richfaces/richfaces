@@ -21,19 +21,27 @@
  */
 package org.richfaces.ui.toggle.togglePanel;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.context.RenderExtendedVisitContext;
 import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.I18nProps;
 import org.richfaces.ui.common.ComponentIterators;
 import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.toggle.AbstractTogglePanelItemInterface;
+
+import java.util.Iterator;
 
 /**
  * <p>The &lt;r:togglePanelItem&gt; component is a switchable panel for use with the &lt;r:togglePanel&gt;
@@ -125,4 +133,18 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
     public void setSwitchType(SwitchType switchType) {
         getStateHelper().put(Properties.switchType, switchType);
     }
+
+    @Override
+    /**
+     * UIComponent#visitTree modified to delegate to AbstractTab#getVisitableChildren() to retrieve the children iterator
+     */
+    public boolean visitTree(VisitContext context, VisitCallback callback) {
+        if (RenderExtendedVisitContext.isRenderExtendedVisitContext(context) && ! shouldVisitChildren()) {
+            // Return false to allow the visit to continue
+            return false;
+        } else {
+            return super.visitTree(context, callback);
+        }
+    }
+
 }

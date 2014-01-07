@@ -26,6 +26,8 @@ import java.util.Set;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitContextWrapper;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
@@ -77,5 +79,24 @@ public class RenderExtendedVisitContext extends BaseExtendedVisitContext {
 
     protected boolean shouldCompleteOnEmptyIds() {
         return limitRender;
+    }
+
+    /**
+     * Determine if the VisitContext is, or wraps, the RenderExtendedVisitContext
+     * @param visitContext The VisitContext of the component tree visit.
+     */
+    public static boolean isRenderExtendedVisitContext(VisitContext visitContext) {
+        if  (visitContext instanceof RenderExtendedVisitContext) {
+            return true;
+        } else {
+            VisitContext wrapped = visitContext;
+            while (wrapped instanceof VisitContextWrapper) {
+                wrapped = ((VisitContextWrapper) wrapped).getWrapped();
+                if  (wrapped instanceof RenderExtendedVisitContext) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
