@@ -39,6 +39,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Range;
 import com.google.common.collect.Sets;
 
 /**
@@ -73,10 +74,14 @@ public final class ChoicePickerHelper {
 
     public static class ByIndexChoicePicker implements ChoicePicker, MultipleChoicePicker {
 
-        private final Set<Integer> indexes = new LinkedHashSet<Integer>();
+        private final Set<Integer> reachableIndexes = new LinkedHashSet<Integer>();
         private final List<PreparationCommand> preparationCommands = Lists.newArrayList();
 
         private ByIndexChoicePicker() {
+        }
+
+        private void addReachableIndex(int index) {
+            reachableIndexes.add(index);
         }
 
         public ByIndexChoicePicker beforeLast(final int positionsBeforeLast) {
@@ -85,7 +90,7 @@ public final class ChoicePickerHelper {
                 public void prepare(List<WebElement> list) {
                     int countedIndex = list.size() - 1 - positionsBeforeLast;
                     if (countedIndex >= 0 && countedIndex < list.size()) {
-                        indexInner(countedIndex);
+                        addReachableIndex(countedIndex);
                     }
                 }
             });
@@ -116,7 +121,7 @@ public final class ChoicePickerHelper {
                 @Override
                 public void prepare(List<WebElement> list) {
                     for (int i = from; i < list.size(); i += nth) {
-                        indexInner(i);
+                        addReachableIndex(i);
                     }
                 }
             });
@@ -127,20 +132,36 @@ public final class ChoicePickerHelper {
             return index(0);
         }
 
-        public ByIndexChoicePicker index(final int index) {
+        /**
+         * Picks every index from given range.
+         *
+         * @param range range from which will be the indexes picked
+         * @return same instance
+         */
+        public ByIndexChoicePicker fromRange(final Range<Integer> range) {
+            Preconditions.checkNotNull(range);
             preparationCommands.add(new PreparationCommand() {
                 @Override
                 public void prepare(List<WebElement> list) {
-                    if (list.size() > index && index >= 0) {
-                        indexInner(index);
+                    for (int i = 0; i < list.size(); i++) {
+                        if (range.contains(i)) {
+                            addReachableIndex(i);
+                        }
                     }
                 }
             });
             return this;
         }
 
-        private ByIndexChoicePicker indexInner(final int index) {
-            indexes.add(index);
+        public ByIndexChoicePicker index(final int index) {
+            preparationCommands.add(new PreparationCommand() {
+                @Override
+                public void prepare(List<WebElement> list) {
+                    if (list.size() > index && index >= 0) {
+                        addReachableIndex(index);
+                    }
+                }
+            });
             return this;
         }
 
@@ -163,22 +184,22 @@ public final class ChoicePickerHelper {
 
         private List<WebElement> pickInner(List<WebElement> options, boolean pickFirst) {
             Preconditions.checkNotNull(options, "Options cannot be null.");
-            Preconditions.checkArgument(!indexes.isEmpty() || !preparationCommands.isEmpty(), "No filter specified.");
+            Preconditions.checkArgument(!reachableIndexes.isEmpty() || !preparationCommands.isEmpty(), "No filter specified.");
             if (options.isEmpty()) {
                 return Collections.emptyList();
             }
             for (PreparationCommand command : preparationCommands) {
                 command.prepare(options);
             }
-            if (indexes.isEmpty()) {
+            if (reachableIndexes.isEmpty()) {
                 return Collections.emptyList();
             }
 
             List<WebElement> result = Lists.newArrayList();
             if (pickFirst) {
-                result.add(options.get(indexes.iterator().next()));
+                result.add(options.get(reachableIndexes.iterator().next()));
             } else {
-                for (Integer i : indexes) {
+                for (Integer i : reachableIndexes) {
                     result.add(options.get(i));
                 }
 
@@ -193,7 +214,7 @@ public final class ChoicePickerHelper {
 
         @Override
         public String toString() {
-            return (indexes.isEmpty() ? "unknown index picking" : indexes.toString());
+            return (reachableIndexes.isEmpty() ? "unknown index picking" : reachableIndexes.toString());
         }
 
         private interface PreparationCommand {

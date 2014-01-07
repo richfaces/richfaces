@@ -33,6 +33,7 @@ import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper.ByIndexChoicePicker;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Ranges;
 
 public class TestChoicePickerByIndex extends AbstractChoicePickerTest {
 
@@ -58,6 +59,34 @@ public class TestChoicePickerByIndex extends AbstractChoicePickerTest {
     }
 
     @Test
+    public void testPickFromRange() {
+        ByIndexChoicePicker picker = ChoicePickerHelper.byIndex().fromRange(Ranges.closed(0, 2));
+        List<WebElement> pickMultiple = picker.pickMultiple(myFragment.getDivs());
+        assertEquals(Lists.newArrayList("1", "2", "3"), getStringsFromElements(pickMultiple));
+
+        picker = ChoicePickerHelper.byIndex().fromRange(Ranges.open(0, 2));
+        pickMultiple = picker.pickMultiple(myFragment.getDivs());
+        assertEquals(Lists.newArrayList("2"), getStringsFromElements(pickMultiple));
+
+        picker = ChoicePickerHelper.byIndex().fromRange(Ranges.atLeast(3));
+        pickMultiple = picker.pickMultiple(myFragment.getDivs());
+        assertEquals(Lists.newArrayList("4", "5", "6"), getStringsFromElements(pickMultiple));
+
+        picker = ChoicePickerHelper.byIndex().fromRange(Ranges.<Integer>all());
+        pickMultiple = picker.pickMultiple(myFragment.getDivs());
+        assertEquals(Lists.newArrayList("1", "2", "3", "4", "5", "6"), getStringsFromElements(pickMultiple));
+    }
+
+    @Test
+    public void testPickFromRanges() {
+        ByIndexChoicePicker picker = ChoicePickerHelper.byIndex()
+            .fromRange(Ranges.atLeast(5))
+            .fromRange(Ranges.closed(1, 2));
+        List<WebElement> pickMultiple = picker.pickMultiple(myFragment.getDivs());
+        assertEquals(Lists.newArrayList("6", "2", "3"), getStringsFromElements(pickMultiple));
+    }
+
+    @Test
     public void testPickMultiple() {
         ByIndexChoicePicker picker = ChoicePickerHelper.byIndex().indexes(1, 2).first().last().beforeLast(1);
         List<WebElement> pickMultiple = picker.pickMultiple(myFragment.getDivs());
@@ -78,6 +107,9 @@ public class TestChoicePickerByIndex extends AbstractChoicePickerTest {
     @Test
     public void testPickNotExistingElement() {
         ByIndexChoicePicker picker = ChoicePickerHelper.byIndex().index(15);
+        assertNull(picker.pick(myFragment.getDivs()));
+
+        picker = ChoicePickerHelper.byIndex().fromRange(Ranges.<Integer>atLeast(15));
         assertNull(picker.pick(myFragment.getDivs()));
     }
 
