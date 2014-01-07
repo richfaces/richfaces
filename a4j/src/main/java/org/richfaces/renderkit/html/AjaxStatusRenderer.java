@@ -49,7 +49,7 @@ import org.richfaces.renderkit.util.HandlersChain;
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "status.js") })
 @JsfRenderer(type = "org.richfaces.StatusRenderer", family = AbstractAjaxStatus.COMPONENT_FAMILY)
 public class AjaxStatusRenderer extends RendererBase {

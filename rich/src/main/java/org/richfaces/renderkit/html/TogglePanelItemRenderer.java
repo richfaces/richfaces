@@ -50,7 +50,7 @@ import org.richfaces.ui.common.VisitChildrenRejectable;
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib"),
-        @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js") })
 @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer", family = AbstractTogglePanelItem.COMPONENT_FAMILY)

@@ -21,7 +21,10 @@ import org.richfaces.json.JSONMap;
 import org.richfaces.renderkit.RendererBase;
 
 //TODO nick - JSF have concept of library, it should be used instead of '/' in resource names
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "richfaces-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupPanel.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupPanelBorders.js"),

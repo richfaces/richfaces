@@ -52,7 +52,10 @@ import org.richfaces.ui.common.HtmlConstants;
  * @author Anton Belevich
  */
 @JsfRenderer(type = "org.richfaces.DataTableRenderer", family = AbstractDataTable.COMPONENT_FAMILY)
-@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.rf4.reslib"),
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "datatable.js"),
         @ResourceDependency(library = "org.richfaces", name = "datatable.ecss") })
 public class DataTableRenderer extends AbstractTableRenderer {
