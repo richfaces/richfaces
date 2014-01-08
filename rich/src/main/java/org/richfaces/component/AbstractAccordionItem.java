@@ -256,7 +256,7 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         getStateHelper().put(Properties.switchType, switchType);
     }
 
-    @Overridestat
+    @Override
     /**
      * UIComponent#visitTree modified to delegate to AbstractTab#getVisitableChildren() to retrieve the children iterator
      */
