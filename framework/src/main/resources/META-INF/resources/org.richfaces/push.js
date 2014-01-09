@@ -129,7 +129,7 @@
      */
     _messageCallback: function(response) {
       var suspendMessageEndMarker = /^(<!--[^>]+-->\s*)+/;
-      var messageTokenExpr = /<([^>]*)>/g;
+      var messageTokenExpr = /<msg topic="([^"]+)" number="([^"]+)">([^<]*)<\/msg>/g;
 
       var dataString = response.responseBody.replace(suspendMessageEndMarker, "");
       if (dataString) {
@@ -139,7 +139,11 @@
             continue;
           }
 
-          var message = $.parseJSON('{' + messageToken[1] + '}');
+          var message = {
+              topic: messageToken[1],
+              number: parseInt(messageToken[2]),
+              data: $.parseJSON(messageToken[3])
+          };
 
           if (message.number <= this._lastMessageNumber) {
             continue;
