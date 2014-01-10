@@ -25,6 +25,7 @@ package org.richfaces.ui.toggle.panelMenu;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.Activity;
@@ -32,8 +33,10 @@ import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -62,6 +65,8 @@ public class ITPanelMenu {
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
         addDisabledMenuItemPage(deployment);
         addDisabledMenuGroupPage(deployment);
+        addDisabledMenuGroupPageClient(deployment);
+        addDisabledMenuGroupPageExpanded(deployment);
         addDisabledMenuPage(deployment);
 
         return deployment.getFinalArchive();
@@ -72,6 +77,9 @@ public class ITPanelMenu {
 
     @FindBy(className ="disabled")
     private WebElement disabledMenu;
+
+    @FindBy(id ="disabledGroup")
+    private WebElement disabledGroup;
 
     @Test
     public void test_enabled_menu_item() {
@@ -104,7 +112,7 @@ public class ITPanelMenu {
 
     @Test
     public void test_enabled_menu_group() {
-        browser.get(contextPath.toString() + "disabled-menu-group.jsf");
+        browser.get(contextPath.toString() + "disabled-menu-group-expanded.jsf");
         Warp
                 .initiate(new Activity() {
                     public void perform() {
@@ -119,8 +127,8 @@ public class ITPanelMenu {
      * RF-13358
      */
     @Test
-    public void test_disabled_menu_group() {
-        browser.get(contextPath.toString() + "disabled-menu-group.jsf");
+    public void test_item_in_expanded_disabled_menu_group() {
+        browser.get(contextPath.toString() + "disabled-menu-group-expanded.jsf");
         Warp
                 .initiate(new Activity() {
                     public void perform() {
@@ -129,6 +137,23 @@ public class ITPanelMenu {
                 })
                 .inspect(new VerifyMenuAction.DidNotOccur());
 
+    }
+
+    /**
+     * RF-13358
+     */
+    @Test
+    public void test_expansion_of_disabled_menu_group() {
+        browser.get(contextPath.toString() + "disabled-menu-group.jsf");
+        Graphene.guardAjax(disabledGroup).click();
+        Assert.assertEquals("disabled menu group should have no menu item children", 0, disabledGroup.findElements(By.className("rf-pm-itm")).size());
+    }
+
+    @Test
+    public void test_expansion_of_client_mode_disabled_menu_group() {
+        browser.get(contextPath.toString() + "disabled-menu-group-client.jsf");
+        Graphene.guardNoRequest(disabledGroup).click();
+        Assert.assertNotEquals("disabled menu group in client mode should have menu item children", 0, disabledGroup.findElements(By.className("rf-pm-itm")).size());
     }
 
     @Test
@@ -187,21 +212,67 @@ public class ITPanelMenu {
         //  Re-enable the disabled javascript with this custom javascript call
         p.body("<script type='text/javascript'> ");
         p.body("    function enableMenu() { ");
-        p.body("        new RichFaces.ui.PanelMenuGroup('disabledGroup',{'collapseEvent':'click','unselectable':false,'selectable':false,'name':'Group','ajax':{'incId':'1'} , 'expanded':true,'expandEvent':'click','disabled':false,'mode':'client'} ) ");
+        p.body("        new RichFaces.ui.PanelMenuGroup('disabledGroup',{'collapseEvent':'click','unselectable':false,'selectable':false,'name':'disabledGroup','ajax':{'incId':'1'} , 'expanded':false,'expandEvent':'click','disabled':false,'mode':'ajax'} ) ");
         p.body("    } ");
         p.body("    jQuery(enableMenu); ");
         p.body("</script>");
 
         p.form("<r:panelMenu itemMode='ajax' groupMode='ajax'>");
-        p.form("    <r:panelMenuGroup id='enabledGroup' label='Group' expanded='true'> ");
+        p.form("    <r:panelMenuGroup id='enabledGroup' label='Group 1' expanded='true'> ");
         p.form("        <r:panelMenuItem id='enabledMenu' label='Item 1' styleClass='enabled' name='Item_1' action='#{panelMenuBean.doAction}'  />");
         p.form("    </r:panelMenuGroup> ");
-        p.form("    <r:panelMenuGroup id='disabledGroup' disabled='true' label='Group' expanded='true'> ");
+        p.form("    <r:panelMenuGroup id='disabledGroup' disabled='true' label='Group 2'> ");
         p.form("        <r:panelMenuItem id='disabledMenu' label='Item 2' styleClass='disabled' name='Item_2' action='#{panelMenuBean.doAction}'  />");
         p.form("    </r:panelMenuGroup> ");
         p.form("</r:panelMenu>");
 
         deployment.archive().addAsWebResource(p, "disabled-menu-group.xhtml");
+    }
+
+    private static void addDisabledMenuGroupPageClient(FrameworkDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        //  Re-enable the disabled javascript with this custom javascript call
+        p.body("<script type='text/javascript'> ");
+        p.body("    function enableMenu() { ");
+        p.body("        new RichFaces.ui.PanelMenuGroup('disabledGroup',{'collapseEvent':'click','unselectable':false,'selectable':false,'name':'disabledGroup','ajax':{'incId':'1'} , 'expanded':false,'expandEvent':'click','disabled':false,'mode':'clien'} ) ");
+        p.body("    } ");
+        p.body("    jQuery(enableMenu); ");
+        p.body("</script>");
+
+        p.form("<r:panelMenu itemMode='ajax' groupMode='ajax'>");
+        p.form("    <r:panelMenuGroup id='enabledGroup' label='Group 1' expanded='true'> ");
+        p.form("        <r:panelMenuItem id='enabledMenu' label='Item 1' styleClass='enabled' name='Item_1' action='#{panelMenuBean.doAction}'  />");
+        p.form("    </r:panelMenuGroup> ");
+        p.form("    <r:panelMenuGroup id='disabledGroup' disabled='true' label='Group 2' mode='client'> ");
+        p.form("        <r:panelMenuItem id='disabledMenu' label='Item 2' styleClass='disabled' name='Item_2' action='#{panelMenuBean.doAction}'  />");
+        p.form("    </r:panelMenuGroup> ");
+        p.form("</r:panelMenu>");
+
+        deployment.archive().addAsWebResource(p, "disabled-menu-group-client.xhtml");
+    }
+
+    private static void addDisabledMenuGroupPageExpanded(FrameworkDeployment deployment) {
+        FaceletAsset p = new FaceletAsset();
+
+        //  Re-enable the disabled javascript with this custom javascript call
+        p.body("<script type='text/javascript'> ");
+        p.body("    function enableMenu() { ");
+        p.body("        new RichFaces.ui.PanelMenuGroup('disabledGroup',{'collapseEvent':'click','unselectable':false,'selectable':false,'name':'disabledGroup','ajax':{'incId':'1'} , 'expanded':true,'expandEvent':'click','disabled':false,'mode':'ajax'} ) ");
+        p.body("    } ");
+        p.body("    jQuery(enableMenu); ");
+        p.body("</script>");
+
+        p.form("<r:panelMenu itemMode='ajax' groupMode='ajax'>");
+        p.form("    <r:panelMenuGroup id='enabledGroup' label='Group 1' expanded='true'> ");
+        p.form("        <r:panelMenuItem id='enabledMenu' label='Item 1' styleClass='enabled' name='Item_1' action='#{panelMenuBean.doAction}'  />");
+        p.form("    </r:panelMenuGroup> ");
+        p.form("    <r:panelMenuGroup id='disabledGroup' disabled='true' label='Group 2' expanded='true'> ");
+        p.form("        <r:panelMenuItem id='disabledMenu' label='Item 2' styleClass='disabled' name='Item_2' action='#{panelMenuBean.doAction}'  />");
+        p.form("    </r:panelMenuGroup> ");
+        p.form("</r:panelMenu>");
+
+        deployment.archive().addAsWebResource(p, "disabled-menu-group-expanded.xhtml");
     }
 
     private static void addDisabledMenuPage(FrameworkDeployment deployment) {
@@ -211,19 +282,19 @@ public class ITPanelMenu {
         p.body("<script type='text/javascript'> ");
         p.body("    function enableMenu() { ");
         p.body("        new RichFaces.ui.PanelMenu('disabledMenu',{'bubbleSelection':true,'ajax':{'incId':'1'} ,'expandSingle':true,'disabled':false} ) ");
-        p.body("        new RichFaces.ui.PanelMenuGroup('disabledMenuGroup',{'collapseEvent':'click','unselectable':false,'selectable':false,'name':'Group','ajax':{'incId':'1'} , 'expanded':true,'expandEvent':'click','disabled':false,'mode':'client'} ) ");
+        p.body("        new RichFaces.ui.PanelMenuGroup('disabledMenuGroup',{'collapseEvent':'click','unselectable':false,'selectable':false,'name':'disabledMenu','ajax':{'incId':'1'} , 'expanded':true,'expandEvent':'click','disabled':false,'mode':'ajax'} ) ");
         p.body("        new RichFaces.ui.PanelMenuItem('disabledMenuItem',{'unselectable':false,'selectable':true,'name':'Item_2','ajax':{'incId':'1'} , 'disabled':false,'mode':'ajax'} )");
         p.body("    } ");
         p.body("    jQuery(enableMenu); ");
         p.body("</script>");
 
         p.form("<r:panelMenu id='enabledMenu' itemMode='ajax' groupMode='ajax'>");
-        p.form("    <r:panelMenuGroup label='Group' expanded='true'> ");
+        p.form("    <r:panelMenuGroup label='Group 1' expanded='true'> ");
         p.form("        <r:panelMenuItem label='Item 1' styleClass='enabled' name='Item_1' action='#{panelMenuBean.doAction}'  />");
         p.form("    </r:panelMenuGroup> ");
         p.form("</r:panelMenu>");
         p.form("<r:panelMenu id='disabledMenu' itemMode='ajax' disabled='true' groupMode='ajax'>");
-        p.form("    <r:panelMenuGroup id='disabledMenuGroup' label='Group' expanded='true'> ");
+        p.form("    <r:panelMenuGroup id='disabledMenuGroup' label='Group 2' expanded='true'> ");
         p.form("        <r:panelMenuItem id='disabledMenuItem' label='Item 2' styleClass='disabled' name='Item_2' action='#{panelMenuBean.doAction}'  />");
         p.form("    </r:panelMenuGroup> ");
         p.form("</r:panelMenu>");
