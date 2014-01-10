@@ -114,7 +114,7 @@
         <version.arquillian.warp>1.0.0.Alpha5</version.arquillian.warp>
         <version.arquillian.graphene>2.0.0.Final</version.arquillian.graphene>
         <version.arquillian.phantom.driver>1.1.0.Final</version.arquillian.phantom.driver>
-        <version.selenium>2.35.0</version.selenium>
+        <version.selenium>2.39.0</version.selenium>
         <version.shrinkwrap>1.1.2</version.shrinkwrap>
         <version.shrinkwrap.resolver>2.0.0-beta-3</version.shrinkwrap.resolver>
         <version.shrinkwrap.descriptors>2.0.0-alpha-3</version.shrinkwrap.descriptors>
