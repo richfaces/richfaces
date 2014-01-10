@@ -77,6 +77,10 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     protected void doDecode(FacesContext context, UIComponent component) {
         AbstractPanelMenuGroup menuGroup = (AbstractPanelMenuGroup) component;
 
+        if (menuGroup.isDisabled()) {
+            return;
+        }
+
         Map<String, String> requestMap = context.getExternalContext().getRequestParameterMap();
 
         // Don't overwrite the value unless you have to!
