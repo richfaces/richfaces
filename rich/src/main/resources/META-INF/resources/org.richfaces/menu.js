@@ -27,6 +27,7 @@
                 var targetComponent = RichFaces.component(menu.target);
                 if (targetComponent && targetComponent.contextMenuAttach) {
                     targetComponent.contextMenuAttach(menu);
+                    $('body').on('rich:ready' + menu.namespace, '[id="' + menu.target + '"]', function() {targetComponent.contextMenuAttach(menu)});
                 } else {
                     rf.Event.bindById(menu.target, menu.options.showEvent, $.proxy(menu.__showHandler, menu), menu)
                 }
@@ -119,6 +120,10 @@
 
                 if (this.target) {
                     rf.Event.unbindById(this.target, this.options.showEvent);
+                    var targetComponent = RichFaces.$(this.target);
+                    if (targetComponent && targetComponent.contextMenuAttach) {
+                        $('body').off('rich:ready' + this.namespace, '[id="' + this.target + '"]');
+                    }
                 }
 
                 // call parent's destroy method
