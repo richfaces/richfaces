@@ -455,7 +455,7 @@
                     this.hideOffscreen(this.element);
                 }
                 this.activateResizeListener();
-                $(this.element).triggerHandler("r:ready", this);
+                $(this.element).trigger("r:ready", this);
             },
 
             showOffscreen: function(element) {
