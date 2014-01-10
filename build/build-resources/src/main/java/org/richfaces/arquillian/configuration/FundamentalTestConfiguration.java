@@ -13,6 +13,7 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
     private String currentBuildRichfacesVersion = "5.0.0-SNAPSHOT";
     private String jsfProvider;
     private String jsfImplementation;
+    private String container;
     private String containerHome;
     private String containerDistribution;
     private String containerConfiguration;
@@ -65,6 +66,14 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
     }
 
     /**
+     * Get the name of the container profile as specified by -Dintegration={container} execution
+     * @return
+     */
+    public String getContainer() {
+        return container;
+    }
+
+    /**
      * Get the Maven dependency (GAV) for the container distribution artifact
      */
     public String getContainerDistribution() {
@@ -111,8 +120,12 @@ public class FundamentalTestConfiguration implements DroneConfiguration<Fundamen
      * Validates the configuration
      */
     public void validate() {
+        if (container == null) {
+            throw new IllegalArgumentException("The ${integration} configuration needs to be specified");
+        }
+
         if (servletContainerSetup == null) {
-            throw new IllegalArgumentException("The servletContainerSetup configuration needs to be specified");
+            throw new IllegalArgumentException("The ${servletContainerSetup} configuration needs to be specified");
         }
     }
 

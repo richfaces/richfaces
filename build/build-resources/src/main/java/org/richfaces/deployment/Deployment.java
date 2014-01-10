@@ -91,7 +91,6 @@ public class Deployment {
                 .addNamespace("xmlns:web", "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd")
                 .getOrCreateWelcomeFileList()
                     .welcomeFile("faces/index.xhtml")
-                    .welcomeFile("index.jsf")
                 .up()
                 .getOrCreateContextParam()
                     .paramName("javax.faces.PROJECT_STAGE")
