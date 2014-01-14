@@ -40,6 +40,7 @@ import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 
 import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
@@ -131,8 +132,7 @@ public abstract class ChartRendererBase extends RendererBase {
     }
 
     @Override
-    public void decode(FacesContext context, UIComponent component) {
-        super.decode(context, component);
+    public void doDecode(FacesContext context, UIComponent component) {
 
         if (!component.isRendered()) {
             return;
@@ -183,7 +183,7 @@ public abstract class ChartRendererBase extends RendererBase {
      * Method process chart tags, it collects chart options and data.
      */
     @Override
-    public void encodeBegin(FacesContext context, UIComponent component)
+    public void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component)
             throws IOException {
         super.encodeBegin(context, component);
 

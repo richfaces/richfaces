@@ -21,7 +21,15 @@
  */
 package org.richfaces.ui.iteration.tree;
 
-import com.google.common.base.Strings;
+import static org.richfaces.renderkit.RenderKitUtils.getFirstNonEmptyAttribute;
+
+import java.io.IOException;
+import java.util.Map;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
 
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
@@ -30,15 +38,7 @@ import org.richfaces.ui.common.SwitchType;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-
-import java.io.IOException;
-import java.util.Map;
-
-import static org.richfaces.renderkit.RenderKitUtils.getFirstNonEmptyAttribute;
+import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
@@ -53,8 +53,7 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
     private static final String HANDLE_LOADING_FACET_NAME = "handleLoading";
 
     @Override
-    public void decode(FacesContext context, UIComponent component) {
-        super.decode(context, component);
+    public void doDecode(FacesContext context, UIComponent component) {
 
         final Map<String, String> map = context.getExternalContext().getRequestParameterMap();
         String newToggleState = map.get(component.getClientId(context) + NEW_NODE_TOGGLE_STATE);

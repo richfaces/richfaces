@@ -21,13 +21,12 @@
  */
 package org.richfaces.ui.ajax.status;
 
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
-import org.richfaces.ui.behavior.HandlersChain;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.util.HtmlUtil;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import static org.richfaces.renderkit.RenderKitUtils.renderAttribute;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -35,12 +34,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
-import static org.richfaces.renderkit.RenderKitUtils.renderAttribute;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.javascript.JSFunction;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.behavior.HandlersChain;
+import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.util.HtmlUtil;
 
 /**
  * @author Nick Belaevski
@@ -163,11 +163,10 @@ public class AjaxStatusRenderer extends RendererBase {
     }
 
     @Override
-    public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
+    public void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.encodeEnd(context, component);
 
         AbstractAjaxStatus ajaxStatus = (AbstractAjaxStatus) component;
-        ResponseWriter writer = context.getResponseWriter();
         writer.startElement(HtmlConstants.SPAN_ELEM, component);
         String clientId = component.getClientId(context);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId, "id");

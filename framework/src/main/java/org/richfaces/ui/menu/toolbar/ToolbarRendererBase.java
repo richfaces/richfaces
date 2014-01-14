@@ -186,7 +186,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
     }
 
     @Override
-    public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+    public void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         AbstractToolbar toolbar = (AbstractToolbar) component;
         String itemClass = (String) toolbar.getAttributes().get("itemClass");
         String itemStyle = (String) toolbar.getAttributes().get("itemStyle");
@@ -199,7 +199,6 @@ public abstract class ToolbarRendererBase extends RendererBase {
 
             getChildrenToLeftAndRight(context, component, childrenToTheLeft, childrenToTheRight);
 
-            ResponseWriter writer = context.getResponseWriter();
             for (Iterator<UIComponent> it = childrenToTheLeft.iterator(); it.hasNext();) {
 
                 UIComponent child = it.next();
