@@ -54,7 +54,7 @@ public abstract class RendererBase extends Renderer {
      * @see javax.faces.render.Renderer#decode(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
-    public void decode(FacesContext context, UIComponent component) {
+    public final void decode(FacesContext context, UIComponent component) {
 
         // Test for correct parameters.
         checkNull(context, component, "decode");
@@ -98,7 +98,7 @@ public abstract class RendererBase extends Renderer {
      * @see javax.faces.render.Renderer#encodeBegin(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
-    public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+    public final void encodeBegin(FacesContext context, UIComponent component) throws IOException {
 
         // Test for correct parameters.
         checkForCorrectParams(context, component, "encodeBegin");
@@ -142,7 +142,7 @@ public abstract class RendererBase extends Renderer {
      * @see javax.faces.render.Renderer#encodeChildren(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
-    public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+    public final void encodeChildren(FacesContext context, UIComponent component) throws IOException {
 
         // Test for correct parameters.
         checkForCorrectParams(context, component, "encodeBegin");
@@ -165,7 +165,7 @@ public abstract class RendererBase extends Renderer {
      * @see javax.faces.render.Renderer#encodeEnd(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
-    public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
+    public final void encodeEnd(FacesContext context, UIComponent component) throws IOException {
 
         // Test for correct parameters.
         checkForCorrectParams(context, component, "encodeEnd");

@@ -21,16 +21,16 @@
  */
 package org.richfaces.ui.output.outputPanel;
 
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.ui.common.HtmlConstants;
+import java.io.IOException;
+import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import java.io.IOException;
-import java.util.Iterator;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
@@ -47,12 +47,10 @@ public class AjaxOutputPanelRenderer extends RendererBase {
 
     /*
      * (non-Javadoc)
-     *
-     * @see javax.faces.render.Renderer#encodeChildren(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     * @see org.richfaces.renderkit.RendererBase#doEncodeChildren(javax.faces.context.ResponseWriter, javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
-    public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
-        //
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         renderChildren(context, component);
     }
 

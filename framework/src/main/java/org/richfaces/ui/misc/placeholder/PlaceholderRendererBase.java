@@ -46,20 +46,13 @@ public abstract class PlaceholderRendererBase extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.ui.PlaceholderRenderer";
 
     @Override
-    public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
+    public void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         AbstractPlaceholder placeholder = (AbstractPlaceholder) component;
 
         // skip direct rendering for nested usage (workaround for RF-12589)
         if (placeholder.getSelector() == null || placeholder.getSelector().isEmpty()) {
             return;
         }
-
-        super.encodeEnd(context, component);
-    }
-
-    @Override
-    public void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        super.doEncodeEnd(writer, context, component);
     }
 
     public String getConvertedValue(FacesContext facesContext, AbstractPlaceholder placeholder) {

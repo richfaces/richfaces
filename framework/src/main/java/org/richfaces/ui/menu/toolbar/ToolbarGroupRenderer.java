@@ -43,14 +43,14 @@ public class ToolbarGroupRenderer extends ToolbarRendererBase {
         return true;
     }
 
-    public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
+    @Override
+    public void doEncodeChildren(ResponseWriter writer, FacesContext facesContext, UIComponent component) throws IOException {
         AbstractToolbarGroup toolbarGroup = (AbstractToolbarGroup) component;
         List<UIComponent> renderedChildren = toolbarGroup.getRenderedChildren();
         if (renderedChildren.size() <= 0) {
             return;
         }
 
-        ResponseWriter writer = facesContext.getResponseWriter();
         renderChild(facesContext, toolbarGroup, writer, renderedChildren.get(0));
         for (int i = 1; i < renderedChildren.size(); i++) {
             insertSeparatorIfNeed(facesContext, toolbarGroup, writer);
