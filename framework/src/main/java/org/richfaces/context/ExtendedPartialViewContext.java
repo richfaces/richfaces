@@ -24,7 +24,7 @@ package org.richfaces.context;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
+import javax.faces.context.PartialViewContextWrapper;
 
 import com.google.common.collect.Maps;
 
@@ -32,7 +32,7 @@ import com.google.common.collect.Maps;
  * @author Nick Belaevski
  *
  */
-public abstract class ExtendedPartialViewContext extends PartialViewContext {
+public abstract class ExtendedPartialViewContext extends PartialViewContextWrapper {
     private static final String ATTRIBUTE_NAME = ExtendedPartialViewContext.class.getName();
     private FacesContext facesContext;
     private boolean limitRender = false;
