@@ -644,6 +644,11 @@ RichFaces.jQuery = RichFaces.jQuery || window.jQuery;
                 $(form).trigger('ajaxsubmit');
             }
 
+            if (jsf.specversion) {
+                var specversion = jsf.specversion.toString().substring(0, 2);
+                parameters['org.richfaces.JsfSpecVersion'] = specversion;
+            }
+
             return jsfAjaxRequest(source, event, parameters);
         }
 

@@ -24,7 +24,11 @@ package org.richfaces.util;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
+import javax.faces.render.ResponseStateManager;
 
 import org.richfaces.ui.behavior.HandlersChain;
 import org.richfaces.ui.common.AjaxFunction;
@@ -58,6 +62,15 @@ public final class AjaxRendererUtils {
     public static final String VALUE_ATTR = "value";
     public static final String QUEUE_ID_ATTRIBUTE = "queueId";
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
+
+    /**
+     * A key for an attribute counting ViewState identifiers as specified in {@link ResponseStateManager#VIEW_STATE_PARAM}.
+     */
+    private static final String VIEW_STATE_COUNTER_KEY = "org.richfaces.ViewStateCounterKey";
+    /**
+     * A magic number used as a base where a value stored under {@link #VIEW_STATE_COUNTER_KEY} attribute starts.
+     */
+    private static final int VIEW_STATE_NUMBER_BASE = 0;
 
     /**
      * Static class - protect constructor
@@ -129,5 +142,50 @@ public final class AjaxRendererUtils {
 
     private static String getQueueId(UIComponent component) {
         return (String) component.getAttributes().get(QUEUE_ID_ATTRIBUTE);
+    }
+
+    /**
+     * Returns ViewState ID which is suitable for current JSF implementation.
+     */
+    public static String getViewStateId(FacesContext context) {
+        Integer jsfSpecVersion = getJsfSpecVersion(context);
+
+        if (jsfSpecVersion != null && jsfSpecVersion >= 22) {
+            return generateUniqueViewStateId(context);
+        }
+
+        return PartialResponseWriter.VIEW_STATE_MARKER;
+    }
+
+    private static Integer getJsfSpecVersion(FacesContext context) {
+        String jsfSpecVersion = context.getExternalContext().getRequestParameterMap().get("org.richfaces.JsfSpecVersion");
+        if (jsfSpecVersion == null) {
+            return null;
+        }
+        try {
+            return Integer.parseInt(jsfSpecVersion);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Returns generated ViewState ID as specified by JSF 2.2 in form defined in {@link ResponseStateManager#VIEW_STATE_PARAM}
+     */
+    private static String generateUniqueViewStateId(FacesContext context) {
+        String result = null;
+        Map<Object, Object> contextAttrs = context.getAttributes();
+        Integer counter = (Integer) contextAttrs.get(VIEW_STATE_COUNTER_KEY);
+        if (null == counter) {
+            counter = VIEW_STATE_NUMBER_BASE;
+        }
+        char sep = UINamingContainer.getSeparatorChar(context);
+        UIViewRoot root = context.getViewRoot();
+        result = root.getContainerClientId(context) + sep +
+                ResponseStateManager.VIEW_STATE_PARAM + sep +
+                + counter;
+        contextAttrs.put(VIEW_STATE_COUNTER_KEY, ++counter);
+
+        return result;
     }
 }

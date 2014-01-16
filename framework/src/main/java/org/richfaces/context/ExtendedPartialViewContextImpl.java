@@ -54,6 +54,7 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.meta.MetaComponentEncoder;
+import org.richfaces.util.AjaxRendererUtils;
 import org.richfaces.util.FastJoiner;
 
 /**
@@ -418,10 +419,13 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
 
     private void renderState(FacesContext context) throws IOException {
         if (!context.getViewRoot().isTransient()) {
+
             // Get the view state and write it to the response..
-            PartialViewContext pvc = context.getPartialViewContext();
-            PartialResponseWriter writer = pvc.getPartialResponseWriter();
-            writer.startUpdate(PartialResponseWriter.VIEW_STATE_MARKER);
+            final PartialViewContext pvc = context.getPartialViewContext();
+            final PartialResponseWriter writer = pvc.getPartialResponseWriter();
+
+            String viewStateId = AjaxRendererUtils.getViewStateId(context);
+            writer.startUpdate(viewStateId);
             String state = context.getApplication().getStateManager().getViewState(context);
             writer.write(state);
             writer.endUpdate();
