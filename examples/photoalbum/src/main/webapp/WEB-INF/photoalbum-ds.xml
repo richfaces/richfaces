@@ -30,7 +30,7 @@
             enabled="true"
             pool-name="photoalbum"
             use-java-context="true">
-        <connection-url>jdbc:h2:mem:palbum;DB_CLOSE_DELAY=-1</connection-url>
+        <connection-url>jdbc:h2:mem:palbum;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
         <driver>h2</driver>
         <security>
             <user-name>sa</user-name>
