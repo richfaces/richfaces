@@ -36,6 +36,7 @@ import com.google.common.collect.Maps;
 /**
  * @author Nick Belaevski
  */
+@javax.servlet.annotation.WebServlet(urlPatterns = "/__richfaces_push", asyncSupported = true)
 public final class PushServlet extends AtmosphereServlet {
     private static final long serialVersionUID = 2483746935231439236L;
 
