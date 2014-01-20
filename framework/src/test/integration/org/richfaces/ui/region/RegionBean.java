@@ -21,11 +21,11 @@
  */
 package org.richfaces.ui.region;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
-@Named
-@ApplicationScoped
+@ManagedBean
+@ViewScoped
 public class RegionBean {
 
     private String execute;

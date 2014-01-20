@@ -33,7 +33,7 @@ import javax.faces.context.PartialViewContext;
 
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.Inspection;
-import org.jboss.arquillian.warp.jsf.AfterPhase;
+import org.jboss.arquillian.warp.jsf.BeforePhase;
 
 /**
  * Verifies that components specified by IDs were executed by inspecting {@link PartialViewContext#getExecuteIds()}.
@@ -48,9 +48,10 @@ public class VerifyExecutedIds extends Inspection {
         this.expectedExecutedIds = new LinkedList<String>(Arrays.asList(expectedExecutedIds));
     }
 
-    @AfterPhase(RENDER_RESPONSE)
+    @BeforePhase(RENDER_RESPONSE)
     public void validaExecutedIds(@ArquillianResource FacesContext facesContext) {
         List<String> executedIds = new LinkedList<String>(facesContext.getPartialViewContext().getExecuteIds());
+
         assertEquals(expectedExecutedIds, executedIds);
     }
 }

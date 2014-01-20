@@ -21,10 +21,12 @@
  */
 package org.richfaces.ui.region;
 
-import javax.inject.Inject;
+import static org.jboss.arquillian.warp.jsf.Phase.RENDER_RESPONSE;
+
+import javax.faces.bean.ManagedProperty;
 
 import org.jboss.arquillian.warp.Inspection;
-import org.jboss.arquillian.warp.servlet.BeforeServlet;
+import org.jboss.arquillian.warp.jsf.BeforePhase;
 
 /**
  * Changes @execute attribute for region to specified value.
@@ -39,10 +41,10 @@ public class SetupExecute extends Inspection {
         this.execute = execute;
     }
 
-    @Inject
+    @ManagedProperty("#{regionBean}")
     private RegionBean region;
 
-    @BeforeServlet
+    @BeforePhase(RENDER_RESPONSE)
     public void setupExecute() {
         region.setExecute(execute);
     }
