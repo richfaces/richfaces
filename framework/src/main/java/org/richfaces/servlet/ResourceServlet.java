@@ -50,7 +50,6 @@ import org.richfaces.resource.ResourceHandlerImpl;
  *
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
-@javax.servlet.annotation.WebServlet(urlPatterns = "/org.richfaces.resources/*")
 public class ResourceServlet implements Servlet {
 
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
