@@ -164,7 +164,7 @@ public class AjaxStatusRenderer extends RendererBase {
 
     @Override
     public void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        super.encodeEnd(context, component);
+        super.doEncodeEnd(writer, context, component);
 
         AbstractAjaxStatus ajaxStatus = (AbstractAjaxStatus) component;
         writer.startElement(HtmlConstants.SPAN_ELEM, component);
