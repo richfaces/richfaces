@@ -21,6 +21,8 @@
  */
 package org.richfaces.util;
 
+import static org.richfaces.JsfVersion.JSF_2_2;
+
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -30,6 +32,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.render.ResponseStateManager;
 
+import org.richfaces.JsfVersion;
 import org.richfaces.ui.behavior.HandlersChain;
 import org.richfaces.ui.common.AjaxFunction;
 import org.richfaces.ui.common.AjaxOptions;
@@ -148,25 +151,12 @@ public final class AjaxRendererUtils {
      * Returns ViewState ID which is suitable for current JSF implementation.
      */
     public static String getViewStateId(FacesContext context) {
-        Integer jsfSpecVersion = getJsfSpecVersion(context);
 
-        if (jsfSpecVersion != null && jsfSpecVersion >= 22) {
+        if (JsfVersion.getCurrent().isCompliantWith(JSF_2_2)) {
             return generateUniqueViewStateId(context);
         }
 
         return PartialResponseWriter.VIEW_STATE_MARKER;
-    }
-
-    private static Integer getJsfSpecVersion(FacesContext context) {
-        String jsfSpecVersion = context.getExternalContext().getRequestParameterMap().get("org.richfaces.JsfSpecVersion");
-        if (jsfSpecVersion == null) {
-            return null;
-        }
-        try {
-            return Integer.parseInt(jsfSpecVersion);
-        } catch (NumberFormatException e) {
-            return null;
-        }
     }
 
     /**
