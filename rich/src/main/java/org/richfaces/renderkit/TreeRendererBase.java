@@ -189,7 +189,6 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
 
     @Override
     public void doDecode(FacesContext context, UIComponent component) {
-        super.decode(context, component);
 
         Map<String, String> map = context.getExternalContext().getRequestParameterMap();
         String selectedNode = map.get(getSelectionStateInputId(context, component));

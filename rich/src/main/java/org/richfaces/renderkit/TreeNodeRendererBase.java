@@ -34,11 +34,11 @@ import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
+import org.richfaces.component.SwitchType;
+import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
-import org.richfaces.component.SwitchType;
-import org.richfaces.event.TreeToggleEvent;
 
 import com.google.common.base.Strings;
 
@@ -56,8 +56,6 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
 
     @Override
     public void doDecode(FacesContext context, UIComponent component) {
-        super.decode(context, component);
-
         final Map<String, String> map = context.getExternalContext().getRequestParameterMap();
         String newToggleState = map.get(component.getClientId(context) + NEW_NODE_TOGGLE_STATE);
         if (newToggleState != null) {
