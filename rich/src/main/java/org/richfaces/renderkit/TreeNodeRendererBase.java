@@ -55,7 +55,7 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
     private static final String HANDLE_LOADING_FACET_NAME = "handleLoading";
 
     @Override
-    public void decode(FacesContext context, UIComponent component) {
+    public void doDecode(FacesContext context, UIComponent component) {
         super.decode(context, component);
 
         final Map<String, String> map = context.getExternalContext().getRequestParameterMap();

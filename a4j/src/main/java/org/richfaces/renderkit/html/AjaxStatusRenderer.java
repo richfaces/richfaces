@@ -163,11 +163,10 @@ public class AjaxStatusRenderer extends RendererBase {
     }
 
     @Override
-    public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
+    public void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.encodeEnd(context, component);
 
         AbstractAjaxStatus ajaxStatus = (AbstractAjaxStatus) component;
-        ResponseWriter writer = context.getResponseWriter();
         writer.startElement(HtmlConstants.SPAN_ELEM, component);
         String clientId = component.getClientId(context);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId, "id");

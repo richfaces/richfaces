@@ -52,7 +52,7 @@ public class AjaxOutputPanelRenderer extends RendererBase {
      * @see javax.faces.render.Renderer#encodeChildren(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
-    public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+    public void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         //
         renderChildren(context, component);
     }
