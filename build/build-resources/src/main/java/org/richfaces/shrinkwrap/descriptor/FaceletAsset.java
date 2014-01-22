@@ -42,6 +42,8 @@ public class FaceletAsset implements Asset {
     private StringBuilder xmlns = new StringBuilder();
     private StringBuilder form = new StringBuilder();
 
+    private boolean stateless = false;
+
     static {
         try {
             TEMPLATE = IOUtils.toString(FaceletAsset.class.getResourceAsStream("facelet-template.xhtml"));
@@ -73,7 +75,7 @@ public class FaceletAsset implements Asset {
             formFull.append("\n        </h:form>");
         }
 
-        return new StringAsset(SimplifiedFormat.format(TEMPLATE, xmlns, head, body, formFull));
+        return new StringAsset(SimplifiedFormat.format(TEMPLATE, xmlns, head, body, formFull, stateless));
     }
 
     /**
@@ -122,6 +124,11 @@ public class FaceletAsset implements Asset {
      */
     public FaceletAsset xmlns(String prefix, String uri) {
         xmlns.append("xmlns:" + prefix + "=\"" + uri + "\" \n");
+        return this;
+    }
+
+    public FaceletAsset stateless(boolean stateless) {
+        this.stateless = stateless;
         return this;
     }
 }

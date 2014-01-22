@@ -4,15 +4,12 @@ import static org.jboss.arquillian.warp.jsf.Phase.INVOKE_APPLICATION;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -28,7 +25,6 @@ import org.jboss.arquillian.warp.jsf.BeforePhase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -69,9 +65,6 @@ public class ITAjaxExceptionHandling {
         return deployment.getFinalArchive();
     }
 
-    @ArquillianResource
-    private JavascriptExecutor executor;
-
     @Test
     public void test() throws ParserConfigurationException, SAXException, IOException {
         browser.get(contextPath.toExternalForm());
@@ -92,11 +85,7 @@ public class ITAjaxExceptionHandling {
             }
         });
 
-        String responseText = (String) executor.executeScript("return __response");
-
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(new ByteArrayInputStream(responseText.getBytes()));
+        Document doc = PartialResponseTestingHelper.getDocument(browser);
 
         Element partialResponse = doc.getDocumentElement();
         assertEquals("partial-response", partialResponse.getNodeName());
@@ -116,20 +105,15 @@ public class ITAjaxExceptionHandling {
         p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
         p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
         p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
-        p.head("<h:outputScript>");
-        p.head("    var __backup = jsf.ajax.response;");
-        p.head("    var __response;");
-        p.head("    jsf.ajax.response = function(request, context) {");
-        p.head("        __response = request.responseText;");
-        p.head("        __backup(request, context);");
-        p.head("    };");
-        p.head("</h:outputScript>");
+
 
         p.form("<h:panelGroup id='panel'>");
         p.form("    <h:commandButton id='button'>");
         p.form("        <f:ajax />");
         p.form("    </h:commandButton>");
         p.form("</h:panelGroup>");
+
+        PartialResponseTestingHelper.addPartialResponseInterceptorToPage(p);
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }

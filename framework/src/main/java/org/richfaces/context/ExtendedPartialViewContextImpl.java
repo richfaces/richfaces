@@ -452,18 +452,15 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     }
 
     private void renderState(FacesContext context) throws IOException {
-        if (!context.getViewRoot().isTransient()) {
+        // Get the view state and write it to the response..
+        final PartialViewContext pvc = context.getPartialViewContext();
+        final PartialResponseWriter writer = pvc.getPartialResponseWriter();
 
-            // Get the view state and write it to the response..
-            final PartialViewContext pvc = context.getPartialViewContext();
-            final PartialResponseWriter writer = pvc.getPartialResponseWriter();
-
-            String viewStateId = AjaxRendererUtils.getViewStateId(context);
-            writer.startUpdate(viewStateId);
-            String state = context.getApplication().getStateManager().getViewState(context);
-            writer.write(state);
-            writer.endUpdate();
-        }
+        String viewStateId = AjaxRendererUtils.getViewStateId(context);
+        writer.startUpdate(viewStateId);
+        String state = context.getApplication().getStateManager().getViewState(context);
+        writer.write(state);
+        writer.endUpdate();
     }
 
     /*
