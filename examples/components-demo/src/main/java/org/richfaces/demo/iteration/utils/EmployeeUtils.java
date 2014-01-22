@@ -22,20 +22,22 @@
 
 package org.richfaces.demo.iteration.utils;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.List;
+
 import org.richfaces.demo.iteration.model.Company;
 import org.richfaces.demo.iteration.model.Employee;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public final class EmployeeUtils {
     private EmployeeUtils() {
     }
 
-    public static List<Employee> obtainDefaultEmployeeList() {
+    public static Collection<Employee> obtainDefaultEmployeeList() {
 
-        List<Employee> employeeList = new ArrayList<Employee>();
+        Collection<Employee> employeeList = new LinkedHashSet<Employee>();
 
         addEmployeeToCollection(employeeList, "9Alexander Ivanov", "Director", "aivanov@beltelecom.by", "AMicrosoft",
                 "+375 29 255 00 00", "Minsk, Belarus");
@@ -3416,7 +3418,7 @@ public final class EmployeeUtils {
         return employeeList;
     }
 
-    private static void addEmployeeToCollection(List<Employee> collection, String employeeName, String employeeTitle,
+    private static void addEmployeeToCollection(Collection<Employee> collection, String employeeName, String employeeTitle,
             String employeeEmail, String companyName, String companyPhone, String companyState) {
         Company company1 = new Company(companyName);
         company1.setPhone(companyPhone);

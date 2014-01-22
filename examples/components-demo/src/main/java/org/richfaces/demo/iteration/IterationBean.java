@@ -25,7 +25,6 @@ package org.richfaces.demo.iteration;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
@@ -49,7 +48,7 @@ public class IterationBean {
     private String operation = "operation";
     private boolean rendered = true;
     private boolean renderIfSinglePage = true;
-    private List<Employee> employeeList;
+    private Collection<Employee> employeeList;
     private boolean state = true;
     private SelectionMode selectionMode = SelectionMode.multiple;
     private Collection<Object> selectedRowKeys;
@@ -110,11 +109,11 @@ public class IterationBean {
         this.dataTableState = dataTableState;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
+    public void setEmployeeList(Collection<Employee> employeeList) {
         this.employeeList = employeeList;
     }
 
-    public List<Employee> getEmployeeList() {
+    public Collection<Employee> getEmployeeList() {
         if (employeeList == null) {
             employeeList = EmployeeUtils.obtainDefaultEmployeeList();
         }
