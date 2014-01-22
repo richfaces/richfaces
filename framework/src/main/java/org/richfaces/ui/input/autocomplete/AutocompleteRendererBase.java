@@ -3,6 +3,7 @@ package org.richfaces.ui.input.autocomplete;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.ArrayDataModel;
+import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.ResultDataModel;
@@ -209,6 +211,8 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             return new ResultDataModel((Result) suggestions);
         } else if (suggestions instanceof ResultSet) {
             return new ResultSetDataModel((ResultSet) suggestions);
+        } else if (suggestions instanceof Collection) {
+            return new CollectionDataModel((Collection) suggestions);
         } else if (suggestions != null) {
             List<Object> temp = new ArrayList<Object>();
             Iterator<Object> iterator = ((Iterable<Object>) suggestions).iterator();

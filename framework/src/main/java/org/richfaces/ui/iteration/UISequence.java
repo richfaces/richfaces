@@ -21,6 +21,25 @@
  */
 package org.richfaces.ui.iteration;
 
+import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import javax.el.ValueExpression;
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.model.ArrayDataModel;
+import javax.faces.model.CollectionDataModel;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
+import javax.faces.model.ResultDataModel;
+import javax.faces.model.ResultSetDataModel;
+import javax.faces.model.ScalarDataModel;
+import javax.servlet.jsp.jstl.sql.Result;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.model.DataComponentState;
 import org.richfaces.model.ExtendedDataModel;
@@ -28,22 +47,6 @@ import org.richfaces.model.Range;
 import org.richfaces.model.SequenceDataModel;
 import org.richfaces.model.SequenceRange;
 import org.richfaces.model.SequenceState;
-
-import javax.el.ValueExpression;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-import javax.faces.model.ResultDataModel;
-import javax.faces.model.ResultSetDataModel;
-import javax.faces.model.ScalarDataModel;
-import javax.servlet.jsp.jstl.sql.Result;
-import java.sql.ResultSet;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author Nick Belaevski
@@ -92,6 +95,8 @@ public class UISequence extends UIDataAdaptor {
             model = new ResultSetDataModel((ResultSet) value);
         } else if (value instanceof Result) {
             model = new ResultDataModel((Result) value);
+        } else if (value instanceof Collection) {
+            model = new CollectionDataModel((Collection) value);
         } else {
             model = new ScalarDataModel(value);
         }
