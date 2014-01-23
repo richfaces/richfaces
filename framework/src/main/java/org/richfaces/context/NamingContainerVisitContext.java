@@ -60,10 +60,10 @@ final class NamingContainerVisitContext extends ExtendedVisitContext {
     private IdsProxyCollection idsToVisit;
     private UIComponent startingComponent;
 
-    public NamingContainerVisitContext(FacesContext facesContext, ExtendedVisitContextMode visitMode, UIComponent component,
+    public NamingContainerVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, ExtendedVisitContextMode visitMode, UIComponent component,
         Collection<String> ids) {
 
-        super(facesContext, visitMode);
+        super(visitContextToWrap, facesContext, visitMode);
 
         // Make sure component is a NamingContainer
         if (!(component instanceof NamingContainer)) {
@@ -134,6 +134,6 @@ final class NamingContainerVisitContext extends ExtendedVisitContext {
     }
 
     public VisitContext createNamingContainerVisitContext(UIComponent component, Collection<String> directIds) {
-        return new NamingContainerVisitContext(getFacesContext(), getVisitMode(), component, directIds);
+        return new NamingContainerVisitContext(getWrapped(), getFacesContext(), getVisitMode(), component, directIds);
     }
 }

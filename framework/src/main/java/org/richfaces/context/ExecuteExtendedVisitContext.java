@@ -24,6 +24,7 @@ package org.richfaces.context;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.context.FacesContext;
 
@@ -37,8 +38,8 @@ public class ExecuteExtendedVisitContext extends BaseExtendedVisitContext {
      * @param clientIds
      * @param hints
      */
-    public ExecuteExtendedVisitContext(FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints) {
+    public ExecuteExtendedVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints) {
 
-        super(facesContext, clientIds, hints, ExtendedVisitContextMode.EXECUTE);
+        super(visitContextToWrap, facesContext, clientIds, hints, ExtendedVisitContextMode.EXECUTE);
     }
 }

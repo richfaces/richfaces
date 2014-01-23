@@ -42,9 +42,9 @@ import org.richfaces.ui.common.VisitChildrenRejectable;
 public class RenderExtendedVisitContext extends BaseExtendedVisitContext {
     private boolean limitRender;
 
-    public RenderExtendedVisitContext(FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
+    public RenderExtendedVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
         boolean limitRender) {
-        super(facesContext, clientIds, hints, ExtendedVisitContextMode.RENDER);
+        super(visitContextToWrap, facesContext, clientIds, hints, ExtendedVisitContextMode.RENDER);
 
         this.limitRender = limitRender;
     }

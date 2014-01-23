@@ -164,10 +164,10 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
      * @param hints a the VisitHints for this visit
      * @throws NullPointerException if {@code facesContext} is {@code null}
      */
-    public BaseExtendedVisitContext(FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
+    public BaseExtendedVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
         ExtendedVisitContextMode contextMode) {
 
-        super(facesContext, contextMode);
+        super(visitContextToWrap, facesContext, contextMode);
 
         // Initialize our various collections
         initializeCollections(clientIds);

@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitContextWrapper;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
@@ -37,14 +38,21 @@ import org.richfaces.util.FastJoiner;
  * @author Nick Belaevski
  *
  */
-public abstract class ExtendedVisitContext extends VisitContext {
+public abstract class ExtendedVisitContext extends VisitContextWrapper {
     public static final String META_COMPONENT_ID = "org.richfaces.MetaComponentId";
     private static final FastJoiner META_COMPONENT_SEPARATOR_JOINER = FastJoiner
         .on(MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR);
     private final FacesContext facesContext;
     private final ExtendedVisitContextMode visitMode;
 
-    protected ExtendedVisitContext(FacesContext facesContext, ExtendedVisitContextMode visitMode) {
+    private final VisitContext wrappedVisitContext;
+
+    @Override
+    public VisitContext getWrapped() {
+        return wrappedVisitContext;
+    }
+
+    protected ExtendedVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, ExtendedVisitContextMode visitMode) {
         super();
 
         if (facesContext == null) {
@@ -53,6 +61,7 @@ public abstract class ExtendedVisitContext extends VisitContext {
 
         this.facesContext = facesContext;
         this.visitMode = visitMode;
+        this.wrappedVisitContext = visitContextToWrap;
     }
 
     public ExtendedVisitContextMode getVisitMode() {
