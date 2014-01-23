@@ -40,6 +40,7 @@ public abstract class ExtendedPartialViewContext extends PartialViewContextWrapp
     private Map<String, Object> responseComponentDataMap = Maps.newHashMap();
     private StringBuilder beforedomupdateHandler = new StringBuilder();
     private StringBuilder completeHandler = new StringBuilder();
+    private ExtendedVisitContextMode visitMode;
 
     public ExtendedPartialViewContext(FacesContext facesContext) {
         this.facesContext = facesContext;
@@ -119,5 +120,17 @@ public abstract class ExtendedPartialViewContext extends PartialViewContextWrapp
 
     public void setLimitRender(boolean limitRender) {
         this.limitRender = limitRender;
+    }
+
+    public ExtendedVisitContextMode getVisitMode() {
+        return visitMode;
+    }
+
+    protected void setVisitMode(ExtendedVisitContextMode visitMode) {
+        this.visitMode = visitMode;
+    }
+
+    protected void resetVisitMode() {
+        this.visitMode = null;
     }
 }

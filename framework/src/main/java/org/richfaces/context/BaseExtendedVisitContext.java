@@ -348,6 +348,6 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
     }
 
     public VisitContext createNamingContainerVisitContext(UIComponent component, Collection<String> directIds) {
-        return new NamingContainerVisitContext(getFacesContext(), getVisitMode(), component, directIds);
+        return new NamingContainerVisitContext(this, getFacesContext(), getVisitMode(), component, directIds);
     }
 }
