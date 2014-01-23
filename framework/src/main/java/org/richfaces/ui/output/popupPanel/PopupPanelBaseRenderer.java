@@ -132,13 +132,13 @@ public class PopupPanelBaseRenderer extends RendererBase {
 
         if (panel.getMinHeight() != -1) {
             if (panel.getMinHeight() < SIZE) {
-                throw new FacesException("Attribbute minWidth should be greater then 10px");
+                throw new FacesException("Attribute minHeight should be greater then 10px");
             }
         }
 
         if (panel.getMinWidth() != -1) {
             if (panel.getMinWidth() < SIZE) {
-                throw new FacesException("Attribbute minHeight should be greater then 10px");
+                throw new FacesException("Attribute minWidth should be greater then 10px");
             }
         }
     }
