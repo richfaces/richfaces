@@ -29,6 +29,7 @@ import java.util.Set;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRemoveFromViewEvent;
@@ -66,6 +67,23 @@ public class PartialViewContextAjaxOutputTracker implements SystemEventListener 
         }
 
         return getTrackedChildrenSet(component, false);
+    }
+
+    static Collection<String> getAjaxOutputs(FacesContext facesContext, UIComponent component) {
+        final Collection<String> childrenIds = getDirectChildrenIds(component);
+        final Set<String> ajaxOutputs = new HashSet<>();
+
+        for (String childId : childrenIds) {
+            UIComponent child = component.findComponent(childId);
+
+            if (child instanceof AjaxOutput) {
+                ajaxOutputs.add(child.getClientId(facesContext));
+            } else if (isContainerComponent(child)) {
+                ajaxOutputs.addAll(getAjaxOutputs(facesContext, child));
+            }
+        }
+
+        return ajaxOutputs;
     }
 
     static boolean hasNestedAjaxOutputs(UIComponent component) {

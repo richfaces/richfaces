@@ -26,26 +26,25 @@ public class ExtendedVisitContextFactory extends VisitContextFactory {
     @Override
     public VisitContext getVisitContext(FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints) {
 
-        final ExtendedPartialViewContext epvc = getExtendedPartialViewContext(facesContext);
         final VisitContext visitContextToWrap = parentFactory.getVisitContext(facesContext, clientIds, hints);
-        final ExtendedVisitContextMode visitMode = epvc.getVisitMode();
 
-        switch (visitMode) {
-            case EXECUTE :
-                return new ExecuteExtendedVisitContext(visitContextToWrap, facesContext, clientIds, hints);
-            case RENDER :
-                return new RenderExtendedVisitContext(visitContextToWrap, facesContext, clientIds, hints, epvc.isLimitRender());
-            default:
-                return visitContextToWrap;
-        }
-    }
+        final ExtendedPartialViewContext epvc = ExtendedPartialViewContext.getInstance(facesContext);
 
-    private ExtendedPartialViewContext getExtendedPartialViewContext(FacesContext facesContext) {
-        ExtendedPartialViewContext epvc = ExtendedPartialViewContext.getInstance(facesContext);
-        if (epvc == null) {
-            throw new IllegalStateException("ExtendedPartialViewContext must be setup");
+
+        if (epvc != null) {
+            final ExtendedVisitContextMode visitMode = epvc.getVisitMode();
+
+            if (visitMode != null) {
+                switch (visitMode) {
+                    case EXECUTE :
+                        return new ExecuteExtendedVisitContext(visitContextToWrap, facesContext, clientIds, hints);
+                    case RENDER :
+                        return new RenderExtendedVisitContext(visitContextToWrap, facesContext, clientIds, hints, epvc.isLimitRender());
+                }
+            }
         }
-        return epvc;
+
+        return visitContextToWrap;
     }
 
 }

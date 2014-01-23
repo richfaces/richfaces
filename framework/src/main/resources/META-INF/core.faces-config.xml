@@ -56,6 +56,7 @@
     <factory>
         <external-context-factory>org.richfaces.skin.SkinningExternalContextFactory</external-context-factory>
         <partial-view-context-factory>org.richfaces.context.ExtendedPartialViewContextFactoryImpl</partial-view-context-factory>
+        <visit-context-factory>org.richfaces.context.ExtendedVisitContextFactory</visit-context-factory>
     </factory>
 
     <managed-bean>

@@ -21,12 +21,16 @@
  */
 package org.richfaces.integration.partialViewContext;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class CounterBean {
+public class CounterBean implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private int counter = 0;
 

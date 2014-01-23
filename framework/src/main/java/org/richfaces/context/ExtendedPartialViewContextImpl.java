@@ -319,9 +319,6 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
      * Visits activator component to collect attributes needed for render phase
      */
     private void visitActivatorAtRender() {
-        final PartialViewContext pvc = getTopPartialViewContext();
-        final Collection<String> renderIds = pvc.getRenderIds();
-
         if (!isRenderAll()) {
             RenderComponentCallback callback = new RenderComponentCallback(getFacesContext(), behaviorEvent);
 
@@ -392,7 +389,12 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     /**
      * Adding implicitly renderer areas to the list of component that should be rendered
      */
-    protected void addImplicitRenderIds(Collection<String> ids, boolean limitRender) {
+    protected void addImplicitRenderIds(Collection<String> renderIds, boolean limitRender) {
+        if (!limitRender) {
+            final FacesContext facesContext = getFacesContext();
+            Collection<String> ajaxOutputs = PartialViewContextAjaxOutputTracker.getAjaxOutputs(facesContext, facesContext.getViewRoot());
+            renderIds.addAll(ajaxOutputs);
+        }
     }
 
     /**
