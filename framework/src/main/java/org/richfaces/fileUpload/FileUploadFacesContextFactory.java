@@ -35,10 +35,12 @@ import javax.faces.lifecycle.Lifecycle;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.richfaces.ServletVersion;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.request.MultipartRequest;
 import org.richfaces.request.MultipartRequest25;
+import org.richfaces.request.MultipartRequest30;
 import org.richfaces.request.MultipartRequestParser;
 import org.richfaces.request.MultipartRequestSizeExceeded;
 import org.richfaces.request.ProgressControl;
@@ -130,8 +132,16 @@ public class FileUploadFacesContextFactory extends FacesContextFactory implement
 
                     ProgressControl progressControl = new ProgressControl(uid, contentLength);
 
-                    HttpServletRequest wrappedRequest = wrapMultipartRequestServlet25((ServletContext) context, httpRequest,
-                        uid, contentLength, progressControl);
+
+
+                    HttpServletRequest wrappedRequest;
+                    if (ServletVersion.getCurrent().isCompliantWith(ServletVersion.SERVLET_3_0)) {
+                        wrappedRequest = wrapMultipartRequestServlet30((ServletContext) context, httpRequest, uid,
+                                contentLength, progressControl);
+                    } else {
+                        wrappedRequest = wrapMultipartRequestServlet25((ServletContext) context, httpRequest,
+                            uid, contentLength, progressControl);
+                    }
 
                     FacesContext facesContext = wrappedFactory.getFacesContext(context, wrappedRequest, response, lifecycle);
                     progressControl.setContextMap(facesContext.getExternalContext().getSessionMap());
@@ -190,6 +200,25 @@ public class FileUploadFacesContextFactory extends FacesContextFactory implement
                 progressControl);
 
             multipartRequest = new MultipartRequest25(request, uploadId, progressControl, requestParser);
+        } else {
+            multipartRequest = new MultipartRequestSizeExceeded(request, uploadId, progressControl);
+        }
+
+        request.setAttribute(MultipartRequest.REQUEST_ATTRIBUTE_NAME, multipartRequest);
+
+        return multipartRequest;
+    }
+
+    private HttpServletRequest wrapMultipartRequestServlet30(ServletContext servletContext, HttpServletRequest request,
+            String uploadId, long contentLength, ProgressControl progressControl) {
+
+        HttpServletRequest multipartRequest;
+
+        long maxRequestSize = getMaxRequestSize(servletContext);
+        if (maxRequestSize == 0 || contentLength <= maxRequestSize) {
+            multipartRequest = new MultipartRequest30(request, uploadId, progressControl);
+
+
         } else {
             multipartRequest = new MultipartRequestSizeExceeded(request, uploadId, progressControl);
         }

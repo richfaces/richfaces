@@ -226,7 +226,7 @@ public final class MultipartRequestParser {
     }
 
     // TODO - URI decoder?
-    private String decodeFileName(String name) {
+    private static String decodeFileName(String name) {
         String fileName = null;
         try {
             StringBuilder builder = new StringBuilder();
@@ -250,7 +250,7 @@ public final class MultipartRequestParser {
         return fileName;
     }
 
-    private String parseFileName(String parseStr) {
+    static String parseFileName(String parseStr) {
         Matcher m = FILE_NAME_PATTERN.matcher(parseStr);
         if (m.matches()) {
             String name = m.group(1);
