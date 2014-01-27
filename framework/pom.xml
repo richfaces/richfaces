@@ -237,6 +237,9 @@
         <plugins>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <excludes>**/CollectionDataModel.java,**/NoRowAvailableException.java</excludes>
+                </configuration>
             </plugin>
 
             <plugin>

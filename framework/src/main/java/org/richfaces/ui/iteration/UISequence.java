@@ -32,7 +32,6 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.ArrayDataModel;
-import javax.faces.model.CollectionDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.ResultDataModel;
@@ -41,6 +40,7 @@ import javax.faces.model.ScalarDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.model.CollectionDataModel;
 import org.richfaces.model.DataComponentState;
 import org.richfaces.model.ExtendedDataModel;
 import org.richfaces.model.Range;
