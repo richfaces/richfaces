@@ -35,10 +35,12 @@ import javax.inject.Named;
 @RequestScoped
 @Named
 public class AjaxBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private List<Node> nodes;
 
     public class Node implements Serializable {
+
         private static final long serialVersionUID = 1L;
 
         private String label;
@@ -55,10 +57,10 @@ public class AjaxBean implements Serializable {
             this.label = label;
         }
     }
-    
+
     private String value = "0";
     private long longValue;
-    
+
     public AjaxBean() {
         nodes = new ArrayList<Node>(5);
         nodes.add(new Node("a"));
@@ -91,6 +93,10 @@ public class AjaxBean implements Serializable {
 
     public void setNodes(List<Node> nodes) {
         this.nodes = nodes;
+    }
+
+    public void listener() {
+        System.out.println("### listener invoked");
     }
 
     public void listener(String newValue) {

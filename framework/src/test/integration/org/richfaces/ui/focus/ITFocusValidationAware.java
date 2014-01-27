@@ -24,6 +24,7 @@ package org.richfaces.ui.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
@@ -110,7 +111,7 @@ public class ITFocusValidationAware {
                 .inspect(new VerifyFocusCandidates("First input should be focused", "form:input1 form:input2",
                         "form:input1 form:input2"));
 
-        assertEquals(input2, getFocusedElement());
+        waitGui().until(new ElementIsFocused(input2));
     }
 
     @Test
@@ -124,7 +125,7 @@ public class ITFocusValidationAware {
                 .inspect(new VerifyFocusCandidates("First input should be focused", "form:input1 form:input2",
                         "form:input1 form:input2"));
 
-        assertEquals(input2, getFocusedElement());
+        waitGui().until(new ElementIsFocused(input2));
     }
 
     @Test
@@ -157,7 +158,7 @@ public class ITFocusValidationAware {
             }
         });
 
-        assertEquals(input3, getFocusedElement());
+        waitGui().until(new ElementIsFocused(input3));
     }
 
     private WebElement getFocusedElement() {

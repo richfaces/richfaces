@@ -19,10 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.ui.ajax;
 
+import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
+
 import java.net.URL;
+
+import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -46,14 +49,11 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Failing;
-
-import javax.inject.Inject;
-
-import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
 
 @RunAsClient
 @WarpTest
@@ -65,6 +65,9 @@ public class ITTestJsFunction {
 
     @ArquillianResource
     private URL contextPath;
+
+    @FindBy(id = "myForm:repeat:3:panel")
+    private WebElement panel3;
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -113,12 +116,10 @@ public class ITTestJsFunction {
     public void js_function_with_param() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm() + "param.jsf");
-        final WebElement panel3 = browser.findElement(By.id("myForm:repeat:3:panel"));
-
 
         Warp.initiate(new Activity() {
             public void perform() {
-                panel3.click();
+                Graphene.guardAjax(panel3).click();
             }
         }).group().observe(request().uri().contains("param")).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
@@ -135,7 +136,7 @@ public class ITTestJsFunction {
             public void verify_param_assigned() {
                 Assert.assertEquals(3, bean.getLongValue());
             }
-        }).execute();;
+        }).execute();
     }
 
     private static void addParamPage(FrameworkDeployment deployment) {

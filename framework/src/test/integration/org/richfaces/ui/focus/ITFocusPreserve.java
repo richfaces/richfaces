@@ -31,6 +31,7 @@ import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
@@ -88,7 +89,7 @@ public class ITFocusPreserve {
         guardHttp(submit).click();
 
         // then
-        assertFocused(input2);
+        Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
     @Test
@@ -119,38 +120,6 @@ public class ITFocusPreserve {
 
         // then
         waitAjax().until(new ElementIsFocused(input2));
-    }
-
-    /**
-     * Asserts that given element is focused
-     */
-    private void assertFocused(WebElement element) {
-        WebElement focusedElement = getFocusedElement();
-        if (element == null && focusedElement != null) {
-            throw new AssertionError(String.format("No element supposed to be focused, but element '%s' is focused instead",
-                    getElementDescription(focusedElement)));
-        }
-        if (!element.equals(focusedElement)) {
-            throw new AssertionError(String.format("Element '%s' should be focused, but element '%s' is focused instead",
-                    getElementDescription(element), getElementDescription(focusedElement)));
-        }
-    }
-
-    private String getElementDescription(WebElement element) {
-        if (element == null) {
-            return "null";
-        }
-
-        String idAttribute = element.getAttribute("id");
-        if (idAttribute != null && !"".equals(idAttribute)) {
-            return idAttribute;
-        }
-
-        return element.toString();
-    }
-
-    private WebElement getFocusedElement() {
-        return FocusRetriever.retrieveActiveElement();
     }
 
     private static void addIndexPage(FrameworkDeployment deployment) {
