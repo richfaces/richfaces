@@ -51,6 +51,16 @@ public class ActionListenerHandler extends TagHandler implements ActionSource2At
     private String listenerType;
     private TagAttribute listenerMethod;
 
+    private static final String FACELET_CONTEXT_KEY;
+
+    static {
+        try {
+            FACELET_CONTEXT_KEY = (String) FaceletContext.class.getField("FACELET_CONTEXT_KEY").get(null);
+        } catch (Exception e) {
+            throw new IllegalStateException("Cannot obtain FACELET_CONTEXT_KEY", e);
+        }
+    }
+
     public ActionListenerHandler(TagConfig config) {
         super(config);
 
@@ -94,7 +104,7 @@ public class ActionListenerHandler extends TagHandler implements ActionSource2At
 
         ActionSource as = (ActionSource) parent;
 
-        FaceletContext ctx = (FaceletContext) context.getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
+        FaceletContext ctx = (FaceletContext) context.getAttributes().get(FACELET_CONTEXT_KEY);
 
         if (this.listenerMethod != null) {
             MethodExpression listenerMethodExpression = this.listenerMethod.getMethodExpression(ctx, Void.TYPE,
