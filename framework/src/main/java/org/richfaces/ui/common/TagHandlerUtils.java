@@ -27,12 +27,30 @@ import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.view.AttachedObjectHandler;
+import javax.faces.view.facelets.FaceletContext;
 
 /**
  * @author Nick Belaevski
  *
  */
 public final class TagHandlerUtils {
+
+    /**
+     * Constant that is obtained by reflection from {@link FaceletContext#FACELET_CONTEXT_KEY} to ensure that the constant isn't inlined.
+     *
+     * Prevents RF-13472.
+     */
+    public static final String FACELET_CONTEXT_KEY;
+
+    static {
+        try {
+            // use reflection to access the Face
+            FACELET_CONTEXT_KEY = (String) FaceletContext.class.getField("FACELET_CONTEXT_KEY").get(null);
+        } catch (Exception e) {
+            throw new IllegalStateException("Cannot obtain FACELET_CONTEXT_KEY", e);
+        }
+    }
+
     // TODO - is that implementation dependency?
     private static final String JAVAX_FACES_RETARGETABLE_HANDLERS = "javax.faces.RetargetableHandlers";
 
