@@ -31,6 +31,7 @@ import javax.faces.view.facelets.TagConfig;
 import org.richfaces.event.PanelToggleEvent;
 import org.richfaces.event.PanelToggleListener;
 import org.richfaces.event.PanelToggleSource;
+import org.richfaces.ui.common.TagHandlerUtils;
 import org.richfaces.view.facelets.EventListenerHandler;
 
 /**
@@ -58,7 +59,7 @@ public final class PanelToggleListenerHandler extends EventListenerHandler {
     public void applyAttachedObject(FacesContext context, UIComponent parent) {
         ValueExpression expression = null;
         if (this.binding != null) {
-            FaceletContext ctx = (FaceletContext) context.getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
+            FaceletContext ctx = (FaceletContext) context.getAttributes().get(TagHandlerUtils.FACELET_CONTEXT_KEY);
             expression = this.binding.getValueExpression(ctx, PanelToggleListener.class);
         }
 

@@ -33,6 +33,7 @@ import javax.faces.view.facelets.TagConfig;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.ItemChangeListener;
 import org.richfaces.event.ItemChangeSource;
+import org.richfaces.ui.common.TagHandlerUtils;
 import org.richfaces.view.facelets.EventListenerHandler;
 
 /**
@@ -61,7 +62,7 @@ public final class ItemChangeListenerHandler extends EventListenerHandler {
     public void applyAttachedObject(FacesContext context, UIComponent parent) {
         ValueExpression valueExpr = null;
         if (this.binding != null) {
-            FaceletContext ctx = (FaceletContext) context.getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
+            FaceletContext ctx = (FaceletContext) context.getAttributes().get(TagHandlerUtils.FACELET_CONTEXT_KEY);
             valueExpr = this.binding.getValueExpression(ctx, ItemChangeListener.class);
         }
 

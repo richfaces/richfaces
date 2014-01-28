@@ -40,7 +40,7 @@ import javax.faces.view.facelets.TagConfig;
 import javax.faces.view.facelets.TagException;
 import javax.faces.view.facelets.TagHandler;
 
-import org.richfaces.view.facelets.TagHandlerUtils;
+import org.richfaces.ui.common.TagHandlerUtils;
 
 /**
  * @author Nick Belaevski
@@ -94,7 +94,7 @@ public class ActionListenerHandler extends TagHandler implements ActionSource2At
 
         ActionSource as = (ActionSource) parent;
 
-        FaceletContext ctx = (FaceletContext) context.getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
+        FaceletContext ctx = (FaceletContext) context.getAttributes().get(TagHandlerUtils.FACELET_CONTEXT_KEY);
 
         if (this.listenerMethod != null) {
             MethodExpression listenerMethodExpression = this.listenerMethod.getMethodExpression(ctx, Void.TYPE,
