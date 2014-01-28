@@ -185,7 +185,6 @@ public abstract class ChartRendererBase extends RendererBase {
     @Override
     public void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component)
             throws IOException {
-        super.encodeBegin(context, component);
 
         AbstractChart chart = (AbstractChart) component;
 

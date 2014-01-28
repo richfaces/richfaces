@@ -49,6 +49,7 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 
 import category.FailingOnFirefox;
+import category.Smoke;
 
 @RunWith(Arquillian.class)
 public class ITChartEvents {
@@ -101,7 +102,8 @@ public class ITChartEvents {
 
     @RunAsClient
     @Test
-    public void ChartCreated() {
+    @Category(Smoke.class)
+    public void test_chart_created() {
         browser.get(deploymentUrl.toExternalForm());
 
         Assert.assertNotNull("Chart should be on page.",
@@ -124,7 +126,7 @@ public class ITChartEvents {
     @RunAsClient
     @Test
     @Category(FailingOnFirefox.class)
-    public void ClientSideClick() {
+    public void test_client_side_click() {
         browser.get(deploymentUrl.toExternalForm());
 
         // click the first point in the first series of the chart
@@ -151,7 +153,7 @@ public class ITChartEvents {
     @RunAsClient
     @Test
     @Category(FailingOnFirefox.class)
-    public void ServerSideClick() {
+    public void test_server_side_click() {
         browser.get(deploymentUrl.toExternalForm());
 
         String before = msg.getText();
@@ -184,7 +186,7 @@ public class ITChartEvents {
     @RunAsClient
     @Test
     @Category(FailingOnFirefox.class)
-    public void particularSeriesServerSideClick() {
+    public void test_particular_series_server_side_click() {
         browser.get(deploymentUrl.toExternalForm() + "faces/particular.xhtml");
 
         String before = msg.getText();
