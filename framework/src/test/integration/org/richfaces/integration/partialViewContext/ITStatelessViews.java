@@ -23,11 +23,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import category.JSF22Only;
 import category.Smoke;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-@Category(Smoke.class)
+@Category({Smoke.class, JSF22Only.class})
 public class ITStatelessViews {
 
     @Drone

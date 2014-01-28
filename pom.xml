@@ -707,6 +707,7 @@
                 <arquillian.launch.jbossas71>true</arquillian.launch.jbossas71>
                 <arquillian.container.home>${project.build.directory}/jboss-as-${version.jbossas71}</arquillian.container.home>
                 <arquillian.container.distribution>org.jboss.as:jboss-as-dist:zip:${version.jbossas71}</arquillian.container.distribution>
+                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
             </properties>
             <dependencies>
                 <dependency>
@@ -724,6 +725,9 @@
                     <value>jbossas71-remote</value>
                 </property>
             </activation>
+            <properties>
+                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
@@ -745,6 +749,7 @@
                 <arquillian.launch.jbossas71>true</arquillian.launch.jbossas71>
                 <arquillian.container.home>${project.build.directory}/jboss-eap-6.1</arquillian.container.home>
                 <arquillian.container.distribution>org.jboss.as:jboss-as-dist:zip:${version.jbosseap61}</arquillian.container.distribution>
+                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
             </properties>
             <dependencies>
                 <dependency>
@@ -769,6 +774,9 @@
                     <value>jbosseap61-remote</value>
                 </property>
             </activation>
+            <properties>
+                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
@@ -797,6 +805,7 @@
                 <arquillian.richfaces.jsfProvider>myfaces</arquillian.richfaces.jsfProvider>
                 <arquillian.container.home>${project.build.directory}/apache-tomee-webprofile-${version.tomee15}</arquillian.container.home>
                 <arquillian.container.distribution>org.apache.openejb:apache-tomee:zip:webprofile:${version.tomee15}</arquillian.container.distribution>
+                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
             </properties>
             <dependencies>
                 <dependency>
@@ -817,6 +826,7 @@
             <properties>
                 <arquillian.launch.tomee15>true</arquillian.launch.tomee15>
                 <arquillian.richfaces.jsfProvider>myfaces</arquillian.richfaces.jsfProvider>
+                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
             </properties>
             <dependencies>
                 <dependency>
@@ -838,6 +848,7 @@
                 <arquillian.launch.glassfish31>true</arquillian.launch.glassfish31>
                 <arquillian.container.home>${project.build.directory}/glassfish3</arquillian.container.home>
                 <arquillian.container.distribution>org.glassfish.main.distributions:glassfish:zip:${version.glassfish31}</arquillian.container.distribution>
+                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
             </properties>
             <dependencies>
                 <dependency>
@@ -857,6 +868,7 @@
             </activation>
             <properties>
                 <arquillian.launch.glassfish31>true</arquillian.launch.glassfish31>
+                <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
             </properties>
             <dependencies>
                 <dependency>
