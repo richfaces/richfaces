@@ -42,7 +42,6 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -53,6 +52,7 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.richfaces.utils.ColorUtils;
 
 import category.Smoke;
+import com.google.common.base.Predicate;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -130,7 +130,7 @@ public abstract class AbstractPlaceholderTest {
         assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
         assertEquals(DEFAULT_PLACEHOLDER_COLOR, input().getTextColor());
         assertTrue("placeholder does not contain default class",
-                input().getStyleClass().contains(PLACEHOLDER_CLASS));
+            input().getStyleClass().contains(PLACEHOLDER_CLASS));
     }
 
     @Test
@@ -166,8 +166,13 @@ public abstract class AbstractPlaceholderTest {
 
         // when
         input().clickOnInput();
-        // then
-        assertEquals("", input().getEditedText());
+        waitGui().until(new Predicate<WebDriver>() {
+
+            @Override
+            public boolean apply(WebDriver input) {
+                return input().getEditedText().isEmpty();
+            }
+        });
     }
 
     @Test
@@ -176,7 +181,12 @@ public abstract class AbstractPlaceholderTest {
         browser.navigate().to(contextPath.toExternalForm() + "index.jsf");
         // when
         input().setTestedValue(getTestedValue());
-
+        waitGui().until(new Predicate<WebDriver>() {
+            @Override
+            public boolean apply(WebDriver input) {
+                return !input().getStyleClass().contains(PLACEHOLDER_CLASS);
+            }
+        });
         // then
         assertFalse("input should not contain placeholder class", input().getStyleClass().contains(PLACEHOLDER_CLASS));
         assertEquals(getDefaultInputColor(), input().getTextColor());
@@ -192,7 +202,12 @@ public abstract class AbstractPlaceholderTest {
         input().setTestedValue(getTestedValue());
         input().clear();
         input().blur();
-
+        waitGui().until(new Predicate<WebDriver>() {
+            @Override
+            public boolean apply(WebDriver input) {
+                return input().getDefaultText().equals(PLACEHOLDER_TEXT);
+            }
+        });
         // then
         assertEquals(PLACEHOLDER_TEXT, input().getDefaultText());
         assertEquals(DEFAULT_PLACEHOLDER_COLOR, input().getTextColor());
@@ -207,7 +222,12 @@ public abstract class AbstractPlaceholderTest {
         // when
         input().setTestedValue(getTestedValue());
         input().blur();
-
+        waitGui().until(new Predicate<WebDriver>() {
+            @Override
+            public boolean apply(WebDriver input) {
+                return input().getEditedText().equals(getTestedValue());
+            }
+        });
         // then
         assertEquals(getTestedValue(), input().getEditedText());
         assertEquals(getDefaultInputColor(), input().getTextColor());
@@ -273,7 +293,7 @@ public abstract class AbstractPlaceholderTest {
     public static class Input {
 
         @Root
-        protected WebElement input;
+        private WebElement input;
 
         @Drone
         private WebDriver browser;
@@ -287,6 +307,10 @@ public abstract class AbstractPlaceholderTest {
 
         public String getEditedText() {
             return input.getAttribute("value");
+        }
+
+        public WebElement getInputElement() {
+            return input;
         }
 
         public String getDefaultText() {
@@ -316,16 +340,16 @@ public abstract class AbstractPlaceholderTest {
         }
 
         public void blur() {
-            browser.findElement(By.tagName("body")).click();
+            getInputElement().sendKeys(Keys.TAB);
         }
     }
 
     public static class InplaceInput extends Input {
 
         @FindBy(css = "input[id$=Input]")
-        WebElement inplaceInput;
+        private WebElement inplaceInput;
         @FindBy(css = "span[id$=Label]")
-        WebElement inplaceLabel;
+        private WebElement inplaceLabel;
 
         @Override
         public String getEditedText() {
@@ -359,6 +383,10 @@ public abstract class AbstractPlaceholderTest {
             return ColorUtils.convertToAWTColor(inplaceLabel.getCssValue("color"));
         }
 
+        public WebElement getInplaceInput() {
+            return inplaceInput;
+        }
+
         @Override
         public String getStyleClass() {
             return inplaceLabel.getAttribute("class");
@@ -369,8 +397,9 @@ public abstract class AbstractPlaceholderTest {
 
         @Override
         public void setTestedValue(String value) {
-            inplaceInput.sendKeys(Keys.DOWN);
-            inplaceInput.sendKeys("\n");//Enter does not work
+            getInplaceInput().click();
+            getInplaceInput().sendKeys(Keys.DOWN);
+            getInplaceInput().sendKeys("\n");//Enter does not work
         }
     }
 
@@ -378,15 +407,15 @@ public abstract class AbstractPlaceholderTest {
 
         @Override
         public void setTestedValue(String value) {
-            input.click();
-            input.sendKeys(value);
-            input.sendKeys("\n");//Enter does not work
+            getInputElement().click();
+            getInputElement().sendKeys(value);
+            getInputElement().sendKeys("\n");//Enter does not work
         }
 
         @Override
         public void clear() {
-            input.click();
-            input.clear();
+            getInputElement().click();
+            getInputElement().clear();
         }
     }
 }

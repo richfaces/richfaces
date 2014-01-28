@@ -19,11 +19,8 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.ui.focus;
 
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.graphene.Graphene.waitAjax;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
@@ -31,6 +28,7 @@ import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
@@ -42,6 +40,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import com.google.common.base.Predicate;
 
 @RunAsClient
 @WarpTest
@@ -78,7 +78,7 @@ public class ITFocusViewMode {
         browser.get(contextPath.toExternalForm());
 
         // then
-        assertEquals(form1.input2, getFocusedElement());
+        Graphene.waitGui().until(new ElementIsFocused(form1.getInput2()));
     }
 
     @Test
@@ -87,9 +87,8 @@ public class ITFocusViewMode {
         browser.get(contextPath.toExternalForm());
 
         // then
-
-        form1.submit.click();
-        assertEquals(form1.input1, getFocusedElement());
+        form1.submit();
+        Graphene.waitGui().until(new ElementIsFocused(form1.getInput1()));
     }
 
     @Test
@@ -98,8 +97,8 @@ public class ITFocusViewMode {
         browser.get(contextPath.toExternalForm());
 
         // then
-        form2.submit.click();
-        assertEquals(form2.input2, getFocusedElement());
+        form2.submit();
+        Graphene.waitGui().until(new ElementIsFocused(form2.getInput2()));
     }
 
     @Test
@@ -108,8 +107,8 @@ public class ITFocusViewMode {
         browser.get(contextPath.toExternalForm());
 
         // then
-        guardAjax(form1.ajax).click();
-        waitAjax().until(new ElementIsFocused(form1.input1));
+        form1.submit();
+        Graphene.waitGui().until(new ElementIsFocused(form1.getInput1()));
     }
 
     @Test
@@ -118,23 +117,23 @@ public class ITFocusViewMode {
         browser.get(contextPath.toExternalForm());
 
         // then
-        guardAjax(form2.ajax).click();
-        waitAjax().until(new ElementIsFocused(form2.input2));
+        form2.submitAjax();
+        Graphene.waitGui().until(new ElementIsFocused(form2.getInput2()));
     }
 
     @Test
     public void when_form_focus_is_defined_then_it_overrides_view_focus_settings() {
         // having
         browser.get(contextPath.toExternalForm());
-        assertEquals(form1.input2, getFocusedElement());
+        assertEquals(form1.getInput2(), getFocusedElement());
 
         // then
-        form3.input1.click();
-        guardAjax(form3.ajax).click();
-        waitAjax().until(new ElementIsFocused(form3.input1));
+        form3.getInput1().click();
+        form3.submitAjax();
+        Graphene.waitGui().until(new ElementIsFocused(form3.getInput1()));
 
-        form3.submit.click();
-        assertEquals(form3.input1, getFocusedElement());
+        form3.submit();
+        Graphene.waitGui().until(new ElementIsFocused(form3.getInput1()));
     }
 
     private WebElement getFocusedElement() {
@@ -143,8 +142,6 @@ public class ITFocusViewMode {
 
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-
-
 
         p.body("<r:focus id='focus' />");
 
@@ -191,17 +188,56 @@ public class ITFocusViewMode {
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
-    static class Form {
+    public static class Form {
+
         @FindBy(css = "[id$=input1]")
-        WebElement input1;
+        private WebElement input1;
 
         @FindBy(css = "[id$=input2]")
-        WebElement input2;
+        private WebElement input2;
 
         @FindBy(css = "[id$=submit]")
-        WebElement submit;
+        private WebElement submit;
 
         @FindBy(css = "[id$=ajax]")
-        WebElement ajax;
+        private WebElement ajax;
+
+        public WebElement getInput1() {
+            return input1;
+        }
+
+        public WebElement getInput2() {
+            return input2;
+        }
+
+        public WebElement getSubmit() {
+            return submit;
+        }
+
+        public WebElement getAjax() {
+            return ajax;
+        }
+
+        public void submit() {
+            Graphene.guardHttp(submit).click();
+        }
+
+        public void submitAjax() {
+            Graphene.guardAjax(ajax).click();
+        }
+    }
+
+    private class ElementFocusedPredicate implements Predicate<WebDriver> {
+
+        private final WebElement elementToBeFocused;
+
+        public ElementFocusedPredicate(WebElement elementToBeFocused) {
+            this.elementToBeFocused = elementToBeFocused;
+        }
+
+        @Override
+        public boolean apply(WebDriver input) {
+            return getFocusedElement().equals(elementToBeFocused);
+        }
     }
 }

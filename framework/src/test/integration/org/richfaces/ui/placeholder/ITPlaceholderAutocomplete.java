@@ -87,7 +87,7 @@ public class ITPlaceholderAutocomplete extends AbstractPlaceholderTest {
 
     @Override
     protected Color getDefaultInputColor() {
-        return ColorUtils.convertToAWTColor("rgb(85, 85, 85)");
+        return ColorUtils.convertToAWTColor("rgb(0, 0, 0)");
     }
 
     public class AutocompleteInput extends Input {
@@ -98,7 +98,7 @@ public class ITPlaceholderAutocomplete extends AbstractPlaceholderTest {
 
         @Override
         public void blur() {
-            input.sendKeys(Keys.TAB);
+            getInputElement().sendKeys(Keys.TAB);
         }
     }
 }

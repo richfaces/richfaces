@@ -19,19 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.ui.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
@@ -102,7 +101,7 @@ public class ITFocusSubmissionMethods {
         guardHttp(submitButton).click();
 
         // then
-        assertEquals(input2, FocusRetriever.retrieveActiveElement());
+        Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
     /**
@@ -143,8 +142,6 @@ public class ITFocusSubmissionMethods {
 
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-
-
 
         p.body("<h:form id='form'>");
         p.body("    <r:focus id='focus' preserve='true' />");

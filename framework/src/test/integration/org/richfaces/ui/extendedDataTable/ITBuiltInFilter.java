@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.Activity;
@@ -52,7 +53,7 @@ public class ITBuiltInFilter {
 
     @FindBy(id = "myForm:edt:header")
     private WebElement header;
-
+        
     @Deployment
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITBuiltInFilter.class);
@@ -92,12 +93,13 @@ public class ITBuiltInFilter {
         Warp.initiate(new Activity() {
             @Override
             public void perform() {
-                filterInput.sendKeys(Keys.TAB);
+                Graphene.guardAjax(filterInput).sendKeys(Keys.TAB);
             }
         }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
 
-            @Inject IterationBuiltInBean iterationBuiltInBean;
+            @Inject
+            IterationBuiltInBean iterationBuiltInBean;
 
             @AfterPhase(Phase.INVOKE_APPLICATION)
             public void verify_bean_filter_cleared() {
@@ -111,12 +113,13 @@ public class ITBuiltInFilter {
         Warp.initiate(new Activity() {
             @Override
             public void perform() {
-                button.click();
+                Graphene.guardAjax(button).click();
             }
         }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
 
-            @Inject IterationBuiltInBean iterationBuiltInBean;
+            @Inject
+            IterationBuiltInBean iterationBuiltInBean;
 
             @AfterPhase(Phase.INVOKE_APPLICATION)
             public void verify_bean_filter_cleared() {
@@ -153,6 +156,8 @@ public class ITBuiltInFilter {
 
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
+
+        p.xmlns("fn", "http://java.sun.com/jsp/jstl/functions");
 
         p.body("<script type='text/javascript'>");
         p.body("function filterEdt(filterValue) { ");

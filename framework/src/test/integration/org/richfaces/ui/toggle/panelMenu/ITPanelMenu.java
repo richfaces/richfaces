@@ -61,7 +61,7 @@ public class ITPanelMenu {
     public static WebArchive createDeployment() {
         FrameworkDeployment deployment = new FrameworkDeployment(ITPanelMenu.class);
         deployment.archive()
-            .addClasses(PanelMenuBean.class, VerifyMenuAction.class)
+            .addClasses(PanelMenuBean.class, VerifyMenuAction.DidNotOccur.class, VerifyMenuAction.DidNotOccur.class)
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
         addDisabledMenuItemPage(deployment);
         addDisabledMenuGroupPage(deployment);
@@ -87,7 +87,7 @@ public class ITPanelMenu {
         Warp
                 .initiate(new Activity() {
                     public void perform() {
-                        enabledMenu.click();
+                        Graphene.guardAjax(enabledMenu).click();
                     }
                 })
                 .inspect(new VerifyMenuAction.DidOccur());
@@ -103,7 +103,7 @@ public class ITPanelMenu {
         Warp
                 .initiate(new Activity() {
                     public void perform() {
-                        disabledMenu.click();
+                        Graphene.guardAjax(disabledMenu).click();
                     }
                 })
                 .inspect(new VerifyMenuAction.DidNotOccur());
@@ -116,7 +116,7 @@ public class ITPanelMenu {
         Warp
                 .initiate(new Activity() {
                     public void perform() {
-                        enabledMenu.click();
+                        Graphene.guardAjax(enabledMenu).click();
                     }
                 })
                 .inspect(new VerifyMenuAction.DidOccur());
@@ -132,7 +132,7 @@ public class ITPanelMenu {
         Warp
                 .initiate(new Activity() {
                     public void perform() {
-                        disabledMenu.click();
+                        Graphene.guardAjax(disabledMenu).click();
                     }
                 })
                 .inspect(new VerifyMenuAction.DidNotOccur());
@@ -145,7 +145,7 @@ public class ITPanelMenu {
     @Test
     public void test_expansion_of_disabled_menu_group() {
         browser.get(contextPath.toString() + "disabled-menu-group.jsf");
-        Graphene.guardAjax(disabledGroup).click();
+        Graphene.guardNoRequest(disabledGroup).click();
         Assert.assertEquals("disabled menu group should have no menu item children", 0, disabledGroup.findElements(By.className("rf-pm-itm")).size());
     }
 
@@ -162,7 +162,7 @@ public class ITPanelMenu {
         Warp
                 .initiate(new Activity() {
                     public void perform() {
-                        enabledMenu.click();
+                        Graphene.guardAjax(enabledMenu).click();
                     }
                 })
                 .inspect(new VerifyMenuAction.DidOccur());
@@ -178,7 +178,7 @@ public class ITPanelMenu {
         Warp
                 .initiate(new Activity() {
                     public void perform() {
-                        disabledMenu.click();
+                        Graphene.guardAjax(disabledMenu).click();
                     }
                 })
                 .inspect(new VerifyMenuAction.DidNotOccur());

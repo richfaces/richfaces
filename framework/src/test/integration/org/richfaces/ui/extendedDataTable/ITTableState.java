@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.ui.extendedDataTable;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -37,6 +36,8 @@ import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
+import org.jboss.arquillian.graphene.findby.ByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.Activity;
@@ -122,7 +123,7 @@ public class ITTableState {
         Warp.initiate(new Activity() {
             @Override
             public void perform() {
-                dragAndDrop.perform();
+                guardAjax(dragAndDrop).perform();
             }
         }).inspect(new Inspection() {
             private static final long serialVersionUID = 1L;
@@ -161,11 +162,9 @@ public class ITTableState {
         Actions builder = new Actions(browser);
 
         final Action dragAndDrop = builder.clickAndHold(column3)
-                .moveToElement(column1)
-                .release(column1)
-                .build();
-
-
+            .moveToElement(column1)
+            .release(column1)
+            .build();
 
         // when / then
         Warp
@@ -175,22 +174,22 @@ public class ITTableState {
                 }
             })
             .group()
-                .observe(request().uri().contains("index"))
-                .inspect(new Inspection() {
-                    private static final long serialVersionUID = 1L;
+            .observe(request().uri().contains("index"))
+            .inspect(new Inspection() {
+                private static final long serialVersionUID = 1L;
 
-                    @Inject
-                    IterationTableStateBean bean;
+                @Inject
+                IterationTableStateBean bean;
 
-                    @AfterPhase(Phase.INVOKE_APPLICATION)
-                    public void verify_bean_executed() {
-                        FacesContext facesContext = FacesContext.getCurrentInstance();
-                        AbstractExtendedDataTable edtComponent = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("myForm").findComponent("edt");
-                        ExtendedDataTableState tableState = new ExtendedDataTableState(edtComponent);
+                @AfterPhase(Phase.INVOKE_APPLICATION)
+                public void verify_bean_executed() {
+                    FacesContext facesContext = FacesContext.getCurrentInstance();
+                    AbstractExtendedDataTable edtComponent = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("myForm").findComponent("edt");
+                    ExtendedDataTableState tableState = new ExtendedDataTableState(edtComponent);
                         String[] expectedOrder = {"column3", "column1", "column2"};
-                        Assert.assertArrayEquals(expectedOrder, tableState.getColumnsOrder());
-                    }
-                })
+                    Assert.assertArrayEquals(expectedOrder, tableState.getColumnsOrder());
+                }
+            })
             .execute();
 
         List<WebElement> columns = browser.findElements(By.cssSelector(".rf-edt-hdr-c"));
@@ -203,13 +202,11 @@ public class ITTableState {
     public void table_sort() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm() + "sort.jsf");
-        WebElement cell = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt")).get(0);
+        WebElement cell = browser.findElement(ByJQuery.selector(".rf-edt-c-column2 .rf-edt-c-cnt:first"));
         Assert.assertEquals("9", cell.getText());
 
         guardAjax(sortLink).click();
-        Thread.sleep(500);
-        cell = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt")).get(0);
-        Assert.assertEquals("0", cell.getText());
+        Graphene.waitAjax().until().element(browser.findElement(ByJQuery.selector(".rf-edt-c-column2 .rf-edt-c-cnt:first"))).text().equalTo("0");
 
         // when / then
         Warp.initiate(new Activity() {
@@ -219,22 +216,22 @@ public class ITTableState {
                 guardAjax(button).click();
             }
         })
-        .inspect(new Inspection() {
-            private static final long serialVersionUID = 1L;
+            .inspect(new Inspection() {
+                private static final long serialVersionUID = 1L;
 
-            @Inject
-            IterationTableStateBean bean;
+                @Inject
+                IterationTableStateBean bean;
 
-            @AfterPhase(Phase.INVOKE_APPLICATION)
-            public void verify_bean_executed() {
-                FacesContext facesContext = FacesContext.getCurrentInstance();
-                AbstractExtendedDataTable edtComponent = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("myForm").findComponent("edt");
-                ExtendedDataTableState tableState = new ExtendedDataTableState(edtComponent.getTableState());
-                UIColumn column = new UIColumn();
-                column.setId("column2");
-                Assert.assertEquals("ascending", tableState.getColumnSort(column));
-            }
-        });
+                @AfterPhase(Phase.INVOKE_APPLICATION)
+                public void verify_bean_executed() {
+                    FacesContext facesContext = FacesContext.getCurrentInstance();
+                    AbstractExtendedDataTable edtComponent = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("myForm").findComponent("edt");
+                    ExtendedDataTableState tableState = new ExtendedDataTableState(edtComponent.getTableState());
+                    UIColumn column = new UIColumn();
+                    column.setId("column2");
+                    Assert.assertEquals("ascending", tableState.getColumnSort(column));
+                }
+            });
 
     }
 
@@ -243,19 +240,14 @@ public class ITTableState {
         // given
         browser.get(contextPath.toExternalForm() + "filter.jsf");
 
-        List<WebElement> cells = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt"));
-        WebElement cell = cells.get(cells.size() - 1);
+        WebElement cell = browser.findElement(ByJQuery.selector(".rf-edt-c-column2 .rf-edt-c-cnt:last"));
         Assert.assertEquals("6", cell.getText());
 
         WebElement filterInput = browser.findElement(By.id("myForm:edt:filterInput"));
         filterInput.clear();
         filterInput.sendKeys("3");
-        filterInput.sendKeys(Keys.TAB);
-
-        Thread.sleep(500);
-        cells = browser.findElements(By.cssSelector(".rf-edt-c-column2 .rf-edt-c-cnt"));
-        cell = cells.get(cells.size() - 1);
-        Assert.assertEquals("3", cell.getText());
+        guardAjax(filterInput).sendKeys(Keys.TAB);
+        Graphene.waitAjax().until().element(ByJQuery.selector(".rf-edt-c-column2 .rf-edt-c-cnt:last")).text().equalTo("3");
 
         // when / then
         Warp.initiate(new Activity() {
@@ -285,8 +277,6 @@ public class ITTableState {
 
     private static FaceletAsset getPage(String edtAttributes) {
         FaceletAsset p = new FaceletAsset();
-
-
 
         p.body("<script type='text/javascript'>");
         p.body("function sortEdt(currentSortOrder) { ");

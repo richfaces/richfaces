@@ -22,21 +22,18 @@
 
 package org.richfaces.skin;
 
-import category.Failing;
-import com.google.common.base.Function;
+import java.net.URL;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
-import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -44,7 +41,7 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import java.net.URL;
+import com.google.common.base.Function;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -92,7 +89,7 @@ public class ITBlueSkySkin {
     @Test
     public void test_skin() throws InterruptedException {
         browser.get(contextPath.toExternalForm());
-        String expectedUrl = "url(" + contextPath.toExternalForm() + "faces/rfRes/buttonBackgroundImage.png?db=eAFjZGBkZOBm!P-f8f-n70Bi37UfDEwAUQgJhA__&ln=org.richfaces.images)";
+        String expectedUrl = "url(\"" + contextPath.toExternalForm() + "org.richfaces.resources/rfRes/buttonBackgroundImage.png?db=eAFjZGBkZOBm!P-f8f-n70Bi37UfDEwAUQgJhA__&ln=org.richfaces.ui.images\")";
         Assert.assertEquals(expectedUrl, buttonDefault.getCssValue("background-image"));
     }
 
