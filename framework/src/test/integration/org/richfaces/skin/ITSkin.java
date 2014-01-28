@@ -21,7 +21,16 @@
  */
 package org.richfaces.skin;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpUtils;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -42,10 +51,11 @@ import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import com.google.common.base.Function;
+import com.google.common.collect.Maps;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class ITSkin {
+public class ITSkin extends AbstractSkinTestBase {
 
     @Drone
     private WebDriver browser;
@@ -93,31 +103,37 @@ public class ITSkin {
 
     @Test
     public void changing_skins() throws InterruptedException {
-        String expectedUrl;
+        
+        URL url;
+        Map<String, String> parameters;
 
         // given
         browser.get(contextPath.toExternalForm());
-
-        // TODO: derive the backGroundImage URLs from the Dynamic image classes
-        expectedUrl = "url(\"" + contextPath.toExternalForm() + "org.richfaces.resources/rfRes/buttonBackgroundImage.png?db=eAFjZGBkZOBm!P-f8f!bV88Y!185f5yBCQBPWAk3&ln=org.richfaces.ui.images\")";
-        Assert.assertEquals("DEFAULT button background-url is incorrect", expectedUrl, buttonSkin1.getCssValue("background-image"));
+        url = getBackgroundUrl(buttonSkin1);
+        parameters = parseQueryParameters(url);
+        assertTrue(url.getPath().endsWith("org.richfaces.resources/rfRes/buttonBackgroundImage.png"));
+        assertEquals("eAFjZGBkZOBm!P-f8f!bV88Y!185f5yBCQBPWAk3", parameters.get("db"));
+        assertEquals("org.richfaces.ui.images", parameters.get("ln"));
 
         Graphene.guardHttp(buttonSkin1).click();
         // button stays focused after click (url will be different for focused button), move mouse out
         panel.click();
+        url = getBackgroundUrl(buttonSkin1);
+        parameters = parseQueryParameters(url);
+        assertTrue(url.getPath().endsWith("org.richfaces.resources/rfRes/buttonBackgroundImage.png"));
+        assertEquals("eAFjZGBkZOBm!P-f8f-n70Bi37UfDEwAUQgJhA__", parameters.get("db"));
+        assertEquals("org.richfaces.ui.images", parameters.get("ln"));
 
-        expectedUrl = "url(\"" + contextPath.toExternalForm() + "org.richfaces.resources/rfRes/buttonBackgroundImage.png?db=eAFjZGBkZOBm!P-f8f-n70Bi37UfDEwAUQgJhA__&ln=org.richfaces.ui.images\")";
-        Assert.assertEquals("blueSky button background-url is incorrect", expectedUrl, buttonSkin1.getCssValue("background-image"));
 
         Graphene.guardHttp(buttonSkin2).click();
-
-        expectedUrl = "url(\"" + contextPath.toExternalForm() + "org.richfaces.resources/rfRes/buttonBackgroundImage.png?db=eAFjZGBkZOBm!P-f8f!9iAjG!xMYGBiYAD5VBi8_&ln=org.richfaces.ui.images\")";
-        Assert.assertEquals("ruby button background-url is incorrect", expectedUrl, buttonSkin1.getCssValue("background-image"));
+        url = getBackgroundUrl(buttonSkin1);
+        parameters = parseQueryParameters(url);
+        assertTrue(url.getPath().endsWith("org.richfaces.resources/rfRes/buttonBackgroundImage.png"));
+        assertEquals("eAFjZGBkZOBm!P-f8f!9iAjG!xMYGBiYAD5VBi8_", parameters.get("db"));
+        assertEquals("org.richfaces.ui.images", parameters.get("ln"));
 
         Graphene.guardHttp(buttonSkin3).click();
-
-        expectedUrl = "none";
-        Assert.assertEquals("plain button background-url is incorrect", expectedUrl, buttonSkin1.getCssValue("background-image"));
+        Assert.assertEquals("plain button background-url is incorrect", "none", buttonSkin1.getCssValue("background-image"));
     }
 
     private static void addIndexPage(FrameworkDeployment deployment) {

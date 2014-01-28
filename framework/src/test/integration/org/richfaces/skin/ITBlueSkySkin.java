@@ -22,7 +22,11 @@
 
 package org.richfaces.skin;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.net.URL;
+import java.util.Map;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -32,7 +36,6 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -45,7 +48,7 @@ import com.google.common.base.Function;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class ITBlueSkySkin {
+public class ITBlueSkySkin extends AbstractSkinTestBase {
 
     @Drone
     private WebDriver browser;
@@ -79,7 +82,6 @@ public class ITBlueSkySkin {
             };
         });
 
-
         addIndexPage(deployment);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
@@ -89,8 +91,12 @@ public class ITBlueSkySkin {
     @Test
     public void test_skin() throws InterruptedException {
         browser.get(contextPath.toExternalForm());
-        String expectedUrl = "url(\"" + contextPath.toExternalForm() + "org.richfaces.resources/rfRes/buttonBackgroundImage.png?db=eAFjZGBkZOBm!P-f8f-n70Bi37UfDEwAUQgJhA__&ln=org.richfaces.ui.images\")";
-        Assert.assertEquals(expectedUrl, buttonDefault.getCssValue("background-image"));
+
+        URL url = getBackgroundUrl(buttonDefault);
+        Map<String, String> parameters = parseQueryParameters(url);
+        assertTrue(url.getPath().endsWith("org.richfaces.resources/rfRes/buttonBackgroundImage.png"));
+        assertEquals("eAFjZGBkZOBm!P-f8f-n70Bi37UfDEwAUQgJhA__", parameters.get("db"));
+        assertEquals("org.richfaces.ui.images", parameters.get("ln"));
     }
 
     private static void addIndexPage(FrameworkDeployment deployment) {
