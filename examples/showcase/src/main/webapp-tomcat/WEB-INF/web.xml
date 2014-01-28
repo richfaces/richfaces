@@ -87,6 +87,10 @@
         <extension>xcss</extension>
         <mime-type>text/css</mime-type>
     </mime-mapping>
+    <mime-mapping>
+        <extension>woff</extension>
+        <mime-type>application/font-woff</mime-type>
+    </mime-mapping>
     <login-config>
         <auth-method>BASIC</auth-method>
     </login-config>
