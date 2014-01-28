@@ -120,7 +120,7 @@
 
                 if (this.target) {
                     rf.Event.unbindById(this.target, this.options.showEvent);
-                    var targetComponent = RichFaces.$(this.target);
+                    var targetComponent = RichFaces.component(this.target);
                     if (targetComponent && targetComponent.contextMenuAttach) {
                         $('body').off('rich:ready' + this.namespace, '[id="' + this.target + '"]');
                     }
