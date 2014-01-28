@@ -115,5 +115,13 @@
         <!-- the path to settings.xml for ShrinkWrap Maven Resolver -->
         <property name="mavenSettings">${arquillian.maven.settings}</property>
     </extension>
+    
+    
+    <extension qualifier="graphene">
+       <property name="waitGuiInterval">2</property>
+       <property name="waitAjaxInterval">5</property>
+       <property name="waitModelInterval">10</property>
+       <property name="waitGuardInterval">5</property>
+    </extension>
 
 </arquillian>
