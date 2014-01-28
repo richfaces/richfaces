@@ -33,7 +33,6 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.ui.common.AjaxOutput;
-import org.richfaces.ui.common.VisitChildrenRejectable;
 
 /**
  * @author Nick Belaevski
@@ -79,6 +78,12 @@ public class RenderExtendedVisitContext extends BaseExtendedVisitContext {
 
     protected boolean shouldCompleteOnEmptyIds() {
         return limitRender;
+    }
+
+    @Override
+    public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callbackToWrap) {
+        PartialViewRenderVisitCallback callback = new PartialViewRenderVisitCallback(callbackToWrap, getFacesContext());
+        return super.invokeVisitCallback(component, callback);
     }
 
     /**

@@ -73,13 +73,15 @@ public class PartialViewContextAjaxOutputTracker implements SystemEventListener 
         final Collection<String> childrenIds = getDirectChildrenIds(component);
         final Set<String> ajaxOutputs = new HashSet<>();
 
-        for (String childId : childrenIds) {
-            UIComponent child = component.findComponent(childId);
+        if (childrenIds != null) {
+            for (String childId : childrenIds) {
+                UIComponent child = component.findComponent(childId);
 
-            if (child instanceof AjaxOutput) {
-                ajaxOutputs.add(child.getClientId(facesContext));
-            } else if (isContainerComponent(child)) {
-                ajaxOutputs.addAll(getAjaxOutputs(facesContext, child));
+                if (child instanceof AjaxOutput) {
+                    ajaxOutputs.add(child.getClientId(facesContext));
+                } else if (isContainerComponent(child)) {
+                    ajaxOutputs.addAll(getAjaxOutputs(facesContext, child));
+                }
             }
         }
 

@@ -30,8 +30,7 @@ public class ExtendedVisitContextFactory extends VisitContextFactory {
 
         final ExtendedPartialViewContext epvc = ExtendedPartialViewContext.getInstance(facesContext);
 
-
-        if (epvc != null) {
+        if (epvc != null && clientIds != null) {
             final ExtendedVisitContextMode visitMode = epvc.getVisitMode();
 
             if (visitMode != null) {

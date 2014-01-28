@@ -98,7 +98,6 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     private String activatorComponentId = null;
     private String behaviorEvent = null;
     private boolean released = false;
-    private boolean limitRender = false;
 
     private PartialViewContext wrappedViewContext;
     private PartialResponseWriter partialResponseWriter;
@@ -130,6 +129,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
      */
     @Override
     public void processPartial(PhaseId phaseId) {
+        detectContextMode();
         try {
             if (isProcessedExecutePhase(phaseId)) {
                 super.setVisitMode(ExtendedVisitContextMode.EXECUTE);
@@ -306,7 +306,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
         onbeforedomupdate = callback.getOnbeforedomupdate();
         oncomplete = callback.getOncomplete();
         responseData = callback.getData();
-        limitRender = callback.isLimitRender();
+        super.setLimitRender(callback.isLimitRender());
     }
 
     private void setupExecuteCallbackData(ExecuteComponentCallback callback) {
@@ -319,7 +319,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
      * Visits activator component to collect attributes needed for render phase
      */
     private void visitActivatorAtRender() {
-        if (!isRenderAll()) {
+        if (!isRenderAll() && contextMode == ContextMode.DIRECT) {
             RenderComponentCallback callback = new RenderComponentCallback(getFacesContext(), behaviorEvent);
 
             if (visitActivatorComponent(activatorComponentId, callback, EnumSet.noneOf(VisitHint.class))) {
@@ -334,7 +334,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
             }
 
             if (!Boolean.TRUE.equals(renderAll) && !renderIds.contains(ALL)) {
-                addImplicitRenderIds(renderIds, limitRender);
+                addImplicitRenderIds(renderIds, super.isLimitRender());
 
                 appendOnbeforedomupdate(onbeforedomupdate);
                 appendOncomplete(oncomplete);
@@ -363,7 +363,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
         executeIds = null;
         renderIds = null;
 
-        limitRender = false;
+        super.setLimitRender(false);
 
         activatorComponentId = null;
         behaviorEvent = null;

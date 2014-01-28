@@ -21,14 +21,11 @@
  */
 package org.richfaces.context;
 
-import java.io.IOException;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -43,10 +40,12 @@ final class PartialViewRenderVisitCallback implements VisitCallback {
     private static final Logger LOG = RichfacesLogger.CONTEXT.getLogger();
 
     private FacesContext ctx;
+    private VisitCallback wrapped;
 
 
 
-    PartialViewRenderVisitCallback(FacesContext ctx) {
+    PartialViewRenderVisitCallback(VisitCallback visitCallbackToWrap, FacesContext ctx) {
+        this.wrapped = visitCallbackToWrap;
         this.ctx = ctx;
     }
 
@@ -72,21 +71,7 @@ final class PartialViewRenderVisitCallback implements VisitCallback {
                 logException(e);
             }
         } else {
-            PartialResponseWriter writer = ctx.getPartialViewContext().getPartialResponseWriter();
-
-            try {
-                writer.startUpdate(target.getClientId(ctx));
-                try {
-                    // do the default behavior...
-                    target.encodeAll(ctx);
-                } catch (Exception ce) {
-                    logException(ce);
-                }
-
-                writer.endUpdate();
-            } catch (IOException e) {
-                logException(e);
-            }
+            return wrapped.visit(context, target);
         }
 
         // Once we visit a component, there is no need to visit

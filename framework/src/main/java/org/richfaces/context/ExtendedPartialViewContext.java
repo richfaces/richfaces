@@ -22,6 +22,7 @@
 package org.richfaces.context;
 
 import java.util.Map;
+import java.util.Stack;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContextWrapper;
@@ -40,7 +41,7 @@ public abstract class ExtendedPartialViewContext extends PartialViewContextWrapp
     private Map<String, Object> responseComponentDataMap = Maps.newHashMap();
     private StringBuilder beforedomupdateHandler = new StringBuilder();
     private StringBuilder completeHandler = new StringBuilder();
-    private ExtendedVisitContextMode visitMode;
+    private Stack<ExtendedVisitContextMode> visitMode = new Stack<ExtendedVisitContextMode>();
 
     public ExtendedPartialViewContext(FacesContext facesContext) {
         this.facesContext = facesContext;
@@ -123,14 +124,17 @@ public abstract class ExtendedPartialViewContext extends PartialViewContextWrapp
     }
 
     public ExtendedVisitContextMode getVisitMode() {
-        return visitMode;
+        if (visitMode.isEmpty()) {
+            return null;
+        }
+        return visitMode.peek();
     }
 
     protected void setVisitMode(ExtendedVisitContextMode visitMode) {
-        this.visitMode = visitMode;
+        this.visitMode.add(visitMode);
     }
 
     protected void resetVisitMode() {
-        this.visitMode = null;
+        this.visitMode.pop();
     }
 }
