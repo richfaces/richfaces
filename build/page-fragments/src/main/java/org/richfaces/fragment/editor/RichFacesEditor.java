@@ -83,7 +83,7 @@ public class RichFacesEditor implements Editor, AdvancedInteractions<RichFacesEd
         try {
             switchToEditorActiveArea().sendKeys(text);
             //needs to do both ways, various JS events then do not work otherwise
-            ((JavascriptExecutor) browser).executeScript("document.body.innerHTML='" + text + "'");
+            ((JavascriptExecutor) browser).executeScript("document.body.textContent= document.body.textContent + '" + text + "'");
         } finally {
             browser.switchTo().defaultContent();
         }
