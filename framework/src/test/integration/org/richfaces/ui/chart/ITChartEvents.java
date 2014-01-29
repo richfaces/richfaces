@@ -175,10 +175,10 @@ public class ITChartEvents {
         int xValInt = (int) xVal;
 
         String expected = "Server's speaking:Point with index " + pointIndex
-                + "within series " + seriesIndex
-                + " was clicked. Point coordinates ["
+                + " within series " + seriesIndex
+                + " was clicked. Point coordinates: ["
                 + Integer.toString(xValInt) + ','
-                + Double.toString(chtestjs.pointY("frm:chart", 0, 0)) + "]";
+                + Double.toString(chtestjs.pointY("frm:chart", 0, 0)) + "].";
 
         Assert.assertEquals(expected, msg.getText());
     }
