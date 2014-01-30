@@ -51,21 +51,28 @@ public final class TagHandlerUtils {
         }
     }
 
-    // TODO - is that implementation dependency?
+    // TODO - is that implementation dependency? - yes, it is: RF-13518
+    // Mojarra 2.1
     private static final String JAVAX_FACES_RETARGETABLE_HANDLERS = "javax.faces.RetargetableHandlers";
+    // Mojarra 2.2
+    private static final String JAVAX_FACES_ATTACHED_OBJECT_HANDLERS = "javax.faces.view.AttachedObjectHandlers";
 
     private TagHandlerUtils() {
         // utility class constructor
     }
 
+    @SuppressWarnings({ "unchecked" })
     public static List<AttachedObjectHandler> getOrCreateRetargetableHandlersList(UIComponent component) {
         Map<String, Object> attrs = component.getAttributes();
-        @SuppressWarnings({ "unchecked" })
-        List<AttachedObjectHandler> list = (List<AttachedObjectHandler>) attrs.get(JAVAX_FACES_RETARGETABLE_HANDLERS);
+        List<AttachedObjectHandler> list = (List<AttachedObjectHandler>) attrs.get(JAVAX_FACES_ATTACHED_OBJECT_HANDLERS);
+        if (list == null) {
+            list = (List<AttachedObjectHandler>) attrs.get(JAVAX_FACES_RETARGETABLE_HANDLERS);
+        }
 
         if (list == null) {
             list = new ArrayList<AttachedObjectHandler>();
             attrs.put(JAVAX_FACES_RETARGETABLE_HANDLERS, list);
+            attrs.put(JAVAX_FACES_ATTACHED_OBJECT_HANDLERS, list);
         }
 
         return list;
