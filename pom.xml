@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>5.0.0-SNAPSHOT</version>
+        <version>5.0.0.Alpha3</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -15,10 +15,10 @@
     <artifactId>richfaces-showcase</artifactId>
     <packaging>war</packaging>
     <name>RichFaces Showcase</name>
-    <version>4.5.0-SNAPSHOT</version>
+    <version>4.5.0.Alpha2</version>
 
     <properties>
-        <version.rf4.ui>4.5.0-SNAPSHOT</version.rf4.ui>
+        <version.rf4.ui>4.5.0.Alpha2</version.rf4.ui>
         <dependency.scope>compile</dependency.scope>
         <container.classifier>tomcat6</container.classifier>
         <container.resources>src/main/resources-tomcat</container.resources>
