@@ -125,14 +125,6 @@ If everything went fine, you can "Close" the release and make it available for r
 
 If QE and development find issues, and the release needs to be dropped follow the directions above, and "drop" the staging repository.
 
-=== Push Tag
-
-Once the release staging is performed, you can push the tag to the repository:
-
-----
-git push origin 5.0.0.Alpha1
-----
-
 == Release Verification
 
 At this point the staged release is prepared for verification by QE.
@@ -161,8 +153,15 @@ This is very easy.  Simply log into the nexus server following https://community
  
 If QE and development find issues, and the release needs to be dropped follow the directions above, and "drop" the stage.
 
+=== Push Tag
 
-== Merging Release branch with Master branch
+Once the release verification is successfully performed, you can also push the tag to the repository:
+
+----
+git push origin 5.0.0.Alpha1
+----
+
+=== Merging Release branch with Master branch
 
 At this point, you can merge a release branch back to the master branch:
 
