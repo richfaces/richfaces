@@ -125,6 +125,14 @@ If everything went fine, you can "Close" the release and make it available for r
 
 If QE and development find issues, and the release needs to be dropped follow the directions above, and "drop" the staging repository.
 
+
+=== Do Not Forget to Stage Archetypes
+
+RichFaces 5 Archetypes have separated staging process (which ensures that archetypes can be corrected and released independently after framework release), but they follows pretty same release procedure as framework does.
+
+Archetypes needs to be released into a separated staging repository.
+
+
 == Release Verification
 
 At this point the staged release is prepared for verification by QE.
@@ -186,3 +194,5 @@ Now you can push the merged release branch to master and then remove the release
 git push origin master
 git push origin :release/5.0.0.Alpha1
 ----
+
+Don't forget to perform same steps for Archetypes repository.
