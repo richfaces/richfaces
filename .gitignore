@@ -6,6 +6,7 @@ test-output
 .clover
 .externalToolBuilders
 .idea
+*.iml
 MANIFEST.MF
 rebel.xml
 *faces-config.xml.jsfdia
