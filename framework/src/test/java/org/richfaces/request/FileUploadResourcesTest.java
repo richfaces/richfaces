@@ -42,11 +42,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.io.ByteStreams;
-import com.google.common.io.Closeables;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class FileUploadResourcesTest {
     private FileUploadMemoryResource memoryResource;
@@ -83,7 +81,11 @@ public class FileUploadResourcesTest {
         try {
             return ByteStreams.toByteArray(is);
         } finally {
-            Closeables.closeQuietly(is);
+            try {
+                is.close();
+            } catch (IOException e) {
+                // Swallow
+            }
         }
     }
 
@@ -149,13 +151,21 @@ public class FileUploadResourcesTest {
             is = memoryResource.getInputStream();
             assertNotNull(is);
         } finally {
-            Closeables.closeQuietly(is);
+            try {
+                is.close();
+            } catch (IOException e) {
+                // Swallow
+            }
         }
         try {
             is = discResource.getInputStream();
             assertNotNull(is);
         } finally {
-            Closeables.closeQuietly(is);
+            try {
+                is.close();
+            } catch (IOException e) {
+                // Swallow
+            }
         }
 
         assertSame(memoryResource, memoryResource.getResource());

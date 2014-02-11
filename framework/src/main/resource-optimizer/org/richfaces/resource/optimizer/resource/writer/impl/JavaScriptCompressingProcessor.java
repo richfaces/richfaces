@@ -33,7 +33,6 @@ import java.nio.charset.Charset;
 import org.richfaces.log.Logger;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 
-import com.google.common.io.Closeables;
 import com.google.common.io.InputSupplier;
 import com.google.common.io.OutputSupplier;
 import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
@@ -89,9 +88,19 @@ public class JavaScriptCompressingProcessor implements ResourceProcessor {
                 log.debug(reporter.getWarningsLog());
             }
         } finally {
-            Closeables.closeQuietly(reader);
+            try {
+                reader.close();
+            }
+            catch (IOException e) {
+                // Swallow
+            }
             if (closeAtFinish) {
-                Closeables.closeQuietly(writer);
+                try {
+                    writer.close();
+                }
+                catch (IOException e){
+                    // Swallow
+                }
             } else {
                 writer.flush();
             }

@@ -46,7 +46,6 @@ import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.io.ByteStreams;
-import com.google.common.io.Closeables;
 
 /**
  * @author Nick Belaevski
@@ -221,7 +220,12 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         } finally {
-            Closeables.closeQuietly(is);
+            try {
+                is.close();
+            }
+            catch(IOException e){
+                // Swallow
+            }
         }
 
         return false;

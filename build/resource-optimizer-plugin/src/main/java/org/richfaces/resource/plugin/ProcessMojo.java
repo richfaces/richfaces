@@ -79,7 +79,6 @@ import org.richfaces.resource.optimizer.resource.writer.impl.JavaScriptCompressi
 import org.richfaces.resource.optimizer.resource.writer.impl.JavaScriptPackagingProcessor;
 import org.richfaces.resource.optimizer.resource.writer.impl.ResourceWriterImpl;
 import org.richfaces.resource.optimizer.task.ResourceTaskFactoryImpl;
-import org.richfaces.resource.optimizer.util.MoreConstraints;
 import org.richfaces.resource.optimizer.util.MorePredicates;
 import org.richfaces.resource.optimizer.vfs.VFS;
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
@@ -92,11 +91,9 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.base.Strings;
-import com.google.common.collect.Constraints;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
-import com.google.common.io.Closeables;
 
 /**
  * Scans for resource dependencies (ResourceDependency annotations) on the class-path and collect them in order to pre-generate
@@ -361,9 +358,8 @@ public class ProcessMojo extends AbstractMojo {
 
     protected URL[] getProjectClassPath() {
         try {
-            List<String> classpath = Constraints.constrainedList(Lists.<String>newArrayList(),
-                MoreConstraints.cast(String.class));
-            classpath.addAll((List<String>) project.getCompileClasspathElements());
+            List<String> classpath = new ArrayList<String>();
+            classpath.addAll(project.getCompileClasspathElements());
             classpath.add(project.getBuild().getOutputDirectory());
 
             URL[] urlClasspath = filter(transform(classpath, filePathToURL), notNull()).toArray(EMPTY_URL_ARRAY);
@@ -503,7 +499,7 @@ public class ProcessMojo extends AbstractMojo {
             getLog().debug(completionService.toString());
 
             resourceWriter.writeProcessedResourceMappings(new File(staticResourceMappingFile), staticResourcePrefix);
-            Closeables.closeQuietly(resourceWriter);
+            resourceWriter.close();
         } catch (Exception e) {
             throw new MojoExecutionException(e.getMessage(), e);
         } finally {

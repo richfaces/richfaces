@@ -43,11 +43,8 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 
-import com.google.common.io.Closeables;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUserResource> {
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
@@ -70,7 +67,11 @@ public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUse
                     LOGGER.debug(e.getMessage(), e);
                 }
 
-                Closeables.closeQuietly(fbos);
+                try {
+                    fbos.close();
+                } catch (IOException e) {
+                    // Swallow
+                }
             }
         }
         ByteBuffer buffer = fbos.getFirstBuffer();

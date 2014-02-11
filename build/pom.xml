@@ -62,7 +62,7 @@
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
 
         <!-- Project Versions -->
-        <version.google-guava>13.0.1</version.google-guava>
+        <version.google-guava>16.0.1</version.google-guava>
         <version.cssparser>0.9.11</version.cssparser>
 
         <!-- JSF Implementations Versions-->
@@ -88,7 +88,7 @@
         <version.hibernate-annotations>3.5.6-Final</version.hibernate-annotations>
         
         <!-- Resource Optimizer -->
-        <version.reflections>0.9.5</version.reflections>
+        <version.reflections>0.9.8</version.reflections>
         <version.yuicompressor>2.3.6</version.yuicompressor>
         <version.jcommander>1.20</version.jcommander>
         <version.jboss-el>1.0_02.CR5</version.jboss-el>

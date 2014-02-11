@@ -48,7 +48,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.google.common.io.Closeables;
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
 
@@ -229,7 +228,12 @@ public class ResourceWriterImpl implements ResourceWriter {
 
     public void close() {
         for (FileOutputStream out : PACKED.values()) {
-            Closeables.closeQuietly(out);
+            try {
+                out.close();
+            }
+            catch (IOException e){
+                // Swallow
+            }
         }
     }
 }

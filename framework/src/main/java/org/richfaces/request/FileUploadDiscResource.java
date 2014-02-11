@@ -28,8 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 
-import com.google.common.io.Closeables;
-
 /**
  * @author Nick Belaevski
  */
@@ -86,7 +84,13 @@ final class FileUploadDiscResource extends FileUploadResource {
     }
 
     public void complete() {
-        Closeables.closeQuietly(fos);
+        try {
+            if (fos != null) {
+                fos.close();
+            }
+        } catch (IOException e) {
+            // Swallow
+        }
         fos = null;
     }
 }

@@ -37,7 +37,6 @@ import org.richfaces.resource.optimizer.faces.CurrentResourceContext;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 
 import com.google.common.io.ByteStreams;
-import com.google.common.io.Closeables;
 import com.google.common.io.InputSupplier;
 import com.google.common.io.OutputSupplier;
 
@@ -83,9 +82,19 @@ public class CSSPackagingProcessor implements ResourceProcessor {
             writer.write("\n\n");
             writer.flush();
         } finally {
-            Closeables.closeQuietly(reader);
+            try {
+                reader.close();
+            }
+            catch (IOException e){
+                // Swallow
+            }
             if (closeAtFinish) {
-                Closeables.closeQuietly(writer);
+                try {
+                    writer.close();
+                }
+                catch (IOException e){
+                    // Swallow
+                }
             } else {
                 writer.flush();
             }
