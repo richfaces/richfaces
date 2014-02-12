@@ -1,3 +1,57 @@
+5.0.0.Alpha3
+------------
+
+    Bug
+    [RF-11973] - rich:contextMenu - after ajax re-render of table contextMenu no longer works
+    [RF-12813] - rich:panelMenuItem executes action even if disabled attribute evaluates to true
+    [RF-12865] - Correct deferred partial response ending by leveraging PVC wrapper chain
+    [RF-13040] - Examples don't work on WildFly
+    [RF-13041] - Metamer: demos throw NullPointerException
+    [RF-13062] - r:validator stops working
+    [RF-13093] - EPVC: ViewState must be written even for transient (stateless) views
+    [RF-13168] - 3rd party JSF component disappears on RichFaces ajax refresh
+    [RF-13197] - Input with name javax.faces.ViewState is not rendered after submit
+    [RF-13198] - ITAutoRegisteredPushServlet fails with - Async is not supported for this request on WildFly80
+    [RF-13199] - Framework tests does not include all needed classes to the deployment when deploying on WildFly
+    [RF-13208] - Push: error "not well-formed" appears in browser console in Firefox - make messages a valid XML
+    [RF-13239] - Popup panel: CSS class rf-pp-hdr contains invalid property repeat-x
+    [RF-13252] - a4j:ajax includes jsf.js script twice
+    [RF-13317] - ExtendedPartialViewContextImpl should specify correct javax.faces.ViewState id in startUpdate()
+    [RF-13358] - rich:panelMenuGroup allowing actions executions even if originally disabled
+    [RF-13369] - autocomplete problem in glassfish 4 with jsf 2.2
+    [RF-13379] - Build on Travis fails due to NoClassDefFoundEx.: javax/servlet/Servlet (during framework resource optimization)
+    [RF-13417] - Some warp-based framework tests fail on WildFly with exception 'Could not inject members'
+    [RF-13420] - Showcase - WARNING No mime type could be found for file fontawesome-webfont.woff is logged
+    [RF-13444] - r:fileUpload throws IOException "Request prolog cannot be read"
+    [RF-13455] - The rich:tabPanel no longer visits tab header facets while rendering a response.
+    [RF-13472] - Action listener: binding doesn't work
+    [RF-13496] - StackOverflowError in RendererBase.encodeEnd
+    [RF-13498] - Photoalbum - shutting down server with deployed app will throw JdbcSQLException:
+    [RF-13508] - Deprecate reslib resource file - RF 4.5/5
+    [RF-13513] - CollectionDataModel API is not available on pre-JSF 2.1 that poses backward compatibility problem
+    [RF-13518] - Action Listener - invoking from composite component does not work
+    [RF-13519] - Stackoverflow in CharRendererBase
+    [RF-13520] - mediaOutput: NPE is thrown when used with CDI beans and JSF 2.2
+
+    Component Upgrade
+    [RF-13432] - Upgrade framework build to JSF 2.2
+    [RF-13438] - Update jboss-parent to 12
+    [RF-13454] - Upgrade integration tests use of WildFly to 8.0.0.CR1
+    [RF-13481] - Upgrade to Warp 1.0.0.Alpha6
+
+    Enhancement
+    [RF-13278] - Add support for a 'header' meta-component to the rich:tabPanel
+    [RF-13307] - Support java.util.Collection in iteration components
+    [RF-13314] - Deprecate reslib resource files
+    [RF-13494] - Make the RichFaces RendererBase decode/encode* methods final
+
+    Task
+    [RF-13248] - Switch RichFaces smoke tests to run on WildFly 8 by default
+    [RF-13343] - Page Fragments: Re-implement setupFragmentFromWidget() methods using component options access
+    [RF-13448] - Add javadoc to the SequenceIterationStatus class
+    [RF-13517] - Mark all frameowkr tests that requires JSF 2.2 with a new @Category(RequiresJSF22)
+
+
 5.0.0.Alpha2
 ------------
 
@@ -149,6 +203,7 @@
     [RF-13335] - Page fragments: get rid of commons-lang dependency
     [RF-13336] - Page fragments: get rid of json-simple dependency
     [RF-13337] - Page fragments: get rid of typetools dependency
+
 
 5.0.0.Alpha1
 ------------
