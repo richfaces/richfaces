@@ -15,6 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "richwidgets": "richwidgets#0.1.0"
+    "richwidgets": "richwidgets#dist"
   }
 }
