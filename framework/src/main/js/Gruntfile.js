@@ -17,7 +17,8 @@ module.exports = function(grunt) {
         jqueryui: "<%= dir.resources.root %>/com.jqueryui",
         bootstrap: "<%= dir.resources.root %>/bootstrap",
         fontawesome: "<%= dir.resources.root %>/font-awesome",
-        flot: "<%= dir.resources.root %>/flot"
+        flot: "<%= dir.resources.root %>/flot",
+        ckeditor: "<%= dir.resources.root %>/ckeditor"
       },
       bower: {
         root: "bower_components/richwidgets/dist/assets",
@@ -25,7 +26,8 @@ module.exports = function(grunt) {
         jqueryui: "<%= dir.bower.root %>/jquery-ui",
         bootstrap: "<%= dir.bower.root %>/bootstrap",
         fontawesome: "<%= dir.bower.root %>/font-awesome",
-        flot: "<%= dir.bower.root %>/flot"
+        flot: "<%= dir.bower.root %>/flot",
+        ckeditor: "<%= dir.bower.root %>/ckeditor"
       }
     },
 
@@ -99,6 +101,16 @@ module.exports = function(grunt) {
             cwd: '<%= dir.bower.flot %>',
             src: '**',
             dest: '<%= dir.resources.flot %>'
+          }
+        ]
+      },
+      ckeditor: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= dir.bower.ckeditor %>',
+            src: '**',
+            dest: '<%= dir.resources.ckeditor %>'
           }
         ]
       }
