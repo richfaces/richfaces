@@ -117,7 +117,7 @@
         <version.jboss-javaee>3.0.2.Final</version.jboss-javaee>
         
         <!-- Container Versions -->
-        <version.wildfly80>8.0.0.CR1</version.wildfly80>
+        <version.wildfly80>8.0.0.Final</version.wildfly80>
         <version.jbossas71>7.1.1.Final</version.jbossas71>
         <version.tomee15>1.5.1</version.tomee15>
         <version.glassfish31>3.1.2.2</version.glassfish31>
