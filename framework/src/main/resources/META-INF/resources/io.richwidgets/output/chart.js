@@ -130,7 +130,7 @@
        * Customizes the vertical axis
        * @type Object
        * @default {min: null, max: null,autoscaleMargin: 0.2,axisLabel: ''}
-       * @property xaxis
+       * @property yaxis
        *   @property min {Number}
        *   Minimal value shown on axis
        *   @property max {Number}
@@ -372,17 +372,34 @@
 
     // Use the _setOption method to respond to changes to options
     _setOption: function (key, value) {
-      // In jQuery UI 1.9 and above, you use the _super method instead
-      this._super('_setOption', key, value);
+
+
 
       var redraw = true; //variable decides whether redraw of the chart is required
 
       //the change of a handler does not require chart to be redrawn
       switch (key) {
+        case 'xaxis':
+        case 'yaxis':
+        case 'legend':
+        case 'grid':
+        case 'tooltip':
+          var tmpVal = this.option(key);
+          this._super(key, $.extend(true,tmpVal,value));
+          break;
         case 'zoom':
+          this._super(key, value);
+          if(value){
+            this._super('selection',{mode: 'xy'});
+          }
+          else{
+            this._super('selection',{});
+          }
           this._unbind();
           this._registerListeners();
-          redraw = false;
+          break;
+        default:
+          this._super(key, value);
           break;
       }
 
@@ -425,7 +442,7 @@
 
         // do the zooming
 
-        widget._draw($.extend({}, widget.options, {
+        widget._draw($.extend(true,{}, widget.options, {
           xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
           yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to }
         })
@@ -452,6 +469,24 @@
       return this.plot;
     },
 
+    /**
+     * Highlights the point in chart selected by seriesIndex or point index. Does not work for pie charts.
+     * @param seriesIndex {int}
+     * @param pointIndex {int}
+     * @method highlight
+     */
+    highlight: function(seriesIndex,pointIndex){
+       this.plot.highlight(seriesIndex,pointIndex);
+    },
+    /**
+     * Removes highlighting of point. If method is called without parameters it unhighlights all points.
+     * @param seriesIndex {int}
+     * @param pointIndex {int}
+     * @method unghighlight
+     */
+    unhighlight: function(seriesIndex,pointIndex){
+       this.plot.unhighlight(seriesIndex,pointIndex);
+    },
 
     _unbind: function () {
       this.element.off('plotselected');

@@ -2,11 +2,11 @@
  * jquery.flot.tooltip
  * 
  * description: easy-to-use tooltips for Flot charts
- * version: 0.6.2
+ * version: 0.6.4
  * author: Krzysztof Urbas @krzysu [myviews.pl]
  * website: https://github.com/krzysu/flot.tooltip
  * 
- * build on 2013-09-30
+ * build on 2014-01-20
  * released under MIT License, 2012
 */ 
 (function ($) {
@@ -24,6 +24,8 @@
             // %p -> percent
             xDateFormat: null,
             yDateFormat: null,
+            monthNames: null,
+            dayNames: null,
             shifts: {
                 x: 10,
                 y: 20
@@ -65,20 +67,22 @@
 
             // bind event
             $( plot.getPlaceholder() ).bind("plothover", plothover);
-			
+
 			$(eventHolder).bind('mousemove', mouseMove);
- 
         });
+
 		plot.hooks.shutdown.push(function (plot, eventHolder){
 			$(plot.getPlaceholder()).unbind("plothover", plothover);
 			$(eventHolder).unbind("mousemove", mouseMove);
 		});
-        function mouseMove(e){ 
+
+        function mouseMove(e){
             var pos = {};
             pos.x = e.pageX;
             pos.y = e.pageY;
             that.updateTooltipPosition(pos);
         }
+
 		function plothover(event, pos, item) {
 			var $tip = that.getDomElement();
             if (item) {
@@ -161,12 +165,17 @@
 
         var percentPattern = /%p\.{0,1}(\d{0,})/;
         var seriesPattern = /%s/;
-        var xPattern = /%x\.{0,1}(?:\d{0,})/;
-        var yPattern = /%y\.{0,1}(?:\d{0,})/;
+        var xPattern = /%x\.{0,1}(\d{0,})/;
+        var yPattern = /%y\.{0,1}(\d{0,})/;
+        var xPatternWithoutPrecision = "%x";
+        var yPatternWithoutPrecision = "%y";
+
+        var x = item.series.data[item.dataIndex][0]; // not item.datapoint[0];
+        var y = item.series.data[item.dataIndex][1]; // not item.datapoint[1];
 
         // if it is a function callback get the content string
         if( typeof(content) === 'function' ) {
-            content = content(item.series.label, item.series.data[item.dataIndex][0], item.series.data[item.dataIndex][1], item);
+            content = content(item.series.label, x, y, item);
         }
 
         // percent match for pie charts
@@ -178,30 +187,41 @@
         if( typeof(item.series.label) !== 'undefined' ) {
             content = content.replace(seriesPattern, item.series.label);
         }
+        else {
+            //remove %s if label is undefined
+            content = content.replace(seriesPattern, "");
+        }
 
         // time mode axes with custom dateFormat
         if(this.isTimeMode('xaxis', item) && this.isXDateFormat(item)) {
-            content = content.replace(xPattern, this.timestampToDate(item.series.data[item.dataIndex][0], this.tooltipOptions.xDateFormat));
+            content = content.replace(xPattern, this.timestampToDate(x, this.tooltipOptions.xDateFormat));
         }
 
         if(this.isTimeMode('yaxis', item) && this.isYDateFormat(item)) {
-            content = content.replace(yPattern, this.timestampToDate(item.series.data[item.dataIndex][1], this.tooltipOptions.yDateFormat));
+            content = content.replace(yPattern, this.timestampToDate(y, this.tooltipOptions.yDateFormat));
         }
 
         // set precision if defined
-        if( typeof item.series.data[item.dataIndex][0] === 'number' ) {
-            content = this.adjustValPrecision(xPattern, content, item.series.data[item.dataIndex][0]);
+        if(typeof x === 'number') {
+            content = this.adjustValPrecision(xPattern, content, x);
         }
-        if( typeof item.series.data[item.dataIndex][1] === 'number' ) {
-            content = this.adjustValPrecision(yPattern, content, item.series.data[item.dataIndex][1]);
+        if(typeof y === 'number') {
+            content = this.adjustValPrecision(yPattern, content, y);
         }
 
+        // change x from number to given label, if given
+        if(typeof item.series.xaxis.ticks !== 'undefined') {
+            if(item.series.xaxis.ticks.length > item.dataIndex && !this.isTimeMode('xaxis', item))
+                content = content.replace(xPattern, item.series.xaxis.ticks[item.dataIndex].label);
+        }
         // if no value customization, use tickFormatter by default
         if(typeof item.series.xaxis.tickFormatter !== 'undefined') {
-            content = content.replace(xPattern, item.series.xaxis.tickFormatter(item.series.data[item.dataIndex][0], item.series.xaxis));
+            //escape dollar
+            content = content.replace(xPatternWithoutPrecision, item.series.xaxis.tickFormatter(x, item.series.xaxis).replace(/\$/g, '$$'));
         }
         if(typeof item.series.yaxis.tickFormatter !== 'undefined') {
-            content = content.replace(yPattern, item.series.yaxis.tickFormatter(item.series.data[item.dataIndex][1], item.series.yaxis));
+            //escape dollar
+            content = content.replace(yPatternWithoutPrecision, item.series.yaxis.tickFormatter(y, item.series.yaxis).replace(/\$/g, '$$'));
         }
 
         return content;
@@ -222,8 +242,8 @@
 
     //
     FlotTooltip.prototype.timestampToDate = function(tmst, dateFormat) {
-        var theDate = new Date(tmst);
-        return $.plot.formatDate(theDate, dateFormat);
+        var theDate = new Date(tmst*1);
+        return $.plot.formatDate(theDate, dateFormat, this.tooltipOptions.monthNames, this.tooltipOptions.dayNames);
     };
 
     //

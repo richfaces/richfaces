@@ -4,10 +4,9 @@
   height: 0;
   margin-left: 2px;
   vertical-align: middle;
-  border-top: 0 solid #000000;
+  border-top: 0 solid;
   border-right: 0 solid transparent;
   border-left: 0 solid transparent;
-  border-bottom: 0 dotted;
 }
 .dropdown {
   position: relative;
@@ -108,8 +107,8 @@
 }
 .dropup .caret,
 .navbar-fixed-bottom .dropdown .caret {
-  border-top: 0 dotted;
-  border-bottom: 0 solid #000000;
+  border-top: 0;
+  border-bottom: 0 solid;
   content: "";
 }
 .dropup .dropdown-menu,
@@ -162,7 +161,7 @@
 .dropdown-menu > li > a:active {
   background-color: #0099d3;
   border-color: #0076b7;
-  color: #ffffff;
+  color: #ffffff !important;
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 .dropdown-menu > .active > a,
@@ -234,14 +233,10 @@
 .open .dropdown-submenu.active > .dropdown-menu {
   display: block;
 }
-/* Red Hat Common User Experience (RCUE) */
-/* Bootstrap overrides and RCUE-specific mixins */
 /* Bootstrap overrides */
-/* RCUE-specific */
-/* Red Hat Common User Experience (RCUE) */
-/* Bootstrap overrides and RCUE-specific variables */
+/* PatternFly-specific */
 /* Bootstrap overrides */
-/* RCUE-specific */
+/* PatternFly-specific */
 .ui-autocomplete {
   position: absolute;
   top: 100%;
