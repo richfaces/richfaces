@@ -115,19 +115,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- For MyFaces specific resource loading (RF-11974) -->
-        <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.myfaces.core</groupId>
-                    <artifactId>myfaces-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
         <!-- Test Dependencies -->
         <dependency>
             <groupId>org.jboss.test-jsf</groupId>
