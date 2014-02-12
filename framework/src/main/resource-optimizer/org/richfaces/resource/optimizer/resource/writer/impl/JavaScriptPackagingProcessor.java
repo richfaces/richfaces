@@ -32,17 +32,13 @@ import java.nio.charset.Charset;
 
 import javax.faces.context.FacesContext;
 
+import com.google.common.io.*;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.optimizer.faces.CurrentResourceContext;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 
-import com.google.common.io.ByteStreams;
-import com.google.common.io.InputSupplier;
-import com.google.common.io.OutputSupplier;
-
 /**
  * @author Nick Belaevski
- *
  */
 public class JavaScriptPackagingProcessor implements ResourceProcessor {
     private Charset charset;
@@ -57,9 +53,9 @@ public class JavaScriptPackagingProcessor implements ResourceProcessor {
     }
 
     @Override
-    public void process(String outputName, InputSupplier<? extends InputStream> in,
-            OutputSupplier<? extends OutputStream> out, boolean closeAtFinish) throws IOException {
-        process(outputName, in.getInput(), out.getOutput(), closeAtFinish);
+    public void process(String outputName, ByteSource byteSource,
+                        ByteSink byteSink, boolean closeAtFinish) throws IOException {
+        process(outputName, byteSource.openStream(), byteSink.openStream(), closeAtFinish);
     }
 
     @Override
@@ -90,15 +86,13 @@ public class JavaScriptPackagingProcessor implements ResourceProcessor {
         } finally {
             try {
                 reader.close();
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 // Swallow
             }
             if (closeAtFinish) {
                 try {
                     writer.close();
-                }
-                catch (IOException e){
+                } catch (IOException e) {
                     // Swallow
                 }
             } else {

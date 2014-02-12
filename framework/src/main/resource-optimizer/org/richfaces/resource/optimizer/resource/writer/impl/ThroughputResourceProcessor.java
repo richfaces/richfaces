@@ -25,15 +25,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
-
+import com.google.common.io.ByteSink;
+import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
-import com.google.common.io.InputSupplier;
-import com.google.common.io.OutputSupplier;
+import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 
 /**
  * @author Nick Belaevski
- *
  */
 final class ThroughputResourceProcessor implements ResourceProcessor {
     public static final ResourceProcessor INSTANCE = new ThroughputResourceProcessor();
@@ -47,9 +45,9 @@ final class ThroughputResourceProcessor implements ResourceProcessor {
     }
 
     @Override
-    public void process(String outputName, InputSupplier<? extends InputStream> in,
-            OutputSupplier<? extends OutputStream> out, boolean closeAtFinish) throws IOException {
-        process(outputName, in.getInput(), out.getOutput(), closeAtFinish);
+    public void process(String outputName, ByteSource byteSource,
+                        ByteSink byteSink, boolean closeAtFinish) throws IOException {
+        process(outputName, byteSource.openStream(), byteSink.openStream(), closeAtFinish);
     }
 
     @Override
@@ -59,15 +57,13 @@ final class ThroughputResourceProcessor implements ResourceProcessor {
         } finally {
             try {
                 in.close();
-            }
-            catch(IOException e){
+            } catch (IOException e) {
                 // Swallow
             }
             if (closeAtFinish) {
                 try {
                     out.close();
-                }
-                catch(IOException e){
+                } catch (IOException e) {
                     // Swallow
                 }
             } else {
