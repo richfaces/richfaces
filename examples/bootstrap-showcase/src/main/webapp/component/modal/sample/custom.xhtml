@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+
+    <b:commandButton value="Launch Custom Modal" mode="client" onclick="#{b:show('customModal')}" />
+
+    <b:modal id="customModal" closeable="false">
+        <b:headerFacet>
+            <h3>A custom header</h3>
+        </b:headerFacet>
+        
+        <h:form style="margin: 0">
+            <b:bodyFacet>
+                <p>This modal can be closed only with Save or Cancel buttons.</p>
+                
+                <p>Clicking on shadow or using Escape key won't close the modal.</p>
+                
+                <b:input placeholder="123-456">
+                    <f:facet name="prepend">
+                        <h:outputText value="Promo Code" />
+                    </f:facet>
+                    <f:facet name="append">
+                        <b:commandButton value="Check Promo" severity="success" />
+                    </f:facet>
+                </b:input>
+                
+                <h:panelGrid columns="1">
+                    <b:input placeholder="John">
+                        <f:facet name="prepend">
+                            <h:outputText value="Name" />
+                        </f:facet>
+                    </b:input>
+                    
+                    <b:input placeholder="Doe">
+                        <f:facet name="prepend">
+                            <h:outputText value="Surname" />
+                        </f:facet>
+                    </b:input>
+                    
+                    <b:input placeholder="john@doe.com">
+                        <f:facet name="prepend">
+                            <h:outputText value="E-mail" />
+                        </f:facet>
+                    </b:input>
+                </h:panelGrid>
+            </b:bodyFacet>
+            
+            <b:footerFacet>
+                <b:commandButton value="Save" severity="primary" mode="client" onclick="#{b:hide('customModal')}" />
+                
+                <b:commandButton value="Cancel" mode="client" onclick="#{b:hide('customModal')}" />
+            </b:footerFacet>
+        </h:form>
+    </b:modal>
+</ui:composition>

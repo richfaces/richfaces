@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:r="http://richfaces.org"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="body">
+        <ui:param name="tag" value="icon"/>
+        
+        <h:outputStylesheet>
+            .btn {
+                font-size: 14px;
+            }
+        </h:outputStylesheet>
+        
+        <h1><code>b:icon</code></h1>
+        <p>The <code>b:icon</code> displays an icon.</p>
+
+        <h2>Basic usage</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="icon"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
+        
+        <h2>Inside buttons</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="icon"/>
+            <ui:param name="sample" value="button"/>
+        </ui:include>
+        
+        <h2>Rainbow</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="icon"/>
+            <ui:param name="sample" value="color"/>
+        </ui:include>
+        
+        <h2>Attributes</h2>
+
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="icon"/>
+            <ui:param name="sample" value="attributes"/>
+        </ui:include>
+    </ui:define>
+</ui:composition>
+</html>

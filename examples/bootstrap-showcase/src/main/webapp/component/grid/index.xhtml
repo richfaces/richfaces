@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/demo.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:r="http://richfaces.org"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <ui:define name="params">
+        <ui:param name="brand" value="Grid demo" />
+        <ui:param name="tags" value="gridContainer,gridRow,gridColumn" />
+    </ui:define>
+    
+    <ui:define name="body">
+        <h:outputStylesheet>
+            /* Special grid styles
+-------------------------------------------------- */
+            .show-grid {
+                margin-top: 10px;
+                margin-bottom: 20px;
+            }
+            .show-grid [class*="span"] {
+                background-color: #eee;
+                text-align: center;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+                min-height: 30px;
+                line-height: 30px;
+            }
+            .show-grid:hover [class*="span"] {
+                background: #ddd;
+            }
+            .show-grid .show-grid {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+            .show-grid .show-grid [class*="span"] {
+                background-color: #ccc;
+            }
+
+        </h:outputStylesheet>
+
+        <h1><code>b:gridContainer</code> <code>b:gridRow</code> <code>b:gridColumn</code></h1>
+        <p>The Bootstrap grid is a responsive layout that adapts to the width of your screen. Its composed by three components :</p>
+        <ul>
+            <li><code>b:gridContainer</code> is a wrapper around your page / content.</li>
+            <li><code>b:gridRow</code> is a section of your page and will occupied full width availabled.</li>
+            <li><code>b:gridColumn</code> is a part of a gridRow. There is maximum 12 gridColumns in one gridRow.</li>
+        </ul>
+
+        <p>
+            <h:form>
+                <h:commandButton action="switchFluidMode" styleClass="btn"
+                    value="Switch to #{sessionBean.fluid ? 'non-' : ''}fluid mode">
+                    <f:setPropertyActionListener target="#{sessionBean.fluid}" value="#{!sessionBean.fluid}" />
+                </h:commandButton>
+            </h:form>
+        </p>
+
+        <h2>Basic Usage</h2>
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="grid"/>
+            <ui:param name="sample" value="basic"/>
+        </ui:include>
+
+        <h2>Offsetting columns</h2>
+        <b:alert rendered="#{sessionBean.fluid}" severity="error">
+            <h:outputText value="Offsetting doesn't work with fluid layout." />
+        </b:alert>
+        
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="grid"/>
+            <ui:param name="sample" value="offset"/>
+        </ui:include>
+
+    </ui:define>
+</ui:composition>
+</html>

@@ -48,6 +48,7 @@
         <module>dist</module>
 
         <module>examples/photoalbum</module>
+        <module>examples/bootstrap-showcase</module>
         <module>examples/showcase</module>
         <module>examples/template</module>
         <module>examples/components-demo</module>

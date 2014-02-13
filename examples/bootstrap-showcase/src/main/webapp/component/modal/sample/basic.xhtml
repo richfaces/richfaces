@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+
+    <b:commandButton value="Show Modal" mode="client" onclick="#{b:show('basicModal')}" />
+    
+    <b:modal id="basicModal" header="A fine header">
+        
+        <p>A fine body!</p>
+        
+        <p>This modal can be closed by <b>clicking on shadow</b>, by <b>X button</b> in the top-right corner or by <b>ESC key</b>.</p>
+        
+        <f:facet name="footer">
+            <b:commandButton mode="client"
+                value="Save"
+                action="none"
+                onclick="#{b:hide('basicModal')}" />
+        </f:facet>
+    </b:modal>
+</ui:composition>

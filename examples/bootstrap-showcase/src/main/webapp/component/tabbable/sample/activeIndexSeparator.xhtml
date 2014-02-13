@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+    <b:tabbable activeIndex="1:1" indexSeparator=":">
+        <b:tab title="Section 1">
+            <p>I'm in Section 1.</p>
+        </b:tab>
+        <b:menuFacet label="Section 2">
+            <b:tab title="Section 2.1">
+                <p>Howdy, I'm in Section 2.1</p>
+            </b:tab>
+            <b:tab title="Section 2.2">
+                <p>Howdy, I'm in Section 2.2</p>
+            </b:tab>
+        </b:menuFacet>
+        <b:tab title="Section 3">
+            <p>Howdy, I'm in Section 3.</p>
+        </b:tab>
+    </b:tabbable>
+</ui:composition>
