@@ -235,6 +235,8 @@
 }
 /* Bootstrap overrides */
 /* PatternFly-specific */
+/* Bootstrap overrides */
+/* PatternFly-specific */
 .ui-autocomplete {
   position: absolute;
   top: 100%;
@@ -322,8 +324,6 @@ ul.ui-autocomplete-layout-table > li.ui-menu-item > a > span:last-child {
   top: 0;
   left: 0;
 }
-/* Bootstrap overrides */
-/* PatternFly-specific */
 .select-list {
   margin: 0;
   /* w/ handle styles */

@@ -26,22 +26,24 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.URLResource;
-import org.richfaces.resource.mapping.LibraryResourceMapper;
 import org.richfaces.resource.mapping.PropertiesResourceMapper;
 import org.richfaces.resource.mapping.ResourceAggregator;
 import org.richfaces.resource.mapping.ResourceMapper;
 import org.richfaces.resource.mapping.ResourceMapping;
 import org.richfaces.resource.mapping.ResourcePath;
+import org.richfaces.resource.mapping.ResourceServletMapping;
 import org.richfaces.services.Initializable;
 import org.richfaces.services.ServiceLoader;
 import org.richfaces.services.ServiceUtils;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 
 /**
@@ -53,8 +55,16 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
 
     private List<ResourceMapper> mappers;
 
-    private List<String> resourceLibrariesToMap = Arrays.asList("org.richfaces", "io.richwidgets", "bootstrap", "font-awesome", "com.jqueryui",
-            "org.richfaces.ckeditor");
+    private Set<String> RESOURCE_LIBRARIES_TO_MAP = new TreeSet<String>(Arrays.asList(
+            "org.richfaces",
+            "io.richwidgets",
+            "bootstrap",
+            "font-awesome",
+            "com.jqueryui",
+            "org.richfaces.ckeditor",
+            "org.richfaces.ui.ckeditor",
+            "ckeditor"
+        ));
 
     /*
      * (non-Javadoc)
@@ -67,9 +77,7 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
 
         // default mappers
         mappers.add(new PropertiesResourceMapper());
-        for (String resourceLibrary : resourceLibrariesToMap) {
-            mappers.add(new LibraryResourceMapper(resourceLibrary));
-        }
+        mappers.add(new RichFacesLibrariesResourceMapper());
 
         // user-defined mappers
         mappers.addAll(ServiceLoader.loadServices(ResourceMapper.class));
@@ -126,5 +134,17 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
         }
 
         return aggregatedResources;
+    }
+
+    private class RichFacesLibrariesResourceMapper implements ResourceMapper {
+        @Override
+        public ResourceMapping mapResource(ResourceKey resourceKey) {
+            String library = Strings.nullToEmpty(resourceKey.getLibraryName());
+            if (RESOURCE_LIBRARIES_TO_MAP.contains(library)) {
+                return new ResourceServletMapping(resourceKey);
+            } else {
+                return null;
+            }
+        }
     }
 }

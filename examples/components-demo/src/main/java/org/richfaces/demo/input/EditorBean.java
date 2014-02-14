@@ -40,11 +40,11 @@ public class EditorBean implements Serializable {
     private String toolbar = "MyToolbar";
     private String skin;
     private String lang;
-    private String oninit;
-    private String onfocus;
-    private String onblur;
-    private String ondirty;
-    private String onchange;
+    private String oninit = "console.log('oninit')";
+    private String onfocus = "console.log('onfocus')";
+    private String onblur = "console.log('onblur')";
+    private String ondirty = "console.log('ondirty')";
+    private String onchange = "console.log('onchange')";
     private String styleClass;
     private String textareaClass;
     private String editorClass;

@@ -8,6 +8,8 @@
 
     DIRTY_EVENTS: [ 'key', 'paste', 'undo', 'redo' ],
 
+    /* LIFECYCLE METHODS */
+
     _create : function() {
       this.dirtyState = false;
       this.valueChanged = false;
@@ -23,6 +25,8 @@
       this.getEditor().destroy();
     },
 
+    /* PUBLIC METHODS */
+
     getEditor: function() {
       return this.editorInstance;
     },
@@ -31,45 +35,47 @@
       return this.getEditor();
     },
 
-    setValue: function(newValue) {
-
+    setValue : function(newValue) {
+      this.getEditor().setData(newValue);
     },
 
-    value: function(newValue) {
-      if (newValue === undefined) {
-        return this.getEditor().getData();
-      } else {
-        this.getEditor().setData(newValue);
-      }
+    getValue : function() {
+      return this.getEditor().getData();
     },
 
-    focus: function() {
+    getInput : function() {
+      return this.element;
+    },
+
+    focus : function() {
       this.getEditor().focus();
     },
 
-    blur: function() {
-      this.getEditor().forceBlur();
+    blur : function() {
+      this.getEditor().focusManager.blur(true);
     },
 
-    focused: function() {
+    isFocused : function() {
       return this.getEditor().focusManager.hasFocus;
     },
 
-    dirty: function() {
+    isDirty : function() {
       return this.dirtyState || this.getEditor().checkDirty();
     },
 
-    isValueChanged: function() {
+    isValueChanged : function() {
       return this.valueChanged || this.isDirty();
     },
 
-    readOnly: function(readOnly) {
-      if (readOnly === undefined) {
-        return this.getEditor().readOnly;
-      } else {
-        this.getEditor().setReadOnly(readOnly !== false);
-      }
+    setReadOnly : function(readOnly) {
+      this.getEditor().setReadOnly(readOnly !== false);
     },
+
+    isReadOnly : function() {
+      return this.getEditor().readOnly;
+    },
+
+    /* PRIVATE METHODS */
 
     _getHandlers: function() {
       var widget = this;

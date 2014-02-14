@@ -29,10 +29,8 @@
                 xmlns:r="http://richfaces.org">
     <ui:param name="title" value="Editor" />
 
-
 <!-- content -->
 <ui:define name="content">
-
             
     <h:form id="form">
     <r:status onstop="console.log('onstop')" />
@@ -62,29 +60,29 @@
                 
                 <h:panelGrid columns="1">
                     <h:button type="button" value="setReadOnly(true)"
-                           onclick="document.getElementById('form:editor').rf.component.setReadOnly(true); return false;"/>
+                           onclick="#{r:component('editor')}.setReadOnly(true); return false;"/>
                     <h:button type="button" value="setReadOnly(false)"
-                           onclick="document.getElementById('form:editor').rf.component.setReadOnly(false); return false;"/>
+                           onclick="#{r:component('editor')}.setReadOnly(false); return false;"/>
                     <h:button type="button" value="isReadOnly()"
-                           onclick="alert(document.getElementById('form:editor').rf.component.isReadOnly()); return false;"/>
+                           onclick="alert(#{r:component('editor')}.isReadOnly()); return false;"/>
                     <h:button type="button" value="setValue('test')"
-                           onclick="document.getElementById('form:editor').rf.component.setValue('test'); return false;"/>
+                           onclick="#{r:component('editor')}.setValue('test'); return false;"/>
                     <h:button type="button" value="getValue()"
-                           onclick="alert(document.getElementById('form:editor').rf.component.getValue()); return false;"/>
+                           onclick="alert(#{r:component('editor')}.getValue()); return false;"/>
                     <h:button type="button" value="getEditor()"
-                           onclick="alert(document.getElementById('form:editor').rf.component.getEditor()); return false;"/>
+                           onclick="alert(#{r:component('editor')}.getEditor()); return false;"/>
                     <h:button type="button" value="getInput()"
-                           onclick="alert(document.getElementById('form:editor').rf.component.getInput()); return false;"/>
+                           onclick="alert(#{r:component('editor')}.getInput()); return false;"/>
                     <h:button type="button" value="focus()"
-                           onclick="document.getElementById('form:editor').rf.component.focus(); return false;"/>
+                           onclick="#{r:component('editor')}.focus(); return false;"/>
                     <h:button type="button" value="blur()"
-                           onclick="document.getElementById('form:editor').rf.component.blur(); return false;"/>
+                           onclick="#{r:component('editor')}.blur(); return false;"/>
                     <h:button type="button" value="isFocused()"
-                           onclick="alert(document.getElementById('form:editor').rf.component.isFocused()); return false;"/>
+                           onclick="alert(#{r:component('editor')}.isFocused()); return false;"/>
                     <h:button type="button" value="isValueChanged()"
-                           onclick="alert(document.getElementById('form:editor').rf.component.isValueChanged()); return false;"/>
+                           onclick="alert(#{r:component('editor')}.isValueChanged()); return false;"/>
                     <h:button type="button" value="isDirty()"
-                           onclick="alert(document.getElementById('form:editor').rf.component.isDirty()); return false;"/>
+                           onclick="alert(#{r:component('editor')}.isDirty()); return false;"/>
                </h:panelGrid>
                 
                 <h:panelGrid columns="2">
