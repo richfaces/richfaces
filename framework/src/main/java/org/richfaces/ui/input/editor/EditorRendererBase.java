@@ -21,9 +21,6 @@
  */
 package org.richfaces.ui.input.editor;
 
-import javax.faces.application.Resource;
-import javax.faces.context.FacesContext;
-
 import org.richfaces.ui.input.InputRendererBase;
 
 /**
@@ -41,12 +38,6 @@ public class EditorRendererBase extends InputRendererBase {
         } else {
             return dim;
         }
-    }
-
-    public String getCKEditorRequestPath(FacesContext facesContext) {
-        Resource resource = facesContext.getApplication().getResourceHandler()
-                .createResource("ckeditor.js", "org.richfaces.ui.ckeditor");
-        return resource.getRequestPath();
     }
 
     public String getToolbar(AbstractEditor editor) {

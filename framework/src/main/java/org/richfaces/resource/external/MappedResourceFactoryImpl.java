@@ -61,8 +61,7 @@ public class MappedResourceFactoryImpl implements MappedResourceFactory, Initial
             "bootstrap",
             "font-awesome",
             "com.jqueryui",
-            "org.richfaces.ckeditor",
-            "org.richfaces.ui.ckeditor",
+            "org.richfaces.ckeditor", // RF 4.5
             "ckeditor"
         ));
 

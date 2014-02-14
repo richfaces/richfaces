@@ -68,7 +68,7 @@
 	                <cdk:scriptOption wrapper="eventHandler" attributes="focus:onfocus blur:onblur change:onchange init:oninit dirty:ondirty" />
 	            </cdk:scriptObject>
                 
-                window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.ui.ckeditor/';
+                window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/ckeditor/';
 
                 (function($) {
                     var options = #{empty toScriptArgs(options) ? '{}' : toScriptArgs(options)};

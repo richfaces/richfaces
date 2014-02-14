@@ -46,7 +46,7 @@
         <optimized.resources.prefix>org.richfaces.optimized/${version.richfaces}</optimized.resources.prefix>
         <optimized.resources.mapping>${optimized.resources.directory}/META-INF/richfaces/optimizedResourcesMapping</optimized.resources.mapping>
         <optimized.resources.skins>blueSky,classic,deepMarine,emeraldTown,japanCherry,ruby,wine,plain,DEFAULT,NULL</optimized.resources.skins>
-        <optimized.resources.exclusions>(^\Qjavax.faces\E|^\Qorg.richfaces.ui.images.\E|^\Qorg.richfaces.ui.iconimages.\E|^\Qorg.richfaces.optimized.\E|^\Qorg.richfaces.ui.ckeditor\E|^\Qfont-awesome\E|^\Qbootstrap\E|^\Qio.richwidgets:richwidgets.min.\E)</optimized.resources.exclusions>
+        <optimized.resources.exclusions>(^\Qjavax.faces\E|^\Qorg.richfaces.ui.images.\E|^\Qorg.richfaces.ui.iconimages.\E|^\Qorg.richfaces.optimized.\E|^\Qckeditor\E|^\Qfont-awesome\E|^\Qbootstrap\E|^\Qio.richwidgets:richwidgets.min.\E)</optimized.resources.exclusions>
         <optimized.resources.packedCoreInclusions>^(org.richfaces|net.java.dev.atmosphere):[^/]+$</optimized.resources.packedCoreInclusions>
         <optimized.resources.packedUiExclusions>^(org.richfaces|net.java.dev.atmosphere):[^/]+$</optimized.resources.packedUiExclusions>
         <optimized.resources.jqueryJsPattern>^org\.richfaces:jquery\.js$</optimized.resources.jqueryJsPattern>
