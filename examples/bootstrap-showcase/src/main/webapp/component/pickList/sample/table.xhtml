@@ -1,27 +1,31 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <h:form id="myForm">
-        <b:orderingList id="myOrderingList"
-                value="#{listSelectBean.capitals}"
-                var="capital"
-                caption="Ordering State Capitals">
-            <f:converter converterId="CapitalsConverter" />
-            <h:column>
-                <f:facet name="header">Flag</f:facet>
-                <h:graphicImage library="img/capitals" name="#{capital.stateFlag}" alt="flag"  width="33" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                #{capital.name}
-            </h:column>
-            <h:column>
-                <f:facet name="header">State</f:facet>
-                #{capital.state}
-            </h:column>
-        </b:orderingList>
-        <b:commandButton value="Submit" execute="myOrderingList" render="myOrderingList" mode="server"/>
-    </h:form>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:r="http://richfaces.org">
+	<h:form>
+		<p>In the next example, the list of capitals is displayed in a
+			multi-column format:</p>
+		<h:outputText value="Pick list with columns"></h:outputText>
+
+		<r:pickList value="#{listSelectBean.selectedCapitals}" var="capital"
+			listHeight="200px">
+			<f:selectItems value="#{listSelectBean.capitals}" />
+			<f:converter converterId="CapitalsConverter" />
+			<r:column>
+				<f:facet name="header">Flag</f:facet>
+				<h:graphicImage value="/resources/img/capitals/#{capital.stateFlag}"
+					alt="flag" width="33" />
+			</r:column>
+			<r:column>
+				<f:facet name="header">Name</f:facet>
+                    #{capital.name}
+                </r:column>
+			<r:column>
+				<f:facet name="header">State</f:facet>
+                    #{capital.state}
+                </r:column>
+		</r:pickList>
+
+	</h:form>
 </ui:composition>

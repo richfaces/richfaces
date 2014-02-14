@@ -2,9 +2,16 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <b:pickList value="#{listSelectBean.selectedCapitals}" sourceCaption="Available cities" targetCaption="Selected cities" orderable="true">
-            <f:selectItems value="#{listSelectBean.capitals}" var="capital" itemValue="#{capital}" itemLabel="#{capital.name}" />
-            <f:converter converterId="CapitalsConverter" />
-    </b:pickList>
+                xmlns:r="http://richfaces.org">
+<h:form>
+	<p>This example shows a pickList in the simpler, single column
+		display, with ordering of the result list enabled:</p>
+	<h:outputText value="Simple pick list"></h:outputText>
+	<r:pickList value="#{listSelectBean.selectedCapitals}"
+			listHeight="200px" orderable="true">
+		<f:selectItems value="#{listSelectBean.capitals}" var="capital"
+				itemValue="#{capital}" itemLabel="#{capital.name}" />
+		<f:converter converterId="CapitalsConverter" />
+	</r:pickList>
+</h:form>
 </ui:composition>

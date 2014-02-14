@@ -2,29 +2,105 @@
 <html lang="en-US">
 
 <ui:composition template="/resources/component.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:r="http://richfaces.org"
-                xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <ui:define name="body">
-        <ui:param name="tag" value="autocomplete" />
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:r="http://richfaces.org"
+	xmlns:b="http://richfaces.org/sandbox/bootstrap">
+	<ui:define name="body">
+		<ui:param name="tag" value="autocomplete" />
 
-        <h1><code>b:autocomplete</code></h1>
-        
-        <h2>Basic usage</h2>
-        <ui:include src="/resources/sample.xhtml">
-            <ui:param name="tag" value="autocomplete" />
-            <ui:param name="sample" value="basic" />
-        </ui:include>
-        
-        <h2>Multiple values</h2>
-        <ui:include src="/resources/sample.xhtml">
-            <ui:param name="tag" value="autocomplete" />
-            <ui:param name="sample" value="multiple-values" />
-        </ui:include>
+		<h1>
+			<code>r:autocomplete</code>
+		</h1>
+		<p>
+			The <b>r:autocomplete</b> component looks like a simple input
+			component, but has advanced options and features to provide
+			suggestions to the user during input.
+		</p>
+		
+		<h2>Autocomplete modes</h2>
+		<p>
+			There are four different <i>modes</i> for how it fetches suggestions:
+		</p>
+		<ul>
+			<li><b>client</b> - preloads data to the client and makes
+				suggestions according to the entered prefix on the client</li>
+			<li><b>lazyClient</b> - similar to client but initial
+				suggestions loading performed not during the page load but on first
+				component activation.</li>
+			<li><b>ajax</b> - fetches the data on every input change using
+				Ajax requests</li>
+			<li><b>cachedAjax</b> - loads data via Ajax to make suggestions
+				when the prefix length satisfies <i>minChars</i> attribute value.
+				Then all the suggestions are handled at the client until the initial
+				prefix is changed. At that point it will reload with the new prefix.</li>
+		</ul>
 
-    </ui:define>
+
+		<ui:include src="/resources/sample.xhtml">
+			<ui:param name="tag" value="autocomplete" />
+			<ui:param name="sample" value="basic" />
+		</ui:include>
+
+		<h2>Custom layouts</h2>
+		<p>
+			<b>r:autocomplete</b> component could be used to show complex popups
+			with suggestions. You need to remember next points to use it in that
+			way:
+		</p>
+		<ul>
+			<li>Passing custom objects instead of just String's to list
+				requires you to define <b>var</b> attribute (similar as using table
+				components). That variable will be used while iterating the
+				suggestions and encoding the popup using your custom layout.
+			</li>
+			<li>As it was just mentioned you're responsible for popup markup
+				definition in that case and should use nested components for that.</li>
+			<li>Type of the layout encoded using nested components should be
+				defined using <b>layout</b> attribute. Possible values are <i>'list'</i>
+				(suggestions wrapped to HTML unordered list), <i>'div'</i> (default
+				one, suggestions wrapped with just div element) and <i>'table'</i>
+				(suggestions are encoded as table rows, columns definition required
+				in that case).
+			</li>
+			<li>Using <b>fetchValue</b> attribute you should define the
+				String which should be inserted to input after some row get
+				selected. If not defined just your object <b>toString()</b> method
+				used.
+			</li>
+		</ul>
+
+		
+		<ui:include src="/resources/sample.xhtml">
+			<ui:param name="tag" value="autocomplete" />
+			<ui:param name="sample" value="custom-layouts" />
+		</ui:include>
+
+
+		<h2>Client filter</h2>
+		<p>
+			When a suggestion request is sent to the server via an Ajax call you
+			have full control over the suggestion list. Once that data is on the
+			client the default filter is <i>startsWith</i>. This can be changed
+			to any custom JavaScript filter you wish. This example shows you how
+			to define and call a custom filter for <i>contains</i> instead of <i>startsWith</i>.
+		</p>
+
+		<p>
+			The <b>clientFilterFunction</b> attribute accepts a custom JavaScript
+			function name. This function should have two parameters; <b>subString</b>(current
+			input value considering tokens) and <b>value</b> (currently iterated
+			item value) and return boolean flag which means if the value
+			satisfies the substring passed. The function will be called for every
+			available suggestion in order to construct a new list of suggestions.
+		</p>
+		<ui:include src="/resources/sample.xhtml">
+			<ui:param name="tag" value="autocomplete" />
+			<ui:param name="sample" value="client-filter" />
+		</ui:include>
+
+	</ui:define>
 </ui:composition>
 </html>

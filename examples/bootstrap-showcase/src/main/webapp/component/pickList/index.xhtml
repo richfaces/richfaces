@@ -9,19 +9,20 @@
                 xmlns:b="http://richfaces.org/sandbox/bootstrap">
     <ui:define name="body">
         <ui:param name="tag" value="pickList"/>
-        <h1><code>b:pickList</code></h1>
-        <p>The <code>b:pickList</code> is used to select items from list.</p>
+        <h1><code>r:pickList</code></h1>
+        <p>The <code>r:pickList</code> component allows one to select multiple values from a list, 
+        with move controls and reordering of items in the resulting list. The pickList also supports a multi-column list representation.</p>
 
-        <h2>Basic Usage:</h2>
-
-        <p>Select items, then move them up or down using the button controls.  Alternatively use the drag points to move
-        item.</p>
-
-        <p>Select multiple items with the ctrl key, or click-drag the mouse over multiple items.</p>
+        
 
         <ui:include src="/resources/sample.xhtml">
             <ui:param name="tag" value="pickList"/>
             <ui:param name="sample" value="basic"/>
+        </ui:include>
+        
+        <ui:include src="/resources/sample.xhtml">
+            <ui:param name="tag" value="pickList"/>
+            <ui:param name="sample" value="table"/>
         </ui:include>
 
     </ui:define>

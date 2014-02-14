@@ -49,15 +49,15 @@ import com.google.common.collect.ImmutableList;
 public class TaglibReader {
     private FaceletTaglibType taglib;
     private List<FaceletTaglibTagType> tags;
-    private HashMap<String, FaceletTaglibTagType> tagMap;
-    
+    private final HashMap<String, FaceletTaglibTagType> tagMap;
+
     // Attributes separation
     // One list == one tab on VDL
-    private Map<String, List<FaceletTaglibTagAttributeType>> defaultAttributes = new HashMap<String, List<FaceletTaglibTagAttributeType>>();
-    private Map<String, List<FaceletTaglibTagAttributeType>> globalAttributes = new HashMap<String, List<FaceletTaglibTagAttributeType>>();
-    private Map<String, List<FaceletTaglibTagAttributeType>> onEventAttributes = new HashMap<String, List<FaceletTaglibTagAttributeType>>();
-    
-    private ImmutableList<String> globalAttributeNames = ImmutableList.of("binding", "id", "rendered");
+    private final Map<String, List<FaceletTaglibTagAttributeType>> defaultAttributes = new HashMap<String, List<FaceletTaglibTagAttributeType>>();
+    private final Map<String, List<FaceletTaglibTagAttributeType>> globalAttributes = new HashMap<String, List<FaceletTaglibTagAttributeType>>();
+    private final Map<String, List<FaceletTaglibTagAttributeType>> onEventAttributes = new HashMap<String, List<FaceletTaglibTagAttributeType>>();
+
+    private final ImmutableList<String> globalAttributeNames = ImmutableList.of("binding", "id", "rendered");
 
     public FaceletTaglibType getTaglib() {
         return taglib;
@@ -92,41 +92,41 @@ public class TaglibReader {
     }
 
     InputStream getStream() {
-        return this.getClass().getResourceAsStream("/META-INF/bootstrap.taglib.xml");
+        return this.getClass().getResourceAsStream("/META-INF/r.taglib.xml");
     }
-    
+
     public List<FaceletTaglibTagAttributeType> getDefaultAttributes(String tagName) {
         if(defaultAttributes.get(tagName) == null) {
             initAttributesForTagName(tagName);
         }
         return defaultAttributes.get(tagName);
     }
-    
+
     public List<FaceletTaglibTagAttributeType> getGlobalAttributes(String tagName) {
         if(globalAttributes.get(tagName) == null) {
             initAttributesForTagName(tagName);
         }
         return globalAttributes.get(tagName);
     }
-    
+
     public List<FaceletTaglibTagAttributeType> getOnEventAttributes(String tagName) {
         if(onEventAttributes.get(tagName) == null) {
             initAttributesForTagName(tagName);
         }
         return onEventAttributes.get(tagName);
     }
-    
+
     private List<FaceletTaglibTagAttributeType> getAllAttributesFromTagName(String tagName) {
         return tagMap.get(tagName).getAttribute();
     }
-    
+
     private void initAttributesForTagName(String tagName) {
         List<FaceletTaglibTagAttributeType> allAttributes = getAllAttributesFromTagName(tagName);
-        
+
         List<FaceletTaglibTagAttributeType> defaultAttributesForTagName = new ArrayList<FaceletTaglibTagAttributeType>();
         List<FaceletTaglibTagAttributeType> globalAttributesForTagName = new ArrayList<FaceletTaglibTagAttributeType>();
         List<FaceletTaglibTagAttributeType> onEventAttributesForTagName = new ArrayList<FaceletTaglibTagAttributeType>();
-        
+
         if(allAttributes != null) {
             for(FaceletTaglibTagAttributeType attribute : allAttributes) {
                 String attributeName = attribute.getName().getValue();
@@ -138,16 +138,16 @@ public class TaglibReader {
                     defaultAttributesForTagName.add(attribute);
                 }
             }
-            
+
             defaultAttributes.put(tagName, defaultAttributesForTagName);
             globalAttributes.put(tagName, globalAttributesForTagName);
             onEventAttributes.put(tagName, onEventAttributesForTagName);
         }
     }
-    
+
     public String getMainType(String fullType) {
         int index = fullType.lastIndexOf(".");
-        
+
         if(index > 1) {
             return fullType.substring(index+1);
         } else {

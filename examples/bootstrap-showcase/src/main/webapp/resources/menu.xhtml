@@ -1,38 +1,48 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:r="http://richfaces.org">
-    <div class="navbar navbar-default navbar-fixed-top" >
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:r="http://richfaces.org">
+	<div class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			            <span class="sr-only">Toggle navigation</span>
-			            <span class="icon-bar"></span>
-			            <span class="icon-bar"></span>
-			            <span class="icon-bar"></span>
-			        </button>		
-					<h:link outcome="/index" value="RichFaces" styleClass="navbar-brand" />
-			</div>		
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<h:link outcome="/index" value="RichFaces" styleClass="navbar-brand" />
+			</div>
 			<div class="navbar-collapse collapse">
-						<ul class="nav navbar-nav">
-							<li>
-								<h:link outcome="/demo/scaffolding" value="Scaffolding" />
-							</li>
-							<li>
+				<ul class="nav navbar-nav">
+					<!-- <li>
 								 <h:link outcome="/demo/basecss" value="Base CSS" />
-							</li>
-							<li class="dropdown">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="dLabel" role="button">
-									Button<b class="caret"></b>
-								</a>
-								<ul aria-labelledby="dLabel" class="dropdown-menu" role="menu">
-									<li><h:link outcome="/component/buttonDropdown/index" value="buttonDropdown" /></li>
-									<li><h:link outcome="/component/buttonGroup/index" value="buttonGroup" /></li>
-									<li><h:link outcome="/component/commandButton/index" value="commandButton" /></li>
-								</ul>
-							</li>
-						</ul>
+							</li> -->
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#" id="dLabel" role="button">
+							Inputs<b class="caret"></b>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><h:link outcome="/component/autocomplete/index"
+									value="autocomplete" /></li>
+						</ul></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#" id="dLabel" role="button">
+							Selects<b class="caret"></b>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><h:link outcome="/component/orderingList/index"
+									value="orderingList" /></li>
+							<li><h:link outcome="/component/pickList/index"
+									value="pickList" /></li>
+						</ul></li>
+
+				</ul>
 			</div>
 		</div>
 	</div>
+
 </ui:fragment>
 
 

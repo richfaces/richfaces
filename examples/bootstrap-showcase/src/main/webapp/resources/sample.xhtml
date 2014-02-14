@@ -14,8 +14,13 @@
     </h:panelGroup>
     
     
-    <pre class="prettyprint #{!empty(onlySource) and onlySource ? 'onlysource' : ''} lang-html">
+    <pre class="prettyprint #{!empty(onlySource) and onlySource ? 'onlysource' : ''} linenums lang-html">
         <h:outputText value="/component/#{tag}/sample/#{sample}.xhtml" escape="true" converter="FileConverter" />
     </pre>
+    <h:outputStylesheet library="com.googlecode" name="prettify/prettify.css"/>
+    <h:outputScript library="com.googlecode" name="prettify/prettify.js"/>
+    <h:outputScript name="codeblock.js"/>
+    
+    
 </ui:composition>
 </html>
