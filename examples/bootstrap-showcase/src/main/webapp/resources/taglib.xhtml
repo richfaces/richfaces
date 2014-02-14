@@ -1,11 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en-US" xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:b="http://richfaces.org/sandbox/bootstrap">
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:outputStylesheet >
         .attributes tr {
@@ -17,56 +17,84 @@
       RichFaces namespace: <code>xmlns:r="http://richfaces.org"</code>
     </div>
     
-    <div class="hidden-phone">
-        <b:tabbable>
-            <b:tab title="VDL" default="true">
-                <ui:include src="/resources/fragment/attributesDataTable.xhtml">
-                    <ui:param name="attributesList" value="#{taglibReader.getDefaultAttributes(tag)}" />
-                </ui:include>
-            </b:tab>
+    <div class="hidden-xs">
+        <div class="tabs">
+             <ul class="nav nav-tabs">
+             	<li class="active">
+             		<a data-toggle="tab" href="#vdl-table">VDL</a>
+             	</li>
+             	<li>
+             		<a data-toggle="tab" href="#global-table">Global</a>
+             	</li>
+             	<li>
+             		<a data-toggle="tab" href="#events-table">Events</a>
+             	</li>
+             </ul>	
+             <div class="tab-content">
+                <div id="vdl-table" class="tab-pane active" title="VDL">
+	                <ui:include src="/resources/fragment/attributesDataTable.xhtml">
+	                    <ui:param name="attributesList" value="#{taglibReader.getDefaultAttributes(tag)}" />
+	                </ui:include>
+            	</div>
             
-            <b:tab title="Global">
+            <div id="global-table" class="tab-pane" title="Global">
                 <ui:include src="/resources/fragment/attributesDataTable.xhtml">
                     <ui:param name="attributesList" value="#{taglibReader.getGlobalAttributes(tag)}" />
                 </ui:include>
-            </b:tab>
+            </div>
             
-            <b:tab title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(tag))}">
+            <div id="events-table" class="tab-pane" title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(tag))}">
                 <ui:include src="/resources/fragment/attributesDataTable.xhtml">
                     <ui:param name="attributesList" value="#{taglibReader.getOnEventAttributes(tag)}" />
                 </ui:include>
-            </b:tab>
-        </b:tabbable>
+            </div>
+            </div>
+        </div>
     </div>
     
-    <div class="visible-phone">
+    <div class="visible-xs">
         <div style="padding-bottom: 20px;">
-            <button class="btn btn-primary" data-toggle="collapse" data-target="#vdl" onclick="$(this).toggleClass('in');">
-                <span class="in-show">Show VDL</span>
-                <span class="in-hide">Hide VDL</span>
+            <button class="btn btn-primary" data-toggle="collapse" data-target="#vdl" onclick="$(this).children().toggle();">
+                <span >Show VDL</span>
+                <span style="display:none">Hide VDL</span>
             </button>
         </div>
         
         <div id="vdl" class="collapse">
-            <b:tabbable>
-                <b:tab title="VDL" default="true">
+            
+            <div class="tabs">
+             <ul class="nav nav-tabs">
+             	<li class="active">
+             		<a data-toggle="tab" href="#vdl">VDL</a>
+             	</li>
+             	<li>
+             		<a data-toggle="tab" href="#global">Global</a>
+             	</li>
+             	<li>
+             		<a data-toggle="tab" href="#events">Events</a>
+             	</li>
+             </ul>	
+             <div class="tab-content">
+                <div id="vdl" class="tab-pane active" title="VDL">
                     <ui:include src="/resources/fragment/attributesRepeat.xhtml">
                         <ui:param name="attributesList" value="#{taglibReader.getDefaultAttributes(tag)}" />
                     </ui:include>
-                </b:tab>
+                </div>
                 
-                <b:tab title="Global">
+                <div id="global" class="tab-pane" title="Global">
                     <ui:include src="/resources/fragment/attributesRepeat.xhtml">
                         <ui:param name="attributesList" value="#{taglibReader.getGlobalAttributes(tag)}" />
                     </ui:include>
-                </b:tab>
+                </div>
                 
-                <b:tab title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(tag))}">
+                <div id="events" class="tab-pane" title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(tag))}">
                     <ui:include src="/resources/fragment/attributesRepeat.xhtml">
                         <ui:param name="attributesList" value="#{taglibReader.getOnEventAttributes(tag)}" />
                     </ui:include>
-                </b:tab>
-            </b:tabbable>
+                </div>
+              </div>
+              </div>  
+           
         </div>
     </div>
     

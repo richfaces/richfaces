@@ -3,8 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:b="http://richfaces.org/sandbox/bootstrap">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
     <title>RichFaces showcase</title>
 </h:head>
@@ -24,6 +23,12 @@
 <h:outputStylesheet library="font-awesome" name="font-awesome.css" />
 <h:outputStylesheet library="css" name="styles.css"/>
 <h:outputScript name="jquery.js" library="org.richfaces" />
+<h:outputScript name="jquery-ui.js" library="com.jqueryui" />
 <h:outputScript name="bootstrap.min.js" library="bootstrap" />
+<h:outputScript>
+$(function() {
+	$(".tabs").tabs();
+	});
 
+</h:outputScript>
 </html>

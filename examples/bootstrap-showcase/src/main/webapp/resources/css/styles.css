@@ -1,5 +1,7 @@
 body {
 	padding-top: 60px;
+	margin-left: 20px;
+	margin-right: 20px;
 }
 .required {
 	text-decoration: underline;
