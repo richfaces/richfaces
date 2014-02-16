@@ -57,7 +57,7 @@ import org.richfaces.ui.common.HtmlConstants;
  * @version $Revision: 1.1.2.6 $ $Date: 2007/02/08 19:07:16 $
  *
  */
-public final class RendererUtils {
+public class RendererUtils {
     public static final String DUMMY_FORM_ID = ":_form";
     // we'd better use this instance multithreadly quickly
     private static final RendererUtils INSTANCE = new RendererUtils();
@@ -498,13 +498,19 @@ public final class RendererUtils {
         UIComponent parent = component;
 
         // Search enclosed UIForm or ADF UIXForm component
-        while ((parent != null) && !(parent instanceof UIForm)
-                && !("org.apache.myfaces.trinidad.Form".equals(parent.getFamily()))
-                && !("oracle.adf.Form".equals(parent.getFamily()))) {
+        while ((parent != null) && !isForm(parent)) {
             parent = parent.getParent();
         }
 
         return parent;
+    }
+
+    /**
+     * Detects whether given component is form
+     * @return
+     */
+    public boolean isForm(UIComponent component) {
+        return component instanceof UIForm || "org.apache.myfaces.trinidad.Form".equals(component.getFamily()) || "oracle.adf.Form".equals(component.getFamily());
     }
 
     /**
