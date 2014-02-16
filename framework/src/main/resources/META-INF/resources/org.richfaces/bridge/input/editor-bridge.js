@@ -6,10 +6,20 @@
       this._super();
 
       var clientId = this.element.attr('id');
-      var textareaId = clientId + 'Input';
+      var textarea = $(document.getElementById(clientId + 'Input'));
 
-      $(document.getElementById(textareaId)).editor(this.options);
-      this._storeWidget($(document.getElementById(textareaId)).data('editor'));
+      textarea.editor(this.options);
+
+      var widget = textarea.data('editor');
+      this._storeWidget(widget);
+
+      $('form').has(this.element).on('ajaxsubmit', function() {
+          widget.getEditor().updateElement();
+      });
+    },
+
+    _destroy: function() {
+      $('form').has(this.element).off('ajaxsubmit');
     }
   });
 
