@@ -22,6 +22,8 @@
 package org.richfaces.resource.optimizer.resource.writer.impl;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -33,7 +35,6 @@ import java.util.Set;
 import javax.faces.application.Resource;
 
 import com.google.common.io.ByteSource;
-import com.google.common.io.FileWriteMode;
 import org.richfaces.log.Logger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceSkinUtils;
@@ -47,7 +48,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.google.common.io.Files;
 
 /**
  * @author Nick Belaevski
@@ -120,8 +120,8 @@ public class ResourceWriterImpl implements ResourceWriter {
         File outFile = createOutputFile(requestPathWithSkin);
 
         log.debug("Opening output stream for " + outFile);
-        matchingProcessor.process(requestPathWithSkin, new ResourceInputStreamSupplier(resource),
-                Files.asByteSink(outFile), true);
+        matchingProcessor.process(requestPathWithSkin, new ResourceInputStreamSupplier(resource).openStream(),
+                Files.newOutputStream(outFile.toPath()), true);
 
         processedResources.put(ResourceUtil.getResourceQualifier(resource), requestPath);
     }
@@ -156,7 +156,7 @@ public class ResourceWriterImpl implements ResourceWriter {
             if (!PACKED.containsKey(packagingCacheKey)) {
                 File outFile = createOutputFile(requestPathWithSkin);
                 log.debug("Opening shared output stream for " + outFile);
-                outputStream = Files.asByteSink(outFile, FileWriteMode.APPEND).openStream();
+                outputStream = Files.newOutputStream(outFile.toPath(), StandardOpenOption.APPEND);
                 PACKED.put(packagingCacheKey, outputStream);
             }
             outputStream = PACKED.get(packagingCacheKey);

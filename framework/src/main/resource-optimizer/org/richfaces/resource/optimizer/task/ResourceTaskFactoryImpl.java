@@ -45,7 +45,7 @@ import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.io.ByteStreams;
+import org.richfaces.util.StreamUtils;
 
 /**
  * @author Nick Belaevski
@@ -208,7 +208,7 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
         InputStream is = null;
         try {
             is = resource.getInputStream();
-            byte[] bs = ByteStreams.toByteArray(is);
+            byte[] bs = StreamUtils.toByteArray(is);
 
             for (int i = 0; i < bs.length; i++) {
                 byte b = bs[i];

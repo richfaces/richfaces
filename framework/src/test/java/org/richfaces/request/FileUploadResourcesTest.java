@@ -41,7 +41,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.io.ByteStreams;
+import org.richfaces.util.StreamUtils;
 
 /**
  * @author Nick Belaevski
@@ -79,7 +79,7 @@ public class FileUploadResourcesTest {
 
     private byte[] readFully(InputStream is) throws IOException {
         try {
-            return ByteStreams.toByteArray(is);
+            return StreamUtils.toByteArray(is);
         } finally {
             try {
                 is.close();

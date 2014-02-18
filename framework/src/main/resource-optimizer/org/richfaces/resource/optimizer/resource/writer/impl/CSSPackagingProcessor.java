@@ -36,9 +36,9 @@ import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.optimizer.faces.CurrentResourceContext;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 
-import com.google.common.io.ByteStreams;
 import com.google.common.io.ByteSink;
 import com.google.common.io.ByteSource;
+import org.richfaces.util.StreamUtils;
 
 /**
  * @author Lukas Fryc
@@ -77,7 +77,7 @@ public class CSSPackagingProcessor implements ResourceProcessor {
             writer.write(String.format("/* resource: %s */\n", ResourceKey.create(crc.getResource())));
             writer.flush();
 
-            ByteStreams.copy(in, out);
+            StreamUtils.copy(in, out);
 
             writer.write("\n\n");
             writer.flush();
