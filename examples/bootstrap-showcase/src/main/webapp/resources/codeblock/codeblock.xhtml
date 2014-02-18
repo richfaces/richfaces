@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<composite:interface>
+	<composite:attribute name="tag" />
+	<composite:attribute name="sample" />
+	<composite:attribute name="file"/>
+</composite:interface>
+
+<composite:implementation>
+	<pre class="prettyprint linenums lang-html">
+        <h:outputText value="/component/#{cc.attrs.tag}/sample/#{cc.attrs.sample}.xhtml"
+			escape="true" converter="FileConverter" />			
+    </pre>
+    
+	<h:outputStylesheet library="com.googlecode"
+		name="prettify/prettify.css" />
+	<h:outputScript library="com.googlecode" name="prettify/prettify.js" />
+	<h:outputScript name="codeblock.js" />
+</composite:implementation>
+</html>

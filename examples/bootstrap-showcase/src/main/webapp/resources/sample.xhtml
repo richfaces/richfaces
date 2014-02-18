@@ -3,7 +3,8 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:codeblock="http://java.sun.com/jsf/composite/codeblock">
     
     <h:panelGroup layout="block"
       rendered="#{empty(onlySource) ? true : !onlySource}"
@@ -12,14 +13,6 @@
       <ui:include src="/component/#{tag}/sample/#{sample}.xhtml" />
     </h:panelGroup>
     
-    
-    <pre class="prettyprint #{!empty(onlySource) and onlySource ? 'onlysource' : ''} linenums lang-html">
-        <h:outputText value="/component/#{tag}/sample/#{sample}.xhtml" escape="true" converter="FileConverter" />
-    </pre>
-    <h:outputStylesheet library="com.googlecode" name="prettify/prettify.css"/>
-    <h:outputScript library="com.googlecode" name="prettify/prettify.js"/>
-    <h:outputScript name="codeblock.js"/>
-    
-    
+    <codeblock:codeblock sample="#{sample}" tag="#{tag}"/>    
 </ui:composition>
 </html>
