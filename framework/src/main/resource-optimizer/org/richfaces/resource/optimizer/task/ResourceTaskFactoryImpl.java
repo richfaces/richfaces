@@ -45,8 +45,7 @@ import org.richfaces.resource.optimizer.resource.util.ResourceUtil;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.io.ByteStreams;
-import com.google.common.io.Closeables;
+import org.richfaces.util.StreamUtils;
 
 /**
  * @author Nick Belaevski
@@ -209,7 +208,7 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
         InputStream is = null;
         try {
             is = resource.getInputStream();
-            byte[] bs = ByteStreams.toByteArray(is);
+            byte[] bs = StreamUtils.toByteArray(is);
 
             for (int i = 0; i < bs.length; i++) {
                 byte b = bs[i];
@@ -221,7 +220,12 @@ public class ResourceTaskFactoryImpl implements ResourceTaskFactory {
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         } finally {
-            Closeables.closeQuietly(is);
+            try {
+                is.close();
+            }
+            catch(IOException e){
+                // Swallow
+            }
         }
 
         return false;

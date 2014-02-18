@@ -72,7 +72,6 @@ import org.richfaces.resource.optimizer.resource.writer.impl.JavaScriptPackaging
 import org.richfaces.resource.optimizer.resource.writer.impl.ResourceWriterImpl;
 import org.richfaces.resource.optimizer.strings.Constants;
 import org.richfaces.resource.optimizer.task.ResourceTaskFactoryImpl;
-import org.richfaces.resource.optimizer.util.MoreConstraints;
 import org.richfaces.resource.optimizer.util.MorePredicates;
 import org.richfaces.resource.optimizer.vfs.VFS;
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
@@ -87,12 +86,10 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.base.Strings;
-import com.google.common.collect.Constraints;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
-import com.google.common.io.Closeables;
 
 /**
  * Configurable command-line interface of CDK generator.
@@ -315,8 +312,7 @@ public class ResourceGenerator {
     }
 
     protected URL[] getProjectClassPath() {
-        List<String> classpath = Constraints.constrainedList(Lists.<String>newArrayList(),
-                MoreConstraints.cast(String.class));
+        List<String> classpath = new ArrayList<String>();
         classpath.add(classpathDir.getAbsolutePath());
 
         URL[] urlClasspath = filter(transform(classpath, filePathToURL), notNull()).toArray(EMPTY_URL_ARRAY);
@@ -446,7 +442,8 @@ public class ResourceGenerator {
             log.debug(completionService.toString());
 
             resourceWriter.writeProcessedResourceMappings(new File(staticResourceMappingFile), staticResourcePrefix);
-            Closeables.closeQuietly(resourceWriter);
+            resourceWriter.close();
+
         } catch (Exception e) {
             throw new IllegalStateException(e.getMessage(), e);
         } finally {

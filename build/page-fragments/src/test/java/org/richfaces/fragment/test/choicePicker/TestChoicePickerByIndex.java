@@ -33,7 +33,7 @@ import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper.ByIndexChoicePicker;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Ranges;
+import com.google.common.collect.Range;
 
 public class TestChoicePickerByIndex extends AbstractChoicePickerTest {
 
@@ -60,19 +60,19 @@ public class TestChoicePickerByIndex extends AbstractChoicePickerTest {
 
     @Test
     public void testPickFromRange() {
-        ByIndexChoicePicker picker = ChoicePickerHelper.byIndex().fromRange(Ranges.closed(0, 2));
+        ByIndexChoicePicker picker = ChoicePickerHelper.byIndex().fromRange(Range.closed(0, 2));
         List<WebElement> pickMultiple = picker.pickMultiple(myFragment.getDivs());
         assertEquals(Lists.newArrayList("1", "2", "3"), getStringsFromElements(pickMultiple));
 
-        picker = ChoicePickerHelper.byIndex().fromRange(Ranges.open(0, 2));
+        picker = ChoicePickerHelper.byIndex().fromRange(Range.open(0, 2));
         pickMultiple = picker.pickMultiple(myFragment.getDivs());
         assertEquals(Lists.newArrayList("2"), getStringsFromElements(pickMultiple));
 
-        picker = ChoicePickerHelper.byIndex().fromRange(Ranges.atLeast(3));
+        picker = ChoicePickerHelper.byIndex().fromRange(Range.atLeast(3));
         pickMultiple = picker.pickMultiple(myFragment.getDivs());
         assertEquals(Lists.newArrayList("4", "5", "6"), getStringsFromElements(pickMultiple));
 
-        picker = ChoicePickerHelper.byIndex().fromRange(Ranges.<Integer>all());
+        picker = ChoicePickerHelper.byIndex().fromRange(Range.<Integer>all());
         pickMultiple = picker.pickMultiple(myFragment.getDivs());
         assertEquals(Lists.newArrayList("1", "2", "3", "4", "5", "6"), getStringsFromElements(pickMultiple));
     }
@@ -80,8 +80,8 @@ public class TestChoicePickerByIndex extends AbstractChoicePickerTest {
     @Test
     public void testPickFromRanges() {
         ByIndexChoicePicker picker = ChoicePickerHelper.byIndex()
-            .fromRange(Ranges.atLeast(5))
-            .fromRange(Ranges.closed(1, 2));
+                .fromRange(Range.atLeast(5))
+                .fromRange(Range.closed(1, 2));
         List<WebElement> pickMultiple = picker.pickMultiple(myFragment.getDivs());
         assertEquals(Lists.newArrayList("6", "2", "3"), getStringsFromElements(pickMultiple));
     }
@@ -96,9 +96,9 @@ public class TestChoicePickerByIndex extends AbstractChoicePickerTest {
     @Test
     public void testPickMultipleTimesSameIndexes() {
         ByIndexChoicePicker picker = ChoicePickerHelper.byIndex()
-            .first().index(0)// the first element
-            .index(1).indexes(0, 1)// the first two elements
-            .last().beforeLast(0).index(5);// the last element
+                .first().index(0)// the first element
+                .index(1).indexes(0, 1)// the first two elements
+                .last().beforeLast(0).index(5);// the last element
 
         List<WebElement> pickMultiple = picker.pickMultiple(myFragment.getDivs());
         assertEquals(Lists.newArrayList("1", "2", "6"), getStringsFromElements(pickMultiple));
@@ -109,14 +109,14 @@ public class TestChoicePickerByIndex extends AbstractChoicePickerTest {
         ByIndexChoicePicker picker = ChoicePickerHelper.byIndex().index(15);
         assertNull(picker.pick(myFragment.getDivs()));
 
-        picker = ChoicePickerHelper.byIndex().fromRange(Ranges.<Integer>atLeast(15));
+        picker = ChoicePickerHelper.byIndex().fromRange(Range.<Integer>atLeast(15));
         assertNull(picker.pick(myFragment.getDivs()));
     }
 
     @Test
     public void testPickingPreservesOrder() {
         ByIndexChoicePicker picker = ChoicePickerHelper.byIndex()
-            .last().first().beforeLast(1).index(1);
+                .last().first().beforeLast(1).index(1);
 
         List<WebElement> pickMultiple = picker.pickMultiple(myFragment.getDivs());
         assertEquals(Lists.newArrayList("6", "1", "5", "2"), getStringsFromElements(pickMultiple));

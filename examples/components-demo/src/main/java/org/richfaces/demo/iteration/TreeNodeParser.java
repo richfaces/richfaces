@@ -40,11 +40,9 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import com.google.common.collect.Lists;
-import com.google.common.io.Closeables;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class TreeNodeParser implements ContentHandler {
     private static final FastJoiner JOINER = FastJoiner.on("");
@@ -63,7 +61,11 @@ public class TreeNodeParser implements ContentHandler {
             reader.setContentHandler(this);
             reader.parse(new InputSource(is));
         } finally {
-            Closeables.closeQuietly(is);
+            try {
+                is.close();
+            } catch (IOException e) {
+                // Swallow
+            }
         }
     }
 

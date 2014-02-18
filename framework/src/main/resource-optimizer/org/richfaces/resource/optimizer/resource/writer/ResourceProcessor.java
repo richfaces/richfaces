@@ -25,17 +25,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.google.common.io.InputSupplier;
-import com.google.common.io.OutputSupplier;
+import com.google.common.io.ByteSink;
+import com.google.common.io.ByteSource;
 
 /**
  * @author Nick Belaevski
- *
  */
 public interface ResourceProcessor {
     boolean isSupportedFile(String name);
 
-    public void process(String outputName, InputSupplier<? extends InputStream> in, OutputSupplier<? extends OutputStream> out,  boolean closeAtFinish)
+    public void process(String outputName, ByteSource byteSource, ByteSink byteSink, boolean closeAtFinish)
             throws IOException;
 
     public void process(String outputName, InputStream in, OutputStream out, boolean closeAtFinish)

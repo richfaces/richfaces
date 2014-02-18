@@ -23,12 +23,10 @@ package org.richfaces.request;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 import org.richfaces.io.ByteBuffer;
 import org.richfaces.io.FastBufferInputStream;
-
-import com.google.common.io.Files;
-import com.google.common.io.InputSupplier;
 
 /**
  * @author Nick Belaevski
@@ -61,14 +59,7 @@ class FileUploadMemoryResource extends FileUploadResource {
     @Override
     public void write(String fileName) throws IOException {
         checkNotDeleted();
-
-        InputSupplier<InputStream> inputSupplier = new InputSupplier<InputStream>() {
-            public InputStream getInput() throws IOException {
-                return getInputStream();
-            }
-        };
-
-        Files.copy(inputSupplier, getOutputFile(fileName));
+        Files.copy(getInputStream(), getOutputFile(fileName).toPath());
     }
 
     @Override

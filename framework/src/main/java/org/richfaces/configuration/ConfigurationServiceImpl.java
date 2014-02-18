@@ -44,11 +44,9 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.base.Strings;
-import com.google.common.io.Closeables;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class ConfigurationServiceImpl implements ConfigurationService {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
@@ -64,16 +62,16 @@ public class ConfigurationServiceImpl implements ConfigurationService {
             }
         } catch (Exception e) {
             throw new IllegalStateException(MessageFormat.format(
-                "Cannot read @ConfigurationItem annotation from {0}.{1} because of {2}", enumKey.getClass().getName(),
-                enumKey.name(), e.getMessage()));
+                    "Cannot read @ConfigurationItem annotation from {0}.{1} because of {2}", enumKey.getClass().getName(),
+                    enumKey.name(), e.getMessage()));
         }
 
         throw new IllegalStateException(MessageFormat.format("Annotation @ConfigurationItem is not set at {0}.{1}", enumKey
-            .getClass().getName(), enumKey.name()));
+                .getClass().getName(), enumKey.name()));
     }
 
     protected ValueExpressionHolder createValueExpressionHolder(FacesContext context, ValueExpression expression,
-        String defaultValueString, Class<?> returnType) {
+                                                                String defaultValueString, Class<?> returnType) {
         Object defaultValue = null;
 
         if (expression == null || !expression.isLiteralText()) {
@@ -176,7 +174,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
                 synchronized (key.getClass()) {
                     Properties properties = loadProperties(configurationItemsBundle.propertiesFile());
 
-                    Iterator<Object> keys = EnumSet.allOf(key.getClass()).iterator();
+                    Iterator<? extends Enum> keys = EnumSet.allOf(key.getClass()).iterator();
                     while (keys.hasNext()) {
                         Enum<?> nextBundleKey = (Enum<?>) keys.next();
 
@@ -203,7 +201,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
                         }
 
                         ValueExpressionHolder siblingHolder = createValueExpressionHolder(facesContext, expression,
-                            item.defaultValue(), returnType);
+                                item.defaultValue(), returnType);
 
                         itemsMap.put(nextBundleKey, siblingHolder);
 
@@ -232,7 +230,11 @@ public class ConfigurationServiceImpl implements ConfigurationService {
                 } catch (IOException e) {
                     LOGGER.error(e.getMessage(), e);
                 } finally {
-                    Closeables.closeQuietly(is);
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        // Swallow
+                    }
                 }
             }
         }

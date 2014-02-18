@@ -19,25 +19,43 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.resource.optimizer.util;
+package org.richfaces.util;
 
-import com.google.common.collect.Constraint;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
- * @author Nick Belaevski
  *
  */
-public final class MoreConstraints {
-    private MoreConstraints() {
+public class StreamUtils {
+
+    /**
+     * Reads all bytes from an input stream to a byte array. Does not close the stream
+     * @param is
+     * @return
+     * @throws IOException
+     */
+    public static byte[] toByteArray(InputStream is) throws IOException {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        copy(is, os);
+        os.flush();
+        return os.toByteArray();
     }
 
-    public static <E> Constraint<E> cast(final Class<E> clazz) {
-        return new Constraint<E>() {
-            public E checkElement(E element) {
-                return clazz.cast(element);
-            }
-
-            ;
-        };
+    /**
+     * Copies all bytes from input stream to output stream. Does not flush or close
+     * either stream
+     * @param is
+     * @param os
+     * @throws IOException
+     */
+    public static void copy(InputStream is, OutputStream os) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read = 0;
+        while ((read = is.read(buffer, 0, buffer.length)) != -1) {
+            os.write(buffer, 0, read);
+        }
     }
 }

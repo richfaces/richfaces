@@ -49,7 +49,7 @@ import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
-import com.google.common.io.ByteStreams;
+import org.richfaces.util.StreamUtils;
 
 /**
  * @author Nick Belaevski
@@ -128,7 +128,7 @@ public class UploadedFile25Test {
         assertEquals(TEST_DATA.length(), uploadedFile.getSize());
         assertNotNull(uploadedFile.getInputStream());
 
-        assertEquals(TEST_DATA, new String(ByteStreams.toByteArray(uploadedFile.getInputStream()), "US-ASCII"));
+        assertEquals(TEST_DATA, new String(StreamUtils.toByteArray(uploadedFile.getInputStream()), "US-ASCII"));
         assertEquals(TEST_DATA, new String(uploadedFile.getData(), "US-ASCII"));
 
         uploadedFile.write("output.png");
