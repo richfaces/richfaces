@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:r="http://richfaces.org">
+	<ui:define name="body">
+		<ui:param name="tag" value="chart,series,point,legend,xaxis,yaxis" />
+
+		<h1>
+			<code>r:chart</code>
+		</h1>
+		<p>
+			The <b>r:autocomplete</b> component looks like a simple input
+			component, but has advanced options and features to provide
+			suggestions to the user during input.
+		</p>
+		
+		<ui:include src="/resources/sample.xhtml">
+			<ui:param name="tag" value="chart" />
+			<ui:param name="sample" value="basic" />
+		</ui:include>
+	</ui:define>
+</ui:composition>
+</html>
