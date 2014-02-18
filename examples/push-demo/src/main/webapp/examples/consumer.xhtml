@@ -44,6 +44,9 @@
                 render="@this push">
                 <r:param assignTo="#{viewScope.pushDisabled}" value="#{!viewScope.pushDisabled}" />
             </r:commandButton>
+            <h:outputLink id="incorrectRequestForPushFilter" value="http://localhost:8080/push/__richfaces_push?X-Atmosphere-Transport=long-polling" target="_self">
+            	<h:outputText value="Malformed Request For Push Filter" escape="false"/>
+            </h:outputLink>
             
             <r:log mode="console" />
             
