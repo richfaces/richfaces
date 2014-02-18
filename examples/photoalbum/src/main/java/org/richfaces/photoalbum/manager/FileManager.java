@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.enterprise.context.ApplicationScoped;
@@ -54,8 +55,6 @@ import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.util.FileHandler;
 import org.richfaces.photoalbum.util.FileUtils;
 import org.richfaces.photoalbum.util.ImageDimension;
-
-import com.google.common.io.Files;
 
 @Named
 @ApplicationScoped
@@ -110,8 +109,6 @@ public class FileManager {
      * This method observes <code>Constants.ALBUM_DELETED_EVENT</code> and invoked after the user delete album. This method
      * delete album directory from the disk
      *
-     * @param album - deleted album
-     * @param path - relative path of the album directory
      *
      */
     public void onAlbumDeleted(@Observes @EventType(Events.ALBUM_DELETED_EVENT) AlbumEvent ae) {
@@ -125,8 +122,6 @@ public class FileManager {
      * This method observes <code>Constants.SHELF_DELETED_EVENT</code> and invoked after the user delete her shelf This method
      * delete shelf directory from the disk
      *
-     * @param shelf - deleted shelf
-     * @param path - relative path of the shelf directory
      */
     public void onShelfDeleted(@Observes @EventType(Events.SHELF_DELETED_EVENT) ShelfEvent se) {
         if (user == null) {
@@ -139,8 +134,6 @@ public class FileManager {
      * This method observes <code>Constants.USER_DELETED_EVENT</code> and invoked after the user was deleted(used in livedemo to
      * prevent flooding) This method delete user directory from the disk
      *
-     * @param user - deleted user
-     * @param path - relative path of the user directory
      */
     public void onUserDeleted(@Observes @EventType(Events.USER_DELETED_EVENT) SimpleEvent se) {
         deleteDirectory(user.getPath());
@@ -150,7 +143,6 @@ public class FileManager {
      * This method observes <code>SHELF_ADDED_EVENT</code> and invoked after the user add new shelf This method add shelf
      * directory to the disk
      *
-     * @param shelf - added shelf
      */
     public void onShelfAdded(@Observes @EventType(Events.SHELF_ADDED_EVENT) ShelfEvent se) {
         File directory = getFileByPath(se.getShelf().getPath());
@@ -161,7 +153,6 @@ public class FileManager {
      * This method observes <code>ALBUM_ADDED_EVENT</code> and invoked after the user add new album This method add album
      * directory to the disk
      *
-     * @param album - added album
      */
     public void onAlbumAdded(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
         File directory = getFileByPath(ae.getAlbum().getPath());
@@ -190,8 +181,6 @@ public class FileManager {
      * This method observes <code>Constants.IMAGE_DELETED_EVENT</code> and invoked after the user delete her image This method
      * delete image and all thumbnails of this image from the disk
      *
-     * @param image - deleted image
-     * @param path - relative path of the image file
      */
     public void deleteImage(@Observes @EventType(Events.IMAGE_DELETED_EVENT) ImageEvent ie) {
         if (user == null) {
@@ -206,7 +195,6 @@ public class FileManager {
      * This method invoked after user upload new image
      *
      * @param fileName - new relative path to the image file
-     * @param tempFilePath - absolute path to uploaded image
      * @throws IOException
      */
     public boolean addImage(String fileName, FileHandler fileHandler) throws IOException {
@@ -282,8 +270,6 @@ public class FileManager {
      * This method observes <code>Constants.ALBUM_DRAGGED_EVENT</code> and invoked after the user dragged album form one shelf
      * to the another. This method rename album directory to the new directory
      *
-     * @param album - dragged album
-     * @param pathOld - old path of album directory
      */
     public void renameAlbumDirectory(@Observes @EventType(Events.ALBUM_DRAGGED_EVENT) AlbumEvent ae) {
         String pathOld = ae.getPath();
@@ -299,7 +285,7 @@ public class FileManager {
         }
 
         try {
-            Files.createParentDirs(file2);
+            Files.createDirectories(file2.toPath());
         } catch (IOException ioe) {
             error.fire(new ErrorEvent("Error moving file", ioe.getMessage()));
         }
@@ -311,8 +297,6 @@ public class FileManager {
      * This method observes <code>Constants.IMAGE_DRAGGED_EVENT</code> and invoked after the user dragged image form one album
      * to the another. This method rename image file and all thumbnails to the new name
      *
-     * @param image - dragged image
-     * @param pathOld - old path of image file
      */
     public void renameImageFile(@Observes @EventType(Events.IMAGE_DRAGGED_EVENT) ImageEvent ie) {
         File file = null;

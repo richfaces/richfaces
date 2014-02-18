@@ -36,10 +36,9 @@ import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.optimizer.faces.CurrentResourceContext;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 
-import com.google.common.io.ByteStreams;
-import com.google.common.io.Closeables;
-import com.google.common.io.InputSupplier;
-import com.google.common.io.OutputSupplier;
+import com.google.common.io.ByteSink;
+import com.google.common.io.ByteSource;
+import org.richfaces.util.StreamUtils;
 
 /**
  * @author Lukas Fryc
@@ -57,9 +56,9 @@ public class CSSPackagingProcessor implements ResourceProcessor {
     }
 
     @Override
-    public void process(String outputName, InputSupplier<? extends InputStream> in,
-            OutputSupplier<? extends OutputStream> out, boolean closeAtFinish) throws IOException {
-        process(outputName, in.getInput(), out.getOutput(), closeAtFinish);
+    public void process(String outputName, ByteSource byteSource,
+                        ByteSink byteSink, boolean closeAtFinish) throws IOException {
+        process(outputName, byteSource.openStream(), byteSink.openStream(), closeAtFinish);
     }
 
     @Override
@@ -78,14 +77,22 @@ public class CSSPackagingProcessor implements ResourceProcessor {
             writer.write(String.format("/* resource: %s */\n", ResourceKey.create(crc.getResource())));
             writer.flush();
 
-            ByteStreams.copy(in, out);
+            StreamUtils.copy(in, out);
 
             writer.write("\n\n");
             writer.flush();
         } finally {
-            Closeables.closeQuietly(reader);
+            try {
+                reader.close();
+            } catch (IOException e) {
+                // Swallow
+            }
             if (closeAtFinish) {
-                Closeables.closeQuietly(writer);
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    // Swallow
+                }
             } else {
                 writer.flush();
             }

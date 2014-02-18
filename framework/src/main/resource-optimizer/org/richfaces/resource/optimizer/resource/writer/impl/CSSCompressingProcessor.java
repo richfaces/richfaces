@@ -30,16 +30,14 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
+import com.google.common.io.ByteSink;
+import com.google.common.io.ByteSource;
 import org.richfaces.resource.optimizer.resource.writer.ResourceProcessor;
 
-import com.google.common.io.Closeables;
-import com.google.common.io.InputSupplier;
-import com.google.common.io.OutputSupplier;
 import com.yahoo.platform.yui.compressor.CssCompressor;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class CSSCompressingProcessor implements ResourceProcessor {
     private Charset charset;
@@ -54,9 +52,9 @@ public class CSSCompressingProcessor implements ResourceProcessor {
     }
 
     @Override
-    public void process(String outputName, InputSupplier<? extends InputStream> in,
-            OutputSupplier<? extends OutputStream> out, boolean closeAtFinish) throws IOException {
-        process(outputName, in.getInput(), out.getOutput(), closeAtFinish);
+    public void process(String outputName, ByteSource byteSource,
+                        ByteSink byteSink, boolean closeAtFinish) throws IOException {
+        process(outputName, byteSource.openStream(), byteSink.openStream(), closeAtFinish);
     }
 
     @Override
@@ -70,9 +68,17 @@ public class CSSCompressingProcessor implements ResourceProcessor {
 
             new CssCompressor(reader).compress(writer, 0);
         } finally {
-            Closeables.closeQuietly(reader);
+            try {
+                reader.close();
+            } catch (IOException e) {
+                // Swallow
+            }
             if (closeAtFinish) {
-                Closeables.closeQuietly(writer);
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    // Swallow
+                }
             } else {
                 writer.flush();
             }

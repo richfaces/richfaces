@@ -21,10 +21,9 @@
  */
 package org.richfaces.resource.optimizer.resource.writer.impl;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -35,6 +34,7 @@ import java.util.Set;
 
 import javax.faces.application.Resource;
 
+import com.google.common.io.ByteSource;
 import org.richfaces.log.Logger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceSkinUtils;
@@ -48,16 +48,12 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.google.common.io.Closeables;
-import com.google.common.io.Files;
-import com.google.common.io.InputSupplier;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class ResourceWriterImpl implements ResourceWriter {
-    private static final class ResourceInputStreamSupplier implements InputSupplier<InputStream> {
+    private static final class ResourceInputStreamSupplier extends ByteSource {
         private Resource resource;
 
         public ResourceInputStreamSupplier(Resource resource) {
@@ -66,7 +62,7 @@ public class ResourceWriterImpl implements ResourceWriter {
         }
 
         @Override
-        public InputStream getInput() throws IOException {
+        public InputStream openStream() throws IOException {
             return resource.getInputStream();
         }
     }
@@ -74,7 +70,7 @@ public class ResourceWriterImpl implements ResourceWriter {
     /*
      * packed output stream by extension
      */
-    private final Map<String, FileOutputStream> PACKED = new LinkedHashMap<String, FileOutputStream>();
+    private final Map<String, OutputStream> PACKED = new LinkedHashMap<String, OutputStream>();
 
     private File resourceContentsDir;
     private Map<String, String> processedResources = Maps.newConcurrentMap();
@@ -85,7 +81,7 @@ public class ResourceWriterImpl implements ResourceWriter {
     private Set<ResourceKey> packedResources = Sets.newHashSet();
 
     public ResourceWriterImpl(File resourceContentsDir, Iterable<ResourceProcessor> resourceProcessors, Logger log,
-            Set<ResourceKey> resourcesWithKnownOrder) {
+                              Set<ResourceKey> resourcesWithKnownOrder) {
         this.resourceContentsDir = resourceContentsDir;
         this.resourceProcessors = Iterables.concat(resourceProcessors,
                 Collections.singleton(ThroughputResourceProcessor.INSTANCE));
@@ -124,8 +120,8 @@ public class ResourceWriterImpl implements ResourceWriter {
         File outFile = createOutputFile(requestPathWithSkin);
 
         log.debug("Opening output stream for " + outFile);
-        matchingProcessor.process(requestPathWithSkin, new ResourceInputStreamSupplier(resource),
-                Files.newOutputStreamSupplier(outFile), true);
+        matchingProcessor.process(requestPathWithSkin, new ResourceInputStreamSupplier(resource).openStream(),
+                Files.newOutputStream(outFile.toPath()), true);
 
         processedResources.put(ResourceUtil.getResourceQualifier(resource), requestPath);
     }
@@ -154,20 +150,20 @@ public class ResourceWriterImpl implements ResourceWriter {
         String requestPathWithSkin = Constants.SLASH_JOINER.join(skinName, "packed", packFileName);
         ResourceProcessor matchingProcessor = getMatchingResourceProcessor(requestPathWithSkin);
 
-        FileOutputStream outputStream;
+        OutputStream outputStream;
         synchronized (PACKED) {
             String packagingCacheKey = extension + ":" + skinName;
             if (!PACKED.containsKey(packagingCacheKey)) {
                 File outFile = createOutputFile(requestPathWithSkin);
                 log.debug("Opening shared output stream for " + outFile);
-                outputStream = Files.newOutputStreamSupplier(outFile, true).getOutput();
+                outputStream = Files.newOutputStream(outFile.toPath(), StandardOpenOption.APPEND);
                 PACKED.put(packagingCacheKey, outputStream);
             }
             outputStream = PACKED.get(packagingCacheKey);
         }
 
         synchronized (outputStream) {
-            matchingProcessor.process(requestPathWithSkin, new ResourceInputStreamSupplier(resource).getInput(), outputStream,
+            matchingProcessor.process(requestPathWithSkin, resource.getInputStream(), outputStream,
                     false);
         }
 
@@ -228,8 +224,12 @@ public class ResourceWriterImpl implements ResourceWriter {
     }
 
     public void close() {
-        for (FileOutputStream out : PACKED.values()) {
-            Closeables.closeQuietly(out);
+        for (OutputStream out : PACKED.values()) {
+            try {
+                out.close();
+            } catch (IOException e) {
+                // Swallow
+            }
         }
     }
 }
