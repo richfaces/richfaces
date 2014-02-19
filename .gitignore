@@ -20,4 +20,3 @@ node_modules
 log.txt
 chromedriver.log
 phantomjsdriver.log
-arquillian.xml
