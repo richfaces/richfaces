@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:r="http://richfaces.org"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    
+    <h:outputScript>
+        function customFilter(subString, value) {
+            if (subString.length >= 1) {
+                if (value.indexOf(subString) != -1)
+                    return true;
+            } else
+                return false;
+        };
+    </h:outputScript>
+    <h:form styleClass="row">
+        <div class="col col-md-5 col-sm-5">
+            <r:autocomplete mode="client" minChars="0" autofill="false" clientFilterFunction="customFilter"
+                autocompleteMethod="#{autocompleteBean.autocomplete}" />
+        </div>
+    </h:form>
+    
+</ui:composition>

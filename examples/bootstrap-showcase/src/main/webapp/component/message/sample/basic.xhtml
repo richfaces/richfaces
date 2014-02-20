@@ -1,0 +1,35 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:r="http://richfaces.org" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+    <r:panel>
+        <f:facet name="header">
+            <h:outputText value="Validation Form" />
+        </f:facet>
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputText value="Name:" />
+                <h:inputText label="Name" id="name" required="true" value="#{userBean.name}">
+                    <f:validateLength minimum="3" />
+                </h:inputText>
+                <r:message for="name" ajaxRendered="true" />
+                <h:outputText value="Job:" />
+                <h:inputText label="Job" id="job" required="true" value="#{userBean.job}">
+                    <f:validateLength minimum="3" maximum="50" />
+                </h:inputText>
+                <r:message for="job" ajaxRendered="true" />
+                <h:outputText value="Address:" />
+                <h:inputText label="Address" id="address" required="true" value="#{userBean.address}">
+                    <f:validateLength minimum="10" />
+                </h:inputText>
+                <r:message for="address" ajaxRendered="true" />
+                <h:outputText value="Zip:" />
+                <h:inputText label="Zip" id="zip" required="true" value="#{userBean.zip}">
+                    <f:validateLength minimum="4" maximum="9" />
+                </h:inputText>
+                <r:message for="zip" ajaxRendered="true" />
+                <f:facet name="footer">
+                    <r:commandButton value="Ajax Validate" />
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </r:panel>
+</ui:composition>

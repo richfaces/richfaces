@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org">
+	 <h:form>
+        <r:editor id="editor" toolbar="full" value="#{editorBean.value}" style="margin-bottom: 1em">
+            <r:ajax event="change" render="panel" status="panelUpdateStatus" />
+            <r:ajax event="dirty" render="panel" status="panelUpdateStatus">
+                <r:attachQueue requestDelay="1000" />
+            </r:ajax>
+        </r:editor>
+        
+        <r:panel id="panel">
+            <f:facet name="header">
+                Output from Editor
+                <r:status name="panelUpdateStatus">
+                    <f:facet name="start">
+                        (Updating)
+                    </f:facet>
+                </r:status>
+            </f:facet>
+            <h:outputText escape="false" value="#{editorBean.value}" />
+        </r:panel>
+    </h:form>    
+    
+
+    
+</ui:composition>

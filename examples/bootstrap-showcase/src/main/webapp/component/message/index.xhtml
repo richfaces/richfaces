@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:r="http://richfaces.org">
+	<ui:define name="body">
+		<ui:param name="tag" value="message" />
+		<h1>
+			<code>r:message</code>
+		</h1>
+		<p>r:message is an extension for a standard h:message component.
+			In addition to what the standard component provides, r:message:</p>
+		<ul>
+			<li>does not require to be wrapped with r:outputPanel in order
+				to be rendered during the Ajax requests</li>
+			<li>allows to define different "failed" markers before the text
+				labels</li>
+			<li>has a predefined css class names for different kinds of
+				message severities</li>
+		</ul>
+		<p>The message marker is defined with a facet. There are several
+			facets names available to design the marker for different kind of
+			message severities. The following example shows how the markers might
+			be used to mark the "passed" and "failed" form fields. Fill the form
+			and click "Ajax Validate" button to see the entered data passing the
+			defined validation rules.</p>
+
+
+		<ui:include src="/resources/sample.xhtml">
+			<ui:param name="tag" value="message" />
+			<ui:param name="sample" value="basic" />
+		</ui:include>
+
+
+	</ui:define>
+</ui:composition>
+</html>

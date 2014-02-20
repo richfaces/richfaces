@@ -2,24 +2,45 @@
 <html lang="en-US">
 
 <ui:composition template="/resources/component.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:r="http://richfaces.org"
-                xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <ui:define name="body">
-        <ui:param name="tag" value="tooltip"/>
-        
-        <h1><code>b:tooltip</code></h1>
-        <p>The <code>b:tooltip</code> displays an tooltip on hovering over link.</p>
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:r="http://richfaces.org"
+	xmlns:b="http://richfaces.org/sandbox/bootstrap">
+	<ui:define name="body">
+		<ui:param name="tag" value="tooltip" />
 
-        <h2>Basic usage</h2>
+		<h1>
+			<code>r:tooltip</code>
+		</h1>
+		<p>
+			The <b>r:tooltip</b> component creates a small non-modal pop-up that
+			can be used to display additional information for nearly anything on
+			the page.
+		</p>
 
-        <ui:include src="/resources/sample.xhtml">
-            <ui:param name="tag" value="tooltip"/>
-            <ui:param name="sample" value="basic"/>
-        </ui:include>
-    </ui:define>
+		<p>Major features:</p>
+		<ul>
+			<li>Tool-tip content may be <b>pre-rendered</b> on a page using
+				client mode or <b>loaded dynamically</b> using separate Ajax
+				requests via Ajax mode.
+			</li>
+			<li>In Ajax mode <b>default content</b> can be shown while the
+				request is being executed
+			</li>
+			<li>Tool-tip's <b>look-n-feel is fully customizable</b> using
+				both Richfaces skins and CSS style classes
+			</li>
+		</ul>
+		<p>There are various other options available such as delays,
+			follow modes, and more that are in the example below:</p>
+
+
+		<ui:include src="/resources/sample.xhtml">
+			<ui:param name="tag" value="tooltip" />
+			<ui:param name="sample" value="basic" />
+		</ui:include>
+	</ui:define>
 </ui:composition>
 </html>

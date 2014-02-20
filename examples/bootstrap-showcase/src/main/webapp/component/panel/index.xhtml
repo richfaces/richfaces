@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<ui:composition template="/resources/component.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:r="http://richfaces.org">
+	<ui:define name="body">
+		<ui:param name="tag" value="panel" />
+
+		<h1>
+			<code>r:panel</code>
+		</h1>
+		 <p>
+        The <b>r:panel</b> component creates a rectangle shaped area on the page that may contain any content including other
+        panels. Panel's have a header (optional) and a body. The default look-n-feel is based on the current skin. Look-n-feel
+        of any part of the panel, including color scheme, borders and paddings can be customizable using with pre-defined number
+        of CSS classes.
+    	</p>
+
+		<ui:include src="/resources/sample.xhtml">
+			<ui:param name="tag" value="panel" />
+			<ui:param name="sample" value="basic" />
+		</ui:include>
+
+
+		<ui:include src="/resources/sample.xhtml">
+			<ui:param name="tag" value="panel" />
+			<ui:param name="sample" value="look-and-feel" />
+		</ui:include>
+
+
+
+	</ui:define>
+</ui:composition>
+</html>
