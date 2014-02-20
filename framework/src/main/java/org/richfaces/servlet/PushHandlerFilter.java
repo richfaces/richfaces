@@ -78,8 +78,6 @@ public class PushHandlerFilter implements Filter, Serializable {
             HttpServletResponse httpResp = (HttpServletResponse) response;
 
             if ("GET".equals(httpReq.getMethod())) {
-                Meteor meteor = Meteor.build(httpReq, SCOPE.REQUEST, Collections.<BroadcastFilter>emptyList(), null);
-
                 String pushSessionId = httpReq.getParameter(PUSH_SESSION_ID_PARAM);
 
                 Session session = null;
@@ -99,6 +97,8 @@ public class PushHandlerFilter implements Filter, Serializable {
                 }
 
                 httpResp.setContentType("text/plain");
+
+                Meteor meteor = Meteor.build(httpReq, SCOPE.REQUEST, Collections.<BroadcastFilter>emptyList(), null);
 
                 try {
                     Request pushRequest = new RequestImpl(meteor, session);
