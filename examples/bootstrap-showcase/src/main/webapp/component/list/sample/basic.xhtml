@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:r="http://richfaces.org"
+                xmlns:f="http://java.sun.com/jsf/core">
+     <r:outputPanel ajaxRendered="true">
+       <h:form id="form">
+
+        <h:outputText value="List Type: " style="font-weight:bold" />
+        <r:commandLink value="ordered" render="list,form">
+            <r:param name="t" value="ordered" assignTo="#{listBean.listType}" />
+            <f:attribute name="style" value="#{(listBean.listType=='ordered') ? 'color:orange' : ''}" />
+        </r:commandLink>
+        <h:outputText value=" | " />
+        <r:commandLink value="unordered" render="list,form">
+            <r:param name="t" value="unordered" assignTo="#{listBean.listType}" />
+            <f:attribute name="style" value="#{(listBean.listType=='unordered') ? 'color:orange' : ''}" />
+        </r:commandLink>
+        <h:outputText value=" | " />
+        <r:commandLink value="definitions" render="list,form">
+            <r:param name="t" value="definitions" assignTo="#{listBean.listType}" />
+            <f:attribute name="style" value="#{(listBean.listType=='definitions') ? 'color:orange' : ''}" />
+        </r:commandLink>
+    </h:form>
+
+    <r:list value="#{carsBean.inventoryVendorLists}" id="list" var="vendorList" type="#{listBean.listType}">
+        <f:facet name="term">
+            <h:panelGroup layout="block">
+                <h:outputText value="In stock: #{vendorList.count}" style="font-weight:bold" />
+            </h:panelGroup>
+        </f:facet>
+        <h:outputText value="#{vendorList.vendor}" />
+    </r:list>
+    </r:outputPanel>
+</ui:composition>

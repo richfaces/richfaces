@@ -1,44 +1,34 @@
 <!DOCTYPE html>
 <html lang="en-US">
 
-<ui:composition template="/resources/demo.xhtml" xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
-    r:="http://richfaces.org/a4j" xmlns:b="http://richfaces.org/sandbox/bootstrap">
-    <ui:define name="params">
-        <ui:param name="brand" value="List demo" />
-    </ui:define>
+<ui:composition template="/resources/component.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:r="http://richfaces.org">
+	<ui:define name="body">
+		<ui:param name="tag" value="list" />
 
-    <ui:define name="body">
-        <h2>Unordered</h2>
-        <ui:include src="/resources/sample.xhtml">
-            <ui:param name="tag" value="list" />
-            <ui:param name="sample" value="unordered" />
-        </ui:include>
-    
-        <h2>Ordered</h2>
-        <ui:include src="/resources/sample.xhtml">
-            <ui:param name="tag" value="list" />
-            <ui:param name="sample" value="ordered" />
-        </ui:include>
-    
-        <h2>Unstyled</h2>
-        <ui:include src="/resources/sample.xhtml">
-            <ui:param name="tag" value="list" />
-            <ui:param name="sample" value="unstyled" />
-        </ui:include>
-    
-        <h2>Description</h2>
-        <ui:include src="/resources/sample.xhtml">
-            <ui:param name="tag" value="list" />
-            <ui:param name="sample" value="description" />
-        </ui:include>
+		<h1>
+			<code>r:list</code>
+		</h1>
+		
+		<p>
+        The <b>r:list</b> component allows to build lists dynamically from back-end data. The lists can be ordered lists,
+        unordered lists, or definition lists.
+	    </p>
+	
+	    <p>
+	        The <b>r:list</b> component accepts the same data sources as other iteration components and renders them according to
+	        the <b>type</b> attribute.
+	    </p>
+		
         
-        <h2>Horizontal Description</h2>
         <ui:include src="/resources/sample.xhtml">
             <ui:param name="tag" value="list" />
-            <ui:param name="sample" value="description-horizontal" />
+            <ui:param name="sample" value="basic" />
         </ui:include>
-    </ui:define>
+	</ui:define>
 </ui:composition>
 </html>
