@@ -13,3 +13,6 @@ body {
 #sideNavbar.affix{
 	top:200px;'
 }
+#sideNavbar > ul > li.active > a {
+	color:black;
+}

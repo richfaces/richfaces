@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:r="http://richfaces.org">
 	<ui:define name="headContent">
-		<div class="container">
+		<div class="container" data-offset="0">
 			<div class="row">
 				<div class="col-md-12">
 					<header class="jumbotron masthead">
@@ -119,7 +119,7 @@
 				<div class="row">
 
 					<div class="col-md-9">
-						<div data-spy="scroll" data-target="#sideNavbar" data-offset="0">
+						<div >
 							<div id="section1">
 								<h2>Section 1</h2>
 								<p>This is section one…</p>
@@ -244,10 +244,10 @@
 							data-spy="affix" data-offset-top="550">
 							
 							<ul class="nav hidden-print">
-								<li class="active"><a href="#section1">Section 1</a></li>
+								<li><a href="#section1">Section 1</a></li>
 								<li><a href="#section2">Section 2</a></li>
 								<li><a href="#section3">Section 3</a></li>
-								<li class="dropdown"><a href="#" class="dropdown-toggle"
+								<li class="dropdown"><a href="#section4" class="dropdown-toggle"
 									data-toggle="dropdown">Section 4<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 										<li><a href="#section4dot1">Section 4.1</a></li>
@@ -258,7 +258,7 @@
 							</ul>
 						</div>
 					</div>
-
+					
 
 
 				</div>
