@@ -10,11 +10,11 @@
 
       textarea.editor(this.options);
 
-      var widget = textarea.data('editor');
+      var widget = textarea.data('richEditor');
       this._storeWidget(widget);
 
       $('form').has(this.element).on('ajaxsubmit', function() {
-          widget.getEditor().updateElement();
+          widget.editor().updateElement();
       });
     },
 
