@@ -62,6 +62,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.sun.faces.component.visit.PartialVisitContext;
+
 /**
  * Tested view structure:
  * <ul>
@@ -172,8 +174,12 @@ public class ExtendedPartialVisitContextTest {
     }
 
     private void createVisitContext(boolean limitRender) {
-        renderingContext = new RenderExtendedVisitContext(facesContext, Collections.<String>emptySet(),
-            EnumSet.<VisitHint>of(VisitHint.SKIP_UNRENDERED), limitRender);
+
+        Set<String> rendererIds = Collections.<String>emptySet();
+        PartialVisitContext partialVisitContext = new PartialVisitContext(facesContext, rendererIds);
+
+        renderingContext = new RenderExtendedVisitContext(partialVisitContext, facesContext, rendererIds,
+                EnumSet.<VisitHint>of(VisitHint.SKIP_UNRENDERED), limitRender);
     }
 
     private void createNestedTableData() {

@@ -63,7 +63,7 @@ final class PartialViewRenderVisitCallback implements VisitCallback {
      */
     public VisitResult visit(VisitContext context, UIComponent target) {
         String metaComponentId = (String) ctx.getAttributes().get(ExtendedVisitContext.META_COMPONENT_ID);
-        if (metaComponentId != null) {
+        if (metaComponentId != null && target instanceof MetaComponentEncoder) {
             MetaComponentEncoder encoder = (MetaComponentEncoder) target;
             try {
                 encoder.encodeMetaComponent(ctx, metaComponentId);
