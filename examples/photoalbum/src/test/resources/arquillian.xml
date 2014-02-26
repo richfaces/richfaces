@@ -46,7 +46,7 @@
         </configuration>
     </container>
 
-    <container qualifier="glassfish31" default="${arquillian.launch.glassfish31}">
+    <container qualifier="glassfish40" default="${arquillian.launch.glassfish40}">
         <configuration>
             <property name="glassFishHome">${project.build.directory}/glassfish3</property>
         </configuration>

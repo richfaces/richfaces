@@ -251,7 +251,7 @@ Managed Containers
 
 ### GlassFish 3.1 - Managed
 
-    mvn verify -Dintegration=glassfish31
+    mvn verify -Dintegration=glassfish40
 
 ### Tomcat 6 - Managed
 
@@ -324,9 +324,9 @@ Profile: `jbossas-remote-7-1`
 
 Start: `[glassfish3]$ ./glassfish/bin/startserv`
 
-Profile: `glassfish-remote-3-1`
+Profile: `glassfish-remote-4-0`
 
-    mvn verify -Dintegration=glassfish31-remote
+    mvn verify -Dintegration=glassfish40-remote
 
 ### TomEE 1.5 - Remote
 

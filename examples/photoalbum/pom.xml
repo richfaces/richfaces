@@ -59,7 +59,7 @@
 
         <version.jboss-as7>7.1.1.Final</version.jboss-as7>
         <version.tomee16>1.5.1</version.tomee16>
-        <version.glassfish31>3.1.2.2</version.glassfish31>
+        <version.glassfish40>3.1.2.2</version.glassfish40>
 
         <maven.min.version>3.0</maven.min.version>
         <maven.compiler.source>1.6</maven.compiler.source>
@@ -511,7 +511,7 @@
                 <!-- Container Selection -->
                 <arquillian.launch.jbossas71>false</arquillian.launch.jbossas71>
                 <arquillian.launch.tomee16>false</arquillian.launch.tomee16>
-                <arquillian.launch.glassfish31>false</arquillian.launch.glassfish31>
+                <arquillian.launch.glassfish40>false</arquillian.launch.glassfish40>
             </properties>
             <dependencies>
                 <dependency>
@@ -797,17 +797,17 @@
             </dependencies>
         </profile>
         <profile>
-            <id>glassfish-managed-3-1</id>
+            <id>glassfish-managed-4-0</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>glassfish31</value>
+                    <value>glassfish40</value>
                 </property>
             </activation>
             <properties>
-                <arquillian.launch.glassfish31>true</arquillian.launch.glassfish31>
+                <arquillian.launch.glassfish40>true</arquillian.launch.glassfish40>
                 <arquillian.container.home>${project.build.directory}/glassfish3</arquillian.container.home>
-                <arquillian.container.distribution>org.glassfish.main.distributions:glassfish:zip:${version.glassfish31}</arquillian.container.distribution>
+                <arquillian.container.distribution>org.glassfish.main.distributions:glassfish:zip:${version.glassfish40}</arquillian.container.distribution>
             </properties>
             <dependencies>
                 <dependency>
@@ -832,7 +832,7 @@
                                         <artifactItem>
                                             <groupId>org.glassfish.main.distributions</groupId>
                                             <artifactId>glassfish</artifactId>
-                                            <version>${version.glassfish31}</version>
+                                            <version>${version.glassfish40}</version>
                                             <type>zip</type>
                                             <overWrite>false</overWrite>
                                             <outputDirectory>${project.build.directory}</outputDirectory>
@@ -846,9 +846,9 @@
             </build>
         </profile>
         <profile>
-            <id>glassfish-remote-3-1</id>
+            <id>glassfish-remote-4-0</id>
             <properties>
-                <arquillian.launch.glassfish31>true</arquillian.launch.glassfish31>
+                <arquillian.launch.glassfish40>true</arquillian.launch.glassfish40>
             </properties>
             <dependencies>
                 <dependency>
