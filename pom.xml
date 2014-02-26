@@ -119,7 +119,7 @@
         <!-- Container Versions -->
         <version.wildfly80>8.0.0.Final</version.wildfly80>
         <version.jbossas71>7.1.1.Final</version.jbossas71>
-        <version.tomee15>1.5.1</version.tomee15>
+        <version.tomee16>1.6.0</version.tomee16>
         <version.glassfish31>3.1.2.2</version.glassfish31>
         <version.tomcat6>6.0.35</version.tomcat6>
         <version.tomcat7>7.0.26</version.tomcat7>
@@ -436,7 +436,7 @@
                 <arquillian.launch.jbossas71>false</arquillian.launch.jbossas71>
                 <arquillian.launch.tomcat6>false</arquillian.launch.tomcat6>
                 <arquillian.launch.tomcat7>false</arquillian.launch.tomcat7>
-                <arquillian.launch.tomee15>false</arquillian.launch.tomee15>
+                <arquillian.launch.tomee16>false</arquillian.launch.tomee16>
                 <arquillian.launch.glassfish31>false</arquillian.launch.glassfish31>
                 
                 <!-- JUnit Categories Selection -->
@@ -793,18 +793,18 @@
             </dependencies>
         </profile>
         <profile>
-            <id>tomee-managed-1-5</id>
+            <id>tomee-managed-1-6</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>tomee15</value>
+                    <value>tomee16</value>
                 </property>
             </activation>
             <properties>
-                <arquillian.launch.tomee15>true</arquillian.launch.tomee15>
+                <arquillian.launch.tomee16>true</arquillian.launch.tomee16>
                 <arquillian.richfaces.jsfProvider>myfaces</arquillian.richfaces.jsfProvider>
-                <arquillian.container.home>${project.build.directory}/apache-tomee-webprofile-${version.tomee15}</arquillian.container.home>
-                <arquillian.container.distribution>org.apache.openejb:apache-tomee:zip:webprofile:${version.tomee15}</arquillian.container.distribution>
+                <arquillian.container.home>${project.build.directory}/apache-tomee-webprofile-${version.tomee16}</arquillian.container.home>
+                <arquillian.container.distribution>org.apache.openejb:apache-tomee:zip:webprofile:${version.tomee16}</arquillian.container.distribution>
                 <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
             </properties>
             <dependencies>
@@ -816,15 +816,15 @@
             </dependencies>
         </profile>
         <profile>
-            <id>tomee-remote-1-5</id>
+            <id>tomee-remote-1-6</id>
             <activation>
                 <property>
                     <name>integration</name>
-                    <value>tomee15-remote</value>
+                    <value>tomee16-remote</value>
                 </property>
             </activation>
             <properties>
-                <arquillian.launch.tomee15>true</arquillian.launch.tomee15>
+                <arquillian.launch.tomee16>true</arquillian.launch.tomee16>
                 <arquillian.richfaces.jsfProvider>myfaces</arquillian.richfaces.jsfProvider>
                 <testCategory.excluded.jsf>AND NOT category.JSF22Only</testCategory.excluded.jsf>
             </properties>

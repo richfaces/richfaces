@@ -247,7 +247,7 @@ Managed Containers
 
 ### TomEE 1.5 - Managed
 
-    mvn verify -Dintegration=tomee15
+    mvn verify -Dintegration=tomee16
 
 ### GlassFish 3.1 - Managed
 
@@ -332,9 +332,9 @@ Profile: `glassfish-remote-3-1`
 
 Start: `[apache-tomee-webprofile-1.5.1]$ ./bin/tomee.sh start`
 
-Profile: `tomee-remote-1-5`
+Profile: `tomee-remote-1-6`
 
-    mvn verify -Dintegration=tomee15-remote
+    mvn verify -Dintegration=tomee16-remote
 
 ### Tomcat 6 - Remote
 

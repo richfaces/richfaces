@@ -36,12 +36,12 @@
         </configuration>
     </container>
 
-    <container qualifier="tomee15" default="${arquillian.launch.tomee15}">
+    <container qualifier="tomee16" default="${arquillian.launch.tomee16}">
         <configuration>
             <property name="httpPort">8080</property>
             <property name="stopPort">9005</property>
-            <property name="version">${version.tomee15}</property>
-            <property name="dir">${project.build.directory}/apache-tomee-webprofile-${version.tomee15}</property>
+            <property name="version">${version.tomee16}</property>
+            <property name="dir">${project.build.directory}/apache-tomee-webprofile-${version.tomee16}</property>
             <property name="appWorkingDir">target/arquillian-test-working-dir</property>
         </configuration>
     </container>
