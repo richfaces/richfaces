@@ -245,11 +245,11 @@ Managed Containers
 
     mvn verify -Dintegration=jbossas71
 
-### TomEE 1.5 - Managed
+### TomEE 1.6 - Managed
 
     mvn verify -Dintegration=tomee16
 
-### GlassFish 3.1 - Managed
+### GlassFish 4.0 - Managed
 
     mvn verify -Dintegration=glassfish40
 
@@ -320,17 +320,17 @@ Profile: `jbossas-remote-7-1`
 
     mvn verify -Dintegration=jbossas71-remote
 
-### GlassFish 3.1 - Remote
+### GlassFish 4.0 - Remote
 
-Start: `[glassfish3]$ ./glassfish/bin/startserv`
+Start: `[glassfish4]$ ./glassfish/bin/startserv`
 
 Profile: `glassfish-remote-4-0`
 
     mvn verify -Dintegration=glassfish40-remote
 
-### TomEE 1.5 - Remote
+### TomEE 1.6 - Remote
 
-Start: `[apache-tomee-webprofile-1.5.1]$ ./bin/tomee.sh start`
+Start: `[apache-tomee-webprofile-1.6.0]$ ./bin/tomee.sh start`
 
 Profile: `tomee-remote-1-6`
 
