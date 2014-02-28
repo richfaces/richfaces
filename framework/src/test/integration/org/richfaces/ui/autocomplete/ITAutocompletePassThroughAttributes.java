@@ -27,7 +27,6 @@ import static org.junit.Assert.assertEquals;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -43,6 +42,7 @@ import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.JSF22Only;
+import category.Smoke;
 
 @RunWith(Arquillian.class)
 public class ITAutocompletePassThroughAttributes {
@@ -93,8 +93,7 @@ public class ITAutocompletePassThroughAttributes {
      * simple option select and suggestion assertion.
      */
     @Test
-    @RunAsClient
-    @Category(JSF22Only.class)
+    @Category({ JSF22Only.class, Smoke.class })
     public void testFunctionality() {
         // load page
         browser.get(contextPath.toExternalForm());
@@ -116,8 +115,7 @@ public class ITAutocompletePassThroughAttributes {
      * This test is aimed to ensure the mark-up is correct and pass-through attribute is present.
      */
     @Test
-    @RunAsClient
-    @Category(JSF22Only.class)
+    @Category({ JSF22Only.class, Smoke.class })
     public void testMarkUp() {
         // load page
         browser.get(contextPath.toExternalForm());
