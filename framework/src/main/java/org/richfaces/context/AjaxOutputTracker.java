@@ -39,36 +39,44 @@ import javax.faces.event.SystemEventListener;
 import org.richfaces.ui.common.AjaxOutput;
 
 /**
+ * Tracker that tracks all {@link AjaxOutput} components in the component tree and that can retrieve tracked {@link AjaxOutput}s
+ * in O(n) where "n" is depth of the tree.
+ *
+ * The O(n) is ensured by tracking nested {@link AjaxOutput} in each {@link NamingContainer} component on a way from the
+ * {@link UIViewRoot} to the given component.
+ *
  * @author Nick Belaevski
  */
-public class PartialViewContextAjaxOutputTracker implements SystemEventListener {
+public class AjaxOutputTracker implements SystemEventListener {
     private static final String ATTRIBUTE_NAME = "org.richfaces.AjaxOutputTracker";
 
-    private static Set<String> getTrackedChildrenSet(UIComponent component, boolean create) {
-        Map<String, Object> attributes = component.getAttributes();
-
-        @SuppressWarnings("unchecked")
-        Set<String> trackedChildrenSet = (Set<String>) attributes.get(ATTRIBUTE_NAME);
-        if (trackedChildrenSet == null && create) {
-            trackedChildrenSet = new HashSet<String>();
-            attributes.put(ATTRIBUTE_NAME, trackedChildrenSet);
+    /**
+     * Tracks additions (resp. removals) of {@link AjaxOutput} to (resp. from) a component tree on {@link PostAddToViewEvent}
+     * (resp. {@link PreRemoveFromViewEvent})
+     */
+    @Override
+    public void processEvent(SystemEvent event) throws AbortProcessingException {
+        if (event instanceof PostAddToViewEvent) {
+            PostAddToViewEvent addToViewEvent = (PostAddToViewEvent) event;
+            componentAdded(addToViewEvent.getComponent());
+        } else if (event instanceof PreRemoveFromViewEvent) {
+            PreRemoveFromViewEvent removeFromViewEvent = (PreRemoveFromViewEvent) event;
+            componentRemoved(removeFromViewEvent.getComponent());
+        } else {
+            throw new IllegalArgumentException(event.toString());
         }
-
-        return trackedChildrenSet;
     }
 
-    private static void clearTrackedChildrenSet(UIComponent component) {
-        component.getAttributes().remove(ATTRIBUTE_NAME);
+    /**
+     * Tracks just {@link AjaxOutput} components
+     */
+    public boolean isListenerForSource(Object source) {
+        return source instanceof AjaxOutput;
     }
 
-    static Collection<String> getDirectChildrenIds(UIComponent component) {
-        if (!isContainerComponent(component)) {
-            throw new IllegalArgumentException(component.toString());
-        }
-
-        return getTrackedChildrenSet(component, false);
-    }
-
+    /**
+     * Return a list of all {@link AjaxOutput} components in a tree under a given component.
+     */
     static Collection<String> getAjaxOutputs(FacesContext facesContext, UIComponent component) {
         final Collection<String> childrenIds = getDirectChildrenIds(component);
         final Set<String> ajaxOutputs = new HashSet<>();
@@ -88,9 +96,51 @@ public class PartialViewContextAjaxOutputTracker implements SystemEventListener 
         return ajaxOutputs;
     }
 
+    /**
+     * Returns a list of {@link AjaxOutput} (or IDs of {@link NamingContainer} that contains at least one {@link AjaxOutput})
+     * tracked in the given component subtree.
+     *
+     * Provided component must be Container Component as specified by {@link #isContainerComponent(UIComponent)}.
+     *
+     * @throws IllegalArgumentException when the provided component is not Container Component
+     */
+    static Collection<String> getDirectChildrenIds(UIComponent component) {
+        if (!isContainerComponent(component)) {
+            throw new IllegalArgumentException(component.toString());
+        }
+
+        return getTrackedChildrenSet(component, false);
+    }
+
+    /**
+     * Detects whether given component has some {@link AjaxOutput} components tracked in its subtree.
+     */
     static boolean hasNestedAjaxOutputs(UIComponent component) {
         Collection<String> childrenIds = getDirectChildrenIds(component);
         return childrenIds != null && !childrenIds.isEmpty();
+    }
+
+    /**
+     * Returns list of {@link AjaxOutput} IDs tracked in the given component subtree
+     */
+    private static Set<String> getTrackedChildrenSet(UIComponent component, boolean create) {
+        Map<String, Object> attributes = component.getAttributes();
+
+        @SuppressWarnings("unchecked")
+        Set<String> trackedChildrenSet = (Set<String>) attributes.get(ATTRIBUTE_NAME);
+        if (trackedChildrenSet == null && create) {
+            trackedChildrenSet = new HashSet<String>();
+            attributes.put(ATTRIBUTE_NAME, trackedChildrenSet);
+        }
+
+        return trackedChildrenSet;
+    }
+
+    /**
+     * Clears a list of tracked {@link AjaxOutput} IDs in a given component
+     */
+    private static void clearTrackedChildrenSet(UIComponent component) {
+        component.getAttributes().remove(ATTRIBUTE_NAME);
     }
 
     private static String getId(UIComponent component) {
@@ -149,21 +199,5 @@ public class PartialViewContextAjaxOutputTracker implements SystemEventListener 
 
             child = parent;
         }
-    }
-
-    public void processEvent(SystemEvent event) throws AbortProcessingException {
-        if (event instanceof PostAddToViewEvent) {
-            PostAddToViewEvent addToViewEvent = (PostAddToViewEvent) event;
-            componentAdded(addToViewEvent.getComponent());
-        } else if (event instanceof PreRemoveFromViewEvent) {
-            PreRemoveFromViewEvent removeFromViewEvent = (PreRemoveFromViewEvent) event;
-            componentRemoved(removeFromViewEvent.getComponent());
-        } else {
-            throw new IllegalArgumentException(event.toString());
-        }
-    }
-
-    public boolean isListenerForSource(Object source) {
-        return source instanceof AjaxOutput;
     }
 }

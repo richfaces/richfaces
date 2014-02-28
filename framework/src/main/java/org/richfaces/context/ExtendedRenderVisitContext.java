@@ -35,33 +35,62 @@ import javax.faces.context.FacesContext;
 import org.richfaces.ui.common.AjaxOutput;
 
 /**
- * @author Nick Belaevski
+ * <p>Wraps parent {@link VisitContext} and executes following operations:</p>
  *
+ * <ul>
+ * <li>makes sure implicit rendering areas ({@link AjaxOutput}s) are also visited
+ * <li>executes {@link MetaComponentEncodingVisitCallback} during {@link #invokeVisitCallback(UIComponent, VisitCallback)} method.</li>
+ * </ul>
+ *
+ * @author Nick Belaevski
  */
-public class RenderExtendedVisitContext extends BaseExtendedVisitContext {
+public class ExtendedRenderVisitContext extends BaseExtendedVisitContext {
     private boolean limitRender;
 
-    public RenderExtendedVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
+    public ExtendedRenderVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
         boolean limitRender) {
         super(visitContextToWrap, facesContext, clientIds, hints, ExtendedVisitContextMode.RENDER);
 
         this.limitRender = limitRender;
     }
 
+    /**
+     * Instead of execution of {@link VisitCallback} directly, we use {@link MetaComponentEncodingVisitCallback} that executes
+     * additional logic for meta-component encoding.
+     */
     @Override
-    protected boolean hasImplicitSubtreeIdsToVisit(UIComponent component) {
-        return !limitRender && PartialViewContextAjaxOutputTracker.hasNestedAjaxOutputs(component);
+    public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callbackToWrap) {
+        MetaComponentEncodingVisitCallback callback = new MetaComponentEncodingVisitCallback(callbackToWrap, getFacesContext());
+        return super.invokeVisitCallback(component, callback);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.context.BaseExtendedVisitContext#hasImplicitSubtreeIdsToVisit(javax.faces.component.UIComponent)
+     */
+    @Override
+    protected boolean hasImplicitSubtreeIdsToVisit(UIComponent component) {
+        return !limitRender && AjaxOutputTracker.hasNestedAjaxOutputs(component);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.context.BaseExtendedVisitContext#addDirectSubtreeIdsToVisitForImplicitComponents(javax.faces.component.UIComponent, java.util.Set)
+     */
     protected void addDirectSubtreeIdsToVisitForImplicitComponents(UIComponent component, Set<String> result) {
         if (!limitRender) {
-            Collection<String> directChildrenIds = PartialViewContextAjaxOutputTracker.getDirectChildrenIds(component);
+            Collection<String> directChildrenIds = AjaxOutputTracker.getDirectChildrenIds(component);
             if (directChildrenIds != null && !directChildrenIds.isEmpty()) {
                 result.addAll(directChildrenIds);
             }
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.context.BaseExtendedVisitContext#invokeVisitCallbackForImplicitComponent(javax.faces.component.UIComponent, javax.faces.component.visit.VisitCallback)
+     */
+    @Override
     protected VisitResult invokeVisitCallbackForImplicitComponent(UIComponent component, VisitCallback callback) {
         if (!limitRender) {
             if (component instanceof AjaxOutput) {
@@ -76,28 +105,27 @@ public class RenderExtendedVisitContext extends BaseExtendedVisitContext {
         return VisitResult.ACCEPT;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.context.BaseExtendedVisitContext#shouldCompleteOnEmptyIds()
+     */
+    @Override
     protected boolean shouldCompleteOnEmptyIds() {
         return limitRender;
-    }
-
-    @Override
-    public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callbackToWrap) {
-        PartialViewRenderVisitCallback callback = new PartialViewRenderVisitCallback(callbackToWrap, getFacesContext());
-        return super.invokeVisitCallback(component, callback);
     }
 
     /**
      * Determine if the VisitContext is, or wraps, the RenderExtendedVisitContext
      * @param visitContext The VisitContext of the component tree visit.
      */
-    public static boolean isRenderExtendedVisitContext(VisitContext visitContext) {
-        if  (visitContext instanceof RenderExtendedVisitContext) {
+    public static boolean isExtendedRenderVisitContext(VisitContext visitContext) {
+        if  (visitContext instanceof ExtendedRenderVisitContext) {
             return true;
         } else {
             VisitContext wrapped = visitContext;
             while (wrapped instanceof VisitContextWrapper) {
                 wrapped = ((VisitContextWrapper) wrapped).getWrapped();
-                if  (wrapped instanceof RenderExtendedVisitContext) {
+                if  (wrapped instanceof ExtendedRenderVisitContext) {
                     return true;
                 }
             }

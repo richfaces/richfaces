@@ -33,7 +33,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.context.RenderExtendedVisitContext;
+import org.richfaces.context.ExtendedRenderVisitContext;
 import org.richfaces.ui.attribute.CoreProps;
 import org.richfaces.ui.attribute.EventsMouseProps;
 import org.richfaces.ui.attribute.I18nProps;
@@ -139,7 +139,7 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
      * UIComponent#visitTree modified to delegate to AbstractTab#getVisitableChildren() to retrieve the children iterator
      */
     public boolean visitTree(VisitContext context, VisitCallback callback) {
-        if (RenderExtendedVisitContext.isRenderExtendedVisitContext(context) && ! shouldVisitChildren()) {
+        if (ExtendedRenderVisitContext.isExtendedRenderVisitContext(context) && ! shouldVisitChildren()) {
             // Return false to allow the visit to continue
             return false;
         } else {

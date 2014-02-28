@@ -24,22 +24,34 @@ package org.richfaces.context;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 /**
- * @author Nick Belaevski
+ * Wraps parent {@link VisitContext} and executes {@link MetaComponentProcessingVisitCallback} during its
+ * {@link #invokeVisitCallback(UIComponent, VisitCallback)} method.
  *
+ * @author Nick Belaevski
  */
-public class ExecuteExtendedVisitContext extends BaseExtendedVisitContext {
-    /**
-     * @param facesContext
-     * @param clientIds
-     * @param hints
-     */
-    public ExecuteExtendedVisitContext(VisitContext visitContextToWrap, FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints) {
+public class ExtendedExecuteVisitContext extends BaseExtendedVisitContext {
 
+    public ExtendedExecuteVisitContext(VisitContext visitContextToWrap, FacesContext facesContext,
+            Collection<String> clientIds, Set<VisitHint> hints) {
         super(visitContextToWrap, facesContext, clientIds, hints, ExtendedVisitContextMode.EXECUTE);
+    }
+
+    /**
+     * Instead of execution of {@link VisitCallback} directly, we use {@link MetaComponentProcessingVisitCallback} that executes
+     * additional logic for meta-component processing.
+     */
+    @Override
+    public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callbackToWrap) {
+        MetaComponentProcessingVisitCallback callback = new MetaComponentProcessingVisitCallback(callbackToWrap,
+                getFacesContext());
+        return super.invokeVisitCallback(component, callback);
     }
 }

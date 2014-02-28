@@ -37,7 +37,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.context.RenderExtendedVisitContext;
+import org.richfaces.context.ExtendedRenderVisitContext;
 import org.richfaces.ui.attribute.AjaxProps;
 import org.richfaces.ui.attribute.BypassProps;
 import org.richfaces.ui.attribute.CoreProps;
@@ -207,7 +207,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
      */
     public static Iterator<UIComponent> getVisitableChildren(UIComponent component, VisitContext visitContext) {
         Iterator<UIComponent> kids;
-        if (RenderExtendedVisitContext.isRenderExtendedVisitContext(visitContext)
+        if (ExtendedRenderVisitContext.isExtendedRenderVisitContext(visitContext)
                 && component instanceof VisitChildrenRejectable
                 && ! ((VisitChildrenRejectable)component).shouldVisitChildren()) {
             if (component.getFacetCount() > 0) {

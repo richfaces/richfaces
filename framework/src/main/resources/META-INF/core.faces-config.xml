@@ -40,11 +40,11 @@
             <system-event-class>javax.faces.event.PreRenderViewEvent</system-event-class>
         </system-event-listener>
         <system-event-listener>
-            <system-event-listener-class>org.richfaces.context.PartialViewContextAjaxOutputTracker</system-event-listener-class>
+            <system-event-listener-class>org.richfaces.context.AjaxOutputTracker</system-event-listener-class>
             <system-event-class>javax.faces.event.PreRemoveFromViewEvent</system-event-class>
         </system-event-listener>
         <system-event-listener>
-            <system-event-listener-class>org.richfaces.context.PartialViewContextAjaxOutputTracker</system-event-listener-class>
+            <system-event-listener-class>org.richfaces.context.AjaxOutputTracker</system-event-listener-class>
             <system-event-class>javax.faces.event.PostAddToViewEvent</system-event-class>
         </system-event-listener>
         <view-handler>org.richfaces.resource.GlobalResourcesViewHandler</view-handler>
@@ -55,7 +55,7 @@
 
     <factory>
         <external-context-factory>org.richfaces.skin.SkinningExternalContextFactory</external-context-factory>
-        <partial-view-context-factory>org.richfaces.context.ExtendedPartialViewContextFactoryImpl</partial-view-context-factory>
+        <partial-view-context-factory>org.richfaces.context.ExtendedPartialViewContextFactory</partial-view-context-factory>
         <visit-context-factory>org.richfaces.context.ExtendedVisitContextFactory</visit-context-factory>
     </factory>
 

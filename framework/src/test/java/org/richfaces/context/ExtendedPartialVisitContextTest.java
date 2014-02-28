@@ -178,7 +178,7 @@ public class ExtendedPartialVisitContextTest {
         Set<String> rendererIds = Collections.<String>emptySet();
         PartialVisitContext partialVisitContext = new PartialVisitContext(facesContext, rendererIds);
 
-        renderingContext = new RenderExtendedVisitContext(partialVisitContext, facesContext, rendererIds,
+        renderingContext = new ExtendedRenderVisitContext(partialVisitContext, facesContext, rendererIds,
                 EnumSet.<VisitHint>of(VisitHint.SKIP_UNRENDERED), limitRender);
     }
 

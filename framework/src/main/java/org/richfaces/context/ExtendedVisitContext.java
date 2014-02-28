@@ -36,7 +36,6 @@ import org.richfaces.util.FastJoiner;
 
 /**
  * @author Nick Belaevski
- *
  */
 public abstract class ExtendedVisitContext extends VisitContextWrapper {
     public static final String META_COMPONENT_ID = "org.richfaces.MetaComponentId";

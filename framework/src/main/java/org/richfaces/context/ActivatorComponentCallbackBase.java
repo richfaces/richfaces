@@ -39,11 +39,11 @@ import org.richfaces.util.Sets;
 /**
  * User: akolonitsky Date: Oct 13, 2009
  */
-abstract class ComponentCallback implements VisitCallback {
+abstract class ActivatorComponentCallbackBase implements VisitCallback {
     protected final FacesContext facesContext;
     private final String behaviorEvent;
 
-    ComponentCallback(FacesContext facesContext, String behaviorEvent) {
+    ActivatorComponentCallbackBase(FacesContext facesContext, String behaviorEvent) {
         super();
 
         this.facesContext = facesContext;
