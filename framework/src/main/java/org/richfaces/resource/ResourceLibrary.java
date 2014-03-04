@@ -22,9 +22,33 @@
 package org.richfaces.resource;
 
 /**
+ * <p>The library of resources is references as '*.reslib' resource key and it can be represented by '*.library.properties' files under /META-INF/richfaces following JSF's resource library scheme.</p>
+ *
+ * <p>E.g.:</p>
+ *
+ * <ul>
+ * <li>resource key 'my.library:custom.reslib'</li>
+ * <li>is represented by '/META-INF/richfaces/my.library/custom.library.properties' file</li>
+ * </ul>
+ *
+ * <p>library.properties files can either:</p>
+ *
+ * <ul>
+ * <li>define a comma-separated list of resources, e.g. <tt>resources=javax.faces:jsf.js, org.richfaces:richfaces.js</tt></li>
+ * <li>or container a reference to a class implementing {@link ResourceLibrary} that will (dynamically) return list of resources contained in the library, e.g. <tt>class=my.library.CustomResourceLibrary</tt></li>
+ * </ul>
+ *
  * @author Nick Belaevski
+ *
+ * @see ResourceLibraryFactory
  *
  */
 public interface ResourceLibrary {
+
+    /**
+     * <p>Returns a list of resources contained in this resource library</p>
+     *
+     * <p>The result does not have to be stable; i.e. the returned list of resources may differ for each execution based on context, configuration, time, etc.</p>
+     */
     Iterable<ResourceKey> getResources();
 }

@@ -22,9 +22,16 @@
 package org.richfaces.resource;
 
 /**
+ * A factory used to create {@link ResourceLibrary} from given resource name and library
+ *
  * @author Nick Belaevski
  *
+ * @see ResourceLibrary
  */
 public interface ResourceLibraryFactory {
+
+    /**
+     * Create a {@link ResourceLibrary} for given resource name and library
+     */
     ResourceLibrary getResourceLibrary(String name, String library);
 }

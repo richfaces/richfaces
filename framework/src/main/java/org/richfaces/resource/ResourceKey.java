@@ -26,17 +26,12 @@ import javax.faces.application.Resource;
 import com.google.common.base.Function;
 
 /**
- * @author Nick Belaevski
+ * Encapsulates resource name and resource library
  *
+ * @author Nick Belaevski
  */
 public final class ResourceKey {
-    public static final Function<String, ResourceKey> FACTORY = new Function<String, ResourceKey>() {
-        public ResourceKey apply(String from) {
-            return create(from);
-        }
 
-        ;
-    };
     private final String resourceName;
     private final String libraryName;
 
@@ -46,14 +41,37 @@ public final class ResourceKey {
         this.libraryName = libraryName;
     }
 
+    /**
+     * Returns resource's name
+     */
+    public String getResourceName() {
+        return resourceName;
+    }
+
+    /**
+     * Returns library's name
+     */
+    public String getLibraryName() {
+        return libraryName;
+    }
+
+    /**
+     * Factory method for creating resource key from single resource qualifier in format library:resource
+     */
     public static ResourceKey create(String resourceQualifier) {
         return new ResourceKey(extractResourceName(resourceQualifier), extractLibraryName(resourceQualifier));
     }
 
+    /**
+     * Factory method for creating resource key from resource and library name
+     */
     public static ResourceKey create(String resourceName, String libraryName) {
         return new ResourceKey(resourceName, libraryName);
     }
 
+    /**
+     * Factory method for creating resource key from {@link Resource}
+     */
     public static ResourceKey create(Resource resource) {
         return new ResourceKey(resource.getResourceName(), resource.getLibraryName());
     }
@@ -74,14 +92,6 @@ public final class ResourceKey {
         }
 
         return resourceQualifier.substring(0, idx);
-    }
-
-    public String getResourceName() {
-        return resourceName;
-    }
-
-    public String getLibraryName() {
-        return libraryName;
     }
 
     @Override
@@ -128,4 +138,13 @@ public final class ResourceKey {
     public String toString() {
         return libraryName + ":" + resourceName;
     }
+
+    /**
+     * A function for creating {@link ResourceKey} from strings by calling {@link #create(String)} factory.
+     */
+    public static final Function<String, ResourceKey> FACTORY = new Function<String, ResourceKey>() {
+        public ResourceKey apply(String from) {
+            return create(from);
+        }
+    };
 }

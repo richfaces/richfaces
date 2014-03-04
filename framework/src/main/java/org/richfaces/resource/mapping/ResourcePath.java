@@ -23,11 +23,18 @@ package org.richfaces.resource.mapping;
 
 import java.net.URL;
 
+import javax.faces.application.Resource;
+
 import org.richfaces.resource.ResourceKey;
+import org.richfaces.servlet.ResourceServlet;
 import org.richfaces.util.URLUtils;
 
 /**
- * Represents a path to the resource
+ * <p>Represents a path to the resource.</p>
+ *
+ * <p>In correspondance to {@link Resource}, it does not allow to obtain defails of the requested resource, it knows just its path.</p>
+ *
+ * <p>This class primarily serves as a base for configuring Resource Mapping that drives resources through {@link ResourceServlet}.</p>
  *
  * @author Lukas Fryc
  */
@@ -35,14 +42,23 @@ public class ResourcePath {
 
     public String resourcePath;
 
+    /**
+     * Creates resource path from given that can be either absolute or relative URL
+     */
     public ResourcePath(String resourcePath) {
         this.resourcePath = resourcePath;
     }
 
+    /**
+     * Creates resource path from provided absolute URL
+     */
     public ResourcePath(URL url) {
         this.resourcePath = url.toExternalForm();
     }
 
+    /**
+     * Creates a relative resource path from given {@link ResourceKey}
+     */
     public ResourcePath(ResourceKey key) {
         this.resourcePath = key.getResourceName();
 
@@ -51,10 +67,16 @@ public class ResourcePath {
         }
     }
 
+    /**
+     * Exports given resource path to its external form that is
+     */
     public String toExternalForm() {
         return resourcePath;
     }
 
+    /**
+     * Is given resource path an absolute URL?
+     */
     public boolean isAbsoluteURL() {
         return URLUtils.isValidURL(resourcePath);
     }

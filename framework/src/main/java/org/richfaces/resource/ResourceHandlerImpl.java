@@ -46,6 +46,17 @@ import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.core.ResourceLibraryRenderer;
 
 /**
+ * <p>RichFaces-specific {@link ResourceHandler}.</p>
+ *
+ * <p>It adds support for:</p>
+ *
+ * <ul>
+ * <li>ECSS files handling</li>
+ * <li>cacheable resources</li>
+ * </ul>
+ *
+ * <p>It delegates to {@link ResourceFactory} for creating resources.</p>
+ *
  * @author Nick Belaevski
  * @since 4.0
  */
@@ -55,6 +66,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
     public static final String RESOURCE_CACHE_NAME = "org.richfaces.ResourcesCache";
     public static final String HANDLER_START_TIME_ATTRIBUTE = ResourceHandlerImpl.class.getName() + ":StartTime";
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
+
     private ResourceFactory resourceFactory;
     private ResourceHandler defaultHandler;
 
@@ -67,76 +79,19 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
         }
     }
 
-    public static String getResourcePathFromRequest(FacesContext context) {
-        String resourceName = ResourceUtils.decodeResourceURL(context);
-
-        if (resourceName != null) {
-            if (resourceName.startsWith(RICHFACES_RESOURCE_IDENTIFIER)) {
-                return resourceName.substring(RICHFACES_RESOURCE_IDENTIFIER.length());
-            } else {
-                return null;
-            }
-        } else {
-            LOGGER.warn("Resource key not found" + resourceName);
-            return null;
-        }
-    }
-
-    protected boolean isThisHandlerResourceRequest(FacesContext context) {
-        Boolean resourceRequest = BooleanRequestStateVariable.ResourceRequest.get(context);
-
-        if (resourceRequest == null) {
-            String resourcePath = getResourcePathFromRequest(context);
-
-            // TODO handle exclusions
-            resourceRequest = (resourcePath != null) && (resourcePath.length() > 0);
-            BooleanRequestStateVariable.ResourceRequest.set(context, resourceRequest);
-
-            if (LOGGER.isDebugEnabled() && resourceRequest) {
-                LOGGER.debug(MessageFormat.format("Resource request detected: {0}", resourcePath));
-            }
-        }
-
-        return resourceRequest;
-    }
-
+    /*
+     * (non-Javadoc)
+     * @see javax.faces.application.ResourceHandlerWrapper#isResourceRequest(javax.faces.context.FacesContext)
+     */
     @Override
     public boolean isResourceRequest(FacesContext context) {
         return isThisHandlerResourceRequest(context) || defaultHandler.isResourceRequest(context);
     }
 
-    private Resource lookupInCache(Cache cache, String resourceKey) {
-        if (cache == null) {
-            LOGGER.debug("No cache was provided");
-            return null;
-        }
-
-        Resource resource = (Resource) cache.get(resourceKey);
-
-        if (LOGGER.isDebugEnabled()) {
-            if (resource == null) {
-                LOGGER.debug("Resource was not located in cache");
-            } else {
-                LOGGER.debug("Resource was located in cache");
-            }
-        }
-
-        return resource;
-    }
-
-    private static void sendNotModified(FacesContext context) {
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("User agent has actual resource copy - sending 304 status code");
-        }
-
-        // TODO send cacheable resource headers (ETag + LastModified)?
-        context.getExternalContext().setResponseStatus(HttpServletResponse.SC_NOT_MODIFIED);
-    }
-
-    public static void sendResourceNotFound(FacesContext context) {
-        context.getExternalContext().setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
-    }
-
+    /*
+     * (non-Javadoc)
+     * @see javax.faces.application.ResourceHandlerWrapper#handleResourceRequest(javax.faces.context.FacesContext)
+     */
     @Override
     public void handleResourceRequest(FacesContext context) throws IOException {
         if (isThisHandlerResourceRequest(context)) {
@@ -265,6 +220,47 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
         }
     }
 
+    protected boolean isThisHandlerResourceRequest(FacesContext context) {
+        Boolean resourceRequest = BooleanRequestStateVariable.ResourceRequest.get(context);
+
+        if (resourceRequest == null) {
+            String resourcePath = getResourcePathFromRequest(context);
+
+            // TODO handle exclusions
+            resourceRequest = (resourcePath != null) && (resourcePath.length() > 0);
+            BooleanRequestStateVariable.ResourceRequest.set(context, resourceRequest);
+
+            if (LOGGER.isDebugEnabled() && resourceRequest) {
+                LOGGER.debug(MessageFormat.format("Resource request detected: {0}", resourcePath));
+            }
+        }
+
+        return resourceRequest;
+    }
+
+    private Resource lookupInCache(Cache cache, String resourceKey) {
+        if (cache == null) {
+            LOGGER.debug("No cache was provided");
+            return null;
+        }
+
+        Resource resource = (Resource) cache.get(resourceKey);
+
+        if (LOGGER.isDebugEnabled()) {
+            if (resource == null) {
+                LOGGER.debug("Resource was not located in cache");
+            } else {
+                LOGGER.debug("Resource was located in cache");
+            }
+        }
+
+        return resource;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see javax.faces.application.ResourceHandlerWrapper#createResource(java.lang.String, java.lang.String, java.lang.String)
+     */
     @Override
     public Resource createResource(String resourceName, String libraryName, String contentType) {
         Resource resource = resourceFactory.createResource(resourceName, libraryName, contentType);
@@ -275,16 +271,28 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
         return resource;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.faces.application.ResourceHandlerWrapper#createResource(java.lang.String, java.lang.String)
+     */
     @Override
     public Resource createResource(String resourceName, String libraryName) {
         return createResource(resourceName, libraryName, null);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.faces.application.ResourceHandlerWrapper#createResource(java.lang.String)
+     */
     @Override
     public Resource createResource(String resourceName) {
         return createResource(resourceName, null, null);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.faces.application.ResourceHandlerWrapper#getRendererTypeForResourceName(java.lang.String)
+     */
     @Override
     public String getRendererTypeForResourceName(String resourceName) {
 
@@ -299,13 +307,49 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
         return defaultHandler.getRendererTypeForResourceName(resourceName);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.faces.application.ResourceHandlerWrapper#libraryExists(java.lang.String)
+     */
     @Override
     public boolean libraryExists(String libraryName) {
         return defaultHandler.libraryExists(libraryName);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.faces.application.ResourceHandlerWrapper#getWrapped()
+     */
     @Override
     public ResourceHandler getWrapped() {
         return defaultHandler;
+    }
+
+    private static String getResourcePathFromRequest(FacesContext context) {
+        String resourceName = ResourceUtils.decodeResourceURL(context);
+
+        if (resourceName != null) {
+            if (resourceName.startsWith(RICHFACES_RESOURCE_IDENTIFIER)) {
+                return resourceName.substring(RICHFACES_RESOURCE_IDENTIFIER.length());
+            } else {
+                return null;
+            }
+        } else {
+            LOGGER.warn("Resource key not found" + resourceName);
+            return null;
+        }
+    }
+
+    private static void sendNotModified(FacesContext context) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("User agent has actual resource copy - sending 304 status code");
+        }
+
+        // TODO send cacheable resource headers (ETag + LastModified)?
+        context.getExternalContext().setResponseStatus(HttpServletResponse.SC_NOT_MODIFIED);
+    }
+
+    private static void sendResourceNotFound(FacesContext context) {
+        context.getExternalContext().setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
     }
 }

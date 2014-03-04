@@ -31,6 +31,7 @@ import java.util.TreeSet;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
+import org.openqa.grid.web.servlet.ResourceServlet;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.URLResource;
 import org.richfaces.resource.mapping.PropertiesResourceMapper;
@@ -47,9 +48,11 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 
 /**
- * Creates resources pointing outside of standard JSF resource handler.
+ * Creates resources pointing outside of standard JSF resource handler using {@link ResourceServlet}.
  *
  * @author Lukas Fryc
+ *
+ * @see ResourceServlet
  */
 public class MappedResourceFactoryImpl implements MappedResourceFactory, Initializable {
 

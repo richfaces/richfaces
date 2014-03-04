@@ -40,45 +40,18 @@ import com.google.common.collect.Iterables;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class ResourceLibraryFactoryImpl implements ResourceLibraryFactory {
+
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
     private static final FastJoiner SLASH_JOINER = FastJoiner.on('/');
     private static final Splitter COMA_SPLITTER = Splitter.on(',').omitEmptyStrings().trimResults();
-    private LoadingCache<ResourceKey, ResourceLibrary> instances = CacheBuilder.newBuilder().build(CacheLoader.from(new Function<ResourceKey, ResourceLibrary>() {
-            public ResourceLibrary apply(ResourceKey from) {
-                String propsResourceName = from.getResourceName() + ".library.properties";
 
-                Map<String, String> props = PropertiesUtil.loadProperties("META-INF/richfaces/"
-                    + SLASH_JOINER.join(from.getLibraryName(), propsResourceName));
-
-                String libraryClass = props.get("class");
-                String resources = props.get("resources");
-
-                if (libraryClass != null) {
-                    try {
-                        Class<?> clazz = Class.forName(libraryClass.trim(), false, Thread.currentThread()
-                            .getContextClassLoader());
-                        return (ResourceLibrary) clazz.newInstance();
-                    } catch (ClassNotFoundException e) {
-                        LOGGER.error(e.getMessage(), e);
-                    } catch (InstantiationException e) {
-                        LOGGER.error(e.getMessage(), e);
-                    } catch (IllegalAccessException e) {
-                        LOGGER.error(e.getMessage(), e);
-                    }
-                } else if (resources != null) {
-                    Iterable<ResourceKey> keys = Iterables.transform(COMA_SPLITTER.split(resources), ResourceKey.FACTORY);
-                    return new StaticResourceLibrary(Iterables.toArray(keys, ResourceKey.class));
-                } else {
-                    LOGGER.error("'class' or 'resources' properties should be declared in library descriptor: " + from);
-                }
-
-                return null;
-            }
-        }));
-
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.resource.ResourceLibraryFactory#getResourceLibrary(java.lang.String, java.lang.String)
+     */
+    @Override
     public ResourceLibrary getResourceLibrary(String name, String library) {
         ResourceKey resourceKey = new ResourceKey(name, library);
         try {
@@ -87,4 +60,37 @@ public class ResourceLibraryFactoryImpl implements ResourceLibraryFactory {
             throw new FacesException(String.format("Can't resolve resource library %s", resourceKey), e);
         }
     }
+
+    private LoadingCache<ResourceKey, ResourceLibrary> instances = CacheBuilder.newBuilder().build(CacheLoader.from(new Function<ResourceKey, ResourceLibrary>() {
+        public ResourceLibrary apply(ResourceKey from) {
+            String propsResourceName = from.getResourceName() + ".library.properties";
+
+            Map<String, String> props = PropertiesUtil.loadProperties("META-INF/richfaces/"
+                + SLASH_JOINER.join(from.getLibraryName(), propsResourceName));
+
+            String libraryClass = props.get("class");
+            String resources = props.get("resources");
+
+            if (libraryClass != null) {
+                try {
+                    Class<?> clazz = Class.forName(libraryClass.trim(), false, Thread.currentThread()
+                        .getContextClassLoader());
+                    return (ResourceLibrary) clazz.newInstance();
+                } catch (ClassNotFoundException e) {
+                    LOGGER.error(e.getMessage(), e);
+                } catch (InstantiationException e) {
+                    LOGGER.error(e.getMessage(), e);
+                } catch (IllegalAccessException e) {
+                    LOGGER.error(e.getMessage(), e);
+                }
+            } else if (resources != null) {
+                Iterable<ResourceKey> keys = Iterables.transform(COMA_SPLITTER.split(resources), ResourceKey.FACTORY);
+                return new StaticResourceLibrary(Iterables.toArray(keys, ResourceKey.class));
+            } else {
+                LOGGER.error("'class' or 'resources' properties should be declared in library descriptor: " + from);
+            }
+
+            return null;
+        }
+    }));
 }
