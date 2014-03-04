@@ -51,8 +51,18 @@ import org.richfaces.skin.SkinFactoryImpl;
 import org.richfaces.ui.misc.focus.FocusManager;
 import org.richfaces.ui.misc.focus.FocusManagerImpl;
 
+/**
+ * <p>Default RichFaces configuration module.</p>
+ *
+ * <p>User can implement application-specific {@link Module} in order to rewrite this configuration.</p>
+ */
 public class DefaultModule implements Module {
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.services.Module#configure(org.richfaces.services.ServicesFactory)
+     */
+    @Override
     public void configure(ServicesFactory factory) {
         factory.setInstance(ConfigurationService.class, new ConfigurationServiceImpl());
         factory.setInstance(SkinFactory.class, new SkinFactoryImpl());
@@ -60,7 +70,7 @@ public class DefaultModule implements Module {
         factory.setInstance(ResourceCodec.class, ServiceLoader.loadService(ResourceCodec.class, DefaultResourceCodec.class));
         factory.setInstance(Cache.class, new CacheProvider());
         factory.setInstance(Uptime.class, new Uptime());
-        factory.setInstance(DependencyInjector.class, new DependencyInjectionServiceImpl());
+        factory.setInstance(DependencyInjector.class, new DependencyInjectorImpl());
         factory.setInstance(MessageFactory.class, new MessageFactoryImpl(new BundleLoader()));
         factory.setInstance(ResourceLibraryFactory.class, new ResourceLibraryFactoryImpl());
         factory.setInstance(PushContextFactory.class,

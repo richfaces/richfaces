@@ -38,7 +38,7 @@ import org.richfaces.resource.mapping.ResourcePath;
 import org.richfaces.resource.optimizer.Faces;
 import org.richfaces.resource.optimizer.FileNameMapper;
 import org.richfaces.resource.optimizer.skin.SkinFactoryImpl;
-import org.richfaces.services.DependencyInjectionServiceImpl;
+import org.richfaces.services.DependencyInjectorImpl;
 import org.richfaces.services.DependencyInjector;
 import org.richfaces.services.Module;
 import org.richfaces.services.ServiceTracker;
@@ -72,7 +72,7 @@ public class FacesImpl implements Faces {
                 factory.setInstance(ConfigurationService.class, new ConfigurationServiceImpl());
                 factory.setInstance(SkinFactory.class, new SkinFactoryImpl());
                 factory.setInstance(FileNameMapper.class, fileNameMapper);
-                factory.setInstance(DependencyInjector.class, new DependencyInjectionServiceImpl());
+                factory.setInstance(DependencyInjector.class, new DependencyInjectorImpl());
                 factory.setInstance(ResourceHandler.class, resourceHandler);
                 factory.setInstance(ResourceTracker.class, new ResourceTrackerImpl());
                 factory.setInstance(MappedResourceFactory.class, new NullMappedResourceFactory());

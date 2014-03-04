@@ -22,10 +22,11 @@
 
 package org.richfaces.services;
 
+
 /**
- * <p class="changed_added_4_0">
- * {@link ServicesFactory} configuration module.
- * </p>
+ * <p>Configuration module allows to configure RichFaces services.</p>
+ *
+ * <p>Implementations are loaded in conformance with {@link java.util.ServiceLoader} (/META-INF/services/org.richfaces.services.Module).</p>
  *
  * @author asmirnov@exadel.com
  *

@@ -31,7 +31,14 @@ package org.richfaces.services;
  *
  */
 public interface Initializable {
+
+    /**
+     * Called during service initialization time
+     */
     void init();
 
+    /**
+     * Called when releasing associated services
+     */
     void release();
 }

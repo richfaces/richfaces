@@ -52,130 +52,9 @@ import org.richfaces.resource.ResourceParameterELResolver;
  * @author Nick Belaevski
  *
  */
-public class DependencyInjectionServiceImpl implements DependencyInjector {
+public class DependencyInjectorImpl implements DependencyInjector {
+
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-
-    private abstract static class Injector<T extends Annotation> {
-        private PropertyDescriptor propertyDescriptor;
-        private T dependency;
-
-        public Injector(PropertyDescriptor propertyDescriptor, T dependency) {
-            super();
-            this.propertyDescriptor = propertyDescriptor;
-            this.dependency = dependency;
-        }
-
-        protected T getDependency() {
-            return dependency;
-        }
-
-        protected PropertyDescriptor getPropertyDescriptor() {
-            return propertyDescriptor;
-        }
-
-        protected abstract Object evaluateProperty(FacesContext context, Class<?> propertyType);
-
-        public void inject(FacesContext context, Object bean) throws IllegalArgumentException, IllegalAccessException,
-            InvocationTargetException {
-
-            Method writeMethod = propertyDescriptor.getWriteMethod();
-
-            if (writeMethod != null) {
-                writeMethod.invoke(bean, evaluateProperty(context, propertyDescriptor.getPropertyType()));
-            } else {
-                throw new IllegalStateException(MessageFormat.format("Write method for property {0} doesn't exist",
-                    propertyDescriptor.getName()));
-            }
-        }
-    }
-
-    private static final class PropertyDependencyInjector extends Injector<ResourceParameter> {
-        public PropertyDependencyInjector(PropertyDescriptor propertyDescriptor, ResourceParameter dependency) {
-            super(propertyDescriptor, dependency);
-        }
-
-        private Object getExpressionValue(FacesContext context, String expressionString, Class<?> expectedType) {
-            ExpressionFactory expressionFactory = context.getApplication().getExpressionFactory();
-            ValueExpression expression = expressionFactory.createValueExpression(context.getELContext(), expressionString,
-                expectedType);
-            return expression.getValue(context.getELContext());
-        }
-
-        protected Object evaluateProperty(FacesContext context, Class<?> propertyType) {
-            Class<?> expectedType;
-            if (!propertyType.isPrimitive()) {
-                expectedType = Object.class;
-            } else {
-                expectedType = propertyType;
-            }
-
-            ResourceParameter resourceParameter = getDependency();
-
-            String expression = resourceParameter.expression();
-            String name = resourceParameter.name();
-
-            if (expression.length() != 0 && name.length() != 0) {
-                throw new IllegalStateException(MessageFormat.format(
-                    "'name' and 'expression' should not be specified simultaneously: {0}", resourceParameter));
-            }
-
-            Object propertyValue = null;
-            if (expression.length() != 0) {
-                propertyValue = getExpressionValue(context, expression, expectedType);
-            } else {
-                if (name.length() == 0) {
-                    name = getPropertyDescriptor().getName();
-                }
-
-                Map<String, Object> parameters = (Map<String, Object>) context.getAttributes().get(
-                    ResourceParameterELResolver.CONTEXT_ATTRIBUTE_NAME);
-
-                propertyValue = parameters.get(name);
-            }
-
-            if (propertyValue == null || "".equals(propertyValue)) {
-                String defaultValue = resourceParameter.defaultValue();
-                if (defaultValue != null && defaultValue.length() != 0) {
-                    propertyValue = getExpressionValue(context, defaultValue, expectedType);
-                }
-            }
-
-            if (propertyValue != null) {
-                propertyValue = context.getApplication().getExpressionFactory().coerceToType(propertyValue, propertyType);
-            }
-
-            return propertyValue;
-        }
-    }
-
-    private static final class IntrospectionData {
-        private Method postConstructMethod = null;
-        private Map<String, Injector<?>> injectorsMap = null;
-
-        public Map<String, Injector<?>> getInjectorsMap() {
-            if (injectorsMap != null) {
-                return injectorsMap;
-            }
-
-            return Collections.emptyMap();
-        }
-
-        public void addInjector(String propertyName, Injector<?> injector) {
-            if (injectorsMap == null) {
-                injectorsMap = new HashMap<String, Injector<?>>();
-            }
-
-            injectorsMap.put(propertyName, injector);
-        }
-
-        public Method getPostConstructMethod() {
-            return postConstructMethod;
-        }
-
-        public void setPostConstructMethod(Method postConstructMethod) {
-            this.postConstructMethod = postConstructMethod;
-        }
-    }
 
     private ConcurrentMap<Class<?>, IntrospectionData> classesCache = new ConcurrentHashMap<Class<?>, IntrospectionData>();
 
@@ -359,6 +238,128 @@ public class DependencyInjectionServiceImpl implements DependencyInjector {
             throw new FacesException(e.getMessage(), e);
         } catch (InvocationTargetException e) {
             throw new FacesException(e.getMessage(), e);
+        }
+    }
+
+    private abstract static class Injector<T extends Annotation> {
+        private PropertyDescriptor propertyDescriptor;
+        private T dependency;
+
+        public Injector(PropertyDescriptor propertyDescriptor, T dependency) {
+            super();
+            this.propertyDescriptor = propertyDescriptor;
+            this.dependency = dependency;
+        }
+
+        protected T getDependency() {
+            return dependency;
+        }
+
+        protected PropertyDescriptor getPropertyDescriptor() {
+            return propertyDescriptor;
+        }
+
+        protected abstract Object evaluateProperty(FacesContext context, Class<?> propertyType);
+
+        public void inject(FacesContext context, Object bean) throws IllegalArgumentException, IllegalAccessException,
+            InvocationTargetException {
+
+            Method writeMethod = propertyDescriptor.getWriteMethod();
+
+            if (writeMethod != null) {
+                writeMethod.invoke(bean, evaluateProperty(context, propertyDescriptor.getPropertyType()));
+            } else {
+                throw new IllegalStateException(MessageFormat.format("Write method for property {0} doesn't exist",
+                    propertyDescriptor.getName()));
+            }
+        }
+    }
+
+    private static final class PropertyDependencyInjector extends Injector<ResourceParameter> {
+        public PropertyDependencyInjector(PropertyDescriptor propertyDescriptor, ResourceParameter dependency) {
+            super(propertyDescriptor, dependency);
+        }
+
+        private Object getExpressionValue(FacesContext context, String expressionString, Class<?> expectedType) {
+            ExpressionFactory expressionFactory = context.getApplication().getExpressionFactory();
+            ValueExpression expression = expressionFactory.createValueExpression(context.getELContext(), expressionString,
+                expectedType);
+            return expression.getValue(context.getELContext());
+        }
+
+        protected Object evaluateProperty(FacesContext context, Class<?> propertyType) {
+            Class<?> expectedType;
+            if (!propertyType.isPrimitive()) {
+                expectedType = Object.class;
+            } else {
+                expectedType = propertyType;
+            }
+
+            ResourceParameter resourceParameter = getDependency();
+
+            String expression = resourceParameter.expression();
+            String name = resourceParameter.name();
+
+            if (expression.length() != 0 && name.length() != 0) {
+                throw new IllegalStateException(MessageFormat.format(
+                    "'name' and 'expression' should not be specified simultaneously: {0}", resourceParameter));
+            }
+
+            Object propertyValue = null;
+            if (expression.length() != 0) {
+                propertyValue = getExpressionValue(context, expression, expectedType);
+            } else {
+                if (name.length() == 0) {
+                    name = getPropertyDescriptor().getName();
+                }
+
+                Map<String, Object> parameters = (Map<String, Object>) context.getAttributes().get(
+                    ResourceParameterELResolver.CONTEXT_ATTRIBUTE_NAME);
+
+                propertyValue = parameters.get(name);
+            }
+
+            if (propertyValue == null || "".equals(propertyValue)) {
+                String defaultValue = resourceParameter.defaultValue();
+                if (defaultValue != null && defaultValue.length() != 0) {
+                    propertyValue = getExpressionValue(context, defaultValue, expectedType);
+                }
+            }
+
+            if (propertyValue != null) {
+                propertyValue = context.getApplication().getExpressionFactory().coerceToType(propertyValue, propertyType);
+            }
+
+            return propertyValue;
+        }
+    }
+
+    private static final class IntrospectionData {
+        private Method postConstructMethod = null;
+        private Map<String, Injector<?>> injectorsMap = null;
+
+        public Map<String, Injector<?>> getInjectorsMap() {
+            if (injectorsMap != null) {
+                return injectorsMap;
+            }
+
+            return Collections.emptyMap();
+        }
+
+        public void addInjector(String propertyName, Injector<?> injector) {
+            if (injectorsMap == null) {
+                injectorsMap = new HashMap<String, Injector<?>>();
+            }
+
+            injectorsMap.put(propertyName, injector);
+        }
+
+        public Method getPostConstructMethod() {
+            return postConstructMethod;
+        }
+
+        public void setPostConstructMethod(Method postConstructMethod) {
+            this.postConstructMethod = postConstructMethod;
         }
     }
 }

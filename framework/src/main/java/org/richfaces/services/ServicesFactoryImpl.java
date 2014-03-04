@@ -26,23 +26,34 @@ import com.google.common.collect.ClassToInstanceMap;
 import com.google.common.collect.ImmutableClassToInstanceMap;
 import com.google.common.collect.MutableClassToInstanceMap;
 
+/**
+ *
+ */
 public class ServicesFactoryImpl implements ServicesFactory {
+
     private ClassToInstanceMap<Object> instances;
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.services.ServicesFactory#getInstance(java.lang.Class)
+     */
+    @Override
     public <T> T getInstance(Class<T> type) throws ServiceException {
         return instances.getInstance(type);
     }
 
-    public void release() {
-        for (Object service : instances.values()) {
-            if (service instanceof Initializable) {
-                Initializable initializableService = (Initializable) service;
-                initializableService.release();
-            }
-        }
-        instances = null;
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.services.ServicesFactory#setInstance(java.lang.Class, java.lang.Object)
+     */
+    @Override
+    public <T> void setInstance(Class<T> type, T instance) {
+        instances.putInstance(type, instance);
     }
 
+    /**
+     * Allows to configure and initialize a set of modules
+     */
     public void init(Iterable<Module> modules) {
         instances = MutableClassToInstanceMap.create();
         for (Module module : modules) {
@@ -57,7 +68,18 @@ public class ServicesFactoryImpl implements ServicesFactory {
         instances = ImmutableClassToInstanceMap.copyOf(instances);
     }
 
-    public <T> void setInstance(Class<T> type, T instance) {
-        instances.putInstance(type, instance);
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.services.ServicesFactory#release()
+     */
+    @Override
+    public void release() {
+        for (Object service : instances.values()) {
+            if (service instanceof Initializable) {
+                Initializable initializableService = (Initializable) service;
+                initializableService.release();
+            }
+        }
+        instances = null;
     }
 }

@@ -23,6 +23,7 @@ package org.richfaces.services;
 
 /**
  * <p class="changed_added_4_0">
+ * Allows to store instances of service interfaces of given types.
  * </p>
  *
  * @author asmirnov@exadel.com

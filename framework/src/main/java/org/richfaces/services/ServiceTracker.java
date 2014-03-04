@@ -136,7 +136,7 @@ public final class ServiceTracker {
     }
 
     /**
-     * Provides proxy which delegates to the given targetService
+     * Provides proxy which delegates to the given targetService interface once the method is invoked on the targetService.
      *
      * @param targetService the service to delegate operations to
      * @return proxy which delegates to the given targetService

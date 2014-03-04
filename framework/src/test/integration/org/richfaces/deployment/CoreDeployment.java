@@ -111,7 +111,7 @@ import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.external.ResourceTrackerImpl;
 import org.richfaces.resource.external.MappedResourceFactory;
 import org.richfaces.resource.external.MappedResourceFactoryImpl;
-import org.richfaces.services.DependencyInjectionServiceImpl;
+import org.richfaces.services.DependencyInjectorImpl;
 import org.richfaces.services.DependencyInjector;
 import org.richfaces.services.Initializable;
 import org.richfaces.services.InitializationListener;
@@ -248,8 +248,8 @@ public class CoreDeployment extends Deployment {
             return this;
         }
 
-        withService(DependencyInjector.class, DependencyInjectionServiceImpl.class);
-        archive().addClasses(DependencyInjectionServiceImpl.class);
+        withService(DependencyInjector.class, DependencyInjectorImpl.class);
+        archive().addClasses(DependencyInjectorImpl.class);
 
         return this;
     }

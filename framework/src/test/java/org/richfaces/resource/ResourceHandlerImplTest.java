@@ -43,7 +43,7 @@ import org.jboss.test.faces.AbstractFacesTest;
 import org.jboss.test.faces.htmlunit.LocalWebClient;
 import org.richfaces.configuration.ConfigurationService;
 import org.richfaces.configuration.ConfigurationServiceImpl;
-import org.richfaces.services.DependencyInjectionServiceImpl;
+import org.richfaces.services.DependencyInjectorImpl;
 import org.richfaces.services.DependencyInjector;
 import org.richfaces.services.Module;
 import org.richfaces.services.ServiceTracker;
@@ -241,7 +241,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
                 injector.setInstance(ResourceCodec.class, mockedCodec);
                 injector.setInstance(org.richfaces.cache.Cache.class, mockCache);
                 injector.setInstance(Uptime.class, new Uptime());
-                injector.setInstance(DependencyInjector.class, new DependencyInjectionServiceImpl());
+                injector.setInstance(DependencyInjector.class, new DependencyInjectorImpl());
                 injector.setInstance(ConfigurationService.class, new ConfigurationServiceImpl());
             }
         }));

@@ -52,6 +52,7 @@ public class ValidatorModule implements Module {
      *
      * @see org.richfaces.application.Module#configure(org.richfaces.application.ServicesFactory)
      */
+    @Override
     public void configure(ServicesFactory factory) {
         configureBeanValidators(factory);
         factory.setInstance(FacesConverterService.class, new ConverterServiceImpl());

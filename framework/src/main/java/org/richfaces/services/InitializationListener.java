@@ -42,28 +42,26 @@ import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
+import javax.xml.rpc.ServiceFactory;
 
 import org.richfaces.VersionBean;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.push.PushContext;
 import org.richfaces.push.PushContextFactory;
 
 /**
+ * <p>Listens for application's {@link PostConstructApplicationEvent} and {@link PreDestroyApplicationEvent} events in order to initialize RichFaces services.</p>
+ *
  * @author Nick Belaevski
  * @since 4.0
  */
 public class InitializationListener implements SystemEventListener {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.faces.event.SystemEventListener#isListenerForSource(java.lang.Object)
+    /**
+     * Called on application startup
      */
-    public boolean isListenerForSource(Object source) {
-        return true;
-    }
-
     protected void onStart() {
         createFactory();
 
@@ -89,37 +87,16 @@ public class InitializationListener implements SystemEventListener {
         }
     }
 
-    private void initializeAWT() {
-        try {
-            AWTInitializer.initialize();
-        } catch (NoClassDefFoundError e) {
-            LOGGER.warn(MessageFormat.format("There were problems loading class: {0} - AWTInitializer won't be run",
-                    e.getMessage()));
-        }
+    /**
+     * Called when application is being destroyed
+     */
+    protected void onStop() {
+        ServiceTracker.release();
     }
 
-    private void initializePushContext() {
-        try {
-            LOGGER.info("Startup initialization of PushContext");
-            ServiceTracker.getService(PushContextFactory.class).getPushContext();
-        } catch (Exception e) {
-            LOGGER.error(MessageFormat.format("There were problems initializing PushContext on startup: {0}", e.getMessage()));
-        }
-    }
-
-    private void logWarningWhenConnectionFactoryPresent() {
-        try {
-            Class.forName("javax.jms.ConnectionFactory");
-            LOGGER.warn("JMS API was found on the classpath; if you want to enable RichFaces Push JMS integration, set context-param 'org.richfaces.push.jms.enabled' in web.xml");
-        } catch (ClassNotFoundException e) {
-        }
-    }
-
-    private Boolean getConfiguration(Enum<?> configuration) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        return getBooleanConfigurationValue(facesContext, configuration);
-    }
-
+    /**
+     * Creates {@link ServiceFactory} that holds references to RichFaces application singletons
+     */
     protected ServicesFactory createFactory() {
         ServicesFactoryImpl injector = new ServicesFactoryImpl();
         ServiceTracker.setFactory(injector);
@@ -134,12 +111,46 @@ public class InitializationListener implements SystemEventListener {
         return injector;
     }
 
+    /**
+     * Adds default application modules
+     */
     protected void addDefaultModules(List<Module> modules) {
         modules.add(new DefaultModule());
     }
 
-    protected void onStop() {
-        ServiceTracker.release();
+    /**
+     * Initializes AWT for dynamic image rendering
+     */
+    private void initializeAWT() {
+        try {
+            AWTInitializer.initialize();
+        } catch (NoClassDefFoundError e) {
+            LOGGER.warn(MessageFormat.format("There were problems loading class: {0} - AWTInitializer won't be run",
+                    e.getMessage()));
+        }
+    }
+
+    /**
+     * Initializes {@link PushContext} on startup as it is a time when {@link FacesContext} is available
+     */
+    private void initializePushContext() {
+        try {
+            LOGGER.info("Startup initialization of PushContext");
+            ServiceTracker.getService(PushContextFactory.class).getPushContext();
+        } catch (Exception e) {
+            LOGGER.error(MessageFormat.format("There were problems initializing PushContext on startup: {0}", e.getMessage()));
+        }
+    }
+
+    /**
+     * Logs a warning that JMS API is available but Push/JMS integration is not enabled
+     */
+    private void logWarningWhenConnectionFactoryPresent() {
+        try {
+            Class.forName("javax.jms.ConnectionFactory");
+            LOGGER.warn("JMS API was found on the classpath; if you want to enable RichFaces Push JMS integration, set context-param 'org.richfaces.push.jms.enabled' in web.xml");
+        } catch (ClassNotFoundException e) {
+        }
     }
 
     /*
@@ -147,6 +158,7 @@ public class InitializationListener implements SystemEventListener {
      *
      * @see javax.faces.event.SystemEventListener#processEvent(javax.faces.event.SystemEvent)
      */
+    @Override
     public void processEvent(SystemEvent event) throws AbortProcessingException {
         if (event instanceof PostConstructApplicationEvent) {
             onStart();
@@ -155,6 +167,21 @@ public class InitializationListener implements SystemEventListener {
         } else {
             throw new IllegalArgumentException(MessageFormat.format("Event {0} is not supported!", event));
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see javax.faces.event.SystemEventListener#isListenerForSource(java.lang.Object)
+     */
+    @Override
+    public boolean isListenerForSource(Object source) {
+        return true;
+    }
+
+    private Boolean getConfiguration(Enum<?> configuration) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        return getBooleanConfigurationValue(facesContext, configuration);
     }
 
     private static final class AWTInitializer {
