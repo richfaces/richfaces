@@ -41,12 +41,14 @@ public class ServletsInitializer implements ServletContainerInitializer {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
-    private Class<?>[] INITIALIZERS = new Class<?>[] { PushServletContainerInitializer.class,
+    private Class<?>[] INITIALIZERS = new Class<?>[] {
+            PushServletContainerInitializer.class,
             ResourceServletContainerInitializer.class };
 
     /**
      * Takes classes listed in {@link #INITIALIZERS} and tries to initialize them as {@link ServletContainerInitializer}s.
      */
+    @Override
     public void onStartup(Set<Class<?>> classes, ServletContext servletContext) throws ServletException {
 
         for (Class<?> clazz : INITIALIZERS) {

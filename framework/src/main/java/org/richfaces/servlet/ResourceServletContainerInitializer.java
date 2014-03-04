@@ -40,9 +40,6 @@ import org.richfaces.log.RichfacesLogger;
  * <p>
  * Initialization can be turned of by "org.richfaces.resources.skipResourceServletRegistration" context parameter.
  * </p>
- *
- *
- * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
  */
 public class ResourceServletContainerInitializer extends AbstractServletContainerInitializer {
 
@@ -51,6 +48,12 @@ public class ResourceServletContainerInitializer extends AbstractServletContaine
     private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.resources.skipResourceServletRegistration";
     public static final String RICHFACES_RESOURCES_DEFAULT_MAPPING = "/org.richfaces.resources/*";
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see javax.servlet.ServletContainerInitializer#onStartup(java.util.Set, javax.servlet.ServletContext)
+     */
+    @Override
     public void onStartup(Set<Class<?>> c, ServletContext servletContext) throws ServletException {
         if (Boolean.valueOf(servletContext.getInitParameter(SKIP_SERVLET_REGISTRATION_PARAM))) {
             return;

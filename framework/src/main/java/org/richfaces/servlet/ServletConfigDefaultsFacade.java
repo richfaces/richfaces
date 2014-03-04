@@ -33,12 +33,15 @@ import javax.servlet.ServletContext;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Sets;
 
-public final class ServletConfigDefaultsWrapper implements ServletConfig {
+/**
+ * Forms a facade for {@link ServletContext} that can hold map of default configuration used in case no other configuration provided.
+ */
+public final class ServletConfigDefaultsFacade implements ServletConfig {
 
     private final ServletConfig config;
     private final Map<String, String> defaults;
 
-    public ServletConfigDefaultsWrapper(ServletConfig config, Map<String, String> defaults) {
+    public ServletConfigDefaultsFacade(ServletConfig config, Map<String, String> defaults) {
         super();
         this.config = config;
         this.defaults = defaults;

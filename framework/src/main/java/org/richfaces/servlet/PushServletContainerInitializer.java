@@ -36,8 +36,9 @@ import org.richfaces.push.PushContextFactoryImpl;
 import com.google.common.collect.Iterables;
 
 /**
- * @author Nick Belaevski
+ * Checks whether the {@link PushServlet} should be registered automatically on application startup.
  *
+ * @author Nick Belaevski
  */
 public class PushServletContainerInitializer extends AbstractServletContainerInitializer {
 
@@ -46,6 +47,9 @@ public class PushServletContainerInitializer extends AbstractServletContainerIni
     private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.push.skipPushServletRegistration";
     private static final String PUSH_CONTEXT_DEFAULT_MAPPING = '/' + PushContextFactoryImpl.PUSH_CONTEXT_RESOURCE_NAME;
 
+    /**
+     * Uses dynamic servlet registartaion for registering PushServlet automatically
+     */
     private static void registerPushServlet(ServletContext context) {
         Dynamic dynamicRegistration = context.addServlet("AutoRegisteredPushServlet", PushServlet.class);
         dynamicRegistration.addMapping(PUSH_CONTEXT_DEFAULT_MAPPING);
@@ -56,6 +60,12 @@ public class PushServletContainerInitializer extends AbstractServletContainerIni
         }
     }
 
+    /**
+     * If Atmosphere is on classpath and {@link PushFilter} wasn't registered in current {@link ServletContext},
+     *
+     * the {@link PushServlet} will be registered automatically.
+     */
+    @Override
     public void onStartup(Set<Class<?>> clasess, ServletContext servletContext) throws ServletException {
         if (Boolean.valueOf(servletContext.getInitParameter(SKIP_SERVLET_REGISTRATION_PARAM))) {
             return;
@@ -82,7 +92,7 @@ public class PushServletContainerInitializer extends AbstractServletContainerIni
 
             servletContext.setAttribute(PushContextFactoryImpl.PUSH_HANDLER_MAPPING_ATTRIBUTE, pushHandlerMapping);
         } catch (Exception e) {
-            servletContext.log(MessageFormat.format("Exception registering RichFaces Push Servlet: {0]", e.getMessage()), e);
+            servletContext.log(MessageFormat.format("Caught exception when registering RichFaces Push Servlet: {0]", e.getMessage()), e);
         }
     }
 
@@ -93,7 +103,7 @@ public class PushServletContainerInitializer extends AbstractServletContainerIni
             return true;
         } catch (ClassNotFoundException e) {
             // no atmosphere present - no push then
-            LOGGER.debug("AtmosphereServlet class is not present in classpath, PushServlet won't be registered automatically");
+            LOGGER.debug("AtmosphereServlet class is not present on classpath, PushServlet won't be registered automatically");
         } catch (LinkageError e) {
             // atmosphere is missing some dependency - no push too
             LOGGER.error(e.getMessage(), e);

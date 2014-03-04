@@ -38,17 +38,20 @@ import org.richfaces.resource.ResourceHandlerImpl;
 
 /**
  * <p>
- * Servlet which serves resources for r:editor component.
+ * Servlet which serves mapped resources that makes sure that resources can address relative resource links.
  * </p>
  *
  * <p>
- * These resources are generated dynamically and some of them cannot be used with FacesServlet mappings by suffixes (e.g. .jsf).
- * Therefore this servlet provides prefix mappings and serves only selected resources (from editor resource library) to avoid
- * security problems.
+ * ResourceServlet use prefix mapping, i.e. make sure it is not necessary to use suffixes or query parameters to address resources.
  * </p>
  *
+ * <p>
+ * This servlet is used together with default FacesServlet registered by application.
+ * </p>
  *
- * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>
+ * <p>
+ * For security reasons, the servlet handles just requests for JSF resources (context path starting with /javax.faces.resource/).
+ * </p>
  */
 public class ResourceServlet implements Servlet {
 
@@ -61,6 +64,11 @@ public class ResourceServlet implements Servlet {
     private ServletConfig servletConfig;
     private FacesServlet facesServlet;
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
+     */
+    @Override
     public void init(ServletConfig config) throws ServletException {
         servletConfig = config;
 
@@ -68,19 +76,39 @@ public class ResourceServlet implements Servlet {
         facesServlet.init(config);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.Servlet#getServletConfig()
+     */
+    @Override
     public ServletConfig getServletConfig() {
         return servletConfig;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.Servlet#getServletInfo()
+     */
+    @Override
     public String getServletInfo() {
         return (this.getClass().getName());
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.Servlet#destroy()
+     */
+    @Override
     public void destroy() {
         facesServlet.destroy();
         facesServlet = null;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see javax.servlet.Servlet#service(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     */
+    @Override
     public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
         HttpServletRequest req;
         HttpServletResponse res;

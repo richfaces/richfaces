@@ -127,7 +127,7 @@ import org.richfaces.servlet.PushFilter;
 import org.richfaces.servlet.PushHandlerFilter;
 import org.richfaces.servlet.PushServlet;
 import org.richfaces.servlet.PushServletContainerInitializer;
-import org.richfaces.servlet.ServletConfigDefaultsWrapper;
+import org.richfaces.servlet.ServletConfigDefaultsFacade;
 import org.richfaces.shrinkwrap.descriptor.PropertiesAsset;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.ui.core.ResourceLibraryRenderer;
@@ -299,7 +299,7 @@ public class CoreDeployment extends Deployment {
         // According to ServletContainerInitializer, the service must be defined in own JAR
         JavaArchive servletInitializer = ShrinkWrap.create(JavaArchive.class, "push-classes.jar")
                 .addAsResource(pushServletInitializer, "META-INF/services/" + ServletContainerInitializer.class.getName())
-                .addClasses(PushServlet.class, PushFilter.class, PushHandlerFilter.class, ServletConfigDefaultsWrapper.class)
+                .addClasses(PushServlet.class, PushFilter.class, PushHandlerFilter.class, ServletConfigDefaultsFacade.class)
                 .addClasses(PushServletContainerInitializer.class, AbstractServletContainerInitializer.class)
                 .addClasses(TopicsContext.class, TopicsContextImpl.class)
                 .addClasses(SessionManager.class, SessionManagerImpl.class, SessionQueue.class)

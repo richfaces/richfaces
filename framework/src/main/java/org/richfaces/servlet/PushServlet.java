@@ -27,6 +27,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
 import org.atmosphere.cpr.ApplicationConfig;
+import org.atmosphere.cpr.AtmosphereHandler;
 import org.atmosphere.cpr.AtmosphereServlet;
 import org.atmosphere.handler.ReflectorServletProcessor;
 import org.richfaces.push.PushContextFactoryImpl;
@@ -34,6 +35,9 @@ import org.richfaces.push.PushContextFactoryImpl;
 import com.google.common.collect.Maps;
 
 /**
+ * Push servlet wraps {@link AtmosphereServlet} and during initialization it adds pre-initialized {@link AtmosphereHandler} for
+ * specified mapping.
+ *
  * @author Nick Belaevski
  */
 public final class PushServlet extends AtmosphereServlet {
@@ -52,10 +56,15 @@ public final class PushServlet extends AtmosphereServlet {
     private boolean initialized = false;
     private boolean destroyed = false;
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.atmosphere.cpr.AtmosphereServlet#init(javax.servlet.ServletConfig)
+     */
     @Override
     public void init(final ServletConfig sc) throws ServletException {
         if (!initialized) {
-            super.init(new ServletConfigDefaultsWrapper(sc, DEFAULT_INIT_PARAMETERS));
+            super.init(new ServletConfigDefaultsFacade(sc, DEFAULT_INIT_PARAMETERS));
             this.initialized = true;
 
             String mapping = (String) sc.getServletContext()
@@ -69,10 +78,14 @@ public final class PushServlet extends AtmosphereServlet {
             r.setFilterClassName(PushHandlerFilter.class.getName());
 
             framework.addAtmosphereHandler(mapping, r).initAtmosphereHandler(sc);
-
         }
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.atmosphere.cpr.AtmosphereServlet#destroy()
+     */
     @Override
     public void destroy() {
         if (!destroyed) {
