@@ -26,12 +26,17 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 /**
+ * {@link TopicsContext} that uses {@link ExecutorService} with cached thread pool for publishing messages.
+ *
  * @author Nick Belaevski
  */
 public class TopicsContextImpl extends TopicsContext {
     private final ExecutorService publishService;
     private final ThreadFactory threadFactory;
 
+    /**
+     * Use given {@link ThreadFactory} for creating new cached thread pool executor for publishing
+     */
     public TopicsContextImpl(ThreadFactory threadFactory) {
         super();
 
@@ -39,14 +44,25 @@ public class TopicsContextImpl extends TopicsContext {
         this.publishService = Executors.newCachedThreadPool(threadFactory);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.TopicsContext#createTopic(org.richfaces.push.TopicKey)
+     */
+    @Override
     protected Topic createTopic(TopicKey key) {
         return new TopicImpl(key, this);
     }
 
+    /**
+     * Returns a publisher {@link ExecutorService} that is used for publishing messages
+     */
     protected ExecutorService getPublisherService() {
         return publishService;
     }
 
+    /**
+     * Returns associated {@link ThreadFactory} used to create executors.
+     */
     protected ThreadFactory getThreadFactory() {
         return threadFactory;
     }

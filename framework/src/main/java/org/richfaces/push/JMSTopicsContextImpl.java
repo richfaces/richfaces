@@ -64,61 +64,131 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
 /**
- * @author Nick Belaevski
+ * A {@link TopicsContext} that allows Push to listen for messages on Java Messaging Service (JMS)
  *
+ * @author Nick Belaevski
  */
 public class JMSTopicsContextImpl extends TopicsContextImpl {
+
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
-    private class JMSTopicContext {
-        /**
-         *
-         */
+    private final InitialContext initialContext;
+    private final Name connectionFactoryName;
+    private final Name topicsNamespace;
+    private final String username;
+    private final String password;
+
+    /**
+     * A factory method for creating {@link JMSTopicsContextImpl} initialized from context
+     */
+    public static JMSTopicsContextImpl getInstanceInitializedFromContext(ThreadFactory threadFactory, FacesContext facesContext)
+            throws NamingException {
+        ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
+
+        InitialContext initialContext = new InitialContext();
+
+        NameParser nameParser = initialContext.getNameParser("");
+
+        Name connectionFactoryName = nameParser.parse(getConnectionFactory(facesContext, configurationService));
+        Name topicsNamespace = nameParser.parse(getTopicsNamespace(facesContext, configurationService));
+
+        String username = getUserName(facesContext, configurationService);
+        String password = getPassword(facesContext, configurationService);
+
+        return new JMSTopicsContextImpl(threadFactory, initialContext, connectionFactoryName, topicsNamespace, username,
+                password);
+    }
+
+    private JMSTopicsContextImpl(ThreadFactory threadFactory, InitialContext initialContext, Name connectionFactoryName,
+            Name topicsNamespace, String username, String password) {
+        super(threadFactory);
+        this.initialContext = initialContext;
+        this.connectionFactoryName = connectionFactoryName;
+        this.topicsNamespace = topicsNamespace;
+        this.username = username;
+        this.password = password;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.TopicsContextImpl#createTopic(org.richfaces.push.TopicKey)
+     */
+    @Override
+    protected org.richfaces.push.Topic createTopic(TopicKey key) {
+        org.richfaces.push.Topic topic = super.createTopic(key);
+        try {
+            jmsConsumerContexts.get(key.getTopicName());
+        } catch (ExecutionException e) {
+            throw new FacesException(String.format("Can't create a JMS topic %s", key), e);
+        }
+        return topic;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.TopicsContextImpl#destroy()
+     */
+    @Override
+    public void destroy() {
+        for (JMSConsumerContext jmsConsumerContext : jmsConsumerContexts.asMap().values()) {
+            try {
+                jmsConsumerContext.stop();
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+        }
+
+        super.destroy();
+    }
+
+    /**
+     * Holds references to created topics.
+     *
+     * If there is no context created for given name created yet, it will be created and started.
+     */
+    private final LoadingCache<String, JMSConsumerContext> jmsConsumerContexts = CacheBuilder.newBuilder().build(
+            CacheLoader.from(new Function<String, JMSConsumerContext>() {
+                public JMSConsumerContext apply(String name) {
+                    JMSConsumerContext topicContext = new JMSConsumerContext(name);
+                    try {
+                        topicContext.start();
+                    } catch (Exception e) {
+                        try {
+                            topicContext.stop();
+                        } catch (Exception e1) {
+                            LOGGER.error(e1.getMessage(), e1);
+                        }
+
+                        throw new FacesException(e.getMessage(), e);
+                    }
+                    return topicContext;
+                }
+            }));
+
+    /**
+     * A context that holds {@link MessageConsumer} connected to JMS and allows to transfer messages from JMS topic to Push topic
+     */
+    private class JMSConsumerContext {
+
         private static final String SUBTOPIC_PROPERTY = "rf_push_subtopic";
         private static final String SERIALIZED_DATA_INDICATOR = "org_richfaces_push_SerializedData";
+
         private final String name;
         private Connection connection;
         private Session session;
         private Thread pollingThread;
         private MessageConsumer consumer;
 
-        public JMSTopicContext(String name) {
+        public JMSConsumerContext(String name) {
             super();
-
             this.name = name;
         }
 
-        private Topic lookupTopic() throws NamingException {
-            Name topicName = appendToName(topicsNamespace, name);
-
-            return (Topic) initialContext.lookup(topicName);
-        }
-
-        private Connection createConnection() throws JMSException, NamingException {
-            ConnectionFactory connectionFactory = (ConnectionFactory) initialContext.lookup(connectionFactoryName);
-            Connection connection = connectionFactory.createConnection(username, password);
-            connection.start();
-            return connection;
-        }
-
-        private Object getMessageData(Message message) throws JMSException {
-            Object messageData = null;
-
-            if (message instanceof ObjectMessage) {
-                messageData = ((ObjectMessage) message).getObject();
-            } else if (message instanceof TextMessage) {
-                TextMessage textMessage = (TextMessage) message;
-
-                if (message.getBooleanProperty(SERIALIZED_DATA_INDICATOR)) {
-                    messageData = new JSLiteral(textMessage.getText());
-                } else {
-                    messageData = textMessage.getText();
-                }
-            }
-
-            return messageData;
-        }
-
+        /**
+         * Created a new JMS consumer and a thread that listens for messages using the created consumer
+         */
         public synchronized void start() throws NamingException, JMSException {
             connection = createConnection();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -156,6 +226,9 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
             pollingThread.start();
         }
 
+        /**
+         * Closes associated consumer and other associated resources
+         */
         public synchronized void stop() {
             if (consumer != null) {
                 try {
@@ -184,59 +257,42 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
                 }
             }
         }
-    }
 
-    private final InitialContext initialContext;
-    private final Name connectionFactoryName;
-    private final Name topicsNamespace;
-    private final String username;
-    private final String password;
+        private Connection createConnection() throws JMSException, NamingException {
+            ConnectionFactory connectionFactory = (ConnectionFactory) initialContext.lookup(connectionFactoryName);
+            Connection connection = connectionFactory.createConnection(username, password);
+            connection.start();
+            return connection;
+        }
 
-    private final LoadingCache<String, JMSTopicContext> contextsCache = CacheBuilder.newBuilder().build(
-            CacheLoader.from(new Function<String, JMSTopicContext>() {
-                public JMSTopicContext apply(String name) {
-                    JMSTopicContext topicContext = new JMSTopicContext(name);
-                    try {
-                        topicContext.start();
-                    } catch (Exception e) {
-                        try {
-                            topicContext.stop();
-                        } catch (Exception e1) {
-                            LOGGER.error(e1.getMessage(), e1);
-                        }
+        private Topic lookupTopic() throws NamingException {
+            Name topicName = appendToName(topicsNamespace, name);
 
-                        throw new FacesException(e.getMessage(), e);
-                    }
-                    return topicContext;
+            return (Topic) initialContext.lookup(topicName);
+        }
+
+        private Name appendToName(Name name, String comp) throws NamingException {
+            Name clonedName = (Name) name.clone();
+            return clonedName.add(comp);
+        }
+
+        private Object getMessageData(Message message) throws JMSException {
+            Object messageData = null;
+
+            if (message instanceof ObjectMessage) {
+                messageData = ((ObjectMessage) message).getObject();
+            } else if (message instanceof TextMessage) {
+                TextMessage textMessage = (TextMessage) message;
+
+                if (message.getBooleanProperty(SERIALIZED_DATA_INDICATOR)) {
+                    messageData = new JSLiteral(textMessage.getText());
+                } else {
+                    messageData = textMessage.getText();
                 }
-            }));
+            }
 
-    public JMSTopicsContextImpl(ThreadFactory threadFactory, InitialContext initialContext, Name connectionFactoryName,
-            Name topicsNamespace, String username, String password) {
-        super(threadFactory);
-        this.initialContext = initialContext;
-        this.connectionFactoryName = connectionFactoryName;
-        this.topicsNamespace = topicsNamespace;
-        this.username = username;
-        this.password = password;
-    }
-
-    public static JMSTopicsContextImpl getInstanceInitializedFromContext(ThreadFactory threadFactory, FacesContext facesContext)
-            throws NamingException {
-        ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
-
-        InitialContext initialContext = new InitialContext();
-
-        NameParser nameParser = initialContext.getNameParser("");
-
-        Name connectionFactoryName = nameParser.parse(getConnectionFactory(facesContext, configurationService));
-        Name topicsNamespace = nameParser.parse(getTopicsNamespace(facesContext, configurationService));
-
-        String username = getUserName(facesContext, configurationService);
-        String password = getPassword(facesContext, configurationService);
-
-        return new JMSTopicsContextImpl(threadFactory, initialContext, connectionFactoryName, topicsNamespace, username,
-                password);
+            return messageData;
+        }
     }
 
     private static String getConnectionFactory(FacesContext facesContext, ConfigurationService configurationService) {
@@ -269,34 +325,5 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
         }
 
         return "";
-    }
-
-    private Name appendToName(Name name, String comp) throws NamingException {
-        Name clonedName = (Name) name.clone();
-        return clonedName.add(comp);
-    }
-
-    @Override
-    protected org.richfaces.push.Topic createTopic(TopicKey key) {
-        org.richfaces.push.Topic topic = super.createTopic(key);
-        try {
-            contextsCache.get(key.getTopicName());
-        } catch (ExecutionException e) {
-            throw new FacesException(String.format("Can't create a JMS topic %s", key), e);
-        }
-        return topic;
-    }
-
-    @Override
-    public void destroy() {
-        for (JMSTopicContext topicContext : contextsCache.asMap().values()) {
-            try {
-                topicContext.stop();
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage(), e);
-            }
-        }
-
-        super.destroy();
     }
 }

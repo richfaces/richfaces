@@ -30,5 +30,8 @@ package org.richfaces.push;
 public interface MessageDataSerializer {
     String MESSAGE_ATTRIBUTE_NAME = MessageDataSerializer.class.getName();
 
+    /**
+     * Transform given data to the string representation
+     */
     String serialize(Object data);
 }

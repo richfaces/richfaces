@@ -45,7 +45,7 @@ import java.util.Map;
  * </p>
  *
  * <p>
- * Session is kept alive for 5 minutes since the last time it has been accessed. Note that push can work in either polling (long
+ * Session is kept alive for ({@link #getMaxInactiveInterval()}) minutes since the last time it has been accessed. Note that push can work in either polling (long
  * polling) and persistent connection (WebSocket) modes, so session should be kept-alive correctly in both cases.
  * </p>
  *
@@ -54,27 +54,63 @@ import java.util.Map;
  */
 public interface Session {
 
-    int getMaxInactiveInterval();
-
-    long getLastAccessedTime();
-
+    /**
+     * Returns unique identifier of this session.
+     */
     String getId();
 
+    /**
+     * How much minutes is session kept alive since the last time it has been accessed before it is destroyed
+     */
+    int getMaxInactiveInterval();
+
+    /**
+     * Returns the last time when the session was accessed
+     */
+    long getLastAccessedTime();
+
+    /**
+     * Get a list of topic keys this session is successfully subscribed to
+     */
     Collection<TopicKey> getSuccessfulSubscriptions();
 
+    /**
+     * Get a map of topic keys this session failed to be subscribed to including the message why the subscription failed
+     */
     Map<TopicKey, String> getFailedSubscriptions();
 
+    /**
+     * Subscribe this session to given topics
+     */
     void subscribe(String[] topics);
 
+    /**
+     * Connects given request to this session
+     */
     void connect(Request request) throws Exception;
 
+    /**
+     * Releases/disconnects associated request from this session
+     */
     void disconnect() throws Exception;
 
+    /**
+     * Invalidates this session, making it non-active
+     */
     void invalidate();
 
+    /**
+     * Pushes given data to given topic key
+     */
     void push(TopicKey topicKey, String serializedData);
 
+    /**
+     * Returns list of messages associated with this push session
+     */
     Collection<MessageData> getMessages();
 
+    /**
+     * Clears all the queues messages associated with this session that has sequence number lower than provided number
+     */
     void clearBroadcastedMessages(long sequenceNumber);
 }

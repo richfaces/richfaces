@@ -22,8 +22,8 @@
 package org.richfaces.push;
 
 /**
- * @author Nick Belaevski
- *
+ * Holds association of serialized message with topic key and a sequence number that can be used to determine whether given
+ * message was already consumed by client.
  */
 public final class MessageData {
     private final TopicKey topicKey;
@@ -37,14 +37,23 @@ public final class MessageData {
         this.sequenceNumber = sequenceNumber;
     }
 
+    /**
+     * Returns a topic key with which this message is associated
+     */
     public TopicKey getTopicKey() {
         return topicKey;
     }
 
+    /**
+     * Returns serialized message
+     */
     public String getSerializedMessage() {
         return serializedMessage;
     }
 
+    /**
+     * A sequence number that can be used to determine whether given message was already consumed by client.
+     */
     public long getSequenceNumber() {
         return sequenceNumber;
     }

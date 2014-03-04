@@ -52,6 +52,7 @@ public class SessionManagerImpl implements SessionManager {
      *
      * @see org.richfaces.push.SessionManager#getPushSession(java.lang.String)
      */
+    @Override
     public Session getPushSession(String id) {
         return sessionMap.get(id);
     }
@@ -61,6 +62,7 @@ public class SessionManagerImpl implements SessionManager {
      *
      * @see org.richfaces.push.SessionManager#destroy()
      */
+    @Override
     public void destroy() {
         executorService.shutdown();
         sessionQueue.shutdown();
@@ -79,6 +81,7 @@ public class SessionManagerImpl implements SessionManager {
      *
      * @see org.richfaces.push.SessionManager#putPushSession(org.richfaces.push.Session)
      */
+    @Override
     public void putPushSession(Session session) throws IllegalStateException {
         Session existingSession = sessionMap.putIfAbsent(session.getId(), session);
         if (existingSession != null) {
@@ -93,6 +96,7 @@ public class SessionManagerImpl implements SessionManager {
      *
      * @see org.richfaces.push.SessionManager#requeue(org.richfaces.push.Session)
      */
+    @Override
     public void requeue(Session session) {
         sessionQueue.requeue(session, false);
     }

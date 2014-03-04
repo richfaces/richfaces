@@ -29,8 +29,11 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 /**
+ * Topic encapsulates particular endpoint for sending/receiving messages.
+ *
  * @author Nick Belaevski
  *
+ * @see Topic
  */
 public abstract class AbstractTopic implements Topic {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
@@ -44,6 +47,11 @@ public abstract class AbstractTopic implements Topic {
         this.key = key;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.Topic#getMessageDataSerializer()
+     */
+    @Override
     public MessageDataSerializer getMessageDataSerializer() {
         if (serializer == null) {
             return DefaultMessageDataSerializer.instance();
@@ -52,32 +60,63 @@ public abstract class AbstractTopic implements Topic {
         return serializer;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.Topic#setMessageDataSerializer(org.richfaces.push.MessageDataSerializer)
+     */
+    @Override
     public void setMessageDataSerializer(MessageDataSerializer serializer) {
         this.serializer = serializer;
     }
 
+    /**
+     * Returns true if this topic allow to use subtopics
+     */
     public boolean isAllowSubtopics() {
         return allowSubtopics;
     }
 
+    /**
+     * Allow or disallow use of topics
+     */
     public void setAllowSubtopics(boolean allowSubtopics) {
         this.allowSubtopics = allowSubtopics;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.Topic#getKey()
+     */
+    @Override
     public TopicKey getKey() {
         return key;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.Topic#addTopicListener(org.richfaces.push.TopicListener)
+     */
+    @Override
     public void addTopicListener(TopicListener topicListener) {
         TopicListener listener = topicListener;
 
         listeners.add(listener);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.Topic#removeTopicListener(org.richfaces.push.TopicListener)
+     */
+    @Override
     public void removeTopicListener(TopicListener topicListener) {
         listeners.remove(topicListener);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.Topic#checkSubscription(org.richfaces.push.Session)
+     */
+    @Override
     public void checkSubscription(Session session) throws SubscriptionFailureException {
         SessionPreSubscriptionEvent event = new SessionPreSubscriptionEvent(this, getKey(), session);
         for (TopicListener listener : listeners) {
@@ -97,6 +136,11 @@ public abstract class AbstractTopic implements Topic {
         LOGGER.error(MessageFormat.format("Exception invoking listener: {0}", e.getMessage()), e);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.Topic#publishEvent(org.richfaces.push.TopicEvent)
+     */
+    @Override
     public void publishEvent(TopicEvent event) {
         for (TopicListener listener : listeners) {
             if (event.isAppropriateListener(listener)) {
@@ -109,5 +153,10 @@ public abstract class AbstractTopic implements Topic {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.Topic#publish(java.lang.Object)
+     */
+    @Override
     public abstract void publish(Object messageData) throws MessageException;
 }

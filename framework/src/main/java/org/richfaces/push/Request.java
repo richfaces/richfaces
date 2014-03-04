@@ -28,16 +28,28 @@ package org.richfaces.push;
  */
 public interface Request {
 
-    // TODO expose request/session/application maps
-
-    // TODO suspend with timeout?
+    /**
+     * suspends an underlying response object
+     */
     void suspend();
 
+    /**
+     * Resume the underlying response object
+     */
     void resume();
 
+    /**
+     * Returns a user push session associated with this request
+     */
     Session getSession();
 
+    /**
+     * Returns true if this request represents long-polling request
+     */
     boolean isPolling();
 
+    /**
+     * Tries to push messages, when there are some in the session's queue.
+     */
     void postMessages();
 }

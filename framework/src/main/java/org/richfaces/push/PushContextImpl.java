@@ -38,7 +38,11 @@ import org.richfaces.log.RichfacesLogger;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
+ * {@inheritDoc}
+ *
  * @author Nick Belaevski
+ *
+ * @see PushContext
  */
 public class PushContextImpl implements PushContext, SystemEventListener {
 
@@ -58,6 +62,12 @@ public class PushContextImpl implements PushContext, SystemEventListener {
         this.pushHandlerUrl = pushHandlerUrl;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.PushContext#init(javax.faces.context.FacesContext)
+     */
+    @Override
     public void init(FacesContext facesContext) {
         try {
             facesContext.getApplication().subscribeToEvent(PreDestroyApplicationEvent.class, this);
@@ -80,13 +90,12 @@ public class PushContextImpl implements PushContext, SystemEventListener {
         }
     }
 
-    private boolean isJmsEnabled(FacesContext facesContext) {
-        Boolean jmsEnabled = ConfigurationServiceHelper.getBooleanConfigurationValue(facesContext,
-                CoreConfiguration.Items.pushJMSEnabled);
-        jmsEnabled = (jmsEnabled == null) ? false : jmsEnabled;
-        return jmsEnabled;
-    }
-
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.PushContext#destroy()
+     */
+    @Override
     public void destroy() {
         try {
             sessionManager.destroy();
@@ -103,6 +112,10 @@ public class PushContextImpl implements PushContext, SystemEventListener {
         }
     }
 
+    /**
+     * Destroyes this push context before the application is destroyed
+     */
+    @Override
     public void processEvent(SystemEvent event) throws AbortProcessingException {
         if (event instanceof PreDestroyApplicationEvent) {
             destroy();
@@ -111,22 +124,53 @@ public class PushContextImpl implements PushContext, SystemEventListener {
         }
     }
 
+    @Override
     public boolean isListenerForSource(Object source) {
         return true;
     }
 
+    private boolean isJmsEnabled(FacesContext facesContext) {
+        Boolean jmsEnabled = ConfigurationServiceHelper.getBooleanConfigurationValue(facesContext,
+                CoreConfiguration.Items.pushJMSEnabled);
+        jmsEnabled = (jmsEnabled == null) ? false : jmsEnabled;
+        return jmsEnabled;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.PushContext#getTopicsContext()
+     */
+    @Override
     public TopicsContext getTopicsContext() {
         return topicsContext;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.PushContext#getSessionFactory()
+     */
+    @Override
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.PushContext#getSessionManager()
+     */
+    @Override
     public SessionManager getSessionManager() {
         return sessionManager;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.PushContext#getPushHandlerUrl()
+     */
+    @Override
     public String getPushHandlerUrl() {
         return pushHandlerUrl;
     }

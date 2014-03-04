@@ -31,6 +31,8 @@ import org.richfaces.configuration.ConfigurationServiceHelper;
 import org.richfaces.configuration.CoreConfiguration;
 
 /**
+ * @see PushContextFactory
+ *
  * @author Nick Belaevski
  */
 public class PushContextFactoryImpl implements PushContextFactory {
@@ -46,6 +48,7 @@ public class PushContextFactoryImpl implements PushContextFactory {
      *
      * @see org.richfaces.push.PushContextFactory#getPushContext()
      */
+    @Override
     public PushContext getPushContext() {
         if (PUSH_CONTEXT_HOLDER.get() == null) {
             synchronized (PUSH_CONTEXT_HOLDER) {
