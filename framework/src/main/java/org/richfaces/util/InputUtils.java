@@ -21,8 +21,6 @@
  */
 package org.richfaces.util;
 
-import com.google.common.base.Strings;
-
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -30,6 +28,8 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
+
+import com.google.common.base.Strings;
 
 /**
  * @author Maksim Kaszynski
@@ -73,6 +73,9 @@ public final class InputUtils {
         return RendererUtils.getInstance().isBooleanAttribute(component, "readonly");
     }
 
+    /**
+     * Returns converter for given Java type
+     */
     public static Converter getConverterForType(FacesContext context, Class<?> type) {
         // see getConvertedValue
         if (type == null || Object.class.equals(type)) {
@@ -106,6 +109,11 @@ public final class InputUtils {
         return value.toString();
     }
 
+    /**
+     * <p>Returns {@link Converter} based on a converter configured for provided {@link UIComponent} or returns converter for type referenced by given property's {@link ValueExpression}.</p>
+     *
+     * <p>If no converter applied for conditions above, null is returned instead.</p>
+     */
     public static Converter findConverter(FacesContext facesContext, UIComponent component, String property) {
         Converter converter = null;
 

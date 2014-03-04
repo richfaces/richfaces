@@ -53,6 +53,11 @@ public final class PropertiesUtil {
         return classLoader;
     }
 
+    /**
+     * Loads properties into provided properties object from all resources on given classpath location.
+     *
+     * @see #loadProperties(String)
+     */
     public static boolean loadProperties(Properties properties, String location) {
         boolean loaded = false;
 
@@ -89,6 +94,11 @@ public final class PropertiesUtil {
         return loaded;
     }
 
+    /**
+     * Returns map with properties (key/value pairs) loaded from all resources on given classpath location.
+     *
+     * @see #loadProperties(Properties, String)
+     */
     public static Map<String, String> loadProperties(String location) {
         Properties props = new Properties();
         loadProperties(props, location);

@@ -51,7 +51,7 @@ import org.richfaces.ui.behavior.HandlersChain;
 import org.richfaces.ui.common.HtmlConstants;
 
 /**
- * Util class for common render operations - render passthru html attributes, iterate over child components etc.
+ * Util class for common render operations - render pass-through html attributes, iterate over child components etc.
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.6 $ $Date: 2007/02/08 19:07:16 $
@@ -92,10 +92,6 @@ public class RendererUtils {
 
     /**
      * Encode id attribute with clientId component property
-     *
-     * @param context
-     * @param component
-     * @throws IOException
      */
     public void encodeId(FacesContext context, UIComponent component) throws IOException {
         encodeId(context, component, HtmlConstants.ID_ATTRIBUTE);
@@ -103,11 +99,6 @@ public class RendererUtils {
 
     /**
      * Encode clientId to custom attribute ( for example, to control name )
-     *
-     * @param context
-     * @param component
-     * @param attribute
-     * @throws IOException
      */
     public void encodeId(FacesContext context, UIComponent component, String attribute) throws IOException {
         String clientId = null;
@@ -126,10 +117,6 @@ public class RendererUtils {
 
     /**
      * Encode id attribute with clientId component property. Encoded only if id not auto generated.
-     *
-     * @param context
-     * @param component
-     * @throws IOException
      */
     public void encodeCustomId(FacesContext context, UIComponent component) throws IOException {
         if (hasExplicitId(component)) {
@@ -228,10 +215,6 @@ public class RendererUtils {
 
     /**
      * Encode common pass-thru html attributes.
-     *
-     * @param context
-     * @param component
-     * @throws IOException
      */
     public void encodePassThru(FacesContext context, UIComponent component, String defaultHtmlEvent) throws IOException {
 
@@ -248,11 +231,6 @@ public class RendererUtils {
 
     /**
      * Encode pass-through attributes except specified ones
-     *
-     * @param context
-     * @param component
-     * @param exclusions
-     * @throws IOException
      */
     public void encodePassThruWithExclusions(FacesContext context, UIComponent component, String exclusions,
         String defaultHtmlEvent) throws IOException {
@@ -297,11 +275,6 @@ public class RendererUtils {
 
     /**
      * Encode one pass-thru attribute, with plain/boolean/url value, got from properly component attribute.
-     *
-     * @param context
-     * @param writer
-     * @param attribute
-     * @throws IOException
      */
     public void encodePassThruAttribute(FacesContext context, Map<String, Object> attributes, ResponseWriter writer,
         String attribute) throws IOException {
@@ -348,14 +321,6 @@ public class RendererUtils {
         }
     }
 
-    /**
-     * @param context
-     * @param component
-     * @param property
-     * @param attributeName
-     *
-     * @throws IOException
-     */
     public void encodeAttribute(FacesContext context, UIComponent component, Object property, String attributeName)
         throws IOException {
 
@@ -409,9 +374,6 @@ public class RendererUtils {
 
     /**
      * Convert HTML attribute name to component property name.
-     *
-     * @param key
-     * @return
      */
     protected Object getComponentAttributeName(Object key) {
         Object converted = SUBSTITUTIONS.get(key);
@@ -426,10 +388,6 @@ public class RendererUtils {
     /**
      * Convert attribute value to proper object. For known html boolean attributes return name for true value, otherthise -
      * null. For non-boolean attributes return same value.
-     *
-     * @param name attribute name.
-     * @param value
-     * @return
      */
     protected Object attributeValue(String name, Object value) {
         if (null == value || Arrays.binarySearch(HtmlConstants.PASS_THRU_BOOLEAN, name) < 0) {
@@ -473,13 +431,6 @@ public class RendererUtils {
         return HtmlDimensions.formatPx(HtmlDimensions.decode(value));
     }
 
-    /**
-     * formats given value to
-     *
-     * @param value
-     *
-     * @return
-     */
     public String encodePctOrPx(String value) {
         if (value.indexOf('%') > 0) {
             return value;
@@ -491,7 +442,6 @@ public class RendererUtils {
     /**
      * Find nested form for given component
      *
-     * @param component
      * @return nested <code>UIForm</code> component, or <code>null</code>
      */
     public UIComponent getNestingForm(UIComponent component) {
@@ -507,7 +457,6 @@ public class RendererUtils {
 
     /**
      * Detects whether given component is form
-     * @return
      */
     public boolean isForm(UIComponent component) {
         return component instanceof UIForm || "org.apache.myfaces.trinidad.Form".equals(component.getFamily()) || "oracle.adf.Form".equals(component.getFamily());
@@ -516,7 +465,6 @@ public class RendererUtils {
     /**
      * Find submitted form for given context
      *
-     * @param facesContext
      * @return submitted <code>UIForm</code> component, or <code>null</code>
      */
     public UIComponent getSubmittedForm(FacesContext facesContext) {
@@ -565,12 +513,6 @@ public class RendererUtils {
         return clientId.equals(value);
     }
 
-    /**
-     * @param context
-     * @param component
-     * @return
-     * @throws IOException
-     */
     public void encodeBeginFormIfNessesary(FacesContext context, UIComponent component) throws IOException {
         UIComponent form = getNestingForm(component);
 
@@ -585,13 +527,6 @@ public class RendererUtils {
         }
     }
 
-    /**
-     * @param context
-     * @param component
-     * @param writer
-     * @param clientId
-     * @throws IOException
-     */
     public void encodeBeginForm(FacesContext context, UIComponent component, ResponseWriter writer, String clientId)
         throws IOException {
 
@@ -605,11 +540,6 @@ public class RendererUtils {
         writer.writeURIAttribute(HtmlConstants.ACTION_ATTRIBUTE, encodeActionURL, "action");
     }
 
-    /**
-     * @param context
-     * @param component
-     * @throws IOException
-     */
     public void encodeEndFormIfNessesary(FacesContext context, UIComponent component) throws IOException {
         UIComponent form = getNestingForm(component);
 
@@ -623,19 +553,11 @@ public class RendererUtils {
 
     /**
      * Write state saving markers to context, include MyFaces view sequence.
-     *
-     * @param context
-     * @throws IOException
      */
     public static void writeState(FacesContext context) throws IOException {
         context.getApplication().getViewHandler().writeState(context);
     }
 
-    /**
-     * @param context
-     * @param writer
-     * @throws IOException
-     */
     public void encodeEndForm(FacesContext context, ResponseWriter writer) throws IOException {
 
         UIViewRoot viewRoot = context.getViewRoot();
@@ -648,8 +570,7 @@ public class RendererUtils {
     }
 
     /**
-     * @param facesContext
-     * @return String A String representing the action URL
+     * Returns a string representing the action URL
      */
     public String getActionUrl(FacesContext facesContext) {
         ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
@@ -659,10 +580,8 @@ public class RendererUtils {
     }
 
     /**
-     * Simplified version of {@link encodeId}
+     * Simplified version of {@link #encodeId}
      *
-     * @param context
-     * @param component
      * @return client id of current component
      */
     public String clientId(FacesContext context, UIComponent component) {
@@ -671,7 +590,6 @@ public class RendererUtils {
         try {
             clientId = component.getClientId(context);
         } catch (Exception e) {
-
             // just ignore
         }
 
@@ -679,7 +597,7 @@ public class RendererUtils {
     }
 
     /**
-     * Wtrie JavaScript with start/end elements and type.
+     * Write JavaScript with start/end elements and type.
      *
      * @param context
      * @param component
@@ -696,10 +614,6 @@ public class RendererUtils {
 
     /**
      * If target component contains generated id and for doesn't, correct for id
-     *
-     * @param forAttr
-     * @param component
-     *
      */
     public String correctForIdReference(String forAttr, UIComponent component) {
         int contains = forAttr.indexOf(UIViewRoot.UNIQUE_ID_PREFIX);
@@ -728,14 +642,20 @@ public class RendererUtils {
         return component.getId() != null && !component.getId().startsWith(UIViewRoot.UNIQUE_ID_PREFIX);
     }
 
+    /**
+     * Deprecated, use {@link #findComponentFor(UIComponent, String)}.
+     */
+    @Deprecated
     public UIComponent findComponentFor(FacesContext context, UIComponent component, String id) {
         return findComponentFor(component, id);
     }
 
     /**
-     * @param component
-     * @param id
-     * @return
+     * <p>A modified JSF alghoritm for looking up components.</p>
+     *
+     * <p>First try to find the component with given ID in subtree and then lookup in parents' subtrees.</p>
+     *
+     * <p>If no component is found this way, it uses {@link #findUIComponentBelow(UIComponent, String)} applied to root component.</p>
      */
     public UIComponent findComponentFor(UIComponent component, String id) {
         if (id == null) {
@@ -763,6 +683,9 @@ public class RendererUtils {
         return target;
     }
 
+    /**
+     * Looks up component with given ID in subtree of given component including all component's chilren, component's facets and subtrees under naming containers.
+     */
     private UIComponent findUIComponentBelow(UIComponent root, String id) {
         UIComponent target = null;
 
