@@ -75,23 +75,24 @@
              	</li>
              </ul>	
              <div class="tab-content">
-                <div id="vdl" class="tab-pane active" title="VDL">
-                    <ui:include src="/resources/fragment/attributesRepeat.xhtml">
-                        <ui:param name="attributesList" value="#{taglibReader.getDefaultAttributes(tag)}" />
-                    </ui:include>
-                </div>
+             
+<!--                 <div id="vdl" class="tab-pane active" title="VDL"> -->
+<!--                     <ui:include src="/resources/fragment/attributesRepeat.xhtml"> -->
+<!--                     	<ui:param name="attributesList" value="#{taglibReader.getDefaultAttributes(tag)}" /> -->
+<!--                     </ui:include> -->
+<!--                 </div> -->
                 
-                <div id="global" class="tab-pane" title="Global">
-                    <ui:include src="/resources/fragment/attributesRepeat.xhtml">
-                        <ui:param name="attributesList" value="#{taglibReader.getGlobalAttributes(tag)}" />
-                    </ui:include>
-                </div>
+<!--                 <div id="global" class="tab-pane" title="Global"> -->
+<!--                     <ui:include src="/resources/fragment/attributesRepeat.xhtml"> -->
+<!--                         <ui:param name="attributesList" value="#{taglibReader.getGlobalAttributes(tag)}" /> -->
+<!--                     </ui:include> -->
+<!--                 </div> -->
                 
-                <div id="events" class="tab-pane" title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(tag))}">
-                    <ui:include src="/resources/fragment/attributesRepeat.xhtml">
-                        <ui:param name="attributesList" value="#{taglibReader.getOnEventAttributes(tag)}" />
-                    </ui:include>
-                </div>
+<!--                 <div id="events" class="tab-pane" title="onEvents" rendered="#{!empty(taglibReader.getOnEventAttributes(tag))}"> -->
+<!--                     <ui:include src="/resources/fragment/attributesRepeat.xhtml"> -->
+<!--                         <ui:param name="attributesList" value="#{taglibReader.getOnEventAttributes(tag)}" /> -->
+<!--                     </ui:include> -->
+<!--                 </div> -->
               </div>
               </div>  
            
