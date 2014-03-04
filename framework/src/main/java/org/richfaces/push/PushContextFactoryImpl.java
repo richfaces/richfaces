@@ -31,35 +31,34 @@ import org.richfaces.configuration.ConfigurationServiceHelper;
 import org.richfaces.configuration.CoreConfiguration;
 
 /**
- * @author Nick Belaevski
+ * @see PushContextFactory
  *
+ * @author Nick Belaevski
  */
 public class PushContextFactoryImpl implements PushContextFactory {
+
     public static final String PUSH_HANDLER_MAPPING_ATTRIBUTE = PushContextFactoryImpl.class.getName();
     public static final String PUSH_CONTEXT_RESOURCE_NAME = "__richfaces_push";
 
     private static final AtomicReference<PushContext> PUSH_CONTEXT_HOLDER = new AtomicReference<PushContext>();
 
-    private static String getApplicationContextName(FacesContext facesContext) {
-        Object contextObject = facesContext.getExternalContext().getContext();
-        if (contextObject instanceof ServletContext) {
-            return ((ServletContext) contextObject).getContextPath();
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.PushContextFactory#getPushContext()
+     */
+    @Override
+    public PushContext getPushContext() {
+        if (PUSH_CONTEXT_HOLDER.get() == null) {
+            synchronized (PUSH_CONTEXT_HOLDER) {
+                if (PUSH_CONTEXT_HOLDER.get() == null) {
+                    PushContext pushContext = createInstance();
+                    PUSH_CONTEXT_HOLDER.set(pushContext);
+                }
+            }
         }
-
-        return "/";
-    }
-
-    private static String convertToUrl(FacesContext facesContext, String mapping) {
-        if (mapping == null) {
-            return mapping;
-        }
-
-        String url = mapping.replaceAll(Pattern.quote("*"), PUSH_CONTEXT_RESOURCE_NAME);
-        if (!url.startsWith("/")) {
-            url = '/' + url;
-        }
-
-        return getApplicationContextName(facesContext) + url;
+        return PUSH_CONTEXT_HOLDER.get();
     }
 
     private static PushContext createInstance() {
@@ -79,21 +78,31 @@ public class PushContextFactoryImpl implements PushContextFactory {
             facesContext.getExternalContext().getApplicationMap().put(PUSH_HANDLER_MAPPING_ATTRIBUTE, pushHandlerMapping);
         }
 
-        PushContextImpl pushContext = new PushContextImpl(convertToUrl(facesContext, pushHandlerMapping));
+        PushContextImpl pushContext = new PushContextImpl(convertMappingToUrl(facesContext, pushHandlerMapping));
         pushContext.init(facesContext);
 
         return pushContext;
     }
 
-    public PushContext getPushContext() {
-        if (PUSH_CONTEXT_HOLDER.get() == null) {
-            synchronized (PUSH_CONTEXT_HOLDER) {
-                if (PUSH_CONTEXT_HOLDER.get() == null) {
-                    PushContext pushContext = createInstance();
-                    PUSH_CONTEXT_HOLDER.set(pushContext);
-                }
-            }
+    private static String convertMappingToUrl(FacesContext facesContext, String mapping) {
+        if (mapping == null) {
+            return mapping;
         }
-        return PUSH_CONTEXT_HOLDER.get();
+
+        String url = mapping.replaceAll(Pattern.quote("*"), PUSH_CONTEXT_RESOURCE_NAME);
+        if (!url.startsWith("/")) {
+            url = '/' + url;
+        }
+
+        return getApplicationContextName(facesContext) + url;
+    }
+
+    private static String getApplicationContextName(FacesContext facesContext) {
+        Object contextObject = facesContext.getExternalContext().getContext();
+        if (contextObject instanceof ServletContext) {
+            return ((ServletContext) contextObject).getContextPath();
+        }
+
+        return "/";
     }
 }

@@ -29,35 +29,42 @@ import org.richfaces.util.FastJoiner;
 import com.google.common.base.Function;
 
 /**
- * @author Nick Belaevski
+ * <p>
+ * Immutable TopicKey class encapsulates address of the particular topic.
+ * </p>
  *
+ * <p>
+ * In order to support reuse of the same topic (e.g. JMS topic) for different application message topics, TopicKey contains
+ * topic name and sub-topic name separated with ‘@’.
+ * </p>
+ *
+ * <p>
+ * Application specifies TopicKey when publishing messages as topic address.
+ * </p>
+ *
+ * @author Nick Belaevski
  */
 public class TopicKey implements Serializable {
+
     public static final char SUBCHANNEL_SEPARATOR = '@';
-    private static final Function<String, TopicKey> FACTORY = new Function<String, TopicKey>() {
-        public TopicKey apply(String from) {
-            return new TopicKey(from);
-        }
 
-        ;
-    };
-    private static final Function<TopicKey, String> TO_ADDRESS = new Function<TopicKey, String>() {
-        public String apply(TopicKey from) {
-            return from.getTopicAddress();
-        }
-
-        ;
-    };
     private static final long serialVersionUID = -6967010810728932698L;
     private static final Pattern NAME_PATTERN = Pattern.compile("([a-zA-Z0-9_]+|#\\{.+\\})");
     private static final FastJoiner AT_JOINER = FastJoiner.on(SUBCHANNEL_SEPARATOR);
+
     private final String topicName;
     private final String subtopicName;
 
+    /**
+     * Constructs new topic by providing a topic address in format 'subtopic@topic'
+     */
     public TopicKey(String topicAddress) {
         this(getTopicName(topicAddress), getSubtopicName(topicAddress));
     }
 
+    /**
+     * Contrstructs new topic by providing a name of the topic and a name of a subtopic.
+     */
     public TopicKey(String topicName, String subtopicName) {
         super();
 
@@ -69,54 +76,47 @@ public class TopicKey implements Serializable {
         this.subtopicName = subtopicName;
 
         if (!NAME_PATTERN.matcher(topicName).matches()) {
-            throw new IllegalArgumentException("Topic name '" + topicName + "' does not match pattern " + NAME_PATTERN.pattern());
+            throw new IllegalArgumentException("Topic name '" + topicName + "' does not match pattern "
+                    + NAME_PATTERN.pattern());
         }
 
         if (subtopicName != null && !NAME_PATTERN.matcher(subtopicName).matches()) {
-            throw new IllegalArgumentException("Subtopic name '" + subtopicName + "' does not match pattern " + NAME_PATTERN.pattern());
+            throw new IllegalArgumentException("Subtopic name '" + subtopicName + "' does not match pattern "
+                    + NAME_PATTERN.pattern());
         }
     }
 
-    public static Function<String, TopicKey> factory() {
-        return FACTORY;
-    }
-
-    public static Function<TopicKey, String> toAddress() {
-        return TO_ADDRESS;
-    }
-
-    private static String getTopicName(String topicAddress) {
-        int idx = topicAddress.indexOf(SUBCHANNEL_SEPARATOR);
-
-        if (idx < 0) {
-            return topicAddress;
-        }
-
-        return topicAddress.substring(idx + 1);
-    }
-
-    private static String getSubtopicName(String topicAddress) {
-        int idx = topicAddress.indexOf(SUBCHANNEL_SEPARATOR);
-
-        if (idx < 0) {
-            return null;
-        }
-
-        return topicAddress.substring(0, idx);
-    }
-
+    /**
+     * Returns name of the topic
+     */
     public String getTopicName() {
         return topicName;
     }
 
+    /**
+     * Returns name of the subtopic
+     */
     public String getSubtopicName() {
         return subtopicName;
     }
 
+    /**
+     * Returns whole address of topic in format 'subtopic@topic'
+     */
     public String getTopicAddress() {
         return AT_JOINER.join(subtopicName, topicName);
     }
 
+    /**
+     * <p>
+     * Returns the {@link TopicKey} that identifies topic without subtopic.
+     * </p>
+     *
+     * <p>
+     * This method returns this instance if it isn't associated with subtopic. It returns new {@link TopicKey} with the same
+     * topic name as this instance otherwise.
+     * </p>
+     */
     public TopicKey getRootTopicKey() {
         if (getSubtopicName() == null) {
             return this;
@@ -125,6 +125,11 @@ public class TopicKey implements Serializable {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -134,6 +139,11 @@ public class TopicKey implements Serializable {
         return result;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -163,8 +173,66 @@ public class TopicKey implements Serializable {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "TopicKey[" + TO_ADDRESS.apply(this) + "]";
     }
+
+    /**
+     * Static method that returns topic name for given topic address, i.e. it removes subtopic name and separated of subtopic.
+     * name.
+     */
+    private static String getTopicName(String topicAddress) {
+        int idx = topicAddress.indexOf(SUBCHANNEL_SEPARATOR);
+
+        if (idx < 0) {
+            return topicAddress;
+        }
+
+        return topicAddress.substring(idx + 1);
+    }
+
+    /**
+     * Static method that returns subtopic name for given topic address, i.e. it removes topic name and separator of topic name.
+     */
+    private static String getSubtopicName(String topicAddress) {
+        int idx = topicAddress.indexOf(SUBCHANNEL_SEPARATOR);
+
+        if (idx < 0) {
+            return null;
+        }
+
+        return topicAddress.substring(0, idx);
+    }
+
+    /**
+     * Returns the function for creating {@link TopicKey}s from strings.
+     */
+    public static Function<String, TopicKey> factory() {
+        return FACTORY;
+    }
+
+    /**
+     * Returns a function for converting {@link TopicKey} to address strings in format 'subtopic@topic'.
+     */
+    public static Function<TopicKey, String> toAddress() {
+        return TO_ADDRESS;
+    }
+
+    private static final Function<String, TopicKey> FACTORY = new Function<String, TopicKey>() {
+        public TopicKey apply(String from) {
+            return new TopicKey(from);
+        }
+    };
+
+    private static final Function<TopicKey, String> TO_ADDRESS = new Function<TopicKey, String>() {
+        public String apply(TopicKey from) {
+            return from.getTopicAddress();
+        }
+    };
 }

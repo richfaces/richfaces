@@ -22,9 +22,14 @@
 package org.richfaces.push;
 
 /**
- * @author Nick Belaevski
+ * SessionFactory responsibility is creation of new instance of {@link Session} with the specified ID.
  *
+ * @author Nick Belaevski
  */
 public interface SessionFactory {
+
+    /**
+     * Creation of new instance of {@link Session} with the specified ID.
+     */
     Session createSession(String pushSessionId);
 }

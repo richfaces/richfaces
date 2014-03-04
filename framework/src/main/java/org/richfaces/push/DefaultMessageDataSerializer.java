@@ -38,6 +38,11 @@ public final class DefaultMessageDataSerializer implements MessageDataSerializer
         return INSTANCE;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.MessageDataSerializer#serialize(java.lang.Object)
+     */
+    @Override
     public String serialize(Object data) {
         return ScriptUtils.toScript(data);
     }

@@ -24,6 +24,8 @@ package org.richfaces.push;
 import java.util.EventListener;
 
 /**
+ * <p>TopicListener is for notifying application developer about topic events.</p>
+ *
  * @author Nick Belaevski
  *
  */

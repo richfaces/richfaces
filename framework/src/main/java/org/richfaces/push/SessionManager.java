@@ -22,15 +22,29 @@
 package org.richfaces.push;
 
 /**
- * @author Nick Belaevski
+ * Session manager is a registry of all active sessions that maintains their state and provides wipe out for expired sessions.
  *
+ * @author Nick Belaevski
  */
 public interface SessionManager {
+
+    /**
+     * Registers session to the system
+     */
     void putPushSession(Session pushSession) throws IllegalStateException;
 
+    /**
+     * Look ups session with given ID
+     */
     Session getPushSession(String id);
 
+    /**
+     * Re-queues given session without actually adding it when it is not registered yet via {@link #putPushSession(Session)}.
+     */
     void requeue(Session session);
 
+    /**
+     * Destroys all associated sessions
+     */
     void destroy();
 }

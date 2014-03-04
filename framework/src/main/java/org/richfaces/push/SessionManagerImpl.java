@@ -33,13 +33,72 @@ import com.google.common.collect.MapMaker;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class SessionManagerImpl implements SessionManager {
+
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
-    interface DestroyableSession {
-        void destroy();
+    private ConcurrentMap<String, Session> sessionMap = new MapMaker().makeMap();
+    private SessionQueue sessionQueue = new SessionQueue();
+    private ExecutorService executorService;
+
+    public SessionManagerImpl(ThreadFactory threadFactory) {
+        executorService = Executors.newSingleThreadExecutor(threadFactory);
+        executorService.submit(new SessionsExpirationRunnable());
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.SessionManager#getPushSession(java.lang.String)
+     */
+    @Override
+    public Session getPushSession(String id) {
+        return sessionMap.get(id);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.SessionManager#destroy()
+     */
+    @Override
+    public void destroy() {
+        executorService.shutdown();
+        sessionQueue.shutdown();
+
+        for (Session session : sessionMap.values()) {
+            if (session instanceof DestroyableSession) {
+                ((DestroyableSession) session).destroy();
+            }
+        }
+
+        sessionMap.clear();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.SessionManager#putPushSession(org.richfaces.push.Session)
+     */
+    @Override
+    public void putPushSession(Session session) throws IllegalStateException {
+        Session existingSession = sessionMap.putIfAbsent(session.getId(), session);
+        if (existingSession != null) {
+            throw new IllegalStateException();
+        }
+
+        sessionQueue.requeue(session, true);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.SessionManager#requeue(org.richfaces.push.Session)
+     */
+    @Override
+    public void requeue(Session session) {
+        sessionQueue.requeue(session, false);
     }
 
     private final class SessionsExpirationRunnable implements Runnable {
@@ -58,44 +117,5 @@ public class SessionManagerImpl implements SessionManager {
                 LOGGER.debug(e.getMessage(), e);
             }
         }
-    }
-
-    private ConcurrentMap<String, Session> sessionMap = new MapMaker().makeMap();
-    private SessionQueue sessionQueue = new SessionQueue();
-    private ExecutorService executorService;
-
-    public SessionManagerImpl(ThreadFactory threadFactory) {
-        executorService = Executors.newSingleThreadExecutor(threadFactory);
-        executorService.submit(new SessionsExpirationRunnable());
-    }
-
-    public Session getPushSession(String id) {
-        return sessionMap.get(id);
-    }
-
-    public void destroy() {
-        executorService.shutdown();
-        sessionQueue.shutdown();
-
-        for (Session session : sessionMap.values()) {
-            if (session instanceof DestroyableSession) {
-                ((DestroyableSession) session).destroy();
-            }
-        }
-
-        sessionMap.clear();
-    }
-
-    public void putPushSession(Session session) throws IllegalStateException {
-        Session existingSession = sessionMap.putIfAbsent(session.getId(), session);
-        if (existingSession != null) {
-            throw new IllegalStateException();
-        }
-
-        sessionQueue.requeue(session, true);
-    }
-
-    public void requeue(Session session) {
-        sessionQueue.requeue(session, false);
     }
 }

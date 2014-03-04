@@ -31,47 +31,121 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class TopicImpl extends AbstractTopic {
-    private static final class PublishTask implements Runnable {
-        private final TopicContext topicContext;
 
-        public PublishTask(TopicContext topicContext) {
-            super();
-            this.topicContext = topicContext;
-        }
+    private ConcurrentMap<TopicKey, PublishingContext> sessions = new ConcurrentHashMap<TopicKey, PublishingContext>();
+    private TopicsContextImpl topicsContext;
 
-        public void run() {
-            topicContext.publishMessages();
+    public TopicImpl(TopicKey key, TopicsContextImpl topicsContext) {
+        super(key);
+
+        this.topicsContext = topicsContext;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.AbstractTopic#publish(java.lang.Object)
+     */
+    @Override
+    public void publish(Object messageData) throws MessageException {
+        String serializedData = getMessageDataSerializer().serialize(messageData);
+
+        if (serializedData != null) {
+            PublishingContext topicContext = getPublishingContext(getKey());
+            if (topicContext != null) {
+                topicContext.addMessage(serializedData);
+            }
         }
     }
 
-    private final class TopicContext {
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.AbstractTopic#publishEvent(org.richfaces.push.TopicEvent)
+     */
+    @Override
+    public void publishEvent(TopicEvent event) {
+        super.publishEvent(event);
+
+        if (event instanceof SessionSubscriptionEvent) {
+            SessionSubscriptionEvent subscriptionEvent = (SessionSubscriptionEvent) event;
+
+            getOrCreatePublishingContext(subscriptionEvent.getTopicKey()).addSession(subscriptionEvent.getSession());
+        } else if (event instanceof SessionUnsubscriptionEvent) {
+            SessionUnsubscriptionEvent unsubscriptionEvent = (SessionUnsubscriptionEvent) event;
+
+            getPublishingContext(unsubscriptionEvent.getTopicKey()).removeSession(unsubscriptionEvent.getSession());
+        }
+    }
+
+    /**
+     * Returns existing {@link PublishingContext} for given key or creates a null if there is no such {@link PublishingContext}.
+     */
+    private PublishingContext getPublishingContext(TopicKey key) {
+        return sessions.get(key);
+    }
+
+    /**
+     * Returns existing {@link PublishingContext} for given key or creates a new one if there is no such
+     * {@link PublishingContext} yet.
+     */
+    private PublishingContext getOrCreatePublishingContext(TopicKey key) {
+        PublishingContext result = sessions.get(key);
+        if (result == null) {
+            PublishingContext freshContext = new PublishingContext(key);
+            result = sessions.putIfAbsent(key, freshContext);
+            if (result == null) {
+                result = freshContext;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Binds a {@link TopicKey} with list of {@link Session}s subscribed to given topic.
+     */
+    private final class PublishingContext {
         private final List<Session> sessions = new CopyOnWriteArrayList<Session>();
         private final Queue<String> serializedMessages = new ConcurrentLinkedQueue<String>();
         private final TopicKey key;
         private boolean submittedForPublishing;
 
-        public TopicContext(TopicKey key) {
+        public PublishingContext(TopicKey key) {
             super();
             this.key = key;
         }
 
+        /**
+         * Subscribe session for listening for new messages in associated {@link TopicKey}
+         */
         public void addSession(Session session) {
             sessions.add(session);
         }
 
+        /**
+         * Removes session from listening for new messages in associated {@link TopicKey}
+         */
         public void removeSession(Session session) {
             sessions.remove(session);
         }
 
+        /**
+         * Adds new message and submits this context for publishing
+         */
         public void addMessage(String serializedMessageData) {
             serializedMessages.add(serializedMessageData);
 
             submitForPublishing();
         }
 
+        /**
+         * Publishes messages that are scheduled for publishing.
+         *
+         * If there are any messages in the queue once finished publishing,
+         * a new round of publishing is scheduled.
+         */
         public void publishMessages() {
             Iterator<String> itr = serializedMessages.iterator();
             while (itr.hasNext()) {
@@ -102,55 +176,20 @@ public class TopicImpl extends AbstractTopic {
         }
     }
 
-    private ConcurrentMap<TopicKey, TopicContext> sessions = new ConcurrentHashMap<TopicKey, TopicContext>();
-    private TopicsContextImpl topicsContext;
+    /**
+     * A task used for scheduling publishing of messages on given {@link TopicsContext}.
+     */
+    private static final class PublishTask implements Runnable {
+        private final PublishingContext topicContext;
 
-    public TopicImpl(TopicKey key, TopicsContextImpl topicsContext) {
-        super(key);
-
-        this.topicsContext = topicsContext;
-    }
-
-    private TopicContext getTopicContext(TopicKey key) {
-        return sessions.get(key);
-    }
-
-    private TopicContext getOrCreateTopicContext(TopicKey key) {
-        TopicContext result = sessions.get(key);
-        if (result == null) {
-            TopicContext freshContext = new TopicContext(key);
-            result = sessions.putIfAbsent(key, freshContext);
-            if (result == null) {
-                result = freshContext;
-            }
+        public PublishTask(PublishingContext topicContext) {
+            super();
+            this.topicContext = topicContext;
         }
-        return result;
-    }
 
-    @Override
-    public void publish(TopicKey key, Object messageData) throws MessageException {
-        String serializedData = getMessageDataSerializer().serialize(messageData);
-
-        if (serializedData != null) {
-            TopicContext topicContext = getTopicContext(key);
-            if (topicContext != null) {
-                topicContext.addMessage(serializedData);
-            }
-        }
-    }
-
-    @Override
-    public void publishEvent(TopicEvent event) {
-        super.publishEvent(event);
-
-        if (event instanceof SessionSubscriptionEvent) {
-            SessionSubscriptionEvent subscriptionEvent = (SessionSubscriptionEvent) event;
-
-            getOrCreateTopicContext(subscriptionEvent.getTopicKey()).addSession(subscriptionEvent.getSession());
-        } else if (event instanceof SessionUnsubscriptionEvent) {
-            SessionUnsubscriptionEvent unsubscriptionEvent = (SessionUnsubscriptionEvent) event;
-
-            getTopicContext(unsubscriptionEvent.getTopicKey()).removeSession(unsubscriptionEvent.getSession());
+        @Override
+        public void run() {
+            topicContext.publishMessages();
         }
     }
 }

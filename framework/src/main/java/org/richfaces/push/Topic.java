@@ -22,23 +22,68 @@
 package org.richfaces.push;
 
 /**
- * @author Nick Belaevski
+ * <p>
+ * Topic encapsulates particular endpoint for sending/receiving messages.
+ * </p>
  *
+ * <p>
+ * It is associated with TopicKey and in current implementation several Topic instances can be associated with the particular
+ * JMS Topic.
+ * </p>
+ *
+ * <p>
+ * Topic holds collection of TopicListener and one MessageDataSerializer.
+ * </p>
+ *
+ * @author Nick Belaevski
  */
 public interface Topic {
+
+    /**
+     * Returns the key which this topic is associated with
+     */
     TopicKey getKey();
 
+    /**
+     * Returns the {@link MessageDataSerializer} that is associated with this topic
+     */
     MessageDataSerializer getMessageDataSerializer();
 
+    /**
+     * Associated this topic with given {@link MessageDataSerializer}
+     *
+     * @param serializer
+     */
     void setMessageDataSerializer(MessageDataSerializer serializer);
 
+    /**
+     * Adds listener through that topic events will be published (by calling {@link #publishEvent(TopicEvent)}).
+     */
     void addTopicListener(TopicListener topicListener);
 
+    /**
+     * Removes topic listener
+     */
     void removeTopicListener(TopicListener topicListener);
 
-    void checkSubscription(TopicKey key, Session session) throws SubscriptionFailureException;
+    /**
+     * Checks that the given session can be subscribed to this topic
+     *
+     * @throws SubscriptionFailureException when given session can't be subscribed to this topic
+     */
+    void checkSubscription(Session session) throws SubscriptionFailureException;
 
+    /**
+     * Publishes topic event to all subscribed TopicListeners
+     */
     void publishEvent(TopicEvent event);
 
-    void publish(TopicKey key, Object messageData) throws MessageException;
+    /**
+     * Publish data to the subscribed clients
+     *
+     * @param messageData data that will be serialized by MessageDataSerializer
+     *
+     * @throws MessageException
+     */
+    void publish(Object messageData) throws MessageException;
 }

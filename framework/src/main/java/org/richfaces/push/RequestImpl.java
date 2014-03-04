@@ -34,12 +34,25 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 /**
+ * <p>
+ * Current implementation of Request wraps AtmosphereResource class.
+ * </p>
+ *
+ * <p>
+ * Request connects to push session to have messages written to the client and provides MessageListener interfacefor that.
+ * Current implementation of Session connects provided MessageListener to JMS bus. Also request connection notifies session
+ * manager about session activity, so that it is marked active and disconnection sets session manager to start session
+ * expiration counter.
+ * </p>
+ *
  * @author Nick Belaevski
  * @author Lukas Fryc
  */
 public class RequestImpl implements Request, AtmosphereResourceEventListener {
+
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     private static final int SUSPEND_TIMEOUT = 30 * 1000;
+
     private Session session;
     private final Meteor meteor;
     private AtomicBoolean hasActiveBroadcaster = new AtomicBoolean(false);
@@ -60,14 +73,27 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
         this.meteor.getBroadcaster().setBroadcasterLifeCyclePolicy(policy);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.Request#suspend()
+     */
     public void suspend() {
         meteor.suspend(SUSPEND_TIMEOUT, isPolling());
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.Request#resume()
+     */
     public void resume() {
         meteor.resume();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.Request#isPolling()
+     */
+    @Override
     public boolean isPolling() {
         HttpServletRequest req = meteor.getAtmosphereResource().getRequest();
         boolean isWebsocket = req.getAttribute(WebSocket.WEBSOCKET_SUSPEND) != null
@@ -77,6 +103,11 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
         return !isWebsocket;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.richfaces.push.Request#getSession()
+     */
+    @Override
     public Session getSession() {
         return session;
     }
@@ -91,6 +122,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
      * proceed later as stated by {@link #onBroadcast(AtmosphereResourceEvent)} method.
      * </p>
      */
+    @Override
     public void postMessages() {
         if (!session.getMessages().isEmpty()) {
             if (lockBroadcaster()) {
@@ -129,10 +161,18 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.atmosphere.cpr.AtmosphereResourceEventListener#onResume(org.atmosphere.cpr.AtmosphereResourceEvent)
+     */
     public void onResume(AtmosphereResourceEvent event) {
         disconnect();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.atmosphere.cpr.AtmosphereResourceEventListener#onDisconnect(org.atmosphere.cpr.AtmosphereResourceEvent)
+     */
     public void onDisconnect(AtmosphereResourceEvent event) {
         disconnect();
     }
@@ -172,6 +212,10 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.atmosphere.cpr.AtmosphereResourceEventListener#onThrowable(org.atmosphere.cpr.AtmosphereResourceEvent)
+     */
     public void onThrowable(AtmosphereResourceEvent event) {
         // TODO Auto-generated method stub
         Throwable throwable = event.throwable();

@@ -36,7 +36,6 @@ import org.richfaces.configuration.ConfigurationServiceHelper;
 import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.push.SessionManagerImpl.DestroyableSession;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -44,8 +43,11 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 /**
+ * Session represents user’s subscription to a set of topics
+ *
  * @author Nick Belaevski
  *
+ * @see Session
  */
 public class SessionImpl implements Session, DestroyableSession {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
@@ -79,6 +81,12 @@ public class SessionImpl implements Session, DestroyableSession {
         lastAccessedTime = System.currentTimeMillis();
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.Session#connect(org.richfaces.push.Request)
+     */
+    @Override
     public synchronized void connect(Request request) throws Exception {
         releaseRequest();
 
@@ -89,10 +97,16 @@ public class SessionImpl implements Session, DestroyableSession {
         }
     }
 
+    /**
+     * Returns {@link Request} associated with this session
+     */
     protected Request getRequest() {
         return request;
     }
 
+    /**
+     * Process connecting of given request to this session and try to post messages if there are any
+     */
     protected void processConnect(Request request) throws Exception {
         this.request = request;
         sessionManager.requeue(this);
@@ -111,10 +125,22 @@ public class SessionImpl implements Session, DestroyableSession {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.Session#disconnect()
+     */
+    @Override
     public synchronized void disconnect() throws Exception {
         releaseRequest();
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.Session#getLastAccessedTime()
+     */
+    @Override
     public long getLastAccessedTime() {
         if (!active) {
             return -1;
@@ -128,20 +154,44 @@ public class SessionImpl implements Session, DestroyableSession {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.Session#getMaxInactiveInterval()
+     */
+    @Override
     public int getMaxInactiveInterval() {
         return maxInactiveInterval;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.Session#getId()
+     */
+    @Override
     public String getId() {
         return id;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.Session#invalidate()
+     */
+    @Override
     public void invalidate() {
         active = false;
 
         sessionManager.requeue(this);
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.DestroyableSession#destroy()
+     */
+    @Override
     public synchronized void destroy() {
         active = false;
 
@@ -157,18 +207,32 @@ public class SessionImpl implements Session, DestroyableSession {
         }
     }
 
-    public Collection<MessageData> poll() {
-        return messagesQueue;
-    }
-
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.Session#getFailedSubscriptions()
+     */
+    @Override
     public Map<TopicKey, String> getFailedSubscriptions() {
         return failedSubscriptions;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.Session#getSuccessfulSubscriptions()
+     */
+    @Override
     public Collection<TopicKey> getSuccessfulSubscriptions() {
         return successfulSubscriptions;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.Session#subscribe(java.lang.String[])
+     */
+    @Override
     public void subscribe(String[] topics) {
         Iterable<TopicKey> topicKeys = Iterables.transform(Lists.newLinkedList(Arrays.asList(topics)), TopicKey.factory());
 
@@ -186,13 +250,13 @@ public class SessionImpl implements Session, DestroyableSession {
             } else {
                 try {
                     // TODO - publish another events
-                    pushTopic.checkSubscription(topicKey, this);
+                    pushTopic.checkSubscription(this);
                 } catch (SubscriptionFailureException e) {
                     if (e.getMessage() != null) {
                         errorMessage = e.getMessage();
                     } else {
                         errorMessage = MessageFormat.format("Unknown error connecting to ''{0}'' topic",
-                            topicKey.getTopicAddress());
+                                topicKey.getTopicAddress());
                     }
                 }
             }
@@ -206,10 +270,22 @@ public class SessionImpl implements Session, DestroyableSession {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.Session#getMessages()
+     */
+    @Override
     public Collection<MessageData> getMessages() {
         return messagesQueue;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.push.Session#clearBroadcastedMessages(long)
+     */
+    @Override
     public void clearBroadcastedMessages(long sequenceNumber) {
         Queue<MessageData> queue = messagesQueue;
         while (true) {
@@ -227,6 +303,7 @@ public class SessionImpl implements Session, DestroyableSession {
      *
      * @see org.richfaces.application.push.Session#push(org.richfaces.application.push.TopicKey, java.lang.String)
      */
+    @Override
     public void push(TopicKey topicKey, String serializedData) {
         MessageData serializedMessage = new MessageData(topicKey, serializedData, sequenceCounter.getAndIncrement());
         messagesQueue.add(serializedMessage);

@@ -25,10 +25,11 @@ import java.util.EventListener;
 import java.util.EventObject;
 
 /**
- * @author Nick Belaevski
+ * The event that can be published to registered {@link TopicListener}s.
  *
+ * @author Nick Belaevski
  */
-public class TopicEvent extends EventObject {
+public abstract class TopicEvent extends EventObject {
     private static final long serialVersionUID = 1986841627148973279L;
 
     public TopicEvent(Topic topic) {
@@ -39,11 +40,7 @@ public class TopicEvent extends EventObject {
         return (Topic) source;
     }
 
-    public boolean isAppropriateListener(EventListener listener) {
-        return false;
-    }
+    public abstract boolean isAppropriateListener(EventListener listener);
 
-    public void invokeListener(EventListener listener) throws SubscriptionFailureException {
-        throw new IllegalArgumentException(listener.getClass().getName());
-    }
+    public abstract void invokeListener(EventListener listener) throws SubscriptionFailureException;
 }

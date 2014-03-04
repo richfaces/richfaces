@@ -41,8 +41,9 @@ import org.richfaces.resource.DynamicResource;
 import org.richfaces.services.ServiceTracker;
 
 /**
- * @author Nick Belaevski
+ * PushResource is RichFaces dynamic resource responsible for push sessions management.
  *
+ * @author Nick Belaevski
  */
 @DynamicResource
 public class PushResource extends AbstractUserResource {

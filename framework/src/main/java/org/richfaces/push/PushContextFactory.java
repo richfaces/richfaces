@@ -22,9 +22,14 @@
 package org.richfaces.push;
 
 /**
- * @author Nick Belaevski
+ * Factory registered as RichFaces service that initializes {@link PushContext} lazily.
  *
+ * @author Nick Belaevski
  */
 public interface PushContextFactory {
+
+    /**
+     * Initializes {@link PushContext} lazily
+     */
     PushContext getPushContext();
 }
