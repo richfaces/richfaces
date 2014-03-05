@@ -51,6 +51,7 @@ import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.javascript.ScriptsHolder;
 import org.richfaces.services.ServiceTracker;
+import org.richfaces.ui.common.AjaxOutput;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.util.FastJoiner;
 
@@ -69,6 +70,59 @@ import com.google.common.collect.Maps;
  * <li>Support for auto-updateable Ajax components</li>
  * <li>Support for Ajax extensions like passing data to the client</li>
  * </ul>
+ *
+ *
+ * <h2>Extended Partial View Processing Scheme</h2>
+ *
+ * <p>On following diagram, you can see which classes contributes to RichFaces specific partial view processing (find an explanation bellow):</p>
+ *
+ * <pre>
+ * +-------------------------+  RF: ExtendedPartialViewContextFactory
+ * |PartialViewContextFactory|
+ * +------------+------------+   +------------------------+
+ *              |                |   PartialViewContext   | Mojarra: PartialViewContextImpl
+ *              +--------------->|                        | RF: ExtendedPartialViewContext
+ *                creates        |#processPartial(PhaseId)|
+ *                               +--+-------------+-------+
+ *                                  |             |
+ * RF: ExtendedVisitContextFactory  |             |
+ * +-------------------+            |             |
+ * |VisitContextFactory|            |             |
+ * +--------------+----+       uses |             |creates/uses
+ *                |                 |             |
+ *        creates |                 |             |
+ *                v                 v             v
+ *        +----------------------------+        +---------------------------+
+ *        |        VisitContext        |        |       VisitCallback       |
+ *        |                            |        |                           |
+ *        |     #invokeVisitContext    |        |          #visit           |
+ *        |(UIComponent, VisitCallback)|        |(VisitContext, UIComponent)|
+ *        +----------------------------+        +---------------------------+
+ *                                               Mojarra: PhaseAwareVisitCallback
+ *         RF: ExtendedExecuteVisitContext       RF: MetaComponentProcessingVisitCallback
+ *         RF: ExtendedRenderVisitContext        RF: MetaComponentEncodingVisitCallback
+ *
+ *                        +-----------------------------+
+ *                        |          UIViewRoot         |
+ *                        |                             |
+ *                        |          #visitTree         |
+ *                        |(VisitContext, VisitCallback)|
+ *                        +-----------------------------+
+ * </pre>
+ *
+ * <p>{@link ExtendedPartialViewContext} does (except other things) tracking of the mode ({@link ExtendedVisitContextMode}). This mode determines whether we are not inside a partial processing phase (inside {@link #processPartial(PhaseId)}) or not (determined by mode equal to <tt>null</tt>).</p>
+ *
+ * <p>The knowledge of current mode is leveraged by {@link ExtendedVisitContextFactory} that either use visit context created by parent factory (in a wrapper chain) in case the mode is equal to <tt>null</tt> or it creates {@link ExtendedExecuteVisitContext} (resp. {@link ExtendedRenderVisitContext}).</p>
+ *
+ * <p>(Note: the <tt>null</tt> mode is necessary because the tree visiting can be leveraged outside of partial tree processing/rendering, e.g. in partial state saving)
+ *
+ * <p>These {@link VisitContext} wrappers makes sure that when {@link VisitContext#invokeVisitCallback(UIComponent, VisitCallback)} method is called, the actual {@link VisitCallback} created by JSF implementation is wrapped in wrappers that allows to execute (resp. render) meta-components {@link MetaComponentProcessingVisitCallback} (resp. {@link MetaComponentEncodingVisitCallback}).</p>
+ *
+ * <p>While extended {@link VisitContext} implementations ({@link ExtendedRenderVisitContext} and {@link ExtendedExecuteVisitContext}) allows to visit subtrees that are not normally visited (meta-components and implicitly renderer areas, aka {@link AjaxOutput}s),</p>
+ *
+ * <p>extended implementations of {@link VisitCallback} ({@link MetaComponentProcessingVisitCallback and {@link MetaComponentEncodingVisitCallback}) do the extended processing and rendering logic for meta-components.</p>
+ *
+ * <p>{@link UIViewRoot} is a place where the tree processing starts to dive into subtrees, it is called by JSF implementation of {@link PartialViewContext#processPartial(PhaseId)}.</p>
  *
  * @author Nick Belaevski
  */
