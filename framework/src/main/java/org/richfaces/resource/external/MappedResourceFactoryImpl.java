@@ -31,7 +31,6 @@ import java.util.TreeSet;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
-import org.openqa.grid.web.servlet.ResourceServlet;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.URLResource;
 import org.richfaces.resource.mapping.PropertiesResourceMapper;
@@ -43,6 +42,7 @@ import org.richfaces.resource.mapping.ResourceServletMapping;
 import org.richfaces.services.Initializable;
 import org.richfaces.services.ServiceLoader;
 import org.richfaces.services.ServiceUtils;
+import org.richfaces.servlet.ResourceServlet;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
