@@ -21,6 +21,7 @@
  */
 package org.richfaces.context;
 
+import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
@@ -67,7 +68,10 @@ final class MetaComponentEncodingVisitCallback implements VisitCallback {
                 try {
                     encoder.encodeMetaComponent(facesContext, metaComponentId);
                 } catch (Exception e) {
-                    logException(e);
+                    if (LOG.isErrorEnabled()) {
+                        LOG.error(e.getMessage(), e);
+                    }
+                    throw new FacesException(String.format("exception thrown during encoding of meta-component %s@%s", target.getId(), metaComponentId), e);
                 }
                 // Once we visit a component, there is no need to visit
                 // its children, since processDecodes/Validators/Updates and
@@ -77,11 +81,5 @@ final class MetaComponentEncodingVisitCallback implements VisitCallback {
             }
         }
         return wrapped.visit(context, target);
-    }
-
-    private void logException(Exception e) {
-        if (LOG.isErrorEnabled()) {
-            LOG.error(e.getMessage(), e);
-        }
     }
 }
