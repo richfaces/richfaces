@@ -68,7 +68,7 @@ import com.google.common.collect.Maps;
  * <li>Values are resolved in runtime by visiting the request activator component and evaluating attributes</li>
  * <li>Usage of extended visit contexts in order to support meta-components processing</li>
  * <li>Support for auto-updateable Ajax components</li>
- * <li>Support for Ajax extensions like passing data to the client</li>
+ * <li>Support for Ajax extensions like passing data to the client, onbeforedomupdate and oncomplete callbacks and {@link JavaScriptService}</li>
  * </ul>
  *
  *
@@ -123,6 +123,10 @@ import com.google.common.collect.Maps;
  * <p>extended implementations of {@link VisitCallback} ({@link MetaComponentProcessingVisitCallback and {@link MetaComponentEncodingVisitCallback}) do the extended processing and rendering logic for meta-components.</p>
  *
  * <p>{@link UIViewRoot} is a place where the tree processing starts to dive into subtrees, it is called by JSF implementation of {@link PartialViewContext#processPartial(PhaseId)}.</p>
+ *
+ * <h2>Rendering AJAX Extensions</h2>
+ *
+ * <p>This context returns wrapped {@link PartialResponseWriter} in order to intercept its {@link PartialResponseWriter#endDocument()} method and write extensions before the document is actually ended. For more details see {@link ExtensionWritingPartialResponseWriter}.
  *
  * @author Nick Belaevski
  */
