@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:r="http://richfaces.org">
 	<ui:define name="headContent">
-		<div class="container" data-offset="0">
+		<div id="topContainer" class="container" data-offset="0">
 			<div class="row">
 				<div class="col-md-12">
 					<header class="jumbotron masthead">
@@ -118,93 +118,40 @@
 
 				<div class="row">
 
-					<div class="col-md-9">
+					<div class="col-md-8">
 						<div >
-							<div id="section1">
-								<h2>Section 1</h2>
-								<p>This is section one…</p>
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
+							<div id="autocomplete">
+								<h2><h:link outcome="/component/autocomplete/index" value="Autocomplete"/></h2>
+								<ui:include src="/component/autocomplete/sample/basic.xhtml" />
 							</div>
-							<div id="section2">
-								<h2>Section 2</h2>
-								<p>This is section two…</p>
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
+							<div id="charts">
+								<h2><h:link outcome="/component/chart/index" value="Charts"/></h2>
+								<ui:include src="/component/chart/sample/basic.xhtml" />
 							</div>
-							<div id="section3">
-								<h2>Section 3</h2>
-								<p>This is section three…</p>
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
+							<div id="pickList">
+								<h2><h:link outcome="/component/pickList/index" value="PickList"/></h2>
+								<ui:include src="/component/pickList/sample/table.xhtml" />
+							</div>
+							<div id="list">
+								<h2><h:link outcome="/component/list/index" value="List"/></h2>
+								<ui:include src="/component/list/sample/basic.xhtml" />
+							</div>
+							<div id="tooltip">
+								<h2><h:link outcome="/component/tooltip/index" value="Tooltip"/></h2>
+								<ui:include src="/component/tooltip/sample/basic.xhtml" />
 							</div>
 							<div id="section4">
-								<h2>Section 4</h2>
-								<p>This is section four…</p>
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
-								<br />
+								
 								<div id="section4dot1">
-									<p>This is section four point one…</p>
-									<br />
-									<br />
-									<br />
-									<br />
-									<br />
-									<br />
-									<br />
-									<br />
-									<br />
-									<br />
-									<br />
-									<br />
-									<br />
+								
+									
 								</div>
 								<div id="section4dot2">
 									<p>This is section four point two…</p>
+									<ui:include src="/component/orderingList/sample/basic.xhtml" />
+								</div>
+								<div id="section4dot3">
+									<p>This is section four point three…</p>
 									<br />
 									<br />
 									<br />
@@ -219,7 +166,18 @@
 									<br />
 									<br />
 								</div>
-								<div id="section4dot3">
+							</div>
+							<div id="section5">
+								
+								<div id="section5dot1">
+								
+									
+								</div>
+								<div id="section5dot2">
+									<p>This is section four point two…</p>
+									
+								</div>
+								<div id="section5dot3">
 									<p>This is section four point three…</p>
 									<br />
 									<br />
@@ -239,22 +197,35 @@
 						</div>
 					</div>
 					<!-- SIDE Nav -->
-					<div class="col-md-3 hidden-xs">
+					<div class="col-md-3 hidden-xs hidden-sm ">
 						<div id="sideNavbar" class="bs-docs-sidebar hidden-print"
 							data-spy="affix" data-offset-top="550">
 							
 							<ul class="nav hidden-print">
-								<li><a href="#section1">Section 1</a></li>
-								<li><a href="#section2">Section 2</a></li>
-								<li><a href="#section3">Section 3</a></li>
+								<li><a href="#autocomplete">Autocomplete</a></li>
+								<li><a href="#charts">Charts</a></li>
+								<li><a href="#pickList">PickList</a></li>
+								<li><a href="#tooltip">Tooltip</a></li>
 								<li class="dropdown"><a href="#section4" class="dropdown-toggle"
-									data-toggle="dropdown">Section 4<b class="caret"></b></a>
-									<ul class="dropdown-menu">
-										<li><a href="#section4dot1">Section 4.1</a></li>
-										<li><a href="#section4dot2">Section 4.2</a></li>
-										<li><a href="#section4dot3">Section 4.3</a></li>
+									data-toggle="dropdown">Panles<b class="caret"></b></a>
+									<ul class="nav">
+										<li><a href="#section4dot1">Panel</a></li>
+										<li><a href="#section4dot2">TogglePanel</a></li>
+										<li><a href="#section4dot3">tabPanel</a></li>
+										<li><a href="#section4dot3">collapsiblePanel</a></li>
+										<li><a href="#section4dot3">popupPanel</a></li>
+									</ul>
+								</li>
+								<li class="dropdown"><a href="#section5" class="dropdown-toggle"
+									data-toggle="dropdown">Section5<b class="caret"></b></a>
+									<ul class="nav">
+										<li><a href="#section5dot1">5.1</a></li>
+										<li><a href="#section5dot2">5.2</a></li>
+										<li><a href="#section5dot3">5.3</a></li>
+										<li><a href="#section5dot3">5.4</a></li>
+										<li><a href="#section5dot3">5.5</a></li>
 									</ul></li>
-
+								<li><a href="#topContainer">Back to the top</a></li>
 							</ul>
 						</div>
 					</div>

@@ -28,7 +28,19 @@
 <h:outputScript>
 $(function() {
 	$(".tabs").tabs();
-	$('body').scrollspy({ target: '#sideNavbar' })
+	$('body').scrollspy({ target: '#sideNavbar'  })
+
+	//show submenu on click
+	$("#sideNavbar li.dropdown").click(function(){
+		$(this).children("ul").show();
+		console.log('clicked');
 	});
+	
+	//show subitems when active	
+	$('#sideNavbar').on('activate.bs.scrollspy', function () {
+	  $("#sideNavbar li.dropdown").children("ul").hide();  
+	  $("#sideNavbar li.dropdown.active").children("ul").show();
+	})
+});
 </h:outputScript>
 </html>

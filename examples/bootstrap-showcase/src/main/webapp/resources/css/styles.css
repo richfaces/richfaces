@@ -1,5 +1,5 @@
 body {
-	padding-top: 75px;
+	padding-top: 150px;
 	margin-left: 20px;
 	margin-right: 20px;
 }
@@ -11,8 +11,27 @@ body {
 	text-align:left;	
 }
 #sideNavbar.affix{
-	top:200px;'
+	top:200px;
 }
-#sideNavbar > ul > li.active > a {
+#sideNavbar.affix-top{
+	top:600px;
+}
+
+
+#sideNavbar > ul > li.active > a  {
 	color:black;
+}
+
+#sideNavbar > ul > li > ul{
+	margin-left: 10px;	
+}
+
+
+#sideNavbar > ul > li.active > ul > li.active a{
+	color:black;
+}
+
+
+.navtable{
+	width: 100%;
 }

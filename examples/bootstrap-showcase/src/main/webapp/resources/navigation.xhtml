@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<ui:composition template="/resources/template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:r="http://richfaces.org">
+    <ui:define name="content">
+        <div class="container">
+        	<div class="row">
+        	
+        	<table class="table table-bordered table-striped navtable">
+        	
+        	<tbody>
+        	<r:repeat var="category" value="#{navigationBean.categories}">
+        		<tr><td colspan="10">#{category}</td></tr>
+        		<tr>
+        		<r:repeat var="comp" value="#{navigationBean.menu[category]}">
+        	  			<td><h:link outcome="/component/chart/index" value="#{comp}" /></td>
+	        	</r:repeat>
+        		</tr>
+        		</r:repeat>
+        	</tbody>
+        	</table>
+        	
+        	</div>
+        </div>
+    </ui:define>
+</ui:composition>
