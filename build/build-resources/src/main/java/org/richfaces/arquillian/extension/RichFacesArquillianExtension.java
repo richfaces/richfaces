@@ -2,7 +2,6 @@ package org.richfaces.arquillian.extension;
 
 import org.jboss.arquillian.core.spi.LoadableExtension;
 import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
-import org.jboss.arquillian.warp.spi.WarpDeploymentEnrichmentExtension;
 import org.richfaces.arquillian.browser.FailureScreenshot;
 import org.richfaces.arquillian.browser.PrepareBrowserSession;
 import org.richfaces.arquillian.browser.ScreenshotTaker;
@@ -27,7 +26,5 @@ public class RichFacesArquillianExtension implements LoadableExtension {
         builder.observer(FailureScreenshot.class);
         builder.observer(ScreenshotTaker.class);
         builder.observer(VerifyDeploymentTestability.class);
-        builder.service(WarpDeploymentEnrichmentExtension.class,
-                RichFacesWarpDeploymentEnrichment.class);
     }
 }
