@@ -132,7 +132,7 @@ public class FileUploadFacesContextFactory extends FacesContextFactory implement
 
                     ProgressControl progressControl = new ProgressControl(uid, contentLength);
 
-
+                    httpRequest.getParameterNames(); // hack for WildFly 8 Final
 
                     HttpServletRequest wrappedRequest;
                     if (ServletVersion.getCurrent().isCompliantWith(ServletVersion.SERVLET_3_0)) {
