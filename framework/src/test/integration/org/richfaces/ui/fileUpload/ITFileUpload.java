@@ -20,7 +20,6 @@ import org.jboss.arquillian.warp.Warp;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.arquillian.warp.servlet.AfterServlet;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -31,12 +30,12 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
+import category.FailingOnPhantomJS;
 import category.Smoke;
 
 @RunWith(Arquillian.class)
 @RunAsClient
 @WarpTest
-@Ignore("RF-13217")
 public class ITFileUpload {
 
     @Drone
@@ -66,7 +65,7 @@ public class ITFileUpload {
     private JavascriptExecutor executor;
 
     @Test
-    @Category(Smoke.class)
+    @Category({Smoke.class, FailingOnPhantomJS.class})
     public void test_file_upload() throws InterruptedException, URISyntaxException {
         browser.get(contextPath.toExternalForm());
 

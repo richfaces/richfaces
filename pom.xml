@@ -617,6 +617,7 @@
                 </property>
             </activation>
             <properties>
+                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
                 <arquillian.drone.browser>phantomjs</arquillian.drone.browser>
             </properties>
         </profile>

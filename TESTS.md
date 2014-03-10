@@ -224,7 +224,7 @@ The intention is to use more categories as required to:
 Test inclusion / exclusion intends to provide as extensive test coverage for all supported environments, but still avoid the known failures to affect test results.  The categories should be designed for two purposes, as evidenced from the samples:
 
 * `JavaEEOnly` - these tests will be run *only* on Java EE capable containers
-* `NoPhantomJS` - these tests *won't* be executed on PhantomJS
+* `FailingOnPhantomJS` - these tests *won't* be executed on PhantomJS
 * `FailingOnMyFaces`, `FailingOnFirefox`, `FailingOnTomcat` - these tests are *currently failing*, but they should pass once the referenced issue is fixed
 
 Note that those categories use keywords `*Only`, `No*` and `FailingOn*` in order to be sufficiently descriptive.
