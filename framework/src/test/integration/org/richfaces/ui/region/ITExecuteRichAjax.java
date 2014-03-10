@@ -27,7 +27,6 @@ import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
@@ -56,7 +55,6 @@ public class ITExecuteRichAjax extends AbstractRegionTest {
     }
 
     @Test
-    @Ignore("fails on WildFly: Caught exception on proxy - NumberFormatException: For input string: 'll'")
     public void testExecuteThis() {
         setupExecute("@this");
         verifyExecutedIds(BUTTON_ID);
