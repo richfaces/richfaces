@@ -111,7 +111,7 @@
         <!-- Integration Tests Versions -->
         <version.arquillian.core>1.1.3.Final</version.arquillian.core>
         <version.arquillian.drone>1.2.4.Final</version.arquillian.drone>
-        <version.arquillian.warp>1.0.0.Beta1-SNAPSHOT</version.arquillian.warp>
+        <version.arquillian.warp>1.0.0.Alpha7</version.arquillian.warp>
         <version.arquillian.graphene>2.0.0.Final</version.arquillian.graphene>
         <version.arquillian.phantom.driver>1.1.2.Final</version.arquillian.phantom.driver>
         <version.selenium>2.39.0</version.selenium>
