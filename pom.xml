@@ -443,7 +443,7 @@
                 <testCategory.included.default>NOT category.None</testCategory.included.default>
                 <testCategory.excluded.default>category.Failing</testCategory.excluded.default>
                 <testCategory.excluded.container />
-                <testCategory.excluded.browser />
+                <testCategory.excluded.browser>AND NOT category.FailingOnPhantomJS</testCategory.excluded.browser>
                 <testCategory.excluded.jsf />
             </properties>
             <dependencies>
