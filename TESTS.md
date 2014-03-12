@@ -43,11 +43,17 @@ Running particular framework test (on Chrome) from console:
 
 You can also add following parameters to skip CDK build and/or Resource Optimization and/or disable unit tests:
 
-    -Dgeneration.skip -Doptimization.skip -DskipTests
+    -Dgeneration.skip -Doptimization.skip -DskipTests -Dcheckstyle.skip
     
 It is oftentimes useful to deploy the test archive manually to debug a test without continually rebuilidng and deploying it.  To retain a deployable war in the target folder, add the following parameter:
 
     -Darquillian.deploymentExportPath=target
+    
+Conversely, to run _just_ the CDK generation invoke the plugin directly as in:
+
+    mvn richfaces-cdk:generate
+    // or
+    mvn richfaces-cdk:generate -Dcdk.recompile=true
 
 Framework Tests Overview
 ========================
