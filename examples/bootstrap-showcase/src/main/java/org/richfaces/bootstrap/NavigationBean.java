@@ -64,6 +64,15 @@ public class NavigationBean implements Serializable {
       menu.put("Data iteration",iteration);
 
 
+      List<String> validation= new ArrayList<>(Arrays.asList("graphValidator","message","messages","notify"));
+      menu.put("Validation",validation);
+
+      List<String> menus= new ArrayList<>(Arrays.asList("panelMenu","toolbar","contextMenu","dropDownMenu"));
+      menu.put("Menus",menus);
+
+      List<String> miscellaneous= new ArrayList<>(Arrays.asList("skinning","placeholder","RichFaces functions","Focus","componentControl","hashParam","hotKey","jQuery"));
+      menu.put("Miscellaneous",miscellaneous);
+
     }
 
     public HashMap<String, List<String>> getMenu() {
@@ -73,5 +82,26 @@ public class NavigationBean implements Serializable {
     public List<String> getCategories(){
         List<String> categories = new ArrayList<>(menu.keySet());
         return categories;
+    }
+
+    public List<List<String>> getCategoryRows(){
+
+        int maxInRow = 6;
+
+        List<String> categories = new ArrayList<>(menu.keySet());
+        List<List<String>> rows = new ArrayList<>();
+        for(int i =0; i<categories.size();){
+            if((i+maxInRow)<categories.size()){
+                rows.add(categories.subList(i, i+maxInRow));
+            }
+            else{
+                rows.add(categories.subList(i, categories.size()));
+            }
+            i+=maxInRow;
+
+        }
+
+        return rows;
+
     }
 }

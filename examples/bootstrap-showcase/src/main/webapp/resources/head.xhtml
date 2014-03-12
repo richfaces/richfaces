@@ -41,6 +41,18 @@ $(function() {
 	  $("#sideNavbar li.dropdown").children("ul").hide();  
 	  $("#sideNavbar li.dropdown.active").children("ul").show();
 	})
+	
+	//components submenu
+	$("#components-submenu").hide();
+	$("#components-submenu-icon").click(function(){$("#components-submenu").toggle();return false;})
+	$("body").click(function(){
+	  $("#components-submenu").hide();
+	});
+
+	// Prevent events from getting pass
+	$("#components-submenu").click(function(e){
+	  e.stopPropagation();
+	});
 });
 </h:outputScript>
 </html>
