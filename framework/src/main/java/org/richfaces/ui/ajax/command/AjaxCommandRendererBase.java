@@ -21,10 +21,7 @@
  */
 package org.richfaces.ui.ajax.command;
 
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.renderkit.RendererBase;
-import org.richfaces.ui.behavior.HandlersChain;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -32,7 +29,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import java.util.Map;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.ui.behavior.HandlersChain;
 
 /**
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
@@ -45,6 +45,7 @@ import java.util.Map;
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib") })
 public abstract class AjaxCommandRendererBase extends RendererBase {
     private static final Logger LOG = RichfacesLogger.RENDERKIT.getLogger();
+    private static final String SOURCE_ID = "javax.faces.source";
 
     @Override
     protected void queueComponentEventForBehaviorEvent(FacesContext context, UIComponent component, String eventName) {
@@ -70,7 +71,22 @@ public abstract class AjaxCommandRendererBase extends RendererBase {
         String clientId = uiComponent.getClientId(facesContext);
         Map<String, String> paramMap = facesContext.getExternalContext().getRequestParameterMap();
         Object value = paramMap.get(clientId);
-        boolean submitted = null != value;
+
+        /*
+         * RF-13018, prevent commandButton with @type="button" from executing its action if it didn't submit the form
+         */
+        boolean preventButtonExecution = false;
+        if (uiComponent instanceof AbstractCommandButton) {
+            AbstractCommandButton button = (AbstractCommandButton) uiComponent;
+            String type = button.getType().toLowerCase();
+            String source = paramMap.get(SOURCE_ID);
+
+            if (type.equals("button") && !source.equals(button.getClientId())) {
+                preventButtonExecution = true;
+            }
+        }
+
+        boolean submitted = null != value && !preventButtonExecution;
 
         if (submitted && LOG.isDebugEnabled()) {
             LOG.debug("Decode submit of the Ajax component " + clientId);
