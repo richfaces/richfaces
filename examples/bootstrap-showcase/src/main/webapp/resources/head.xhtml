@@ -44,15 +44,19 @@ $(function() {
 	
 	//components submenu
 	$("#components-submenu").hide();
-	$("#components-submenu-icon").click(function(){$("#components-submenu").toggle();return false;})
+	$("#components-submenu-link").click(function(){$("#components-submenu").toggle('blind');return false;})
 	$("body").click(function(){
-	  $("#components-submenu").hide();
+	  $("#components-submenu").hide('blind');
 	});
 
 	// Prevent events from getting pass
 	$("#components-submenu").click(function(e){
 	  e.stopPropagation();
 	});
+	
+	$(window).on('resize load', function() {
+    $('body').css({"padding-top": $(".navbar").height() + "px"});
+});
 });
 </h:outputScript>
 </html>

@@ -18,6 +18,7 @@ public class NavigationBean implements Serializable {
      *
      */
     private static final long serialVersionUID = -1734975574328260134L;
+    private static final int maxInRow = 5;
     private HashMap<String,List<String>> menu;
 
     @PostConstruct
@@ -84,9 +85,10 @@ public class NavigationBean implements Serializable {
         return categories;
     }
 
+    
     public List<List<String>> getCategoryRows(){
 
-        int maxInRow = 6;
+        
 
         List<String> categories = new ArrayList<>(menu.keySet());
         List<List<String>> rows = new ArrayList<>();

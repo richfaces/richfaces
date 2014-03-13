@@ -1,7 +1,9 @@
+
 body {
 	padding-top: 150px;
-	margin-left: 20px;
-	margin-right: 20px;
+	margin-left:20px;
+	margin-right:20px;
+	
 }
 .required {
 	text-decoration: underline;
@@ -35,3 +37,16 @@ body {
 .navtable{
 	width: 100%;
 }
+#components-submenu{
+	position:fixed;
+	z-index:100;
+	background-color: rgb(231,231,231);
+	padding-top:10px;
+	padding-bottom:10px;
+	
+}
+
+#components-submenu a{
+    color: rgb(57,63,68);
+}    
+    
