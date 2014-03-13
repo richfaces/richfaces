@@ -59,20 +59,18 @@
                 </h:panelGrid>
                 
                 <h:panelGrid columns="1">
-                    <h:button type="button" value="setReadOnly(true)"
-                           onclick="#{r:component('editor')}.setReadOnly(true); return false;"/>
-                    <h:button type="button" value="setReadOnly(false)"
-                           onclick="#{r:component('editor')}.setReadOnly(false); return false;"/>
-                    <h:button type="button" value="isReadOnly()"
-                           onclick="alert(#{r:component('editor')}.isReadOnly()); return false;"/>
-                    <h:button type="button" value="setValue('test')"
-                           onclick="#{r:component('editor')}.setValue('test'); return false;"/>
-                    <h:button type="button" value="getValue()"
-                           onclick="alert(#{r:component('editor')}.getValue()); return false;"/>
-                    <h:button type="button" value="getEditor()"
-                           onclick="alert(#{r:component('editor')}.getEditor()); return false;"/>
-                    <h:button type="button" value="getInput()"
-                           onclick="alert(#{r:component('editor')}.getInput()); return false;"/>
+                    <h:button type="button" value="readOnly(true)"
+                           onclick="#{r:component('editor')}.readOnly(true); return false;"/>
+                    <h:button type="button" value="readOnly(false)"
+                           onclick="#{r:component('editor')}.readOnly(false); return false;"/>
+                    <h:button type="button" value="readOnly()"
+                           onclick="alert(#{r:component('editor')}.readOnly()); return false;"/>
+                    <h:button type="button" value="value('test')"
+                           onclick="#{r:component('editor')}.value('test'); return false;"/>
+                    <h:button type="button" value="value()"
+                           onclick="alert(#{r:component('editor')}.value()); return false;"/>
+                    <h:button type="button" value="editor()"
+                           onclick="alert(#{r:component('editor')}.editor()); return false;"/>
                     <h:button type="button" value="focus()"
                            onclick="#{r:component('editor')}.focus(); return false;"/>
                     <h:button type="button" value="blur()"
