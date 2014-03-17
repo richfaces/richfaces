@@ -28,7 +28,7 @@
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
         <version>4.5.0-SNAPSHOT</version>
-        <relativePath>../richfaces/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.compat</groupId>
@@ -41,7 +41,7 @@
         <module>parent</module>
         <module>a4j</module>
         <module>rich</module>
-        <module>dist</module>
+        <!--<module>dist</module>-->
     </modules>
 
 </project>

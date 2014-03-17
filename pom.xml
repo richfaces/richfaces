@@ -44,6 +44,7 @@
         <module>build/resource-optimizer-plugin</module>
 
         <module>framework</module>
+        <module>components</module>
         
         <module>dist</module>
 
