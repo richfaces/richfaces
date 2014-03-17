@@ -361,6 +361,7 @@
                 formData.append('javax.faces.partial.ajax', 'true');
                 formData.append('javax.faces.source', this.fileUpload.id);
                 formData.append('javax.faces.partial.execute', this.fileUpload.id);
+                formData.append('org.richfaces.ajax.component', this.fileUpload.id);
 
                 if (jsf.getClientWindow()) {
                     formData.append('javax.faces.ClientWindow', jsf.getClientWindow());
@@ -373,6 +374,8 @@
                 this.xhr = new XMLHttpRequest();
 
                 this.xhr.open('POST', newAction, true);
+                this.xhr.setRequestHeader('Faces-Request', 'partial/ajax');
+                
                 this.xhr.upload.onprogress = $.proxy(function(e) {
                         if (e.lengthComputable) {
                             var progress = Math.floor((e.loaded / e.total) * 100);

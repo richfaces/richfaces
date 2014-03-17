@@ -21,8 +21,6 @@
  */
 package org.richfaces.ui.input.fileUpload;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -35,7 +33,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import org.richfaces.exception.FileUploadException;
-import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.request.MultipartRequestParser;
@@ -105,17 +102,6 @@ public class FileUploadRendererBase extends RendererBase {
                         if (fileUpload.acceptsFile(file)) {
                             fileUpload.queueEvent(new FileUploadEvent(fileUpload, file));
                         }
-                    }
-
-                    externalContext.setResponseStatus(HttpServletResponse.SC_OK);
-                    externalContext.setResponseContentType("text/html");
-                    try {
-                        Writer writer = externalContext.getResponseOutputWriter();
-                        writer.write("<html id=\"" + MultipartRequestParser.UID_KEY + uid
-                            + ":" + HttpServletResponse.SC_OK + "\"/>");
-                        writer.close();
-                    } catch (IOException e) {
-                        RichfacesLogger.CONTEXT.getLogger().error(e.getMessage(), e);
                     }
                 }
             }
