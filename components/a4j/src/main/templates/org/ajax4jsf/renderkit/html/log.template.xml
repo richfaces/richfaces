@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.AjaxLogRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.LogRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.AjaxLog</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.AjaxLogRenderer</cdk:renderer-type>
+
+        <cdk:import package="org.richfaces.component" names="LogMode" />
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="richfaces.log"
+            class="#{concatClasses('rf-log', isInline(component.attributes['mode']) ? 'rf-log-inline' : 'rf-log-popup rf-log-popup-cnt', component.attributes['styleClass'])}"
+            cdk:passThroughWithExclusions="">
+            <cdk:scriptObject name="options">
+                <cdk:scriptOption attributes="level hotkey" />
+                <cdk:scriptOption attributes="mode" defaultValue="LogMode.DEFAULT" />
+                <!-- TODO: pass styleClass in  -->
+            </cdk:scriptObject>
+            <script type="text/javascript">
+                new RichFaces.HtmlLog(#{toScriptArgs(options)});
+            </script>
+        </div>
+    </cc:implementation>
+</cdk:root>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<span class="rf-au" id="form:myAutocomplete">
+  <input id="form:myAutocompleteValue" name="form:myAutocompleteValue" type="hidden"/>
+  <span class="rf-au-fld-btn">
+    <input autocomplete="off" class="rf-au-fnt rf-au-inp " id="form:myAutocompleteInput" name="form:myAutocompleteInput" type="text"/>
+    <span class="rf-au-btn" id="form:myAutocompleteButton">
+      <span class="rf-au-btn-arrow">
+      </span>
+    </span>
+  </span>
+  <div class="rf-au-lst-cord" id="form:myAutocompleteList">
+    <div class="rf-au-shdw">
+      <div class="rf-au-shdw-t">
+      </div>
+      <div class="rf-au-shdw-l">
+      </div>
+      <div class="rf-au-shdw-r">
+      </div>
+      <div class="rf-au-shdw-b">
+      </div>
+      <div class="rf-au-lst-dcrtn ">
+        <div class="rf-au-lst-scrl">
+          <ul id="form:myAutocompleteItems" class="rf-au-lst-ul">
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Afghanistan AF/AFG/4 .af
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Albania AL/ALB/8 .al
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Algeria DZ/DZA/12 .dz
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            American Samoa AS/ASM/16 .as
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Andorra AD/AND/20 .ad
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Angola AO/AGO/24 .ao
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Anguilla AI/AIA/660 .ai
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Antarctica AQ/ATA/10 .aq
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Antigua and Barbuda AG/ATG/28 .ag
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Argentina AR/ARG/32 .ar
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Armenia AM/ARM/51 .am
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Aruba AW/ABW/533 .aw
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Ashmore and Cartier Islands -/-/- -
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Australia AU/AUS/36 .au
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Austria AT/AUT/40 .at
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Azerbaijan AZ/AZE/31 .az
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bahamas, The BS/BHS/44 .bs
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bahrain BH/BHR/48 .bh
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Baker Island -/-/- -
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bangladesh BD/BGD/50 .bd
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Barbados BB/BRB/52 .bb
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bassas da India -/-/- -
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Belarus BY/BLR/112 .by
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Belgium BE/BEL/56 .be
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Belize BZ/BLZ/84 .bz
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Benin BJ/BEN/204 .bj
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bermuda BM/BMU/60 .bm
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bhutan BT/BTN/64 .bt
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bolivia BO/BOL/68 .bo
+            
+            </li>
+            <li class="rf-au-itm rf-au-opt rf-au-fnt rf-au-inp">
+              
+            Bosnia and Herzegovina BA/BIH/70 .ba
+            
+            </li>
+          </ul>
+          <script type="text/javascript">
+//<![CDATA[
+new RichFaces.rf4.ui.Autocomplete.setData("form:myAutocompleteItems",["Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruba","Ashmore and Cartier Islands","Australia","Austria","Azerbaijan","Bahamas, The","Bahrain","Baker Island","Bangladesh","Barbados","Bassas da India","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia and Herzegovina"] )
+//]]>
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+//<![CDATA[
+new RichFaces.rf4.ui.Autocomplete("form:myAutocomplete",
+                    "form:myAutocompleteInput", {"buttonId":"form:myAutocompleteButton","autofill":false,"onchange":function(event){RichFaces.ajax(this,event,{"parameters":{"javax.faces.behavior.event":"change","org.richfaces.ajax.component":"form:myAutocomplete"} ,"sourceId":this} )},"minChars":2,"ajaxMode":false} 
+                    );
+//]]>
+  </script>
+</span>

@@ -1,0 +1,22 @@
+<div id="f:panelMenuGroup-top" class="rf-pm-top-gr topGroupClass">
+    <input id="f:panelMenuGroup-top:expanded" name="f:panelMenuGroup-top:expanded" type="hidden" value="false" />
+    <div id="f:panelMenuGroup-top:hdr" class="rf-pm-top-gr-hdr rf-pm-hdr-colps">
+        <table class="rf-pm-top-gr-gr">
+            <tbody>
+                <tr>
+                    <td class="rf-pm-top-gr-ico">
+                        <div class="rf-pm-ico-colps rf-ico-triangle-hdr"></div>
+                        <div class="rf-pm-ico-exp rf-ico-disc-hdr"></div>
+                    </td>
+                    <td class="rf-pm-top-gr-lbl"></td>
+                    <td class="rf-pm-top-gr-exp-ico">
+                        <div class="rf-pm-ico-colps rf-ico-triangle-hdr"></div>
+                        <div class="rf-pm-ico-exp rf-ico-disc-hdr"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="f:panelMenuGroup-top:cnt" class="rf-pm-top-gr-cnt rf-pm-colps">
+    </div>
+</div>

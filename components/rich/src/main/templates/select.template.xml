@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.SelectRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.SelectRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.Select</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.SelectRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+
+        <cdk:object type="java.util.List" type-arguments="org.richfaces.renderkit.ClientSelectItem" name="clientSelectItems"
+            value="#{getConvertedSelectItems(facesContext, component)}" />
+
+        <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
+
+        <div id="#{clientId}" class="#{concatClasses('rf-sel', component.attributes['styleClass'])}" style="#{component.attributes['style']}">
+            <span class="rf-sel-cntr">
+                <input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getInputValue(facesContext, component)}" />
+                <cdk:object type="java.lang.String" name="label" value="#{getSelectLabel(facesContext, component)}" />
+                <input cdk:passThroughWithExclusions="class autocomplete id value disabled name type readonly onchange onblur onfocus onlistshow onlisthide style"
+                    id="#{clientId}Input" value="#{label}" disabled="#{disabled}" name="#{clientId}Input" type="text"
+                    class="rf-sel-inp#{label == component.attributes['defaultLabel'] ? ' rf-sel-dflt-lbl' : ''}" autocomplete="off"
+                    readonly="#{component.attributes['enableManualInput'] ? '' : 'readonly'}" />
+                <c:if test="#{component.attributes['showButton']}">
+                    <c:if test="#{component.attributes['disabled']}">
+                        <span id="#{clientId}Button" class="rf-sel-btn rf-sel-btn-dis">
+                            <span class="rf-sel-btn-arrow"></span>
+                        </span>
+                    </c:if>
+                    <c:if test="#{!component.attributes['disabled']}">
+                        <span id="#{clientId}Button" class="rf-sel-btn">
+                            <span class="rf-sel-btn-arrow"></span>
+                        </span>
+                    </c:if>
+                </c:if>
+            </span>
+
+            <div id="#{clientId}List" class="#{getListCss(component)}">
+                <cdk:call expression="renderListHandlers(facesContext, component);" />
+                <div class="rf-sel-shdw">
+                    <div class="rf-sel-shdw-t"></div>
+                    <div class="rf-sel-shdw-l"></div>
+                    <div class="rf-sel-shdw-r"></div>
+                    <div class="rf-sel-shdw-b"></div>
+
+                    <div class="rf-sel-lst-dcrtn">
+                        <div class="rf-sel-lst-scrl" style="#{encodeHeightAndWidth(component)}">
+                            <div id="#{clientId}Items">
+                                <cdk:call expression="encodeItems(facesContext, component, clientSelectItems);" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption name="clientSelectItems" value="#{clientSelectItems}" />
+                    <cdk:scriptOption name="itemCss" value="rf-sel-opt" />
+                    <cdk:scriptOption name="selectItemCss"
+                        value="#{concatClasses('rf-sel-sel', component.attributes['selectItemClass'])}" />
+                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onselectitem onfocus onlistshow onlisthide"
+                        wrapper="eventHandler" />
+                    <cdk:scriptOption attributes="showControl defaultLabel enableManualInput selectFirst disabled" />
+                    <cdk:scriptOption name="filterFunction" value="#{getClientFilterFunction(component)}" />
+                </cdk:scriptObject>
+                new RichFaces.rf4.ui.Select("#{clientId}", #{toScriptArgs(options)});
+            </script>
+        </div>
+    </cc:implementation>
+</cdk:root>

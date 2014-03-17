@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.ProgressBarRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.html.ProgressBarBaseRenderer</cdk:superclass>
+        <cdk:component-family>org.richfaces.ProgressBarRenderer</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ProgressBarRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+
+        <div id="#{clientId}" cdk:passThroughWithExclusions="" class="#{concatClasses('rf-pb', component.attributes['styleClass'])}"
+            style="#{component.attributes['style']}">
+            <cdk:object name="encoder" value="#{getEncoder(facesContext, component)}" type="ProgressBarStateEncoder" />
+            <cdk:object name="currentState" value="#{getCurrentState(facesContext, component)}" type="ProgressBarState" />
+
+            <cdk:call>
+                encoder.encodeInitialState(facesContext, component, currentState);
+            </cdk:call>
+
+            <cdk:call>
+                encoder.encodeCompleteState(facesContext, component, currentState);
+            </cdk:call>
+
+            <cdk:call>
+                encoder.encodeProgressState(facesContext, component, currentState);
+            </cdk:call>
+
+            <script type="text/javascript">
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption name="submitFunction" value="#{getSubmitFunction(facesContext, component)}" />
+                    <cdk:scriptOption name="minValue" value="#{getMinValueOrDefault(component)}" defaultValue="0" />
+                    <cdk:scriptOption name="maxValue" value="#{getMaxValueOrDefault(component)}" defaultValue="100" />
+
+                    <cdk:scriptOption attributes="interval enabled value onfinish resource" />
+                </cdk:scriptObject>
+
+                new RichFaces.rf4.ui.ProgressBar(#{toScriptArgs(clientId, options)});
+            </script>
+        </div>
+    </cc:implementation>
+</cdk:root>

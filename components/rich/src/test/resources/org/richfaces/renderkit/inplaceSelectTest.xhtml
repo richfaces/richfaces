@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
+<f:view contentType="text/html" />
+
+<h:head>
+    <title>Richfaces InplaceSelect</title>
+</h:head>
+<h:body>
+    <h:form id="form">
+        <h:panelGroup id="example" layout="block">
+            <rich:inplaceSelect id="inplaceSelectDefault" defaultLabel="Edit Text" value="#{selectBean.value}">
+                <f:selectItem itemLabel="Label#1" itemValue="Value#1" />
+                <f:selectItem itemLabel="Label#2" itemValue="Value#2" />
+                <f:selectItem itemLabel="Label#3" itemValue="Value#3" />
+                <f:selectItem itemLabel="Label#4" itemValue="Value#4" />
+            </rich:inplaceSelect>
+            <rich:inplaceSelect id="inplaceSelectWithControls" showControls="true" defaultLabel="Edit Text"
+                value="#{selectBean.value}">
+                <f:selectItem itemLabel="Label#1" itemValue="Value#1" />
+                <f:selectItem itemLabel="Label#2" itemValue="Value#2" />
+                <f:selectItem itemLabel="Label#3" itemValue="Value#3" />
+                <f:selectItem itemLabel="Label#4" itemValue="Value#4" />
+            </rich:inplaceSelect>
+            <h:panelGroup id="out" layout="block">
+                <h:outputText id="inplaceSelectValue" value="Entered Value: #{selectBean.value}" />
+            </h:panelGroup>
+        </h:panelGroup>
+
+    </h:form>
+</h:body>
+</html>

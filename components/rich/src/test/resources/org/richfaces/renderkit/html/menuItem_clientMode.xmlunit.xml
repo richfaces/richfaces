@@ -1,0 +1,13 @@
+<div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:menuItem">
+    <span class="rf-ddm-itm-ic ">
+        <span class="rf-ddm-emptyIcon" />
+    </span>
+    <span class="rf-ddm-itm-lbl ">
+        Test
+    </span>
+    <script type="text/javascript">
+        //<![CDATA[
+      new RichFaces.rf4.ui.MenuItem("form:menuItem");
+//]]>
+    </script>
+</div>

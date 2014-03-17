@@ -1,0 +1,85 @@
+.rf-ico-none,.rf-ico-none-hdr,.rf-ico-none-dis,.rf-ico-none-hdr-dis,.rf-ico-chevron,.rf-ico-chevron-hdr,.rf-ico-chevron-dis,.rf-ico-chevron-hdr-dis,.rf-ico-chevron-down,.rf-ico-chevron-down-hdr,.rf-ico-chevron-down-dis,.rf-ico-chevron-down-hdr-dis,.rf-ico-chevron-left,.rf-ico-chevron-left-hdr,.rf-ico-chevron-left-dis,.rf-ico-chevron-left-hdr-dis,.rf-ico-chevron-up,.rf-ico-chevron-up-hdr,.rf-ico-chevron-up-dis,.rf-ico-chevron-up-hdr-dis,.rf-ico-disc,.rf-ico-disc-hdr,.rf-ico-disc-dis,.rf-ico-disc-hdr-dis,.rf-ico-grid,.rf-ico-grid-hdr,.rf-ico-grid-dis,.rf-ico-grid-hdr-dis,.rf-ico-transparent,.rf-ico-transparent-hdr,.rf-ico-transparent-dis,.rf-ico-transparent-hdr-dis,.rf-ico-triangle,.rf-ico-triangle-hdr,.rf-ico-triangle-dis,.rf-ico-triangle-hdr-dis,.rf-ico-triangle-down,.rf-ico-triangle-down-hdr,.rf-ico-triangle-down-dis,.rf-ico-triangle-down-hdr-dis,.rf-ico-triangle-left,.rf-ico-triangle-left-hdr,.rf-ico-triangle-left-dis,.rf-ico-triangle-left-hdr-dis,.rf-ico-triangle-up,.rf-ico-triangle-up-dis,.rf-ico-triangle-up-hdr,.rf-ico-triangle-up-hdr-dis
+    {
+    width: 16px;
+    height: 16px;
+}
+
+.rf-ico-chevron-hdr {
+    background-image: "url(#{resource['org.richfaces.images:chevron.png']})"
+}
+
+.rf-ico-chevron,.rf-ico-chevron-dis,.rf-ico-chevron-hdr-dis {
+    background-image: "url(#{resource['org.richfaces.images:chevronDisabled.png']})"
+}
+
+.rf-ico-chevron-down-hdr {
+    background-image: "url(#{resource['org.richfaces.images:chevronDown.png']})"
+}
+
+.rf-ico-chevron-down,.rf-ico-chevron-down-dis,.rf-ico-chevron-down-hdr-dis {
+    background-image: "url(#{resource['org.richfaces.images:chevronDownDisabled.png']})"
+}
+
+.rf-ico-chevron-left-hdr {
+    background-image: "url(#{resource['org.richfaces.images:chevronLeft.png']})"
+}
+
+.rf-ico-chevron-left,.rf-ico-chevron-left-dis,.rf-ico-chevron-left-hdr-dis {
+    background-image: "url(#{resource['org.richfaces.images:chevronLeftDisabled.png']})"
+}
+
+.rf-ico-chevron-up-hdr {
+    background-image: "url(#{resource['org.richfaces.images:chevronUp.png']})"
+}
+
+.rf-ico-chevron-up,.rf-ico-chevron-up-dis,.rf-ico-chevron-up-hdr-dis {
+    background-image: "url(#{resource['org.richfaces.images:chevronUpDisabled.png']})"
+}
+
+.rf-ico-disc-hdr {
+    background-image: "url(#{resource['org.richfaces.images:disc.png']})"
+}
+
+.rf-ico-disc,.rf-ico-disc-dis,.rf-ico-disc-hdr-dis {
+    background-image: "url(#{resource['org.richfaces.images:discDisabled.png']})"
+}
+
+.rf-ico-grid-hdr {
+    background-image: "url(#{resource['org.richfaces.images:grid.png']})"
+}
+
+.rf-ico-grid,.rf-ico-grid-dis,.rf-ico-grid-hdr-dis {
+    background-image: "url(#{resource['org.richfaces.images:gridDisabled.png']})"
+}
+
+.rf-ico-triangle-hdr {
+    background-image: "url(#{resource['org.richfaces.images:triangle.png']})"
+}
+
+.rf-ico-triangle,.rf-ico-triangle-dis,.rf-ico-triangle-hdr-dis {
+    background-image: "url(#{resource['org.richfaces.images:triangleDisabled.png']})"
+}
+
+.rf-ico-triangle-down-hdr {
+    background-image: "url(#{resource['org.richfaces.images:triangleDown.png']})"
+}
+
+.rf-ico-triangle-down,.rf-ico-triangle-down-dis,.rf-ico-triangle-down-hdr-dis {
+    background-image: "url(#{resource['org.richfaces.images:triangleDownDisabled.png']})"
+}
+
+.rf-ico-triangle-left-hdr {
+    background-image: "url(#{resource['org.richfaces.images:triangleLeft.png']})"
+}
+
+.rf-ico-triangle-left,.rf-ico-triangle-left-dis,.rf-ico-triangle-left-hdr-dis {
+    background-image: "url(#{resource['org.richfaces.images:triangleLeftDisabled.png']})"
+}
+
+.rf-ico-triangle-up-hdr {
+    background-image: "url(#{resource['org.richfaces.images:triangleUp.png']})"
+}
+
+.rf-ico-triangle-up,.rf-ico-triangle-up-dis,.rf-ico-triangle-up-hdr-dis {
+    background-image: "url(#{resource['org.richfaces.images:triangleUpDisabled.png']})"
+}

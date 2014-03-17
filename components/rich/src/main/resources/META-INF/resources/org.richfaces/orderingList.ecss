@@ -1,0 +1,96 @@
+.rf-ord-opt {
+    color: '#{richSkin.generalTextColor}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+}
+
+.rf-ord {
+    display: inline-block;
+}
+
+.rf-ord-hdr {
+    vertical-align: middle;
+    text-align: left;
+    height: 22px;
+    white-space: nowrap;
+    background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    font-size: '#{richSkin.headerSizeFont}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    font-weight: '#{richSkin.headerWeightFont}';
+    color: '#{richSkin.headerTextColor}';
+}
+
+.rf-ord-hdr-c {
+    padding : 0 0.5em;
+}
+
+.rf-ord-cptn {
+    font-size: '#{richSkin.headerSizeFont}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    font-weight: '#{richSkin.headerWeightFont}';
+    color: '#{richSkin.headerTextColor}';
+}
+
+.rf-ord-btn {
+    width : 100%;
+    white-space:nowrap;
+    background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: '#{richSkin.panelBorderColor}';
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    text-align : left;
+}
+
+.rf-ord-btn-dis {
+    cursor: default;
+    color : #dddddd;
+}
+
+.rf-ord-lst-dcrtn {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    padding: 0px;
+    background-color: '#{richSkin.tableBackgroundColor}';
+}
+
+.rf-ord-lst-scrl {
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.rf-ord-opt {
+    padding: 2px;
+    white-space: nowrap;
+    cursor: pointer;
+    list-style-type: none;
+}
+
+.rf-ord-opt-dis {
+    cursor: default;
+}
+
+.rf-ord-sel {
+    width: 100%;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    border-width: 1px;
+    border-style: dotted;
+    border-color: '#{richSkin.generalTextColor}';
+}
+
+input.rf-ord-dflt-lbl {
+    color: #b3b3b3;
+}
+
+.rf-ord-tbl {
+    width : 100%;
+}

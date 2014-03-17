@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
+    Inc. and individual contributors by the @authors tag. See the
+    copyright.txt in the distribution for a full listing of
+    individual contributors. This is free software; you can
+    redistribute it and/or modify it under the terms of the GNU
+    Lesser General Public License as published by the Free Software
+    Foundation; either version 2.1 of the License, or (at your
+    option) any later version. This software is distributed in the
+    hope that it will be useful, but WITHOUT ANY WARRANTY; without
+    even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+    PARTICULAR PURPOSE. See the GNU Lesser General Public License
+    for more details. You should have received a copy of the GNU
+    Lesser General Public License along with this software; if not,
+    write to the Free Software Foundation, Inc., 51 Franklin St,
+    Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
+    http://www.fsf.org.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-parent</artifactId>
+        <version>5.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>richfaces-distribution</artifactId>
+    <version>4.5.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>RichFaces Distribution Assembler</name>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.richfaces.compat</groupId>
+                <artifactId>richfaces-components-parent</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.compat</groupId>
+            <artifactId>richfaces-components-a4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.compat</groupId>
+            <artifactId>richfaces-components-rich</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <configuration>
+                    <includeGroupIds>org.richfaces.compat</includeGroupIds>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>unpack-taglibs</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/taglibs/</outputDirectory>
+                            <stripVersion>true</stripVersion>
+                            <includes>**/*.taglib.xml</includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-bin</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                    <execution>
+                        <id>copy-sources</id>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <classifier>sources</classifier>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-javadoc</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <classifier>javadoc</classifier>
+                            <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- VDL DOC -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                    <execution>
+                        <id>generate-vdldoc</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>-jar</argument>
+                        <argument>${basedir}/vdldoc-1.0.jar</argument>
+                        <argument>-d</argument>
+                        <argument>${project.build.directory}/vdldoc</argument>
+                        <argument>-windowtitle</argument>
+                        <argument>RichFaces ${project.version} VDL Documentation</argument>
+                        <argument>-doctitle</argument>
+                        <argument>RichFaces ${project.version} VDL Documentation</argument>
+                        <argument>${project.build.directory}/taglibs/META-INF/a4j.taglib.xml</argument>
+                        <argument>${project.build.directory}/taglibs/META-INF/rich.taglib.xml</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <finalName>richfaces-${project.version}</finalName>
+                            <descriptor>richfaces.xml</descriptor>
+                            <appendAssemblyId>false</appendAssemblyId>
+                        </configuration>
+                        <id>richfaces</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

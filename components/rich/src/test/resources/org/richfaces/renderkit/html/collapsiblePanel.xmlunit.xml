@@ -1,0 +1,21 @@
+<div class="rf-cp rf-tgp" id="f:panel">
+    <input type="hidden" name="f:panel-value" id="f:panel-value" value="true"></input>
+    <div class="rf-cp-hdr rf-cp-hdr-exp" id="f:panel:header">
+        <table class="rf-cp-gr">
+            <tbody>
+                <tr>
+                    <td class="rf-cp-ico">
+                        <div class="rf-cp-ico-colps rf-ico-chevron-up-hdr"></div>
+                        <div class="rf-cp-ico-exp rf-ico-chevron-down-hdr"></div>
+                    </td>
+                    <td class="rf-cp-lbl">
+                        <div class="rf-cp-lbl-exp"></div>
+                        <div class="rf-cp-lbl-colps"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="f:panel:content" class="rf-cp-b" style="display:block"></div>
+    <div id="f:panel:empty" style="display:none"></div>
+</div>

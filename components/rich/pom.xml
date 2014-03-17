@@ -1,0 +1,211 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.richfaces.compat</groupId>
+        <artifactId>richfaces-components-parent</artifactId>
+        <version>4.5.0-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>richfaces-components-rich</artifactId>
+    <name>RichFaces UI Components: http://richfaces.org/rich</name>
+
+    <properties>
+        <faces.resources.dir>${project.build.outputDirectory}/META-INF/resources</faces.resources.dir>
+        <resource.mappings.dir>${project.build.outputDirectory}/META-INF/richfaces</resource.mappings.dir>
+        <version.richfaces.resource.plugin>5.0.0-SNAPSHOT</version.richfaces.resource.plugin>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <type>pom</type>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.compat</groupId>
+            <artifactId>richfaces-components-a4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.test-jsf</groupId>
+            <artifactId>jsf-test-scriptunit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>richfaces-cdk-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-resource-optimizer-maven-plugin</artifactId>
+                <version>${version.richfaces.resource.plugin}</version>
+                <configuration>
+                    <skins>
+                        <skin>blueSky</skin>
+                        <skin>classic</skin>
+                        <skin>deepMarine</skin>
+                        <skin>emeraldTown</skin>
+                        <skin>japanCherry</skin>
+                        <skin>ruby</skin>
+                        <skin>wine</skin>
+                        <skin>plain</skin>
+                        <skin>DEFAULT</skin>
+                        <skin>NULL</skin>
+                    </skins>
+                    <includedContentTypes>
+                        <include>application/javascript</include>
+                        <include>text/css</include>
+                        <include>image/.+</include>
+                    </includedContentTypes>
+                    <fileNameMappings>
+                        <property>
+                            <name>^.*showcase.*/([^/]+\.css)$</name>
+                            <value>org.richfaces.showcase.css/$1</value>
+                        </property>
+                        <property>
+                            <name>^.+/([^/]+\.(png|gif|jpg))$</name>
+                            <value>org.richfaces.images/$1</value>
+                        </property>
+                        <property>
+                            <name>^.+/([^/]+\.css)$</name>
+                            <value>org.richfaces.css/$1</value>
+                        </property>
+                    </fileNameMappings>
+                    <excludedFiles>
+                        <!-- anything that doesn't start with org.richfaces or com.jqueryui -->
+                        <exclude>^(?!org\.richfaces|com\.jqueryui).*:</exclude>
+                        <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+                        <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                        <!-- org.richfaces/<category>/<resource> -->
+                        <exclude>^\Qorg.richfaces:\E[a-z]+/</exclude>
+                        <exclude>^\Qorg.richfaces.ckeditor:\E(?!ckeditor|config|contents)</exclude>
+                        <!-- optimized resources for RF 5 -->
+                        <exclude>^\Qorg.richfaces.optimized\E</exclude>
+                        <!-- optimized resources for RF 4 -->
+                        <exclude>^\Qorg.richfaces.static\E</exclude>
+                        <!-- optimized images -->                                
+                        <exclude>^\Qorg.richfaces.ui.\E.*</exclude>
+                        <!-- anything that isn't part of used jQuery UI plugins -->
+                        <exclude>^\Qcom.jqueryui:\E((jquery\.ui\.(?!core|draggable|droppable|mouse|resizable|widget))|(?!jquery))</exclude>
+                        <!-- RichFaces Core resources -->
+                        <exclude>^org\.richfaces:(?:jquery|richfaces|richfaces-queue|richfaces-csv|richfaces-event|push)\.js$</exclude>
+                    </excludedFiles>
+                </configuration>
+                <executions>
+                    <!-- Static -->
+                    <execution>
+                        <id>static-resources</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <compress>false</compress>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Static/</resourcesOutputDir>
+                            <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/Static.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Static/</staticResourcePrefix>
+                        </configuration>
+                    </execution>
+                    
+                    <!-- Compressed -->
+                    <execution>
+                        <id>compressed-resources</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <compress>true</compress>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Compressed/</resourcesOutputDir>
+                            <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/Compressed.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Compressed/</staticResourcePrefix>
+                        </configuration>
+                    </execution>
+
+                    <!-- Packed -->
+                    <execution>
+                        <id>packed-resources</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <pack>packed</pack>
+                            <compress>false</compress>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Packed/</resourcesOutputDir>
+                            <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/Packed.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Packed/</staticResourcePrefix>
+                        </configuration>
+                    </execution>
+                    
+                    
+                    <!-- PackedCompressed -->
+                    <execution>
+                        <id>packed-compressed-resources</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <pack>packed</pack>
+                            <compress>true</compress>
+                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/PackedCompressed/</resourcesOutputDir>
+                            <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/PackedCompressed.properties</staticResourceMappingFile>
+                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/PackedCompressed/</staticResourcePrefix>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

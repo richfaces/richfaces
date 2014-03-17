@@ -1,0 +1,17 @@
+<div id="f:item2" class="rf-ac-itm">
+    <div class="rf-ac-itm-hdr rf-ac-itm-hdr-dis" id="f:item2:header">
+        <table class="rf-ac-itm-gr">
+            <tbody>
+                <tr>
+                    <td class="rf-ac-itm-lbl">
+                        <div class="rf-ac-itm-lbl-dis my-ac-it-disabled-header-class">
+                            item2
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rf-ac-itm-cnt" id="f:item2:content" style="display: none">
+    </div>
+</div>

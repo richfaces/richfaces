@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd" version="2.0">
+
+    <!-- Input -->
+    <managed-bean>
+        <managed-bean-name>inputBean</managed-bean-name>
+        <managed-bean-class>org.richfaces.renderkit.InputBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>selectBean</managed-bean-name>
+        <managed-bean-class>org.richfaces.renderkit.SelectBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>countriesBean</managed-bean-name>
+        <managed-bean-class>org.richfaces.renderkit.CountriesBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>autoCompleteBean</managed-bean-name>
+        <managed-bean-class>org.richfaces.renderkit.AutoCompleteBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>countriesBean</property-name>
+            <value>#{countriesBean}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <!-- Iteration -->
+    <managed-bean>
+        <managed-bean-name>dataBean</managed-bean-name>
+        <managed-bean-class>org.richfaces.renderkit.DataBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>dataScrollerBean</managed-bean-name>
+        <managed-bean-class>org.richfaces.renderkit.DataScrollerBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+</faces-config>

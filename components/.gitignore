@@ -1,0 +1,17 @@
+target
+test-output
+.classpath
+.settings
+.project
+.clover
+.externalToolBuilders
+.idea
+MANIFEST.MF
+dependency-reduced-pom.xml
+*.orig
+.checkstyle
+rebel.xml
+log.txt
+*faces-config.xml.jsfdia
+phantomjsdriver.log
+arquillian-settings

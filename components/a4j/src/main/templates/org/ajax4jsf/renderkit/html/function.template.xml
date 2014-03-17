@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.AjaxFunctionRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.AjaxFunctionRendererBase</cdk:superclass>
+        <cdk:component-family>javax.faces.Command</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.FunctionRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <span id="#{clientId}" style="display: none;">
+            <script type="text/javascript">
+                #{this.getFunction(facesContext, component)};
+            </script>
+        </span>
+    </cc:implementation>
+</cdk:root>

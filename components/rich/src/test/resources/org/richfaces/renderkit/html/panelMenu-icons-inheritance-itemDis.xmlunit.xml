@@ -1,0 +1,11 @@
+<div id="f:panelMenuItem-dis" class="rf-pm-itm itemClass rf-pm-itm-dis itemDisabledClass">
+    <table class="rf-pm-itm-gr">
+        <tbody>
+            <tr>
+                <td class="rf-pm-itm-ico rf-ico-chevron-down-dis"></td>
+                <td class="rf-pm-itm-lbl">panelMenuItem</td>
+                <td class="rf-pm-itm-exp-ico rf-ico-chevron-up-dis"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

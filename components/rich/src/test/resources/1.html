@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="richfaces.js"></script>
+<script type="text/javascript" src="richfaces-event.js"></script>
+<script type="text/javascript" src="richfaces-base-component.js"></script>
+<script type="text/javascript" src="richfaces-csv.js"></script>
+<script type="text/javascript" src="richfaces-message.js"></script>
+</head>
+<body>
+    <form>
+        Global Message Component:
+        <br />
+
+        <div id="myMessage1" style="border: 1px dotted #000000; margin: 4px; padding: 2px;">
+            <ul id="myMessage1Content"></ul>
+            <script type="text/javascript">
+            new RichFaces.rf4.ui.Message("myMessage1", {});
+        </script>
+        </div>
+        <br /> Message Component for component1:
+        <br />
+
+        <div id="myMessage2" style="border: 1px dotted #000000; margin: 4px; padding: 2px;">
+            <ul id="myMessage2Content"></ul>
+            <script type="text/javascript">
+            new RichFaces.rf4.ui.Message("myMessage2", {forComponentId:"component1"});
+        </script>
+
+        </div>
+        <br /> Message Component for component2:
+        <br />
+
+        <div id="myMessage3" style="border: 1px dotted #000000; margin: 4px; padding: 2px;">
+            <ul id="myMessage3Content"></ul>
+            <script type="text/javascript">
+            new RichFaces.rf4.ui.Message("myMessage3", {forComponentId:"component2"});
+        </script>
+
+        </div>
+        <br />
+        <input type="button" value="send message for component1"
+            onclick="RichFaces.Event.fire(window.document, 'onmessage', {componentId:'component1', message:'Message for component1'});" />
+        <input type="button" value="send message for component2"
+            onclick="RichFaces.Event.fire(window.document, 'onmessage', {componentId:'component2', message:'Message for component2'});" />
+        <br />
+        <input type="button" value="clear message for component1"
+            onclick="RichFaces.Event.fire(window.document, 'onmessage', {componentId:'component1', message:''});" />
+        <input type="button" value="clear message for component2"
+            onclick="RichFaces.Event.fire(window.document, 'onmessage', {componentId:'component2', message:''});" />
+
+    </form>
+</body>
+</html>

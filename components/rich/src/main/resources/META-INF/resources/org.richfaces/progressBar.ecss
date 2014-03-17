@@ -1,0 +1,44 @@
+.rf-pb-rmng {
+    height: 13px;
+    white-space: nowrap;
+    width: 200px;
+    position: relative;
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
+    overflow: hidden;
+    color: '#{richSkin.controlTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-weight: bold;
+    background-color: '#{richSkin.controlBackgroundColor}';
+    padding: 0px;
+}
+
+.rf-pb-prgs {
+    overflow: hidden;
+    border-color: '#{richSkin.panelBorderColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
+    background-repeat: repeat-x;
+    background-color: '#{richSkin.selectControlColor}';
+    height: 100%;
+    padding: 0px;
+    background-image: "url(#{resource['org.richfaces.images:pbAniBg.gif']})";
+}
+
+.rf-pb-lbl {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 0px;
+    text-align: center;
+    width: 100%;
+    border-radius: '#{richSkin.panelBorderRadius}';
+}
+
+.rf-pb-init,.rf-pb-fin {
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+}

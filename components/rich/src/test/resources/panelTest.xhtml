@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:rich="http://richfaces.org/rich">
+<!--
+JBoss, Home of Professional Open Source
+Copyright ${year}, Red Hat, Inc. and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+<h:head>
+    <title>Richfaces ExtendedDataTable Test</title>
+</h:head>
+
+<h:body>
+    <rich:panel styleClass="panel" id="panelWithFacet">
+        <f:facet name="header">
+            Write your own custom rich components with built-in AJAX support
+        </f:facet>
+        The CDK includes a code-generation facility and a
+        templating facility using a JSP-like syntax. These capabilities help
+        to avoid a routine process of a component creation. The component factory
+        works like a well-oiled machine allowing the creation of first-class
+        rich components with built-in Ajax functionality even more easily than
+        the creation of simpler components by means of the traditional coding
+        approach.
+    </rich:panel>
+    <rich:panel id="simplePanel" bodyClass="rich-laguna-panel-no-header">
+        RichFaces is a library for adding rich user interface features to JSF
+        applications. It extends the Ajax4jsf framework to include a large
+        (and growing) set of powerful rich AJAX-enabled components that come
+        with extensive skins support.
+    </rich:panel>
+    <rich:panel id="simplePanelWithTextHeader" header="rich-laguna-panel-no-header">
+        RichFaces is a library for adding rich user interface features to JSF
+        applications. It extends the Ajax4jsf framework to include a large
+        (and growing) set of powerful rich AJAX-enabled components that come
+        with extensive skins support.
+    </rich:panel>
+    <rich:panel id="nestedPanelContainer" style="padding:0" headerClass="outpanelHeader">
+        <f:facet name="header">
+            ||||
+        </f:facet>
+        <h2 align="center">
+            <h:outputText value="Benefits of Using Ajax4jsf" />
+        </h2>
+        <h:panelGrid columns="2" columnClasses="gridContent">
+            <rich:panel id="nestedPanel1" bodyClass="inpanelBody">
+                <f:facet name="header">
+                    For Application Developers
+                </f:facet>
+                <ul>
+                    <li>Production quality Open Source</li>
+                    <li>Does Open Source and has an Open Architecture</li>
+                    <li>Compatible with any JSF Implementation - MyFaces, JSF1.1, JSF1.2</li>
+                    <li>Allows to Ajaxify JSF application without writing Javascript</li>
+                    <li>Works with standard and third party components</li>
+                    <li>Adds the Ajax capability to existing non-Ajax components</li>
+                </ul>
+            </rich:panel>
+            <rich:panel id="nestedPanel2" bodyClass="inpanelBody">
+                <f:facet name="header">
+                    For Component Developers
+                </f:facet>
+                <ul>
+                    <li>Ajax4jsf is Open Source and has an Open Architecture</li>
+                    <li>Gives an API to create components with built-in Ajax support</li>
+                    <li>Has a Component Development Kit for rapid development</li>
+                    <li>Allows to skin the look-n-feel using both CSS and set of skin-parameters</li>
+                    <li>Automatically generates the unit test-cases for developing components</li>
+                    <li>Allows to pack javascript code, images, css inside the final jar</li>
+                </ul>
+            </rich:panel>
+        </h:panelGrid>
+    </rich:panel>
+</h:body>
+</html>

@@ -1,0 +1,70 @@
+<div id="f:tabPanel" class="rf-tbp">
+  <input id="f:tabPanel-value" name="f:tabPanel-value" type="hidden" value="f:tab"/>
+  <div class="rf-tab-hdr-tabline-vis rf-tab-hdr-tabline-top">
+    <table class="rf-tab-hdr-tabs" cellspacing="0">
+      <tbody>
+        <tr>
+          <td style="padding-left: 5px;" class="rf-tab-hdr-spcr">
+            <br/>
+          </td>
+          <td id="f:tab:header:inactive" class="rf-tab-hdr rf-tab-hdr-inact rf-tab-hdr-top my-tp-inactive-header-class" style="display : none">
+            <span class="rf-tab-lbl">
+              f:tab
+            </span>
+          </td>
+          <td id="f:tab:header:active" class="rf-tab-hdr rf-tab-hdr-act rf-tab-hdr-top my-tp-active-header-class" style="">
+            <span class="rf-tab-lbl">
+              f:tab
+            </span>
+          </td>
+          <td id="f:tab:header:disabled" class="rf-tab-hdr rf-tab-hdr-dis rf-tab-hdr-top my-tp-disabled-header-class" style="display : none">
+            <span class="rf-tab-lbl">
+              f:tab
+            </span>
+          </td>
+          <td style="" class="rf-tab-hdr-spcr rf-tab-hortab-tabspcr-wdh">
+            <br/>
+          </td>
+          <td id="f:tab2:header:inactive" class="rf-tab-hdr rf-tab-hdr-inact rf-tab-hdr-top my-tp-inactive-header-class" style="display : none">
+            <span class="rf-tab-lbl">
+              f:tab2
+            </span>
+          </td>
+          <td id="f:tab2:header:active" class="rf-tab-hdr rf-tab-hdr-act rf-tab-hdr-top my-tp-active-header-class" style="display : none">
+            <span class="rf-tab-lbl">
+              f:tab2
+            </span>
+          </td>
+          <td id="f:tab2:header:disabled" class="rf-tab-hdr rf-tab-hdr-dis rf-tab-hdr-top my-tp-disabled-header-class" style="">
+            <span class="rf-tab-lbl">
+              f:tab2
+            </span>
+          </td>
+          <td style="" class="rf-tab-hdr-spcr rf-tab-hortab-tabspcr-wdh">
+            <br/>
+          </td>
+          <td style="padding-right: 5px; width: 100%;" class="rf-tab-hdr-spcr">
+            <br/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="rf-tab-hdr-scrl-lft rf-tab-hdn">
+      «
+    </div>
+    <div class="rf-tab-hdr-tablst rf-tab-hdn">
+      ↓
+    </div>
+    <div class="rf-tab-hdr-scrl-rgh rf-tab-hdn">
+      »
+    </div>
+  </div>
+  <div class="rf-tab-hdr-brd">
+  </div>
+  <div id="f:tab" class="rf-tab">
+    <div class="rf-tab-cnt" id="f:tab:content">
+    </div>
+  </div>
+  <div id="f:tab2" style="display:none;">
+  </div>
+</div>

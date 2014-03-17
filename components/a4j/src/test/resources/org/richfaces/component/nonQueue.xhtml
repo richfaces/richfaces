@@ -1,0 +1,33 @@
+<html xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Test queue page</title>
+
+    <h:outputScript name="jsf.js" library="javax.faces" />
+    <h:outputScript name="jquery.js" library="org.richfaces" />
+    <h:outputScript name="richfaces.js" library="org.richfaces" />
+    <h:outputScript name="richfaces-queue.js" library="org.richfaces" />
+
+</h:head>
+<h:body>
+    <h:form id="form">
+        <a4j:ajax>
+            <h:inputText />
+
+        </a4j:ajax>
+        <a4j:ajax event="valueChange">
+            <h:panelGroup>
+                <a4j:ajax event="valueChange">
+                    <h:inputText />
+
+                    <a4j:commandLink value="Link" />
+
+                </a4j:ajax>
+            </h:panelGroup>
+        </a4j:ajax>
+        <h:commandButton value="G" />
+    </h:form>
+
+</h:body>
+</html>

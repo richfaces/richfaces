@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.HotKeyRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.HotKeyRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.HotKey</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.HotKeyRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <span id="#{clientId}" style="display: none;">
+            <script type="text/javascript">
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption attributes="key enabledInInput preventDefault" />
+                    <cdk:scriptOption name="selector" value="#{getEscapedSelector(facesContext, component)}" />
+                    <cdk:scriptOption wrapper="eventHandler" attributes="onkeydown onkeyup" />
+                </cdk:scriptObject>
+				new RichFaces.rf4.ui.HotKey("#{clientId}",  #{toScriptArgs(options)});
+            </script>
+        </span>
+    </cc:implementation>
+
+</cdk:root>

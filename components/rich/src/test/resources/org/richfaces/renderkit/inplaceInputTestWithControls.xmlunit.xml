@@ -1,0 +1,30 @@
+<span class="rf-ii" id="form:inplaceInputWithControls">
+    <span class="rf-ii-lbl rf-ii-dflt-lbl" id="form:inplaceInputWithControlsLabel">Edit Text</span>
+    <input class="rf-ii-none" id="form:inplaceInputWithControlsFocus" name="form:inplaceInputWithControlsFocus" style="position: absolute; top: 0px; left: 0px; outline-style: none;"
+        type="image" tabindex="-1" />
+    <span class="rf-ii-fld-cntr rf-ii-none" id="form:inplaceInputWithControlsEdit">
+        <input autocomplete="off" class="rf-ii-fld" id="form:inplaceInputWithControlsInput" name="form:inplaceInputWithControls"
+            style="width: 100%;" type="text" />
+        <span class="rf-ii-btn-prepos">
+            <span class="rf-ii-btn-pos">
+                <span class="rf-ii-btn-shdw" id="form:inplaceInputWithControlsBtnshadow">
+                    <span class="rf-ii-btn-shdw-t"></span>
+                    <span class="rf-ii-btn-shdw-l"></span>
+                    <span class="rf-ii-btn-shdw-r"></span>
+                    <span class="rf-ii-btn-shdw-b"></span>
+                    <span id="form:inplaceInputWithControlsBtn" class="rf-ii-btn-cntr" tabindex="-1">
+                        <input class="rf-ii-btn" id="form:inplaceInputWithControlsOkbtn" name="form:inplaceInputWithControlsOkbtn" onmousedown="this.className='rf-ii-btn-p'"
+                            onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'"
+                            src="/org.richfaces.resources/javax.faces.resource/org.richfaces/ico_ok.gif" type="image" tabindex="-1" />
+                        <input class="rf-ii-btn" id="form:inplaceInputWithControlsCancelbtn" name="form:inplaceInputWithControlsCancelbtn" onmousedown="this.className='rf-ii-btn-press'"
+                            onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'"
+                            src="/org.richfaces.resources/javax.faces.resource/org.richfaces/ico_cancel.gif" type="image" tabindex="-1" />
+                    </span>
+                </span>
+            </span>
+        </span>
+    </span>
+    <script type="text/javascript">
+        //ignored
+    </script>
+</span>

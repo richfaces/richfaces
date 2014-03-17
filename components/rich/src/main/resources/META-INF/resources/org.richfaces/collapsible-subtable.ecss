@@ -1,0 +1,151 @@
+.rf-csttg {
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 0px;
+    padding: 0px;
+}
+
+.rf-csttg-exp {
+    vertical-align: middle;
+    margin: 0px;
+    padding: 0px;
+}
+
+.rf-csttg-colps {
+    vertical-align: middle;
+    margin: 0px;
+    padding: 0px;
+}
+
+.rf-csttg-lnk {
+    vertical-align: top;
+}
+
+.rf-cst,.rf-cst-nd {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+}
+
+.rf-cst-r {
+    
+}
+
+.rf-cst-fst-r {
+    
+}
+
+.rf-cst-hdr-r {
+    
+}
+
+.rf-cst-hdr-fst-r {
+    
+}
+
+.rf-cst-c,.rf-cst-nd-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    color: '#{richSkin.generalTextColor}';
+    background-color: '#{richSkin.tableBackgroundColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    padding: 4px;
+}
+
+.rf-cst-hdr-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    color: '#{richSkin.generalTextColor}';
+    background-color: '#{richSkin.tableSubHeaderBackgroundColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-weight: bold;
+    padding: 4px;
+    text-align: left;
+}
+
+.rf-cst-shdr-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    background-color: '#{richSkin.tableSubHeaderBackgroundColor}';
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-weight: bold;
+    padding: 4px;
+}
+
+.rf-cst-shdr {
+    
+}
+
+.rf-cst-ftr {
+    
+}
+
+.rf-cst-ftr-c {
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    background-color: '#{richSkin.tableSubfooterBackgroundColor}';
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-weight: bold;
+    padding: 4px;
+    text-align: left;
+}
+
+.rf-cst-sftr-c {
+    border-bottom-width: '#{richSkin.tableBorderWidth}';
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.tableBorderColor}';
+    border-right-width: '#{richSkin.tableBorderWidth}';
+    border-right-style: solid;
+    border-right-color: '#{richSkin.tableBorderColor}';
+    background-color: '#{richSkin.tableSubfooterBackgroundColor}';
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    padding: 4px;
+}
+
+.rf-cst-sftr {
+    
+}
+
+.rf-cst-sftr-fst {
+    
+}
+
+.rf-cst-shdr-fst {
+    
+}
+
+.rf-cst-ftr-fst {
+    
+}
+
+.rf-cst-hdr-fst {
+    
+}
+
+.rf-cst-hdr {
+    
+}

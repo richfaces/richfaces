@@ -1,0 +1,76 @@
+<div class="rf-ddm-lbl rf-ddm-unsel  " id="form:ddmenu">
+    <div id="form:ddmenu_label" class="rf-ddm-lbl-dec">
+        <img src="/images/ddmenu/copy.gif" class="pic" />
+        File
+    </div>
+    <div class="rf-ddm-pos">
+        <div class="rf-ddm-lst" id="form:ddmenu_list" style="display:none;min-width:250px;" tabindex="-1">
+            <div class="rf-ddm-lst-bg">
+                <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:open">
+                    <span class="rf-ddm-itm-ic ">
+                        <span class="rf-ddm-emptyIcon" />
+                    </span>
+                    <span class="rf-ddm-itm-lbl ">
+                        Open
+                    </span>
+                    <script type="text/javascript">
+                        //<![CDATA[
+new RichFaces.rf4.ui.MenuItem("form:open",{"submitFunction":function(event){RichFaces.submitForm("form",{"form:open":"form:open"} )}} );
+//]]>
+                    </script>
+                </div>
+
+                <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:group">
+                    <span class="rf-ddm-itm-ic ">
+                        <span class="rf-ddm-emptyIcon" />
+                    </span>
+                    <span class="rf-ddm-itm-lbl ">
+                        Save As...
+                    </span>
+                    <div class="rf-ddm-nd">
+                        <div class="rf-ddm-lst rf-ddm-sublst" id="form:group_list" style="display:none;min-width:250px;"
+                            tabindex="-1">
+                            <div class="rf-ddm-lst-bg">
+                                <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:save">
+                                    <span class="rf-ddm-itm-ic ">
+                                        <img src="/images/ddmenu/save.gif" />
+                                    </span>
+                                    <span class="rf-ddm-itm-lbl ">
+                                        Save
+                                    </span>
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+new RichFaces.rf4.ui.MenuItem("form:save",{"submitFunction":function(event){RichFaces.submitForm("form",{"form:save":"form:save"} )}} );
+//]]>
+                                    </script>
+                                </div>
+
+                                <div class="rf-ddm-sep">
+                                </div>
+                                <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:saveAll">
+                                    <span class="rf-ddm-itm-ic ">
+                                        <span class="rf-ddm-emptyIcon" />
+                                    </span>
+                                    <span class="rf-ddm-itm-lbl ">
+                                        SaveAll
+                                    </span>
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+new RichFaces.rf4.ui.MenuItem("form:saveAll",{"submitFunction":function(event){RichFaces.submitForm("form",{"form:saveAll":"form:saveAll"} )}} );
+//]]>
+                                    </script>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        //<![CDATA[
+new RichFaces.rf4.ui.Menu("form:ddmenu",{"direction":"auto","jointPoint":"auto","showEvent":"click","mode":"server"} ).initiateGroups([{"id":"form:group"} ] );
+//]]>
+    </script>
+</div>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>QUnit Test Suite</title>
+	<link rel="stylesheet" href="../../../../../../core/impl/src/test/resources/javascript/qunit/qunit.css">
+	<script src="../../../../../../core/impl/src/test/resources/javascript/qunit/qunit.js"></script>
+    
+    <script src="../../../../../../core/impl/src/main/resources/META-INF/resources/jquery.js"></script>
+    <script src="../../../../../../core/impl/src/main/resources/META-INF/resources/richfaces.js"></script>
+    <script src="../../../../../../core/impl/src/main/resources/META-INF/resources/richfaces-base-component.js"></script>
+    <script src="../../../../../common/ui/src/main/resources/META-INF/resources/com.jqueryui/jquery.ui.core.js"></script>
+    <script src="../../../src/main/resources/META-INF/resources/org.richfaces/focus.js"></script>
+	<script src="focus-test.js"></script>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture">
+        <input id="a" type="text" />
+        <input id="b" type="text" tabindex="2" />
+        <input id="c" type="text" />
+        <input id="d" type="text" tabindex="1" />
+        <input id="e" type="text" />
+        <input id="f" type="text" tabindex="1" />
+        <input id="g" type="text" />
+        <input id="h" type="text" tabindex="2" />
+        <input id="i" type="text" />
+        <input id="j" type="text" tabindex="3" />
+        <input id="k" type="text" />
+        
+        <!-- searchCommonParent -->        
+        <div class="xy">
+            <div></div>
+            <div>
+                <div id="x" class="xq">
+                    <div id="q"></div>
+                </div>
+            </div>
+            <div></div>
+            <div id="y"></div>
+            <div></div>
+            <div id="z"></div>
+            <div></div>
+        </div>
+
+    </div>
+</body>
+</html>

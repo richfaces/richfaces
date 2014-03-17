@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.PushRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.PushRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.Push</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.PushRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+
+        
+        <cdk:resource-dependency library="javax.faces" name="jsf.js" />
+        <cdk:resource-dependency library="org.richfaces" name="jquery.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-queue.reslib" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-base-component.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-event.js" />
+        <cdk:resource-dependency library="net.java.dev.atmosphere" name="jquery-atmosphere.js" />
+        <cdk:resource-dependency library="org.richfaces" name="push.js" />
+    </cc:interface>
+
+    <cc:implementation>
+        <span id="#{clientId}">
+            <script type="text/javascript">
+                <c:if test="#{shouldEncodePushUrl(facesContext)}">
+                    RichFaces.push.setPushResourceUrl("#{getPushResourceUrl(facesContext)}");
+
+                    <cdk:object name="pushHandlerUrl" value="#{getPushHandlerUrl(facesContext)}" />
+                    <c:if test="#{not empty pushHandlerUrl}">
+                        RichFaces.push.setPushHandlerUrl("#{pushHandlerUrl}");
+                    </c:if>
+
+                </c:if>
+
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption attributes="address" />
+                    <cdk:scriptOption wrapper="eventHandler" attributes="push:ondataavailable subscribed:onsubscribed error:onerror" />
+                </cdk:scriptObject>
+
+                RichFaces.jQuery(document.getElementById('#{clientId}')).richpush(#{toScriptArgs(options)});
+            </script>
+        </span>
+    </cc:implementation>
+
+</cdk:root>

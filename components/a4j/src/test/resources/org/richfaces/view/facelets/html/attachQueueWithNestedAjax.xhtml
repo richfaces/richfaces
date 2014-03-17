@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j">
+
+    <h:form id="form">
+        <h:inputText id="defaultEventText">
+            <a4j:ajax>
+                <a4j:attachQueue id="defaultEventQueue" />
+            </a4j:ajax>
+        </h:inputText>
+
+        <h:inputText id="keyupText">
+            <a4j:ajax event="keyup">
+                <a4j:attachQueue id="keyupQueue" />
+            </a4j:ajax>
+        </h:inputText>
+    </h:form>
+</ui:composition>

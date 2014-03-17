@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.ListRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.ListRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.List</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ListRenderer
+        </cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+
+        <!--
+        <cc:attribute name="onclick" type="java.lang.String">
+            <cc:clientBehavior event="click" />
+        </cc:attribute>
+        <cc:attribute name="ondblclick" type="java.lang.String">
+            <cc:clientBehavior event="dblclick" />
+        </cc:attribute>
+        <cc:attribute name="onmousedown" type="java.lang.String">
+            <cc:clientBehavior event="mousedown" />
+        </cc:attribute>
+        <cc:attribute name="onmouseup" type="java.lang.String">
+            <cc:clientBehavior event="mouseup" />
+        </cc:attribute>
+        <cc:attribute name="onmouseover" type="java.lang.String">
+            <cc:clientBehavior event="mouseover" />
+        </cc:attribute>
+        <cc:attribute name="onmousemove" type="java.lang.String">
+            <cc:clientBehavior event="mousemove" />
+        </cc:attribute>
+        <cc:attribute name="onmouseout" type="java.lang.String">
+            <cc:clientBehavior event="mouseout" />
+        </cc:attribute>
+        <cc:attribute name="onkeypress" type="java.lang.String">
+            <cc:clientBehavior event="keypress" />
+        </cc:attribute>
+        <cc:attribute name="onkeydown" type="java.lang.String">
+            <cc:clientBehavior event="keydown" />
+        </cc:attribute>
+        <cc:attribute name="onkeyup" type="java.lang.String">
+            <cc:clientBehavior event="keyup" />
+        </cc:attribute>
+        <cc:attribute name="onrowclick" type="java.lang.String">
+            <cc:clientBehavior event="rowclick" />
+        </cc:attribute>
+        <cc:attribute name="onrowdblclick" type="java.lang.String">
+            <cc:clientBehavior event="rowdblclick" />
+        </cc:attribute>
+        <cc:attribute name="onrowmousedown" type="java.lang.String">
+            <cc:clientBehavior event="rowmousedown" />
+        </cc:attribute>
+        <cc:attribute name="onrowmouseup" type="java.lang.String">
+            <cc:clientBehavior event="rowmouseup" />
+        </cc:attribute>
+        <cc:attribute name="onrowmouseover" type="java.lang.String">
+            <cc:clientBehavior event="rowmouseover" />
+        </cc:attribute>
+        <cc:attribute name="onrowmousemove" type="java.lang.String">
+            <cc:clientBehavior event="rowmousemove" />
+        </cc:attribute>
+        <cc:attribute name="onrowmouseout" type="java.lang.String">
+            <cc:clientBehavior event="rowmouseout" />
+        </cc:attribute>
+        <cc:attribute name="onrowkeypress" type="java.lang.String">
+            <cc:clientBehavior event="rowkeypress" />
+        </cc:attribute>
+        <cc:attribute name="onrowkeydown" type="java.lang.String">
+            <cc:clientBehavior event="rowkeydown" />
+        </cc:attribute>
+        <cc:attribute name="onrowkeyup" type="java.lang.String">
+            <cc:clientBehavior event="rowkeyup" />
+        </cc:attribute>
+        -->
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object type="org.richfaces.component.ListType" name="listType" value="#{getType(component)}" />
+
+        <cdk:object name="styleClass" value="#{getStyleClass(component, listType)}" />
+        <cdk:object name="elementId" value="#{getElementId(facesContext, component)}" />
+
+        <cdk:switch key="#{listType}">
+            <cdk:case values="ordered">
+                <ol id="#{elementId}" class="#{styleClass}" cdk:passThroughWithExclusions="type value">
+                    <cdk:call expression="encodeListItems(facesContext, component, listType)" />
+                </ol>
+            </cdk:case>
+            <cdk:case values="unordered">
+                <ul id="#{elementId}" class="#{styleClass}" cdk:passThroughWithExclusions="type value">
+                    <cdk:call expression="encodeListItems(facesContext, component, listType)" />
+                </ul>
+            </cdk:case>
+            <cdk:case values="definitions">
+                <dl id="#{elementId}" class="#{styleClass}" cdk:passThroughWithExclusions="type value">
+                    <cdk:call expression="encodeListItems(facesContext, component, listType)" />
+                </dl>
+            </cdk:case>
+        </cdk:switch>
+    </cc:implementation>
+
+</cdk:root>

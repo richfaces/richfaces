@@ -1,0 +1,33 @@
+<span class="rf-is" id="form:inplaceSelectDefault">
+    <span class="rf-is-lbl rf-is-dflt-lbl" id="form:inplaceSelectDefaultLabel">Edit Text</span>
+    <input class="rf-is-none" id="form:inplaceSelectDefaultFocus" name="form:inplaceSelectDefaultFocus"
+        style="position: absolute; top: 0px; left: 0px; outline-style: none;" type="image" />
+    <span class="rf-is-fld-cntr rf-is-none" id="form:inplaceSelectDefaultEdit">
+        <input id="form:inplaceSelectDefaultselValue" name="form:inplaceSelectDefault" type="hidden" />
+        <input autocomplete="off" class="rf-is-fld" id="form:inplaceSelectDefaultInput" name="form:inplaceSelectDefaultInput"
+            readonly="readonly" type="text" />
+        <span class="rf-is-lst-cord" id="form:inplaceSelectDefaultList" style="display: none">
+            <span class="rf-is-lst-pos" style="width: 200px">
+                <span class="rf-is-shdw">
+                    <span class="rf-is-shdw-t"></span>
+                    <span class="rf-is-shdw-l"></span>
+                    <span class="rf-is-shdw-r"></span>
+                    <span class="rf-is-shdw-b"></span>
+                    <span class="rf-is-lst-dec">
+                        <span class="rf-is-lst-scrl" style="height: 100px">
+                            <span id="form:inplaceSelectDefaultItems">
+                                <span id="form:inplaceSelectDefaultItem0" class="rf-is-opt">Label#1</span>
+                                <span id="form:inplaceSelectDefaultItem1" class="rf-is-opt">Label#2</span>
+                                <span id="form:inplaceSelectDefaultItem2" class="rf-is-opt">Label#3</span>
+                                <span id="form:inplaceSelectDefaultItem3" class="rf-is-opt">Label#4</span>
+                            </span>
+                        </span>
+                    </span>
+                </span>
+            </span>
+        </span>
+    </span>
+    <script type="text/javascript">
+        //ignored
+    </script>
+</span>

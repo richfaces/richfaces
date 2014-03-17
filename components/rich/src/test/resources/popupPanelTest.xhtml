@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:rich2="http://richfaces.org/rich" xmlns:rich="http://richfaces.org/rich">
+
+<h:head>
+    <title>Richfaces ExtendedDataTable Test</title>
+</h:head>
+
+<h:body>
+    <h:commandButton id="button" value="Call the popup">
+        <rich2:componentControl target="panel" operation="show" />
+    </h:commandButton>
+    <rich:popupPanel moveable="false" resizeable="true" styleClass="panelStyle" headerClass="header" controlsClass="control"
+        id="panel">
+        <f:facet name="header">
+            Write your own custom rich components with built-in AJAX
+        </f:facet>
+        <h:form>
+            <h:panelGroup layout="block" style="width:500px,height:400px;">
+                The CDK includes a code-generation facility and a
+                templating facility using a JSP-like syntax. These
+                capabilities help to avoid a routine process of a
+                component creation. The component factory works like
+                a well-oiled machine allowing the creation of
+                first-class rich components with built-in Ajax
+                functionality even more easily than the creation of
+                simpler components by means of the traditional
+                coding approach.
+
+                <h:inputText value="aaa" />
+                <a href="#" id="size" onclick="RichFaces.component('panel').setSize(500, 300)" tabindex="0"> setSize </a>
+                <a href="#" id="resize" onclick="RichFaces.component('panel').resize(20, 50)" tabindex="0"> resize </a>
+                <a href="#" id="move" onclick="RichFaces.component('panel').move(20, 50)" tabindex="0"> move </a>
+
+                <a href="#" id="moveto" onclick="RichFaces.component('panel').moveTo(20, 50)" tabindex="0"> moveTo </a>
+            </h:panelGroup>
+        </h:form>
+    </rich:popupPanel>
+</h:body>
+</html>

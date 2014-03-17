@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.TreeRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.TreeRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.Tree</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.TreeRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+
+        <cdk:resource-dependency library="javax.faces" name="jsf.js" />
+        <cdk:resource-dependency library="org.richfaces" name="jquery.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-queue.reslib" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-base-component.js" />
+        <cdk:resource-dependency name="richfaces-event.js" library="org.richfaces" />
+        <cdk:resource-dependency name="tree.js" library="org.richfaces" />
+        <cdk:resource-dependency name="tree.ecss" library="org.richfaces" />
+
+        <cdk:import-attributes src="urn:attributes:events-mouse-props.xml" />
+        <cdk:import-attributes src="urn:attributes:events-key-props.xml" />
+        <cdk:import-attributes src="urn:attributes:core-props.xml" />
+        <cdk:import-attributes src="urn:attributes:i18n-props.xml" />
+
+        <cdk:import package="org.richfaces.component" names="SwitchType" />
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{clientId}" class="#{concatClasses('rf-tr', component.attributes['styleClass'])}"
+            cdk:passThroughWithExclusions="">
+
+            <cdk:call expression="createTreeRenderingContext(facesContext, component)" />
+
+            <cdk:body>
+                <cdk:call expression="encodeTree(facesContext, component)" />
+            </cdk:body>
+
+            <cdk:object name="clientEventHandlers" value="#{getClientEventHandlers(facesContext)}" />
+            <cdk:call expression="deleteTreeRenderingContext(facesContext)" />
+
+            <cdk:call expression="encodeSelectionStateInput(facesContext, component)" />
+
+            <script type="text/javascript">
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption attributes="toggleType" defaultValue="SwitchType.DEFAULT" />
+                    <cdk:scriptOption name="selectionType" value="#{getSelectionType(facesContext, component)}"
+                        defaultValue="SwitchType.client" />
+                    <cdk:scriptOption name="ajaxSubmitFunction" value="#{getAjaxSubmitFunction(facesContext, component)}" />
+                    <cdk:scriptOption attributes="onselectionchange onbeforeselectionchange toggleNodeEvent" />
+                    <cdk:scriptOption variables="clientEventHandlers" />
+                </cdk:scriptObject>
+
+                new RichFaces.rf4.ui.Tree(#{toScriptArgs(clientId, options)});
+            </script>
+        </div>
+    </cc:implementation>
+
+</cdk:root>

@@ -1,0 +1,69 @@
+<!DOCTYPE html  [
+        <!ENTITY nbsp "&#160;">
+        ]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+<h:head></h:head>
+<h:body>
+
+<h:form id="form">
+    <h:panelGroup id="matrixInput" layout="block">
+        <table>
+            <tbody>
+            <a4j:repeat id="a4jRepeatRows"
+                        iterationStatusVar="rowStatus"
+                        value="#{a4jRepeatBean.matrixRows}"
+                        var="row">
+                <tr>
+                    <a4j:repeat id="a4jRepeatColumns" value="#{row.cells}" var="cell" iterationStatusVar="cellStatus">
+                        <td><h:panelGroup layout="block"
+                                          styleClass="cell #{rowStatus.even ? 'row-even' : 'row-odd'} #{cellStatus.even ? 'cell-even' : 'cell-odd'}">
+                            <h:inputText id="valueInput" value="#{cell.value}" size="3">
+                                <f:convertNumber/>
+                                <a4j:ajax
+                                        render="form:outputRows:#{rowStatus.index}:outputColumns:#{cellStatus.index}:output"/>
+                            </h:inputText>
+                            &nbsp;
+                            <h:commandLink id="clearLink" action="#{cell.clearValueAction}" value="C">
+                                <a4j:ajax
+                                        render="valueInput form:outputRows:#{rowStatus.index}:outputColumns:#{cellStatus.index}:output"/>
+                            </h:commandLink>
+                            <h:outputText value=" / "/>
+                            <h:commandLink id="increaseLink" action="#{cell.increaseValueAction}" value="+">
+                                <a4j:ajax
+                                        render="valueInput form:outputRows:#{rowStatus.index}:outputColumns:#{cellStatus.index}:output"/>
+                            </h:commandLink>
+                            <h:outputText value=" / "/>
+                            <h:commandLink id="decreaseLink" action="#{cell.decreaseValueAction}" value="-">
+                                <a4j:ajax
+                                        render="valueInput form:outputRows:#{rowStatus.index}:outputColumns:#{cellStatus.index}:output"/>
+                            </h:commandLink>
+                        </h:panelGroup></td>
+                    </a4j:repeat>
+                </tr>
+            </a4j:repeat>
+            </tbody>
+        </table>
+    </h:panelGroup>
+    <hr/>
+    <a4j:outputPanel id="matrixOutput" layout="block">
+        <table>
+            <tbody>
+            <a4j:repeat id="outputRows" value="#{a4jRepeatBean.matrixRows}" var="row">
+                <tr>
+                    <a4j:repeat id="outputColumns" value="#{row.cells}" var="cell">
+                        <td><a4j:outputPanel id="output" styleClass="cell" layout="block">
+                            #{cell.value}
+                        </a4j:outputPanel></td>
+                    </a4j:repeat>
+                </tr>
+            </a4j:repeat>
+            </tbody>
+        </table>
+    </a4j:outputPanel>
+</h:form>
+</h:body>
+</html>

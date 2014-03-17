@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
+<f:view contentType="text/html" />
+
+<h:head>
+    <title>Richfaces List</title>
+</h:head>
+
+<h:body>
+    <h:form id="form">
+        <rich:list id="ol" var="item" value="#{dataBean.list}" type="ordered">
+            #{item.term}
+        </rich:list>
+
+        <rich:list id="ul" var="item" value="#{dataBean.list}" type="unordered">
+            #{item.term}
+        </rich:list>
+
+        <rich:list id="dl" var="item" value="#{dataBean.list}" type="definitions">
+            <f:facet name="term">
+                #{item.term}
+            </f:facet>
+            #{item.definition}
+        </rich:list>
+
+        <rich:list id="emptyList" type="ordered" />
+    </h:form>
+</h:body>
+</html>

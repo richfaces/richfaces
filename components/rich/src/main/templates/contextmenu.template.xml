@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+          xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+        >
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.ContextMenuRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.html.ContextMenuRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.ContextMenu</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.ContextMenuRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object name="style" value="#{component.attributes['style']}" />
+        <cdk:object name="cssRoot" value="#{component.attributes['cssRoot']}" />
+        <cdk:object name="styleClass" value="#{not empty component.attributes['styleClass'] ? component.attributes['styleClass']:''}" />
+
+        <cdk:object name="isDisabled" type="boolean" value="#{isDisabled(facesContext, component)}" />
+
+        <div id="#{clientId}" class="rf-ctx-lbl #{isDisabled ? 'rf-ctx-dis' : 'rf-ctx-unsel '+styleClass} " style="#{style}"
+            cdk:passThroughWithExclusions="">
+
+            <c:if test="#{not isDisabled(facesContext, component)}">
+                <div class="rf-ctx-pos">
+                    <div id="#{clientId}_list" class="rf-ctx-lst" style="display:none;min-width:#{getPopupWidth(component)}px;">
+                        <div class="rf-ctx-lst-bg">
+                            <cdk:call expression="renderChildren(facesContext, component)" />
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    <cdk:scriptObject name="options">
+                        <cdk:scriptOption name="direction" value="#{getDirection(component).getValue()}" defaultValue="org.richfaces.component.Positioning.DEFAULT.getValue()" />
+                        <cdk:scriptOption name="jointPoint" value="#{getJointPoint(component).getValue()}" defaultValue="org.richfaces.component.Positioning.DEFAULT.getValue()" />
+                        <cdk:scriptOption name="showEvent" value="#{getShowEvent(component)}" defaultValue='this.DEFAULT_SHOWEVENT' />
+                        <cdk:scriptOption name="target" value="#{getTarget(facesContext, component)}" defaultValue='""' />
+                        <cdk:scriptOption name="attached" value="#{component.attributes['attached']}" defaultValue='true' />
+                        <cdk:scriptOption name="mode" value="#{getMode(component)}" defaultValue="org.richfaces.component.Mode.server" />
+                        <cdk:scriptOption name="horizontalOffset" value="#{component.attributes['horizontalOffset']}" defaultValue='0' />
+                        <cdk:scriptOption name="verticalOffset" value="#{component.attributes['verticalOffset']}" defaultValue='0' />
+                        <cdk:scriptOption name="hideDelay" value="#{component.attributes['hideDelay']}" defaultValue='300' />
+                        <cdk:scriptOption name="showDelay" value="#{component.attributes['showDelay']}" defaultValue='50' />
+                        <cdk:scriptOption name="targetSelector" value="#{component.attributes['targetSelector']}" defaultValue='""' />
+                        <cdk:scriptOption attributes="onshow onhide ongroupshow ongrouphide onitemclick" wrapper="eventHandler" />
+                    </cdk:scriptObject>
+
+                    new
+                    RichFaces.rf4.ui.ContextMenu(#{toScriptArgs(clientId,
+                    options)}).initiateGroups(#{toScriptArgs(getMenuGroups(facesContext, component))});
+
+                </script>
+            </c:if>
+        </div>
+    </cc:implementation>
+
+</cdk:root>

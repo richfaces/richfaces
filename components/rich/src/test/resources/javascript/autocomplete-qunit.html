@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery Test Suite</title>
+
+<!-- QUnit -->
+<link type="text/css" rel="Stylesheet" media="screen" href="../../../../../../../core/impl/src/test/resources/javascript/qunit/qunit.css" />
+<script type="text/javascript" src="../../../../../../../core/impl/src/test/resources/javascript/qunit/qunit.js"></script>
+
+<!-- Test Resources-->
+<script type="text/javascript" src="../../../../../../../core/impl/src/main/resources/META-INF/resources/jquery.js"></script>
+<script type="text/javascript" src="../../../../../../../core/impl/src/main/resources/META-INF/resources/richfaces.js"></script>
+<script type="text/javascript" src="../../../../../../../core/impl/src/main/resources/META-INF/resources/richfaces-base-component.js"></script>
+<script type="text/javascript" src="../../../../src/main/resources/META-INF/resources/org.richfaces/AutocompleteBase.js"></script>
+<script type="text/javascript" src="../../../../src/main/resources/META-INF/resources/org.richfaces/Autocomplete.js"></script>
+
+<!-- Tests -->
+<script type="text/javascript">
+    test("getLastTokenIndex", function() {
+        var fn = function(value) {
+            return RichFaces.rf4.ui.Autocomplete.__getLastTokenIndex(",", value);
+        };
+        
+        equal(fn(undefined), 0);
+        equal(fn(null), 0);
+        equal(fn(""), 0);
+        equal(fn("a"), 0);
+        equal(fn("a,"), 2);
+        equal(fn("a,b"), 2);
+        equal(fn("a,b,"), 4);
+        
+        equal(fn("a "), 0);
+        equal(fn("a b "), 0);
+        equal(fn("a, "), 3);
+        equal(fn("a, b "), 3);
+        equal(fn("a b, c d"), 5);
+        equal(fn("a b, c d, "), 10);
+        equal(fn("a b, c d, e f "), 10);
+    });
+    
+    test("test multiple tokens", function() {
+        var fn = function(value) {
+            return RichFaces.rf4.ui.Autocomplete.__getLastTokenIndex(",;", value);
+        };
+        
+        equal(fn("a,"), 2);
+        equal(fn("a,;b,;"), 6);
+        equal(fn("a, ;b; ; "), 9);
+    });
+    
+    test("test space tokens", function() {
+        var fn = function(value) {
+            return RichFaces.rf4.ui.Autocomplete.__getLastTokenIndex(", ", value);
+        };
+        
+        equal(fn("a "), 2);
+        equal(fn("a b"), 2);
+        equal(fn("a b c "), 6);
+    });
+    
+    test("getBeforeLastToken", function() {
+        var fn = function(value) {
+            var index = RichFaces.rf4.ui.Autocomplete.__getLastTokenIndex(",", value);
+            return value.substring(0, index);
+        };
+        
+        equal(fn("a"), "");
+        equal(fn("a,"), "a,");
+        equal(fn("a,b"), "a,");
+        equal(fn("a,b,"), "a,b,");
+        
+        equal(fn("a "), "");
+        equal(fn("a, "), "a, ");
+        equal(fn("a, b "), "a, ");
+        equal(fn("a b, c d"), "a b, ");
+        equal(fn("a b, c d, "), "a b, c d, ");
+        equal(fn("a b, c d, e f "), "a b, c d, ");
+    });
+    
+    test("getAfterLastToken", function() {
+        var fn = function(value) {
+            var index = RichFaces.rf4.ui.Autocomplete.__getLastTokenIndex(",", value);
+            return value.substring(index);
+        };
+        
+        equal(fn("a"), "a");
+        equal(fn("a,"), "");
+        equal(fn("a,b"), "b");
+        equal(fn("a,b,"), "");
+        
+        equal(fn("a "), "a ");
+        equal(fn("a, "), "");
+        equal(fn("a, b "), "b ");
+        equal(fn("a b, c d"), "c d");
+        equal(fn("a b, c d, "), "");
+        equal(fn("a b, c d, e f "), "e f ");
+    });
+</script>
+
+</head>
+<body>
+    <h1 id="qunit-header">Autocomplete</h1>
+
+    <h2 id="qunit-banner"></h2>
+
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+    
+    <div id="qunit-fixture">
+        
+    </div>
+</body>
+</html>

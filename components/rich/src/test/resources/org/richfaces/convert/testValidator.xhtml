@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+<f:view>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{testBean.initValidator}" />
+    </f:metadata>
+    <h:head>
+        <h:outputScript name="jquery.js" />
+        <h:outputScript name="richfaces.js" />
+        <h:outputScript library="org.richfaces" name="richfaces-event.js" />
+        <h:outputScript name="richfaces-csv.js" library="org.richfaces" />
+        <h:outputScript name="resource.js" />
+    </h:head>
+    <h:body>
+        <script type="text/javascript">/* <![CDATA[ */
+
+        RichFaces.csv.addMessage(#{testBean.errorMessagesAsScript});
+        try {
+            #{testBean.clientFunction}
+            ('#{testBean.componentLabel}', #{testBean.submittedValueAsScript},
+                #{testBean.parametersString});
+        } catch (e) {
+            window.validationError = e;
+        }
+
+        function verifyValidation() {
+            if (window.validationError) {
+                return "validation error caught: " + window.validationError.message;
+            }
+        }
+        /* ]]> */</script>
+    </h:body>
+</f:view>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.PlaceholderRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.PlaceholderRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.Placeholder</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.PlaceholderRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.component.AbstractPlaceholder</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <span id="#{clientId}">
+            <script id="#{clientId}Script" type="text/javascript">
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption attributes="styleClass" />
+                    <cdk:scriptOption name="targetId" value="#{empty component.selector ? component.parent.clientId : null}" />
+                    <cdk:scriptOption name="selector" value="#{not empty component.selector ? component.selector : null}" />
+                    <cdk:scriptOption name="text" value="#{getConvertedValue(facesContext, component)}" />
+                </cdk:scriptObject>
+                new RichFaces.rf4.ui.Placeholder("#{clientId}", #{toScriptArgs(options)});
+            </script>
+        </span>
+    </cc:implementation>
+
+</cdk:root>

@@ -1,0 +1,34 @@
+<html xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Test queue page</title>
+</h:head>
+<h:body>
+    <a4j:queue name="first" ignoreDupResponses="true" requestDelay="400" />
+    <h:form id="form">
+        <a4j:queue ignoreDupResponses="false" requestDelay="400" />
+        <a4j:ajax>
+            <h:inputText />
+
+            <a4j:attachQueue requestGroupingId="request" id="firstAttach" />
+        </a4j:ajax>
+        <a4j:queue name="second" ignoreDupResponses="true" requestDelay="400" />
+        <a4j:ajax event="valueChange">
+            <h:panelGroup>
+                <a4j:ajax event="valueChange">
+                    <h:inputText />
+
+                    <a4j:commandLink value="Link">
+                        <a4j:attachQueue name="second" id="linkAttach" />
+                    </a4j:commandLink>
+
+                    <a4j:attachQueue id="secondAttach" />
+                </a4j:ajax>
+            </h:panelGroup>
+        </a4j:ajax>
+        <h:commandButton value="G" />
+    </h:form>
+
+</h:body>
+</html>

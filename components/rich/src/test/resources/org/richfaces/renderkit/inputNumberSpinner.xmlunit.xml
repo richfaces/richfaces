@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<span class="rf-insp " id="form:spinner">
+  <input class="rf-insp-inp " name="form:spinner" size="10" type="text" value="0"/>
+  <span class="rf-insp-btns">
+    <span class="rf-insp-inc">
+    </span>
+    <span class="rf-insp-dec">
+    </span>
+  </span>
+  <script type="text/javascript">
+//<![CDATA[
+new RichFaces.rf4.ui.InputNumberSpinner('form:spinner', {
+                cycled: true,
+                maxValue: 100,
+                minValue: 0,
+                onchange:
+                null,
+                step: 1
+                });
+//]]>
+  </script>
+</span>

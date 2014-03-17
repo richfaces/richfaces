@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
+<f:view contentType="text/html" />
+
+<h:head>
+    <title>Richfaces InplaceInput</title>
+</h:head>
+
+<h:body>
+    <h:form id="form">
+        <h:panelGroup id="one" layout="block">
+            <rich:inplaceInput id="inplaceInputDefault" defaultLabel="Edit Text" value="#{inputBean.value}" />
+        </h:panelGroup>
+        <br />
+        <br />
+        <br />
+        <h:panelGroup id="two" layout="block">
+            <rich:inplaceInput id="inplaceInputWithControls" defaultLabel="Edit Text" showControls="true"
+                value="#{inputBean.value}" />
+        </h:panelGroup>
+        <br />
+        <br />
+        <br />
+        <h:panelGroup id="panel" layout="block">
+            <!-- click here for blur -->
+        </h:panelGroup>
+    </h:form>
+</h:body>
+</html>

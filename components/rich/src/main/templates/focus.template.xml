@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.FocusRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.FocusRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.Focus</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.FocusRenderer</cdk:renderer-type>
+        <cdk:component-base-class>org.richfaces.component.AbstractFocus</cdk:component-base-class>
+    </cc:interface>
+
+    <cc:implementation>
+        <span id="#{clientId}" class="rf-fcs">
+            <input id="#{clientId}InputFocus" name="org.richfaces.focus" type="hidden" value="#{component.value}" />
+            <cdk:scriptObject name="options">
+                <cdk:scriptOption name="mode" value="#{component.getMode()}" />
+                <cdk:scriptOption name="focusCandidates" value="#{getFocusCandidatesAsString(facesContext, component)}" />
+            </cdk:scriptObject>
+            <cdk:object name="scriptArgs" value="#{toScriptArgs(options)}" />
+            <cdk:object name="script" type="String" value="new RichFaces.rf4.ui.Focus('#{clientId}', #{empty scriptArgs ? '{}' : scriptArgs});" />
+            <cdk:call expression="renderOncompleteScript(facesContext, script)" />
+
+            <c:if test="#{shouldApply(facesContext, component)}">
+                <cdk:object name="applyScript" type="String" value="RichFaces.component('#{clientId}').applyFocus()" />
+                <cdk:call expression="renderOncompleteScript(facesContext, applyScript)" />
+            </c:if>
+        </span>
+    </cc:implementation>
+
+</cdk:root>

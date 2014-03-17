@@ -1,0 +1,161 @@
+.rf-ddm-lbl,.rf-ddm-lbl-dis {
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-weight: '#{richSkin.headerWeightFont}';
+    position: relative;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.rf-ddm-lbl {
+    padding: 2px 5px;
+}
+
+.rf-ddm-unsel {
+    border: 1px solid transparent;
+}
+
+.rf-ddm-sel {
+    background-image: "url(#{resource['org.richfaces.images:menu_item_bg.png']})";
+    background-repeat: repeat-x;
+    background-position: bottom left;
+    background-color: '#{richSkin.additionalBackgroundColor}';
+    /*from additionalBackgroundColor (top) to tabBackgroundColor (bottom) additionalBackgroundColor*/
+    border: 1px solid; /*headerBackgroundColor*/
+    border-color: '#{richSkin.headerBackgroundColor}';
+    cursor: pointer;
+}
+
+.rf-ddm-pos {
+    top: 20px;
+    left: 0;
+    position: absolute;
+    z-index: 10000;
+}
+
+.rf-ddm-dis {
+    color: '#{richSkin.tabDisabledTextColor}'; /* #8DB7F3*/
+    cursor: default;
+}
+
+.rf-ddm-lbl-dec {
+    font-weight: '#{richSkin.headerWeightFont}';
+    cursor: pointer;
+}
+
+.rf-ddm-lst {
+    border: 1px solid; /*#bfbfc0*/ /*panelBorderColor*/
+    border-color: '#{richSkin.panelBorderColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
+    background-color: '#{richSkin.additionalBackgroundColor}'; /*#e7f2fb;/  /*additionalBackgroundColor*/
+    min-width: 250px;
+    position: absolute;
+    z-index: 10;
+    outline: none;
+}
+
+.rf-ddm-sublst {
+    position: absolute;
+    top: -8px;
+    left: 13px;
+}
+
+.rf-ddm-lst-bg {
+    border: 1px solid; /* #e7f2fb;*/ /*additionalBackgroundColor*/
+    border-color: '#{richSkin.additionalBackgroundColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
+    background-repeat: repeat-y;
+    background-position: left;
+    background-image: "url(#{resource['org.richfaces.images:menu_list_bg.png']})";
+    /*from additionalBackgroundColor (left) to tabBackgroundColor (right)*/
+}
+
+.rf-ddm-itm {
+    padding: 1px 35px 1px 1px;
+    white-space: nowrap;
+    font-family: '#{richSkin.generalFamilyFont}'; /*verdana;*/ /*generalFamilyFont*/
+    font-size: '#{richSkin.generalSizeFont}'; /*12px;*/ /*generalSizeFont*/
+    position: relative;
+}
+
+.rf-ddm-itm-unsel {
+    border: 1px solid transparent;
+    padding: 1px 36px 2px 2px;
+}
+
+.rf-ddm-itm-sel {
+    border: 1px solid; /* #4a70ab;*/ /*headerBackgroundColor*/
+    border-color: '#{richSkin.headerBackgroundColor}';
+    border-radius: '#{richSkin.panelBorderRadius}';
+    cursor: pointer;
+    padding: 1px 36px 2px 2px;
+    background-color: '#{richSkin.additionalBackgroundColor}';
+    background-repeat: repeat-x;
+    background-position: bottom left;
+    background-image: "url(#{resource['org.richfaces.images:menu_item_bg.png']})";
+    z-index: 10;
+}
+
+.rf-ddm-itm-dis {
+    border: 1px solid transparent;
+    cursor: default;
+    color: '#{richSkin.tabDisabledTextColor}'; /*#839eca;*/ /*tabDisabledTextColor*/
+}
+
+.rf-ddm-itm-ic {
+    display: inline-block;
+    margin: 0 10px 0 0;
+    vertical-align: middle;
+}
+
+.rf-ddm-itm-lbl {
+    color: '#{richSkin.generalTextColor}'; /*#000000;*/ /*generalTextColor*/
+    display: inline-block;
+    text-decoration: none;
+    vertical-align: middle;
+    z-index: 2;
+}
+
+.rf-ddm-sep {
+    font-size: 0px;
+    border-top: 1px solid; /*  #BED6F8;*/ /*panelBorderColor*/
+    border-top-color: '#{richSkin.panelBorderColor}';
+    margin: 2px 0px 2px 24px;
+}
+
+.rf-ddm-nd {
+    background-image: "url(#{resource['org.richfaces.images:menuNodeImage.gif']})";
+    background-repeat: no-repeat;
+    background-position: top;
+    font-size: 1px;
+    width: 7px;
+    height: 7px;
+    top: 7px;
+    right: 6px;
+    position: absolute;
+}
+
+.rf-ddm-itm-dis .rf-ddm-nd {
+    background-position: bottom;
+}
+
+.rf-ddm-emptyIcon {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    display: inline-block;
+}
+
+.rf-ddm-itm-ic input[type="checkbox"] {
+    margin: 0;
+    width: 16px;
+}
+
+.rf-ddm-itm-lbl input[type="text"] {
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 11px;
+    background-position: 1px 1px;
+    background-repeat: no-repeat;
+    border-style: inset;
+    border-width: 1px;
+}

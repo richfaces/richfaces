@@ -1,0 +1,180 @@
+input.rf-ii-fld {
+    background-image: none;
+    background-color: '#{richSkin.editBackgroundColor}';
+    /*TODO: seems these styles are incorrect*/
+    border-bottom-width: 10px;
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.editBackgroundColor}';
+    padding: 0px 0px 0px 0px;
+    border: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+}
+
+.rf-ii-fld-cntr {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: inline-block;
+    width: 100%;
+}
+
+.rf-ii-dis {
+    
+}
+
+.rf-ii-lbl {
+    white-space: nowrap;
+    color: '#{richSkin.generalTextColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+}
+
+.rf-ii {
+    display: inline-block;
+    white-space: nowrap;
+    background-color: '#{richSkin.editorBackgroundColor}';
+    border-bottom-width: 1px;
+    border-bottom-style: dashed;
+    border-bottom-color: '#{richSkin.generalTextColor}';
+    padding-left: 3px;
+    padding-right: 3px;
+    display: inline-block;
+    position: relative;
+}
+
+.rf-ii-chng {
+    display: inline-block;
+    background-image: url("#{resource['org.richfaces:mark_changed.gif']}");
+    background-position: top left;
+    background-repeat: no-repeat;
+}
+
+.rf-ii-act {
+    
+}
+
+.rf-ii-btn {
+    background-image: url("#{resource['org.richfaces.images:inplaceBtnGrad.png']}");
+    background-attachment: scroll;
+    background-position: center top;
+    background-repeat: repeat-x;
+    background-color: '#{richSkin.tabBackgroundColor}';
+    border-width: 1px;
+    border-style: outset;
+    border-color: '#{richSkin.panelBorderColor}';
+    padding: 3px;
+    margin: 0px;
+}
+
+.rf-ii-btn-p {
+    background-image: url("#{resource['org.richfaces.images:inplaceBtnPressGrad.png']}");
+    background-position: top;
+    background-repeat: repeat-x;
+    background-color: '#{richSkin.tabBackgroundColor}';
+    border-width: 1px;
+    border-style: inset;
+    border-color: '#{richSkin.panelBorderColor}';
+    padding: 0px;
+    margin: 0px;
+}
+
+.rf-ii-btn-set {
+    position: absolute;
+    top: 0px;
+    left: 100px;
+    white-space: nowrap;
+}
+
+.rf-ii-btn-prepos {
+    position: absolute;
+    top: -4px;
+    right: 0px;
+    width: 1px;
+    height: 1px;
+}
+
+.rf-ii-btn-pos {
+    position: absolute;
+    top: 1px;
+    left: 0px;
+    white-space: nowrap;
+}
+
+.rf-ii-btn-shdw {
+    display: inline-block;
+    position: relative;
+    padding: 6px 6px 6px 6px;
+    top: -6px;
+    left: -6px;
+}
+
+.rf-ii-btn-cntr {
+    position: relative;
+    display: block;
+    font-size: 0px;
+}
+
+.rf-ii-btn-shdw-t {
+    background-position: left top;
+    background-image: url("#{resource['org.richfaces:bg_shadow.png']}");
+    background-attachment: scroll;
+    background-color: transparent;
+    background-repeat: repeat;
+    position: absolute;
+    width: 6px;
+    top: 0px;
+    bottom: 6px;
+    left: 0px
+}
+
+.rf-ii-btn-shdw-l {
+    background-position: left bottom;
+    background-image: url("#{resource['org.richfaces:bg_shadow.png']}");
+    background-attachment: scroll;
+    background-color: transparent;
+    background-repeat: repeat;
+    position: absolute;
+    height: 6px;
+    bottom: 0px;
+    left: 0px;
+    right: 6px;
+}
+
+.rf-ii-btn-shdw-r {
+    background-position: right bottom;
+    background-image: url("#{resource['org.richfaces:bg_shadow.png']}");
+    background-attachment: scroll;
+    background-color: transparent;
+    background-repeat: repeat;
+    position: absolute;
+    width: 6px;
+    top: 6px;
+    bottom: 0px;
+    right: 0px;
+}
+
+.rf-ii-btn-shdw-b {
+    background-position: right top;
+    background-image: url("#{resource['org.richfaces:bg_shadow.png']}");
+    background-attachment: scroll;
+    background-color: transparent;
+    background-repeat: repeat;
+    position: absolute;
+    height: 6px;
+    top: 0px;
+    left: 6px;
+    right: 0px;
+}
+
+.rf-ii-none {
+    clip: "rect(0px 0px 1px 1px)";
+}
+
+.rf-ii-dflt-lbl {
+    color: #b3b3b3;
+}

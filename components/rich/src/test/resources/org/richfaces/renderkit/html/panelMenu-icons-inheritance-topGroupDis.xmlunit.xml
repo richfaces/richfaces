@@ -1,0 +1,22 @@
+<div id="f:panelMenuGroup-topDis" class="rf-pm-top-gr topGroupClass rf-pm-top-gr-dis topGroupDisabledClass">
+    <input id="f:panelMenuGroup-topDis:expanded" name="f:panelMenuGroup-topDis:expanded" type="hidden" value="false" />
+    <div id="f:panelMenuGroup-topDis:hdr" class="rf-pm-top-gr-hdr rf-pm-hdr-colps rf-pm-top-gr-hdr-dis">
+        <table class="rf-pm-top-gr-gr">
+            <tbody>
+                <tr>
+                    <td class="rf-pm-top-gr-ico">
+                        <div class="rf-pm-ico-colps rf-ico-chevron-hdr-dis"></div>
+                        <div class="rf-pm-ico-exp rf-ico-chevron-hdr-dis"></div>
+                    </td>
+                    <td class="rf-pm-top-gr-lbl"></td>
+                    <td class="rf-pm-top-gr-exp-ico">
+                        <div class="rf-pm-ico-colps rf-ico-chevron-hdr-dis"></div>
+                        <div class="rf-pm-ico-exp rf-ico-chevron-hdr-dis"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="f:panelMenuGroup-topDis:cnt" class="rf-pm-top-gr-cnt rf-pm-colps">
+    </div>
+</div>

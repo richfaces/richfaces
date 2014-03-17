@@ -1,0 +1,7 @@
+<span id="f:tooltip" style="display: none;">
+    <span id="f:tooltip:wrp" class="rf-tt" style="z-index:1000">
+        <span id="f:tooltip:cntr" class="rf-tt-cntr">
+            <span id="f:tooltip:content" class="rf-tt-cnt"></span>
+        </span>
+    </span>
+</span>

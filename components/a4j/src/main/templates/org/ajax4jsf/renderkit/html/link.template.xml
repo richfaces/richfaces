@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.CommandLinkRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.AjaxCommandRendererBase</cdk:superclass>
+        <cdk:component-family>javax.faces.Command</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.CommandLinkRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+        <c:choose>
+            <c:when test="#{not component.attributes['disabled']}">
+                <a id="#{clientId}" name="#{clientId}" cdk:passThroughWithExclusions="value target"
+                    onclick="#{this.getOnClick(facesContext, component)}" href="#">
+                    #{component.attributes['value']}
+                    <cdk:call expression="renderChildren(facesContext, component)" />
+                </a>
+            </c:when>
+            <c:otherwise>
+                <span id="#{clientId}" cdk:passThroughWithExclusions="value target">
+                    #{component.attributes['value']}
+                    <cdk:call expression="renderChildren(facesContext, component)" />
+                </span>
+            </c:otherwise>
+        </c:choose>
+
+    </cc:implementation>
+
+</cdk:root>

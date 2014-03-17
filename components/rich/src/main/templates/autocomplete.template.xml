@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.AutocompleteRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.AutocompleteRendererBase</cdk:superclass>
+        <cdk:component-family>javax.faces.Input</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.AutocompleteRenderer
+        </cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+
+        <cdk:import package="org.richfaces.component" names="AutocompleteMode.*" static="true" />
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
+        <span id="#{clientId}" class="#{concatClasses('rf-au', component.attributes['styleClass'])}" cdk:passThrough="style">
+            <input id="#{clientId}Value" name="#{clientId}Value" type="hidden" />
+            <span class="#{component.attributes['showButton'] ? 'rf-au-fld-btn' : ''}">
+                <input onclick="#{component.attributes['onclick']}" ondblclick="#{component.attributes['ondblclick']}"
+                    onmouseup="#{component.attributes['onmouseup']}" onmousedown="#{component.attributes['onmousedown']}"
+                    onmousemove="#{component.attributes['onmousemove']}" onmouseover="#{component.attributes['onmouseover']}"
+                    onmouseout="#{component.attributes['onmouseout']}" onkeyup="#{component.attributes['onkeyup']}" onkeydown="#{component.attributes['onkeydown']}"
+                    onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input" value="#{getInputValue(facesContext, component)}"
+                    disabled="#{disabled}" name="#{clientId}Input" type="text"
+                    class="rf-au-fnt rf-au-inp #{component.attributes['inputClass']}" autocomplete="off"
+                    cdk:passThrough="tabindex"/>
+                <c:if test="#{component.attributes['showButton']}">
+                    <span id="#{clientId}Button" class="rf-au-btn">
+                        <span class="rf-au-btn-arrow#{component.attributes['disabled'] ? '-dis' : ''}"></span>
+                    </span>
+                </c:if>
+            </span>
+
+            <div onclick="#{component.attributes['onlistclick']}" ondblclick="#{component.attributes['onlistdblclick']}"
+                onmouseup="#{component.attributes['onlistmouseup']}" onmousedown="#{component.attributes['onlistmousedown']}"
+                onmousemove="#{component.attributes['onlistmousemove']}" onmouseover="#{component.attributes['onlistmouseover']}"
+                onmouseout="#{component.attributes['onlistmouseout']}" onkeyup="#{component.attributes['onlistkeyup']}"
+                onkeydown="#{component.attributes['onlistkeydown']}" onkeypress="#{component.attributes['onlistkeypress']}" id="#{clientId}List"
+                class="rf-au-lst-cord">
+
+                <div class="rf-au-shdw">
+                    <div class="rf-au-shdw-t"></div>
+                    <div class="rf-au-shdw-l"></div>
+                    <div class="rf-au-shdw-r"></div>
+                    <div class="rf-au-shdw-b"></div>
+
+                    <div class="rf-au-lst-dcrtn #{component.attributes['popupClass']}">
+                        <div class="rf-au-lst-scrl">
+                            <cdk:body>
+                                <cdk:call expression="encodeItemsContainer(facesContext, component)" />
+                            </cdk:body>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <c:if test="#{!component.attributes['disabled']}">
+                <script type="text/javascript">
+                    <cdk:object name="mode" type="Object" value="#{component.attributes['mode']}" />
+                    <cdk:scriptObject name="options">
+                        <cdk:scriptOption name="buttonId" value="#{clientId}Button" />
+                        <cdk:scriptOption attributes="selectedItemClass autofill disabled selectFirst tokens" />
+                        <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onselectitem onfocus onblur"
+                            wrapper="eventHandler" />
+                        <cdk:scriptOption name="minChars" value="#{getMinCharsOrDefault(component)}" />
+                        <cdk:scriptOption name="filterFunction" value="#{getClientFilterFunction(component)}" />
+                        <cdk:scriptOption name="isCachedAjax" value="#{ajax == mode ? false : true}"
+                            defaultValue="true" />
+                        <cdk:scriptOption name="ajaxMode" value="#{client == mode || lazyClient == mode ? false : true}"
+                            defaultValue="true" />
+                        <cdk:scriptOption name="lazyClientMode" value="#{lazyClient == mode ? true : false}"
+                            defaultValue="false" />
+                    </cdk:scriptObject>
+                    new RichFaces.rf4.ui.Autocomplete("#{clientId}",
+                    "#{clientId}Input", #{toScriptArgs(options)}
+                    );
+                </script>
+            </c:if>
+        </span>
+    </cc:implementation>
+
+</cdk:root>
