@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <b>rich:tooltip</b> component creates a small non-modal pop-up that can be used to display additional information
+        for nearly anything on the page.
+    </p>
+
+    <p>Major features:</p>
+    <ul>
+        <li>Tool-tip content may be <b>pre-rendered</b> on a page using client mode or <b>loaded dynamically</b> using
+            separate Ajax requests via Ajax mode.</li>
+        <li>In Ajax mode <b>default content</b> can be shown while the request is being executed</li>
+        <li>Tool-tip's <b>look-n-feel is fully customizable</b> using both Richfaces skins and CSS style classes</li>
+    </ul>
+    <p>There are various other options available such as delays, follow modes, and more that are in the example below:</p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>
+
+</html>

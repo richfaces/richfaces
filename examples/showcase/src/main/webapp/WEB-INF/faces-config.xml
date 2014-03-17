@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+    <factory>
+        <lifecycle-factory>org.richfaces.demo.arrangeablemodel.PersistenceLifecycleFactory</lifecycle-factory>
+    </factory>
+    <managed-bean>
+        <managed-bean-name>opBean1</managed-bean-name>
+        <managed-bean-class>org.richfaces.demo.outputPanel.OutputPanelBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>opBean2</managed-bean-name>
+        <managed-bean-class>org.richfaces.demo.outputPanel.OutputPanelBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <application>
+        <system-event-listener>
+            <system-event-listener-class>org.richfaces.demo.push.JMSInitializer</system-event-listener-class>
+            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
+        </system-event-listener>
+        <system-event-listener>
+            <system-event-listener-class>org.richfaces.demo.push.JMSMessageProducerInitializer</system-event-listener-class>
+            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
+        </system-event-listener>
+        <system-event-listener>
+            <system-event-listener-class>org.richfaces.demo.push.TopicsContextMessageProducerInitializer</system-event-listener-class>
+            <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
+        </system-event-listener>
+        <locale-config>
+            <default-locale>en_US</default-locale>
+            <supported-locale>en_US</supported-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+        <message-bundle>ShowcaseErrorMessages</message-bundle>
+    </application>
+
+
+</faces-config>

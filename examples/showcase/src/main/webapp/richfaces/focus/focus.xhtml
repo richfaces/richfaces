@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <p>
+        Focus component helps you manage focus of input components in the view.
+    </p>
+    
+    <p>
+        The component can be used either in <b>a form</b> or <b>in a view</b> - there can be only one focus
+        per form and, if both, form- and view-based focuses are defined, a form one takes a priority.
+        A view-based focus defines behavior for all forms in a view.
+    </p>
+    
+    <p>
+        Focus <b>reflects results of validation of components in a view</b>. Focus is given to a first input component in a page which is invalid. The order of input components is
+        determined on client-side and it reflects <i>tabindex and position in a page</i>. You can prioritize
+        focusing of specific component by increasing its tabindex.
+    </p>
+    
+    <p>
+        Focus can be configured to <b>keep focus on input component</b> which has been focused before form submission.
+    </p>
+
+    <p>
+        Focus is <b>applied each time it is rendered</b> - either on form submission or after AJAX request. To turn off focusing after AJAX request, you can use <tt>ajaxRendered=false</tt>.
+    </p>
+    
+    <hr />
+    
+    <p>
+        In following example, focus is initially given to Name input. If you enter invalid name (less than 3 chars) and submit (hit enter), focus is given again to Name input. This way user is directed to enter valid input.
+    </p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>

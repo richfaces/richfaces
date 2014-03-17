@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:outputStylesheet>
+        .rf-tgp-itm {
+        border: 1px solid #{richSkin.panelBorderColor};
+        padding: 5px;
+        }
+
+        .tabDiv {
+        margin-right: 5px;
+        border: 1px solid #{richSkin.panelBorderColor};
+        background-color: #{richSkin.headerBackgroundColor};
+        cursor: pointer;
+        padding-left: 5px;
+        float: left;
+        }
+    </h:outputStylesheet>
+    <h:form>
+        <rich:togglePanel id="panel1" activeItem="item1" render="tabs" itemChangeListener="#{panelMenuBean.updateCurrent}">
+            <rich:togglePanelItem name="item1">
+                <p>This toggle panel switches in Ajax mode. So only one active item loaded to the client.</p>
+
+                <p>For now you are at Panel 1</p>
+            </rich:togglePanelItem>
+            <rich:togglePanelItem name="item2">
+                <p>After the second link click - panel changed active item to the second one according to name specified in
+                    the togglePanelBehavior</p>
+
+                <p>For now you are at Panel 2</p>
+            </rich:togglePanelItem>
+        </rich:togglePanel>
+        <a4j:outputPanel id="tabs" layout="block">
+            <a4j:outputPanel layout="block" styleClass="tabDiv">
+                <rich:toggleControl event="click" targetPanel="panel1" targetItem="item1" />
+                <h:outputText value="Toggle Panel Item 1"
+                    style="#{rich:findComponent('panel1').activeItem == 'item1' ? 'font-weight:bold' : 'font-weight:normal'}" />
+            </a4j:outputPanel>
+            <a4j:outputPanel layout="block" styleClass="tabDiv">
+                <rich:toggleControl event="click" targetPanel="panel1" targetItem="item2" />
+                <h:outputText value="Toggle Panel Item 2"
+                    style="#{rich:findComponent('panel1').activeItem == 'item2' ? 'font-weight:bold' : 'font-weight:normal'}" />
+            </a4j:outputPanel>
+        </a4j:outputPanel>
+    </h:form>
+</ui:composition>

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        To influence how messages are positioned and stacked on the page, you need to define <b>rich:notifyStack</b>.
+    </p>
+    
+    <p>
+        Notify Stack component has following attributes (defaults flagged with *):
+    </p>
+    
+    <ul>
+        <li><b>position</b> - the position on the page - bottomRight*, bottomLeft, topRight, topLeft</li>
+        <li><b>method</b> - the stacking method defining if new messages will be placed on top (resp. bottom) of stack - last*, first</li>
+        <li><b>direction</b> - the direction in which will be messages placed - vertical*, horizontal</li>
+    </ul>
+    
+    <p>
+        To place specific <b>rich:notify</b> or <b>rich:notifyMessage/-s</b> into custom stack, you need to use <b>stack attribute</b>.
+    </p>
+    
+    <hr />
+    
+    <p>
+        In following sample, there are two stacks defined and adequately, two <b>rich:notify</b> are attached to them.
+    </p>
+    
+    <ol>
+        <li><i>firstStack</i> - topLeft, vertical, first</li>
+        <li><i>secondStack</i> - bottomRight, horizontal, last</li>
+    </ol>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <p>
+        <b>1)</b> provides suggestions for US state names using the <b>cachedAjax</b> mode with <i>minChars="2"</i>.
+    </p>
+    <h:form>
+        <rich:autocomplete mode="cachedAjax" minChars="2" autocompleteMethod="#{autocompleteBean.autocomplete}" />
+    </h:form>
+    <p>
+        <b>2)</b> Same suggestions in <b>lazyClient</b> mode. Additionally allows multiple selections using tokens (comma and space chars). 
+        This means you will be able to separate different values
+        with a space or comma and get a separate suggestions for any of them. The <b>autoFill</b> attribute is set to false so you
+        will notice values are not automatically added.
+    </p>
+    <h:form>
+        <rich:autocomplete mode="cachedAjax" tokens=", " minChars="1" autofill="false"
+            autocompleteMethod="#{autocompleteBean.autocomplete}" />
+    </h:form>
+    <p>
+        <b>3)</b> With the <b>selectFirst</b> attribute set to false pressing enter will not choose the value from list
+        automatically, but just submit currently entered value.
+    </p>
+    <h:form>
+        <rich:autocomplete mode="cachedAjax" tokens="," minChars="0" autoFill="false" selectFirst="false"
+            autocompleteMethod="#{autocompleteBean.autocomplete}" />
+    </h:form>
+</ui:composition>

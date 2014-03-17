@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j">
+    <p>
+        The <b>a4j:attachQueue</b> component allow you to funnel requests from specific components or behaviors through a
+        'named' queue (see queue example), but also allows you to override queue settings right from the component.
+    </p>
+
+    <p>
+        This sample shows how <b>requestDelay</b> can be changed for single component.
+    </p>
+
+    <p>
+        Note that when you are typing in the input - the status appears with a two seconds delay because the <b>default
+            queue contains requestDelay="2000"</b>. However when you are clicking the "submit" button - it appears immediately because <b>requestDelay
+            changed to 0 for the button</b>.
+    </p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>
+

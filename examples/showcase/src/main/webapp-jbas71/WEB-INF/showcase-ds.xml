@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema">
+
+    <datasource jndi-name="java:jboss/datasources/showcase" pool-name="showcase" enabled="true" use-java-context="true">
+        <connection-url>jdbc:h2:mem:showcase;DB_CLOSE_ON_EXIT=FALSE</connection-url>
+        <driver>h2</driver>
+        <security>
+            <user-name>sa</user-name>
+            <password>sa</password>
+        </security>
+    </datasource>
+    
+</datasources>

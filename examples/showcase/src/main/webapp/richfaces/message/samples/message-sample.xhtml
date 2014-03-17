@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <rich:panel>
+        <f:facet name="header">
+            <h:outputText value="Validation Form" />
+        </f:facet>
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputText value="Name:" />
+                <h:inputText label="Name" id="name" required="true" value="#{userBean.name}">
+                    <f:validateLength minimum="3" />
+                </h:inputText>
+                <rich:message for="name" ajaxRendered="true" />
+                <h:outputText value="Job:" />
+                <h:inputText label="Job" id="job" required="true" value="#{userBean.job}">
+                    <f:validateLength minimum="3" maximum="50" />
+                </h:inputText>
+                <rich:message for="job" ajaxRendered="true" />
+                <h:outputText value="Address:" />
+                <h:inputText label="Address" id="address" required="true" value="#{userBean.address}">
+                    <f:validateLength minimum="10" />
+                </h:inputText>
+                <rich:message for="address" ajaxRendered="true" />
+                <h:outputText value="Zip:" />
+                <h:inputText label="Zip" id="zip" required="true" value="#{userBean.zip}">
+                    <f:validateLength minimum="4" maximum="9" />
+                </h:inputText>
+                <rich:message for="zip" ajaxRendered="true" />
+                <f:facet name="footer">
+                    <a4j:commandButton value="Ajax Validate" />
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </rich:panel>
+</ui:composition>

@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <b>a4j:status</b> component is an indicator of an Ajax request. It has two states: <i>start</i> and <i>stop</i>. The
+        <i>start</i> state indicates that an Ajax request is in progress. When an Ajax Response is returned, the component
+        switches to the <i>stop</i> state.
+    </p>
+
+    <p>
+        The <b>a4j:status</b> component could be defined as follows:
+    </p>
+    <ul>
+        <li>As the default for a view.</li>
+        <li>As the default for a form.</li>
+        <li>Referenced explicity from the component sending the request.</li>
+    </ul>
+    <p>
+        This example shows a view-scoped <b>a4j:status</b> component. It should be defined outside of any forms, and will handle
+        all the Ajax requests within the view.
+    </p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>
+</html>

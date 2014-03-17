@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+    <p>
+        RichFaces provides a mechanism to apply <b>RichFaces skinning principles</b> to <b>standard components</b>!
+    </p>
+
+    <p>This feature provides styling for standard HTML form elements so that the share a commmon look'n'feel with RichFaces
+        component skins. There are two general approaches to apply skins to these elements:</p>
+    <ul>
+        <li><b>Automatic:</b> Toggled via a <i>context param</i> this approach will attempt to skin many standard
+            components using element names and type attributes where possible. No additional steps are required from an
+            application developer.</li>
+        <li><b>Manual:</b> RichFaces also provides a set of CSS style classes that can be manually assigned to controls.</li>
+    </ul>
+    <p>The automatic approach also has 2 levels of support:</p>
+    <ol>
+        <li><b>Standard</b> - customization of only basic style properties.</li>
+        <li><b>Extended</b> - extends basic level introducing customizations of a broader number of style properties</li>
+    </ol>
+    <p>Skinning level is calculated automatically at server side depending on user agent info.</p>
+    <rich:panel>
+        <b>NOTE:</b>Extended skinning is not applied to browsers with
+        rich visual styling for controls (e.g. Opera and Safari). Also advanced
+        level of skinning requires support of CSS 2 attribute selectors either
+        as implicit type attributes for button/textarea elements (e.g. IE7 in
+        standards compilant mode) or CSS 3 draft namespace selectors (e.g.
+        Mozilla Firefox).
+    </rich:panel>
+
+    <p>Here is a skinned form example. Note there is no styling in sources of that form</p>
+
+    <rich:panel id="panel" width="300" height="230">
+        <f:facet name="header">
+            Standard components skinning
+        </f:facet>
+        <i> All the controls below are just standard JSF components skinned with Rich Faces: </i>
+        <hr />
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputText value="Enter Name:" />
+                <h:inputText id="input" />
+                <h:outputText value="Enter you interests:" />
+                <h:inputTextarea cols="17" rows="3" />
+                <h:outputText value="Choose your favourite color" />
+                <h:selectOneMenu>
+                    <f:selectItem itemLabel="Red" itemValue="0" />
+                    <f:selectItem itemLabel="Black" itemValue="1" />
+                    <f:selectItem itemLabel="Green" itemValue="2" />
+                    <f:selectItem itemLabel="White" itemValue="3" />
+                </h:selectOneMenu>
+            </h:panelGrid>
+            <hr />
+            <h:commandButton value="Action Button" />
+            <h:commandLink value="Action Link" />
+        </h:form>
+    </rich:panel>
+
+    <p>
+		For more details on this setup and configuration of these features (including how to selectively disable skinning) please
+		review <a href="http://www.jboss.org/richfaces/docs">RichFaces documentation</a>.
+	</p>
+</ui:composition>
+
+</html>

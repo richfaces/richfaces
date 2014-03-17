@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>This example demonstrates the sorting feature for the RichFaces table components.</p>
+
+    <p>
+        The object property which is used for sorting should be defined for each column with the <b>sortBy</b> attribute.
+    </p>
+
+    <p>
+        Use the <b>sortOrder</b> attribute together with user actions to determine the sorting order. Alternatively, you can use
+        <b>#{rich:component('tableId')}.sort('columnId', ['sortOrder'])</b> with the JavaScript API.
+    </p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tables/CapitalsSortingBean.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View CapitalsSortingBean Source" />
+        <ui:param name="hideLabel" value="Hide CapitalsSortingBean Source" />
+    </ui:include>
+</ui:composition>
+</html>

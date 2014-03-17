@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:outputStylesheet>
+        .tooltip {
+        background-color: #{ richSkin.generalBackgroundColor};
+        border-width:3px;
+        }
+        .tooltip-custom-body {
+        background-color: orange;
+        }
+
+        .tooltip-text {
+        width: 350px;
+        height: 80px;
+        cursor: arrow;
+        border-width: 2px;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        }
+
+        .tooltipData {
+        font-weight: bold;
+        }
+    </h:outputStylesheet>
+
+    <h:panelGrid columns="2">
+        <rich:panel id="sample1" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
+            <p>
+                Here you can see a <b>default client-side</b> tool-tip
+            </p>
+            <rich:tooltip id="tt1" styleClass="tooltip" layout="block">
+                <span style="white-space: nowrap"> This tool-tip content was <strong>pre-rendered</strong> to the page.<br />
+                    The tool-tip is also following mouse around.</span>
+            </rich:tooltip>
+        </rich:panel>
+        <rich:panel id="sample2" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
+            <p>
+                This tool-tip will not <b>follow the mouse</b>, and has a <b>delay of 1.5 seconds</b>, so be patient!
+            </p>
+            <rich:tooltip followMouse="false" showDelay="1500" styleClass="tooltip-custom-body" layout="block">
+                <span style="white-space: nowrap"> This tool-tip content is also <strong>pre-rendered</strong> to the
+                    page.<br /> </span>
+            </rich:tooltip>
+        </rich:panel>
+        <h:form>
+            <rich:panel id="sample3" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
+                <p>This tool-tip was rendered on the server using an Ajax request.</p>
+                <rich:tooltip mode="ajax" styleClass="tooltip" layout="block">
+                    <span style="white-space: nowrap">This tool-tip content was <strong>rendered on the server</strong> </span>
+                    <h:panelGrid columns="2">
+                        <h:outputText style="white-space:nowrap" value="tooltips requested:" />
+                        <h:outputText value="#{tooltipData.tooltipCounter}" styleClass="tooltipData" />
+                    </h:panelGrid>
+                </rich:tooltip>
+            </rich:panel>
+        </h:form>
+        <h:form>
+            <rich:panel id="sample4" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
+                <p>
+                    This tool-tip will be <b>activated on a mouse click</b>, and has default content defined.
+                </p>
+                <rich:tooltip showEvent="click" mode="ajax" styleClass="tooltip" layout="block">
+                    <f:facet name="loading">
+                        <strong>Wait...</strong>
+                    </f:facet>
+                    <span style="white-space: nowrap">This tool-tip content was <strong>rendered on server</strong><br />
+                    </span>
+                    <h:panelGrid columns="2">
+                        <h:outputText style="white-space:nowrap" value="tooltips requested:" />
+                        <h:outputText value="#{tooltipData.tooltipCounter}" styleClass="tooltipData" />
+                    </h:panelGrid>
+                </rich:tooltip>
+            </rich:panel>
+        </h:form>
+    </h:panelGrid>
+</ui:composition>

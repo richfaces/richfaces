@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        <b>rich:notifyMessage/-s</b> allows one to consume standard JSF messages similarly to <b>rich:message/-s</b>.
+        but notifications are displayed in floating box like in operation system.
+    </p>
+    
+    <p>If you don't want use JSF messages concept, you can also use <b>rich:notify</b>, which displays the notification directly when rendered and when re-rendered.</p>
+    
+    <hr />
+    
+    <p>
+        Components allow following ways how to raise notification box:    
+    </p>
+    
+    <ul>
+        <li>attaching FacesMessage programmaticaly</li>
+        <li>reacting on message raised by other component</li>
+        <li>using client-side validation</li>
+        <li>rich:notify rendered</li>
+    </ul>
+    
+    <hr />
+    
+    <p>Following sample combines both, standard messages and notifications to achieve full-featured user interaction.</p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>
+
+</html>

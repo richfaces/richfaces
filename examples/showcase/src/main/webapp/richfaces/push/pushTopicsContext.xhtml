@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+    <p>
+        Push can be controlled by a <b>programmatic API</b>. However a durable topic still needs to be created and registered in
+        both RichFaces and the Java Messaging Service.
+    </p>
+
+
+    <rich:panel>
+        <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    </rich:panel>
+
+    <p>
+        The programmatic API consists of a <b><tt>TopicKey</tt> </b> which addresses the topic, and a <b><tt>TopicsContext</tt>
+        </b> which is used for publishing messages.
+    </p>
+
+    <p>
+        For the purpose of observing events from the server, the client creates a <b>permanent connection</b> to the server either by using a
+        <i>WebSocket connection</i> or the <i>long-polling method</i>. Permanent connections are managed by the <i>Atmosphere
+            Framework</i>.
+    </p>
+
+    <p>
+        In this example, the message doesn't contain any data - it <b>instructs the client to re-render part of the page</b>.  In this
+        case it forces the client to load new unique ID.
+    </p>
+
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/push/TopicsContextMessageProducer.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View TopicsContext Message Producer" />
+        <ui:param name="hideLabel" value="Hide TopicsContext Message Producer" />
+    </ui:include>
+</ui:composition>
+</html>

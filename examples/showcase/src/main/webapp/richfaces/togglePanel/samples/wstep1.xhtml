@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div style="position: relative; height: 140px">
+        <h:panelGrid rowClasses="s1row" columns="3" columnClasses="wfcol1,wfcol2,wfcol3">
+            <h:outputText value="First Name:" />
+            <h:inputText id="fn" value="#{profile.firstName}" label="First Name" required="true" />
+            <rich:message for="fn" />
+
+            <h:outputText value="Last Name:" />
+            <h:inputText id="ln" value="#{profile.lastName}" label="Last Name" required="true" />
+            <rich:message for="ln" />
+
+            <h:outputText value="Company:" />
+            <h:inputText id="comp" value="#{profile.company}" label="Company" required="true" />
+            <rich:message for="comp" />
+        </h:panelGrid>
+        <div class="navPanel" style="width: 100%;">
+            <a4j:commandButton style="float:right" value="Next &gt;&gt;">
+                <rich:toggleControl targetItem="@next" event="click" />
+            </a4j:commandButton>
+        </div>
+    </div>
+</ui:composition>

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>This example shows how to use external controls, and special shortcuts to switch the tabbed panels</p>
+
+    <p>
+        The <b>rich:toggleControl</b> behavior used by any of the other switchable panels (<i>togglePanel, accordion</i>) can be
+        used with <b>rich:tabPanels</b> as well.
+    </p>
+
+    <p>
+        So you can set the <b>targetItem</b> to be defined as a specific tab name or use one of the shortcuts detailed in the <b>rich:togglePanel</b>
+        example.
+    </p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <p>
+        Additionally you can manage the current tab on the server side using the <b>activeItem</b> attribute on the tabPanel <b>bound
+            to some Bean property</b> which then holds current tab name.
+    </p>
+</ui:composition>
+</html>

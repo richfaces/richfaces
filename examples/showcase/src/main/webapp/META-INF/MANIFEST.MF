@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: bleathem
+Build-Jdk: 1.6.0_26
+Implementation-Title: Richfaces Examples: Richfaces Showcase Application
+Implementation-Version: 4.3.4-SNAPSHOT
+Implementation-Vendor-Id: org.richfaces.examples
+Implementation-Vendor: JBoss, a division of Red Hat, Inc.
+Dependencies: org.jboss.as.controller-client,org.jboss.as.protocol,org
+ .jboss.dmr,org.jboss.logging,org.jboss.marshalling,org.jboss.marshall
+ ing.river,org.jboss.remoting3,org.jboss.threads
+

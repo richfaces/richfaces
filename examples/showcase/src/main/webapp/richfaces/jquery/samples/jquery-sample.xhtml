@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:outputStylesheet>
+        .pic-normal {
+        width: 120px;
+        border: 2px solid #ACBECE;
+        }
+
+        .wrap1 {
+        width: 190px;
+        height: 130px;
+        float: left;
+        }
+    </h:outputStylesheet>
+
+
+    <br />
+
+    <a4j:outputPanel id="gallery">
+        <h:graphicImage value="/images/nature/pic1.jpg" alt="pic" />
+        <h:graphicImage value="/images/nature/pic2.jpg" alt="pic" />
+        <h:graphicImage value="/images/nature/pic3.jpg" alt="pic" />
+        <h:graphicImage value="/images/nature/pic4.jpg" alt="pic" />
+        <h:graphicImage value="/images/nature/pic5.jpg" alt="pic" />
+        <h:graphicImage value="/images/nature/pic6.jpg" alt="pic" />
+        <h:graphicImage value="/images/nature/pic7.jpg" alt="pic" />
+        <h:graphicImage value="/images/nature/pic8.jpg" alt="pic" />
+        <h:graphicImage value="/images/nature/pic9.jpg" alt="pic" />
+    </a4j:outputPanel>
+
+    <br style="clear: both" />
+
+
+    <rich:jQuery selector="#gallery img" query="addClass('pic-normal')" />
+    <rich:jQuery selector="#gallery img" query="wrap('&lt;div class=\'wrap1\'&gt;&lt;/div&gt;')" />
+    <rich:jQuery selector="#gallery img" event="mouseover" query="jQuery(this).stop().animate({width:'180px'})" />
+    <rich:jQuery selector="#gallery img" event="mouseout" query="jQuery(this).stop().animate({width:'120px'})" />
+</ui:composition>

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        This is a more complex use-case of a wizard constructed using the <b>rich:togglePanel</b> component.
+    </p>
+
+    <p>Main advantages of using this component for wizard creation:</p>
+    <ul>
+        <li>You're not defining any navigation rules and not managing current page shown in your code. You're just
+            inserting <b>rich:togglePanelItem</b> components where needed and switching between them. Also the current page
+            state could be stored using activeItem.</li>
+        <li>You are not bound anywhere in controls to which panel you need to switch. Just the <b>@next</b> and <b>@prev</b>
+            shortcuts are used. In that case you could easily add/remove additional panels without making changes in switching
+            code. Though you still could use names in targetItem in case you really need to perform a specific switch.</li>
+        <li>Opposite to 3.3.x where toggle controls were encoded as links - in RF 4.x <b>rich:toggleControl</b> is just a
+            behavior so any control can be used for switching.</li>
+    </ul>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/richfaces/togglePanel/samples/wstep1.xhtml" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="Show Step 1 Source" />
+        <ui:param name="hideLabel" value="Hide Step 1 Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/richfaces/togglePanel/samples/wstep2.xhtml" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Step 2 Source" />
+        <ui:param name="hideLabel" value="Hide Step 2 Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/richfaces/togglePanel/samples/finalStep.xhtml" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Final Step Source" />
+        <ui:param name="hideLabel" value="Hide Final Step Source" />
+    </ui:include>
+</ui:composition>
+
+</html>

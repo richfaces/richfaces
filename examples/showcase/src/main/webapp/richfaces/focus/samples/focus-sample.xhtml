@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <rich:panel header="Focus and Form Input Validation">
+
+        <h:form>
+
+            <rich:focus />
+
+            <h:panelGrid columns="3">
+                <h:outputText value="Name:" />
+                <h:inputText label="Name" id="name" value="#{userBean.name}">
+                    <f:validateRequired />
+                    <f:validateLength minimum="3" />
+                    <rich:validator event="blur" oninvalid="$(#{rich:element('name')}).addClass('invalid')" onvalid="$(#{rich:element('name')}).removeClass('invalid')" />
+                </h:inputText>
+                <rich:message for="name" ajaxRendered="true" />
+                <h:outputText value="Job:" />
+                <h:inputText label="Job" id="job" value="#{userBean.job}">
+                    <f:validateRequired />
+                    <f:validateLength minimum="3" maximum="50" />
+                    <rich:validator event="blur" oninvalid="$(#{rich:element('job')}).addClass('invalid')" onvalid="$(#{rich:element('job')}).removeClass('invalid')" />
+                </h:inputText>
+                <rich:message for="job" ajaxRendered="true" />
+                <h:outputText value="Address:" />
+                <h:inputText label="Address" id="address" value="#{userBean.address}">
+                    <f:validateRequired />
+                    <f:validateLength minimum="10" />
+                    <rich:validator event="blur" oninvalid="$(#{rich:element('address')}).addClass('invalid')" onvalid="$(#{rich:element('address')}).removeClass('invalid')" />
+                </h:inputText>
+                <rich:message for="address" ajaxRendered="true" />
+                <h:outputText value="Zip:" />
+                <h:inputText label="Zip" id="zip" value="#{userBean.zip}">
+                    <f:validateRequired />
+                    <f:validateLength minimum="4" maximum="9" />
+                    <rich:validator event="blur" oninvalid="$(#{rich:element('zip')}).addClass('invalid')" onvalid="$(#{rich:element('zip')}).removeClass('invalid')" />
+                </h:inputText>
+                <rich:message for="zip" ajaxRendered="true" />
+            </h:panelGrid>
+            
+            <a4j:commandButton value="Ajax Validate" />
+        </h:form>
+
+    </rich:panel>
+    
+    <style>
+        .invalid {
+            border-color: #D91C0D !important;
+        }
+    </style>
+
+</ui:composition>

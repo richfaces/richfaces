@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:outputStylesheet>
+        .rf-ac {
+        width: 500px;
+        }
+
+        .rf-ac-itm-c {
+        height: 220px;
+        }
+    </h:outputStylesheet>
+    <h:form>
+        <rich:accordion switchType="ajax" activeItem="#{dynamicPanelBean.activeTab}">
+        
+            <a4j:repeat value="#{skinBean.skins}" var="skinName">
+            
+                <rich:accordionItem name="#{skinName}">
+                    <f:facet name="header">
+                        Skin: <tt>#{skinName}</tt> 
+                    </f:facet>
+
+                    <i> All the controls below are just standard JSF components skinned with RichFaces: </i>
+                    <hr />
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Enter Name:" />
+                        <h:inputText id="input" />
+                        <h:outputText value="Enter you interests:" />
+                        <h:inputTextarea cols="17" rows="3" />
+                        <h:outputText value="Choose your favourite color" />
+                        <h:selectOneMenu>
+                            <f:selectItem itemLabel="Red" itemValue="0" />
+                            <f:selectItem itemLabel="Black" itemValue="1" />
+                            <f:selectItem itemLabel="Green" itemValue="2" />
+                            <f:selectItem itemLabel="White" itemValue="3" />
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <hr />
+                    <h:commandButton value="Switch to #{skinName} skin">
+                        <f:param name="skin" value="#{skinName}" />
+                    </h:commandButton>
+
+                </rich:accordionItem>
+            </a4j:repeat>
+        </rich:accordion>
+    </h:form>
+</ui:composition>

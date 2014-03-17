@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        Another great feature for the <b>a4j:param</b> component is the ability to use JavaScript to assign the 'value'
+        attribute. In this case the 'noEscape' attribute should be set to true. When noEscape="true", the 'value' can contain
+        any JavaScript expression or JavaScript function. This will be executed and the result will be sent to the server as the
+        value of a4j:param.
+    </p>
+
+    <p>The following example demonstrates how to assign the backing bean with browser screen size values.</p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>
+
+</html>

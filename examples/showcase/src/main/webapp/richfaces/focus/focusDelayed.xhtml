@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <p>
+        In certain situation, focus needs to be <b>applied with delay</b> - once suitable conditions are met.
+    </p>
+    
+    <p>
+        When focus configured with <tt>delayed=true</tt>, focus won't be applied on initial page request - it will be rendered once <tt>applyFocus()</tt> function will be called using component's JavaScript API.     
+    </p>
+    
+    <hr />
+    
+    <p>
+        In a following example, a popup panel will be opened with focus given to first input. The popup panel can't be Saved before nested inputs pass validation. 
+    </p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+
+</ui:composition>

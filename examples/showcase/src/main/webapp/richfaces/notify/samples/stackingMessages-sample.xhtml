@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    
+    <h:form>
+        <a4j:commandButton render="firstNotify" value="Render First" />    
+        <a4j:commandButton render="secondNotify" value="Render Second" />
+    </h:form>
+    
+    <rich:notifyStack id="firstStack" position="topLeft" direction="vertical" method="first" />
+    <rich:notifyStack id="secondStack" position="bottomRight" direction="horizontal" method="last" />
+    
+    <rich:notify id="firstNotify" stack="firstStack" summary="&lt;b&gt;&#35;#{notifyBean.topLeftCounter}&lt;/b&gt;" escape="false"/>
+    <rich:notify id="secondNotify" stack="secondStack" summary="&lt;b&gt;&#35;#{notifyBean.bottomRightCounter}&lt;/b&gt;" escape="false"/>
+    
+</ui:composition>

@@ -1,0 +1,16 @@
+*.css text eol=lf
+*.ecss text eol=lf
+*.html text eol=lf
+*.java text eol=lf
+*.js text eol=lf
+*.jsf text eol=lf
+*.jsp text eol=lf
+*.md text eol=lf
+*.properties text eol=lf
+*.sh text eol=lf
+*.sql text eol=lf
+*.txt text eol=lf
+*.xcss text eol=lf
+*.xhtml text eol=lf
+*.xsd text eol=lf
+

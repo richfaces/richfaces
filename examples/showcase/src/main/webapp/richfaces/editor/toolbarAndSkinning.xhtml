@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:composition>
+    <p>
+        If basic <b>toolbar setup</b> or <b>look &amp; feel</b> of rich:editor does not suit your needs, there are Editor's
+        attributes which can help you.
+    </p>
+
+    <p>
+        At first, you can configure <b>toolbar attribute</b>, you have two built-in options: <b>'basic'</b> and <b>'full'</b>.
+    </p>
+
+    <p>
+        But if you would like to configure completely custom setup of toolbar, you can use <b>config attribute</b> and provide
+        own customizations. In this example, there is <b>'custom'</b> toolbar option configured. More about <b>advanced
+            editor configuration options</b> in next tab.
+    </p>
+
+    <hr />
+
+    <p>
+        With the <b>skin attribute</b>, you are able to switch between <b>4 built-in skins</b>.
+    </p>
+
+    <p>Default skin is <b>'richfaces'</b>, which has look &amp; feel designed to fit into rest of RichFaces component suite.</p>
+
+    <p>If it is still not enough, you can either download any other CKEditor skin, place it to predefined locations or you
+        can use your own skin.</p>
+        
+    <h:outputStylesheet>
+        .rf-p { margin-bottom: 1em }
+    </h:outputStylesheet>
+    
+    <h:form>
+        <a4j:ajax render="editor">
+            <rich:panel header="Toolbar Configuration">
+                <h:selectOneRadio id="toolbarSelection" value="#{editorBean.toolbar}">
+                    <f:selectItem itemLabel="Basic" itemValue="basic" />
+                    <f:selectItem itemLabel="Full" itemValue="full" />
+                    <f:selectItem itemLabel="Custom" itemValue="custom" />                
+                </h:selectOneRadio>
+            </rich:panel>
+            
+            <rich:panel header="Editor Skin">
+                <h:selectOneRadio id="skinSelection" value="#{editorBean.skin}">
+                    <f:selectItem itemLabel="richfaces" itemValue="richfaces" />
+                    <f:selectItem itemLabel="kama" itemValue="kama" />
+                    <f:selectItem itemLabel="v2" itemValue="v2" />
+                    <f:selectItem itemLabel="office2003" itemValue="office2003" />
+                </h:selectOneRadio>
+            </rich:panel>
+        </a4j:ajax>
+    </h:form>
+
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    
+    <h:form>
+        <a4j:outputPanel style="display:none">
+            <rich:editor skin="kama" />
+            <rich:editor skin="v2" />
+            <rich:editor skin="office2003" />
+        </a4j:outputPanel>
+    </h:form>
+</ui:composition>
+
+</html>

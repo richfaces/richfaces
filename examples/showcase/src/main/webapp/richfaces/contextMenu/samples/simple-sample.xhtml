@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+
+    <h:outputStylesheet>
+        .pic {
+            margin-bottom: -4px;
+            margin-right: 2px;
+        }
+
+        .search .rf-ddm-itm-sel {
+            background-color: transparent;
+            background-image: none;
+            border-color: transparent;
+            cursor: default;
+        }
+    </h:outputStylesheet>
+
+    <h:form id="form">
+        <h:outputScript library="org.richfaces.showcase/js" name="picturesUtils.js"/>
+
+        <h:graphicImage library="org.richfaces.showcase/img" name="pic1.jpg" id="pic" style="border : 5px solid #E4EAEF"/>
+
+        <rich:contextMenu target="pic" mode="client" showEvent="click">
+            <rich:menuItem label="Zoom In" onclick="enlarge(#{rich:element('pic')});" id="zin"/>
+            <rich:menuItem label="Zoom Out" onclick="decrease(#{rich:element('pic')});" id="zout"/>
+        </rich:contextMenu>
+    </h:form>
+
+</ui:composition>
+
+</html>

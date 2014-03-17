@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <h:form>
+        <rich:extendedDataTable value="#{carsBean.allInventoryItems}"
+                                var="car" filterVar="filterValue" id="table" frozenColumns="2"
+                                sortPriority="#{carsSortingBean.sortPriorities}"
+                                style="height:300px; width:500px;" selectionMode="none">
+            <f:facet name="header">
+                <h:outputText value="Cars marketplace"/>
+            </f:facet>
+            <rich:column sortBy="#{car.vendor}"
+                         filterExpression="#{empty filterValue or fn:startsWith(car.vendor, filterValue)}"
+                         filterValue="#{carsFilteringBean.vendorFilter}">
+                <f:facet name="header">Vendor</f:facet>
+                <h:outputText value="#{car.vendor}"/>
+            </rich:column>
+            <rich:column sortBy="#{car.model}"
+                         filterExpression="#{empty filterValue or fn:startsWith(car.model, filterValue)}"
+                         filterValue="#{carsFilteringBean.modelFilter}">
+                <f:facet name="header">Model</f:facet>
+                <h:outputText value="#{car.model}"/>
+            </rich:column>
+            <rich:column sortBy="#{car.price}"
+                         filterExpression="#{empty filterValue or car.price ge filterValue}"
+                         filterValue="#{carsFilteringBean.priceFilter}"
+                         filterConverterMessage="Error converting the 'Price' filter value">
+                <f:facet name="header">Price</f:facet>
+                <h:outputText value="#{car.price}"/>
+            </rich:column>
+            <rich:column sortBy="#{car.mileage}"
+                         filterExpression="#{empty filterValue or car.price ge filterValue}"
+                         filterValue="#{carsFilteringBean.mileageFilter}"
+                         filterConverterMessage="Error converting the 'Mileage' filter value">
+                <f:facet name="header">Mileage</f:facet>
+                <h:outputText value="#{car.mileage}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">VIN Code</f:facet>
+                <h:outputText value="#{car.vin}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Items stock</f:facet>
+                <h:outputText value="#{car.stock}"/>
+            </rich:column>
+            <rich:column>
+                <f:facet name="header">Days Live</f:facet>
+                <h:outputText value="#{car.daysLive}"/>
+            </rich:column>
+        </rich:extendedDataTable>
+        <rich:messages />
+    </h:form>
+</ui:composition>

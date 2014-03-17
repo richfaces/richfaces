@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition>
+    <rich:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" filterValue="#{bean.filterValues[property]}"
+        filterExpression="#{property}">
+
+        <f:facet name="header">
+            <h:outputLabel value="Sorting:" />
+            <h:commandLink action="#{bean.toggleSort}">
+                #{bean.sortOrders[property]}
+                <a4j:ajax render="richTable" />
+                <f:setPropertyActionListener target="#{bean.sortProperty}" value="#{property}" />
+            </h:commandLink>
+            <br />
+            <h:inputText value="#{bean.filterValues[property]}">
+                <a4j:ajax render="richTable@body scroller" event="keyup" />
+            </h:inputText>
+        </f:facet>
+        <h:outputText value="#{record[property]}" />
+    </rich:column>
+</ui:composition>
+</html>

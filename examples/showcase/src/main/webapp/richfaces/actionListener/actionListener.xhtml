@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:composition>
+    <p>
+        Use <b>a4j:actionListener</b> to register an ActionListener class on a parent action component.  Multiple
+        listener methods can be registered on an action components in this way.
+    </p>
+    <p>
+        The <b>a4j:actionListener</b> tag differs from the standard JSF tag in that it allows the listener to be
+        attached in any of three ways:
+        <ol>
+            <li>By listener method, using the <em>listener</em> attribute.</li>
+            <li>By listener class, using the <em>type</em> attribute.</li>
+            <li>By object binding, using the <em>binding</em> attribute.</li>
+        </ol>
+    </p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>
+
+</html>

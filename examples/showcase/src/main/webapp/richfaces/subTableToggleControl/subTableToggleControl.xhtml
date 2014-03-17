@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        This example shows a simple master-detail table implemented using the <b>rich:dataTable</b> and <b>rich:collapsibleSubTable</b>
+        components
+    </p>
+
+    <p>
+        New in <i>RichFaces 4.x</i> is the ability to collapse and expand sub-tables using the <b>rich:collapsibleSubTable</b>
+        and <b>rich:collapsibleSubTableToggler</b> components.
+    </p>
+
+    <p>You can customize expanding and collapsing sub-tables in several ways:</p>
+    <ul>
+        <li>Sub-tables can be collapsed and expanded in different modes. Use the <b>rich:collapsibleSubTable</b>
+            component's <b>expandMode</b> attribute to specify <i>client</i>, <i>ajax</i> or <i>server</i> mode.</li>
+        <li>You can control the current state of sub-tables by using the <b>expanded</b> attribute.</li>
+    </ul>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>
+</html>

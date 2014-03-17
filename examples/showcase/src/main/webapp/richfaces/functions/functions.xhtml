@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <p>RichFaces provides a set of JavaScript functions to make working with the DOM tree and client side component API
+        easier.</p>
+
+    <p>Here is the current list:</p>
+    <ul>
+        <li><b>rich:clientId(id)</b> - returns client Id for component by it's short id.</li>
+        <li><b>rich:element(id)</b> - returns DOM element for the passed short id</li>
+        <li><b>rich:component(id)</b> - returns richfaces client component instance to call some API method.</li>
+        <li><b>rich:isUserInRole(role)</b> - returns if the user has specified role.</li>
+        <li><b>rich:findComponent(id)</b> - returns component instance for given short id</li>
+        <li><b>rich:jQuery(id)</b> - returns a jQuery object with an element for given short id</li>
+    </ul>
+    <p>
+        As an example, the result of <b># {rich:element('input')}</b> expression would be the same as calling: <i>document.getElementById('formId:input')</i>.
+    </p>
+
+    <p>Below is another example that shows how to pull a value directly from a component using the rich:findComponent call.</p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>

@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        The <b>rich:autocomplete</b> component looks like a simple input component, but has advanced options and features to
+        provide suggestions to the user during input.
+    </p>
+
+    <p>
+        There are four different <i>modes</i> for how it fetches suggestions:
+    </p>
+    <ul>
+        <li><b>client</b> - preloads data to the client and makes suggestions according to the entered prefix on the client
+        </li>
+        <li><b>lazyClient</b> - similar to client but initial suggestions loading performed not during the page load but 
+        on first component activation.</li>
+        <li><b>ajax</b> - fetches the data on every input change using Ajax requests</li>
+        <li><b>cachedAjax</b> - loads data via Ajax to make suggestions when the prefix length satisfies <i>minChars</i>
+            attribute value. Then all the suggestions are handled at the client until the initial prefix is changed. At that
+            point it will reload with the new prefix.</li>
+    </ul>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+</ui:composition>
+
+</html>

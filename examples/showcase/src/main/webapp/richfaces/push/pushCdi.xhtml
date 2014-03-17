@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+
+    <p>
+        This example shows how simple it can be to use push when using <b>CDI Events</b>, effectively decoupling event
+        producers and consumers across the view layer.
+    </p>
+    
+    <p>
+        The only necessary step is to qualify your CDI Event producer with <b><tt>@Push</tt></b> annotation (with topic name parameter). More details can be found in <tt>PushBean.java</tt> example bellow.
+    </p>
+
+    <p>The following link opens the consumer-client window - you can even copy the link and open it in separate browser
+        (simulating two distinct users, who don't share sessions).</p>
+
+    <h:outputScript library="js" name="jquery.popupWindow.js" target="head" />
+
+    <p>
+        <h:link class="popupLink" value="Messages Consumer" outcome="/richfaces/push/pushCdiConsumer" />
+    </p>
+
+    <script>
+    (function () {
+        var windowCounter = 0;
+        
+        $('.popupLink').popupWindow(function() {
+    		return { height: 400, 
+    			width: 400,
+    			top: 50, 
+    			left: 50,
+    			windowName: 'pushCdiConsumerWindow' + (windowCounter++ % 5)
+    		}});
+    })();
+    </script>
+
+    <p>Use the input bellow to send a message to all of the windows opened by the above link:</p>
+
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Producer Source" />
+        <ui:param name="hideLabel" value="Hide Producer Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/richfaces/push/samples/pushCdiConsumer-sample.xhtml" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Consumer Source" />
+        <ui:param name="hideLabel" value="Hide Consumer Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/push/PushCdiBean.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View PushCdiBean.java" />
+        <ui:param name="hideLabel" value="Hide PushCdiBean.java" />
+    </ui:include>
+
+</ui:composition>
+</html>

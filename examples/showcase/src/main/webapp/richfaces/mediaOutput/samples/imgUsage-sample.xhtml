@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:form>
+        <h:panelGrid columns="6">
+            <h:outputText value="Color 1" />
+            <h:selectOneMenu value="#{mediaData.colorIndex1}">
+                <f:selectItem itemLabel="Red" itemValue="0" />
+                <f:selectItem itemLabel="Dark Blue" itemValue="1" />
+                <f:selectItem itemLabel="Green" itemValue="2" />
+                <f:selectItem itemLabel="Yellow" itemValue="3" />
+                <f:selectItem itemLabel="Blue" itemValue="4" />
+            </h:selectOneMenu>
+            <h:outputText value="Color 2" />
+            <h:selectOneMenu value="#{mediaData.colorIndex2}">
+                <f:selectItem itemLabel="Red" itemValue="0" />
+                <f:selectItem itemLabel="Dark Blue" itemValue="1" />
+                <f:selectItem itemLabel="Green" itemValue="2" />
+                <f:selectItem itemLabel="Yellow" itemValue="3" />
+                <f:selectItem itemLabel="Blue" itemValue="4" />
+            </h:selectOneMenu>
+            <h:outputText value="Color 3" />
+            <h:selectOneMenu value="#{mediaData.colorIndex3}">
+                <f:selectItem itemLabel="Red" itemValue="0" />
+                <f:selectItem itemLabel="Dark Blue" itemValue="1" />
+                <f:selectItem itemLabel="Green" itemValue="2" />
+                <f:selectItem itemLabel="Yellow" itemValue="3" />
+                <f:selectItem itemLabel="Blue" itemValue="4" />
+            </h:selectOneMenu>
+            <f:facet name="footer">
+                <a4j:commandButton value="Process the image" render="img" execute="@form" />
+            </f:facet>
+        </h:panelGrid>
+        <a4j:mediaOutput element="img" cacheable="false" session="true" id="img" createContent="#{mediaBean.process}"
+            value="#{mediaData}" mimeType="image/jpeg" alt="img" />
+    </h:form>
+</ui:composition>

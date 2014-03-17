@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    <h:outputStylesheet>
+        .ecol1 {
+        vertical-align: top;
+        padding-right: 25px
+        }
+
+        .ecol2 {
+        vertical-align: top;
+        border-left: #ACBECE 1px solid;
+        padding-left: 10px
+        }
+
+        .rich-calendar-tool-btn {
+        font-family: Arial, Verdana;
+        }
+    </h:outputStylesheet>
+    <h:form>
+
+        <h:panelGrid id="panel" columns="2" columnClasses="ecol1, ecol2">
+            <a4j:outputPanel layout="block">
+                <rich:calendar value="#{calendarBean.selectedDate}" id="calendar" locale="#{calendarBean.locale}"
+                    popup="#{calendarBean.popup}" datePattern="#{calendarBean.pattern}"
+                    showApplyButton="#{calendarBean.showApply}" cellWidth="24px" cellHeight="22px" style="width:200px"
+                    disabled="#{calendarBean.disabled}">
+                </rich:calendar>
+            </a4j:outputPanel>
+            <a4j:region>
+                <h:panelGrid id="settings" columns="2">
+                    <h:outputText value="Disabled:" />
+                    <h:selectBooleanCheckbox value="#{calendarBean.disabled}">
+                        <a4j:ajax event="click" render="calendar settings" />
+                    </h:selectBooleanCheckbox>
+                    <h:outputText value="Popup Mode:" />
+                    <h:selectBooleanCheckbox value="#{calendarBean.popup}" >
+                        <a4j:ajax event="click" render="calendar settings" />
+                    </h:selectBooleanCheckbox>
+                    <h:outputText value="Apply Button:" />
+                    <h:selectBooleanCheckbox value="#{calendarBean.showApply}" disabled="#{!calendarBean.showApplyAvailable}">
+                        <a4j:ajax event="click" render="calendar settings" />
+                    </h:selectBooleanCheckbox>
+                    <h:outputText value="Select Locale" />
+                    <h:selectOneRadio value="en/US" valueChangeListener="#{calendarBean.selectLocale}">
+                        <a4j:ajax event="click" render="calendar settings" />
+                        <f:selectItem itemLabel="US" itemValue="en/US" />
+                        <f:selectItem itemLabel="DE" itemValue="de/DE" />
+                        <f:selectItem itemLabel="FR" itemValue="fr/FR" />
+                        <f:selectItem itemLabel="RU" itemValue="ru/RU" />
+                    </h:selectOneRadio>
+
+                    <h:outputText value="Select Date Pattern:" />
+                    <h:selectOneMenu value="#{calendarBean.pattern}" disabled="#{!calendarBean.patternAvailable}">
+                        <a4j:ajax event="change" render="calendar settings" />
+                        <f:selectItem itemLabel="d/M/yy HH:mm" itemValue="d/M/yy HH:mm" />
+                        <f:selectItem itemLabel="dd/M/yy hh:mm a" itemValue="dd/M/yy hh:mm a" />
+                        <f:selectItem itemLabel="d/MMM/y" itemValue="d/MMM/y" />
+                        <f:selectItem itemLabel="MMM d, yyyy" itemValue="MMM d, yyyy" />
+                    </h:selectOneMenu>
+
+                </h:panelGrid>
+            </a4j:region>
+        </h:panelGrid>
+    </h:form>
+</ui:composition>

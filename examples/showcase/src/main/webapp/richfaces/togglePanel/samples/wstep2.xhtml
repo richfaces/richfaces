@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div style="position: relative; height: 140px">
+        <h:panelGrid columns="3" columnClasses="wfcol1,wfcol2,wfcol3">
+            <h:outputText value="Notes:" />
+            <h:inputTextarea cols="20" rows="4" id="notes" value="#{profile.notes}" label="Notes" required="true" />
+            <rich:message for="notes" />
+        </h:panelGrid>
+        <div class="navPanel" style="width: 100%;">
+            <a4j:commandButton value="&lt;&lt;Previous" style="float:left">
+                <rich:toggleControl targetItem="@prev" event="click" />
+            </a4j:commandButton>
+            <a4j:commandButton value="Next &gt;&gt;" style="float:right">
+                <rich:toggleControl targetItem="@next" event="click" />
+            </a4j:commandButton>
+        </div>
+
+
+    </div>
+</ui:composition>

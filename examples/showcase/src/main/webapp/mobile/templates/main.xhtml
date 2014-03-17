@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:head>
+        <title>RichFaces Mobile Showcase</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+
+        <!-- enable full-screen mode -->
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <!-- controls the appearance of the status bar in full-screen mode -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/slidfast.css" />
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/mobile/slidfast.js"></script>
+
+        <script type="text/javascript">
+
+           var _gaq = _gaq || [];
+           _gaq.push(['_setAccount', 'UA-7306415-7']);
+           _gaq.push(['_setDomainName', 'richfaces.org']);
+           _gaq.push(['_setAllowLinker', true]);
+           _gaq.push(['_trackPageview']);
+
+           (function() {
+           var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+           ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+           })();
+
+           //initialize mobile RichFaces with slidfast
+           slidfast({
+               defaultPageID:'home-page',
+               callback: 'handleHashChange',
+               backButtonID: 'back-button' //optional
+           });
+
+        </script>
+
+    </h:head>
+    <h:body>
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/mobile/rf-mobile-skin.css" />
+
+        <div id="browser">
+            <header>
+                <div>
+                   <div id="back-button" class="hide-button">Back</div>
+                   <a href="#{facesContext.externalContext.requestContextPath}/index.jsp">
+                       <img src="#{facesContext.externalContext.requestContextPath}/images/mobile/rf-logo-small.png" alt="RF logo" class="logo"/>
+                   </a>
+                   <h:graphicImage id="ajaxLoader" width="16" height="16" value="/images/mobile/loader.gif" alt="loader" style="float: right; margin: 14px; visibility: hidden" /> 
+                   <a4j:status onstart="#{rich:element('ajaxLoader')}.style.visibility='visible'" onstop="#{rich:element('ajaxLoader')}.style.visibility='hidden'" />
+                </div>
+            </header>
+            <h:form style="width:100%;height:100%;">
+            <a4j:queue requestDelay="2000" rendered="#{(userAgent.phone || userAgent.tablet) and demoNavigator.currentDemo.id == 'attachQueue'}" />
+            <a4j:push id="pushJms" address="pushJms" ondataavailable="jQuery(#{rich:element('serverDate')}).text(event.rf.data)" rendered="#{(userAgent.phone || userAgent.tablet) and demoNavigator.currentDemo.id == 'push'}" />
+            <a4j:jsFunction name="handleHashChange" render="@form" oncomplete="slidfast.core.slideTo('component-page')">
+                <f:param name="demo" value="param1"/>
+                <f:param name="sample" value="param2"/>
+            </a4j:jsFunction>
+
+            <div id="page-container">
+                <div id="home-page" class="page stage-left">
+                    <nav>
+                        <div class="nav-list">
+
+                             <rich:panelMenu activeItem="#{demoNavigator.currentDemo.id}">
+                                <c:forEach items="#{demoNavigator.groups}" var="gr">
+                                    <rich:panelMenuGroup label="#{gr.name}" rightExpandedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}"
+                                        rightCollapsedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}">
+                                        <c:forEach items="#{gr.demos}" var="d">
+
+                                            <rich:panelMenuItem label="#{d.name}" oncomplete="location.hash='#{d.id}:#{demoNavigator.currentSample.id}'" render="@form"
+                                                                 rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}">
+                                                    <f:param name="demo" value="#{d.id}"/>
+                                                    <f:param name="sample" value="#{demoNavigator.currentSample.id}"/>
+                                            </rich:panelMenuItem>
+                                        </c:forEach>
+                                    </rich:panelMenuGroup>
+                                </c:forEach>
+                            </rich:panelMenu>
+
+                        </div>
+                    </nav>
+                </div>
+
+                <div id="component-page" class="page stage-right">
+
+                        <div>
+                            <h:outputStylesheet>
+                                .navigation .rf-tab-hdr-brd,.navigation .rf-tab {
+                                display: none;
+                                }
+                            </h:outputStylesheet>
+                            <div>
+                                <fieldset class="example-cnt">
+                                    <ui:include src="#{demoNavigator.sampleURI}" />
+                                </fieldset>
+
+                             </div>
+                        </div>
+                </div>
+            </div>
+            </h:form>
+        </div>
+
+    </h:body>
+</f:view>
+<ui:remove>
+<!--Only needed if using drag and drop component-->
+<script type="text/javascript">
+// iOS drag and Drop support is provided through the use of rf-dnd.js. The script must be places in this location
+// of your xhtml page.
+</script>
+ </ui:remove>
+</html>

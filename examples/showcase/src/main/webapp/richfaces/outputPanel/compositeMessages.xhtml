@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        This sample shows how you could simply create a composite component using standard <b>h:messages</b> and <b>a4j:outputPanel</b>
+        components. The composite component is updated for any Ajax request without render definition.
+    </p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/resources/org.richfaces.showcase/messages.xhtml" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Messages Composite Component" />
+        <ui:param name="hideLabel" value="Hide Messages Composite Component" />
+    </ui:include>
+</ui:composition>
+
+</html>
