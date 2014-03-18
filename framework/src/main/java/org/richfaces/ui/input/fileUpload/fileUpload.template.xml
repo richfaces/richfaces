@@ -29,6 +29,7 @@
         <cdk:superclass>org.richfaces.ui.input.fileUpload.FileUploadRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.ui.FileUpload</cdk:component-family>
         <cdk:renderer-type>org.richfaces.ui.FileUploadRenderer</cdk:renderer-type>
+        <cdk:resource-dependency library = "bootstrap" name = "bootstrap.css" />
         <cdk:resource-dependency library="javax.faces" name="jsf.js" />
         <cdk:resource-dependency library="org.richfaces" name="jquery.js" />
         <cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
@@ -41,7 +42,7 @@
     <cc:implementation>
         <cdk:object name="attributes" value="#{component.attributes}" />
         <cdk:object name="disabled" value="#{attributes['disabled']}" />
-        <div id="#{clientId}" class="rf-fu #{attributes['styleClass']}" cdk:passThroughWithExclusions="">
+        <div id="#{clientId}" class="rf-fu #{attributes['styleClass']}" cdk:passThroughWithExclusions="" tabindex="-1">
             <div class="rf-fu-hdr">
                 <span class="rf-fu-btns-lft">
                     <span class="rf-fu-btn-add#{disabled ? '-dis' : ''}">

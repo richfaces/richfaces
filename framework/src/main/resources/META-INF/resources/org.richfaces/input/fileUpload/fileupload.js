@@ -80,7 +80,9 @@
     var FAKE_PATH = "C:\\fakepath\\";
     var ITEM_HTML = '<div class="rf-fu-itm">'
         + '<span class="rf-fu-itm-lft"><span class="rf-fu-itm-lbl"/><span class="rf-fu-itm-st" />'
-        + '<progress max="100" value="0" class="rf-fu-itm-pb"/></span>'
+        + '<div class="progress progress-striped active">'
+        + '<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">'
+        + '<span></span></div></div></span>'
         + '<span class="rf-fu-itm-rgh"><a href="javascript:void(0)" class="rf-fu-itm-lnk"/></span></div>';
 
     var ITEM_STATE = {
@@ -156,6 +158,10 @@
             __addItemsFromDrop: function(dropEvent) {
                 dropEvent.stopPropagation();
                 dropEvent.preventDefault();
+                
+                if (this.maxFilesQuantity && this.__getTotalItemCount() >= this.maxFilesQuantity) {
+                    return;
+                }
 
                 this.__addFiles(dropEvent.originalEvent.dataTransfer.files);
             },
@@ -186,7 +192,7 @@
                     }
                 }
                 if (this.__accept(fileName) && (!this.noDuplicate || !this.__isFileAlreadyAdded(fileName))) {
-                    this.input.hide();
+                    this.input.remove();
                     this.input.unbind("change", this.addProxy);
                     var item = new Item(this, file);
                     this.list.append(item.getJQuery());
@@ -331,7 +337,9 @@
                 var leftArea = this.element.children(".rf-fu-itm-lft:first");
                 this.label = leftArea.children(".rf-fu-itm-lbl:first");
                 this.state = this.label.nextAll(".rf-fu-itm-st:first");
-                this.progressBar = this.label.nextAll(".rf-fu-itm-pb:first").hide();
+                this.progressBar = leftArea.find(".progress-bar");
+                this.progressBar.parent().hide();
+                this.progressLabel = this.progressBar.find('span');
                 this.link = leftArea.next().children("a");
                 this.label.html(this.model.name);
                 this.link.html(this.fileUpload["deleteLabel"]);
@@ -346,8 +354,8 @@
 
             startUploading: function() {
                 this.state.css("display", "block");
-                this.progressBar.show();
-                this.state.html("0 %");
+                this.progressBar.parent().show();
+                this.progressLabel.html("0 %");
                 this.link.html("");
                 this.model.state = ITEM_STATE.UPLOADING;
                 this.uid = Math.random();
@@ -379,8 +387,9 @@
                 this.xhr.upload.onprogress = $.proxy(function(e) {
                         if (e.lengthComputable) {
                             var progress = Math.floor((e.loaded / e.total) * 100);
-                            this.state.html( progress + " %" );
-                            this.progressBar.val(progress);
+                            this.progressLabel.html( progress + " %" );
+                            this.progressBar.attr("aria-valuenow", progress);
+                            this.progressBar.css("width", progress + "%");
                         }
                     }, this);
 
@@ -421,7 +430,7 @@
 
             finishUploading: function(state) {
                 this.state.html(this.fileUpload[state + "Label"]);
-                this.progressBar.hide();
+                this.progressBar.parent().hide();
                 this.link.html(this.fileUpload["clearLabel"]);
                 this.model.state = state;
             }
