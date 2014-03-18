@@ -95,12 +95,6 @@ public class ITEditor {
 
         p.form("<br/>");
 
-        // TODO inline editor
-        p.form("<div id='inline-editor' contenteditable='true'>");
-        p.form("<p id='firstParagraph'>Inline Editing in Action!</p>");
-        p.form("<p>The div element that contains this text is now editable.</p>");
-        p.form("</div>");
-
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
@@ -129,15 +123,15 @@ public class ITEditor {
         browser.get(contextPath.toExternalForm());
         JavascriptExecutor js = (JavascriptExecutor) browser;
         // test basic editor JS functions
-        String jsResult = (String) js.executeScript("return RichFaces.component('testEditorBasic').getValue()");
+        String jsResult = (String) js.executeScript("return RichFaces.component('testEditorBasic').value()");
         assertTrue(jsResult.contains("This was predefined"));
 
-        Boolean readonly = (Boolean) js.executeScript("return RichFaces.component('testEditorBasic').isReadOnly()");
+        Boolean readonly = (Boolean) js.executeScript("return RichFaces.component('testEditorBasic').readOnly()");
         assertFalse(readonly);
 
-        js.executeScript("RichFaces.component('testEditorBasic').setReadOnly('true')");
+        js.executeScript("RichFaces.component('testEditorBasic').readOnly('true')");
 
-        readonly = (Boolean) js.executeScript("return RichFaces.component('testEditorBasic').isReadOnly()");
+        readonly = (Boolean) js.executeScript("return RichFaces.component('testEditorBasic').readOnly()");
         assertTrue(readonly);
     }
 
