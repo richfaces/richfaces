@@ -122,7 +122,7 @@ public class ITEditor {
     public void testJsApi() {
         browser.get(contextPath.toExternalForm());
         JavascriptExecutor js = (JavascriptExecutor) browser;
-        // test basic editor JS functions
+
         String jsResult = (String) js.executeScript("return RichFaces.component('testEditorBasic').value()");
         assertTrue(jsResult.contains("This was predefined"));
 
@@ -131,8 +131,8 @@ public class ITEditor {
 
         js.executeScript("RichFaces.component('testEditorBasic').readOnly('true')");
 
-        readonly = (Boolean) js.executeScript("return RichFaces.component('testEditorBasic').readOnly()");
-        assertTrue(readonly);
+        String result = (String) js.executeScript("return RichFaces.component('testEditorBasic').readOnly()");
+        assertTrue(result.equals("true"));
     }
 
     /**
@@ -140,7 +140,7 @@ public class ITEditor {
      */
     @Test
     @Category(Smoke.class)
-    public void testBasicFunctionality() {
+    public void testTyping() {
         browser.get(contextPath.toExternalForm());
         String testText = "I just typed this using WebDriver!";
         typeToEditor(testText);
