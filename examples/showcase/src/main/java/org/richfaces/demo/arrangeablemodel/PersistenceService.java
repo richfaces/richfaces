@@ -21,6 +21,7 @@
  */
 package org.richfaces.demo.arrangeablemodel;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Node;
 
 import com.google.common.collect.Lists;
-import com.google.common.io.Closeables;
 
 /**
  * @author Nick Belaevski
@@ -150,7 +150,12 @@ public class PersistenceService {
 
             return persons;
         } finally {
-            Closeables.closeQuietly(dataStream);
+            try {
+                dataStream.close();
+            }
+            catch (IOException e){
+                // Swallow
+            }
         }
     }
 
