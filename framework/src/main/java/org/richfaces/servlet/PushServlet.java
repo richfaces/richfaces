@@ -30,7 +30,7 @@ import org.atmosphere.cpr.ApplicationConfig;
 import org.atmosphere.cpr.AtmosphereHandler;
 import org.atmosphere.cpr.AtmosphereServlet;
 import org.atmosphere.handler.ReflectorServletProcessor;
-import org.richfaces.push.PushContextFactoryImpl;
+import org.richfaces.application.push.impl.PushContextFactoryImpl;
 
 import com.google.common.collect.Maps;
 

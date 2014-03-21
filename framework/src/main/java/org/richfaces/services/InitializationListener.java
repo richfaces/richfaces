@@ -45,10 +45,9 @@ import javax.imageio.stream.ImageInputStream;
 import javax.xml.rpc.ServiceFactory;
 
 import org.richfaces.VersionBean;
+import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.push.PushContext;
-import org.richfaces.push.PushContextFactory;
 
 /**
  * <p>Listens for application's {@link PostConstructApplicationEvent} and {@link PreDestroyApplicationEvent} events in order to initialize RichFaces services.</p>

@@ -22,6 +22,8 @@
 
 package org.richfaces.services;
 
+import org.richfaces.application.push.PushContextFactory;
+import org.richfaces.application.push.impl.PushContextFactoryImpl;
 import org.richfaces.cache.Cache;
 import org.richfaces.cache.CacheProvider;
 import org.richfaces.configuration.ConfigurationService;
@@ -35,8 +37,6 @@ import org.richfaces.javascript.JavaScriptServiceImpl;
 import org.richfaces.l10n.BundleLoader;
 import org.richfaces.l10n.MessageFactory;
 import org.richfaces.l10n.MessageFactoryImpl;
-import org.richfaces.push.PushContextFactory;
-import org.richfaces.push.PushContextFactoryImpl;
 import org.richfaces.resource.DefaultResourceCodec;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;

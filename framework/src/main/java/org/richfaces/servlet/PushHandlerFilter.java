@@ -39,12 +39,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.atmosphere.cpr.BroadcastFilter;
 import org.atmosphere.cpr.Broadcaster.SCOPE;
 import org.atmosphere.cpr.Meteor;
+import org.richfaces.application.push.PushContext;
+import org.richfaces.application.push.Request;
+import org.richfaces.application.push.Session;
+import org.richfaces.application.push.impl.RequestImpl;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.push.PushContext;
-import org.richfaces.push.Request;
-import org.richfaces.push.RequestImpl;
-import org.richfaces.push.Session;
 
 /**
  * Serves as delegate for Atmposphere servlets - should not be used directly
