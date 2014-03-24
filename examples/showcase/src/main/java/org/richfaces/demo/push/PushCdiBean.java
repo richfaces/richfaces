@@ -26,7 +26,7 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.push.cdi.Push;
+import org.richfaces.cdi.push.Push;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>

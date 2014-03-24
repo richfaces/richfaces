@@ -26,9 +26,10 @@ import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 
-import org.richfaces.push.MessageException;
-import org.richfaces.push.TopicKey;
-import org.richfaces.push.TopicsContext;
+import org.richfaces.application.push.MessageException;
+import org.richfaces.application.push.TopicKey;
+import org.richfaces.application.push.TopicsContext;
+
 
 @ManagedBean
 public class RichBean {

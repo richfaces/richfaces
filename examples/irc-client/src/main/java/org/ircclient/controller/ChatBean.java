@@ -37,11 +37,11 @@ import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.NickAlreadyInUseException;
 import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
+import org.richfaces.application.push.MessageException;
+import org.richfaces.application.push.TopicKey;
+import org.richfaces.application.push.TopicsContext;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
-import org.richfaces.push.MessageException;
-import org.richfaces.push.TopicKey;
-import org.richfaces.push.TopicsContext;
 
 @ManagedBean
 @SessionScoped

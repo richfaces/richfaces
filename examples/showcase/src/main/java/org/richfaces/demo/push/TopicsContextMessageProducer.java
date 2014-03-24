@@ -21,10 +21,10 @@
  */
 package org.richfaces.demo.push;
 
+import org.richfaces.application.push.TopicKey;
+import org.richfaces.application.push.TopicsContext;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.push.TopicKey;
-import org.richfaces.push.TopicsContext;
 
 /**
  * Sends message to topic using TopicsContext.
