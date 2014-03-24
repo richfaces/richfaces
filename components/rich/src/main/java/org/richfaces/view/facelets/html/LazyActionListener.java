@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.ajax;
+package org.richfaces.view.facelets.html;
 
 import java.io.Serializable;
 
@@ -32,13 +32,13 @@ import javax.faces.event.ActionListener;
 import org.richfaces.cdk.annotations.Event;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.ui.common.TagHandlerUtils;
+import org.richfaces.view.facelets.TagHandlerUtils;
 
 /**
  * @author Nick Belaevski
  *
  */
-@Event(listener = ActionListener.class, source = "org.richfaces.event.DummyActionListenerSource", tag = { @Tag(name = "actionListener", handlerClass = ActionListenerHandler.class, generate = false, type = TagType.Facelets) })
+@Event(listener = ActionListener.class, source = "org.richfaces.event.DummyActionListenerSource", tag = { @Tag(name = "actionListener", handler = "org.richfaces.view.facelets.html.ActionListenerHandler", generate = false, type = TagType.Facelets) })
 class LazyActionListener implements ActionListener, Serializable {
     /**
      *

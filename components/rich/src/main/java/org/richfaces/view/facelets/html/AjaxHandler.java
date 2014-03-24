@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2013, Red Hat, Inc. and individual contributors
+ * Copyright ${year}, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.ajax.ajax;
+package org.richfaces.view.facelets.html;
 
 import java.beans.BeanDescriptor;
 import java.beans.BeanInfo;
@@ -44,14 +44,11 @@ import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.TagException;
 import javax.faces.view.facelets.TagHandler;
 
-import org.richfaces.ui.ajax.queue.AbstractAttachQueue;
-import org.richfaces.ui.ajax.queue.AttachQueueHandler;
-import org.richfaces.ui.ajax.queue.AttachQueueInfo;
-import org.richfaces.ui.ajax.queue.AttachQueueStack;
-import org.richfaces.ui.behavior.BehaviorStack;
-import org.richfaces.ui.behavior.BehaviorStack.BehaviorInfo;
-import org.richfaces.ui.common.CustomBehaviorHandler;
-import org.richfaces.ui.common.TagHandlerUtils;
+import org.ajax4jsf.component.behavior.AjaxBehavior;
+import org.richfaces.component.AbstractAttachQueue;
+import org.richfaces.view.facelets.TagHandlerUtils;
+import org.richfaces.view.facelets.html.BehaviorStack.BehaviorInfo;
+import org.richfaces.view.facelets.tag.AjaxBehaviorRule;
 
 /**
  * @author Anton Belevich
@@ -190,7 +187,7 @@ public class AjaxHandler extends CustomBehaviorHandler {
             eventName = resolveEventName(bHolder);
             bHolder.addClientBehavior(eventName, behavior);
         } else {
-            throw new TagException(this.tag, "Unable to attach <r:ajax> to non-ClientBehaviorHolder parent");
+            throw new TagException(this.tag, "Unable to attach <a4j:ajax> to non-ClientBehaviorHolder parent");
         }
     }
 

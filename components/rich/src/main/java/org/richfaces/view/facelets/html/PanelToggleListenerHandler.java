@@ -31,8 +31,8 @@ import javax.faces.view.facelets.TagConfig;
 import org.richfaces.event.PanelToggleEvent;
 import org.richfaces.event.PanelToggleListener;
 import org.richfaces.event.PanelToggleSource;
-import org.richfaces.ui.common.TagHandlerUtils;
 import org.richfaces.view.facelets.EventListenerHandler;
+import org.richfaces.view.facelets.TagHandlerUtils;
 
 /**
  *

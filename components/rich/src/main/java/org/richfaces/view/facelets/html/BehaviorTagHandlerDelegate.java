@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.behavior;
+package org.richfaces.view.facelets.html;
 
 import java.io.IOException;
 
@@ -33,7 +33,7 @@ import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.MetaRuleset;
 import javax.faces.view.facelets.TagHandlerDelegate;
 
-import org.richfaces.ui.common.CustomBehaviorHandler;
+import org.richfaces.ui.behavior.ClientBehavior;
 
 /**
  * @author Anton Belevich

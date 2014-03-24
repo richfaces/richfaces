@@ -33,8 +33,8 @@ import javax.faces.view.facelets.TagConfig;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.ItemChangeListener;
 import org.richfaces.event.ItemChangeSource;
-import org.richfaces.ui.common.TagHandlerUtils;
 import org.richfaces.view.facelets.EventListenerHandler;
+import org.richfaces.view.facelets.TagHandlerUtils;
 
 /**
  *

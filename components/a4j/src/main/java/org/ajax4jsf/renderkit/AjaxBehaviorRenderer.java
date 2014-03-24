@@ -21,6 +21,8 @@
  */
 package org.ajax4jsf.renderkit;
 
+import java.util.Map;
+
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.ActionSource;
@@ -37,8 +39,15 @@ import javax.faces.render.RenderKitFactory;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
+import org.richfaces.javascript.JSReference;
+import org.richfaces.renderkit.AjaxFunction;
+import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
+import org.richfaces.ui.ajax.ajax.AjaxClientBehavior;
+import org.richfaces.ui.common.AjaxConstants;
 import org.richfaces.util.RendererUtils;
+
+import com.google.common.base.Strings;
 
 /**
  * @author Anton Belevich
@@ -127,6 +136,87 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
     }
 
     public String buildAjaxCommand(ClientBehaviorContext bContext, AjaxBehavior behavior) {
-        return AjaxRendererUtils.buildAjaxFunction(bContext, behavior).toString();
+        return buildAjaxFunction(bContext, behavior).toString();
+    }
+
+    public AjaxFunction buildAjaxFunction(ClientBehaviorContext behaviorContext, AjaxClientBehavior behavior) {
+        Object source;
+
+        AjaxOptions options = buildAjaxOptions(behaviorContext, behavior);
+
+        if (behaviorContext.getSourceId() != null) {
+            source = behaviorContext.getSourceId();
+        } else {
+            source = JSReference.THIS;
+
+            FacesContext facesContext = behaviorContext.getFacesContext();
+            UIComponent component = behaviorContext.getComponent();
+
+            options.setAjaxComponent(component.getClientId(facesContext));
+            options.set("sourceId", source);
+        }
+
+        return new AjaxFunction(source, options);
+    }
+
+
+
+    private AjaxOptions buildAjaxOptions(ClientBehaviorContext behaviorContext, AjaxClientBehavior ajaxBehavior) {
+        FacesContext facesContext = behaviorContext.getFacesContext();
+        UIComponent component = behaviorContext.getComponent();
+
+        AjaxOptions ajaxOptions = new AjaxOptions();
+
+        Map<String, Object> parametersMap = RendererUtils.getInstance().createParametersMap(facesContext, component);
+        ajaxOptions.addParameters(parametersMap);
+
+        String ajaxStatusName = ajaxBehavior.getStatus();
+        if (Strings.isNullOrEmpty(ajaxStatusName)) {
+            ajaxStatusName = AjaxRendererUtils.getAjaxStatus(component);
+        }
+        if (!Strings.isNullOrEmpty(ajaxStatusName)) {
+            ajaxOptions.set(AjaxRendererUtils.STATUS_ATTR_NAME, ajaxStatusName);
+        }
+
+        appenAjaxBehaviorOptions(behaviorContext, ajaxBehavior, ajaxOptions);
+
+        return ajaxOptions;
+    }
+
+    private void appenAjaxBehaviorOptions(ClientBehaviorContext behaviorContext, AjaxClientBehavior behavior,
+        AjaxOptions ajaxOptions) {
+        ajaxOptions.setParameter(AjaxConstants.BEHAVIOR_EVENT_PARAMETER, behaviorContext.getEventName());
+        ajaxOptions.setBeforesubmitHandler(behavior.getOnbeforesubmit());
+
+        for (BehaviorOptionsData optionsData : BehaviorOptionsData.values()) {
+            String optionValue = optionsData.getAttributeValue(behavior);
+
+            if (!Strings.isNullOrEmpty(optionValue)) {
+                ajaxOptions.set(optionsData.toString(), optionValue);
+            }
+        }
+    }
+
+    private static enum BehaviorOptionsData {
+        begin {
+            @Override
+            public String getAttributeValue(AjaxClientBehavior behavior) {
+                return behavior.getOnbegin();
+            }
+        },
+        error {
+            @Override
+            public String getAttributeValue(AjaxClientBehavior behavior) {
+                return behavior.getOnerror();
+            }
+        },
+        queueId {
+            @Override
+            public String getAttributeValue(AjaxClientBehavior behavior) {
+                return behavior.getQueueId();
+            }
+        };
+
+        public abstract String getAttributeValue(AjaxClientBehavior behavior);
     }
 }
