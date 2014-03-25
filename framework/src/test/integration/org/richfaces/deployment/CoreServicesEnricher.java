@@ -27,13 +27,13 @@ import java.lang.reflect.Type;
 
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
+import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.cache.Cache;
 import org.richfaces.configuration.ConfigurationService;
 import org.richfaces.context.AjaxDataSerializer;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.l10n.MessageFactory;
-import org.richfaces.push.PushContextFactory;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.external.ResourceTracker;
