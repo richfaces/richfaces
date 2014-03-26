@@ -23,10 +23,10 @@ package org.richfaces.renderkit;
 
 import java.io.IOException;
 
-import org.richfaces.javascript.JSChainJSFFunction;
-import org.richfaces.javascript.JSReference;
-import org.richfaces.javascript.ScriptStringBase;
-import org.richfaces.javascript.ScriptUtils;
+import org.ajax4jsf.javascript.JSChainJSFFunction;
+import org.ajax4jsf.javascript.JSReference;
+import org.ajax4jsf.javascript.ScriptStringBase;
+import org.ajax4jsf.javascript.ScriptUtils;
 
 /**
  * @author Nick Belaevski

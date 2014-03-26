@@ -27,7 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.javascript.ScriptUtils;
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.util.HtmlDimensions;
 import org.richfaces.util.RendererUtils;
 

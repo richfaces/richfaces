@@ -50,8 +50,8 @@ import javax.faces.model.ResultDataModel;
 import javax.faces.model.ResultSetDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
 
-import org.richfaces.javascript.JSObject;
-import org.richfaces.javascript.JSReference;
+import org.ajax4jsf.javascript.JSObject;
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.ui.common.meta.MetaComponentRenderer;

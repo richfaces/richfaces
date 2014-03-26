@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.richfaces.javascript.ScriptStringBase;
+import org.ajax4jsf.javascript.ScriptStringBase;
 
 public class AnonymousFunctionCall extends ScriptStringBase {
 

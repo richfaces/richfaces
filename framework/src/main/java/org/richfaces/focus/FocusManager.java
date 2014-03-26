@@ -20,15 +20,28 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.javascript;
+package org.richfaces.focus;
 
-import org.ajax4jsf.javascript.ScriptString;
+import javax.faces.event.PhaseId;
 
 /**
- * This interface describes JavaScript object with possible dependent resource.
- *
- * @author asmirnov
- *
+ * Service for managing Focus of components on the page.
  */
-public interface LibraryScriptString extends LibraryScript, ScriptString {
+public interface FocusManager {
+
+    String FOCUS_CONTEXT_ATTRIBUTE = FocusManager.class.getName() + ".FOCUS";
+
+    /**
+     * <p>
+     * Enforces to focus given component.
+     * </p>
+     *
+     * <p>
+     * In order to ensure the focus will be given to component, this method must be used before {@link PhaseId#RENDER_RESPONSE}
+     * phase takes place.
+     * </p>
+     *
+     * @param componentId ID of the component to be focused; or null if focus should not be enforced
+     */
+    void focus(String componentId);
 }

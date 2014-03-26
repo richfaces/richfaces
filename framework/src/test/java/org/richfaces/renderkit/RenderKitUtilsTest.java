@@ -37,9 +37,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.junit.Test;
-import org.richfaces.javascript.JSFunctionDefinition;
-import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 
 /**

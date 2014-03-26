@@ -38,8 +38,8 @@ import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
-import org.richfaces.javascript.JSReference;
 import org.richfaces.renderkit.AjaxFunction;
 import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.renderkit.util.AjaxRendererUtils;

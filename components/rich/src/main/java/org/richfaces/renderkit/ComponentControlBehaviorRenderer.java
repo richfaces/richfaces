@@ -38,12 +38,12 @@ import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
 
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.JSReference;
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.component.UIHashParameter;
 import org.richfaces.component.behavior.ComponentControlBehavior;
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSFunctionDefinition;
-import org.richfaces.javascript.JSReference;
-import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.util.RendererUtils;
 
 /**

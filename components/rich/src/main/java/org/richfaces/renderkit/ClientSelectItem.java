@@ -23,10 +23,10 @@ package org.richfaces.renderkit;
 
 import java.io.IOException;
 
-import org.richfaces.javascript.ScriptString;
-import org.richfaces.javascript.ScriptUtils;
-
 import javax.faces.model.SelectItem;
+
+import org.ajax4jsf.javascript.ScriptString;
+import org.ajax4jsf.javascript.ScriptUtils;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

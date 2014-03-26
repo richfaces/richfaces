@@ -34,10 +34,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSFunctionDefinition;
-import org.richfaces.javascript.JSLiteral;
-import org.richfaces.javascript.JSReference;
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.JSLiteral;
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractDataScroller;
 import org.richfaces.component.DataScrollerControlsMode;
 import org.richfaces.event.DataScrollEvent;

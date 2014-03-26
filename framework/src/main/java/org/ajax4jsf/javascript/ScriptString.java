@@ -19,16 +19,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.ajax4jsf.javascript;
 
-package org.richfaces.javascript;
-
-import org.richfaces.resource.ResourceLibrary;
+import java.io.IOException;
 
 /**
- * This interface describes JavaScript object with optional dependent resources.
- *
- * @author asmirnov
+ * @author shura (latest modification by $Author: alexsmirnov $)
+ * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:58:32 $
  *
  */
-public interface ScriptWithDependencies extends ResourceLibrary, ScriptString {
+public interface ScriptString {
+    /**
+     * Return object content as JavaScript String.
+     *
+     * @return
+     */
+    String toScript();
+
+    /**
+     * Append JavaScript code to @link {@link Appendable}
+     *
+     * @param target
+     * @throws IOException
+     */
+    void appendScript(Appendable target) throws IOException;
+
+    /**
+     * Append JavaScript code to @link {@link StringBuilder}
+     *
+     * @param stringBuilder
+     */
+    void appendScriptToStringBuilder(StringBuilder stringBuilder);
 }

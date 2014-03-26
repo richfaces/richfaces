@@ -26,8 +26,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.javascript.JSFunctionDefinition;
-import org.richfaces.javascript.JSReference;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.renderkit.AjaxFunction;
 import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.ui.ajax.ajax.AjaxClientBehavior;

@@ -27,8 +27,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.cdk.annotations.Function;
-import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.util.RendererUtils;
 import org.richfaces.util.Sets;
 

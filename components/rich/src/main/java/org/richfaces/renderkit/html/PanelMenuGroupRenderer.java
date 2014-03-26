@@ -41,7 +41,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 
-import org.richfaces.javascript.JSObject;
+import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenuGroup;

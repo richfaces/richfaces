@@ -40,12 +40,12 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.ClientBehaviorRenderer;
 
+import org.ajax4jsf.javascript.JSReference;
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.javascript.ClientScriptService;
-import org.richfaces.javascript.JSReference;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.LibraryFunction;
 import org.richfaces.javascript.ScriptNotFoundException;
-import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.behavior.ConverterNotFoundException;
 import org.richfaces.validator.ConverterDescriptor;

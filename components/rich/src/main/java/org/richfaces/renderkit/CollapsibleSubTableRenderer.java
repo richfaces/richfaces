@@ -34,13 +34,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
 
+import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractCollapsibleSubTable;
 import org.richfaces.component.AbstractDataTable;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.event.CollapsibleSubTableToggleEvent;
-import org.richfaces.javascript.JSFunction;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.ui.common.HtmlConstants;
 

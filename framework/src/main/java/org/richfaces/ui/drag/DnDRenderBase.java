@@ -21,7 +21,7 @@
  */
 package org.richfaces.ui.drag;
 
-import org.richfaces.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.services.ServiceTracker;

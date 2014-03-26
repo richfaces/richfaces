@@ -3,9 +3,9 @@ package org.richfaces.component.behavior;
 import java.io.IOException;
 import java.util.List;
 
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.ScriptString;
-import org.richfaces.javascript.ScriptStringBase;
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.ScriptString;
+import org.ajax4jsf.javascript.ScriptStringBase;
 import org.richfaces.validator.Message;
 
 import com.google.common.collect.Lists;

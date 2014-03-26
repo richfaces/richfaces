@@ -21,9 +21,9 @@
  */
 package org.richfaces.ui.behavior;
 
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSReference;
-import org.richfaces.javascript.ScriptString;
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSReference;
+import org.ajax4jsf.javascript.ScriptString;
 import org.richfaces.util.RendererUtils;
 
 import javax.faces.component.UIComponent;

@@ -35,11 +35,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 
+import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTab;
 import org.richfaces.component.AbstractTabPanel;
 import org.richfaces.component.AbstractTogglePanelItemInterface;
-import org.richfaces.javascript.JSObject;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.ComponentIterators;

@@ -32,9 +32,9 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.javascript.JSFunctionDefinition;
-import org.richfaces.javascript.JSReference;
 import org.richfaces.ui.common.AjaxFunction;
 import org.richfaces.ui.drag.DnDRenderBase;
 import org.richfaces.ui.drag.DnDScript;

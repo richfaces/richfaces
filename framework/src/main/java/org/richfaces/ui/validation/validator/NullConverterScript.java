@@ -25,8 +25,8 @@
  */
 package org.richfaces.ui.validation.validator;
 
-import org.richfaces.javascript.JSLiteral;
-import org.richfaces.javascript.ScriptWithDependencies;
+import org.ajax4jsf.javascript.JSLiteral;
+import org.ajax4jsf.javascript.ScriptWithDependencies;
 import org.richfaces.resource.ResourceKey;
 
 import java.util.Collections;

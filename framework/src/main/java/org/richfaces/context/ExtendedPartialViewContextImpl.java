@@ -45,8 +45,8 @@ import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseId;
 
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.javascript.ScriptsHolder;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

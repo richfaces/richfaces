@@ -29,8 +29,8 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.UnmodifiableIterator;
 
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSObject;
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.services.ServiceTracker;

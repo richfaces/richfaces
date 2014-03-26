@@ -24,9 +24,9 @@ package org.richfaces.ui.validation.validator;
 
 import com.google.common.collect.Lists;
 
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.ScriptString;
-import org.richfaces.javascript.ScriptStringBase;
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.ScriptString;
+import org.ajax4jsf.javascript.ScriptStringBase;
 import org.richfaces.validator.Message;
 
 import java.io.IOException;

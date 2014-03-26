@@ -19,26 +19,50 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.javascript;
+package org.ajax4jsf.javascript;
 
 import java.io.IOException;
 
 /**
- * @author shura (latest modification by $Author: alexsmirnov $)
+ * Create reference to JavaScript variable with optional index.
+ *
+ * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:58:30 $
  *
  */
-public class JSObject extends JSFunction {
+public class JSReference extends ScriptStringBase {
+    public static final JSReference EVENT = new JSReference("event");
+    public static final JSReference THIS = new JSReference("this");
+    public static final JSReference TRUE = new JSReference("true");
+    public static final JSReference NULL = new JSReference("null");
+    public static final JSReference FALSE = new JSReference("false");
+    private final Object index;
+    private final String name;
+
     /**
      * @param name
-     * @param parameter
      */
-    public JSObject(String name, Object... parameters) {
-        super(name, parameters);
+    public JSReference(String name) {
+        this.name = name;
+        this.index = null;
+    }
+
+    /**
+     * @param name
+     * @param index
+     */
+    public JSReference(String name, Object index) {
+        this.name = name;
+        this.index = index;
     }
 
     public void appendScript(Appendable target) throws IOException {
-        target.append("new ");
-        super.appendScript(target);
+        target.append(name);
+
+        if (null != index) {
+            target.append("[");
+            ScriptUtils.appendScript(target, index);
+            target.append("]");
+        }
     }
 }

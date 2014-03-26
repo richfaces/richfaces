@@ -36,7 +36,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 
-import org.richfaces.javascript.JSReference;
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractProgressBar;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.component.NumberUtils;

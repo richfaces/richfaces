@@ -22,11 +22,11 @@
 
 package org.richfaces.ui.validation.validator;
 
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSFunctionDefinition;
-import org.richfaces.javascript.JSReference;
-
 import java.io.IOException;
+
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.JSReference;
 
 public abstract class ValidatorScriptBase extends JSFunctionDefinition implements ComponentValidatorScript {
     public static final String ELEMENT = "e";

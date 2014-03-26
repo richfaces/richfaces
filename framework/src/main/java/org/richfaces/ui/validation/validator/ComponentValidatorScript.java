@@ -22,7 +22,7 @@
 
 package org.richfaces.ui.validation.validator;
 
-import org.richfaces.javascript.FunctionDefWithDependencies;
+import org.ajax4jsf.javascript.FunctionDefWithDependencies;
 
 public interface ComponentValidatorScript extends FunctionDefWithDependencies {
     /**

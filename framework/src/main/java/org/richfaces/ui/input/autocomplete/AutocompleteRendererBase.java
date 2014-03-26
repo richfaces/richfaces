@@ -28,9 +28,9 @@ import javax.faces.model.ResultDataModel;
 import javax.faces.model.ResultSetDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
 
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.el.GenericsIntrospectionService;
-import org.richfaces.javascript.JSReference;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.CollectionDataModel;

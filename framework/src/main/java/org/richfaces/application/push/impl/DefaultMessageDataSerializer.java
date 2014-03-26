@@ -22,8 +22,8 @@
 
 package org.richfaces.application.push.impl;
 
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.application.push.MessageDataSerializer;
-import org.richfaces.javascript.ScriptUtils;
 
 /**
  * @author Nick Belaevski

@@ -25,7 +25,8 @@ import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.javascript.ScriptUtils;
+import org.ajax4jsf.javascript.ScriptUtils;
+
 
 /**
  * @author Nick Belaevski

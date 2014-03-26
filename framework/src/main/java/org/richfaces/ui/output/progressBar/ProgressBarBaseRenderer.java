@@ -38,8 +38,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.javascript.JSReference;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.RendererBase;

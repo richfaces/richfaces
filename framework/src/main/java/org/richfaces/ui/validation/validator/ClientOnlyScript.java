@@ -28,8 +28,8 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.google.common.collect.UnmodifiableIterator;
 
-import org.richfaces.javascript.JSFunctionDefinition;
-import org.richfaces.javascript.ScriptUtils;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.resource.ResourceKey;
 
 import java.io.IOException;

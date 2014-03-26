@@ -36,13 +36,13 @@ import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.SwitchType;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.event.TreeSelectionChangeEvent;
-import org.richfaces.javascript.JSFunction;
-import org.richfaces.javascript.JSReference;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.AjaxRendererUtils;

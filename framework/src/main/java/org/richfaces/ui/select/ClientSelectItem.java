@@ -21,10 +21,11 @@
  */
 package org.richfaces.ui.select;
 
-import org.richfaces.javascript.ScriptString;
-import org.richfaces.javascript.ScriptUtils;
-
 import javax.faces.model.SelectItem;
+
+import org.ajax4jsf.javascript.ScriptString;
+import org.ajax4jsf.javascript.ScriptUtils;
+
 import java.io.IOException;
 
 /**

@@ -21,7 +21,8 @@
  */
 package org.richfaces.context;
 
-import org.richfaces.javascript.ScriptUtils;
+import org.ajax4jsf.javascript.ScriptUtils;
+
 
 /**
  * @author Nick Belaevski

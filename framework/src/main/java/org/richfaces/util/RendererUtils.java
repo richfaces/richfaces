@@ -43,7 +43,7 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.richfaces.javascript.JSReference;
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.l10n.Messages;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.ui.ajax.parameter.JavaScriptParameter;

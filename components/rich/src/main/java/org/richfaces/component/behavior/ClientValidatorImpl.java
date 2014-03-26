@@ -50,13 +50,13 @@ import javax.faces.validator.BeanValidator;
 import javax.faces.validator.Validator;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.ClientSideMessage;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.javascript.ScriptUtils;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.html.ClientValidatorRenderer;

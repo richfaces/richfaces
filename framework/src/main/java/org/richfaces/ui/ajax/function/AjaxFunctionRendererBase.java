@@ -21,9 +21,9 @@
  */
 package org.richfaces.ui.ajax.function;
 
-import org.richfaces.javascript.JSFunctionDefinition;
-import org.richfaces.javascript.JSReference;
-import org.richfaces.javascript.ScriptUtils;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.JSReference;
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.ui.ajax.command.AjaxCommandRendererBase;
 import org.richfaces.ui.common.AjaxFunction;
 import org.richfaces.ui.common.AjaxOptions;

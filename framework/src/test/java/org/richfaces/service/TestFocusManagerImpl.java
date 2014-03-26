@@ -36,7 +36,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import org.richfaces.javascript.JSLiteral;
+import org.ajax4jsf.javascript.JSLiteral;
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Before;
 import org.junit.Test;

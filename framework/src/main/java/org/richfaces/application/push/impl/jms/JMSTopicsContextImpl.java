@@ -51,10 +51,10 @@ import javax.naming.Name;
 import javax.naming.NameParser;
 import javax.naming.NamingException;
 
+import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.impl.TopicsContextImpl;
 import org.richfaces.configuration.ConfigurationService;
-import org.richfaces.javascript.JSLiteral;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;

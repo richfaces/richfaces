@@ -21,13 +21,13 @@
  */
 package org.richfaces.ui.common;
 
-import org.richfaces.javascript.ScriptStringBase;
-import org.richfaces.javascript.ScriptUtils;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import org.ajax4jsf.javascript.ScriptStringBase;
+import org.ajax4jsf.javascript.ScriptUtils;
 
 /**
  * @author Nick Belaevski

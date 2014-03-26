@@ -22,6 +22,7 @@
 
 package org.richfaces.javascript;
 
+import org.ajax4jsf.javascript.ScriptWithDependencies;
 import org.richfaces.resource.ResourceKey;
 
 import java.io.IOException;
