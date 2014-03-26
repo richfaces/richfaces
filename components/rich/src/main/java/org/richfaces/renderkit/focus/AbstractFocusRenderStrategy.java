@@ -21,6 +21,11 @@ public abstract class AbstractFocusRenderStrategy implements FocusRenderStrategy
     protected final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     protected String getFocusCandidatesAsString(FacesContext context, AbstractFocus component, UIForm form) {
+
+        if (!component.isAjaxRendered() && context.getPartialViewContext().isAjaxRequest()) {
+            return "";
+        }
+
         String[] focusCandidates = getFocusCandidates(context, component, form);
 
         if (focusCandidates.length == 0) {

@@ -9,7 +9,7 @@ import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.misc.focus.FocusManager;
+import org.richfaces.focus.FocusManager;
 import org.richfaces.util.RendererUtils;
 
 public class FocusManagerImpl implements FocusManager {

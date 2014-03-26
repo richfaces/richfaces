@@ -12,7 +12,7 @@ import org.jboss.arquillian.warp.jsf.AfterPhase;
 import org.jboss.arquillian.warp.jsf.BeforePhase;
 import org.jboss.arquillian.warp.jsf.Phase;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.misc.focus.FocusManager;
+import org.richfaces.focus.FocusManager;
 import org.richfaces.renderkit.focus.FocusRendererUtils;
 
 public class VerifyFocusEnforcing extends AbstractComponentAssertion implements ComponentSystemEventListener {
