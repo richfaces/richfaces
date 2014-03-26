@@ -1,6 +1,6 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2013, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,15 +18,39 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- **/
-package org.richfaces.component;
+ */
+package org.richfaces.model;
 
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
+import java.util.Comparator;
+
+import javax.el.ValueExpression;
+
+import org.richfaces.component.SortOrder;
 
 /**
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ * @author Konstantin Mishin
+ *
  */
-public interface TogglePanelVisitCallback {
-    VisitResult visit(FacesContext context, TogglePanelVisitState visitState);
+public class SortField extends Field {
+    private static final long serialVersionUID = 654268763477658266L;
+    private Comparator<?> comparator;
+    private SortOrder sortOrder;
+
+    public SortField(ValueExpression sortBy, Comparator<?> comparator, SortOrder sortOrder) {
+        super(sortBy);
+        this.comparator = comparator;
+        this.sortOrder = sortOrder;
+    }
+
+    public ValueExpression getSortBy() {
+        return getExpression();
+    }
+
+    public Comparator<?> getComparator() {
+        return comparator;
+    }
+
+    public SortOrder getSortOrder() {
+        return sortOrder;
+    }
 }

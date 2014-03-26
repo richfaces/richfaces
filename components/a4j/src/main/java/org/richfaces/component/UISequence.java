@@ -22,6 +22,7 @@
 package org.richfaces.component;
 
 import java.sql.ResultSet;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -38,12 +39,13 @@ import javax.faces.model.ResultSetDataModel;
 import javax.faces.model.ScalarDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
 
-import org.richfaces.model.DataComponentState;
-import org.richfaces.model.ExtendedDataModel;
-import org.richfaces.model.Range;
-import org.richfaces.model.SequenceDataModel;
-import org.richfaces.model.SequenceRange;
-import org.richfaces.model.SequenceState;
+import org.richfaces.model.CollectionDataModel;
+import org.ajax4jsf.model.DataComponentState;
+import org.ajax4jsf.model.ExtendedDataModel;
+import org.ajax4jsf.model.Range;
+import org.ajax4jsf.model.SequenceDataModel;
+import org.ajax4jsf.model.SequenceRange;
+import org.ajax4jsf.model.SequenceState;
 import org.richfaces.cdk.annotations.Attribute;
 
 /**
@@ -93,6 +95,8 @@ public class UISequence extends UIDataAdaptor {
             model = new ResultSetDataModel((ResultSet) value);
         } else if (value instanceof Result) {
             model = new ResultDataModel((Result) value);
+        } else if (value instanceof Collection) {
+            model = new CollectionDataModel((Collection) value);
         } else {
             model = new ScalarDataModel(value);
         }

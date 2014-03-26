@@ -36,15 +36,14 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.ExtendedDataModel;
+import org.ajax4jsf.model.Range;
 import org.richfaces.model.Arrangeable;
 import org.richfaces.model.ArrangeableState;
-import org.richfaces.model.DataVisitor;
-import org.richfaces.model.ExtendedDataModel;
 import org.richfaces.model.FilterField;
-import org.richfaces.model.Range;
 import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
-import org.richfaces.model.SortOrder;
 
 /**
  * @author Konstantin Mishin

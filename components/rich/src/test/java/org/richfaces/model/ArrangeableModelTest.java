@@ -39,6 +39,12 @@ import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.richfaces.component.SortOrder;
+import org.ajax4jsf.model.DataVisitResult;
+import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.ExtendedDataModel;
+import org.ajax4jsf.model.SequenceDataModel;
+import org.ajax4jsf.model.SequenceRange;
 
 /**
  * @author Konstantin Mishin

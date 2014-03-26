@@ -275,7 +275,7 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
 
             if (result == VisitResult.ACCEPT) {
                 // Do not render the non-active children, but always render the visible header facets.
-                Iterator<UIComponent> kids = org.richfaces.ui.toggle.tabPanel.AbstractTab.getVisitableChildren(this, context);
+                Iterator<UIComponent> kids = AbstractTab.getVisitableChildren(this, context);
 
                 while(kids.hasNext()) {
                     boolean done = kids.next().visitTree(context, callback);

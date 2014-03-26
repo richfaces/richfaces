@@ -21,6 +21,11 @@
  */
 package org.richfaces.component;
 
+import javax.faces.component.UIComponent;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+
 import org.richfaces.HeaderAlignment;
 import org.richfaces.HeaderPosition;
 import org.richfaces.cdk.annotations.Attribute;
@@ -28,6 +33,8 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 /**
  * <p>The &lt;rich:tabPanel&gt; component provides a set of tabbed panels for displaying one panel of content at a time.
@@ -39,6 +46,7 @@ import org.richfaces.cdk.annotations.TagType;
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TabPanelRenderer"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
 public abstract class AbstractTabPanel extends AbstractTogglePanel {
+    public static final String HEADER_META_COMPONENT = "header";
     public static final String COMPONENT_TYPE = "org.richfaces.TabPanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.TabPanel";
 
@@ -124,5 +132,19 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
 
     public boolean isHeaderAlignedLeft() {
         return (null == this.getHeaderAlignment()) || (this.getHeaderAlignment().equals(HeaderAlignment.left));
+    }
+
+    @Override
+    public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
+        if (HEADER_META_COMPONENT.equals(metaComponentId)) {
+            return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
+        }
+        return super.resolveClientId(facesContext, contextComponent, metaComponentId);
+    }
+
+    @Override
+    protected VisitResult visitMetaComponents(ExtendedVisitContext extendedVisitContext, VisitCallback callback) {
+        extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, AbstractTabPanel.HEADER_META_COMPONENT);
+        return super.visitMetaComponents(extendedVisitContext, callback);
     }
 }

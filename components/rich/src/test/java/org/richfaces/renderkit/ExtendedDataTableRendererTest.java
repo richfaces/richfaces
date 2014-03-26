@@ -42,8 +42,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
 import org.richfaces.component.AbstractExtendedDataTable;
-import org.richfaces.model.SortOrder;
+import org.richfaces.component.SortOrder;
 
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -59,6 +60,8 @@ public class ExtendedDataTableRendererTest {
         environment = new CustomizedHtmlUnitEnvironment();
         environment.withWebRoot(new File("src/test/resources"));
         environment.start();
+
+        environment.getWebClient().getOptions().setJavaScriptEnabled(false);
     }
 
     @After
@@ -106,7 +109,7 @@ public class ExtendedDataTableRendererTest {
         HtmlPage page = environment.getPage("/extendedDataTableTest.jsf");
         HtmlElement table = (HtmlElement) page.getElementById("table");
         assertEquals("rf-edt", table.getAttribute("class"));
-        assertEquals("headerFacet", table.getElementById("table:headerFacet").getTextContent());
+        assertEquals("headerFacet", page.getElementById("table:headerFacet").getTextContent());
     }
 
     /**
@@ -124,8 +127,8 @@ public class ExtendedDataTableRendererTest {
         assertTrue(text.contains(".rf-edt-cnt"));
         assertTrue(text.contains("rf-edt-c"));
         HtmlElement header = table.getFirstByXPath("div[@class='rf-edt-hdr']");
-        HtmlElement frozenHeader = header.getElementById("table:frozenHeader");
-        HtmlElement normalHeader = header.getElementById("table:header");
+        DomElement frozenHeader = page.getElementById("table:frozenHeader");
+        DomElement normalHeader = page.getElementById("table:header");
         assertTrue(normalHeader.getAttribute("class").contains("rf-edt-cnt"));
         assertNotNull(frozenHeader.getFirstByXPath("descendant::*[@class='rf-edt-rsz']"));
         assertNotNull(normalHeader.getFirstByXPath("descendant::*[@class='rf-edt-rsz']"));
@@ -135,7 +138,7 @@ public class ExtendedDataTableRendererTest {
         assertEquals("headerColumnFacet2",
             ((HtmlElement) normalHeader.getFirstByXPath("//*[@class='rf-edt-hdr-c-cnt']//*[@id='table:headerColumnFacet2']"))
                 .getTextContent());
-        HtmlElement body = table.getElementById("table:b");
+        DomElement body = page.getElementById("table:b");
         assertEquals("rf-edt-b", body.getAttribute("class"));
         assertNotNull(body.getFirstByXPath("descendant::*[@class='rf-edt-spcr']"));
         assertNotNull(body.getFirstByXPath("descendant::*[@class='rf-edt-cnt']//*[@id='table:tbn']"));
@@ -144,7 +147,7 @@ public class ExtendedDataTableRendererTest {
                 .getTextContent());
         HtmlElement footer = table.getFirstByXPath("div[@class='rf-edt-ftr']");
         HtmlElement frozenFooter = footer.getFirstByXPath("descendant::*[@class='rf-edt-ftr-fzn']/div");
-        HtmlElement normalFooter = footer.getElementById("table:footer");
+        DomElement normalFooter = page.getElementById("table:footer");
         assertTrue(normalFooter.getAttribute("class").contains("rf-edt-ftr-cnt"));
         assertEquals("footerColumnFacet1",
             ((HtmlElement) frozenFooter
@@ -167,12 +170,12 @@ public class ExtendedDataTableRendererTest {
     public final void testDoEncodeEnd() throws IOException {
         HtmlPage page = environment.getPage("/extendedDataTableTest.jsf");
         HtmlElement table = (HtmlElement) page.getElementById("table");
-        assertEquals("footerFacet", table.getElementById("table:footerFacet").getTextContent());
-        assertEquals("rf-edt-rsz-mkr", table.getElementById("table:d").getAttribute("class"));
-        assertEquals("rf-edt-rord rf-edt-tbl", table.getElementById("table:r").getAttribute("class"));
-        assertEquals("rf-edt-rord-mkr", table.getElementById("table:rm").getAttribute("class"));
-        assertEquals("table:wi", table.getElementById("table:wi").getAttribute("name"));
-        assertTrue(table.getElementsByTagName("script").get(0).getTextContent().contains("RichFaces.rf4.ui.ExtendedDataTable"));
+        assertEquals("footerFacet", page.getElementById("table:footerFacet").getTextContent());
+        assertEquals("rf-edt-rsz-mkr", page.getElementById("table:d").getAttribute("class"));
+        assertEquals("rf-edt-rord rf-edt-tbl", page.getElementById("table:r").getAttribute("class"));
+        assertEquals("rf-edt-rord-mkr", page.getElementById("table:rm").getAttribute("class"));
+        assertEquals("table:wi", page.getElementById("table:wi").getAttribute("name"));
+        assertTrue(table.getElementsByTagName("script").get(0).getTextContent().contains("RichFaces.ui.ExtendedDataTable"));
     }
 
     /**
@@ -185,11 +188,11 @@ public class ExtendedDataTableRendererTest {
     public final void testEncodeRow() throws IOException {
         HtmlPage page = environment.getPage("/extendedDataTableTest.jsf");
         HtmlElement table = (HtmlElement) page.getElementById("table");
-        HtmlElement cell = table.getElementById("table:0:f").getElementsByTagName("div").get(0);
+        HtmlElement cell = page.getElementById("table:0:f").getElementsByTagName("div").get(0);
         assertTrue(cell.getAttribute("class").contains("rf-edt-c"));
         HtmlElement cellContent = cell.getElementsByTagName("div").get(0);
         assertEquals("rf-edt-c-cnt", cellContent.getAttribute("class"));
-        assertEquals("value", cellContent.getElementById("table:0:outputText").getTextContent());
+        assertEquals("value", page.getElementById("table:0:outputText").getTextContent());
     }
 
     /**

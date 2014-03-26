@@ -28,7 +28,6 @@ public class DataGridRendererTest {
         environment = new CustomizedHtmlUnitEnvironment();
         environment.withWebRoot(new File("src/test/resources"));
         environment.start();
-        environment.getWebClient().setJavaScriptEnabled(true);
     }
 
     @After
@@ -86,7 +85,7 @@ public class DataGridRendererTest {
         HtmlElement dataGrid = (HtmlElement) page.getElementById("dataGrid");
         HtmlElement th = dataGrid.getFirstByXPath("thead[@class='rf-dg-thead']/tr[@class='rf-dg-h']/th[@class='rf-dg-h-c']");
         assertEquals("1", th.getAttribute("colspan"));
-        assertEquals("headerFacet", th.getElementById("dataGrid:headerFacet").getTextContent());
+        assertEquals("headerFacet", page.getElementById("dataGrid:headerFacet").getTextContent());
     }
 
     @Test
@@ -95,7 +94,7 @@ public class DataGridRendererTest {
         HtmlElement dataGrid = (HtmlElement) page.getElementById("dataGrid");
         HtmlElement td = dataGrid.getFirstByXPath("tfoot[@class='rf-dg-tfoot']/tr[@class='rf-dg-f']/td[@class='rf-dg-f-c']");
         assertEquals("1", td.getAttribute("colspan"));
-        assertEquals("footerFacet", td.getElementById("dataGrid:footerFacet").getTextContent());
+        assertEquals("footerFacet", page.getElementById("dataGrid:footerFacet").getTextContent());
     }
 
     @Test

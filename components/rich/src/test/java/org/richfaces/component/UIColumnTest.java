@@ -27,16 +27,14 @@ import java.util.Comparator;
 
 import javax.el.ValueExpression;
 
-import junit.framework.Assert;
-
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
-import org.richfaces.model.SortOrder;
 
 /**
  * @author Konstantin Mishin

@@ -26,7 +26,7 @@ import java.util.Iterator;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.model.DataVisitor;
+import org.ajax4jsf.model.DataVisitor;
 
 /**
  * Marker interface for table columns, rendered as entire row.

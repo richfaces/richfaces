@@ -35,12 +35,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 
+import org.ajax4jsf.model.IterationStateHolder;
 import org.richfaces.DataScrollerUtils;
 import org.richfaces.application.FacesMessages;
 import org.richfaces.l10n.MessageFactory;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.ui.common.meta.MetaComponentResolver;
-import org.richfaces.ui.iteration.IterationStateHolder;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;

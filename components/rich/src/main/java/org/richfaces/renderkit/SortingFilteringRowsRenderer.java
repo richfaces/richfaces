@@ -36,9 +36,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractColumn;
+import org.richfaces.component.SortOrder;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.model.SortMode;
-import org.richfaces.model.SortOrder;
 import org.richfaces.validator.MessageFactory;
 
 /**

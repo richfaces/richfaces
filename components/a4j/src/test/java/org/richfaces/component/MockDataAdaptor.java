@@ -24,8 +24,8 @@ package org.richfaces.component;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import org.richfaces.model.DataComponentState;
-import org.richfaces.model.ExtendedDataModel;
+import org.ajax4jsf.model.DataComponentState;
+import org.ajax4jsf.model.ExtendedDataModel;
 
 /**
  * @author Nick Belaevski

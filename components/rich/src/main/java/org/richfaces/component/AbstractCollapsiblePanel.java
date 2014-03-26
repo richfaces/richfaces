@@ -81,7 +81,7 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     }
 
     @Override
-    protected boolean isActiveItem(UIComponent kid) {
+    public boolean isActiveItem(UIComponent kid) {
         return isExpanded();
     }
 

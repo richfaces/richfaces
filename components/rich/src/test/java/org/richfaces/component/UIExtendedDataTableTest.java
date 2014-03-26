@@ -23,13 +23,13 @@ package org.richfaces.component;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.model.DataVisitResult;
-import org.richfaces.model.DataVisitor;
-import org.richfaces.model.SequenceRange;
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.ajax4jsf.model.DataVisitResult;
+import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.SequenceRange;
 
 /**
  * @author Konstantin Mishin

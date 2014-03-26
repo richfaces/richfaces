@@ -1,6 +1,6 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2013, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,15 +18,12 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- **/
+ */
 package org.richfaces.component;
 
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
+public enum SortOrder {
 
-/**
- * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
- */
-public interface TogglePanelVisitCallback {
-    VisitResult visit(FacesContext context, TogglePanelVisitState visitState);
+    ascending,
+    descending,
+    unsorted
 }

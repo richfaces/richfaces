@@ -584,7 +584,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         return value;
     }
 
-    protected boolean isActiveItem(UIComponent kid) {
+    public boolean isActiveItem(UIComponent kid) {
         return isActiveItem(kid, getActiveItemValue());
     }
 
@@ -912,8 +912,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
                     ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
                     if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
 
-                        result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
-                                ACTIVE_ITEM_META_COMPONENT);
+                        result = visitMetaComponents(extendedVisitContext, callback);
                         if (result == VisitResult.COMPLETE) {
                             return true;
                         }
@@ -937,6 +936,10 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         }
 
         return false;
+    }
+
+    protected VisitResult visitMetaComponents(ExtendedVisitContext extendedVisitContext, VisitCallback callback) {
+        return extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, ACTIVE_ITEM_META_COMPONENT);
     }
 }
 

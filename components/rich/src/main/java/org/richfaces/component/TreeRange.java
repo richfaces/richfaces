@@ -21,7 +21,7 @@
  */
 package org.richfaces.component;
 
-import org.richfaces.model.Range;
+import org.ajax4jsf.model.Range;
 
 /**
  * @author Nick Belaevski
