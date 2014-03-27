@@ -26,7 +26,7 @@ import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
 import static org.richfaces.renderkit.RenderKitUtils.attributes;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
