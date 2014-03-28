@@ -9,6 +9,7 @@ import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.Activity;
@@ -18,12 +19,15 @@ import org.jboss.arquillian.warp.impl.utils.URLUtils;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.MiscDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Smoke;
 
 @RunAsClient
 @WarpTest
@@ -79,9 +83,11 @@ public class TestFocusManager {
     }
 
     @Test
+    @Category(Smoke.class)
     public void test_FocusManager_on_initial_request() {
         Warp.initiate(openPage).inspect(new VerifyFocusEnforcing("input2"));
-        assertEquals(input2, getFocusedElement());
+        
+        Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
     @Test
@@ -92,7 +98,7 @@ public class TestFocusManager {
         Warp.initiate(submit)
         // then
                 .inspect(new VerifyFocusEnforcing("input2"));
-        assertEquals(input2, getFocusedElement());
+        Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
     @Test
@@ -103,7 +109,7 @@ public class TestFocusManager {
         Warp.initiate(ajax)
         // then
                 .inspect(new VerifyFocusEnforcing("input2"));
-        assertEquals(input2, getFocusedElement());
+        Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
     @Test
@@ -112,13 +118,13 @@ public class TestFocusManager {
         contextPath = URLUtils.buildUrl(contextPath, "form.jsf");
 
         Warp.initiate(openPage).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
-        assertEquals(input2, getFocusedElement());
+        Graphene.waitGui().until(new ElementIsFocused(input2));
 
         Warp.initiate(submit).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
-        assertEquals(input2, getFocusedElement());
+        Graphene.waitGui().until(new ElementIsFocused(input2));
 
         Warp.initiate(ajax).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
-        assertEquals(input2, getFocusedElement());
+        Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
     @Test
@@ -127,13 +133,13 @@ public class TestFocusManager {
         contextPath = URLUtils.buildUrl(contextPath, "form.jsf");
 
         Warp.initiate(openPage).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
-        assertEquals(input2, getFocusedElement());
+        Graphene.waitGui().until(new ElementIsFocused(input2));
 
         Warp.initiate(submit).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
-        assertEquals(input2, getFocusedElement());
+        Graphene.waitGui().until(new ElementIsFocused(input2));
 
         Warp.initiate(ajax).inspect(new VerifyFocusEnforcingOverridesFocusSettings("form:input2"));
-        assertEquals(input2, getFocusedElement());
+        Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
     private WebElement getFocusedElement() {

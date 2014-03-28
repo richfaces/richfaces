@@ -9,6 +9,7 @@ import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.javascript.JavaScript;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
@@ -41,6 +42,9 @@ public class TestFocusAjaxRendered {
     @FindBy(id = "form:input2")
     private WebElement input2;
 
+    @JavaScript
+    private FocusRetriever focusRetriever;
+
     @Deployment
     public static WebArchive createDeployment() {
         MiscDeployment deployment = new MiscDeployment(TestFocusAjaxRendered.class);
@@ -51,9 +55,9 @@ public class TestFocusAjaxRendered {
     }
 
     @Test
-    public void when_there_are_inputs_with_tabindex_then_the_lowest_tabindex_will_obtain_focus() {
+    public void when_the_focus_is_not_ajaxRendered_then_no_element_should_have_focus_after_ajax() {
         browser.get(contextPath.toExternalForm());
-        assertEquals(input1, FocusRetriever.retrieveActiveElement());
+        assertEquals(input1, focusRetriever.retrieveActiveElement());
 
         // when
         input2.click();
@@ -74,7 +78,7 @@ public class TestFocusAjaxRendered {
         p.body("    <h:inputText id='input1' />");
         p.body("    <h:inputText id='input2' />");
 
-        p.body("    <a4j:commandButton id='ajax' render='input1 input2' value='Ajax' />");
+        p.body("    <a4j:commandButton id='ajax' render='@form' value='Ajax' />");
         p.body("</h:form>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");

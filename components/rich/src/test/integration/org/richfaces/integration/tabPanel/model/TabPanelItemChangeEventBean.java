@@ -1,4 +1,4 @@
-package org.richfaces.ui.tabPanel.model;
+package org.richfaces.integration.tabPanel.model;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.enterprise.inject.Model;
 
-import org.richfaces.ui.toggle.ItemChangeEvent;
-import org.richfaces.ui.toggle.tabPanel.AbstractTabPanel;
+import org.richfaces.component.AbstractTabPanel;
+import org.richfaces.event.ItemChangeEvent;
 
 import com.google.common.collect.Lists;
 

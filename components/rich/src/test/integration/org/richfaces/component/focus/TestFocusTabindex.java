@@ -7,10 +7,10 @@ import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
-import org.jboss.arquillian.warp.impl.utils.URLUtils;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,14 +47,13 @@ public class TestFocusTabindex {
     @Test
     public void when_there_are_inputs_with_tabindex_then_the_lowest_tabindex_will_obtain_focus() {
         browser.get(contextPath.toExternalForm());
-        assertEquals(input1, getFocusedElement());
+        Graphene.waitGui().until(new ElementIsFocused(input1));
     }
     
     @Test
     public void when_there_are_no_tabindex_components_then_first_input_will_obtain_focus() {
-        URL noTabindex = URLUtils.buildUrl(contextPath, "no-tabindex.jsf");
-        browser.get(noTabindex.toExternalForm());
-        assertEquals(input1, getFocusedElement());
+        browser.get(contextPath.toExternalForm() + "no-tabindex.jsf");
+        Graphene.waitGui().until(new ElementIsFocused(input1));
     }
 
     private WebElement getFocusedElement() {

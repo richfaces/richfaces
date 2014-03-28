@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.ui.extendedDataTable;
+package org.richfaces.component.extendedDataTable;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
@@ -57,11 +57,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.component.AbstractExtendedDataTable;
+import org.richfaces.component.ExtendedDataTableState;
+import org.richfaces.integration.IterationDeployment;
 import org.richfaces.json.JSONException;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import org.richfaces.ui.iteration.extendedDataTable.AbstractExtendedDataTable;
-import org.richfaces.ui.iteration.extendedDataTable.ExtendedDataTableState;
 
 @RunAsClient
 @WarpTest
@@ -91,7 +91,7 @@ public class ITTableState {
 
     @Deployment
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITTableState.class);
+        IterationDeployment deployment = new IterationDeployment(ITTableState.class);
         deployment.archive().addClass(IterationTableStateBean.class);
         addIndexPage(deployment);
         addWidthPage(deployment);
@@ -277,6 +277,8 @@ public class ITTableState {
 
     private static FaceletAsset getPage(String edtAttributes) {
         FaceletAsset p = new FaceletAsset();
+        p.xmlns("rich", "http://richfaces.org/rich");
+        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<script type='text/javascript'>");
         p.body("function sortEdt(currentSortOrder) { ");
@@ -290,12 +292,12 @@ public class ITTableState {
         p.body("} ");
         p.body("</script>");
         p.body("<h:form id='myForm'> ");
-        p.body("    <r:extendedDataTable " + edtAttributes + " filterVar='fv' > ");
-        p.body("        <r:column id='column1' width='150px' > ");
+        p.body("    <rich:extendedDataTable " + edtAttributes + " filterVar='fv' > ");
+        p.body("        <rich:column id='column1' width='150px' > ");
         p.body("            <f:facet name='header'>Column 1</f:facet> ");
         p.body("            <h:outputText value='Bean:' /> ");
-        p.body("        </r:column> ");
-        p.body("        <r:column id='column2' width='150px' ");
+        p.body("        </rich:column> ");
+        p.body("        <rich:column id='column2' width='150px' ");
         p.body("                         sortBy='#{bean}' ");
         p.body("                         sortOrder='#{iterationTableStateBean.sortOrder}' ");
         p.body("                         filterValue='#{iterationTableStateBean.filterValue}' ");
@@ -313,18 +315,18 @@ public class ITTableState {
         p.body("                </h:panelGrid> ");
         p.body("            </f:facet> ");
         p.body("            <h:outputText value='#{bean}' /> ");
-        p.body("        </r:column> ");
-        p.body("        <r:column id='column3' width='150px' > ");
+        p.body("        </rich:column> ");
+        p.body("        <rich:column id='column3' width='150px' > ");
         p.body("            <f:facet name='header'>Column 3</f:facet> ");
         p.body("            <h:outputText value='R#{bean}C3' /> ");
-        p.body("        </r:column> ");
-        p.body("    </r:extendedDataTable> ");
-        p.body("    <r:commandButton id='ajax' execute='edt' render='edt' value='Ajax' /> ");
+        p.body("        </rich:column> ");
+        p.body("    </rich:extendedDataTable> ");
+        p.body("    <a4j:commandButton id='ajax' execute='edt' render='edt' value='Ajax' /> ");
         p.body("</h:form> ");
         return p;
     }
 
-    private static void addIndexPage(FrameworkDeployment deployment) {
+    private static void addIndexPage(IterationDeployment deployment) {
         String edtAttributes =
                "            id='edt' value='#{iterationTableStateBean.values}' var='bean' ";
         FaceletAsset p = getPage(edtAttributes);
@@ -332,7 +334,7 @@ public class ITTableState {
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
-    private static void addWidthPage(FrameworkDeployment deployment) {
+    private static void addWidthPage(IterationDeployment deployment) {
         String edtAttributes =
                "            id='edt' value='#{iterationTableStateBean.values}' var='bean' " +
                "            tableState='#{iterationTableStateBean.widthState}'";
@@ -341,7 +343,7 @@ public class ITTableState {
         deployment.archive().addAsWebResource(p, "width.xhtml");
     }
 
-    private static void addSortPage(FrameworkDeployment deployment) {
+    private static void addSortPage(IterationDeployment deployment) {
         String edtAttributes =
                "            id='edt' value='#{iterationTableStateBean.values}' var='bean' " +
                "            tableState='#{iterationTableStateBean.sortState}'";
@@ -350,7 +352,7 @@ public class ITTableState {
         deployment.archive().addAsWebResource(p, "sort.xhtml");
     }
 
-    private static void addFilterPage(FrameworkDeployment deployment) {
+    private static void addFilterPage(IterationDeployment deployment) {
         String edtAttributes =
                "            id='edt' value='#{iterationTableStateBean.values}' var='bean' " +
                "            tableState='#{iterationTableStateBean.filterState}'";
@@ -359,7 +361,7 @@ public class ITTableState {
         deployment.archive().addAsWebResource(p, "filter.xhtml");
     }
 
-    private static void addOrderPage(FrameworkDeployment deployment) {
+    private static void addOrderPage(IterationDeployment deployment) {
         String edtAttributes =
                "            id='edt' value='#{iterationTableStateBean.values}' var='bean' " +
                "            columnsOrder='#{iterationTableStateBean.columnsOrder}'" +

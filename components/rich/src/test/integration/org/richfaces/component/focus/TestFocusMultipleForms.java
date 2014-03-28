@@ -10,6 +10,7 @@ import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
@@ -55,35 +56,35 @@ public class TestFocusMultipleForms {
     public void when_page_is_loaded_initially_then_first_input_from_first_form_should_gain_focus() {
         browser.get(contextPath.toExternalForm());
 
-        assertEquals(form1.input1, FocusRetriever.retrieveActiveElement());
+        Graphene.waitGui().until(new ElementIsFocused(form1.getInput1()));
     }
 
     @Test
     public void when_form_is_submitted_then_first_input_from_this_form_should_gain_focus() {
         browser.get(contextPath.toExternalForm());
 
-        guardHttp(form2.submit).click();
-        assertEquals(form2.input2, FocusRetriever.retrieveActiveElement());
+        form2.submit();
+        Graphene.waitGui().until(new ElementIsFocused(form2.getInput2()));
 
-        guardHttp(form1.submit).click();
-        assertEquals(form1.input2, FocusRetriever.retrieveActiveElement());
+        form1.submit();
+        Graphene.waitGui().until(new ElementIsFocused(form1.getInput2()));
 
-        guardHttp(form3.submit).click();
-        assertEquals(form3.input1, FocusRetriever.retrieveActiveElement());
+        form3.submit();
+        Graphene.waitGui().until(new ElementIsFocused(form3.getInput1()));
     }
 
     @Test
     public void when_ajax_is_sent_then_first_input_from_submitted_form_should_gain_focus() {
         browser.get(contextPath.toExternalForm());
 
-        guardAjax(form2.ajax).click();
-        waitAjax().until(new ElementIsFocused(form2.input2));
+        form2.submitAjax();
+        waitAjax().until(new ElementIsFocused(form2.getInput2()));
 
-        guardAjax(form1.ajax).click();
-        waitAjax().until(new ElementIsFocused(form1.input2));
+        form1.submitAjax();
+        waitAjax().until(new ElementIsFocused(form1.getInput2()));
 
-        guardAjax(form3.ajax).click();
-        waitAjax().until(new ElementIsFocused(form3.input1));
+        form3.submitAjax();
+        waitAjax().until(new ElementIsFocused(form3.getInput1()));
     }
 
     private static void addIndexPage(MiscDeployment deployment) {
@@ -127,17 +128,34 @@ public class TestFocusMultipleForms {
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
-    static class Form {
+    public static class Form {
+
         @FindBy(css = "[id$=input1]")
-        WebElement input1;
+        private WebElement input1;
 
         @FindBy(css = "[id$=input2]")
-        WebElement input2;
+        private WebElement input2;
 
         @FindBy(css = "[id$=submit]")
-        WebElement submit;
+        private WebElement submit;
 
         @FindBy(css = "[id$=ajax]")
-        WebElement ajax;
+        private WebElement ajax;
+
+        public WebElement getInput1() {
+            return input1;
+        }
+
+        public WebElement getInput2() {
+            return input2;
+        }
+
+        public void submit() {
+            Graphene.guardHttp(submit).click();
+        }
+
+        public void submitAjax() {
+            Graphene.guardAjax(ajax).click();
+        }
     }
 }

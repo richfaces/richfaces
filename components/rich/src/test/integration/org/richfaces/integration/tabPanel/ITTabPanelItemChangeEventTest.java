@@ -1,4 +1,4 @@
-package org.richfaces.ui.tabPanel;
+package org.richfaces.integration.tabPanel;
 
 import static org.jboss.arquillian.graphene.Graphene.waitModel;
 
@@ -19,10 +19,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.integration.OutputDeployment;
+import org.richfaces.integration.tabPanel.model.TabPanelItemChangeEventBean;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import org.richfaces.ui.tabPanel.model.TabPanelItemChangeEventBean;
-
 @RunAsClient
 @RunWith(Arquillian.class)
 @WarpTest
@@ -39,7 +38,7 @@ public class ITTabPanelItemChangeEventTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITTabPanelItemChangeEventTest.class);
+        OutputDeployment deployment = new OutputDeployment(ITTabPanelItemChangeEventTest.class);
 
         deployment.archive().addClasses(TabPanelItemChangeEventBean.class, ItemChangeEventInspection.class);
 
@@ -68,8 +67,11 @@ public class ITTabPanelItemChangeEventTest {
         }).inspect(new ItemChangeEventInspection());
     }
 
-    private static void addIndexPage(FrameworkDeployment deployment) {
+    private static void addIndexPage(OutputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
+        p.xmlns("rich", "http://richfaces.org/rich");
+        p.xmlns("a4j", "http://richfaces.org/a4j");
+        p.xmlns("c", "http://java.sun.com/jsp/jstl/core");
         p.body("<h:form id='myForm'>");
         p.body("<r:tabPanel id='tabPanel' binding='#{tabPanelItemChangeEventBean.tabPanel}' itemChangeListener='#{tabPanelItemChangeEventBean.itemChangeListener}'>");
         p.body("    <r:tab id='tab0' name='tab0' header='tab0 header'>");

@@ -24,6 +24,7 @@ package org.richfaces.component.extendedDataTable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,13 +41,63 @@ public class IterationBean implements Serializable {
     private List<String> values = Arrays.asList(array);
     private String selectedValue;
     private List<String> data;
+    private List<Node> nodes;
+    private Integer nodeId;
 
+    public class Node implements Serializable {
+        private static final long serialVersionUID = 1L;
+
+        private int id;
+        private String label;
+
+        public Node(int id, String label) {
+            this.id = id;
+            this.label = label;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public void setLabel(String label) {
+            this.label = label;
+        }
+    }
 
     public IterationBean() {
+        nodes = new ArrayList<Node>(10);
+        for (int i=0; i<10; i++) {
+            nodes.add(new Node(i, String.valueOf(Character.toChars(i + 64))));
+        }
     }
 
     public List<String> getValues() {
         return values;
+    }
+
+    public List<Node> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(List<Node> nodes) {
+        this.nodes = nodes;
+    }
+
+    public Integer getNodeId() {
+        return nodeId;
+    }
+
+    public void setNodeId(Integer nodeId) {
+        System.err.println("************ setNodeId called with: " + String.valueOf(nodeId));
+        this.nodeId = nodeId;
     }
 
     public String getSelectedValue() {

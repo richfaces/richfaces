@@ -10,14 +10,15 @@ import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.warp.WarpTest;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,6 +28,8 @@ import org.richfaces.integration.MiscDeployment;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.FocusRendererBase;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Failing;
 
 @RunAsClient
 @WarpTest
@@ -78,7 +81,7 @@ public class TestFocusSubmissionMethods {
         guardHttp(submitButton).click();
 
         // then
-        assertEquals(input2, FocusRetriever.retrieveActiveElement());
+        Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
     /**
@@ -87,7 +90,7 @@ public class TestFocusSubmissionMethods {
      * {@link FocusRendererBase#renderOncompleteScript(javax.faces.context.FacesContext, String)}.
      */
     @Test
-    @Ignore
+    @Category(Failing.class)
     public void testFocusAfterAjaxJSF() {
         // when
         input2.click();

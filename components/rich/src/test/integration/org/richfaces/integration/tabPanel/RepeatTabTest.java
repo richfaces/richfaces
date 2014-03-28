@@ -10,6 +10,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,6 +19,8 @@ import org.richfaces.integration.OutputDeployment;
 import org.richfaces.integration.tabPanel.model.TabBean;
 import org.richfaces.integration.tabPanel.model.TabPanelBean;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Smoke;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -52,6 +55,7 @@ public class RepeatTabTest {
     }
 
     @Test
+    @Category(Smoke.class)
     public void check_tab_switch() {
         browser.get(contextPath.toExternalForm() + "index.jsf");
         tabTestHelper.check_tab_switch(tabPanel, tabs, a4jCreateTabButton);

@@ -1,4 +1,4 @@
-package org.richfaces.ui.tabPanel;
+package org.richfaces.integration.tabPanel;
 
 import static org.jboss.arquillian.warp.jsf.Phase.RENDER_RESPONSE;
 import static org.jboss.arquillian.warp.jsf.Phase.RESTORE_VIEW;
@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.jboss.arquillian.warp.Inspection;
 import org.jboss.arquillian.warp.jsf.AfterPhase;
-import org.richfaces.ui.tabPanel.model.TabPanelItemChangeEventBean;
+import org.richfaces.integration.tabPanel.model.TabPanelItemChangeEventBean;
 
 public class ItemChangeEventInspection extends Inspection {
     private static final long serialVersionUID = 1L;

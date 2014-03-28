@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.ui.extendedDataTable;
+package org.richfaces.component.extendedDataTable;
 
 import category.Failing;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -44,7 +44,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import javax.inject.Inject;
@@ -81,7 +81,7 @@ public class ITRowClick {
 
     @Deployment
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITRowClick.class);
+        IterationDeployment deployment = new IterationDeployment(ITRowClick.class);
         deployment.archive().addClass(IterationBean.class);
         addIndexPage(deployment);
 
@@ -118,8 +118,10 @@ public class ITRowClick {
 
     }
 
-    private static void addIndexPage(FrameworkDeployment deployment) {
+    private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
+        p.xmlns("rich", "http://richfaces.org/rich");
+        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<script type='text/javascript'>");
         p.body("function rowClicked(event) { ");
@@ -127,21 +129,21 @@ public class ITRowClick {
         p.body("} ");
         p.body("</script> ");
         p.body("<h:form id='myForm'> ");
-        p.body("    <r:extendedDataTable id='edt' value='#{iterationBean.nodes}' var='node' rowKeyVar='rowKey' onrowclick='rowClicked' > ");
-        p.body("        <r:ajax event='rowclick' render='myForm' listener='#{iterationBean.setNodeId(5)}' /> ");
-        p.body("        <r:column id='column1' width='150px' > ");
+        p.body("    <rich:extendedDataTable id='edt' value='#{iterationBean.nodes}' var='node' rowKeyVar='rowKey' onrowclick='rowClicked' > ");
+        p.body("        <a4j:ajax event='rowclick' render='myForm' listener='#{iterationBean.setNodeId(5)}' /> ");
+        p.body("        <rich:column id='column1' width='150px' > ");
         p.body("            <f:facet name='header'>Column 1</f:facet> ");
         p.body("            Node: ");
-        p.body("        </r:column> ");
-        p.body("        <r:column id='column2' width='150px' > ");
+        p.body("        </rich:column> ");
+        p.body("        <rich:column id='column2' width='150px' > ");
         p.body("            <f:facet name='header'>Node id</f:facet> ");
         p.body("            #{node.id} ");
-        p.body("        </r:column> ");
-        p.body("        <r:column id='column3' width='150px' > ");
+        p.body("        </rich:column> ");
+        p.body("        <rich:column id='column3' width='150px' > ");
         p.body("            <f:facet name='header'>Node label</f:facet> ");
         p.body("            #{node.label} ");
-        p.body("        </r:column> ");
-        p.body("    </r:extendedDataTable> ");
+        p.body("        </rich:column> ");
+        p.body("    </rich:extendedDataTable> ");
         p.body("</h:form> ");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
