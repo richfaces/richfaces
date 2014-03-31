@@ -1,6 +1,6 @@
-/*
+/*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2013, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
+ *******************************************************************************/
 package org.richfaces.fragment.autocomplete;
 
 import java.util.Collections;
@@ -53,7 +53,7 @@ import com.google.common.base.Predicate;
  */
 public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions<RichFacesAutocomplete.AdvancedAutocompleteInteractions> {
 
-    private static final String SUGGESTIONS_CSS_SELECTOR = "ul.ui-autocomplete li.ui-menu-item";
+    private static final String SUGGESTIONS_CSS_SELECTOR_TEMPLATE = ".rf-au-lst-cord[id='%sList'] .rf-au-itm";
     private static final String CSS_INPUT = "input[type='text']";
 
     @Drone
@@ -119,7 +119,9 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions
         }
 
         public List<WebElement> getSuggestionsElements() {
-            List<WebElement> foundElements = driver.findElements(By.cssSelector(SUGGESTIONS_CSS_SELECTOR));
+            String id = root.getAttribute("id");
+            String selectorOfRoot = String.format(SUGGESTIONS_CSS_SELECTOR_TEMPLATE, id);
+            List<WebElement> foundElements = driver.findElements(By.cssSelector(selectorOfRoot));
             if (!foundElements.isEmpty() && foundElements.get(0).isDisplayed()) { // prevent
                                                                                   // returning
                                                                                   // of
@@ -208,7 +210,7 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions
             // these two actions need to be split in order to prevent NoSuchElementException
             new Actions(driver).sendKeys(Keys.RETURN).perform();
             Graphene.waitModel().until().element(By.cssSelector("body")).is().present();
-            new Actions(driver).click(driver.findElement(By.cssSelector("body"))).perform();
+            new Actions(driver).click(driver.findElement(Utils.BY_BODY)).perform();
             advanced().waitForSuggestionsToBeNotVisible().perform();
             return RichFacesAutocomplete.this;
         }
@@ -231,6 +233,7 @@ public class RichFacesAutocomplete implements Autocomplete, AdvancedInteractions
             } else {
                 new Actions(driver).moveToElement(foundValue).click(foundValue).perform();
             }
+
             advanced().waitForSuggestionsToBeNotVisible().perform();
             return RichFacesAutocomplete.this;
         }
