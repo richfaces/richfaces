@@ -24,14 +24,14 @@ package org.richfaces.renderkit.html;
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.active;
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.disabled;
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.inactive;
-import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
-import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.SPAN_ELEM;
-import static org.richfaces.ui.common.HtmlConstants.STYLE_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.TBODY_ELEMENT;
-import static org.richfaces.ui.common.HtmlConstants.TD_ELEM;
-import static org.richfaces.ui.common.HtmlConstants.TR_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.SPAN_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 import java.io.IOException;
@@ -55,7 +55,7 @@ import org.richfaces.component.AbstractTogglePanelTitledItem;
 import org.richfaces.component.TogglePanelVisitCallback;
 import org.richfaces.component.TogglePanelVisitState;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 
 /**

@@ -26,6 +26,8 @@ public class CalendarRenderTest extends RendererTestBase {
         environment.withWebRoot(new File(this.getClass().getResource(".").toURI()));
         environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/component/faces-config.xml");
         environment.start();
+        environment.getWebClient().setJavaScriptEnabled(true);
+        environment.getWebClient().getOptions().setPrintContentOnFailingStatusCode(true);
     }
 
     @Test
@@ -59,7 +61,7 @@ public class CalendarRenderTest extends RendererTestBase {
         HtmlImage calendarPopupButton = (HtmlImage) page.getElementById("form:calendarPopupButton");
         assertNotNull(calendarPopupButton);
         page = (HtmlPage) calendarPopupButton.click();
-        HtmlElement calendarHeaderElement = (HtmlElement) page.getElementById("form:calendarHeader");
+        HtmlElement calendarHeaderElement = page.getHtmlElementById("form:calendarHeader");
         assertNotNull("form:calendarHeader element missed.", calendarHeaderElement);
 
         HtmlTableDataCell nextTD = null;

@@ -30,7 +30,6 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.AjaxProps;
-import org.richfaces.ui.common.ComponentIterators;
 
 import com.google.common.base.Predicate;
 

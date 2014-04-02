@@ -35,7 +35,6 @@ import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.model.TreeDataModelTuple;
 import org.richfaces.model.TreeDataVisitor;
-import org.richfaces.ui.common.HtmlConstants;
 
 abstract class TreeEncoderBase implements TreeDataVisitor {
     private static final class QueuedData {

@@ -21,12 +21,13 @@
  */
 package org.richfaces.javascript;
 
-import org.richfaces.ui.core.UIScripts;
+import org.richfaces.component.UIScripts;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;

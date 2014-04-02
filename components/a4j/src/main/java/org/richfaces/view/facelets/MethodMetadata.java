@@ -22,8 +22,6 @@
 package org.richfaces.view.facelets;
 
 import javax.el.MethodExpression;
-import javax.faces.application.Application;
-import javax.faces.el.MethodBinding;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.TagAttribute;
@@ -44,13 +42,5 @@ public abstract class MethodMetadata extends Metadata {
 
     protected MethodExpression getMethodExpression(FaceletContext ctx) {
         return this.attribute.getMethodExpression(ctx, null, signature);
-    }
-
-    protected MethodBinding getMethodBinding(FaceletContext ctx) {
-        MethodExpression expression = this.attribute.getMethodExpression(ctx, null, signature);
-        Application application = ctx.getFacesContext().getApplication();
-        return application.createMethodBinding(expression.getExpressionString(), signature); // TODO
-                                                                                             // expression.getExpressionString()
-                                                                                             // ???
     }
 }

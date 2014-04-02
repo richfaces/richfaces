@@ -21,10 +21,10 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.TBODY_ELEMENT;
-import static org.richfaces.ui.common.HtmlConstants.TD_ELEM;
-import static org.richfaces.ui.common.HtmlConstants.TR_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 
@@ -41,8 +41,8 @@ import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenu;
 import org.richfaces.component.AbstractPanelMenuItem;
-import org.richfaces.ui.common.ComponentIterators;
-import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.component.ComponentIterators;
+import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.util.PanelIcons;
 import org.richfaces.renderkit.util.PanelIcons.State;

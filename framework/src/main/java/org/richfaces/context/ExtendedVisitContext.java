@@ -30,7 +30,7 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.ui.common.meta.MetaComponentResolver;
+import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.util.FastJoiner;
 
 /**

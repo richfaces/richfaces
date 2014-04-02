@@ -37,15 +37,15 @@ import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
 
+import org.ajax4jsf.component.AjaxClientBehavior;
 import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
+import org.richfaces.renderkit.AjaxConstants;
 import org.richfaces.renderkit.AjaxFunction;
 import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
-import org.richfaces.ui.ajax.ajax.AjaxClientBehavior;
-import org.richfaces.ui.common.AjaxConstants;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import com.google.common.base.Strings;
 

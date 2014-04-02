@@ -44,7 +44,7 @@ import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.component.UIHashParameter;
 import org.richfaces.component.behavior.ComponentControlBehavior;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author Anton Belevich

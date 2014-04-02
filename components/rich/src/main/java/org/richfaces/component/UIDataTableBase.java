@@ -65,9 +65,7 @@ import org.richfaces.model.ArrangeableStateDefaultImpl;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
-import org.richfaces.ui.common.meta.MetaComponentEncoder;
-import org.richfaces.ui.common.meta.MetaComponentRenderer;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
+import org.richfaces.renderkit.MetaComponentRenderer;
 
 public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
     public static final String COMPONENT_FAMILY = "org.richfaces.Data";

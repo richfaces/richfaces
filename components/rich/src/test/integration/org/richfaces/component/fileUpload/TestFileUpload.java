@@ -22,6 +22,7 @@ import org.jboss.arquillian.warp.servlet.AfterServlet;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -29,6 +30,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.InputDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.FailingOnPhantomJS;
+import category.Smoke;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -64,6 +68,7 @@ public class TestFileUpload {
     private JavascriptExecutor executor;
 
     @Test
+    @Category({Smoke.class, FailingOnPhantomJS.class})
     public void test_file_upload() throws InterruptedException, URISyntaxException {
         browser.get(contextPath.toExternalForm());
 

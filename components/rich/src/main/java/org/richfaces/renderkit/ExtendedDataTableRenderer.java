@@ -62,9 +62,6 @@ import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.OnOffResponseWriter;
 import org.richfaces.model.SelectionMode;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
-import org.richfaces.ui.common.ComponentAttribute;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.meta.MetaComponentRenderer;
 
 /**
  * @author Konstantin Mishin

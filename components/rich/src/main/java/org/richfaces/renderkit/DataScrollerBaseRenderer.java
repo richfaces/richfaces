@@ -42,7 +42,6 @@ import org.richfaces.component.AbstractDataScroller;
 import org.richfaces.component.DataScrollerControlsMode;
 import org.richfaces.event.DataScrollEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
-import org.richfaces.ui.common.HtmlConstants;
 
 @ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.js"),

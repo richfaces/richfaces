@@ -21,9 +21,9 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
-import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
 
 import java.io.IOException;
 import java.util.Map;
@@ -40,11 +40,11 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTab;
 import org.richfaces.component.AbstractTabPanel;
 import org.richfaces.component.AbstractTogglePanelItemInterface;
+import org.richfaces.component.ComponentIterators;
+import org.richfaces.component.VisitChildrenRejectable;
 import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.common.ComponentIterators;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.VisitChildrenRejectable;
 
 import com.google.common.base.Predicate;
 

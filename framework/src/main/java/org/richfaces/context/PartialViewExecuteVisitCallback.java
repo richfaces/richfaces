@@ -28,7 +28,7 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
-import org.richfaces.ui.common.meta.MetaComponentProcessor;
+import org.richfaces.component.MetaComponentProcessor;
 
 /**
  * @author Nick Belaevski

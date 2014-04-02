@@ -21,7 +21,7 @@
  */
 package org.richfaces.context;
 
-import static org.richfaces.ui.common.meta.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
+import static org.richfaces.component.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -36,10 +36,10 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.component.AjaxContainer;
+import org.richfaces.component.ComponentIterators;
+import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.context.IdParser.Node;
-import org.richfaces.ui.ajax.region.AjaxContainer;
-import org.richfaces.ui.common.ComponentIterators;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.util.SeparatorChar;
 
 import com.google.common.base.Joiner;

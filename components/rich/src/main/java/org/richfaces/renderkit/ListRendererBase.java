@@ -40,9 +40,7 @@ import org.richfaces.component.ListType;
 import org.richfaces.component.UISequence;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.ui.common.ComponentAttribute;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author Nick Belaevski

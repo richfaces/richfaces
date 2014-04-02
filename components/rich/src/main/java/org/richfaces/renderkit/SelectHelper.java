@@ -37,8 +37,6 @@ import org.richfaces.component.AbstractSelectComponent;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.InputUtils;
 import org.richfaces.component.util.SelectUtils;
-import org.richfaces.ui.common.ComponentAttribute;
-import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author abelevich

@@ -36,8 +36,8 @@ import org.richfaces.component.AbstractNotifyMessage;
 import org.richfaces.component.AbstractNotifyMessages;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.renderkit.util.RendererUtils;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.util.RendererUtils;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;

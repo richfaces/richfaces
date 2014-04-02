@@ -38,10 +38,9 @@ import org.richfaces.component.AbstractSelectComponent;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.l10n.MessageFactory;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.validation.AddCSVMessageScript;
 import org.richfaces.util.HtmlDimensions;
 import org.richfaces.validator.SelectLabelValueValidator;
+import org.richfaces.validator.csv.AddCSVMessageScript;
 
 /**
  * @author abelevich

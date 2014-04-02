@@ -35,7 +35,7 @@ import org.richfaces.component.AbstractNotify;
 import org.richfaces.component.AbstractNotifyStack;
 import org.richfaces.component.NotifyAttributes;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>

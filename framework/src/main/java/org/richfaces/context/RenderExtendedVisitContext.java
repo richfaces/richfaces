@@ -32,8 +32,8 @@ import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.ui.common.AjaxOutput;
-import org.richfaces.ui.common.VisitChildrenRejectable;
+import org.ajax4jsf.component.AjaxOutput;
+import org.richfaces.component.VisitChildrenRejectable;
 
 /**
  * @author Nick Belaevski

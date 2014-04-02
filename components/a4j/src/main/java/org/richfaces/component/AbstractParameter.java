@@ -31,8 +31,8 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
+import org.ajax4jsf.component.JavaScriptParameter;
 import org.richfaces.l10n.Messages;
-import org.richfaces.ui.ajax.parameter.JavaScriptParameter;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
@@ -65,6 +65,12 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
      */
     @Attribute
     public abstract boolean isNoEscape();
+
+    /**
+     * EL expression for updatable bean property. This property will be updated if the parent command component performs an actionEvent.
+     */
+    @Attribute
+    public abstract Object getAssignTo();
 
     public abstract void setNoEscape(boolean noEscape);
 

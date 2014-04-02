@@ -33,7 +33,7 @@ import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.MetaRuleset;
 import javax.faces.view.facelets.TagHandlerDelegate;
 
-import org.richfaces.ui.behavior.ClientBehavior;
+import org.richfaces.component.behavior.ClientBehavior;
 
 /**
  * @author Anton Belevich

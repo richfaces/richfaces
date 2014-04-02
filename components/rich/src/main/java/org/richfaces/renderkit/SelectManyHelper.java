@@ -31,7 +31,6 @@ import org.richfaces.component.util.SelectItemsInterface;
 import org.richfaces.component.util.SelectUtils;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.util.HtmlDimensions;
 
 import javax.annotation.Nullable;

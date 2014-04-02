@@ -21,14 +21,14 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
-import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.INPUT_ELEM;
-import static org.richfaces.ui.common.HtmlConstants.INPUT_TYPE_HIDDEN;
-import static org.richfaces.ui.common.HtmlConstants.NAME_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.TYPE_ATTR;
-import static org.richfaces.ui.common.HtmlConstants.VALUE_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.INPUT_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.INPUT_TYPE_HIDDEN;
+import static org.richfaces.renderkit.HtmlConstants.NAME_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.TYPE_ATTR;
+import static org.richfaces.renderkit.HtmlConstants.VALUE_ATTRIBUTE;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 

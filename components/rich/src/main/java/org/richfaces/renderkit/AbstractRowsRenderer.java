@@ -36,8 +36,6 @@ import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
-import org.richfaces.ui.common.ComponentAttribute;
-import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author Anton Belevich

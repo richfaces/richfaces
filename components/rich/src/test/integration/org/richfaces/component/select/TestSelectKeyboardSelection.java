@@ -1,7 +1,8 @@
 package org.richfaces.component.select;
 
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.junit.Assert.assertEquals;
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
+import static org.richfaces.arquillian.browser.Browser.FIREFOX;
 
 import java.net.URL;
 
@@ -54,7 +55,7 @@ public class TestSelectKeyboardSelection {
     }
 
     @Test
-    public void test() {
+    public void test_selection_by_keyboard() {
         browser.get(contextPath.toExternalForm());
 
         selectInput.sendKeys("t");
@@ -63,8 +64,12 @@ public class TestSelectKeyboardSelection {
         keyboard.pressKey(Keys.ARROW_DOWN);
         waitAjax().until().element(tampaBayOption).attribute("class").contains("rf-sel-sel");
 
-        keyboard.pressKey(Keys.ENTER);
-        assertEquals("Tampa Bay", selectInput.getAttribute("value"));
+        if (FIREFOX.is(browser)) {
+            keyboard.pressKey(Keys.RETURN);
+        } else {
+            keyboard.pressKey(Keys.ENTER);
+        }
+        waitGui().until().element(selectInput).attribute("value").equalTo("Tampa Bay");
     }
 
     private static void addIndexPage(InputDeployment deployment) {

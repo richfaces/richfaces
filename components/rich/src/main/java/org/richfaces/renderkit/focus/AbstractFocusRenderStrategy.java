@@ -9,7 +9,7 @@ import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractFocus;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;

@@ -25,11 +25,13 @@ import static org.junit.Assert.assertEquals;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.MiscDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Failing;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -99,30 +101,45 @@ public class TestPlaceholderInplaceInput extends AbstractPlaceholderTest {
         assertEquals("defaultLabel", input().getDefaultText());
     }
 
-    @Ignore("RF-12651")
+    /**
+     * {@link https://issues.jboss.org/browse/RF-12651}
+     */
     @Test
     @Override
+    @Category(Failing.class)
     public void testDefaultAttributes() {
     }
 
-    @Ignore("RF-12651")
+    /**
+     * {@link https://issues.jboss.org/browse/RF-12651}
+     */
     @Test
+    @Category(Failing.class)
     public void testSelector() {
     }
 
-    @Ignore("RF-12651")
+    /**
+     * {@link https://issues.jboss.org/browse/RF-12651}
+     */
     @Test
+    @Category(Failing.class)
     public void testStyleClass() {
     }
 
-    @Ignore("RF-12651")
+    /**
+     * {@link https://issues.jboss.org/browse/RF-12651}
+     */
     @Test
+    @Category(Failing.class)
     public void when_text_is_changed_then_text_changes_color_to_default_and_removes_placeholder_style_classes() {
     }
 
-    @Ignore("RF-12651")
+    /**
+     * {@link https://issues.jboss.org/browse/RF-12651}
+     */
     @Test
     @Override
+    @Category(Failing.class)
     public void when_text_is_cleared_then_input_gets_placeholder_text_and_style_again() {
     }
 }

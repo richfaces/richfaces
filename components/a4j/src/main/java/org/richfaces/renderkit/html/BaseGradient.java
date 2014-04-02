@@ -34,6 +34,8 @@ import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 
+import org.richfaces.renderkit.html.images.GradientType;
+import org.richfaces.renderkit.html.images.GradientType.BiColor;
 import org.richfaces.resource.AbstractJava2DUserResource;
 import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.PostConstructResource;
@@ -41,8 +43,6 @@ import org.richfaces.resource.ResourceParameter;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
-import org.richfaces.ui.images.GradientType;
-import org.richfaces.ui.images.GradientType.BiColor;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com created 02.02.2007

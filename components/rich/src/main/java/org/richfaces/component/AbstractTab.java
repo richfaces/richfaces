@@ -22,6 +22,7 @@
 package org.richfaces.component;
 
 import com.google.common.collect.Iterators;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -31,8 +32,6 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.AjaxProps;
 import org.richfaces.context.RenderExtendedVisitContext;
 import org.richfaces.renderkit.html.DivPanelRenderer;
-import org.richfaces.ui.common.ComponentIterators;
-import org.richfaces.ui.common.VisitChildrenRejectable;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
@@ -41,6 +40,7 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
+
 import java.util.Iterator;
 
 /**

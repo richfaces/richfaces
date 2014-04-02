@@ -46,7 +46,6 @@ import org.richfaces.component.UIDataAdaptor;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
-import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author Anton Belevich

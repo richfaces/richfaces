@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * Copyright 2013, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -29,21 +29,22 @@ import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIParameter;
+import javax.faces.view.facelets.ComponentHandler;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * <p>The &lt;rich:hashParam&gt; component allows client-side parameters to be grouped into a hash map. The hash map can
+ * <p>The &lt;r:hashParam&gt; component allows client-side parameters to be grouped into a hash map. The hash map can
  * then be passed to the client JavaScript API functions of any RichFaces component.</p>
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = UIHashParameter.COMPONENT_TYPE, family = UIHashParameter.COMPONENT_FAMILY, tag = @Tag(name = "hashParam", handler = "javax.faces.view.facelets.ComponentHandler"))
+@JsfComponent(type = UIHashParameter.COMPONENT_TYPE, family = UIHashParameter.COMPONENT_FAMILY, tag = @Tag(name = "hashParam", handlerClass = ComponentHandler.class))
 public class UIHashParameter extends UIComponentBase {
-    public static final String COMPONENT_TYPE = "org.richfaces.HashParameter";
-    public static final String COMPONENT_FAMILY = "org.richfaces.HashParameter";
+    public static final String COMPONENT_TYPE = "org.richfaces.ui.HashParameter";
+    public static final String COMPONENT_FAMILY = "org.richfaces.ui.HashParameter";
 
     enum PropertyKeys {
         name

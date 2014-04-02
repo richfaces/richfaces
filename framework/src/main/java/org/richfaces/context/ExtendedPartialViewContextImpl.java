@@ -21,9 +21,9 @@
  */
 package org.richfaces.context;
 
-import static org.richfaces.ui.common.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
-import static org.richfaces.ui.common.AjaxConstants.ALL;
-import static org.richfaces.ui.common.AjaxConstants.BEHAVIOR_EVENT_PARAMETER;
+import static org.richfaces.renderkit.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
+import static org.richfaces.renderkit.AjaxConstants.ALL;
+import static org.richfaces.renderkit.AjaxConstants.BEHAVIOR_EVENT_PARAMETER;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -50,9 +50,9 @@ import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.ScriptsHolder;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.util.AjaxRendererUtils;
+import org.richfaces.util.CoreAjaxRendererUtils;
 import org.richfaces.util.FastJoiner;
 
 /**
@@ -456,7 +456,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
         final PartialViewContext pvc = context.getPartialViewContext();
         final PartialResponseWriter writer = pvc.getPartialResponseWriter();
 
-        String viewStateId = AjaxRendererUtils.getViewStateId(context);
+        String viewStateId = CoreAjaxRendererUtils.getViewStateId(context);
         writer.startUpdate(viewStateId);
         String state = context.getApplication().getStateManager().getViewState(context);
         writer.write(state);

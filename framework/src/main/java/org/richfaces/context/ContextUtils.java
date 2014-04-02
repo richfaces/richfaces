@@ -21,10 +21,10 @@
  */
 package org.richfaces.context;
 
-import static org.richfaces.ui.common.AjaxConstants.ALL;
-import static org.richfaces.ui.common.AjaxConstants.FORM;
-import static org.richfaces.ui.common.AjaxConstants.NONE;
-import static org.richfaces.ui.common.AjaxConstants.THIS;
+import static org.richfaces.renderkit.AjaxConstants.ALL;
+import static org.richfaces.renderkit.AjaxConstants.FORM;
+import static org.richfaces.renderkit.AjaxConstants.NONE;
+import static org.richfaces.renderkit.AjaxConstants.THIS;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,10 +33,10 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.ui.common.meta.MetaComponentResolver;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.component.MetaComponentResolver;
 
 /**
  * Util class for common render operations - render passthru html attributes, iterate over child components etc.
@@ -77,7 +77,7 @@ final class ContextUtils {
             }
             return component.getClientId(facesContext);
         } else if (FORM.equals(id)) {
-            UIComponent nestingForm = RendererUtils.getInstance().getNestingForm(component);
+            UIComponent nestingForm = getNestingForm(facesContext, component);
             if (nestingForm != null) {
                 return nestingForm.getClientId(facesContext);
             } else {
@@ -145,5 +145,30 @@ final class ContextUtils {
         }
 
         return result;
+    }
+
+    /**
+     * Find nested form for given component
+     *
+     * @param component
+     * @return nested <code>UIForm</code> component, or <code>null</code>
+     */
+    // TODO - remove code duplication
+    public UIForm getNestingForm(FacesContext context, UIComponent component) {
+        UIComponent parent = component.getParent();
+
+        while ((parent != null) && !(parent instanceof UIForm)) {
+            parent = parent.getParent();
+        }
+
+        UIForm nestingForm = null;
+
+        if (parent != null) {
+
+            // link is nested inside a form
+            nestingForm = (UIForm) parent;
+        }
+
+        return nestingForm;
     }
 }

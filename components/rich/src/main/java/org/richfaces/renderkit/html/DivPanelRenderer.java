@@ -21,8 +21,8 @@
  */
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
 import static org.richfaces.renderkit.RenderKitUtils.attributes;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
@@ -36,7 +36,7 @@ import javax.faces.context.ResponseWriter;
 import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 

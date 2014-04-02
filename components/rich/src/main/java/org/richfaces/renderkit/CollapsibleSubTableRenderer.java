@@ -42,7 +42,6 @@ import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
-import org.richfaces.ui.common.HtmlConstants;
 
 /**
  * @author Anton Belevich
