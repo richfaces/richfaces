@@ -41,11 +41,11 @@ import org.richfaces.component.attribute.EventsMouseProps;
 @JsfComponent(
         type = AbstractInputNumberSpinner.COMPONENT_TYPE,
         family = AbstractInputNumberSpinner.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.ui.InputNumberSpinnerRenderer"),
+        renderer = @JsfRenderer(type = "org.richfaces.InputNumberSpinnerRenderer"),
         tag = @Tag(name = "inputNumberSpinner"),
         attributes = { "base-props.xml", "focus-props.xml", "i18n-props.xml", "input-props.xml" })
 public abstract class AbstractInputNumberSpinner extends UIInputNumber implements AccesskeyProps, CoreProps, EventsKeyProps, EventsMouseProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.ui.InputNumberSpinner";
+    public static final String COMPONENT_TYPE = "org.richfaces.InputNumberSpinner";
     public static final String COMPONENT_FAMILY = "javax.faces.Input";
 
 

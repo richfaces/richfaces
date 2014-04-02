@@ -40,11 +40,11 @@ import org.richfaces.component.attribute.EventsMouseProps;
 @JsfComponent(
         type = AbstractInputNumberSlider.COMPONENT_TYPE,
         family = AbstractInputNumberSlider.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.ui.InputNumberSliderRenderer"),
+        renderer = @JsfRenderer(type = "org.richfaces.InputNumberSliderRenderer"),
         tag = @Tag(name = "inputNumberSlider"),
         attributes = { "base-props.xml", "focus-props.xml", "i18n-props.xml", "input-props.xml" })
 public abstract class AbstractInputNumberSlider extends UIInputNumber implements AccesskeyProps, CoreProps, EventsKeyProps, EventsMouseProps {
-    public static final String COMPONENT_TYPE = "org.richfaces.ui.InputNumberSlider";
+    public static final String COMPONENT_TYPE = "org.richfaces.InputNumberSlider";
     public static final String COMPONENT_FAMILY = "javax.faces.Input";
 
     @Attribute(hidden = true)
@@ -206,7 +206,7 @@ public abstract class AbstractInputNumberSlider extends UIInputNumber implements
     /**
      * Tells how handle should look like. Possible values: arrow (default), bar
      */
-    @Attribute(passThrough = true, defaultValue = "org.richfaces.ui.input.inputNumberSlider.InputNumberSliderHandleType.DEFAULT")
+    @Attribute(passThrough = true, defaultValue = "org.richfaces.component.InputNumberSliderHandleType.DEFAULT")
     public abstract InputNumberSliderHandleType getHandleType();
 
 }

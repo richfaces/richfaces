@@ -33,12 +33,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewDeclarationLanguage;
 
 import com.gargoylesoftware.htmlunit.html.DomElement;
+
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.CustomizedHtmlUnitEnvironment;
+import org.richfaces.component.AbstractPanel;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;

@@ -18,7 +18,7 @@
         <cdk:resource-dependency library="org.richfaces" name="richfaces-base-component.js" />
         <cdk:resource-dependency name="richfaces-event.js" library="org.richfaces" />
         <cdk:resource-dependency name="menuitem.js" library="org.richfaces" />
-        <cdk:import package="org.richfaces.util" names="RendererUtils" />
+        <cdk:import package="org.richfaces.renderkit.util" names="RendererUtils" />
     </cc:interface>
 
     <cc:implementation>
