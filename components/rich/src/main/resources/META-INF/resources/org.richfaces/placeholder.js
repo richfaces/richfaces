@@ -19,7 +19,7 @@
                 options.className = 'rf-plhdr ' + ((options.styleClass) ? options.styleClass : '');
                 var elements = (options.selector) ? $(options.selector) : $(document.getElementById(options.targetId));
                 // finds all inputs within the subtree of target elements
-                var inputs = elements.find(':editable').andSelf().filter(':editable');
+                var inputs = elements.find('*').andSelf().filter(':editable');
                 inputs.watermark(options.text, options);
             });
         },
@@ -36,6 +36,8 @@
     $(function() {
         $(document).on('ajaxsubmit', 'form', $.watermark.hideAll);
         $(document).on('ajaxbegin', 'form', $.watermark.showAll);
+            // need to use setTimeout to allow client's native reset to happen
+        $(document).on('reset', 'form', function() {setTimeout( $.watermark.showAll, 0); });
     });
     
     // define super class reference - reference to the parent prototype
