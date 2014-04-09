@@ -28,8 +28,8 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 import org.richfaces.util.HtmlDimensions;
-import org.richfaces.util.RendererUtils;
 
 import com.google.common.base.Strings;
 

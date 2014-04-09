@@ -60,21 +60,20 @@ public abstract class QueueRendererBase extends Renderer implements ComponentSys
     protected static final String QUEUE_ID_ATTRIBBUTE = "queueId";
     protected static final String NAME_ATTRIBBUTE = "name";
     protected static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
-    private static final String QUEUE_RESOURCE_COMPONENT_RENDERER_TYPE = "org.richfaces.QueueResourceComponentRenderer";
     private static final String QUEUE_RESOURCE_COMPONENT_TARGET = "head";
 
     private void addQueueResourceComponent(FacesContext context) {
         List<UIComponent> resources = context.getViewRoot().getComponentResources(context, QUEUE_RESOURCE_COMPONENT_TARGET);
 
         for (UIComponent resource : resources) {
-            if (QUEUE_RESOURCE_COMPONENT_RENDERER_TYPE.equals(resource.getRendererType())) {
+            if (QueueResourceComponentRenderer.TYPE.equals(resource.getRendererType())) {
                 return;
             }
         }
 
         Application application = context.getApplication();
         UIComponent queueResourceComponent = application.createComponent(context, UIOutput.COMPONENT_TYPE,
-            QUEUE_RESOURCE_COMPONENT_RENDERER_TYPE);
+                QueueResourceComponentRenderer.TYPE);
 
         // fix for JSF duplicate ID exception
         queueResourceComponent.setId(QueueRegistry.QUEUE_SCRIPT_ID);

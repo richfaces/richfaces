@@ -38,13 +38,13 @@ import javax.faces.context.PartialViewContext;
 
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractProgressBar;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
+import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.NumberUtils;
 import org.richfaces.component.SwitchType;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.AjaxFunction;
 import org.richfaces.renderkit.AjaxOptions;
-import org.richfaces.ui.common.meta.MetaComponentRenderer;
+import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 

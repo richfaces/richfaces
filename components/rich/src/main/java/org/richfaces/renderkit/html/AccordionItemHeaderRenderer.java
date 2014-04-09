@@ -1,8 +1,8 @@
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.DIV_ELEM;
-import static org.richfaces.ui.common.HtmlConstants.TD_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
 import static org.richfaces.renderkit.html.DivPanelRenderer.attributeAsString;
 
 import java.io.IOException;

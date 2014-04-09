@@ -34,9 +34,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.richfaces.component.UIScripts;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.services.ServicesFactory;
-import org.richfaces.ui.core.UIScripts;
 
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;

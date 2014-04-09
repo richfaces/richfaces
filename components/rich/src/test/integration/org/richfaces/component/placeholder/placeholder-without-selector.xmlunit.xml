@@ -1,4 +1,4 @@
-<body>
+<span id="panel">
   <span id="placeholderID">
     <script id="placeholderIDScript" type="text/javascript">
 //<![CDATA[
@@ -6,5 +6,5 @@ new RichFaces.rf4.ui.Placeholder("placeholderID", {"targetId":"input","text":"Pl
 //]]>
     </script>
   </span>
-  <input id="input" type="text" name="input" class="rf-plhdr" value="Placeholder Text"/>
-</body>
+  <input id="input" type="text" name="input"/>
+</span>

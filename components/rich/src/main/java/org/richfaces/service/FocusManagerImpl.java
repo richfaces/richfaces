@@ -10,7 +10,7 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.services.ServiceTracker;
 import org.richfaces.focus.FocusManager;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 public class FocusManagerImpl implements FocusManager {
 

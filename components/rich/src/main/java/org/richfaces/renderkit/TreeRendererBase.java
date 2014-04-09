@@ -40,15 +40,13 @@ import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
+import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.SwitchType;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.event.TreeSelectionChangeEvent;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.meta.MetaComponentRenderer;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Sets;

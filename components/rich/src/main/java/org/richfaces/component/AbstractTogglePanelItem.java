@@ -27,7 +27,6 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.RenderExtendedVisitContext;
-import org.richfaces.ui.common.ComponentIterators;
 
 import javax.faces.component.UIOutput;
 import javax.faces.component.visit.VisitCallback;

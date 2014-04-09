@@ -74,10 +74,8 @@ import org.richfaces.model.TreeDataModel;
 import org.richfaces.model.TreeDataModelTuple;
 import org.richfaces.model.TreeDataVisitor;
 import org.richfaces.model.TreeNode;
+import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.common.meta.MetaComponentEncoder;
-import org.richfaces.ui.common.meta.MetaComponentRenderer;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;

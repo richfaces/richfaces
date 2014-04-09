@@ -37,11 +37,11 @@ import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPoll;
+import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author shura

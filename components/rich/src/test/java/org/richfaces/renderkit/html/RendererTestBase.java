@@ -34,6 +34,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 
+import org.apache.commons.io.IOUtils;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.DifferenceListener;
 import org.custommonkey.xmlunit.XMLUnit;
@@ -94,7 +95,7 @@ public abstract class RendererTestBase {
         if (xmlunitPageName == null) {
             xmlunitPageName = pageName + ".xmlunit.xml";
         }
-        InputStream expectedPageCode = this.getClass().getResourceAsStream(xmlunitPageName + ".xmlunit.xml");
+        InputStream expectedPageCode = getExpectedPageCode(xmlunitPageName);
         if (expectedPageCode == null) {
             return;
         }
@@ -103,14 +104,19 @@ public abstract class RendererTestBase {
         xmlDiff.overrideDifferenceListener(getDifferenceListener());
 
         if (!xmlDiff.similar()) {
-            System.out.println("=== ACTUAL PAGE CODE ===");
+            System.out.println("=== EXPECTED PAGE CODE ===");
+            System.out.println(IOUtils.toString(getExpectedPageCode(xmlunitPageName)));
+            System.out.println("==== ACTUAL PAGE CODE ====");
             System.out.println(pageCode);
-            System.out.println("======== ERROR =========");
+            System.out.println("========= ERROR ==========");
             System.out.println(xmlDiff.toString());
-            System.out.println("========================");
+            System.out.println("==========================");
             Assert.fail("XML was not similar:" + xmlDiff.toString());
         }
+    }
 
+    private InputStream getExpectedPageCode(String xmlunitPageName) {
+        return this.getClass().getResourceAsStream(xmlunitPageName + ".xmlunit.xml");
     }
 
     protected DifferenceListener getDifferenceListener() {

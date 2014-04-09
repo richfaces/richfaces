@@ -35,7 +35,7 @@ import javax.faces.component.UIData;
 
 import org.richfaces.component.AbstractDataScroller;
 import org.richfaces.component.UIDataAdaptor;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 public final class DataScrollerUtils {
     /**

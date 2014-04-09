@@ -22,6 +22,8 @@
 package org.richfaces.view.facelets.html;
 
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ActionListener;
+import javax.faces.event.MethodExpressionActionListener;
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
@@ -53,7 +55,7 @@ public class AjaxPollHandler extends ComponentHandler {
                 if ("action".equals(name)) {
                     return new MethodMetadata(attribute) {
                         public void applyMetadata(FaceletContext ctx, Object instance) {
-                            ((AbstractPoll) instance).setAction(getMethodBinding(ctx));
+                            ((AbstractPoll) instance).setActionExpression(getMethodExpression(ctx));
                         }
                     };
                 }
@@ -67,7 +69,8 @@ public class AjaxPollHandler extends ComponentHandler {
                 if ("actionListener".equals(name)) {
                     return new MethodMetadata(attribute, ActionEvent.class) {
                         public void applyMetadata(FaceletContext ctx, Object instance) {
-                            ((AbstractPoll) instance).setActionListener(getMethodBinding(ctx));
+                            ActionListener actionListener = new MethodExpressionActionListener(getMethodExpression(ctx));
+                            ((AbstractPoll) instance).addActionListener(actionListener);
                         }
                     };
                 }

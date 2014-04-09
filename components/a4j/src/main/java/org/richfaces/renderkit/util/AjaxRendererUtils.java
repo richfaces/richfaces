@@ -26,14 +26,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 
+import org.ajax4jsf.component.AjaxClientBehavior;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.renderkit.AjaxConstants;
 import org.richfaces.renderkit.AjaxFunction;
 import org.richfaces.renderkit.AjaxOptions;
-import org.richfaces.ui.ajax.ajax.AjaxClientBehavior;
-import org.richfaces.ui.common.AjaxConstants;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.renderkit.HtmlConstants;
 
 import com.google.common.base.Strings;
 
@@ -241,12 +240,12 @@ public final class AjaxRendererUtils {
 
     private static void appendComponentOptions(FacesContext facesContext, UIComponent component, AjaxOptions ajaxOptions) {
         String handlerScript = getHandlerScript(facesContext, component, ONBEGIN_ATTR_NAME, BEGIN_EVENT_NAME);
-        if (isNotEmpty(handlerScript)) {
+        if (!Strings.isNullOrEmpty(handlerScript)) {
             ajaxOptions.set(BEGIN_EVENT_NAME, handlerScript);
         }
 
         String queueId = getQueueId(component);
-        if (isNotEmpty(queueId)) {
+        if (!Strings.isNullOrEmpty(queueId)) {
             ajaxOptions.set(QUEUE_ID_ATTRIBUTE, queueId);
         }
 

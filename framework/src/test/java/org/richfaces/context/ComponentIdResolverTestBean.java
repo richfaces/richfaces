@@ -25,8 +25,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.ui.common.AjaxConstants;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
+import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.renderkit.AjaxConstants;
 
 /**
  * @author Nick Belaevski

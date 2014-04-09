@@ -40,7 +40,6 @@ import org.richfaces.DataScrollerUtils;
 import org.richfaces.application.FacesMessages;
 import org.richfaces.l10n.MessageFactory;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;

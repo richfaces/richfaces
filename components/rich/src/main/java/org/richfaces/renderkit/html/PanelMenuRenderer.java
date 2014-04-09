@@ -38,7 +38,7 @@ import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenu;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.renderkit.HtmlConstants;
 
 /**
  * @author akolonitsky

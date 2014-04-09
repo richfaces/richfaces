@@ -27,10 +27,13 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.warp.impl.utils.URLUtils;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.MiscDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Smoke;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -47,26 +50,28 @@ public class TestPlaceholderInputText extends AbstractPlaceholderTest {
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
 
         FaceletAsset p;
-        p = deployment.baseFacelet("index.xhtml");
+        p = placeholderFacelet("index.xhtml", deployment);
         p.body("<h:inputText id='input' >");
         p.body("    <rich:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
         p.body("</h:inputText>");
 
-        p = deployment.baseFacelet("selector.xhtml");
+        p = placeholderFacelet("selector.xhtml", deployment);
+        p.body("<h:panelGroup id='panel'>");
         p.body("<h:inputText id='input' />");
         p.body("<rich:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
+        p.body("</h:panelGroup>");
 
-        p = deployment.baseFacelet("rendered.xhtml");
+        p = placeholderFacelet("rendered.xhtml", deployment);
         p.body("<h:inputText id='input' >");
         p.body("    <rich:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
         p.body("</h:inputText>");
 
-        p = deployment.baseFacelet("converter.xhtml");
+        p = placeholderFacelet("converter.xhtml", deployment);
         p.body("<h:inputText id='input' >");
         p.body("    <rich:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
         p.body("</h:inputText>");
 
-        p = deployment.baseFacelet("submit.xhtml");
+        p = placeholderFacelet("submit.xhtml", deployment);
         p.form("<h:inputText id='input' value='#{placeHolderValue.value2}' >");
         p.form("    <rich:placeholder id='placeholderID' value='Placeholder Text' />");
         p.form("</h:inputText>");
@@ -85,12 +90,14 @@ public class TestPlaceholderInputText extends AbstractPlaceholderTest {
     }
 
     @Test
+    @Category(Smoke.class)
     public void testComponentSourceWithSelector() throws Exception {
         URL selectorUrl = URLUtils.buildUrl(contextPath, "selector.jsf?selector=input");
         sourceChecker.checkComponentSource(selectorUrl, "placeholder-with-selector.xmlunit.xml", By.tagName("body"));
     }
 
     @Test
+    @Category(Smoke.class)
     public void testComponentSourceWithoutSelector() throws Exception {
         URL urL = new URL(contextPath.toExternalForm() + "index.jsf");
         sourceChecker.checkComponentSource(urL, "placeholder-without-selector.xmlunit.xml", By.tagName("body"));

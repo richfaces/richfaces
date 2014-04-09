@@ -21,6 +21,9 @@
 
             $(document).on('focus', ':tabbable', function(e) {
                 var target = $(e.target);
+                if (!target.is(':editable')) {
+                    return;
+                }
                 var ids = e.target.id || '';
                 target.parents().each(function() {
                     var id = $(this).attr('id');

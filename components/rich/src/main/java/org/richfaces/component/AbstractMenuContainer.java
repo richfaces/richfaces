@@ -38,7 +38,7 @@ public abstract class AbstractMenuContainer extends UIComponentBase {
 
     /**
      * <p>Defines an event on the parent element to display the menu</p>
-     * <p>Default value is 'oncontextmenu'</p>
+     * <p>Default value is 'contextmenu'</p>
      */
     @Attribute()
     public abstract String getShowEvent();

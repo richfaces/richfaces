@@ -24,7 +24,7 @@
         if (this.target) {
             var menu = this;
             $(document).ready(function() {
-                var targetComponent = RichFaces.component(menu.target);
+                var targetComponent = rf.component(menu.target);
                 if (targetComponent && targetComponent.contextMenuAttach) {
                     targetComponent.contextMenuAttach(menu);
                     $('body').on('rich:ready' + menu.namespace, '[id="' + menu.target + '"]', function() {targetComponent.contextMenuAttach(menu)});
@@ -63,7 +63,7 @@
                 for (var i in groupOptions) {
                     var groupId = groupOptions[i].id;
                     if (null != groupId) {
-                        this.groupList[groupId] = new RichFaces.rf4.ui.MenuGroup(
+                        this.groupList[groupId] = new rf.rf4.ui.MenuGroup(
                             groupId, {
                                 rootMenuId : this.id,
                                 onshow : groupOptions[i].onshow,
@@ -120,7 +120,7 @@
 
                 if (this.target) {
                     rf.Event.unbindById(this.target, this.options.showEvent);
-                    var targetComponent = RichFaces.component(this.target);
+                    var targetComponent = rf.component(this.target);
                     if (targetComponent && targetComponent.contextMenuAttach) {
                         $('body').off('rich:ready' + this.namespace, '[id="' + this.target + '"]');
                     }

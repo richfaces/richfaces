@@ -21,11 +21,11 @@
  */
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
-import static org.richfaces.ui.common.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.ui.common.HtmlConstants.ID_ATTRIBUTE;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -44,11 +44,11 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTooltip;
 import org.richfaces.component.Positioning;
 import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.meta.MetaComponentRenderer;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author amarkhel

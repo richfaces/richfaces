@@ -43,7 +43,7 @@
     }
     
     var showNotification = function(message) {
-        RichFaces.rf4.ui.Notify($.extend({}, this.notifyOptions, {
+        rf.rf4.ui.Notify($.extend({}, this.notifyOptions, {
             'summary': this.options.showSummary ? message.summary : undefined,
             'detail': this.options.showDetail ? message.detail : undefined,
             'severity': message.severity

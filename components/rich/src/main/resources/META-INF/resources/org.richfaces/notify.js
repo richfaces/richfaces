@@ -58,7 +58,7 @@
         if (!document.getElementById(defaultStackId)) {
             var stackElement = $('<span id="' + defaultStackId + '" class="rf-ntf-stck" />');
             $('body').append(stackElement);
-            new RichFaces.rf4.ui.NotifyStack(defaultStackId);
+            new rf.rf4.ui.NotifyStack(defaultStackId);
         }
         return getStack(defaultStackId);
     };

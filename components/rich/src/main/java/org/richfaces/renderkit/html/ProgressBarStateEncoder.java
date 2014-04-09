@@ -30,7 +30,7 @@ import javax.faces.context.ResponseWriter;
 import org.richfaces.component.AbstractProgressBar;
 import org.richfaces.component.NumberUtils;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.ui.common.HtmlConstants;
+import org.richfaces.renderkit.HtmlConstants;
 
 /**
  * @author Nick Belaevski

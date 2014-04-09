@@ -34,7 +34,7 @@ import javax.faces.model.SelectItem;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Iterators;

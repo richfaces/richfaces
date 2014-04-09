@@ -24,7 +24,9 @@ package org.richfaces.component.placeholder;
 import com.google.common.collect.Lists;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -41,7 +43,9 @@ public class PlaceHolderValue implements Serializable {
     private static final long serialVersionUID = 1L;
     private String value = DEFAULT_VALUE;
     private String value2 = "";
+    private Date value3;
     private List<SelectItem> items;
+    private TimeZone timeZone = TimeZone.getTimeZone("UTC");
 
     public PlaceHolderValue() {
         items = Lists.newArrayList(new SelectItem("item1", "item1"), new SelectItem("item2", "item2"));
@@ -69,5 +73,17 @@ public class PlaceHolderValue implements Serializable {
 
     public void setValue2(String value2) {
         this.value2 = value2;
+    }
+
+    public Date getValue3() {
+        return value3;
+    }
+
+    public void setValue3(Date value3) {
+        this.value3 = value3;
+    }
+
+    public TimeZone getTimeZone() {
+        return timeZone;
     }
 }

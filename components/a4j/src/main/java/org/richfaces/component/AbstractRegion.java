@@ -28,8 +28,6 @@ import javax.faces.context.FacesContext;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.ui.ajax.region.AjaxContainer;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
 
 /**
  * <p>

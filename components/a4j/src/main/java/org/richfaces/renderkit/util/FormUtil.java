@@ -24,7 +24,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.SwitchType;
-import org.richfaces.util.RendererUtils;
 
 /**
  * @author Filip Antonov - mailto:fantonov@exadel.com created 08.02.2007

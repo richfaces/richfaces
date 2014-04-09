@@ -10,6 +10,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +19,8 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.DndDeployment;
+
+import category.Smoke;
 
 import java.io.File;
 import java.net.URL;
@@ -59,6 +62,7 @@ public class TestDnd {
     }
 
     @Test
+    @Category(Smoke.class)
     public void test_dnd() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm() + "dnd.jsf");

@@ -30,9 +30,9 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 
+import org.richfaces.component.MetaComponentEncoder;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.ui.common.meta.MetaComponentEncoder;
 
 /**
  * @author Nick Belaevski

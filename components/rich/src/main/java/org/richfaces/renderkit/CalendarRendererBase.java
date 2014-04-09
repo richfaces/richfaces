@@ -47,6 +47,7 @@ import javax.faces.convert.DateTimeConverter;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractCalendar;
+import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.Positioning;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.InputUtils;
@@ -54,10 +55,6 @@ import org.richfaces.component.util.InputUtils.ConverterLookupStrategy;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.event.CurrentDateChangeEvent;
-import org.richfaces.ui.common.ComponentAttribute;
-import org.richfaces.ui.common.HtmlConstants;
-import org.richfaces.ui.common.meta.MetaComponentRenderer;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
 import org.richfaces.utils.CalendarHelper;
 
 /**

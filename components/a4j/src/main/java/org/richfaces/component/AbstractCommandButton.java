@@ -26,9 +26,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.AccesskeyProps;
-import org.richfaces.ui.ajax.region.AjaxContainer;
-import org.richfaces.ui.common.AjaxConstants;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
+import org.richfaces.renderkit.AjaxConstants;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;

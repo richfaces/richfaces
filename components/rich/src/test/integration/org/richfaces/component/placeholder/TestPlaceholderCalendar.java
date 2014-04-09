@@ -23,11 +23,13 @@ package org.richfaces.component.placeholder;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.MiscDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+
+import category.Failing;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -44,34 +46,36 @@ public class TestPlaceholderCalendar extends AbstractPlaceholderTest {
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
 
         FaceletAsset p;
-        p = deployment.baseFacelet("index.xhtml");
+        p = placeholderFacelet("index.xhtml", deployment);
         p.body("<rich:calendar id='input' enableManualInput='true' datePattern='MMM d, yyyy' timezone='UTC' >");
         p.body("    <rich:placeholder id='placeholderID' styleClass='#{param.styleClass}' value='Placeholder Text' />");
         p.body("</rich:calendar>");
 
-        p = deployment.baseFacelet("selector.xhtml");
+        p = placeholderFacelet("selector.xhtml", deployment);
         p.body("<rich:calendar id='input' />");
         p.body("<rich:placeholder id='placeholderID' value='Placeholder Text' selector='[id=input]' />");
 
-        p = deployment.baseFacelet("rendered.xhtml");
+        p = placeholderFacelet("rendered.xhtml", deployment);
         p.body("<rich:calendar id='input' >");
         p.body("    <rich:placeholder id='placeholderID' value='Placeholder Text' rendered='false' />");
         p.body("</rich:calendar>");
 
-        p = deployment.baseFacelet("converter.xhtml");
+        p = placeholderFacelet("converter.xhtml", deployment);
         p.body("<rich:calendar id='input' >");
         p.body("    <rich:placeholder id='placeholderID' converter='placeHolderValueConverter' value='#{placeHolderValue}' />");
         p.body("</rich:calendar>");
 
-        p = deployment.baseFacelet("submit.xhtml");
-        p.form("<rich:calendar id='input' value='#{placeHolderValue.value2}' enableManualInput='true' datePattern='MMM d, yyyy' timezone='UTC' >");
+        p = placeholderFacelet("submit.xhtml", deployment);
+        p.form("<rich:calendar id='input' value='#{placeHolderValue.value3}' enableManualInput='true' datePattern='MMM d, yyyy' timeZone='#{placeHolderValue.timeZone}' >");
         p.form("    <rich:placeholder id='placeholderID' value='Placeholder Text' />");
         p.form("</rich:calendar>");
         p.form("<br />");
         p.form("<a4j:commandButton id='ajaxSubmit' value='ajax submit' execute='@form' render='output' />");
         p.form("<h:commandButton id='httpSubmit' value='http submit' />");
         p.form("<br />");
-        p.form("<h:outputText id='output' value='#{placeHolderValue.value2}' />");
+        p.form("<h:outputText id='output' value='#{placeHolderValue.value3}' >");
+        p.form("    <f:convertDateTime timeZone='UTC' pattern='EEE MMM dd HH:mm:ss z yyyy'/>");
+        p.form("</h:outputText>");
 
         return deployment.getFinalArchive();
     }
@@ -88,10 +92,13 @@ public class TestPlaceholderCalendar extends AbstractPlaceholderTest {
 
     @Override
     protected String getTestedValueResponse() {
-        return "Wed Dec 12 00:00:00 CET 2012";
+        return "Wed Dec 12 00:00:00 UTC 2012";
     }
 
-    @Ignore("calendar date conversion problem")
+    /**
+     *  calendar date conversion problem
+     */
+    @Category(Failing.class)
     @Test
     public void testSubmitTextValue() {
         super.testSubmitTextValue();

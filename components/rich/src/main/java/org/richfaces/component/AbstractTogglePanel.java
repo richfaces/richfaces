@@ -64,11 +64,9 @@ import org.richfaces.event.ItemChangeSource;
 import org.richfaces.l10n.MessageFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.common.meta.MetaComponentEncoder;
-import org.richfaces.ui.common.meta.MetaComponentRenderer;
-import org.richfaces.ui.common.meta.MetaComponentResolver;
-import org.richfaces.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import com.google.common.base.Strings;
 
@@ -96,7 +94,6 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     public static final String UPDATE_MESSAGE_ID = "javax.faces.component.UIInput.UPDATE";
 
     private static final Logger LOG = RichfacesLogger.RENDERKIT.getLogger();
-    private static final RendererUtils UTILS = RendererUtils.getInstance();
 
     private String submittedActiveItem = null;
 

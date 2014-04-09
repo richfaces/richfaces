@@ -41,9 +41,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.richfaces.cache.Cache;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.html.ResourceLibraryRenderer;
 import org.richfaces.resource.RequestStateManager.BooleanRequestStateVariable;
 import org.richfaces.services.ServiceTracker;
-import org.richfaces.ui.core.ResourceLibraryRenderer;
 
 /**
  * <p>RichFaces-specific {@link ResourceHandler}.</p>

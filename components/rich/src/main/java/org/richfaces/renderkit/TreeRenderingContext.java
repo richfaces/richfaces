@@ -37,7 +37,6 @@ import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.SwitchType;
-import org.richfaces.ui.common.ComponentAttribute;
 
 /**
  * @author Nick Belaevski

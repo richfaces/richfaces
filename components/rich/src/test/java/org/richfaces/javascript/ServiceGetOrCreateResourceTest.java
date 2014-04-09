@@ -17,7 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.ValidatorTestBase;
-import org.richfaces.ui.core.UIScripts;
+import org.richfaces.component.UIScripts;
 
 import com.google.common.collect.Lists;
 

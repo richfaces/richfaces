@@ -29,6 +29,7 @@ import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.richfaces.component.AbstractTree;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Event;
 import org.richfaces.photoalbum.domain.Image;
@@ -47,7 +48,6 @@ import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.social.facebook.FacebookAlbumCache;
 import org.richfaces.photoalbum.social.gplus.GooglePlusAlbumCache;
 import org.richfaces.photoalbum.util.Preferred;
-import org.richfaces.ui.iteration.tree.AbstractTree;
 
 /**
  * This class represent 'C' in MVC pattern. It is logic that determine what actions invoked and what next page need to be

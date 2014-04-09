@@ -27,7 +27,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.ui.behavior.ClientBehavior;
+import org.richfaces.component.behavior.ClientBehavior;
 
 /**
  * @author Anton Belevich
@@ -36,7 +36,7 @@ import org.richfaces.ui.behavior.ClientBehavior;
 public class BehaviorRule extends MetaRule {
     public static final BehaviorRule INSTANCE = new BehaviorRule();
 
-    static final class LiteralAttributeMetadata extends Metadata {
+    public static final class LiteralAttributeMetadata extends Metadata {
         private final String name;
         private final String value;
 
@@ -50,7 +50,7 @@ public class BehaviorRule extends MetaRule {
         }
     }
 
-    static final class ValueExpressionMetadata extends Metadata {
+    public static final class ValueExpressionMetadata extends Metadata {
         private final String name;
         private final TagAttribute attr;
         private final Class<?> type;
