@@ -35,6 +35,7 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.Image;
@@ -49,7 +50,6 @@ import org.richfaces.photoalbum.service.PhotoAlbumException;
 import org.richfaces.photoalbum.ui.FileWrapper;
 import org.richfaces.photoalbum.util.FileHandler;
 import org.richfaces.photoalbum.util.Preferred;
-import org.richfaces.ui.input.fileUpload.FileUploadEvent;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.metadata.Directory;
