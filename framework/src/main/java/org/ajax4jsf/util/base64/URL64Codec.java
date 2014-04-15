@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.richfaces.base64;
+package org.ajax4jsf.util.base64;
 
-import org.richfaces.l10n.Messages;
+import org.ajax4jsf.Messages;
 
 /**
  * Provides Base64 encoding and decoding like defined by RFC 2045, but with little difference : chars '=' '+' and '/' ,

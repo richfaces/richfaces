@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.richfaces.base64;
+package org.ajax4jsf.util.base64;
 
 /**
  * <p>

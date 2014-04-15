@@ -26,7 +26,7 @@ import java.io.UnsupportedEncodingException;
 
 import javax.faces.FacesException;
 
-import org.richfaces.io.ByteBuffer;
+import org.ajax4jsf.io.ByteBuffer;
 
 /**
  * @author Nick Belaevski

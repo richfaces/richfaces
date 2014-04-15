@@ -38,6 +38,7 @@ import javax.faces.event.PostConstructApplicationEvent;
 import javax.faces.event.PreDestroyApplicationEvent;
 import javax.servlet.ServletContainerInitializer;
 
+import org.ajax4jsf.util.base64.Codec;
 import org.jboss.arquillian.container.test.spi.RemoteLoadableExtension;
 import org.jboss.shrinkwrap.api.Filters;
 import org.jboss.shrinkwrap.api.GenericArchive;
@@ -78,7 +79,6 @@ import org.richfaces.application.push.impl.SessionQueue;
 import org.richfaces.application.push.impl.TopicImpl;
 import org.richfaces.application.push.impl.TopicsContextImpl;
 import org.richfaces.application.push.impl.jms.JMSTopicsContextImpl;
-import org.richfaces.base64.Codec;
 import org.richfaces.cache.Cache;
 import org.richfaces.component.UIResource;
 import org.richfaces.component.UITransient;

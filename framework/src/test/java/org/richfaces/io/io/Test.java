@@ -27,11 +27,11 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import org.ajax4jsf.io.FastBufferInputStream;
+import org.ajax4jsf.io.FastBufferOutputStream;
+import org.ajax4jsf.io.FastBufferReader;
+import org.ajax4jsf.io.FastBufferWriter;
 import org.junit.Ignore;
-import org.richfaces.io.FastBufferInputStream;
-import org.richfaces.io.FastBufferOutputStream;
-import org.richfaces.io.FastBufferReader;
-import org.richfaces.io.FastBufferWriter;
 
 @Ignore
 public final class Test {

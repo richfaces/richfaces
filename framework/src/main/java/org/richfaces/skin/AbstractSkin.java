@@ -26,10 +26,10 @@ import java.awt.Color;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
+import org.ajax4jsf.util.HtmlColor;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.util.HtmlColor;
 import org.richfaces.util.HtmlDimensions;
 
 /**

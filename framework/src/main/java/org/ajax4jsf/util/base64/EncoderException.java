@@ -13,21 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.richfaces.base64;
+package org.ajax4jsf.util.base64;
 
 /**
- * Thrown when a Decoder has encountered a failure condition during a decode.
+ * Thrown when there is a failure condition during the encoding process. This exception is thrown when an Encoder encounters a
+ * encoding specific exception such as invalid data, inability to calculate a checksum, characters outside of the expected
+ * range.
  *
  * @author Apache Software Foundation
- * @version $Id: DecoderException.java,v 1.1.2.1 2007/01/09 18:59:13 alexsmirnov Exp $
+ * @version $Id: EncoderException.java,v 1.1.2.1 2007/01/09 18:59:12 alexsmirnov Exp $
  */
-public class DecoderException extends Exception {
+public class EncoderException extends Exception {
     /**
-     * Creates a DecoderException
+     * Creates a new instance of this exception with an useful message.
      *
-     * @param pMessage A message with meaning to a human
+     * @param pMessage a useful message relating to the encoder specific error.
      */
-    public DecoderException(String pMessage) {
+    public EncoderException(String pMessage) {
         super(pMessage);
     }
 }

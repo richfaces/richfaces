@@ -22,9 +22,10 @@
 package org.richfaces.io.io;
 
 import junit.framework.TestCase;
-import org.richfaces.io.CharBuffer;
-import org.richfaces.io.FastBufferReader;
-import org.richfaces.io.FastBufferWriter;
+
+import org.ajax4jsf.io.CharBuffer;
+import org.ajax4jsf.io.FastBufferReader;
+import org.ajax4jsf.io.FastBufferWriter;
 
 /**
  * @author Nick Belaevski
@@ -32,7 +33,7 @@ import org.richfaces.io.FastBufferWriter;
  */
 public class FastBufferWriterTest extends TestCase {
     /**
-     * Test method for {@link org.richfaces.io.FastBufferWriter#reset()}.
+     * Test method for {@link org.ajax4jsf.io.FastBufferWriter#reset()}.
      */
     public void testResetOneBuffer() throws Exception {
         FastBufferWriter stream = new FastBufferWriter(256);
@@ -56,7 +57,7 @@ public class FastBufferWriterTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.richfaces.io.FastBufferWriter#reset()}.
+     * Test method for {@link org.ajax4jsf.io.FastBufferWriter#reset()}.
      */
     public void testResetTwoBuffers() throws Exception {
         FastBufferWriter stream = new FastBufferWriter(256);

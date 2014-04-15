@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.richfaces.base64;
+package org.ajax4jsf.util.base64;
 
 /**
- * Thrown when there is a failure condition during the encoding process. This exception is thrown when an Encoder encounters a
- * encoding specific exception such as invalid data, inability to calculate a checksum, characters outside of the expected
- * range.
+ * Defines common decoding methods for byte array decoders.
  *
  * @author Apache Software Foundation
- * @version $Id: EncoderException.java,v 1.1.2.1 2007/01/09 18:59:12 alexsmirnov Exp $
+ * @version $Id: BinaryDecoder.java,v 1.1.2.1 2007/01/09 18:59:12 alexsmirnov Exp $
  */
-public class EncoderException extends Exception {
+public interface BinaryDecoder extends Decoder {
     /**
-     * Creates a new instance of this exception with an useful message.
+     * Decodes a byte array and returns the results as a byte array.
      *
-     * @param pMessage a useful message relating to the encoder specific error.
+     * @param pArray A byte array which has been encoded with the appropriate encoder
+     * @return a byte array that contains decoded content
+     * @throws DecoderException A decoder exception is thrown if a Decoder encounters a failure condition during the decode
+     *         process.
      */
-    public EncoderException(String pMessage) {
-        super(pMessage);
-    }
+    byte[] decode(byte[] pArray) throws DecoderException;
 }

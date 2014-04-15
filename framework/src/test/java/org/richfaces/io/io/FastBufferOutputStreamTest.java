@@ -22,8 +22,9 @@
 package org.richfaces.io.io;
 
 import junit.framework.TestCase;
-import org.richfaces.io.ByteBuffer;
-import org.richfaces.io.FastBufferOutputStream;
+
+import org.ajax4jsf.io.ByteBuffer;
+import org.ajax4jsf.io.FastBufferOutputStream;
 
 /**
  * @author Nick Belaevski
@@ -31,7 +32,7 @@ import org.richfaces.io.FastBufferOutputStream;
  */
 public class FastBufferOutputStreamTest extends TestCase {
     /**
-     * Test method for {@link org.richfaces.io.FastBufferOutputStream#reset()}.
+     * Test method for {@link org.ajax4jsf.io.FastBufferOutputStream#reset()}.
      */
     public void testResetOneBuffer() throws Exception {
         FastBufferOutputStream stream = new FastBufferOutputStream(256);
@@ -55,7 +56,7 @@ public class FastBufferOutputStreamTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.richfaces.io.FastBufferOutputStream#reset()}.
+     * Test method for {@link org.ajax4jsf.io.FastBufferOutputStream#reset()}.
      */
     public void testResetTwoBuffers() throws Exception {
         FastBufferOutputStream stream = new FastBufferOutputStream(256);

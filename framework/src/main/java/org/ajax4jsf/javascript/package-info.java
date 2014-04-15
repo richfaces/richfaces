@@ -21,6 +21,6 @@
  */
 
 /**
- * RichFaces I/O
+ * Classes and interfaces that ease creation of client-side Javascript code
  */
-package org.richfaces.io;
+package org.ajax4jsf.javascript;

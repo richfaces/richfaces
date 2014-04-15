@@ -38,9 +38,9 @@ import java.util.regex.Pattern;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.io.ByteBuffer;
-import org.richfaces.io.FastBufferInputStream;
-import org.richfaces.io.FastBufferOutputStream;
+import org.ajax4jsf.io.ByteBuffer;
+import org.ajax4jsf.io.FastBufferInputStream;
+import org.ajax4jsf.io.FastBufferOutputStream;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

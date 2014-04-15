@@ -30,7 +30,7 @@ import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.richfaces.l10n.Messages;
+import org.ajax4jsf.Messages;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractMediaOutput;
 import org.richfaces.renderkit.HtmlConstants;

@@ -30,7 +30,7 @@ import javax.faces.component.UIForm;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.model.IterationStateHolder;
+import org.ajax4jsf.component.IterationStateHolder;
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.After;

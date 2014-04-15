@@ -25,8 +25,8 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
 
+import org.ajax4jsf.Messages;
 import org.ajax4jsf.javascript.JSEncoder;
-import org.richfaces.l10n.Messages;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;

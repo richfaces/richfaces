@@ -34,7 +34,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.util.URLToStreamHelper;
+import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.richfaces.cache.lru.LRUMapCacheFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

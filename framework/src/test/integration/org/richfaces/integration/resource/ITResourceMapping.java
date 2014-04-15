@@ -30,6 +30,7 @@ import static org.junit.Assert.assertTrue;
 import java.net.URL;
 import java.util.List;
 
+import org.ajax4jsf.util.base64.Codec;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -45,7 +46,6 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.base64.Codec;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.resource.ResourceHandlerImpl;
 import org.richfaces.resource.external.ResourceTracker;

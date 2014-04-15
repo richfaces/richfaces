@@ -19,13 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.util;
+package org.ajax4jsf.util;
 
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.richfaces.l10n.Messages;
+import org.ajax4jsf.Messages;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)

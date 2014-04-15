@@ -25,8 +25,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
-import org.richfaces.io.ByteBuffer;
-import org.richfaces.io.FastBufferInputStream;
+import org.ajax4jsf.io.ByteBuffer;
+import org.ajax4jsf.io.FastBufferInputStream;
 
 /**
  * @author Nick Belaevski

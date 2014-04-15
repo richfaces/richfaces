@@ -21,7 +21,7 @@
  */
 package org.ajax4jsf.javascript;
 
-import org.richfaces.l10n.Messages;
+import org.ajax4jsf.Messages;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

@@ -82,8 +82,8 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.base64.Codec;
-import org.richfaces.l10n.Messages;
+import org.ajax4jsf.Messages;
+import org.ajax4jsf.util.base64.Codec;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.FastJoiner;

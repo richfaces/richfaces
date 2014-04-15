@@ -35,7 +35,7 @@ import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 
-import org.richfaces.util.URLToStreamHelper;
+import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

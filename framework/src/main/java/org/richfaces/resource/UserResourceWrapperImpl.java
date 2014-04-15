@@ -35,9 +35,9 @@ import javax.faces.context.ExternalContextWrapper;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextWrapper;
 
-import org.richfaces.io.ByteBuffer;
-import org.richfaces.io.FastBufferInputStream;
-import org.richfaces.io.FastBufferOutputStream;
+import org.ajax4jsf.io.ByteBuffer;
+import org.ajax4jsf.io.FastBufferInputStream;
+import org.ajax4jsf.io.FastBufferOutputStream;
 
 /**
  * @author Nick Belaevski

@@ -33,10 +33,10 @@ import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 
-import org.richfaces.io.ByteBuffer;
-import org.richfaces.io.FastBufferInputStream;
-import org.richfaces.io.FastBufferOutputStream;
-import org.richfaces.util.HtmlColor;
+import org.ajax4jsf.io.ByteBuffer;
+import org.ajax4jsf.io.FastBufferInputStream;
+import org.ajax4jsf.io.FastBufferOutputStream;
+import org.ajax4jsf.util.HtmlColor;
 import org.richfaces.util.HtmlDimensions;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

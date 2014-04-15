@@ -21,7 +21,7 @@
  */
 package org.richfaces.util;
 
-import org.richfaces.l10n.Messages;
+import org.ajax4jsf.Messages;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

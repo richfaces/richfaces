@@ -21,6 +21,6 @@
  */
 
 /**
- * Base64 encoding/decoding classes
+ * Helper classes for various purposes of resources handling
  */
-package org.richfaces.base64;
+package org.ajax4jsf.resource.util;

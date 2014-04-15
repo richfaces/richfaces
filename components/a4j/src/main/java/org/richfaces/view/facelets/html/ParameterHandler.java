@@ -33,7 +33,7 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 import javax.faces.view.facelets.TagAttributeException;
 
-import org.richfaces.l10n.Messages;
+import org.ajax4jsf.Messages;
 import org.richfaces.component.AbstractParameter;
 
 /**

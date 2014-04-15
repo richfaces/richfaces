@@ -19,29 +19,8 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.ajax4jsf.model;
 
 /**
- * In the original {@link javax.faces.component.UIData} component, only state for a
- * {@link javax.faces.component.EditableValueHolder} component saved for an iteration. In the Richfaces, we also save state for
- * a components implemented this interface.
- *
- * @author asmirnov
- *
+ * Base APIs of AJAX-enabled components
  */
-public interface IterationStateHolder {
-    /**
-     * Get component state for a current iteration.
-     *
-     * @return request-scope component state. Details are subject for a component implementation
-     */
-    Object getIterationState();
-
-    /**
-     * Set component state for the next iteration. State can be either previously saved iteration state or <code>null</code>
-     * value. In the second case component should reset its state to the initial.
-     *
-     * @param state request-scope component state or <code>null</code>. Details are subject for a component implementation
-     */
-    void setIterationState(Object state);
-}
+package org.ajax4jsf.component;
