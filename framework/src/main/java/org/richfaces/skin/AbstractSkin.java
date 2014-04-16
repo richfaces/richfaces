@@ -29,8 +29,8 @@ import javax.faces.context.FacesContext;
 import org.ajax4jsf.util.HtmlColor;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.util.HtmlDimensions;
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.util.HtmlDimensions;
 
 /**
  * @author Nick Belaevski

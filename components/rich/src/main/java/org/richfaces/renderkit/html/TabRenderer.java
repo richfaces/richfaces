@@ -44,7 +44,7 @@ import org.richfaces.component.ComponentIterators;
 import org.richfaces.component.VisitChildrenRejectable;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 
 import com.google.common.base.Predicate;
 

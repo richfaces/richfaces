@@ -48,6 +48,7 @@ import javax.faces.event.PostValidateEvent;
 import javax.faces.event.PreValidateEvent;
 
 import org.richfaces.application.FacesMessages;
+import org.richfaces.application.MessageFactory;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -61,11 +62,10 @@ import org.richfaces.context.FullVisitContext;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.ItemChangeListener;
 import org.richfaces.event.ItemChangeSource;
-import org.richfaces.l10n.MessageFactory;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.MetaComponentRenderer;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.renderkit.util.RendererUtils;
 
 import com.google.common.base.Strings;

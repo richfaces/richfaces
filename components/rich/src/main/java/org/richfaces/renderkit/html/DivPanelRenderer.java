@@ -34,7 +34,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSLiteral;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;

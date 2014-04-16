@@ -21,6 +21,8 @@
  */
 package org.richfaces.configuration;
 
+import org.richfaces.application.configuration.ConfigurationItem;
+
 
 /**
  * @author Nick Belaevski

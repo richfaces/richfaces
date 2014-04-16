@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 import org.richfaces.javascript.ClientScriptService;
 import org.richfaces.javascript.LibraryFunction;
 import org.richfaces.javascript.ScriptNotFoundException;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.ValidatorDescriptor;
 

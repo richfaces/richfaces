@@ -30,7 +30,7 @@ import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.servlet.ResourceServlet;
 
 import com.google.common.base.Strings;

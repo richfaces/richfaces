@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.component.behavior.ClientValidatorBehavior;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 
 @RunWith(MockTestRunner.class)
 public class RendererBuildScriptTest extends ValidatorRendererTestBase {

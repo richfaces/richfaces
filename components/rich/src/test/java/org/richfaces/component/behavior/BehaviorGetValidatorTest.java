@@ -20,7 +20,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.FacesValidatorService;
 import org.richfaces.validator.Message;

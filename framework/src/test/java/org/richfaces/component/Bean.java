@@ -32,7 +32,7 @@ import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 
 @RequestScoped
 @ManagedBean(name = "test")

@@ -5,7 +5,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.JSLiteral;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.AbstractFocus;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.focus.FocusRenderStrategy;

@@ -30,12 +30,12 @@ import javax.faces.event.PreDestroyApplicationEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.application.push.PushContext;
 import org.richfaces.application.push.SessionFactory;
 import org.richfaces.application.push.SessionManager;
 import org.richfaces.application.push.TopicsContext;
 import org.richfaces.application.push.impl.jms.JMSTopicsContextImpl;
-import org.richfaces.configuration.ConfigurationServiceHelper;
 import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

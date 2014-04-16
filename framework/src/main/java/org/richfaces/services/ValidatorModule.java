@@ -23,6 +23,8 @@ package org.richfaces.services;
 
 import java.util.Map;
 
+import org.richfaces.application.Module;
+import org.richfaces.application.ServicesFactory;
 import org.richfaces.el.ValueExpressionAnalayserImpl;
 import org.richfaces.javascript.ClientScriptService;
 import org.richfaces.javascript.ClientScriptServiceImpl;

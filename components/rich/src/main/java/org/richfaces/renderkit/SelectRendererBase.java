@@ -33,12 +33,12 @@ import javax.faces.context.FacesContext;
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptString;
 import org.richfaces.application.FacesMessages;
+import org.richfaces.application.MessageFactory;
 import org.richfaces.component.AbstractSelect;
 import org.richfaces.component.AbstractSelectComponent;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.l10n.MessageFactory;
-import org.richfaces.services.ServiceTracker;
-import org.richfaces.util.HtmlDimensions;
+import org.richfaces.renderkit.util.HtmlDimensions;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.validator.SelectLabelValueValidator;
 import org.richfaces.validator.csv.AddCSVMessageScript;
 

@@ -27,5 +27,5 @@ body {
     border: 1px solid green;
     background-image: url(image.png);
     background: red
-        url(/rfRes/org.richfaces.ui.images.ButtonBackgroundImage.jsf?db=eAFjZGBkZOBm!P-f8f!bV88Y!185f5yBCQBPWAk3);
+        url(/rfRes/org.richfaces.images.ButtonBackgroundImage.jsf?db=eAFjZGBkZOBm!P-f8f!bV88Y!185f5yBCQBPWAk3);
 }

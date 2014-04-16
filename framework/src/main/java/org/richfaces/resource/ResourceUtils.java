@@ -87,6 +87,7 @@ import org.ajax4jsf.util.base64.Codec;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.FastJoiner;
+import org.richfaces.util.LookAheadObjectInputStream;
 import org.richfaces.util.PropertiesUtil;
 
 import com.google.common.base.Function;

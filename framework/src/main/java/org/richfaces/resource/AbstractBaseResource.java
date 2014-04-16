@@ -37,10 +37,10 @@ import javax.faces.FacesException;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.application.Uptime;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.services.ServiceTracker;
-import org.richfaces.services.Uptime;
+import org.richfaces.application.ServiceTracker;
 
 /**
  * @author Nick Belaevski

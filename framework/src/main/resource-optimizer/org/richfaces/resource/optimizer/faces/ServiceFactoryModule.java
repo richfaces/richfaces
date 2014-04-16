@@ -21,12 +21,12 @@
  */
 package org.richfaces.resource.optimizer.faces;
 
-import org.richfaces.configuration.ConfigurationService;
-import org.richfaces.configuration.ConfigurationServiceImpl;
+import org.richfaces.application.Module;
+import org.richfaces.application.ServicesFactory;
+import org.richfaces.application.configuration.ConfigurationService;
+import org.richfaces.application.configuration.ConfigurationServiceImpl;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.ResourceLibraryFactoryImpl;
-import org.richfaces.services.Module;
-import org.richfaces.services.ServicesFactory;
 
 /**
  * Minimum service factory module required for resource generation by maven-resources-plugin.

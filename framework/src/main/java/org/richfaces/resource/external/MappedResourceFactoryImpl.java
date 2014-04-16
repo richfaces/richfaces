@@ -31,6 +31,8 @@ import java.util.TreeSet;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.application.Initializable;
+import org.richfaces.application.ServiceLoader;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.URLResource;
 import org.richfaces.resource.mapping.PropertiesResourceMapper;
@@ -39,8 +41,6 @@ import org.richfaces.resource.mapping.ResourceMapper;
 import org.richfaces.resource.mapping.ResourceMapping;
 import org.richfaces.resource.mapping.ResourcePath;
 import org.richfaces.resource.mapping.ResourceServletMapping;
-import org.richfaces.services.Initializable;
-import org.richfaces.services.ServiceLoader;
 import org.richfaces.services.ServiceUtils;
 import org.richfaces.servlet.ResourceServlet;
 

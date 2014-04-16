@@ -28,7 +28,7 @@ import javax.el.ELContext;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.el.utils.ELUtils;
+import org.richfaces.el.util.ELUtils;
 
 /**
  * <p>

@@ -30,8 +30,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.services.ServicesFactory;
-
 /**
  * <p>
  * Tracker class to provide access to various framework implementation services. Examples of such services are:

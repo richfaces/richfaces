@@ -21,7 +21,7 @@
  */
 package org.richfaces.skin;
 
-import static org.richfaces.configuration.ConfigurationServiceHelper.getConfigurationValue;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getConfigurationValue;
 
 import java.util.HashMap;
 import java.util.Map;

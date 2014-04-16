@@ -22,10 +22,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
+import org.richfaces.application.ServicesFactory;
 import org.richfaces.focus.FocusManager;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.focus.FocusRendererUtils;
-import org.richfaces.services.ServicesFactory;
 import org.richfaces.test.AbstractServicesTest;
 
 @RunWith(FacesMockitoRunner.class)

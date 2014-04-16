@@ -27,10 +27,10 @@ import java.util.regex.Pattern;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.application.push.PushContext;
 import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.application.push.PushContextInitializationException;
-import org.richfaces.configuration.ConfigurationServiceHelper;
 import org.richfaces.configuration.CoreConfiguration;
 
 /**

@@ -47,6 +47,8 @@ import java.util.concurrent.Future;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceDependency;
 
+import org.richfaces.application.Module;
+import org.richfaces.application.ServicesFactoryImpl;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceFactory;
@@ -76,9 +78,7 @@ import org.richfaces.resource.optimizer.util.MorePredicates;
 import org.richfaces.resource.optimizer.vfs.VFS;
 import org.richfaces.resource.optimizer.vfs.VFSRoot;
 import org.richfaces.resource.optimizer.vfs.VirtualFile;
-import org.richfaces.services.Module;
-import org.richfaces.services.ServiceTracker;
-import org.richfaces.services.ServicesFactoryImpl;
+import org.richfaces.application.ServiceTracker;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;

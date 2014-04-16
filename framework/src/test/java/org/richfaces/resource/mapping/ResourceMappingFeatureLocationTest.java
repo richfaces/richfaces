@@ -33,7 +33,7 @@ import javax.el.ValueExpression;
 import org.jboss.test.faces.mockito.runner.FacesMockitoRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 
 /**
  * @author <a href="http://community.jboss.org/people/lfryc">Lukas Fryc</a>

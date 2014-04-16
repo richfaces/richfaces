@@ -40,7 +40,7 @@ import org.richfaces.component.AbstractMessage;
 import org.richfaces.component.AbstractMessages;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.util.RendererUtils;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;

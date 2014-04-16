@@ -26,6 +26,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.richfaces.application.Initializable;
+
 public final class ServiceUtils {
 
     /**

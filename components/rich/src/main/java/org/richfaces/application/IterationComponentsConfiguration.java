@@ -21,7 +21,7 @@
  */
 package org.richfaces.application;
 
-import org.richfaces.configuration.ConfigurationItem;
+import org.richfaces.application.configuration.ConfigurationItem;
 
 
 

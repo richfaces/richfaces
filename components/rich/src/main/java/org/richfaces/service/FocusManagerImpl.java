@@ -8,7 +8,7 @@ import org.ajax4jsf.javascript.JSLiteral;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.focus.FocusManager;
 import org.richfaces.renderkit.util.RendererUtils;
 

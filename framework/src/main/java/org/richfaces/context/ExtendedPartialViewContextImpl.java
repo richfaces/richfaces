@@ -50,9 +50,10 @@ import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.ScriptsHolder;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.AjaxDataSerializer;
 import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.services.ServiceTracker;
-import org.richfaces.util.CoreAjaxRendererUtils;
+import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.util.FastJoiner;
 
 /**

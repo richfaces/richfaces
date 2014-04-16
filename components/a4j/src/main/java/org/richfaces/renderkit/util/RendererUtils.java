@@ -48,7 +48,6 @@ import org.ajax4jsf.component.JavaScriptParameter;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.util.HtmlDimensions;
 
 /**
  * Util class for common render operations - render pass-through html attributes, iterate over child components etc.

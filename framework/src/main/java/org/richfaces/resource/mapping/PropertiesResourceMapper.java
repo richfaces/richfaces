@@ -28,11 +28,11 @@ import java.util.Set;
 
 import javax.faces.context.FacesContext;
 
+import org.richfaces.application.Initializable;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceSkinUtils;
-import org.richfaces.services.Initializable;
 import org.richfaces.services.Prioritizable;
 import org.richfaces.servlet.ResourceServlet;
 import org.richfaces.skin.SkinFactory;

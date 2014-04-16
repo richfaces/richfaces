@@ -23,12 +23,12 @@ package org.richfaces.application;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.richfaces.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
-import static org.richfaces.configuration.ConfigurationServiceHelper.getConfigurationValue;
-import static org.richfaces.configuration.ConfigurationServiceHelper.getEnumConfigurationValue;
-import static org.richfaces.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
-import static org.richfaces.configuration.ConfigurationServiceHelper.getLongConfigurationValue;
-import static org.richfaces.configuration.ConfigurationServiceHelper.getStringConfigurationValue;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getConfigurationValue;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getEnumConfigurationValue;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getLongConfigurationValue;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getStringConfigurationValue;
 
 import javax.faces.context.FacesContext;
 

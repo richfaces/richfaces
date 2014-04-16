@@ -31,7 +31,7 @@ import javax.faces.context.FacesContext;
  *
  */
 public interface Skin {
-    String IMAGE_LIBRARY = "org.richfaces.ui.images";
+    String IMAGE_LIBRARY = "org.richfaces.images";
 
     /**
      * Style of the text displaying on the active (selected) tabs.Default value normal.

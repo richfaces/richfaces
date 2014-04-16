@@ -25,7 +25,7 @@
  */
 package org.richfaces.cache;
 
-import static org.richfaces.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
 
 import java.io.IOException;
 import java.io.InputStream;

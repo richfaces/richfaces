@@ -47,7 +47,7 @@ import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.renderkit.util.RendererUtils;
 
 /**

@@ -27,7 +27,7 @@ import org.richfaces.renderkit.html.ResourceLibraryRenderer;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
 import org.richfaces.resource.ResourceLibraryFactory;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 
 import com.google.common.collect.Sets;
 

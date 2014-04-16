@@ -27,20 +27,20 @@ import java.lang.reflect.Type;
 
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
+import org.richfaces.application.DependencyInjector;
+import org.richfaces.application.MessageFactory;
+import org.richfaces.application.Uptime;
+import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.cache.Cache;
-import org.richfaces.configuration.ConfigurationService;
-import org.richfaces.context.AjaxDataSerializer;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.javascript.JavaScriptService;
-import org.richfaces.l10n.MessageFactory;
+import org.richfaces.renderkit.AjaxDataSerializer;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.external.MappedResourceFactory;
-import org.richfaces.services.DependencyInjector;
-import org.richfaces.services.ServiceTracker;
-import org.richfaces.services.Uptime;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.skin.SkinFactory;
 
 /**

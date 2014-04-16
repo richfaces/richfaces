@@ -33,7 +33,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.ResourceSkinUtils;
 import org.richfaces.resource.optimizer.FileNameMapper;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 
 /**
  * @author Nick Belaevski

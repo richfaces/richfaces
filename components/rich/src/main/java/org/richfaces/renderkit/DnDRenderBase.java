@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.javascript.DnDScript;
 import org.richfaces.javascript.JavaScriptService;
 

@@ -26,6 +26,8 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.BeforeBeanDiscovery;
 import javax.enterprise.inject.spi.Extension;
 
+import org.richfaces.cdi.push.producer.TopicsContextProducer;
+
 /**
  * Registers all necessary beans required by {@link PushCDIExtension} extension.
  *

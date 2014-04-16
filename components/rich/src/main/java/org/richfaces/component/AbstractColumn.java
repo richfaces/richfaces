@@ -26,12 +26,12 @@ import java.util.Comparator;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.configuration.ConfigurationServiceHelper;
 import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;

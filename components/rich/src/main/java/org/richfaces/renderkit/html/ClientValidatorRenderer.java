@@ -20,7 +20,7 @@ import javax.faces.render.ClientBehaviorRenderer;
 
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.behavior.ClientValidatorBehavior;
 import org.richfaces.component.behavior.ConverterNotFoundException;
 import org.richfaces.javascript.ClientScriptService;

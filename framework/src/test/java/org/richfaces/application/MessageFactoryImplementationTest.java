@@ -36,8 +36,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.l10n.BundleLoader;
 import org.richfaces.l10n.MessageBundle;
-import org.richfaces.l10n.MessageFactory;
-import org.richfaces.l10n.MessageFactoryImpl;
 
 /**
  * @author Nick Belaevski

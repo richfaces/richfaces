@@ -52,7 +52,7 @@ import javax.servlet.jsp.jstl.sql.Result;
 
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.AbstractAutocomplete;
 import org.richfaces.component.AutocompleteLayout;
 import org.richfaces.component.AutocompleteMode;

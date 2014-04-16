@@ -31,8 +31,8 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 import org.richfaces.application.FacesMessages;
-import org.richfaces.l10n.MessageFactory;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.MessageFactory;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.AbstractSelectComponent;
 import org.richfaces.component.util.MessageUtil;
 

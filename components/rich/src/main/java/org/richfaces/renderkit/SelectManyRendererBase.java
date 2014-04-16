@@ -24,7 +24,7 @@ package org.richfaces.renderkit;
 import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.SelectUtils;
-import org.richfaces.util.HtmlDimensions;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -33,6 +33,7 @@ import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;

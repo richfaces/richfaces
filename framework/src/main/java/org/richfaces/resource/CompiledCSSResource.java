@@ -35,6 +35,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.resource.css.CSSVisitorImpl;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 import org.w3c.css.sac.CSSException;

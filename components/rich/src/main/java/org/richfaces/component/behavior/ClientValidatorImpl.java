@@ -61,7 +61,7 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.html.ClientValidatorRenderer;
 import org.richfaces.renderkit.html.FormClientValidatorRenderer;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesBeanValidator;

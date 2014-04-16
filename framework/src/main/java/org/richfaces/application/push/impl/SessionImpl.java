@@ -32,6 +32,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.faces.context.FacesContext;
 
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.application.push.DestroyableSession;
 import org.richfaces.application.push.MessageData;
 import org.richfaces.application.push.Request;
@@ -43,7 +44,6 @@ import org.richfaces.application.push.SubscriptionFailureException;
 import org.richfaces.application.push.Topic;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
-import org.richfaces.configuration.ConfigurationServiceHelper;
 import org.richfaces.configuration.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;

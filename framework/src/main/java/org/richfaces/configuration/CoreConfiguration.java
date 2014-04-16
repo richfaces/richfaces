@@ -22,6 +22,9 @@
 package org.richfaces.configuration;
 
 import org.richfaces.annotation.Experimental;
+import org.richfaces.application.configuration.ConfigurationItem;
+import org.richfaces.application.configuration.ConfigurationItemSource;
+import org.richfaces.application.configuration.ConfigurationItemsBundle;
 
 /**
  * @author Nick Belaevski

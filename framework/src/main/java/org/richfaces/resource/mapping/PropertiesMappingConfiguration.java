@@ -26,8 +26,8 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.configuration.ConfigurationService;
-import org.richfaces.configuration.ConfigurationServiceHelper;
+import org.richfaces.application.configuration.ConfigurationService;
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.configuration.CoreConfiguration;
 
 import com.google.common.collect.Lists;

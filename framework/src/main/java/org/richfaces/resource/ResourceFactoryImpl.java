@@ -36,13 +36,13 @@ import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.application.DependencyInjector;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.external.MappedResourceFactory;
 import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.mapping.ResourcePath;
-import org.richfaces.services.DependencyInjector;
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.servlet.ResourceServlet;
 
 import com.google.common.base.Function;

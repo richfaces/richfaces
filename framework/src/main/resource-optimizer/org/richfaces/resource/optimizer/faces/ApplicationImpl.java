@@ -41,7 +41,7 @@ import javax.faces.convert.Converter;
 import javax.faces.event.ActionListener;
 import javax.faces.validator.Validator;
 
-import org.richfaces.services.ServiceTracker;
+import org.richfaces.application.ServiceTracker;
 
 /**
  * @author Nick Belaevski
