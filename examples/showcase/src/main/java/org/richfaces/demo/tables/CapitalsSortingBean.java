@@ -29,7 +29,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.richfaces.demo.tables.model.capitals.Capital;
-import org.richfaces.model.SortOrder;
+import org.richfaces.component.SortOrder;
 
 @ManagedBean
 @ViewScoped

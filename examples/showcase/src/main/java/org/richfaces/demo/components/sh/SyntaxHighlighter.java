@@ -35,7 +35,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.richfaces.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSFunction;
 
 @FacesComponent(value = "syntaxHighlighter")
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "jquery.js"), @ResourceDependency(library = "js", name = "xregexp.js"),

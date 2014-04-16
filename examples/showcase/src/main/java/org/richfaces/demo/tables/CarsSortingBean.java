@@ -33,7 +33,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
-import org.richfaces.model.SortOrder;
+import org.richfaces.component.SortOrder;
 
 @ManagedBean
 @ViewScoped
