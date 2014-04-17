@@ -289,6 +289,22 @@
                             options.height = 200;
                     }
 
+                    this.div.css('visibility', '');
+                    if ($.browser.msie) {
+                        $(this.cdiv).find('input').each(function() {
+                            // Force a CSS "touch" of all popupPanel children to ensure visibility in IE for RF-12850
+                            var $this = $(this);
+                            if ($this.parents(".rf-pp-cntr").first().attr('id') === element.attr('id')) {
+                                $this.css('visibility', $this.css('visibility'));
+                            }
+                        })
+                    }
+                    this.div.css('display', 'block');
+                    if (this.options.autosized) {
+                        this.shadowDiv.css('width', this.cdiv[0].clientWidth);
+
+                    }
+
                     if (options.width && options.width != -1) {
                         if (this.currentMinWidth > options.width) {
                             options.width = this.currentMinWidth;
@@ -362,23 +378,6 @@
                         this.setTop(Math.round(_top));
                         $(this.shadowDiv).css("top", this.shadowDepth);
                         $(this.shadowDiv).css("bottom", -this.shadowDepth);
-                    }
-
-
-                    this.div.css('visibility', '');
-                    if ($.browser.msie) {
-                        $(this.cdiv).find('input').each(function() {
-                            // Force a CSS "touch" of all popupPanel children to ensure visibility in IE for RF-12850
-                            var $this = $(this);
-                            if ($this.parents(".rf-pp-cntr").first().attr('id') === element.attr('id')) {
-                                $this.css('visibility', $this.css('visibility'));
-                            }
-                        })
-                    }
-                    this.div.css('display', 'block');
-                    if (this.options.autosized) {
-                        this.shadowDiv.css('width', this.cdiv[0].clientWidth);
-
                     }
 
                     var showEvent = {};
