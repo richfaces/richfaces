@@ -318,8 +318,6 @@
 
                             <excludedFiles>
                                 <exclude>^javax.faces</exclude>
-                                <exclude>^org.richfaces.ui.images.*</exclude>
-                                <exclude>^org.richfaces.ui.iconimages.*</exclude>
                                 <exclude>^org.richfaces.optimized.*</exclude>
                                 <exclude>^org.richfaces.ckeditor.*</exclude>
                                 <exclude>^jquery\.js$</exclude>
@@ -358,8 +356,6 @@
 
                             <excludedFiles>
                                 <exclude>^javax.faces</exclude>
-                                <exclude>^org.richfaces.ui.images.*</exclude>
-                                <exclude>^org.richfaces.ui.iconimages.*</exclude>
                                 <exclude>^org.richfaces.optimized.*</exclude>
                                 <exclude>^org.richfaces.ckeditor.*</exclude>
                                 <exclude>^jquery\.js$</exclude>

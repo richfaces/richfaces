@@ -96,7 +96,7 @@ public class ITBlueSkySkin extends AbstractSkinTestBase {
         Map<String, String> parameters = parseQueryParameters(url);
         assertTrue(url.getPath().endsWith("org.richfaces.resources/rfRes/buttonBackgroundImage.png"));
         assertEquals("eAFjZGBkZOBm!P-f8f-n70Bi37UfDEwAUQgJhA__", parameters.get("db"));
-        assertEquals("org.richfaces.ui.images", parameters.get("ln"));
+        assertEquals("org.richfaces.images", parameters.get("ln"));
     }
 
     private static void addIndexPage(FrameworkDeployment deployment) {

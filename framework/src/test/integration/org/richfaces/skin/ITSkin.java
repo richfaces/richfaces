@@ -113,7 +113,7 @@ public class ITSkin extends AbstractSkinTestBase {
         parameters = parseQueryParameters(url);
         assertTrue(url.getPath().endsWith("org.richfaces.resources/rfRes/buttonBackgroundImage.png"));
         assertEquals("eAFjZGBkZOBm!P-f8f!bV88Y!185f5yBCQBPWAk3", parameters.get("db"));
-        assertEquals("org.richfaces.ui.images", parameters.get("ln"));
+        assertEquals("org.richfaces.images", parameters.get("ln"));
 
         Graphene.guardHttp(buttonSkin1).click();
         // button stays focused after click (url will be different for focused button), move mouse out
@@ -122,7 +122,7 @@ public class ITSkin extends AbstractSkinTestBase {
         parameters = parseQueryParameters(url);
         assertTrue(url.getPath().endsWith("org.richfaces.resources/rfRes/buttonBackgroundImage.png"));
         assertEquals("eAFjZGBkZOBm!P-f8f-n70Bi37UfDEwAUQgJhA__", parameters.get("db"));
-        assertEquals("org.richfaces.ui.images", parameters.get("ln"));
+        assertEquals("org.richfaces.images", parameters.get("ln"));
 
 
         Graphene.guardHttp(buttonSkin2).click();
@@ -130,7 +130,7 @@ public class ITSkin extends AbstractSkinTestBase {
         parameters = parseQueryParameters(url);
         assertTrue(url.getPath().endsWith("org.richfaces.resources/rfRes/buttonBackgroundImage.png"));
         assertEquals("eAFjZGBkZOBm!P-f8f!9iAjG!xMYGBiYAD5VBi8_", parameters.get("db"));
-        assertEquals("org.richfaces.ui.images", parameters.get("ln"));
+        assertEquals("org.richfaces.images", parameters.get("ln"));
 
         Graphene.guardHttp(buttonSkin3).click();
         Assert.assertEquals("plain button background-url is incorrect", "none", buttonSkin1.getCssValue("background-image"));
