@@ -28,8 +28,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 
+import org.richfaces.component.SortOrder;
+
 import com.google.common.collect.Maps;
-import org.richfaces.model.SortOrder;
 
 /**
  * @author Nick Belaevski

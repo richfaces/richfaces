@@ -73,6 +73,16 @@
             <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.richfaces.compat</groupId>
+            <artifactId>richfaces-components-a4j</artifactId>
+            <version>${version.richfaces}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.compat</groupId>
+            <artifactId>richfaces-components-rich</artifactId>
+            <version>${version.richfaces}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.richfaces.examples</groupId>

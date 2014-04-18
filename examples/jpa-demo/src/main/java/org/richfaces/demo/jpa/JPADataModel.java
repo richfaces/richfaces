@@ -35,16 +35,16 @@ import javax.persistence.criteria.Root;
 
 import org.richfaces.model.Arrangeable;
 import org.richfaces.model.ArrangeableState;
-import org.richfaces.model.DataVisitor;
-import org.richfaces.model.ExtendedDataModel;
+import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.ExtendedDataModel;
 import org.richfaces.model.FilterField;
-import org.richfaces.model.Range;
-import org.richfaces.model.SequenceRange;
+import org.ajax4jsf.model.Range;
+import org.ajax4jsf.model.SequenceRange;
 import org.richfaces.model.SortField;
+import org.richfaces.component.SortOrder;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
-import org.richfaces.model.SortOrder;
 
 public abstract class JPADataModel<T> extends ExtendedDataModel<T> implements Arrangeable {
     private EntityManager entityManager;
