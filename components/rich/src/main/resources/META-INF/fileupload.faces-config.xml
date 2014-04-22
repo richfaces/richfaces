@@ -23,9 +23,9 @@
 <faces-config version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
     xmlns="http://java.sun.com/xml/ns/javaee" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <factory>
-        <faces-context-factory>org.richfaces.fileUpload.FileUploadFacesContextFactory</faces-context-factory>
+        <faces-context-factory>org.richfaces.context.FileUploadFacesContextFactory</faces-context-factory>
     </factory>
     <lifecycle>
-        <phase-listener>org.richfaces.fileUpload.FileUploadPhaseListener</phase-listener>
+        <phase-listener>org.richfaces.context.FileUploadPhaseListener</phase-listener>
     </lifecycle>
 </faces-config>
