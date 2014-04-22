@@ -41,6 +41,11 @@ import org.richfaces.resource.DefaultResourceCodec;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.resource.ResourceLibraryFactory;
 import org.richfaces.resource.ResourceLibraryFactoryImpl;
+import org.richfaces.resource.external.MappedResourceFactory;
+import org.richfaces.resource.external.MappedResourceFactoryImpl;
+import org.richfaces.resource.external.ResourceTracker;
+import org.richfaces.resource.external.ResourceTrackerImpl;
+import org.richfaces.resource.mapping.ResourceMappingConfiguration;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.skin.SkinFactoryImpl;
 
@@ -72,6 +77,10 @@ public class DefaultModule implements Module {
                 ServiceLoader.loadService(PushContextFactory.class, PushContextFactoryImpl.class));
         factory.setInstance(JavaScriptService.class, new JavaScriptServiceImpl());
         factory.setInstance(GenericsIntrospectionService.class, new GenericsIntrospectionServiceImpl());
+        factory.setInstance(ResourceTracker.class, new ResourceTrackerImpl());
+        factory.setInstance(MappedResourceFactory.class, new MappedResourceFactoryImpl());
+//        factory.setInstance(FocusManager.class, ServiceLoader.loadService(FocusManager.class, FocusManagerImpl.class));
+        factory.setInstance(ResourceMappingConfiguration.class, new ResourceMappingConfiguration());
 
         // workaround for loading service from richfaces-components-rich module (needs to be bypassed during tests)
         FocusManager focusManager = ServiceLoader.loadService(FocusManager.class);
