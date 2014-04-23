@@ -1,3 +1,3 @@
 body {
-    background: 'red url(#{resource["org.richfaces.images.ButtonBackgroundImage"]})';
+    background: 'red url(#{resource["org.richfaces.renderkit.html.images.ButtonBackgroundImage"]})';
 }
