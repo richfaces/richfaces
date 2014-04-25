@@ -70,7 +70,7 @@
     </managed-bean>
 
     <component>
-        <component-type>org.richfaces.ui.Scripts</component-type>
+        <component-type>org.richfaces.Scripts</component-type>
         <component-class>org.richfaces.component.UIScripts</component-class>
     </component>
 

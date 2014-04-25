@@ -37,8 +37,8 @@ import java.util.List;
  *
  */
 public class UIScripts extends UITransient implements ScriptsHolder {
-    public static final String COMPONENT_TYPE = "org.richfaces.ui.Scripts";
-    public static final String COMPONENT_FAMILY = "org.richfaces.ui.Script";
+    public static final String COMPONENT_TYPE = "org.richfaces.Scripts";
+    public static final String COMPONENT_FAMILY = "org.richfaces.Script";
     private final List<Object> scripts = Lists.newArrayList();
     private final List<Object> pageReadyScripts = Lists.newArrayList();
     private String target = "body";

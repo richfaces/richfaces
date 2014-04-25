@@ -40,7 +40,7 @@ import org.richfaces.util.FastJoiner;
  *
  */
 public class ResourceLibraryRenderer extends ResourceRenderer {
-    public static final String RENDERER_TYPE = "org.richfaces.ui.core.ResourceLibraryRenderer";
+    public static final String RENDERER_TYPE = "org.richfaces.renderkit.ResourceLibraryRenderer";
     public static final String RESOURCE_LIBRARY_EXTENSION = ".reslib";
     private static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
     private static final FastJoiner COLON_JOINER = FastJoiner.on(':');

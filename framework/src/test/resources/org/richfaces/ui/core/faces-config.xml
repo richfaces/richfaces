@@ -28,7 +28,7 @@
 
     <managed-bean>
         <managed-bean-name>test</managed-bean-name>
-        <managed-bean-class>org.richfaces.ui.common.Bean</managed-bean-class>
+        <managed-bean-class>org.richfaces.component.Bean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
