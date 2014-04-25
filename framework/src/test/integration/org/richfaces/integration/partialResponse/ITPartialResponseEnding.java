@@ -64,11 +64,11 @@ public class ITPartialResponseEnding {
         FaceletAsset p = new FaceletAsset();
 
         p.form("<h:inputText id='inputText' value='#{simpleBean.test}'></h:inputText>");
-        p.form("<r:outputPanel id='outputPanel'>");
+        p.form("<a4j:outputPanel id='outputPanel'>");
         p.form("  <h:outputText value='#{simpleBean.test}'/>");
-        p.form("</r:outputPanel>");
+        p.form("</a4j:outputPanel>");
         
-        p.form("<r:commandButton value='Test' action='#{simpleBean.doAction}'  " +
+        p.form("<a4j:commandButton value='Test' action='#{simpleBean.doAction}'  " +
         		"id='btn' execute='@form' render='outputPanel' />");
         
         deployment.archive().addAsWebResource(p, "index.xhtml");

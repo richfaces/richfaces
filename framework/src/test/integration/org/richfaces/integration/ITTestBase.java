@@ -49,7 +49,7 @@ public class ITTestBase {
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-        p.form("<h:inputText id='input' value='xyz'><r:ajax /></h:inputText>");
+        p.form("<h:inputText id='input' value='xyz'><a4j:ajax /></h:inputText>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }

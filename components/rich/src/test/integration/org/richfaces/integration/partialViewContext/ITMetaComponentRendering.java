@@ -88,13 +88,13 @@ public class ITMetaComponentRendering {
     private static void addIndexPage(CoreDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-        p.form("<r:commandButton id='button' render='panel@activeItem' />");
+        p.form("<a4j:commandButton id='button' render='panel@activeItem' />");
 
-        p.form("<r:togglePanel id='panel' activeItem='item1'>");
-        p.form("    <r:togglePanelItem name='item1'>");
+        p.form("<rich:togglePanel id='panel' activeItem='item1'>");
+        p.form("    <rich:togglePanelItem name='item1'>");
         p.form("        #{counterBean.incrementAndGet()}");
-        p.form("    </r:togglePanelItem>");
-        p.form("</r:togglePanel>");
+        p.form("    </rich:togglePanelItem>");
+        p.form("</rich:togglePanel>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }

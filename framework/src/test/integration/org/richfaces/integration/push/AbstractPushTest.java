@@ -69,7 +69,7 @@ public class AbstractPushTest {
 
         FaceletAsset p = new FaceletAsset();
         p.body("<script>document.title = 'waiting-for-message'; RichFaces.Push.logLevel = \"debug\";</script>");
-        p.body("<r:push address=\"" + Commons.TOPIC + "\" ondataavailable=\"console.log('r:push message: ' + event.rf.data); document.title = 'message-received: ' + event.rf.data\" />");
+        p.body("<a4j:push address=\"" + Commons.TOPIC + "\" ondataavailable=\"console.log('a4j:push message: ' + event.rf.data); document.title = 'message-received: ' + event.rf.data\" />");
 
         deployment.addMavenDependency(
                 "org.atmosphere:atmosphere-runtime");

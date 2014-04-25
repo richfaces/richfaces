@@ -96,12 +96,12 @@ public class ITImplicitAjaxOutputRendering {
     private static void addIndexPage(CoreDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-        p.form("<r:commandButton id='button' render='@this' />");
-        p.form("<r:commandButton id='buttonLimitRender' render='@this' limitRender='true' />");
+        p.form("<a4j:commandButton id='button' render='@this' />");
+        p.form("<a4j:commandButton id='buttonLimitRender' render='@this' limitRender='true' />");
 
-        p.form("<r:outputPanel id='panel' ajaxRendered='true'>");
+        p.form("<a4j:outputPanel id='panel' ajaxRendered='true'>");
         p.form("    #{counterBean.incrementAndGet()}");
-        p.form("</r:outputPanel>");
+        p.form("</a4j:outputPanel>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }

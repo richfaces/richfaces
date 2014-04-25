@@ -101,7 +101,7 @@ public class ITStatelessViews {
         p.body("<h:form id='form' prependId='false'>");
 
         p.body("<h:commandButton id='jsfAjax' value='JSF AJAX' oncomplete='document.title = \"completed\"'><f:ajax render='@none' /></h:commandButton>");
-        p.body("<h:commandButton id='richfacesAjax' value='RichFaces AJAX'><r:ajax render='@none' /></h:commandButton>");
+        p.body("<h:commandButton id='richfacesAjax' value='RichFaces AJAX'><a4j:ajax render='@none' /></h:commandButton>");
 
         p.body("</h:form>");
 

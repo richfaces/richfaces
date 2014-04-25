@@ -101,9 +101,9 @@ public class ITBlueSkySkin extends AbstractSkinTestBase {
 
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.form("<r:panel id='panel' header='Header Text'>Some content ");
+        p.form("<rich:panel id='panel' header='Header Text'>Some content ");
         p.form("    <h:inputText id='input' /> ");
-        p.form("</r:panel> ");
+        p.form("</rich:panel> ");
         p.form("<h:commandButton id='buttonDefault' value = 'Some Button' /> ");
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }

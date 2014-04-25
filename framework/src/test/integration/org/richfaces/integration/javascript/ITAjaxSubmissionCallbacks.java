@@ -134,7 +134,7 @@ public class ITAjaxSubmissionCallbacks {
 
         p.body("<h:form prependId=\"false\" id=\"" + FORM_ID + "\">");
         p.body("  <h:inputText value=\"#{ajaxSubmissionsCallbacksBean.property}\">");
-        p.body("     <r:ajax event=\"keyup\" render=\"out\" />");
+        p.body("     <a4j:ajax event=\"keyup\" render=\"out\" />");
         p.body("  </h:inputText>");
         p.body("  <h:outputText value=\"#{ajaxSubmissionsCallbacksBean.property}\" id=\"out\" />");
         p.body("</h:form>");
@@ -143,7 +143,7 @@ public class ITAjaxSubmissionCallbacks {
     }
 
     private static void registerCallBackToForm(FaceletAsset p, String eventCallback) {
-        p.body("    window.RichFaces.jQuery(#{r:element('" + FORM_ID + "')}).on(\"" + eventCallback + "\", function() {");
+        p.body("    window.RichFaces.jQuery(#{rich:element('" + FORM_ID + "')}).on(\"" + eventCallback + "\", function() {");
         p.body("         document.formScopedCallbacksCalled += '" + eventCallback + " ';");
         p.body("    });");
     }

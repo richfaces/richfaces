@@ -138,9 +138,9 @@ public class ITSkin extends AbstractSkinTestBase {
 
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.form("<r:panel id='panel' header='Header Text'>Some content ");
+        p.form("<rich:panel id='panel' header='Header Text'>Some content ");
         p.form("    <h:inputText id='input' /> ");
-        p.form("</r:panel> ");
+        p.form("</rich:panel> ");
         p.form("<h:commandButton id='buttonSkin1' actionListener='#{skinTestBean.setSkin(\"blueSky\")}' value = 'Select skin 1' /> ");
         p.form("<h:commandButton id='buttonSkin2' actionListener='#{skinTestBean.setSkin(\"ruby\")}' value = 'Select skin 2' /> ");
         p.form("<h:commandButton id='buttonSkin3' actionListener='#{skinTestBean.setSkin(\"plain\")}' value = 'Select skin 3' /> ");
