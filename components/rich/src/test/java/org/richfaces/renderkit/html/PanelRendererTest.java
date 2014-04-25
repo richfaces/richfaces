@@ -149,7 +149,7 @@ public class PanelRendererTest {
         assertEquals("rf-p-b inpanelBody", nestedPanel2Body.getAttribute("class"));
         assertNotNull(page.getElementById("nestedPanel2_header"));
         assertEquals("For Component Developers", page.getElementById("nestedPanel2_header").getTextContent().trim());
-        assertEquals("RichFaces is Open",
-                page.getElementById("nestedPanel2_body").getTextContent().trim().substring(0, 17));
+        assertEquals("Ajax4jsf is Open",
+                page.getElementById("nestedPanel2_body").getTextContent().trim().substring(0, 16));
     }
 }
