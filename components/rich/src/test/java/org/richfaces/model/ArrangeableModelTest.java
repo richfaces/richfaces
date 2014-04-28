@@ -33,7 +33,7 @@ import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModelEvent;
 import javax.faces.model.DataModelListener;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.After;
