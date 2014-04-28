@@ -48,6 +48,7 @@ import org.jboss.arquillian.warp.jsf.AfterPhase;
 import org.jboss.arquillian.warp.jsf.Phase;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -153,6 +154,7 @@ public class ITTableState {
     }
 
     @Test
+    @Ignore("RF-12814")
     public void table_order_server_side() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm());
