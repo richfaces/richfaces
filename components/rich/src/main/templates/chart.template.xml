@@ -16,24 +16,24 @@
 
 
 
-<!--         <cdk:resource-dependency library="javax.faces" name="jsf.js" /> -->
-<!--         <cdk:resource-dependency library="org.richfaces" name="jquery.js" /> -->
-<!--         <cdk:resource-dependency library="org.richfaces" name="richfaces.js" /> -->
-<!--         <cdk:resource-dependency library="org.richfaces" name="richfaces-queue.reslib" /> -->
+        <cdk:resource-dependency library="javax.faces" name="jsf.js" />
+        <cdk:resource-dependency library="org.richfaces" name="jquery.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-queue.reslib" />
 
-<!--         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js"/> -->
-<!--         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.widget.js"/> -->
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js"/>
+        <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.widget.js"/>
 
-<!--         <cdk:resource-dependency library="flot" name="jquery.flot.js"/> -->
-<!--         <cdk:resource-dependency library="flot" name="jquery.flot.categories.js"/> -->
-<!--         <cdk:resource-dependency library="flot" name="jquery.flot.pie.js"/> -->
-<!--         <cdk:resource-dependency library="flot" name="jquery.flot.time.js"/> -->
-<!--         <cdk:resource-dependency library="flot" name="jquery.flot.axislabels.js"/> -->
-<!--         <cdk:resource-dependency library="flot" name="jquery.flot.symbol.js"/> -->
-<!--         <cdk:resource-dependency library="flot" name="jquery.flot.orderBars.js"/> -->
-<!--         <cdk:resource-dependency library="flot" name="jquery.flot.tooltip.js"/> -->
-<!--         <cdk:resource-dependency library="flot" name="jquery.flot.selection.js"/> -->
-<!--         <cdk:resource-dependency library="flot" name="jquery.flot.resize.js"/> -->
+        <cdk:resource-dependency library="flot" name="jquery.flot.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.categories.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.pie.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.time.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.axislabels.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.symbol.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.orderBars.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.tooltip.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.selection.js"/>
+        <cdk:resource-dependency library="flot" name="jquery.flot.resize.js"/>
 
 <!--         <cdk:resource-dependency library="io.richwidgets" name="output/chart.js"/> -->
 <!--         <cdk:resource-dependency library="io.richwidgets" name="output/chart.css"/> -->
