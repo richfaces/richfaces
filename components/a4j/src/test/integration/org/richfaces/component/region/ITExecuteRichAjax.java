@@ -41,7 +41,6 @@ public class ITExecuteRichAjax extends AbstractRegionTest {
         RegionTestDeployment deployment = new RegionTestDeployment(ITExecuteRichAjax.class);
 
         FaceletAsset page = deployment.baseFacelet("index.xhtml");
-        page.xmlns("a4j", "http://richfaces.org/a4j");
         page.form("<h:commandButton id='button'>");
         page.form("    <a4j:ajax execute='#{regionBean.execute}' />");
         page.form("</h:commandButton>");

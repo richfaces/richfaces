@@ -47,7 +47,7 @@ public class ITCommandButtonImage {
 
     private static final String EXPETED_ROOT_CONTEXT_PATH = ITCommandButtonImage.class.getSimpleName();
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         CoreUIDeployment deployment = new CoreUIDeployment(ITCommandButtonImage.class);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
@@ -117,7 +117,6 @@ public class ITCommandButtonImage {
 
     private static void addIndexPage(CoreUIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form prependId='false'>");
         p.body("  <a4j:commandButton id=\"buttonEL\" image=\"#{resource['square.jpg']}\" value=\"#{resource['square.jpg']}\" /> ");

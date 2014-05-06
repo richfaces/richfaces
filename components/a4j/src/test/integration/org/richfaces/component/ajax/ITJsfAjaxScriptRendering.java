@@ -90,7 +90,7 @@ public class ITJsfAjaxScriptRendering {
         FaceletAsset p = new FaceletAsset();
 
         p.form("<h:commandLink id='button' value='Click me '>");
-        p.form("    <r:ajax event='click' render='@form' />");
+        p.form("    <a4j:ajax event='click' render='@form' />");
         p.form("</h:commandLink>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");

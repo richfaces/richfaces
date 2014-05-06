@@ -41,7 +41,6 @@ public class ITRegionJSFAjax extends AbstractRegionTest {
         RegionTestDeployment deployment = new RegionTestDeployment(ITRegionJSFAjax.class);
 
         FaceletAsset page = deployment.baseFacelet("index.xhtml");
-        page.xmlns("a4j", "http://richfaces.org/a4j");
         page.form("<a4j:region>");
         page.form("    <h:commandButton id='button'>");
         page.form("        <f:ajax execute='#{regionBean.execute}' />");

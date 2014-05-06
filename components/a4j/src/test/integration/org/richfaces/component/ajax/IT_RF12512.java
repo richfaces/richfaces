@@ -30,7 +30,7 @@ public class IT_RF12512 {
     @ArquillianResource
     private URL contextPath;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         CoreUIDeployment deployment = new CoreUIDeployment(IT_RF12512.class);
         deployment.archive().addClass(A4JRepeatBean.class);

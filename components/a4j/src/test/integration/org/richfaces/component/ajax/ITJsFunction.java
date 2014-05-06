@@ -77,8 +77,6 @@ public class ITJsFunction {
     // from RF-12761
     private static void addIndexPage(CoreUIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='myForm'> ");
         p.body("    <a4j:jsFunction name='jsFunctionTest' actionListener='#{ajaxBean.methodA}' render=':panel'/> ");
@@ -124,19 +122,17 @@ public class ITJsFunction {
 
     private static void addParamPage(CoreUIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-        
+
         p.body("<h:form id='myForm'> ");
-        p.body("    <r:jsFunction name='jsFunctionTest' actionListener='#{ajaxBean.listener}' render='@form'> ");
-        p.body("        <r:param name='param1' assignTo='#{ajaxBean.longValue}'/> ");
-        p.body("    </r:jsFunction> ");
-        p.body("    <r:repeat id='repeat' value='#{ajaxBean.nodes}' var='node' rowKeyVar='key' rows='30'> ");
-        p.body("        <r:outputPanel id='panel' layout='block' onclick='jsFunctionTest(#{key});'> ");
+        p.body("    <a4j:jsFunction name='jsFunctionTest' actionListener='#{ajaxBean.listener}' render='@form'> ");
+        p.body("        <a4j:param name='param1' assignTo='#{ajaxBean.longValue}'/> ");
+        p.body("    </a4j:jsFunction> ");
+        p.body("    <a4j:repeat id='repeat' value='#{ajaxBean.nodes}' var='node' rowKeyVar='key' rows='30'> ");
+        p.body("        <a4j:outputPanel id='panel' layout='block' onclick='jsFunctionTest(#{key});'> ");
         p.body("            <h:outputText value='#{node.label}  key: #{key}'/> ");
-        p.body("        </r:outputPanel> ");
-        p.body("    </r:repeat> ");
-        p.body("    <r:messages /> ");
+        p.body("        </a4j:outputPanel> ");
+        p.body("    </a4j:repeat> ");
+        p.body("    <rich:messages /> ");
         p.body("</h:form> ");
         deployment.archive().addAsWebResource(p, "param.xhtml");
     }

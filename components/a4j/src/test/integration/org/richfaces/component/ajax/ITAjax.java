@@ -30,7 +30,7 @@ public class ITAjax {
     @ArquillianResource
     private URL contextPath;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         CoreUIDeployment deployment = new CoreUIDeployment(ITAjax.class);
         deployment.archive().addClass(AjaxBean.class);
@@ -53,8 +53,6 @@ public class ITAjax {
 
     private static void addIndexPage(CoreUIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/iteration");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='myForm'> ");
         p.body("    <h:inputText id='input' value='#{ajaxBean.value}'> ");

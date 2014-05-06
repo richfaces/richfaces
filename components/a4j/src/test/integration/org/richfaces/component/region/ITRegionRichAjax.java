@@ -45,10 +45,9 @@ public class ITRegionRichAjax extends AbstractRegionTest {
         RegionTestDeployment deployment = new RegionTestDeployment(ITRegionRichAjax.class);
 
         FaceletAsset page = deployment.baseFacelet("index.xhtml");
-        page.xmlns("a4j", "http://richfaces.org/a4j");
         page.form("<a4j:region id='region'>");
         page.form("    <h:commandButton id='button'>");
-        page.form("        <r:ajax execute='#{regionBean.execute}' />");
+        page.form("        <a4j:ajax execute='#{regionBean.execute}' />");
         page.form("    </h:commandButton>");
         page.form("</a4j:region>");
 
