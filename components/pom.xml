@@ -32,16 +32,307 @@
     </parent>
 
     <groupId>org.richfaces.compat</groupId>
-    <artifactId>richfaces-components-aggregator</artifactId>
+    <artifactId>richfaces-components-parent</artifactId>
     <version>4.5.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>RichFaces UI Components Aggregator</name>
+    <name>RichFaces UI Components Parent</name>
 
     <modules>
-        <module>parent</module>
         <module>a4j</module>
         <module>rich</module>
         <!--<module>dist</module>-->
     </modules>
 
+    <properties>
+        <version.richfaces>4.5.0-SNAPSHOT</version.richfaces>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>precompile-sources-for-cdk</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.richfaces.cdk</groupId>
+                    <artifactId>richfaces-cdk-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>cdk-generate-sources</id>
+                            <phase>process-sources</phase>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>add-source</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>add-source</goal>
+                            </goals>
+                            <configuration>
+                                <sources>
+                                    <source>src/main/templates</source>
+                                    <source>${project.build.directory}/generated-sources/main/java</source>
+                                    <source>${project.build.directory}/generated-sources/main/resources</source>
+                                </sources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <configuration>
+                    <rules>
+                        <requirePluginVersions>
+                            <!-- During development SNAPSHOT versions of the CDK plugin are used.
+                                 This setting ignores the no SNAPSHOT rule for the CDK  -->
+                            <unCheckedPluginList>org.richfaces.cdk:richfaces-cdk-maven-plugin, org.richfaces:richfaces-resource-optimizer-maven-plugin</unCheckedPluginList>
+                        </requirePluginVersions>
+                    </rules>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
+
+    <dependencies>
+        <!-- runtime -->
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.richfaces.cdk</groupId>
+            <artifactId>annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- tests -->
+        <dependency>
+            <groupId>org.richfaces</groupId>
+            <artifactId>richfaces</artifactId>
+            <scope>test</scope>
+            <type>test-jar</type>
+            <version>${version.richfaces}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.test-jsf</groupId>
+            <artifactId>jsf-test-stage</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.test-jsf</groupId>
+            <artifactId>htmlunit-client</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.test-jsf</groupId>
+            <artifactId>jsf-mock</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.test-jsf</groupId>
+            <artifactId>jsf-mockito</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-build</artifactId>
+                <version>${version.richfaces}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces</artifactId>
+                <version>${version.richfaces}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.compat</groupId>
+                <artifactId>richfaces-components-a4j</artifactId>
+                <version>${version.richfaces}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.compat</groupId>
+                <artifactId>richfaces-components-rich</artifactId>
+                <version>${version.richfaces}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>jsf_ri</id>
+            <activation>
+                <property>
+                    <name>!jsf_profile</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>javax.faces</artifactId>
+                    <scope>compile</scope>
+                    <optional>true</optional>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>jsf_jboss</id>
+            <activation>
+                <property>
+                    <name>jsf_profile</name>
+                    <value>jboss</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.spec.javax.faces</groupId>
+                    <artifactId>jboss-jsf-api_2.1_spec</artifactId>
+                    <scope>compile</scope>
+                    <optional>true</optional>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>myfaces</id>
+            <activation>
+                <property>
+                    <name>jsf_profile</name>
+                    <value>myfaces</value>
+                </property>
+            </activation>
+            <properties>
+                <arquillian.richfaces.jsfProvider>myfaces</arquillian.richfaces.jsfProvider>
+                <arquillian.richfaces.jsfImplementation>org.apache.myfaces.core:myfaces-impl</arquillian.richfaces.jsfImplementation>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <scope>compile</scope>
+                    <optional>true</optional>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <configuration>
+                            <aggregate>true</aggregate>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- JavaDoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Profile for quick CDK turnaround using JRebel and CDK command-line generator -->
+        <profile>
+            <id>jrebel</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-dependencies</id>
+                                <phase>process-sources</phase>
+                                <goals>
+                                    <goal>unpack-dependencies</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.zeroturnaround</groupId>
+                        <artifactId>jrebel-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-rebel-xml</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
