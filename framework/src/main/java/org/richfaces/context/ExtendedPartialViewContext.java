@@ -611,8 +611,12 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     protected void addImplicitRenderIds(Collection<String> renderIds) {
         if (!limitRender) {
             final FacesContext facesContext = getFacesContext();
-            Collection<String> ajaxOutputs = AjaxOutputTracker.getAjaxOutputs(facesContext, facesContext.getViewRoot());
-            renderIds.addAll(ajaxOutputs);
+            Collection<UIComponent> ajaxOutputs = AjaxOutputTracker.getAjaxOutputs(facesContext, facesContext.getViewRoot());
+            for (UIComponent component : ajaxOutputs) {
+                if (component instanceof AjaxOutput && ((AjaxOutput)component).isAjaxRendered()) {
+                    renderIds.add(component.getClientId(facesContext));
+                }
+            }
         }
     }
 

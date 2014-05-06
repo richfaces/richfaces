@@ -77,16 +77,16 @@ public class AjaxOutputTracker implements SystemEventListener {
     /**
      * Return a list of all {@link AjaxOutput} components in a tree under a given component.
      */
-    static Collection<String> getAjaxOutputs(FacesContext facesContext, UIComponent component) {
+    static Collection<UIComponent> getAjaxOutputs(FacesContext facesContext, UIComponent component) {
         final Collection<String> childrenIds = getDirectChildrenIds(component);
-        final Set<String> ajaxOutputs = new HashSet<>();
+        final Set<UIComponent> ajaxOutputs = new HashSet<>();
 
         if (childrenIds != null) {
             for (String childId : childrenIds) {
                 UIComponent child = component.findComponent(childId);
 
                 if (child instanceof AjaxOutput) {
-                    ajaxOutputs.add(child.getClientId(facesContext));
+                    ajaxOutputs.add(child);
                 } else if (isContainerComponent(child)) {
                     ajaxOutputs.addAll(getAjaxOutputs(facesContext, child));
                 }
