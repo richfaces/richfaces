@@ -127,7 +127,7 @@ public class LookAheadObjectInputStream extends ObjectInputStream {
         Properties whitelistProperties = new Properties();
         InputStream stream = null;
         try {
-            stream =  LookAheadObjectInputStream.class.getResourceAsStream("resource-serialization.properties");
+            stream =  LookAheadObjectInputStream.class.getResourceAsStream("/org/richfaces/resource/resource-serialization.properties");
             whitelistProperties.load(stream);
         } catch (IOException e) {
             throw new RuntimeException("Error loading the resource-serialization.properties file", e);
