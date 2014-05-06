@@ -20,6 +20,9 @@
         <cdk:resource-dependency library="org.richfaces" name="jquery.js" />
         <cdk:resource-dependency library="org.richfaces" name="richfaces.js" />
         <cdk:resource-dependency library="org.richfaces" name="richfaces-queue.reslib" />
+        <cdk:resource-dependency library="org.richfaces" name="richfaces-base-component.js" />
+        <cdk:resource-dependency library="org.richfaces" name="chart.js" />
+        <cdk:resource-dependency library="org.richfaces" name="chart.ecss" />
 
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.core.js"/>
         <cdk:resource-dependency library="com.jqueryui" name="jquery.ui.widget.js"/>
@@ -35,12 +38,6 @@
         <cdk:resource-dependency library="flot" name="jquery.flot.selection.js"/>
         <cdk:resource-dependency library="flot" name="jquery.flot.resize.js"/>
 
-<!--         <cdk:resource-dependency library="io.richwidgets" name="output/chart.js"/> -->
-<!--         <cdk:resource-dependency library="io.richwidgets" name="output/chart.css"/> -->
-
-
-<!--         <cdk:resource-dependency library="org.richfaces" name="bridge/bridge-base.js" /> -->
-<!--         <cdk:resource-dependency library="org.richfaces" name="bridge/output/chart-bridge.js"/> -->
 
     </cc:interface>
 
@@ -54,15 +51,14 @@
         	<div id="#{clientId}Chart" class="chart"></div>
 	        <script type="text/javascript">
 	            //<![CDATA[
-	                    RichFaces.jQuery(document.getElementById("#{clientId}")).chartBridge(
-	                                   RichFaces.jQuery.extend({
+	                    
+	                      new RichFaces.rf4.ui.Chart("#{clientId}", RichFaces.jQuery.extend({
 		                                    handlers: RichFaces.jQuery.extend(#{toScriptArgs(events)}),
 		                                    particularSeriesHandlers: #{getParticularSeriesHandler(facesContext,component)},
 		                                    data: #{getChartData(facesContext,component)},
 	                                    },
 	                                    #{getOpts(facesContext,component)}
-	                                   )
-	                      );
+	                                   ));
 	            //]]>
 	        </script>
         </div>
