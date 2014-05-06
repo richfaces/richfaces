@@ -56,8 +56,6 @@ import org.richfaces.model.StringChartDataModel;
 import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.renderkit.RendererBase;
 import org.richfaces.model.ChartDataModel.ChartType;
 
 
