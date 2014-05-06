@@ -7,7 +7,7 @@ import org.ajax4jsf.javascript.JSFunction;
 import org.jboss.test.qunit.Qunit;
 import org.jboss.test.qunit.Qunit.Builder;
 import org.junit.Rule;
-import org.richfaces.validator.Message;
+import org.richfaces.javascript.Message;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;

@@ -8,8 +8,8 @@ import javax.faces.application.FacesMessage;
 import org.jboss.test.faces.mock.Mock;
 import org.richfaces.component.behavior.BehaviorTestBase;
 import org.richfaces.component.behavior.ClientValidatorBehavior;
+import org.richfaces.javascript.Message;
 import org.richfaces.resource.ResourceKey;
-import org.richfaces.validator.Message;
 
 import com.google.common.collect.ImmutableMap;
 

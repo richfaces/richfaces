@@ -31,7 +31,7 @@ import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.application.push.PushContext;
 import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.application.push.PushContextInitializationException;
-import org.richfaces.configuration.CoreConfiguration;
+import org.richfaces.application.CoreConfiguration;
 
 /**
  * @see PushContextFactory

@@ -36,7 +36,7 @@ import javax.faces.context.FacesContext;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 
-import org.richfaces.configuration.CoreConfiguration;
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

@@ -35,7 +35,7 @@ import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 
-import org.richfaces.configuration.CoreConfiguration;
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.demo.push.provider.AS6MessagingProviderManagement;
 import org.richfaces.demo.push.provider.AS7MessagingProviderManagement;
 import org.richfaces.demo.push.provider.CustomMessagingServerManagement;

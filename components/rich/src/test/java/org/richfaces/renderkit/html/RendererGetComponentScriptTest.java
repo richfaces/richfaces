@@ -26,11 +26,11 @@ import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.javascript.LibraryFunction;
+import org.richfaces.javascript.Message;
 import org.richfaces.javascript.ScriptNotFoundException;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesObjectDescriptor;
-import org.richfaces.validator.Message;
 import org.richfaces.validator.ValidatorDescriptor;
 
 import com.google.common.collect.Lists;

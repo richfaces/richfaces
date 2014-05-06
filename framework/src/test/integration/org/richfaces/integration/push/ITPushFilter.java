@@ -34,7 +34,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.deployment.FrameworkDeployment;
-import org.richfaces.servlet.PushFilter;
+import org.richfaces.webapp.PushFilter;
 
 import com.google.common.base.Function;
 

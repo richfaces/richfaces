@@ -29,7 +29,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.jboss.test.faces.AbstractFacesTest;
 import org.junit.Assert;
-import org.richfaces.configuration.CoreConfiguration;
+import org.richfaces.application.CoreConfiguration;
 
 /**
  * @author Nick Belaevski

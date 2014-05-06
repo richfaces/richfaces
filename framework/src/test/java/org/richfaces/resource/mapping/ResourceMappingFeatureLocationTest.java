@@ -24,8 +24,8 @@ package org.richfaces.resource.mapping;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.richfaces.configuration.CoreConfiguration.Items.resourceMappingLocation;
-import static org.richfaces.configuration.CoreConfiguration.Items.resourceOptimizationEnabled;
+import static org.richfaces.application.CoreConfiguration.Items.resourceMappingLocation;
+import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
 
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;

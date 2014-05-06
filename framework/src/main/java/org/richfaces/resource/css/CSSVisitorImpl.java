@@ -31,7 +31,7 @@ import java.util.List;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.el.ELUtils;
+import org.richfaces.el.util.ELUtils;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.w3c.dom.css.CSSCharsetRule;

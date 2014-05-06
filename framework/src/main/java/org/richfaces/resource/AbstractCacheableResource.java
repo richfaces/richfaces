@@ -31,7 +31,7 @@ import java.util.Map;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.configuration.CoreConfiguration;
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

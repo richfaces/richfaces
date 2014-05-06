@@ -25,7 +25,7 @@ import javax.faces.application.ProjectStage;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.application.configuration.ConfigurationServiceHelper;
-import org.richfaces.configuration.CoreConfiguration;
+import org.richfaces.application.CoreConfiguration;
 
 /**
  * <p>

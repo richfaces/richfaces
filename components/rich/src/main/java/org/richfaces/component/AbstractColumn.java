@@ -32,7 +32,7 @@ import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.configuration.CoreConfiguration;
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;

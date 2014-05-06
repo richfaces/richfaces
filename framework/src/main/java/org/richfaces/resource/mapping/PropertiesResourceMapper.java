@@ -34,7 +34,7 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceSkinUtils;
 import org.richfaces.services.Prioritizable;
-import org.richfaces.servlet.ResourceServlet;
+import org.richfaces.webapp.ResourceServlet;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.util.PropertiesUtil;
 

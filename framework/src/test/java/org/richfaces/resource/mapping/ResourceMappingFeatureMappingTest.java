@@ -23,10 +23,10 @@ package org.richfaces.resource.mapping;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.richfaces.configuration.CoreConfiguration.Items.resourceMappingFile;
-import static org.richfaces.configuration.CoreConfiguration.Items.resourceOptimizationCompressionStages;
-import static org.richfaces.configuration.CoreConfiguration.Items.resourceOptimizationEnabled;
-import static org.richfaces.configuration.CoreConfiguration.Items.resourceOptimizationPackagingStages;
+import static org.richfaces.application.CoreConfiguration.Items.resourceMappingFile;
+import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationCompressionStages;
+import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationEnabled;
+import static org.richfaces.application.CoreConfiguration.Items.resourceOptimizationPackagingStages;
 
 import java.util.Arrays;
 import java.util.List;

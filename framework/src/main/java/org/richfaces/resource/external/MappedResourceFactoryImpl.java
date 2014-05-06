@@ -42,7 +42,7 @@ import org.richfaces.resource.mapping.ResourceMapping;
 import org.richfaces.resource.mapping.ResourcePath;
 import org.richfaces.resource.mapping.ResourceServletMapping;
 import org.richfaces.services.ServiceUtils;
-import org.richfaces.servlet.ResourceServlet;
+import org.richfaces.webapp.ResourceServlet;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Sets;

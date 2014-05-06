@@ -42,8 +42,8 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.external.MappedResourceFactory;
 import org.richfaces.resource.external.ResourceTracker;
 import org.richfaces.resource.mapping.ResourcePath;
+import org.richfaces.webapp.ResourceServlet;
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.servlet.ResourceServlet;
 
 import com.google.common.base.Function;
 import com.google.common.base.Strings;

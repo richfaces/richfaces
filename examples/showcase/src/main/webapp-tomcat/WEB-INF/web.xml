@@ -68,7 +68,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Resource Servlet</servlet-name>
-        <servlet-class>org.richfaces.servlet.ResourceServlet</servlet-class>
+        <servlet-class>org.richfaces.webapp.ResourceServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -121,7 +121,7 @@
     <!-- Configures PushFilter -->
     <filter>
         <filter-name>PushFilter</filter-name>
-        <filter-class>org.richfaces.servlet.PushFilter</filter-class>
+        <filter-class>org.richfaces.webapp.PushFilter</filter-class>
         <async-supported>true</async-supported>
     </filter>
     <filter-mapping>

@@ -24,7 +24,7 @@ package org.richfaces.resource.mapping;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.el.ELUtils;
+import org.richfaces.el.util.ELUtils;
 
 /**
  * <p>

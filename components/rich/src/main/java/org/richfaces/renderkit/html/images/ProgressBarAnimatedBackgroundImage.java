@@ -33,6 +33,7 @@ import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 
+import org.richfaces.renderkit.util.ColorUtils;
 import org.richfaces.resource.AbstractJava2DUserResource;
 import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.ImageType;

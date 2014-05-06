@@ -36,7 +36,7 @@ import org.richfaces.application.push.SessionFactory;
 import org.richfaces.application.push.SessionManager;
 import org.richfaces.application.push.TopicsContext;
 import org.richfaces.application.push.impl.jms.JMSTopicsContextImpl;
-import org.richfaces.configuration.CoreConfiguration;
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 

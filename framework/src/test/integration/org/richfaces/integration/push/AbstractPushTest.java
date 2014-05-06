@@ -51,8 +51,8 @@ import org.richfaces.application.push.Session;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
 import org.richfaces.deployment.FrameworkDeployment;
-import org.richfaces.servlet.PushHandlerFilter;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.webapp.PushHandlerFilter;
 
 @WarpTest
 public class AbstractPushTest {

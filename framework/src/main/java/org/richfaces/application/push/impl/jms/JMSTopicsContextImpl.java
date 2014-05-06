@@ -21,16 +21,16 @@
  */
 package org.richfaces.application.push.impl.jms;
 
-import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSConnectionFactory;
-import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSConnectionPassword;
-import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSConnectionPasswordEnvRef;
-import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSConnectionUsername;
-import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSConnectionUsernameEnvRef;
-import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSTopicsNamespace;
-import static org.richfaces.configuration.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionFactory;
-import static org.richfaces.configuration.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionPassword;
-import static org.richfaces.configuration.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionUsername;
-import static org.richfaces.configuration.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSTopicsNamespace;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionFactory;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionPassword;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionPasswordEnvRef;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionUsername;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionUsernameEnvRef;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSTopicsNamespace;
+import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionFactory;
+import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionPassword;
+import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionUsername;
+import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSTopicsNamespace;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadFactory;

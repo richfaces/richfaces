@@ -25,7 +25,7 @@ import static org.richfaces.application.configuration.ConfigurationServiceHelper
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.configuration.CommonComponentsConfiguration;
+import org.richfaces.application.CommonComponentsConfiguration;
 
 import com.google.common.collect.ImmutableList;
 

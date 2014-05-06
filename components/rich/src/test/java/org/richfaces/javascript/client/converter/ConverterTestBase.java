@@ -13,10 +13,10 @@ import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.junit.Test;
+import org.richfaces.javascript.Message;
 import org.richfaces.javascript.client.MockTestBase;
 import org.richfaces.javascript.client.RunParameters;
 import org.richfaces.validator.ConverterServiceImpl;
-import org.richfaces.validator.Message;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 

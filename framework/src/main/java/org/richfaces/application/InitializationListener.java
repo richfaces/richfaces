@@ -22,9 +22,9 @@
 package org.richfaces.application;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
-import static org.richfaces.configuration.CoreConfiguration.Items.executeAWTInitializer;
-import static org.richfaces.configuration.CoreConfiguration.Items.pushInitializePushContextOnStartup;
-import static org.richfaces.configuration.CoreConfiguration.Items.pushJMSEnabled;
+import static org.richfaces.application.CoreConfiguration.Items.executeAWTInitializer;
+import static org.richfaces.application.CoreConfiguration.Items.pushInitializePushContextOnStartup;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSEnabled;
 
 import java.awt.Toolkit;
 import java.io.ByteArrayInputStream;

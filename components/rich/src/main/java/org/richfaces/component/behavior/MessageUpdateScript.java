@@ -6,7 +6,7 @@ import java.util.List;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.ScriptString;
 import org.ajax4jsf.javascript.ScriptStringBase;
-import org.richfaces.validator.Message;
+import org.richfaces.javascript.Message;
 
 import com.google.common.collect.Lists;
 

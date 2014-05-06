@@ -27,8 +27,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
-import static org.richfaces.configuration.CoreConfiguration.BASE_SKIN_PARAM_NAME;
-import static org.richfaces.configuration.CoreConfiguration.SKIN_PARAM_NAME;
+import static org.richfaces.application.CoreConfiguration.BASE_SKIN_PARAM_NAME;
+import static org.richfaces.application.CoreConfiguration.SKIN_PARAM_NAME;
 
 import java.util.HashMap;
 import java.util.Map;

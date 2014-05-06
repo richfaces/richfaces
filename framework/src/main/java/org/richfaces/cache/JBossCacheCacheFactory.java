@@ -46,7 +46,7 @@ import org.jboss.cache.config.EvictionConfig;
 import org.jboss.cache.config.EvictionRegionConfig;
 import org.jboss.cache.eviction.EvictionAlgorithmConfigBase;
 import org.jboss.cache.eviction.ExpirationAlgorithmConfig;
-import org.richfaces.configuration.CoreConfiguration;
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
