@@ -13,6 +13,7 @@ rebel.xml
 bower_components
 node_modules
 .checkstyle
+overlays
 
 .factorypath
 .checkstyle
