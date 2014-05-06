@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.CoreDeployment;
+import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunWith(Arquillian.class)
@@ -50,8 +50,7 @@ public class ITAjaxSubmissionCallbacks {
 
     @Deployment(testable = false)
     public static WebArchive deployment() {
-        CoreDeployment deployment = new CoreDeployment(ITAjaxSubmissionCallbacks.class);
-        deployment.withWholeCore();
+        FrameworkDeployment deployment = new FrameworkDeployment(ITAjaxSubmissionCallbacks.class);
 
         deployment.archive().addAsWebResource(buildPage(true, true), "documentAndFormScoped.xhtml");
         deployment.archive().addAsWebResource(buildPage(true, false), "formScoped.xhtml");
