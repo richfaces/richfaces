@@ -29,8 +29,8 @@
         <version>4.5.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>richfaces</artifactId>
-    <name>RichFaces Framework</name>
+    <artifactId>richfaces-core</artifactId>
+    <name>RichFaces Core</name>
 
     <description>
         The RichFaces Framework and Component Suite.

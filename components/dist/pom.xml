@@ -48,7 +48,7 @@
     <dependencies>
         <dependency>
             <groupId>org.richfaces</groupId>
-            <artifactId>richfaces</artifactId>
+            <artifactId>richfaces-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.richfaces.compat</groupId>
