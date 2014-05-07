@@ -27,7 +27,7 @@ public class CoreUIDeployment extends Deployment {
             String version = configuration.getRichFacesVersion();
             this.addMavenDependency(
                     "org.richfaces:richfaces:" + version,
-                    "org.richfaces.compat:richfaces-a4j:" + version);
+                    "org.richfaces:richfaces-a4j:" + version);
         }
     }
 

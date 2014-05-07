@@ -36,7 +36,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.richfaces.compat</groupId>
+                <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-components-parent</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
@@ -51,11 +51,11 @@
             <artifactId>richfaces-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.compat</groupId>
+            <groupId>org.richfaces</groupId>
             <artifactId>richfaces-a4j</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.compat</groupId>
+            <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
         </dependency>
     </dependencies>
@@ -65,7 +65,7 @@
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <configuration>
-                    <includeGroupIds>org.richfaces.compat</includeGroupIds>
+                    <includeGroupIds>org.richfaces</includeGroupIds>
                 </configuration>
                 <executions>
                     <execution>

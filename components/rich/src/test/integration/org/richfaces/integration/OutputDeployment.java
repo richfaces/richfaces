@@ -24,11 +24,11 @@ public class OutputDeployment extends Deployment {
 
             this.addMavenDependency(
                     "org.richfaces:richfaces",
-                    "org.richfaces.compat:richfaces-a4j");
+                    "org.richfaces:richfaces-a4j");
 
         } else {
             String version = configuration.getRichFacesVersion();
-            this.addMavenDependency("org.richfaces.compat:richfaces:" + version);
+            this.addMavenDependency("org.richfaces:richfaces:" + version);
         }
 
         archive().addAsWebInfResource(new File("src/test/resources/beans.xml"));

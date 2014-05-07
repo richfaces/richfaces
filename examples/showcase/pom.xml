@@ -43,12 +43,12 @@
             <artifactId>richfaces-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.compat</groupId>
+            <groupId>org.richfaces</groupId>
             <artifactId>richfaces-a4j</artifactId>
             <version>${version.rf4.ui}</version>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.compat</groupId>
+            <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
             <version>${version.rf4.ui}</version>
         </dependency>
