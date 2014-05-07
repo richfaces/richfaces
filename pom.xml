@@ -43,7 +43,7 @@
         <module>build/push-depchain</module>
         <module>build/resource-optimizer-plugin</module>
 
-        <module>framework</module>
+        <module>core</module>
         <module>components</module>
 
         <module>dist</module>
@@ -132,7 +132,7 @@
         <version.scm.plugin>1.8.1</version.scm.plugin>
 
         <!-- Release -->
-        <regular.files.which.contains.version>framework/src/main/java/org/richfaces/VersionBean.java,dist/src/main/resources/txt/readme.txt,dist/src/main/resources/txt/readme-examples.txt,build/build-resources/src/main/java/org/richfaces/arquillian/configuration/FundamentalTestConfiguration.java,build/resources-plugin/src/site/apt/usage.apt,examples/showcase/src/main/webapp/META-INF/MANIFEST.MF,examples/showcase/README.md,examples/irc-client/readme.txt</regular.files.which.contains.version>
+        <regular.files.which.contains.version>core/src/main/java/org/richfaces/VersionBean.java,dist/src/main/resources/txt/readme.txt,dist/src/main/resources/txt/readme-examples.txt,build/build-resources/src/main/java/org/richfaces/arquillian/configuration/FundamentalTestConfiguration.java,build/resources-plugin/src/site/apt/usage.apt,examples/showcase/src/main/webapp/META-INF/MANIFEST.MF,examples/showcase/README.md,examples/irc-client/readme.txt</regular.files.which.contains.version>
     </properties>
 
     <prerequisites>

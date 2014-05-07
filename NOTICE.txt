@@ -1,13 +1,13 @@
 This product includes Apache licensed software
 
-framework/src/main/java/org/richfaces/base64/DecoderException.java
-framework/src/main/java/org/richfaces/base64/URLCodec.java
-framework/src/main/java/org/richfaces/base64/Decoder.java
-framework/src/main/java/org/richfaces/base64/Encoder.java
-framework/src/main/java/org/richfaces/base64/EncoderException.java
-framework/src/main/java/org/richfaces/base64/URL64Codec.java
-framework/src/main/java/org/richfaces/base64/BinaryEncoder.java
-framework/src/main/java/org/richfaces/base64/BinaryDecoder.java
+core/src/main/java/org/richfaces/base64/DecoderException.java
+core/src/main/java/org/richfaces/base64/URLCodec.java
+core/src/main/java/org/richfaces/base64/Decoder.java
+core/src/main/java/org/richfaces/base64/Encoder.java
+core/src/main/java/org/richfaces/base64/EncoderException.java
+core/src/main/java/org/richfaces/base64/URL64Codec.java
+core/src/main/java/org/richfaces/base64/BinaryEncoder.java
+core/src/main/java/org/richfaces/base64/BinaryDecoder.java
 contains source code from http://commons.apache.org/proper/commons-codec/
 Copyright (C) 2002-2004 The Apache Software Foundation
 

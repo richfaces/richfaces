@@ -38,7 +38,7 @@ Running particular framework test (on Chrome) from console:
     java -jar selenium-server-standalone-${VERSION}.jar -Dwebdriver.chrome.driver=/opt/google/chrome/chromedriver
     
     // console 3: run a test
-    cd richfaces/framework/
+    cd richfaces/core/
     mvn verify -Dintegration=wildfly80-remote -Dbrowser=chrome -Dreusable -DskipTests=true -Dtest=IT_RF12765
 
 You can also add following parameters to skip CDK build and/or Resource Optimization and/or disable unit tests:
