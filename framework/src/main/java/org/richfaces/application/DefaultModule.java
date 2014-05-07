@@ -82,7 +82,7 @@ public class DefaultModule implements Module {
 //        factory.setInstance(FocusManager.class, ServiceLoader.loadService(FocusManager.class, FocusManagerImpl.class));
         factory.setInstance(ResourceMappingConfiguration.class, new ResourceMappingConfiguration());
 
-        // workaround for loading service from richfaces-components-rich module (needs to be bypassed during tests)
+        // workaround for loading service from richfaces module (needs to be bypassed during tests)
         FocusManager focusManager = ServiceLoader.loadService(FocusManager.class);
         if (focusManager == null) {
             LOG.warn("There was no service " + FocusManager.class.getName() + " found");

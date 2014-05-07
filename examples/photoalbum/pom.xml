@@ -131,7 +131,7 @@
         </dependency>
         <dependency>
             <groupId>org.richfaces.compat</groupId>
-            <artifactId>richfaces-components-rich</artifactId>
+            <artifactId>richfaces</artifactId>
             <version>${version.richfaces}</version>
         </dependency>
 

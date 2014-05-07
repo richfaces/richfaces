@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>org.richfaces.compat</groupId>
-            <artifactId>richfaces-components-rich</artifactId>
+            <artifactId>richfaces</artifactId>
             <version>${version.rf4.ui}</version>
         </dependency>
         <dependency>

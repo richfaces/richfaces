@@ -26,12 +26,12 @@ public class InputDeployment extends Deployment {
 
         } else {
             String version = configuration.getRichFacesVersion();
-            this.addMavenDependency("org.richfaces.compat:richfaces-components-rich:" + version);
+            this.addMavenDependency("org.richfaces.compat:richfaces:" + version);
         }
     }
 
     private void addCurrentProjectClasses() {
-        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces-components-rich.jar");
+        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces.jar");
         jar.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
             .importDirectory("target/classes/").as(GenericArchive.class),
             "/", Filters.includeAll());

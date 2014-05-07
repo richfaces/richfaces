@@ -28,7 +28,7 @@ public class OutputDeployment extends Deployment {
 
         } else {
             String version = configuration.getRichFacesVersion();
-            this.addMavenDependency("org.richfaces.compat:richfaces-components-rich:" + version);
+            this.addMavenDependency("org.richfaces.compat:richfaces:" + version);
         }
 
         archive().addAsWebInfResource(new File("src/test/resources/beans.xml"));

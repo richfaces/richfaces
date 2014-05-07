@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>richfaces-components-rich</artifactId>
+    <artifactId>richfaces</artifactId>
     <name>RichFaces UI Components: http://richfaces.org/rich</name>
 
     <properties>

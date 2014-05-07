@@ -27,7 +27,7 @@ public class MiscDeployment extends Deployment {
 
         } else {
             String version = configuration.getRichFacesVersion();
-            this.addMavenDependency("org.richfaces.compat:richfaces-components-rich:" + version);
+            this.addMavenDependency("org.richfaces.compat:richfaces:" + version);
         }
     }
 
