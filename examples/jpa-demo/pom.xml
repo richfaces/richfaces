@@ -71,17 +71,7 @@
 
         <dependency>
             <groupId>org.richfaces</groupId>
-            <artifactId>richfaces-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces</groupId>
-            <artifactId>richfaces-a4j</artifactId>
-            <version>${version.richfaces}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces</groupId>
             <artifactId>richfaces</artifactId>
-            <version>${version.richfaces}</version>
         </dependency>
 
         <dependency>
