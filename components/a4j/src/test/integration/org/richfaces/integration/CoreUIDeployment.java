@@ -27,12 +27,12 @@ public class CoreUIDeployment extends Deployment {
             String version = configuration.getRichFacesVersion();
             this.addMavenDependency(
                     "org.richfaces:richfaces:" + version,
-                    "org.richfaces.compat:richfaces-components-a4j:" + version);
+                    "org.richfaces.compat:richfaces-a4j:" + version);
         }
     }
 
     private void addCurrentProjectClasses() {
-        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces-components-a4j.jar");
+        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces-a4j.jar");
         jar.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
             .importDirectory("target/classes/").as(GenericArchive.class),
             "/", Filters.includeAll());

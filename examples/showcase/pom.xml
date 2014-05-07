@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>org.richfaces.compat</groupId>
-            <artifactId>richfaces-components-a4j</artifactId>
+            <artifactId>richfaces-a4j</artifactId>
             <version>${version.rf4.ui}</version>
         </dependency>
         <dependency>

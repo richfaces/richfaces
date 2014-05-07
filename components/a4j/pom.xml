@@ -29,7 +29,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>richfaces-components-a4j</artifactId>
+    <artifactId>richfaces-a4j</artifactId>
     <name>RichFaces UI Components: http://richfaces.org/a4j</name>
     <packaging>jar</packaging>
 

@@ -22,7 +22,7 @@ public class InputDeployment extends Deployment {
 
             this.addMavenDependency(
                     "org.richfaces:richfaces",
-                    "org.richfaces.compat:richfaces-components-a4j");
+                    "org.richfaces.compat:richfaces-a4j");
 
         } else {
             String version = configuration.getRichFacesVersion();
