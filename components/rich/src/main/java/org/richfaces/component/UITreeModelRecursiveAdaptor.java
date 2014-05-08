@@ -24,6 +24,7 @@ package org.richfaces.component;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.view.facelets.TreeModelRecursiveAdaptorHandler;
 
 /**
  * <p>The <rich:treeModelRecursiveAdaptor> component iterates through recursive collections in order to populate a tree
@@ -31,7 +32,7 @@ import org.richfaces.cdk.annotations.Tag;
  *
  * @author Nick Belaevski
  */
-@JsfComponent(type = UITreeModelRecursiveAdaptor.COMPONENT_TYPE, family = UITreeModelRecursiveAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelRecursiveAdaptor", handler = "org.richfaces.view.facelets.TreeModelRecursiveAdaptorHandler"), attributes = { "tree-model-props.xml" })
+@JsfComponent(type = UITreeModelRecursiveAdaptor.COMPONENT_TYPE, family = UITreeModelRecursiveAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelRecursiveAdaptor", handlerClass = TreeModelRecursiveAdaptorHandler.class), attributes = { "tree-model-props.xml" })
 public class UITreeModelRecursiveAdaptor extends AbstractTreeModelAdaptor implements TreeModelRecursiveAdaptor {
     public static final String COMPONENT_TYPE = "org.richfaces.TreeModelRecursiveAdaptor";
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelRecursiveAdaptor";

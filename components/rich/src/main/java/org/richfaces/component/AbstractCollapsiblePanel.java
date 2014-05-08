@@ -38,6 +38,7 @@ import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.PanelToggleEvent;
 import org.richfaces.event.PanelToggleListener;
 import org.richfaces.event.PanelToggleSource;
+import org.richfaces.view.facelets.html.CollapsiblePanelTagHandler;
 
 /**
  * <p>
@@ -46,7 +47,7 @@ import org.richfaces.event.PanelToggleSource;
  * </p>
  * @author akolonitsky
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.CollapsiblePanelTagHandler"),
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = CollapsiblePanelTagHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"), attributes = {"core-props.xml", "events-mouse-props.xml", "i18n-props.xml"})
 public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";

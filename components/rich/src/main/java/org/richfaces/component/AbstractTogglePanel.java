@@ -69,6 +69,7 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.renderkit.util.RendererUtils;
 
 import com.google.common.base.Strings;
+import org.richfaces.view.facelets.html.TogglePanelTagHandler;
 
 /**
  * <p>The &lt;rich:togglePanel&gt; component is used as a base for the other switchable components, the
@@ -79,7 +80,7 @@ import com.google.common.base.Strings;
  * @author akolonitsky
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"), attributes = {
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
 public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource,
         MetaComponentResolver, MetaComponentEncoder {

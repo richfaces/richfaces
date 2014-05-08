@@ -36,13 +36,14 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
+import org.richfaces.taglib.ListHandler;
 
 /**
  * <p>The &lt;rich:list&gt; component renders a list of items. The list can be an numerically ordered list, an
  * un-ordered bullet-point list, or a data definition list. The component uses a data model for managing the list items,
  * which can be updated dynamically.</p>
  */
-@JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM), tag = @Tag(name = "list", handler = "org.richfaces.taglib.ListHandler", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"), attributes = {
+@JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM), tag = @Tag(name = "list", handlerClass = ListHandler.class, type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"), attributes = {
         "core-props.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml", "events-mouse-props.xml",
         "events-key-props.xml", "events-row-props.xml", "i18n-props.xml" })
 public abstract class AbstractList extends UISequence {

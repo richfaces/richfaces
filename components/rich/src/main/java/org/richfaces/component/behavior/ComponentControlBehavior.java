@@ -30,6 +30,7 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.taglib.ComponentControlHandler;
 
 /**
  * <p>
@@ -40,7 +41,7 @@ import org.richfaces.cdk.annotations.TagType;
  * </p>
  * @author Anton Belevich
  */
-@JsfBehavior(id = "org.richfaces.behavior.ComponentControlBehavior", tag = @Tag(name = "componentControl", handler = "org.richfaces.taglib.ComponentControlHandler", type = TagType.Facelets))
+@JsfBehavior(id = "org.richfaces.behavior.ComponentControlBehavior", tag = @Tag(name = "componentControl", handlerClass = ComponentControlHandler.class, type = TagType.Facelets))
 public class ComponentControlBehavior extends ClientBehavior {
     public static final String BEHAVIOR_ID = "org.richfaces.behavior.ComponentControlBehavior";
     private List<UIComponent> children;

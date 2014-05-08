@@ -39,6 +39,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
+import org.richfaces.view.facelets.html.AttachQueueHandler;
 
 /**
  * <p>
@@ -48,7 +49,7 @@ import org.richfaces.renderkit.util.AjaxRendererUtils;
  * </p>
  * @author Nick Belaevski
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.AttachQueueRenderer"), tag = @Tag(name = "attachQueue", handler = "org.richfaces.view.facelets.html.AttachQueueHandler",
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.AttachQueueRenderer"), tag = @Tag(name = "attachQueue", handlerClass = AttachQueueHandler.class,
 
 generate = false, type = TagType.Facelets))
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)

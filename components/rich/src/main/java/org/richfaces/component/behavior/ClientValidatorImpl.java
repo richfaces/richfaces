@@ -74,6 +74,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
+import org.richfaces.view.facelets.html.ClientValidatorHandler;
 
 /**
  * <p>The &lt;rich:validator&gt; behavior adds client-side validation to a form input control based on registered server-side validators. It provides this validation without the need to reproduce the server-side annotations.</p>
@@ -82,7 +83,7 @@ import com.google.common.collect.Lists;
  *
  * @author asmirnov@exadel.com
  */
-@JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handler = "org.richfaces.view.facelets.html.ClientValidatorHandler", type = TagType.Facelets), attributes = {
+@JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handlerClass = ClientValidatorHandler.class, type = TagType.Facelets), attributes = {
         "validator-props.xml", "immediate-prop.xml" })
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior {
     private static final Set<String> NONE = Collections.emptySet();

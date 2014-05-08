@@ -50,13 +50,14 @@ import org.richfaces.component.util.MessageUtil;
 import org.richfaces.event.DataScrollEvent;
 import org.richfaces.event.DataScrollListener;
 import org.richfaces.event.DataScrollSource;
+import org.richfaces.taglib.DataScrollerHandler;
 
 /**
  * <p> The &lt;rich:dataScroller&gt; component is used for navigating through multiple pages of tables or grids. </p>
  */
 @JsfComponent(type = AbstractDataScroller.COMPONENT_TYPE, family = AbstractDataScroller.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataScroller",
         renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"),
-        tag = @Tag(name = "dataScroller", handler = "org.richfaces.taglib.DataScrollerHandler", type = TagType.Facelets),
+        tag = @Tag(name = "dataScroller", handlerClass = DataScrollerHandler.class, type = TagType.Facelets),
         attributes = {"ajax-props.xml", "core-props.xml" })
 public abstract class AbstractDataScroller extends UIComponentBase implements DataScrollSource, IterationStateHolder {
     public static final String COMPONENT_TYPE = "org.richfaces.DataScroller";

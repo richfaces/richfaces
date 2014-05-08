@@ -46,6 +46,7 @@ import org.richfaces.event.FileUploadEvent;
 import org.richfaces.event.FileUploadListener;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.view.facelets.FileUploadHandler;
 
 /**
  * <p> The &lt;rich:fileUpload&gt; component allows the user to upload files to a server. It features multiple uploads,
@@ -55,7 +56,7 @@ import org.richfaces.renderkit.RenderKitUtils;
  * @author Lukas Fryc
  * @author Simone Cinti
  */
-@JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.FileUploadHandler"), renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"), attributes = {
+@JsfComponent(tag = @Tag(generate = false, handlerClass = FileUploadHandler.class), renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"), attributes = {
         "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "ajax-props.xml", "i18n-props.xml", "fileUploadListener-props.xml" })
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractFileUpload extends UIComponentBase {

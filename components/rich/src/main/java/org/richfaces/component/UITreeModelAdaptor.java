@@ -24,13 +24,14 @@ package org.richfaces.component;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.view.facelets.TreeModelAdaptorHandler;
 
 /**
  * The <rich:treeModelAdaptor> component takes an object which implements the Map or Iterable interfaces. It adds all the object entries to the parent node as child nodes.
  *
  * @author Nick Belaevski
  */
-@JsfComponent(type = UITreeModelAdaptor.COMPONENT_TYPE, family = UITreeModelAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelAdaptor", handler = "org.richfaces.view.facelets.TreeModelAdaptorHandler"), attributes = "tree-model-props.xml")
+@JsfComponent(type = UITreeModelAdaptor.COMPONENT_TYPE, family = UITreeModelAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelAdaptor", handlerClass = TreeModelAdaptorHandler.class), attributes = "tree-model-props.xml")
 public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements TreeModelAdaptor {
     public static final String COMPONENT_TYPE = "org.richfaces.TreeModelAdaptor";
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelAdaptor";

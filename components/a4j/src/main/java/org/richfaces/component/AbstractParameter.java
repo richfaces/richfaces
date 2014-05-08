@@ -38,6 +38,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.util.PartialStateHolderUtil;
+import org.richfaces.view.facelets.html.ParameterHandler;
 
 /**
  * <p>
@@ -46,7 +47,7 @@ import org.richfaces.component.util.PartialStateHolderUtil;
  * </p>
  * @author shura, alexsmirnov
  */
-@JsfComponent(tag = @Tag(name = "param", handler = "org.richfaces.view.facelets.html.ParameterHandler", generate = false, type = TagType.Facelets), attributes = "param-assignTo-prop.xml")
+@JsfComponent(tag = @Tag(name = "param", handlerClass = ParameterHandler.class, generate = false, type = TagType.Facelets), attributes = "param-assignTo-prop.xml")
 public abstract class AbstractParameter extends UIParameter implements ActionListener, JavaScriptParameter {
     public static final String COMPONENT_TYPE = "org.richfaces.Parameter";
     public static final String COMPONENT_FAMILY = UIParameter.COMPONENT_FAMILY;

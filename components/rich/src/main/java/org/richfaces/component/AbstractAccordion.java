@@ -27,6 +27,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.view.facelets.html.TogglePanelTagHandler;
 
 /**
  * <p>The &lt;rich:accordion&gt; is a series of panels stacked on top of each other, each collapsed such that only the
@@ -36,7 +37,7 @@ import org.richfaces.cdk.annotations.TagType;
  *
  * @author akolonitsky
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"),
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.AccordionRenderer"), attributes = {"events-mouse-props.xml", "i18n-props.xml", "core-props.xml"})
 public abstract class AbstractAccordion extends AbstractTogglePanel {
     public static final String COMPONENT_TYPE = "org.richfaces.Accordion";

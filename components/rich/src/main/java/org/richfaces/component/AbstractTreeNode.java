@@ -46,6 +46,7 @@ import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.event.TreeToggleListener;
 import org.richfaces.event.TreeToggleSource;
 import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.view.facelets.TreeNodeHandler;
 
 /**
  * <p> The <rich:treeNode> component is a child component of the <rich:tree> component. It represents nodes in the
@@ -53,7 +54,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  *
  * @author Nick Belaevski
  */
-@JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY, tag = @Tag(name = "treeNode", handler = "org.richfaces.view.facelets.TreeNodeHandler"), renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"), attributes = {
+@JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY, tag = @Tag(name = "treeNode", handlerClass = TreeNodeHandler.class), renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"), attributes = {
         "tree-common-props.xml", "treeNode-props.xml", "events-mouse-props.xml", "events-key-props.xml", "core-props.xml",
         "i18n-props.xml", "immediate-prop.xml" })
 public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder,

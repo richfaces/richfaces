@@ -82,6 +82,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
+import org.richfaces.view.facelets.TreeHandler;
 
 /**
  * <p>The &lt;rich:tree&gt; component provides a hierarchical tree control. Each &lt;rich:tree&gt; component typically
@@ -90,7 +91,7 @@ import com.google.common.collect.Maps;
  *
  * @author Nick Belaevski
  */
-@JsfComponent(type = AbstractTree.COMPONENT_TYPE, family = AbstractTree.COMPONENT_FAMILY, tag = @Tag(name = "tree", handler = "org.richfaces.view.facelets.TreeHandler"), renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"), attributes = {
+@JsfComponent(type = AbstractTree.COMPONENT_TYPE, family = AbstractTree.COMPONENT_FAMILY, tag = @Tag(name = "tree", handlerClass = TreeHandler.class), renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"), attributes = {
         "ajax-props.xml", "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml",
         "tree-common-props.xml", "tree-props.xml", "sequence-props.xml", "immediate-prop.xml" })
 // TODO add rowData caching for wrapper events

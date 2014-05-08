@@ -34,6 +34,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.resource.MediaOutputResource;
+import org.richfaces.view.facelets.html.MediaOutputHandler;
 
 /**
  * <p>
@@ -42,7 +43,7 @@ import org.richfaces.resource.MediaOutputResource;
  *
  * @author shura
  */
-@JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.html.MediaOutputHandler", type = TagType.Facelets),
+@JsfComponent(tag = @Tag(generate = false, handlerClass = MediaOutputHandler.class, type = TagType.Facelets),
         renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer"),
         attributes = {"events-mouse-props.xml", "events-key-props.xml", "focus-props.xml", "accesskey-props.xml", "i18n-props.xml"})
 public abstract class AbstractMediaOutput extends UIOutput {

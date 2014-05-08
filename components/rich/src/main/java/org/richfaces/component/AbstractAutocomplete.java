@@ -41,6 +41,7 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.view.facelets.AutocompleteHandler;
 
 /**
  * <p>The &lt;rich:autocomplete&gt; component is an auto-completing input-box with built-in Ajax capabilities. It
@@ -48,7 +49,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  *
  * @author Nick Belaevski
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.AutocompleteHandler"),
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = AutocompleteHandler.class),
         renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"),
         attributes = {"focus-props.xml", "events-mouse-props.xml", "events-key-props.xml"})
 public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder {

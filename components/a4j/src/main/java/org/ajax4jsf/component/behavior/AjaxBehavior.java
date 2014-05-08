@@ -48,6 +48,7 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.behavior.ClientBehavior;
 import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
 import org.richfaces.util.Sets;
+import org.richfaces.view.facelets.html.AjaxHandler;
 
 /**
  * <p>
@@ -56,7 +57,7 @@ import org.richfaces.util.Sets;
  * </p>
  * @author Anton Belevich
  */
-@JsfBehavior(id = "org.ajax4jsf.behavior.Ajax", tag = @Tag(name = "ajax", handler = "org.richfaces.view.facelets.html.AjaxHandler", type = TagType.Facelets),
+@JsfBehavior(id = "org.ajax4jsf.behavior.Ajax", tag = @Tag(name = "ajax", handlerClass = AjaxHandler.class, type = TagType.Facelets),
         attributes = { "ajax-props.xml", "ajaxBehavior-prop.xml" })
 public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     public static final String BEHAVIOR_ID = "org.ajax4jsf.behavior.Ajax";
