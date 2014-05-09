@@ -8,6 +8,11 @@ import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.I18nProps;
+import org.richfaces.component.attribute.PositionProps;
 import org.richfaces.renderkit.html.MenuGroupRendererBase;
 
 /**
@@ -15,10 +20,10 @@ import org.richfaces.renderkit.html.MenuGroupRendererBase;
  * &lt;rich:menuGroup&gt; component can contain a number of &lt;rich:menuItem&gt; components, or further nested
  * &lt;rich:menuGroup&gt; components.</p>
  */
-@JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuGroup.COMPONENT_TYPE, facets = {
-        @Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) }, renderer = @JsfRenderer(type = MenuGroupRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuGroup"), attributes = {
-        "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "position-props.xml" })
-public abstract class AbstractMenuGroup extends UIOutput {
+@JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuGroup.COMPONENT_TYPE,
+        facets = {@Facet(name = "icon", generate = false), @Facet(name = "iconDisabled", generate = false) },
+        renderer = @JsfRenderer(type = MenuGroupRendererBase.RENDERER_TYPE), tag = @Tag(name = "menuGroup"))
+public abstract class AbstractMenuGroup extends UIOutput implements CoreProps, EventsKeyProps, EventsMouseProps, I18nProps, PositionProps {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuGroup";
 
     /**
@@ -44,29 +49,6 @@ public abstract class AbstractMenuGroup extends UIOutput {
      */
     @Attribute
     public abstract String getLabel();
-
-    //---------- core-props.xml
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute
-    public abstract String getStyle();
-
-    //---------- position-props.xml
-
-    @Attribute
-    public abstract Positioning getDirection();
-
-    // TODO is it correct or cdk issue
-    @Attribute
-    public abstract Positioning getJointPoint();
-
-    @Attribute
-    public abstract int getVerticalOffset();
-
-    @Attribute
-    public abstract int getHorizontalOffset();
 
     /**
      * The client-side script method to be called when this menuGroup is shown

@@ -47,7 +47,7 @@ import org.richfaces.view.facelets.html.ParameterHandler;
  * </p>
  * @author shura, alexsmirnov
  */
-@JsfComponent(tag = @Tag(name = "param", handlerClass = ParameterHandler.class, generate = false, type = TagType.Facelets), attributes = "param-assignTo-prop.xml")
+@JsfComponent(tag = @Tag(name = "param", handlerClass = ParameterHandler.class, generate = false, type = TagType.Facelets))
 public abstract class AbstractParameter extends UIParameter implements ActionListener, JavaScriptParameter {
     public static final String COMPONENT_TYPE = "org.richfaces.Parameter";
     public static final String COMPONENT_FAMILY = UIParameter.COMPONENT_FAMILY;

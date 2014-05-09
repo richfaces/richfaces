@@ -30,6 +30,12 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.taglib.DataTableHandler;
+import org.richfaces.component.attribute.EventsRowProps;
+import org.richfaces.component.attribute.IterationProps;
+import org.richfaces.component.attribute.RowsProps;
+import org.richfaces.component.attribute.SequenceProps;
+import org.richfaces.component.attribute.StyleClassProps;
+import org.richfaces.component.attribute.StyleProps;
 
 /**
  * <p> The &lt;rich:dataTable&gt; component is used to render a table, including the table's caption. It works in
@@ -38,10 +44,10 @@ import org.richfaces.taglib.DataTableHandler;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractDataTable.COMPONENT_TYPE, family = AbstractDataTable.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"), tag = @Tag(name = "dataTable", handlerClass = DataTableHandler.class, type = TagType.Facelets), attributes = {
-        "style-prop.xml", "styleClass-prop.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml",
-        "events-row-props.xml" })
-public abstract class AbstractDataTable extends UIDataTableBase {
+@JsfComponent(type = AbstractDataTable.COMPONENT_TYPE, family = AbstractDataTable.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"),
+        tag = @Tag(name = "dataTable", handlerClass = DataTableHandler.class, type = TagType.Facelets))
+public abstract class AbstractDataTable extends UIDataTableBase implements EventsRowProps, RowsProps, StyleProps, StyleClassProps, SequenceProps, IterationProps {
     public static final String COMPONENT_TYPE = "org.richfaces.DataTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String CAPTION_FACET_NAME = "caption";

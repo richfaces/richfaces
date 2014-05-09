@@ -26,6 +26,11 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.FocusProps;
+import org.richfaces.component.attribute.SelectProps;
 
 /**
  * <p> The &lt;rich:inplaceSelect&gt; component is similar to the &lt;rich:inplaceInput&gt; component, except that the
@@ -37,9 +42,8 @@ import org.richfaces.cdk.annotations.Tag;
  * @author Anton Belevich
  */
 @JsfComponent(type = AbstractInplaceSelect.COMPONENT_TYPE, family = AbstractInplaceSelect.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"), tag = @Tag(name = "inplaceSelect"),
-        attributes = {"core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "focus-props.xml", "select-props.xml"})
-public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent {
+        renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"), tag = @Tag(name = "inplaceSelect"))
+public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps, SelectProps {
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceSelect";
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
 
@@ -78,10 +82,6 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
      */
     @Attribute
     public abstract boolean isShowControls();
-
-    //--------- focus-props.xml
-    @Attribute
-    public abstract String getTabindex();
 
     @Attribute
     public abstract String getDefaultLabel();

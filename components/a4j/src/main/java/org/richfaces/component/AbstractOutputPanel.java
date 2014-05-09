@@ -29,6 +29,11 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.AjaxOutputProps;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.I18nProps;
 
 /**
  * <p>
@@ -38,9 +43,8 @@ import org.richfaces.cdk.annotations.TagType;
  *
  * @author asmirnov@exadel.com
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.OutputPanelRenderer"), tag = @Tag(type = TagType.Facelets), attributes = {
-        "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "core-props.xml", "AjaxOutput-props.xml" })
-public abstract class AbstractOutputPanel extends UIPanel implements AjaxOutput {
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.OutputPanelRenderer"), tag = @Tag(type = TagType.Facelets))
+public abstract class AbstractOutputPanel extends UIPanel implements AjaxOutput, AjaxOutputProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.OutputPanel";
     public static final String COMPONENT_FAMILY = "javax.faces.Panel";
 

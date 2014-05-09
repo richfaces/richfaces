@@ -27,6 +27,11 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.I18nProps;
+import org.richfaces.component.attribute.PositionProps;
 import org.richfaces.renderkit.html.ContextMenuRendererBase;
 
 import javax.faces.component.UIComponentBase;
@@ -39,9 +44,8 @@ import javax.faces.component.UIComponentBase;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(family = AbstractContextMenu.COMPONENT_FAMILY, type = AbstractContextMenu.COMPONENT_TYPE,
-        renderer = @JsfRenderer(type = ContextMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "contextMenu"),
-        attributes = {"events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml", "position-props.xml" })
-public abstract class AbstractContextMenu extends AbstractMenuContainer {
+        renderer = @JsfRenderer(type = ContextMenuRendererBase.RENDERER_TYPE), tag = @Tag(name = "contextMenu"))
+public abstract class AbstractContextMenu extends AbstractMenuContainer implements CoreProps, EventsKeyProps, EventsMouseProps, I18nProps, PositionProps {
     public static final String COMPONENT_TYPE = "org.richfaces.ContextMenu";
     public static final String COMPONENT_FAMILY = "org.richfaces.ContextMenu";
 

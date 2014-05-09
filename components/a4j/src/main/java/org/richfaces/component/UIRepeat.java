@@ -25,6 +25,9 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.IterationProps;
+import org.richfaces.component.attribute.RowsProps;
+import org.richfaces.component.attribute.SequenceProps;
 import org.richfaces.view.facelets.html.RepeatHandler;
 
 /**
@@ -35,9 +38,9 @@ import org.richfaces.view.facelets.html.RepeatHandler;
  *
  * @author Nick Belaevski
  */
-@JsfComponent(tag = @Tag(name = "repeat", handlerClass = RepeatHandler.class, type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.RepeatRenderer"), attributes = {
-        "iteration-props.xml", "rows-prop.xml", "sequence-props.xml" })
-public class UIRepeat extends UISequence {
+@JsfComponent(tag = @Tag(name = "repeat", handlerClass = RepeatHandler.class, type = TagType.Facelets),
+        renderer = @JsfRenderer(type = "org.richfaces.RepeatRenderer"))
+public class UIRepeat extends UISequence implements RowsProps, SequenceProps, IterationProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Repeat";
     public static final String COMPONENT_FAMILY = "javax.faces.Data";
 

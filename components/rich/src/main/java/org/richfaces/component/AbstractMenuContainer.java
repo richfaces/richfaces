@@ -23,13 +23,14 @@ package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.component.attribute.PositionProps;
 
 import javax.faces.component.UIComponentBase;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public abstract class AbstractMenuContainer extends UIComponentBase {
+public abstract class AbstractMenuContainer extends UIComponentBase implements PositionProps {
 
     /**
      * <p>Defines an event on the parent element to display the menu</p>
@@ -73,21 +74,6 @@ public abstract class AbstractMenuContainer extends UIComponentBase {
      */
     @Attribute
     public abstract int getPopupWidth();
-
-    //---------- position-props.xml
-
-    // TODO is it correct or cdk issue
-    @Attribute
-    public abstract Positioning getJointPoint();
-
-    @Attribute
-    public abstract Positioning getDirection();
-
-    @Attribute
-    public abstract int getHorizontalOffset();
-
-    @Attribute
-    public abstract int getVerticalOffset();
 
     /**
      * The client-side script method to be called when a child menuGroup is expanded

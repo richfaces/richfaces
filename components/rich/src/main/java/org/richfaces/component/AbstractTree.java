@@ -74,6 +74,15 @@ import org.richfaces.model.TreeDataModel;
 import org.richfaces.model.TreeDataModelTuple;
 import org.richfaces.model.TreeDataVisitor;
 import org.richfaces.model.TreeNode;
+import org.richfaces.component.attribute.AjaxProps;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.I18nProps;
+import org.richfaces.component.attribute.ImmediateProps;
+import org.richfaces.component.attribute.SequenceProps;
+import org.richfaces.component.attribute.TreeCommonProps;
+import org.richfaces.component.attribute.TreeProps;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.application.ServiceTracker;
 
@@ -91,12 +100,11 @@ import org.richfaces.view.facelets.TreeHandler;
  *
  * @author Nick Belaevski
  */
-@JsfComponent(type = AbstractTree.COMPONENT_TYPE, family = AbstractTree.COMPONENT_FAMILY, tag = @Tag(name = "tree", handlerClass = TreeHandler.class), renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"), attributes = {
-        "ajax-props.xml", "events-mouse-props.xml", "events-key-props.xml", "core-props.xml", "i18n-props.xml",
-        "tree-common-props.xml", "tree-props.xml", "sequence-props.xml", "immediate-prop.xml" })
+@JsfComponent(type = AbstractTree.COMPONENT_TYPE, family = AbstractTree.COMPONENT_FAMILY,
+        tag = @Tag(name = "tree", handlerClass = TreeHandler.class),
+        renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"))
 // TODO add rowData caching for wrapper events
-public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder,
-        TreeSelectionChangeSource, TreeToggleSource {
+public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder, TreeSelectionChangeSource, TreeToggleSource, AjaxProps, CoreProps, EventsKeyProps, EventsMouseProps, ImmediateProps, I18nProps, SequenceProps, TreeProps, TreeCommonProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Tree";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tree";
     public static final String SELECTION_META_COMPONENT_ID = "selection";
@@ -150,6 +158,9 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return treeRange;
     }
 
+    /**
+     * Points to the data model
+     */
     @Attribute
     public abstract Object getValue();
 

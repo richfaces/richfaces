@@ -33,6 +33,11 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.EventsRowProps;
+import org.richfaces.component.attribute.IterationProps;
+import org.richfaces.component.attribute.RowsProps;
+import org.richfaces.component.attribute.SequenceProps;
+import org.richfaces.component.attribute.StyleProps;
 import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.event.CollapsibleSubTableToggleListener;
 import org.richfaces.taglib.CollapsibleSubTableHandler;
@@ -44,9 +49,11 @@ import org.richfaces.taglib.CollapsibleSubTableHandler;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE, family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"), tag = @Tag(name = "collapsibleSubTable", handlerClass = CollapsibleSubTableHandler.class, type = TagType.Facelets), attributes = {
-        "style-prop.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml", "events-row-props.xml" })
-public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable {
+@JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE,
+        family = AbstractCollapsibleSubTable.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"),
+        tag = @Tag(name = "collapsibleSubTable", handlerClass = CollapsibleSubTableHandler.class, type = TagType.Facelets))
+public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable, EventsRowProps, RowsProps, StyleProps, SequenceProps, IterationProps {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String MODE_AJAX = "ajax";

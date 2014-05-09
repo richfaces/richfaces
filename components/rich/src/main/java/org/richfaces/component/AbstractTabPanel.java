@@ -33,6 +33,9 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.view.facelets.html.TogglePanelTagHandler;
 
@@ -43,9 +46,9 @@ import org.richfaces.view.facelets.html.TogglePanelTagHandler;
  *
  * @author akolonitsky
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class), renderer = @JsfRenderer(type = "org.richfaces.TabPanelRenderer"), attributes = {
-        "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
-public abstract class AbstractTabPanel extends AbstractTogglePanel {
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class),
+        renderer = @JsfRenderer(type = "org.richfaces.TabPanelRenderer"))
+public abstract class AbstractTabPanel extends AbstractTogglePanel implements CoreProps, EventsMouseProps, I18nProps {
     public static final String HEADER_META_COMPONENT = "header";
     public static final String COMPONENT_TYPE = "org.richfaces.TabPanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.TabPanel";

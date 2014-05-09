@@ -55,6 +55,9 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
@@ -80,10 +83,9 @@ import org.richfaces.view.facelets.html.TogglePanelTagHandler;
  * @author akolonitsky
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"), attributes = {
-        "core-props.xml", "events-mouse-props.xml", "i18n-props.xml" })
-public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource,
-        MetaComponentResolver, MetaComponentEncoder {
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = TogglePanelTagHandler.class),
+        renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"))
+public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource, MetaComponentResolver, MetaComponentEncoder, CoreProps, EventsMouseProps, I18nProps {
     public static final String ACTIVE_ITEM_META_COMPONENT = "activeItem";
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanel";

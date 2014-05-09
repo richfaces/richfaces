@@ -34,19 +34,30 @@ public interface EventsKeyProps {
     /**
      * Javascript code executed when a key is pressed and released over this element.
      */
-    @Attribute(events = @EventName(value = "onkeypress"), description = @Description("Javascript code executed when a key is pressed and released over this element."))
+    @Attribute(events = @EventName(value = "onkeypress"),
+            passThrough = true,
+            description = @Description(
+                    value = "Javascript code executed when a key is pressed and released over this element.",
+                    displayName = "Key Press Script"))
     String getOnkeypress();
 
     /**
      * Javascript code executed when a key is pressed down over this element.
      */
-    @Attribute(events = @EventName(value = "onkeydown"), description = @Description("Javascript code executed when a key is pressed down over this element."))
+    @Attribute(events = @EventName(value = "onkeydown"),
+            passThrough = true,
+            description = @Description(
+                    value = "Javascript code executed when a key is pressed down over this element.",
+                    displayName = "Key Down Script"))
     String getOnkeydown();
 
     /**
      * Javascript code executed when a key is released over this element.
      */
-    @Attribute(events = @EventName(value = "onkeyup"), description = @Description("Javascript code executed when a key is released over this element."))
+    @Attribute(events = @EventName(value = "onkeyup"),
+            passThrough = true,
+            description = @Description(
+                    value = "Javascript code executed when a key is released over this element.",
+                    displayName = "Key Up Script"))
     String getOnkeyup();
-
 }

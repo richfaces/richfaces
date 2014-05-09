@@ -32,6 +32,10 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.AjaxProps;
 
 import com.google.common.base.Predicate;
+import org.richfaces.component.attribute.BypassProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.StyleClassProps;
+import org.richfaces.component.attribute.StyleProps;
 
 /**
  * <p>The &lt;rich:panelMenuItem&gt; component represents a single item inside a &lt;rich:panelMenuGroup&gt; component,
@@ -39,9 +43,8 @@ import com.google.common.base.Predicate;
  *
  * @author akolonitsky
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), attributes = { "style-prop.xml", "styleClass-prop.xml", "ajax-props.xml", "bypass-props.xml",
-        "events-mouse-props.xml" })
-public abstract class AbstractPanelMenuItem extends AbstractActionComponent implements AjaxProps {
+@JsfComponent(tag = @Tag(type = TagType.Facelets))
+public abstract class AbstractPanelMenuItem extends AbstractActionComponent implements AjaxProps, BypassProps, EventsMouseProps, StyleProps, StyleClassProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuItem";
     private static final ParentItemPredicate PARENT_ITEM_PREDICATE = new ParentItemPredicate();

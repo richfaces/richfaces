@@ -44,6 +44,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
@@ -52,37 +53,13 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  *
  * @author "Andrey Markavtsov"
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ProgressBarRenderer"),
-        attributes = "events-mouse-props.xml")
-public abstract class AbstractProgressBar extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder {
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ProgressBarRenderer"))
+public abstract class AbstractProgressBar extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, EventsMouseProps {
     /** Component type */
     public static final String COMPONENT_TYPE = "org.richfaces.ProgressBar";
     /** Component family */
     public static final String COMPONENT_FAMILY = "org.richfaces.ProgressBar";
     public static final String STATE_META_COMPONENT_ID = "state";
-
-    //--------- events-mouse-props.xml
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
 
     /**
      * The client-side script method to be called before an ajax request.

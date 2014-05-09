@@ -12,6 +12,10 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.SelectProps;
 import org.richfaces.validator.SelectLabelValueValidator;
 
 /**
@@ -23,10 +27,10 @@ import org.richfaces.validator.SelectLabelValueValidator;
  *
  * @author abelevich
  */
-@JsfComponent(type = AbstractSelect.COMPONENT_TYPE, family = AbstractSelect.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.SelectRenderer"), tag = @Tag(name = "select"), attributes = {
-        "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "select-props.xml" })
+@JsfComponent(type = AbstractSelect.COMPONENT_TYPE, family = AbstractSelect.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = "org.richfaces.SelectRenderer"), tag = @Tag(name = "select"))
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractSelect extends AbstractSelectComponent {
+public abstract class AbstractSelect extends AbstractSelectComponent implements CoreProps, EventsKeyProps, EventsMouseProps, SelectProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Select";
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
 
@@ -96,17 +100,6 @@ public abstract class AbstractSelect extends AbstractSelectComponent {
 
     @Attribute(hidden = true)
     public abstract String getDisabledClass();
-
-    // --------- core-props.xml
-
-    @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute
-    public abstract String getTitle();
 
     @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {

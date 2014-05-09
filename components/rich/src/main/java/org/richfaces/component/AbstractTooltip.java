@@ -38,6 +38,14 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.AjaxProps;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.EventsPopupsBeforeProps;
+import org.richfaces.component.attribute.EventsPopupsProps;
+import org.richfaces.component.attribute.I18nProps;
+import org.richfaces.component.attribute.PopupsProps;
+import org.richfaces.component.attribute.PositionProps;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
@@ -48,10 +56,8 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  *
  * @author amarkhel
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"), attributes = {
-        "core-props.xml", "tooltip-props.xml", "ajax-props.xml", "i18n-props.xml", "position-props.xml",
-        "events-mouse-props.xml", "popups-props.xml", "events-popups-props.xml", "events-popups-before-props.xml" })
-public abstract class AbstractTooltip extends UIOutput implements AbstractDivPanel, MetaComponentResolver, MetaComponentEncoder {
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"))
+public abstract class AbstractTooltip extends UIOutput implements AbstractDivPanel, MetaComponentResolver, MetaComponentEncoder, AjaxProps, CoreProps, EventsMouseProps, EventsPopupsProps, EventsPopupsBeforeProps, I18nProps, PopupsProps, PositionProps {
     public static final String COMPONENT_TYPE = "org.richfaces.Tooltip";
     public static final String COMPONENT_FAMILY = "org.richfaces.Tooltip";
     public static final String CONTENT_META_COMPONENT_ID = "content";
@@ -159,6 +165,9 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
      */
     @Attribute(defaultValue = "10")
     public abstract int getVerticalOffset();
+
+    @Attribute(hidden = true)
+    public abstract Object getExecute();
 
     // ------------------------------------------------ Html Attributes
 

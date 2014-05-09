@@ -44,6 +44,9 @@ import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.IterationProps;
+import org.richfaces.component.attribute.SequenceProps;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.taglib.DataGridHandler;
 
@@ -54,9 +57,10 @@ import org.richfaces.taglib.DataGridHandler;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractDataGrid.COMPONENT_TYPE, family = AbstractDataGrid.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DataGridRenderer"), tag = @Tag(name = "dataGrid", handlerClass = DataGridHandler.class, type = TagType.Facelets), attributes = {
-        "core-props.xml", "iteration-props.xml", "sequence-props.xml" })
-public abstract class AbstractDataGrid extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
+@JsfComponent(type = AbstractDataGrid.COMPONENT_TYPE, family = AbstractDataGrid.COMPONENT_FAMILY,
+        renderer = @JsfRenderer(type = "org.richfaces.DataGridRenderer"),
+        tag = @Tag(name = "dataGrid", handlerClass = DataGridHandler.class, type = TagType.Facelets))
+public abstract class AbstractDataGrid extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder, CoreProps, SequenceProps, IterationProps {
     public static final String COMPONENT_TYPE = "org.richfaces.DataGrid";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String HEADER_FACET_NAME = "header";

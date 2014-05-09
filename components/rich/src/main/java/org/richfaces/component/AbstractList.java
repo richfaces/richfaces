@@ -31,6 +31,14 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.EventsRowProps;
+import org.richfaces.component.attribute.I18nProps;
+import org.richfaces.component.attribute.IterationProps;
+import org.richfaces.component.attribute.RowsProps;
+import org.richfaces.component.attribute.SequenceProps;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -43,10 +51,10 @@ import org.richfaces.taglib.ListHandler;
  * un-ordered bullet-point list, or a data definition list. The component uses a data model for managing the list items,
  * which can be updated dynamically.</p>
  */
-@JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM), tag = @Tag(name = "list", handlerClass = ListHandler.class, type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"), attributes = {
-        "core-props.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml", "events-mouse-props.xml",
-        "events-key-props.xml", "events-row-props.xml", "i18n-props.xml" })
-public abstract class AbstractList extends UISequence {
+@JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM),
+        tag = @Tag(name = "list", handlerClass = ListHandler.class, type = TagType.Facelets),
+        renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"))
+public abstract class AbstractList extends UISequence implements CoreProps, EventsKeyProps, EventsMouseProps, EventsRowProps, I18nProps, RowsProps, SequenceProps, IterationProps {
     public static final String TERM = "term";
     private static final Predicate<String> TERM_PREDICATE = new Predicate<String>() {
         public boolean apply(String input) {

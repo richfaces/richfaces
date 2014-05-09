@@ -30,6 +30,12 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.AjaxOutputProps;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.I18nProps;
+import org.richfaces.component.attribute.OutputFormatProps;
 
 /**
  * <p>The &lt;rich:messages&gt; components works similarly to the &lt;rich:message&gt; component, but can display all
@@ -41,9 +47,8 @@ import org.richfaces.cdk.annotations.Tag;
         generate = "org.richfaces.component.UIRichMessages",
         type = "org.richfaces.Messages",
         tag = @Tag(name = "messages"),
-        renderer = @JsfRenderer(template = "messages.template.xml", type = "org.richfaces.MessagesRenderer"),
-        attributes = {"core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml", "output-format-props.xml" })
-public abstract class AbstractMessages extends UIMessages implements AjaxOutput, ClientSideMessage {
+        renderer = @JsfRenderer(template = "messages.template.xml", type = "org.richfaces.MessagesRenderer"))
+public abstract class AbstractMessages extends UIMessages implements AjaxOutput, ClientSideMessage, AjaxOutputProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps, OutputFormatProps {
     @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();
 

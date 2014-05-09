@@ -30,24 +30,24 @@ import org.richfaces.cdk.annotations.EventName;
  *
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
-public interface CommandButtonProps extends EventsMouseProps, EventsKeyProps {
-    /**
-     * Type of button to create. Can be one of "submit", "button", "image" and "reset". If not specified, the default value is
-     * "submit".
-     */
-    @Attribute(defaultValue = "submit", description = @Description("Type of button to create. Can be one of \"submit\", \"button\", \"image\" and \"reset\". If not specified, the default value is \"submit\"."))
-    String getType();
-
-    /**
-     * Flag indicating that this element must never receive focus or be included in a subsequent submit.
-     */
-    @Attribute(passThrough = false, description = @Description("Flag indicating that this element must never receive focus or be included in a subsequent submit."))
-    boolean isDisabled();
-
+public interface CommandButtonProps extends DisabledProps, EventsMouseProps, EventsKeyProps {
     /**
      * Javascript code executed when a pointer button is clicked over this element.
      */
     @Override
-    @Attribute(passThrough = false, events = { @EventName(value = "click", defaultEvent = true), @EventName(value = "action") }, description = @Description("Javascript code executed when a pointer button is clicked over this element."))
+    @Attribute(events = { @EventName(value = "click", defaultEvent = true), @EventName(value = "action") },
+            description = @Description(
+                    value = "Javascript code executed when a pointer button is clicked over this element.",
+                    displayName = "Button Click Script"))
     String getOnclick();
+
+    /**
+     * Type of button to create. Can be one of "submit", "button", "image" and "reset". If not specified, the default value is "submit".
+     */
+    @Attribute(defaultValue = "submit",
+            description = @Description(
+                    value = "Type of button to create. Can be one of \"submit\", \"button\", \"image\" and \"reset\". If not specified, the default value is \"submit\".",
+                    displayName = "Button Type"))
+    String getType();
+
 }

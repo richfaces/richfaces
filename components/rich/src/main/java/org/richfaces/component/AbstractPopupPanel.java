@@ -28,6 +28,11 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.EventsPopupsBeforeProps;
+import org.richfaces.component.attribute.EventsPopupsProps;
+import org.richfaces.component.attribute.PopupsProps;
+import org.richfaces.component.attribute.StyleClassProps;
+import org.richfaces.component.attribute.StyleProps;
 
 /**
  * <p>The &lt;rich:popupPanel&gt; component provides a pop-up panel or window that appears in front of the rest of the
@@ -35,9 +40,9 @@ import org.richfaces.cdk.annotations.TagType;
  * the rest of the application while active, or as a non-modal window. It can be positioned on the screen, dragged to a
  * new position by the user, and re-sized.</p>
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PopupPanelRenderer"), attributes = {
-        "style-prop.xml", "styleClass-prop.xml", "popups-props.xml", "events-popups-props.xml", "events-popups-before-props.xml" })
-public abstract class AbstractPopupPanel extends UIComponentBase {
+@JsfComponent(tag = @Tag(type = TagType.Facelets),
+        renderer = @JsfRenderer(type = "org.richfaces.PopupPanelRenderer"))
+public abstract class AbstractPopupPanel extends UIComponentBase implements EventsPopupsProps, EventsPopupsBeforeProps, PopupsProps, StyleProps, StyleClassProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PopupPanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.PopupPanel";
 

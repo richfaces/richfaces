@@ -24,6 +24,14 @@ package org.richfaces.component;
 import com.google.common.collect.Iterators;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.component.attribute.DisabledProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.MultiSelectProps;
+import org.richfaces.component.attribute.StyleClassProps;
+import org.richfaces.component.attribute.StyleProps;
+import org.richfaces.component.util.SelectItemsInterface;
+import org.richfaces.renderkit.SelectManyHelper;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UISelectItems;
@@ -35,113 +43,11 @@ import java.util.Iterator;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  *
  */
-public abstract class AbstractSelectManyComponent extends UISelectMany {
+public abstract class AbstractSelectManyComponent extends UISelectMany implements EventsKeyProps, EventsMouseProps, DisabledProps, MultiSelectProps, StyleProps, StyleClassProps {
 
     public Iterator<UIColumn> columns() {
         return Iterators.filter(getChildren().iterator(), UIColumn.class);
     }
-
-    //-------- multiselect-props.xml
-
-    @Attribute
-    public abstract String getVar();
-
-    @Attribute
-    public abstract String getCollectionType();
-
-    @Attribute
-    public abstract boolean isDisabled();
-
-    @Attribute()
-    public abstract String getListWidth();
-
-    @Attribute()
-    public abstract String getListHeight();
-
-    @Attribute()
-    public abstract String getMinListHeight();
-
-    @Attribute()
-    public abstract String getMaxListHeight();
-
-    @Attribute
-    public abstract String getStyle();
-
-    @Attribute(hidden = true)
-    public abstract String getActiveClass();
-
-    @Attribute(hidden = true)
-    public abstract String getChangedClass();
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute
-    public abstract String getItemClass();
-
-    @Attribute
-    public abstract String getSelectItemClass();
-
-    @Attribute
-    public abstract String getDisabledClass();
-
-    @Attribute
-    public abstract String getColumnClasses();
-
-    @Attribute
-    public abstract String getHeaderClass();
-
-    /**
-     * Javascript code executed when the list element loses focus and its value has been modified since gaining focus.
-     */
-    @Attribute(events = @EventName(value = "change", defaultEvent = true))
-    public abstract String getOnchange();
-
-    /**
-     * Javascript code executed when this element receives focus
-     */
-    @Attribute(events = @EventName("focus"))
-    public abstract String getOnfocus();
-
-    /**
-     * Javascript code executed when this element loses focus.
-     */
-    @Attribute(events = @EventName("blur"))
-    public abstract String getOnblur();
-
-    //---------- events-key-props.xml
-
-    @Attribute(events = @EventName("keydown"))
-    public abstract String getOnkeydown();
-
-    @Attribute(events = @EventName("keypress"))
-    public abstract String getOnkeypress();
-
-    @Attribute(events = @EventName("keyup"))
-    public abstract String getOnkeyup();
-
-    //---------- events-mouse-props.xml
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
 
     /**
      * Override the validateValue of SelectMany in cases where the component implements SelectItemsInterface

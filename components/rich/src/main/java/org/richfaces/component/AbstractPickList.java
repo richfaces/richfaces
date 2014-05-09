@@ -5,6 +5,9 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.MultiSelectProps;
 
 /**
  * <p> The &lt;rich:pickList&gt; is a component for selecting items from a list. Additionally, it allows for the selected
@@ -14,9 +17,8 @@ import org.richfaces.cdk.annotations.Tag;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 @JsfComponent(type = AbstractPickList.COMPONENT_TYPE, family = AbstractPickList.COMPONENT_FAMILY,
-        renderer = @JsfRenderer(type = "org.richfaces.PickListRenderer"), tag = @Tag(name = "pickList"),
-        attributes = {"events-mouse-props.xml", "events-key-props.xml", "multiselect-props.xml"})
-public abstract class AbstractPickList extends AbstractOrderingComponent {
+        renderer = @JsfRenderer(type = "org.richfaces.PickListRenderer"), tag = @Tag(name = "pickList"))
+public abstract class AbstractPickList extends AbstractOrderingComponent implements EventsKeyProps, EventsMouseProps, MultiSelectProps {
     public static final String COMPONENT_TYPE = "org.richfaces.PickList";
     public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 

@@ -34,6 +34,9 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.I18nProps;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.PanelToggleEvent;
 import org.richfaces.event.PanelToggleListener;
@@ -48,8 +51,8 @@ import org.richfaces.view.facelets.html.CollapsiblePanelTagHandler;
  * @author akolonitsky
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handlerClass = CollapsiblePanelTagHandler.class),
-        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"), attributes = {"core-props.xml", "events-mouse-props.xml", "i18n-props.xml"})
-public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource {
+        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer") )
+public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource, CoreProps, EventsMouseProps, I18nProps {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsiblePanel";
 
@@ -196,48 +199,6 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
 
     @Attribute(events = @EventName("itemchange"), hidden = true)
     public abstract String getOnitemchange();
-
-    // ---------------- i18ln-props.xml
-
-    @Attribute
-    public abstract String getLang();
-
-    @Attribute
-    public abstract String getDir();
-
-    // ---------------- core-props.xml
-
-    @Attribute
-    public abstract String getTitle();
-
-    @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    // ---------------- events-mouse-props.xml
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
 
     // ------------------------------------------------ Event Processing Methods
 

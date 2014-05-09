@@ -21,6 +21,7 @@
  */
 package org.richfaces.component;
 
+import javax.el.MethodExpression;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
@@ -35,6 +36,9 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
+import org.richfaces.component.attribute.AjaxProps;
+import org.richfaces.component.attribute.BypassProps;
+import org.richfaces.component.attribute.ImmediateProps;
 import org.richfaces.view.facelets.DropHandler;
 
 /**
@@ -44,9 +48,11 @@ import org.richfaces.view.facelets.DropHandler;
  * </p>
  * @author abelevich
  */
-@JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"), attributes = {
-        "ajax-props.xml", "immediate-prop.xml", "bypass-props.xml", "dropListener-props.xml" }, tag = @Tag(name = "dropTarget", handlerClass = DropHandler.class, type = TagType.Facelets))
-public abstract class AbstractDropTarget extends UIComponentBase {
+@JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY,
+        generate = "org.richfaces.component.UIDropTarget",
+        renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"),
+        tag = @Tag(name = "dropTarget", handlerClass = DropHandler.class, type = TagType.Facelets))
+public abstract class AbstractDropTarget extends UIComponentBase implements AjaxProps, BypassProps, ImmediateProps {
     public static final String COMPONENT_TYPE = "org.richfaces.DropTarget";
     public static final String COMPONENT_FAMILY = "org.richfaces.DropTarget";
 
@@ -56,41 +62,21 @@ public abstract class AbstractDropTarget extends UIComponentBase {
     @Attribute
     public abstract Object getDropValue();
 
-    @Attribute
-    public abstract boolean isImmediate();
-
-    @Attribute
-    public abstract boolean isBypassUpdates();
-
-    @Attribute
-    public abstract Object getExecute();
-
-    @Attribute
-    public abstract Object getRender();
-
     /**
      * A list of drag zones types, which elements are accepted by a drop zone
      */
     @Attribute
     public abstract Object getAcceptedTypes();
 
+    /**
+     * MethodExpression representing an action listener method that will be notified after drop operation.
+     * The expression must evaluate to a public method that takes an DropEvent parameter, with a return type of void,
+     * or to a public method that takes no arguments with a return type of void.
+     * In the latter case, the method has no way of easily knowing where the event came from, but this can be useful in
+     * cases where a notification is needed that "some action happened".
+     */
     @Attribute
-    public abstract boolean isLimitRender();
-
-    @Attribute
-    public abstract Object getData();
-
-    @Attribute
-    public abstract String getStatus();
-
-    @Attribute(events = @EventName("beforedomupdate"))
-    public abstract String getOnbeforedomupdate();
-
-    @Attribute(events = @EventName("complete"))
-    public abstract String getOncomplete();
-
-    @Attribute(events = @EventName("begin"))
-    public abstract String getOnbegin();
+    public abstract MethodExpression getDropListener();
 
     public void addDropListener(DropListener listener) {
         addFacesListener(listener);

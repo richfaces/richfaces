@@ -46,6 +46,13 @@ import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.event.TreeToggleListener;
 import org.richfaces.event.TreeToggleSource;
 import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.I18nProps;
+import org.richfaces.component.attribute.ImmediateProps;
+import org.richfaces.component.attribute.TreeCommonProps;
+import org.richfaces.component.attribute.TreeProps;
 import org.richfaces.view.facelets.TreeNodeHandler;
 
 /**
@@ -54,11 +61,10 @@ import org.richfaces.view.facelets.TreeNodeHandler;
  *
  * @author Nick Belaevski
  */
-@JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY, tag = @Tag(name = "treeNode", handlerClass = TreeNodeHandler.class), renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"), attributes = {
-        "tree-common-props.xml", "treeNode-props.xml", "events-mouse-props.xml", "events-key-props.xml", "core-props.xml",
-        "i18n-props.xml", "immediate-prop.xml" })
-public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder,
-        IterationStateHolder, TreeToggleSource {
+@JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY,
+        tag = @Tag(name = "treeNode", handlerClass = TreeNodeHandler.class),
+        renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"))
+public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, IterationStateHolder, TreeToggleSource, CoreProps, EventsKeyProps, EventsMouseProps, ImmediateProps, I18nProps, TreeProps, TreeCommonProps {
     public static final String COMPONENT_TYPE = "org.richfaces.TreeNode";
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeNode";
     public static final String SUBTREE_META_COMPONENT_ID = "subtree";

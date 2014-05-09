@@ -28,9 +28,13 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.RendererSpecificComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.attribute.AccesskeyProps;
+import org.richfaces.component.attribute.BaseProps;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.FocusProps;
+import org.richfaces.component.attribute.I18nProps;
+import org.richfaces.component.attribute.InputProps;
 
 
 /**
@@ -42,9 +46,8 @@ import org.richfaces.component.attribute.EventsMouseProps;
         type = AbstractInputNumberSpinner.COMPONENT_TYPE,
         family = AbstractInputNumberSpinner.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InputNumberSpinnerRenderer"),
-        tag = @Tag(name = "inputNumberSpinner"),
-        attributes = { "base-props.xml", "focus-props.xml", "i18n-props.xml", "input-props.xml" })
-public abstract class AbstractInputNumberSpinner extends UIInputNumber implements AccesskeyProps, CoreProps, EventsKeyProps, EventsMouseProps {
+        tag = @Tag(name = "inputNumberSpinner"))
+public abstract class AbstractInputNumberSpinner extends UIInputNumber implements AccesskeyProps, BaseProps, CoreProps, EventsKeyProps, EventsMouseProps, FocusProps, I18nProps, InputProps {
     public static final String COMPONENT_TYPE = "org.richfaces.InputNumberSpinner";
     public static final String COMPONENT_FAMILY = "javax.faces.Input";
 

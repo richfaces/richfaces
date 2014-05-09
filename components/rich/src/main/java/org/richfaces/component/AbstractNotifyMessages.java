@@ -29,6 +29,11 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.component.attribute.AjaxOutputProps;
+import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.I18nProps;
 
 /**
  * <p> The &lt;rich:notifyMessages&gt; component is the same as the &lt;rich:notifyMessage&gt; component, but each of
@@ -41,12 +46,8 @@ import org.richfaces.cdk.annotations.Tag;
         generate = "org.richfaces.component.UINotifyMessages",
         type = "org.richfaces.NotifyMessages",
         tag = @Tag(name = "notifyMessages"),
-        renderer = @JsfRenderer(template = "notifyMessages.template.xml", type = "org.richfaces.NotifyMessagesRenderer"),
-        attributes = {
-                "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml", "output-format-props.xml"
-        }
-)
-public abstract class AbstractNotifyMessages extends UIMessages implements AjaxOutput, ClientSideMessage, NotifyAttributes {
+        renderer = @JsfRenderer(template = "notifyMessages.template.xml", type = "org.richfaces.NotifyMessagesRenderer"))
+public abstract class AbstractNotifyMessages extends UIMessages implements AjaxOutput, ClientSideMessage, NotifyAttributes, AjaxOutputProps, CoreProps, EventsKeyProps, EventsMouseProps, I18nProps {
 
     @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();

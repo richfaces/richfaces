@@ -56,6 +56,7 @@ import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.ClientSideMessage;
+import org.richfaces.component.attribute.ImmediateProps;
 import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.javascript.Message;
 import org.richfaces.log.Logger;
@@ -83,9 +84,10 @@ import org.richfaces.view.facelets.html.ClientValidatorHandler;
  *
  * @author asmirnov@exadel.com
  */
-@JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handlerClass = ClientValidatorHandler.class, type = TagType.Facelets), attributes = {
-        "validator-props.xml", "immediate-prop.xml" })
-public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior {
+@JsfBehavior(id = "org.richfaces.behavior.ClientValidator",
+        tag = @Tag(name = "validator", handlerClass = ClientValidatorHandler.class, type = TagType.Facelets),
+        attributes = {"validator-props.xml" })
+public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior, ImmediateProps {
     private static final Set<String> NONE = Collections.emptySet();
     private static final Set<String> THIS = Collections.singleton("@this");
     private static final Class<?>[] EMPTY_GROUPS = new Class<?>[0];

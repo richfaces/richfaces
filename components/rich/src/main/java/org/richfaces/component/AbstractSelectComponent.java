@@ -25,23 +25,15 @@ import javax.faces.component.UISelectOne;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.component.attribute.EventsKeyProps;
+import org.richfaces.component.attribute.EventsMouseProps;
+import org.richfaces.component.attribute.FocusProps;
+import org.richfaces.component.attribute.SelectProps;
 
 /**
  * @author abelevich
  */
-public abstract class AbstractSelectComponent extends UISelectOne {
-    /**
-     * The width of the list element
-     */
-    @Attribute
-    public abstract String getListWidth();
-
-    /**
-     * The height of the list element
-     */
-    @Attribute
-    public abstract String getListHeight();
-
+public abstract class AbstractSelectComponent extends UISelectOne implements EventsKeyProps, EventsMouseProps, FocusProps, SelectProps {
     /**
      * Javascript code executed when the list element loses focus and its value has been modified since gaining focus.
      */
@@ -53,77 +45,6 @@ public abstract class AbstractSelectComponent extends UISelectOne {
      */
     @Attribute(events = @EventName("selectitem"))
     public abstract String getOnselectitem();
-
-    // --------- select-props.xml
-
-    @Attribute
-    public abstract String getDefaultLabel();
-
-    @Attribute
-    public abstract String getItemClass();
-
-    @Attribute
-    public abstract String getSelectItemClass();
-
-    @Attribute
-    public abstract String getActiveClass();
-
-    @Attribute
-    public abstract String getChangedClass();
-
-    @Attribute
-    public abstract String getDisabledClass();
-
-    @Attribute
-    public abstract String getListClass();
-
-    // --------- Some of focus-props.xml (TODO: add tabindex here)
-
-    /**
-     * Javascript code executed when this element loses focus.
-     */
-    @Attribute(events = @EventName("blur"))
-    public abstract String getOnblur();
-
-    /**
-     * Javascript code executed when this element receives focus.
-     */
-    @Attribute(events = @EventName("focus"))
-    public abstract String getOnfocus();
-
-    // --------- events-key-props.xml
-
-    @Attribute(events = @EventName("keydown"))
-    public abstract String getOnkeydown();
-
-    @Attribute(events = @EventName("keypress"))
-    public abstract String getOnkeypress();
-
-    @Attribute(events = @EventName("keyup"))
-    public abstract String getOnkeyup();
-
-    // --------- events-mouse-props.xml
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
 
     // --------- list events
 
