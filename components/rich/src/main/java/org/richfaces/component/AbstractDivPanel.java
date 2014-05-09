@@ -22,7 +22,6 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
 
 /**

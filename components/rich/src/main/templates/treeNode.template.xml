@@ -5,13 +5,10 @@
     xmlns:javaee="http://java.sun.com/xml/ns/javaee">
 
     <cc:interface>
-        <cdk:class>org.richfaces.renderkit.html.TreeNodeRenderer
-        </cdk:class>
+        <cdk:class>org.richfaces.renderkit.html.TreeNodeRenderer</cdk:class>
         <cdk:superclass>org.richfaces.renderkit.TreeNodeRendererBase</cdk:superclass>
-        <cdk:component-family>org.richfaces.TreeNode
-        </cdk:component-family>
-        <cdk:renderer-type>org.richfaces.TreeNodeRenderer
-        </cdk:renderer-type>
+        <cdk:component-family>org.richfaces.TreeNode</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.TreeNodeRenderer</cdk:renderer-type>
 
         <cdk:import-attributes src="urn:attributes:events-mouse-props.xml" />
         <cdk:import-attributes src="urn:attributes:events-key-props.xml" />

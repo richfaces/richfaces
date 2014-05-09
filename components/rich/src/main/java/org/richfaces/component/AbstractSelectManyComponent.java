@@ -24,16 +24,12 @@ package org.richfaces.component;
 import com.google.common.collect.Iterators;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.component.util.SelectItemsInterface;
-import org.richfaces.renderkit.SelectManyHelper;
 
 import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>

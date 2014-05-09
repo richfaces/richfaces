@@ -220,7 +220,7 @@ public abstract class AbstractFileUpload extends UIComponentBase {
     /**
      * <p>
      * Add a new {@link FileUploadListener} to the set of listeners interested in being notified when
-     * {@link org.richfaces.FileUploadEvent}s occur.
+     * {@link org.richfaces.event.FileUploadEvent}s occur.
      * </p>
      *
      * @param listener The {@link FileUploadListener} to be added

@@ -22,12 +22,7 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.renderkit.html.ContextMenuRendererBase;
 
 import javax.faces.component.UIComponentBase;
 

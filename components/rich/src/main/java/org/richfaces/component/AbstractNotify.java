@@ -44,7 +44,6 @@ import org.richfaces.cdk.annotations.Tag;
         tag = @Tag(name = "notify"),
         type = AbstractNotify.COMPONENT_TYPE,
         family = AbstractNotify.COMPONENT_FAMILY,
-        generate = "org.richfaces.component.UINotify",
         renderer = @JsfRenderer(type = "org.richfaces.NotifyRenderer"),
         attributes = {
                 "styleClass-prop.xml", "events-mouse-props.xml", "events-key-props.xml", "output-format-props.xml" },

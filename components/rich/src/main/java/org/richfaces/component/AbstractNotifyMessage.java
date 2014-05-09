@@ -28,7 +28,6 @@ import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.RendererSpecificComponent;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
@@ -44,16 +43,11 @@ import org.richfaces.cdk.annotations.Tag;
 @JsfComponent(
         generate = "org.richfaces.component.UINotifyMessage",
         type = "org.richfaces.NotifyMessage",
-        components = @RendererSpecificComponent(
-                tag = @Tag(name = "notifyMessage"),
-                generate = "org.richfaces.component.html.HtmlNotifyMessage",
-                attributes = {
-                        "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml",
-                        "AjaxOutput-props.xml", "output-format-props.xml"
-                },
-                renderer = @JsfRenderer(template = "notifyMessage.template.xml")
-        )
-)
+        tag = @Tag(name = "notifyMessage"),
+        attributes = {
+                "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "i18n-props.xml", "AjaxOutput-props.xml", "output-format-props.xml"
+        },
+        renderer = @JsfRenderer(template = "notifyMessage.template.xml", type = "org.richfaces.NotifyMessageRenderer"))
 public abstract class AbstractNotifyMessage extends UIMessage implements AjaxOutput, ClientSideMessage, NotifyAttributes {
 
     @Attribute(defaultValue = "true")
