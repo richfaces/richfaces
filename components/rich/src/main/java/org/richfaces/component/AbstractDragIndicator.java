@@ -35,7 +35,7 @@ import org.richfaces.cdk.annotations.Tag;
  * </p>
  * @author abelevich
  */
-@JsfComponent(type = AbstractDragIndicator.COMPONENT_TYPE, family = AbstractDragIndicator.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDragIndicator", renderer = @JsfRenderer(type = "org.richfaces.DragIndicatorRenderer"), tag = @Tag(name = "dragIndicator"))
+@JsfComponent(type = AbstractDragIndicator.COMPONENT_TYPE, family = AbstractDragIndicator.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DragIndicatorRenderer"), tag = @Tag(name = "dragIndicator"))
 public abstract class AbstractDragIndicator extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.DragIndicator";
     public static final String COMPONENT_FAMILY = "org.richfaces.DragIndicator";

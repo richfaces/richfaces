@@ -34,7 +34,7 @@ import org.richfaces.cdk.annotations.Tag;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractCollapsibleSubTableToggler.COMPONENT_TYPE, family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY, generate = "org.richfaces.component.UICollapsibleSubTableToggleControl", renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableTogglerRenderer"), tag = @Tag(name = "collapsibleSubTableToggler"))
+@JsfComponent(type = AbstractCollapsibleSubTableToggler.COMPONENT_TYPE, family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableTogglerRenderer"), tag = @Tag(name = "collapsibleSubTableToggler"))
 public abstract class AbstractCollapsibleSubTableToggler extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTableToggler";
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsibleSubTableToggler";

@@ -44,7 +44,7 @@ import org.richfaces.view.facelets.DropHandler;
  * </p>
  * @author abelevich
  */
-@JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDropTarget", renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"), attributes = {
+@JsfComponent(type = AbstractDropTarget.COMPONENT_TYPE, family = AbstractDropTarget.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"), attributes = {
         "ajax-props.xml", "immediate-prop.xml", "bypass-props.xml", "dropListener-props.xml" }, tag = @Tag(name = "dropTarget", handlerClass = DropHandler.class, type = TagType.Facelets))
 public abstract class AbstractDropTarget extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.DropTarget";

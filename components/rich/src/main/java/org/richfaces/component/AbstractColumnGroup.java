@@ -38,7 +38,7 @@ import org.richfaces.renderkit.RowHolderBase;
  * table. The resulting effect is similar to using the breakRowBefore attribute of the &lt;rich:column&gt; component,
  * but is clearer and easier to follow in the source code.</p>
  */
-@JsfComponent(type = AbstractColumnGroup.COMPONENT_TYPE, family = AbstractColumnGroup.COMPONENT_FAMILY, generate = "org.richfaces.component.UIColumnGroup", renderer = @JsfRenderer(type = "org.richfaces.ColumnGroupRenderer"), tag = @Tag(name = "columnGroup"))
+@JsfComponent(type = AbstractColumnGroup.COMPONENT_TYPE, family = AbstractColumnGroup.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ColumnGroupRenderer"), tag = @Tag(name = "columnGroup"))
 public abstract class AbstractColumnGroup extends UIPanel implements Row, Column {
     public static final String COMPONENT_TYPE = "org.richfaces.ColumnGroup";
     public static final String COMPONENT_FAMILY = "org.richfaces.ColumnGroup";

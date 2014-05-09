@@ -69,7 +69,7 @@ import org.richfaces.view.facelets.CalendarHandler;
  *
  * @author amarkhel
  */
-@JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, generate = "org.richfaces.component.UICalendar", renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), attributes = {
+@JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), attributes = {
         "position-props.xml", "popups-props.xml", "events-popups-props.xml" }, tag = @Tag(name = "calendar", handlerClass = CalendarHandler.class))
 public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
     public static final String DAYSDATA_META_COMPONENT_ID = "daysData";

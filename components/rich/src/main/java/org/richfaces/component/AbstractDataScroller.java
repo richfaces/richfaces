@@ -55,7 +55,7 @@ import org.richfaces.taglib.DataScrollerHandler;
 /**
  * <p> The &lt;rich:dataScroller&gt; component is used for navigating through multiple pages of tables or grids. </p>
  */
-@JsfComponent(type = AbstractDataScroller.COMPONENT_TYPE, family = AbstractDataScroller.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataScroller",
+@JsfComponent(type = AbstractDataScroller.COMPONENT_TYPE, family = AbstractDataScroller.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"),
         tag = @Tag(name = "dataScroller", handlerClass = DataScrollerHandler.class, type = TagType.Facelets),
         attributes = {"ajax-props.xml", "core-props.xml" })

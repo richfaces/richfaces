@@ -45,7 +45,7 @@ import org.richfaces.model.SortField;
  */
 @JsfComponent(type = AbstractColumn.COMPONENT_TYPE, family = AbstractColumn.COMPONENT_FAMILY, facets = {
         @Facet(name = "header", description = @Description("Column header")),
-        @Facet(name = "footer", description = @Description("Column footer")) }, generate = "org.richfaces.component.UIColumn", tag = @Tag(name = "column"))
+        @Facet(name = "footer", description = @Description("Column footer")) }, tag = @Tag(name = "column"))
 public abstract class AbstractColumn extends javax.faces.component.UIColumn implements Column {
     public static final String COMPONENT_TYPE = "org.richfaces.Column";
     public static final String COMPONENT_FAMILY = "org.richfaces.Column";

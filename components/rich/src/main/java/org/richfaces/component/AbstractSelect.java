@@ -23,7 +23,7 @@ import org.richfaces.validator.SelectLabelValueValidator;
  *
  * @author abelevich
  */
-@JsfComponent(type = AbstractSelect.COMPONENT_TYPE, family = AbstractSelect.COMPONENT_FAMILY, generate = "org.richfaces.component.UISelect", renderer = @JsfRenderer(type = "org.richfaces.SelectRenderer"), tag = @Tag(name = "select"), attributes = {
+@JsfComponent(type = AbstractSelect.COMPONENT_TYPE, family = AbstractSelect.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.SelectRenderer"), tag = @Tag(name = "select"), attributes = {
         "core-props.xml", "events-mouse-props.xml", "events-key-props.xml", "select-props.xml" })
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractSelect extends AbstractSelectComponent {

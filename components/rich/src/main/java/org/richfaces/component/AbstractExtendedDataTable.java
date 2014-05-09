@@ -53,7 +53,7 @@ import org.richfaces.taglib.ExtendedDataTableHandler;
  *
  * @author Konstantin Mishin
  */
-@JsfComponent(type = AbstractExtendedDataTable.COMPONENT_TYPE, family = AbstractExtendedDataTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UIExtendedDataTable", renderer = @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer"), tag = @Tag(name = "extendedDataTable", handlerClass = ExtendedDataTableHandler.class, type = TagType.Facelets), attributes = {
+@JsfComponent(type = AbstractExtendedDataTable.COMPONENT_TYPE, family = AbstractExtendedDataTable.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer"), tag = @Tag(name = "extendedDataTable", handlerClass = ExtendedDataTableHandler.class, type = TagType.Facelets), attributes = {
         "style-prop.xml", "styleClass-prop.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml",
         "events-row-props.xml" })
 public abstract class AbstractExtendedDataTable extends UIDataTableBase implements MetaComponentResolver, MetaComponentEncoder {

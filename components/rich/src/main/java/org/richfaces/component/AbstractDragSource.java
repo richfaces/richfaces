@@ -35,7 +35,7 @@ import org.richfaces.cdk.annotations.Tag;
  * </p>
  * @author abelevich
  */
-@JsfComponent(type = AbstractDragSource.COMPONENT_TYPE, family = AbstractDragSource.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDragSource", renderer = @JsfRenderer(type = "org.richfaces.DragSourceRenderer"), tag = @Tag(name = "dragSource"))
+@JsfComponent(type = AbstractDragSource.COMPONENT_TYPE, family = AbstractDragSource.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DragSourceRenderer"), tag = @Tag(name = "dragSource"))
 public abstract class AbstractDragSource extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.DragSource";
     public static final String COMPONENT_FAMILY = "org.richfaces.DragSource";

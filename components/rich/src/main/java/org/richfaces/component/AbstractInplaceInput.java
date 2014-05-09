@@ -38,7 +38,7 @@ import org.richfaces.cdk.annotations.Tag;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractInplaceInput.COMPONENT_TYPE, family = AbstractInplaceInput.COMPONENT_FAMILY, generate = "org.richfaces.component.UIInplaceInput",
+@JsfComponent(type = AbstractInplaceInput.COMPONENT_TYPE, family = AbstractInplaceInput.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"), tag = @Tag(name = "inplaceInput"),
         attributes = {"core-props.xml", "focus-props.xml", "events-key-props.xml", "events-mouse-props.xml"})
 public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent {

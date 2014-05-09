@@ -38,7 +38,7 @@ import org.richfaces.taglib.DataTableHandler;
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractDataTable.COMPONENT_TYPE, family = AbstractDataTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataTable", renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"), tag = @Tag(name = "dataTable", handlerClass = DataTableHandler.class, type = TagType.Facelets), attributes = {
+@JsfComponent(type = AbstractDataTable.COMPONENT_TYPE, family = AbstractDataTable.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"), tag = @Tag(name = "dataTable", handlerClass = DataTableHandler.class, type = TagType.Facelets), attributes = {
         "style-prop.xml", "styleClass-prop.xml", "iteration-props.xml", "rows-prop.xml", "sequence-props.xml",
         "events-row-props.xml" })
 public abstract class AbstractDataTable extends UIDataTableBase {
