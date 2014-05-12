@@ -153,8 +153,6 @@ public class ITBuiltInFilter {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/iteration");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
         p.xmlns("fn", "http://java.sun.com/jsp/jstl/functions");
 
         p.body("<script type='text/javascript'>");

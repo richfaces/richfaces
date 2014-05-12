@@ -39,7 +39,7 @@ public class ITColumnWidth {
     @FindBy(id = "myForm:edt:0:n")
     private WebElement firstRow;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         IterationDeployment deployment = new IterationDeployment(ITColumnWidth.class);
         deployment.archive().addClass(IterationBean.class);
@@ -82,8 +82,6 @@ public class ITColumnWidth {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/iteration");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='myForm'>");
         p.body("    <rich:extendedDataTable id='edt' value='#{iterationBean.values}' var='bean'>");

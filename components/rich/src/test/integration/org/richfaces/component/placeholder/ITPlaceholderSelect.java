@@ -39,9 +39,9 @@ public class ITPlaceholderSelect extends AbstractPlaceholderTest {
     @FindBy(css = INPUT_SELECTOR + " input[id$=Input]")
     private SelectInput firstInput;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(TestPlaceholderTextarea.class);
+        MiscDeployment deployment = new MiscDeployment(ITPlaceholderSelect.class);
 
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
 

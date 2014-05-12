@@ -54,8 +54,6 @@ public class ITFocusDefaults {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='form'>");
         p.body("    <rich:focus id='focus' binding='#{componentBean.component}' />");

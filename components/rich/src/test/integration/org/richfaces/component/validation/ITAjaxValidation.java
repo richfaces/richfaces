@@ -78,7 +78,6 @@ public class ITAjaxValidation extends ValidationTestBase {
 
     private static void addIndexPage(org.richfaces.deployment.Deployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.body("<h:form id='form'>");
         p.body("<h:inputText id='text' value='#{test.value}'>");

@@ -39,7 +39,7 @@ public class ITPlaceholderCalendar extends AbstractPlaceholderTest {
     @FindBy(css = INPUT_SELECTOR + " > span > input")
     private Input firstInput;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         MiscDeployment deployment = new MiscDeployment(ITPlaceholderCalendar.class);
 

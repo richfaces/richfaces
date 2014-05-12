@@ -45,7 +45,7 @@ public class ITPopupPanel {
     @FindBy(className = "closeLink")
     private WebElement closeLink;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         OutputDeployment deployment = new OutputDeployment(ITPopupPanel.class);
         addIndexPage(deployment);
@@ -92,21 +92,18 @@ public class ITPopupPanel {
 
     private static void addIndexPage(OutputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/output");
-        p.xmlns("misc", "http://richfaces.org/misc");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
         p.xmlns("c", "http://java.sun.com/jsp/jstl/core");
 
         p.body("<h:form id='myForm'>");
         p.body("    <h:commandButton value='Call the popup' class='showButton'> ");
-        p.body("        <misc:componentControl target='popup' operation='show' /> ");
+        p.body("        <rich:componentControl target='popup' operation='show' /> ");
         p.body("    </h:commandButton> ");
-        p.body("    <rich:popupPanel id='popup' modal='true' resizeable='true' onmaskclick='#{misc:component(\"popup\")}.hide()' > ");
+        p.body("    <rich:popupPanel id='popup' modal='true' resizeable='true' onmaskclick='#{rich:component(\"popup\")}.hide()' > ");
         p.body("        <f:facet name='header'> ");
         p.body("            <h:outputText value='Simple popup panel' /> ");
         p.body("        </f:facet> ");
         p.body("        <f:facet name='controls'> ");
-        p.body("            <h:outputLink styleClass='closeLink' value='#' onclick='#{misc:component(\"popup\")}.hide(); return false;'>X</h:outputLink> ");
+        p.body("            <h:outputLink styleClass='closeLink' value='#' onclick='#{rich:component(\"popup\")}.hide(); return false;'>X</h:outputLink> ");
         p.body("        </f:facet> ");
         p.body("        <p>You can also check and trigger events if the use clicks outside of the panel.</p> ");
         p.body("        <p>In this example clicking outside closes the panel.</p> ");

@@ -1,5 +1,8 @@
 package org.richfaces.component.extendedDataTable;
 
+import java.net.URL;
+import java.util.List;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -15,9 +18,6 @@ import org.openqa.selenium.WebElement;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import java.net.URL;
-import java.util.List;
-
 @RunAsClient
 @RunWith(Arquillian.class)
 public class ITColumnClasses {
@@ -28,7 +28,7 @@ public class ITColumnClasses {
     @ArquillianResource
     private URL contextPath;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         IterationDeployment deployment = new IterationDeployment(ITColumnClasses.class);
         deployment.archive().addClass(IterationBuiltInBean.class);
@@ -54,8 +54,6 @@ public class ITColumnClasses {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='myForm'> ");
         p.body("    <rich:extendedDataTable id='edt' value='#{iterationBuiltInBean.values}' var='bean' columnClasses='c1,c2,c3' > ");

@@ -1,6 +1,12 @@
 package org.richfaces.component.dataTable;
 
-import com.google.common.base.Function;
+import static org.jboss.arquillian.graphene.Graphene.guardHttp;
+
+import java.net.URL;
+
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -25,11 +31,7 @@ import org.richfaces.component.extendedDataTable.IterationBean;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import java.net.URL;
-
-import static org.jboss.arquillian.graphene.Graphene.*;
+import com.google.common.base.Function;
 
 @RunAsClient
 @WarpTest
@@ -95,8 +97,6 @@ public class IT_RF12717 {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
         p.body("<h:form id='myForm'>");
         p.body("<h:commandButton id='show' value='Show Table' type='submit' action='#{iterationBean.show}' />");
         p.body("<rich:dataTable id='tableId' value='#{iterationBean.data}' var='bean' rows='3' rendered='#{!empty iterationBean.data}'> ");

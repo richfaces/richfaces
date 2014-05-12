@@ -31,7 +31,7 @@ public class ITCellWidthWithMaxTableWidth {
     @FindBy(id = "myForm:edt:0:n")
     private WebElement firstRow;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         IterationDeployment deployment = new IterationDeployment(ITCellWidthWithMaxTableWidth.class);
         deployment.archive().addClass(IterationBean.class);
@@ -48,8 +48,6 @@ public class ITCellWidthWithMaxTableWidth {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:outputStylesheet>  table { width: 100%; }  </h:outputStylesheet>");
         p.body("<h:form id='myForm'>");

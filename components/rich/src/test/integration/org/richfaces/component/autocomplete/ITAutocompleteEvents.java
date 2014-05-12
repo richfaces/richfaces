@@ -44,7 +44,7 @@ public class ITAutocompleteEvents {
 
     By suggestionList = By.cssSelector(".rf-au-lst-cord");
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         InputDeployment deployment = new InputDeployment(ITAutocompleteEvents.class);
 
@@ -76,7 +76,6 @@ public class ITAutocompleteEvents {
 
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.body("<h:form id='form'>");
         p.body("    <rich:autocomplete autocompleteList='#{autocompleteBean.suggestions}'");

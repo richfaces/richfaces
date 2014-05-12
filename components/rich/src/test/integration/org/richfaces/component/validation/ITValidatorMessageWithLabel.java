@@ -134,8 +134,6 @@ public class ITValidatorMessageWithLabel {
 
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.body("<h:form id='myForm'>");
         p.body("    <h:panelGrid columns='3'>");

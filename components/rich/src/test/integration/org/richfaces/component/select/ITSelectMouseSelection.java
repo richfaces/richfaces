@@ -37,7 +37,7 @@ public class ITSelectMouseSelection {
     @FindBy(css = ".rf-sel-opt:nth-of-type(2)")
     private WebElement tampaBayOption;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         InputDeployment deployment = new InputDeployment(ITSelectMouseSelection.class);
 
@@ -62,8 +62,6 @@ public class ITSelectMouseSelection {
 
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.body("<h:form id='form'>");
         p.body("    <rich:select id='select'  enableManualInput='true'>");

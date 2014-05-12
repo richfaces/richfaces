@@ -1,7 +1,6 @@
-package org.richfaces.component.focus;
+ package org.richfaces.component.focus;
 
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
-import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
 
@@ -87,8 +86,6 @@ public class ITFocusMultipleForms {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='form1'>");
         p.body("    <rich:focus id='focus' />");

@@ -45,7 +45,7 @@ public class ITBuiltInSort {
     @FindBy(className = "rf-edt-srt")
     private WebElement sortHandle;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         IterationDeployment deployment = new IterationDeployment(ITBuiltInSort.class);
         deployment.archive().addClass(IterationBuiltInBean.class);
@@ -80,8 +80,6 @@ public class ITBuiltInSort {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<script type='text/javascript'>");
         p.body("function sortEdt(currentSortOrder) { ");

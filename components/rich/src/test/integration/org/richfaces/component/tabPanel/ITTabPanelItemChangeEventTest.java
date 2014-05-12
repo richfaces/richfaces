@@ -69,9 +69,6 @@ public class ITTabPanelItemChangeEventTest {
 
     private static void addIndexPage(OutputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.xmlns("c", "http://java.sun.com/jsp/jstl/core");
         p.body("<h:form id='myForm'>");
         p.body("<rich:tabPanel id='tabPanel' binding='#{tabPanelItemChangeEventBean.tabPanel}' itemChangeListener='#{tabPanelItemChangeEventBean.itemChangeListener}'>");
         p.body("    <rich:tab id='tab0' name='tab0' header='tab0 header'>");

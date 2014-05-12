@@ -1,6 +1,10 @@
 package org.richfaces.component.extendedDataTable;
 
-import com.google.common.base.Function;
+import java.net.URL;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -17,9 +21,7 @@ import org.openqa.selenium.WebElement;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import javax.annotation.Nullable;
-import java.net.URL;
-import java.util.List;
+import com.google.common.base.Function;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -31,7 +33,7 @@ public class ITDisablingBuiltinSortingAndFiltering {
     @ArquillianResource
     private URL contextPath;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         IterationDeployment deployment = new IterationDeployment(ITDisablingBuiltinSortingAndFiltering.class);
         deployment.archive().addClass(IterationBuiltInBean.class);
@@ -72,8 +74,6 @@ public class ITDisablingBuiltinSortingAndFiltering {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<script type='text/javascript'>");
         p.body("function sortEdt(currentSortOrder) { ");

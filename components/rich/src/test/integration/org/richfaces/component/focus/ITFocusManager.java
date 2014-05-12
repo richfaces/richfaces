@@ -1,8 +1,7 @@
 package org.richfaces.component.focus;
 
-import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.junit.Assert.assertEquals;
+import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 
 import java.net.URL;
 
@@ -86,7 +85,7 @@ public class ITFocusManager {
     @Category(Smoke.class)
     public void test_FocusManager_on_initial_request() {
         Warp.initiate(openPage).inspect(new VerifyFocusEnforcing("input2"));
-        
+
         Graphene.waitGui().until(new ElementIsFocused(input2));
     }
 
@@ -148,8 +147,6 @@ public class ITFocusManager {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='form'>");
 
@@ -167,8 +164,6 @@ public class ITFocusManager {
 
     private static void addFormFocusIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<h:form id='form'>");
         p.body("    <rich:focus id='focus' binding='#{componentBean.component}' />");

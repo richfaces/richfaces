@@ -1,7 +1,5 @@
 package org.richfaces.component.focus;
 
-import static org.junit.Assert.assertEquals;
-
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -49,7 +47,7 @@ public class ITFocusTabindex {
         browser.get(contextPath.toExternalForm());
         Graphene.waitGui().until(new ElementIsFocused(input1));
     }
-    
+
     @Test
     public void when_there_are_no_tabindex_components_then_first_input_will_obtain_focus() {
         browser.get(contextPath.toExternalForm() + "no-tabindex.jsf");
@@ -62,7 +60,6 @@ public class ITFocusTabindex {
 
     private static void addIndexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.body("<h:form id='form'>");
         p.body("    <rich:focus id='focus' />");
@@ -74,10 +71,9 @@ public class ITFocusTabindex {
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
-    
+
     private static void addNoTabindexPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.body("<h:form id='form'>");
         p.body("    <rich:focus id='focus' />");

@@ -1,5 +1,8 @@
 package org.richfaces.component.dataTable;
 
+import java.net.URL;
+import java.util.List;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -18,9 +21,6 @@ import org.richfaces.component.extendedDataTable.IterationBean;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import java.net.URL;
-import java.util.List;
-
 @RunAsClient
 @RunWith(Arquillian.class)
 public class IT_RF12684 {
@@ -34,7 +34,7 @@ public class IT_RF12684 {
     @FindBy(className = "rf-ds-btn-last")
     private WebElement lastButton;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         IterationDeployment deployment = new IterationDeployment(IT_RF12684.class);
         deployment.archive().addClass(IterationBean.class);
@@ -55,8 +55,6 @@ public class IT_RF12684 {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
         p.form("<rich:dataTable id='tableId' value='#{iterationBean.values}' var='bean' rows='3'> ");
         p.form("    <rich:collapsibleSubTable id='collapsibleTableId' rows='3' /> ");
         p.form("    <rich:column> ");

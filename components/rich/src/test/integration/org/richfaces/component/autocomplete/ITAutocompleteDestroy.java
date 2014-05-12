@@ -40,7 +40,7 @@ public class ITAutocompleteDestroy {
 
     By suggestionList = By.cssSelector(".rf-au-lst-cord");
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         InputDeployment deployment = new InputDeployment(ITAutocompleteDestroy.class);
 
@@ -68,7 +68,6 @@ public class ITAutocompleteDestroy {
 
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.body("<h:form id='form'>");
 

@@ -22,7 +22,12 @@
 
 package org.richfaces.component.extendedDataTable;
 
-import category.Failing;
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
+
+import java.net.URL;
+
+import javax.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -40,18 +45,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import javax.inject.Inject;
-import java.net.URL;
-
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.jboss.arquillian.warp.client.filter.http.HttpFilters.request;
+import category.Failing;
 
 @RunAsClient
 @WarpTest
@@ -94,7 +94,7 @@ public class ITRowClick {
     public void row_click() throws InterruptedException {
         // given
         browser.get(contextPath.toExternalForm());
-        
+
         Warp.initiate(new Activity() {
             public void perform() {
                 guardAjax(firstRow).click();
@@ -120,8 +120,6 @@ public class ITRowClick {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<script type='text/javascript'>");
         p.body("function rowClicked(event) { ");

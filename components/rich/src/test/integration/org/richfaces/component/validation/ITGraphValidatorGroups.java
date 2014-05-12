@@ -97,8 +97,6 @@ public class ITGraphValidatorGroups {
 
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.form("<rich:graphValidator id='graphValidator'");
         p.form("        value='#{graphValidatorBean}'");

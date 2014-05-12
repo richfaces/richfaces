@@ -66,7 +66,6 @@ public abstract class GraphValidationTestBase extends ValidationTestBase {
 
     protected static void addIndexPage(org.richfaces.deployment.Deployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.body("<h:form id='form'>");
         p.body("    <rich:graphValidator id='validator' value='#{graphBean}' >");

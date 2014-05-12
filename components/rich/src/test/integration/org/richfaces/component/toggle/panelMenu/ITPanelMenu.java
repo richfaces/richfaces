@@ -22,6 +22,8 @@
 
 package org.richfaces.component.toggle.panelMenu;
 
+import java.net.URL;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -42,7 +44,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import java.net.URL;
 
 
 @RunWith(Arquillian.class)
@@ -186,7 +187,6 @@ public class ITPanelMenu {
 
     private static void addDisabledMenuItemPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         //  Re-enable the disabled javascript with this custom javascript call
         p.body("<script type='text/javascript'> ");

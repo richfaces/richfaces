@@ -43,7 +43,7 @@ public class ITPlaceholderInputText extends AbstractPlaceholderTest {
     @FindBy(id = INPUT_ID)
     private Input firstInput;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         MiscDeployment deployment = new MiscDeployment(ITPlaceholderInputText.class);
 

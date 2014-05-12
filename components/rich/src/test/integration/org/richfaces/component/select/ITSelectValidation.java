@@ -40,7 +40,7 @@ public class ITSelectValidation {
     @FindBy(id="message")
     private WebElement message;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         InputDeployment deployment = new InputDeployment(ITSelectValidation.class);
 
@@ -64,8 +64,6 @@ public class ITSelectValidation {
 
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.form("<rich:select id='select'  enableManualInput='true'>");
         p.form("    <f:selectItems value='#{autocompleteBean.suggestions}' />");

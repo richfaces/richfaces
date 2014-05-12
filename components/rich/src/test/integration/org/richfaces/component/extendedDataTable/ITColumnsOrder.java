@@ -1,5 +1,8 @@
 package org.richfaces.component.extendedDataTable;
 
+import java.net.URL;
+import java.util.List;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -17,9 +20,6 @@ import org.openqa.selenium.support.FindBy;
 import org.richfaces.integration.IterationDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-import java.net.URL;
-import java.util.List;
-
 @RunAsClient
 @RunWith(Arquillian.class)
 public class ITColumnsOrder {
@@ -33,7 +33,7 @@ public class ITColumnsOrder {
     @FindBy(id = "button")
     private WebElement button;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         IterationDeployment deployment = new IterationDeployment(ITColumnsOrder.class);
         deployment.archive().addClass(IterationBean.class);
@@ -63,8 +63,6 @@ public class ITColumnsOrder {
 
     private static void addIndexPage(IterationDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.form("<rich:extendedDataTable id='edt' ");
         p.form("                        value='#{iterationBean.values}' ");

@@ -45,7 +45,7 @@ public class ITAutocompleteTokenizing {
     @FindBy(css = ".rf-au-lst-cord")
     WebElement suggestionList;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         InputDeployment deployment = new InputDeployment(ITAutocompleteTokenizing.class);
 
@@ -145,8 +145,6 @@ public class ITAutocompleteTokenizing {
 
     private static void addIndexPage(InputDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         p.body("<h:form id='form'>");
         p.body("    <rich:autocomplete id='autocomplete' mode='client' autocompleteList='#{autocompleteBean.suggestions}' tokens=',' autofill='#{param.autofill}' />");
