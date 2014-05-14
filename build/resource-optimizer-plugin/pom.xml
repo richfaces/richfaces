@@ -96,7 +96,8 @@
 
         <dependency>
             <groupId>org.richfaces</groupId>
-            <artifactId>richfaces</artifactId>
+            <artifactId>richfaces-core</artifactId>
+            <version>${version.richfaces}</version>
         </dependency>
 
         <dependency>
