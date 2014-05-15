@@ -1,6 +1,6 @@
-/*
+/*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2013, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,10 +18,8 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
+ *******************************************************************************/
 package org.richfaces.fragment.messages;
-
-import com.google.common.base.Predicate;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,6 +39,8 @@ import org.richfaces.fragment.message.AbstractMessage;
 import org.richfaces.fragment.message.Message;
 import org.richfaces.fragment.message.Message.MessageType;
 import org.richfaces.fragment.messages.RichFacesMessages.MessageImpl;
+
+import com.google.common.base.Predicate;
 
 /**
  * Component for rich:messages.

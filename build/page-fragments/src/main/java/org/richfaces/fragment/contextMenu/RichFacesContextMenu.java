@@ -1,6 +1,6 @@
-/*
+/*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2013, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
+ *******************************************************************************/
 package org.richfaces.fragment.contextMenu;
 
 import java.util.List;
@@ -26,11 +26,12 @@ import java.util.List;
 import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.common.AdvancedInteractions;
 
 /**
  * @author <a href="mailto:jhuska@redhat.com">Juraj Huska</a>
  */
-public class RichFacesContextMenu extends AbstractPopupMenu implements PopupMenu {
+public class RichFacesContextMenu extends AbstractPopupMenu implements PopupMenu, AdvancedInteractions<AbstractPopupMenu.AdvancedPopupMenuInteractions> {
 
     @FindBy(className = "rf-ctx-itm")
     private List<WebElement> menuItemsElements;
@@ -41,7 +42,7 @@ public class RichFacesContextMenu extends AbstractPopupMenu implements PopupMenu
     @FindByJQuery("script:last")
     private WebElement script;
 
-    private final AdvancedContextMenuInteractions advancedInteractions = new AdvancedContextMenuInteractions();
+    private final AdvancedContextMenuInteractions advancedInteractions = new AdvancedContextMenuInteractions ();
 
     @Override
     public AdvancedContextMenuInteractions advanced() {

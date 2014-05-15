@@ -21,8 +21,6 @@
  */
 package org.richfaces.fragment.common;
 
-import static org.richfaces.fragment.common.Event.CLICK;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -178,10 +176,14 @@ public class Actions extends org.openqa.selenium.interactions.Actions {
         return this;
     }
 
-    public Actions triggerEventByJS(Event event, final WebElement element) {
-        Graphene.waitGui().until().element(element).is().present();
-        Utils.triggerJQ(event.getEventName(), element);
-        return this;
+    public Actions triggerEventByJS(final Event event, final WebElement element) {
+        return addAction(new Action() {
+            @Override
+            public void perform() {
+                Graphene.waitGui().until().element(element).is().present();
+                Utils.triggerJQ(event.getEventName(), element);
+            }
+        });
     }
 
     /**

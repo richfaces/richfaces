@@ -22,8 +22,10 @@
 package org.richfaces.fragment.common;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.jboss.arquillian.graphene.context.GrapheneContext;
+import org.jboss.arquillian.graphene.enricher.WebElementUtils;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxy;
 import org.jboss.arquillian.graphene.proxy.GrapheneProxyInstance;
 import org.openqa.selenium.By;
@@ -68,6 +70,68 @@ public final class Utils {
     }
 
     /**
+     * Returns the closest ancestor from the element.
+     *
+     * @param element element from which will be the ancestor found
+     */
+    public static WebElement getAncestorOfElement(WebElement element) {
+        return getAncestorOfElement(element, "*");
+    }
+
+    /**
+     * Returns the closest ancestor with tagName from the element.
+     *
+     * @param element element from which will be the ancestor found
+     * @param tagNameOfAncestorElement tagName of the ancestor to be found
+     */
+    public static WebElement getAncestorOfElement(WebElement element, String tagNameOfAncestorElement) {
+        return getXpathLocatedElement(element, tagNameOfAncestorElement, "ancestor", false);
+    }
+
+    /**
+     * Returns the closest following sibling from the element.
+     *
+     * @param element element from which will be the sibling found
+     */
+    public static WebElement getNextSiblingOfElement(WebElement element) {
+        return getNextSiblingOfElement(element, "*");
+    }
+
+    /**
+     * Returns the closest following sibling with tagName from the element.
+     *
+     * @param element element from which will be the sibling found
+     * @param tagNameofSibling tagName of the sibling to be found
+     */
+    public static WebElement getNextSiblingOfElement(WebElement element, String tagNameofSibling) {
+        return getXpathLocatedElement(element, tagNameofSibling, "following-sibling", true);
+    }
+
+    /**
+     * Returns the closest preceding sibling from the element.
+     *
+     * @param element element from which will be the sibling found
+     */
+    public static WebElement getPreviousSiblingOfElement(WebElement element) {
+        return getPreviousSiblingOfElement(element, "*");
+    }
+
+    /**
+     * Returns the closest preceding sibling with tagName from the element.
+     *
+     * @param element element from which will be the sibling found
+     * @param tagNameofSibling tagName of the sibling to be found
+     */
+    public static WebElement getPreviousSiblingOfElement(WebElement element, String tagNameofSibling) {
+        return getXpathLocatedElement(element, tagNameofSibling, "preceding-sibling", false);
+    }
+
+    private static WebElement getXpathLocatedElement(WebElement fromElement, String tagnameOfSearchedElement, String searchFunction, boolean isFirst) {
+        List<WebElement> elements = WebElementUtils.findElementsLazily(By.xpath(String.format("./%s::%s", searchFunction, tagnameOfSearchedElement)), fromElement);
+        return elements.get(isFirst ? 0 : elements.size() - 1);
+    }
+
+    /**
      * Returns the given option of the component determined by its root element.
      *
      * For example <tt>getComponentOption(rootOfHotKey, "key")</tt> will return concrete value of the hotkey's option
@@ -78,10 +142,7 @@ public final class Utils {
      * @return
      */
     public static Optional<String> getComponentOption(WebElement rootOfComponent, String option) {
-        JavascriptExecutor executor = getExecutorFromElement(rootOfComponent);
-        String result = (String) executor
-            .executeScript("return RichFaces.component(arguments[0]).options." + option, rootOfComponent);
-        return Optional.of(result);
+        return Optional.of((String) invokeRichFacesJSAPIFunction(rootOfComponent, "options." + option));
     }
 
     /**
@@ -94,10 +155,7 @@ public final class Utils {
      * @return actual component option value, or null if it is equal to document object
      */
     public static Optional<String> getComponentOptionDocumentObjectSafe(WebElement rootOfComponent, String option) {
-        JavascriptExecutor executor = getExecutorFromElement(rootOfComponent);
-        Boolean resultIsDocumentObject = (Boolean) executor.executeScript("return RichFaces.component(arguments[0]).options."
-            + option + " == document", rootOfComponent);
-        if (!resultIsDocumentObject) {
+        if (!(Boolean) invokeRichFacesJSAPIFunction(rootOfComponent, "options." + option + " == document")) {
             return getComponentOption(rootOfComponent, option);
         } else {
             return Optional.fromNullable(null);

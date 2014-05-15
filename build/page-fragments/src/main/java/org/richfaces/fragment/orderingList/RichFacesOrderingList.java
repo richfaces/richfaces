@@ -1,6 +1,6 @@
-/*
+/*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2013, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,11 +18,13 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
+ *******************************************************************************/
 package org.richfaces.fragment.orderingList;
 
 import java.util.List;
 
+import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.fragment.list.AbstractListComponent;
@@ -34,44 +36,43 @@ import org.richfaces.fragment.list.ListComponent;
  */
 public class RichFacesOrderingList extends AbstractOrderingList {
 
-    private static final String SELECTED_ITEM_CLASS = "ui-selected";
+    @Drone
+    private WebDriver driver;
 
-    @FindBy(className = "btn-down")
+    @FindBy(css = "button.rf-ord-dn")
     private WebElement downButtonElement;
-    @FindBy(className = "btn-first")
+    @FindBy(css = "button.rf-ord-up-tp")
     private WebElement topButtonElement;
-    @FindBy(className = "btn-last")
+    @FindBy(css = "button.rf-ord-dn-bt")
     private WebElement bottomButtonElement;
-    @FindBy(className = "btn-up")
+    @FindBy(css = "button.rf-ord-up")
     private WebElement upButtonElement;
 
-    @FindBy(className = "header")
+    @FindBy(className = "rf-ord-cptn")
     private WebElement captionElement;
-    @FindBy(tagName = "thead")
+    @FindBy(css = "thead.rf-ord-lst-hdr > tr.rf-ord-hdr")
     private WebElement headerElement;
-    @FindBy(className = "list")
+    @FindBy(className = "rf-ord-lst-scrl")
     private WebElement listAreaElement;
-    @FindBy(className = "scroll-box")
-    private WebElement scrollBoxElement;
 
-    @FindBy(className = "ui-selectee")
-    private List<WebElement> itemsElements;
-    @FindBy(className = "ui-disabled")
-    private List<WebElement> disabledItemsElements;
-    @FindBy(className = SELECTED_ITEM_CLASS)
-    private List<WebElement> selectedItemsElements;
+    @FindBy(className = "rf-ord-opt")
+    private List<WebElement> items;
+    @FindBy(className = "rf-ord-sel")
+    private List<WebElement> selectedItems;
 
-    @FindBy(css = ".ui-sortable.ui-selectable")
+    @FindBy(css = "div.rf-ord-lst-scrl [id$=Items]")
     private SelectableListImpl list;
 
-    private final AdvancedOrderingListInteractions interactions = new AdvancedOrderingListInteractionsImpl();
+    private final OrderingListBodyElements elements = new OrderingListBodyElementsImpl();
 
     @Override
-    public AdvancedOrderingListInteractions advanced() {
-        return interactions;
+    protected OrderingListBodyElements getBody() {
+        return elements;
     }
 
-    private class AdvancedOrderingListInteractionsImpl extends AdvancedOrderingListInteractions {
+    private class OrderingListBodyElementsImpl implements OrderingListBodyElements {
+
+        private static final String SELECTED_ITEM_CLASS = "rf-ord-sel";
 
         @Override
         public WebElement getBottomButtonElement() {
@@ -95,7 +96,7 @@ public class RichFacesOrderingList extends AbstractOrderingList {
 
         @Override
         public List<WebElement> getItemsElements() {
-            return (itemsElements.isEmpty() ? disabledItemsElements : itemsElements);
+            return items;
         }
 
         @Override
@@ -114,13 +115,13 @@ public class RichFacesOrderingList extends AbstractOrderingList {
         }
 
         @Override
-        public WebElement getScrollBoxElement() {
-            return scrollBoxElement;
+        public List<WebElement> getSelectedItems() {
+            return selectedItems;
         }
 
         @Override
-        public List<WebElement> getSelectedItemsElements() {
-            return selectedItemsElements;
+        public String getStyleForSelectedItem() {
+            return SELECTED_ITEM_CLASS;
         }
 
         @Override
@@ -136,9 +137,11 @@ public class RichFacesOrderingList extends AbstractOrderingList {
 
     public static class SelectableListItemImpl extends AbstractSelectableListItem {
 
+        private static final String styleClass = "rf-ord-sel";
+
         @Override
         protected String getStyleClassForSelectedItem() {
-            return SELECTED_ITEM_CLASS;
+            return styleClass;
         }
     }
 
