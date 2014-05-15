@@ -22,17 +22,19 @@ public class MiscDeployment extends Deployment {
             addCurrentProjectClasses();
 
             this.addMavenDependency(
-                    "org.richfaces:richfaces",
+                    "org.richfaces:richfaces-core",
                     "org.richfaces:richfaces-a4j");
 
         } else {
             String version = configuration.getRichFacesVersion();
-            this.addMavenDependency("org.richfaces:richfaces:" + version);
+            this.addMavenDependency(
+                "org.richfaces:richfaces-core:" + version,
+                "org.richfaces:richfaces-a4j:" + version);
         }
     }
 
     private void addCurrentProjectClasses() {
-        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces-ui-misc-ui.jar");
+        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces.jar");
         jar.merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
                 .importDirectory("target/classes/").as(GenericArchive.class),
                 "/", Filters.includeAll());
@@ -41,9 +43,6 @@ public class MiscDeployment extends Deployment {
 
     public FaceletAsset baseFacelet(String name) {
         FaceletAsset p = new FaceletAsset();
-
-        p.xmlns("a4j", "http://richfaces.org/a4j");
-        p.xmlns("rich", "http://richfaces.org/rich");
 
         this.archive().add(p, name);
 

@@ -196,7 +196,7 @@ public class ITStaticTab {
         p.body("<rich:tabPanel id='tabPanel' >");
         p.body("    <rich:tab id='tab0' name='tab0'> "); // header='tab0 header' ");
         p.body("        <f:facet name='header'> ");
-        p.body("            <rich:commandLink value='click me' ");
+        p.body("            <a4j:commandLink value='click me' ");
         p.body("                styleClass='button' ");
         p.body("                action='#{simpleBean.incrementCount()}' ");
         p.body("                render='label' ");

@@ -48,6 +48,7 @@ public class ITStatelessViews {
         CoreDeployment deployment = new CoreDeployment(ITStatelessViews.class);
 
         deployment.withWholeCore();
+        deployment.addMavenDependency("org.richfaces:richfaces-a4j:4.5.0-SNAPSHOT");
 
         addIndexPage(deployment);
 

@@ -23,30 +23,15 @@ public class DndDeployment extends Deployment {
             addCurrentProjectClasses();
 
             this.addMavenDependency(
-                    "org.richfaces.core:richfaces-core-api",
-                    "org.richfaces.core:richfaces-core-impl",
-                    "org.richfaces.ui.common:richfaces-ui-common-api",
-                    "org.richfaces.ui.common:richfaces-ui-common-ui",
-                    "org.richfaces.ui.core:richfaces-ui-core-api",
-                    "org.richfaces.ui.core:richfaces-ui-core-ui",
-                    "org.richfaces.ui.output:richfaces-ui-output-api",
-                    "org.richfaces.ui.output:richfaces-ui-output-ui",
-                    "org.richfaces.ui.dnd:richfaces-ui-dnd-api");
+                    "org.richfaces:richfaces-core",
+                    "org.richfaces:richfaces-a4j");
 
         } else {
 
             String version = configuration.getRichFacesVersion();
             this.addMavenDependency(
-                    "org.richfaces.core:richfaces-core-api:" + version,
-                    "org.richfaces.core:richfaces-core-impl:" + version,
-                    "org.richfaces.ui.common:richfaces-ui-common-api:" + version,
-                    "org.richfaces.ui.common:richfaces-ui-common-ui:" + version,
-                    "org.richfaces.ui.core:richfaces-ui-core-api:" + version,
-                    "org.richfaces.ui.core:richfaces-ui-core-ui:" + version,
-                    "org.richfaces.ui.output:richfaces-ui-output-api:" + version,
-                    "org.richfaces.ui.output:richfaces-ui-output-ui:" + version,
-                    "org.richfaces.ui.dnd:richfaces-ui-dnd-api:" + version,
-                    "org.richfaces.ui.dnd:richfaces-ui-dnd-ui:" + version);
+                    "org.richfaces:richfaces-core" + version,
+                    "org.richfaces:richfaces-a4j" + version);
         }
 
         archive().addAsWebInfResource(new File("src/test/resources/beans.xml"));

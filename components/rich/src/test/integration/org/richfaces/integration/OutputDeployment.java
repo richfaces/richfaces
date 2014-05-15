@@ -23,12 +23,14 @@ public class OutputDeployment extends Deployment {
             addCurrentProjectClasses();
 
             this.addMavenDependency(
-                    "org.richfaces:richfaces",
+                    "org.richfaces:richfaces-core",
                     "org.richfaces:richfaces-a4j");
 
         } else {
             String version = configuration.getRichFacesVersion();
-            this.addMavenDependency("org.richfaces:richfaces:" + version);
+            this.addMavenDependency(
+                "org.richfaces:richfaces-core:" + version,
+                "org.richfaces:richfaces-a4j:" + version);
         }
 
         archive().addAsWebInfResource(new File("src/test/resources/beans.xml"));
@@ -36,7 +38,7 @@ public class OutputDeployment extends Deployment {
     }
 
     private void addCurrentProjectClasses() {
-        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces-ui-output-ui.jar");
+        JavaArchive jar = ShrinkWrap.create(JavaArchive.class, "richfaces.jar");
         jar.merge(
                 ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class).importDirectory("target/classes/")
                         .as(GenericArchive.class), "/", Filters.includeAll());

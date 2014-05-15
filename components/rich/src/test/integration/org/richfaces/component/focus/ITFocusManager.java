@@ -182,8 +182,6 @@ public class ITFocusManager {
 
     private static void addViewFocusPage(MiscDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("rich", "http://richfaces.org/rich");
-        p.xmlns("a4j", "http://richfaces.org/a4j");
 
         p.body("<rich:focus id='focus' binding='#{componentBean.component}' />");
 
