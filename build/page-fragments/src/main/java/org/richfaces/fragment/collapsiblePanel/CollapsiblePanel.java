@@ -23,6 +23,7 @@ package org.richfaces.fragment.collapsiblePanel;
 
 import org.richfaces.fragment.panel.Panel;
 
+
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
  */

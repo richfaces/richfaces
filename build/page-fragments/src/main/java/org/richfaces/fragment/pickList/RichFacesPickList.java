@@ -1,6 +1,6 @@
-/*
+/*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2013, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,61 +18,66 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
+ *******************************************************************************/
 package org.richfaces.fragment.pickList;
 
+import java.util.Collections;
 import java.util.List;
 
-import org.jboss.arquillian.graphene.findby.FindByJQuery;
+import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.graphene.fragment.Root;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
+import org.richfaces.fragment.common.Actions;
 import org.richfaces.fragment.common.AdvancedInteractions;
 import org.richfaces.fragment.common.picker.ChoicePicker;
 import org.richfaces.fragment.common.picker.ChoicePickerHelper;
 import org.richfaces.fragment.common.picker.MultipleChoicePicker;
+import org.richfaces.fragment.list.AbstractListComponent;
 import org.richfaces.fragment.list.ListComponent;
-import org.richfaces.fragment.list.ListItem;
+import org.richfaces.fragment.orderingList.AbstractOrderingList;
+import org.richfaces.fragment.orderingList.AbstractSelectableListItem;
 import org.richfaces.fragment.orderingList.OrderingList;
-import org.richfaces.fragment.orderingList.RichFacesOrderingList;
-import org.richfaces.fragment.orderingList.RichFacesOrderingList.SelectableListImpl;
 import org.richfaces.fragment.orderingList.SelectableListItem;
+import org.richfaces.fragment.orderingList.AbstractOrderingList.OrderingListBodyElements;
 
 public class RichFacesPickList implements PickList, AdvancedInteractions<RichFacesPickList.AdvancedPickListInteractions> {
 
     @Root
     private WebElement root;
+    @Drone
+    private WebDriver driver;
 
-    @FindBy(className = "btn-add-all")
+    @FindBy(className = "rf-pick-add-all")
     private WebElement addAllButtonElement;
-    @FindBy(className = "btn-add")
+    @FindBy(className = "rf-pick-add")
     private WebElement addButtonElement;
-    @FindBy(className = "btn-remove-all")
+    @FindBy(className = "rf-pick-rem-all")
     private WebElement removeAllButtonElement;
-    @FindBy(className = "btn-remove")
+    @FindBy(className = "rf-pick-rem")
     private WebElement removeButtonElement;
-
-    @FindBy(css = ".source-wrapper .ui-sortable.ui-selectable")
+    @FindBy(css = "[id$='SourceItems'] > .rf-pick-sel")
+    private List<WebElement> selectedSourceListItems;
+    @FindBy(css = "[id$='SourceItems'] > *")
+    private List<WebElement> sourceListItems;
+    @FindBy(css = "[id$='TargetItems'] > .rf-pick-sel")
+    private List<WebElement> selectedTargetListItems;
+    @FindBy(css = "[id$='TargetItems'] > *")
+    private List<WebElement> targetListItems;
+    @FindBy(css = "[id$='SourceItems']")
     private SelectableListImpl sourceList;
-    @FindBy(css = ".source")
+    @FindBy(css = "[id$='Target']")
+    private OrderingListInPickList targetList;
+    @FindBy(className = "rf-pick-lst-scrl")
     private WebElement listAreaElement;
-    @FindBy(css = ".source.header")
-    private WebElement sourceCaptionElement;
-
-    @FindBy(className = "target-wrapper")
-    private RichFacesOrderingList targetList;
-    @FindBy(css = ".target.header")
-    private WebElement targetCaptionElement;
-
-    @FindBy(tagName = "thead")
+    @FindBy(className = "rf-pick-src-cptn")
+    private WebElement captionElement;
+    @FindBy(css = "thead.rf-pick-lst-hdr > tr.rf-pick-hdr")
     private WebElement headerElement;
-    @FindByJQuery(".scroll-box:eq(0)")
-    private WebElement scrollBoxWithSourceList;
-    @FindBy(className = "inner")
-    private WebElement pickListInteractionPartElement;
-
-    private static final String DISABLED_ITEM_CLASS = "ui-disabled";
-    private static final String SELECTED_ITEM_CLASS = "ui-selected";
 
     private final AdvancedPickListInteractions interactions = new AdvancedPickListInteractions();
 
@@ -99,8 +104,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
 
     @Override
     public PickList add(ChoicePicker picker) {
-        select(picker, sourceList);
-        clickAddButton();
+        selectAndAdd(picker);
         return this;
     }
 
@@ -116,8 +120,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
 
     @Override
     public PickList addMultiple(MultipleChoicePicker picker) {
-        select(picker, sourceList);
-        clickAddButton();
+        selectAndAddMultiple(picker);
         return this;
     }
 
@@ -129,8 +132,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
 
     @Override
     public PickList remove(ChoicePicker picker) {
-        select(picker, targetList.advanced().getList());
-        clickRemoveButton();
+        selectAndRemove(picker);
         return this;
     }
 
@@ -146,8 +148,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
 
     @Override
     public PickList removeMultiple(MultipleChoicePicker picker) {
-        select(picker, targetList.advanced().getList());
-        clickRemoveButton();
+        selectAndRemoveMultiple(picker);
         return this;
     }
 
@@ -157,25 +158,161 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         return this;
     }
 
-    private void select(ChoicePicker picker, ListComponent<? extends SelectableListItem> list) {
-        list.getItem(picker).select(true);
+    private void selectAndAdd(ChoicePicker picker) {
+        unselectAll(selectedSourceListItems);
+        selectItem(picker.pick(sourceListItems));
+        clickAddButton();
     }
 
-    private void select(MultipleChoicePicker picker, ListComponent<? extends SelectableListItem> list) {
-        List<? extends SelectableListItem> items = list.getItems(picker);
-        if (!items.isEmpty()) {
-            items.get(0).select(true);// deselect all and select first item
-            for (int i = 1; i < items.size(); i++) {
-                items.get(i).select();// select all other items
+    private void selectAndAddMultiple(MultipleChoicePicker picker) {
+        unselectAll(selectedSourceListItems);
+        for (WebElement item : picker.pickMultiple(sourceListItems)) {
+            selectItem(item);
+        }
+        clickAddButton();
+    }
+
+    private void selectAndRemove(ChoicePicker picker) {
+        unselectAll(selectedTargetListItems);
+        selectItem(picker.pick(targetListItems));
+        clickRemoveButton();
+    }
+
+    private void selectAndRemoveMultiple(MultipleChoicePicker picker) {
+        unselectAll(selectedTargetListItems);
+        for (WebElement item : picker.pickMultiple(targetListItems)) {
+            selectItem(item);
+        }
+        clickRemoveButton();
+    }
+
+    private void selectItem(final WebElement item) {
+        new Actions(driver)
+            .keyDown(Keys.CONTROL).click(item).keyUp(Keys.CONTROL)
+            .addAction(new Action() {
+                @Override
+                public void perform() {
+                    Graphene.waitGui().until().element(item).attribute("class").contains(OrderingListInPickList.SELECTED_ITEM_CLASS);
+                }
+            })
+            .perform();
+    }
+
+    protected void unselectAll(List<WebElement> list) {
+        if (!list.isEmpty()) {
+            new Actions(driver)
+                .click(list.get(0))
+                .keyDown(Keys.CONTROL).click(list.get(0)).keyUp(Keys.CONTROL)
+                .perform();
+            if (!list.isEmpty()) {
+                throw new RuntimeException("The unselection was not successfull.");
             }
         }
     }
 
-    public class AdvancedPickListInteractions {
+    public static class OrderingListInPickList extends AbstractOrderingList implements OrderingListBodyElements {
 
-        public WebElement getPickListInteractionPartElement() {
-            return pickListInteractionPartElement;
+        private static final String SELECTED_ITEM_CLASS = "rf-pick-sel";
+
+        @FindBy(css = "button.rf-ord-dn")
+        private WebElement downButtonElement;
+        @FindBy(css = "button.rf-ord-up-tp")
+        private WebElement topButtonElement;
+        @FindBy(css = "button.rf-ord-dn-bt")
+        private WebElement bottomButtonElement;
+        @FindBy(css = "button.rf-ord-up")
+        private WebElement upButtonElement;
+        @FindBy(css = "thead.rf-pick-lst-hdr > tr.rf-pick-hdr")
+        private WebElement headerElement;
+        @FindBy(className = "rf-pick-tgt-cptn")
+        private WebElement captionElement;
+
+        @FindBy(className = "rf-pick-opt")
+        private List<WebElement> items;
+        @FindBy(className = SELECTED_ITEM_CLASS)
+        private List<WebElement> selectedItems;
+        @FindBy(className = "rf-pick-lst-scrl")
+        private WebElement listAreaElement;
+        @FindBy(css = "[id$='TargetItems']")
+        private SelectableListImpl list;
+
+        @Override
+        protected OrderingListBodyElements getBody() {
+            return this;
         }
+
+        @Override
+        public WebElement getBottomButtonElement() {
+            return bottomButtonElement;
+        }
+
+        @Override
+        public WebElement getCaptionElement() {
+            return captionElement;
+        }
+
+        @Override
+        public WebElement getDownButtonElement() {
+            return downButtonElement;
+        }
+
+        @Override
+        public WebElement getHeaderElement() {
+            return headerElement;
+        }
+
+        @Override
+        public List<WebElement> getItemsElements() {
+            return Collections.unmodifiableList(items);
+        }
+
+        @Override
+        public ListComponent<? extends SelectableListItem> getList() {
+            return list;
+        }
+
+        @Override
+        public WebElement getListAreaElement() {
+            return listAreaElement;
+        }
+
+        @Override
+        public WebElement getRootElement() {
+            return getRoot();
+        }
+
+        @Override
+        public List<WebElement> getSelectedItems() {
+            return Collections.unmodifiableList(selectedItems);
+        }
+
+        @Override
+        public String getStyleForSelectedItem() {
+            return SELECTED_ITEM_CLASS;
+        }
+
+        @Override
+        public WebElement getTopButtonElement() {
+            return topButtonElement;
+        }
+
+        @Override
+        public WebElement getUpButtonElement() {
+            return upButtonElement;
+        }
+    }
+
+    public static class SelectableListItemImpl extends AbstractSelectableListItem {
+
+        private static final String SELECTED_ITEM_CLASS = "rf-pick-sel";
+
+        @Override
+        protected String getStyleClassForSelectedItem() {
+            return SELECTED_ITEM_CLASS;
+        }
+    }
+
+    public class AdvancedPickListInteractions {
 
         public WebElement getAddAllButtonElement() {
             return addAllButtonElement;
@@ -186,19 +323,19 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         public WebElement getBottomButtonElement() {
-            return targetList.advanced().getBottomButtonElement();
+            return targetList.getBottomButtonElement();
         }
 
         public WebElement getSourceCaptionElement() {
-            return sourceCaptionElement;
+            return captionElement;
         }
 
         public WebElement getTargetCaptionElement() {
-            return targetCaptionElement;
+            return targetList.getCaptionElement();
         }
 
         public WebElement getDownButtonElement() {
-            return targetList.advanced().getDownButtonElement();
+            return targetList.getDownButtonElement();
         }
 
         public WebElement getSourceHeaderElement() {
@@ -206,7 +343,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         public WebElement getTargetHeaderElement() {
-            return targetList.advanced().getHeaderElement();
+            return targetList.getHeaderElement();
         }
 
         public WebElement getSourceListAreaElement() {
@@ -214,7 +351,7 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         public WebElement getTargetListAreaElement() {
-            return targetList.advanced().getListAreaElement();
+            return targetList.getListAreaElement();
         }
 
         public WebElement getRemoveAllButtonElement() {
@@ -234,106 +371,26 @@ public class RichFacesPickList implements PickList, AdvancedInteractions<RichFac
         }
 
         public ListComponent<? extends SelectableListItem> getTargetList() {
-            return targetList.advanced().getList();
+            return targetList.getList();
         }
 
         public WebElement getTopButtonElement() {
-            return targetList.advanced().getTopButtonElement();
+            return targetList.getTopButtonElement();
         }
 
         public WebElement getUpButtonElement() {
-            return targetList.advanced().getUpButtonElement();
+            return targetList.getUpButtonElement();
         }
 
         /**
-         * Figures out whether the whole pickList is disabled. All required elements has to be disabled.
-         *
-         * @return true if whole pickList is disabled, false otherwise
-         */
-        public boolean isDisabled() {
-            return areAllButtonsDisabled() && areAllGivenItemsDisabled(getSourceList().getItems())
-                && areAllGivenItemsDisabled(getTargetList().getItems());
-        }
-
-        /**
-         * Figures out whether the given item is selected.
-         *
-         * @param item
-         * @return true if the given item is currently selected, false otherwise
-         */
-        public boolean isItemSelected(ListItem item) {
-            String classAttr = item.getRootElement().getAttribute("class");
-            return classAttr != null && classAttr.contains(SELECTED_ITEM_CLASS);
-        }
-
-        /**
-         * Gets the current computed height of the this pickList sourceList/targetList (they are equal).
-         *
-         * @return
-         * @throws NumberFormatException when the height property is not set
-         */
-        public double getHeight() {
-            return Double.valueOf(scrollBoxWithSourceList.getCssValue("height").replace("px", ""));
-        }
-
-        /**
-         * Gets the current computed max-height of the this pickList sourceList/targetList (they are equal).
-         *
-         * @return
-         * @throws NumberFormatException when the max-height property is not set
-         */
-        public double getMaxHeight() {
-            return Double.valueOf(scrollBoxWithSourceList.getCssValue("max-height").replace("px", ""));
-        }
-
-        /**
-         * Gets the current computed min-height of the this pickList sourceList/targetList (they are equal).
-         *
-         * @return
-         * @throws NumberFormatException when the min-height property is not set
-         */
-        public double getMinHeight() {
-            return Double.valueOf(scrollBoxWithSourceList.getCssValue("min-height").replace("px", ""));
-        }
-
-        private boolean areAllGivenItemsDisabled(List<? extends SelectableListItem> items) {
-            boolean result = true;
-            for (SelectableListItem sourceItem : items) {
-                String classAttr = sourceItem.getRootElement().getAttribute("class");
-                if (classAttr == null || !classAttr.contains(DISABLED_ITEM_CLASS)) {
-                    result = false;
-                }
-            }
-            return result;
-        }
-
-        private boolean areAllButtonsDisabled() {
-            boolean result = true;
-            if (getAddAllButtonElement().isEnabled()) {
-                result = false;
-            } else if (getAddButtonElement().isEnabled()) {
-                result = false;
-            } else if (getRemoveAllButtonElement().isEnabled()) {
-                result = false;
-            } else if (getRemoveButtonElement().isEnabled()) {
-                result = false;
-            } else if (getUpButtonElement().isEnabled()) {
-                result = false;
-            } else if (getTopButtonElement().isEnabled()) {
-                result = false;
-            } else if (getDownButtonElement().isEnabled()) {
-                result = false;
-            } else if (getBottomButtonElement().isEnabled()) {
-                result = false;
-            }
-            return result;
-        }
-
-        /**
-         * Operations over the orderable target list. If the list is not orderable than some Exception is thrown.
+         * Operations over the orderable target list.
+         * If the list is not orderable than some Exception is thrown.
          */
         public OrderingList orderTargetList() {
             return targetList;
         }
+    }
+
+    public static class SelectableListImpl extends AbstractListComponent<SelectableListItemImpl> {
     }
 }

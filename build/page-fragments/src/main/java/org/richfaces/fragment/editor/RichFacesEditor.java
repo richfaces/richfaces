@@ -1,6 +1,6 @@
-/*
+/*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2013, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
+ *******************************************************************************/
 package org.richfaces.fragment.editor;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -82,8 +82,9 @@ public class RichFacesEditor implements Editor, AdvancedInteractions<RichFacesEd
     public void type(String text) {
         try {
             switchToEditorActiveArea().sendKeys(text);
-            //needs to do both ways, various JS events then do not work otherwise
-            ((JavascriptExecutor) browser).executeScript("document.body.textContent= document.body.textContent + '" + text + "'");
+            // needs to do both ways, various JS events then do not work otherwise
+            ((JavascriptExecutor) browser).executeScript("document.body.textContent= document.body.textContent + '" + text
+                + "'");
         } finally {
             browser.switchTo().defaultContent();
         }

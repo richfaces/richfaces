@@ -1,6 +1,6 @@
-/*
+/*******************************************************************************
  * JBoss, Home of Professional Open Source
- * Copyright 2013, Red Hat, Inc. and individual contributors
+ * Copyright 2010-2014, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -18,7 +18,7 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
+ *******************************************************************************/
 package org.richfaces.fragment.dataScroller;
 
 import java.util.Collections;
@@ -72,12 +72,26 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
         Graphene.waitModel().until().element(element).attribute("class").contains("rf-ds-act");
     }
 
+    private boolean checkIfScrollingByFastButtonIsQuickerThanScrollingByPages(int pageNumberBefore) {
+        return Math.abs(pageNumberBefore - getActivePageNumber()) > (int) (advanced().getCountOfVisiblePages() / 2);
+    }
+
     @Override
     public void switchTo(int pageNumber) {
         int counter = 50; // to prevent infinite loops
-
+        int lastPageNumber = getActivePageNumber();
+        boolean isScrollingByFastButtonQuicker = true;
+        boolean scrollingByButtonChecked = false;
         while (pageNumber > advanced().getLastVisiblePageNumber() && counter > 0) {
-            switchTo(DataScrollerSwitchButton.FAST_FORWARD);
+            if (isScrollingByFastButtonQuicker) {
+                switchTo(DataScrollerSwitchButton.FAST_FORWARD);
+            } else {
+                switchTo(advanced().getLastVisiblePageNumber());
+            }
+            if (!scrollingByButtonChecked) {
+                isScrollingByFastButtonQuicker = checkIfScrollingByFastButtonIsQuickerThanScrollingByPages(lastPageNumber);
+                scrollingByButtonChecked = true;
+            }
             counter--;
         }
         if (counter == 0) {
@@ -86,7 +100,15 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
 
         counter = 50; // to prevent inifinite loops
         while (pageNumber < advanced().getFirstVisiblePageNumber() && counter > 0) {
-            switchTo(DataScrollerSwitchButton.FAST_REWIND);
+            if (isScrollingByFastButtonQuicker) {
+                switchTo(DataScrollerSwitchButton.FAST_REWIND);
+            } else {
+                switchTo(advanced().getFirstVisiblePageNumber());
+            }
+            if (!scrollingByButtonChecked) {
+                isScrollingByFastButtonQuicker = checkIfScrollingByFastButtonIsQuickerThanScrollingByPages(lastPageNumber);
+                scrollingByButtonChecked = true;
+            }
             counter--;
         }
         if (counter == 0) {
@@ -104,6 +126,10 @@ public class RichFacesDataScroller implements DataScroller, AdvancedInteractions
         String prevPageText = activePage.getText();
         advanced().getButtonElement(btn).click();
         Graphene.waitModel().until().element(activePage).text().not().equalTo(prevPageText);
+    }
+
+    public boolean hasPages() {
+        return advanced().getCountOfVisiblePages() > 0;
     }
 
     @Override
