@@ -54,8 +54,8 @@ public interface ListComponent<T extends ListItem> {
      *
      * @param picker for picking from the items
      * @return found item or null
-     * @see org.richfaces.tests.page.fragments.impl.utils.picker.ChoicePickerHelper.ByIndexChoicePicker
-     * @see org.richfaces.tests.page.fragments.impl.utils.picker.ChoicePickerHelper.ByVisibleTextChoicePicker
+     * @see org.richfaces.fragment.common.picker.ChoicePickerHelper.ByIndexChoicePicker
+     * @see org.richfaces.fragment.common.picker.ChoicePickerHelper.ByVisibleTextChoicePicker
 
      */
     T getItem(ChoicePicker picker);
