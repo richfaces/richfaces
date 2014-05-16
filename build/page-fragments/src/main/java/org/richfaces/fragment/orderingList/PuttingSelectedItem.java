@@ -47,8 +47,8 @@ public interface PuttingSelectedItem {
      * Puts previously selected item before another item picked by @picker.
      *
      * @param picker for picking from the choices
-     * @see org.richfaces.tests.page.fragments.impl.utils.picker.ChoicePickerHelper.ByIndexChoicePicker
-     * @see org.richfaces.tests.page.fragments.impl.utils.picker.ChoicePickerHelper.ByVisibleTextChoicePicker
+     * @see org.richfaces.fragment.common.picker.ChoicePickerHelper.ByIndexChoicePicker
+     * @see org.richfaces.fragment.common.picker.ChoicePickerHelper.ByVisibleTextChoicePicker
      */
     OrderingList putItBefore(ChoicePicker picker);
 
@@ -70,8 +70,8 @@ public interface PuttingSelectedItem {
      * Puts previously selected item after another item picked by @picker.
      *
      * @param picker for picking from the choices
-     * @see org.richfaces.tests.page.fragments.impl.utils.picker.ChoicePickerHelper.ByIndexChoicePicker
-     * @see org.richfaces.tests.page.fragments.impl.utils.picker.ChoicePickerHelper.ByVisibleTextChoicePicker
+     * @see org.richfaces.fragment.common.picker.ChoicePickerHelper.ByIndexChoicePicker
+     * @see org.richfaces.fragment.common.picker.ChoicePickerHelper.ByVisibleTextChoicePicker
      */
     OrderingList putItAfter(ChoicePicker picker);
 }

@@ -72,8 +72,8 @@ public interface SelectOrConfirm {
      * @param  picker           for defining the rules by which the suggestion will be selected
      * @return returns          back the Autocomplete component.
      * @throws RuntimeException when no such option found
-     * @see    org.richfaces.tests.page.fragments.impl.utils.picker.ChoicePickerHelper.ByIndexChoicePicker
-     * @see    org.richfaces.tests.page.fragments.impl.utils.picker.ChoicePickerHelper.ByVisibleTextChoicePicker
+     * @see    org.richfaces.fragment.common.picker.ChoicePickerHelper.ByIndexChoicePicker
+     * @see    org.richfaces.fragment.common.picker.ChoicePickerHelper.ByVisibleTextChoicePicker
      */
     Autocomplete select(ChoicePicker picker);
 }
