@@ -45,10 +45,11 @@
         this.inputContainer = this.addButton.find(".rf-fu-inp-cntr:first");
         this.input = this.inputContainer.children("input");
         this.list = header.next();
+        this.list.bind('dragenter', function(e) {e.stopPropagation(); e.preventDefault();});
+        this.list.bind('dragover', function(e) {e.stopPropagation(); e.preventDefault();});
+        this.list.bind('drop', $.proxy(this.__addItemsFromDrop, this));
+
         this.hiddenContainer = this.list.next();
-        this.iframe = this.hiddenContainer.children("iframe:first");
-        this.progressBarElement = this.iframe.next();
-        this.progressBar = rf.component(this.progressBarElement);
         this.cleanInput = this.input.clone();
         this.addProxy = $.proxy(this.__addItems, this);
         this.input.change(this.addProxy);
@@ -57,7 +58,6 @@
             .mouseup(unpressButton).mouseout(unpressButton);
         this.clearButton.click($.proxy(this.__removeAllItems, this)).mousedown(pressButton)
             .mouseup(unpressButton).mouseout(unpressButton);
-        this.iframe.load($.proxy(this.__load, this));
         if (this.onfilesubmit) {
             rf.Event.bind(this.element, "onfilesubmit", new Function("event", this.onfilesubmit));
         }
@@ -73,13 +73,16 @@
         if (this.onfileselect) {
             rf.Event.bind(this.element, "onfileselect", new Function("event", this.onfileselect));
         }
-    }
+    };
 
     var UID = "rf_fu_uid";
     var UID_ALT = "rf_fu_uid_alt";
     var FAKE_PATH = "C:\\fakepath\\";
     var ITEM_HTML = '<div class="rf-fu-itm">'
-        + '<span class="rf-fu-itm-lft"><span class="rf-fu-itm-lbl"/><span class="rf-fu-itm-st"/></span>'
+        + '<span class="rf-fu-itm-lft"><span class="rf-fu-itm-lbl"/><span class="rf-fu-itm-st" />'
+        + '<div class="progress progress-striped active">'
+        + '<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">'
+        + '<span></span></div></div></span>'
         + '<span class="rf-fu-itm-rgh"><a href="javascript:void(0)" class="rf-fu-itm-lnk"/></span></div>';
 
     var ITEM_STATE = {
@@ -100,7 +103,6 @@
     };
 
     rf.BaseComponent.extend(rf.ui.FileUpload);
-    
 
     function TypeRejectedException(fileName) {
         this.name = "TypeRejectedException";
@@ -120,16 +122,15 @@
             clearLabel: "Clear",
             deleteLabel: "Delete",
 
-            __addItems : function() {
+            __addFiles : function(files) {
                 var context = {
                     acceptedFileNames: [],
                     rejectedFileNames: []
                 };
 
-                var multipleInputFiles = this.input.prop("files");
-                if (multipleInputFiles) {
-                    for (var i = 0 ; i < multipleInputFiles.length; i++) {
-                        this.__tryAddItem(context, multipleInputFiles[i].name);
+                if (files) {
+                    for (var i = 0 ; i < files.length; i++) {
+                        this.__tryAddItem(context, files[i]);
 
                         if (this.maxFilesQuantity && (context.acceptedFileNames.length >= this.maxFilesQuantity)) {
                             this.addButton.hide();
@@ -150,22 +151,37 @@
                 }
             },
 
-            __tryAddItem: function(context, fileName) {
+            __addItems : function() {
+                this.__addFiles(this.input.prop("files"));
+            },
+
+            __addItemsFromDrop: function(dropEvent) {
+                dropEvent.stopPropagation();
+                dropEvent.preventDefault();
+                
+                if (this.maxFilesQuantity && this.__getTotalItemCount() >= this.maxFilesQuantity) {
+                    return;
+                }
+
+                this.__addFiles(dropEvent.originalEvent.dataTransfer.files);
+            },
+
+            __tryAddItem: function(context, file) {
                 try {
-                    if (this.__addItem(fileName)) {
-                        context.acceptedFileNames.push(fileName);
+                    if (this.__addItem(file)) {
+                        context.acceptedFileNames.push(file.name);
                     }
                 } catch (e) {
                     if (e instanceof TypeRejectedException) {
-                        context.rejectedFileNames.push(fileName);
+                        context.rejectedFileNames.push(file.name);
                     } else {
                         throw e;
                     }
                 }
             },
 
-            __addItem: function(fileName) {
-                var fileName = fileName;
+            __addItem: function(file) {
+                var fileName = file.name;
                 if (!navigator.platform.indexOf("Win")) {
                     fileName = fileName.match(/[^\\]*$/)[0];
                 } else {
@@ -176,9 +192,9 @@
                     }
                 }
                 if (this.__accept(fileName) && (!this.noDuplicate || !this.__isFileAlreadyAdded(fileName))) {
-                    this.input.hide();
+                    this.input.remove();
                     this.input.unbind("change", this.addProxy);
-                    var item = new Item(this, fileName);
+                    var item = new Item(this, file);
                     this.list.append(item.getJQuery());
                     this.items.push(item);
                     this.input = this.cleanInput.clone();
@@ -234,72 +250,13 @@
             },
 
             __startUpload: function() {
+                if (!this.items.length) {
+                    this.__finishUpload();
+                    return;
+                }
                 this.loadableItem = this.items.shift();
                 this.__updateButtons();
                 this.loadableItem.startUploading();
-            },
-
-            __submit: function() {
-                var encodedURLInputs = this.form.children("input[name='javax.faces.encodedURL']");
-                var originalAction = encodedURLInputs.length > 0 ? encodedURLInputs.val() : this.form.attr("action");
-                var originalEncoding = this.form.attr("encoding");
-                var originalEnctype = this.form.attr("enctype");
-                try {
-                    var delimiter = originalAction.indexOf("?") == -1 ? "?" : "&";
-                    this.form.attr("action", originalAction + delimiter + UID + "=" + this.loadableItem.uid);
-                    this.form.attr("encoding", "multipart/form-data");
-                    this.form.attr("enctype", "multipart/form-data");
-                    rf.submitForm(this.form, {"org.richfaces.ajax.component": this.id}, this.id);
-                    rf.Event.fire(this.element, "onfilesubmit", this.loadableItem.model);
-                } finally {
-                    this.form.attr("action", originalAction);
-                    this.form.attr("encoding", originalEncoding);
-                    this.form.attr("enctype", originalEnctype);
-                    this.loadableItem.input.removeAttr("name");
-                }
-            },
-
-            __load: function(event) {
-                if (this.loadableItem) {
-                    var contentDocument = event.target.contentWindow.document;
-                    contentDocument = contentDocument.XMLDocument || contentDocument;
-                    var documentElement = contentDocument.documentElement;
-                    var responseStatus, id;
-                    if (documentElement.tagName.toUpperCase() == "PARTIAL-RESPONSE") {
-                        var errors = $(documentElement).children("error");
-                        responseStatus = errors.length > 0 ? ITEM_STATE.SERVER_ERROR : ITEM_STATE.DONE;
-                    } else if ((id = documentElement.id) && id.indexOf(UID + this.loadableItem.uid + ":") == 0) {
-                        responseStatus = id.split(":")[1];
-                    }
-                    if (responseStatus) {
-                        var responseContext = {
-                            source: this.element[0],
-                            element: this.element[0],
-                            /* hack for MyFaces */
-                            _mfInternal: {
-                                _mfSourceControlId: this.element.attr('id')
-                            }
-                        };
-
-                        responseStatus == ITEM_STATE.DONE && jsf.ajax.response({responseXML: contentDocument}, responseContext);
-                        this.loadableItem.finishUploading(responseStatus);
-                        this.submitedItems.push(this.loadableItem);
-                        if (responseStatus == ITEM_STATE.DONE && this.items.length) {
-                            this.__startUpload();
-                        } else {
-                            this.loadableItem = null;
-                            this.__updateButtons();
-                            var items = [];
-                            for (var i in this.submitedItems) {
-                                items.push(this.submitedItems[i].model);
-                            }
-                            for (var i in this.items) {
-                                items.push(this.items[i].model);
-                            }
-                            rf.Event.fire(this.element, "onuploadcomplete", items);
-                        }
-                    }
-                }
             },
 
             __accept: function(fileName) {
@@ -336,11 +293,11 @@
 
             __getTotalItemCount : function() {
                 return this.__getItemCountByState(this.items, ITEM_STATE.NEW)
-                    + this.__getItemCountByState(this.submitedItems, ITEM_STATE.DONE)
+                    + this.__getItemCountByState(this.submitedItems, ITEM_STATE.DONE);
             },
 
             __getItemCountByState : function(items) {
-                var statuses = {}
+                var statuses = {};
                 var s = 0;
                 for ( var i = 1; i < arguments.length; i++) {
                     statuses[arguments[i]] = true;
@@ -351,15 +308,27 @@
                     }
                 }
                 return s;
+            },
+
+            __finishUpload : function() {
+                this.loadableItem = null;
+                this.__updateButtons();
+                var items = [];
+                for (var i in this.submitedItems) {
+                    items.push(this.submitedItems[i].model);
+                }
+                for (var i in this.items) {
+                    items.push(this.items[i].model);
+                }
+                rf.Event.fire(this.element, "onuploadcomplete", items);
             }
         };
     })());
 
 
-    var Item = function(fileUpload, fileName) {
+    var Item = function(fileUpload, file) {
         this.fileUpload = fileUpload;
-        this.input = fileUpload.input;
-        this.model = {name: fileName, state: ITEM_STATE.NEW};
+        this.model = {name: file.name, state: ITEM_STATE.NEW, file: file};
     };
 
     $.extend(Item.prototype, {
@@ -368,6 +337,9 @@
                 var leftArea = this.element.children(".rf-fu-itm-lft:first");
                 this.label = leftArea.children(".rf-fu-itm-lbl:first");
                 this.state = this.label.nextAll(".rf-fu-itm-st:first");
+                this.progressBar = leftArea.find(".progress-bar");
+                this.progressBar.parent().hide();
+                this.progressLabel = this.progressBar.find('span');
                 this.link = leftArea.next().children("a");
                 this.label.html(this.model.name);
                 this.link.html(this.fileUpload["deleteLabel"]);
@@ -376,35 +348,89 @@
             },
 
             removeOrStop: function() {
-                this.input.remove();
                 this.element.remove();
                 this.fileUpload.__removeItem(this);
             },
 
             startUploading: function() {
                 this.state.css("display", "block");
+                this.progressBar.parent().show();
+                this.progressLabel.html("0 %");
                 this.link.html("");
-                this.input.attr("name", this.fileUpload.id);
                 this.model.state = ITEM_STATE.UPLOADING;
                 this.uid = Math.random();
-                this.fileUpload.__submit();
-                if (this.fileUpload.progressBar) {
-                    this.fileUpload.progressBar.setValue(0);
-                    this.state.html(this.fileUpload.progressBarElement.detach());
 
-                    var params = {};
-                    params[UID_ALT] = this.uid;
-                    this.fileUpload.progressBar.enable(params);
-                }
+                var formData = new FormData(this.fileUpload.form[0]);
+                    fileName = this.model.file.name;
+
+                formData.append(this.fileUpload.id, this.model.file);
+
+                // JSF values
+                formData.append('javax.faces.partial.ajax', 'true');
+                formData.append('javax.faces.source', this.fileUpload.id);
+                formData.append('javax.faces.partial.execute', this.fileUpload.id);
+                formData.append('org.richfaces.ajax.component', this.fileUpload.id);
+
+                if (jsf.getClientWindow()) {
+                    formData.append('javax.faces.ClientWindow', jsf.getClientWindow());
+                };
+
+                var originalAction = this.fileUpload.form.attr("action"),
+                    delimiter = originalAction.indexOf("?") == -1 ? "?" : "&",
+                    newAction =  originalAction + delimiter + UID + "=" + this.uid;
+
+                this.xhr = new XMLHttpRequest();
+
+                this.xhr.open('POST', newAction, true);
+                this.xhr.setRequestHeader('Faces-Request', 'partial/ajax');
+                
+                this.xhr.upload.onprogress = $.proxy(function(e) {
+                        if (e.lengthComputable) {
+                            var progress = Math.floor((e.loaded / e.total) * 100);
+                            this.progressLabel.html( progress + " %" );
+                            this.progressBar.attr("aria-valuenow", progress);
+                            this.progressBar.css("width", progress + "%");
+                        }
+                    }, this);
+
+                this.xhr.upload.onerror = $.proxy(function (e) {
+                        this.finishUploading(ITEM_STATE.SERVER_ERROR);
+                    }, this);
+                    
+                this.xhr.onload = $.proxy(function (e) {
+                    switch (e.target.status) {
+                        case 413:
+                            responseStatus = ITEM_STATE.SIZE_EXCEEDED;
+                            break;
+                        case 200:
+                            responseStatus = ITEM_STATE.DONE;
+                            break;
+                        default: // 500 - error in processing parts
+                            responseStatus = ITEM_STATE.SERVER_ERROR;
+                    }
+                    
+                    var responseContext = {
+                            source: this.fileUpload.element[0],
+                            element: this.fileUpload.element[0],
+                            /* hack for MyFaces */
+                            _mfInternal: {
+                                _mfSourceControlId: this.fileUpload.element.attr('id')
+                            }
+                        };
+                        
+                        jsf.ajax.response(this.xhr, responseContext);
+                        this.finishUploading(responseStatus);
+                        this.fileUpload.__startUpload();
+                    }, this);
+
+                this.xhr.send(formData);
+
+                rf.Event.fire(this.fileUpload.element, "onfilesubmit", this.model);
             },
 
             finishUploading: function(state) {
-                if (this.fileUpload.progressBar) {
-                    this.fileUpload.progressBar.disable();
-                    this.fileUpload.hiddenContainer.append(this.fileUpload.progressBarElement.detach());
-                }
-                this.input.remove();
                 this.state.html(this.fileUpload[state + "Label"]);
+                this.progressBar.parent().hide();
                 this.link.html(this.fileUpload["clearLabel"]);
                 this.model.state = state;
             }
