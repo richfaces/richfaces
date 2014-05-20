@@ -1,9 +1,13 @@
 package org.richfaces.component;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@SessionScoped
+@ManagedBean(name="graphBean")
 public class GraphBean {
     public static final String FOO_MSG = "Foo";
 

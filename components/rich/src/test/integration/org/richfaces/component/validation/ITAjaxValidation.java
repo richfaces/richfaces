@@ -86,7 +86,7 @@ public class ITAjaxValidation extends ValidationTestBase {
         p.body("</h:inputText>");
         p.body("<h:outputText id='out' value='#{test.value}'></h:outputText>");
         p.body("</h:form>");
-        p.body("<a4j:message id='uiMessage' for='text' />");
+        p.body("<rich:message id='uiMessage' for='text' />");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
