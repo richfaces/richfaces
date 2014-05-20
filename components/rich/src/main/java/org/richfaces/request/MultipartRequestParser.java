@@ -24,6 +24,7 @@ package org.richfaces.request;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -54,6 +55,8 @@ public final class MultipartRequestParser {
     static final String PARAM_NAME = "name";
     static final String PARAM_FILENAME = "filename";
     static final String PARAM_CONTENT_TYPE = "Content-Type";
+    public static final String UID_KEY = "rf_fu_uid";
+    private static final Pattern AMPERSAND = Pattern.compile("&+");
     private static final byte CR = 0x0d;
     private static final byte LF = 0x0a;
     private static final byte[] CR_LF = { CR, LF };
@@ -108,7 +111,6 @@ public final class MultipartRequestParser {
     private byte[] boundaryMarker;
     private ByteSequenceMatcher sequenceMatcher;
     private HeadersHandler headersHandler;
-    private ProgressControl progressControl;
 
     /**
      * @param request
@@ -116,13 +118,11 @@ public final class MultipartRequestParser {
      * @param tempFilesDirectory
      * @param uploadId
      */
-    public MultipartRequestParser(HttpServletRequest request, boolean createTempFiles, String tempFilesDirectory,
-        ProgressControl progressControl) {
+    public MultipartRequestParser(HttpServletRequest request, boolean createTempFiles, String tempFilesDirectory) {
 
         this.request = request;
         this.createTempFiles = createTempFiles;
         this.tempFilesDirectory = tempFilesDirectory;
-        this.progressControl = progressControl;
     }
 
     private void cancel() {
@@ -167,7 +167,7 @@ public final class MultipartRequestParser {
             throw new FileUploadException("Boundary marker is too long");
         }
 
-        this.sequenceMatcher = new ByteSequenceMatcher(progressControl.wrapStream(request.getInputStream()), BUFFER_SIZE);
+        this.sequenceMatcher = new ByteSequenceMatcher(new ProgressServletInputStream(request.getInputStream()), BUFFER_SIZE);
 
         readProlog();
     }
@@ -225,6 +225,33 @@ public final class MultipartRequestParser {
         }
     }
 
+    public static String getParameterValueFromQueryString(String queryString) {
+        if (queryString != null) {
+            String[] nvPairs = AMPERSAND.split(queryString);
+            for (String nvPair : nvPairs) {
+                if (nvPair.length() == 0) {
+                    continue;
+                }
+
+                int eqIdx = nvPair.indexOf('=');
+                if (eqIdx >= 0) {
+                    try {
+                        String name = URLDecoder.decode(nvPair.substring(0, eqIdx), "UTF-8");
+
+                        if (UID_KEY.equals(name)) {
+                            return URLDecoder.decode(nvPair.substring(eqIdx + 1), "UTF-8");
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        // log warning and skip this parameter
+                        LOGGER.debug(e.getMessage(), e);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
     // TODO - URI decoder?
     private static String decodeFileName(String name) {
         String fileName = null;
@@ -250,7 +277,7 @@ public final class MultipartRequestParser {
         return fileName;
     }
 
-    static String parseFileName(String parseStr) {
+    public static String parseFileName(String parseStr) {
         Matcher m = FILE_NAME_PATTERN.matcher(parseStr);
         if (m.matches()) {
             String name = m.group(1);

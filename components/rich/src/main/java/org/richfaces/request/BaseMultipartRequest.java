@@ -47,15 +47,13 @@ abstract class BaseMultipartRequest extends HttpServletRequestWrapper implements
     }
 
     private String uploadId;
-    private ProgressControl progressControl;
 
     /**
      * @param request
      */
-    public BaseMultipartRequest(HttpServletRequest request, String uploadId, ProgressControl progressControl) {
+    public BaseMultipartRequest(HttpServletRequest request, String uploadId) {
         super(request);
         this.uploadId = uploadId;
-        this.progressControl = progressControl;
     }
 
     public String getUploadId() {
@@ -63,7 +61,6 @@ abstract class BaseMultipartRequest extends HttpServletRequestWrapper implements
     }
 
     public void release() {
-        progressControl.clearProgress();
     }
 
     @Override

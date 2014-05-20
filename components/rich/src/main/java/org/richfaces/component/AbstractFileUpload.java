@@ -24,14 +24,10 @@ package org.richfaces.component;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.el.MethodExpression;
-import javax.faces.FacesException;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.FacesEvent;
@@ -43,16 +39,15 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.event.FileUploadListener;
-import org.richfaces.model.UploadedFile;
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.view.facelets.FileUploadHandler;
 import org.richfaces.component.attribute.AjaxProps;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.EventsKeyProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.event.FileUploadListener;
+import org.richfaces.model.UploadedFile;
+import org.richfaces.view.facelets.FileUploadHandler;
 
 /**
  * <p> The &lt;rich:fileUpload&gt; component allows the user to upload files to a server. It features multiple uploads,
@@ -196,25 +191,6 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
     @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         super.processEvent(event);
-        FacesContext context = getFacesContext();
-        Map<String, UIComponent> facets = getFacets();
-        UIComponent component = facets.get("progress");
-        if (component == null) {
-            try {
-                component = context.getApplication().createComponent(context, "org.richfaces.ProgressBar",
-                    "org.richfaces.ProgressBarRenderer");
-            } catch (FacesException e) {
-                // To work without ProgressBar.
-            }
-            if (component != null) {
-                component.setId(getId() + "_pb");
-                facets.put("progress", component);
-            }
-        }
-        if (component != null) {
-            String resourcePath = RenderKitUtils.getResourcePath(context, "org.richfaces.dynamic", "fileUploadProgress");
-            component.getAttributes().put("resource", resourcePath);
-        }
 
         if (event.getSource() == this) {
             if (event instanceof PostAddToViewEvent) {
@@ -291,8 +267,9 @@ public abstract class AbstractFileUpload extends UIComponentBase implements Ajax
         final int maxFilesQuantity = this.getMaxFilesQuantity();
         final List<String> acceptedTypes = this.getAcceptedTypesList();
 
-        if ((maxFilesQuantity > 0) && (queuedFileUploadEvents().get() >= maxFilesQuantity))
+        if ((maxFilesQuantity > 0) && (queuedFileUploadEvents().get() >= maxFilesQuantity)) {
             return false;
+        }
 
         if (clientId.equals(file.getParameterName())) {
             if (acceptedTypes.isEmpty()) {

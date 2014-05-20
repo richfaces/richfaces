@@ -27,18 +27,15 @@ import javax.servlet.ServletInputStream;
 
 class ProgressServletInputStream extends ServletInputStream {
     private ServletInputStream wrappedStream;
-    private ProgressControl progressControl;
 
-    protected ProgressServletInputStream(ServletInputStream wrappedStream, ProgressControl progressControl) {
+    protected ProgressServletInputStream(ServletInputStream wrappedStream) {
         this.wrappedStream = wrappedStream;
-        this.progressControl = progressControl;
     }
 
     @Override
     public int read() throws IOException {
         int read = wrappedStream.read();
         if (read >= 0) {
-            progressControl.advance(1);
         }
         return read;
     }
@@ -47,7 +44,6 @@ class ProgressServletInputStream extends ServletInputStream {
     public int read(byte[] b) throws IOException {
         int read = wrappedStream.read(b);
         if (read > 0) {
-            progressControl.advance(read);
         }
         return read;
     }
@@ -56,7 +52,6 @@ class ProgressServletInputStream extends ServletInputStream {
     public int read(byte[] b, int off, int len) throws IOException {
         int read = wrappedStream.read(b, off, len);
         if (read > 0) {
-            progressControl.advance(read);
         }
         return read;
     }
@@ -65,7 +60,6 @@ class ProgressServletInputStream extends ServletInputStream {
     public int readLine(byte[] b, int off, int len) throws IOException {
         int read = wrappedStream.readLine(b, off, len);
         if (read > 0) {
-            progressControl.advance(read);
         }
         return read;
     }

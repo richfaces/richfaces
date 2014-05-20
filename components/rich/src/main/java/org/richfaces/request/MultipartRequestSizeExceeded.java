@@ -32,8 +32,8 @@ import com.google.common.collect.Lists;
  *
  */
 public class MultipartRequestSizeExceeded extends BaseMultipartRequest {
-    public MultipartRequestSizeExceeded(HttpServletRequest request, String uploadId, ProgressControl progressControl) {
-        super(request, uploadId, progressControl);
+    public MultipartRequestSizeExceeded(HttpServletRequest request, String uploadId) {
+        super(request, uploadId);
     }
 
     public ResponseState getResponseState() {

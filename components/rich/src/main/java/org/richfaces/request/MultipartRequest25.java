@@ -60,10 +60,9 @@ public class MultipartRequest25 extends BaseMultipartRequest {
     private Iterable<UploadedFile> uploadedFiles;
     private Multimap<String, String> params;
 
-    public MultipartRequest25(HttpServletRequest request, String uploadId, ProgressControl progressControl,
-        MultipartRequestParser requestParser) {
+    public MultipartRequest25(HttpServletRequest request, String uploadId, MultipartRequestParser requestParser) {
 
-        super(request, uploadId, progressControl);
+        super(request, uploadId);
 
         this.requestParser = requestParser;
     }

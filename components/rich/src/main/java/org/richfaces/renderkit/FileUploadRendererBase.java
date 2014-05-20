@@ -21,38 +21,131 @@
  */
 package org.richfaces.renderkit;
 
+import java.io.File;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
+import org.richfaces.ServletVersion;
 import org.richfaces.component.AbstractFileUpload;
 import org.richfaces.event.FileUploadEvent;
+import org.richfaces.exception.FileUploadException;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.request.MultipartRequest;
+import org.richfaces.request.MultipartRequest25;
+import org.richfaces.request.MultipartRequestParser;
+import org.richfaces.request.UploadedFile30;
 
 /**
  * @author Konstantin Mishin
  * @author Nick Belaevski
  * @author Lukas Fryc
  * @author Simone Cinti
- *
+ * @author Michal Petrov
  */
-
 public class FileUploadRendererBase extends RendererBase {
+
+    private boolean isCreateTempFiles(ServletContext servletContext) {
+        String param = servletContext.getInitParameter("org.richfaces.fileUpload.createTempFiles");
+        if (param != null) {
+            return Boolean.parseBoolean(param);
+        }
+
+        return true;
+    }
+
+    private String getTempFilesDirectory(ServletContext servletContext) {
+        String result = servletContext.getInitParameter("org.richfaces.fileUpload.tempFilesDirectory");
+        if (result == null) {
+            File servletTempDir = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+            if (servletTempDir != null) {
+                result = servletTempDir.getAbsolutePath();
+            }
+        }
+        if (result == null) {
+            result = new File(System.getProperty("java.io.tmpdir")).getAbsolutePath();
+        }
+
+        return result;
+    }
+
+    private Iterable<UploadedFile> initializeUploadedFiles(ExternalContext context, HttpServletRequest request, String uploadId) {
+        try {
+            List<UploadedFile> files = new LinkedList<>();
+
+            if (ServletVersion.getCurrent().isCompliantWith(ServletVersion.SERVLET_3_0)) {
+                Collection<Part> parts = request.getParts();
+
+                for (Part part : parts) {
+                    String contentDisposition = part.getHeader("Content-Disposition");
+                    String filename = MultipartRequestParser.parseFileName(contentDisposition);
+                    if (filename != null) {
+                        files.add(new UploadedFile30(part.getName(), filename, part));
+                    }
+                }
+            } else {
+                boolean createTempFiles = isCreateTempFiles(request.getServletContext());
+                String tempFilesDirectory = getTempFilesDirectory(request.getServletContext());
+
+                MultipartRequestParser requestParser = new MultipartRequestParser(request, createTempFiles, tempFilesDirectory);
+
+                MultipartRequest multipartRequest = new MultipartRequest25(request, uploadId, requestParser);
+
+                files = (List<UploadedFile>) multipartRequest.getUploadedFiles();
+            }
+            return files;
+        } catch (Exception e) {
+            context.setResponseStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            throw new FileUploadException("couldn't parse request parts", e);
+        }
+    }
+
+    private long getMaxRequestSize(ServletContext servletContext) {
+        String param = servletContext.getInitParameter("org.richfaces.fileUpload.maxRequestSize");
+        if (param != null) {
+            return Long.parseLong(param);
+        }
+
+        return 0;
+    }
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
         final AbstractFileUpload fileUpload = (AbstractFileUpload) component;
         final ExternalContext externalContext = context.getExternalContext();
 
-        MultipartRequest multipartRequest = (MultipartRequest) externalContext.getRequestMap().get(
-                MultipartRequest.REQUEST_ATTRIBUTE_NAME);
+        Object request = externalContext.getRequest();
 
-        if (multipartRequest != null) {
+        if (request instanceof HttpServletRequest) {
+            HttpServletRequest httpRequest = (HttpServletRequest) request;
+            if (httpRequest.getContentType() != null && httpRequest.getContentType().startsWith("multipart/")) {
+                String uid = MultipartRequestParser.getParameterValueFromQueryString(httpRequest.getQueryString());
 
-            for (UploadedFile file : multipartRequest.getUploadedFiles()) {
-                if (fileUpload.acceptsFile(file)) {
-                    fileUpload.queueEvent(new FileUploadEvent(fileUpload, file));
+                if (uid != null) {
+                    long contentLength = Long.parseLong(httpRequest.getHeader("Content-Length"));
+
+                    long maxRequestSize = getMaxRequestSize(httpRequest.getServletContext());
+
+                    if (maxRequestSize != 0 && contentLength > maxRequestSize) {
+                        externalContext.setResponseStatus(HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE);
+                        return;
+                    }
+
+                    Iterable<UploadedFile> uploadedFiles = initializeUploadedFiles(externalContext, httpRequest, uid);
+
+                    for (UploadedFile file : uploadedFiles) {
+                        if (fileUpload.acceptsFile(file)) {
+                            fileUpload.queueEvent(new FileUploadEvent(fileUpload, file));
+                        }
+                    }
                 }
             }
         }
