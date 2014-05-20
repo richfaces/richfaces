@@ -50,7 +50,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.resource.ResourceHandlerImpl;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.external.ResourceTracker;
@@ -80,7 +80,7 @@ public class ITResourceMapperService {
     @Deployment
     public static WebArchive createDeployment() {
 
-        FrameworkDeployment deployment = new FrameworkDeployment(ITResourceMapperService.class);
+        UIDeployment deployment = new UIDeployment(ITResourceMapperService.class);
 
         EmptyAsset emptyResource = EmptyAsset.INSTANCE;
 

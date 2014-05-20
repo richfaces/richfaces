@@ -35,7 +35,7 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.richfaces.component.Bean;
 import org.richfaces.component.CustomValidator;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
@@ -46,7 +46,7 @@ public class ITAjaxValidation extends ValidationTestBase {
 
     @Deployment(testable = false)
     public static WebArchive deployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITAjaxValidation.class);
+        UIDeployment deployment = new UIDeployment(ITAjaxValidation.class);
 
         deployment.archive().addClasses(Bean.class, CustomValidator.class);
 

@@ -43,7 +43,7 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
@@ -65,7 +65,7 @@ public class ITResourceOptimization {
     @Deployment
     public static WebArchive createDeployment() {
 
-        FrameworkDeployment deployment = new FrameworkDeployment(ITResourceOptimization.class);
+        UIDeployment deployment = new UIDeployment(ITResourceOptimization.class);
 
         FaceletAsset p = deployment.baseFacelet("script.xhtml");
         p.head("<h:outputScript library='javax.faces' name='jsf.js' />");

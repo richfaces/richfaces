@@ -39,7 +39,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.CoreDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
@@ -66,9 +66,8 @@ public class ITMetaComponentRendering {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        CoreDeployment deployment = new CoreDeployment(ITMetaComponentRendering.class);
+        UIDeployment deployment = new UIDeployment(ITMetaComponentRendering.class);
 
-        deployment.withWholeCore();
         deployment.archive().addClasses(CounterBean.class);
 
         addIndexPage(deployment);
@@ -85,7 +84,7 @@ public class ITMetaComponentRendering {
         assertThat(panel.getText(), equalTo("2"));
     }
 
-    private static void addIndexPage(CoreDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.form("<a4j:commandButton id='button' render='panel@activeItem' />");

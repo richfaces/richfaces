@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.CoreDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -45,9 +45,8 @@ public class ITStatelessViews {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        CoreDeployment deployment = new CoreDeployment(ITStatelessViews.class);
+        UIDeployment deployment = new UIDeployment(ITStatelessViews.class);
 
-        deployment.withWholeCore();
         deployment.addMavenDependency("org.richfaces:richfaces-a4j:4.5.0-SNAPSHOT");
 
         addIndexPage(deployment);
@@ -94,7 +93,7 @@ public class ITStatelessViews {
         assertEquals("stateless", update.getTextContent());
     }
 
-    private static void addIndexPage(CoreDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.stateless(true);

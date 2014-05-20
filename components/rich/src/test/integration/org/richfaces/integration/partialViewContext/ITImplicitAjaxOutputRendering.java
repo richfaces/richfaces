@@ -38,7 +38,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.CoreDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 /**
@@ -65,9 +65,8 @@ public class ITImplicitAjaxOutputRendering {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        CoreDeployment deployment = new CoreDeployment(ITImplicitAjaxOutputRendering.class);
+        UIDeployment deployment = new UIDeployment(ITImplicitAjaxOutputRendering.class);
 
-        deployment.withWholeCore();
         deployment.archive().addClasses(CounterBean.class);
 
         addIndexPage(deployment);
@@ -93,7 +92,7 @@ public class ITImplicitAjaxOutputRendering {
         assertThat(panel.getText(), equalTo("1"));
     }
 
-    private static void addIndexPage(CoreDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.form("<a4j:commandButton id='button' render='@this' />");

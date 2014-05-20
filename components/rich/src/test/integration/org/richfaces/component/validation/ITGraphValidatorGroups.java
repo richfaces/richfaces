@@ -24,7 +24,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.component.validation.GraphValidatorBean.MethodValidationGroup;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunWith(Arquillian.class)
@@ -40,7 +40,7 @@ public class ITGraphValidatorGroups {
 
     @Deployment
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITGraphValidatorGroups.class);
+        UIDeployment deployment = new UIDeployment(ITGraphValidatorGroups.class);
 
         deployment.archive().addClass(GraphValidatorBean.class);
         addIndexPage(deployment);
@@ -95,7 +95,7 @@ public class ITGraphValidatorGroups {
         assertThat(inputTextMsg.getText(), equalTo(""));
     }
 
-    private static void addIndexPage(FrameworkDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.form("<rich:graphValidator id='graphValidator'");

@@ -31,7 +31,8 @@ public class UIDeployment extends Deployment {
             String version = configuration.getRichFacesVersion();
             this.addMavenDependency(
                 "org.richfaces:richfaces-core:" + version,
-                "org.richfaces:richfaces-a4j:" + version);
+                "org.richfaces:richfaces-a4j:" + version,
+                "org.richfaces:richfaces:" + version);
         }
 
         archive().addAsWebInfResource(new File("src/test/resources/beans.xml"));
