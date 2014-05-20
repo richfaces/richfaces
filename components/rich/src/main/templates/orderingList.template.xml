@@ -102,7 +102,7 @@
                         wrapper="eventHandler" />
                     <cdk:scriptOption attributes="disabled" />
                 </cdk:scriptObject>
-                new RichFaces.rf4.ui.OrderingList("#{clientId}", #{toScriptArgs(options)});
+                new RichFaces.ui.OrderingList("#{clientId}", #{toScriptArgs(options)});
             </script>
         </div>
     </cc:implementation>

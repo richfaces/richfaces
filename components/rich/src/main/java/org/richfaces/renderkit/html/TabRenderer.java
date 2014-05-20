@@ -136,7 +136,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.rf4.ui.Tab", component.getClientId(context), getScriptObjectOptions(context, component));
+        return new JSObject("RichFaces.ui.Tab", component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override

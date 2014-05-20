@@ -1,7 +1,6 @@
 (function($, rf) {
-    
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+
+    rf.ui = rf.ui || {};
     
     var defaultOptions = {
         styleClass: '',
@@ -58,7 +57,7 @@
         if (!document.getElementById(defaultStackId)) {
             var stackElement = $('<span id="' + defaultStackId + '" class="rf-ntf-stck" />');
             $('body').append(stackElement);
-            new rf.rf4.ui.NotifyStack(defaultStackId);
+            new rf.ui.NotifyStack(defaultStackId);
         }
         return getStack(defaultStackId);
     };
@@ -77,7 +76,7 @@
         return array.push.apply(array, rest);
     };
     
-    rf.rf4.ui.Notify = function(options) {
+    rf.ui.Notify = function(options) {
         var options = $.extend({}, defaultOptions, options);
         
         if (typeof options.severity == "number") {

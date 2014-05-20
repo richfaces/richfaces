@@ -20,10 +20,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 (function($, rf) {
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.utils = rf.rf4.utils || {};
+    rf.utils = rf.utils || {};
 
-    rf.rf4.utils.addCSSText = function(cssText, elementId) {
+    rf.utils.addCSSText = function(cssText, elementId) {
         var style = $("<style></style>").attr({type: 'text/css', id: elementId}).appendTo("head");
         try {
             style.html(cssText);
@@ -33,13 +32,13 @@
         }
     };
     
-    rf.rf4.utils.getCSSRule = function (className) {
-        return rf.rf4.utils.findCSSRule(function(selectorText) {
+    rf.utils.getCSSRule = function (className) {
+        return rf.utils.findCSSRule(function(selectorText) {
             return selectorText.toLowerCase() == className.toLowerCase();
         });
     };
 
-    rf.rf4.utils.findCSSRule = function (selectFunction) {
+    rf.utils.findCSSRule = function (selectFunction) {
         var rule = null;
         var sheets = document.styleSheets;
         for (var j = 0; !rule && j < sheets.length; j++) {
@@ -58,11 +57,11 @@
         return rule;
     };
 
-    rf.rf4.utils.Ranges = function() {
+    rf.utils.Ranges = function() {
         this.ranges = [];
     };
 
-    rf.rf4.utils.Ranges.prototype = {
+    rf.utils.Ranges.prototype = {
 
         add: function(index) {
             var i = 0;
@@ -147,15 +146,15 @@
     var MIN_WIDTH = 20;
 
     rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.ExtendedDataTable = rf.BaseComponent.extendClass({
+    rf.ui.ExtendedDataTable = rf.BaseComponent.extendClass({
 
             name: "ExtendedDataTable",
 
             init: function (id, rowCount, ajaxFunction, options) {
                 $super.constructor.call(this, id);
-                this.ranges = new rf.rf4.utils.Ranges();
+                this.ranges = new rf.utils.Ranges();
                 this.rowCount = rowCount;
                 this.ajaxFunction = ajaxFunction;
                 this.options = options || {};
@@ -425,7 +424,7 @@
                 }
                 this.bodyElement = document.getElementById(this.id + ":b");
                 this.bodyElement.tabIndex = -1; //TODO don't use tabIndex.
-                this.normalPartStyle = rf.rf4.utils.getCSSRule("div.rf-edt-cnt").style;
+                this.normalPartStyle = rf.utils.getCSSRule("div.rf-edt-cnt").style;
                 var bodyJQuery = $(this.bodyElement);
                 this.contentElement = bodyJQuery.children("div:not(.rf-edt-ndt):first")[0];
                 if (this.contentElement) {
@@ -880,5 +879,5 @@
             }
         });
 
-    var $super = rf.rf4.ui.ExtendedDataTable.$super;
+    var $super = rf.ui.ExtendedDataTable.$super;
 }(RichFaces.jQuery, window.RichFaces));

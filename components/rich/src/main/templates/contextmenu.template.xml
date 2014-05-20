@@ -49,7 +49,7 @@
                     </cdk:scriptObject>
 
                     new
-                    RichFaces.rf4.ui.ContextMenu(#{toScriptArgs(clientId,
+                    RichFaces.ui.ContextMenu(#{toScriptArgs(clientId,
                     options)}).initiateGroups(#{toScriptArgs(getMenuGroups(facesContext, component))});
 
                 </script>

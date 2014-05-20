@@ -166,7 +166,7 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.rf4.ui.Tooltip", component.getClientId(context), getScriptObjectOptions(context, component));
+        return new JSObject("RichFaces.ui.Tooltip", component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override

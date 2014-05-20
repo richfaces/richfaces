@@ -3,7 +3,7 @@
   <span id="placeholderID">
     <script id="placeholderIDScript" type="text/javascript">
 //<![CDATA[
-new RichFaces.rf4.ui.Placeholder("placeholderID", {"selector":"[id=input\u005D","text":"Placeholder Text"} );
+new RichFaces.ui.Placeholder("placeholderID", {"selector":"[id=input\u005D","text":"Placeholder Text"} );
 //]]>
     </script>
   </span>

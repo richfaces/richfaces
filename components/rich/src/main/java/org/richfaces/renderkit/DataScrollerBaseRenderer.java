@@ -300,7 +300,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
     public void buildScript(ResponseWriter writer, FacesContext context, UIComponent component, Map<?, ?> buttons, Map<?, ?> digitals)
         throws IOException {
 
-        JSFunction function = new JSFunction("new RichFaces.rf4.ui.DataScroller");
+        JSFunction function = new JSFunction("new RichFaces.ui.DataScroller");
         function.addParameter(component.getClientId(context));
 
         Map<String, Object> options = new HashMap<String, Object>();

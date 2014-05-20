@@ -48,7 +48,7 @@
                     <cdk:scriptOption variables="clientEventHandlers" />
                 </cdk:scriptObject>
 
-                new RichFaces.rf4.ui.Tree(#{toScriptArgs(clientId, options)});
+                new RichFaces.ui.Tree(#{toScriptArgs(clientId, options)});
             </script>
         </div>
     </cc:implementation>

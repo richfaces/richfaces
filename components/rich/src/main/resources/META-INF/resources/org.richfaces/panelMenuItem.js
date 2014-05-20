@@ -23,8 +23,7 @@
 
 (function ($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
     var __DEFAULT_OPTIONS = {
         disabled : false,
@@ -136,7 +135,7 @@
         }
     };
 
-    rf.rf4.ui.PanelMenuItem = rf.BaseComponent.extendClass({
+    rf.ui.PanelMenuItem = rf.BaseComponent.extendClass({
             // class name
             name:"PanelMenuItem",
 
@@ -350,5 +349,5 @@
         });
 
     // define super class link
-    var $super = rf.rf4.ui.PanelMenuItem.$super;
+    var $super = rf.ui.PanelMenuItem.$super;
 })(RichFaces.jQuery, RichFaces);

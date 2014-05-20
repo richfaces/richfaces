@@ -1,7 +1,7 @@
 module("sortTabindex");
 
 test("sortTabindexNums", function() {
-    var sortTabindexNums = RichFaces.rf4.ui.Focus.__fn['sortTabindexNums'];
+    var sortTabindexNums = RichFaces.ui.Focus.__fn['sortTabindexNums'];
     ok("sortTabindexNums is exposed to be testable", sortTabindexNums);
     
     equal(sortTabindexNums(undefined, undefined), 0, "both are undefined");
@@ -13,7 +13,7 @@ test("sortTabindexNums", function() {
 });
 
 test("searchCommonParent", function() {
-    var searchCommonParent = RichFaces.rf4.ui.Focus.__fn['searchCommonParent'];
+    var searchCommonParent = RichFaces.ui.Focus.__fn['searchCommonParent'];
     ok("searchCommonParent is exposed to be testable", searchCommonParent);
     
     var x = document.getElementById('x');
@@ -29,7 +29,7 @@ test("searchCommonParent", function() {
 });
 
 test("sortByDOMOrder", function() {
-    var sortByDOMOrder = RichFaces.rf4.ui.Focus.__fn['sortByDOMOrder'];
+    var sortByDOMOrder = RichFaces.ui.Focus.__fn['sortByDOMOrder'];
     ok("sortByDOMOrder is exposed to be testable", sortByDOMOrder);
     
     var x = document.getElementById('x');
@@ -47,7 +47,7 @@ test("sortByDOMOrder", function() {
 });
 
 test("sortTabindex", function() {
-    var sortTabindex = RichFaces.rf4.ui.Focus.__fn['sortTabindex'];
+    var sortTabindex = RichFaces.ui.Focus.__fn['sortTabindex'];
     ok("sortTabindex is exposed to be testable", sortTabindex);
     
     var fixture = $("#qunit-fixture");
@@ -74,7 +74,7 @@ test("sortTabindex", function() {
 });
 
 test("jQuery.sort using sortTabindex", function() {
-    var sortTabindex = RichFaces.rf4.ui.Focus.__fn['sortTabindex'];
+    var sortTabindex = RichFaces.ui.Focus.__fn['sortTabindex'];
     ok("sortTabindex is exposed to be testable", sortTabindex);
     
     var fixture = $("#qunit-fixture");

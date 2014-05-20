@@ -8,8 +8,7 @@
 
 (function($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
     var defaultIndicatorClasses = {
         rejectClass : "rf-ind-rejt",
@@ -20,7 +19,7 @@
     var defaultOptions = {
     };
 
-    rf.rf4.ui.Droppable = function(id, options) {
+    rf.ui.Droppable = function(id, options) {
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
         $super.constructor.call(this, id);
@@ -46,11 +45,11 @@
 
     };
 
-    rf.BaseNonVisualComponent.extend(rf.rf4.ui.Droppable);
+    rf.BaseNonVisualComponent.extend(rf.ui.Droppable);
 
-    var $super = rf.rf4.ui.Droppable.$super;
+    var $super = rf.ui.Droppable.$super;
 
-    $.extend(rf.rf4.ui.Droppable.prototype, (function() {
+    $.extend(rf.ui.Droppable.prototype, (function() {
         return {
             drop : function(e) {
                 var ui = e.rf.data;

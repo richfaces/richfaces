@@ -1,16 +1,15 @@
 (function ($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.InplaceSelect = function(id, options) {
+    rf.ui.InplaceSelect = function(id, options) {
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
         this.getInput().bind("click", $.proxy(this.__clickHandler, this));
         mergedOptions['attachTo'] = id;
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
         mergedOptions['focusKeeperEnabled'] = false;
-        this.popupList = new rf.rf4.ui.PopupList(id + "List", this, mergedOptions);
+        this.popupList = new rf.ui.PopupList(id + "List", this, mergedOptions);
         this.list = this.popupList.__getList();
         this.clientSelectItems = mergedOptions.clientSelectItems;
         this.selValueInput = $(document.getElementById(id + "selValue"));
@@ -26,8 +25,8 @@
         this.inputItemWidth = this.inputItem.width();
         this.inputWidthDefined = options.inputWidth !== undefined;
     };
-    rf.rf4.ui.InplaceInput.extend(rf.rf4.ui.InplaceSelect);
-    var $super = rf.rf4.ui.InplaceSelect.$super;
+    rf.ui.InplaceInput.extend(rf.ui.InplaceSelect);
+    var $super = rf.ui.InplaceSelect.$super;
 
     var defaultOptions = {
         defaultLabel: "",
@@ -42,7 +41,7 @@
         changedCss: "rf-is-chng"
     };
 
-    $.extend(rf.rf4.ui.InplaceSelect.prototype, (function () {
+    $.extend(rf.ui.InplaceSelect.prototype, (function () {
 
         return{
             name : "inplaceSelect",

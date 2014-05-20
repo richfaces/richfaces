@@ -5,10 +5,9 @@
      * TODO: add fire events
      */
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
     // Constructor definition
-    rf.rf4.ui.Autocomplete = function(componentId, fieldId, options) {
+    rf.ui.Autocomplete = function(componentId, fieldId, options) {
         this.namespace = "." + rf.Event.createNamespace(this.name, componentId);
         this.options = {};
         // call constructor of parent class
@@ -26,10 +25,10 @@
     };
 
     // Extend component class and add protected methods from parent class to our container
-    rf.rf4.ui.AutocompleteBase.extend(rf.rf4.ui.Autocomplete);
+    rf.ui.AutocompleteBase.extend(rf.ui.Autocomplete);
 
     // define super class link
-    var $super = rf.rf4.ui.Autocomplete.$super;
+    var $super = rf.ui.Autocomplete.$super;
 
     var defaultOptions = {
         itemClass:'rf-au-itm',
@@ -70,7 +69,7 @@
             var escapedTokens = this.options.tokens.split('').join("\\");
             this.REGEXP_TOKEN_RIGHT = new RegExp('[' + escapedTokens + ']', 'i');
             this.getLastTokenIndex = function(value) {
-                return RichFaces.rf4.ui.Autocomplete.__getLastTokenIndex(escapedTokens, value);
+                return RichFaces.ui.Autocomplete.__getLastTokenIndex(escapedTokens, value);
             }
         }
     };
@@ -406,7 +405,7 @@
     /*
      * Prototype definition
      */
-    $.extend(rf.rf4.ui.Autocomplete.prototype, (function () {
+    $.extend(rf.ui.Autocomplete.prototype, (function () {
         return {
             /*
              * public API functions
@@ -492,7 +491,7 @@
         };
     })());
 
-    $.extend(rf.rf4.ui.Autocomplete, {
+    $.extend(rf.ui.Autocomplete, {
             setData: function (id, data) {
                 $(rf.getDomElement(id)).data({componentData:data});
             },

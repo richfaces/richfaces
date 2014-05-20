@@ -22,10 +22,9 @@
 
 (function ($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.AccordionItem = rf.rf4.ui.TogglePanelItem.extendClass({
+    rf.ui.AccordionItem = rf.ui.TogglePanelItem.extendClass({
             // class name
             name:"AccordionItem",
 
@@ -131,5 +130,5 @@
         });
 
     // define super class link
-    var $super = rf.rf4.ui.AccordionItem.$super;
+    var $super = rf.ui.AccordionItem.$super;
 })(RichFaces.jQuery, RichFaces);

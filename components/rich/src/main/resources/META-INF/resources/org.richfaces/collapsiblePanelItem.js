@@ -22,15 +22,14 @@
 
 (function ($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
     var DEFAULT_OPTIONS = {switchMode: 'ajax'};
 
-    rf.rf4.ui.CollapsiblePanelItem = rf.rf4.ui.TogglePanelItem.extendClass({
+    rf.ui.CollapsiblePanelItem = rf.ui.TogglePanelItem.extendClass({
 
             init : function (componentId, options) {
-                rf.rf4.ui.TogglePanelItem.call(this, componentId, $.extend({}, DEFAULT_OPTIONS, options));
+                rf.ui.TogglePanelItem.call(this, componentId, $.extend({}, DEFAULT_OPTIONS, options));
 
                 this.headerClass = "rf-cp-hdr-" + this.__state();
             },

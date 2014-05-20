@@ -7,7 +7,7 @@
     </span>
     <script type="text/javascript">
         //<![CDATA[
-    new RichFaces.rf4.ui.MenuItem("form:menuItem",{"mode":"ajax","submitFunction":function(event){RichFaces.ajax("form:menuItem",event,{"incId":"1"} );return false;}} );
+    new RichFaces.ui.MenuItem("form:menuItem",{"mode":"ajax","submitFunction":function(event){RichFaces.ajax("form:menuItem",event,{"incId":"1"} );return false;}} );
  //]]>
     </script>
 </div>

@@ -1,6 +1,5 @@
 (function($, rf) {
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
     var defaultOptions = {
         showEvent : 'mouseenter',
         direction : "AA",
@@ -9,7 +8,7 @@
         showDelay : 300
     }
     // constructor definition
-    rf.rf4.ui.MenuGroup = function(componentId, options) {
+    rf.ui.MenuGroup = function(componentId, options) {
         this.id = componentId;
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
@@ -28,14 +27,14 @@
 
     };
 
-    rf.rf4.ui.MenuBase.extend(rf.rf4.ui.MenuGroup);
+    rf.ui.MenuBase.extend(rf.ui.MenuGroup);
 
     // define super class link
-    var $super = rf.rf4.ui.MenuGroup.$super;
+    var $super = rf.ui.MenuGroup.$super;
 
-    $.extend(rf.rf4.ui.MenuGroup.prototype, rf.rf4.ui.MenuKeyNavigation);
+    $.extend(rf.ui.MenuGroup.prototype, rf.ui.MenuKeyNavigation);
 
-    $.extend(rf.rf4.ui.MenuGroup.prototype, (function() {
+    $.extend(rf.ui.MenuGroup.prototype, (function() {
         return {
             name : "MenuGroup",
             show : function() {

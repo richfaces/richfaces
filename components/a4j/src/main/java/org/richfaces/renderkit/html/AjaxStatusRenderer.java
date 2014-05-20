@@ -178,7 +178,7 @@ public class AjaxStatusRenderer extends RendererBase {
         writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.TEXT_JAVASCRIPT_TYPE, null);
 
-        JSFunction statusConstructor = new JSFunction("new RichFaces.rf4.ui.Status", clientId);
+        JSFunction statusConstructor = new JSFunction("new RichFaces.ui.Status", clientId);
 
         Map<String, Object> options = new HashMap<String, Object>();
 

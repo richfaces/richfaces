@@ -1,9 +1,8 @@
 (function ($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.InputBase = function(id, options) {
+    rf.ui.InputBase = function(id, options) {
         $super.constructor.call(this, id);
         this.namespace = this.getNamespace() || "." + rf.Event.createNamespace(this.getName(), this.getId());
 
@@ -20,12 +19,12 @@
         rf.Event.bind(this.input, inputEventHandlers, this);
     };
 
-    rf.BaseComponent.extend(rf.rf4.ui.InputBase);
+    rf.BaseComponent.extend(rf.ui.InputBase);
 
     // define super class link
-    var $super = rf.rf4.ui.InputBase.$super;
+    var $super = rf.ui.InputBase.$super;
 
-    $.extend(rf.rf4.ui.InputBase.prototype, ( function () {
+    $.extend(rf.ui.InputBase.prototype, ( function () {
 
         return {
 

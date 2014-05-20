@@ -114,7 +114,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.rf4.ui.CollapsiblePanel", component.getClientId(context), getScriptObjectOptions(context,
+        return new JSObject("RichFaces.ui.CollapsiblePanel", component.getClientId(context), getScriptObjectOptions(context,
             component));
     }
 

@@ -176,7 +176,7 @@
                                       wrapper="eventHandler" />
                     <cdk:scriptOption attributes="disabled switchByClick switchByDblClick" />
                 </cdk:scriptObject>
-                new RichFaces.rf4.ui.PickList("#{clientId}", #{toScriptArgs(options)});
+                new RichFaces.ui.PickList("#{clientId}", #{toScriptArgs(options)});
             </script>
         </div>
     </cc:implementation>

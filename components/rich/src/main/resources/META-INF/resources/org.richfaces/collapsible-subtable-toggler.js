@@ -1,9 +1,8 @@
 (function ($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.CollapsibleSubTableToggler = function(id, options) {
+    rf.ui.CollapsibleSubTableToggler = function(id, options) {
         this.id = id;
         this.eventName = options.eventName;
         this.expandedControl = options.expandedControl;
@@ -16,7 +15,7 @@
         }
     };
 
-    $.extend(rf.rf4.ui.CollapsibleSubTableToggler.prototype, (function () {
+    $.extend(rf.ui.CollapsibleSubTableToggler.prototype, (function () {
 
         var getElementById = function(id) {
             return $(document.getElementById(id))
@@ -29,7 +28,7 @@
                 if (subtable) {
                     var mode = subtable.getMode();
 
-                    if (rf.rf4.ui.CollapsibleSubTable.MODE_CLNT == mode) {
+                    if (rf.ui.CollapsibleSubTable.MODE_CLNT == mode) {
                         this.toggleControl(subtable.isExpanded());
                     }
 

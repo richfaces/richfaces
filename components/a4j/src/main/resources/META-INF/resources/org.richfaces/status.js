@@ -97,10 +97,9 @@
         }
     };
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.Status = rf.BaseComponent.extendClass({
+    rf.ui.Status = rf.BaseComponent.extendClass({
 
             name: "Status",
 

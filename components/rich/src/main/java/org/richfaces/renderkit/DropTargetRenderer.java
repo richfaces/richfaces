@@ -159,6 +159,6 @@ public class DropTargetRenderer extends DnDRenderBase {
 
     @Override
     public String getScriptName() {
-        return "new RichFaces.rf4.ui.Droppable";
+        return "new RichFaces.ui.Droppable";
     }
 }

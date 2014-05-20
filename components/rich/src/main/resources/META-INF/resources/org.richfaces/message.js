@@ -1,10 +1,9 @@
 (function($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
     
     // Constructor definition
-    rf.rf4.ui.Message = function(componentId, options) {
+    rf.ui.Message = function(componentId, options) {
         // call constructor of parent class
         $super.constructor.call(this, componentId, options, defaultOptions);
         if (this.options.isMessages) {
@@ -19,10 +18,10 @@
     };
 
     // Extend component class and add protected methods from parent class to our container
-    rf.ui.Base.extend(rf.rf4.ui.Message);
+    rf.ui.Base.extend(rf.ui.Message);
 
     // define super class link
-    var $super = rf.rf4.ui.Message.$super;
+    var $super = rf.ui.Message.$super;
 
     var defaultOptions = {
         showSummary:true,
@@ -38,7 +37,7 @@
         var message = data.message;
         if (!this.options.forComponentId) {
             if (!message || this.options.globalOnly) {
-                // rf.rf4.csv.clearMessage
+                // rf.csv.clearMessage
                 var element;
                 while (element = rf.getDomElement(this.id + ':' + sourceId)) {
                     $(element).remove();
@@ -75,7 +74,7 @@
         rf.Event.bind(window.document, rf.Event.MESSAGE_EVENT_TYPE + this.namespace, onMessage, this);
     };
 
-    $.extend(rf.rf4.ui.Message.prototype, {
+    $.extend(rf.ui.Message.prototype, {
             name: "Message",
             __bindEventHandlers: bindEventHandlers,
             

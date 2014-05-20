@@ -1,7 +1,6 @@
 (function ($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
     var selectionEventHandler = function(event) {
         event.stopPropagation();
         event.preventDefault();
@@ -47,7 +46,7 @@
     };
 
 
-    rf.rf4.ui.PopupPanel = function(id, options) {
+    rf.ui.PopupPanel = function(id, options) {
 
         $super.constructor.call(this, id);
         this.markerId = id;
@@ -74,28 +73,28 @@
         this.borders = new Array();
         this.firstHref = $(rf.getDomElement(id + "FirstHref"));
         if (this.options.resizeable) {
-            this.borders.push(new rf.rf4.ui.PopupPanel.Border(id + "ResizerN", this, "N-resize", rf.rf4.ui.PopupPanel.Sizer.N));
-            this.borders.push(new rf.rf4.ui.PopupPanel.Border(id + "ResizerE", this, "E-resize", rf.rf4.ui.PopupPanel.Sizer.E));
-            this.borders.push(new rf.rf4.ui.PopupPanel.Border(id + "ResizerS", this, "S-resize", rf.rf4.ui.PopupPanel.Sizer.S));
-            this.borders.push(new rf.rf4.ui.PopupPanel.Border(id + "ResizerW", this, "W-resize", rf.rf4.ui.PopupPanel.Sizer.W));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerN", this, "N-resize", rf.ui.PopupPanel.Sizer.N));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerE", this, "E-resize", rf.ui.PopupPanel.Sizer.E));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerS", this, "S-resize", rf.ui.PopupPanel.Sizer.S));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerW", this, "W-resize", rf.ui.PopupPanel.Sizer.W));
 
-            this.borders.push(new rf.rf4.ui.PopupPanel.Border(id + "ResizerNW", this, "NW-resize", rf.rf4.ui.PopupPanel.Sizer.NW));
-            this.borders.push(new rf.rf4.ui.PopupPanel.Border(id + "ResizerNE", this, "NE-resize", rf.rf4.ui.PopupPanel.Sizer.NE));
-            this.borders.push(new rf.rf4.ui.PopupPanel.Border(id + "ResizerSE", this, "SE-resize", rf.rf4.ui.PopupPanel.Sizer.SE));
-            this.borders.push(new rf.rf4.ui.PopupPanel.Border(id + "ResizerSW", this, "SW-resize", rf.rf4.ui.PopupPanel.Sizer.SW));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerNW", this, "NW-resize", rf.ui.PopupPanel.Sizer.NW));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerNE", this, "NE-resize", rf.ui.PopupPanel.Sizer.NE));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerSE", this, "SE-resize", rf.ui.PopupPanel.Sizer.SE));
+            this.borders.push(new rf.ui.PopupPanel.Border(id + "ResizerSW", this, "SW-resize", rf.ui.PopupPanel.Sizer.SW));
         }
 
         if (this.options.moveable && rf.getDomElement(id + "_header")) {
-            this.header = new rf.rf4.ui.PopupPanel.Border(id + "_header", this, "move", rf.rf4.ui.PopupPanel.Sizer.Header);
+            this.header = new rf.ui.PopupPanel.Border(id + "_header", this, "move", rf.ui.PopupPanel.Sizer.Header);
         } else {
             $(rf.getDomElement(id + "_header")).css('cursor', 'default');
         }
 
     };
 
-    rf.BaseComponent.extend(rf.rf4.ui.PopupPanel);
-    var $super = rf.rf4.ui.PopupPanel.$super;
-    $.extend(rf.rf4.ui.PopupPanel.prototype, (function (options) {
+    rf.BaseComponent.extend(rf.ui.PopupPanel);
+    var $super = rf.ui.PopupPanel.$super;
+    $.extend(rf.ui.PopupPanel.prototype, (function (options) {
 
         return {
 
@@ -691,7 +690,7 @@
             setSize : function (width, height) {
                 var w = width - this.width();
                 var h = height - this.height();
-                var diff = new rf.rf4.ui.PopupPanel.Sizer.Diff(0, 0, w, h);
+                var diff = new rf.ui.PopupPanel.Sizer.Diff(0, 0, w, h);
                 this.doResizeOrMove(diff);
             },
 
@@ -701,12 +700,12 @@
             },
 
             move : function (dx, dy) {
-                var diff = new rf.rf4.ui.PopupPanel.Sizer.Diff(dx, dy, 0, 0);
+                var diff = new rf.ui.PopupPanel.Sizer.Diff(dx, dy, 0, 0);
                 this.doResizeOrMove(diff);
             },
 
             resize : function (dx, dy) {
-                var diff = new rf.rf4.ui.PopupPanel.Sizer.Diff(0, 0, dx, dy);
+                var diff = new rf.ui.PopupPanel.Sizer.Diff(0, 0, dx, dy);
                 this.doResizeOrMove(diff);
             },
 
@@ -753,7 +752,7 @@
         }
 
     })());
-    $.extend(rf.rf4.ui.PopupPanel, {
+    $.extend(rf.ui.PopupPanel, {
 
             showPopupPanel : function (id, opts, event) {
                 rf.Event.ready(function() {

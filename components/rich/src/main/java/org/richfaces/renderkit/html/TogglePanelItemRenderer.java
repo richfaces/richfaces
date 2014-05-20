@@ -74,7 +74,7 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.rf4.ui.TogglePanelItem", component.getClientId(context), getScriptObjectOptions(context,
+        return new JSObject("RichFaces.ui.TogglePanelItem", component.getClientId(context), getScriptObjectOptions(context,
             component));
     }
 

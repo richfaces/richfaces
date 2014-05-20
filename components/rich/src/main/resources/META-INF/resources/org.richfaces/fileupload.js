@@ -21,10 +21,9 @@
  */
 (function($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.FileUpload = function(id, options) {
+    rf.ui.FileUpload = function(id, options) {
         this.id = id;
         this.items = [];
         this.submitedItems = [];
@@ -103,7 +102,7 @@
         $(this).children(":first").css("background-position", "2px 2px").css("padding", "3px 5px 3px 21px");
     };
 
-    rf.BaseComponent.extend(rf.rf4.ui.FileUpload);
+    rf.BaseComponent.extend(rf.ui.FileUpload);
 
     function TypeRejectedException(fileName) {
         this.name = "TypeRejectedException";
@@ -111,7 +110,7 @@
         this.fileName = fileName;
     }
 
-    $.extend(rf.rf4.ui.FileUpload.prototype, (function () {
+    $.extend(rf.ui.FileUpload.prototype, (function () {
 
         return {
             name: "FileUpload",

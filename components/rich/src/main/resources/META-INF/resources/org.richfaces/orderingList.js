@@ -1,16 +1,15 @@
 (function ($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.OrderingList = function(id, options) {
+    rf.ui.OrderingList = function(id, options) {
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
         this.attachToDom();
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items"));
         this.orderingList = $(document.getElementById(id));
-        this.list = new rf.rf4.ui.ListMulti(id+ "List", mergedOptions);
+        this.list = new rf.ui.ListMulti(id+ "List", mergedOptions);
         var hiddenId = mergedOptions['hiddenId'] ===null ? id + "SelValue" : mergedOptions['hiddenId'];
         this.hiddenValues = $(document.getElementById(hiddenId));
         this.selectItemCss = mergedOptions['selectItemCss'];
@@ -46,8 +45,8 @@
         // TODO: Is there a "Richfaces way" of executing a method after page load?
         $(document).ready($.proxy(this.toggleButtons, this));
     };
-    rf.BaseComponent.extend(rf.rf4.ui.OrderingList);
-    var $super = rf.rf4.ui.OrderingList.$super;
+    rf.BaseComponent.extend(rf.ui.OrderingList);
+    var $super = rf.ui.OrderingList.$super;
 
     var defaultOptions = {
         defaultLabel: "",
@@ -82,7 +81,7 @@
     };
 
 
-    $.extend(rf.rf4.ui.OrderingList.prototype, (function () {
+    $.extend(rf.ui.OrderingList.prototype, (function () {
 
         return {
             name : "ordList",

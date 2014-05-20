@@ -69,7 +69,7 @@
                     <cdk:scriptOption attributes="showControl defaultLabel enableManualInput selectFirst disabled" />
                     <cdk:scriptOption name="filterFunction" value="#{getClientFilterFunction(component)}" />
                 </cdk:scriptObject>
-                new RichFaces.rf4.ui.Select("#{clientId}", #{toScriptArgs(options)});
+                new RichFaces.ui.Select("#{clientId}", #{toScriptArgs(options)});
             </script>
         </div>
     </cc:implementation>

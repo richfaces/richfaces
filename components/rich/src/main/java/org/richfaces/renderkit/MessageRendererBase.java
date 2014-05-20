@@ -231,7 +231,7 @@ public class MessageRendererBase extends RendererBase {
     }
 
     protected String getJSClassName() {
-        return "RichFaces.rf4.ui.Message";
+        return "RichFaces.ui.Message";
     }
 
     protected void encodeScript(FacesContext facesContext, UIComponent component) throws IOException {

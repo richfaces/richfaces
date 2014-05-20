@@ -19,7 +19,7 @@
                     <cdk:scriptOption name="selector" value="#{getEscapedSelector(facesContext, component)}" />
                     <cdk:scriptOption wrapper="eventHandler" attributes="onkeydown onkeyup" />
                 </cdk:scriptObject>
-				new RichFaces.rf4.ui.HotKey("#{clientId}",  #{toScriptArgs(options)});
+				new RichFaces.ui.HotKey("#{clientId}",  #{toScriptArgs(options)});
             </script>
         </span>
     </cc:implementation>

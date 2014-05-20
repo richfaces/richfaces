@@ -112,7 +112,7 @@
                         <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onselectitem onchange onblur onfocus"
                             wrapper="eventHandler" />
                     </cdk:scriptObject>
-                    new RichFaces.rf4.ui.InplaceSelect("#{clientId}", #{toScriptArgs(options)});
+                    new RichFaces.ui.InplaceSelect("#{clientId}", #{toScriptArgs(options)});
                 </script>
             </c:if>
         </span>

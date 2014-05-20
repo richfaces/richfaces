@@ -80,9 +80,9 @@
             </cdk:scriptObject>
 
             <script type="text/javascript">
-                new RichFaces.rf4.ui.PopupPanel(#{toScriptArgs(clientId, options)});
+                new RichFaces.ui.PopupPanel(#{toScriptArgs(clientId, options)});
                 <c:if test="#{component.attributes['show'] != false}">
-                    RichFaces.rf4.ui.PopupPanel.showPopupPanel(#{toScriptArgs(clientId,
+                    RichFaces.ui.PopupPanel.showPopupPanel(#{toScriptArgs(clientId,
                     getHandledVisualOptions(component))});
                 </c:if>
             </script>

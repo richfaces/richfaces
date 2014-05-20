@@ -21,7 +21,7 @@
             </tr>
         </table>
         <script type="text/javascript">
-            RichFaces.rf4.ui.toolbarHandlers(#{toScriptArgs(getOptions(component))});
+            RichFaces.ui.toolbarHandlers(#{toScriptArgs(getOptions(component))});
         </script>
     </cc:implementation>
 </cdk:root>

@@ -1,10 +1,8 @@
 (function($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
-    //rf.rf4.ui.MenuKeyNavigation = rf.rf4.ui.MenuKeyNavigation || {};
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.MenuKeyNavigation = {
+    rf.ui.MenuKeyNavigation = {
 
         __updateItemsList : function() {
             var items = $('.' + this.options.cssClasses.listContainerCss + ':first',
@@ -127,7 +125,7 @@
                 code = e.which;
             }
 
-            activeMenu = rf.rf4.ui.MenuManager.getActiveSubMenu();
+            activeMenu = rf.ui.MenuManager.getActiveSubMenu();
 
             if (this.popup.isVisible()) {
                 switch (code) {

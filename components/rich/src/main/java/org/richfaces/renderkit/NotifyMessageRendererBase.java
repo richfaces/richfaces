@@ -49,7 +49,7 @@ import com.google.common.collect.ImmutableMap.Builder;
 public class NotifyMessageRendererBase extends MessageRendererBase {
     @Override
     protected String getJSClassName() {
-        return "RichFaces.rf4.ui.NotifyMessage";
+        return "RichFaces.ui.NotifyMessage";
     }
 
     protected void encodeScript(FacesContext facesContext, UIComponent component, Map<String, Object> options)
@@ -95,7 +95,7 @@ public class NotifyMessageRendererBase extends MessageRendererBase {
             throws IOException {
         JavaScriptService javaScriptService = ServiceTracker.getService(JavaScriptService.class);
         for (MessageForRender message : getVisibleMessages(facesContext, component)) {
-            JSFunction notifyCall = new JSFunction("RichFaces.rf4.ui.Notify");
+            JSFunction notifyCall = new JSFunction("RichFaces.ui.Notify");
             Map<String, Object> optionsCopy = new LinkedHashMap<String, Object>(options);
             addMessageSpecificAttributes(message, facesContext, component, optionsCopy);
             notifyCall.addParameter(optionsCopy);

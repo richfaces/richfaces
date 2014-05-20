@@ -799,7 +799,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         addToScriptHash(options, "onready",
             RenderKitUtils.getAttributeAndBehaviorsValue(context, component, EVENT_ATTRIBUTES.get("onready")),
             null, ScriptHashVariableWrapper.eventHandler);
-        StringBuilder builder = new StringBuilder("new RichFaces.rf4.ui.ExtendedDataTable('");
+        StringBuilder builder = new StringBuilder("new RichFaces.ui.ExtendedDataTable('");
         builder.append(clientId).append("', ").append(getRowCount(component)).append(", function(event, clientParams) {")
             .append(ajaxFunction.toScript()).append(";}");
         if (!options.isEmpty()) {
@@ -839,7 +839,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.TEXT_JAVASCRIPT_TYPE, null);
 
             String cssText = getCSSText(context, table);
-            JSFunction function = new JSFunction("RichFaces.rf4.utils.addCSSText", cssText, table.getClientId(context) + ":st");
+            JSFunction function = new JSFunction("RichFaces.utils.addCSSText", cssText, table.getClientId(context) + ":st");
 
             writer.writeText(function.toScript(), null);
 

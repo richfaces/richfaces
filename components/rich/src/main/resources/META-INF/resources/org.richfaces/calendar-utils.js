@@ -1,7 +1,6 @@
 (function ($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.calendarUtils = rf.rf4.calendarUtils || {};
+    rf.calendarUtils = rf.calendarUtils || {};
 
     var getDefaultMonthNames = function(shortNames) {
         return (shortNames
@@ -9,7 +8,7 @@
             : ['January','February','March','April','May','June','July','August','September','October','November','December']);
     };
 
-    $.extend(rf.rf4.calendarUtils, {
+    $.extend(rf.calendarUtils, {
             // TODO: rewrite this function or use the same function if exists
             /*clonePosition: function (elements, source)
              {
@@ -372,10 +371,9 @@
 
         });
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.calendarTemplates = rf.rf4.calendarTemplates || {};
+    rf.calendarTemplates = rf.calendarTemplates || {};
 
-    $.extend(rf.rf4.calendarTemplates, (function () {
+    $.extend(rf.calendarTemplates, (function () {
 
         var VARIABLE_NAME_PATTERN = /^\s*[_,A-Z,a-z][\w,_\.]*\s*$/;
 

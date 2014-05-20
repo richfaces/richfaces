@@ -91,9 +91,9 @@
                         <cdk:scriptOption name="styleClass" value="#{component.attributes['popupClass']}" />
                     </cdk:scriptObject>
 
-                    RichFaces.rf4.ui.Calendar.addLocale("#{getAsLocale(facesContext, component).toString()}",
+                    RichFaces.ui.Calendar.addLocale("#{getAsLocale(facesContext, component).toString()}",
                     #{toScriptArgs(getLocaleOptions(facesContext, component))});
-                    new RichFaces.rf4.ui.Calendar("#{clientId}",
+                    new RichFaces.ui.Calendar("#{clientId}",
                     "#{getAsLocale(facesContext, component).toString()}",
                     #{toScriptArgs(options)}).load(#{writePreloadBody(facesContext, component)});
 

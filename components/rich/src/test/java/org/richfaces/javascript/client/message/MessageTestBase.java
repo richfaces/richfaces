@@ -89,7 +89,7 @@ public class MessageTestBase {
      * @return the messageInit
      */
     public String getMessageInit(String messageOptions) {
-        return "new RichFaces.rf4.ui.Message(\"" + MY_MESSAGE + "\", {forComponentId:\"" + COMPONENT + "\"" + messageOptions + "})";
+        return "new RichFaces.ui.Message(\"" + MY_MESSAGE + "\", {forComponentId:\"" + COMPONENT + "\"" + messageOptions + "})";
     }
 
     protected void checkMessageContent(String summary) {

@@ -270,7 +270,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.rf4.ui.TabPanel", component.getClientId(context), getScriptObjectOptions(context, component));
+        return new JSObject("RichFaces.ui.TabPanel", component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override

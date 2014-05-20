@@ -93,7 +93,7 @@ public class PanelMenuRenderer extends DivPanelRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.rf4.ui.PanelMenu", component.getClientId(context),
+        return new JSObject("RichFaces.ui.PanelMenu", component.getClientId(context),
             getScriptObjectOptions(context, component));
     }
 

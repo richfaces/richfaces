@@ -22,10 +22,9 @@
 
 (function ($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.Popup = function(id, options) {
+    rf.ui.Popup = function(id, options) {
         $super.constructor.call(this, id);
         this.options = $.extend({}, defaultOptions, options);
         this.positionOptions = {type: this.options.positionType, from:this.options.jointPoint, to:this.options.direction, offset: this.options.positionOffset};
@@ -39,14 +38,14 @@
         this.positionOffset = this.options.positionOffset;
     };
 
-    rf.BaseComponent.extend(rf.rf4.ui.Popup);
-    var $super = rf.rf4.ui.Popup.$super;
+    rf.BaseComponent.extend(rf.ui.Popup);
+    var $super = rf.ui.Popup.$super;
 
     var defaultOptions = {
         visible: false
     };
 
-    $.extend(rf.rf4.ui.Popup.prototype, {
+    $.extend(rf.ui.Popup.prototype, {
 
             name : "popup",
 

@@ -1,6 +1,5 @@
 (function($, rf) {
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
     var defaultOptions = {
         mode : "server",
@@ -10,7 +9,7 @@
 
     // constructor definition
 
-    rf.rf4.ui.MenuItem = function(componentId, options) {
+    rf.ui.MenuItem = function(componentId, options) {
         this.options = {};
         $.extend(this.options, defaultOptions, options || {});
         $super.constructor.call(this, componentId);
@@ -33,12 +32,12 @@
         return cssClasses;
     }
 
-    rf.BaseComponent.extend(rf.rf4.ui.MenuItem);
+    rf.BaseComponent.extend(rf.ui.MenuItem);
 
     // define super class link
-    var $super = rf.rf4.ui.MenuItem.$super;
+    var $super = rf.ui.MenuItem.$super;
 
-    $.extend(rf.rf4.ui.MenuItem.prototype, (function() {
+    $.extend(rf.ui.MenuItem.prototype, (function() {
 
         return {
             name : "MenuItem",

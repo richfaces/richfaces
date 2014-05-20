@@ -20,10 +20,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 (function($, rf) {
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.InputNumberSpinner = rf.BaseComponent.extendClass({
+    rf.ui.InputNumberSpinner = rf.BaseComponent.extendClass({
 
             name: "InputNumberSpinner",
 
@@ -193,5 +192,5 @@
         });
 
     // define super class link
-    var $super = rf.rf4.ui.InputNumberSpinner.$super;
+    var $super = rf.ui.InputNumberSpinner.$super;
 }(RichFaces.jQuery, window.RichFaces));

@@ -56,7 +56,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <!-- TODO Rewrite the next line when the CDK will support normal way to take event handlers from attributes and behaviors. -->
             <cdk:object name="onchange" type="String"
                 value="#{convertToString(RenderKitUtils.getAttributeAndBehaviorsValue(facesContext, component, RenderKitUtils.attributes().generic('onchange', 'onchange', 'change', 'valueChange').first()))}" />
-            <script type="text/javascript">new RichFaces.rf4.ui.InputNumberSpinner('#{clientId}', {
+            <script type="text/javascript">new RichFaces.ui.InputNumberSpinner('#{clientId}', {
                 cycled: #{component.attributes['cycled']},
                 maxValue: #{component.attributes['maxValue']},
                 minValue: #{component.attributes['minValue']},

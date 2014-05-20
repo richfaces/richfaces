@@ -1,20 +1,19 @@
 (function ($, rf) {
 
-    rf.rf4 = rf.rf4 || {};
-    rf.rf4.ui = rf.rf4.ui || {};
+    rf.ui = rf.ui || {};
 
-    rf.rf4.ui.PopupPanel.Sizer = function(id, modalPanel, cursor, sizer) {
+    rf.ui.PopupPanel.Sizer = function(id, modalPanel, cursor, sizer) {
 
         $super.constructor.call(this, id);
 
     };
 
-    var $super = rf.BaseComponent.extend(rf.rf4.ui.PopupPanel.Sizer);
-    var $super = rf.rf4.ui.PopupPanel.Sizer.$super;
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.prototype, (function (options) {
+    var $super = rf.BaseComponent.extend(rf.ui.PopupPanel.Sizer);
+    var $super = rf.ui.PopupPanel.Sizer.$super;
+    $.extend(rf.ui.PopupPanel.Sizer.prototype, (function (options) {
         return {
 
-            name: "richfaces.rf4.ui.PopupPanel.Sizer",
+            name: "richfaces.ui.PopupPanel.Sizer",
 
             doSetupSize: function (modalPanel, elt) {
                 var width = 0;
@@ -83,7 +82,7 @@
         }
 
     })());
-    rf.rf4.ui.PopupPanel.Sizer.Diff = function(dX, dY, dWidth, dHeight) {
+    rf.ui.PopupPanel.Sizer.Diff = function(dX, dY, dWidth, dHeight) {
 
         this.deltaX = dX;
         this.deltaY = dY;
@@ -93,19 +92,19 @@
 
     };
 
-    rf.rf4.ui.PopupPanel.Sizer.Diff.EMPTY = function() {
-        return new rf.rf4.ui.PopupPanel.Sizer.Diff(0, 0, 0, 0);
+    rf.ui.PopupPanel.Sizer.Diff.EMPTY = function() {
+        return new rf.ui.PopupPanel.Sizer.Diff(0, 0, 0, 0);
     },
 
-        rf.rf4.ui.PopupPanel.Sizer.N = function() {
+        rf.ui.PopupPanel.Sizer.N = function() {
 
         }
 
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.N.prototype, rf.rf4.ui.PopupPanel.Sizer.prototype);
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.N.prototype, {
+    $.extend(rf.ui.PopupPanel.Sizer.N.prototype, rf.ui.PopupPanel.Sizer.prototype);
+    $.extend(rf.ui.PopupPanel.Sizer.N.prototype, {
 
 
-            name: "richfaces.rf4.ui.PopupPanel.Sizer.N",
+            name: "richfaces.ui.PopupPanel.Sizer.N",
 
             doPosition : function (popupPanel, elt) {
                 var element = $(rf.getDomElement(elt));
@@ -114,18 +113,18 @@
             },
 
             doDiff : function(dx, dy) {
-                return new rf.rf4.ui.PopupPanel.Sizer.Diff(0, dy, 0, -dy);
+                return new rf.ui.PopupPanel.Sizer.Diff(0, dy, 0, -dy);
             }
 
         });
 
-    rf.rf4.ui.PopupPanel.Sizer.NW = function() {
+    rf.ui.PopupPanel.Sizer.NW = function() {
 
     }
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.NW.prototype, rf.rf4.ui.PopupPanel.Sizer.prototype);
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.NW.prototype, {
+    $.extend(rf.ui.PopupPanel.Sizer.NW.prototype, rf.ui.PopupPanel.Sizer.prototype);
+    $.extend(rf.ui.PopupPanel.Sizer.NW.prototype, {
 
-            name: "richfaces.rf4.ui.PopupPanel.Sizer.NW",
+            name: "richfaces.ui.PopupPanel.Sizer.NW",
 
             doPosition : function (popupPanel, elt) {
                 this.doSetupSize(popupPanel, elt);
@@ -133,18 +132,18 @@
             },
 
             doDiff : function(dx, dy) {
-                return new rf.rf4.ui.PopupPanel.Sizer.Diff(dx, dy, -dx, -dy);
+                return new rf.ui.PopupPanel.Sizer.Diff(dx, dy, -dx, -dy);
             }
 
         });
 
-    rf.rf4.ui.PopupPanel.Sizer.NE = function() {
+    rf.ui.PopupPanel.Sizer.NE = function() {
 
     }
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.NE.prototype, rf.rf4.ui.PopupPanel.Sizer.prototype);
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.NE.prototype, {
+    $.extend(rf.ui.PopupPanel.Sizer.NE.prototype, rf.ui.PopupPanel.Sizer.prototype);
+    $.extend(rf.ui.PopupPanel.Sizer.NE.prototype, {
 
-            name: "richfaces.rf4.ui.PopupPanel.Sizer.NE",
+            name: "richfaces.ui.PopupPanel.Sizer.NE",
 
             doPosition : function (popupPanel, elt) {
                 this.doSetupSize(popupPanel, elt);
@@ -152,18 +151,18 @@
             },
 
             doDiff : function(dx, dy) {
-                return new rf.rf4.ui.PopupPanel.Sizer.Diff(0, dy, dx, -dy);
+                return new rf.ui.PopupPanel.Sizer.Diff(0, dy, dx, -dy);
             }
 
         });
 
-    rf.rf4.ui.PopupPanel.Sizer.E = function() {
+    rf.ui.PopupPanel.Sizer.E = function() {
 
     }
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.E.prototype, rf.rf4.ui.PopupPanel.Sizer.prototype);
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.E.prototype, {
+    $.extend(rf.ui.PopupPanel.Sizer.E.prototype, rf.ui.PopupPanel.Sizer.prototype);
+    $.extend(rf.ui.PopupPanel.Sizer.E.prototype, {
 
-            name: "richfaces.rf4.ui.PopupPanel.Sizer.E",
+            name: "richfaces.ui.PopupPanel.Sizer.E",
 
             doPosition : function (popupPanel, elt) {
                 var element = $(rf.getDomElement(elt));
@@ -172,18 +171,18 @@
             },
 
             doDiff : function(dx, dy) {
-                return new rf.rf4.ui.PopupPanel.Sizer.Diff(0, 0, dx, 0);
+                return new rf.ui.PopupPanel.Sizer.Diff(0, 0, dx, 0);
             }
 
         });
 
-    rf.rf4.ui.PopupPanel.Sizer.SE = function() {
+    rf.ui.PopupPanel.Sizer.SE = function() {
 
     }
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.SE.prototype, rf.rf4.ui.PopupPanel.Sizer.prototype);
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.SE.prototype, {
+    $.extend(rf.ui.PopupPanel.Sizer.SE.prototype, rf.ui.PopupPanel.Sizer.prototype);
+    $.extend(rf.ui.PopupPanel.Sizer.SE.prototype, {
 
-            name: "richfaces.rf4.ui.PopupPanel.Sizer.SE",
+            name: "richfaces.ui.PopupPanel.Sizer.SE",
 
             doPosition : function (popupPanel, elt) {
                 this.doSetupSize(popupPanel, elt);
@@ -192,18 +191,18 @@
             },
 
             doDiff : function(dx, dy) {
-                return new rf.rf4.ui.PopupPanel.Sizer.Diff(0, 0, dx, dy);
+                return new rf.ui.PopupPanel.Sizer.Diff(0, 0, dx, dy);
             }
 
         });
 
-    rf.rf4.ui.PopupPanel.Sizer.S = function() {
+    rf.ui.PopupPanel.Sizer.S = function() {
 
     }
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.S.prototype, rf.rf4.ui.PopupPanel.Sizer.prototype);
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.S.prototype, {
+    $.extend(rf.ui.PopupPanel.Sizer.S.prototype, rf.ui.PopupPanel.Sizer.prototype);
+    $.extend(rf.ui.PopupPanel.Sizer.S.prototype, {
 
-            name: "richfaces.rf4.ui.PopupPanel.Sizer.S",
+            name: "richfaces.ui.PopupPanel.Sizer.S",
 
             doPosition : function (popupPanel, elt) {
                 var element = $(rf.getDomElement(elt));
@@ -212,20 +211,20 @@
             },
 
             doDiff : function(dx, dy) {
-                return new rf.rf4.ui.PopupPanel.Sizer.Diff(0, 0, 0, dy);
+                return new rf.ui.PopupPanel.Sizer.Diff(0, 0, 0, dy);
             }
 
         });
 
 
-    rf.rf4.ui.PopupPanel.Sizer.SW = function() {
+    rf.ui.PopupPanel.Sizer.SW = function() {
 
     }
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.SW.prototype, rf.rf4.ui.PopupPanel.Sizer.prototype);
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.SW.prototype, {
+    $.extend(rf.ui.PopupPanel.Sizer.SW.prototype, rf.ui.PopupPanel.Sizer.prototype);
+    $.extend(rf.ui.PopupPanel.Sizer.SW.prototype, {
 
 
-            name: "richfaces.rf4.ui.PopupPanel.Sizer.SW",
+            name: "richfaces.ui.PopupPanel.Sizer.SW",
 
             doPosition : function (popupPanel, elt) {
                 this.doSetupSize(popupPanel, elt);
@@ -233,19 +232,19 @@
             },
 
             doDiff : function(dx, dy) {
-                return new rf.rf4.ui.PopupPanel.Sizer.Diff(dx, 0, -dx, dy);
+                return new rf.ui.PopupPanel.Sizer.Diff(dx, 0, -dx, dy);
             }
 
         });
 
-    rf.rf4.ui.PopupPanel.Sizer.W = function() {
+    rf.ui.PopupPanel.Sizer.W = function() {
 
     }
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.W.prototype, rf.rf4.ui.PopupPanel.Sizer.prototype);
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.W.prototype, {
+    $.extend(rf.ui.PopupPanel.Sizer.W.prototype, rf.ui.PopupPanel.Sizer.prototype);
+    $.extend(rf.ui.PopupPanel.Sizer.W.prototype, {
 
 
-            name: "richfaces.rf4.ui.PopupPanel.Sizer.W",
+            name: "richfaces.ui.PopupPanel.Sizer.W",
 
             doPosition : function (popupPanel, elt) {
                 var element = $(rf.getDomElement(elt));
@@ -254,28 +253,28 @@
             },
 
             doDiff : function(dx, dy) {
-                return new rf.rf4.ui.PopupPanel.Sizer.Diff(dx, 0, -dx, 0);
+                return new rf.ui.PopupPanel.Sizer.Diff(dx, 0, -dx, 0);
             }
 
 
         });
 
 
-    rf.rf4.ui.PopupPanel.Sizer.Header = function() {
+    rf.ui.PopupPanel.Sizer.Header = function() {
 
     }
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.Header.prototype, rf.rf4.ui.PopupPanel.Sizer.prototype);
-    $.extend(rf.rf4.ui.PopupPanel.Sizer.Header.prototype, {
+    $.extend(rf.ui.PopupPanel.Sizer.Header.prototype, rf.ui.PopupPanel.Sizer.prototype);
+    $.extend(rf.ui.PopupPanel.Sizer.Header.prototype, {
 
 
-            name: "richfaces.rf4.ui.PopupPanel.Sizer.Header",
+            name: "richfaces.ui.PopupPanel.Sizer.Header",
 
             doPosition : function (popupPanel, elt) {
 
             },
 
             doDiff : function(dx, dy) {
-                return new rf.rf4.ui.PopupPanel.Sizer.Diff(dx, dy, 0, 0);
+                return new rf.ui.PopupPanel.Sizer.Diff(dx, dy, 0, 0);
             }
 
 
