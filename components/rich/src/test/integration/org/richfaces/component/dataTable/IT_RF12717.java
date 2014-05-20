@@ -28,7 +28,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.component.extendedDataTable.IterationBean;
-import org.richfaces.integration.IterationDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import com.google.common.base.Function;
@@ -52,8 +52,8 @@ public class IT_RF12717 {
 
     @Deployment
     public static WebArchive createDeployment() {
-//        IterationDeployment deployment = new IterationDeployment(IT_RF12717.class, "4.2.3.Final");
-        IterationDeployment deployment = new IterationDeployment(IT_RF12717.class);
+//        UIDeployment deployment = new UIDeployment(IT_RF12717.class, "4.2.3.Final");
+        UIDeployment deployment = new UIDeployment(IT_RF12717.class);
         deployment.archive().addClass(IterationBean.class);
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
@@ -95,7 +95,7 @@ public class IT_RF12717 {
         });
     }
 
-    private static void addIndexPage(IterationDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.body("<h:form id='myForm'>");
         p.body("<h:commandButton id='show' value='Show Table' type='submit' action='#{iterationBean.show}' />");

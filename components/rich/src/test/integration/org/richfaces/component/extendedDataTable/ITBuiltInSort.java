@@ -17,7 +17,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.IterationDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -47,7 +47,7 @@ public class ITBuiltInSort {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        IterationDeployment deployment = new IterationDeployment(ITBuiltInSort.class);
+        UIDeployment deployment = new UIDeployment(ITBuiltInSort.class);
         deployment.archive().addClass(IterationBuiltInBean.class);
         addIndexPage(deployment);
 
@@ -78,7 +78,7 @@ public class ITBuiltInSort {
 
     }
 
-    private static void addIndexPage(IterationDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<script type='text/javascript'>");

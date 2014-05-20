@@ -18,7 +18,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.component.autocomplete.AutocompleteBean;
-import org.richfaces.integration.InputDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -42,7 +42,7 @@ public class ITSelectValidation {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        InputDeployment deployment = new InputDeployment(ITSelectValidation.class);
+        UIDeployment deployment = new UIDeployment(ITSelectValidation.class);
 
         deployment.archive().addClasses(AutocompleteBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
@@ -62,7 +62,7 @@ public class ITSelectValidation {
         assertTrue("contains invalid message", message.getText().contains("Value is not valid"));
     }
 
-    private static void addIndexPage(InputDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.form("<rich:select id='select'  enableManualInput='true'>");

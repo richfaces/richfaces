@@ -22,7 +22,7 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.richfaces.component.AbstractFocus;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
@@ -41,7 +41,7 @@ public class ITFocusDefaults {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITFocusValidationAware.class);
+        UIDeployment deployment = new UIDeployment(ITFocusValidationAware.class);
 
         deployment.archive()
             .addClasses(ComponentBean.class, VerifyFocusCandidates.class, AbstractComponentAssertion.class)
@@ -52,7 +52,7 @@ public class ITFocusDefaults {
         return deployment.getFinalArchive();
     }
 
-    private static void addIndexPage(MiscDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");

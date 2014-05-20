@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.richfaces.integration.IterationDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -30,7 +30,7 @@ public class ITColumnClasses {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        IterationDeployment deployment = new IterationDeployment(ITColumnClasses.class);
+        UIDeployment deployment = new UIDeployment(ITColumnClasses.class);
         deployment.archive().addClass(IterationBuiltInBean.class);
         addIndexPage(deployment);
 
@@ -52,7 +52,7 @@ public class ITColumnClasses {
         Assert.assertTrue(cells.get(2).getAttribute("class").contains("d3"));
     }
 
-    private static void addIndexPage(IterationDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='myForm'> ");

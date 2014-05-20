@@ -1,5 +1,7 @@
 package org.richfaces.integration;
 
+import java.io.File;
+
 import org.jboss.shrinkwrap.api.Filters;
 import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -10,11 +12,11 @@ import org.richfaces.arquillian.configuration.FundamentalTestConfigurationContex
 import org.richfaces.deployment.Deployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
-public class MiscDeployment extends Deployment {
+public class UIDeployment extends Deployment {
 
     private final FundamentalTestConfiguration configuration = FundamentalTestConfigurationContext.getProxy();
 
-    public MiscDeployment(Class<?> testClass) {
+    public UIDeployment(Class<?> testClass) {
         super(testClass);
 
         if (configuration.isCurrentRichFacesVersion()) {
@@ -31,6 +33,9 @@ public class MiscDeployment extends Deployment {
                 "org.richfaces:richfaces-core:" + version,
                 "org.richfaces:richfaces-a4j:" + version);
         }
+
+        archive().addAsWebInfResource(new File("src/test/resources/beans.xml"));
+
     }
 
     private void addCurrentProjectClasses() {

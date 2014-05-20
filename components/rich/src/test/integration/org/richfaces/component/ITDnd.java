@@ -18,7 +18,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.DndDeployment;
+import org.richfaces.integration.UIDeployment;
 
 import category.Smoke;
 
@@ -49,7 +49,7 @@ public class ITDnd {
     
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        DndDeployment deployment = new DndDeployment(ITDnd.class);
+        UIDeployment deployment = new UIDeployment(ITDnd.class);
         deployment.archive().addAsWebResource(new File("src/test/resources/org/richfaces/component/dnd.xhtml"));
         deployment.archive().addAsWebResource(new File("src/test/resources/images/dnd/accept.gif"), "/resources/images/dnd/accept.gif");
         deployment.archive().addAsWebResource(new File("src/test/resources/images/dnd/default.gif"), "/resources/images/dnd/default.gif");

@@ -19,7 +19,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.InputDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -42,7 +42,7 @@ public class ITAutocompleteDestroy {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        InputDeployment deployment = new InputDeployment(ITAutocompleteDestroy.class);
+        UIDeployment deployment = new UIDeployment(ITAutocompleteDestroy.class);
 
         deployment.archive().addClasses(AutocompleteBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
@@ -66,7 +66,7 @@ public class ITAutocompleteDestroy {
         assertFalse("suggestion list is not displayed", browser.findElement(suggestionList).isDisplayed());
     }
 
-    private static void addIndexPage(InputDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");

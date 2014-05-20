@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.component.tabPanel.model.TabBean;
 import org.richfaces.component.tabPanel.model.TabPanelBean;
-import org.richfaces.integration.OutputDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -42,7 +42,7 @@ public class ITForEachTab {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        OutputDeployment deployment = new OutputDeployment(ITForEachTab.class);
+        UIDeployment deployment = new UIDeployment(ITForEachTab.class);
         deployment.archive().addClass(TabBean.class);
         deployment.archive().addClass(TabPanelBean.class);
 
@@ -63,7 +63,7 @@ public class ITForEachTab {
         tabTestHelper.check_row_removal(tabPanel, tabs, a4jCreateTabButton);
     }
 
-    private static void addIndexPage(OutputDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.body("<h:form id='myForm'>");
         p.body("<rich:tabPanel id='tabPanel'>");

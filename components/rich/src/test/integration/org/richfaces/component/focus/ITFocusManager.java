@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
@@ -68,7 +68,7 @@ public class ITFocusManager {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITFocusManager.class);
+        UIDeployment deployment = new UIDeployment(ITFocusManager.class);
 
         deployment.archive().addClasses(ComponentBean.class, VerifyFocusCandidates.class, VerifyFocusEnforcing.class,
                 VerifyFocusEnforcingOverridesFocusSettings.class, AbstractComponentAssertion.class);
@@ -145,7 +145,7 @@ public class ITFocusManager {
         return FocusRetriever.retrieveActiveElement();
     }
 
-    private static void addIndexPage(MiscDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");
@@ -162,7 +162,7 @@ public class ITFocusManager {
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
-    private static void addFormFocusIndexPage(MiscDeployment deployment) {
+    private static void addFormFocusIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");
@@ -180,7 +180,7 @@ public class ITFocusManager {
         deployment.archive().addAsWebResource(p, "form.xhtml");
     }
 
-    private static void addViewFocusPage(MiscDeployment deployment) {
+    private static void addViewFocusPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<rich:focus id='focus' binding='#{componentBean.component}' />");

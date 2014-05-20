@@ -20,7 +20,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.component.tabPanel.model.SimpleBean;
-import org.richfaces.integration.OutputDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
@@ -63,7 +63,7 @@ public class ITStaticTab {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        OutputDeployment deployment = new OutputDeployment(ITStaticTab.class);
+        UIDeployment deployment = new UIDeployment(ITStaticTab.class);
         deployment.archive().addClass(SimpleBean.class);
 
         addIndexPage(deployment);
@@ -135,7 +135,7 @@ public class ITStaticTab {
     }
 
 
-    private static void addIndexPage(OutputDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.head("<script type='text/javascript'>");
         p.head("    window.onerror=function(msg) { ");
@@ -165,7 +165,7 @@ public class ITStaticTab {
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
 
-    private static void addHeaderPage(OutputDeployment deployment) {
+    private static void addHeaderPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.body("<h:form id='myForm'>");
         p.body("<rich:tabPanel id='tabPanel' >");
@@ -190,7 +190,7 @@ public class ITStaticTab {
         deployment.archive().addAsWebResource(p, "header.xhtml");
     }
 
-    private static void addHeaderButtonPage(OutputDeployment deployment) {
+    private static void addHeaderButtonPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.body("<h:form id='myForm'>");
         p.body("<rich:tabPanel id='tabPanel' >");

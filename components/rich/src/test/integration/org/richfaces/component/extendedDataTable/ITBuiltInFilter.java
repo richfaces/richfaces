@@ -27,7 +27,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.IterationDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -55,7 +55,7 @@ public class ITBuiltInFilter {
 
     @Deployment
     public static WebArchive createDeployment() {
-        IterationDeployment deployment = new IterationDeployment(ITBuiltInFilter.class);
+        UIDeployment deployment = new UIDeployment(ITBuiltInFilter.class);
         deployment.archive().addClass(IterationBuiltInBean.class);
         addIndexPage(deployment);
 
@@ -151,7 +151,7 @@ public class ITBuiltInFilter {
         Assert.assertEquals("Number of rows present", 4, cells.size());
     }
 
-    private static void addIndexPage(IterationDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.xmlns("fn", "http://java.sun.com/jsp/jstl/functions");
 

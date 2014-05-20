@@ -30,7 +30,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.component.AbstractFocus;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.renderkit.FocusRendererBase;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
@@ -59,7 +59,7 @@ public class ITFocusValidationAware {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITFocusValidationAware.class);
+        UIDeployment deployment = new UIDeployment(ITFocusValidationAware.class);
 
         deployment.archive().addClasses(ComponentBean.class, VerifyFocusCandidates.class, AbstractComponentAssertion.class);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -142,7 +142,7 @@ public class ITFocusValidationAware {
         return FocusRetriever.retrieveActiveElement();
     }
 
-    private static void addIndexPage(MiscDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");

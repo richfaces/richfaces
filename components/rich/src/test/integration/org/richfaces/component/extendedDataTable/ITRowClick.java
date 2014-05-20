@@ -48,7 +48,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.IterationDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Failing;
@@ -81,7 +81,7 @@ public class ITRowClick {
 
     @Deployment
     public static WebArchive createDeployment() {
-        IterationDeployment deployment = new IterationDeployment(ITRowClick.class);
+        UIDeployment deployment = new UIDeployment(ITRowClick.class);
         deployment.archive().addClass(IterationBean.class);
         addIndexPage(deployment);
 
@@ -118,7 +118,7 @@ public class ITRowClick {
 
     }
 
-    private static void addIndexPage(IterationDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<script type='text/javascript'>");

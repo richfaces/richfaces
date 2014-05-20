@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -47,7 +47,7 @@ public class ITFocusAjaxRendered {
 
     @Deployment
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITFocusAjaxRendered.class);
+        UIDeployment deployment = new UIDeployment(ITFocusAjaxRendered.class);
 
         addIndexPage(deployment);
 
@@ -67,7 +67,7 @@ public class ITFocusAjaxRendered {
         waitAjax().until(new ElementIsFocused(null));
     }
 
-    private static void addIndexPage(MiscDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");

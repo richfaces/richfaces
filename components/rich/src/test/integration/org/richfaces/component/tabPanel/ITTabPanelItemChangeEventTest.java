@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.richfaces.component.tabPanel.model.TabPanelItemChangeEventBean;
-import org.richfaces.integration.OutputDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -38,7 +38,7 @@ public class ITTabPanelItemChangeEventTest {
 
     @Deployment
     public static WebArchive createDeployment() {
-        OutputDeployment deployment = new OutputDeployment(ITTabPanelItemChangeEventTest.class);
+        UIDeployment deployment = new UIDeployment(ITTabPanelItemChangeEventTest.class);
 
         deployment.archive().addClasses(TabPanelItemChangeEventBean.class, ItemChangeEventInspection.class);
 
@@ -67,7 +67,7 @@ public class ITTabPanelItemChangeEventTest {
         }).inspect(new ItemChangeEventInspection());
     }
 
-    private static void addIndexPage(OutputDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.body("<h:form id='myForm'>");
         p.body("<rich:tabPanel id='tabPanel' binding='#{tabPanelItemChangeEventBean.tabPanel}' itemChangeListener='#{tabPanelItemChangeEventBean.itemChangeListener}'>");

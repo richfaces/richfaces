@@ -28,7 +28,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.integration.MiscDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Failing;
@@ -43,7 +43,7 @@ public class ITPlaceholderInplaceInput extends AbstractPlaceholderTest {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        MiscDeployment deployment = new MiscDeployment(ITPlaceholderInputText.class);
+        UIDeployment deployment = new UIDeployment(ITPlaceholderInputText.class);
 
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
 

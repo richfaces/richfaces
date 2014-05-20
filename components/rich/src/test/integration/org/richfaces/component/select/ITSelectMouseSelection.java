@@ -18,7 +18,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.component.autocomplete.AutocompleteBean;
-import org.richfaces.integration.InputDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -39,7 +39,7 @@ public class ITSelectMouseSelection {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        InputDeployment deployment = new InputDeployment(ITSelectMouseSelection.class);
+        UIDeployment deployment = new UIDeployment(ITSelectMouseSelection.class);
 
         deployment.archive().addClasses(AutocompleteBean.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
@@ -60,7 +60,7 @@ public class ITSelectMouseSelection {
         assertEquals("Tampa Bay", selectInput.getAttribute("value"));
     }
 
-    private static void addIndexPage(InputDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.body("<h:form id='form'>");
