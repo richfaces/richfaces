@@ -34,7 +34,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.richfaces.ServletVersion;
 import org.richfaces.component.AbstractFileUpload;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.exception.FileUploadException;
@@ -81,7 +80,8 @@ public class FileUploadRendererBase extends RendererBase {
         try {
             List<UploadedFile> files = new LinkedList<>();
 
-            if (ServletVersion.getCurrent().isCompliantWith(ServletVersion.SERVLET_3_0)) {
+              // check if Servlet 3.0+ is being used
+            if (request.getParts().size() > 0) {
                 Collection<Part> parts = request.getParts();
 
                 for (Part part : parts) {
@@ -94,9 +94,7 @@ public class FileUploadRendererBase extends RendererBase {
             } else {
                 boolean createTempFiles = isCreateTempFiles(request.getServletContext());
                 String tempFilesDirectory = getTempFilesDirectory(request.getServletContext());
-
                 MultipartRequestParser requestParser = new MultipartRequestParser(request, createTempFiles, tempFilesDirectory);
-
                 MultipartRequest multipartRequest = new MultipartRequest25(request, uploadId, requestParser);
 
                 files = (List<UploadedFile>) multipartRequest.getUploadedFiles();

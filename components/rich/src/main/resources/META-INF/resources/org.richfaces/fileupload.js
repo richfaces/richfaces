@@ -365,19 +365,18 @@
 
                 formData.append(this.fileUpload.id, this.model.file);
 
-                // JSF values
-                formData.append('javax.faces.partial.ajax', 'true');
-                formData.append('javax.faces.source', this.fileUpload.id);
-                formData.append('javax.faces.partial.execute', this.fileUpload.id);
-                formData.append('org.richfaces.ajax.component', this.fileUpload.id);
-
-                if (jsf.getClientWindow && jsf.getClientWindow()) {
-                    formData.append('javax.faces.ClientWindow', jsf.getClientWindow());
-                };
-
                 var originalAction = this.fileUpload.form.attr("action"),
                     delimiter = originalAction.indexOf("?") == -1 ? "?" : "&",
-                    newAction =  originalAction + delimiter + UID + "=" + this.uid;
+                    newAction =  originalAction + delimiter + UID + "=" + this.uid + 
+                    "&javax.faces.partial.ajax=true" + 
+                    "&javax.faces.source="           + this.fileUpload.id +
+                    "&javax.faces.partial.execute="  + this.fileUpload.id +
+                    "&org.richfaces.ajax.component=" + this.fileUpload.id + 
+                    "&javax.faces.ViewState="        + this.fileUpload.form.find('input[name="javax.faces.ViewState"]').val();
+
+                if (jsf.getClientWindow && jsf.getClientWindow()) {
+                    newAction += "&javax.faces.ClientWindow=" + jsf.getClientWindow();
+                };
 
                 this.xhr = new XMLHttpRequest();
 
