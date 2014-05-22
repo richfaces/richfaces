@@ -50,6 +50,41 @@
                     <artifactId>richfaces</artifactId>
                 </dependency>
 
+                <dependency>
+                    <groupId>org.richfaces</groupId>
+                    <artifactId>richfaces</artifactId>
+                    <classifier>sources</classifier>
+                    <version>${project.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.richfaces</groupId>
+                    <artifactId>richfaces</artifactId>
+                    <classifier>javadoc</classifier>
+                    <version>${project.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.richfaces</groupId>
+                    <artifactId>richfaces</artifactId>
+                    <classifier>vdldoc</classifier>
+                    <version>${project.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.richfaces</groupId>
+                    <artifactId>richfaces-a4j</artifactId>
+                    <classifier>sources</classifier>
+                    <version>${project.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.richfaces</groupId>
+                    <artifactId>richfaces-core</artifactId>
+                    <classifier>sources</classifier>
+                    <version>${project.version}</version>
+                </dependency>
+
                 <!-- Runtime Dependencies -->
                 <dependency>
                     <groupId>net.sourceforge.cssparser</groupId>
@@ -89,113 +124,22 @@
 
             <build>
                 <plugins>
+
                     <plugin>
                         <artifactId>maven-dependency-plugin</artifactId>
+
+                        <!-- unpack the sources -->
                         <executions>
                             <execution>
-                                <id>copy-bin</id>
-                                <goals>
-                                    <goal>copy-dependencies</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <includeArtifactIds>richfaces</includeArtifactIds>
-                                    <includeGroupIds>org.richfaces</includeGroupIds>
-                                    <outputDirectory>target/dist/</outputDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-sources</id>
-                                <goals>
-                                    <goal>copy-dependencies</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <classifier>sources</classifier>
-                                    <includeArtifactIds>richfaces</includeArtifactIds>
-                                    <includeGroupIds>org.richfaces</includeGroupIds>
-                                    <outputDirectory>target/dist/</outputDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-deps</id>
-                                <goals>
-                                    <goal>copy-dependencies</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <includeGroupIds>
-                                        net.sourceforge.cssparser,
-                                        org.w3c.css,
-                                        com.google.guava
-                                    </includeGroupIds>
-                                    <outputDirectory>target/dist/lib</outputDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-deps-push</id>
-                                <goals>
-                                    <goal>copy-dependencies</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <includeGroupIds>
-                                        org.atmosphere
-                                    </includeGroupIds>
-                                    <outputDirectory>target/dist/lib/push</outputDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-deps-cache</id>
-                                <goals>
-                                    <goal>copy-dependencies</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <includeGroupIds>
-                                        net.sf.ehcache
-                                    </includeGroupIds>
-                                    <outputDirectory>target/dist/lib/cache</outputDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-javadoc</id>
+                                <id>unpack-richfaces-source</id>
                                 <goals>
                                     <goal>unpack-dependencies</goal>
                                 </goals>
-                                <phase>package</phase>
+                                <phase>prepare-package</phase>
                                 <configuration>
-                                    <classifier>javadoc</classifier>
                                     <stripVersion>true</stripVersion>
-                                    <includeArtifactIds>richfaces</includeArtifactIds>
-                                    <outputDirectory>target/dist/doc/javadoc</outputDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-vdldoc</id>
-                                <goals>
-                                    <goal>unpack-dependencies</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <classifier>vdldoc</classifier>
-                                    <stripVersion>true</stripVersion>
-                                    <includeArtifactIds>richfaces</includeArtifactIds>
-                                    <outputDirectory>target/dist/doc/vdldoc</outputDirectory>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-jsdoc</id>
-                                <goals>
-                                    <goal>unpack-dependencies</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <classifier>jsdoc</classifier>
-                                    <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
-                                    <stripVersion>true</stripVersion>
-                                    <includeArtifactIds>richfaces</includeArtifactIds>
-                                    <outputDirectory>target/dist/doc/jsdoc</outputDirectory>
+                                    <includeArtifactIds>richfaces,richfaces-a4j,richfaces-core</includeArtifactIds>
+                                    <outputDirectory>${project.build.directory}/richfaces-sources</outputDirectory>
                                 </configuration>
                             </execution>
 
@@ -210,8 +154,86 @@
                                     <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
                                     <useSubDirectoryPerArtifact>false</useSubDirectoryPerArtifact>
                                     <stripVersion>true</stripVersion>
-                                    <outputDirectory>target/dist/example/richfaces-showcase</outputDirectory>
+                                    <outputDirectory>${project.build.directory}/site/example/richfaces-showcase</outputDirectory>
                                 </configuration>
+                            </execution>
+
+                        </executions>
+                    </plugin>
+
+                    <!-- JavaDoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <sourcepath>${project.build.directory}/richfaces-sources</sourcepath>
+                                </configuration>
+                                <id>generate-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>aggregate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- VDL DOC -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>generate-vdldoc</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-jar</argument>
+                                <argument>${settings.localRepository}/org/omnifaces/vdldoc/${version.vdldoc}/vdldoc-${version.vdldoc}.jar</argument>
+                                <argument>-d</argument>
+                                <argument>${project.build.directory}/site/vdldoc</argument>
+                                <argument>-windowtitle</argument>
+                                <argument>RichFaces ${version.richfaces} VDL Documentation</argument>
+                                <argument>-doctitle</argument>
+                                <argument>RichFaces ${version.richfaces} VDL Documentation</argument>
+                                <argument>${project.build.directory}/richfaces-sources/META-INF/a4j.taglib.xml</argument>
+                                <argument>${project.build.directory}/richfaces-sources/META-INF/rich.taglib.xml</argument>
+                            </arguments>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.omnifaces</groupId>
+                                <artifactId>vdldoc</artifactId>
+                                <version>${version.vdldoc}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+
+                    <!-- JSDoc -->
+                    <plugin>
+                        <groupId>gr.abiss.mvn.plugins</groupId>
+                        <artifactId>maven-jstools-plugin</artifactId>
+                        <version>0.7</version>
+                        <executions>
+                            <execution>
+                                <id>jsdoc</id>
+                                <configuration>
+                                    <jsDir>${project.build.directory}/richfaces-sources/META-INF/resources/org.richfaces</jsDir>
+                                    <includes>**/*.js</includes>
+                                    <caseSensitive>true</caseSensitive>
+                                </configuration>
+                                <goals>
+                                    <goal>jsdoc</goal>
+                                </goals>
+                                <phase>package</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -220,16 +242,14 @@
                         <artifactId>maven-assembly-plugin</artifactId>
                         <executions>
                             <execution>
-                                <configuration>
-                                    <finalName>richfaces-${version.richfaces}</finalName>
-                                    <descriptor>src/main/resources/xml/richfaces.xml</descriptor>
-                                    <appendAssemblyId>false</appendAssemblyId>
-                                </configuration>
-                                <id>richfaces</id>
+                                <id>richfaces-a4j-vdldoc-assembly</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>single</goal>
                                 </goals>
+                                <configuration>
+                                    <descriptor>src/main/resources/xml/richfaces.xml</descriptor>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

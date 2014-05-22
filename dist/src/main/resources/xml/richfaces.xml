@@ -27,27 +27,63 @@
         <format>zip</format>
     </formats>
 
-    <files>
-        <file>
-            <source>src/main/resources/txt/lgpl.txt</source>
-        </file>
-        <file>
-            <source>src/main/resources/txt/release-notes.txt</source>
-        </file>
-        <file>
-            <source>src/main/resources/txt/readme.txt</source>
-        </file>
-        <file>
-            <source>src/main/resources/txt/readme-examples.txt</source>
-            <destName>example/readme.txt</destName>
-        </file>
-    </files>
-
     <fileSets>
-        <!-- bin & sources -->
+        <!-- readmes and release-notes -->
         <fileSet>
-            <directory>target/dist</directory>
+            <directory>src/main/resources/txt</directory>
             <outputDirectory></outputDirectory>
         </fileSet>
+
+        <!-- docs and examples-->
+        <fileSet>
+            <directory>target/site</directory>
+            <outputDirectory>doc</outputDirectory>
+        </fileSet>
     </fileSets>
+
+    <dependencySets>
+        <!-- RichFaces jars -->
+        <dependencySet>
+            <includes>
+                <include>org.richfaces:richfaces:jar:${project.version}</include>
+                <include>org.richfaces:richfaces:jar:sources:4.5.0-SNAPSHOT</include>
+            </includes>
+            <outputFileNameMapping>richfaces-components-rich-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet>
+        <dependencySet>
+            <includes>
+                <include>org.richfaces:richfaces-a4j:jar:${project.version}</include>
+                <include>org.richfaces:richfaces-a4j:jar:sources:4.5.0-SNAPSHOT</include>
+            </includes>
+            <outputFileNameMapping>richfaces-components-a4j-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet>
+        <dependencySet>
+            <includes>
+                <include>org.richfaces:richfaces-core:jar:${project.version}</include>
+                <include>org.richfaces:richfaces-core:jar:sources:4.5.0-SNAPSHOT</include>
+            </includes>
+        </dependencySet>
+
+        <!-- Dpendency jars -->
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <includes>
+                <include>net.sourceforge.cssparser</include>
+                <include>org.w3c.css</include>
+                <include>com.google.guava</include>
+            </includes>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>lib/push</outputDirectory>
+            <includes>
+                <include>org.atmosphere</include>
+            </includes>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>lib/cache</outputDirectory>
+            <includes>
+                <include>net.sf.ehcache</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
 </assembly>
