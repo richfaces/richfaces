@@ -206,20 +206,20 @@
             name:"Chart",
 
             init : function (componentId, options) {
-            	options = $.extend(true,{},defaultOptions,options);
+            	this.options = $.extend(true,{},defaultOptions,options);
             	
             	this.element = $(document.getElementById(componentId));
             	
-            	if (options.charttype === 'pie') {
-                    options = $.extend(true,{}, options,pieDefaults);
+            	if (this.options.charttype === 'pie') {
+                    this.options = $.extend(true,{},this.options,pieDefaults);
                     //transform data from
                     // [[{data:1, label:"label1"},{data:2,label:"label2"},...]]
                     //to
                     // [{data:1, label:"label1"},{data:2,label:"label2"},...]
-                    options.data = options.data[0]; //pie chart data should not be in a collection
+                    this.options.data = this.options.data[0]; //pie chart data should not be in a collection
                 }
-            	else if (options.charttype === 'bar') {
-                    if (options.xtype === 'string') {
+            	else if (this.options.charttype === 'bar') {
+                    if (this.options.xtype === 'string') {
                       //category bar chart
                       /*transformation data from
                        [
@@ -319,16 +319,16 @@
                        * barWidth takes care of bars to not overlap
                        * @type {number}
                        */
-                      var barWidth =  1 / (options.data.length + 1);
+                      var barWidth =  1 / (this.options.data.length + 1);
 
-                      for (var index in options.data) {//loop through data series
+                      for (var index in this.options.data) {//loop through data series
                         var convertedData = [];
                         var cnt = 0;
                         if (first) {//the first series determine which keys (x-values are plotted)
-                          for (var key in options.data[index].data) {
+                          for (var key in this.options.data[index].data) {
                             ticks.push([cnt, key]);
                             keys.push(key);
-                            convertedData.push([cnt, options.data[index].data[key]]);
+                            convertedData.push([cnt, this.options.data[index].data[key]]);
                             cnt++;
                           }
                           first = false;
@@ -336,8 +336,8 @@
                         else {
                           for (var k in keys) { //select values for first series keys only
                             var loopKey = keys[k];
-                            if (options.data[index].data[loopKey]) {
-                              convertedData.push([cnt,options.data[index].data[loopKey]]);
+                            if (this.options.data[index].data[loopKey]) {
+                              convertedData.push([cnt,this.options.data[index].data[loopKey]]);
                             }
                             else {
                               convertedData.push([cnt, 0]);
@@ -345,18 +345,18 @@
                             cnt++;
                           }
                         }
-                        options.data[index].data = convertedData;
+                        this.options.data[index].data = convertedData;
                         var bars = {
                           order: order,
                           show: true
                         };
-                        options.data[index].bars = bars;
+                        this.options.data[index].bars = bars;
                         order++;
 
                       }
 
                       //add ticks to the options
-                      options.xaxis = $.extend({},options.xaxis, {
+                      this.options.xaxis = $.extend({},this.options.xaxis, {
                         ticks: ticks,
                         tickLength: 0,
                         //workaround to show display proper x-value on category bars
@@ -367,7 +367,7 @@
 
 
                       //options for all bars
-                      options.bars = $.extend(options.bars, {
+                      this.options.bars = $.extend({},this.options.bars, {
                         show: true,
                         barWidth: barWidth,
                         align: 'center'
@@ -378,16 +378,17 @@
                     if (options.zoom) {
                       options.selection = {mode: 'xy'};
                     }
-                    if (options.xtype === 'date') {
-                      options = $.extend(options, dateDefaults);
-                      if (options.xaxis.format) {
-                        options.xaxis.timeformat = options.xaxis.format;
+                    if (this.options.xtype === 'date') {
+                      this.options = $.extend({},this.options, dateDefaults);
+                      if (this.options.xaxis.format) {
+                        this.options.xaxis.timeformat = this.options.xaxis.format;
                       }
                     }
                   }
-            	$super.constructor.call(this, componentId, options);
-                $.plot(this.element,options.data,options);
-                this.__bindEventHandlers(this.element,options);
+            	$super.constructor.call(this, componentId, this.options);
+                $.plot(this.element,this.options.data,this.options);
+                //this.options=options;
+                this.__bindEventHandlers(this.element,this.options);
             },
 
             /***************************** Public Methods  ****************************************************************/
@@ -396,15 +397,19 @@
 
             /***************************** Private Methods ********************************************************/
             __bindEventHandlers:function(element,options){
-            	element.on('plotclick', this._getPlotClickHandler(options, element, _plotClickServerSide));
-            	element.on('plothover', this._getPlotHoverHandler(options, element));
-            	if (options.handlers && options.handlers.onmouseout) {
-                    element.on('mouseout', options.handlers.onmouseout);
-                 }
-                console.log("Bindujem handlery"); 
+            	
+            	this.element.on('plotclick', this._getPlotClickHandler(this.options, this.element, _plotClickServerSide));
+            	this.element.on('plothover', this._getPlotHoverHandler(this.options, this.element));
+            	if (this.options.handlers && this.options.handlers.onmouseout) {
+                    this.element.on('mouseout', this.options.handlers.onmouseout);
+                }
+                
             },
           //function handles plotclick event. it calls server-side, client-side and particular series handlers if set.
             _getPlotClickHandler: function (options, element, serverSideHandler) {
+            	
+              var clickHandler = options.handlers['onplotclick'];	
+              var particularClickHandlers= options.particularSeriesHandlers['onplotclick'];
               return function (event, mouse, item) {
                 if (item !== null) {
                   //point in a chart clicked
@@ -419,20 +424,20 @@
                   var clientId = element.attr('id');
 
                   //sent request only if a server-side listener attached
-                  //if (options.serverSideListener) {
+                  if (options.serverSideListener) {
                     //server-side
                     if (serverSideHandler) {
                       serverSideHandler(event, clientId);
                     }
-                  //}
+                  }
 
                   //client-side
-                  if (options.handlers && options.handlers['onplotclick']) {
-                    options.handlers['onplotclick'].call(element, event);
+                  if (clickHandler) {
+                	 clickHandler.call(element, event);
                   }
                   //client-side particular series handler
-                  if (options.particularSeriesHandlers && options.particularSeriesHandlers['onplotclick'][event.data.seriesIndex]) {
-                    options.particularSeriesHandlers['onplotclick'][event.data.seriesIndex].call(element, event);
+                  if (particularClickHandlers[event.data.seriesIndex]) {
+                	  particularClickHandlers[event.data.seriesIndex].call(element, event);
                   }
                 }
               };
@@ -440,6 +445,9 @@
             
             //function handles plothover event. it calls client-side and particular series handlers if set.
             _getPlotHoverHandler: function (options, element) {
+              var hoverHandler = options.handlers['onplothover'];	
+              var particularHoverHandlers =	options.particularSeriesHandlers['onplothover']; 
+              
               return function (event, mouse, item) {
                 if (item !== null) {
                   //point in a chart clicked
@@ -452,13 +460,13 @@
                   };
 
                   //client-side
-                  if (options.handlers && options.handlers['onplothover']) {
-                    options.handlers['onplothover'].call(element, event);
+                  if (hoverHandler) {
+                    hoverHandler.call(element, event);
                   }
 
                   //client-side particular series handler
-                  if (options.particularSeriesHandlers && options.particularSeriesHandlers['onplothover'][event.data.seriesIndex]) {
-                    options.particularSeriesHandlers['onplothover'][event.data.seriesIndex].call(element, event);
+                  if (particularHoverHandlers[event.data.seriesIndex]) {
+                	  particularHoverHandlers[event.data.seriesIndex].call(element, event);
                   }
                 }
               };
