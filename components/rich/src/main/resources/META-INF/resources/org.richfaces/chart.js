@@ -183,16 +183,30 @@
 	          content: ' %p.0%, %s'
 	        }
 	      };
+	 var _plotClickServerSide = function (event, clientId) {
+	      var params = {};
+	      params[clientId + 'name'] = "plotclick";
+	      params[clientId + 'seriesIndex'] = event.data.seriesIndex;
+	      params[clientId + 'dataIndex'] = event.data.dataIndex;
+	      params[clientId + 'x'] = event.data.x;
+	      params[clientId + 'y'] = event.data.y;
+
+	      rf.ajax(clientId, event, {
+	        parameters: params,
+	        incId: 1
+	      });
+
+	    };
 
     rf.rf4 = rf.rf4 || {};
     rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.rf4.ui.Chart = rf.BaseComponent.extendClass({
+    rf.rf4.ui.Chart = rf.Base.extendClass({
             // class name
             name:"Chart",
 
-            init : function (componentId, options) {
-            	options = $.extend(true,{},defaultOptions,options);
+            init : function (componentId, options,defaultOptions) {
+            	//options = $.extend(true,{},defaultOptions,options);
             	
             	this.element = $(document.getElementById(componentId));
             	
@@ -380,7 +394,9 @@
             
 
             /***************************** Private Methods ********************************************************/
-
+            __bindEventHandlers:function(){
+                console.log("Bindujem handlery"); 
+            },
 
             destroy: function () {
                 rf.Event.unbindById(this.id, "." + this.namespace);
