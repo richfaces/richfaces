@@ -46,7 +46,7 @@ import org.richfaces.cdk.annotations.TagType;
 /**
  * @author Lukas Macko
  */
-@JsfComponent(type= AbstractChart.COMPONENT_TYPE,family = AbstractChart.COMPONENT_FAMILY,tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = ChartRendererBase.RENDERER_TYPE), fires = { @Event(value = PlotClickEvent.class, listener = PlotClickListener.class) })
+@JsfComponent(type= AbstractChart.COMPONENT_TYPE,family = AbstractChart.COMPONENT_FAMILY,tag = @Tag(handler="org.richfaces.ChartTagHandler",generate=true,type = TagType.Facelets), renderer = @JsfRenderer(type = ChartRendererBase.RENDERER_TYPE), fires = { @Event(value = PlotClickEvent.class, listener = PlotClickListener.class) })
 public abstract class AbstractChart extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Chart";

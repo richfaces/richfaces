@@ -201,12 +201,12 @@
     rf.rf4 = rf.rf4 || {};
     rf.rf4.ui = rf.rf4.ui || {};
 
-    rf.rf4.ui.Chart = rf.Base.extendClass({
+    rf.rf4.ui.Chart = rf.BaseComponent.extendClass({
             // class name
             name:"Chart",
 
-            init : function (componentId, options,defaultOptions) {
-            	//options = $.extend(true,{},defaultOptions,options);
+            init : function (componentId, options) {
+            	options = $.extend(true,{},defaultOptions,options);
             	
             	this.element = $(document.getElementById(componentId));
             	
@@ -387,6 +387,7 @@
                   }
             	$super.constructor.call(this, componentId, options);
                 $.plot(this.element,options.data,options);
+                this.__bindEventHandlers(this.element,options);
             },
 
             /***************************** Public Methods  ****************************************************************/
@@ -394,8 +395,73 @@
             
 
             /***************************** Private Methods ********************************************************/
-            __bindEventHandlers:function(){
+            __bindEventHandlers:function(element,options){
+            	element.on('plotclick', this._getPlotClickHandler(options, element, _plotClickServerSide));
+            	element.on('plothover', this._getPlotHoverHandler(options, element));
+            	if (options.handlers && options.handlers.onmouseout) {
+                    element.on('mouseout', options.handlers.onmouseout);
+                 }
                 console.log("Bindujem handlery"); 
+            },
+          //function handles plotclick event. it calls server-side, client-side and particular series handlers if set.
+            _getPlotClickHandler: function (options, element, serverSideHandler) {
+              return function (event, mouse, item) {
+                if (item !== null) {
+                  //point in a chart clicked
+                  event.data = {
+                    seriesIndex: item.seriesIndex,
+                    dataIndex: item.dataIndex,
+                    x: item.datapoint[0],
+                    y: item.datapoint[1],
+                    item: item
+                  };
+
+                  var clientId = element.attr('id');
+
+                  //sent request only if a server-side listener attached
+                  //if (options.serverSideListener) {
+                    //server-side
+                    if (serverSideHandler) {
+                      serverSideHandler(event, clientId);
+                    }
+                  //}
+
+                  //client-side
+                  if (options.handlers && options.handlers['onplotclick']) {
+                    options.handlers['onplotclick'].call(element, event);
+                  }
+                  //client-side particular series handler
+                  if (options.particularSeriesHandlers && options.particularSeriesHandlers['onplotclick'][event.data.seriesIndex]) {
+                    options.particularSeriesHandlers['onplotclick'][event.data.seriesIndex].call(element, event);
+                  }
+                }
+              };
+            },
+            
+            //function handles plothover event. it calls client-side and particular series handlers if set.
+            _getPlotHoverHandler: function (options, element) {
+              return function (event, mouse, item) {
+                if (item !== null) {
+                  //point in a chart clicked
+                  event.data = {
+                    seriesIndex: item.seriesIndex,
+                    dataIndex: item.dataIndex,
+                    x: item.datapoint[0],
+                    y: item.datapoint[1],
+                    item: item
+                  };
+
+                  //client-side
+                  if (options.handlers && options.handlers['onplothover']) {
+                    options.handlers['onplothover'].call(element, event);
+                  }
+
+                  //client-side particular series handler
+                  if (options.particularSeriesHandlers && options.particularSeriesHandlers['onplothover'][event.data.seriesIndex]) {
+                    options.particularSeriesHandlers['onplothover'][event.data.seriesIndex].call(element, event);
+                  }
+                }
+              };
             },
 
             destroy: function () {
