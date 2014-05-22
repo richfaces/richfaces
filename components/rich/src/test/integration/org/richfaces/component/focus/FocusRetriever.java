@@ -1,7 +1,8 @@
 package org.richfaces.component.focus;
 
-import javax.enterprise.inject.Default;
 
+
+import org.jboss.arquillian.drone.api.annotation.Default;
 import org.jboss.arquillian.graphene.context.GrapheneContext;
 import org.jboss.arquillian.graphene.javascript.JSInterfaceFactory;
 import org.jboss.arquillian.graphene.javascript.JavaScript;
