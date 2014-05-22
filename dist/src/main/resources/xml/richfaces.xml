@@ -34,10 +34,16 @@
             <outputDirectory></outputDirectory>
         </fileSet>
 
-        <!-- docs and examples-->
+        <!-- docs-->
         <fileSet>
             <directory>target/site</directory>
             <outputDirectory>doc</outputDirectory>
+        </fileSet>
+
+        <!-- docs-->
+        <fileSet>
+            <directory>target/examples</directory>
+            <outputDirectory>examples</outputDirectory>
         </fileSet>
     </fileSets>
 

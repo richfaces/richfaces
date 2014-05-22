@@ -154,7 +154,7 @@
                                     <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
                                     <useSubDirectoryPerArtifact>false</useSubDirectoryPerArtifact>
                                     <stripVersion>true</stripVersion>
-                                    <outputDirectory>${project.build.directory}/site/example/richfaces-showcase</outputDirectory>
+                                    <outputDirectory>${project.build.directory}/examples/richfaces-showcase</outputDirectory>
                                 </configuration>
                             </execution>
 
