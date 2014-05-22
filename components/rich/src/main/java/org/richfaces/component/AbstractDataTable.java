@@ -29,25 +29,29 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.taglib.DataTableHandler;
 import org.richfaces.component.attribute.EventsRowProps;
 import org.richfaces.component.attribute.IterationProps;
 import org.richfaces.component.attribute.RowsProps;
 import org.richfaces.component.attribute.SequenceProps;
 import org.richfaces.component.attribute.StyleClassProps;
 import org.richfaces.component.attribute.StyleProps;
+import org.richfaces.component.attribute.TableStyleProps;
+import org.richfaces.taglib.DataTableHandler;
 
 /**
- * <p> The &lt;rich:dataTable&gt; component is used to render a table, including the table's caption. It works in
- * conjunction with the &lt;rich:column&gt; and &lt;rich:columnGroup&gt; components to list the contents of a data
- * model. </p>
+ * <p>
+ * The &lt;rich:dataTable&gt; component is used to render a table, including the table's caption. It works in conjunction with
+ * the &lt;rich:column&gt; and &lt;rich:columnGroup&gt; components to list the contents of a data model.
+ * </p>
  *
  * @author Anton Belevich
  */
-@JsfComponent(type = AbstractDataTable.COMPONENT_TYPE, family = AbstractDataTable.COMPONENT_FAMILY,
+@JsfComponent(type = AbstractDataTable.COMPONENT_TYPE,
+        family = AbstractDataTable.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"),
         tag = @Tag(name = "dataTable", handlerClass = DataTableHandler.class, type = TagType.Facelets))
-public abstract class AbstractDataTable extends UIDataTableBase implements EventsRowProps, RowsProps, StyleProps, StyleClassProps, SequenceProps, IterationProps {
+public abstract class AbstractDataTable extends UIDataTableBase implements EventsRowProps, RowsProps, StyleProps,
+    StyleClassProps, SequenceProps, IterationProps, TableStyleProps {
     public static final String COMPONENT_TYPE = "org.richfaces.DataTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String CAPTION_FACET_NAME = "caption";

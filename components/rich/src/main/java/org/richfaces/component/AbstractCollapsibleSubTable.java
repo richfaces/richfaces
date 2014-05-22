@@ -38,14 +38,17 @@ import org.richfaces.component.attribute.IterationProps;
 import org.richfaces.component.attribute.RowsProps;
 import org.richfaces.component.attribute.SequenceProps;
 import org.richfaces.component.attribute.StyleProps;
+import org.richfaces.component.attribute.TableStyleProps;
 import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.event.CollapsibleSubTableToggleListener;
 import org.richfaces.taglib.CollapsibleSubTableHandler;
 
 /**
- * <p> The &lt;rich:collapsibleSubTable&gt; component acts as a child element to a &lt;rich:dataTable&gt; component. The
- * &lt;rich:collapsibleSubTable&gt; component iterates through the child collections in the currently iterated object to
- * create master-detail tables. </p>
+ * <p>
+ * The &lt;rich:collapsibleSubTable&gt; component acts as a child element to a &lt;rich:dataTable&gt; component. The
+ * &lt;rich:collapsibleSubTable&gt; component iterates through the child collections in the currently iterated object to create
+ * master-detail tables.
+ * </p>
  *
  * @author Anton Belevich
  */
@@ -53,7 +56,8 @@ import org.richfaces.taglib.CollapsibleSubTableHandler;
         family = AbstractCollapsibleSubTable.COMPONENT_FAMILY,
         renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"),
         tag = @Tag(name = "collapsibleSubTable", handlerClass = CollapsibleSubTableHandler.class, type = TagType.Facelets))
-public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable, EventsRowProps, RowsProps, StyleProps, SequenceProps, IterationProps {
+public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable, EventsRowProps,
+    RowsProps, StyleProps, SequenceProps, IterationProps, TableStyleProps {
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTable";
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     public static final String MODE_AJAX = "ajax";
