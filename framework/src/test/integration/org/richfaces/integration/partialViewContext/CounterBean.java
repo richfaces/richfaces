@@ -37,4 +37,8 @@ public class CounterBean implements Serializable {
     public int incrementAndGet() {
         return ++counter;
     }
+
+    public int getState() {
+        return counter;
+    }
 }

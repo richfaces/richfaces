@@ -55,6 +55,7 @@ import org.richfaces.ui.common.AjaxOutput;
 import org.richfaces.ui.common.HtmlConstants;
 import org.richfaces.util.FastJoiner;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Maps;
 
 /**
@@ -322,14 +323,20 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     public boolean isRenderAll() {
         assertNotReleased();
         if (detectContextMode() == ContextMode.EXTENDED) {
-            if (renderAll != null) {
-                return renderAll.booleanValue();
+            if (renderAll == null) {
+                setRenderAll(detectRenderAll());
             }
-
-            return getRenderIds().contains(ALL);
+            return renderAll.booleanValue();
         } else {
             return wrappedViewContext.isRenderAll();
         }
+    }
+
+    /**
+     * Detects whether current context's state indicates render=@all
+     */
+    private boolean detectRenderAll() {
+        return Boolean.TRUE.equals(renderAll) || renderIds.contains(ALL);
     }
 
     /*
@@ -338,10 +345,17 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
      * @see javax.faces.context.PartialViewContextWrapper#setRenderAll(boolean)
      */
     @Override
-    public void setRenderAll(boolean renderAll) {
+    public void setRenderAll(final boolean renderAll) {
         assertNotReleased();
         this.renderAll = renderAll;
-        super.setRenderAll(renderAll);
+        callForAllParentContexts(new Function<PartialViewContext, Void>() {
+            public Void apply(PartialViewContext pvc) {
+                if (pvc != ExtendedPartialViewContext.this) {
+                    pvc.setRenderAll(renderAll);
+                }
+                return null;
+            }
+        });
     }
 
     /**
@@ -533,7 +547,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
      * Visits activator component to collect attributes needed for render phase
      */
     private void visitActivatorAtRender() {
-        if (detectContextMode() == ContextMode.EXTENDED && !isRenderAll()) {
+        if (detectContextMode() == ContextMode.EXTENDED) {
             ActivatorComponentRenderCallback callback = new ActivatorComponentRenderCallback(getFacesContext(), behaviorEvent);
 
             if (visitActivatorComponent(activatorComponentId, callback, EnumSet.noneOf(VisitHint.class))) {
@@ -547,7 +561,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
                 renderIds.addAll(componentRenderIds);
             }
 
-            if (!Boolean.TRUE.equals(renderAll) && !renderIds.contains(ALL)) {
+            if (!isRenderAll()) {
                 addImplicitRenderIds(renderIds);
 
                 appendOnbeforedomupdate(onbeforedomupdate);
@@ -787,5 +801,16 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
 
             partialResponseWriter.endExtension();
         }
+    }
+
+    /**
+     * All the parent wrappers of this context will be traversed and given callback will be called upon them
+     */
+    private void callForAllParentContexts(Function<PartialViewContext, Void> function) {
+        PartialViewContext pvc = (PartialViewContextWrapper) this;
+        do {
+            pvc = ((PartialViewContextWrapper) pvc).getWrapped();
+            function.apply(pvc);
+        } while (pvc instanceof PartialViewContextWrapper);
     }
 }
