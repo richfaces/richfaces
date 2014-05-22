@@ -30,7 +30,7 @@
     </parent>
 
     <artifactId>richfaces-a4j</artifactId>
-    <name>RichFaces UI Components: http://richfaces.org/a4j</name>
+    <name>RichFaces a4j components</name>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -72,4 +72,122 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Release -->
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- JavaDoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- VDL DOC -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>generate-vdldoc</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-jar</argument>
+                                <argument>${settings.localRepository}/org/omnifaces/vdldoc/${version.vdldoc}/vdldoc-${version.vdldoc}.jar</argument>
+                                <argument>-d</argument>
+                                <argument>${project.build.directory}/vdldoc</argument>
+                                <argument>-windowtitle</argument>
+                                <argument>${project.name} ${version.richfaces} VDL Documentation</argument>
+                                <argument>-doctitle</argument>
+                                <argument>${project.name} ${version.richfaces} VDL Documentation</argument>
+                                <argument>${project.build.directory}/generated-sources/main/resources/META-INF/a4j.taglib.xml</argument>
+                            </arguments>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.omnifaces</groupId>
+                                <artifactId>vdldoc</artifactId>
+                                <version>${version.vdldoc}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>richfaces-a4j-vdldoc-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptor>src/main/xml/assembler-vdldoc.xml</descriptor>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- JSDoc -->
+                    <plugin>
+                        <groupId>gr.abiss.mvn.plugins</groupId>
+                        <artifactId>maven-jstools-plugin</artifactId>
+                        <version>0.7</version>
+                        <executions>
+                            <execution>
+                                <id>jsdoc</id>
+                                <configuration>
+                                    <jsDir>${basedir}/src/main/resources/META-INF/resources</jsDir>
+                                    <includes>**/*.js</includes>
+                                    <caseSensitive>true</caseSensitive>
+                                </configuration>
+                                <goals>
+                                    <goal>jsdoc</goal>
+                                </goals>
+                                <phase>process-sources</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>pack-jsodcs</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <classesDirectory>target/site/jsdoc</classesDirectory>
+                                    <classifier>jsdoc</classifier>
+                                    <excludes>
+                                        <exclude>**/symbols/src/*</exclude>
+                                    </excludes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

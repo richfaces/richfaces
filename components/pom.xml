@@ -40,7 +40,6 @@
     <modules>
         <module>a4j</module>
         <module>rich</module>
-        <!--<module>dist</module>-->
     </modules>
 
     <properties>
