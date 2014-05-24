@@ -1,2 +1,2 @@
-org.richfaces.push.cdi.PushCDIDependencyRegistrationExtension
-org.richfaces.push.cdi.PushCDIExtension
+org.richfaces.cdi.push.PushCDIDependencyRegistrationExtension
+org.richfaces.cdi.push.PushCDIExtension
