@@ -420,6 +420,10 @@
                     y: item.datapoint[1],
                     item: item
                   };
+                  if(options.charttype=="pie"){
+                	  event.data.x = options.data[item.seriesIndex].label;
+                	  event.data.y = item.datapoint[1][0][1];
+                  }
 
                   var clientId = element.attr('id');
 
