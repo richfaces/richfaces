@@ -160,7 +160,7 @@ public class PushCDIExtension implements Extension {
         }
 
         public Reception getReception() {
-            return null;
+            return Reception.IF_EXISTS;
         }
 
         public TransactionPhase getTransactionPhase() {
