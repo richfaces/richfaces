@@ -424,6 +424,10 @@
                 	  event.data.x = options.data[item.seriesIndex].label;
                 	  event.data.y = item.datapoint[1][0][1];
                   }
+                  else if(options.charttype=="bar" && options.xtype=="string"){
+                	  event.data.x = options.xaxis.ticks[item.seriesIndex][1];
+
+                  }
 
                   var clientId = element.attr('id');
 
