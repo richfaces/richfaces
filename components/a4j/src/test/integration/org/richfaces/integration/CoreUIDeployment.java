@@ -8,6 +8,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.richfaces.arquillian.configuration.FundamentalTestConfiguration;
 import org.richfaces.arquillian.configuration.FundamentalTestConfigurationContext;
 import org.richfaces.deployment.Deployment;
+import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 public class CoreUIDeployment extends Deployment {
 
@@ -37,5 +38,13 @@ public class CoreUIDeployment extends Deployment {
             .importDirectory("target/classes/").as(GenericArchive.class),
             "/", Filters.includeAll());
         archive().addAsLibrary(jar);
+    }
+
+    public FaceletAsset baseFacelet(String name) {
+        FaceletAsset p = new FaceletAsset();
+
+        this.archive().add(p, name);
+
+        return p;
     }
 }

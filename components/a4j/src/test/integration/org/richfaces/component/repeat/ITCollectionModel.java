@@ -22,6 +22,11 @@
 
 package org.richfaces.component.repeat;
 
+import static org.junit.Assert.assertEquals;
+
+import java.net.URL;
+import java.util.List;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -32,19 +37,11 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-
-import java.net.URL;
-import java.util.List;
-
-import static org.jboss.arquillian.graphene.Graphene.guardAjax;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 @RunWith(Arquillian.class)
 @WarpTest
@@ -87,9 +84,11 @@ public class ITCollectionModel {
     private static void addIndexPage(FrameworkDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
-        p.body("<rich:list id='list' var='item' value='#{collectionModelBean.collection}'>");
-        p.body("    #{item}");
-        p.body("</rich:list>");
+        p.body("<ul id='list'>");
+        p.body("<a4j:repeat id='list' var='item' value='#{collectionModelBean.collection}'>");
+        p.body("    <li>#{item}</li>");
+        p.body("</a4j:repeat>");
+        p.body("</ul>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }

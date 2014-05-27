@@ -32,7 +32,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.integration.CoreUIDeployment;
 
 public abstract class AbstractRegionTest {
 
@@ -48,7 +48,7 @@ public abstract class AbstractRegionTest {
     @FindBy(id = BUTTON_ID)
     private WebElement button;
 
-    protected static class RegionTestDeployment extends FrameworkDeployment {
+    protected static class RegionTestDeployment extends CoreUIDeployment {
         RegionTestDeployment(Class<?> baseClass) {
             super(baseClass);
             this.archive().addClasses(RegionBean.class, SetupExecute.class, VerifyExecutedIds.class);

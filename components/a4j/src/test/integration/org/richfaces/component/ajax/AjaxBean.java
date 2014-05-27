@@ -78,6 +78,10 @@ public class AjaxBean implements Serializable {
         this.value = value;
     }
 
+    public void clearValue() {
+        value = "0";
+    }
+
     public long getLongValue() {
         return longValue;
     }

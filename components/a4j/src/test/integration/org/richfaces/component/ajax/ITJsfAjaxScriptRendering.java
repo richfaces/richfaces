@@ -41,7 +41,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.integration.CoreUIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 @RunAsClient
@@ -65,7 +65,7 @@ public class ITJsfAjaxScriptRendering {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITJsfAjaxScriptRendering.class);
+        CoreUIDeployment deployment = new CoreUIDeployment(ITJsfAjaxScriptRendering.class);
 
         addIndexPage(deployment);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -86,7 +86,7 @@ public class ITJsfAjaxScriptRendering {
         assertEquals("there should be still just one jsf.js script on the page", 1, jsfJsScripts.size());
     }
 
-    private static void addIndexPage(FrameworkDeployment deployment) {
+    private static void addIndexPage(CoreUIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.form("<h:commandLink id='button' value='Click me '>");

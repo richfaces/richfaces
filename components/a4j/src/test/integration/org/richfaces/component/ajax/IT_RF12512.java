@@ -65,15 +65,15 @@ public class IT_RF12512 {
         browser.get(contextPath.toExternalForm());
         WebElement input;
         input = browser.findElement(By.id("myForm:input"));
-        Assert.assertEquals("", input.getAttribute("value"));
+        Assert.assertEquals("0", input.getAttribute("value"));
         input.sendKeys("123");
         WebElement submit = browser.findElement(By.id("myForm:submit"));
         Graphene.guardAjax(submit).click();
-        Assert.assertEquals("123", input.getAttribute("value"));
+        Assert.assertEquals("0123", input.getAttribute("value"));
         WebElement clear = browser.findElement(By.id("myForm:clear"));
         Graphene.guardAjax(clear).click();
         input = browser.findElement(By.id("myForm:input"));
-        Assert.assertEquals("", input.getAttribute("value"));
+        Assert.assertEquals("0", input.getAttribute("value"));
     }
 
     private static void addIndexPage(CoreUIDeployment deployment) {
