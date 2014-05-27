@@ -110,6 +110,10 @@ public class ITAjaxSubmissionCallbacks {
     private static FaceletAsset buildPage(boolean formScopedRegistration, boolean pageScopedRegistration) {
         FaceletAsset p = new FaceletAsset();
 
+        p.head("<h:outputScript library='javax.faces' name='jsf.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='jquery.js' />");
+        p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
+
         p.body("<h:outputScript>");
         p.body("  window.RichFaces.jQuery(document).ready(function() {");
 
@@ -132,17 +136,17 @@ public class ITAjaxSubmissionCallbacks {
         p.body("</h:outputScript>");
 
         p.body("<h:form prependId=\"false\" id=\"" + FORM_ID + "\">");
-        p.body("  <h:inputText value=\"#{ajaxSubmissionsCallbacksBean.property}\">");
+        p.body("  <h:inputText value=\"#{requestScope.property}\">");
         p.body("     <a4j:ajax event=\"keyup\" render=\"out\" />");
         p.body("  </h:inputText>");
-        p.body("  <h:outputText value=\"#{ajaxSubmissionsCallbacksBean.property}\" id=\"out\" />");
+        p.body("  <h:outputText value=\"#{requestScope.property}\" id=\"out\" />");
         p.body("</h:form>");
 
         return p;
     }
 
     private static void registerCallBackToForm(FaceletAsset p, String eventCallback) {
-        p.body("    window.RichFaces.jQuery(#{rich:element('" + FORM_ID + "')}).on(\"" + eventCallback + "\", function() {");
+        p.body("    window.RichFaces.jQuery(document.getElementById('" + FORM_ID + "')).on(\"" + eventCallback + "\", function() {");
         p.body("         document.formScopedCallbacksCalled += '" + eventCallback + " ';");
         p.body("    });");
     }
