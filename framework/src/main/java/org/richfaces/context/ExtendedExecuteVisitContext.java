@@ -21,44 +21,37 @@
  */
 package org.richfaces.context;
 
+import java.util.Collection;
+import java.util.Set;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
-
-import org.richfaces.component.MetaComponentProcessor;
 
 /**
- * @author Nick Belaevski
+ * Wraps parent {@link VisitContext} and executes {@link MetaComponentProcessingVisitCallback} during its
+ * {@link #invokeVisitCallback(UIComponent, VisitCallback)} method.
  *
+ * @author Nick Belaevski
  */
-final class PartialViewExecuteVisitCallback implements VisitCallback {
-    private FacesContext facesContext;
-    private PhaseId phaseId;
+public class ExtendedExecuteVisitContext extends BaseExtendedVisitContext {
 
-    PartialViewExecuteVisitCallback(FacesContext context, PhaseId phaseId) {
-        super();
-        this.facesContext = context;
-        this.phaseId = phaseId;
+    public ExtendedExecuteVisitContext(VisitContext visitContextToWrap, FacesContext facesContext,
+            Collection<String> clientIds, Set<VisitHint> hints) {
+        super(visitContextToWrap, facesContext, clientIds, hints, ExtendedVisitContextMode.EXECUTE);
     }
 
-    public VisitResult visit(VisitContext context, UIComponent target) {
-        String metaComponentId = (String) facesContext.getAttributes().get(ExtendedVisitContext.META_COMPONENT_ID);
-        if (metaComponentId != null) {
-            MetaComponentProcessor executor = (MetaComponentProcessor) target;
-            executor.processMetaComponent(facesContext, metaComponentId);
-        } else if (phaseId == PhaseId.APPLY_REQUEST_VALUES) {
-            target.processDecodes(facesContext);
-        } else if (phaseId == PhaseId.PROCESS_VALIDATIONS) {
-            target.processValidators(facesContext);
-        } else if (phaseId == PhaseId.UPDATE_MODEL_VALUES) {
-            target.processUpdates(facesContext);
-        } else {
-            throw new IllegalArgumentException(phaseId.toString());
-        }
-
-        return VisitResult.REJECT;
+    /**
+     * Instead of execution of {@link VisitCallback} directly, we use {@link MetaComponentProcessingVisitCallback} that executes
+     * additional logic for meta-component processing.
+     */
+    @Override
+    public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callbackToWrap) {
+        MetaComponentProcessingVisitCallback callback = new MetaComponentProcessingVisitCallback(callbackToWrap,
+                getFacesContext());
+        return super.invokeVisitCallback(component, callback);
     }
 }

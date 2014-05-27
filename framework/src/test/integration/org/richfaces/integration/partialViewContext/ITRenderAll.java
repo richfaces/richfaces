@@ -28,6 +28,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
 
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -60,19 +62,23 @@ import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 public class ITRenderAll {
 
     @Drone
-    WebDriver browser;
+    private WebDriver browser;
 
     @ArquillianResource
-    URL contextPath;
+    private URL contextPath;
 
     @FindBy(css = "input[type=submit]")
-    WebElement button;
+    private WebElement button;
+
+    @FindBy(id = "counter")
+    private WebElement counter;
 
     @Deployment
     public static WebArchive createDeployment() {
         CoreDeployment deployment = new CoreDeployment(ITRenderAll.class);
 
         deployment.withWholeCore();
+        deployment.archive().addClasses(CounterBean.class);
 
         addIndexPage(deployment);
 
@@ -80,7 +86,66 @@ public class ITRenderAll {
     }
 
     @Test
-    public void test() {
+    public void render_all_should_replace_all_page_content() {
+        browser.get(contextPath.toExternalForm());
+        assertEquals("0", counter.getText());
+
+        Warp
+            .initiate(new Activity() {
+                public void perform() {
+                    guardAjax(button).click();
+                }
+            })
+            .group()
+                .observe(request().uri().contains("index"))
+                .inspect(new IncrementCounter())
+            .execute();
+
+        assertEquals("counter should be incremented and rendered during render=@all", "1", counter.getText());
+    }
+
+    @Test
+    public void button_replaced_with_render_all_should_keep_working() {
+        browser.get(contextPath.toExternalForm());
+        assertEquals("0", counter.getText());
+
+        Warp
+            .initiate(new Activity() {
+                public void perform() {
+                    guardAjax(button).click();
+                }
+            })
+            .observe(request().uri().contains("index"))
+            .inspect(new IncrementCounter());
+
+        assertEquals("counter should be incremented and rendered during render=@all", "1", counter.getText());
+
+        Warp
+            .initiate(new Activity() {
+                public void perform() {
+                    guardAjax(button).click();
+                }
+            })
+            .observe(request().uri().contains("index"))
+            .inspect(new IncrementCounter());
+
+        assertEquals("counter should be incremented even for second request", "2", counter.getText());
+    }
+
+    public static class IncrementCounter extends Inspection {
+        private static final long serialVersionUID = 1L;
+
+        @ManagedProperty("#{counterBean}")
+        private CounterBean bean;
+
+        @BeforePhase(Phase.RENDER_RESPONSE)
+        public void add_oncomplete() {
+            bean.incrementAndGet();
+        }
+    }
+
+    @Test
+    public void test_oncomplete_script_should_be_called_during_render_all() {
         browser.get(contextPath.toExternalForm());
 
         Warp
@@ -95,7 +160,10 @@ public class ITRenderAll {
                     private static final long serialVersionUID = 1L;
 
                     @ArquillianResource
-                    PartialViewContext pvc;
+                    private PartialViewContext pvc;
+
+                    @ArquillianResource
+                    private FacesContext facesContext;
 
                     @BeforePhase(Phase.RENDER_RESPONSE)
                     public void add_oncomplete() {
@@ -115,6 +183,8 @@ public class ITRenderAll {
         p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 
         p.form("<h:commandButton value='Render All' render='@all' onclick='RichFaces.ajax(this, event, {\"incId\": \"1\"}); return false;' />");
+
+        p.form("<div id='counter'>#{counterBean.state}</div>");
 
         deployment.archive().addAsWebResource(p, "index.xhtml");
     }
