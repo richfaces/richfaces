@@ -83,8 +83,8 @@
                     // move cursor to the center of custom dragIndicator;
                     var left = (ui.helper.width() / 2);
                     var top = (ui.helper.height() / 2);
-                    this.dragElement.data('draggable').offset.click.left = left;
-                    this.dragElement.data('draggable').offset.click.top = top;
+                    this.dragElement.data('ui-draggable').offset.click.left = left;
+                    this.dragElement.data('ui-draggable').offset.click.top = top;
                     
                 }
             },
