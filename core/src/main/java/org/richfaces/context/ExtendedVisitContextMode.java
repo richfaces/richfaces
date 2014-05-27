@@ -22,12 +22,21 @@
 package org.richfaces.context;
 
 /**
+ * Denotes a current visit mode
+ *
  * @author Nick Belaevski
  *
  */
 public enum ExtendedVisitContextMode {
 
+    /**
+     * all phases except rendering
+     */
     EXECUTE,
+
+    /**
+     * rendering phase
+     */
     RENDER
 
 }

@@ -30,17 +30,16 @@ import javax.faces.context.FacesContext;
 import org.ajax4jsf.component.AjaxClientBehavior;
 
 /**
- * @author akolonitsky
- * @since Oct 13, 2009
+ * Callback that collects component attributes necessary for partial view rendering
  */
-class RenderComponentCallback extends ComponentCallback {
+class ActivatorComponentRenderCallback extends ActivatorComponentCallbackBase {
     private Collection<String> renderIds = null;
     private boolean limitRender = false;
     private String oncomplete;
     private String onbeforedomupdate;
     private Object data;
 
-    RenderComponentCallback(FacesContext facesContext, String behaviorEvent) {
+    ActivatorComponentRenderCallback(FacesContext facesContext, String behaviorEvent) {
         super(facesContext, behaviorEvent);
     }
 

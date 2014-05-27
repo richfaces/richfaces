@@ -32,13 +32,12 @@ import org.richfaces.component.AjaxContainer;
 import org.richfaces.renderkit.AjaxConstants;
 
 /**
- * @author akolonitsky
- * @since Oct 13, 2009
+ * Callback that collects component attributes necessary for partial view rendering
  */
-class ExecuteComponentCallback extends RenderComponentCallback {
+class ActivatorComponentExecuteCallback extends ActivatorComponentRenderCallback {
     private Collection<String> executeIds = null;
 
-    ExecuteComponentCallback(FacesContext facesContext, String behaviorEvent) {
+    ActivatorComponentExecuteCallback(FacesContext facesContext, String behaviorEvent) {
         super(facesContext, behaviorEvent);
     }
 

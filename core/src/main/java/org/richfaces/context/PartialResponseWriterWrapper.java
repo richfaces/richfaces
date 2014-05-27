@@ -31,7 +31,7 @@ import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
 
 /**
- * Wraps {@link PartialResponseWriter} and delegates all calls to it.
+ * Wraps {@link PartialResponseWriter} and delegates all calls to wrapped writer by default.
  *
  * @author Lukas Fryc
  */
@@ -50,7 +50,6 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     @Override
     public void startDocument() throws IOException {
-
         wrapped.startDocument();
     }
 
