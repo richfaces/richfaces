@@ -21,7 +21,15 @@
  */
 package org.richfaces.component;
 
-import com.google.common.collect.Iterators;
+import java.util.Iterator;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
+import javax.faces.render.Renderer;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
@@ -34,18 +42,10 @@ import org.richfaces.component.attribute.BypassProps;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
-import org.richfaces.context.RenderExtendedVisitContext;
+import org.richfaces.context.ExtendedRenderVisitContext;
 import org.richfaces.renderkit.html.DivPanelRenderer;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
-
-import java.util.Iterator;
+import com.google.common.collect.Iterators;
 
 /**
  * <p>The &lt;rich:tab&gt; component represents an individual tab inside a &lt;rich:tabPanel&gt; component, including
@@ -200,7 +200,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
      */
     public static Iterator<UIComponent> getVisitableChildren(UIComponent component, VisitContext visitContext) {
         Iterator<UIComponent> kids;
-        if (RenderExtendedVisitContext.isRenderExtendedVisitContext(visitContext)
+        if (ExtendedRenderVisitContext.isExtendedRenderVisitContext(visitContext)
                 && component instanceof VisitChildrenRejectable
                 && ! ((VisitChildrenRejectable)component).shouldVisitChildren()) {
             if (component.getFacetCount() > 0) {

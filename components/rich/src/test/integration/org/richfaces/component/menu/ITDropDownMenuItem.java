@@ -24,6 +24,7 @@ package org.richfaces.component.menu;
 
 import static org.jboss.arquillian.graphene.Graphene.guardNoRequest;
 
+import java.io.File;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -60,9 +61,9 @@ public class ITDropDownMenuItem {
         deployment.archive()
             .addClasses(DropDownMenuBean.class, VerifyMenuAction.class)
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-            .addAsWebResource(ITDropDownMenuItem.class.getResource("menuItem_serverMode.xhtml"), "menuItem_serverMode.xhtml")
-            .addAsWebResource(ITDropDownMenuItem.class.getResource("menuItem_ajaxMode.xhtml"), "menuItem_ajaxMode.xhtml")
-            .addAsWebResource(ITDropDownMenuItem.class.getResource("menuItem_clientMode.xhtml"), "menuItem_clientMode.xhtml");
+            .addAsWebResource(new File("src/test/resources/org/richfaces/renderkit/html/menuItem_serverMode.xhtml"), "menuItem_serverMode.xhtml")
+            .addAsWebResource(new File("src/test/resources/org/richfaces/renderkit/html/menuItem_ajaxMode.xhtml"), "menuItem_ajaxMode.xhtml")
+            .addAsWebResource(new File("src/test/resources/org/richfaces/renderkit/html/menuItem_clientMode.xhtml"), "menuItem_clientMode.xhtml");
 
         return deployment.getFinalArchive();
     }

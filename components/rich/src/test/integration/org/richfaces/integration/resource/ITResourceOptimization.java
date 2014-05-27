@@ -73,7 +73,7 @@ public class ITResourceOptimization {
         p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 
         p = deployment.baseFacelet("stylesheet.xhtml");
-        p.head("<h:outputStylesheet library='org.richfaces' name='ajax/log.ecss' />");
+        p.head("<h:outputStylesheet library='org.richfaces' name='log.ecss' />");
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
         	public WebAppDescriptor apply(WebAppDescriptor input) {

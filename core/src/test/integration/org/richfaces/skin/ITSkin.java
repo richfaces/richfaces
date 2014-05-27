@@ -24,13 +24,8 @@ package org.richfaces.skin;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpUtils;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -51,7 +46,6 @@ import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import com.google.common.base.Function;
-import com.google.common.collect.Maps;
 
 @RunAsClient
 @RunWith(Arquillian.class)
@@ -103,7 +97,7 @@ public class ITSkin extends AbstractSkinTestBase {
 
     @Test
     public void changing_skins() throws InterruptedException {
-        
+
         URL url;
         Map<String, String> parameters;
 

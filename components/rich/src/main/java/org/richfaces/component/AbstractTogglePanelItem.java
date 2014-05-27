@@ -21,6 +21,10 @@
  */
 package org.richfaces.component;
 
+import javax.faces.component.UIOutput;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -29,11 +33,7 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.attribute.CoreProps;
 import org.richfaces.component.attribute.EventsMouseProps;
 import org.richfaces.component.attribute.I18nProps;
-import org.richfaces.context.RenderExtendedVisitContext;
-
-import javax.faces.component.UIOutput;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
+import org.richfaces.context.ExtendedRenderVisitContext;
 
 /**
  * <p>The &lt;rich:togglePanelItem&gt; component is a switchable panel for use with the &lt;rich:togglePanel&gt;
@@ -131,7 +131,7 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
      * UIComponent#visitTree modified to delegate to AbstractTab#getVisitableChildren() to retrieve the children iterator
      */
     public boolean visitTree(VisitContext context, VisitCallback callback) {
-        if (RenderExtendedVisitContext.isRenderExtendedVisitContext(context) && ! shouldVisitChildren()) {
+        if (ExtendedRenderVisitContext.isExtendedRenderVisitContext(context) && ! shouldVisitChildren()) {
             // Return false to allow the visit to continue
             return false;
         } else {

@@ -29,8 +29,8 @@ import java.util.regex.Pattern;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.resource.ResourceKey;
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.resource.ResourceKey;
 import org.richfaces.webapp.ResourceServlet;
 
 import com.google.common.base.Strings;
@@ -80,6 +80,9 @@ public class ResourceServletMapping implements ResourceMapping {
         } else {
             Resource resource = context.getApplication().getResourceHandler()
                     .createResource(resourceKey.getResourceName(), resourceKey.getLibraryName());
+            if (resource == null) {
+                return "RESOURCE_NOT_FOUND";
+            }
             return getResourcePath(resource);
         }
     }

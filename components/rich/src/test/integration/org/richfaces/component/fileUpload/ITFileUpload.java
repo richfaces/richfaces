@@ -72,7 +72,7 @@ public class ITFileUpload {
     public void test_file_upload() throws InterruptedException, URISyntaxException {
         browser.get(contextPath.toExternalForm());
 
-        File file = new File(ITFileUpload.class.getResource("TestFileUpload.class").toURI());
+        File file = new File(ITFileUpload.class.getResource("ITFileUpload.class").toURI());
 
         executor.executeScript("$(arguments[0]).css({ position: 'absolute', top: '100px', left: '100px', display: 'block', visibility: 'visible', width: '100px', height: '100px' })", fileInputField);
         fileInputField.sendKeys(file.getAbsolutePath());
@@ -89,7 +89,7 @@ public class ITFileUpload {
 
                     @AfterServlet
                     public void verifyUploadedFile(FileUploadBean bean) {
-                        assertEquals("TestFileUpload.class", bean.getUploadedFile().getName());
+                        assertEquals("ITFileUpload.class", bean.getUploadedFile().getName());
                     }
                 })
             .execute();
