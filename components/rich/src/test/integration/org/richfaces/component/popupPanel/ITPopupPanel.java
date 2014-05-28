@@ -92,7 +92,6 @@ public class ITPopupPanel {
 
     private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
-        p.xmlns("c", "http://java.sun.com/jsp/jstl/core");
 
         p.body("<h:form id='myForm'>");
         p.body("    <h:commandButton value='Call the popup' class='showButton'> ");
