@@ -64,7 +64,7 @@
             <artifactId>hibernate-validator</artifactId>
             <scope>test</scope>
         </dependency>
-
+        
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
@@ -126,9 +126,23 @@
                         </property>
                     </fileNameMappings>
                     <excludedFiles>
-                        <exclude>^javax.faces</exclude>
+                        <!-- anything that doesn't start with org.richfaces or com.jqueryui -->
+                        <exclude>^(?!org\.richfaces|com\.jqueryui).*:</exclude>
                         <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                         <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                        <!-- org.richfaces/<category>/<resource> -->
+                        <exclude>^\Qorg.richfaces:\E[a-z]+/</exclude>
+                        <exclude>^\Qorg.richfaces.ckeditor:\E(?!ckeditor|config|contents)</exclude>
+                        <!-- optimized resources for RF 5 -->
+                        <exclude>^\Qorg.richfaces.optimized\E</exclude>
+                        <!-- optimized resources for RF 4 -->
+                        <exclude>^\Qorg.richfaces.static\E</exclude>
+                        <!-- optimized images -->                                
+                        <exclude>^\Qorg.richfaces.ui.\E.*</exclude>
+                        <!-- anything that isn't part of used jQuery UI plugins -->
+                        <exclude>^\Qcom.jqueryui:\E((jquery\.ui\.(?!core|draggable|droppable|mouse|resizable|widget))|(?!jquery))</exclude>
+                        <!-- RichFaces Core resources -->
+                        <exclude>^org\.richfaces:(?:jquery|richfaces|richfaces-queue|richfaces-csv|richfaces-event|push)\.js$</exclude>
                     </excludedFiles>
                 </configuration>
                 <executions>
@@ -172,24 +186,6 @@
                             <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Packed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/Packed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Packed/</staticResourcePrefix>
-                            <excludedFiles>
-                                <exclude>^org\.richfaces:jquery\.js$</exclude>
-                            </excludedFiles>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>resources-excluded-from-packaging</id>
-                        <goals>
-                            <goal>process</goal>
-                        </goals>
-                        <configuration>
-                            <compress>false</compress>
-                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/Packed/</resourcesOutputDir>
-                            <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/Packed.properties</staticResourceMappingFile>
-                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/Packed/</staticResourcePrefix>
-                            <includedFiles>
-                                <include>^org\.richfaces:jquery\.js$</include>
-                            </includedFiles>
                         </configuration>
                     </execution>
                     
@@ -206,24 +202,6 @@
                             <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/PackedCompressed/</resourcesOutputDir>
                             <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/PackedCompressed.properties</staticResourceMappingFile>
                             <staticResourcePrefix>org.richfaces.staticResource/${project.version}/PackedCompressed/</staticResourcePrefix>
-                            <excludedFiles>
-                                <exclude>^org\.richfaces:jquery\.js$</exclude>
-                            </excludedFiles>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>compressed-resources-excluded-from-packaging</id>
-                        <goals>
-                            <goal>process</goal>
-                        </goals>
-                        <configuration>
-                            <compress>true</compress>
-                            <resourcesOutputDir>${faces.resources.dir}/org.richfaces.staticResource/${project.version}/PackedCompressed/</resourcesOutputDir>
-                            <staticResourceMappingFile>${resource.mappings.dir}/optimizedResourcesMapping/PackedCompressed.properties</staticResourceMappingFile>
-                            <staticResourcePrefix>org.richfaces.staticResource/${project.version}/PackedCompressed/</staticResourcePrefix>
-                            <includedFiles>
-                                <include>^org\.richfaces:jquery\.js$</include>
-                            </includedFiles>
                         </configuration>
                     </execution>
                 </executions>
