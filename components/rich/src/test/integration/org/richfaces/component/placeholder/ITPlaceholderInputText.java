@@ -26,6 +26,7 @@ import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.warp.impl.utils.URLUtils;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
@@ -34,6 +35,8 @@ import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
 import category.Smoke;
+
+import com.google.common.base.Function;
 
 /**
  * @author <a href="mailto:jstefek@redhat.com">Jiri Stefek</a>
@@ -48,6 +51,14 @@ public class ITPlaceholderInputText extends AbstractPlaceholderTest {
         UIDeployment deployment = new UIDeployment(ITPlaceholderInputText.class);
 
         deployment.archive().addClasses(PlaceHolderValueConverter.class, PlaceHolderValue.class);
+        deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
+            public WebAppDescriptor apply(WebAppDescriptor input) {
+                return input.getOrCreateContextParam()
+                        .paramName("javax.faces.PROJECT_STAGE")
+                        .paramValue("SystemTest")
+                    .up();
+            }
+        });
 
         FaceletAsset p;
         p = placeholderFacelet("index.xhtml", deployment);

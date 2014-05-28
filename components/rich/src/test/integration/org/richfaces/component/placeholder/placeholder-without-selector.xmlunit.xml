@@ -1,4 +1,4 @@
-<span id="panel">
+<body>
   <span id="placeholderID">
     <script id="placeholderIDScript" type="text/javascript">
 //<![CDATA[
@@ -7,4 +7,4 @@ new RichFaces.ui.Placeholder("placeholderID", {"targetId":"input","text":"Placeh
     </script>
   </span>
   <input id="input" type="text" name="input"/>
-</span>
+</body>
