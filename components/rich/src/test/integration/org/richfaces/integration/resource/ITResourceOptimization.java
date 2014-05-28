@@ -76,22 +76,20 @@ public class ITResourceOptimization {
         p.head("<h:outputStylesheet library='org.richfaces' name='log.ecss' />");
 
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
-        	public WebAppDescriptor apply(WebAppDescriptor input) {
+            public WebAppDescriptor apply(WebAppDescriptor input) {
 
-        		List<ParamValueType<WebAppDescriptor>> allContextParam = input.getAllContextParam();
-        		for (ParamValueType<WebAppDescriptor> contextParam : allContextParam) {
-        		    if (ProjectStage.PROJECT_STAGE_PARAM_NAME.equals(contextParam.getParamName())) {
-        		        contextParam.paramValue(ProjectStage.Production.name());
-        		    }
-        		}
+                List<ParamValueType<WebAppDescriptor>> allContextParam = input.getAllContextParam();
+                for (ParamValueType<WebAppDescriptor> contextParam : allContextParam) {
+                    if (ProjectStage.PROJECT_STAGE_PARAM_NAME.equals(contextParam.getParamName())) {
+                        contextParam.paramValue(ProjectStage.Production.name());
+                    }
+                }
 
-        		input.getOrCreateContextParam()
-        		    .paramName("org.richfaces.resourceOptimization.enabled")
-        		    .paramValue("true");
+                input.getOrCreateContextParam().paramName("org.richfaces.resourceOptimization.enabled").paramValue("true");
 
-        		return input;
-        	};
-		});
+                return input;
+            };
+        });
 
         return deployment.getFinalArchive();
     }
@@ -101,7 +99,7 @@ public class ITResourceOptimization {
 
         driver.navigate().to(contextPath.toExternalForm() + "script.jsf");
 
-        assertEquals(1, driver.findElements(By.cssSelector("script[src*='core.js']")).size());
+        assertEquals(1, driver.findElements(By.cssSelector("script[src*='packed.js']")).size());
         assertEquals(0, driver.findElements(By.cssSelector("script[src*='richfaces.js']")).size());
     }
 
@@ -110,7 +108,7 @@ public class ITResourceOptimization {
 
         driver.navigate().to(contextPath.toExternalForm() + "stylesheet.jsf");
 
-        assertEquals(1, driver.findElements(By.cssSelector("link[href*='ui.css']")).size());
+        assertEquals(1, driver.findElements(By.cssSelector("link[href*='packed.css']")).size());
         assertEquals(0, driver.findElements(By.cssSelector("link[href*='log.ecss']")).size());
     }
 }
