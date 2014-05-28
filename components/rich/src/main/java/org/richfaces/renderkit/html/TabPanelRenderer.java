@@ -43,6 +43,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSObject;
@@ -112,6 +113,8 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
     private void writeTabsLine(ResponseWriter w, FacesContext context, UIComponent comp) throws IOException {
         w.startElement(DIV, comp);
+        String id = comp.getClientId() + AbstractTabPanel.HEADER_META_COMPONENT;
+        w.writeAttribute(ID_ATTRIBUTE, id, null);
         AbstractTabPanel tabPanel = (AbstractTabPanel) comp;
         if (tabPanel.isHeaderPositionedTop()) {
             w.writeAttribute(CLASS, "rf-tab-hdr-tabline-vis rf-tab-hdr-tabline-top", null);
@@ -186,6 +189,20 @@ public class TabPanelRenderer extends TogglePanelRenderer {
             return "btm";
         }
     }
+
+    @Override
+        public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
+            if (AbstractTabPanel.HEADER_META_COMPONENT.equals(metaComponentId)) {
+                    AbstractTabPanel panel = (AbstractTabPanel) component;
+                    PartialResponseWriter w = context.getPartialViewContext().getPartialResponseWriter();
+                    String id = component.getClientId() + AbstractTabPanel.HEADER_META_COMPONENT;
+                    w.startUpdate(id);
+                    writeTabsLine(w, context, panel);
+                    w.endUpdate();
+                } else {
+                    super.encodeMetaComponent(context, component, metaComponentId);
+                }
+        }
 
     private void encodeTabHeader(FacesContext context, AbstractTab tab, ResponseWriter writer,
             AbstractTogglePanelTitledItem.HeaderStates state, Boolean isDisplay) throws IOException {
