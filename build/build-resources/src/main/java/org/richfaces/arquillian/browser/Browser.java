@@ -5,12 +5,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.android.AndroidDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.iphone.IPhoneDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -23,8 +21,6 @@ public enum Browser {
     INTERNET_EXPLORER(InternetExplorerDriver.class),
     CHROME(ChromeDriver.class, BrowserType.CHROME),
     OPERA(OperaDriver.class),
-    IPHONE(IPhoneDriver.class),
-    ANDROID(AndroidDriver.class),
     HTML_UNIT(HtmlUnitDriver.class),
     PHANTOMJS(PhantomJSDriver.class, BrowserType.PHANTOMJS);
 
