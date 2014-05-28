@@ -20,13 +20,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.skin;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+package org.richfaces.integration.skin;
 
 import java.net.URL;
-import java.util.Map;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -36,6 +32,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -48,7 +45,7 @@ import com.google.common.base.Function;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class ITBlueSkySkin extends AbstractSkinTestBase {
+public class ITPlainSkin {
 
     @Drone
     private WebDriver browser;
@@ -70,17 +67,18 @@ public class ITBlueSkySkin extends AbstractSkinTestBase {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITBlueSkySkin.class);
+        FrameworkDeployment deployment = new FrameworkDeployment(ITPlainSkin.class);
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor input) {
 
                 input.getOrCreateContextParam()
                         .paramName("org.richfaces.skin")
-                        .paramValue("blueSky");
+                        .paramValue("plain");
 
                 return input;
             };
         });
+
 
         addIndexPage(deployment);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -88,15 +86,14 @@ public class ITBlueSkySkin extends AbstractSkinTestBase {
         return deployment.getFinalArchive();
     }
 
+    /**
+     * {@link https://issues.jboss.org/browse/RF-11103}
+     */
     @Test
     public void test_skin() throws InterruptedException {
         browser.get(contextPath.toExternalForm());
-
-        URL url = getBackgroundUrl(buttonDefault);
-        Map<String, String> parameters = parseQueryParameters(url);
-        assertTrue(url.getPath().endsWith("org.richfaces.resources/rfRes/buttonBackgroundImage.png"));
-        assertEquals("eAFjZGBkZOBm!P-f8f-n70Bi37UfDEwAUQgJhA__", parameters.get("db"));
-        assertEquals("org.richfaces.images", parameters.get("ln"));
+        String expectedUrl = "none";
+        Assert.assertEquals(expectedUrl, buttonDefault.getCssValue("background-image"));
     }
 
     private static void addIndexPage(FrameworkDeployment deployment) {

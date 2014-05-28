@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.skin;
+package org.richfaces.integration.skin;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;

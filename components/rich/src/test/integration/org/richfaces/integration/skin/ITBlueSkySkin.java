@@ -20,9 +20,14 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.skin;
+package org.richfaces.integration.skin;
 
-import com.google.common.base.Function;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.net.URL;
+import java.util.Map;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -31,20 +36,20 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.webapp30.WebAppDescriptor;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.FrameworkDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
+import org.richfaces.skin.AbstractSkinTestBase;
 
-import java.net.URL;
+import com.google.common.base.Function;
 
 @RunAsClient
 @RunWith(Arquillian.class)
-public class ITPlainSkin {
+public class ITBlueSkySkin extends AbstractSkinTestBase {
 
     @Drone
     private WebDriver browser;
@@ -66,18 +71,17 @@ public class ITPlainSkin {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        FrameworkDeployment deployment = new FrameworkDeployment(ITPlainSkin.class);
+        UIDeployment deployment = new UIDeployment(ITBlueSkySkin.class);
         deployment.webXml(new Function<WebAppDescriptor, WebAppDescriptor>() {
             public WebAppDescriptor apply(WebAppDescriptor input) {
 
                 input.getOrCreateContextParam()
                         .paramName("org.richfaces.skin")
-                        .paramValue("plain");
+                        .paramValue("blueSky");
 
                 return input;
             };
         });
-
 
         addIndexPage(deployment);
         deployment.archive().addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -85,17 +89,18 @@ public class ITPlainSkin {
         return deployment.getFinalArchive();
     }
 
-    /**
-     * {@link https://issues.jboss.org/browse/RF-11103}
-     */
     @Test
     public void test_skin() throws InterruptedException {
         browser.get(contextPath.toExternalForm());
-        String expectedUrl = "none";
-        Assert.assertEquals(expectedUrl, buttonDefault.getCssValue("background-image"));
+
+        URL url = getBackgroundUrl(buttonDefault);
+        Map<String, String> parameters = parseQueryParameters(url);
+        assertTrue(url.getPath().endsWith("org.richfaces.resources/rfRes/buttonBackgroundImage.png"));
+        assertEquals("eAFjZGBkZOBm!P-f8f-n70Bi37UfDEwAUQgJhA__", parameters.get("db"));
+        assertEquals("org.richfaces.images", parameters.get("ln"));
     }
 
-    private static void addIndexPage(FrameworkDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
         p.form("<rich:panel id='panel' header='Header Text'>Some content ");
         p.form("    <h:inputText id='input' /> ");
