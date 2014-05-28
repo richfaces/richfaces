@@ -34,11 +34,9 @@ import javax.faces.render.ResponseStateManager;
 import org.richfaces.JsfVersion;
 
 /**
- * @author shura
- *         <p/>
- *         Some utilites for render AJAX components.
+ * @author Lukas Fryc
  */
-public final class CoreAjaxRendererUtils {
+public final class ViewStateIdUtils {
 
     /**
      * A key for an attribute counting ViewState identifiers as specified in {@link ResponseStateManager#VIEW_STATE_PARAM}.
@@ -52,7 +50,7 @@ public final class CoreAjaxRendererUtils {
     /**
      * Static class - protect constructor
      */
-    private CoreAjaxRendererUtils() {
+    private ViewStateIdUtils() {
     }
 
     /**
