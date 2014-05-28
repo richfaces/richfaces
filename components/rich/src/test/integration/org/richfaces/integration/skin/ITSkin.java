@@ -44,8 +44,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.richfaces.deployment.FrameworkDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
-import org.richfaces.skin.AbstractSkinTestBase;
-import org.richfaces.skin.SkinTestBean;
 
 import com.google.common.base.Function;
 
