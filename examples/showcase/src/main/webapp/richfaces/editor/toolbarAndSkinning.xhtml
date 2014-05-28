@@ -21,13 +21,11 @@
     <hr />
 
     <p>
-        With the <b>skin attribute</b>, you are able to switch between <b>4 built-in skins</b>.
+        The default skin is called 'moono' (which is bundled with RichFaces), but with the <b>skin attribute</b>, you are able to switch between <b>skins</b>. 
     </p>
 
-    <p>Default skin is <b>'richfaces'</b>, which has look &amp; feel designed to fit into rest of RichFaces component suite.</p>
-
-    <p>If it is still not enough, you can either download any other CKEditor skin, place it to predefined locations or you
-        can use your own skin.</p>
+    <p>However you can download any other CKEditor skin, place it to predefined location (<tt>/META-INF/resources/org.richfaces.ckeditor/skins/</tt> or <tt>WAR/resources/org.richfaces.ckeditor/skins/</tt>), and then setup <b>skin attribute</b>.
+        This way you can use a skin of your choice.</p>
         
     <h:outputStylesheet>
         .rf-p { margin-bottom: 1em }
@@ -45,10 +43,7 @@
             
             <rich:panel header="Editor Skin">
                 <h:selectOneRadio id="skinSelection" value="#{editorBean.skin}">
-                    <f:selectItem itemLabel="richfaces" itemValue="richfaces" />
-                    <f:selectItem itemLabel="kama" itemValue="kama" />
-                    <f:selectItem itemLabel="v2" itemValue="v2" />
-                    <f:selectItem itemLabel="office2003" itemValue="office2003" />
+                    <f:selectItem itemLabel="moono" itemValue="moono" />
                 </h:selectOneRadio>
             </rich:panel>
         </a4j:ajax>
@@ -62,14 +57,6 @@
         <ui:param name="openLabel" value="View Source" />
         <ui:param name="hideLabel" value="Hide Source" />
     </ui:include>
-    
-    <h:form>
-        <a4j:outputPanel style="display:none">
-            <rich:editor skin="kama" />
-            <rich:editor skin="v2" />
-            <rich:editor skin="office2003" />
-        </a4j:outputPanel>
-    </h:form>
 </ui:composition>
 
 </html>

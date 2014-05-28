@@ -55,14 +55,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	                <cdk:scriptOption wrapper="eventHandler" attributes="onfocus onblur onchange oninit ondirty" />
 	            </cdk:scriptObject>
 	            window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.ckeditor/';
-                window.CKEDITOR_GETURL = function(resource)  {
-                    if (match = resource.match(/([a-z]+).ecss$/)) {
-                        switch (match[1]) {
-                            case "editor" : return resource + '#{getECSSQueryString(facesContext, "skins/richfaces/editor.ecss")}';
-                            case "dialog" : return resource + '#{getECSSQueryString(facesContext, "skins/richfaces/dialog.ecss")}';
-                        }
-                    }
-                };
                 
                 (function() {
                     var options = #{empty toScriptArgs(options) ? 'null' : toScriptArgs(options)};

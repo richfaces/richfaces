@@ -31,8 +31,8 @@ import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.renderkit.EditorRendererBase;
 import org.richfaces.component.attribute.CoreProps;
+import org.richfaces.renderkit.EditorRendererBase;
 
 /**
  * <p> The &lt;rich:editor&gt; component is used for creating a WYSIWYG editor on a page. </p>
@@ -64,7 +64,7 @@ public abstract class AbstractEditor extends UIInput implements CoreProps {
      * <p>Set the skin of the richfaces editor.  Bundled skins include: richfaces, kama, v2, office2003</p>
      * <p>Default is richfaces</p>
      */
-    @Attribute(defaultValue = "richfaces")
+    @Attribute(defaultValue = "moono")
     public abstract String getSkin();
 
     /**

@@ -15,7 +15,7 @@ public class EditorBean implements Serializable {
     private transient FairyTailBean fairyTailBean;
 
     private String toolbar = "basic";
-    private String skin = "richfaces";
+    private String skin = "moono";
     private String language = "fr";
     private String value = null;
 

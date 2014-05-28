@@ -10,7 +10,7 @@
      */
     var defaultOptions = {
         toolbar : 'Basic',
-        skin: 'richfaces',
+        skin: 'moono',
         readonly : false,
         style : '',
         styleClass : '',
@@ -18,13 +18,6 @@
         editorClass : '',
         width : '100%',
         height : '200px'
-    };
-    
-    /**
-     * Default CKEditor configuration
-     */
-    var defaultConfig = {
-        customConfig : '' // do not load config.js since it is empty
     };
     
     var eventsForDirty = [ "key", "paste", "undo", "redo" ];
@@ -38,7 +31,7 @@
         this.editorElementId = 'cke_' + this.textareaId;
         this.valueChanged = false;
         this.dirtyState = false;
-        this.config = $.extend({}, defaultConfig, config);
+        this.config = $.extend({}, config);
 
         this.attachToDom(this.componentId);
 
