@@ -159,6 +159,13 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
         </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
