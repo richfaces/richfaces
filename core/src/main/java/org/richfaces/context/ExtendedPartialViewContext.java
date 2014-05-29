@@ -130,6 +130,7 @@ import com.google.common.collect.Maps;
  *
  * <p>This context returns wrapped {@link PartialResponseWriter} in order to intercept its {@link PartialResponseWriter#endDocument()} method and write extensions before the document is actually ended. For more details see {@link ExtensionWritingPartialResponseWriter}.
  *
+ * @author Lukas Fryc
  * @author Nick Belaevski
  */
 public class ExtendedPartialViewContext extends PartialViewContextWrapper {
@@ -349,7 +350,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     public void setRenderAll(final boolean renderAll) {
         assertNotReleased();
         this.renderAll = renderAll;
-        callForAllParentContexts(new Function<PartialViewContext, Void>() {
+        visitPatentContexts(new Function<PartialViewContext, Void>() {
             public Void apply(PartialViewContext pvc) {
                 if (pvc != ExtendedPartialViewContext.this) {
                     pvc.setRenderAll(renderAll);
@@ -807,7 +808,7 @@ public class ExtendedPartialViewContext extends PartialViewContextWrapper {
     /**
      * All the parent wrappers of this context will be traversed and given callback will be called upon them
      */
-    private void callForAllParentContexts(Function<PartialViewContext, Void> function) {
+    private void visitPatentContexts(Function<PartialViewContext, Void> function) {
         PartialViewContext pvc = (PartialViewContextWrapper) this;
         do {
             pvc = ((PartialViewContextWrapper) pvc).getWrapped();
