@@ -55,7 +55,7 @@ import org.richfaces.renderkit.HtmlConstants;
         @ResourceDependency(library = "org.richfaces", name = "richfaces-queue.reslib")
 })
 public class QueueResourceComponentRenderer extends Renderer {
-    static final String TYPE = "org.richfaces.ui.QueueResourceComponentRenderer";
+    static final String TYPE = "org.richfaces.QueueResourceComponentRenderer";
     private static final String FUNCTION_NAME = "RichFaces.queue.setQueueOptions";
 
     private enum QueueOptions {

@@ -54,7 +54,7 @@ public class UIViewResourceTest {
                     + "    <h:inputText id=\"input\" value=\"#{test.value}\" />\n"
                     + "    <h:commandButton id=\"command\" value=\"Ok\" action=\"#{test.action}\"/>\n" + "</h:form>\n"
                     + "</h:body>\n" + "</html>")
-            .withResource(FacesEnvironment.FACES_CONFIG_XML, "org/richfaces/ui/core/faces-config.xml").start();
+            .withResource(FacesEnvironment.FACES_CONFIG_XML, "org/richfaces/faces-config.xml").start();
     }
 
     @After
