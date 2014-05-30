@@ -81,7 +81,7 @@ public abstract class AjaxCommandRendererBase extends RendererBase {
             String type = ((String) button.getAttributes().get("type")).toLowerCase();
             String source = paramMap.get(SOURCE_ID);
 
-            if ((type.equals("button") || type.equals("reset")) && !source.equals(button.getClientId())) {
+            if ((type.equals("button") || type.equals("reset")) && !button.getClientId().equals(source)) {
                 preventButtonExecution = true;
             }
         }
