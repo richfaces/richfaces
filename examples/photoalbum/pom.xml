@@ -293,23 +293,23 @@
                             <!-- resources will be placed in JAR/META-INF/resources/com.acme.staticResources/ 
                                 or WAR/WEB-INF/classes/META-INF/resources/com.acme.staticResources/ depending 
                                 on packaging of this project -->
-                            <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/org.richfaces.optimized/${version.richfaces}/PackedCompressed/</resourcesOutputDir>
+                            <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/org.richfaces.staticResource/${version.richfaces}/PackedCompressed/</resourcesOutputDir>
 
                             <!-- resources will be located under JSF_RESOURCE_ROOT/com.acme.staticResources 
                                 (e.g. JAR/META-INF/com.acme.staticResources) -->
-                            <staticResourcePrefix>org.richfaces.optimized/${version.richfaces}/PackedCompressed/</staticResourcePrefix>
+                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/PackedCompressed/</staticResourcePrefix>
 
                             <!-- resources will be packaged, refer to RichFaces 
                                 Developer Guide -->
-                            <pack>true</pack>
+                            <pack>packed</pack>
 
                             <!-- resources will be compressed, refer to RichFaces 
                                 Developer Guide -->
                             <compress>true</compress>
 
                             <excludedFiles>
-                                <exclude>^javax.faces</exclude>
-                                <exclude>^org.richfaces.optimized.*</exclude>
+                                <exclude>^(javax.faces|bootstrap|font-awesome)</exclude>
+                                <exclude>^org.richfaces.staticResource.*</exclude>
                                 <exclude>^org.richfaces.ckeditor.*</exclude>
                                 <exclude>^jquery\.js$</exclude>
                             </excludedFiles>
@@ -331,15 +331,15 @@
                             <!-- resources will be placed in JAR/META-INF/resources/com.acme.staticResources/ 
                                 or WAR/WEB-INF/classes/META-INF/resources/com.acme.staticResources/ depending 
                                 on packaging of this project -->
-                            <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/org.richfaces.optimized/${version.richfaces}/Packed/</resourcesOutputDir>
+                            <resourcesOutputDir>${project.build.outputDirectory}/META-INF/resources/org.richfaces.staticResource/${version.richfaces}/Packed/</resourcesOutputDir>
 
                             <!-- resources will be located under JSF_RESOURCE_ROOT/com.acme.staticResources 
                                 (e.g. JAR/META-INF/com.acme.staticResources) -->
-                            <staticResourcePrefix>org.richfaces.optimized/${version.richfaces}/Packed/</staticResourcePrefix>
+                            <staticResourcePrefix>org.richfaces.staticResource/${version.richfaces}/Packed/</staticResourcePrefix>
 
                             <!-- resources will be packaged, refer to RichFaces 
                                 Developer Guide -->
-                            <pack>true</pack>
+                            <pack>packed</pack>
 
                             <!-- resources will be compressed, refer to RichFaces 
                                 Developer Guide -->
@@ -347,7 +347,7 @@
 
                             <excludedFiles>
                                 <exclude>^javax.faces</exclude>
-                                <exclude>^org.richfaces.optimized.*</exclude>
+                                <exclude>^org.richfaces.staticResource.*</exclude>
                                 <exclude>^org.richfaces.ckeditor.*</exclude>
                                 <exclude>^jquery\.js$</exclude>
                             </excludedFiles>

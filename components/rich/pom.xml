@@ -126,7 +126,7 @@
                         </property>
                     </fileNameMappings>
                     <excludedFiles>                        
-                        <exclude>^javax.faces</exclude>
+                        <exclude>^(javax.faces|bootstrap|font-awesome)</exclude>
                         <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
                         <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
                         <exclude>^\Qorg.richfaces.ckeditor\E</exclude>
