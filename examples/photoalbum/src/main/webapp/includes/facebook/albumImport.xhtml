@@ -1,12 +1,12 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.orgx">
-    <r:popupPanel header="Import" id="fbAlbumModalPanel" autosized="true">
+    <rich:popupPanel header="Import" id="fbAlbumModalPanel" autosized="true">
         <f:facet name="controls">
             <h:panelGroup id="albumImportPanelHideControl">
                 <h:graphicImage value="/img/modal/close.png" style="cursor:pointer"
-                    onclick="#{r:component('fbAlbumModalPanel')}.hide()" />
+                    onclick="#{rich:component('fbAlbumModalPanel')}.hide()" />
             </h:panelGroup>
         </f:facet>
 
@@ -28,15 +28,15 @@
                 <h:panelGroup layout="block">
                     <richx:commandButton value="Import" execute="@this" styleClass="shelf"
                         actionListener="#{fbDndManager.importAlbum()}" disabled="#{fDndManager.albumAlreadyShared}"
-                        oncomplete="#{r:component('fbAlbumModalPanel')}.hide();" render="pBar" />
+                        oncomplete="#{rich:component('fbAlbumModalPanel')}.hide();" render="pBar" />
                 </h:panelGroup>
                 <h:panelGroup layout="block">
-                    <richx:commandButton oncomplete="#{r:component('fbAlbumModalPanel')}.hide();" value="Just Share"
+                    <richx:commandButton oncomplete="#{rich:component('fbAlbumModalPanel')}.hide();" value="Just Share"
                         disabled="#{fDndManager.albumAlreadyShared}" actionListener="#{fbDndManager.shareAlbum()}"
                         execute="@this" styleClass="shelf" />
                 </h:panelGroup>
             </h:panelGrid>
         </h:panelGroup>
-    </r:popupPanel>
+    </rich:popupPanel>
 
 </ui:composition>

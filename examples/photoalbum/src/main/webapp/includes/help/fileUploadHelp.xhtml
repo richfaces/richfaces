@@ -22,7 +22,7 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:r="http://richfaces.org">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
 
     <div class="section" lang="en-US">
         <div class="titlepage">
@@ -35,7 +35,7 @@
         <p>In the previous chapter we have discussed how to create Navigation Trees that represent "Shelves - Albums"
             hierarchy. Now it is time to upload images.</p>
         <p>
-            The <span class="bold"><strong><span class="property">&lt;r:fileUpload&gt;</span></strong></span> component in
+            The <span class="bold"><strong><span class="property">&lt;richfileUpload&gt;</span></strong></span> component in
             the Photo Album application uses the embedded Flash module that adds extra functionality to the component:
         </p>
         <div class="itemizedlist">
@@ -52,20 +52,20 @@
             </ul>
         </div>
         <p>
-            The code for the <span class="bold"><strong><span class="property">&lt;r:fileUpload&gt;</span></strong></span> is
+            The code for the <span class="bold"><strong><span class="property">&lt;richfileUpload&gt;</span></strong></span> is
             contained in the "/includes/fileUpload/fileUploader.xhtml" page:
         </p>
         <pre class="brush: xml, gutter: false, highlight: [3,6]">
                     …
-                &lt;r:fileUpload maxFilesQuantity=&quot;100&quot;
+                &lt;richfileUpload maxFilesQuantity=&quot;100&quot;
                     fileUploadListener=&quot;#{'#{'}fileUploadManager.listener}&quot;
                     id=&quot;fileUpload&quot;
                     disabled=&quot;#{'#{'}model.selectedAlbum == null}&quot;
                     acceptedTypes=&quot;jpg,jpeg&quot;
                     execute=&quot;uploadAlbum&quot;&gt;
-                    &lt;r:ajax event=&quot;uploadcomplete&quot; render=&quot;treePanel, filesPanel&quot; listener=&quot;#{'#{'}fileWrapper.setComplete(true)}&quot;
+                    &lt;a4j:ajax event=&quot;uploadcomplete&quot; render=&quot;treePanel, filesPanel&quot; listener=&quot;#{'#{'}fileWrapper.setComplete(true)}&quot;
                         limitRender=&quot;true&quot; /&gt;
-                &lt;/r:fileUpload&gt;
+                &lt;/richfileUpload&gt;
                     …
         </pre>
         <p>
@@ -148,7 +148,7 @@
                     <p>
                         <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                             href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=fileUpload">FileUpload</a>
-                        page for the <span class="bold"><strong><span class="property">&lt;r:fileUpload&gt;</span></strong></span>
+                        page for the <span class="bold"><strong><span class="property">&lt;richfileUpload&gt;</span></strong></span>
                         component;
                     </p>
                 </li>
@@ -156,7 +156,7 @@
                     <p>
                         <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                             href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=ajax">Ajax</a> for
-                        the <span class="bold"><strong><span class="property">&lt;r:ajax&gt;</span></strong></span>
+                        the <span class="bold"><strong><span class="property">&lt;a4j:ajax&gt;</span></strong></span>
                         component.
                     </p>
                 </li>

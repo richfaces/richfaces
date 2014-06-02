@@ -40,7 +40,7 @@ import org.richfaces.photoalbum.util.Utils;
 public class ErrorHandlerBean {
 
     /**
-     * Creates a <code><r:notifyMessage></code> on the site.
+     * Creates a <code><rich:notifyMessage></code> on the site.
      * 
      * @param summary - summary of the error
      * @param detail - detailed description of the error
@@ -59,7 +59,7 @@ public class ErrorHandlerBean {
     }
 
     /**
-     * Pseudo-setter that shows error that originated in JS code, using <code><r:jsFunction></code> as a middle-man.
+     * Pseudo-setter that shows error that originated in JS code, using <code><a4j:jsFunction></code> as a middle-man.
      * 
      * @param message - summary and detail separated by '$#$'
      */

@@ -22,41 +22,41 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org">
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
 
     <!-- 
-    <r:outputPanel rendered="#{not userBean.loggedInGPlus}">
+    <a4j:outputPanel rendered="#{not userBean.loggedInGPlus}">
         <h:outputText value="This event has #{fn:length(albumIds)} albums on Facebook, " />
-        <r:commandLink value="#{messages['menu.login']}" render="loginPanel" actionListener="#{userBean.reset()}"
-            oncomplete="#{r:component('loginPanel')}.show();" />
+        <a4j:commandLink value="#{messages['menu.login']}" render="loginPanel" actionListener="#{userBean.reset()}"
+            oncomplete="#{rich:component('loginPanel')}.show();" />
         <h:outputText value=" to see them." />
-    </r:outputPanel>
+    </a4j:outputPanel>
     -->
 
-    <r:outputPanel id="googlePlusAlbums" rendered="#{userBean.loggedInGPlus}">
+    <a4j:outputPanel id="googlePlusAlbums" rendered="#{userBean.loggedInGPlus}">
         <br style="clear: both" />
-        <r:repeat value="#{albumIds}" var="albumId" rendered="#{userBean.loggedInGPlus}">
+        <a4j:repeat value="#{albumIds}" var="albumId" rendered="#{userBean.loggedInGPlus}">
             <h:panelGroup layout="block" styleClass="preview_box_album_120">
 
-                <r:outputPanel>
+                <a4j:outputPanel>
                     <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
 
                     <h:panelGrid cellpadding="0">
                         <h:panelGroup style="margin-bottom:7px;" layout="block">
-                            <r:commandLink execute="@this"
+                            <a4j:commandLink execute="@this"
                                 onclick="G.getImages('#{albumId}', loadPhotos)">
                                 <h:graphicImage id="img"
                                     url="#{googlePlusAlbumCache.getAlbum(albumId).getString('coverUrl')}"
                                     style="max-width: 120px; max-height: 120px" styleClass="album-cover-image" />
-                                <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
+                                <rich:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
                                     <span style="white-space: nowrap">
                                         #{googlePlusAlbumCache.getAlbum(albumId).getString("name")} </span>
-                                </r:tooltip>
-                                <r:dragSource dragIndicator="dragIndicator" type="gAlbum"
+                                </rich:tooltip>
+                                <rich:dragSource dragIndicator="dragIndicator" type="gAlbum"
                                     dragValue="#{googlePlusAlbumCache.getAlbum(albumId).getString('fullId')}" />
-                            </r:commandLink>
+                            </a4j:commandLink>
                             <!-- 
-                            <r:commandButton rendered="#{showDownload}"
+                            <a4j:commandButton rendered="#{showDownload}"
                                 actionListener="#{fileDownloadManager.setUpDownload(googlePlusAlbumCache.getAlbum(albumId).getString('name'), albumId, googlePlusAlbumCache.getImagesOfAlbum(albumId), model.selectedEvent)}"
                                 value="Import" render="pBar" /> -->
                         </h:panelGroup>
@@ -65,32 +65,32 @@
                     <h:panelGroup layout="block" styleClass="album_data">
                         <h:outputText value="#{googlePlusAlbumCache.getAlbum(albumId).getString('created')}" />
                     </h:panelGroup>
-                </r:outputPanel>
+                </a4j:outputPanel>
 
             </h:panelGroup>
-        </r:repeat>
+        </a4j:repeat>
 
         <br style="clear: both" />
-        <r:progressBar id="gBar" value="#{fileDownloadManager.value}" minValue="0" maxValue="100" enabled="#{fileDownloadManager.hasNext()}" interval="1000">
+        <rich:progressBar id="gBar" value="#{fileDownloadManager.value}" minValue="0" maxValue="100" enabled="#{fileDownloadManager.hasNext()}" interval="1000">
             <f:facet name="initial">
                 <h:outputText value="" />
             </f:facet>
             <h:outputText value="Importing #{fileDownloadManager.text}" />
-            <r:ajax event="begin" listener="#{fileDownloadManager.downloadNext()}"/>
-            <r:ajax event="finish" oncomplete="finishImport()"/>
-        </r:progressBar>
+            <a4j:ajax event="begin" listener="#{fileDownloadManager.downloadNext()}"/>
+            <a4j:ajax event="finish" oncomplete="finishImport()"/>
+        </rich:progressBar>
 
         <!-- **Photo fetching** -->
         <!-- save the albums and images into the cache bean, then reload the image list --> 
-        <r:jsFunction name="loadPhotos" execute="@this" actionListener="#{controller.showGPlusAlbum()}" oncomplete="reload()">
-            <r:param assignTo="#{googlePlusAlbumCache.albumImages}" name="response" />
-        </r:jsFunction>
+        <a4j:jsFunction name="loadPhotos" execute="@this" actionListener="#{controller.showGPlusAlbum()}" oncomplete="reload()">
+            <a4j:param assignTo="#{googlePlusAlbumCache.albumImages}" name="response" />
+        </a4j:jsFunction>
 
         <ui:include src="/includes/gplus/albumImport.xhtml" />
 
         <!-- **Image import** -->
-        <r:jsFunction name="finishImport" render="gBar" execute="@this" actionListener="#{fileDownloadManager.finishDownload()}"
+        <a4j:jsFunction name="finishImport" render="gBar" execute="@this" actionListener="#{fileDownloadManager.finishDownload()}"
             oncomplete="reload();" />
 
-    </r:outputPanel>
+    </a4j:outputPanel>
 </ui:composition>

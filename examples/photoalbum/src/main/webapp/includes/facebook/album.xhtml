@@ -22,7 +22,7 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org">
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
     <ui:param name="album" value="#{facebookAlbumCache.currentAlbum}" />
     <h:panelGrid styleClass="album-header-table" cellpadding="0" columns="2" columnClasses="xxx, album-header-table-col2">
         <h:panelGroup>
@@ -37,7 +37,7 @@
                 <h:outputText value=" #{messages['images_']}" />
             </h:panelGroup>
         </h:panelGroup>
-        <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
+        <a4j:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
             render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}"
             rendered="#{model.selectedEvent.facebookAlbumIds.contains(album.getString('id'))}" />
         <h:outputText value="Facebook" styleClass="additional-info-text"
@@ -54,12 +54,12 @@
     <!-- 
     <h:panelGroup layout="block" style="margin : 30px 0px 0px 0px;">
         <h:panelGroup layout="block" style="float : right; cursor : pointer">
-            <r:commandLink rendered="#{fn:length(model.images) > 0}" actionListener="#{slideshow.startSlideshow()}"
+            <a4j:commandLink rendered="#{fn:length(model.images) > 0}" actionListener="#{slideshow.startSlideshow()}"
                 styleClass="slideshow-link" render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
                 <h:graphicImage value="/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
                     style="vertical-align : bottom; margin-right : 5px; border:0;" />
                 <h:outputText value="#{messages['slideshow.start']}" />
-            </r:commandLink>
+            </a4j:commandLink>
         </h:panelGroup>
 
     </h:panelGroup> -->
@@ -67,17 +67,17 @@
     <br />
 
     <h:panelGroup id="userAlbumImages">
-        <r:repeat id="imageList" value="#{facebookAlbumCache.currentImages}" var="image" rows="20">
+        <a4j:repeat id="imageList" value="#{facebookAlbumCache.currentImages}" var="image" rows="20">
             <h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
                 <h:graphicImage styleClass="pr_photo_bg" style="#{imageSizeHelper.currentDimension.imageBgStyle}"
                     value="#{imageSizeHelper.currentDimension.imageBg}" />
                 <h:panelGrid cellpadding="0">
                     <h:panelGroup>
-                        <r:commandLink execute="@this" actionListener="#{controller.showFbImage(image.getString('id'))}"
+                        <a4j:commandLink execute="@this" actionListener="#{controller.showFbImage(image.getString('id'))}"
                             render="mainArea">
                             <h:graphicImage url="#{image.getString('url')}"
                                 style="border: 1px solid #FFFFFF; max-width: #{imageSizeHelper.value}px; max-height: #{imageSizeHelper.value}px" />
-                        </r:commandLink>
+                        </a4j:commandLink>
                         <br />
                     </h:panelGroup>
                 </h:panelGrid>
@@ -86,6 +86,6 @@
                     <h:outputText value="#{image.getString('created')}" converter="#{timestampConverter}" />
                 </h:panelGroup>
             </h:panelGroup>
-        </r:repeat>
+        </a4j:repeat>
     </h:panelGroup>
 </ui:composition>

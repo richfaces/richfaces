@@ -23,37 +23,37 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:r="http://richfaces.org" xmlns:richx="http://richfaces.orgx">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.orgx">
     <ui:include src="/includes/image/imageHeaderInfo.xhtml" />
 
     <h:panelGroup layout="block" styleClass="image-edit-div">
-        <r:region>
-            <r:graphValidator>
+        <a4j:region>
+            <rich:graphValidator>
                 <table class="image-edit-div-table" style="border: 0; padding: 5px;">
                     <tr>
                         <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label">#{messages['photo_name']}</td>
                         <td style="vertical-align: top;" colspan="2">
                             <h:inputText id="image_name" value="#{model.selectedImage.name}" styleClass="image-edit-photo-input">
-                                <r:validator event="blur" />
+                                <rich:validator event="blur" />
                             </h:inputText>
-                            <r:message for="image_name" />
+                            <rich:message for="image_name" />
                         </td>
                     </tr>
                     <tr>
                         <td style="padding: 0; margin: 0;" />
                         <td style="padding: 0; margin: 0;" colspan="2">
-                            <r:message for="image_name" styleClass="required" />
+                            <rich:message for="image_name" styleClass="required" />
                         </td>
                     </tr>
                     <tr>
                         <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label">Captured at</td>
                         <td style="vertical-align: top;">
-                            <r:outputPanel id="calendar" layout="block">
-                                <r:calendar id="image_uploaded" styleClass="image-edit-calendar" enableManualInput="true"
+                            <a4j:outputPanel id="calendar" layout="block">
+                                <rich:calendar id="image_uploaded" styleClass="image-edit-calendar" enableManualInput="true"
                                     value="#{model.selectedImage.created}">
-                                    <r:validator event="inputblur" />
-                                </r:calendar>
-                            </r:outputPanel>
+                                    <rich:validator event="inputblur" />
+                                </rich:calendar>
+                            </a4j:outputPanel>
                         </td>
                         <td style="vertical-align: top; width: 200px">
                             <h:selectBooleanCheckbox style="margin : 0px" value="#{model.selectedImage.showMetaInfo}" />
@@ -63,7 +63,7 @@
                     <tr>
                         <td style="padding: 0; margin: 0;" />
                         <td style="padding: 0; margin: 0;">
-                            <r:message for="image_uploaded" styleClass="required" />
+                            <rich:message for="image_uploaded" styleClass="required" />
                         </td>
                         <td style="padding: 0; margin: 0;" />
                     </tr>
@@ -77,20 +77,20 @@
                     <tr>
                         <td style="vertical-align: top; white-space: nowrap;" class="image-edit-label">#{messages['popular_tags']}</td>
                         <td style="vertical-align: top;" colspan="2">
-                            <r:autocomplete id="suggestionBoxId" autocompleteMethod="#{imageManager.autoComplete}"
+                            <rich:autocomplete id="suggestionBoxId" autocompleteMethod="#{imageManager.autoComplete}"
                                 value="#{model.selectedImage.meta}" minChars="1" var="result" fetchValue="#{result.tag}"
                                 tokens=", " autofill="false" selectFirst="false" mode="client">
                                 <h:outputText value="#{result.tag}" />
-                            </r:autocomplete>
+                            </rich:autocomplete>
                             <br />
                             <h:panelGroup style="color : #666666">
-                                <r:repeat value="#{imageManager.popularTags()}" var="tag" rowKeyVar="row">
+                                <a4j:repeat value="#{imageManager.popularTags()}" var="tag" rowKeyVar="row">
                                     <h:outputText value=", " rendered="#{!(row == 0)}" />
-                                    <r:outputPanel style="cursor:pointer"
-                                        onclick="selectPopularTag('#{tag.tag}', #{r:component('suggestionBoxId')});">
+                                    <a4j:outputPanel style="cursor:pointer"
+                                        onclick="selectPopularTag('#{tag.tag}', #{rich:component('suggestionBoxId')});">
 									#{tag.tag}
-								</r:outputPanel>
-                                </r:repeat>
+								</a4j:outputPanel>
+                                </a4j:repeat>
                             </h:panelGroup>
                         </td>
                     </tr>
@@ -127,8 +127,8 @@
                         </td>
                     </tr>
                 </table>
-            </r:graphValidator>
-        </r:region>
+            </rich:graphValidator>
+        </a4j:region>
     </h:panelGroup>
     <ui:include src="/includes/image/imageGeneralInfo.xhtml" />
 </ui:composition>

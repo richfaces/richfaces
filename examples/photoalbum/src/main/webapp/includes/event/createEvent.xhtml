@@ -22,21 +22,21 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org" xmlns:richx="http://richfaces.orgx">
-    <r:popupPanel id="eventModalPanel" width="400" height="200" autosized="true" modal="true" domElementAttachment="form">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.orgx">
+    <rich:popupPanel id="eventModalPanel" width="400" height="200" autosized="true" modal="true" domElementAttachment="form">
         <f:facet name="header">#{messages['add_shelf']}</f:facet>
 
         <f:facet name="controls">
             <h:panelGroup id="eventPanelHideControl">
                 <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hidelink20"
-                    onclick="#{r:component('eventModalPanel')}.hide()" />
+                    onclick="#{rich:component('eventModalPanel')}.hide()" />
             </h:panelGroup>
         </f:facet>
 
-        <r:region id="eventform">
+        <a4j:region id="eventform">
             <h:panelGroup id="eventPanel" width="100%" layout="block">
-                <r:region>
-                    <r:graphValidator value="#{event}">
+                <a4j:region>
+                    <rich:graphValidator value="#{event}">
                         <h:panelGrid columns="3" id="eventEditContent" rowClasses="prop" columnClasses="name,value, error">
                             <h:panelGroup style="width: 115px" layout="block">
                                 <h:outputText value="#{messages['name']}" />
@@ -44,42 +44,42 @@
                             <h:inputText id="eventName" value="#{eventManager.event.name}" style="width: 180px"
                                 onkeydown="if (event.keyCode == 13) { jQuery(&quot; .shelf input[type='image']&quot;).click(); return false; }">
                             </h:inputText>
-                            <r:message for="eventName" />
+                            <rich:message for="eventName" />
                             <h:panelGroup style="width: 115px" layout="block">
                                 <h:outputText value="Description:" />
                             </h:panelGroup>
                             <h:inputTextarea id="eventDescription" value="#{eventManager.event.description}" style="width: 180px"
                                 onkeydown="if (event.keyCode == 13) { jQuery(&quot; .shelf input[type='image']&quot;).click(); return false; }">
                             </h:inputTextarea>
-                            <r:message for="eventDescription" />
+                            <rich:message for="eventDescription" />
                             <h:panelGroup style="width: 115px" layout="block">
                                 <h:outputText value="Category:" />
                             </h:panelGroup>
-                            <r:select id="eventCategory" value="#{eventManager.ecId}" required="true" requiredMessage="Please select a category">
+                            <rich:select id="eventCategory" value="#{eventManager.ecId}" required="true" requiredMessage="Please select a category">
                                 <f:selectItems value="#{eventManager.eventCategories}" var="cat" itemLabel="#{cat.description}" itemValue="#{cat.id}"/>
-                            </r:select>
-                            <r:message for="eventCategory" />
+                            </rich:select>
+                            <rich:message for="eventCategory" />
                         </h:panelGrid>
 
                         <h:panelGroup id="eventButtons" layout="block">
                             <h:panelGrid columns="2" style="margin-left: auto; margin-right: auto">
                                 <h:panelGroup id="eventFirstButton" layout="block">
-                                    <richx:commandButton oncomplete="if(event.data)#{r:component('eventModalPanel')}.hide();"
+                                    <richx:commandButton oncomplete="if(event.data)#{rich:component('eventModalPanel')}.hide();"
                                         value="#{messages['save']}" data="#{eventManager.validationSuccess}"
                                         actionListener="#{eventManager.addEvent()}" id="eventstorebutton"
                                         render="treePanel, mainArea, menu" execute="@region" styleClass="shelf" />
                                 </h:panelGroup>
                                 <h:panelGroup id="eventSecondButton" layout="block">
                                     <richx:commandButton type="button" id="eventcancelbutton"
-                                        onclick="#{r:component('eventModalPanel')}.hide(); return false;"
+                                        onclick="#{rich:component('eventModalPanel')}.hide(); return false;"
                                         value="#{messages['album.cancel']}" execute="@none" />
                                 </h:panelGroup>
                             </h:panelGrid>
                         </h:panelGroup>
-                    </r:graphValidator>
-                </r:region>
+                    </rich:graphValidator>
+                </a4j:region>
 
             </h:panelGroup>
-        </r:region>
-    </r:popupPanel>
+        </a4j:region>
+    </rich:popupPanel>
 </ui:composition>

@@ -21,7 +21,7 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.orgx">
 
     <ui:param name="albumsSize"
@@ -29,56 +29,56 @@
 
     <h:outputText value="No photos available." rendered="#{albumsSize == 0}" />
 
-    <r:outputPanel rendered="#{not userBean.loggedInGPlus and fn:length(model.selectedEvent.googlePlusAlbumIds) > 0 }">
+    <a4j:outputPanel rendered="#{not userBean.loggedInGPlus and fn:length(model.selectedEvent.googlePlusAlbumIds) > 0 }">
         <h:outputText
             value="This event has #{fn:length(model.selectedEvent.googlePlusAlbumIds)} albums on Google+, log in to see them." />
-    </r:outputPanel>
+    </a4j:outputPanel>
 
-    <r:outputPanel rendered="#{not userBean.loggedInFB and fn:length(model.selectedEvent.facebookAlbumIds) > 0 }">
+    <a4j:outputPanel rendered="#{not userBean.loggedInFB and fn:length(model.selectedEvent.facebookAlbumIds) > 0 }">
         <h:outputText
             value="This event has #{fn:length(model.selectedEvent.facebookAlbumIds)} albums on Facebook, log in to see them." />
-    </r:outputPanel>
+    </a4j:outputPanel>
 
-    <r:outputPanel id="photoPanel" rendered="#{albumsSize > 0}">
-        <r:dataGrid value="#{eventAlbumsHelper.images}" var="image" columns="5">
-            <r:outputPanel rendered="#{image.localImage}">
-                <r:commandLink actionListener="#{controller.showImage(image.image)}" render="mainArea, treePanel">
-                    <r:mediaOutput id="locImg" element="img" createContent="#{imageLoader.paintImage}"
+    <a4j:outputPanel id="photoPanel" rendered="#{albumsSize > 0}">
+        <rich:dataGrid value="#{eventAlbumsHelper.images}" var="image" columns="5">
+            <a4j:outputPanel rendered="#{image.localImage}">
+                <a4j:commandLink actionListener="#{controller.showImage(image.image)}" render="mainArea, treePanel">
+                    <a4j:mediaOutput id="locImg" element="img" createContent="#{imageLoader.paintImage}"
                         style="border : 1px solid #FFFFFF;" mimeType="image/jpeg"
                         value="#{fileManager.transformPath(image.thumbUrl, '_small200')}">
-                    </r:mediaOutput>
-                </r:commandLink>
-            </r:outputPanel>
+                    </a4j:mediaOutput>
+                </a4j:commandLink>
+            </a4j:outputPanel>
 
-            <r:outputPanel rendered="#{image.googleImage}">
-                <r:commandLink execute="@this" actionListener="#{controller.showGPlusImage(image.id)}" render="mainArea">
+            <a4j:outputPanel rendered="#{image.googleImage}">
+                <a4j:commandLink execute="@this" actionListener="#{controller.showGPlusImage(image.id)}" render="mainArea">
                     <h:graphicImage id="gImg" url="#{image.thumbUrl}" style="max-width: 180px; max-height: 180px"
                         styleClass="album-cover-image" />
-                    <r:param assignTo="#{googlePlusAlbumCache.currentAlbumId}" value="#{image.albumId}" />
-                </r:commandLink>
-            </r:outputPanel>
+                    <a4j:param assignTo="#{googlePlusAlbumCache.currentAlbumId}" value="#{image.albumId}" />
+                </a4j:commandLink>
+            </a4j:outputPanel>
 
-            <r:outputPanel rendered="#{image.facebookImage}">
-                <r:commandLink execute="@this" actionListener="#{controller.showFbImage(image.id)}" render="mainArea">
+            <a4j:outputPanel rendered="#{image.facebookImage}">
+                <a4j:commandLink execute="@this" actionListener="#{controller.showFbImage(image.id)}" render="mainArea">
                     <h:graphicImage id="fImg" url="#{image.thumbUrl}" style="max-width: 180px; max-height: 180px"
                         styleClass="album-cover-image" />
-                    <r:param assignTo="#{facebookAlbumCache.currentAlbumId}" value="#{image.albumId}" />
-                </r:commandLink>
-            </r:outputPanel>
-        </r:dataGrid>
-    </r:outputPanel>
+                    <a4j:param assignTo="#{facebookAlbumCache.currentAlbumId}" value="#{image.albumId}" />
+                </a4j:commandLink>
+            </a4j:outputPanel>
+        </rich:dataGrid>
+    </a4j:outputPanel>
 
-    <r:jsFunction name="triggerPoll" execute="@this" render="gImagePoll"/>
+    <a4j:jsFunction name="triggerPoll" execute="@this" render="gImagePoll"/>
 
-    <r:jsFunction name="reloadAlbums" execute="@this" render="photoPanel"/>
+    <a4j:jsFunction name="reloadAlbums" execute="@this" render="photoPanel"/>
 
     <!-- **Album fetching** -->
     <!-- save the Facebook albums and images into the cache bean, then reload the image list -->
-    <r:jsFunction name="setFBimages" execute="@this" oncomplete="loadFBAlbums()">
-        <r:param assignTo="#{facebookAlbumCache.all}" name="response" />
-    </r:jsFunction>
+    <a4j:jsFunction name="setFBimages" execute="@this" oncomplete="loadFBAlbums()">
+        <a4j:param assignTo="#{facebookAlbumCache.all}" name="response" />
+    </a4j:jsFunction>
     
-    <r:jsFunction name="loadFBAlbums" action="#{eventAlbumsHelper.loadFBImages}" execute="@this" oncomplete="reloadAlbums()"/>
+    <a4j:jsFunction name="loadFBAlbums" action="#{eventAlbumsHelper.loadFBImages}" execute="@this" oncomplete="reloadAlbums()"/>
 
     <!-- if albums aren't loaded, get the albums from Facebook then trigger the poll for G+ albums --> 
     <h:outputScript id="facebookCheck">    
@@ -92,18 +92,18 @@
 
     <!-- Google+ albums -->
     <!-- load one album, save it into cache and load the next one -->
-    <r:jsFunction name="setAlbum" execute="@this" oncomplete="loadNextAlbum();">
-        <r:param assignTo="#{googlePlusAlbumCache.albumAndImages}" name="response" />
-    </r:jsFunction>
+    <a4j:jsFunction name="setAlbum" execute="@this" oncomplete="loadNextAlbum();">
+        <a4j:param assignTo="#{googlePlusAlbumCache.albumAndImages}" name="response" />
+    </a4j:jsFunction>
 
-    <r:jsFunction name="loadNextAlbum" actionListener="#{eventAlbumsHelper.loadNext}" execute="@this"
+    <a4j:jsFunction name="loadNextAlbum" actionListener="#{eventAlbumsHelper.loadNext}" execute="@this"
         render="photoPanel, gImagePoll" />
 
-    <r:poll interval="500" id="gImagePoll" enabled="#{eventAlbumsHelper.pollEnabled}"
+    <a4j:poll interval="500" id="gImagePoll" enabled="#{eventAlbumsHelper.pollEnabled}"
         ontimer="if(#{eventAlbumsHelper.nextId != '0'}){G.getAlbumAndImages('#{eventAlbumsHelper.nextId}', setAlbum); enablePoll(false);}"
         execute="@this" render="@this, photoPanel" />
 
-    <r:jsFunction name="enablePoll" execute="@this">
-        <r:param name="enabled" assignTo="#{eventAlbumsHelper.pollEnabled}" />
-    </r:jsFunction>
+    <a4j:jsFunction name="enablePoll" execute="@this">
+        <a4j:param name="enabled" assignTo="#{eventAlbumsHelper.pollEnabled}" />
+    </a4j:jsFunction>
 </ui:composition>

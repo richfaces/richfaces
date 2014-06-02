@@ -26,7 +26,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
-                xmlns:r="http://richfaces.org">
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
     <ui:param name="title" value="Data Scroller - RF-10888" />
     
     <!-- content -->
@@ -50,7 +50,7 @@
                 </h:inputText>
             </h:panelGrid>
 
-            <r:dataScroller id="scroller" for="table" />
+            <rich:dataScroller id="scroller" for="table" />
             <h:dataTable value="#{rf10888.filteredData}" id="table" var="record" rows="20">
                 <h:column>
                     <f:facet name="header">
@@ -74,7 +74,7 @@
                 </h:column>
 
                 <f:facet name="footer">
-                    <r:dataScroller />
+                    <rich:dataScroller />
                 </f:facet>
             </h:dataTable>
         </h:form>

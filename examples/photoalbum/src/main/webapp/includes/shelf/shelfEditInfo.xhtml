@@ -22,42 +22,42 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:richx="http://richfaces.orgx" xmlns:r="http://richfaces.org">
+    xmlns:richx="http://richfaces.orgx" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
     <div class="shelf-edit">
-        <r:graphValidator>
+        <rich:graphValidator>
             <table style="border-collapse: collapse; padding: 5px; border: 0">
                 <tr>
                     <td style="vertical-align: top; white-space: nowrap; padding-top: 8px">#{messages['shelf_name']}</td>
                     <td style="vertical-align: top;" colspan="2">
                         <h:inputText id="shelf_name" value="#{model.selectedShelf.name}" styleClass="shelf-edit-input"
                             required="true">
-                            <r:validator event="blur" />
+                            <rich:validator event="blur" />
                         </h:inputText>
-                        <r:message for="shelf_name" />
+                        <rich:message for="shelf_name" />
                     </td>
                 </tr>
                 <tr>
                     <td style="padding: 0; margin: 0;" />
                     <td style="padding: 0; margin: 0;" class="errors">
-                        <r:message for="shelf_name" />
+                        <rich:message for="shelf_name" />
                     </td>
                 </tr>
                 <tr>
                     <td style="vertical-align: top; white-space: nowrap; padding-top: 8px">#{messages['creation_date']}</td>
                     <td style="vertical-align: top;">
-                        <r:outputPanel id="calendar" layout="block">
-                            <r:calendar id="shelf_date" styleClass="shelf-edit-calendar" enableManualInput="true"
+                        <a4j:outputPanel id="calendar" layout="block">
+                            <rich:calendar id="shelf_date" styleClass="shelf-edit-calendar" enableManualInput="true"
                                 value="#{model.selectedShelf.created}" disabled="true">
-                                <r:validator event="inputblur" />
-                            </r:calendar>
-                        </r:outputPanel>
-                        <r:message for="calendar" />
+                                <rich:validator event="inputblur" />
+                            </rich:calendar>
+                        </a4j:outputPanel>
+                        <rich:message for="calendar" />
                     </td>
                 </tr>
                 <tr>
                     <td style="padding: 0; margin: 0;" />
                     <td style="padding: 0; margin: 0;" class="errors">
-                        <r:message for="shelf_date" />
+                        <rich:message for="shelf_date" />
                     </td>
                 </tr>
                 <tr>
@@ -70,7 +70,7 @@
                 <tr>
                     <td style="padding: 0; margin: 0;" />
                     <td style="padding: 0; margin: 0;">
-                        <r:message for="shelf_description" />
+                        <rich:message for="shelf_description" />
                     </td>
                 </tr>
                 <tr>
@@ -80,7 +80,7 @@
                     <td style="vertical-align: top;">
                         <h:selectBooleanCheckbox styleClass="selectBooleanCheckbox" id="shared"
                             value="#{model.selectedShelf.shared}" />
-                        <r:message for="shared" />
+                        <rich:message for="shared" />
                     </td>
                 </tr>
                 <tr>
@@ -93,7 +93,7 @@
                     </td>
                 </tr>
             </table>
-        </r:graphValidator>
+        </rich:graphValidator>
     </div>
     <ui:include src="/includes/album/albumsList.xhtml">
         <ui:param name="albums" value="#{model.selectedShelf.albums}" />

@@ -22,7 +22,7 @@
   -->
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:r="http://richfaces.org"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition template="/layout/template.xhtml">
     <ui:param name="title" value="Push Message Consumer" />
@@ -37,21 +37,21 @@
 
         <h:form>
             <br /><br /><br /><br />
-            <r:commandButton value="Push!" action="#{richBean.push}" disabled="#{viewScope.pushDisabled}" />
-            <r:commandButton value="Re-render push" render="push" />
-            <r:commandButton
+            <a4j:commandButton value="Push!" action="#{richBean.push}" disabled="#{viewScope.pushDisabled}" />
+            <a4j:commandButton value="Re-render push" render="push" />
+            <a4j:commandButton
                 value="#{viewScope.pushDisabled ? 'Enable push' : 'Disable push'}"
                 render="@this push">
-                <r:param assignTo="#{viewScope.pushDisabled}" value="#{!viewScope.pushDisabled}" />
-            </r:commandButton>
+                <a4j:param assignTo="#{viewScope.pushDisabled}" value="#{!viewScope.pushDisabled}" />
+            </a4j:commandButton>
             
-            <r:log mode="console" />
+            <a4j:log mode="console" />
             
-            <r:push id="push" address="sampleAddress" ondataavailable="dataavailable(event)" />
+            <a4j:push id="push" address="sampleAddress" ondataavailable="dataavailable(event)" />
 
-            <r:outputPanel id="outputDate">
+            <a4j:outputPanel id="outputDate">
                 Date: #{richBean.date}
-            </r:outputPanel>
+            </a4j:outputPanel>
         </h:form>
     </ui:define>
 </ui:composition>

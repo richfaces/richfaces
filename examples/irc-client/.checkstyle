@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<fileset-config file-format-version="1.2.0" simple-config="true" sync-formatter="false">
-  <fileset name="all" enabled="true" check-config-name="rf" local="false">
-    <file-match-pattern match-pattern="." include-pattern="true"/>
+<fileset-config file-format-version="1.2.0" simple-config="false" sync-formatter="false">
+  <local-check-config name="maven-checkstyle-plugin" location="jar:file:/home/mpetrov/.m2/repository/org/richfaces/richfaces-build-resources/4.5.0-SNAPSHOT/richfaces-build-resources-4.5.0-SNAPSHOT.jar!/richfaces-checkstyle/richfaces-checkstyle.xml" type="remote" description="maven-checkstyle-plugin configuration">
+    <property name="checkstyle.cache.file" value="${project_loc}/target/checkstyle-cachefile"/>
+    <property name="checkstyle.header.file" value="/home/mpetrov/workspace/rf4-5/richfaces/examples/irc-client/target/checkstyle-header.txt"/>
+  </local-check-config>
+  <fileset name="java-sources" enabled="true" check-config-name="maven-checkstyle-plugin" local="true">
+    <file-match-pattern match-pattern="src/main/java/.*\/.*\.java" include-pattern="true"/>
+    <file-match-pattern match-pattern="src/test/java.*\/.*\.java" include-pattern="true"/>
   </fileset>
 </fileset-config>

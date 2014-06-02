@@ -21,19 +21,19 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.orgx">
     <h:panelGrid styleClass="image-header-table" style="padding: 0">
         <h:panelGroup>
             <h1>
                 <h:outputText value="#{model.selectedImage.name}" rendered="#{!controller.isUserImage(model.selectedImage)}" />
-                <r:inplaceInput selectOnEdit="false" value="#{model.selectedImage.name}"
+                <rich:inplaceInput selectOnEdit="false" value="#{model.selectedImage.name}"
                     rendered="#{controller.isUserImage(model.selectedImage)}" inputWidth="570" />
             </h1>
-            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showShelf(model.selectedShelf)}"
+            <a4j:commandLink styleClass="additional-info-text" actionListener="#{controller.showShelf(model.selectedShelf)}"
                 render="mainArea, treePanel" value="#{messages['shelf']} #{model.selectedShelf.name}" />
             <h:outputText value=" #{messages['delimiter']} " />
-            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
+            <a4j:commandLink styleClass="additional-info-text" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
                 render="mainArea, treePanel" value="#{messages['album']} #{model.selectedAlbum.name}" />
         </h:panelGroup>
     </h:panelGrid>

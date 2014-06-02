@@ -26,35 +26,35 @@
             <div>
                 <div>
                     <h2 class="title">
-                        The <span class="bold"><strong><span class="property">&lt;r:status&gt;</span></strong></span>
+                        The <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span>
                         component
                     </h2>
                 </div>
             </div>
         </div>
         <p>
-            <span class="bold"><strong><span class="property">&lt;r:status&gt;</span></strong></span> is a component, designed
+            <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span> is a component, designed
             to create some visual effect during Ajax request. The comportment is usually attached to a certain request, which
             implies time consuming processing, so that the end user is aware the page is not hung up, it's responding to her
             actions: the user sees the processing progress (the component is frequently used to indicate file uploading
             process).
         </p>
         <p>
-            However, in the Photo Album application the <span class="bold"><strong><span class="property">&lt;r:status&gt;</span></strong></span>
+            However, in the Photo Album application the <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span>
             component is triggered on any Ajax request: to demonstrate the component itself and partially to display for the
             user that on every click on a link or a button something is happening, as all actions in the application occur on a
             single page which is not typical for usual web-workflow, when on each action the user navigates to a new page.
         </p>
         <p>
-            By default, <span class="bold"><strong><span class="property">&lt;r:status&gt;</span></strong></span> works for
+            By default, <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span> works for
             each Ajax components inside the local region. This means if you have no region defined on the page (the whole view
-            is a region) and have only one <span class="bold"><strong><span class="property">&lt;r:status&gt;</span></strong></span>
-            on the page, the <span class="bold"><strong><span class="property">&lt;r:status&gt;</span></strong></span> will be
+            is a region) and have only one <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span>
+            on the page, the <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span> will be
             activated during Ajax request by any of the Ajax component located on the page.
         </p>
         <p>
             As there are no regions defined explicitly in the application, <span class="bold"><strong><span
-                    class="property">&lt;r:status&gt;</span></strong></span> is located in the main template (template.xhtml) for all pages:
+                    class="property">&lt;a4j:status&gt;</span></strong></span> is located in the main template (template.xhtml) for all pages:
         </p>
         <pre class="brush: xml, gutter: false, highlight: [8]">
             &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
@@ -72,13 +72,13 @@
         <p>Hence the default behavior of the component meets that application's requirements: the component is shown on
             every single Ajax request.</p>
         <p>
-            This is the page with the <span class="bold"><strong><span class="property">&lt;r:status&gt;</span></strong></span>
+            This is the page with the <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span>
             component:
         </p>
         <pre class="brush: xml, gutter: false">
             &lt;ui:composition xmlns=&quot;http://www.w3.org/1999/xhtml&quot; … &gt;
                     …
-                &lt;r:status layout=&quot;block&quot; startStyle=&quot;height: 52px; width: 79px; position: absolute; top: 0px; left: 278px;&quot;&gt;
+                &lt;a4j:status layout=&quot;block&quot; startStyle=&quot;height: 52px; width: 79px; position: absolute; top: 0px; left: 278px;&quot;&gt;
                     &lt;f:facet name=&quot;start&quot;&gt;
                         &lt;h:panelGroup&gt;
                             &lt;h:panelGroup
@@ -93,7 +93,7 @@
                             &lt;/h:panelGroup&gt;
                         &lt;/h:panelGroup&gt;
                     &lt;/f:facet&gt;
-                &lt;/r:status&gt;
+                &lt;/a4j:status&gt;
             &lt;/ui:composition&gt;
         </pre>
         <p>
@@ -115,7 +115,7 @@
             which is just an image (you can insert any image you like).
         </p>
         <p>
-            If you would like to get more details about the <span class="bold"><strong><span class="property">&lt;r:status&gt;</span></strong></span>
+            If you would like to get more details about the <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span>
             please visit <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                 href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=status">Showcase</a> web page and <a
                 target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"

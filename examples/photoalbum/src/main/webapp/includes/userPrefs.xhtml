@@ -26,7 +26,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	
 	xmlns:richx="http://richfaces.orgx"
-	xmlns:r="http://richfaces.org">
+	xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
 	<ui:decorate
 		template="#{controller.isProfileEditable(model.selectedUser) ? 'userPrefs/userPrefsEdit.xhtml' : 'userPrefs/userPrefs.xhtml'}">
 		<ui:param name="user" value="#{model.selectedUser}" />

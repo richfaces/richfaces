@@ -22,13 +22,13 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org">
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
     <ui:param name="event" value="#{model.selectedEvent}" />
     <h:panelGrid styleClass="shelf-header-table" cellpadding="0" columns="2" columnClasses="xxx, shelf-header-table-col2">
         <h:panelGroup>
             <h1>
                 <h:outputText value="#{event.name}" />
-                <!-- <r:inplaceInput selectOnEdit="false" id="shelfDNDId" value="#{shelf.name}" inputWidth="570"
+                <!-- <rich:inplaceInput selectOnEdit="false" id="shelfDNDId" value="#{shelf.name}" inputWidth="570"
                     rendered="#{controller.isUserShelf(shelf)}" /> -->
             </h1>
 
@@ -45,13 +45,13 @@
         </h:panelGroup>
         <!-- 
         <h:panelGroup>
-            <r:commandLink value="#{messages['shelf.edit']}" render="mainArea" disabled="true" />
+            <a4j:commandLink value="#{messages['shelf.edit']}" render="mainArea" disabled="true" />
             <h:outputText value=" #{messages['delimiter']} " />
-            <r:commandLink value="#{messages['shelf.delete']}" oncomplete="#{r:component('confirmation')}.show()"
+            <a4j:commandLink value="#{messages['shelf.delete']}" oncomplete="#{rich:component('confirmation')}.show()"
                 render="confirmation" execute="@this" disabled="true" />
              actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}"
             <h:outputText value=" #{messages['delimiter']} " />
-            <r:commandLink value="#{messages['shelf.view']}" render="mainArea" rendered="#{!mode.equals('show')}"
+            <a4j:commandLink value="#{messages['shelf.view']}" render="mainArea" rendered="#{!mode.equals('show')}"
                 disabled="true" />
              actionListener="#{controller.showShelf(shelf)}" 
         </h:panelGroup>

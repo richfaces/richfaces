@@ -22,7 +22,7 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:r="http://richfaces.org">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
     <div class="section" lang="en-US">
         <div class="titlepage">
             <div>
@@ -42,13 +42,13 @@
         &lt;ui:composition xmlns=&quot;http://www.w3.org/1999/xhtml&quot; … &gt;
 
             &lt;richx:actionMapper&gt;
-                &lt;r:outputPanel layout=&quot;block&quot; style=&quot;#{'#{'}style}&quot; styleClass=&quot;photoalbumButton #{'#{'}styleClass}&quot; lang=&quot;#{'#{'}lang}&quot; dir=&quot;#{'#{'}dir}&quot;
+                &lt;a4j:outputPanel layout=&quot;block&quot; style=&quot;#{'#{'}style}&quot; styleClass=&quot;photoalbumButton #{'#{'}styleClass}&quot; lang=&quot;#{'#{'}lang}&quot; dir=&quot;#{'#{'}dir}&quot;
                     title=&quot;#{'#{'}title}&quot; rendered=&quot;#{'#{'}empty rendered or rendered}&quot; onmousedown=&quot;$(this).css('background-position', '0 28px');&quot;
                     onmouseup=&quot;$(this).css('background-position', '0 0');&quot; onmouseout=&quot;$(this).css('background-position', '0 0');&quot;&gt;
 
                 &lt;div&gt;#{'#{'}value}&lt;/div&gt;
 
-                &lt;r:commandButton accesskey=&quot;#{'#{'}accesskey}&quot; alt=&quot;#{'#{'}alt}&quot; type=&quot;image&quot; image=&quot;/img/shell/spacer.gif&quot;
+                &lt;a4j:commandButton accesskey=&quot;#{'#{'}accesskey}&quot; alt=&quot;#{'#{'}alt}&quot; type=&quot;image&quot; image=&quot;/img/shell/spacer.gif&quot;
                     actionListener=&quot;#{'#{'}mappedActionListener}&quot; action=&quot;#{'#{'}mappedAction}&quot; bypassUpdates=&quot;#{'#{'}bypassUpdates}&quot;
                     data=&quot;#{'#{'}data}&quot; disabled=&quot;#{'#{'}disabled}&quot; eventsQueue=&quot;#{'#{'}eventsQueue}&quot; focus=&quot;#{'#{'}focus}&quot; immediate=&quot;#{'#{'}immediate}&quot;
                     limitRender=&quot;#{'#{'}limitRender}&quot; onbeforedomupdate=&quot;#{'#{'}onbeforedomupdate}&quot; tabindex=&quot;#{'#{'}tabindex}&quot; render=&quot;#{'#{'}render}&quot;
@@ -57,7 +57,7 @@
                     onkeyup=&quot;#{'#{'}onkeyup}&quot; onmousedown=&quot;#{'#{'}onmousedown}&quot; onmousemove=&quot;#{'#{'}onmousemove}&quot; onmouseout=&quot;#{'#{'}onmouseout}&quot;
                     onmouseover=&quot;#{'#{'}onmouseover}&quot; onmouseup=&quot;#{'#{'}onmouseup}&quot; /&gt;
 
-                &lt;/r:outputPanel&gt;
+                &lt;/a4j:outputPanel&gt;
             &lt;/richx:actionMapper&gt;
         &lt;/ui:composition&gt;
         </pre>
@@ -77,14 +77,14 @@
                 </li>
                 <li>
                     <p>
-                        <span class="bold"><strong><span class="property">&lt;r:commandButton&gt;</span></strong></span> that
+                        <span class="bold"><strong><span class="property">&lt;a4j:commandButton&gt;</span></strong></span> that
                         sends Ajax request to the server
                     </p>
                 </li>
             </ul>
         </div>
         <p>
-            These elements are wrapped by <span class="bold"><strong><span class="property">&lt;r:outputPanel&gt;</span></strong></span>
+            These elements are wrapped by <span class="bold"><strong><span class="property">&lt;a4j:outputPanel&gt;</span></strong></span>
             to adjust the look-and-feel.
         </p>
         <p>In the application the button is used for example like this:</p>
@@ -92,7 +92,7 @@
         …
         &lt;richx:commandButton value=&quot;#{'#{'}messages['login.register']}&quot; immediate=&quot;true&quot;
                         actionListener=&quot;#{'#{'}authenticator.goToRegister()}&quot; render=&quot;mainArea&quot;
-                        oncomplete=&quot;#{'#{'}r:component('loginPanel')}.hide();&quot; execute=&quot;@this&quot; /&gt;
+                        oncomplete=&quot;#{'#{'}rich:component('loginPanel')}.hide();&quot; execute=&quot;@this&quot; /&gt;
         …
         </pre>
         <p>

@@ -22,34 +22,34 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.orgx">
 
-    <r:popupPanel id="albumsPopupPanel" minHeight="300" minWidth="500">
+    <rich:popupPanel id="albumsPopupPanel" minHeight="300" minWidth="500">
         <f:facet name="header">
             <h:outputText value="Choose album to share to" />
         </f:facet>
         <f:facet name="controls">
             <h:panelGroup>
                 <h:graphicImage value="/img/modal/close.png" style="cursor:pointer">
-                    <r:componentControl target="albumsPopupPanel" operation="hide" event="click" />
+                    <rich:componentControl target="albumsPopupPanel" operation="hide" event="click" />
                 </h:graphicImage>
             </h:panelGroup>
         </f:facet>
-        <r:mediaOutput id="imgUri" style="display:none" element="a" createContent="#{directLinkHelper.paintImage}"
+        <a4j:mediaOutput id="imgUri" style="display:none" element="a" createContent="#{directLinkHelper.paintImage}"
             value="#{model.selectedImage.id}" mimeType="image/jpeg" />
 
         <h:outputText value="No available albums. Log into Facebook and create one."
             rendered="#{fn:length(facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)) == 0}" />
-        <r:dataGrid rendered="#{fn:length(facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)) > 0}"
+        <rich:dataGrid rendered="#{fn:length(facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)) > 0}"
             value="#{facebookAlbumCache.getAlbums(facebookBean.userAlbumIds)}" var="album" columns="3">
-            <r:panel header="#{album.getString('name')}">
-                <r:commandLink execute="@none"
-                    onclick="F.pushImage('#{album.getString('id')}', #{r:element('imgUri')}.href, showError); #{r:component('albumsPopupPanel')}.hide()">
+            <rich:panel header="#{album.getString('name')}">
+                <a4j:commandLink execute="@none"
+                    onclick="F.pushImage('#{album.getString('id')}', #{rich:element('imgUri')}.href, showError); #{rich:component('albumsPopupPanel')}.hide()">
                     <img src="#{album.getString('coverUrl')}" />
-                </r:commandLink>
-            </r:panel>
-        </r:dataGrid>
-    </r:popupPanel>
+                </a4j:commandLink>
+            </rich:panel>
+        </rich:dataGrid>
+    </rich:popupPanel>
 
 </ui:composition>

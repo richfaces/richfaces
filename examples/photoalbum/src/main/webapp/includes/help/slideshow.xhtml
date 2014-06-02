@@ -22,7 +22,7 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:r="http://richfaces.org">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
 
     <div class="section" lang="en-US">
         <div class="titlepage">
@@ -49,7 +49,7 @@
             <ul>
                 <li>
                     <p>
-                        <span class="bold"><strong><span class="property">&lt;r:popupPanel&gt;</span></strong></span> located
+                        <span class="bold"><strong><span class="property">&lt;richpopupPanel&gt;</span></strong></span> located
                         in
                         <code class="code">web/src/main/webapp/includes/image/slideshow.xhtml</code>
                         that is hidden by default as the attribute
@@ -59,7 +59,7 @@
                 </li>
                 <li>
                     <p>
-                        <span class="bold"><strong><span class="property">&lt;r:poll&gt;</span></strong></span> located also
+                        <span class="bold"><strong><span class="property">&lt;a4j:poll&gt;</span></strong></span> located also
                         in
                         <code class="code">web/src/main/webapp/includes/image/slideshow.xhtml</code>
                         which is also inactive due to the mentioned active property (
@@ -70,7 +70,7 @@
             </ul>
         </div>
         <p>
-            After activation, <span class="bold"><strong><span class="property">&lt;r:poll&gt;</span></strong></span> will
+            After activation, <span class="bold"><strong><span class="property">&lt;a4j:poll&gt;</span></strong></span> will
             send asynchronous requests to the server with some certain interval, as the result of these requests modal panel
             will display the next image in the row.
         </p>
@@ -137,42 +137,42 @@
         </p>
         <pre class="brush: xml, gutter: false">
         &lt;ui:composition … &gt;
-            &lt;r:region&gt;
-                &lt;r:popupPanel show=&quot;#{'#{'}slideshow.active}&quot;
+            &lt;a4j:region&gt;
+                &lt;richpopupPanel show=&quot;#{'#{'}slideshow.active}&quot;
                     domElementAttachment=&quot;parent&quot;
                     id=&quot;slideShowModalPanel&quot;
                     autosized=&quot;true&quot;
-                    onshow=&quot;$(#{'#{'}r:element('imgSlideShow')}).fadeIn(600);&quot;&gt;
+                    onshow=&quot;$(#{'#{'}rich:element('imgSlideShow')}).fadeIn(600);&quot;&gt;
                     &lt;f:facet name=&quot;header&quot;&gt;Slideshow panel&lt;/f:facet&gt;
                     &lt;f:facet name=&quot;controls&quot;&gt;
                         &lt;h:panelGroup&gt;
                             &lt;h:graphicImage value=&quot;/img/modal/close.png&quot; style=&quot;cursor:pointer&quot; id=&quot;hidelink&quot;&gt;
-                                &lt;r:ajax event=&quot;click&quot; listener=&quot;#{'#{'}slideshow.stopSlideshow()}&quot;
+                                &lt;a4j:ajax event=&quot;click&quot; listener=&quot;#{'#{'}slideshow.stopSlideshow()}&quot;
                                     render=&quot;mainArea, treePanel, slideShowModalPanel&quot; execute=&quot;@region&quot; /&gt;
                             &lt;/h:graphicImage&gt;
                         &lt;/h:panelGroup&gt;
                     &lt;/f:facet&gt;
                     &lt;h:panelGrid styleClass=&quot;slideshow-table&quot; columnClasses=&quot;slideshow-table-col&quot; rowClasses=&quot;slideshow-table-row&quot;&gt;
                         &lt;h:panelGroup id=&quot;slideshowImage&quot;&gt;
-                            &lt;r:mediaOutput id=&quot;imgSlideShow&quot; element=&quot;img&quot; styleClass=&quot;main-image&quot;
+                            &lt;a4j:mediaOutput id=&quot;imgSlideShow&quot; element=&quot;img&quot; styleClass=&quot;main-image&quot;
                                 createContent=&quot;#{'#{'}imageLoader.paintImage}&quot;
                                 value=&quot;#{'#{'}slideshow.selectedImage != null ? fileManager.transformPath(slideshow.selectedImage.fullPath, '_medium') : null}&quot;
                                 mimeType=&quot;image/png&quot; style=&quot;display:none&quot;&gt;
-                                &lt;r:tooltip followMouse=&quot;true&quot; direction=&quot;topRight&quot; showDelay=&quot;500&quot; styleClass=&quot;tooltip&quot;&gt;
+                                &lt;richtooltip followMouse=&quot;true&quot; direction=&quot;topRight&quot; showDelay=&quot;500&quot; styleClass=&quot;tooltip&quot;&gt;
                                     &lt;span style=&quot;white-space: nowrap&quot;&gt; #{'#{'}slideshow.selectedImage.description} &lt;/span&gt;
-                                &lt;/r:tooltip&gt;
-                            &lt;/r:mediaOutput&gt;
+                                &lt;/richtooltip&gt;
+                            &lt;/a4j:mediaOutput&gt;
                         &lt;/h:panelGroup&gt;
                     &lt;/h:panelGrid&gt;
-                    &lt;r:poll id=&quot;slideShowPoll&quot;
+                    &lt;a4j:poll id=&quot;slideShowPoll&quot;
                         data=&quot;#{'#{'}slideshow.errorDetected}&quot;
                         render=&quot;slideshowImage&quot;
                         interval=&quot;#{'#{'}slideshow.interval}&quot;
                         enabled=&quot;#{'#{'}slideshow.active}&quot;
-                        oncomplete=&quot;if(event.data)#{'#{'}r:component('slideShowModalPanel')}.hide(); $(#{'#{'}r:element('imgSlideShow')}).fadeIn(600);&quot;
+                        oncomplete=&quot;if(event.data)#{'#{'}rich:component('slideShowModalPanel')}.hide(); $(#{'#{'}rich:element('imgSlideShow')}).fadeIn(600);&quot;
                         actionListener=&quot;#{'#{'}slideshow.showNextImage()}&quot; /&gt;
-                &lt;/r:popupPanel&gt;
-            &lt;/r:region&gt;
+                &lt;/richpopupPanel&gt;
+            &lt;/a4j:region&gt;
         &lt;/ui:composition&gt;
         </pre>
         
@@ -230,7 +230,7 @@
                 <p>
                     <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                         href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=popup">PopupPanel</a>
-                    page for the <span class="bold"><strong><span class="property">&lt;r:popupPanel&gt;</span></strong></span>
+                    page for the <span class="bold"><strong><span class="property">&lt;richpopupPanel&gt;</span></strong></span>
                     component;
                 </p>
             </li>
@@ -238,7 +238,7 @@
                 <p>
                     <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                         href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=mediaOutput">MediaOutput</a>
-                    for the <span class="bold"><strong><span class="property">&lt;r:mediaOutput&gt;</span></strong></span>
+                    for the <span class="bold"><strong><span class="property">&lt;a4j:mediaOutput&gt;</span></strong></span>
                     component;
                 </p>
             </li>
@@ -246,14 +246,14 @@
                 <p>
                     <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                         href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=ajax">Ajax</a> for the
-                    <span class="bold"><strong><span class="property">&lt;r:ajax&gt;</span></strong></span> component;
+                    <span class="bold"><strong><span class="property">&lt;a4j:ajax&gt;</span></strong></span> component;
                 </p>
             </li>
             <li>
                 <p>
                     <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                         href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=commandLink">CommandLink</a>
-                    for the <span class="bold"><strong><span class="property">&lt;r:commandLink&gt;</span></strong></span>
+                    for the <span class="bold"><strong><span class="property">&lt;a4j:commandLink&gt;</span></strong></span>
                     component;
                 </p>
             </li>
@@ -261,7 +261,7 @@
                 <p>
                     <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                         href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=poll">Poll</a> for the <span
-                        class="bold"><strong><span class="property">&lt;r:poll&gt;</span></strong></span> component.
+                        class="bold"><strong><span class="property">&lt;a4j:poll&gt;</span></strong></span> component.
                 </p>
             </li>
         </ul>

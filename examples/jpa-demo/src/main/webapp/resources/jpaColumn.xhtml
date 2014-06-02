@@ -24,24 +24,24 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:r="http://richfaces.org"
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:param name="title" value="JPA Column" />
     
-    <r:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" filterValue="#{bean.filterValues[property]}"
+    <rich:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" filterValue="#{bean.filterValues[property]}"
         filterExpression="#{property}">
         <f:facet name="header">
             <h:commandLink style="color: white;" action="#{bean.switchSortOrder(property)}">
                 #{bean.getSortOrder(property)}
-                <r:ajax render="richTable" />
+                <a4j:ajax render="richTable" />
             </h:commandLink>
             <br />
             <h:inputText value="#{bean.filterValues[property]}">
-                <r:ajax render="richTable@body scroller" event="keyup" />
+                <a4j:ajax render="richTable@body scroller" event="keyup" />
             </h:inputText>
         </f:facet>
 
         <h:outputText value="#{record[property]}" />
-    </r:column>
+    </rich:column>
     
 </ui:composition>

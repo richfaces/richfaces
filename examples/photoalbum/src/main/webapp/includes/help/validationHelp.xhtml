@@ -22,7 +22,7 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:r="http://richfaces.org">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
 
     <div class="section" lang="en-US">
         <div class="titlepage">
@@ -34,11 +34,11 @@
         </div>
         <p>
             Validation of user input is a very frequent situation for a developer. RichFaces library offers 2 componenta to get
-            this job done: <span class="bold"><strong><span class="property">&lt;r:graphValidator&gt;</span></strong></span>,
-            and <span class="bold"><strong><span class="property">&lt;r:validator&gt;</span></strong></span>. <span class="bold"><strong><span
-                    class="property">&lt;r:graphValidator&gt;</span></strong></span> is intended to validate the whole object or the graph of
+            this job done: <span class="bold"><strong><span class="property">&lt;richgraphValidator&gt;</span></strong></span>,
+            and <span class="bold"><strong><span class="property">&lt;richvalidator&gt;</span></strong></span>. <span class="bold"><strong><span
+                    class="property">&lt;richgraphValidator&gt;</span></strong></span> is intended to validate the whole object or the graph of
             interrelated objects and the validation occurs when the whole form is submitted. While <span class="bold"><strong><span
-                    class="property">&lt;r:validator&gt;</span></strong></span> validates only one input field or a value at a time,
+                    class="property">&lt;richvalidator&gt;</span></strong></span> validates only one input field or a value at a time,
             validation is activated upon some event and adds interactivity to the application. Both components use Hibernate
             validators which helps to locate validation logic in one place, such approach is really helpful given that usually
             data validation logic is stored in multiple places including UI pages and in Java code that interacts with a
@@ -48,28 +48,28 @@
             irrelevant details were removed from the example):</p>
         <pre class="brush:xml, gutter: false, highlight: [18]">
                 …
-            &lt;r:graphValidator&gt;
+            &lt;richgraphValidator&gt;
                     …
                 &lt;h:inputText id=&quot;userLoginName&quot; value=&quot;#{'#{'}authenticator.user.login}&quot; styleClass=&quot;reg-table-input&quot; /&gt;                  
-                &lt;r:messages for=&quot;userLoginName&quot; styleClass=&quot;required&quot; /&gt;
+                &lt;richmessages for=&quot;userLoginName&quot; styleClass=&quot;required&quot; /&gt;
                         
                 &lt;h:inputSecret required=&quot;true&quot; id=&quot;userPassword&quot; value=&quot;#{'#{'}authenticator.user.password}&quot;
                     styleClass=&quot;reg-table-input&quot; /&gt;
-                &lt;r:messages for=&quot;userPassword&quot; styleClass=&quot;required&quot; /&gt;
+                &lt;richmessages for=&quot;userPassword&quot; styleClass=&quot;required&quot; /&gt;
             
                 &lt;h:inputSecret required=&quot;true&quot; id=&quot;userConfirmPassword&quot;
                     value=&quot;#{'#{'}authenticator.user.confirmPassword}&quot; styleClass=&quot;reg-table-input&quot; /&gt;           
-                &lt;r:messages for=&quot;userConfirmPassword&quot; styleClass=&quot;required&quot; /&gt;
+                &lt;richmessages for=&quot;userConfirmPassword&quot; styleClass=&quot;required&quot; /&gt;
                     …                                             
-                &lt;r:outputPanel id=&quot;userCalendar&quot; layout=&quot;block&quot;&gt;
-                    &lt;r:calendar id=&quot;userBirthDate&quot; enableManualInput=&quot;true&quot; value=&quot;#{'#{'}authenticator.user.birthDate}&quot;
+                &lt;a4j:outputPanel id=&quot;userCalendar&quot; layout=&quot;block&quot;&gt;
+                    &lt;richcalendar id=&quot;userBirthDate&quot; enableManualInput=&quot;true&quot; value=&quot;#{'#{'}authenticator.user.birthDate}&quot;
                         cellWidth=&quot;24px&quot; cellHeight=&quot;22px&quot; inputClass=&quot;reg-table-input&quot;&gt;
-                        &lt;r:validator event=&quot;inputblur&quot; /&gt;
-                    &lt;/r:calendar&gt;
-                &lt;/r:outputPanel&gt;
-                &lt;r:messages for=&quot;userBirthDate&quot; styleClass=&quot;required&quot; /&gt;
+                        &lt;richvalidator event=&quot;inputblur&quot; /&gt;
+                    &lt;/richcalendar&gt;
+                &lt;/a4j:outputPanel&gt;
+                &lt;richmessages for=&quot;userBirthDate&quot; styleClass=&quot;required&quot; /&gt;
                     …
-            &lt;/r:graphValidator&gt;
+            &lt;/richgraphValidator&gt;
             
             &lt;richx:commandButton actionListener=&quot;#{'#{'}authenticator.register(authenticator.user)}&quot;
                 render=&quot;mainArea,treePanel,searchForm, headerPanel&quot; value=&quot;#{'#{'}messages['user.register']}&quot; /&gt;        
@@ -77,7 +77,7 @@
                 value=&quot;#{'#{'}messages['user.cancel']}&quot; /&gt;
         </pre>
         <p>
-            <span class="bold"><strong><span class="property">&lt;r:graphValidator&gt;</span></strong></span> validates the
+            <span class="bold"><strong><span class="property">&lt;richgraphValidator&gt;</span></strong></span> validates the
             entity User object, in which restrictions are set with the help of Hibernate annotations. When the <span
                 class="bold"><strong>Register</strong></span> button is clicked on the <span class="property">name,
                 password, sex</span> etc. fields are validated sequentially. In case of an error (for example, if a <span
@@ -88,7 +88,7 @@
             method will be invoked and the user will be saved to the database.
         </p>
         <p>
-            <span class="bold"><strong><span class="property">&lt;r:validator&gt;</span></strong></span> acts in a
+            <span class="bold"><strong><span class="property">&lt;richvalidator&gt;</span></strong></span> acts in a
             slightly different way, in our case it is attached to the
             <code class="code">authenticator.user.birthDate</code>
             field. When the value of the field is changed and the field loses focus it is immediately validated. If the input

@@ -21,35 +21,35 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org">
-    <r:region>
-        <r:popupPanel show="#{slideshow.active}" domElementAttachment="parent" id="slideShowModalPanel" autosized="true"
-            onshow="$(#{r:element('imgSlideShow')}).fadeIn(600);">
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+    <a4j:region>
+        <rich:popupPanel show="#{slideshow.active}" domElementAttachment="parent" id="slideShowModalPanel" autosized="true"
+            onshow="$(#{rich:element('imgSlideShow')}).fadeIn(600);">
             <f:facet name="header">Slideshow panel</f:facet>
             <f:facet name="controls">
                 <h:panelGroup>
                     <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hidelink">
-                        <r:ajax event="click" listener="#{slideshow.stopSlideshow()}"
+                        <a4j:ajax event="click" listener="#{slideshow.stopSlideshow()}"
                             render="mainArea, treePanel, slideShowModalPanel" execute="@region" />
                     </h:graphicImage>
                 </h:panelGroup>
             </f:facet>
             <h:panelGrid styleClass="slideshow-table" columnClasses="slideshow-table-col" rowClasses="slideshow-table-row">
                 <h:panelGroup id="slideshowImage">
-                    <r:mediaOutput id="imgSlideShow" element="img" styleClass="main-image"
+                    <a4j:mediaOutput id="imgSlideShow" element="img" styleClass="main-image"
                         createContent="#{imageLoader.paintImage}"
                         value="#{slideshow.selectedImage != null ? fileManager.transformPath(slideshow.selectedImage.fullPath, '_medium') : null}"
                         mimeType="image/png" style="display:none">
-                        <r:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
+                        <rich:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
                             <span style="white-space: nowrap"> #{slideshow.selectedImage.description} </span>
-                        </r:tooltip>
-                    </r:mediaOutput>
+                        </rich:tooltip>
+                    </a4j:mediaOutput>
                 </h:panelGroup>
             </h:panelGrid>
-            <r:poll id="slideShowPoll" data="#{slideshow.errorDetected}" render="slideshowImage"
+            <a4j:poll id="slideShowPoll" data="#{slideshow.errorDetected}" render="slideshowImage"
                 interval="#{slideshow.interval}" enabled="#{slideshow.active}"
-                oncomplete="if(event.data)#{r:component('slideShowModalPanel')}.hide(); $(#{r:element('imgSlideShow')}).fadeIn(600);"
+                oncomplete="if(event.data)#{rich:component('slideShowModalPanel')}.hide(); $(#{rich:element('imgSlideShow')}).fadeIn(600);"
                 actionListener="#{slideshow.showNextImage()}" />
-        </r:popupPanel>
-    </r:region>
+        </rich:popupPanel>
+    </a4j:region>
 </ui:composition>

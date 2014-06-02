@@ -21,9 +21,9 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.orgx">
-    <r:region>
+    <a4j:region>
         <div class="search-div">
             <span
                 style="width: 339px; height: 65px; display: inline-block; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/search/search_bg.png', sizingMethod='scale' );">
@@ -31,11 +31,11 @@
                 src="img/search/search_bg.png" class="search-img-bg" />
             </span>
             <div class="search-label">#{messages['search']}</div>
-            <r:commandLink styleClass="search-find-button" id="findLink" value="#{messages['find']}"
+            <a4j:commandLink styleClass="search-find-button" id="findLink" value="#{messages['find']}"
                 onclick="hide('searchOptions'); show('openSeach');" render="mainArea"
-                actionListener="#{imageSearchHelper.search}" execute="@region" oncomplete="#{r:element('searchQuery')}.value=''" />
+                actionListener="#{imageSearchHelper.search}" execute="@region" oncomplete="#{rich:element('searchQuery')}.value=''" />
             <h:inputText id="searchQuery" required="true" value="#{imageSearchHelper.searchQuery}"
-                onkeydown="if (event.keyCode == 13) { #{r:element('findLink')}.onclick(); return false; }"
+                onkeydown="if (event.keyCode == 13) { #{rich:element('findLink')}.onclick(); return false; }"
                 styleClass="search-input" />
             <div id="openSeach" class="search-option-div">
                 <a class="search-option-link" href="#" onclick="show('searchOptions'); hide('openSeach');">#{messages['options']}
@@ -55,11 +55,11 @@
             <div class="search-options-div2">
                 <div style="float: left; height: 30px">for</div>
                 <div>
-                    <r:repeat value="#{imageSearchHelper.options}" var="option">
+                    <a4j:repeat value="#{imageSearchHelper.options}" var="option">
                         <span style="white-space: nowrap"> <h:selectBooleanCheckbox value="#{option.selected}" /> <h:outputText
                                 value="#{option.name}  " />
                         </span>
-                    </r:repeat>
+                    </a4j:repeat>
                 </div>
             </div>
             <div class="search-hide-options-div">
@@ -68,5 +68,5 @@
                 </a>
             </div>
         </div>
-    </r:region>
+    </a4j:region>
 </ui:composition>

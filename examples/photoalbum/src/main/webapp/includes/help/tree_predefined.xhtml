@@ -22,7 +22,7 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:r="http://richfaces.org">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
 
     <div class="section" lang="en-US">
         <div class="titlepage">
@@ -33,7 +33,7 @@
             </div>
         </div>
         <p>
-            The <span class="bold"><strong><span class="property">&lt;r:tree&gt;</span></strong></span> component takes one
+            The <span class="bold"><strong><span class="property">&lt;richtree&gt;</span></strong></span> component takes one
             of the main places in the <span class="property">Photo Album</span> and is tightly bounded with the application
             logic. It helps to represent and implement inherently the "Shelves - Albums" hierarchy. Shelf is the highest
             possible level in the tree hierarchy, that is used to group thematic albums and may contain as many albums as
@@ -51,22 +51,22 @@
             </div>
             <p>
                 Navigation tree for a guest is represented as a simple <span class="bold"><strong><span
-                        class="property">&lt;r:tree&gt;</span></strong></span> component.
+                        class="property">&lt;richtree&gt;</span></strong></span> component.
             </p>
             <p>
-                There are several ways to implement the <span class="bold"><strong><span class="property">&lt;r:tree&gt;</span></strong></span>
-                on a page. In the current application the <span class="bold"><strong><span class="property">&lt;r:tree&gt;</span></strong></span>
-                is designed using a model tag <span class="bold"><strong><span class="property">&lt;r:treeNodesAdaptor&gt;</span></strong></span>.
+                There are several ways to implement the <span class="bold"><strong><span class="property">&lt;richtree&gt;</span></strong></span>
+                on a page. In the current application the <span class="bold"><strong><span class="property">&lt;richtree&gt;</span></strong></span>
+                is designed using a model tag <span class="bold"><strong><span class="property">&lt;richtreeNodesAdaptor&gt;</span></strong></span>.
             </p>
             <p>
-                The <span class="bold"><strong><span class="property">&lt;r:treeModelAdaptor&gt;</span></strong></span>
+                The <span class="bold"><strong><span class="property">&lt;richtreeModelAdaptor&gt;</span></strong></span>
                 component has a <span class="emphasis"><em><span class="property">"nodes"</span></em></span> attribute that
-                accepts a collection of elements, so <span class="bold"><strong><span class="property">&lt;r:treeModelAdaptor&gt;</span></strong></span>
+                accepts a collection of elements, so <span class="bold"><strong><span class="property">&lt;richtreeModelAdaptor&gt;</span></strong></span>
                 iterates over the collection and renders a hierarchical tree structure on a page.
             </p>
             <p>
                 According to the "Shelves - Albums" hierarchy we need two nested <span class="bold"><strong><span
-                        class="property">&lt;r:treeModelAdaptor&gt;</span></strong></span> components. The first one iterates over the
+                        class="property">&lt;richtreeModelAdaptor&gt;</span></strong></span> components. The first one iterates over the
                 Shelves collection that is returned from the
                 <code class="code">getPredefinedShelves()</code>
                 method of
@@ -82,68 +82,68 @@
                 }
             </pre>
             <p>
-                The second <span class="bold"><strong><span class="property">&lt;r:treeModelAdaptor&gt;</span></strong></span>
+                The second <span class="bold"><strong><span class="property">&lt;richtreeModelAdaptor&gt;</span></strong></span>
                 component iterates over the Albums collection of the current Shelf which is available via <span class="emphasis"><em><span
                         class="property">"var"</span></em></span> attribute of <span class="bold"><strong><span
-                        class="property">&lt;r:tree&gt;</span></strong></span>. The <span class="emphasis"><em><span
+                        class="property">&lt;richtree&gt;</span></strong></span>. The <span class="emphasis"><em><span
                         class="property">"var"</span></em></span> attribute is used to get access to the data object of the current
                 collection element Shelf, so it is possible to output any necessary data. Let's see the
                 <code class="code">src/main/webapp/includes/index/tree.xhtml</code>
                 file:
             </p>
             <pre class="brush: xml, gutter: false">
-              &lt;r:tree ajaxSubmitSelection=&quot;false&quot; id=&quot;PreDefinedTree&quot; var=&quot;treeNode&quot; toggleType=&quot;client&quot;&gt;
-                &lt;r:treeModelAdaptor nodes=&quot;#{'#{'}shelfManager.predefinedShelves}&quot;&gt;
-                    &lt;r:treeNode style=&quot;cursor:pointer&quot; selectedClass=&quot;tree-selected-node&quot;
+              &lt;richtree ajaxSubmitSelection=&quot;false&quot; id=&quot;PreDefinedTree&quot; var=&quot;treeNode&quot; toggleType=&quot;client&quot;&gt;
+                &lt;richtreeModelAdaptor nodes=&quot;#{'#{'}shelfManager.predefinedShelves}&quot;&gt;
+                    &lt;richtreeNode style=&quot;cursor:pointer&quot; selectedClass=&quot;tree-selected-node&quot;
                         iconCollapsed=&quot;img/shell/tree_icon_shelf.png&quot; iconExpanded=&quot;img/shell/tree_icon_shelf.png&quot;&gt;
-                        &lt;r:outputPanel layout=&quot;block&quot; style=&quot;cursor:pointer;width:200px; overflow-x:hidden;&quot;&gt;
+                        &lt;a4j:outputPanel layout=&quot;block&quot; style=&quot;cursor:pointer;width:200px; overflow-x:hidden;&quot;&gt;
                             &lt;h:outputText value=&quot;#{'#{'}treeNode.name}&quot; /&gt;
                             &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; value=&quot; #{'#{'}messages['delimiter']} &quot; /&gt;
                             &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; styleClass=&quot;bold&quot;
                                 value=&quot;#{'#{'}fn:length(treeNode.unvisitedImages)}&quot; /&gt;
                             &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; value=&quot; #{'#{'}messages['new']}&quot; /&gt;
-                            &lt;r:ajax render=&quot;treePanel, mainArea&quot; event=&quot;click&quot; listener=&quot;#{'#{'}controller.showShelf(treeNode)}&quot; /&gt;
+                            &lt;a4j:ajax render=&quot;treePanel, mainArea&quot; event=&quot;click&quot; listener=&quot;#{'#{'}controller.showShelf(treeNode)}&quot; /&gt;
                             
-                            &lt;r:tooltip direction=&quot;topRight&quot; showDelay=&quot;1000&quot;&gt;
+                            &lt;richtooltip direction=&quot;topRight&quot; showDelay=&quot;1000&quot;&gt;
                                 &lt;span style=&quot;white-space: nowrap&quot;&gt;#{'#{'}treeNode.name}&lt;/span&gt;
-                            &lt;/r:tooltip&gt;
+                            &lt;/richtooltip&gt;
                             
-                        &lt;/r:outputPanel&gt;
-                    &lt;/r:treeNode&gt;
+                        &lt;/a4j:outputPanel&gt;
+                    &lt;/richtreeNode&gt;
     
-                    &lt;r:treeModelAdaptor var=&quot;album&quot; nodes=&quot;#{'#{'}treeNode.albums}&quot;&gt;
-                        &lt;r:treeNode style=&quot;cursor:pointer&quot; selectedClass=&quot;tree-selected-node&quot;
+                    &lt;richtreeModelAdaptor var=&quot;album&quot; nodes=&quot;#{'#{'}treeNode.albums}&quot;&gt;
+                        &lt;richtreeNode style=&quot;cursor:pointer&quot; selectedClass=&quot;tree-selected-node&quot;
                             iconLeaf=&quot;img/shell/tree_icon_album.png&quot;&gt;
-                            &lt;r:outputPanel layout=&quot;block&quot; style=&quot;cursor:pointer;width:200px; overflow-x:hidden;&quot;&gt;
+                            &lt;a4j:outputPanel layout=&quot;block&quot; style=&quot;cursor:pointer;width:200px; overflow-x:hidden;&quot;&gt;
                                 &lt;h:outputText value=&quot;#{'#{'}treeNode.name}&quot; /&gt;
                                 &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; value=&quot; #{'#{'}messages['delimiter']} &quot; /&gt;
                                 &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; styleClass=&quot;bold&quot;
                                     value=&quot;#{'#{'}fn:length(treeNode.unvisitedImages)}&quot; /&gt;
                                 &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; value=&quot; #{'#{'}messages['new']}&quot; /&gt;
-                                &lt;r:ajax render=&quot;treePanel, mainArea&quot; event=&quot;click&quot; listener=&quot;#{'#{'}controller.showAlbum(treeNode)}&quot; /&gt;
+                                &lt;a4j:ajax render=&quot;treePanel, mainArea&quot; event=&quot;click&quot; listener=&quot;#{'#{'}controller.showAlbum(treeNode)}&quot; /&gt;
                                 
-                                &lt;r:tooltip direction=&quot;topRight&quot; showDelay=&quot;1000&quot;&gt;
+                                &lt;richtooltip direction=&quot;topRight&quot; showDelay=&quot;1000&quot;&gt;
                                     &lt;span style=&quot;white-space: nowrap&quot;&gt;#{'#{'}treeNode.name}&lt;/span&gt;
-                                &lt;/r:tooltip&gt;
+                                &lt;/richtooltip&gt;
                                 
-                            &lt;/r:outputPanel&gt;
-                        &lt;/r:treeNode&gt;
+                            &lt;/a4j:outputPanel&gt;
+                        &lt;/richtreeNode&gt;
     
-                    &lt;/r:treeModelAdaptor&gt;
-                &lt;/r:treeModelAdaptor&gt;
+                    &lt;/richtreeModelAdaptor&gt;
+                &lt;/richtreeModelAdaptor&gt;
     
-            &lt;/r:tree&gt;  
+            &lt;/richtree&gt;  
             </pre>
             <p>The image below shows how the navigation tree for a guest is rendered on the page.</p>
             <div class="figure">
                 <div class="figure-contents">
                     <div class="mediaobject">
                         <img src="img/help/tree.png"
-                            alt="Shelves and albums nodes rendered with the help of the &lt;r:treeNodesAdaptor&gt;" />
+                            alt="Shelves and albums nodes rendered with the help of the &lt;richtreeNodesAdaptor&gt;" />
                     </div>
                 </div>
                 <p class="title">
-                    <b>Shelves and albums nodes rendered with the help of the &lt;r:treeNodesAdaptor&gt;</b>
+                    <b>Shelves and albums nodes rendered with the help of the &lt;richtreeNodesAdaptor&gt;</b>
                 </p>
             </div>
             <br class="figure-break" />

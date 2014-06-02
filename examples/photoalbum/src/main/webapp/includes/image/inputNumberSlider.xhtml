@@ -23,23 +23,23 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-    xmlns:r="http://richfaces.org" xmlns:richx="http://richfaces.orgx">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.orgx">
     <div>
         <h:panelGrid columns="3" rendered="#{size > 0}">
             <h:outputText value="#{messages['image.image.dimension']}" />
-            <r:inputNumberSlider enableManualInput="false" value="#{imageSizeHelper.value}" minValue="80" maxValue="200"
+            <rich:inputNumberSlider enableManualInput="false" value="#{imageSizeHelper.value}" minValue="80" maxValue="200"
                 showArrows="false" showBoundaryValues="true" showInput="false" step="40" width="100">
-                <r:ajax event="change" render="#{renderArea}" />
-            </r:inputNumberSlider>
-            <r:commandLink rendered="#{help.isShowHelp()}"
+                <a4j:ajax event="change" render="#{renderArea}" />
+            </rich:inputNumberSlider>
+            <a4j:commandLink rendered="#{help.isShowHelp()}"
                 actionListener="#{help.navigateTo('/includes/help/inputSliderHelp.xhtml')}"
-                oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel">
+                oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel">
                 <h:panelGroup
                     style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                     <h:graphicImage style="border:none;" border="0" width="34" height="34" styleClass="ie6transparency"
                         value="img/icons/help_sign.png" />
                 </h:panelGroup>
-            </r:commandLink>
+            </a4j:commandLink>
         </h:panelGrid>
     </div>
 </ui:composition>

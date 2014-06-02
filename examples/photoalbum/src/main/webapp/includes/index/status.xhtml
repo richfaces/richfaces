@@ -22,19 +22,19 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org" xmlns:richx="http://richfaces.orgx">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.orgx">
     <h:panelGroup rendered="#{help.isShowHelp()}">
-        <r:commandLink style="position: absolute; top: 26px; left: 320px;"
+        <a4j:commandLink style="position: absolute; top: 26px; left: 320px;"
             actionListener="#{help.navigateTo('/includes/help/statusHelp.xhtml')}"
-            oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel" execute="@this">
+            oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel" execute="@this">
             <h:panelGroup
                 style="cursor: hand; border: none; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                 <h:graphicImage height="34" width="34" border="0" style="border: none;" styleClass="ie6transparency"
                     value="img/icons/help_sign.png" />
             </h:panelGroup>
-        </r:commandLink>
+        </a4j:commandLink>
     </h:panelGroup>
-    <r:status layout="block" startStyle="height: 52px; width: 79px; position: absolute; top: 0px; left: 278px;">
+    <a4j:status layout="block" startStyle="height: 52px; width: 79px; position: absolute; top: 0px; left: 278px;">
         <f:facet name="start">
             <h:panelGroup>
                 <h:panelGroup
@@ -48,5 +48,5 @@
                 </h:panelGroup>
             </h:panelGroup>
         </f:facet>
-    </r:status>
+    </a4j:status>
 </ui:composition>

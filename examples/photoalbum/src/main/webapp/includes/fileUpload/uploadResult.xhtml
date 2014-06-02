@@ -22,15 +22,15 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.orgx">
-    <r:outputPanel id="filesPanel" ajaxRendered="true">
+    <a4j:outputPanel id="filesPanel" ajaxRendered="true">
         <h:panelGroup layout="block" id="uploadProgress"
             rendered="#{(fn:length(fileWrapper.files) > 0 or fn:length(fileWrapper.errorFiles) > 0) and !fileWrapper.complete}"
             style="clear:both;padding-top:15px;margin : 0px 0px 0px 0px; display : !none; height : 40px">
             <h:outputText styleClass="bold" value="#{messages['photo_upload_progress']} " />
             <h:outputText value="#{fn:length(fileWrapper.files)} #{messages['photos_was_uploaded_to']} " />
-            <r:commandLink styleClass="bold" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
+            <a4j:commandLink styleClass="bold" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
                 render="mainArea, treePanel" value="#{model.selectedAlbum.name}" />
         </h:panelGroup>
         <h:panelGroup layout="block" id="uploadComplete" rendered="#{fileWrapper.complete}"
@@ -38,7 +38,7 @@
             <h:panelGroup id="completeLabel">
                 <h:outputText styleClass="bold" value="#{messages['photo_upload_complete']} " />
                 <h:outputText value=" #{fn:length(fileWrapper.files)} #{messages['photos_was_uploaded_to']} " />
-                <r:commandLink styleClass="bold" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
+                <a4j:commandLink styleClass="bold" actionListener="#{controller.showAlbum(model.selectedAlbum)}"
                     render="mainArea, tree" value="#{model.selectedAlbum.name}" execute="@this" limitRender="true" />
             </h:panelGroup>
         </h:panelGroup>
@@ -46,32 +46,32 @@
             <h:panelGroup style="padding-bottom:7px;" layout="block">
                 <h:outputText styleClass="bold" style="padding-bottom:7px;" value="#{messages['error_during_upload']}" />
             </h:panelGroup>
-            <r:repeat value="#{fileWrapper.errorFiles}" var="error">
+            <a4j:repeat value="#{fileWrapper.errorFiles}" var="error">
                 <h:panelGroup style="padding-bottom:7px;" layout="block">
                     <h:outputText value="#{messages['file']} #{(fileWrapper.getErrorImage(error)).name}. #{messages['see']} " />
-                    <r:commandLink style="padding-bottom:7px;"
+                    <a4j:commandLink style="padding-bottom:7px;"
                         actionListener="#{controller.showError((fileWrapper.getErrorDescription(error)))}"
                         value="#{messages['error']}" execute="@this" />
                 </h:panelGroup>
-            </r:repeat>
+            </a4j:repeat>
         </h:panelGroup>
         <h:panelGroup style="padding-left:0px;" layout="block">
             <h:panelGroup style="padding-bottom:7px;" rendered="#{fn:length(fileWrapper.files) > 0}" layout="block">
                 <h:outputText style="padding-left:-4px;" styleClass="bold" value="#{messages['downloaded_images']}" />
             </h:panelGroup>
-            <r:repeat id="files" columns="1" value="#{fileWrapper.files}" var="image" rowKeyVar="row">
+            <a4j:repeat id="files" columns="1" value="#{fileWrapper.files}" var="image" rowKeyVar="row">
                 <h:panelGroup layout="block" styleClass="preview_box_photo_120">
                     <h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_200.png" style="border:0" />
                     <h:panelGrid cellpadding="0">
                         <h:panelGroup>
-                            <r:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel"
+                            <a4j:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel"
                                 execute="@this" limitRender="true">
-                                <r:mediaOutput element="img" createContent="#{imageLoader.paintImage}"
+                                <a4j:mediaOutput element="img" createContent="#{imageLoader.paintImage}"
                                     value="#{fileManager.transformPath(image.fullPath, '_small120')}" mimeType="image/jpeg">
-                                    <r:dragSource id="dragSource" dragIndicator="iDragIndicator" type="image"
+                                    <rich:dragSource id="dragSource" dragIndicator="iDragIndicator" type="image"
                                         dragValue="#{image}" />
-                                </r:mediaOutput>
-                            </r:commandLink>
+                                </a4j:mediaOutput>
+                            </a4j:commandLink>
                         </h:panelGroup>
                     </h:panelGrid>
                     <h:panelGroup layout="block"
@@ -85,7 +85,7 @@
                         <h:outputText value="#{image.size}" />
                     </h:panelGroup>
                 </h:panelGroup>
-            </r:repeat>
+            </a4j:repeat>
         </h:panelGroup>
-    </r:outputPanel>
+    </a4j:outputPanel>
 </ui:composition>

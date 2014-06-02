@@ -22,8 +22,8 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org">
-    <r:region id="gPlusShelf">
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+    <a4j:region id="gPlusShelf">
         <h:panelGrid styleClass="shelf-header-table" cellpadding="0" columns="2" columnClasses="xxx, shelf-header-table-col2">
 
             <h:panelGroup>
@@ -36,5 +36,5 @@
         <ui:include src="/includes/gplus/albumsList.xhtml">
             <ui:param name="albumIds" value="#{googlePlusBean.userAlbumIds}" />
         </ui:include>
-    </r:region>
+    </a4j:region>
 </ui:composition>

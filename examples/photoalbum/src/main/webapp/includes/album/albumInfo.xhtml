@@ -22,12 +22,12 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org">
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
     <h:panelGrid styleClass="album-header-table" cellpadding="0" columns="2" columnClasses="xxx, album-header-table-col2">
         <h:panelGroup>
             <h1>
                 <h:outputText value="#{album.name}" rendered="#{!controller.isUserAlbum(album)}" />
-                <r:inplaceInput selectOnEdit="false" value="#{album.name}" rendered="#{controller.isUserAlbum(album)}"
+                <rich:inplaceInput selectOnEdit="false" value="#{album.name}" rendered="#{controller.isUserAlbum(album)}"
                     inputWidth="570" />
             </h1>
             <h:panelGroup layout="block" style="margin-bottom:15px;" styleClass="additional-info-text">
@@ -38,23 +38,23 @@
                 <h:outputText value=" #{messages['images_']}" />
                 <h:panelGroup rendered="#{fn:length(album.unvisitedImages) > 0}">
                     <h:outputText value=", " />
-                    <r:commandLink render="mainArea,treePanel" actionListener="#{controller.showUnvisitedImages(album)}">
+                    <a4j:commandLink render="mainArea,treePanel" actionListener="#{controller.showUnvisitedImages(album)}">
                         <h:outputText styleClass="bold" value="#{fn:length(album.unvisitedImages)}" />
                         <h:outputText value=" #{messages['new']}" />
-                    </r:commandLink>
+                    </a4j:commandLink>
                     <h:outputText value=" #{messages['images_']}" />
                 </h:panelGroup>
             </h:panelGroup>
-            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showShelf(album.shelf)}"
+            <a4j:commandLink styleClass="additional-info-text" actionListener="#{controller.showShelf(album.shelf)}"
                 render="mainArea, treePanel" value="#{messages['shelf']} #{album.shelf.name}" />
         </h:panelGroup>
         <h:panelGroup>
-            <r:commandLink rendered="#{album.owner.id == userBean.user.id}" value="#{messages['album.edit']}"
+            <a4j:commandLink rendered="#{album.owner.id == userBean.user.id}" value="#{messages['album.edit']}"
                 actionListener="#{controller.startEditAlbum(album)}" render="mainArea" execute="@this" />
             <h:outputText value=" #{messages['delimiter']} " rendered="#{album.owner.id == userBean.user.id}" />
-            <r:commandLink rendered="#{album.owner.id == userBean.user.id}" value="#{messages['album.delete']}"
+            <a4j:commandLink rendered="#{album.owner.id == userBean.user.id}" value="#{messages['album.delete']}"
                 actionListener="#{confirmationPopupHelper.initAlbumData(confirmationPopupHelper.deleteAlbum,messages['album.delete.confirm'],album)}"
-                oncomplete="#{r:component('confirmation')}.show()" render="confirmation" execute="@this" />
+                oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" execute="@this" />
         </h:panelGroup>
     </h:panelGrid>
 

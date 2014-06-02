@@ -22,16 +22,16 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:r="http://richfaces.org" xmlns:richx="http://richfaces.orgx">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.orgx">
 
     <richx:actionMapper>
-        <r:outputPanel layout="block" style="#{style}" styleClass="photoalbumButton #{styleClass}" lang="#{lang}" dir="#{dir}"
+        <a4j:outputPanel layout="block" style="#{style}" styleClass="photoalbumButton #{styleClass}" lang="#{lang}" dir="#{dir}"
             title="#{title}" rendered="#{empty rendered or rendered}" onmousedown="$(this).css('background-position', '0 28px');"
             onmouseup="$(this).css('background-position', '0 0');" onmouseout="$(this).css('background-position', '0 0');">
 
             <div>#{value}</div>
 
-            <r:commandButton accesskey="#{accesskey}" alt="#{alt}" type="image" image="/img/shell/spacer.gif"
+            <a4j:commandButton accesskey="#{accesskey}" alt="#{alt}" type="image" image="/img/shell/spacer.gif"
                 actionListener="#{mappedActionListener}" action="#{mappedAction}" bypassUpdates="#{bypassUpdates}"
                 data="#{data}" disabled="#{disabled}" eventsQueue="#{eventsQueue}" focus="#{focus}" immediate="#{immediate}"
                 limitRender="#{limitRender}" onbeforedomupdate="#{onbeforedomupdate}" tabindex="#{tabindex}" render="#{render}"
@@ -40,7 +40,7 @@
                 onkeyup="#{onkeyup}" onmousedown="#{onmousedown}" onmousemove="#{onmousemove}" onmouseout="#{onmouseout}"
                 onmouseover="#{onmouseover}" onmouseup="#{onmouseup}" />
 
-        </r:outputPanel>
+        </a4j:outputPanel>
     </richx:actionMapper>
 
 </ui:composition>

@@ -23,7 +23,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.orgx">
 
 <h:head>
@@ -46,13 +46,13 @@
 </h:head>
 
 <h:body class="main-body" style="position: relative;">
-    <!-- <r:messages globalOnly="true" />
-    <r:messages /> -->
+    <!-- <rich:messages globalOnly="true" />
+    <rich:messages /> -->
     <div style="position: relative; height: auto; overflow: hidden; min-height: 100%; zoom: 1;" class="main-panel">
         <h:form id="overForm">
-            <r:notifyStack direction="vertical" position="topLeft" id="stack">
-                <r:notifyMessages for="overForm" styleClass="photoalbum-message" sticky="true" stack="stack" showDetail="true" showSummary="true" />
-            </r:notifyStack>
+            <rich:notifyStack direction="vertical" position="topLeft" id="stack">
+                <rich:notifyMessages for="overForm" styleClass="photoalbum-message" sticky="true" stack="stack" showDetail="true" showSummary="true" />
+            </rich:notifyStack>
             
             <div style="padding-bottom: 82px; padding-top: 116px; left: 0px; zoom: 1;">
                 <!--             <ui:include src="/includes/misc/modalPanels.xhtml" /> -->
@@ -72,16 +72,16 @@
                             <td class="panel-header-bg" style="vertical-align: top;">
                                 <div style="position: relative; zoom: 1;">
                                     <div>
-                                        <!-- <r:spacer width="300" height="1" style="display: block"> </r:spacer> -->
+                                        <!-- <rich:spacer width="300" height="1" style="display: block"> </rich:spacer> -->
                                         <!-- not available in RF 4; repair when the layout can be seen -->
                                     </div>
-                                    <r:region id="treeRegion">
-                                        <r:panel id="treePanel" styleClass="body-main-panel"
+                                    <a4j:region id="treeRegion">
+                                        <rich:panel id="treePanel" styleClass="body-main-panel"
                                             headerClass="body-main-panel-header" bodyClass="body-main-panel-body"
                                             style="width:240px">
                                             <ui:insert name="tree" />
-                                        </r:panel>
-                                    </r:region>
+                                        </rich:panel>
+                                    </a4j:region>
 
                                     <div class="body-main-bg"
                                         style="position: absolute; height: 30000px; right: 0px; top: 0px; width: 5px;"></div>
@@ -89,13 +89,13 @@
                             </td>
                             <td width="100%" class="panel-header-bg" style="vertical-align: top;">
                                 <div style="position: relative; zoom: 1;">
-                                    <r:region>
-                                        <r:log level="ALL" mode="popup" />
-                                        <r:panel id="bodyPanel" styleClass="body-main-panel"
+                                    <a4j:region>
+                                        <a4j:log level="ALL" mode="popup" />
+                                        <rich:panel id="bodyPanel" styleClass="body-main-panel"
                                             headerClass="body-main-panel-header" bodyClass="body-main-panel-body">
                                             <ui:insert name="body" />
-                                        </r:panel>
-                                    </r:region>
+                                        </rich:panel>
+                                    </a4j:region>
                                 </div>
                                 <div style="position: absolute; height: 30000px; right: 0px; top: 0px; width: 5px;"
                                     class="body-main-bg" />

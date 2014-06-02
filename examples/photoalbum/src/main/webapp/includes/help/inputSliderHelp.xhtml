@@ -22,18 +22,18 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:r="http://richfaces.org">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
 
     <div class="section" lang="en-US">
         <div class="titlepage">
             <div>
                 <div>
-                    <h3 class="title">Image Size Control with &lt;r:inputNumberSlider&gt;</h3>
+                    <h3 class="title">Image Size Control with &lt;richinputNumberSlider&gt;</h3>
                 </div>
             </div>
         </div>
         <p>
-            The <span class="bold"><strong><span class="property">r:inputNumberSlider</span></strong></span> component in the
+            The <span class="bold"><strong><span class="property">rich:inputNumberSlider</span></strong></span> component in the
             Photo Album Demo is used as a control that helps a user to change photos size while previewing an album. A handler
             position on the slider track corresponds to a particular value of an image size. The component is included into the
             page with the help of <span class="bold"><strong><span class="property">ui:include</span></strong></span>:
@@ -53,7 +53,7 @@
         &lt;ui:composition … &gt;
             &lt;div&gt;
                 …
-                &lt;r:inputNumberSlider enableManualInput=&quot;false&quot;
+                &lt;richinputNumberSlider enableManualInput=&quot;false&quot;
                     value=&quot;#{'#{'}imageSizeHelper.value}&quot;
                     minValue=&quot;80&quot;
                     maxValue=&quot;200&quot;
@@ -62,8 +62,8 @@
                     showInput=&quot;false&quot;
                     step=&quot;40&quot;
                     width=&quot;100&quot;&gt;
-                    &lt;r:ajax event=&quot;change&quot; render=&quot;#{'#{'}renderArea}&quot; /&gt;
-                &lt;/r:inputNumberSlider&gt;
+                    &lt;a4j:ajax event=&quot;change&quot; render=&quot;#{'#{'}renderArea}&quot; /&gt;
+                &lt;/richinputNumberSlider&gt;
                 …
             &lt;/div&gt;
         &lt;/ui:composition&gt;
@@ -121,7 +121,7 @@
         }
         </pre>
         <p>
-            After the <span class="bold"><strong><span class="property">&lt;r:ajax&gt;</span></strong></span> is worked out
+            After the <span class="bold"><strong><span class="property">&lt;a4j:ajax&gt;</span></strong></span> is worked out
             user photos (more exactly, the <span class="bold"><strong><span class="property">h:panelGroup</span></strong></span>
             with
             <code class="code">userAlbumImages</code>
@@ -132,22 +132,22 @@
         <pre class="brush: xml, gutter: false">
         …
         &lt;h:panelGroup id=&quot;userAlbumImages&quot;&gt;
-            &lt;r:repeat id=&quot;imageList&quot; value=&quot;#{'#{'}model.images}&quot; var=&quot;image&quot; rows=&quot;20&quot;&gt;
+            &lt;a4j:repeat id=&quot;imageList&quot; value=&quot;#{'#{'}model.images}&quot; var=&quot;image&quot; rows=&quot;20&quot;&gt;
                 &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;#{'#{'}imageSizeHelper.currentDimension.cssClass}&quot;&gt;
                     &lt;h:graphicImage styleClass=&quot;pr_photo_bg&quot; style=&quot;#{'#{'}imageSizeHelper.currentDimension.imageBgStyle}&quot;
                         value=&quot;#{'#{'}imageSizeHelper.currentDimension.imageBg}&quot; /&gt;
                         
                     &lt;h:panelGrid cellpadding=&quot;0&quot;&gt;
                         &lt;h:panelGroup&gt;
-                            &lt;r:commandLink actionListener=&quot;#{'#{'}controller.showImage(image)}&quot; render=&quot;mainArea, treePanel&quot;&gt;
-                                &lt;r:mediaOutput id=&quot;img&quot; element=&quot;img&quot; createContent=&quot;#{'#{'}imageLoader.paintImage}&quot;
+                            &lt;a4j:commandLink actionListener=&quot;#{'#{'}controller.showImage(image)}&quot; render=&quot;mainArea, treePanel&quot;&gt;
+                                &lt;a4j:mediaOutput id=&quot;img&quot; element=&quot;img&quot; createContent=&quot;#{'#{'}imageLoader.paintImage}&quot;
                                     style=&quot;border : 1px solid #FFFFFF;&quot; mimeType=&quot;image/jpeg&quot;
                                     value=&quot;#{'#{'}fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}&quot;&gt;
                                     &lt;f:param value=&quot;#{'#{'}imageSizeHelper.currentDimension.x}&quot; name=&quot;x&quot; /&gt;
-                                    &lt;r:dragSource rendered=&quot;#{'#{'}controller.isUserImage(image)}&quot; render=&quot;mainArea, treePanel&quot;
+                                    &lt;richdragSource rendered=&quot;#{'#{'}controller.isUserImage(image)}&quot; render=&quot;mainArea, treePanel&quot;
                                         id=&quot;dragSource&quot; dragIndicator=&quot;iDragIndicator&quot; type=&quot;image&quot; dragValue=&quot;#{'#{'}image}&quot; /&gt;
-                                &lt;/r:mediaOutput&gt;
-                            &lt;/r:commandLink&gt;
+                                &lt;/a4j:mediaOutput&gt;
+                            &lt;/a4j:commandLink&gt;
                             &lt;br /&gt;
                         &lt;/h:panelGroup&gt;
                     &lt;/h:panelGrid&gt;
@@ -165,12 +165,12 @@
                     &lt;ui:param name=&quot;image&quot; value=&quot;#{'#{'}image}&quot; /&gt;
                     &lt;ui:param name=&quot;target&quot; value=&quot;img&quot; /&gt;
                 &lt;/ui:include&gt;
-            &lt;/r:repeat&gt;
+            &lt;/a4j:repeat&gt;
         &lt;/h:panelGroup&gt;
         …
         </pre>
         <p>
-            When the <span class="bold"><strong><span class="property">&lt;r:inputNumberSlider&lt;</span></strong></span> is
+            When the <span class="bold"><strong><span class="property">&lt;richinputNumberSlider&lt;</span></strong></span> is
             rendered, at first its default value for image size is 120 px.
         </p>
         <div class="figure">
@@ -193,7 +193,7 @@
                     <p>
                         <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                             href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=inputNumberSlider">InputNumberSlider</a>
-                        page for the <span class="bold"><strong><span class="property">&lt;r:inputNumberSlider&gt;</span></strong></span>
+                        page for the <span class="bold"><strong><span class="property">&lt;richinputNumberSlider&gt;</span></strong></span>
                         component;
                     </p>
                 </li>
@@ -201,7 +201,7 @@
                     <p>
                         <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                             href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=ajax">Ajax</a> for
-                        the <span class="bold"><strong><span class="property">&lt;r:ajax&gt;</span></strong></span>
+                        the <span class="bold"><strong><span class="property">&lt;a4j:ajax&gt;</span></strong></span>
                         component.
                     </p>
                 </li>

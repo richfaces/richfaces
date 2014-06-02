@@ -21,17 +21,17 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:r="http://richfaces.org"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.orgx">
 
-    <r:popupPanel id="loginPanel" domElementAttachment="parent" rendered="#{not userBean.loggedIn}"
+    <rich:popupPanel id="loginPanel" domElementAttachment="parent" rendered="#{not userBean.loggedIn}"
         onshow="applyModalPanelEffect('loginPanel', {delay: 0.5, afterFinish: function(){$('loginPanelForm:username').focus();}})"
         styleClass="login-panel" show="#{authenticator.loginFailed}" autosized="true">
         <f:facet name="header">#{messages['login.login']}</f:facet>
         <f:facet name="controls">
             <h:panelGroup id="loginPanelHideControl">
                 <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="loginPanelhidelink"
-                    onclick="#{r:component('loginPanel')}.hide();" />
+                    onclick="#{rich:component('loginPanel')}.hide();" />
             </h:panelGroup>
         </f:facet>
 
@@ -39,47 +39,47 @@
             <!-- social login button -->
             <h:panelGroup layout="block" rendered="#{not userBean.loggedInFB or not userBean.loggedInGPlus}">
                 <richx:commandButton styleClass="fb-comm-button" execute="@none"
-                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 ); F.login(fetchUserInfo, fetchFBAlbumIds, showError); return false;"
+                    oncomplete="#{rich:component('fbProgress')}.setValue( #{rich:component('fbProgress')}.getValue() + 33 ); F.login(fetchUserInfo, fetchFBAlbumIds, showError); return false;"
                     value="Facebook Login" />
 
-                <r:jsFunction name="fetchUserInfo"
-                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 34 ); authenticate();">
-                    <r:param assignTo="#{facebookBean.userInfo}" converter="#{fbJsonConverter}" name="response" />
-                </r:jsFunction>
+                <a4j:jsFunction name="fetchUserInfo"
+                    oncomplete="#{rich:component('fbProgress')}.setValue( #{rich:component('fbProgress')}.getValue() + 34 ); authenticate();">
+                    <a4j:param assignTo="#{facebookBean.userInfo}" converter="#{fbJsonConverter}" name="response" />
+                </a4j:jsFunction>
                 
-                <r:jsFunction name="fetchFBAlbumIds"
-                     oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 );">
-                     <r:param assignTo="#{facebookBean.albumIds}" name="albumIds" />
-                </r:jsFunction>
+                <a4j:jsFunction name="fetchFBAlbumIds"
+                     oncomplete="#{rich:component('fbProgress')}.setValue( #{rich:component('fbProgress')}.getValue() + 33 );">
+                     <a4j:param assignTo="#{facebookBean.albumIds}" name="albumIds" />
+                </a4j:jsFunction>
 
-                <r:jsFunction name="authenticate" actionListener="#{authenticator.authenticateWithFacebook}"
-                    data="#{authenticator.loginFailed}" oncomplete="if(!event.data)#{r:component('loginPanel')}.hide()"
+                <a4j:jsFunction name="authenticate" actionListener="#{authenticator.authenticateWithFacebook}"
+                    data="#{authenticator.loginFailed}" oncomplete="if(!event.data)#{rich:component('loginPanel')}.hide()"
                     render="mainArea, headerPanel, treePanel" />
 
                 <richx:commandButton styleClass="fb-comm-button" execute="@none"
-                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 ); G.login({infoCallback: gGetUserInfo, albumCallback: gGetUserAlbums, errorCallback: showError});"
+                    oncomplete="#{rich:component('fbProgress')}.setValue( #{rich:component('fbProgress')}.getValue() + 33 ); G.login({infoCallback: gGetUserInfo, albumCallback: gGetUserAlbums, errorCallback: showError});"
                     value="G+ Login" />
 
-                <r:jsFunction name="gGetUserInfo"
-                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 34 ); ">
-                    <r:param assignTo="#{googlePlusBean.userInfoJSON}" name="response" />
-                </r:jsFunction>
+                <a4j:jsFunction name="gGetUserInfo"
+                    oncomplete="#{rich:component('fbProgress')}.setValue( #{rich:component('fbProgress')}.getValue() + 34 ); ">
+                    <a4j:param assignTo="#{googlePlusBean.userInfoJSON}" name="response" />
+                </a4j:jsFunction>
 
-                <r:jsFunction name="gGetUserAlbums"
-                    oncomplete="#{r:component('fbProgress')}.setValue( #{r:component('fbProgress')}.getValue() + 33 ); gAuthenticate();">
-                    <r:param assignTo="#{googlePlusBean.userAlbumsJSON}" name="albums" />
-                </r:jsFunction>
+                <a4j:jsFunction name="gGetUserAlbums"
+                    oncomplete="#{rich:component('fbProgress')}.setValue( #{rich:component('fbProgress')}.getValue() + 33 ); gAuthenticate();">
+                    <a4j:param assignTo="#{googlePlusBean.userAlbumsJSON}" name="albums" />
+                </a4j:jsFunction>
 
-                <r:jsFunction name="gAuthenticate" actionListener="#{authenticator.authenticateWithGPlus}"
-                    data="#{authenticator.loginFailed}" oncomplete="if(!event.data)#{r:component('loginPanel')}.hide()"
+                <a4j:jsFunction name="gAuthenticate" actionListener="#{authenticator.authenticateWithGPlus}"
+                    data="#{authenticator.loginFailed}" oncomplete="if(!event.data)#{rich:component('loginPanel')}.hide()"
                     render="mainArea, headerPanel, treePanel" execute="@this" />
 
-                <r:progressBar mode="client" value="0" id="fbProgress" styleClass="fb-pb" />
+                <rich:progressBar mode="client" value="0" id="fbProgress" styleClass="fb-pb" />
             </h:panelGroup>
 
             <!-- photoalbum login -->
             <h:panelGroup layout="block">
-                <r:region id="loginPanelForm">
+                <a4j:region id="loginPanelForm">
                     <h:panelGrid columns="2" columnClasses="login-table-col2, xxx" style="margin-left:auto; margin-right:auto;">
                         <h:outputText value="#{messages['login.userName']}" />
                         <h:inputText id="username" value="#{userBean.username}"
@@ -91,25 +91,25 @@
                             onkeydown="if (event.keyCode == 13) { jQuery(&quot; .login input[type='image']&quot;).click(); return false; }"
                             style="border: 1px solid rgb(144, 144, 144); height: 19px; width: 155px;" />
                     </h:panelGrid>
-                </r:region>
+                </a4j:region>
 
-                <r:messages id="loginFormMsgs" style="color: red;" for="loginPanel" />
+                <rich:messages id="loginFormMsgs" style="color: red;" for="loginPanel" />
 
                 <h:panelGrid columns="2" style="text-align:center; margin-top : 10px; margin-left:auto; margin-right:auto;">
                     <h:panelGroup layout="block">
                         <richx:commandButton styleClass="login" data="#{authenticator.loginFailed}"
                             actionListener="#{authenticator.authenticate()}" value="#{messages['login.login']}"
-                            oncomplete="if(!event.data)#{r:component('loginPanel')}.hide();"
+                            oncomplete="if(!event.data)#{rich:component('loginPanel')}.hide();"
                             render="mainArea,treePanel,searchForm, headerPanel, loginPanel" execute="loginPanelForm"
                             limitRender="true" />
                     </h:panelGroup>
                     <h:panelGroup layout="block">
                         <richx:commandButton value="#{messages['login.register']}" immediate="true"
                             actionListener="#{authenticator.goToRegister()}" render="mainArea"
-                            oncomplete="#{r:component('loginPanel')}.hide();" execute="@this" />
+                            oncomplete="#{rich:component('loginPanel')}.hide();" execute="@this" />
                     </h:panelGroup>
                 </h:panelGrid>
             </h:panelGroup>
         </h:panelGrid>
-    </r:popupPanel>
+    </rich:popupPanel>
 </ui:composition>

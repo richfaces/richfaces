@@ -22,59 +22,59 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org" xmlns:richx="http://richfaces.orgx">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.orgx">
     <h:panelGroup layout="block" style="margin-bottom: 15px">
         <h:outputText value="#{messages['files_upload']}" styleClass="h1-style" />
     </h:panelGroup>
-    <r:region id="uploadForm">
+    <a4j:region id="uploadForm">
         <h:panelGroup layout="block" style="margin: 10px 3px 5px 4px; background: #f1f1f1; border: 1px solid #A1A1A1">
             <h:panelGroup layout="block" style="margin: 10px 10px 10px 10px">
                 <h:panelGroup layout="block" style="padding-top: 10px; padding-left:10px; white-space: nowrap;">
-                    <r:region id="uploadAlbum">
+                    <a4j:region id="uploadAlbum">
                         <h:outputText style="margin-right:10px;" value="#{messages['choose_album']}" />
-                        <r:select value="#{model.selectedAlbum}" converter="albumConverter" immediate="true">
+                        <rich:select value="#{model.selectedAlbum}" converter="albumConverter" immediate="true">
                             <f:selectItems value="#{userBean.user.albums}" var="album" itemLabel="#{album.name}"
                                 itemValue="#{album}" itemDescription="#{album.description}" />
-                            <r:ajax listener="#{controller.resetFileUpload()}" event="change" execute="@this" />
-                        </r:select>
-                    </r:region>
+                            <a4j:ajax listener="#{controller.resetFileUpload()}" event="change" execute="@this" />
+                        </rich:select>
+                    </a4j:region>
                 </h:panelGroup>
                 <h:panelGrid columns="3">
                     <richx:commandButton value="#{messages['create']}" data="#{albumManager.errorInCreate}"
                         actionListener="#{albumManager.createAlbum(model.selectedShelf, false)}"
-                        oncomplete="if(!event.data)#{r:component('albumModalPanel')}.show()" render="albumModalPanel"
+                        oncomplete="if(!event.data)#{rich:component('albumModalPanel')}.show()" render="albumModalPanel"
                         execute="@this" />
-                    <r:commandLink rendered="#{help.isShowHelp()}"
+                    <a4j:commandLink rendered="#{help.isShowHelp()}"
                         actionListener="#{help.navigateTo('/includes/help/buttonHelp.xhtml')}"
-                        oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel" execute="@this">
+                        oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel" execute="@this">
                         <h:panelGroup
                             style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                             <h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="34" width="34"
                                 value="img/icons/help_sign.png" />
                         </h:panelGroup>
-                    </r:commandLink>
+                    </a4j:commandLink>
                 </h:panelGrid>
             </h:panelGroup>
         </h:panelGroup>
         <h:panelGrid columns="2" columnClasses="top">
             <h:panelGroup layout="block" style="margin: 10px 0px 5px 0px;">
-                <r:fileUpload maxFilesQuantity="100" fileUploadListener="#{fileUploadManager.listener}" id="fileUpload"
+                <rich:fileUpload maxFilesQuantity="100" fileUploadListener="#{fileUploadManager.listener}" id="fileUpload"
                     disabled="#{model.selectedAlbum == null}" acceptedTypes="jpg,jpeg" execute="uploadAlbum">
-                    <r:ajax event="uploadcomplete" render="treePanel, filesPanel" listener="#{fileWrapper.setComplete(true)}"
+                    <a4j:ajax event="uploadcomplete" render="treePanel, filesPanel" listener="#{fileWrapper.setComplete(true)}"
                         limitRender="true" />
-                </r:fileUpload>
+                </rich:fileUpload>
             </h:panelGroup>
             <h:panelGroup layout="block" style="padding-top:10px;">
-                <r:commandLink rendered="#{help.isShowHelp()}"
+                <a4j:commandLink rendered="#{help.isShowHelp()}"
                     actionListener="#{help.navigateTo('/includes/help/fileUploadHelp.xhtml')}"
-                    oncomplete="#{r:component('helpPanel')}.show()" render="helpPanel" execute="@this">
+                    oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel" execute="@this">
                     <h:panelGroup
                         style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
                         <h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="34" width="34"
                             value="img/icons/help_sign.png" />
                     </h:panelGroup>
-                </r:commandLink>
+                </a4j:commandLink>
             </h:panelGroup>
         </h:panelGrid>
-    </r:region>
+    </a4j:region>
 </ui:composition>

@@ -22,7 +22,7 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:r="http://richfaces.org"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.orgx">
     <ui:param name="image" value="#{googlePlusAlbumCache.currentImage}" />
     <ui:param name="album" value="#{googlePlusAlbumCache.currentAlbum}" />
@@ -32,10 +32,10 @@
             <h1>
                 <!-- <h:outputText value="#{image.getString('caption')}" /> -->
             </h1>
-            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
+            <a4j:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
                 render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}" />
             <h:outputText value=" #{messages['delimiter']} " />
-            <r:commandLink styleClass="additional-info-text" actionListener="#{controller.showGPlusAlbum()}"
+            <a4j:commandLink styleClass="additional-info-text" actionListener="#{controller.showGPlusAlbum()}"
                 render="mainArea, treePanel" value="#{messages['album']} #{album.getString('name')}" />
 
         </h:panelGroup>
@@ -46,8 +46,8 @@
     <h:panelGroup layout="block" id="imagesTable"
         style="margin: 30px 0px 40px 30px; float: left; position: relative; left: -2px;">
         <h:panelGrid columns="2">
-            <r:repeat value="#{googlePlusAlbumCache.currentImages}" rows="5" var="img" id="repeat" rowKeyVar="rk">
-                <r:outputPanel layout="block"
+            <a4j:repeat value="#{googlePlusAlbumCache.currentImages}" rows="5" var="img" id="repeat" rowKeyVar="rk">
+                <a4j:outputPanel layout="block"
                     styleClass="preview_box_photo_nav #{image.getString('id') == img.getString('id') ? 'preview_box_photo_current' : 'preview_box_photo_default'}">
                     <h:panelGroup layout="block" styleClass="preview_box_photo_80">
                         <h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_80.png" />
@@ -64,25 +64,25 @@
                             <h:outputText value="#{rk + 1}" />
                         </h:panelGroup>
                     </h:panelGroup>
-                    <r:ajax event="click" render="mainImage, imageinfo, imagesTable"
+                    <a4j:ajax event="click" render="mainImage, imageinfo, imagesTable"
                         listener="#{controller.showGPlusImage(img.getString('id'))}" execute="@this" />
-                </r:outputPanel>
-            </r:repeat>
+                </a4j:outputPanel>
+            </a4j:repeat>
         </h:panelGrid>
 
         <h:panelGrid columns="3">
             <h:panelGroup styleClass="image-scroller-left-arrow"
                 style="width: 56px; height:34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/arr_left.png',sizingMethod='scale');">
                 <h:graphicImage styleClass="ie6transparency" value="img/shell/arr_left.png"
-                    onclick="#{r:component('scroller')}.fastRewind()" />
+                    onclick="#{rich:component('scroller')}.fastRewind()" />
             </h:panelGroup>
-            <r:dataScroller styleClass="image-scroller" lastPageMode="full" for="repeat" render="imagesTable"
+            <rich:dataScroller styleClass="image-scroller" lastPageMode="full" for="repeat" render="imagesTable"
                 boundaryControls="hide" stepControls="hide" id="scroller" fastControls="hide">
-            </r:dataScroller>
+            </rich:dataScroller>
             <h:panelGroup styleClass="image-scroller-right-arrow"
                 style="width: 56px; height:34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/arr_right.png',sizingMethod='scale');">
                 <h:graphicImage value="img/shell/arr_right.png" styleClass="ie6transparency" height="34" width="56" border="0"
-                    onclick="#{r:component('scroller')}.fastForward()" />
+                    onclick="#{rich:component('scroller')}.fastForward()" />
             </h:panelGroup>
         </h:panelGrid>
     </h:panelGroup>
@@ -95,13 +95,13 @@
                     <h:panelGroup layout="block" styleClass="slideshow-outerdiv">
                         <h:outputText value="Slideshow" />
                         <!-- rendered="#{album.getInt('size') > 0}" -->
-                        <r:commandLink disabled="true" actionListener="#{slideshow.startSlideshow(model.selectedImage)}"
+                        <a4j:commandLink disabled="true" actionListener="#{slideshow.startSlideshow(model.selectedImage)}"
                             styleClass="slideshow-link" render="mainArea, slideShowModalPanel"
                             execute="@this, slideShowModalPanel">
                             <h:graphicImage value="img/shell/tree_icon_slid.png" width="27" height="16" alt="" border="0"
                                 style="vertical-align : bottom; margin-right : 5px; border:0;" />
                             <h:outputText value="#{messages['slideshow.start']}" />
-                        </r:commandLink>
+                        </a4j:commandLink>
                     </h:panelGroup>
                     <h:graphicImage styleClass="main-image" style="border : 3px solid #808080; max-width: 600px; max-height: 600px"
                         url="#{image.getString('url')}">

@@ -22,16 +22,16 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:richx="http://richfaces.orgx" xmlns:r="http://richfaces.org">
+    xmlns:richx="http://richfaces.orgx" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
     <div style="margin: 10px 0px 30px 30px; width: 504px; background: #f1f1f1">
-        <r:graphValidator>
+        <rich:graphValidator>
             <table style="border-collapse: collapse; border: 0; padding: 5px;">
                 <tr>
                     <td style="vertical-align: top; white-space: nowrap;" class="album-edit-field">#{messages['album_name']}</td>
                     <td style="vertical-align: top;" colspan="2">
                         <h:inputText id="album_name" value="#{model.selectedAlbum.name}" styleClass="album-edit-input"
                             required="true">
-                            <r:validator event="blur" />
+                            <rich:validator event="blur" />
                         </h:inputText>
                     </td>
                 </tr>
@@ -39,25 +39,25 @@
                 <tr>
                     <td style="padding: 0; margin: 0;" />
                     <td style="padding: 0; margin: 0;" class="errors">
-                        <r:message for="album_name" />
+                        <rich:message for="album_name" />
                     </td>
                 </tr>
                 <tr>
                     <td style="vertical-align: top; white-space: nowrap;" class="album-edit-field">#{messages['creation_date']}</td>
                     <td style="vertical-align: top;">
-                        <r:outputPanel id="calendar" layout="block">
-                            <r:calendar styleClass="album-edit-calendar" enableManualInput="true"
+                        <a4j:outputPanel id="calendar" layout="block">
+                            <rich:calendar styleClass="album-edit-calendar" enableManualInput="true"
                                 value="#{model.selectedAlbum.created}" id="album_date" disabled="true">
-                                <r:validator event="inputblur" />
-                            </r:calendar>
-                        </r:outputPanel>
-                        <r:message for="calendar" />
+                                <rich:validator event="inputblur" />
+                            </rich:calendar>
+                        </a4j:outputPanel>
+                        <rich:message for="calendar" />
                     </td>
                 </tr>
                 <tr>
                     <td style="padding: 0; margin: 0;" />
                     <td style="padding: 0; margin: 0;" class="errors">
-                        <r:message for="album_date" />
+                        <rich:message for="album_date" />
                     </td>
                 </tr>
                 <tr>
@@ -70,7 +70,7 @@
                 <tr>
                     <td style="padding: 0; margin: 0;" />
                     <td style="padding: 0; margin: 0;">
-                        <r:message for="album_description" />
+                        <rich:message for="album_description" />
                     </td>
                 </tr>
                 <tr>
@@ -83,7 +83,7 @@
                     </td>
                 </tr>
             </table>
-        </r:graphValidator>
+        </rich:graphValidator>
     </div>
     <ui:include src="/includes/image/imageList.xhtml" />
 </ui:composition>

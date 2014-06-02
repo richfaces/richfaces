@@ -1,12 +1,12 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:r="http://richfaces.org"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
     xmlns:richx="http://richfaces.orgx">
-    <r:popupPanel header="Import" id="gAlbumModalPanel" autosized="true">
+    <rich:popupPanel header="Import" id="gAlbumModalPanel" autosized="true">
         <f:facet name="controls">
             <h:panelGroup id="albumImportPanelHideControl">
                 <h:graphicImage value="/img/modal/close.png" style="cursor:pointer"
-                    onclick="#{r:component('gAlbumModalPanel')}.hide()" />
+                    onclick="#{rich:component('gAlbumModalPanel')}.hide()" />
             </h:panelGroup>
         </f:facet>
 
@@ -31,19 +31,19 @@
                         onclick="G.getImages('#{gDndManager.album.getString('fullId')}', fetchPhotosForImport)" render="gBar" />
                 </h:panelGroup>
                 <h:panelGroup layout="block">
-                    <richx:commandButton oncomplete="#{r:component('gAlbumModalPanel')}.hide();" value="Just Share"
+                    <richx:commandButton oncomplete="#{rich:component('gAlbumModalPanel')}.hide();" value="Just Share"
                         disabled="#{gDndManager.albumAlreadyShared}" actionListener="#{gDndManager.shareAlbum()}"
                         execute="@this" styleClass="shelf" />
                 </h:panelGroup>
             </h:panelGrid>
         </h:panelGroup>
 
-        <r:jsFunction name="startImport" actionListener="#{gDndManager.importAlbum()}"
-            oncomplete="#{r:component('gAlbumModalPanel')}.hide();" render="gBar" />
+        <a4j:jsFunction name="startImport" actionListener="#{gDndManager.importAlbum()}"
+            oncomplete="#{rich:component('gAlbumModalPanel')}.hide();" render="gBar" />
 
-        <r:jsFunction name="fetchPhotosForImport" oncomplete="startImport()">
-            <r:param assignTo="#{googlePlusAlbumCache.albumImages}" name="images" />
-        </r:jsFunction>
-    </r:popupPanel>
+        <a4j:jsFunction name="fetchPhotosForImport" oncomplete="startImport()">
+            <a4j:param assignTo="#{googlePlusAlbumCache.albumImages}" name="images" />
+        </a4j:jsFunction>
+    </rich:popupPanel>
 
 </ui:composition>

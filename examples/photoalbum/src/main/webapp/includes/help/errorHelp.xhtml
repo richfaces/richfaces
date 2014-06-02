@@ -22,7 +22,7 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:r="http://richfaces.org" xmlns:at="http://richfaces.org/demo/app-taglib">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:at="http://richfaces.org/demo/app-taglib">
     <div class="section" lang="en-US">
         <div class="titlepage">
             <div>
@@ -41,13 +41,13 @@
         </p>
         
         <pre class="brush: xml, gutter: false">
-            &lt;r:outputPanel id=&quot;errors&quot; ajaxRendered=&quot;true&quot; layout=&quot;block&quot;&gt;
+            &lt;a4j:outputPanel id=&quot;errors&quot; ajaxRendered=&quot;true&quot; layout=&quot;block&quot;&gt;
                 &lt;h:panelGroup rendered=&quot;{errorHandlerBean.errorExist}&quot;&gt;
-                    &lt;r:popupPanel id=&quot;errorPanel&quot; show=&quot;true&quot; minWidth=&quot;300&quot; minHeight=&quot;200&quot; autosized=&quot;true&quot;&gt;
+                    &lt;richpopupPanel id=&quot;errorPanel&quot; show=&quot;true&quot; minWidth=&quot;300&quot; minHeight=&quot;200&quot; autosized=&quot;true&quot;&gt;
                         …
-                    &lt;/r:popupPanel&gt;
+                    &lt;/richpopupPanel&gt;
                 &lt;/h:panelGroup&gt;
-            &lt;/r:outputPanel&gt;
+            &lt;/a4j:outputPanel&gt;
         </pre>
         <p>
             Here is the listing of the
@@ -74,7 +74,7 @@
         }
         </pre>
         <p>
-            The error panel contains the <span class="bold"><strong><span class="property">&lt;r:outputPanel&gt;</span></strong></span>
+            The error panel contains the <span class="bold"><strong><span class="property">&lt;a4j:outputPanel&gt;</span></strong></span>
             component that is rendered on every Ajax request (
             <code class="code">ajaxRendered="true"</code>
             ). If an error is occurred the
@@ -82,7 +82,7 @@
             method of
             <code class="code">errorHandlerBean</code>
             class returns "true", so the <span class="bold"><strong><span class="property">&lt;h:panelGroup&gt;</span></strong></span>
-            component is rendered. In order to show nested <span class="bold"><strong><span class="property">&lt;r:popupPanel&gt;</span></strong></span>
+            component is rendered. In order to show nested <span class="bold"><strong><span class="property">&lt;richpopupPanel&gt;</span></strong></span>
             component with the collected errors the <span class="emphasis"><em><span class="property">"show"</span></em></span>
             attribute should be set to "true".
         </p>

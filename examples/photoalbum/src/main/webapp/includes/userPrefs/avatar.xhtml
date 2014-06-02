@@ -22,14 +22,14 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:r="http://richfaces.org" xmlns:richx="http://richfaces.orgx">
-    <r:outputPanel id="avatar">
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.orgx">
+    <a4j:outputPanel id="avatar">
         <h:panelGroup rendered="#{user.hasAvatar and avatarData == null}">
-            <r:mediaOutput element="img" createContent="#{imageLoader.paintAvatarImage}" styleClass="additional-info-avatar"
+            <a4j:mediaOutput element="img" createContent="#{imageLoader.paintAvatarImage}" styleClass="additional-info-avatar"
                 value="/#{user.login}/avatar.jpg" mimeType="image/jpeg" />
         </h:panelGroup>
         <h:panelGroup rendered="#{avatarData != null}">
-            <r:mediaOutput styleClass="additional-info-avatar" element="img" createContent="#{imageLoader.paintAvatarImage}"
+            <a4j:mediaOutput styleClass="additional-info-avatar" element="img" createContent="#{imageLoader.paintAvatarImage}"
                 value="#{avatarData.path}" mimeType="image/jpeg" />
         </h:panelGroup>
         <h:panelGroup rendered="#{!user.hasAvatar and avatarData == null}">
@@ -38,5 +38,5 @@
             <h:graphicImage rendered="#{user.sex.key =='0' }" value="/img/shell/avatar_w_default.png" width="80" height="80"
                 alt="" style="border:none" />
         </h:panelGroup>
-    </r:outputPanel>
+    </a4j:outputPanel>
 </ui:composition>
