@@ -28,7 +28,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.CoreDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -56,9 +56,7 @@ public class ITAjaxExceptionHandling {
 
     @Deployment
     public static WebArchive createDeployment() {
-        CoreDeployment deployment = new CoreDeployment(ITAjaxExceptionHandling.class);
-
-        deployment.withWholeCore();
+        UIDeployment deployment = new UIDeployment(ITAjaxExceptionHandling.class);
 
         addIndexPage(deployment);
 
@@ -99,7 +97,7 @@ public class ITAjaxExceptionHandling {
         assertTrue(errorMessage.contains("this should be handled by JSF"));
     }
 
-    private static void addIndexPage(CoreDeployment deployment) {
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.head("<h:outputScript name='jsf.js' library='javax.faces' />");

@@ -22,11 +22,14 @@
 
 package org.richfaces.integration.partialViewContext;
 
+import static org.jboss.arquillian.graphene.Graphene.guardAjax;
 import static org.jboss.arquillian.graphene.Graphene.waitAjax;
+import static org.junit.Assert.fail;
 
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
-import javax.faces.context.PartialResponseWriter;
+import javax.faces.context.PartialViewContext;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -36,54 +39,76 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.richfaces.deployment.CoreDeployment;
+import org.richfaces.integration.UIDeployment;
 import org.richfaces.shrinkwrap.descriptor.FaceletAsset;
 
+import com.google.common.base.Predicate;
+
 /**
- * Tests that the {@link PartialResponseWriter#redirect(String)} writes partial-response correctly
- * for redirected requests (RF-12824)
+ * Tests r:commandButton processing using {@link PartialViewContext}. (RF-12145)
  */
 @RunAsClient
 @RunWith(Arquillian.class)
-public class ITAjaxRedirection {
+public class ITActivatorComponentNotRenderedProcessing {
 
     @Drone
-    private WebDriver browser;
+    WebDriver browser;
 
     @ArquillianResource
-    private URL contextPath;
+    URL contextPath;
 
     @FindBy(id = "button")
-    private WebElement button;
+    WebElement button;
 
-    @FindBy(tagName = "body")
-    private WebElement body;
+    @FindBy(id = "output")
+    WebElement output;
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        CoreDeployment deployment = new CoreDeployment(ITAjaxRedirection.class);
-
-        deployment.withWholeCore();
+        UIDeployment deployment = new UIDeployment(ITActivatorComponentNotRenderedProcessing.class);
 
         addIndexPage(deployment);
-        addRedirectedPage(deployment);
 
         return deployment.getFinalArchive();
     }
 
     @Test
-    public void test() {
+    public void when_executed_component_is_not_rendered_after_ajax_request_then_its_oncomplete_handler_should_be_executed() {
         browser.get(contextPath.toExternalForm());
 
-        button.click();
+        guardAjax(button).click();
 
-        waitAjax().until().element(body).text().contains("Redirected");
+        waitAjax().withTimeout(1, TimeUnit.SECONDS).until(new Predicate<WebDriver>() {
+
+            @Override
+            public boolean apply(WebDriver input) {
+                return (Boolean) ((JavascriptExecutor) browser).executeScript("return !!window.oncompleteEvaluated");
+            }
+        });
     }
 
-    private static void addIndexPage(CoreDeployment deployment) {
+    @Test
+    public void when_executed_component_is_not_rendered_after_ajax_request_then_its_render_target_should_be_taken_into_consideration() {
+        browser.get(contextPath.toExternalForm());
+
+        guardAjax(button).click();
+
+        waitAjax().until().element(output).text().equalTo("postback");
+
+        try {
+            // button should not be present
+            button.click();
+            fail();
+        } catch (NoSuchElementException e) {
+        }
+    }
+
+    private static void addIndexPage(UIDeployment deployment) {
         FaceletAsset p = new FaceletAsset();
 
         p.head("<h:outputScript name='jsf.js' library='javax.faces' />");
@@ -91,19 +116,11 @@ public class ITAjaxRedirection {
         p.head("<h:outputScript library='org.richfaces' name='richfaces.js' />");
 
         p.form("<h:panelGroup id='panel'>");
-        p.form("    <h:commandButton id='button' action='redirected?faces-redirect=true'>");
-        p.form("        <f:ajax />");
-        p.form("    </h:commandButton>");
+        p.form("    <h:commandButton id='button' onclick='RichFaces.ajax(this, event, {}); return false;' render='panel output' oncomplete='window.oncompleteEvaluated = true' rendered='#{!facesContext.postback}' />");
         p.form("</h:panelGroup>");
 
+        p.form("<h:panelGroup id='output'>#{facesContext.postback ? 'postback' : 'initial'}</h:panelGroup>");
+
         deployment.archive().addAsWebResource(p, "index.xhtml");
-    }
-
-    private static void addRedirectedPage(CoreDeployment deployment) {
-        FaceletAsset p = new FaceletAsset();
-
-        p.body("Redirected");
-
-        deployment.archive().addAsWebResource(p, "redirected.xhtml");
     }
 }
