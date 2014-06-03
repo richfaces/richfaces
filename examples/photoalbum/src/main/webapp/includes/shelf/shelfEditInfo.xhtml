@@ -21,8 +21,8 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:richx="http://richfaces.orgx" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:richx="http://richfaces.org/richx" xmlns:rich="http://richfaces.org/rich">
     <div class="shelf-edit">
         <rich:graphValidator>
             <table style="border-collapse: collapse; padding: 5px; border: 0">
@@ -88,7 +88,7 @@
                     <td colspan="2" style="padding: 10px; vertical-align: top; text-align: right">
                         <richx:commandButton id="saveButton" style="float: left" value="#{messages['save']}"
                             actionListener="#{shelfManager.editShelf(model.selectedShelf, false)}" render="treePanel, mainArea" />
-                        <richx:commandButton id="cancelButton" value="#{messages['cancel']}" style="float: left" immediate="true"
+                        <richx:commandButton id="cancelButton" value="#{messages['cancel']}" style="float: right" immediate="true"
                             actionListener="#{controller.cancelEditShelf()}" render="mainArea" />
                     </td>
                 </tr>

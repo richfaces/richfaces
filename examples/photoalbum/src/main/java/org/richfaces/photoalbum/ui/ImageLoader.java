@@ -32,7 +32,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.richfaces.photoalbum.manager.FileManager;
-import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.util.Constants;
 
 @Named
 @RequestScoped

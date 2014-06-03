@@ -21,14 +21,27 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:panelGrid styleClass="shelf-header-table" cellpadding="0" columns="2" columnClasses="xxx, shelf-header-table-col2">
         <h:panelGroup>
             <h1>
-                <h:outputText value="#{shelf.name}" rendered="#{!controller.isUserShelf(shelf)}" />
-                <rich:inplaceInput selectOnEdit="false" id="shelfDNDId" value="#{shelf.name}" inputWidth="570"
-                    rendered="#{controller.isUserShelf(shelf)}" />
+                <c:choose>
+                    <c:when test="#{controller.isUserShelf(shelf)}">
+                        <rich:inplaceInput id="shelfDNDId" value="#{shelf.name}"
+                                           inputWidth="250" styleClass="inplaceInput"
+                                           >
+                            <a4j:ajax event="change" limitRender="true"
+                                      render="mainArea, treePanel"
+                                      listener="#{shelfManager.editShelf(shelf, true)}" /> 
+                        </rich:inplaceInput>
+                    </c:when>
+                    <c:otherwise>
+                        <h:outputText value="#{shelf.name}"/>
+                    </c:otherwise>
+                </c:choose>
             </h1>
 
             <h:panelGroup styleClass="additional-info-text">
@@ -50,15 +63,18 @@
             </h:panelGroup>
         </h:panelGroup>
         <h:panelGroup>
-            <a4j:commandLink rendered="#{controller.isUserShelf(shelf)}" value="#{messages['shelf.edit']}"
-                actionListener="#{controller.startEditShelf(shelf)}" render="mainArea" />
-            <h:outputText value=" #{messages['delimiter']} " rendered="#{controller.isUserShelf(shelf)}" />
-            <a4j:commandLink rendered="#{controller.isUserShelf(shelf)}" value="#{messages['shelf.delete']}"
-                actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}"
-                oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" execute="@this" />
-            <h:outputText value=" #{messages['delimiter']} " rendered="#{controller.isUserShelf(shelf)}" />
-            <a4j:commandLink value="#{messages['shelf.view']} " actionListener="#{controller.showShelf(shelf)}" render="mainArea"
-                rendered="#{!mode.equals('show')}" />
+            <c:if test="#{controller.isUserShelf(shelf)}">
+                <a4j:commandLink value="#{messages['shelf.edit']}"
+                                 actionListener="#{controller.startEditShelf(shelf)}" render="mainArea" />
+                <h:outputText value=" #{messages['delimiter']} " />
+                <a4j:commandLink value="#{messages['shelf.delete']}"
+                                 actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,messages['shelf.delete.confirm'],shelf)}"
+                                 oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" execute="@this" />
+            </c:if>
+            <c:if test="#{!mode.equals('show')}">
+                <a4j:commandLink value="#{messages['shelf.view']} " actionListener="#{controller.showShelf(shelf)}"
+                                 render="mainArea"/>
+            </c:if>
         </h:panelGroup>
     </h:panelGrid>
 

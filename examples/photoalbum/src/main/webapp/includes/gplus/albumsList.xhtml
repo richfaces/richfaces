@@ -22,33 +22,32 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j">
 
-    <!-- 
     <a4j:outputPanel rendered="#{not userBean.loggedInGPlus}">
-        <h:outputText value="This event has #{fn:length(albumIds)} albums on Facebook, " />
+        <h:outputText value="This event has #{fn:length(albumIds)} albums on Google+, " />
         <a4j:commandLink value="#{messages['menu.login']}" render="loginPanel" actionListener="#{userBean.reset()}"
             oncomplete="#{rich:component('loginPanel')}.show();" />
         <h:outputText value=" to see them." />
     </a4j:outputPanel>
-    -->
 
     <a4j:outputPanel id="googlePlusAlbums" rendered="#{userBean.loggedInGPlus}">
         <br style="clear: both" />
-        <a4j:repeat value="#{albumIds}" var="albumId" rendered="#{userBean.loggedInGPlus}">
+        <a4j:repeat value="#{albumIds}" var="albumId" rowKeyVar="rk">
             <h:panelGroup layout="block" styleClass="preview_box_album_120">
 
                 <a4j:outputPanel>
-                    <h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
+                    <h:graphicImage styleClass="pr_album_bg" value="resources/img/shell/frame_album_200.png" />
 
                     <h:panelGrid cellpadding="0">
                         <h:panelGroup style="margin-bottom:7px;" layout="block">
                             <a4j:commandLink execute="@this"
-                                onclick="G.getImages('#{albumId}', loadPhotos)">
-                                <h:graphicImage id="img"
-                                    url="#{googlePlusAlbumCache.getAlbum(albumId).getString('coverUrl')}"
+                                onclick="select(':#{rk}:img'); #{rich:component('albumListTooltip')}.hide(); #{googlePlusAlbumCache.isAlbumLoaded(albumId)} ? loadAlbum('#{albumId}') : G.getImages('#{albumId}', loadPhotos)">
+                                <h:graphicImage id="img" url="#{googlePlusAlbumCache.getAlbum(albumId).getString('coverUrl')}"
                                     style="max-width: 120px; max-height: 120px" styleClass="album-cover-image" />
-                                <rich:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
+                                <rich:tooltip id="albumListTooltip" followMouse="true" direction="topRight" showDelay="500"
+                                    styleClass="tooltip">
                                     <span style="white-space: nowrap">
                                         #{googlePlusAlbumCache.getAlbum(albumId).getString("name")} </span>
                                 </rich:tooltip>
@@ -71,17 +70,18 @@
         </a4j:repeat>
 
         <br style="clear: both" />
-        <rich:progressBar id="gBar" value="#{fileDownloadManager.value}" minValue="0" maxValue="100" enabled="#{fileDownloadManager.hasNext()}" interval="1000">
+        <rich:progressBar id="gBar" value="#{fileDownloadManager.value}" minValue="0" maxValue="100"
+            enabled="#{fileDownloadManager.hasNext()}" interval="1000">
             <f:facet name="initial">
                 <h:outputText value="" />
             </f:facet>
             <h:outputText value="Importing #{fileDownloadManager.text}" />
-            <a4j:ajax event="begin" listener="#{fileDownloadManager.downloadNext()}"/>
-            <a4j:ajax event="finish" oncomplete="finishImport()"/>
+            <a4j:ajax event="begin" listener="#{fileDownloadManager.downloadNext()}" />
+            <a4j:ajax event="finish" oncomplete="finishImport()" />
         </rich:progressBar>
 
         <!-- **Photo fetching** -->
-        <!-- save the albums and images into the cache bean, then reload the image list --> 
+        <!-- save the albums and images into the cache bean, then reload the image list -->
         <a4j:jsFunction name="loadPhotos" execute="@this" actionListener="#{controller.showGPlusAlbum()}" oncomplete="reload()">
             <a4j:param assignTo="#{googlePlusAlbumCache.albumImages}" name="response" />
         </a4j:jsFunction>
@@ -89,8 +89,12 @@
         <ui:include src="/includes/gplus/albumImport.xhtml" />
 
         <!-- **Image import** -->
-        <a4j:jsFunction name="finishImport" render="gBar" execute="@this" actionListener="#{fileDownloadManager.finishDownload()}"
-            oncomplete="reload();" />
+        <a4j:jsFunction name="finishImport" render="gBar" execute="@this"
+            actionListener="#{fileDownloadManager.finishDownload()}" oncomplete="reload();" />
+
+        <a4j:jsFunction name="loadAlbum" execute="@this" actionListener="#{controller.showGPlusAlbum()}" oncomplete="reload()">
+            <a4j:param assignTo="#{googlePlusAlbumCache.currentAlbumId}" name="response" />
+        </a4j:jsFunction>
 
     </a4j:outputPanel>
 </ui:composition>

@@ -21,42 +21,53 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
-    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
-    <a4j:repeat rendered="#{fn:length(result) > 0}" id="userList" value="#{result}" var="searchedUser">
-        <h:panelGroup layout="block" styleClass="preview_box_photo_120">
-            <h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_200.png" style="border:none" />
-            <h:panelGrid cellpadding="0">
-                <h:panelGroup>
-                    <a4j:commandLink render="mainArea" actionListener="#{controller.showUser(searchedUser)}">
-                        <a4j:mediaOutput rendered="#{searchedUser.hasAvatar}" element="img"
-                            createContent="#{imageLoader.paintAvatarImage}" styleClass="avatar"
-                            value="/#{searchedUser.login}/avatar.jpg" mimeType="image/jpeg" />
-                        <h:graphicImage rendered="#{!searchedUser.hasAvatar and searchedUser.sex.key =='1' }"
-                            value="/img/shell/avatar_default.png" width="80" height="80" alt="" style="border:none" />
-                        <h:graphicImage rendered="#{!searchedUser.hasAvatar and searchedUser.sex.key =='0' }"
-                            value="/img/shell/avatar_w_default.png" width="80" height="80" alt="" style="border:none" />
-                    </a4j:commandLink>
-                    <br />
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <c:choose>
+        <c:when test="#{fn:length(result) > 0}">
+            <a4j:repeat id="userList" value="#{result}" var="searchedUser">
+                <h:panelGroup layout="block" styleClass="preview_box_photo_120">
+                    <h:graphicImage styleClass="pr_photo_bg" value="resources/img/shell/frame_photo_200.png" style="border:none" />
+                    <h:panelGrid cellpadding="0">
+                        <h:panelGroup>
+                            <a4j:commandLink render="mainArea" actionListener="#{controller.showUser(searchedUser)}">
+                                <a4j:mediaOutput rendered="#{searchedUser.hasAvatar}" element="img"
+                                                 createContent="#{imageLoader.paintAvatarImage}" styleClass="avatar"
+                                                 value="/#{searchedUser.login}/avatar.jpg" mimeType="image/jpeg" />
+                                <h:graphicImage rendered="#{!searchedUser.hasAvatar and searchedUser.sex.key =='1' }"
+                                                value="resources/img/shell/avatar_default.png" width="80" height="80" alt="" style="border:none" />
+                                <h:graphicImage rendered="#{!searchedUser.hasAvatar and searchedUser.sex.key =='0' }"
+                                                value="resources/img/shell/avatar_w_default.png" width="80" height="80" alt="" style="border:none" />
+                            </a4j:commandLink>
+                            <br />
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <h:panelGroup layout="block" styleClass="photo_name">
+                        <h:outputText styleClass="bold" value="#{searchedUser.firstName} #{searchedUser.secondName}" />
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="photo_data">
+                        <h:outputText value="#{searchedUser.birthDate}">
+                            <f:convertDateTime />
+                        </h:outputText>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="photo_data">
+                        <a4j:commandLink render="treePanel, mainArea" actionListener="#{controller.showSharedAlbums(searchedUser)}">
+                            <h:outputText value="#{fn:length(searchedUser.sharedAlbums)} #{messages['albums_small']} " />
+                        </a4j:commandLink> | <a4j:commandLink render="mainArea" actionListener="#{controller.showSharedImages(searchedUser)}">
+                            <h:outputText value=" #{fn:length(searchedUser.sharedImages)} #{messages['photos']}" />
+                        </a4j:commandLink>
+                    </h:panelGroup>
                 </h:panelGroup>
-            </h:panelGrid>
-            <h:panelGroup layout="block" styleClass="photo_name">
-                <h:outputText styleClass="bold" value="#{searchedUser.firstName} #{searchedUser.secondName}" />
-            </h:panelGroup>
-            <h:panelGroup layout="block" styleClass="photo_data">
-                <h:outputText value="#{searchedUser.birthDate}">
-                    <f:convertDateTime />
-                </h:outputText>
-            </h:panelGroup>
-            <h:panelGroup layout="block" styleClass="photo_data">
-                <a4j:commandLink render="treePanel, mainArea" actionListener="#{controller.showSharedAlbums(searchedUser)}">
-                    <h:outputText value="#{fn:length(searchedUser.sharedAlbums)} #{messages['albums_small']} " />
-                </a4j:commandLink> | <a4j:commandLink render="mainArea" actionListener="#{controller.showSharedImages(searchedUser)}">
-                    <h:outputText value=" #{fn:length(searchedUser.sharedImages)} #{messages['photos']}" />
-                </a4j:commandLink>
-            </h:panelGroup>
-        </h:panelGroup>
-    </a4j:repeat>
-    <h:outputText rendered="#{fn:length(result) == 0}" value="#{messages['no_results_found']}" />
+            </a4j:repeat>
+        </c:when>
+        <c:otherwise>
+            <h:outputText value="#{messages['no_results_found']}" />
+        </c:otherwise>
+    </c:choose>
+
+
+
 </ui:composition>

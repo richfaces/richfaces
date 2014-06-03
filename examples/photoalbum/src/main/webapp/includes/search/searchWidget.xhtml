@@ -21,52 +21,81 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
-    xmlns:richx="http://richfaces.orgx">
-    <a4j:region>
-        <div class="search-div">
-            <span
-                style="width: 339px; height: 65px; display: inline-block; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/search/search_bg.png', sizingMethod='scale' );">
-                <img style="filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0 ); width: 339px; height: 65px; border: 0"
-                src="img/search/search_bg.png" class="search-img-bg" />
-            </span>
-            <div class="search-label">#{messages['search']}</div>
-            <a4j:commandLink styleClass="search-find-button" id="findLink" value="#{messages['find']}"
-                onclick="hide('searchOptions'); show('openSeach');" render="mainArea"
-                actionListener="#{imageSearchHelper.search}" execute="@region" oncomplete="#{rich:element('searchQuery')}.value=''" />
-            <h:inputText id="searchQuery" required="true" value="#{imageSearchHelper.searchQuery}"
-                onkeydown="if (event.keyCode == 13) { #{rich:element('findLink')}.onclick(); return false; }"
-                styleClass="search-input" />
-            <div id="openSeach" class="search-option-div">
-                <a class="search-option-link" href="#" onclick="show('searchOptions'); hide('openSeach');">#{messages['options']}
-                    <img height="7" border="0" width="7" alt="" src="img/search/bull_arr_down.gif" />
-                </a>
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <a4j:outputPanel id="searchWidget">
+        <a4j:region>
+            <div class="search-div">
+                <span
+                    style="width: 339px; height: 65px; display: inline-block; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/search/search_bg.png', sizingMethod='scale' );">
+                    <img style="filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0 ); width: 339px; height: 65px; border: 0"
+                         src="resources/img/search/search_bg.png" class="search-img-bg" />
+                </span>
+                <div class="search-label">#{messages['search']}</div>
+                <a4j:commandLink id="findLink"
+                                 styleClass="search-find-button"
+                                 value="#{messages['find']}"
+                                 onclick="hide('searchOptions');
+                                         show('openSeach');"
+                                 render="mainArea"
+                                 actionListener="#{imageSearchHelper.search}"
+                                 execute="@region"
+                                 oncomplete="$('[id$=searchQuery]').val('');" />
+                <h:inputText id="searchQuery"
+                             required="true"
+                             value="#{imageSearchHelper.searchQuery}"
+                             onkeydown="if (event.keyCode == 13) {
+                                         $('[id$=findLink]').click();
+                                         return false;
+                                     }"
+                             styleClass="search-input" />
+                <div id="openSeach" class="search-option-div">
+                    <a class="search-option-link"
+                       href="#"
+                       onclick="show('searchOptions');
+                               $('[id$=searchQuery].search-input').focus();
+                               hide('openSeach');">
+                        #{messages['options']}
+                        <img height="7" border="0" width="7" alt="" src="resources/img/search/bull_arr_down.gif" />
+                    </a>
+                </div>
             </div>
-        </div>
-        <div id="searchOptions" class="search-options" style="display: none;">
-            <img height="153" border="0" width="327" class="search-option-img" src="img/search/search_option_bg.png" />
-            <div class="search-options-div1">
-                #{messages['in']}
-                <h:selectBooleanCheckbox rendered="#{userBean.loggedIn}" value="#{imageSearchHelper.seachInMyAlbums}" />
-                <h:outputText value=" #{messages['in_my_albums']}" rendered="#{userBean.loggedIn}" />
-                <h:selectBooleanCheckbox value="#{imageSearchHelper.searchInShared}" />
-                #{messages['in_shared_albums']}
-            </div>
-            <div class="search-options-div2">
-                <div style="float: left; height: 30px">for</div>
-                <div>
+            <div id="searchOptions" class="search-options" style="display: none;">
+                <img height="153" border="0" width="327" class="search-option-img" src="resources/img/search/search_option_bg.png" />
+                <div class="search-options-div1">
+                    #{messages['in']}
+                    <c:if test="#{userBean.loggedIn}">
+                        <span class="searchInMyAlbums">
+                            <h:selectBooleanCheckbox value="#{imageSearchHelper.seachInMyAlbums}"/>
+                            <h:outputText value="#{messages['in_my_albums']}"/>
+                        </span>
+                    </c:if>
+                    <span class="searchInShared">
+                        <h:selectBooleanCheckbox value="#{imageSearchHelper.searchInShared}" />
+                        <h:outputText value="#{messages['in_shared_albums']}"/>
+                    </span>
+                </div>
+                <div class="search-options-div2">
+                    #{messages['for']}
                     <a4j:repeat value="#{imageSearchHelper.options}" var="option">
-                        <span style="white-space: nowrap"> <h:selectBooleanCheckbox value="#{option.selected}" /> <h:outputText
-                                value="#{option.name}  " />
+                        <span class="searchFor">
+                            <h:selectBooleanCheckbox value="#{option.selected}"/>
+                            <h:outputText value="#{option.name}" />
                         </span>
                     </a4j:repeat>
                 </div>
+                <div class="search-hide-options-div">
+                   <a class="search-hide-options-link "
+                      href="#"
+                      onclick="hide('searchOptions');
+                              $('.search-input').focus();
+                              show('openSeach');">
+                        #{messages['hide_options']}
+                       <img height="7" border="0" width="7" alt="" src="resources/img/search/bull_arr_up.gif" />
+                     </a>
+                </div>
             </div>
-            <div class="search-hide-options-div">
-                <a class="search-hide-options-link " href="#" onclick="hide('searchOptions'); show('openSeach');">#{messages['hide_options']}
-                    <img height="7" border="0" width="7" alt="" src="img/search/bull_arr_up.gif" />
-                </a>
-            </div>
-        </div>
-    </a4j:region>
+        </a4j:region>
+    </a4j:outputPanel>
 </ui:composition>

@@ -51,18 +51,35 @@ function applyModalPanelEffect(panelId, /* effectFunc, */params) {
 }
 
 /*
- * // fix IE6 footer position function kickLayout(selector) {
- *
- * if(Richfaces && Richfaces.browser.isIE6) { var element = jQuery(selector);
- * if(element) { element.css('zoom','normal').css('zoom','100%'); } } }
- */
+ // fix IE6 footer position
+ function kickLayout(selector) {
 
-function show(id) {
-    document.getElementById(id).style.display = 'inherit';
+ if(Richfaces && Richfaces.browser.isIE6) {
+ var element = jQuery(selector);
+ if(element) {
+ element.css('zoom','normal').css('zoom','100%');
+ }
+ }
+
+ } */
+
+function toJQObject(idEndsOrJQObject) {
+    if ((typeof idEndsOrJQObject) == "object") {
+        return idEndsOrJQObject;
+    }
+    return $("[id$='" + idEndsOrJQObject + "']");
 }
 
-function hide(id) {
-    document.getElementById(id).style.display = 'none';
+function show(idEndsOrJQObject) {
+    toJQObject(idEndsOrJQObject).fadeIn();
+}
+
+function hide(idEndsOrJQObject) {
+    toJQObject(idEndsOrJQObject).fadeOut();
+}
+
+function select(idEndsOrJQObject) {
+    toJQObject(idEndsOrJQObject).fadeTo('slow', 0.50);
 }
 
 /*
@@ -109,17 +126,17 @@ var F = {};
     
                 FB.api('fql', {
                     q : {
-                        "q1" : "SELECT aid from album WHERE owner = me()"
+                        "q1" : "SELECT object_id from album WHERE owner = me()"
                     }
                 }, function(response) {
                     if (!response || response.error) {
                         errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
                     } else {
                         var result_set = response.data[0].fql_result_set, 
-                            result = result_set[0]["aid"];
+                            result = result_set[0]["object_id"];
     
                         for (var i = 1; i < result_set.length; i++) {
-                            result += "," + result_set[i]["aid"];
+                            result += "," + result_set[i]["object_id"];
                         }
                         albumIdsCb(result);
                     }
@@ -132,30 +149,12 @@ var F = {};
         });
     };
     
-    F.bind = function(exec, bind, errorCb) {
-        FB.login(function(response) {
-            if (response.authResponse) {
-                FB.api('/me?fields=id', 'get', function(response) {
-                    if (!response || response.error) {
-                        errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
-                    } else {
-                        bind.value = response.id;
-                        exec();
-                    }
-                });
-            } else {
-                errorCb('Error' + errorDelimiter + 'User cancelled login or did not fully authorize.');
-            }
-        });
-    };
-    
     // get info about all user albums on Facebook (without images)
     F.getShelfAlbums = function(userId, callback, errorCb) {
         FB.getLoginStatus(function(response) {
-    
             if (response.status === "connected") {
-                var query1 = "SELECT aid, cover_pid, name, created, size FROM album WHERE owner = " + userId,
-                    query2 = "SELECT src FROM photo WHERE pid IN (SELECT cover_pid FROM #q1)";
+                var query1 = "SELECT object_id, cover_pid, name, created, size FROM album WHERE owner = " + userId,
+                    query2 = "SELECT src, pid FROM photo WHERE pid IN (SELECT cover_pid FROM #q1)";
     
                 FB.api('fql', {
                     q : {
@@ -166,7 +165,7 @@ var F = {};
                     if (!response || response.error) {
                         errorCb('Error occured' + errorDelimiter + (response.error.message || 'Response not received'));
                     } else {
-                        result = translateFBAlbums(mergeResults(response.data[0].fql_result_set, response.data[1].fql_result_set));
+                    	result = {albums: translateFBAlbums(response.data[0].fql_result_set), covers: translateFBCovers(response.data[1].fql_result_set) };
                         callback(JSON.stringify(result));
                     }
                 });
@@ -190,9 +189,9 @@ var F = {};
     
     translateFBImages = function(images) {
         var dict = {
-            "albumId": "aid",
+            "albumId": "album_object_id",
             "created": "created",
-            "fullAlbumId": "aid",
+            "fullAlbumId": "album_object_id",
             "id": "pid",
             "name": "caption",
             "thumbUrl": "src",
@@ -204,16 +203,25 @@ var F = {};
     
     translateFBAlbums = function(albums) {
         var dict = {
-            "coverUrl": "src",
             "created": "created",
-            "fullId": "aid",
-            "id": "aid",
+            "fullId": "object_id",
+            "id": "object_id",
+            "cpid": "cover_pid",
             "name": "name",
             "size": "size",
             "url": "src_big"
         };
          
         return albums.map(translateFBJson(dict));
+    };
+    
+    translateFBCovers = function(covers) {
+    	var dict = {
+                "coverUrl": "src",
+                "pid": "pid"
+            };
+             
+            return covers.map(translateFBJson(dict));
     };
     
     // get info about albums specified by id - (e.g. "12345", "12347")
@@ -226,9 +234,9 @@ var F = {};
         FB.getLoginStatus(function(response) {
     
             if (response.status === "connected") {
-                var query1 = "SELECT aid, cover_pid, name, created, size FROM album WHERE aid IN (" + albumIds + ")",
-                    query2 = "SELECT src FROM photo WHERE pid IN (SELECT cover_pid FROM #q1)",
-                    query3 = "SELECT aid, pid, src, src_big, caption, created FROM photo WHERE aid IN (" + albumIds + ")";
+                var query1 = "SELECT object_id, cover_pid, name, created, size FROM album WHERE object_id IN (" + albumIds + ")",
+                    query2 = "SELECT src, pid FROM photo WHERE pid IN (SELECT cover_pid FROM #q1)",
+                    query3 = "SELECT album_object_id, pid, src, src_big, caption, created FROM photo WHERE album_object_id IN (" + albumIds + ")";
     
                 FB.api('fql', {
                     q : {
@@ -252,7 +260,8 @@ var F = {};
                         }
     
                         var result = {
-                            albums : translateFBAlbums(mergeResults(r.q1, r.q2)),
+                            albums : translateFBAlbums(r.q1),
+                            covers : translateFBCovers(r.q2),
                             images : translateFBImages(r.q3)
                         };
                         
@@ -267,7 +276,7 @@ var F = {};
     F.getAlbumImages = function(albumId, callback, errorCb) {
         FB.getLoginStatus(function(response) {
             if (response.status === "connected") {
-                var query1 = "SELECT aid, pid, src, src_big, caption, created FROM photo WHERE aid = " + albumId;
+                var query1 = "SELECT album_object_id, pid, src, src_big, caption, created FROM photo WHERE album_object_id = " + albumId;
                 
                 FB.api('fql', {
                     q : {
@@ -296,14 +305,14 @@ var G = {};
 
     var clientId = '1039898720906.apps.googleusercontent.com',
         apiKey = 'AIzaSyCdgeC_TiJqDCOBkdoF51n6s2WUZDg1nIM',
-        scopes = 'https://picasaweb.google.com/data/ https://www.googleapis.com/auth/plus.login';
+        scopes = 'https://picasaweb.google.com/data/ https://www.googleapis.com/auth/plus.me';
 
     logAndGetAlbums = function(callbacks) {
         return function(authResult) {
             if (authResult && !authResult.error) {
                 getUserInfo(authResult.access_token, callbacks.infoCallback, callbacks.albumCallback);
             } else {
-                callback.errorCallback("Error occured" + errorDelimiter + authResult.error);
+                callbacks.errorCallback("Error occured" + errorDelimiter + authResult.error);
             }
         };
     };

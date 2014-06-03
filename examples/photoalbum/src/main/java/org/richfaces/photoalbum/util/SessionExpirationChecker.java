@@ -29,12 +29,12 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.richfaces.photoalbum.bean.UserBean;
-import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.SimpleEvent;
 import org.richfaces.photoalbum.manager.LoggedUserTracker;
+import org.richfaces.photoalbum.manager.UserBean;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.model.event.SimpleEvent;
 
 /**
  * Utility class for check is the user session was expired or user were login in another browser. Observes
@@ -64,7 +64,7 @@ public class SessionExpirationChecker {
     public void checkUserExpiration(@Observes @EventType(Events.CHECK_USER_EXPIRED_EVENT) SimpleEvent se) {
         if (isShouldExpireUser(session)) {
             try {
-                Utils.getSession().invalidate();
+                ApplicationUtils.getSession().invalidate();
                 FacesContext.getCurrentInstance().getExternalContext().redirect("error.jsf");
             } catch (IOException e1) {
                 FacesContext.getCurrentInstance().responseComplete();

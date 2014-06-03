@@ -276,6 +276,15 @@
                             <value>org.richfaces.css/$1</value>
                         </property>
                     </fileNameMappings>
+                    <excludedFiles>                        
+                        <exclude>^(javax.faces|bootstrap|font-awesome)</exclude>
+                        <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+                        <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                        <exclude>^\Qorg.richfaces.ckeditor\E</exclude>
+                        <!-- ignore already generated resources -->
+                        <exclude>^\Qorg.richfaces.staticResource\E</exclude>
+                        <exclude>^org\.richfaces:jquery\.js$</exclude>
+                    </excludedFiles>
                 </configuration>
                 <executions>
                     <execution>
@@ -307,13 +316,6 @@
                                 Developer Guide -->
                             <compress>true</compress>
 
-                            <excludedFiles>
-                                <exclude>^(javax.faces|bootstrap|font-awesome)</exclude>
-                                <exclude>^org.richfaces.staticResource.*</exclude>
-                                <exclude>^org.richfaces.ckeditor.*</exclude>
-                                <exclude>^jquery\.js$</exclude>
-                            </excludedFiles>
-
                         </configuration>
                     </execution>
                     <execution>
@@ -344,13 +346,6 @@
                             <!-- resources will be compressed, refer to RichFaces 
                                 Developer Guide -->
                             <compress>false</compress>
-
-                            <excludedFiles>
-                                <exclude>^javax.faces</exclude>
-                                <exclude>^org.richfaces.staticResource.*</exclude>
-                                <exclude>^org.richfaces.ckeditor.*</exclude>
-                                <exclude>^jquery\.js$</exclude>
-                            </excludedFiles>
 
                         </configuration>
                     </execution>

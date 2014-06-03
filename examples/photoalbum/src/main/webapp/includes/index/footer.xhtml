@@ -21,25 +21,25 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
-    xmlns:richx="http://richfaces.orgx">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
     <rich:panel id="footerPanel" styleClass="footer-panel">
-        <h:graphicImage value="/img/shell/logo_bottom.gif" width="160" height="55" alt="" border="0"
+        <h:graphicImage value="resources/img/shell/logo_bottom.gif" width="160" height="55" alt="" border="0"
             style="position : absolute; right : 0px; top : 27px" />
         <h:panelGroup layout="block" styleClass="footer-panel-content">
             <rich:toolbar styleClass="top-right-menu-toolbar">
                 <rich:toolbarGroup styleClass="top-right-menu-item" contentClass="bottom-right-menu-item-content">
 
-                    <h:graphicImage width="3" height="15" alt="" border="0" value="/img/shell/bullet.gif" />
-                    <h:panelGroup styleClass="top-right-menu-item-padding">
-                        <a href="#" onclick="return false;" class="bottom-right-menu-item-content">
-                            #{messages['terms_and_conditions']}</a>
-                    </h:panelGroup>
-                    <h:graphicImage width="3" height="15" alt="" border="0" value="/img/shell/bullet.gif" />
-                    <h:panelGroup styleClass="top-right-menu-item-padding">
-                        <a href="#" onclick="return false;" class="bottom-right-menu-item-content">
-                            #{messages['privacy_statement']}</a>
-                    </h:panelGroup>
+                    <h:graphicImage width="3" height="15" alt="" border="0" value="resources/img/shell/bullet.gif" />
+<!--                     <h:panelGroup styleClass="top-right-menu-item-padding"> -->
+<!--                         <a href="#" onclick="return false;" class="bottom-right-menu-item-content"> -->
+<!--                             #{messages['terms_and_conditions']}</a> -->
+<!--                     </h:panelGroup> -->
+<!--                     <h:graphicImage width="3" height="15" alt="" border="0" value="resources/img/shell/bullet.gif" /> -->
+<!--                     <h:panelGroup styleClass="top-right-menu-item-padding"> -->
+<!--                         <a href="#" onclick="return false;" class="bottom-right-menu-item-content"> -->
+<!--                             #{messages['privacy_statement']}</a> -->
+<!--                     </h:panelGroup> -->
                 </rich:toolbarGroup>
             </rich:toolbar>
         </h:panelGroup>

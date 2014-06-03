@@ -21,8 +21,8 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
     <div class="section" lang="en-US">
         <div class="titlepage">
             <div>
@@ -41,28 +41,28 @@
         <pre class="brush: xml, gutter: false, auto-links: false">
         &lt;ui:composition xmlns=&quot;http://www.w3.org/1999/xhtml&quot; … &gt;
 
-            &lt;richx:actionMapper&gt;
-                &lt;a4j:outputPanel layout=&quot;block&quot; style=&quot;#{'#{'}style}&quot; styleClass=&quot;photoalbumButton #{'#{'}styleClass}&quot; lang=&quot;#{'#{'}lang}&quot; dir=&quot;#{'#{'}dir}&quot;
-                    title=&quot;#{'#{'}title}&quot; rendered=&quot;#{'#{'}empty rendered or rendered}&quot; onmousedown=&quot;$(this).css('background-position', '0 28px');&quot;
-                    onmouseup=&quot;$(this).css('background-position', '0 0');&quot; onmouseout=&quot;$(this).css('background-position', '0 0');&quot;&gt;
+          &lt;richx:actionMapper&gt;
+            &lt;a4j:outputPanel layout=&quot;block&quot; style=&quot;#{'#{'}style}&quot; styleClass=&quot;photoalbumButton #{'#{'}styleClass}&quot; lang=&quot;#{'#{'}lang}&quot; dir=&quot;#{'#{'}dir}&quot;
+                title=&quot;#{'#{'}title}&quot; rendered=&quot;#{'#{'}empty rendered or rendered}&quot; onmousedown=&quot;$(this).css('background-position', '0 28px');&quot;
+                onmouseup=&quot;$(this).css('background-position', '0 0');&quot; onmouseout=&quot;$(this).css('background-position', '0 0');&quot;&gt;
 
-                &lt;div&gt;#{'#{'}value}&lt;/div&gt;
+              &lt;div&gt;#{'#{'}value}&lt;/div&gt;
 
-                &lt;a4j:commandButton accesskey=&quot;#{'#{'}accesskey}&quot; alt=&quot;#{'#{'}alt}&quot; type=&quot;image&quot; image=&quot;/img/shell/spacer.gif&quot;
-                    actionListener=&quot;#{'#{'}mappedActionListener}&quot; action=&quot;#{'#{'}mappedAction}&quot; bypassUpdates=&quot;#{'#{'}bypassUpdates}&quot;
-                    data=&quot;#{'#{'}data}&quot; disabled=&quot;#{'#{'}disabled}&quot; eventsQueue=&quot;#{'#{'}eventsQueue}&quot; focus=&quot;#{'#{'}focus}&quot; immediate=&quot;#{'#{'}immediate}&quot;
-                    limitRender=&quot;#{'#{'}limitRender}&quot; onbeforedomupdate=&quot;#{'#{'}onbeforedomupdate}&quot; tabindex=&quot;#{'#{'}tabindex}&quot; render=&quot;#{'#{'}render}&quot;
-                    execute=&quot;#{'#{'}execute}&quot; oncomplete=&quot;#{'#{'}oncomplete}&quot; onblur=&quot;#{'#{'}onblur}&quot; onclick=&quot;#{'#{'}onclick}&quot;
-                    ondblclick=&quot;#{'#{'}ondblclick}&quot; onfocus=&quot;#{'#{'}onfocus}&quot; onkeydown=&quot;#{'#{'}onkeydown}&quot; onkeypress=&quot;#{'#{'}onkeypress}&quot;
-                    onkeyup=&quot;#{'#{'}onkeyup}&quot; onmousedown=&quot;#{'#{'}onmousedown}&quot; onmousemove=&quot;#{'#{'}onmousemove}&quot; onmouseout=&quot;#{'#{'}onmouseout}&quot;
-                    onmouseover=&quot;#{'#{'}onmouseover}&quot; onmouseup=&quot;#{'#{'}onmouseup}&quot; /&gt;
+              &lt;a4j:commandButton accesskey=&quot;#{'#{'}accesskey}&quot; alt=&quot;#{'#{'}alt}&quot; type=&quot;image&quot; image=&quot;/resources/img/shell/spacer.gif&quot;
+                  actionListener=&quot;#{'#{'}mappedActionListener}&quot; action=&quot;#{'#{'}mappedAction}&quot; bypassUpdates=&quot;#{'#{'}bypassUpdates}&quot;
+                  data=&quot;#{'#{'}data}&quot; disabled=&quot;#{'#{'}disabled}&quot; eventsQueue=&quot;#{'#{'}eventsQueue}&quot; focus=&quot;#{'#{'}focus}&quot; immediate=&quot;#{'#{'}immediate}&quot;
+                  limitRender=&quot;#{'#{'}limitRender}&quot; onbeforedomupdate=&quot;#{'#{'}onbeforedomupdate}&quot; tabindex=&quot;#{'#{'}tabindex}&quot; render=&quot;#{'#{'}render}&quot;
+                  execute=&quot;#{'#{'}execute}&quot; oncomplete=&quot;#{'#{'}oncomplete}&quot; onblur=&quot;#{'#{'}onblur}&quot; onclick=&quot;#{'#{'}onclick}&quot;
+                  ondblclick=&quot;#{'#{'}ondblclick}&quot; onfocus=&quot;#{'#{'}onfocus}&quot; onkeydown=&quot;#{'#{'}onkeydown}&quot; onkeypress=&quot;#{'#{'}onkeypress}&quot;
+                  onkeyup=&quot;#{'#{'}onkeyup}&quot; onmousedown=&quot;#{'#{'}onmousedown}&quot; onmousemove=&quot;#{'#{'}onmousemove}&quot; onmouseout=&quot;#{'#{'}onmouseout}&quot;
+                  onmouseover=&quot;#{'#{'}onmouseover}&quot; onmouseup=&quot;#{'#{'}onmouseup}&quot; /&gt;
 
-                &lt;/a4j:outputPanel&gt;
-            &lt;/richx:actionMapper&gt;
+            &lt;/a4j:outputPanel&gt;
+          &lt;/richx:actionMapper&gt;
         &lt;/ui:composition&gt;
         </pre>
         <p>
-            The <span class="bold"><strong> <span class="property">&lt;richx:actionMapper&gt;</span></strong></span> tag is
+            The <strong><span class="property">&lt;richx:actionMapper&gt;</span></strong> tag is
             covered in more detail further in the text. In brief, it's a special tag developed deliberately to pass to the
             button a method expression of the action which must be performed when the button is clicked.
         </p>
@@ -77,38 +77,38 @@
                 </li>
                 <li>
                     <p>
-                        <span class="bold"><strong><span class="property">&lt;a4j:commandButton&gt;</span></strong></span> that
+                        <strong><span class="property">&lt;a4j:commandButton&gt;</span></strong> that
                         sends Ajax request to the server
                     </p>
                 </li>
             </ul>
         </div>
         <p>
-            These elements are wrapped by <span class="bold"><strong><span class="property">&lt;a4j:outputPanel&gt;</span></strong></span>
+            These elements are wrapped by <strong><span class="property">&lt;a4j:outputPanel&gt;</span></strong>
             to adjust the look-and-feel.
         </p>
         <p>In the application the button is used for example like this:</p>
         <pre class="brush: xml, gutter: false">
         …
         &lt;richx:commandButton value=&quot;#{'#{'}messages['login.register']}&quot; immediate=&quot;true&quot;
-                        actionListener=&quot;#{'#{'}authenticator.goToRegister()}&quot; render=&quot;mainArea&quot;
-                        oncomplete=&quot;#{'#{'}rich:component('loginPanel')}.hide();&quot; execute=&quot;@this&quot; /&gt;
+            actionListener=&quot;#{'#{'}authenticator.goToRegister()}&quot; render=&quot;mainArea&quot;
+            oncomplete=&quot;#{'#{'}rich:component('loginPanel')}.hide();&quot; execute=&quot;@this&quot; /&gt;
         …
         </pre>
         <p>
-            We can pass to the <span class="bold"><strong><span class="property">&lt;richx:commandButton&gt;</span></strong></span>
+            We can pass to the <strong><span class="property">&lt;richx:commandButton&gt;</span></strong>
             all attributes or only some, in the example only actionListener, render, value, immediate, oncomplete and execute are passed.
         </p>
         <p>
-            <span class="bold"><strong><span class="property">&lt;richx:commandButton&gt;</span></strong></span> is a custom tag
-            that is declared in the photoalbum-taglib.xml tag library:
+            <strong><span class="property">&lt;richx:commandButton&gt;</span></strong> is a custom tag
+            that is declared in the photoalbum.taglib.xml tag library:
         </p>
         <pre class="brush:xml, gutter: false, auto-links: false">
             &lt;?xml version=&quot;1.0&quot;?&gt;
             &lt;facelet-taglib xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
                 xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibary_2_0.xsd&quot;
                 version=&quot;2.0&quot;&gt;
-                &lt;namespace&gt;http://richfaces.orgx&lt;/namespace&gt;
+                &lt;namespace&gt;http://richfaces.org/richx&lt;/namespace&gt;
                 &lt;tag&gt;
                     &lt;tag-name&gt;commandButton&lt;/tag-name&gt;
                     &lt;source&gt;templates/button.xhtml&lt;/source&gt;
@@ -120,18 +120,17 @@
             &lt;/facelet-taglib&gt;
         </pre>
         <p>
-            In order to use the <span class="bold"><strong><span class="property">&lt;richx:commandButton&gt;</span></strong></span>
+            In order to use the <strong><span class="property">&lt;richx:commandButton&gt;</span></strong>
             on the page the namespace of the taglib must be declared:
         </p>
         <pre class="brush: xml, gutter: false, auto-links: false, highlight: 3">
         &lt;ui:composition xmlns=&quot;http://www.w3.org/1999/xhtml&quot;
                 … 
-            xmlns:richx=&quot;http://richfaces.orgx&quot;&gt;
-                …
+            xmlns:richx=&quot;http://richfaces.org/richx&quot;&gt;
         </pre>
         <p>
-            A more complex part of the button implementation, as we said earlier, is <span class="bold"><strong><span
-                    class="property">&lt;richx:actionMapper&gt;</span></strong></span> which is also described in tablib. But it is not just a
+            A more complex part of the button implementation, as we said earlier, is <strong><span
+                    class="property">&lt;richx:actionMapper&gt;</span></strong> which is also described in taglib. But it is not just a
             simple tag-template since it has Facelets handler-class which specifies how it is handled when declared on the page.
             It is created because Facelets templates do not allow to make the MethodExpression a Facelets-template parameter.
             Please find below the code of the class(some irrelevant details are omitted):
@@ -204,8 +203,9 @@
             }
         }
         </pre>
-        <p>You can find more infromation about Facelets, custom tags, taglibs, Facelets tag handlers and Facelets templates
-            here.</p>
+        <p>You can find more information about Facelets, custom tags, taglibs, Facelets tag handlers and Facelets templates
+            <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink" 
+               href="http://docs.oracle.com/javaee/6/tutorial/doc/bnavg.html">here</a></p>
     </div>
 
 </ui:composition>

@@ -24,7 +24,7 @@
 <facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibary_2_0.xsd"
     version="2.0">
-    <namespace>http://richfaces.orgx</namespace>
+    <namespace>http://richfaces.org/richx</namespace>
     <tag>
         <tag-name>commandButton</tag-name>
         <source>templates/button.xhtml</source>

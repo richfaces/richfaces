@@ -25,10 +25,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Named;
 
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.util.Utils;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.util.ApplicationUtils;
 
 /**
  * Convenience UI class for global eeror-checking mechanism
@@ -46,7 +46,7 @@ public class ErrorHandlerBean {
      * @param detail - detailed description of the error
      */
     public void showError(String summary, String detail) {
-        Utils.addFacesMessage("overForm", summary, detail);
+        ApplicationUtils.addFacesMessage("overForm", summary, detail);
     }
 
     /**

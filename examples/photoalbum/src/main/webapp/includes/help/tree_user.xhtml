@@ -21,8 +21,8 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
     <div class="section">
         <div class="titlepage">
             <div>
@@ -39,72 +39,69 @@
             considerable enough to describe two types separately, but also not at all insignificant to be omitted here.</p>
         <p>
             There are two components that provide drag-and-drop functionality: <span class="bold"><strong><span
-                    class="property">&lt;richdragSource&gt;</span></strong></span> which takes care of the drag and <span class="bold"><strong><span
-                    class="property">&lt;richdropTarget&gt;</span></strong></span> which takes care with of the drop operations.
+                    class="property">&lt;rich:dragSource&gt;</span></strong></span> which takes care of the drag and <span class="bold"><strong><span
+                    class="property">&lt;rich:dropTarget&gt;</span></strong></span> which takes care with of the drop operations.
         </p>
         <div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note">
             <h2>Note:</h2>
-            <p>Due to "Shelves - Albums - Photos" hierarchy we can say that photos could be moved between albums, albums
-                could be moved between shelves. To avoid a mishmash, it's not allowed to place photos directly in shelves as
-                well as nesting shelves inside shelves or albums inside albums.</p>
+            <p>Due to "Album Groups - Albums - Photos" hierarchy we can say that photos could be moved between albums, albums
+                could be moved between album groups. To avoid a mishmash, it's not allowed to place photos directly in album groups as
+                well as nesting album groups inside album groups or albums inside albums.</p>
         </div>
         <p>Let's explore how drag-and-drop works for albums.</p>
         <p>
             All albums, that are represented as TreeNodes, must be marked somehow for dragging. For this purpose we use
-            previously mentioned <span class="emphasis"><em><span class="property">&lt;richdragSource&gt;</span></em></span>
-            and specify albums with <span class="emphasis"><em><span class="property">"type"</span></em></span> attribute. Let's
-            have a look at the
+            previously mentioned <em><span class="property">&lt;rich:dragSource&gt;</span></em> and specify albums with <em><span
+                class="property">"type"</span></em> attribute. Let's have a look at the
             <code class="code">src/main/webapp/includes/index/tree.xhtml</code>
             file:
         </p>
         <pre class="brush: xml, gutter: false, highlight: 4">
-            &lt;richtreeModelAdaptor var=&quot;album&quot; nodes=&quot;#{'#{'}treeNode.albums}&quot;&gt;
-                &lt;richtreeNode … &gt;
-                            …
-                        &lt;richdragSource type=&quot;album&quot; dragIndicator=&quot;dragIndicator&quot; dragValue=&quot;#{'#{'}treeNode}&quot; /&gt;
-                            …
-                    &lt;/a4j:outputPanel&gt;
-                &lt;/richtreeNode&gt;
+            &lt;rich:treeModelAdaptor var=&quot;album&quot; nodes=&quot;#{'#{'}treeNode.albums}&quot;&gt;
+              &lt;rich:treeNode … &gt;
+                  …
+                &lt;rich:dragSource type=&quot;album&quot; dragIndicator=&quot;dragIndicator&quot; dragValue=&quot;#{'#{'}treeNode}&quot; /&gt;
+                    …
+                &lt;/a4j:outputPanel&gt;
+              &lt;/rich:treeNode&gt;
                 …
-            &lt;/richtreeModelAdaptor&gt;
+            &lt;/rich:treeModelAdaptor&gt;
         </pre>
         <p>
-            To provide drop functionality for the marked albums, we should mark Shelves as drop zones in the application code
-            too. For this purpose we add the <span class="emphasis"><em><span class="property">&lt;richdropTarget&gt;</span></em></span>
-            with <span class="emphasis"><em><span class="property">"acceptedTypes"</span></em></span> attribute to the "Shelf"
-            node and in order to process drop on the server side we specify a listener with the <span class="emphasis"><em><span
-                    class="property">"dropListener"</span></em></span> attribute in the same
+            To provide drop functionality for the marked albums, we should mark Album Groups as drop zones in the application code
+            too. For this purpose we add the <em><span class="property">&lt;rich:dropTarget&gt;</span></em> with <em><span
+                class="property">"acceptedTypes"</span></em> attribute to the "Shelf" node and in order to process drop on the server
+            side we specify a listener with the <em><span class="property">"dropListener"</span></em> attribute in the same
             <code class="code">src/main/webapp/includes/index/tree.xhtml</code>
             file:
         </p>
         <pre class="brush: xml, gutter: false, highlight: [4,5]">
-            &lt;richtreeModelAdaptor nodes=&quot;#{'#{'}userBean.user.shelves}&quot;&gt;
-                &lt;richtreeNode … &gt;
-                            …
-                        &lt;richdropTarget acceptedTypes=&quot;album&quot; dropValue=&quot;#{'#{'}treeNode}&quot; dropListener=&quot;#{'#{'}dndManager.processDrop}&quot;
-                            render=&quot;treePanel, mainArea&quot; /&gt;
-                            …
-                &lt;/richtreeNode&gt;
+            &lt;rich:treeModelAdaptor nodes=&quot;#{'#{'}userBean.user.shelves}&quot;&gt;
+              &lt;rich:treeNode … &gt;
+                  …
+                 &lt;rich:dropTarget acceptedTypes=&quot;album&quot; dropValue=&quot;#{'#{'}treeNode}&quot; dropListener=&quot;#{'#{'}dndManager.processDrop}&quot;
+                     render=&quot;treePanel, mainArea&quot; /&gt;
+                     …
+              &lt;/rich:treeNode&gt;
                 …
-            &lt;/richtreeModelAdaptor&gt;
+            &lt;/rich:treeModelAdaptor&gt;
         </pre>
         <p>
-            The <span class="emphasis"><em><span class="property">"acceptedTypes"</span></em></span> attribute tells the "Shelf"
-            node what types of dragged zones (albums in this case) it can accept. We have specified "Album" node <span
-                class="emphasis"><em><span class="property">"dragType"</span></em></span> as "album", so the "Shelf" node can
-            accept it.
+            The <em><span class="property">"acceptedTypes"</span></em> attribute tells the "Shelf" node what types of dragged
+            zones (albums in this case) it can accept. We have specified "Album" node <em><span class="property">"dragType"</span></em>
+            as "album", so the "Shelf" node can accept it.
         </p>
 
         <p>
-            The code for the <span class="bold"><strong><span class="property">&lt;richdragIndicator&gt;</span></strong></span>
+            The code for the <strong><span class="property">&lt;rich:dragIndicator&gt;</span></strong>
             looks like the following:
         </p>
         <pre class="brush: xml, gutter: false">
-            &lt;richdragIndicator id=&quot;dragIndicator&quot;&gt;
-                &lt;richpanel&gt;
-                    [Album]
-                &lt;/richpanel&gt;
-            &lt;/richdragIndicator&gt;
+            &lt;rich:dragIndicator id=&quot;dragIndicator&quot;&gt;
+              &lt;rich:panel&gt;
+                [Album]
+              &lt;/rich:panel&gt;
+            &lt;/rich:dragIndicator&gt;
         </pre>
         <p>
             The
@@ -136,76 +133,76 @@
         </pre>
         <p>Here is the whole example of the "Navigation tree for a registered user":</p>
         <pre class="brush:xml, gutter:false">
-            &lt;richdragIndicator id=&quot;dragIndicator&quot;&gt;
-                &lt;richpanel&gt;
-                    [Album]
-                &lt;/richpanel&gt;
-            &lt;/richdragIndicator&gt;
-            &lt;richdragIndicator id=&quot;iDragIndicator&quot;&gt;
-                &lt;richpanel&gt;
-                    [Image]
-                &lt;/richpanel&gt;
-            &lt;/richdragIndicator&gt;
-            &lt;richtree id=&quot;userTree&quot; var=&quot;treeNode&quot; toggleType=&quot;client&quot;&gt;
-                &lt;richtreeModelAdaptor nodes=&quot;#{'#{'}userBean.user.shelves}&quot;&gt;
-                    &lt;richtreeNode style=&quot;cursor:pointer&quot; selectedClass=&quot;tree-selected-node&quot;
-                        iconExpanded=&quot;/img/shell/tree_icon_shelf.png&quot; iconCollapsed=&quot;/img/shell/tree_icon_shelf.png&quot; id=&quot;shelf&quot;&gt;
-                        &lt;ui:include src=&quot;/includes/contextMenu/CMForShelf.xhtml&quot;&gt;
-                            &lt;ui:param name=&quot;shelf&quot; value=&quot;#{'#{'}treeNode}&quot; /&gt;
-                            &lt;ui:param name=&quot;target&quot; value=&quot;shelf&quot; /&gt;
-                        &lt;/ui:include&gt;
-                        &lt;a4j:outputPanel layout=&quot;block&quot; style=&quot;cursor:pointer;width:200px; overflow-x:hidden;&quot;&gt;
-                            &lt;h:outputText value=&quot;#{'#{'}treeNode.name}&quot; /&gt;
-                            &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; value=&quot; #{'#{'}messages['delimiter']} &quot; /&gt;
-                            &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; styleClass=&quot;bold&quot;
-                                value=&quot;#{'#{'}fn:length(treeNode.unvisitedImages)}&quot; /&gt;
-                            &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; value=&quot; #{'#{'}messages['new']}&quot; /&gt;
-                            &lt;a4j:ajax render=&quot;treePanel, mainArea&quot; event=&quot;click&quot; listener=&quot;#{'#{'}controller.showShelf(treeNode)}&quot; /&gt;
+            &lt;rich:dragIndicator id=&quot;dragIndicator&quot;&gt;
+              &lt;rich:panel&gt;
+                [Album]
+              &lt;/rich:panel&gt;
+            &lt;/rich:dragIndicator&gt;
+            &lt;rich:dragIndicator id=&quot;iDragIndicator&quot;&gt;
+              &lt;rich:panel&gt;
+                  [Image]
+              &lt;/rich:panel&gt;
+            &lt;/rich:dragIndicator&gt;
+            &lt;rich:tree id=&quot;userTree&quot; var=&quot;treeNode&quot; toggleType=&quot;client&quot;&gt;
+              &lt;rich:treeModelAdaptor nodes=&quot;#{'#{'}userBean.user.shelves}&quot;&gt;
+                &lt;rich:treeNode style=&quot;cursor:pointer&quot; selectedClass=&quot;tree-selected-node&quot;
+                    iconExpanded=&quot;/resources/img/shell/tree_icon_shelf.png&quot; iconCollapsed=&quot;/resources/img/shell/tree_icon_shelf.png&quot; id=&quot;shelf&quot;&gt;
+                  &lt;ui:include src=&quot;/includes/contextMenu/CMForShelf.xhtml&quot;&gt;
+                    &lt;ui:param name=&quot;shelf&quot; value=&quot;#{'#{'}treeNode}&quot; /&gt;
+                    &lt;ui:param name=&quot;target&quot; value=&quot;shelf&quot; /&gt;
+                  &lt;/ui:include&gt;
+                  &lt;a4j:outputPanel layout=&quot;block&quot; style=&quot;cursor:pointer;width:200px; overflow-x:hidden;&quot;&gt;
+                    &lt;h:outputText value=&quot;#{'#{'}treeNode.name}&quot; /&gt;
+                    &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; value=&quot; #{'#{'}messages['delimiter']} &quot; /&gt;
+                    &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; styleClass=&quot;bold&quot;
+                        value=&quot;#{'#{'}fn:length(treeNode.unvisitedImages)}&quot; /&gt;
+                    &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; value=&quot; #{'#{'}messages['new']}&quot; /&gt;
+                    &lt;a4j:ajax render=&quot;treePanel, mainArea&quot; event=&quot;click&quot; listener=&quot;#{'#{'}controller.showShelf(treeNode)}&quot; /&gt;
     
-                            &lt;richdropTarget acceptedTypes=&quot;album&quot; dropValue=&quot;#{'#{'}treeNode}&quot; dropListener=&quot;#{'#{'}dndManager.processDrop}&quot;
-                                render=&quot;treePanel, mainArea&quot; /&gt;
+                    &lt;rich:dropTarget acceptedTypes=&quot;album&quot; dropValue=&quot;#{'#{'}treeNode}&quot; dropListener=&quot;#{'#{'}dndManager.processDrop}&quot;
+                        render=&quot;treePanel, mainArea&quot; /&gt;
     
-                            &lt;richtooltip direction=&quot;topRight&quot; showDelay=&quot;1000&quot;&gt;
-                                &lt;span style=&quot;white-space: nowrap&quot;&gt;#{'#{'}treeNode.name}&lt;/span&gt;
-                            &lt;/richtooltip&gt;
-                        &lt;/a4j:outputPanel&gt;
-                    &lt;/richtreeNode&gt;
+                    &lt;rich:tooltip direction=&quot;topRight&quot; showDelay=&quot;1000&quot;&gt;
+                      &lt;span style=&quot;white-space: nowrap&quot;&gt;#{'#{'}treeNode.name}&lt;/span&gt;
+                    &lt;/rich:tooltip&gt;
+                  &lt;/a4j:outputPanel&gt;
+                &lt;/rich:treeNode&gt;
     
-                    &lt;richtreeModelAdaptor nodes=&quot;#{'#{'}treeNode.albums}&quot;&gt;
-                        &lt;richtreeNode style=&quot;cursor:pointer&quot; render=&quot;mainArea, treePanel&quot; selectedClass=&quot;tree-selected-node&quot;
-                            iconLeaf=&quot;img/shell/tree_icon_album.png&quot; id=&quot;album&quot;&gt;
-                            &lt;ui:include src=&quot;/includes/contextMenu/CMForAlbum.xhtml&quot;&gt;
-                                &lt;ui:param name=&quot;album&quot; value=&quot;#{'#{'}treeNode}&quot; /&gt;
-                                &lt;ui:param name=&quot;target&quot; value=&quot;album&quot; /&gt;
-                            &lt;/ui:include&gt;
-                            &lt;a4j:outputPanel layout=&quot;block&quot; style=&quot;cursor:pointer;width:200px; overflow-x:hidden;&quot;&gt;
-                                &lt;h:outputText value=&quot;#{'#{'}treeNode.name}&quot; /&gt;
-                                &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; value=&quot; #{'#{'}messages['delimiter']} &quot; /&gt;
-                                &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; styleClass=&quot;bold&quot;
-                                    value=&quot;#{'#{'}fn:length(treeNode.unvisitedImages)}&quot; /&gt;
-                                &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; value=&quot; #{'#{'}messages['new']}&quot; /&gt;
-                                &lt;a4j:ajax render=&quot;treePanel, mainArea&quot; event=&quot;click&quot; listener=&quot;#{'#{'}controller.showAlbum(treeNode)}&quot; /&gt;
+                &lt;rich:treeModelAdaptor nodes=&quot;#{'#{'}treeNode.albums}&quot;&gt;
+                  &lt;rich:treeNode style=&quot;cursor:pointer&quot; render=&quot;mainArea, treePanel&quot; selectedClass=&quot;tree-selected-node&quot;
+                      iconLeaf=&quot;resources/img/shell/tree_icon_album.png&quot; id=&quot;album&quot;&gt;
+                    &lt;ui:include src=&quot;/includes/contextMenu/CMForAlbum.xhtml&quot;&gt;
+                      &lt;ui:param name=&quot;album&quot; value=&quot;#{'#{'}treeNode}&quot; /&gt;
+                      &lt;ui:param name=&quot;target&quot; value=&quot;album&quot; /&gt;
+                    &lt;/ui:include&gt;
+                    &lt;a4j:outputPanel layout=&quot;block&quot; style=&quot;cursor:pointer;width:200px; overflow-x:hidden;&quot;&gt;
+                      &lt;h:outputText value=&quot;#{'#{'}treeNode.name}&quot; /&gt;
+                      &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; value=&quot; #{'#{'}messages['delimiter']} &quot; /&gt;
+                      &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; styleClass=&quot;bold&quot;
+                          value=&quot;#{'#{'}fn:length(treeNode.unvisitedImages)}&quot; /&gt;
+                      &lt;h:outputText rendered=&quot;#{'#{'}fn:length(treeNode.unvisitedImages) &gt; 0}&quot; value=&quot; #{'#{'}messages['new']}&quot; /&gt;
+                      &lt;a4j:ajax render=&quot;treePanel, mainArea&quot; event=&quot;click&quot; listener=&quot;#{'#{'}controller.showAlbum(treeNode)}&quot; /&gt;
     
-                                &lt;richdragSource type=&quot;album&quot; dragIndicator=&quot;dragIndicator&quot; dragValue=&quot;#{'#{'}treeNode}&quot; /&gt;
-                                &lt;richdropTarget acceptedTypes=&quot;image&quot; dropValue=&quot;#{'#{'}treeNode}&quot;
-                                    dropListener=&quot;#{'#{'}dndManager.processDrop}&quot; render=&quot;treePanel, mainArea&quot; /&gt;
+                      &lt;rich:dragSource type=&quot;album&quot; dragIndicator=&quot;dragIndicator&quot; dragValue=&quot;#{'#{'}treeNode}&quot; /&gt;
+                        &lt;rich:dropTarget acceptedTypes=&quot;image&quot; dropValue=&quot;#{'#{'}treeNode}&quot;
+                            dropListener=&quot;#{'#{'}dndManager.processDrop}&quot; render=&quot;treePanel, mainArea&quot; /&gt;
     
-                                &lt;richtooltip direction=&quot;topRight&quot; showDelay=&quot;1000&quot;&gt;
-                                    &lt;span style=&quot;white-space: nowrap&quot;&gt; #{'#{'}treeNode.name} &lt;/span&gt;
-                                &lt;/richtooltip&gt;
-                            &lt;/a4j:outputPanel&gt;
-                        &lt;/richtreeNode&gt;
+                      &lt;rich:tooltip direction=&quot;topRight&quot; showDelay=&quot;1000&quot;&gt;
+                        &lt;span style=&quot;white-space: nowrap&quot;&gt; #{'#{'}treeNode.name} &lt;/span&gt;
+                      &lt;/rich:tooltip&gt;
+                    &lt;/a4j:outputPanel&gt;
+                  &lt;/rich:treeNode&gt;
     
-                    &lt;/richtreeModelAdaptor&gt;
-                &lt;/richtreeModelAdaptor&gt;
+                &lt;/rich:treeModelAdaptor&gt;
+              &lt;/rich:treeModelAdaptor&gt;
     
-            &lt;/richtree&gt;  
+            &lt;/rich:tree&gt;  
         </pre>
         <p>The image below shows how the described above drag-and-drop features are rendered in the Photo Album.</p>
         <div class="figure">
             <div class="figure-contents">
                 <div class="mediaobject">
-                    <img src="img/help/dnd.png" alt="" />
+                    <img src="resources/img/help/dnd.png" alt="" />
                 </div>
             </div>
 
@@ -219,15 +216,15 @@
                     <p>
                         <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                             href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=tree">Tree</a> for the <span
-                            class="bold"><strong><span class="property">&lt;richtree&gt;</span></strong></span> component;
+                            class="bold"><strong><span class="property">&lt;rich:tree&gt;</span></strong></span> component;
                     </p>
                 </li>
                 <li>
                     <p>
                         <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                             href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=dragDrop">Drag and Drop</a>
-                        for the <span class="bold"><strong><span class="property">&lt;richdragSource&gt;</span></strong></span>
-                        and <span class="bold"><strong><span class="property">&lt;richdropTarget&gt;</span></strong></span>
+                        for the <strong><span class="property">&lt;rich:dragSource&gt;</span></strong>
+                        and <strong><span class="property">&lt;rich:dropTarget&gt;</span></strong>
                         components;
                     </p>
                 </li>

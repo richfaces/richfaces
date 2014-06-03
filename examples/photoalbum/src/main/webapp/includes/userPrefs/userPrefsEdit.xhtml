@@ -21,47 +21,50 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
-    xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:richx="http://richfaces.orgx">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:richx="http://richfaces.org/richx">
     <h:panelGrid styleClass="album-header-table" cellpadding="0">
         <ui:insert name="header" />
     </h:panelGrid>
     <h:panelGroup id="userPrefEdit">
-        <a4j:region rendered="#{user.fbId == '1'}">
-            <h:inputHidden value="#{user.fbId}" id="userFbId" />
-            <richx:commandButton styleClass="fb-comm-button" execute="@this"
-                oncomplete="F.bind(bindWithFB, #{rich:element('userFbId')}, showError)" value="Bind with Facebook" />
-            <a4j:jsFunction name="bindWithFB" actionListener="#{controller.editUser}" render="mainArea" />
-        </a4j:region>
-        <h:outputText value="This account is bound to Facebook" rendered="#{not empty user.fbId and user.fbId != '1'}" />
+
+        <a4j:commandButton styleClass="FB-text-button" execute="@this" oncomplete="bindAccount()"
+            value="#{userBean.user.fbId == '1' ? 'Bind' : 'Bound'} with Facebook" rendered="#{userBean.loggedInFB}"
+            disabled="#{userBean.user.fbId != '1'}">
+            <a4j:param assignTo="#{userBean.user.fbId}" value="#{userBean.fbId}" />
+        </a4j:commandButton>
+
+        <br />
+        <a4j:commandButton styleClass="G-text-button" execute="@this" oncomplete="bindAccount()"
+            value="#{userBean.user.gPlusId == '1' ? 'Bind' : 'Bound'} with Google+" rendered="#{userBean.loggedInGPlus}"
+            disabled="#{userBean.user.gPlusId != '1'}">
+            <a4j:param assignTo="#{userBean.user.gPlusId}" value="#{userBean.gplusId}" />
+        </a4j:commandButton>
+        
+        <a4j:jsFunction name="bindAccount" render="mainArea" actionListener="#{controller.editUser()}" execute="@this"/>
 
         <table style="padding: 0; border-spacing: 0; border: 0">
             <tr>
-                <td style="width: 125px">
-                    <h:outputLabel for="avatar">#{messages['user.avatar']}</h:outputLabel>
-                </td>
-                <td style="padding-left: 2px; padding-bottom: 2px">
-                    <h:panelGroup layout="block" styleClass="preview_box_photo_nav" style="margin-right : 5px">
-                        <h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_200.png" style="border:0" />
+                <td style="width: 125px"><h:outputLabel for="avatar">#{messages['user.avatar']}</h:outputLabel></td>
+                <td style="padding-left: 2px; padding-bottom: 2px"><h:panelGroup layout="block"
+                        styleClass="preview_box_photo_nav" style="margin-right : 5px">
+                        <h:graphicImage styleClass="pr_photo_bg" value="resources/img/shell/frame_photo_200.png" style="border:0" />
                         <h:panelGrid cellpadding="0">
                             <h:panelGroup style="margin-bottom:7px;">
-                                <ui:include src="/includes/userPrefs/avatar.xhtml">
-                                    <ui:param name="user" value="#{user}" />
-                                </ui:include>
+                                <ui:include src="/includes/userPrefs/avatar.xhtml" />
                             </h:panelGroup>
                         </h:panelGrid>
-                    </h:panelGroup>
-                </td>
+                    </h:panelGroup></td>
                 <td />
             </tr>
             <tr>
                 <td style="vertical-align: top;" />
                 <td style="padding-bottom: 5px">
                     <div class="avatarUpload">
-                        <rich:fileUpload addControlLabel="Change avatar" stopButtonClass="file-upload-stop-button"
-                            addButtonClass="file-upload-button" execute="@this" maxFilesQuantity="100"
+                        <rich:fileUpload addLabel="Change avatar" execute="@this" maxFilesQuantity="100"
                             fileUploadListener="#{userPrefsHelper.uploadAvatar}" listHeight="0" listWidth="0"
-                            immediateUpload="true" autoclear="true" acceptedTypes="jpg,jpeg">
+                            immediateUpload="true" acceptedTypes="jpg,jpeg"
+                            ontyperejected="showError('Error$#$Invalid file type. Only JPG is allowed.')">
                             <a4j:ajax execute="@this" event="uploadcomplete" render="avatar" />
                         </rich:fileUpload>
                     </div>
@@ -72,143 +75,83 @@
         <rich:graphValidator>
             <table style="padding: 0; border-spacing: 0; border: 0" class="reg-table">
                 <tr>
-                    <td style="width: 125px;">
-                        <h:outputLabel for="userLoginName">#{messages['user.login']}</h:outputLabel>
+                    <td style="width: 125px;"><h:outputLabel for="userLoginName">#{messages['user.login']}</h:outputLabel>
                     </td>
 
-                    <td>
-                        <h:panelGroup rendered="#{user.id == null}">
+                    <td><h:panelGroup rendered="#{user.id == null}">
                             <h:inputText id="userLoginName" value="#{user.login}" styleClass="reg-table-input" />
                             <h:outputText styleClass="required" value="*" />
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{user.id != null}">
+                        </h:panelGroup> <h:panelGroup rendered="#{user.id != null}">
                             <h:outputText value="#{user.login}" />
-                        </h:panelGroup>
-                    </td>
-                    <td>
-                        <rich:messages for="userLoginName" styleClass="required" />
-                    </td>
+                        </h:panelGroup></td>
+                    <td><rich:messages for="userLoginName" styleClass="required" /></td>
                 </tr>
                 <tr>
                     <h:panelGroup rendered="#{user.id == null}">
-                        <td>
-                            <h:outputLabel for="userPassword">#{messages['user.password']}</h:outputLabel>
-                        </td>
-                        <td>
-                            <h:inputSecret required="true" id="userPassword" value="#{user.password}"
-                                styleClass="reg-table-input" />
-                            <h:outputText styleClass="required" value="*" />
-                        </td>
-                        <td>
-                            <rich:messages for="userPassword" styleClass="required" />
-                        </td>
+                        <td><h:outputLabel for="userPassword">#{messages['user.password']}</h:outputLabel></td>
+                        <td><h:inputSecret required="true" id="userPassword" value="#{authenticator.user.password}"
+                                styleClass="reg-table-input" /> <h:outputText styleClass="required" value="*" /></td>
+                        <td><rich:messages for="userPassword" styleClass="required" /></td>
                     </h:panelGroup>
                 </tr>
                 <tr>
                     <h:panelGroup rendered="#{user.id == null}">
-                        <td>
-                            <h:outputLabel for="userConfirmPassword">#{messages['user.confirm']}</h:outputLabel>
-                        </td>
-                        <td>
-                            <h:panelGroup rendered="#{user.id == null}">
+                        <td><h:outputLabel for="userConfirmPassword">#{messages['user.confirm']}</h:outputLabel></td>
+                        <td><h:panelGroup rendered="#{user.id == null}">
                                 <h:inputSecret required="true" id="userConfirmPassword" value="#{user.confirmPassword}"
                                     styleClass="reg-table-input" />
                                 <h:outputText styleClass="required" value="*" />
-                            </h:panelGroup>
-                        </td>
-                        <td>
-                            <rich:messages for="userConfirmPassword" styleClass="required" />
-                        </td>
+                            </h:panelGroup></td>
+                        <td><rich:messages for="userConfirmPassword" styleClass="required" /></td>
                     </h:panelGroup>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <br />
-                    </td>
+                    <td colspan="2"><br /></td>
                 </tr>
                 <tr>
-                    <td>
-                        <h:outputLabel for="userFirstname">#{messages['user.firstname']}</h:outputLabel>
-                    </td>
-                    <td>
-                        <h:inputText id="userFirstname" value="#{user.firstName}" styleClass="reg-table-input" />
-                        <h:outputText styleClass="required" value="*" />
-                    </td>
-                    <td>
-                        <rich:messages for="userFirstname" styleClass="required" />
-                    </td>
+                    <td><h:outputLabel for="userFirstname">#{messages['user.firstname']}</h:outputLabel></td>
+                    <td><h:inputText id="userFirstname" value="#{authenticator.user.firstName}"
+                            styleClass="reg-table-input" /> <h:outputText styleClass="required" value="*" /></td>
+                    <td><rich:messages for="userFirstname" styleClass="required" /></td>
                 </tr>
                 <tr>
-                    <td>
-                        <h:outputLabel for="userSecondname">#{messages['user.secondname']}</h:outputLabel>
-                    </td>
-                    <td>
-                        <h:inputText id="userSecondname" value="#{user.secondName}" styleClass="reg-table-input" />
-                        <h:outputText styleClass="required" value="*" />
-                    </td>
-                    <td>
-                        <rich:messages for="userSecondname" styleClass="required" />
-                    </td>
+                    <td><h:outputLabel for="userSecondname">#{messages['user.secondname']}</h:outputLabel></td>
+                    <td><h:inputText id="userSecondname" value="#{authenticator.user.secondName}"
+                            styleClass="reg-table-input" /> <h:outputText styleClass="required" value="*" /></td>
+                    <td><rich:messages for="userSecondname" styleClass="required" /></td>
                 </tr>
                 <tr>
-                    <td>
-                        <h:outputLabel for="userSex">#{messages['user.sex']}</h:outputLabel>
-                    </td>
-                    <td>
-                        <h:panelGrid columns="2">
-                            <h:selectOneRadio required="true" id="userSex" value="#{user.sex}">
+                    <td><h:outputLabel for="userSex">#{messages['user.sex']}</h:outputLabel></td>
+                    <td><h:panelGrid columns="2">
+                            <h:selectOneRadio required="true" id="userSex" value="#{authenticator.user.sex}">
                                 <f:selectItems value="#{userPrefsHelper.sexs}" var="sex" itemValue="#{sex}" itemLabel="#{sex}" />
                                 <!-- TODO: format output -->
                                 <a4j:ajax event="click" execute="@this" render="avatar" />
                             </h:selectOneRadio>
-                        </h:panelGrid>
-                    </td>
-                    <td>
-                        <rich:messages for="userSex" styleClass="required" />
-                    </td>
+                        </h:panelGrid></td>
+                    <td><rich:messages for="userSex" styleClass="required" /></td>
                 </tr>
                 <tr>
-                    <td>
-                        <h:outputLabel for="userCalendar">#{messages['user.birthdate']}</h:outputLabel>
-                    </td>
-                    <td>
-                        <a4j:outputPanel id="userCalendar" layout="block">
-                            <rich:calendar id="userBirthDate" enableManualInput="true" value="#{user.birthDate}"
-                                cellWidth="24px" cellHeight="22px" inputClass="reg-table-input" datePattern="d/M/yyyy"
-                                defaultLabel="d/M/yyyy">
+                    <td><h:outputLabel for="userCalendar">#{messages['user.birthdate']}</h:outputLabel></td>
+                    <td><a4j:outputPanel id="userCalendar" layout="block">
+                            <rich:calendar id="userBirthDate" enableManualInput="true" value="#{authenticator.user.birthDate}"
+                                cellWidth="24px" cellHeight="22px" inputClass="reg-table-input">
                                 <rich:validator event="inputblur" />
                             </rich:calendar>
-                        </a4j:outputPanel>
-                    </td>
-                    <td>
-                        <rich:messages for="userBirthDate" styleClass="required" />
-                    </td>
+                        </a4j:outputPanel></td>
+                    <td><rich:messages for="userBirthDate" styleClass="required" /></td>
                 </tr>
                 <tr>
-                    <td>
-                        <h:outputLabel for="userEmail">#{messages['user.email']}</h:outputLabel>
-                    </td>
-                    <td>
-                        <h:inputText id="userEmail" value="#{user.email}" styleClass="reg-table-input" />
-                        <h:outputText styleClass="required" value="*" />
-                    </td>
-                    <td>
-                        <rich:messages for="userEmail" styleClass="required" />
-                        <a4j:commandLink rendered="#{help.isShowHelp()}"
-                            actionListener="#{help.navigateTo('/includes/help/validationHelp.xhtml')}"
-                            oncomplete="#{rich:component('helpPanel')}.show()" render="helpPanel" immediate="true">
-                            <h:panelGroup styleClass="image-scroller-right-arrow"
-                                style="cursor: hand; width: 34px; height:34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
-                                <h:graphicImage style="border:none;" border="0" height="34" width="34"
-                                    styleClass="ie6transparency" value="/img/icons/help_sign.png" />
-                            </h:panelGroup>
-                        </a4j:commandLink>
-                    </td>
+                    <td><h:outputLabel for="userEmail">#{messages['user.email']}</h:outputLabel></td>
+                    <td><h:inputText id="userEmail" value="#{authenticator.user.email}" styleClass="reg-table-input" /> <h:outputText
+                            styleClass="required" value="*" /></td>
+                    <td><rich:messages for="userEmail" styleClass="required" /> <ui:include
+                            src="/includes/help/button.xhtml">
+                            <ui:param name="page" value="validationHelp.xhtml" />
+                        </ui:include></td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <ui:insert name="controls" />
-                    </td>
+                    <td colspan="2"><ui:insert name="controls" /></td>
                 </tr>
             </table>
         </rich:graphValidator>

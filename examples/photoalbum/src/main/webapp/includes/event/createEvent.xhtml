@@ -21,18 +21,18 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.orgx">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
     <rich:popupPanel id="eventModalPanel" width="400" height="200" autosized="true" modal="true" domElementAttachment="form">
         <f:facet name="header">#{messages['add_shelf']}</f:facet>
 
         <f:facet name="controls">
             <h:panelGroup id="eventPanelHideControl">
-                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hidelink20"
+                <h:graphicImage value="resources/img/modal/close.png" style="cursor:pointer" id="hidelink20"
                     onclick="#{rich:component('eventModalPanel')}.hide()" />
             </h:panelGroup>
         </f:facet>
-
+        <rich:hotKey key="esc" onkeyup="#{rich:component('eventModalPanel')}.hide()" enabledInInput="true"/>
         <a4j:region id="eventform">
             <h:panelGroup id="eventPanel" width="100%" layout="block">
                 <a4j:region>
@@ -48,15 +48,18 @@
                             <h:panelGroup style="width: 115px" layout="block">
                                 <h:outputText value="Description:" />
                             </h:panelGroup>
-                            <h:inputTextarea id="eventDescription" value="#{eventManager.event.description}" style="width: 180px"
+                            <h:inputTextarea id="eventDescription" value="#{eventManager.event.description}"
+                                style="width: 180px"
                                 onkeydown="if (event.keyCode == 13) { jQuery(&quot; .shelf input[type='image']&quot;).click(); return false; }">
                             </h:inputTextarea>
                             <rich:message for="eventDescription" />
                             <h:panelGroup style="width: 115px" layout="block">
                                 <h:outputText value="Category:" />
                             </h:panelGroup>
-                            <rich:select id="eventCategory" value="#{eventManager.ecId}" required="true" requiredMessage="Please select a category">
-                                <f:selectItems value="#{eventManager.eventCategories}" var="cat" itemLabel="#{cat.description}" itemValue="#{cat.id}"/>
+                            <rich:select id="eventCategory" value="#{eventManager.ecId}" required="true"
+                                requiredMessage="Please select a category">
+                                <f:selectItems value="#{eventManager.eventCategories}" var="cat" itemLabel="#{cat.description}"
+                                    itemValue="#{cat.id}" />
                             </rich:select>
                             <rich:message for="eventCategory" />
                         </h:panelGrid>

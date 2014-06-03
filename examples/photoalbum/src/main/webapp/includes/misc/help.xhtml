@@ -21,25 +21,20 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
-    <h:outputStylesheet name="html.css" library="stylesheet/help" />
-    <h:outputStylesheet name="html-common.css" library="stylesheet/help" />
-    <h:outputStylesheet name="html-release.css" library="stylesheet/help" />
-    <h:outputStylesheet name="jbossorg.css" library="stylesheet/help" />
-    <rich:popupPanel id="helpPanel" width="1100" height="620" onshow="SyntaxHighlighter.highlight(this)">
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+        <h:outputStylesheet name="help.css" library="stylesheet" />
+    <rich:popupPanel id="helpPanel" width="1100" height="650" onshow="#{rich:component('helpPanel')}.cdiv.css('display','none').fadeIn(800); SyntaxHighlighter.highlight(this);">
         <f:facet name="header">
-            <h:graphicImage value="/img/icons/help_sign.png" />
-		#{messages['how_it_works']}</f:facet>
+            <h:graphicImage value="resources/img/icons/help_sign.png" />
+            #{messages['how_it_works']}</f:facet>
         <f:facet name="controls">
             <h:panelGroup>
-                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="hidelink8"
-                    onclick="#{rich:component('helpPanel')}.hide()" />
+                <h:graphicImage value="resources/img/modal/close.png" style="cursor:pointer" id="hidelink8"
+                                onclick="#{rich:component('helpPanel')}.hide()" />
             </h:panelGroup>
         </f:facet>
-
-        <!-- <rich:effect type="Appear" name="appearFunc" /> -->
-        <!-- not implemented in RF 4 -->
-
+        <rich:hotKey key="esc" onkeyup="#{rich:component('helpPanel')}.hide()"/>
         <h:panelGroup>
             <div style="height: 570px; padding-bottom: 10px; overflow-y: auto; overflow-x: hidden">
                 <ui:include src="#{help.getPage()}" />

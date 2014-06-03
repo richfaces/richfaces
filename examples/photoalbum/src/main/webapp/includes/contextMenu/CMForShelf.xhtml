@@ -21,12 +21,12 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.orgx">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
     <rich:contextMenu style="text-align:left;" rendered="#{controller.isUserShelf(shelf)}" mode="ajax" target="#{target}">
         <rich:menuItem label="#{messages['add_album']}" limitRender="true" render="albumModalPanel"
             data="#{albumManager.errorInCreate}" actionListener="#{albumManager.createAlbum(shelf, true)}"
-            oncomplete="if(!data)$('albumModalPanel').component.show()" />
+            oncomplete="if(!event.data)#{rich:component('albumModalPanel')}.show()" />
         <rich:menuItem label="#{messages['delete_shelf']}" limitRender="true"
             actionListener="#{confirmationPopupHelper.initShelfData(confirmationPopupHelper.deleteShelf,'Are You sure? All nested albums and images will also dropped! ',shelf)}"
             oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" />

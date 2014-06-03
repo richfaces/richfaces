@@ -31,22 +31,22 @@ import javax.inject.Named;
 
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
-import org.richfaces.photoalbum.domain.Album;
-import org.richfaces.photoalbum.domain.Event;
-import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.domain.Shelf;
-import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.event.AlbumEvent;
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.ImageEvent;
-import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.service.IAlbumAction;
-import org.richfaces.photoalbum.service.IEventAction;
-import org.richfaces.photoalbum.service.PhotoAlbumException;
+import org.richfaces.photoalbum.model.Album;
+import org.richfaces.photoalbum.model.Event;
+import org.richfaces.photoalbum.model.Image;
+import org.richfaces.photoalbum.model.Shelf;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.model.actions.IAlbumAction;
+import org.richfaces.photoalbum.model.actions.IEventAction;
+import org.richfaces.photoalbum.model.event.AlbumEvent;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.model.event.ImageEvent;
+import org.richfaces.photoalbum.util.Constants;
+import org.richfaces.photoalbum.util.PhotoAlbumException;
 import org.richfaces.photoalbum.util.Preferred;
-import org.richfaces.photoalbum.util.Utils;
+import org.richfaces.photoalbum.util.ApplicationUtils;
 
 @Named("dndManager")
 public class DnDManager implements DropListener {
@@ -75,7 +75,7 @@ public class DnDManager implements DropListener {
     javax.enterprise.event.Event<ImageEvent> imageEvent;
 
     /**
-     * Listenet, that invoked during drag'n'drop process. Only registered users can drag images.
+     * Listener, that is invoked during drag'n'drop process. Only registered users can drag images.
      *
      * @param event - event, indicated that drag'n'drop started
      */
@@ -117,7 +117,7 @@ public class DnDManager implements DropListener {
             return;
         }
         albumEvent.fire(new AlbumEvent(dragValue, pathOld));
-        Utils.addToRerender(Constants.TREE_ID);
+        ApplicationUtils.addToRerender(Constants.TREE_ID);
     }
 
     private void handleImage(Image dragValue, Album dropValue) {
@@ -133,7 +133,7 @@ public class DnDManager implements DropListener {
             return;
         }
         imageEvent.fire(new ImageEvent(dragValue, pathOld));
-        Utils.addToRerender(Constants.TREE_ID);
+        ApplicationUtils.addToRerender(Constants.TREE_ID);
     }
 
     public void addAlbumToEvent(DropEvent dropEvent) {

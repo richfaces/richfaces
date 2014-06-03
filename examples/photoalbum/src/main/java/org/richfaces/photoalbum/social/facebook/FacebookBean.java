@@ -29,7 +29,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import org.richfaces.json.JSONObject;
-import org.richfaces.photoalbum.util.ListUtils;
+import org.richfaces.photoalbum.util.converters.ListConverter;
 
 @Named
 @SessionScoped
@@ -49,11 +49,11 @@ public class FacebookBean implements Serializable {
     }
 
     public String getUserAlbumString() {
-        return ListUtils.sListToString(userAlbumIds);
+        return ListConverter.sListToString(userAlbumIds);
     }
 
     public void setAlbumIds(String ids) {
-        this.userAlbumIds = ListUtils.StringToSList(ids);
+        this.userAlbumIds = ListConverter.StringToSList(ids);
     }
 
     public JSONObject getUserInfo() {
@@ -62,5 +62,9 @@ public class FacebookBean implements Serializable {
 
     public void setUserInfo(JSONObject userInfo) {
         this.userInfo = userInfo;
+    }
+    
+    public String getUserId() {
+        return userInfo != null ? userInfo.optString("id", "1") : "1";
     }
 }

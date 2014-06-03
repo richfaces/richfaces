@@ -34,13 +34,17 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.SimpleEvent;
-import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.util.Utils;
+import org.richfaces.json.JSONObject;
+import org.richfaces.photoalbum.model.Image;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.model.event.SimpleEvent;
+import org.richfaces.photoalbum.social.facebook.FacebookAlbumCache;
+import org.richfaces.photoalbum.social.gplus.GooglePlusAlbumCache;
+import org.richfaces.photoalbum.util.Constants;
+import org.richfaces.photoalbum.util.ImageHandler;
+import org.richfaces.photoalbum.util.ApplicationUtils;
 
 @ApplicationScoped
 @Named("slideshow")
@@ -52,7 +56,7 @@ public class SlideshowManager implements Serializable {
 
     private Integer startSlideshowIndex;
 
-    private Image selectedImage;
+    private ImageHandler selectedImage;
 
     private boolean active;
 
@@ -63,6 +67,12 @@ public class SlideshowManager implements Serializable {
 
     @Inject
     FileManager fileManager;
+
+    @Inject
+    GooglePlusAlbumCache gpac;
+
+    @Inject
+    FacebookAlbumCache fac;
 
     @Inject
     @EventType(Events.ADD_ERROR_EVENT)
@@ -95,15 +105,17 @@ public class SlideshowManager implements Serializable {
         if (!this.active) {
             initSlideshow();
         }
-        if (model.getImages() == null || model.getImages().size() < 1) {
+        if (this.selectedImage == null && (model.getImages() == null || model.getImages().size() < 1)) {
             onError(true);
             return;
         }
         if (this.selectedImage == null) {
-            this.selectedImage = model.getImages().get(this.slideshowIndex);
+            this.selectedImage = new ImageHandler(model.getImages().get(this.slideshowIndex));
         }
         // mark image as 'visited'
-        this.selectedImage.setVisited(true);
+        if (this.selectedImage.getType() == ImageHandler.LOCAL) {
+            ((Image) this.selectedImage.getImage()).setVisited(true);
+        }
         // Check if that image was recently deleted. If yes, immediately stop slideshow process
         checkIsFileRecentlyDeleted();
     }
@@ -118,8 +130,36 @@ public class SlideshowManager implements Serializable {
         initSlideshow();
         this.slideshowIndex = model.getImages().indexOf(selectedImage);
         this.startSlideshowIndex = this.slideshowIndex;
-        this.selectedImage = selectedImage;
+        this.selectedImage = new ImageHandler(selectedImage);
 
+        startSlideshow();
+    }
+    
+    public void startSlideshow(JSONObject remoteImage) {
+        initSlideshow();
+        this.selectedImage = new ImageHandler(remoteImage);
+        switch(selectedImage.getType()) {
+            case ImageHandler.FACEBOOK:
+                this.slideshowIndex = fac.getCurrentImages().indexOf(remoteImage);
+                break;
+            case ImageHandler.GOOGLE:
+                this.slideshowIndex = gpac.getCurrentImages().indexOf(remoteImage);
+        }
+        this.startSlideshowIndex = this.slideshowIndex;
+
+        startSlideshow();
+    }
+    
+    public void startSlideshowRemote(int kind) {
+        this.slideshowIndex = this.startSlideshowIndex = 0;
+        switch(kind) {
+            case ImageHandler.FACEBOOK:
+                this.selectedImage = new ImageHandler(fac.getCurrentImages().get(0));
+                break;
+            case ImageHandler.GOOGLE:
+                this.selectedImage = new ImageHandler(gpac.getCurrentImages().get(0));
+        }
+        
         startSlideshow();
     }
 
@@ -148,12 +188,12 @@ public class SlideshowManager implements Serializable {
         this.slideshowIndex = slideshowIndex;
     }
 
-    public Image getSelectedImage() {
+    public ImageHandler getSelectedImage() {
         return selectedImage;
     }
 
     public void setSelectedImage(Image selectedImage) {
-        this.selectedImage = selectedImage;
+        this.selectedImage.setImage(selectedImage);
     }
 
     /**
@@ -166,7 +206,7 @@ public class SlideshowManager implements Serializable {
             return;
         }
         // reset index if we reached last image
-        if (slideshowIndex == model.getImages().size() - 1) {
+        if (isLastImage()) {
             slideshowIndex = -1;
         }
         slideshowIndex++;
@@ -175,11 +215,37 @@ public class SlideshowManager implements Serializable {
             onError(false);
             return;
         }
-        selectedImage = model.getImages().get(slideshowIndex);
-        // mark image as 'visited'
-        this.selectedImage.setVisited(true);
+        setNextImage();
         // Check if that image was recently deleted. If yes, stopping slideshow
         checkIsFileRecentlyDeleted();
+    }
+    
+    private boolean isLastImage() {
+        switch(selectedImage.getType()) {
+            case ImageHandler.LOCAL: 
+                return slideshowIndex == model.getImages().size() - 1;
+            case ImageHandler.FACEBOOK:
+                return slideshowIndex == fac.getCurrentImages().size() - 1;
+            case ImageHandler.GOOGLE:
+                return slideshowIndex == gpac.getCurrentImages().size() - 1;
+            default:
+                return true;
+        }
+    }
+    
+    private void setNextImage() {
+        switch(selectedImage.getType()) {
+            case ImageHandler.LOCAL: 
+                selectedImage.setImage(model.getImages().get(slideshowIndex));
+                ((Image) this.selectedImage.getImage()).setVisited(true);
+                break;
+            case ImageHandler.FACEBOOK:
+                selectedImage.setImage(fac.getCurrentImages().get(slideshowIndex));
+                break;
+            case ImageHandler.GOOGLE:
+                selectedImage.setImage(gpac.getCurrentImages().get(slideshowIndex));
+                break;
+        }
     }
 
     public Integer getStartSlideshowIndex() {
@@ -208,7 +274,7 @@ public class SlideshowManager implements Serializable {
     private void onError(boolean isShowOnUI) {
         stopSlideshow();
         errorDetected = true;
-        Utils.addToRerender(Constants.MAINAREA_ID);
+        ApplicationUtils.addToRerender(Constants.MAINAREA_ID);
         if (isShowOnUI) {
             error.fire(new ErrorEvent(Constants.NO_IMAGES_FOR_SLIDESHOW_ERROR));
         }
@@ -216,13 +282,19 @@ public class SlideshowManager implements Serializable {
     }
 
     private void checkIsFileRecentlyDeleted() {
-        if (!fileManager.isFilePresent(this.selectedImage.getFullPath())) {
+        if (!selectedImage.isLocalImage()) {
+            return;
+        }
+
+        Image image = (Image) selectedImage.getImage();
+
+        if (!fileManager.isFilePresent(image.getFullPath())) {
             error.fire(new ErrorEvent(Constants.IMAGE_RECENTLY_DELETED_ERROR));
             active = false;
             errorDetected = true;
-            Utils.addToRerender(Constants.MAINAREA_ID);
-            model.resetModel(NavigationEnum.ALBUM_IMAGE_PREVIEW, this.selectedImage.getAlbum().getOwner(), this.selectedImage
-                .getAlbum().getShelf(), this.selectedImage.getAlbum(), null, this.selectedImage.getAlbum().getImages());
+            ApplicationUtils.addToRerender(Constants.MAINAREA_ID);
+            model.resetModel(NavigationEnum.ALBUM_IMAGE_PREVIEW, image.getAlbum().getOwner(), image.getAlbum().getShelf(),
+                image.getAlbum(), null, image.getAlbum().getImages());
             return;
         }
     }

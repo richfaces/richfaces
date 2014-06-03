@@ -25,7 +25,7 @@
     font-size: 11px;
 }
 
-html,body {
+html, body {
     height: 100% !important;
     margin: 0px !important;
     padding: 0px !important;
@@ -40,7 +40,7 @@ html,body {
     height: 116px !important;
     border: none !important;
     padding: 0px !important;
-    background: url(../img/shell/page_bg.gif) repeat-x #D7D7D7 !important;
+    background: url(../resources/img/shell/page_bg.gif) repeat-x #D7D7D7 !important;
 }
 
 .header-panel-body {
@@ -61,7 +61,7 @@ html,body {
 }
 
 .user-info-div table tr {
-	vertical-align: middle;
+    vertical-align: middle;
 }
 
 .top-right-menu {
@@ -96,7 +96,7 @@ html,body {
     position: relative;
     border: none !important;
     padding: 0px !important;
-    background: url(../img/shell/general_panelbar_bg.gif) repeat-x #A84807 !important;
+    background: url(../resources/img/shell/general_panelbar_bg.gif) repeat-x #A84807 !important;
 }
 
 .main-menu-panel-body {
@@ -105,11 +105,11 @@ html,body {
 }
 
 .body-main-bg {
-    background: url(../img/shell/general_panel_bg.gif) right top repeat-y !important;
+    background: url(../resources/img/shell/general_panel_bg.gif) right top repeat-y !important;
 }
 
 .main-panel {
-    background: url(../img/shell/panel_bg.gif) right top !important;
+    background: url(../resources/img/shell/panel_bg.gif) right top !important;
 }
 
 .body-main-panel {
@@ -120,7 +120,7 @@ html,body {
 }
 
 .panel-header-bg {
-    background: url(../img/shell/general_panel_header_bg.gif) repeat-x right top !important;
+    background: url(../resources/img/shell/general_panel_header_bg.gif) repeat-x right top !important;
 }
 
 .body-main-panel-header {
@@ -130,21 +130,15 @@ html,body {
     border: none !important;
 }
 
-.avatarUpload .file-upload-stop-button {
-    display: none;
+.avatarUpload .file-upload-stop-button, .avatarUpload .rf-fu-btn-clr {
+    display: none !important;
 }
 
-.file-upload-button {
-    background: #B34801 !important;
-    color: #FFFFFF !important;
-    border: 1px solid #888888 !important;
-}
-
-.avatarUpload .rich-fileupload-ico { /* no direct alternative in RF 4 */
+.avatarUpload .rich-fileupload-ico {/* no direct alternative in RF 4 */
     padding-left: 7px !important;
 }
 
-.avatarUpload .rich-fileupload-toolbar-decor { /* no alt. */
+.avatarUpload .rich-fileupload-toolbar-decor {/* no alt. */
     width: 100% !important;
     background-color: #D7D7D7 !important;
     border-bottom: 0px !important;
@@ -153,7 +147,7 @@ html,body {
     padding: 0px !important;
 }
 
-.avatarUpload .rich-fileupload-ico-add { /* no alt. */
+.avatarUpload .rich-fileupload-ico-add {/* no alt. */
     background-image: none !important;
 }
 
@@ -162,7 +156,7 @@ html,body {
     margin: 0px !important;
 }
 
-.avatarUpload .rich-fileupload-list-decor { /* no alt. */
+.avatarUpload .rich-fileupload-list-decor {/* no alt. */
     width: 100% !important;
     background-color: D7D7D7 !important;
     border-bottom: 0px !important;
@@ -179,7 +173,7 @@ html,body {
 }
 
 /*.avatarUpload .rich-fileupload-button*/
-.avatarUpload .rf-fu-btn-add,.avatarUpload .rf-fu-btn-upl,.avatarUpload .rf-fu-btn-clr {
+.avatarUpload .rf-fu-btn-add, .avatarUpload .rf-fu-btn-upl, .avatarUpload .rf-fu-btn-clr {
     padding: 0px !important;
     background: #B34801 !important;
     border: 1px solid #888888 !important;
@@ -188,7 +182,7 @@ html,body {
 .footer-panel {
     height: 82px !important;
     position: relative;
-    background: url(../img/shell/footer_bg.gif) repeat-x #000000 !important;
+    background: url(../resources/img/shell/footer_bg.gif) repeat-x #000000 !important;
     border: none !important;
     padding: 0px !important;
 }
@@ -259,7 +253,7 @@ html,body {
     width: 400px !important;
 }
 
-input[type='submit'],input[type='button'],button {
+input[type='submit'], input[type='button'], button {
     background: #414141 !important;
     color: white !important;
     margin: 5px !important;
@@ -286,7 +280,7 @@ input[type='submit'],input[type='button'],button {
 
 .slider-image {
     opacity: 0.1;
-    filter: opacity=10;
+    filter: opacity =10;
 }
 
 .all-images {
@@ -357,7 +351,7 @@ img.errors {
     overflow: auto;
 }
 
-.richfaces-status {
+.a4j-status {
     border: 1px solid white !important;
     padding: 5px !important;
     position: absolute;
@@ -368,6 +362,21 @@ img.errors {
 
 a {
     color: #DF6400 !important;
+}
+
+.description a {
+    color: black !important;
+    text-decoration: underline;
+}
+
+a h2, h2 {
+    color: black;
+    text-decoration: underline;
+    margin-bottom: 2px;
+}
+
+h2 {
+    text-decoration: none;
 }
 
 h1 {
@@ -764,30 +773,54 @@ h1 {
     cursor: pointer;
 }
 
-.image-scroller { /*	position: relative;
-	top: 0;
-	left: 0; 
-	width: 100% !important;*/
+.imageLink {
+    overflow: hidden;
+    display: inline-block;
+}
+
+.preview_box_photo_80 .imageLink {
+    max-height: 90px !important;
+}
+
+.preview_box_photo_120 .imageLink {
+    max-height: 130px !important;
+}
+
+.preview_box_photo_160 .imageLink {
+    max-height: 170px !important;
+}
+
+.preview_box_photo_200 .imageLink {
+    max-height: 210px !important;
+}
+
+.image-scroller {
     clear: both;
 }
 
-.image-scroller,.image-scroller * {
+.image-scroller, .image-scroller * {
     border-style: none !important;
     background-color: transparent !important;
 }
 
 .image-scroller-left-arrow {
     position: absolute;
-    top: 80px;
-    left: -35px;
+    top: 40px;
+    left: -60px;
     z-index: 2;
 }
 
 .image-scroller-right-arrow {
     position: absolute;
-    top: 80px;
-    right: -33px;
+    top: 40px;
+    right: -60px;
     z-index: 2;
+}
+
+span.image-scroller {
+    top: -20px;
+    display: block;
+    position: absolute;
 }
 
 .search-div {
@@ -824,7 +857,7 @@ h1 {
 
 .search-input {
     border: 0px none !important;
-    background: transparent url(../img/spacer.gif) repeat scroll 0% 0% !important;
+    background: transparent url('../resources/img/spacer.gif') repeat scroll 0% 0% !important;
     width: 176px !important;
     height: 17px !important;
     position: absolute;
@@ -1033,7 +1066,7 @@ h1 {
     position: relative;
     width: 103px !important;
     height: 28px !important;
-    background-image: url(../img/shell/button.png);
+    background-image: url('../resources/img/shell/button.png');
 }
 
 .buttons-body-image {
@@ -1134,7 +1167,7 @@ h1 {
 .main-menu-icons-middle-div {
     height: 23px !important;
     float: left;
-    background: url(../img/shell/informer_bg.png) top left no-repeat !important;
+    background: url(../resources/img/shell/informer_bg.png) top left no-repeat !important;
     color: #FFFFFF !important;
     padding: 4px 0px 0px 0px !important;
 }
@@ -1220,8 +1253,8 @@ h1 {
 }
 
 .top-right-bottom-menu-item > *, .top-right-bottom-menu-item-link > * {
-	display: inline-block;
-	vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .top-right-bottom-menu-item-link a {
@@ -1243,11 +1276,11 @@ h1 {
     width: 103px !important;
     height: 28px !important;
     cursor: pointer;
-    background-image: url(../img/shell/button.png);
+    background-image: url('../resources/img/shell/button.png');
     background-position: 0 0;
 }
 
-.photoalbumButton input,.photoalbumButton img {
+.photoalbumButton input, .photoalbumButton img {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -1367,7 +1400,7 @@ h1 {
     font-weight: bold;
 }
 
-.slideshow-table { /* images have max dimension 600 + 25 reserved for borders etc */
+.slideshow-table {/* images have max dimension 600 + 25 reserved for borders etc */
     width: 625px !important;
     height: 625px !important;
 }
@@ -1389,7 +1422,7 @@ h1 {
 }
 
 .ie6transparency {
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0 );
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
 }
 
 /* dragIndicator */
@@ -1410,7 +1443,7 @@ h1 {
 }
 
 /* tree */
-.rf-trn,.rf-tr-nd {
+.rf-trn, .rf-tr-nd {
     background: none !important;
     /* don't show connecting lines in the tree */
 }
@@ -1426,16 +1459,16 @@ h1 {
 .rf-trn-ico {
     width: auto !important;
     height: auto !important;
-    cursor: hand !important;
+    cursor: pointer !important;
     display: inline-block;
 }
 
 .rf-trn-hnd-colps {
-    background: url(../img/shell/tree_icon_plus.png) no-repeat center !important;
+    background: url(../resources/img/shell/tree_icon_plus.png) no-repeat center !important;
 }
 
 .rf-trn-hnd-exp {
-    background: url(../img/shell/tree_icon_minus.png) no-repeat center !important;
+    background: url(../resources/img/shell/tree_icon_minus.png) no-repeat center !important;
 }
 
 .rf-trn-lbl:hover {
@@ -1448,84 +1481,135 @@ h1 {
 }
 
 /* calendar */
-
 #calendar .rf-cal-c {
     width: 24px;
     height: 22px;
 }
 
-/* scroller */
+.inplaceInput .rf-ii-lbl, .inplaceInput .rf-ii-fld {
+    font-size: 175% !important;
+}
 
-.rf-ds {
-	/* hide page counter */
-	display: none !important;
+.searchFor {
+    white-space: nowrap;
 }
 
 /*  messages */
 
-	/* container  */
+/* container  */
 .photoalbum-message {
-	padding: 10px;
+    padding: 10px;
 }
 
 .photoalbum-message.rf-ntf-err .rf-ntf-ico {
-	background-image: url(../img/modal/ico_warning.png) !important;
-	background-size: 18px 29px;
+    background-image: url(../resources/img/modal/ico_warning.png) !important;
+    background-size: 18px 29px;
 }
 
-	/* summary heading */
+/* summary heading */
 .photoalbum-message .rf-ntf-sum {
-	font-size: 14px !important;
+    font-size: 14px !important;
 }
-	
-	/* detail */
+
+/* detail */
 .photoalbum-message .rf-ntf-det {
-	font-size: 12px !important;
+    font-size: 12px !important;
 }
 
 /* FB button */
-
 input[type='submit'].fb-button {
-	border-color: #3b5998 !important;
-	background-color: #8b9dc3 !important;
-	color: #f7f7f7 !important;
-	font-weight: bold;
+    border-color: #3b5998 !important;
+    background-color: #8b9dc3 !important;
+    color: #f7f7f7 !important;
+    font-weight: bold;
 }
 
 .fb-comm-button {
-	background-image: url(../img/shell/buttonfb.png);
-	font-weight: bold;
+    background-image: url(../resources/img/shell/buttonfb.png);
+    font-weight: bold;
+}
+
+.fb-pb {
+    clear: both;
 }
 
 .fb-pb > .rf-pb-rmng {
-	max-width: 100px;
+    max-width: 100px;
+    border-style: none;
+    background: none;
 }
 
 /* small buttons */
+.FB-btn-medium, .G-btn-medium {
+    display: block;
+    height: 32px;
+    width: 32px;
+    float: left;
+    margin: 0px 4px;
+}
 
 .FB-btn-small, .G-btn-small {
-	display: block;
-	height: 32px;
-	width: 32px;
-	float: left;
-	margin: 0px 4px;
+    display: block;
+    height: 16px;
+    width: 16px;
+    float: left;
+    margin: 0px 4px;
+}
+
+.FB-btn-medium {
+    background-image: url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yx/r/j_i0CTUUUEe.png);
+    background-position: -6px -4px;
+}
+
+.G-btn-medium {
+    background-image: url(http://ssl.gstatic.com/images/icons/gplus-32.png);
 }
 
 .FB-btn-small {
-	background-image: url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yx/r/j_i0CTUUUEe.png);
-	background-position: -6px -4px;
+    background-image: url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yx/r/j_i0CTUUUEe.png);
+    background-position: -20px -180px;
 }
 
 .G-btn-small {
-	background-image: url(http://ssl.gstatic.com/images/icons/gplus-32.png);
+    background-image: url(http://ssl.gstatic.com/images/icons/gplus-16.png);
+}
+
+input.FB-text-button {
+    color: white;
+    background-color: #3B5998 !important;
+    border-width: 0px;
+    cursor: pointer;
+}
+
+input.G-text-button {
+    color: white;
+    background-color: #dd4b39 !important;
+    border-width: 0px;
+    cursor: pointer;
 }
 
 /* disabled buttons */
-span.FB-btn-small, span.G-btn-small {
-	-moz-filter: grayscale(100%);
-	-webkit-filter: grayscale(100%);
-	-moz-filter: grayscale(100%);
-	-ms-filter: grayscale(100%);
-	-o-filter: grayscale(100%);
-	filter: grayscale(100%);
+span.FB-btn-small, span.G-btn-small, span.G-btn-medium, span.FB-btn-medium {
+    -moz-filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.G-text-button[disabled], .FB-text-button[disabled] {
+    cursor: default;
+}
+
+*.rf-ds-dis {
+    color: #f7d7d7 !important;
+}
+
+a.rf-ds-btn {
+    color: darkslategray !important;
+}
+
+.tree {
+    margin-left: 10px;
 }

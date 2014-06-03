@@ -32,14 +32,14 @@ import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
-import org.richfaces.photoalbum.domain.Album;
-import org.richfaces.photoalbum.domain.Event;
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
 import org.richfaces.photoalbum.manager.FileDownloadManager;
-import org.richfaces.photoalbum.service.IEventAction;
-import org.richfaces.photoalbum.service.PhotoAlbumException;
+import org.richfaces.photoalbum.model.Album;
+import org.richfaces.photoalbum.model.Event;
+import org.richfaces.photoalbum.model.actions.IEventAction;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.util.PhotoAlbumException;
 
 @Named("gDndManager")
 @SessionScoped

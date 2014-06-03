@@ -26,30 +26,30 @@
             <div>
                 <div>
                     <h2 class="title">
-                        The <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span>
+                        The <strong><span class="property">&lt;a4j:status&gt;</span></strong>
                         component
                     </h2>
                 </div>
             </div>
         </div>
         <p>
-            <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span> is a component, designed
+            <strong><span class="property">&lt;a4j:status&gt;</span></strong> is a component, designed
             to create some visual effect during Ajax request. The comportment is usually attached to a certain request, which
             implies time consuming processing, so that the end user is aware the page is not hung up, it's responding to her
             actions: the user sees the processing progress (the component is frequently used to indicate file uploading
             process).
         </p>
         <p>
-            However, in the Photo Album application the <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span>
+            However, in the Photo Album application the <strong><span class="property">&lt;a4j:status&gt;</span></strong>
             component is triggered on any Ajax request: to demonstrate the component itself and partially to display for the
             user that on every click on a link or a button something is happening, as all actions in the application occur on a
             single page which is not typical for usual web-workflow, when on each action the user navigates to a new page.
         </p>
         <p>
-            By default, <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span> works for
+            By default, <strong><span class="property">&lt;a4j:status&gt;</span></strong> works for
             each Ajax components inside the local region. This means if you have no region defined on the page (the whole view
-            is a region) and have only one <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span>
-            on the page, the <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span> will be
+            is a region) and have only one <strong><span class="property">&lt;a4j:status&gt;</span></strong>
+            on the page, the <strong><span class="property">&lt;a4j:status&gt;</span></strong> will be
             activated during Ajax request by any of the Ajax component located on the page.
         </p>
         <p>
@@ -72,28 +72,27 @@
         <p>Hence the default behavior of the component meets that application's requirements: the component is shown on
             every single Ajax request.</p>
         <p>
-            This is the page with the <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span>
+            This is the page with the <strong><span class="property">&lt;a4j:status&gt;</span></strong>
             component:
         </p>
         <pre class="brush: xml, gutter: false">
             &lt;ui:composition xmlns=&quot;http://www.w3.org/1999/xhtml&quot; … &gt;
                     …
-                &lt;a4j:status layout=&quot;block&quot; startStyle=&quot;height: 52px; width: 79px; position: absolute; top: 0px; left: 278px;&quot;&gt;
-                    &lt;f:facet name=&quot;start&quot;&gt;
-                        &lt;h:panelGroup&gt;
-                            &lt;h:panelGroup
-                                style=&quot;position: absolute; top: 0px; left: 0px; width: 52px; height:79px; display: inline-block;
-                                     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/ai.png',sizingMethod='scale');&quot;&gt;
-                                &lt;h:graphicImage styleClass=&quot;ie6transparency&quot; height=&quot;79&quot; width=&quot;52&quot; alt=&quot;&quot; value=&quot;img/shell/ai.png&quot;
-                                    border=&quot;0&quot; /&gt;
-                            &lt;/h:panelGroup&gt;
-                            &lt;h:panelGroup
-                                style=&quot;position: absolute; top: 26px; left: 13px; display: inline-block; height: 26px; width: 26px;&quot;&gt;
-                                &lt;h:graphicImage height=&quot;26&quot; width=&quot;26&quot; alt=&quot;&quot; value=&quot;img/shell/ai.gif&quot; border=&quot;0&quot; /&gt;
-                            &lt;/h:panelGroup&gt;
-                        &lt;/h:panelGroup&gt;
-                    &lt;/f:facet&gt;
-                &lt;/a4j:status&gt;
+              &lt;a4j:status layout=&quot;block&quot; startStyle=&quot;height: 52px; width: 79px; position: absolute; top: 0px; left: 278px;&quot;&gt;
+                &lt;f:facet name=&quot;start&quot;&gt;
+                  &lt;h:panelGroup&gt;
+                    &lt;h:panelGroup style=&quot;position: absolute; top: 0px; left: 0px; width: 52px; height:79px; display: inline-block;
+                        filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='resources/img/shell/ai.png',sizingMethod='scale');&quot;&gt;
+                      &lt;h:graphicImage styleClass=&quot;ie6transparency&quot; height=&quot;79&quot; width=&quot;52&quot; alt=&quot;&quot; value=&quot;resources/img/shell/ai.png&quot;
+                          border=&quot;0&quot; /&gt;
+                    &lt;/h:panelGroup&gt;
+                    &lt;h:panelGroup
+                        style=&quot;position: absolute; top: 26px; left: 13px; display: inline-block; height: 26px; width: 26px;&quot;&gt;
+                      &lt;h:graphicImage height=&quot;26&quot; width=&quot;26&quot; alt=&quot;&quot; value=&quot;resources/img/shell/ai.gif&quot; border=&quot;0&quot; /&gt;
+                    &lt;/h:panelGroup&gt;
+                  &lt;/h:panelGroup&gt;
+                &lt;/f:facet&gt;
+              &lt;/a4j:status&gt;
             &lt;/ui:composition&gt;
         </pre>
         <p>
@@ -115,11 +114,11 @@
             which is just an image (you can insert any image you like).
         </p>
         <p>
-            If you would like to get more details about the <span class="bold"><strong><span class="property">&lt;a4j:status&gt;</span></strong></span>
+            If you would like to get more details about the <strong><span class="property">&lt;a4j:status&gt;</span></strong>
             please visit <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                 href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=status">Showcase</a> web page and <a
                 target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
-                href="http://docs.jboss.org/richfaces/latest_5_X/Component_Reference/en-US/html/chap-Component_Reference-Processing_management.html#sect-Component_Reference-Processing_management-status">RichFaces
+                href="http://docs.jboss.org/richfaces/latest_4_3_X/Component_Reference/en-US/html/chap-Component_Reference-Processing_management.html#sect-Component_Reference-Processing_management-a4jstatus">RichFaces
                 Developer Guide</a>.
         </p>
     </div>

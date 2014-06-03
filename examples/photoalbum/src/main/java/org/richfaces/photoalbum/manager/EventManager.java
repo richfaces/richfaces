@@ -24,25 +24,26 @@ package org.richfaces.photoalbum.manager;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.jboss.solder.logging.Logger;
-import org.richfaces.photoalbum.domain.Event;
-import org.richfaces.photoalbum.domain.EventCategory;
-import org.richfaces.photoalbum.domain.Shelf;
-import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.EventTypeQualifier;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.ShelfEvent;
-import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.service.IEventAction;
-import org.richfaces.photoalbum.service.IShelfAction;
+import org.richfaces.photoalbum.model.Event;
+import org.richfaces.photoalbum.model.EventCategory;
+import org.richfaces.photoalbum.model.Shelf;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.model.actions.IEventAction;
+import org.richfaces.photoalbum.model.actions.IShelfAction;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.EventTypeQualifier;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.model.event.ShelfEvent;
+import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.Preferred;
 
 @Named
@@ -102,7 +103,7 @@ public class EventManager implements Serializable {
             return;
         }
         validationSuccess = true;
-        Logger logger = Logger.getLogger(EventManager.class);
+        Logger logger = Logger.getLogger("EventManager");
 
         try {
             EventCategory ec = eventAction.getEventCategoryById(ecId);
@@ -118,7 +119,7 @@ public class EventManager implements Serializable {
             shelfAction.addShelf(newShelf);
         } catch (Exception e) {
             error.fire(new ErrorEvent("Error", Constants.EVENT_SAVING_ERROR + " <br /> " + e.getMessage()));
-            logger.error("exception occured", e);
+            logger.log(Level.SEVERE, "exception occured", e);
             return;
         }
         shelfEvent.select(new EventTypeQualifier(Events.EVENT_ADDED_EVENT)).fire(new ShelfEvent(newEvent));

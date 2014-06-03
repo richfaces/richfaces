@@ -22,22 +22,23 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
-    xmlns:richx="http://richfaces.orgx">
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich" xmlns:richx="http://richfaces.org/richx">
 
     <ui:include src="/includes/image/inputNumberSlider.xhtml">
         <ui:param name="size" value="#{fn:length(model.images)}" />
         <ui:param name="renderArea" value="userAlbumImages" />
     </ui:include>
 
-    <rich:dataScroller rendered="#{fn:length(model.images) > 20}" for="imageList" render="userAlbumImages" />
+    <rich:dataScroller rendered="#{fn:length(model.images) > 12}" for="imageList" render="userAlbumImages" />
 
     <h:panelGroup layout="block" style="margin : 30px 0px 0px 0px;">
-        <h:panelGroup layout="block" style="float : right; cursor : pointer">
+        <h:panelGroup layout="block" style="float : left; cursor : pointer">
             <a4j:commandLink rendered="#{fn:length(model.images) > 0}" actionListener="#{slideshow.startSlideshow()}"
-                styleClass="slideshow-link" render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
-                <h:graphicImage value="/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
-                    style="vertical-align : bottom; margin-right : 5px; border:0;" />
+                             styleClass="slideshow-link" render="slideShowModalPanel" execute="@this, slideShowModalPanel"
+                             oncomplete="#{rich:component('slideShowModalPanel')}.show()">
+                <h:graphicImage value="resources/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
+                                style="vertical-align : bottom; margin-right : 5px; border:0;" />
                 <h:outputText value="#{messages['slideshow.start']}" />
             </a4j:commandLink>
 
@@ -48,19 +49,20 @@
     <br />
 
     <h:panelGroup id="userAlbumImages">
-        <a4j:repeat id="imageList" value="#{model.images}" var="image" rows="20">
+        <a4j:repeat id="imageList" value="#{model.images}" var="image" rows="12" rowKeyVar="rk">
             <h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
                 <h:graphicImage styleClass="pr_photo_bg" style="#{imageSizeHelper.currentDimension.imageBgStyle}"
-                    value="#{imageSizeHelper.currentDimension.imageBg}" />
+                                value="#{imageSizeHelper.currentDimension.imageBg}" />
                 <h:panelGrid cellpadding="0">
                     <h:panelGroup>
-                        <a4j:commandLink actionListener="#{controller.showImage(image)}" render="mainArea, treePanel">
+                        <a4j:commandLink actionListener="#{controller.showImage(image)}" onclick="select(':#{rk}:img');"
+                                         render="mainArea, treePanel" styleClass="imageLink">
                             <a4j:mediaOutput id="img" element="img" createContent="#{imageLoader.paintImage}"
-                                style="border : 1px solid #FFFFFF;" mimeType="image/jpeg"
-                                value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}">
+                                             style="border : 1px solid #FFFFFF;" mimeType="image/jpeg"
+                                             value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}">
                                 <f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
                                 <rich:dragSource rendered="#{controller.isUserImage(image)}" render="mainArea, treePanel"
-                                    id="dragSource" dragIndicator="iDragIndicator" type="image" dragValue="#{image}" />
+                                                 id="dragSource" dragIndicator="iDragIndicator" type="image" dragValue="#{image}" />
                             </a4j:mediaOutput>
                         </a4j:commandLink>
                         <br />

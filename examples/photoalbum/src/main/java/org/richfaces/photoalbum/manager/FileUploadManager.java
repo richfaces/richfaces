@@ -37,18 +37,18 @@ import javax.inject.Named;
 
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
-import org.richfaces.photoalbum.domain.Album;
-import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.ImageEvent;
-import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.service.IImageAction;
-import org.richfaces.photoalbum.service.PhotoAlbumException;
+import org.richfaces.photoalbum.model.Album;
+import org.richfaces.photoalbum.model.Image;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.model.actions.IImageAction;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.model.event.ImageEvent;
 import org.richfaces.photoalbum.ui.FileWrapper;
+import org.richfaces.photoalbum.util.Constants;
 import org.richfaces.photoalbum.util.FileHandler;
+import org.richfaces.photoalbum.util.PhotoAlbumException;
 import org.richfaces.photoalbum.util.Preferred;
 
 import com.drew.imaging.jpeg.JpegMetadataReader;
@@ -158,7 +158,7 @@ public class FileUploadManager implements Serializable {
         // Delete temporary file
         try {
             fileHandler.delete();
-        } catch (IOException ioe) {
+        } catch (Exception ioe) {
             log.log(Level.INFO, "error", ioe);
             addError(image, "Error deleting file - " + ioe.getMessage());
         }
@@ -175,7 +175,7 @@ public class FileUploadManager implements Serializable {
         addError(image, error);
         try {
             fileHandler.delete();
-        } catch (IOException e) {
+        } catch (Exception e) {
             addError(image, e.getMessage());
         }
     }
@@ -207,14 +207,18 @@ public class FileUploadManager implements Serializable {
         try {
             in = fileHandler.getInputStream();
             Metadata metadata = JpegMetadataReader.readMetadata(in);
-            Directory exifDirectory = metadata.getDirectory(ExifIFD0Directory.class);
+            in.close();
+            Directory exifIFD0Directory = metadata.getDirectory(ExifIFD0Directory.class);
+            Directory exifSubIFDDirectory = metadata.getDirectory(ExifSubIFDDirectory.class);
             Directory jpgDirectory = metadata.getDirectory(JpegDirectory.class);
-            if (exifDirectory != null) {
-                setupCameraModel(image, exifDirectory);
-                setupCreatedDate(image, exifDirectory);
-                if (jpgDirectory != null) {
-                    setupDimensions(image, exifDirectory, jpgDirectory);
-                }
+            if (exifIFD0Directory != null) {
+                setupCameraModel(image, exifIFD0Directory);
+            }
+            if (exifSubIFDDirectory != null) {
+                setupCreatedDate(image, exifSubIFDDirectory);
+            }
+            if (jpgDirectory != null) {
+                setupDimensions(image, exifSubIFDDirectory, jpgDirectory);
             }
         } catch (Exception e) {
             addError(fileHandler, image, Constants.IMAGE_SAVING_ERROR);
@@ -236,7 +240,7 @@ public class FileUploadManager implements Serializable {
 
     private void setupDimensions(Image image, Directory exifDirectory, Directory jpgDirectory) {
         try {
-            if (exifDirectory.containsTag(ExifSubIFDDirectory.TAG_EXIF_IMAGE_WIDTH)
+            if (exifDirectory != null && exifDirectory.containsTag(ExifSubIFDDirectory.TAG_EXIF_IMAGE_WIDTH)
                 && exifDirectory.containsTag(ExifSubIFDDirectory.TAG_EXIF_IMAGE_HEIGHT)) {
                 int width = exifDirectory.getInt(ExifSubIFDDirectory.TAG_EXIF_IMAGE_WIDTH);
                 image.setWidth(width);

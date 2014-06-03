@@ -45,9 +45,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
-import org.richfaces.photoalbum.domain.Event;
 import org.richfaces.photoalbum.manager.EventManager;
-import org.richfaces.photoalbum.service.IEventAction;
+import org.richfaces.photoalbum.model.Event;
+import org.richfaces.photoalbum.model.actions.IEventAction;
 
 @Path("/events")
 @RequestScoped

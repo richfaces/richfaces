@@ -35,9 +35,9 @@ import javax.inject.Named;
 import org.richfaces.json.JSONArray;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONObject;
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
 
 @Named
 @ApplicationScoped
@@ -64,25 +64,41 @@ public class FacebookAlbumCache {
                 return;
             }
 
-            storeAlbums(jo.getJSONArray("albums"));
+            storeAlbums(jo.getJSONArray("albums"), jo.getJSONArray("covers"));
             storeImagesToAlbum(jo.getJSONArray("images"));
-            setNeedsUpdate(true);
+            setNeedsUpdate(false);
         } catch (JSONException e) {
             error.fire(new ErrorEvent("Error: ", e.getMessage()));
         }
     }
 
-    public void storeAlbums(JSONArray ja) {
-        storeAlbums(ja, false);
+    public void setAlbums(String json) {
+        try {
+            JSONObject jo = new JSONObject(json);
+            if (!jo.has("albums")) {
+                return;
+            }
+
+            storeAlbums(jo.getJSONArray("albums"), jo.getJSONArray("covers"));
+        } catch (JSONException e) {
+            error.fire(new ErrorEvent("Error: ", e.getMessage()));
+        }
     }
 
-    public void storeAlbums(JSONArray ja, boolean rewrite) {
+    public void storeAlbums(JSONArray jAlbums, JSONArray jCovers) {
+        storeAlbums(jAlbums, jCovers, false);
+    }
+
+    public void storeAlbums(JSONArray jAlbums, JSONArray jCovers, boolean rewrite) {
         String albumId;
         JSONObject jo;
+        JSONObject jc;
+        int offset = 0;
 
         try {
-            for (int i = 0; i < ja.length(); i++) {
-                jo = ja.getJSONObject(i);
+            for (int i = 0; i < jAlbums.length(); i++) {
+                jo = jAlbums.getJSONObject(i);
+                jc = jCovers.getJSONObject(i - offset);
 
                 if (!jo.has("id")) {
                     error.fire(new ErrorEvent("Error, object does not contain albums"));
@@ -90,13 +106,21 @@ public class FacebookAlbumCache {
 
                 albumId = jo.getString("id");
 
+                if (jc.getString("pid").equals(jo.getString("cpid"))) {
+                    jo.put("coverUrl", jc.getString("coverUrl"));
+                } else { // album without cover -> empty
+                    offset++;
+                    jo.put("coverUrl", "resources/img/shell/frame_photo_120.png");
+                    jo.put("empty", true);
+                }
+
                 if (albums.containsKey(albumId) && !rewrite) {
                     // the album has already been loaded
                     return;
                 } else if (rewrite) {
                     albums.remove(albumId);
                 }
-                images.put(albumId, null);
+                images.put(albumId, new HashMap<String, JSONObject>());
                 albums.put(albumId, jo);
             }
         } catch (JSONException je) {
@@ -122,10 +146,6 @@ public class FacebookAlbumCache {
                 albumId = jo.getString("albumId");
                 imageId = jo.getString("id");
 
-                if (images.get(albumId) == null) {
-                    images.put(albumId, new HashMap<String, JSONObject>());
-                }
-
                 images.get(albumId).put(imageId, jo);
             }
         } catch (JSONException je) {
@@ -140,7 +160,7 @@ public class FacebookAlbumCache {
     public Map<String, JSONObject> getImageMap(String albumId) {
         return images.get(albumId);
     }
-    
+
     public List<JSONObject> getImagesFromAlbum(String albumId) {
         return new ArrayList<JSONObject>(images.get(albumId).values());
     }
@@ -155,16 +175,20 @@ public class FacebookAlbumCache {
         for (String id : albumIds) {
             list.add(albums.get(id));
         }
-        
+
         return list;
     }
 
     public boolean isAlbumLoaded(String albumId) {
-        return images.get(albumId) != null;
+        return albums.get(albumId) != null && (albums.get(albumId).optBoolean("empty", false) || !images.get(albumId).isEmpty());
     }
-    
+
     // takes a list of id's from an event
     public boolean areAlbumsLoaded(List<String> albumIds) {
+        if (needsUpdate) {
+            return false;
+        }
+
         if (albumIds != null) {
             for (String id : albumIds) {
                 if (!isAlbumLoaded(id)) {

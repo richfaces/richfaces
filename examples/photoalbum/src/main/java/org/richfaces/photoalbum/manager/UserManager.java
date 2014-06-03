@@ -26,26 +26,24 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
-import java.io.File;
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.event.AlbumEvent;
-import org.richfaces.photoalbum.event.ErrorEvent;
-import org.richfaces.photoalbum.event.EventType;
-import org.richfaces.photoalbum.event.Events;
-import org.richfaces.photoalbum.event.SimpleEvent;
-import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.service.IUserAction;
+import org.richfaces.photoalbum.model.User;
+import org.richfaces.photoalbum.model.actions.IUserAction;
+import org.richfaces.photoalbum.model.event.AlbumEvent;
+import org.richfaces.photoalbum.model.event.ErrorEvent;
+import org.richfaces.photoalbum.model.event.EventType;
+import org.richfaces.photoalbum.model.event.Events;
+import org.richfaces.photoalbum.model.event.SimpleEvent;
 import org.richfaces.photoalbum.ui.UserPrefsHelper;
 import org.richfaces.photoalbum.util.Preferred;
 
-@RequestScoped
+@SessionScoped
 public class UserManager implements Serializable {
 
     private static final long serialVersionUID = 6027103521084558931L;
@@ -68,35 +66,8 @@ public class UserManager implements Serializable {
     Event<ErrorEvent> error;
 
     /**
-     * Method, that invoked when user want to edit her profile.
-     * 
-     */
-    public void editUser(@Observes @EventType(Events.EDIT_USER_EVENT) SimpleEvent se) {
-        File avatarData = uph.getAvatarData();
-        // If new avatar was uploaded
-        if (avatarData != null) {
-            if (!fileManager.saveAvatar(avatarData, user)) {
-                error.fire(new ErrorEvent(Constants.FILE_IO_ERROR));
-                return;
-            }
-            avatarData.delete();
-            avatarData = null;
-            user.setHasAvatar(true);
-        }
-        try {
-            // This check is actual only on livedemo server to prevent hacks.
-            // Prevent hackers to mark user as pre-defined
-            user.setPreDefined(false);
-            user = userAction.updateUser();
-        } catch (Exception e) {
-            error.fire(new ErrorEvent("Error", Constants.UPDATE_USER_ERROR + " <br/>" + e.getMessage()));
-            return;
-        }
-    }
-
-    /**
      * This method observes <code>Constants.ALBUM_ADDED_EVENT</code> and invoked after the user add new album
-     * 
+     *
      * @param album - added album
      */
     public void onAlbumAdded(@Observes @EventType(Events.ALBUM_ADDED_EVENT) AlbumEvent ae) {
@@ -105,7 +76,7 @@ public class UserManager implements Serializable {
 
     /**
      * Method, that invoked when user click 'Cancel' button during edit her profile.
-     * 
+     *
      */
     public void cancelEditUser(@Observes @EventType(Events.CANCEL_EDIT_USER_EVENT) SimpleEvent se) {
         uph.setAvatarData(null);

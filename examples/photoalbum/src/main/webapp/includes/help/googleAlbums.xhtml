@@ -1,0 +1,173 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div class="section" lang="en-US">
+        <div class="titlepage">
+            <div>
+                <div>
+                    <h3 class="title">Google+ albums</h3>
+                </div>
+            </div>
+        </div>
+        <p>
+            The information about Google albums (name, cover photo, …) is retrieved when user signs in with Google. When the
+            user clicks on an album and the images aren't available locally, they are downloaded from google and save to a bean
+            (<em>GooglePlusAlbumCache.java</em>).
+        </p>
+        <pre class="brush: xml, gutter: false, highlight: [2]">
+            &lt;a4j:commandLink execute=&quot;@this&quot;
+                onclick=&quot;#{'#{'}googlePlusAlbumCache.isAlbumLoaded(albumId)} ? loadAlbum('#{'#{'}albumId}') : G.getImages('#{'#{'}albumId}', loadPhotos)&quot;&gt;
+                &lt;h:graphicImage id=&quot;img&quot; url=&quot;#{'#{'}googlePlusAlbumCache.getAlbum(albumId).getString('coverUrl')}&quot;
+                    style=&quot;max-width: 120px; max-height: 120px&quot; styleClass=&quot;album-cover-image&quot; /&gt;
+                &lt;rich:tooltip followMouse=&quot;true&quot; direction=&quot;topRight&quot; showDelay=&quot;500&quot; styleClass=&quot;tooltip&quot;&gt;
+                    &lt;span style=&quot;white-space: nowrap&quot;&gt;
+                        #{'#{'}googlePlusAlbumCache.getAlbum(albumId).getString(&quot;name&quot;)} &lt;/span&gt;
+                &lt;/rich:tooltip&gt;
+                &lt;rich:dragSource dragIndicator=&quot;dragIndicator&quot; type=&quot;gAlbum&quot;
+                    dragValue=&quot;#{'#{'}googlePlusAlbumCache.getAlbum(albumId).getString('fullId')}&quot; /&gt;
+            &lt;/a4j:commandLink&gt;
+            
+                …
+                
+            &lt;a4j:jsFunction name=&quot;loadPhotos&quot; execute=&quot;@this&quot; actionListener=&quot;#{'#{'}controller.showGPlusAlbum()}&quot; oncomplete=&quot;reload()&quot;&gt;
+                &lt;a4j:param assignTo=&quot;#{'#{'}googlePlusAlbumCache.albumImages}&quot; name=&quot;response&quot; /&gt;
+            &lt;/a4j:jsFunction&gt;
+            
+            &lt;a4j:jsFunction name=&quot;loadAlbum&quot; execute=&quot;@this&quot; actionListener=&quot;#{'#{'}controller.showGPlusAlbum()}&quot; oncomplete=&quot;reload()&quot;&gt;
+                &lt;a4j:param assignTo=&quot;#{'#{'}googlePlusAlbumCache.currentAlbumId}&quot; name=&quot;response&quot; /&gt;
+            &lt;/a4j:jsFunction&gt;
+        </pre>
+    </div>
+
+    <div class="section" lang="en-US">
+        <div class="titlepage">
+            <div>
+                <div>
+                    <h3 class="title">Sharing and importing</h3>
+                </div>
+            </div>
+        </div>
+        <p>The user can drag and drop his albums into events and is given the choice to:</p>
+        <ul>
+            <li>Share the album: images will be still displayed from Google</li>
+            <li>Import the album: images will be downloaded and saved into Photoalbum</li>
+        </ul>
+
+        <pre class="brush: xml, gutter: false">
+            &lt;h:panelGrid columns=&quot;2&quot; style=&quot;margin-left: auto; margin-right: auto; height: 60px&quot;&gt;
+                &lt;h:panelGroup layout=&quot;block&quot;&gt;
+                    &lt;richx:commandButton value=&quot;Import&quot; execute=&quot;@this&quot; styleClass=&quot;shelf&quot;
+                        disabled=&quot;#{'#{'}gDndManager.albumAlreadyShared}&quot;
+                        onclick=&quot;G.getImages('#{'#{'}gDndManager.album.getString('fullId')}', fetchPhotosForImport)&quot; render=&quot;gBar&quot; /&gt;
+                &lt;/h:panelGroup&gt;
+                &lt;h:panelGroup layout=&quot;block&quot;&gt;
+                    &lt;richx:commandButton oncomplete=&quot;#{'#{'}rich:component('gAlbumModalPanel')}.hide();&quot; value=&quot;Just Share&quot;
+                        disabled=&quot;#{'#{'}gDndManager.albumAlreadyShared}&quot; actionListener=&quot;#{'#{'}gDndManager.shareAlbum()}&quot;
+                        execute=&quot;@this&quot; styleClass=&quot;shelf&quot; /&gt;
+                &lt;/h:panelGroup&gt;
+            &lt;/h:panelGrid&gt;
+        </pre>
+        <p>Sharing an album will simply save the album's id in the event.</p>
+        <pre class="brush: java, gutter: false">
+            public void shareAlbum() {
+                event.getRemoteAlbumIds().add(&quot;G&quot; + albumId);
+        
+                try {
+                    ea.editEvent(event);
+                } catch (PhotoAlbumException pae) {
+                    error.fire(new ErrorEvent(&quot;Error saving event&quot;, pae.getMessage()));
+                }
+            }
+        </pre>
+        <p>
+            Importing is done by <strong><span class="property">rich:progressBar</span></strong> that polls the images and saves
+            them in the database one by one.
+        </p>
+        <pre class="brush: xml, gutter: false, highlight: [16]">
+        &lt;a4j:jsFunction name=&quot;startImport&quot; actionListener=&quot;#{'#{'}gDndManager.importAlbum()}&quot;
+            oncomplete=&quot;#{'#{'}rich:component('gAlbumModalPanel')}.hide();&quot; render=&quot;gBar&quot; /&gt;
+
+        &lt;a4j:jsFunction name=&quot;fetchPhotosForImport&quot; oncomplete=&quot;startImport()&quot;&gt;
+            &lt;a4j:param assignTo=&quot;#{'#{'}googlePlusAlbumCache.albumImages}&quot; name=&quot;images&quot; /&gt;
+        &lt;/a4j:jsFunction&gt;
+        
+            …
+            
+        &lt;rich:progressBar id=&quot;gBar&quot; value=&quot;#{'#{'}fileDownloadManager.value}&quot; minValue=&quot;0&quot; maxValue=&quot;100&quot;
+            enabled=&quot;#{'#{'}fileDownloadManager.hasNext()}&quot; interval=&quot;1000&quot;&gt;
+            &lt;f:facet name=&quot;initial&quot;&gt;
+                &lt;h:outputText value=&quot;&quot; /&gt;
+            &lt;/f:facet&gt;
+            &lt;h:outputText value=&quot;Importing #{'#{'}fileDownloadManager.text}&quot; /&gt;
+            &lt;a4j:ajax event=&quot;begin&quot; listener=&quot;#{'#{'}fileDownloadManager.downloadNext()}&quot; /&gt;
+            &lt;a4j:ajax event=&quot;finish&quot; oncomplete=&quot;finishImport()&quot; /&gt;
+        &lt;/rich:progressBar&gt;
+        </pre>
+        <p>
+            The
+            <code class="code">importAlbum()</code>
+            method retrieves the images from Google and creates a new album in the target event. It then starts the poll.
+            <code class="code">FileUploadManager.java</code>
+            takes care of the uploading:
+        </p>
+
+        <pre class="brush: java, gutter: false, highlight: [7]">
+        public void downloadNext() {
+            if (!hasNext()) {
+                return;
+            }
+            String imageUrl = iterator.next();
+    
+            uploadImage(imageUrl, album.getName() + imageUrl.substring(imageUrl.lastIndexOf(Constants.DOT)), album);
+            count++;
+            pBarValue = (count * 100) / size;
+            pBarText = count + &quot; / &quot; + size;
+        }
+        
+        private void uploadImage(String imageUrl, String imageName, Album album) {
+            File file = new File(imageName);
+            int i;
+            try {
+                URL url = new URL(imageUrl);
+                URLConnection con = url.openConnection();
+                BufferedInputStream bis = new BufferedInputStream(con.getInputStream());
+                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file.getName()));
+                while ((i = bis.read()) != -1) {
+                    bos.write(i);
+                }
+                bos.flush();
+                bis.close();
+            } catch (MalformedInputException malformedInputException) {
+                error.fire(new ErrorEvent(&quot;Error&quot;, &quot;error uploading image&lt;br/&gt;&quot; + malformedInputException.getMessage()));
+            } catch (IOException ioException) {
+                error.fire(new ErrorEvent(&quot;Error&quot;, &quot;IO error&lt;br/&gt;&quot; + ioException.getMessage()));
+            }
+    
+            fileUploadManager.uploadFile(new FileHandler(file), album);
+        }
+        </pre>
+    </div>
+</ui:composition>

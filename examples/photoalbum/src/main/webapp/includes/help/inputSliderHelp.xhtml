@@ -21,27 +21,27 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" 
-    xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
 
     <div class="section" lang="en-US">
         <div class="titlepage">
             <div>
                 <div>
-                    <h3 class="title">Image Size Control with &lt;richinputNumberSlider&gt;</h3>
+                    <h3 class="title">Image Size Control with &lt;rich:inputNumberSlider&gt;</h3>
                 </div>
             </div>
         </div>
         <p>
-            The <span class="bold"><strong><span class="property">rich:inputNumberSlider</span></strong></span> component in the
+            The <strong><span class="property">rich:inputNumberSlider</span></strong> component in the
             Photo Album Demo is used as a control that helps a user to change photos size while previewing an album. A handler
             position on the slider track corresponds to a particular value of an image size. The component is included into the
-            page with the help of <span class="bold"><strong><span class="property">ui:include</span></strong></span>:
+            page with the help of <strong><span class="property">ui:include</span></strong>:
         </p>
         <pre class="brush: xml, gutter: false">
             &lt;ui:include src=&quot;/includes/image/inputNumberSlider.xhtml&quot;&gt;
-                &lt;ui:param name=&quot;size&quot; value=&quot;#{'#{'}fn:length(model.images)}&quot; /&gt;
-                &lt;ui:param name=&quot;renderArea&quot; value=&quot;userAlbumImages&quot; /&gt;
+              &lt;ui:param name=&quot;size&quot; value=&quot;#{'#{'}fn:length(model.images)}&quot; /&gt;
+              &lt;ui:param name=&quot;renderArea&quot; value=&quot;userAlbumImages&quot; /&gt;
             &lt;/ui:include&gt;
         </pre>
         <p>
@@ -51,21 +51,21 @@
         </p>
         <pre class="brush: xml, gutter: false">
         &lt;ui:composition … &gt;
-            &lt;div&gt;
+          &lt;div&gt;
                 …
-                &lt;richinputNumberSlider enableManualInput=&quot;false&quot;
-                    value=&quot;#{'#{'}imageSizeHelper.value}&quot;
-                    minValue=&quot;80&quot;
-                    maxValue=&quot;200&quot;
-                    showArrows=&quot;false&quot;
-                    showBoundaryValues=&quot;true&quot;
-                    showInput=&quot;false&quot;
-                    step=&quot;40&quot;
-                    width=&quot;100&quot;&gt;
-                    &lt;a4j:ajax event=&quot;change&quot; render=&quot;#{'#{'}renderArea}&quot; /&gt;
-                &lt;/richinputNumberSlider&gt;
+            &lt;rich:inputNumberSlider enableManualInput=&quot;false&quot;
+                value=&quot;#{'#{'}imageSizeHelper.value}&quot;
+                minValue=&quot;80&quot;
+                maxValue=&quot;200&quot;
+                showArrows=&quot;false&quot;
+                showBoundaryValues=&quot;true&quot;
+                showInput=&quot;false&quot;
+                step=&quot;40&quot;
+                width=&quot;100&quot;&gt;
+              &lt;a4j:ajax event=&quot;change&quot; render=&quot;#{'#{'}renderArea}&quot; /&gt;
+            &lt;/rich:inputNumberSlider&gt;
                 …
-            &lt;/div&gt;
+          &lt;/div&gt;
         &lt;/ui:composition&gt;
         </pre>
         <p>
@@ -95,7 +95,7 @@
         
             final static String CSS_CLASS = &quot;preview_box_photo_&quot;;
             final static String FILE_POSTFIX = &quot;_small&quot;;
-            final static String IMAGE_BG = &quot;/img/shell/frame_photo_%1$d.png&quot;;
+            final static String IMAGE_BG = &quot;/resources/img/shell/frame_photo_%1$d.png&quot;;
             final static String IMAGE_BG_STYLE = &quot;width: %1$dpx; height: %1$dpx&quot;;
         
             int x;
@@ -121,8 +121,8 @@
         }
         </pre>
         <p>
-            After the <span class="bold"><strong><span class="property">&lt;a4j:ajax&gt;</span></strong></span> is worked out
-            user photos (more exactly, the <span class="bold"><strong><span class="property">h:panelGroup</span></strong></span>
+            After the <strong><span class="property">&lt;a4j:ajax&gt;</span></strong> is worked out
+            user photos (more exactly, the <strong><span class="property">h:panelGroup</span></strong>
             with
             <code class="code">userAlbumImages</code>
             id that contains user photos) are rendered correspondingly to a new set value. Here is
@@ -132,52 +132,49 @@
         <pre class="brush: xml, gutter: false">
         …
         &lt;h:panelGroup id=&quot;userAlbumImages&quot;&gt;
-            &lt;a4j:repeat id=&quot;imageList&quot; value=&quot;#{'#{'}model.images}&quot; var=&quot;image&quot; rows=&quot;20&quot;&gt;
-                &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;#{'#{'}imageSizeHelper.currentDimension.cssClass}&quot;&gt;
-                    &lt;h:graphicImage styleClass=&quot;pr_photo_bg&quot; style=&quot;#{'#{'}imageSizeHelper.currentDimension.imageBgStyle}&quot;
-                        value=&quot;#{'#{'}imageSizeHelper.currentDimension.imageBg}&quot; /&gt;
+          &lt;a4j:repeat id=&quot;imageList&quot; value=&quot;#{'#{'}model.images}&quot; var=&quot;image&quot; rows=&quot;20&quot;&gt;
+            &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;#{'#{'}imageSizeHelper.currentDimension.cssClass}&quot;&gt;
+              &lt;h:graphicImage styleClass=&quot;pr_photo_bg&quot; style=&quot;#{'#{'}imageSizeHelper.currentDimension.imageBgStyle}&quot;
+                   value=&quot;#{'#{'}imageSizeHelper.currentDimension.imageBg}&quot; /&gt;
                         
-                    &lt;h:panelGrid cellpadding=&quot;0&quot;&gt;
-                        &lt;h:panelGroup&gt;
-                            &lt;a4j:commandLink actionListener=&quot;#{'#{'}controller.showImage(image)}&quot; render=&quot;mainArea, treePanel&quot;&gt;
-                                &lt;a4j:mediaOutput id=&quot;img&quot; element=&quot;img&quot; createContent=&quot;#{'#{'}imageLoader.paintImage}&quot;
-                                    style=&quot;border : 1px solid #FFFFFF;&quot; mimeType=&quot;image/jpeg&quot;
-                                    value=&quot;#{'#{'}fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}&quot;&gt;
-                                    &lt;f:param value=&quot;#{'#{'}imageSizeHelper.currentDimension.x}&quot; name=&quot;x&quot; /&gt;
-                                    &lt;richdragSource rendered=&quot;#{'#{'}controller.isUserImage(image)}&quot; render=&quot;mainArea, treePanel&quot;
-                                        id=&quot;dragSource&quot; dragIndicator=&quot;iDragIndicator&quot; type=&quot;image&quot; dragValue=&quot;#{'#{'}image}&quot; /&gt;
-                                &lt;/a4j:mediaOutput&gt;
-                            &lt;/a4j:commandLink&gt;
-                            &lt;br /&gt;
-                        &lt;/h:panelGroup&gt;
-                    &lt;/h:panelGrid&gt;
-                    
-                    &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;photo_name&quot;&gt;#{'#{'}image.name}&lt;/h:panelGroup&gt;
-                    
-                    &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;photo_data&quot;&gt;
-                        &lt;h:outputText value=&quot;#{'#{'}image.created}&quot;&gt;
-                            &lt;f:convertDateTime /&gt;
-                        &lt;/h:outputText&gt;
-                    &lt;/h:panelGroup&gt;
+              &lt;h:panelGrid cellpadding=&quot;0&quot;&gt;
+                &lt;h:panelGroup&gt;
+                  &lt;a4j:commandLink actionListener=&quot;#{'#{'}controller.showImage(image)}&quot; render=&quot;mainArea, treePanel&quot;&gt;
+                    &lt;a4j:mediaOutput id=&quot;img&quot; element=&quot;img&quot; createContent=&quot;#{'#{'}imageLoader.paintImage}&quot;
+                        style=&quot;border : 1px solid #FFFFFF;&quot; mimeType=&quot;image/jpeg&quot;
+                        value=&quot;#{'#{'}fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}&quot;&gt;
+                      &lt;f:param value=&quot;#{'#{'}imageSizeHelper.currentDimension.x}&quot; name=&quot;x&quot; /&gt;
+                      &lt;rich:dragSource rendered=&quot;#{'#{'}controller.isUserImage(image)}&quot; render=&quot;mainArea, treePanel&quot;
+                        id=&quot;dragSource&quot; dragIndicator=&quot;iDragIndicator&quot; type=&quot;image&quot; dragValue=&quot;#{'#{'}image}&quot; /&gt;
+                    &lt;/a4j:mediaOutput&gt;
+                  &lt;/a4j:commandLink&gt;
+                  &lt;br /&gt;
                 &lt;/h:panelGroup&gt;
+              &lt;/h:panelGrid&gt;
+                 
+              &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;photo_name&quot;&gt;#{'#{'}image.name}&lt;/h:panelGroup&gt;
+                 
+              &lt;h:panelGroup layout=&quot;block&quot; styleClass=&quot;photo_data&quot;&gt;
+                &lt;h:outputText value=&quot;#{'#{'}image.created}&quot;&gt;
+                  &lt;f:convertDateTime /&gt;
+                &lt;/h:outputText&gt;
+              &lt;/h:panelGroup&gt;
+            &lt;/h:panelGroup&gt;
                 
-                &lt;ui:include src=&quot;/includes/contextMenu/CMForImage.xhtml&quot;&gt;
-                    &lt;ui:param name=&quot;image&quot; value=&quot;#{'#{'}image}&quot; /&gt;
-                    &lt;ui:param name=&quot;target&quot; value=&quot;img&quot; /&gt;
-                &lt;/ui:include&gt;
+                …
             &lt;/a4j:repeat&gt;
         &lt;/h:panelGroup&gt;
         …
         </pre>
         <p>
-            When the <span class="bold"><strong><span class="property">&lt;richinputNumberSlider&lt;</span></strong></span> is
+            When the <strong><span class="property">&lt;rich:inputNumberSlider&lt;</span></strong> is
             rendered, at first its default value for image size is 120 px.
         </p>
         <div class="figure">
             <a id="d0e670" />
             <div class="figure-contents">
                 <div class="mediaobject">
-                    <img src="img/help/image_size.png" alt="Image size control" />
+                    <img src="resources/img/help/image_size.png" alt="Image size control" />
                 </div>
             </div>
             <p class="title">
@@ -193,7 +190,7 @@
                     <p>
                         <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                             href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=inputNumberSlider">InputNumberSlider</a>
-                        page for the <span class="bold"><strong><span class="property">&lt;richinputNumberSlider&gt;</span></strong></span>
+                        page for the <strong><span class="property">&lt;rich:inputNumberSlider&gt;</span></strong>
                         component;
                     </p>
                 </li>
@@ -201,7 +198,7 @@
                     <p>
                         <a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
                             href="http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=ajax">Ajax</a> for
-                        the <span class="bold"><strong><span class="property">&lt;a4j:ajax&gt;</span></strong></span>
+                        the <strong><span class="property">&lt;a4j:ajax&gt;</span></strong>
                         component.
                     </p>
                 </li>

@@ -21,8 +21,8 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
-    xmlns:richx="http://richfaces.orgx">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
 
     <ui:param name="albumsSize"
         value="#{fn:length(model.selectedEvent.remoteAlbumIds) + fn:length(model.selectedEvent.shelf.albums)}" />
@@ -68,19 +68,19 @@
         </rich:dataGrid>
     </a4j:outputPanel>
 
-    <a4j:jsFunction name="triggerPoll" execute="@this" render="gImagePoll"/>
+    <a4j:jsFunction name="triggerPoll" execute="@this" render="gImagePoll" />
 
-    <a4j:jsFunction name="reloadAlbums" execute="@this" render="photoPanel"/>
+    <a4j:jsFunction name="reloadAlbums" execute="@this" render="photoPanel" />
 
     <!-- **Album fetching** -->
     <!-- save the Facebook albums and images into the cache bean, then reload the image list -->
     <a4j:jsFunction name="setFBimages" execute="@this" oncomplete="loadFBAlbums()">
         <a4j:param assignTo="#{facebookAlbumCache.all}" name="response" />
     </a4j:jsFunction>
-    
-    <a4j:jsFunction name="loadFBAlbums" action="#{eventAlbumsHelper.loadFBImages}" execute="@this" oncomplete="reloadAlbums()"/>
 
-    <!-- if albums aren't loaded, get the albums from Facebook then trigger the poll for G+ albums --> 
+    <a4j:jsFunction name="loadFBAlbums" action="#{eventAlbumsHelper.loadFBImages}" execute="@this" oncomplete="reloadAlbums()" />
+
+    <!-- if albums aren't loaded, get the albums from Facebook then trigger the poll for G+ albums -->
     <h:outputScript id="facebookCheck">    
         $(document).ready(function() {
             if (#{eventAlbumsHelper.facebookNeedsUpdate}) {

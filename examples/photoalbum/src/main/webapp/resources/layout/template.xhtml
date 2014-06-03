@@ -1,0 +1,126 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:richx="http://richfaces.org/richx">
+
+<h:head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta content="iKe/nqfDrJY9NJDa3w2mgcb3WLbK2WNevJBDcxTrCe8=" name="verify-vl" />
+    <meta
+        content="PhotoAlbum Demo application contains best practices and examples of RichFaces in action. It includes drag-n-drop, file upload, wysiwyg editor, modal panel, calendar, tree, context-menu components etc." />
+    <meta
+        content="richfaces, richfaces demo, richfaces live demo, richfaces examples, datatable, upload, suggestion box, tree, calendar, AJAX, JSF, Seam, JBoss, RIA, Ajax4JSF, java server faces, rich components"
+        name="Keywords" />
+    <title>RichFaces PhotoAlbum demo</title>
+    <h:outputStylesheet library="stylesheet" name="photoalbum.css" />
+    <h:outputStylesheet library="stylesheet" name="shCore.css" />
+    <h:outputStylesheet library="stylesheet" name="shThemeDefault.css" />
+    <h:outputScript library="scripts" name="photoalbum.js" />
+    <h:outputScript library="scripts" name="shCore.js" />
+    <h:outputScript library="scripts" name="shLegacy.js" />
+    <h:outputScript library="scripts" name="shBrushJava.js" />
+    <h:outputScript library="scripts" name="shBrushXml.js" />
+    <h:outputScript library="scripts" name="shBrushJScript.js" />
+</h:head>
+
+<h:body class="main-body" style="position: relative;">
+    <div style="position: relative; height: auto; overflow: hidden; min-height: 100%; zoom: 1;" class="main-panel">
+        <h:form id="overForm">
+            <rich:notifyStack direction="vertical" position="topLeft" id="stack">
+                <rich:notifyMessages for="overForm" styleClass="photoalbum-message" sticky="true" stack="stack"
+                    showDetail="true" showSummary="true" />
+            </rich:notifyStack>
+
+            <ui:include src="/includes/help/button.xhtml">
+                    <ui:param name="style" value="position: absolute; top: 26px; left: 320px; z-index: 3" />
+                    <ui:param name="page" value="statusHelp.xhtml" />
+                </ui:include>
+                <div style="position: absolute; top: 0px; width: 100%; height: 116px; left: 0px;">
+                    <ui:include src="/includes/index/header.xhtml" />
+                </div>
+
+            <div style="padding-bottom: 82px; padding-top: 116px; left: 0px; zoom: 1;">
+                <h:panelGroup id="modalPanels" layout="block" style="display: none;">
+                    <ui:include src="/includes/misc/confirmation.xhtml" />
+                    <ui:include src="/includes/misc/help.xhtml" />
+                    <ui:include src="/includes/album/createAlbum.xhtml" />
+                    <ui:include src="/includes/shelf/createShelf.xhtml" />
+                    <ui:include src="/includes/event/createEvent.xhtml" />
+                    <ui:include src="/includes/index/login.xhtml" />
+                </h:panelGroup>
+                <ui:include src="/includes/image/slideshow.xhtml" />
+                
+                <table cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                        <tr>
+                            <td class="panel-header-bg" style="vertical-align: top;">
+                                <div style="position: relative; zoom: 1;">
+                                    <a4j:region id="treeRegion">
+                                        <rich:panel id="treePanel" styleClass="body-main-panel"
+                                            headerClass="body-main-panel-header" bodyClass="body-main-panel-body"
+                                            style="width:240px">
+                                            <ui:insert name="tree" />
+                                        </rich:panel>
+                                    </a4j:region>
+
+                                    <div class="body-main-bg"
+                                        style="position: absolute; height: 30000px; right: 0px; top: 0px; width: 5px;"></div>
+                                </div>
+                            </td>
+                            <td width="100%" class="panel-header-bg" style="vertical-align: top;">
+                                <div style="position: relative; zoom: 1;">
+                                    <a4j:region>
+                                        <rich:panel id="bodyPanel" styleClass="body-main-panel"
+                                            headerClass="body-main-panel-header" bodyClass="body-main-panel-body">
+                                            <ui:insert name="body" />
+                                        </rich:panel>
+                                    </a4j:region>
+                                </div>
+                                <div style="position: absolute; height: 30000px; right: 0px; top: 0px; width: 5px;"
+                                    class="body-main-bg" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div style="position: absolute; bottom: 0px; width: 100%; height: 82px; left: 0px; zoom: 1;">
+                <ui:include src="/includes/index/footer.xhtml" />
+            </div>
+            <ui:insert name="searchWidget" />
+
+        </h:form>
+        <ui:include src="/includes/index/status.xhtml" />
+        <!-- do not move, will not work inside the form -->
+    </div>
+
+    <ui:include src="/includes/index/sdks.xhtml" />
+
+    <!-- enforce loading of CKEDITOR resources -->
+    <rich:editor style="display: none" />
+</h:body>
+</html>

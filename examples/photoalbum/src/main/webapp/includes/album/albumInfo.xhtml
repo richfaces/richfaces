@@ -21,15 +21,31 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:panelGrid styleClass="album-header-table" cellpadding="0" columns="2" columnClasses="xxx, album-header-table-col2">
         <h:panelGroup>
+            <a4j:commandLink styleClass="additional-info-text" actionListener="#{controller.showShelf(album.shelf)}"
+                             render="mainArea, treePanel" value="#{messages['shelf']} #{album.shelf.name}" />
+            <br/>
+            <br/>
             <h1>
-                <h:outputText value="#{album.name}" rendered="#{!controller.isUserAlbum(album)}" />
-                <rich:inplaceInput selectOnEdit="false" value="#{album.name}" rendered="#{controller.isUserAlbum(album)}"
-                    inputWidth="570" />
+                <c:choose>
+                    <c:when test="#{controller.isUserAlbum(album)}">
+                        <rich:inplaceInput value="#{album.name}"
+                                           inputWidth="250" styleClass="inplaceInput" >
+                            <a4j:ajax event="change" render="mainArea, treePanel"
+                                      listener="#{albumManager.editAlbum(album, true)}" /> 
+                        </rich:inplaceInput>
+                    </c:when>
+                    <c:otherwise>
+                        <h:outputText value="#{album.name}" />
+                    </c:otherwise>
+                </c:choose>
             </h1>
+
             <h:panelGroup layout="block" style="margin-bottom:15px;" styleClass="additional-info-text">
                 <h:outputText value="#{messages['created.album']}" />
                 <h:outputText styleClass="bold" value=" #{album.created}" />
@@ -45,16 +61,16 @@
                     <h:outputText value=" #{messages['images_']}" />
                 </h:panelGroup>
             </h:panelGroup>
-            <a4j:commandLink styleClass="additional-info-text" actionListener="#{controller.showShelf(album.shelf)}"
-                render="mainArea, treePanel" value="#{messages['shelf']} #{album.shelf.name}" />
         </h:panelGroup>
-        <h:panelGroup>
-            <a4j:commandLink rendered="#{album.owner.id == userBean.user.id}" value="#{messages['album.edit']}"
-                actionListener="#{controller.startEditAlbum(album)}" render="mainArea" execute="@this" />
-            <h:outputText value=" #{messages['delimiter']} " rendered="#{album.owner.id == userBean.user.id}" />
-            <a4j:commandLink rendered="#{album.owner.id == userBean.user.id}" value="#{messages['album.delete']}"
-                actionListener="#{confirmationPopupHelper.initAlbumData(confirmationPopupHelper.deleteAlbum,messages['album.delete.confirm'],album)}"
-                oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" execute="@this" />
+        <h:panelGroup style="position: relative; top: 20px;" >
+            <c:if test="#{controller.isUserAlbum(album)}">
+                <a4j:commandLink value="#{messages['album.edit']}"
+                                 actionListener="#{controller.startEditAlbum(album)}" render="mainArea" execute="@this" />
+                <h:outputText value=" #{messages['delimiter']} " />
+                <a4j:commandLink value="#{messages['album.delete']}"
+                                 actionListener="#{confirmationPopupHelper.initAlbumData(confirmationPopupHelper.deleteAlbum,messages['album.delete.confirm'],album)}"
+                                 oncomplete="#{rich:component('confirmation')}.show()" render="confirmation" execute="@this" />
+            </c:if>
         </h:panelGroup>
     </h:panelGrid>
 

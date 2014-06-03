@@ -21,28 +21,29 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
-    xmlns:richx="http://richfaces.orgx">
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
 
-    <rich:popupPanel id="albumModalPanel" width="450" height="140" domElementAttachment="parent">
+    <rich:popupPanel id="albumModalPanel" domElementAttachment="parent"
+        onshow="$('[id$=albumName]').delay(600).focus()" autosized="true">
         <f:facet name="header">
             <h:outputText value="#{messages['album.add']}" />
         </f:facet>
         <f:facet name="controls">
             <h:panelGroup>
-                <h:graphicImage value="/img/modal/close.png" style="cursor:pointer" id="albumHidelink">
+                <h:graphicImage value="resources/img/modal/close.png" style="cursor:pointer" id="albumHidelink">
                     <rich:componentControl target="albumModalPanel" operation="hide" event="click" />
                 </h:graphicImage>
             </h:panelGroup>
         </f:facet>
-
+        <rich:hotKey key="esc" onkeyup="#{rich:component('albumModalPanel')}.hide()" enabledInInput="true" />
         <a4j:region id="form2">
             <h:panelGroup id="albumPanel" width="100%">
                 <a4j:region>
                     <rich:graphValidator value="#{album}">
                         <h:panelGrid columns="3" id="albumeditContent" rowClasses="prop" columnClasses="name,value, error">
                             <h:panelGroup style="text-align:right;" layout="block">
-                                <h:outputText value="#{messages['shelf']} " />
+                                <h:outputText value="#{messages['shelf']}" />
                             </h:panelGroup>
 
                             <rich:inplaceSelect minSelectWidth="370" listWidth="400" required="true" id="shelf"
@@ -57,7 +58,7 @@
                             </h:panelGroup>
                             <h:panelGroup layout="block">
                                 <h:inputText id="albumName" value="#{albumManager.album.name}"
-                                    onkeydown="if (event.keyCode == 13) { jQuery(&quot; .album input[type='image']&quot;).click(); return false; }" />
+                                    onkeydown="if (event.keyCode == 13) {$('.album input[type=image]').click(); return false; }" />
                                 <rich:message styleClass="required" for="albumName" />
                             </h:panelGroup>
                         </h:panelGrid>
@@ -74,7 +75,8 @@
                         </h:panelGroup>
                         <h:panelGroup id="albumSecondButton" layout="block">
                             <richx:commandButton type="button" id="cancelbutton"
-                                onclick="#{rich:component('albumModalPanel')}.hide(); return false;"
+                                onclick="#{rich:component('albumModalPanel')}.hide();
+                                                     return false;"
                                 value="#{messages['album.cancel']}" execute="@none" />
                         </h:panelGroup>
                     </h:panelGrid>

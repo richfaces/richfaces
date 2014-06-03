@@ -21,25 +21,25 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
-    xmlns:richx="http://richfaces.orgx">
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:richx="http://richfaces.org/richx">
     <rich:panel id="headerPanel" styleClass="header-panel" bodyClass="header-panel-body">
         <h:panelGroup layout="block" styleClass="header-content-div">
-            <a href="index.html"><h:graphicImage value="/img/shell/logo_top.gif" width="290" height="79" alt=""
-                    style="position : absolute; border: 0px;" /></a>
-            <h:graphicImage rendered="#{authenticator.conversationStarted}" value="/img/shell/top_tight_bullet.gif" width="20"
-                height="79" alt="" style="position : absolute; right : 0px" />
+            <a href="index.html"><h:graphicImage value="resources/img/shell/logo_top.gif" width="290" height="79" alt=""
+                                                 style="position : absolute; border: 0px;" /></a>
+            <h:graphicImage rendered="#{authenticator.conversationStarted}" value="resources/img/shell/top_tight_bullet.gif" width="20"
+                            height="79" alt="" style="position : absolute; right : 0px" />
 
             <h:panelGroup id="logInOutMenu" layout="block" rendered="#{authenticator.conversationStarted}"
-                styleClass="user-info-div">
-                <h:panelGrid columns="5"
-                    columnClasses="top-right-bottom-menu-item,xxx,top-right-bottom-menu-item,xxx,top-right-bottom-menu-item">
+                          styleClass="user-info-div">
+                <h:panelGrid columns="6"
+                             columnClasses="top-right-bottom-menu-item,xxx,top-right-bottom-menu-item,xxx,top-right-bottom-menu-item">
                     <h:panelGroup layout="block">
                         <a4j:region>
                             <h:outputText styleClass="logged-user" style="color:#FFFFFF" rendered="#{userBean.loggedIn}"
-                                value="#{messages['menu.welcome']}" />
+                                          value="#{messages['menu.welcome']}" />
                             <a4j:commandLink styleClass="logged-user" value="#{userBean.user.login}" render="mainArea"
-                                actionListener="#{controller.showUser(userBean.user)}" rendered="#{userBean.loggedIn}"
+                                actionListener="#{controller.showCurrentUser()}" rendered="#{userBean.loggedIn}"
                                 execute="@this" />
                             <h:graphicImage rendered="#{userBean.loggedInFB and not empty userBean.fbPhotoUrl}"
                                 url="#{userBean.fbPhotoUrl}" />
@@ -47,24 +47,65 @@
                         <h:outputText styleClass="logged-user" style="color:#FFFFFF" rendered="#{!userBean.loggedIn}"
                             value="#{messages['menu.welcome.guest']}" />
                     </h:panelGroup>
-                    <h:graphicImage width="3" height="15" alt="" border="0" value="/img/shell/bullet.gif" />
+                    <h:graphicImage width="3" height="15" alt="" border="0" value="resources/img/shell/bullet.gif" />
 
                     <h:panelGroup styleClass="top-right-bottom-menu-item-link" layout="block">
                         <a4j:region id="login-form">
                             <a4j:commandLink id="loginPanelShowlink" rendered="#{!userBean.loggedIn}"
-                                value="#{messages['menu.login']}" render="loginPanel" actionListener="#{userBean.reset()}"
-                                oncomplete="#{rich:component('loginPanel')}.show();" />
+                                             value="#{messages['menu.login']}" render="loginPanel"
+                                             actionListener="#{userBean.reset()}"
+                                             oncomplete="#{rich:component('loginPanel')}.show();" />
                             <a4j:commandLink rendered="#{userBean.loggedIn}" action="#{authenticator.logout()}"
-                                value="#{messages['menu.logout']}" execute="@this" render="@form" />
+                                value="#{messages['menu.logout']}" execute="@this" render="@form" oncomplete="socialLogout();"/>
                         </a4j:region>
                     </h:panelGroup>
 
                     <h:graphicImage rendered="#{!userBean.loggedIn}" width="3" height="15" alt="" border="0"
-                        style="padding: 0 0 0 8px;" value="/img/shell/bullet.gif" />
+                                    style="padding: 0 0 0 8px;" value="resources/img/shell/bullet.gif" />
 
                     <h:panelGroup rendered="#{!userBean.loggedIn}" styleClass="top-right-bottom-menu-item-link" layout="block">
                         <a4j:commandLink value="#{messages['login.register']}" actionListener="#{authenticator.goToRegister}"
-                            render="mainArea" execute="@this" />
+                                         render="mainArea" execute="@this" />
+                    </h:panelGroup>
+                    
+                    <h:graphicImage rendered="#{userBean.loggedIn}" width="3" height="15" alt="" border="0"
+                                    style="padding: 0 0 0 8px;" value="resources/img/shell/bullet.gif" />
+                    
+                    <h:panelGroup rendered="#{userBean.loggedIn}" layout="block" style="float: left;">
+                        <a4j:commandLink disabled="#{userBean.loggedInFB}" styleClass="FB-btn-small"
+                            onclick="F.login(fetchUserInfo, fetchFBAlbumIds, showError);" execute="@this">
+                            <rich:tooltip>#{not userBean.loggedInFB ? 'Sign in Facebook' : 'Already signed in Facebook'}</rich:tooltip>
+                        </a4j:commandLink>
+                        <a4j:commandLink disabled="#{userBean.loggedInGPlus}" styleClass="G-btn-small"
+                            onclick="G.login({infoCallback: gGetUserInfo, albumCallback: gGetUserAlbums, errorCallback: showError})">
+                            <rich:tooltip>#{not userBean.loggedInGPlus ? 'Sign in Google+' : 'Already signed in Google+'}</rich:tooltip>
+                        </a4j:commandLink>
+
+                        <a4j:jsFunction name="fetchUserInfo" oncomplete="simpleFBLogin();">
+                            <a4j:param assignTo="#{facebookBean.userInfo}" converter="#{fbJsonConverter}" name="response" />
+                        </a4j:jsFunction>
+
+                        <a4j:jsFunction name="fetchFBAlbumIds">
+                            <a4j:param assignTo="#{facebookBean.albumIds}" name="albumIds" />
+                        </a4j:jsFunction>
+
+                        <a4j:jsFunction name="simpleFBLogin" actionListener="#{authenticator.authenticateWithFacebook()}"
+                            render="mainArea, headerPanel, treePanel" />
+
+                        <a4j:jsFunction name="gGetUserInfo">
+                            <a4j:param assignTo="#{googlePlusBean.userInfoJSON}" name="response" />
+                        </a4j:jsFunction>
+
+                        <a4j:jsFunction name="gGetUserAlbums" oncomplete="simpleGLogin();">
+                            <a4j:param assignTo="#{googlePlusBean.userAlbumsJSON}" name="albums" />
+                        </a4j:jsFunction>
+
+                        <a4j:jsFunction name="simpleGLogin" actionListener="#{authenticator.authenticateWithGPlus()}"
+                            render="mainArea, headerPanel, treePanel" />
+
+                        <ui:include src="/includes/help/button.xhtml">
+                            <ui:param name="page" value="socialLogin.xhtml" />
+                        </ui:include>
                     </h:panelGroup>
                 </h:panelGrid>
             </h:panelGroup>
@@ -73,15 +114,26 @@
                 <rich:toolbar id="topmenu" styleClass="top-right-menu-toolbar top-right-menu-item">
 
                     <rich:toolbarGroup styleClass="top-right-menu-item" location="right">
+                    <!-- 
+                        <h:panelGroup styleClass="top-right-menu-item-padding " layout="block">
+                            <a href="http://docs.jboss.org/richfaces/latest_3_3_X/en/realworld/html/index.html"
+                                class="top-right-menu-item">GuideLine</a>
+                        </h:panelGroup>
+                        <h:graphicImage width="3" height="15" alt="" border="0" value="resources/img/shell/bullet.gif" /> -->
+                        <h:panelGroup styleClass="top-right-menu-item-padding " layout="block">
+                            <a href="https://www.jboss.org/community/wiki/RichFacesPhotositedemoapplication"
+                                class="top-right-menu-item">Wiki page</a>
+                        </h:panelGroup>
+                        <h:graphicImage width="3" height="15" alt="" border="0" value="resources/img/shell/bullet.gif" />
                         <h:panelGroup styleClass="top-right-menu-item-padding " layout="block">
                             <a href="https://www.jboss.org/richfaces/download/stable.html" class="top-right-menu-item">Downloads</a>
                         </h:panelGroup>
-                        <h:graphicImage width="3" height="15" alt="" border="0" value="/img/shell/bullet.gif" />
+                        <h:graphicImage width="3" height="15" alt="" border="0" value="resources/img/shell/bullet.gif" />
                         <h:panelGroup styleClass="top-right-menu-item-padding " layout="block">
-                            <a href="http://www.jboss.org/index.html?module=bb&amp;op=viewforum&amp;f=261"
+                            <a href="https://community.jboss.org/en/richfaces/"
                                 class="top-right-menu-item">Community</a>
                         </h:panelGroup>
-                        <h:graphicImage width="3" height="15" alt="" border="0" value="/img/shell/bullet.gif" />
+                        <h:graphicImage width="3" height="15" alt="" border="0" value="resources/img/shell/bullet.gif" />
                     </rich:toolbarGroup>
                 </rich:toolbar>
             </h:panelGroup>

@@ -22,7 +22,8 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j">
     <ui:param name="album" value="#{googlePlusAlbumCache.currentAlbum}" />
     <h:panelGrid styleClass="album-header-table" cellpadding="0" columns="2" columnClasses="xxx, album-header-table-col2">
         <h:panelGroup>
@@ -39,9 +40,10 @@
         </h:panelGroup>
         <a4j:commandLink styleClass="additional-info-text" actionListener="#{controller.showEvent(model.selectedEvent)}"
             render="mainArea, treePanel" value="Event: #{model.selectedEvent.name}"
-            rendered="#{model.selectedEvent.googlePlusAlbumIds.contains(album.getString('fullId'))}" />
-        <h:outputText value="Google+" styleClass="additional-info-text"
-            rendered="#{not model.selectedEvent.googlePlusAlbumIds.contains(album.getString('fullId'))}" />
+            rendered="#{controller.isEventGoogleAlbum(album.getString('fullId'))}" />
+        <a4j:commandLink styleClass="additional-info-text" actionListener="#{controller.showGPlusShelf()}"
+            render="mainArea, treePanel" value="Google+" 
+            rendered="#{not controller.isEventGoogleAlbum(album.getString('fullId'))}" />
     </h:panelGrid>
 
     <!-- imageList -->
@@ -50,19 +52,17 @@
         <ui:param name="size" value="#{album.optInt('size')}" />
         <ui:param name="renderArea" value="userAlbumImages" />
     </ui:include>
-
-    <!-- 
+ 
     <h:panelGroup layout="block" style="margin : 30px 0px 0px 0px;">
         <h:panelGroup layout="block" style="float : right; cursor : pointer">
-            <a4j:commandLink rendered="#{fn:length(model.images) > 0}" actionListener="#{slideshow.startSlideshow()}"
+            <a4j:commandLink rendered="#{fn:length(googlePlusAlbumCache.currentImages) > 0}" actionListener="#{slideshow.startSlideshowRemote(3)}"
                 styleClass="slideshow-link" render="mainArea, slideShowModalPanel" execute="@this, slideShowModalPanel">
-                <h:graphicImage value="/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
+                <h:graphicImage value="resources/img/shell/tree_icon_slid.png" width="27" height="16" alt=""
                     style="vertical-align : bottom; margin-right : 5px; border:0;" />
                 <h:outputText value="#{messages['slideshow.start']}" />
             </a4j:commandLink>
         </h:panelGroup>
-
-    </h:panelGroup> -->
+    </h:panelGroup>
     <br />
     <br />
 

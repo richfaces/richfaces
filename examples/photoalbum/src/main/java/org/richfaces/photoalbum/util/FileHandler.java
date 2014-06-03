@@ -27,14 +27,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 
 import org.richfaces.model.UploadedFile;
 
 /**
  * A wrapper class for handling two different classes: RichFaces' UploadedFile and java.io.File
  * 
- *      UploadedFile is created from a local file when using r:fileUploader
+ *      UploadedFile is created from a local file when using rich:fileUploader
  *      File is created from a remote file when downloading a file from an URL
  * 
  * @author mpetrov
@@ -73,9 +72,11 @@ public class FileHandler {
         return isStandardFile ? file.length() : uFile.getSize();
     }
     
-    public void delete() throws IOException {
+    public void delete() throws Exception {
         if (isStandardFile) {
-            Files.delete(file.toPath());
+            if (!file.delete()) {
+                throw new PhotoAlbumException(Constants.FILE_DELETE_ERROR);
+            }
             return;
         }
         

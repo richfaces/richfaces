@@ -21,16 +21,17 @@
   -->
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j">
     <ui:insert name="header">
         <h:panelGrid styleClass="shelf-header-table" cellpadding="0">
             <h:outputText value="#{header}" styleClass="h1-style" />
         </h:panelGrid>
     </ui:insert>
     <a4j:commandLink rendered="#{userBean.loggedIn}" actionListener="#{eventManager.createEvent()}" render="eventModalPanel"
-        oncomplete="#{rich:component('eventModalPanel')}.show()" execute="@this">
-        <h:graphicImage value="/img/shell/icon_add_shelf.png" width="37" height="23" alt="" styleClass="main-menu-add-icons-img" />
-        <rich:tooltip followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
+        oncomplete="#{rich:component('eventModalPanel')}.show()" execute="@this" onclick="#{rich:component('eventListTooltip')}.hide()">
+        <h:graphicImage value="resources/img/shell/icon_add_shelf.png" width="37" height="23" alt="" styleClass="main-menu-add-icons-img" />
+        <rich:tooltip id="eventListTooltip" followMouse="true" direction="topRight" showDelay="500" styleClass="tooltip">
             <h:outputText value="#{messages['add_shelf']}"
                 style="white-space: nowrap; display: block; text-align: left; color: #DF6400" />
         </rich:tooltip>

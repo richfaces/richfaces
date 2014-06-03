@@ -27,12 +27,12 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.richfaces.photoalbum.domain.Album;
-import org.richfaces.photoalbum.domain.Image;
-import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.manager.AlbumManager;
 import org.richfaces.photoalbum.manager.ImageManager;
 import org.richfaces.photoalbum.manager.ShelfManager;
+import org.richfaces.photoalbum.model.Album;
+import org.richfaces.photoalbum.model.Image;
+import org.richfaces.photoalbum.model.Shelf;
 
 @Named
 @ApplicationScoped

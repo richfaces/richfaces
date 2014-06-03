@@ -1,0 +1,153 @@
+<!--
+  JBoss, Home of Professional Open Source
+  Copyright 2013, Red Hat, Inc. and individual contributors
+  by the @authors tag. See the copyright.txt in the distribution for a
+  full listing of individual contributors.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <div class="section" lang="en-US">
+        <div class="titlepage">
+            <div>
+                <div>
+                    <h3 class="title">Logging in with Google+</h3>
+                </div>
+            </div>
+        </div>
+        <p>
+            The Photoalbum demo allows the user to sign in via his Google+ (or Facebook) account. User can also log in normally
+            and then log in Google later. The demo uses Google's JavaScript API and <strong><span class="property">a4j:jsFunction</span></strong>
+            to put data retrieved by JavaScript into backing beans.
+        </p>
+        <pre class="brush: xml, gutter: false">
+            &lt;a4j:commandLink disabled=&quot;#{'#{'}userBean.loggedInGPlus}&quot; styleClass=&quot;G-btn-small&quot;
+                onclick=&quot;G.login({infoCallback: gGetUserInfo, albumCallback: gGetUserAlbums, errorCallback: showError})&quot;&gt;
+                &lt;rich:tooltip&gt;#{'#{'}not userBean.loggedInGPlus ? 'Sign in Google+' : 'Already signed in Google+'}&lt;/rich:tooltip&gt;
+            &lt;/a4j:commandLink&gt;
+            
+            &lt;a4j:jsFunction name=&quot;gGetUserInfo&quot;&gt;
+                &lt;a4j:param assignTo=&quot;#{'#{'}googlePlusBean.userInfoJSON}&quot; name=&quot;response&quot; /&gt;
+            &lt;/a4j:jsFunction&gt;
+            
+            &lt;a4j:jsFunction name=&quot;gGetUserAlbums&quot; oncomplete=&quot;simpleGLogin();&quot;&gt;
+                &lt;a4j:param assignTo=&quot;#{'#{'}googlePlusBean.userAlbumsJSON}&quot; name=&quot;albums&quot; /&gt;
+            &lt;/a4j:jsFunction&gt;
+            
+            &lt;a4j:jsFunction name=&quot;simpleGLogin&quot; actionListener=&quot;#{'#{'}authenticator.authenticateWithGPlus()}&quot;
+                render=&quot;@form&quot; /&gt;
+        </pre>
+        <p>Logging in takes several steps. First the Photoalbum demo has to be authorized to access user information, then
+            the information is retrieved. When everything is done the user is authenticated in Photoalbum. If the user wasn't
+            logged in a new user account is created with the information retrieved from Google+ profile.</p>
+    </div>
+
+    <div class="section" lang="en-US">
+        <div class="titlepage">
+            <div>
+                <div>
+                    <h3 class="title">Authorization</h3>
+                </div>
+            </div>
+        </div>
+        <p>A Google application requires an authorization scope, the Photoalbum will ask for permission to access basic
+            information about the user (nickname, birthday, id) and to access his images on Picasa.</p>
+        <pre class="brush: javascript, gutter: false">
+            var clientId = '1039898720906.apps.googleusercontent.com',
+                apiKey = 'AIzaSyCdgeC_TiJqDCOBkdoF51n6s2WUZDg1nIM',
+                scopes = 'https://picasaweb.google.com/data/ https://www.googleapis.com/auth/plus.me';
+                
+            G.login = function(callbacks) {
+                gapi.client.setApiKey(apiKey);
+                gapi.auth.authorize({
+                    client_id : clientId,
+                    scope : scopes,
+                    immediate : false
+                }, logAndGetAlbums(callbacks));
+                return false;
+    	    };
+        </pre>
+    </div>
+
+    <div class="section" lang="en-US">
+        <div class="titlepage">
+            <div>
+                <div>
+                    <h3 class="title">Retrieving user info</h3>
+                </div>
+            </div>
+        </div>
+        <p>
+            Successful authorization will generate an <em>accessToken</em> which is then used in further API calls.
+        </p>
+        <pre class="brush: js, gutter: false, highlight [5]">
+            getUserInfo = function(accessToken, infoCallback, albumCallback) {
+                var opts = {
+                    path : &quot;plus/v1/people/me?access_token=&quot; + accessToken,
+                    callback : function(result) {
+                        infoCallback(JSON.stringify(result));
+                        G.getUserAlbums(result.id, albumCallback, {
+                            access_token : accessToken
+                        });
+                    }
+                };
+        
+                gapi.client.request(opts);
+            };
+        </pre>
+    </div>
+
+    <div class="section" lang="en-US">
+        <div class="titlepage">
+            <div>
+                <div>
+                    <h3 class="title">Retrieving albums</h3>
+                </div>
+            </div>
+        </div>
+        <p>
+            Albums are retrieved using Picasa's Data API to specify which fields we are interested in, the resulting JSON is the retrieved by <em>$.getJSON()</em>
+        </p>
+        <pre class="brush: js, gutter: false">
+            G.getUserAlbums = function(userId, albumCallback, authResult) {
+
+                var getAlbums = function(authResult) {
+                    var callback = function(data, status, jq) {
+                        albumCallback(extractAlbums(userId, data.feed.entry));
+                    };
+        
+                    var url = &quot;https://picasaweb.google.com/data/feed/base/user/&quot; + userId + &quot;?access_token=&quot; 
+                            + authResult.access_token + &quot;&amp;kind=album&amp;alt=json&amp;fields=entry(id,published,title,media:group(media:content))&amp;callback=?&quot;;
+                            
+                    $.getJSON(url, null, callback);
+                };
+                
+                …
+             }
+        </pre>
+    </div>
+    <p>For further information visit:</p>
+    <ul>
+        <li><a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
+            href="https://developers.google.com/+/web/api/javascript">Google+ JS API</a></li>
+        <li><a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink" href="https://developers.google.com/picasa-web/">Picasa
+                Data API</a></li>
+    </ul>
+</ui:composition>
